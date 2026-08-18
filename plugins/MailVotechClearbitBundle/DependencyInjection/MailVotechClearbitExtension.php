@@ -11,6 +11,11 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 final class MailVotechClearbitExtension extends Extension
 {
+    public function getAlias(): string
+    {
+        return 'mailvotech_clearbit';
+    }
+
     /**
      * @param mixed[] $configs
      */

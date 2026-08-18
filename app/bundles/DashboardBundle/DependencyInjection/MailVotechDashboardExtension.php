@@ -11,6 +11,11 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 final class MailVotechDashboardExtension extends Extension
 {
+    public function getAlias(): string
+    {
+        return 'mailvotech_dashboard';
+    }
+
     /**
      * @param mixed[] $configs
      */

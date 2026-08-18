@@ -9,6 +9,16 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class MailVotechApiBundle extends Bundle
 {
+
+    public function getContainerExtension(): ?\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    {
+        if (!$this->extension instanceof \Symfony\Component\DependencyInjection\Extension\ExtensionInterface) {
+            $this->extension = new \MailVotech\ApiBundle\DependencyInjection\MailVotechApiExtension();
+        }
+
+        return $this->extension;
+    }
+
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

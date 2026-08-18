@@ -11,6 +11,11 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 final class MailVotechZapierExtension extends Extension
 {
+    public function getAlias(): string
+    {
+        return 'mailvotech_zapier';
+    }
+
     /**
      * @param mixed[] $configs
      */

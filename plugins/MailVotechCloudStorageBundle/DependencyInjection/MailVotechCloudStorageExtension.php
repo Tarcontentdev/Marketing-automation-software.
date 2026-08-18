@@ -11,6 +11,11 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 final class MailVotechCloudStorageExtension extends Extension
 {
+    public function getAlias(): string
+    {
+        return 'mailvotech_cloud_storage';
+    }
+
     /**
      * @param mixed[] $configs
      */

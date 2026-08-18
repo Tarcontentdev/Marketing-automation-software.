@@ -11,6 +11,11 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 final class MailVotechCacheExtension extends Extension
 {
+    public function getAlias(): string
+    {
+        return 'mailvotech_cache';
+    }
+
     /**
      * @param mixed[] $configs
      */

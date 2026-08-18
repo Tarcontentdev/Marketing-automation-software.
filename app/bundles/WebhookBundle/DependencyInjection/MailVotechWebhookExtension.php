@@ -11,6 +11,11 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 final class MailVotechWebhookExtension extends Extension
 {
+    public function getAlias(): string
+    {
+        return 'mailvotech_webhook';
+    }
+
     /**
      * @param mixed[] $configs
      */

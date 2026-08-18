@@ -8,4 +8,14 @@ use MailVotech\PluginBundle\Bundle\PluginBundleBase;
 
 final class MailVotechCrmBundle extends PluginBundleBase
 {
+
+    public function getContainerExtension(): ?\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    {
+        if (!$this->extension instanceof \Symfony\Component\DependencyInjection\Extension\ExtensionInterface) {
+            $this->extension = new \MailVotechPlugin\MailVotechCrmBundle\DependencyInjection\MailVotechCrmExtension();
+        }
+
+        return $this->extension;
+    }
+
 }

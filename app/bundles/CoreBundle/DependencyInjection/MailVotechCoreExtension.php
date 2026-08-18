@@ -11,6 +11,11 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 final class MailVotechCoreExtension extends Extension
 {
+    public function getAlias(): string
+    {
+        return 'mailvotech_core';
+    }
+
     public const DEFAULT_EXCLUDES = [
         'Config',
         'Crate',

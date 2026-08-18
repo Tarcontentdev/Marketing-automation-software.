@@ -11,6 +11,11 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 final class MailVotechDynamicContentExtension extends Extension
 {
+    public function getAlias(): string
+    {
+        return 'mailvotech_dynamic_content';
+    }
+
     /**
      * @param mixed[] $configs
      */
