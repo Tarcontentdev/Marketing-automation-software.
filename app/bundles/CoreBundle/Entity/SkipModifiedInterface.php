@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Entity;
+namespace MailVotech\CoreBundle\Entity;
 
 /**
  * Entities implementing this interface can set for specific use cases that they do not want to

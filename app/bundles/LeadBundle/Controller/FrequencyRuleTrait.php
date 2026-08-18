@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Controller;
+namespace MailVotech\LeadBundle\Controller;
 
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Form\Type\ContactFrequencyType;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Form\Type\ContactFrequencyType;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -25,7 +25,7 @@ trait FrequencyRuleTrait
      */
     protected $isPublicView = false;
 
-    private \Mautic\LeadBundle\Model\DoNotContact $doNotContactModel;
+    private \MailVotech\LeadBundle\Model\DoNotContact $doNotContactModel;
 
     private RequestStack $requestStack;
 
@@ -186,7 +186,7 @@ trait FrequencyRuleTrait
 
     #[Required]
     public function autowireFrequencyRuleTrait(
-        \Mautic\LeadBundle\Model\DoNotContact $doNotContactModel,
+        \MailVotech\LeadBundle\Model\DoNotContact $doNotContactModel,
         RequestStack $requestStack,
     ): void {
         $this->doNotContactModel = $doNotContactModel;

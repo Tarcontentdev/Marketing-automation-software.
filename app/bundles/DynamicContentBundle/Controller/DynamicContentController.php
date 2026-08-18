@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\DynamicContentBundle\Controller;
+namespace MailVotech\DynamicContentBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Form\Type\DateRangeType;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\DynamicContentBundle\Model\DynamicContentModel;
-use Mautic\PageBundle\Model\PageModel;
-use Mautic\PageBundle\Model\TrackableModel;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Form\Type\DateRangeType;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\DynamicContentBundle\Model\DynamicContentModel;
+use MailVotech\PageBundle\Model\PageModel;
+use MailVotech\PageBundle\Model\TrackableModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -64,15 +64,15 @@ final class DynamicContentController extends FormController
 
         $this->setListFilters();
 
-        $limit = $request->getSession()->get('mautic.dynamicContent.limit', $this->coreParametersHelper->get('default_pagelimit'));
+        $limit = $request->getSession()->get('mailvotech.dynamicContent.limit', $this->coreParametersHelper->get('default_pagelimit'));
         $start = (1 === $page) ? 0 : (($page - 1) * $limit);
         if ($start < 0) {
             $start = 0;
         }
 
         // fetch
-        $search = $request->get('search', $request->getSession()->get('mautic.dynamicContent.filter', ''));
-        $request->getSession()->set('mautic.dynamicContent.filter', $search);
+        $search = $request->get('search', $request->getSession()->get('mailvotech.dynamicContent.filter', ''));
+        $request->getSession()->set('mailvotech.dynamicContent.filter', $search);
 
         $filter = [
             'string' => $search,
@@ -82,8 +82,8 @@ final class DynamicContentController extends FormController
             ],
         ];
 
-        $orderBy    = $request->getSession()->get('mautic.dynamicContent.orderby', 'e.name');
-        $orderByDir = $request->getSession()->get('mautic.dynamicContent.orderbydir', 'DESC');
+        $orderBy    = $request->getSession()->get('mailvotech.dynamicContent.orderby', 'e.name');
+        $orderByDir = $request->getSession()->get('mailvotech.dynamicContent.orderbydir', 'DESC');
 
         $entities = $this->dynamicContentModel->getEntities(
             [
@@ -96,18 +96,18 @@ final class DynamicContentController extends FormController
         );
 
         // set what page currently on so that we can return here after form submission/cancellation
-        $request->getSession()->set('mautic.dynamicContent.page', $page);
+        $request->getSession()->set('mailvotech.dynamicContent.page', $page);
 
         $tmpl = $request->isXmlHttpRequest() ? $request->get('tmpl', 'index') : 'index';
         $categories = $this->pageModel->getLookupResults('category', '', 0);
 
         return $this->delegateView(
             [
-                'contentTemplate' => '@MauticDynamicContent/DynamicContent/list.html.twig',
+                'contentTemplate' => '@MailVotechDynamicContent/DynamicContent/list.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_dynamicContent_index',
-                    'mauticContent' => 'dynamicContent',
-                    'route'         => $this->generateUrl('mautic_dynamicContent_index', ['page' => $page]),
+                    'activeLink'    => '#mailvotech_dynamicContent_index',
+                    'mailvotechContent' => 'dynamicContent',
+                    'route'         => $this->generateUrl('mailvotech_dynamicContent_index', ['page' => $page]),
                 ],
                 'viewParameters' => [
                     'searchValue' => $search,
@@ -133,9 +133,9 @@ final class DynamicContentController extends FormController
             $entity = new DynamicContent();
         }
         $method       = $request->getMethod();
-        $page         = $request->getSession()->get('mautic.dynamicContent.page', 1);
-        $retUrl       = $this->generateUrl('mautic_dynamicContent_index', ['page' => $page]);
-        $action       = $this->generateUrl('mautic_dynamicContent_action', ['objectAction' => 'new']);
+        $page         = $request->getSession()->get('mailvotech.dynamicContent.page', 1);
+        $retUrl       = $this->generateUrl('mailvotech_dynamicContent_index', ['page' => $page]);
+        $action       = $this->generateUrl('mailvotech_dynamicContent_action', ['objectAction' => 'new']);
         $dwc          = $request->request->all()['dwc'] ?? [];
         $updateSelect = 'POST' === $method
             ? ($dwc['updateSelect'] ?? false)
@@ -150,12 +150,12 @@ final class DynamicContentController extends FormController
                     $this->dynamicContentModel->saveEntity($entity);
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.created',
+                        'mailvotech.core.notice.created',
                         [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_dynamicContent_index',
+                            '%menu_link%' => 'mailvotech_dynamicContent_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_dynamicContent_action',
+                                'mailvotech_dynamicContent_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $entity->getId(),
@@ -169,8 +169,8 @@ final class DynamicContentController extends FormController
                             'objectAction' => 'view',
                             'objectId'     => $entity->getId(),
                         ];
-                        $retUrl   = $this->generateUrl('mautic_dynamicContent_action', $viewParameters);
-                        $template = 'Mautic\DynamicContentBundle\Controller\DynamicContentController::viewAction';
+                        $retUrl   = $this->generateUrl('mailvotech_dynamicContent_action', $viewParameters);
+                        $template = 'MailVotech\DynamicContentBundle\Controller\DynamicContentController::viewAction';
                     } else {
                         // return edit view so that all the session stuff is loaded
                         return $this->editAction($request, $entity->getId(), true);
@@ -178,13 +178,13 @@ final class DynamicContentController extends FormController
                 }
             } else {
                 $viewParameters = ['page' => $page];
-                $retUrl         = $this->generateUrl('mautic_dynamicContent_index', $viewParameters);
-                $template       = 'Mautic\DynamicContentBundle\Controller\DynamicContentController::indexAction';
+                $retUrl         = $this->generateUrl('mailvotech_dynamicContent_index', $viewParameters);
+                $template       = 'MailVotech\DynamicContentBundle\Controller\DynamicContentController::indexAction';
             }
 
             $passthrough = [
-                'activeLink'    => '#mautic_dynamicContent_index',
-                'mauticContent' => 'dynamicContent',
+                'activeLink'    => '#mailvotech_dynamicContent_index',
+                'mailvotechContent' => 'dynamicContent',
             ];
 
             // Check to see if this is a popup
@@ -223,7 +223,7 @@ final class DynamicContentController extends FormController
                 'viewParameters' => [
                     'form' => $form->createView(),
                 ],
-                'contentTemplate' => '@MauticDynamicContent/DynamicContent/form.html.twig',
+                'contentTemplate' => '@MailVotechDynamicContent/DynamicContent/form.html.twig',
                 'passthroughVars' => $passthrough,
             ]
         );
@@ -237,16 +237,16 @@ final class DynamicContentController extends FormController
     public function editAction(Request $request, $objectId, $ignorePost = false): Response
     {
         $entity = $this->dynamicContentModel->getEntity($objectId);
-        $page   = $request->getSession()->get('mautic.dynamicContent.page', 1);
-        $retUrl = $this->generateUrl('mautic_dynamicContent_index', ['page' => $page]);
+        $page   = $request->getSession()->get('mailvotech.dynamicContent.page', 1);
+        $retUrl = $this->generateUrl('mailvotech_dynamicContent_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $retUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\DynamicContentBundle\Controller\DynamicContentController::indexAction',
+            'contentTemplate' => 'MailVotech\DynamicContentBundle\Controller\DynamicContentController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_dynamicContent_index',
-                'mauticContent' => 'dynamicContent',
+                'activeLink'    => '#mailvotech_dynamicContent_index',
+                'mailvotechContent' => 'dynamicContent',
             ],
         ];
 
@@ -258,7 +258,7 @@ final class DynamicContentController extends FormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.dynamicContent.error.notfound',
+                                'msg'     => 'mailvotech.dynamicContent.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -273,7 +273,7 @@ final class DynamicContentController extends FormController
             return $this->isLocked($postActionVars, $entity, 'dynamicContent');
         }
 
-        $action       = $this->generateUrl('mautic_dynamicContent_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action       = $this->generateUrl('mailvotech_dynamicContent_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $method       = $request->getMethod();
         $dwc          = $request->request->all()['dwc'] ?? [];
         $updateSelect = 'POST' === $method
@@ -292,12 +292,12 @@ final class DynamicContentController extends FormController
                     $this->dynamicContentModel->saveEntity($entity, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.updated',
+                        'mailvotech.core.notice.updated',
                         [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_dynamicContent_index',
+                            '%menu_link%' => 'mailvotech_dynamicContent_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_dynamicContent_action',
+                                'mailvotech_dynamicContent_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $entity->getId(),
@@ -325,11 +325,11 @@ final class DynamicContentController extends FormController
                     'form'          => $form->createView(),
                     'currentListId' => $objectId,
                 ],
-                'contentTemplate' => '@MauticDynamicContent/DynamicContent/form.html.twig',
+                'contentTemplate' => '@MailVotechDynamicContent/DynamicContent/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_dynamicContent_index',
+                    'activeLink'    => '#mailvotech_dynamicContent_index',
                     'route'         => $action,
-                    'mauticContent' => 'dynamicContent',
+                    'mailvotechContent' => 'dynamicContent',
                 ],
             ]
         );
@@ -346,25 +346,25 @@ final class DynamicContentController extends FormController
         $entity   = $this->dynamicContentModel->getEntity($objectId);
 
         // set the page we came from
-        $page = $request->getSession()->get('mautic.dynamicContent.page', 1);
+        $page = $request->getSession()->get('mailvotech.dynamicContent.page', 1);
 
         if (null === $entity) {
             // set the return URL
-            $returnUrl = $this->generateUrl('mautic_dynamicContent_index', ['page' => $page]);
+            $returnUrl = $this->generateUrl('mailvotech_dynamicContent_index', ['page' => $page]);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $page],
-                    'contentTemplate' => 'Mautic\DynamicContentBundle\Controller\DynamicContentController::indexAction',
+                    'contentTemplate' => 'MailVotech\DynamicContentBundle\Controller\DynamicContentController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_dynamicContent_index',
-                        'mauticContent' => 'dynamicContent',
+                        'activeLink'    => '#mailvotech_dynamicContent_index',
+                        'mailvotechContent' => 'dynamicContent',
                     ],
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.dynamicContent.error.notfound',
+                            'msg'     => 'mailvotech.dynamicContent.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -387,7 +387,7 @@ final class DynamicContentController extends FormController
 
         // Init the date range filter form
         $dateRangeValues = $request->query->all()['daterange'] ?? $request->request->all()['daterange'] ?? [];
-        $action          = $this->generateUrl('mautic_dynamicContent_action', ['objectAction' => 'view', 'objectId' => $objectId]);
+        $action          = $this->generateUrl('mailvotech_dynamicContent_action', ['objectAction' => 'view', 'objectId' => $objectId]);
         $dateRangeForm   = $this->formFactory->create(DateRangeType::class, $dateRangeValues, ['action' => $action]);
         $entityViews     = $this->dynamicContentModel->getHitsLineChartData(
             null,
@@ -401,10 +401,10 @@ final class DynamicContentController extends FormController
         return $this->delegateView(
             [
                 'returnUrl'       => $action,
-                'contentTemplate' => '@MauticDynamicContent/DynamicContent/details.html.twig',
+                'contentTemplate' => '@MailVotechDynamicContent/DynamicContent/details.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_dynamicContent_index',
-                    'mauticContent' => 'dynamicContent',
+                    'activeLink'    => '#mailvotech_dynamicContent_index',
+                    'mailvotechContent' => 'dynamicContent',
                 ],
                 'viewParameters' => [
                     'entity'       => $entity,
@@ -449,17 +449,17 @@ final class DynamicContentController extends FormController
      */
     public function deleteAction(Request $request, $objectId): Response
     {
-        $page      = $request->getSession()->get('mautic.dynamicContent.page', 1);
-        $returnUrl = $this->generateUrl('mautic_dynamicContent_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.dynamicContent.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_dynamicContent_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\DynamicContentBundle\Controller\DynamicContentController::indexAction',
+            'contentTemplate' => 'MailVotech\DynamicContentBundle\Controller\DynamicContentController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_dynamicContent_index',
-                'mauticContent' => 'dynamicContent',
+                'activeLink'    => 'mailvotech_dynamicContent_index',
+                'mailvotechContent' => 'dynamicContent',
             ],
         ];
 
@@ -469,7 +469,7 @@ final class DynamicContentController extends FormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.dynamicContent.error.notfound',
+                    'msg'     => 'mailvotech.dynamicContent.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
 
@@ -490,7 +490,7 @@ final class DynamicContentController extends FormController
 
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $entity->getName(),
                     '%id%'   => $objectId,
@@ -506,17 +506,17 @@ final class DynamicContentController extends FormController
      */
     public function batchDeleteAction(Request $request): Response
     {
-        $page      = $request->getSession()->get('mautic.dynamicContent.page', 1);
-        $returnUrl = $this->generateUrl('mautic_dynamicContent_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.dynamicContent.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_dynamicContent_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\DynamicContentBundle\Controller\DynamicContentController::indexAction',
+            'contentTemplate' => 'MailVotech\DynamicContentBundle\Controller\DynamicContentController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_dynamicContent_index',
-                'mauticContent' => 'dynamicContent',
+                'activeLink'    => '#mailvotech_dynamicContent_index',
+                'mailvotechContent' => 'dynamicContent',
             ],
         ];
 
@@ -532,7 +532,7 @@ final class DynamicContentController extends FormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.dynamicContent.error.notfound',
+                        'msg'     => 'mailvotech.dynamicContent.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->hasEntityAccess(
@@ -555,7 +555,7 @@ final class DynamicContentController extends FormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.dynamicContent.notice.batch_deleted',
+                    'msg'     => 'mailvotech.dynamicContent.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Entity;
+namespace MailVotech\EmailBundle\Tests\Entity;
 
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Email;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Tests\Form\Type;
+namespace MailVotech\DynamicContentBundle\Tests\Form\Type;
 
 use DeviceDetector\Parser\Device\AbstractDeviceParser as DeviceParser;
 use DeviceDetector\Parser\OperatingSystem;
 use Doctrine\ORM\EntityManager;
-use Mautic\DynamicContentBundle\DynamicContent\TypeList;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\DynamicContentBundle\Form\Type\DwcEntryFiltersType;
-use Mautic\DynamicContentBundle\Form\Type\DynamicContentListType;
-use Mautic\DynamicContentBundle\Form\Type\DynamicContentType;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Helper\FormFieldHelper;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Segment\RelativeDate;
+use MailVotech\DynamicContentBundle\DynamicContent\TypeList;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\DynamicContentBundle\Form\Type\DwcEntryFiltersType;
+use MailVotech\DynamicContentBundle\Form\Type\DynamicContentListType;
+use MailVotech\DynamicContentBundle\Form\Type\DynamicContentType;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Segment\RelativeDate;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -76,15 +76,15 @@ final class DynamicContentTypeTest extends TestCase
                     $this->assertSame('translationParent', $parameters[0]);
                     $this->assertSame(DynamicContentListType::class, $parameters[1]);
                     $this->assertSame([
-                        'label'       => 'mautic.core.form.translation_parent',
+                        'label'       => 'mailvotech.core.form.translation_parent',
                         'label_attr'  => ['class' => 'control-label'],
                         'attr'        => [
                             'class'   => 'form-control',
-                            'tooltip' => 'mautic.core.form.translation_parent.help',
+                            'tooltip' => 'mailvotech.core.form.translation_parent.help',
                         ],
                         'required'    => false,
                         'multiple'    => false,
-                        'placeholder' => 'mautic.core.form.translation_parent.empty',
+                        'placeholder' => 'mailvotech.core.form.translation_parent.empty',
                         'top_level'   => 'translation',
                         'ignore_ids'  => [0 => 0],
                     ], $parameters[2]);

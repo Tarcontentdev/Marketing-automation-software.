@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\DependencyInjection\Compiler;
+namespace MailVotech\CoreBundle\DependencyInjection\Compiler;
 
-use Mautic\CoreBundle\Doctrine\Common\DataFixtures\Purger\ORMPurgerFactory;
+use MailVotech\CoreBundle\Doctrine\Common\DataFixtures\Purger\ORMPurgerFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

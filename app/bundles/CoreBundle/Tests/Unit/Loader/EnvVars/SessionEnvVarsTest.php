@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Loader\EnvVars;
+namespace MailVotech\CoreBundle\Tests\Unit\Loader\EnvVars;
 
-use Mautic\CoreBundle\Loader\EnvVars\SessionEnvVars;
+use MailVotech\CoreBundle\Loader\EnvVars\SessionEnvVars;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -31,6 +31,6 @@ final class SessionEnvVarsTest extends TestCase
 
         SessionEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals($sessionName, $this->envVars->get('MAUTIC_SESSION_NAME'));
+        $this->assertEquals($sessionName, $this->envVars->get('MAILVOTECH_SESSION_NAME'));
     }
 }

@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\AssetBundle\EventListener;
+namespace MailVotech\AssetBundle\EventListener;
 
-use Mautic\AssetBundle\Entity\DownloadRepository;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\LeadBundle\Report\DncReportService;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportDataEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\Event\ReportGraphEvent;
-use Mautic\ReportBundle\ReportEvents;
+use MailVotech\AssetBundle\Entity\DownloadRepository;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\LeadBundle\Report\DncReportService;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportDataEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\Event\ReportGraphEvent;
+use MailVotech\ReportBundle\ReportEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ReportSubscriber implements EventSubscriberInterface
@@ -50,38 +50,38 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
         $columns = [
             $prefix.'download_count' => [
                 'alias' => 'download_count',
-                'label' => 'mautic.asset.report.download_count',
+                'label' => 'mailvotech.asset.report.download_count',
                 'type'  => 'int',
             ],
             $prefix.'unique_download_count' => [
                 'alias' => 'unique_download_count',
-                'label' => 'mautic.asset.report.unique_download_count',
+                'label' => 'mailvotech.asset.report.unique_download_count',
                 'type'  => 'int',
             ],
             $prefix.'alias' => [
-                'label' => 'mautic.core.alias',
+                'label' => 'mailvotech.core.alias',
                 'type'  => 'string',
             ],
             $prefix.'lang' => [
-                'label' => 'mautic.core.language',
+                'label' => 'mailvotech.core.language',
                 'type'  => 'string',
             ],
             $prefix.'title' => [
-                'label' => 'mautic.core.title',
+                'label' => 'mailvotech.core.title',
                 'type'  => 'string',
             ],
         ];
 
         $columns = array_merge(
             $columns,
-            $event->getStandardColumns($prefix, ['name'], 'mautic_asset_action'),
+            $event->getStandardColumns($prefix, ['name'], 'mailvotech_asset_action'),
             $event->getCategoryColumns()
         );
 
         $event->addTable(
             self::CONTEXT_ASSET,
             [
-                'display_name' => 'mautic.asset.assets',
+                'display_name' => 'mailvotech.asset.assets',
                 'columns'      => $columns,
             ]
         );
@@ -95,44 +95,44 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             $downloadPrefix  = 'ad.';
             $downloadColumns = [
                 $downloadPrefix.'date_download' => [
-                    'label'          => 'mautic.asset.report.download.date_download',
+                    'label'          => 'mailvotech.asset.report.download.date_download',
                     'type'           => 'datetime',
                     'groupByFormula' => 'DATE('.$downloadPrefix.'date_download)',
                 ],
                 $downloadPrefix.'code' => [
-                    'label' => 'mautic.asset.report.download.code',
+                    'label' => 'mailvotech.asset.report.download.code',
                     'type'  => 'string',
                 ],
                 $downloadPrefix.'referer' => [
-                    'label' => 'mautic.core.referer',
+                    'label' => 'mailvotech.core.referer',
                     'type'  => 'string',
                 ],
                 $downloadPrefix.'source' => [
-                    'label' => 'mautic.report.field.source',
+                    'label' => 'mailvotech.report.field.source',
                     'type'  => 'string',
                 ],
                 $downloadPrefix.'source_id' => [
-                    'label' => 'mautic.report.field.source_id',
+                    'label' => 'mailvotech.report.field.source_id',
                     'type'  => 'int',
                 ],
                 $downloadPrefix.'utm_campaign' => [
-                    'label' => 'mautic.report.field.utm_campaign',
+                    'label' => 'mailvotech.report.field.utm_campaign',
                     'type'  => 'string',
                 ],
                 $downloadPrefix.'utm_content' => [
-                    'label' => 'mautic.report.field.utm_content',
+                    'label' => 'mailvotech.report.field.utm_content',
                     'type'  => 'string',
                 ],
                 $downloadPrefix.'utm_medium' => [
-                    'label' => 'mautic.report.field.utm_medium',
+                    'label' => 'mailvotech.report.field.utm_medium',
                     'type'  => 'string',
                 ],
                 $downloadPrefix.'utm_source' => [
-                    'label' => 'mautic.report.field.utm_source',
+                    'label' => 'mailvotech.report.field.utm_source',
                     'type'  => 'string',
                 ],
                 $downloadPrefix.'utm_term' => [
-                    'label' => 'mautic.report.field.utm_term',
+                    'label' => 'mailvotech.report.field.utm_term',
                     'type'  => 'string',
                 ],
             ];
@@ -153,7 +153,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             $event->addTable(
                 self::CONTEXT_ASSET_DOWNLOAD,
                 [
-                    'display_name' => 'mautic.asset.report.downloads.table',
+                    'display_name' => 'mailvotech.asset.report.downloads.table',
                     'columns'      => $assetDownloadColumns,
                     'filters'      => $assetDownloadFilters,
                 ],
@@ -162,10 +162,10 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
             // Add Graphs
             $context = self::CONTEXT_ASSET_DOWNLOAD;
-            $event->addGraph($context, 'line', 'mautic.asset.graph.line.downloads');
-            $event->addGraph($context, 'table', 'mautic.asset.table.most.downloaded');
-            $event->addGraph($context, 'table', 'mautic.asset.table.top.referrers');
-            $event->addGraph($context, 'pie', 'mautic.asset.graph.pie.statuses', ['translate' => false]);
+            $event->addGraph($context, 'line', 'mailvotech.asset.graph.line.downloads');
+            $event->addGraph($context, 'table', 'mailvotech.asset.table.most.downloaded');
+            $event->addGraph($context, 'table', 'mailvotech.asset.table.top.referrers');
+            $event->addGraph($context, 'pie', 'mailvotech.asset.graph.pie.statuses', ['translate' => false]);
         }
     }
 
@@ -181,13 +181,13 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
         $queryBuilder = $event->getQueryBuilder();
 
         if ($event->checkContext(self::CONTEXT_ASSET)) {
-            $queryBuilder->from(MAUTIC_TABLE_PREFIX.'assets', 'a');
+            $queryBuilder->from(MAILVOTECH_TABLE_PREFIX.'assets', 'a');
             $event->addCategoryLeftJoin($queryBuilder, 'a');
         } elseif ($event->checkContext(self::CONTEXT_ASSET_DOWNLOAD)) {
             $event->applyDateFilters($queryBuilder, 'date_download', 'ad');
 
-            $queryBuilder->from(MAUTIC_TABLE_PREFIX.'asset_downloads', 'ad')
-                ->leftJoin('ad', MAUTIC_TABLE_PREFIX.'assets', 'a', 'a.id = ad.asset_id');
+            $queryBuilder->from(MAILVOTECH_TABLE_PREFIX.'asset_downloads', 'ad')
+                ->leftJoin('ad', MAILVOTECH_TABLE_PREFIX.'assets', 'a', 'a.id = ad.asset_id');
             $event->addCategoryLeftJoin($queryBuilder, 'a');
             $event->addLeadLeftJoin($queryBuilder, 'ad');
             $event->addIpAddressLeftJoin($queryBuilder, 'ad');
@@ -225,7 +225,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             $chartQuery->applyDateFilters($queryBuilder, 'date_download', 'ad');
 
             switch ($g) {
-                case 'mautic.asset.graph.line.downloads':
+                case 'mailvotech.asset.graph.line.downloads':
                     $chart = new LineChart(null, $options['dateFrom'], $options['dateTo']);
                     $chartQuery->modifyTimeDataQuery($queryBuilder, 'date_download', 'ad');
                     $downloads = $chartQuery->loadAndBuildTimeData($queryBuilder);
@@ -235,7 +235,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
                     $event->setGraph($g, $data);
                     break;
-                case 'mautic.asset.table.most.downloaded':
+                case 'mailvotech.asset.table.most.downloaded':
                     $limit                  = 10;
                     $offset                 = 0;
                     $items                  = $this->downloadRepository->getMostDownloaded($queryBuilder, $limit, $offset);
@@ -243,10 +243,10 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-download-line';
-                    $graphData['link']      = 'mautic_asset_action';
+                    $graphData['link']      = 'mailvotech_asset_action';
                     $event->setGraph($g, $graphData);
                     break;
-                case 'mautic.asset.table.top.referrers':
+                case 'mailvotech.asset.table.top.referrers':
                     $limit                  = 10;
                     $offset                 = 0;
                     $items                  = $this->downloadRepository->getTopReferrers($queryBuilder, $limit, $offset);
@@ -254,10 +254,10 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-download-line';
-                    $graphData['link']      = 'mautic_asset_action';
+                    $graphData['link']      = 'mailvotech_asset_action';
                     $event->setGraph($g, $graphData);
                     break;
-                case 'mautic.asset.graph.pie.statuses':
+                case 'mailvotech.asset.graph.pie.statuses':
                     $items                  = $this->downloadRepository->getHttpStatuses($queryBuilder);
                     $graphData              = [];
                     $graphData['data']      = $items;

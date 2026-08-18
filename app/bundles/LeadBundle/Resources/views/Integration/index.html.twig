@@ -4,7 +4,7 @@
     - integrations
 #}
 {% if integrations is empty %}
-  {{ include('@MauticCore/Helper/no_information.html.twig', {'tip': 'mautic.lead.integrations.header'}) }}
+  {{ include('@MailVotechCore/Helper/no_information.html.twig', {'tip': 'mailvotech.lead.integrations.header'}) }}
 {% else %}
   <div class="row">
     {% for details in integrations %}
@@ -21,10 +21,10 @@
           </div>
           <div class="panel-body">
             <dl class="dl-horizontal">
-              <dt>{{ 'mautic.integration.object'|trans }}</dt><dd>{{ details.integration_entity }}</dd>
-              <dt>{{ 'mautic.integration.object_id'|trans }}</dt><dd>{{ details.integration_entity_id }}</dd>
-              <dt>{{ 'mautic.core.date.added'|trans }}</dt><dd>{{ dateToText(details.date_added, 'UTC', 'Y-m-d H:i:s', true) }}</dd>
-              <dt>{{ 'mautic.integration.last_sync_date'|trans }}</dt><dd>{{ dateToText(details.last_sync_date, 'UTC', 'Y-m-d H:i:s', true) }}</dd>
+              <dt>{{ 'mailvotech.integration.object'|trans }}</dt><dd>{{ details.integration_entity }}</dd>
+              <dt>{{ 'mailvotech.integration.object_id'|trans }}</dt><dd>{{ details.integration_entity_id }}</dd>
+              <dt>{{ 'mailvotech.core.date.added'|trans }}</dt><dd>{{ dateToText(details.date_added, 'UTC', 'Y-m-d H:i:s', true) }}</dd>
+              <dt>{{ 'mailvotech.integration.last_sync_date'|trans }}</dt><dd>{{ dateToText(details.last_sync_date, 'UTC', 'Y-m-d H:i:s', true) }}</dd>
             </dl>
           </div>
         </div>

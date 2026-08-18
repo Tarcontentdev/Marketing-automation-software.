@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail;
+namespace MailVotech\EmailBundle\MonitoredEmail;
 
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\ParseEmailEvent;
-use Mautic\EmailBundle\MonitoredEmail\Accessor\ConfigAccessor;
-use Mautic\EmailBundle\MonitoredEmail\Organizer\MailboxOrganizer;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\ParseEmailEvent;
+use MailVotech\EmailBundle\MonitoredEmail\Accessor\ConfigAccessor;
+use MailVotech\EmailBundle\MonitoredEmail\Organizer\MailboxOrganizer;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -44,7 +44,7 @@ final class Fetcher
         $organizer->organize();
 
         if (!$containers = $organizer->getContainers()) {
-            $this->log[] = $this->translator->trans('mautic.email.fetch.no_mailboxes_configured');
+            $this->log[] = $this->translator->trans('mailvotech.email.fetch.no_mailboxes_configured');
 
             return;
         }
@@ -69,7 +69,7 @@ final class Fetcher
                     }
 
                     $this->log[] = $this->translator->trans(
-                        'mautic.email.fetch.processed',
+                        'mailvotech.email.fetch.processed',
                         ['%count%' => $processed, '%imapPath%' => $path, '%criteria%' => $criteria]
                     );
 

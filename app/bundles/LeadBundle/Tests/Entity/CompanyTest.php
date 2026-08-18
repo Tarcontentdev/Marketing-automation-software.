@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\Mapping\MappingException;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Company;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Company;
 use Symfony\Component\DomCrawler\Form;
 use Symfony\Component\HttpFoundation\Request;
 
-final class CompanyTest extends MauticMysqlTestCase
+final class CompanyTest extends MailVotechMysqlTestCase
 {
     public function testChangingPropertiesHydratesFieldChanges(): void
     {

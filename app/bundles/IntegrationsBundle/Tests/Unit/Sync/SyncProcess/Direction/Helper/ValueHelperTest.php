@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\SyncProcess\Direction\Helper;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\SyncProcess\Direction\Helper;
 
-use Mautic\IntegrationsBundle\Exception\RequiredValueException;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Helper\ValueHelper;
+use MailVotech\IntegrationsBundle\Exception\RequiredValueException;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Helper\ValueHelper;
 use PHPUnit\Framework\TestCase;
 
 final class ValueHelperTest extends TestCase
@@ -33,7 +33,7 @@ final class ValueHelperTest extends TestCase
         $newValue = $this->getValueHelper()->getValueForIntegration(
             $normalizedValueDAO,
             FieldDAO::FIELD_CHANGED,
-            ObjectMappingDAO::SYNC_TO_MAUTIC
+            ObjectMappingDAO::SYNC_TO_MAILVOTECH
         );
 
         $this->assertEquals(
@@ -58,16 +58,16 @@ final class ValueHelperTest extends TestCase
         );
     }
 
-    public function testExceptionForMissingRequiredMauticValue(): void
+    public function testExceptionForMissingRequiredMailVotechValue(): void
     {
         $this->expectException(RequiredValueException::class);
 
         $normalizedValueDAO = new NormalizedValueDAO(NormalizedValueDAO::STRING_TYPE, '');
 
-        $this->getValueHelper()->getValueForMautic(
+        $this->getValueHelper()->getValueForMailVotech(
             $normalizedValueDAO,
             FieldDAO::FIELD_REQUIRED,
-            ObjectMappingDAO::SYNC_TO_MAUTIC
+            ObjectMappingDAO::SYNC_TO_MAILVOTECH
         );
     }
 
@@ -75,7 +75,7 @@ final class ValueHelperTest extends TestCase
     {
         $normalizedValueDAO = new NormalizedValueDAO(NormalizedValueDAO::STRING_TYPE, '');
 
-        $newValue = $this->getValueHelper()->getValueForMautic(
+        $newValue = $this->getValueHelper()->getValueForMailVotech(
             $normalizedValueDAO,
             FieldDAO::FIELD_CHANGED,
             ObjectMappingDAO::SYNC_TO_INTEGRATION
@@ -91,10 +91,10 @@ final class ValueHelperTest extends TestCase
     {
         $normalizedValueDAO = new NormalizedValueDAO(NormalizedValueDAO::STRING_TYPE, '');
 
-        $newValue = $this->getValueHelper()->getValueForMautic(
+        $newValue = $this->getValueHelper()->getValueForMailVotech(
             $normalizedValueDAO,
             FieldDAO::FIELD_CHANGED,
-            ObjectMappingDAO::SYNC_TO_MAUTIC
+            ObjectMappingDAO::SYNC_TO_MAILVOTECH
         );
 
         $this->assertEquals(

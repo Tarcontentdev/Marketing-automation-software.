@@ -1,20 +1,20 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Query;
+namespace MailVotech\LeadBundle\Segment\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Event\LeadListFilteringEvent;
-use Mautic\LeadBundle\Event\LeadListQueryBuilderGeneratedEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\ContactSegmentFilters;
-use Mautic\LeadBundle\Segment\Exception\PluginHandledFilterException;
-use Mautic\LeadBundle\Segment\Exception\SegmentQueryException;
-use Mautic\LeadBundle\Segment\RandomParameterName;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Event\LeadListFilteringEvent;
+use MailVotech\LeadBundle\Event\LeadListQueryBuilderGeneratedEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilters;
+use MailVotech\LeadBundle\Segment\Exception\PluginHandledFilterException;
+use MailVotech\LeadBundle\Segment\Exception\SegmentQueryException;
+use MailVotech\LeadBundle\Segment\RandomParameterName;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -56,7 +56,7 @@ final class ContactSegmentQueryBuilder
 
         $leadsTableAlias = $changeAlias ? $this->generateRandomParameterName() : Lead::DEFAULT_ALIAS;
 
-        $queryBuilder->select($leadsTableAlias.'.id')->from(MAUTIC_TABLE_PREFIX.'leads', $leadsTableAlias);
+        $queryBuilder->select($leadsTableAlias.'.id')->from(MAILVOTECH_TABLE_PREFIX.'leads', $leadsTableAlias);
 
         /*
          * Validate the plan, check for circular dependencies.
@@ -136,14 +136,14 @@ final class ContactSegmentQueryBuilder
      */
     public function addNewContactsRestrictions(QueryBuilder $queryBuilder, int $segmentId, array $batchLimiters = []): QueryBuilder
     {
-        $leadsTableAlias    = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.'leads');
+        $leadsTableAlias    = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.'leads');
         $expr               = $queryBuilder->expr();
         $tableAlias         = $this->generateRandomParameterName();
         $segmentIdParameter = ":{$tableAlias}segmentId";
 
         $segmentQueryBuilder = $queryBuilder->createQueryBuilder()
             ->select($tableAlias.'.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', $tableAlias)
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', $tableAlias)
             ->andWhere($expr->eq($tableAlias.'.leadlist_id', $segmentIdParameter));
 
         $queryBuilder->setParameter("{$tableAlias}segmentId", $segmentId);
@@ -157,14 +157,14 @@ final class ContactSegmentQueryBuilder
 
     public function addManuallySubscribedQuery(QueryBuilder $queryBuilder, int $leadListId): QueryBuilder
     {
-        $leadsTableAlias = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.'leads');
+        $leadsTableAlias = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.'leads');
         $tableAlias      = $this->generateRandomParameterName();
 
         $existsQueryBuilder = $queryBuilder->createQueryBuilder();
 
         $existsQueryBuilder
             ->select('null')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', $tableAlias)
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', $tableAlias)
             ->andWhere($queryBuilder->expr()->eq($tableAlias.'.leadlist_id', intval($leadListId)))
             ->andWhere(
                 $queryBuilder->expr()->or(
@@ -189,11 +189,11 @@ final class ContactSegmentQueryBuilder
      */
     public function addManuallyUnsubscribedQuery(QueryBuilder $queryBuilder, int $leadListId): QueryBuilder
     {
-        $leadsTableAlias = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.'leads');
+        $leadsTableAlias = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.'leads');
         $tableAlias      = $this->generateRandomParameterName();
         $queryBuilder->leftJoin(
             $leadsTableAlias,
-            MAUTIC_TABLE_PREFIX.'lead_lists_leads',
+            MAILVOTECH_TABLE_PREFIX.'lead_lists_leads',
             $tableAlias,
             $leadsTableAlias.'.id = '.$tableAlias.'.lead_id and '.$tableAlias.'.leadlist_id = '.intval($leadListId)
         );

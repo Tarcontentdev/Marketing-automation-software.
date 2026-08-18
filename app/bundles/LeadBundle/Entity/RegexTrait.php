@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 trait RegexTrait
 {

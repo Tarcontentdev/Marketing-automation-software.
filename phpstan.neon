@@ -34,19 +34,19 @@ parameters:
 		# @todo handle once the other PRs are merged
 		- app/bundles/CoreBundle/Controller/AbstractStandardFormController.php
 	dynamicConstantNames:
-		- MAUTIC_ENV
-		- MAUTIC_TABLE_PREFIX
-		- MAUTIC_VERSION
+		- MAILVOTECH_ENV
+		- MAILVOTECH_TABLE_PREFIX
+		- MAILVOTECH_VERSION
 	bootstrapFiles:
 		- phpstan-bootstrap.php
 	ignoreErrors:
 		# ReportGenerator keeps a nullable form factory for its lazy build flow
 		-
-			identifier: mautic.noNullableServiceInConstructor
+			identifier: mailvotech.noNullableServiceInConstructor
 			path: app/bundles/ReportBundle/Generator/ReportGenerator.php
 		# these services have no class name alias in the container, so only the string name can fetch them
 		-
-			identifier: mautic.noContainerGet
+			identifier: mailvotech.noContainerGet
 			paths:
 				- app/bundles/ApiBundle/Tests/Functional/OwnershipScopedSecurityMetadataTest.php
 				- app/bundles/CoreBundle/Tests/Functional/DependencyInjection/AbstractContainerSmokeTestCase.php
@@ -70,9 +70,9 @@ parameters:
 		- '#Call to method PHPUnit\\Framework\\Assert::assertIsClosedResource\(\) with resource will always evaluate to true#'
 		# handle later - ideally with custom interface
 		-
-			message: '#Call to an undefined method Mautic(.*?)Integration::getApiUrl\(\)#'
+			message: '#Call to an undefined method MailVotech(.*?)Integration::getApiUrl\(\)#'
 			path: plugins/*/Api/*
-		- '#Parameter \$integration of method MauticPlugin\\MauticEmailMarketingBundle\\Api\\EmailMarketingApi::__construct\(\) has typehint with deprecated class Mautic\\PluginBundle\\Integration\\AbstractIntegration#'
+		- '#Parameter \$integration of method MailVotechPlugin\\MailVotechEmailMarketingBundle\\Api\\EmailMarketingApi::__construct\(\) has typehint with deprecated class MailVotech\\PluginBundle\\Integration\\AbstractIntegration#'
 		# Doctrine expects concrete types but traits use interfaces with generics
 		-
 			message: '#Property .+::\$translationParent type mapping mismatch: property can contain .+TranslationEntityInterface\|null but database expects#'
@@ -98,18 +98,18 @@ parameters:
 		- '#buildForm\(\) expects Symfony\\Component\\Form\\FormBuilderInterface<array<mixed>\|null>, Symfony\\Component\\Form\\FormBuilderInterface<array<mixed>\|null> given#'
 		# on purpose type check
 		-
-			message: '#Parameter \#1 \$credentials of method Mautic\\IntegrationsBundle\\Auth\\Provider\\(.*?)::getClient\(\) expect#'
+			message: '#Parameter \#1 \$credentials of method MailVotech\\IntegrationsBundle\\Auth\\Provider\\(.*?)::getClient\(\) expect#'
 			paths:
 				 - app/bundles/IntegrationsBundle/Tests/Unit/Auth/Provider/ApiKey/HttpFactoryTest.php
 				 - app/bundles/IntegrationsBundle/Tests/Unit/Auth/Provider/Oauth2TwoLegged/HttpFactoryTest.php
 		-
-			message: '#Call to an undefined method Mautic\\IntegrationsBundle\\Auth\\Provider\\AuthCredentialsInterface::#'
+			message: '#Call to an undefined method MailVotech\\IntegrationsBundle\\Auth\\Provider\\AuthCredentialsInterface::#'
 			path: app/bundles/IntegrationsBundle/Auth/Provider/Oauth2ThreeLegged/HttpFactory.php
 
         # deprecation
 		-
 			identifier: return.deprecatedClass
-			message: '#Return type of method (Mautic|MauticPlugin)\\(.*?)\\EventListener\\CampaignSubscriber::(.*?) has typehint with deprecated class Mautic\\CampaignBundle\\Event\\CampaignExecutionEvent#'
+			message: '#Return type of method (MailVotech|MailVotechPlugin)\\(.*?)\\EventListener\\CampaignSubscriber::(.*?) has typehint with deprecated class MailVotech\\CampaignBundle\\Event\\CampaignExecutionEvent#'
 		-
 			identifier: return.deprecatedClass
 			path: app/bundles/IntegrationsBundle/Tests/Unit/AbstractIntegrationTest.php
@@ -123,7 +123,7 @@ parameters:
 		# EmojiHelper is deprecated and removed in 8.0; its call sites are removed there too
 		-
 			identifier: staticMethod.deprecatedClass
-			message: '#Call to method (toHtml|toShort|toEmoji)\(\) of deprecated class Mautic\\CoreBundle\\Helper\\EmojiHelper#'
+			message: '#Call to method (toHtml|toShort|toEmoji)\(\) of deprecated class MailVotech\\CoreBundle\\Helper\\EmojiHelper#'
 		-
 			identifier: classConstant.deprecatedClass
 			paths:
@@ -155,52 +155,52 @@ parameters:
 				- app
 				- plugins
 
-		# mautic deprecations
+		# mailvotech deprecations
 		-
 			identifier: staticMethod.deprecated
-			message: '#class\s+Mautic#'
+			message: '#class\s+MailVotech#'
 		-
 			identifier: parameter.deprecatedClass
-			message: '#class\s+Mautic#'
+			message: '#class\s+MailVotech#'
 		-
 			identifier: property.deprecatedClass
-			message: '#class\s+Mautic#'
+			message: '#class\s+MailVotech#'
 		-
 			identifier: class.extendsDeprecatedClass
-			message: '#class\s+Mautic#'
+			message: '#class\s+MailVotech#'
 		-
 			identifier: method.deprecatedClass
-			message: '#class\s+Mautic#'
+			message: '#class\s+MailVotech#'
 		-
 			identifier: method.deprecated
-			message: '#class\s+Mautic#'
+			message: '#class\s+MailVotech#'
 		-
 			identifier: return.deprecatedClass
-			message: '#class\s+Mautic#'
+			message: '#class\s+MailVotech#'
 		-
 			identifier: classConstant.deprecatedClass
-			message: '#class\s+Mautic#'
+			message: '#class\s+MailVotech#'
 		-
 			identifier: new.deprecatedClass
-			message: '#class\s+Mautic#'
+			message: '#class\s+MailVotech#'
 		-
 			identifier: classConstant.deprecated
-			message: '#class\s+Mautic#'
+			message: '#class\s+MailVotech#'
 
 		# handle later
 		- '#Call to method convertToPHPValue\(\) of deprecated class Doctrine\\DBAL\\Types\\ArrayType#'
 
 		# child class generic
 		-
-			message: '#Call to an undefined method TApiHelper of MauticPlugin\\MauticCrmBundle\\Api\\CrmApi::getLeads\(\)#'
-			path: plugins/MauticCrmBundle/Integration/CrmAbstractIntegration.php
+			message: '#Call to an undefined method TApiHelper of MailVotechPlugin\\MailVotechCrmBundle\\Api\\CrmApi::getLeads\(\)#'
+			path: plugins/MailVotechCrmBundle/Integration/CrmAbstractIntegration.php
 
 		-
-			message: '#Parameter (.*?) of method MauticPlugin\\MauticTagManagerBundle\\Controller\\TagController::createTagModifyResponse\(\) expects MauticPlugin\\MauticTagManagerBundle\\Entity\\Tag, Mautic\\LeadBundle\\Entity\\Tag given#'
-			path: plugins/MauticTagManagerBundle/Controller/TagController.php
+			message: '#Parameter (.*?) of method MailVotechPlugin\\MailVotechTagManagerBundle\\Controller\\TagController::createTagModifyResponse\(\) expects MailVotechPlugin\\MailVotechTagManagerBundle\\Entity\\Tag, MailVotech\\LeadBundle\\Entity\\Tag given#'
+			path: plugins/MailVotechTagManagerBundle/Controller/TagController.php
 
 		-
-			identifier: mautic.noTablePrefixDefinitionInTests
+			identifier: mailvotech.noTablePrefixDefinitionInTests
 			path: app/bundles/CoreBundle/Test/EventListener/MaintenanceSubscriberTest.php
 
 		# not useful, rather pedantic from phsptan-* extensions
@@ -218,7 +218,7 @@ parameters:
 			message: '#Method PHPUnit\\Framework\\MockObject\\Builder\\InvocationMocker::willReturnOnConsecutiveCalls\(\) invoked with unpacked array with possibly string key#'
 			path: app/bundles/IntegrationsBundle/Tests/Unit/Sync/SyncDataExchange/Internal/Executioner/ReferenceResolverTest.php
 		-
-			message: '#Method MauticPlugin\\GrapesJsBuilderBundle\\Entity\\GrapesJsBuilderRepository@anonymous/plugins/GrapesJsBuilderBundle/Tests/Unit/Model/GrapesJsBuilderModelTest.php:\d+::findOneBy\(\) is marked as impure but does not have any side effects#'
+			message: '#Method MailVotechPlugin\\GrapesJsBuilderBundle\\Entity\\GrapesJsBuilderRepository@anonymous/plugins/GrapesJsBuilderBundle/Tests/Unit/Model/GrapesJsBuilderModelTest.php:\d+::findOneBy\(\) is marked as impure but does not have any side effects#'
 			path: plugins/GrapesJsBuilderBundle/Tests/Unit/Model/GrapesJsBuilderModelTest.php
 		# intentional, as overrides the property
 		-
@@ -228,13 +228,13 @@ parameters:
 			identifier: typePerfect.noArrayAccessOnObject
 		# @todo the form factory has to move into FormModel::createForm() first, which every model shares
 		-
-			identifier: mautic.noServiceJuggling
+			identifier: mailvotech.noServiceJuggling
 			path: app/bundles/LeadBundle/Model/LeadModel.php
 
 		# mixed return
 		-
 			identifier: return.unusedType
-			message: '#Method Mautic(.*?)::getParameterValue\(\)#'
+			message: '#Method MailVotech(.*?)::getParameterValue\(\)#'
 		# string operations
 		-
 			identifier: parameterByRef.type

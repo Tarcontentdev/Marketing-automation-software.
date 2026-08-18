@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -35,7 +35,7 @@ final class ThemeUploadType extends AbstractType
                     'icon'    => 'ri-upload-line',
                     'onclick' => "mQuery(this).prop('disabled', true); mQuery('form[name=\'theme_upload\']').submit();",
                 ],
-                'label' => 'mautic.core.theme.install',
+                'label' => 'mailvotech.core.theme.install',
             ]
         );
 

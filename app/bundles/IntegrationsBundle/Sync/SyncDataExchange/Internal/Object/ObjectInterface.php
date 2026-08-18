@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object;
+namespace MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object;
 
 interface ObjectInterface
 {

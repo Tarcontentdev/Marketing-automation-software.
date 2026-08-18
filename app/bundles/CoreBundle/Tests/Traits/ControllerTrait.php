@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Tests\Traits;
+namespace MailVotech\CoreBundle\Tests\Traits;
 
-use Mautic\PageBundle\Tests\Controller\PageControllerTest;
+use MailVotech\PageBundle\Tests\Controller\PageControllerTest;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Auth\Provider\Oauth1aThreeLegged;
+namespace MailVotech\IntegrationsBundle\Auth\Provider\Oauth1aThreeLegged;
 
-use Mautic\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
 
 interface CredentialsInterface extends AuthCredentialsInterface
 {

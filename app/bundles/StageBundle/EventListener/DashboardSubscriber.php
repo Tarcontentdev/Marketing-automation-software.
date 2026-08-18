@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\StageBundle\EventListener;
+namespace MailVotech\StageBundle\EventListener;
 
-use Mautic\DashboardBundle\Event\WidgetDetailEvent;
-use Mautic\DashboardBundle\EventListener\DashboardSubscriber as MainDashboardSubscriber;
-use Mautic\StageBundle\Model\StageModel;
+use MailVotech\DashboardBundle\Event\WidgetDetailEvent;
+use MailVotech\DashboardBundle\EventListener\DashboardSubscriber as MainDashboardSubscriber;
+use MailVotech\StageBundle\Model\StageModel;
 
 final class DashboardSubscriber extends MainDashboardSubscriber
 {
@@ -66,7 +66,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
                 ]);
             }
 
-            $event->setTemplate('@MauticCore/Helper/chart.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/chart.html.twig');
             $event->stopPropagation();
         }
     }

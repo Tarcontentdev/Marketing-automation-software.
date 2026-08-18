@@ -1,19 +1,19 @@
 <?php
 
-namespace Mautic\ConfigBundle\Controller;
+namespace MailVotech\ConfigBundle\Controller;
 
-use Mautic\ConfigBundle\ConfigEvents;
-use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use Mautic\ConfigBundle\Event\ConfigEvent;
-use Mautic\ConfigBundle\Form\Type\ConfigType;
-use Mautic\ConfigBundle\Mapper\ConfigMapper;
-use Mautic\CoreBundle\Configurator\Configurator;
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Helper\BundleHelper;
-use Mautic\CoreBundle\Helper\CacheHelper;
-use Mautic\CoreBundle\Helper\EncryptionHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\ConfigBundle\ConfigEvents;
+use MailVotech\ConfigBundle\Event\ConfigBuilderEvent;
+use MailVotech\ConfigBundle\Event\ConfigEvent;
+use MailVotech\ConfigBundle\Form\Type\ConfigType;
+use MailVotech\ConfigBundle\Mapper\ConfigMapper;
+use MailVotech\CoreBundle\Configurator\Configurator;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Helper\BundleHelper;
+use MailVotech\CoreBundle\Helper\CacheHelper;
+use MailVotech\CoreBundle\Helper\EncryptionHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,7 +52,7 @@ final class ConfigController extends FormController
         $this->mergeParamsWithLocal($formConfigs, $pathsHelper);
 
         // Create the form
-        $action = $this->generateUrl('mautic_config_action', ['objectAction' => 'edit']);
+        $action = $this->generateUrl('mailvotech_config_action', ['objectAction' => 'edit']);
         $form   = $this->formFactory->create(
             ConfigType::class,
             $formConfigs,
@@ -131,7 +131,7 @@ final class ConfigController extends FormController
                             $configurator->write();
                             $this->dispatcher->dispatch($configEvent, ConfigEvents::CONFIG_POST_SAVE);
 
-                            $this->addFlashMessage('mautic.config.config.notice.updated');
+                            $this->addFlashMessage('mailvotech.config.config.notice.updated');
 
                             $cacheHelper->refreshConfig();
 
@@ -139,7 +139,7 @@ final class ConfigController extends FormController
                                 $openTab = $formData['coreconfig']['last_shown_tab'];
                             }
                         } catch (\RuntimeException $exception) {
-                            $this->addFlashMessage('mautic.config.config.error.not.updated', ['%exception%' => $exception->getMessage()], 'error');
+                            $this->addFlashMessage('mailvotech.config.config.error.not.updated', ['%exception%' => $exception->getMessage()], 'error');
                         }
 
                         $this->setLocale($request, $params);
@@ -147,7 +147,7 @@ final class ConfigController extends FormController
                 } elseif (!$isWritable) {
                     $form->addError(
                         new FormError(
-                            $this->translator->trans('mautic.config.notwritable')
+                            $this->translator->trans('mailvotech.config.notwritable')
                         )
                     );
                 }
@@ -161,10 +161,10 @@ final class ConfigController extends FormController
                         $redirectParameters['tab'] = $openTab;
                     }
 
-                    return $this->delegateRedirect($this->generateUrl('mautic_config_action', $redirectParameters));
+                    return $this->delegateRedirect($this->generateUrl('mailvotech_config_action', $redirectParameters));
                 }
 
-                return $this->delegateRedirect($this->generateUrl('mautic_dashboard_index'));
+                return $this->delegateRedirect($this->generateUrl('mailvotech_dashboard_index'));
             }
         }
 
@@ -180,11 +180,11 @@ final class ConfigController extends FormController
                     'formConfigs' => $formConfigs,
                     'isWritable'  => $isWritable,
                 ],
-                'contentTemplate' => '@MauticConfig/Config/form.html.twig',
+                'contentTemplate' => '@MailVotechConfig/Config/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_config_index',
-                    'mauticContent' => 'config',
-                    'route'         => $this->generateUrl('mautic_config_action', ['objectAction' => 'edit']),
+                    'activeLink'    => '#mailvotech_config_index',
+                    'mailvotechContent' => 'config',
+                    'route'         => $this->generateUrl('mailvotech_config_action', ['objectAction' => 'edit']),
                 ],
             ]
         );
@@ -258,7 +258,7 @@ final class ConfigController extends FormController
      */
     private function mergeParamsWithLocal(array &$forms, PathsHelper $pathsHelper): void
     {
-        $doNotChange     = $this->coreParametersHelper->get('mautic.security.restrictedConfigFields');
+        $doNotChange     = $this->coreParametersHelper->get('mailvotech.security.restrictedConfigFields');
         $localConfigFile = $pathsHelper->getLocalConfigurationFile();
 
         // Import the current local configuration, $parameters is defined in this file

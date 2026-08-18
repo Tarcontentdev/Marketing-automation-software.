@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\EventListener;
+namespace MailVotech\AssetBundle\Tests\EventListener;
 
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Entity\Download;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Entity\Download;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
 
-final class LeadSubscriberFunctionalTest extends MauticMysqlTestCase
+final class LeadSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * Regression test: a contact with an asset_downloads row whose asset_id is NULL
@@ -25,7 +25,7 @@ final class LeadSubscriberFunctionalTest extends MauticMysqlTestCase
         // Simulate the "asset deleted, download history kept" state by detaching
         // the asset reference at the SQL level (bypasses the ORM cascade).
         $this->em->getConnection()->executeStatement(
-            'UPDATE '.MAUTIC_TABLE_PREFIX.'asset_downloads SET asset_id = NULL WHERE id = :id',
+            'UPDATE '.MAILVOTECH_TABLE_PREFIX.'asset_downloads SET asset_id = NULL WHERE id = :id',
             ['id' => $downloadId]
         );
         $this->em->clear();

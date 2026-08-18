@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller\Api;
+namespace MailVotech\LeadBundle\Tests\Controller\Api;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Controller\Api\FieldApiController;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Controller\Api\FieldApiController;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Model\FieldModel;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

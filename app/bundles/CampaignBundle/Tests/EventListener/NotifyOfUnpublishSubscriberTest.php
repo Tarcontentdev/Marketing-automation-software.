@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\EventListener;
+namespace MailVotech\CampaignBundle\Tests\EventListener;
 
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Event\NotifyOfUnpublishEvent;
-use Mautic\CampaignBundle\EventListener\NotifyOfUnpublishSubscriber;
-use Mautic\CampaignBundle\Executioner\Helper\NotificationHelper;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Event\NotifyOfUnpublishEvent;
+use MailVotech\CampaignBundle\EventListener\NotifyOfUnpublishSubscriber;
+use MailVotech\CampaignBundle\Executioner\Helper\NotificationHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -42,7 +42,7 @@ final class NotifyOfUnpublishSubscriberTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         $events = NotifyOfUnpublishSubscriber::getSubscribedEvents();
-        $this->assertArrayHasKey('mautic.campaign_unpublish_notify', $events);
-        $this->assertEquals('notifyOfUnpublish', $events['mautic.campaign_unpublish_notify']);
+        $this->assertArrayHasKey('mailvotech.campaign_unpublish_notify', $events);
+        $this->assertEquals('notifyOfUnpublish', $events['mailvotech.campaign_unpublish_notify']);
     }
 }

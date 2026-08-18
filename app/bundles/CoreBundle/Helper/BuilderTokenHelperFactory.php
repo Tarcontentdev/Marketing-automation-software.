@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 use Doctrine\DBAL\Connection;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BuilderTokenHelperFactory

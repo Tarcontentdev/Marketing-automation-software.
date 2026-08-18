@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tracker\Service\DeviceTrackingService;
+namespace MailVotech\LeadBundle\Tracker\Service\DeviceTrackingService;
 
-use Mautic\LeadBundle\Entity\LeadDevice;
+use MailVotech\LeadBundle\Entity\LeadDevice;
 
 /**
  * Interface DeviceTrackingServiceInterface.

@@ -1,36 +1,36 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
 use Doctrine\ORM\ORMException;
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\CampaignBundle\Event\EventPreview;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException;
-use Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException;
-use Mautic\CampaignBundle\Executioner\Exception\CannotProcessEventException;
-use Mautic\CampaignBundle\Executioner\Exception\NoContactsFoundException;
-use Mautic\CampaignBundle\Executioner\RealTimeExecutioner;
-use Mautic\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\Event\EmailOpenEvent;
-use Mautic\EmailBundle\Event\EmailReplyEvent;
-use Mautic\EmailBundle\Exception\EmailCouldNotBeSentException;
-use Mautic\EmailBundle\Form\Type\EmailClickDecisionType;
-use Mautic\EmailBundle\Form\Type\EmailSendType;
-use Mautic\EmailBundle\Form\Type\EmailToUserType;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\Helper\UrlMatcher;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\EmailBundle\Model\SendEmailToUser;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PageBundle\Entity\Hit;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\CampaignBundle\Event\EventPreview;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException;
+use MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException;
+use MailVotech\CampaignBundle\Executioner\Exception\CannotProcessEventException;
+use MailVotech\CampaignBundle\Executioner\Exception\NoContactsFoundException;
+use MailVotech\CampaignBundle\Executioner\RealTimeExecutioner;
+use MailVotech\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\Event\EmailOpenEvent;
+use MailVotech\EmailBundle\Event\EmailReplyEvent;
+use MailVotech\EmailBundle\Exception\EmailCouldNotBeSentException;
+use MailVotech\EmailBundle\Form\Type\EmailClickDecisionType;
+use MailVotech\EmailBundle\Form\Type\EmailSendType;
+use MailVotech\EmailBundle\Form\Type\EmailToUserType;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\Helper\UrlMatcher;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\EmailBundle\Model\SendEmailToUser;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PageBundle\Entity\Hit;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -66,8 +66,8 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
         $event->addDecision(
             'email.open',
             [
-                'label'                  => 'mautic.email.campaign.event.open',
-                'description'            => 'mautic.email.campaign.event.open_descr',
+                'label'                  => 'mailvotech.email.campaign.event.open',
+                'description'            => 'mailvotech.email.campaign.event.open_descr',
                 'eventName'              => EmailEvents::ON_CAMPAIGN_TRIGGER_DECISION,
                 'connectionRestrictions' => [
                     'source' => [
@@ -82,8 +82,8 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
         $event->addDecision(
             'email.click',
             [
-                'label'                  => 'mautic.email.campaign.event.click',
-                'description'            => 'mautic.email.campaign.event.click_descr',
+                'label'                  => 'mailvotech.email.campaign.event.click',
+                'description'            => 'mailvotech.email.campaign.event.click_descr',
                 'eventName'              => EmailEvents::ON_CAMPAIGN_TRIGGER_DECISION,
                 'formType'               => EmailClickDecisionType::class,
                 'connectionRestrictions' => [
@@ -99,12 +99,12 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
         $event->addAction(
             'email.send',
             [
-                'label'                => 'mautic.email.campaign.event.send',
-                'description'          => 'mautic.email.campaign.event.send_descr',
+                'label'                => 'mailvotech.email.campaign.event.send',
+                'description'          => 'mailvotech.email.campaign.event.send_descr',
                 'batchEventName'       => EmailEvents::ON_CAMPAIGN_BATCH_ACTION,
                 'formType'             => EmailSendType::class,
                 'formTypeOptions'      => ['update_select' => 'campaignevent_properties_email', 'with_email_types' => true],
-                'formTheme'            => '@MauticEmail/FormTheme/EmailSendList/emailsend_list_row.html.twig',
+                'formTheme'            => '@MailVotechEmail/FormTheme/EmailSendList/emailsend_list_row.html.twig',
                 'channel'              => 'email',
                 'channelIdField'       => 'email',
             ]
@@ -113,8 +113,8 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
         $event->addDecision(
             'email.reply',
             [
-                'label'                  => 'mautic.email.campaign.event.reply',
-                'description'            => 'mautic.email.campaign.event.reply_descr',
+                'label'                  => 'mailvotech.email.campaign.event.reply',
+                'description'            => 'mailvotech.email.campaign.event.reply_descr',
                 'eventName'              => EmailEvents::ON_CAMPAIGN_TRIGGER_DECISION,
                 'connectionRestrictions' => [
                     'source' => [
@@ -129,12 +129,12 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
         $event->addAction(
             'email.send.to.user',
             [
-                'label'                => 'mautic.email.campaign.event.send.to.user',
-                'description'          => 'mautic.email.campaign.event.send.to.user_descr',
+                'label'                => 'mailvotech.email.campaign.event.send.to.user',
+                'description'          => 'mailvotech.email.campaign.event.send.to.user_descr',
                 'batchEventName'       => EmailEvents::ON_CAMPAIGN_BATCH_ACTION,
                 'formType'             => EmailToUserType::class,
                 'formTypeOptions'      => ['update_select' => 'campaignevent_properties_useremail_email'],
-                'formTheme'            => '@MauticEmail/FormTheme/EmailSendList/email_to_user_row.html.twig',
+                'formTheme'            => '@MailVotechEmail/FormTheme/EmailSendList/email_to_user_row.html.twig',
                 'channel'              => 'email',
                 'channelIdField'       => 'email',
             ]
@@ -256,7 +256,7 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
         $config  = $event->getEvent()->getProperties();
 
         if (!isset($config['email'])) {
-            $event->passAllWithError($this->translator->trans('mautic.email.campaign.event.failure_missing_email'));
+            $event->passAllWithError($this->translator->trans('mailvotech.email.campaign.event.failure_missing_email'));
 
             return;
         }
@@ -265,7 +265,7 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
         $email   = $this->emailModel->getEntity($emailId);
 
         if (!$email || !$email->isPublished()) {
-            $event->passAllWithError($this->translator->trans('mautic.email.campaign.event.failure_missing_email'));
+            $event->passAllWithError($this->translator->trans('mailvotech.email.campaign.event.failure_missing_email'));
 
             return;
         }
@@ -305,7 +305,7 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
                 $event->passWithError(
                     $pending->get($logId),
                     $this->translator->trans(
-                        'mautic.email.contact_has_no_email',
+                        'mailvotech.email.contact_has_no_email',
                         ['%contact%' => $contact->getPrimaryIdentifier()]
                     )
                 );
@@ -320,7 +320,7 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
                     $event->passWithError(
                         $pending->get($logId),
                         $this->translator->trans(
-                            'mautic.email.contact_has_unsubscribed_from_category',
+                            'mailvotech.email.contact_has_unsubscribed_from_category',
                             ['%contact%' => $contact->getPrimaryIdentifier(), '%category%' => $emailCategory]
                         )
                     );
@@ -351,7 +351,7 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
                 // Pass with a note to the UI because no use retrying
                 $event->passWithError(
                     $log,
-                    $this->translator->trans('mautic.email.contact_already_received_marketing_email', ['%contact%' => $credentialArray[$log->getId()]['primaryIdentifier']])
+                    $this->translator->trans('mailvotech.email.contact_already_received_marketing_email', ['%contact%' => $credentialArray[$log->getId()]['primaryIdentifier']])
                 );
                 unset($credentialArray[$log->getId()]);
             }
@@ -365,7 +365,7 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
                 $log = $event->findLogByContactId($failedContactId);
                 unset($credentialArray[$log->getId()]);
 
-                if ($this->translator->trans('mautic.email.dnc') === $reason) {
+                if ($this->translator->trans('mailvotech.email.dnc') === $reason) {
                     // Do not log DNC as errors because they'll be retried rather just let the UI know
                     $event->passWithError($log, $reason);
                     continue;

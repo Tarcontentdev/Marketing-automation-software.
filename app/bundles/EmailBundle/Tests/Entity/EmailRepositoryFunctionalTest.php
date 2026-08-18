@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Entity;
+namespace MailVotech\EmailBundle\Tests\Entity;
 
 use Doctrine\ORM\ORMException;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadCategory;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadCategory;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
 
-final class EmailRepositoryFunctionalTest extends MauticMysqlTestCase
+final class EmailRepositoryFunctionalTest extends MailVotechMysqlTestCase
 {
     private EmailRepository $emailRepository;
 

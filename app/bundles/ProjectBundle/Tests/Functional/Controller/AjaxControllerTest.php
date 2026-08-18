@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Tests\Functional\Controller;
+namespace MailVotech\ProjectBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\ProjectBundle\Model\ProjectModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\ProjectBundle\Model\ProjectModel;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class AjaxControllerTest extends MauticMysqlTestCase
+final class AjaxControllerTest extends MailVotechMysqlTestCase
 {
     public function testCreatingProjectViaMultiselectInput(): void
     {

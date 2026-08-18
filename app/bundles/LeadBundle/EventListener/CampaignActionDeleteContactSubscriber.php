@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CampaignBundle\Helper\RemovedContactTracker;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CampaignBundle\Helper\RemovedContactTracker;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class CampaignActionDeleteContactSubscriber implements EventSubscriberInterface
@@ -31,8 +31,8 @@ final readonly class CampaignActionDeleteContactSubscriber implements EventSubsc
         $event->addAction(
             'lead.deletecontact',
             [
-                'label'                  => 'mautic.lead.lead.events.delete',
-                'description'            => 'mautic.lead.lead.events.delete_descr',
+                'label'                  => 'mailvotech.lead.lead.events.delete',
+                'description'            => 'mailvotech.lead.lead.events.delete_descr',
                 // Kept for BC in case plugins are listening to the shared trigger
                 'eventName'              => LeadEvents::ON_CAMPAIGN_TRIGGER_ACTION,
                 'batchEventName'         => LeadEvents::ON_CAMPAIGN_ACTION_DELETE_CONTACT,

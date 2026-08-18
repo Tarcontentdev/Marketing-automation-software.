@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test\Extensions\SeparateProcess\Subscriber;
+namespace MailVotech\CoreBundle\Test\Extensions\SeparateProcess\Subscriber;
 
-use Mautic\CoreBundle\Test\Extensions\SeparateProcess\SeparateProcess;
+use MailVotech\CoreBundle\Test\Extensions\SeparateProcess\SeparateProcess;
 
 abstract class Subscriber
 {

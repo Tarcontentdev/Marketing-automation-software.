@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Functional\Services\SyncService;
+namespace MailVotech\IntegrationsBundle\Tests\Functional\Services\SyncService;
 
 use Doctrine\DBAL\Connection;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\InstallBundle\InstallFixtures\ORM\LeadFieldData;
-use Mautic\IntegrationsBundle\Helper\SyncIntegrationsHelper;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncService\SyncService;
-use Mautic\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Integration\ExampleIntegration;
-use Mautic\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Sync\SyncDataExchange\ExampleSyncDataExchange;
-use Mautic\LeadBundle\DataFixtures\ORM\LoadLeadData;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\InstallBundle\InstallFixtures\ORM\LeadFieldData;
+use MailVotech\IntegrationsBundle\Helper\SyncIntegrationsHelper;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncService\SyncService;
+use MailVotech\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Integration\ExampleIntegration;
+use MailVotech\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Sync\SyncDataExchange\ExampleSyncDataExchange;
+use MailVotech\LeadBundle\DataFixtures\ORM\LoadLeadData;
+use MailVotech\PluginBundle\Entity\Integration;
 
-final class SyncServiceTest extends MauticMysqlTestCase
+final class SyncServiceTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -32,7 +32,7 @@ final class SyncServiceTest extends MauticMysqlTestCase
         // @phpstan-ignore-next-line deadCode.unreachable
         sleep(1);
 
-        $prefix             = $this->getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix             = $this->getContainer()->getParameter('mailvotech.db_table_prefix');
         $dataExchange       = new ExampleSyncDataExchange();
         $exampleIntegration = new ExampleIntegration($dataExchange);
 
@@ -42,7 +42,7 @@ final class SyncServiceTest extends MauticMysqlTestCase
         $exampleIntegration->setIntegrationConfiguration($settings);
 
         /** @var SyncIntegrationsHelper $syncIntegrationsHelper */
-        $syncIntegrationsHelper = $this->getContainer()->get('mautic.integrations.helper.sync_integrations');
+        $syncIntegrationsHelper = $this->getContainer()->get('mailvotech.integrations.helper.sync_integrations');
         $syncIntegrationsHelper->addIntegration($exampleIntegration);
 
         /** @var SyncService $syncService */
@@ -51,7 +51,7 @@ final class SyncServiceTest extends MauticMysqlTestCase
         $syncService->processIntegrationSync(ExampleIntegration::NAME);
         $payload = $dataExchange->getOrderPayload();
 
-        // Created the 48 known contacts already in Mautic
+        // Created the 48 known contacts already in MailVotech
         $this->assertCount(48, $payload['create']);
         $this->assertCount(2, $payload['update']);
 
@@ -92,7 +92,7 @@ final class SyncServiceTest extends MauticMysqlTestCase
         $this->assertEquals(ExampleIntegration::NAME, $results[0]['integration']);
         $this->assertEquals(ExampleSyncDataExchange::OBJECT_LEAD, $results[0]['integration_object_name']);
 
-        // All should be mapped to the Mautic contact object
+        // All should be mapped to the MailVotech contact object
         $qb      = $this->connection->createQueryBuilder();
         $results = $qb->select('count(*) as the_count, m.internal_object_name, m.integration')
             ->from($prefix.'sync_object_mapping', 'm')

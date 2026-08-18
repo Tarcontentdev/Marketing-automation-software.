@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\PointBundle\Controller;
+namespace MailVotech\PointBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AbstractFormController;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\PointBundle\Entity\Point;
-use Mautic\PointBundle\Model\PointModel;
+use MailVotech\CoreBundle\Controller\AbstractFormController;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\PointBundle\Entity\Point;
+use MailVotech\PointBundle\Model\PointModel;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,14 +39,14 @@ final class PointController extends AbstractFormController
 
         $this->setListFilters();
 
-        $pageHelper = $pageHelperFactory->make('mautic.point', $page);
+        $pageHelper = $pageHelperFactory->make('mailvotech.point', $page);
 
         $limit      = $pageHelper->getLimit();
         $start      = $pageHelper->getStart();
-        $search     = $request->get('search', $request->getSession()->get('mautic.point.filter', ''));
+        $search     = $request->get('search', $request->getSession()->get('mailvotech.point.filter', ''));
         $filter     = ['string' => $search, 'force' => []];
-        $orderBy    = $request->getSession()->get('mautic.point.orderby', 'p.name');
-        $orderByDir = $request->getSession()->get('mautic.point.orderbydir', 'ASC');
+        $orderBy    = $request->getSession()->get('mailvotech.point.orderby', 'p.name');
+        $orderByDir = $request->getSession()->get('mailvotech.point.orderbydir', 'ASC');
         $points     = $this->pointModel->getEntities([
             'start'      => $start,
             'limit'      => $limit,
@@ -55,21 +55,21 @@ final class PointController extends AbstractFormController
             'orderByDir' => $orderByDir,
         ]);
 
-        $request->getSession()->set('mautic.point.filter', $search);
+        $request->getSession()->set('mailvotech.point.filter', $search);
 
         $count = count($points);
         if ($count && $count < ($start + 1)) {
             $lastPage  = $pageHelper->countPage($count);
-            $returnUrl = $this->generateUrl('mautic_point_index', ['page' => $lastPage]);
+            $returnUrl = $this->generateUrl('mailvotech_point_index', ['page' => $lastPage]);
             $pageHelper->rememberPage($lastPage);
 
             return $this->postActionRedirect([
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['page' => $lastPage],
-                'contentTemplate' => 'Mautic\PointBundle\Controller\PointController::indexAction',
+                'contentTemplate' => 'MailVotech\PointBundle\Controller\PointController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_point_index',
-                    'mauticContent' => 'point',
+                    'activeLink'    => '#mailvotech_point_index',
+                    'mailvotechContent' => 'point',
                 ],
             ]);
         }
@@ -89,11 +89,11 @@ final class PointController extends AbstractFormController
                 'permissions' => $permissions,
                 'tmpl'        => $request->isXmlHttpRequest() ? $request->get('tmpl', 'index') : 'index',
             ],
-            'contentTemplate' => '@MauticPoint/Point/list.html.twig',
+            'contentTemplate' => '@MailVotechPoint/Point/list.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_point_index',
-                'mauticContent' => 'point',
-                'route'         => $this->generateUrl('mautic_point_index', ['page' => $page]),
+                'activeLink'    => '#mailvotech_point_index',
+                'mailvotechContent' => 'point',
+                'route'         => $this->generateUrl('mailvotech_point_index', ['page' => $page]),
             ],
         ]);
     }
@@ -115,11 +115,11 @@ final class PointController extends AbstractFormController
         }
 
         // set the page we came from
-        $page       = $request->getSession()->get('mautic.point.page', 1);
+        $page       = $request->getSession()->get('mailvotech.point.page', 1);
         $method     = $request->getMethod();
         $point      = $request->request->all()['point'] ?? [];
         $actionType = 'POST' === $method ? ($point['type'] ?? '') : '';
-        $action     = $this->generateUrl('mautic_point_action', ['objectAction' => 'new']);
+        $action     = $this->generateUrl('mailvotech_point_action', ['objectAction' => 'new']);
         $actions    = $this->pointModel->getPointActions();
         $form       = $this->pointModel->createForm($entity, $formFactory, $action, [
             'pointActions' => $actions,
@@ -136,26 +136,26 @@ final class PointController extends AbstractFormController
                     // form is valid so process the data
                     $this->pointModel->saveEntity($entity);
 
-                    $this->addFlashMessage('mautic.core.notice.created', [
+                    $this->addFlashMessage('mailvotech.core.notice.created', [
                         '%name%'      => $entity->getName(),
-                        '%menu_link%' => 'mautic_point_index',
-                        '%url%'       => $this->generateUrl('mautic_point_action', [
+                        '%menu_link%' => 'mailvotech_point_index',
+                        '%url%'       => $this->generateUrl('mailvotech_point_action', [
                             'objectAction' => 'edit',
                             'objectId'     => $entity->getId(),
                         ]),
                     ]);
 
                     if ($this->getFormButton($form, ['buttons', 'save'])->isClicked()) {
-                        $returnUrl = $this->generateUrl('mautic_point_index', $viewParameters);
-                        $template  = 'Mautic\PointBundle\Controller\PointController::indexAction';
+                        $returnUrl = $this->generateUrl('mailvotech_point_index', $viewParameters);
+                        $template  = 'MailVotech\PointBundle\Controller\PointController::indexAction';
                     } else {
                         // return edit view so that all the session stuff is loaded
                         return $this->editAction($request, $formFactory, $entity->getId(), true);
                     }
                 }
             } else {
-                $returnUrl = $this->generateUrl('mautic_point_index', $viewParameters);
-                $template  = 'Mautic\PointBundle\Controller\PointController::indexAction';
+                $returnUrl = $this->generateUrl('mailvotech_point_index', $viewParameters);
+                $template  = 'MailVotech\PointBundle\Controller\PointController::indexAction';
             }
 
             if ($cancelled || ($valid && $this->getFormButton($form, ['buttons', 'save'])->isClicked())) {
@@ -164,14 +164,14 @@ final class PointController extends AbstractFormController
                     'viewParameters'  => $viewParameters,
                     'contentTemplate' => $template,
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_point_index',
-                        'mauticContent' => 'point',
+                        'activeLink'    => '#mailvotech_point_index',
+                        'mailvotechContent' => 'point',
                     ],
                 ]);
             }
         }
 
-        $themes = ['@MauticPoint/FormTheme/Action/_pointaction_properties_row.html.twig'];
+        $themes = ['@MailVotechPoint/FormTheme/Action/_pointaction_properties_row.html.twig'];
         if ($actionType && !empty($actions['actions'][$actionType]['formTheme'])) {
             $themes[] = $actions['actions'][$actionType]['formTheme'];
         }
@@ -184,11 +184,11 @@ final class PointController extends AbstractFormController
                 'actions'    => $actions['actions'],
                 'formThemes' => $themes,
             ],
-            'contentTemplate' => '@MauticPoint/Point/form.html.twig',
+            'contentTemplate' => '@MailVotechPoint/Point/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_point_index',
-                'mauticContent' => 'point',
-                'route'         => $this->generateUrl('mautic_point_action', [
+                'activeLink'    => '#mailvotech_point_index',
+                'mailvotechContent' => 'point',
+                'route'         => $this->generateUrl('mailvotech_point_action', [
                     'objectAction' => (!empty($valid) ? 'edit' : 'new'), // valid means a new form was applied
                     'objectId'     => $entity->getId(),
                 ]
@@ -208,20 +208,20 @@ final class PointController extends AbstractFormController
         $entity = $this->pointModel->getEntity($objectId);
 
         // set the page we came from
-        $page = $request->getSession()->get('mautic.point.page', 1);
+        $page = $request->getSession()->get('mailvotech.point.page', 1);
 
         $viewParameters = ['page' => $page];
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_point_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_point_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => $viewParameters,
-            'contentTemplate' => 'Mautic\PointBundle\Controller\PointController::indexAction',
+            'contentTemplate' => 'MailVotech\PointBundle\Controller\PointController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_point_index',
-                'mauticContent' => 'point',
+                'activeLink'    => '#mailvotech_point_index',
+                'mailvotechContent' => 'point',
             ],
         ];
 
@@ -232,7 +232,7 @@ final class PointController extends AbstractFormController
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.point.error.notfound',
+                            'msg'     => 'mailvotech.point.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -250,7 +250,7 @@ final class PointController extends AbstractFormController
         $point      = $request->request->all()['point'] ?? [];
         $actionType = 'POST' === $method ? ($point['type'] ?? '') : $entity->getType();
 
-        $action  = $this->generateUrl('mautic_point_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action  = $this->generateUrl('mailvotech_point_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $actions = $this->pointModel->getPointActions();
         $form    = $this->pointModel->createForm($entity, $formFactory, $action, [
             'pointActions' => $actions,
@@ -266,26 +266,26 @@ final class PointController extends AbstractFormController
                     // form is valid so process the data
                     $this->pointModel->saveEntity($entity, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
 
-                    $this->addFlashMessage('mautic.core.notice.updated', [
+                    $this->addFlashMessage('mailvotech.core.notice.updated', [
                         '%name%'      => $entity->getName(),
-                        '%menu_link%' => 'mautic_point_index',
-                        '%url%'       => $this->generateUrl('mautic_point_action', [
+                        '%menu_link%' => 'mailvotech_point_index',
+                        '%url%'       => $this->generateUrl('mailvotech_point_action', [
                             'objectAction' => 'edit',
                             'objectId'     => $entity->getId(),
                         ]),
                     ]);
 
                     if ($this->getFormButton($form, ['buttons', 'save'])->isClicked()) {
-                        $returnUrl = $this->generateUrl('mautic_point_index', $viewParameters);
-                        $template  = 'Mautic\PointBundle\Controller\PointController::indexAction';
+                        $returnUrl = $this->generateUrl('mailvotech_point_index', $viewParameters);
+                        $template  = 'MailVotech\PointBundle\Controller\PointController::indexAction';
                     }
                 }
             } else {
                 // unlock the entity
                 $this->pointModel->unlockEntity($entity);
 
-                $returnUrl = $this->generateUrl('mautic_point_index', $viewParameters);
-                $template  = 'Mautic\PointBundle\Controller\PointController::indexAction';
+                $returnUrl = $this->generateUrl('mailvotech_point_index', $viewParameters);
+                $template  = 'MailVotech\PointBundle\Controller\PointController::indexAction';
             }
 
             if ($cancelled || ($valid && $this->getFormButton($form, ['buttons', 'save'])->isClicked())) {
@@ -302,7 +302,7 @@ final class PointController extends AbstractFormController
             $this->pointModel->lockEntity($entity);
         }
 
-        $themes = ['@MauticPoint/FormTheme/Action/_pointaction_properties_row.html.twig'];
+        $themes = ['@MailVotechPoint/FormTheme/Action/_pointaction_properties_row.html.twig'];
         if (!empty($actions['actions'][$actionType]['formTheme'])) {
             $themes[] = $actions['actions'][$actionType]['formTheme'];
         }
@@ -315,11 +315,11 @@ final class PointController extends AbstractFormController
                 'actions'    => $actions['actions'],
                 'formThemes' => $themes,
             ],
-            'contentTemplate' => '@MauticPoint/Point/form.html.twig',
+            'contentTemplate' => '@MailVotechPoint/Point/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_point_index',
-                'mauticContent' => 'point',
-                'route'         => $this->generateUrl('mautic_point_action', [
+                'activeLink'    => '#mailvotech_point_index',
+                'mailvotechContent' => 'point',
+                'route'         => $this->generateUrl('mailvotech_point_action', [
                     'objectAction' => 'edit',
                     'objectId'     => $entity->getId(),
                 ]
@@ -354,17 +354,17 @@ final class PointController extends AbstractFormController
      */
     public function deleteAction(Request $request, $objectId): Response
     {
-        $page      = $request->getSession()->get('mautic.point.page', 1);
-        $returnUrl = $this->generateUrl('mautic_point_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.point.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_point_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\PointBundle\Controller\PointController::indexAction',
+            'contentTemplate' => 'MailVotech\PointBundle\Controller\PointController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_point_index',
-                'mauticContent' => 'point',
+                'activeLink'    => '#mailvotech_point_index',
+                'mailvotechContent' => 'point',
             ],
         ];
 
@@ -374,7 +374,7 @@ final class PointController extends AbstractFormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.point.error.notfound',
+                    'msg'     => 'mailvotech.point.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->isGranted('point:points:delete')) {
@@ -388,7 +388,7 @@ final class PointController extends AbstractFormController
             $identifier = $this->translator->trans($entity->getName());
             $flashes[]  = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $identifier,
                     '%id%'   => $objectId,
@@ -408,17 +408,17 @@ final class PointController extends AbstractFormController
      */
     public function batchDeleteAction(Request $request): Response
     {
-        $page      = $request->getSession()->get('mautic.point.page', 1);
-        $returnUrl = $this->generateUrl('mautic_point_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.point.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_point_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\PointBundle\Controller\PointController::indexAction',
+            'contentTemplate' => 'MailVotech\PointBundle\Controller\PointController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_point_index',
-                'mauticContent' => 'point',
+                'activeLink'    => '#mailvotech_point_index',
+                'mailvotechContent' => 'point',
             ],
         ];
 
@@ -433,7 +433,7 @@ final class PointController extends AbstractFormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.point.error.notfound',
+                        'msg'     => 'mailvotech.point.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->isGranted('point:points:delete')) {
@@ -451,7 +451,7 @@ final class PointController extends AbstractFormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.point.notice.batch_deleted',
+                    'msg'     => 'mailvotech.point.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],

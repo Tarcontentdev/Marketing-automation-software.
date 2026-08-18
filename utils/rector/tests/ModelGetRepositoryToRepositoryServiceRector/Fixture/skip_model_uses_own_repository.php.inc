@@ -2,7 +2,7 @@
 
 namespace Utils\Rector\Tests\ModelGetRepositoryToRepositoryServiceRector\Fixture;
 
-use Mautic\CoreBundle\Model\AbstractCommonModel;
+use MailVotech\CoreBundle\Model\AbstractCommonModel;
 use Utils\Rector\Tests\ModelGetRepositoryToRepositoryServiceRector\Source\SomeRepository;
 
 class SkipModelUsesOwnRepository extends AbstractCommonModel

@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\PageBundle\Helper;
+namespace MailVotech\PageBundle\Helper;
 
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\PageBundle\Model\PageModel;
 
 class TokenHelper
 {

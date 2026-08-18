@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Shortener;
+namespace MailVotech\CoreBundle\Shortener;
 
 interface ShortenerServiceInterface
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\EmailBundle\Entity;
+namespace MailVotech\EmailBundle\Entity;
 
 use Doctrine\ORM\NoResultException;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<Copy>
@@ -22,7 +22,7 @@ class CopyRepository extends CommonRepository
 
         try {
             $db->insert(
-                MAUTIC_TABLE_PREFIX.'email_copies',
+                MAILVOTECH_TABLE_PREFIX.'email_copies',
                 [
                     'id'           => $hash,
                     'body'         => $body,

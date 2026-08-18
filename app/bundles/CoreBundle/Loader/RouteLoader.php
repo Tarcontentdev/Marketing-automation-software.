@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CoreBundle\Loader;
+namespace MailVotech\CoreBundle\Loader;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\RouteEvent;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\RouteEvent;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\RouteCollection;
@@ -88,6 +88,6 @@ final class RouteLoader extends Loader
 
     public function supports(mixed $resource, ?string $type = null): bool
     {
-        return 'mautic' === $type;
+        return 'mailvotech' === $type;
     }
 }

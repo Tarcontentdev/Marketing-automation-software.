@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
-use Mautic\LeadBundle\Entity\DoNotContact as DNC;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\DoNotContact as DNC;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class DoNotContactAddEvent extends Event
 {
-    public const ADD_DONOT_CONTACT = 'mautic.lead.add_donot_contact';
+    public const ADD_DONOT_CONTACT = 'mailvotech.lead.add_donot_contact';
 
     public function __construct(
         private readonly Lead $lead,

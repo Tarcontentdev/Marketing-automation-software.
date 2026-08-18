@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\InstallBundle\Configurator\Step;
+namespace MailVotech\InstallBundle\Configurator\Step;
 
-use Mautic\CoreBundle\Configurator\Configurator;
-use Mautic\CoreBundle\Configurator\Step\StepInterface;
-use Mautic\InstallBundle\Configurator\Form\DoctrineStepType;
+use MailVotech\CoreBundle\Configurator\Configurator;
+use MailVotech\CoreBundle\Configurator\Step\StepInterface;
+use MailVotech\InstallBundle\Configurator\Form\DoctrineStepType;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -97,10 +97,10 @@ final class DoctrineStep implements StepInterface
         $messages = [];
 
         if (!class_exists('\PDO')) {
-            $messages[] = 'mautic.install.pdo.mandatory';
+            $messages[] = 'mailvotech.install.pdo.mandatory';
         } else {
             if (!in_array('mysql', \PDO::getAvailableDrivers(), true)) {
-                $messages[] = 'mautic.install.pdo.drivers';
+                $messages[] = 'mailvotech.install.pdo.drivers';
             }
         }
 
@@ -128,7 +128,7 @@ final class DoctrineStep implements StepInterface
 
     public function getTemplate(): string
     {
-        return '@MauticInstall/Install/doctrine.html.twig';
+        return '@MailVotechInstall/Install/doctrine.html.twig';
     }
 
     /**
@@ -147,7 +147,7 @@ final class DoctrineStep implements StepInterface
      */
     public static function getDrivers(): array
     {
-        $mauticSupported = [
+        $mailvotechSupported = [
             'pdo_mysql' => 'MySQL PDO (Recommended)',
         ];
 
@@ -158,8 +158,8 @@ final class DoctrineStep implements StepInterface
             $pdoDrivers = \PDO::getAvailableDrivers();
 
             foreach ($pdoDrivers as $driver) {
-                if (array_key_exists('pdo_'.$driver, $mauticSupported)) {
-                    $supported['pdo_'.$driver] = $mauticSupported['pdo_'.$driver];
+                if (array_key_exists('pdo_'.$driver, $mailvotechSupported)) {
+                    $supported['pdo_'.$driver] = $mailvotechSupported['pdo_'.$driver];
                 }
             }
         }

@@ -24,11 +24,11 @@
         "relationships": {
             "resource": {
                 "data": {
-                    "id": "o:mautic:p:mautic:r:resource_slug",
+                    "id": "o:mailvotech:p:mailvotech:r:resource_slug",
                     "type": "resources"
                 },
                 "links": {
-                    "related": "/resources/o:mautic:p:mautic:r:resource_slug"
+                    "related": "/resources/o:mailvotech:p:mailvotech:r:resource_slug"
                 }
             }
         },

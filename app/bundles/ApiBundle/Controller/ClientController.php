@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\ApiBundle\Controller;
+namespace MailVotech\ApiBundle\Controller;
 
-use Mautic\ApiBundle\Model\ClientModel;
-use Mautic\CoreBundle\Controller\AbstractStandardFormController;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\ApiBundle\Model\ClientModel;
+use MailVotech\CoreBundle\Controller\AbstractStandardFormController;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\UserBundle\Entity\User;
 use OAuth2\OAuth2;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,15 +34,15 @@ final class ClientController extends AbstractStandardFormController
 
         $this->setListFilters();
 
-        $pageHelper= $pageHelperFactory->make('mautic.api.client', $page);
+        $pageHelper= $pageHelperFactory->make('mailvotech.api.client', $page);
         $limit     = $pageHelper->getLimit();
         $start     = $pageHelper->getStart();
-        $orderBy   = $request->getSession()->get('mautic.api.client.orderby', 'c.name');
-        $orderByDir= $request->getSession()->get('mautic.api.client.orderbydir', 'ASC');
-        $filter    = $request->get('search', $request->getSession()->get('mautic.api.client.filter', ''));
-        $apiMode   = $request->get('api_mode', $request->getSession()->get('mautic.api.client.filter.api_mode', 'oauth2'));
-        $request->getSession()->set('mautic.api.client.filter.api_mode', $apiMode);
-        $request->getSession()->set('mautic.api.client.filter', $filter);
+        $orderBy   = $request->getSession()->get('mailvotech.api.client.orderby', 'c.name');
+        $orderByDir= $request->getSession()->get('mailvotech.api.client.orderbydir', 'ASC');
+        $filter    = $request->get('search', $request->getSession()->get('mailvotech.api.client.filter', ''));
+        $apiMode   = $request->get('api_mode', $request->getSession()->get('mailvotech.api.client.filter.api_mode', 'oauth2'));
+        $request->getSession()->set('mailvotech.api.client.filter.api_mode', $apiMode);
+        $request->getSession()->set('mailvotech.api.client.filter', $filter);
 
         $clients = $this->clientModel->getEntities(
             [
@@ -57,17 +57,17 @@ final class ClientController extends AbstractStandardFormController
         $count = count($clients);
         if ($count && $count < ($start + 1)) {
             $lastPage  = $pageHelper->countPage($count);
-            $returnUrl = $this->generateUrl('mautic_client_index', ['page' => $lastPage]);
+            $returnUrl = $this->generateUrl('mailvotech_client_index', ['page' => $lastPage]);
             $pageHelper->rememberPage($lastPage);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $lastPage],
-                    'contentTemplate' => 'Mautic\ApiBundle\Controller\ClientController::indexAction',
+                    'contentTemplate' => 'MailVotech\ApiBundle\Controller\ClientController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => 'mautic_client_index',
-                        'mauticContent' => 'client',
+                        'activeLink'    => 'mailvotech_client_index',
+                        'mailvotechContent' => 'client',
                     ],
                 ]
             );
@@ -101,10 +101,10 @@ final class ClientController extends AbstractStandardFormController
                     'searchValue' => $filter,
                     'filters'     => $filters,
                 ],
-                'contentTemplate' => '@MauticApi/Client/list.html.twig',
+                'contentTemplate' => '@MailVotechApi/Client/list.html.twig',
                 'passthroughVars' => [
-                    'route'         => $this->generateUrl('mautic_client_index', ['page' => $page]),
-                    'mauticContent' => 'client',
+                    'route'         => $this->generateUrl('mailvotech_client_index', ['page' => $page]),
+                    'mailvotechContent' => 'client',
                 ],
             ]
         );
@@ -116,7 +116,7 @@ final class ClientController extends AbstractStandardFormController
         \assert($me instanceof User);
         $clients = $this->clientModel->getUserClients($me);
 
-        return $this->render('@MauticApi/Client/authorized.html.twig', ['clients' => $clients]);
+        return $this->render('@MailVotechApi/Client/authorized.html.twig', ['clients' => $clients]);
     }
 
     /**
@@ -133,7 +133,7 @@ final class ClientController extends AbstractStandardFormController
             if (null === $client) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.api.client.error.notfound',
+                    'msg'     => 'mailvotech.api.client.error.notfound',
                     'msgVars' => ['%id%' => $clientId],
                 ];
             } else {
@@ -143,7 +143,7 @@ final class ClientController extends AbstractStandardFormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.api.client.notice.revoked',
+                    'msg'     => 'mailvotech.api.client.notice.revoked',
                     'msgVars' => [
                         '%name%' => $name,
                     ],
@@ -153,8 +153,8 @@ final class ClientController extends AbstractStandardFormController
 
         return $this->postActionRedirect(
             [
-                'returnUrl'       => $this->generateUrl('mautic_user_account'),
-                'contentTemplate' => 'Mautic\UserBundle\Controller\ProfileController::indexAction',
+                'returnUrl'       => $this->generateUrl('mailvotech_user_account'),
+                'contentTemplate' => 'MailVotech\UserBundle\Controller\ProfileController::indexAction',
                 'passthroughVars' => [
                     'success' => $success,
                 ],
@@ -172,8 +172,8 @@ final class ClientController extends AbstractStandardFormController
             $this->throwAccessDenied();
         }
 
-        $apiMode = (0 === $objectId) ? $request->getSession()->get('mautic.client.filter.api_mode', 'oauth2') : $objectId;
-        $request->getSession()->set('mautic.client.filter.api_mode', $apiMode);
+        $apiMode = (0 === $objectId) ? $request->getSession()->get('mailvotech.client.filter.api_mode', 'oauth2') : $objectId;
+        $request->getSession()->set('mailvotech.client.filter.api_mode', $apiMode);
 
         $this->clientModel->setApiMode($apiMode);
 
@@ -181,10 +181,10 @@ final class ClientController extends AbstractStandardFormController
         $client = $this->clientModel->getEntity();
 
         // set the return URL for post actions
-        $returnUrl = $this->generateUrl('mautic_client_index');
+        $returnUrl = $this->generateUrl('mailvotech_client_index');
 
         // get the user form factory
-        $action = $this->generateUrl('mautic_client_action', ['objectAction' => 'new']);
+        $action = $this->generateUrl('mailvotech_client_action', ['objectAction' => 'new']);
         $form   = $this->clientModel->createForm($client, $this->formFactory, $action);
 
         // remove the client id and secret fields as they'll be auto generated
@@ -209,13 +209,13 @@ final class ClientController extends AbstractStandardFormController
                     $client->setRole($user->getRole());
                     $this->clientModel->saveEntity($client);
                     $this->addFlashMessage(
-                        'mautic.api.client.notice.created',
+                        'mailvotech.api.client.notice.created',
                         [
                             '%name%'         => $client->getName(),
                             '%clientId%'     => $client->getPublicId(),
                             '%clientSecret%' => $client->getSecret(),
                             '%url%'          => $this->generateUrl(
-                                'mautic_client_action',
+                                'mailvotech_client_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $client->getId(),
@@ -230,10 +230,10 @@ final class ClientController extends AbstractStandardFormController
                 return $this->postActionRedirect(
                     [
                         'returnUrl'       => $returnUrl,
-                        'contentTemplate' => 'Mautic\ApiBundle\Controller\ClientController::indexAction',
+                        'contentTemplate' => 'MailVotech\ApiBundle\Controller\ClientController::indexAction',
                         'passthroughVars' => [
-                            'activeLink'    => '#mautic_client_index',
-                            'mauticContent' => 'client',
+                            'activeLink'    => '#mailvotech_client_index',
+                            'mailvotechContent' => 'client',
                         ],
                     ]
                 );
@@ -249,11 +249,11 @@ final class ClientController extends AbstractStandardFormController
                     'form' => $form->createView(),
                     'tmpl' => $request->get('tmpl', 'form'),
                 ],
-                'contentTemplate' => '@MauticApi/Client/form.html.twig',
+                'contentTemplate' => '@MailVotechApi/Client/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_client_new',
+                    'activeLink'    => '#mailvotech_client_new',
                     'route'         => $action,
-                    'mauticContent' => 'client',
+                    'mailvotechContent' => 'client',
                 ],
             ]
         );
@@ -272,14 +272,14 @@ final class ClientController extends AbstractStandardFormController
         }
 
         $client    = $this->clientModel->getEntity($objectId);
-        $returnUrl = $this->generateUrl('mautic_client_index');
+        $returnUrl = $this->generateUrl('mailvotech_client_index');
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
-            'contentTemplate' => 'Mautic\ApiBundle\Controller\ClientController::indexAction',
+            'contentTemplate' => 'MailVotech\ApiBundle\Controller\ClientController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_client_index',
-                'mauticContent' => 'client',
+                'activeLink'    => '#mailvotech_client_index',
+                'mailvotechContent' => 'client',
             ],
         ];
 
@@ -292,7 +292,7 @@ final class ClientController extends AbstractStandardFormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.api.client.error.notfound',
+                                'msg'     => 'mailvotech.api.client.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -305,7 +305,7 @@ final class ClientController extends AbstractStandardFormController
             return $this->isLocked($postActionVars, $client, 'api.client');
         }
 
-        $action = $this->generateUrl('mautic_client_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_client_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $form   = $this->clientModel->createForm($client, $this->formFactory, $action);
 
         // remove api_mode field
@@ -318,12 +318,12 @@ final class ClientController extends AbstractStandardFormController
                     // form is valid so process the data
                     $this->clientModel->saveEntity($client, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
                     $this->addFlashMessage(
-                        'mautic.core.notice.updated',
+                        'mailvotech.core.notice.updated',
                         [
                             '%name%'      => $client->getName(),
-                            '%menu_link%' => 'mautic_client_index',
+                            '%menu_link%' => 'mailvotech_client_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_client_action',
+                                'mailvotech_client_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $client->getId(),
@@ -353,11 +353,11 @@ final class ClientController extends AbstractStandardFormController
                     'form' => $form->createView(),
                     'tmpl' => $request->get('tmpl', 'form'),
                 ],
-                'contentTemplate' => '@MauticApi/Client/form.html.twig',
+                'contentTemplate' => '@MailVotechApi/Client/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_client_index',
+                    'activeLink'    => '#mailvotech_client_index',
                     'route'         => $action,
-                    'mauticContent' => 'client',
+                    'mailvotechContent' => 'client',
                 ],
             ]
         );
@@ -374,17 +374,17 @@ final class ClientController extends AbstractStandardFormController
             $this->throwAccessDenied();
         }
 
-        $returnUrl = $this->generateUrl('mautic_client_index');
+        $returnUrl = $this->generateUrl('mailvotech_client_index');
         $success   = 0;
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
-            'contentTemplate' => 'Mautic\ApiBundle\Controller\ClientController::indexAction',
+            'contentTemplate' => 'MailVotech\ApiBundle\Controller\ClientController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_client_index',
+                'activeLink'    => '#mailvotech_client_index',
                 'success'       => $success,
-                'mauticContent' => 'client',
+                'mailvotechContent' => 'client',
             ],
         ];
 
@@ -393,7 +393,7 @@ final class ClientController extends AbstractStandardFormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.api.client.error.notfound',
+                    'msg'     => 'mailvotech.api.client.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif ($this->clientModel->isLocked($entity)) {
@@ -404,7 +404,7 @@ final class ClientController extends AbstractStandardFormController
                 $name      = $entity->getName();
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.core.notice.deleted',
+                    'msg'     => 'mailvotech.core.notice.deleted',
                     'msgVars' => [
                         '%name%' => $name,
                         '%id%'   => $objectId,

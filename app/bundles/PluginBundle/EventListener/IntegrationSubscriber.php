@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\PluginBundle\EventListener;
+namespace MailVotech\PluginBundle\EventListener;
 
-use Mautic\PluginBundle\Event\PluginIntegrationRequestEvent;
-use Mautic\PluginBundle\Helper\oAuthHelper;
-use Mautic\PluginBundle\PluginEvents;
+use MailVotech\PluginBundle\Event\PluginIntegrationRequestEvent;
+use MailVotech\PluginBundle\Helper\oAuthHelper;
+use MailVotech\PluginBundle\PluginEvents;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -35,8 +35,8 @@ final readonly class IntegrationSubscriber implements EventSubscriberInterface
         $params   = var_export($event->getParameters(), true);
         $settings = var_export($event->getSettings(), true);
 
-        if (defined('IN_MAUTIC_CONSOLE') && defined('MAUTIC_CONSOLE_VERBOSITY')
-            && MAUTIC_CONSOLE_VERBOSITY >= ConsoleOutput::VERBOSITY_VERY_VERBOSE) {
+        if (defined('IN_MAILVOTECH_CONSOLE') && defined('MAILVOTECH_CONSOLE_VERBOSITY')
+            && MAILVOTECH_CONSOLE_VERBOSITY >= ConsoleOutput::VERBOSITY_VERY_VERBOSE) {
             $output = new ConsoleOutput();
             $output->writeln('<fg=magenta>REQUEST:</>');
             $output->writeln('<fg=white>'.$event->getMethod().' '.$event->getUrl().'</>');
@@ -78,8 +78,8 @@ final readonly class IntegrationSubscriber implements EventSubscriberInterface
             $xml = $doc->saveXML();
         }
 
-        if (defined('IN_MAUTIC_CONSOLE') && defined('MAUTIC_CONSOLE_VERBOSITY')
-            && MAUTIC_CONSOLE_VERBOSITY >= ConsoleOutput::VERBOSITY_VERY_VERBOSE) {
+        if (defined('IN_MAILVOTECH_CONSOLE') && defined('MAILVOTECH_CONSOLE_VERBOSITY')
+            && MAILVOTECH_CONSOLE_VERBOSITY >= ConsoleOutput::VERBOSITY_VERY_VERBOSE) {
             $output = new ConsoleOutput();
             $output->writeln(sprintf('<fg=magenta>RESPONSE: %d</>', $response->getStatusCode()));
             $output->writeln('<fg=cyan>'.$headers.'</>');

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\LeadBundle\Entity\Import;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\LeadBundle\Event\ImportInitEvent;
-use Mautic\LeadBundle\Event\ImportMappingEvent;
-use Mautic\LeadBundle\Event\ImportProcessEvent;
-use Mautic\LeadBundle\Event\ImportValidateEvent;
-use Mautic\LeadBundle\EventListener\ImportCompanySubscriber;
-use Mautic\LeadBundle\Field\FieldList;
-use Mautic\LeadBundle\Model\CompanyModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\LeadBundle\Entity\Import;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Event\ImportInitEvent;
+use MailVotech\LeadBundle\Event\ImportMappingEvent;
+use MailVotech\LeadBundle\Event\ImportProcessEvent;
+use MailVotech\LeadBundle\Event\ImportValidateEvent;
+use MailVotech\LeadBundle\EventListener\ImportCompanySubscriber;
+use MailVotech\LeadBundle\Field\FieldList;
+use MailVotech\LeadBundle\Model\CompanyModel;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\Form;
@@ -89,9 +89,9 @@ final class ImportCompanySubscriberTest extends \PHPUnit\Framework\TestCase
         $subscriber->onImportInit($event);
         $this->assertTrue($event->objectSupported);
         $this->assertSame('company', $event->objectSingular);
-        $this->assertSame('mautic.lead.lead.companies', $event->objectName);
-        $this->assertSame('#mautic_company_index', $event->activeLink);
-        $this->assertSame('mautic_company_index', $event->indexRoute);
+        $this->assertSame('mailvotech.lead.lead.companies', $event->objectName);
+        $this->assertSame('#mailvotech_company_index', $event->activeLink);
+        $this->assertSame('mailvotech_company_index', $event->indexRoute);
     }
 
     public function testOnFieldMappingForUnknownObject(): void
@@ -133,14 +133,14 @@ final class ImportCompanySubscriberTest extends \PHPUnit\Framework\TestCase
         $subscriber->onFieldMapping($event);
         $this->assertTrue($event->objectSupported);
         $this->assertSame([
-            'mautic.lead.company' => [
+            'mailvotech.lead.company' => [
                 'some fields',
             ],
-            'mautic.lead.special_fields' => [
-                'dateAdded'      => 'mautic.lead.import.label.dateAdded',
-                'createdByUser'  => 'mautic.lead.import.label.createdByUser',
-                'dateModified'   => 'mautic.lead.import.label.dateModified',
-                'modifiedByUser' => 'mautic.lead.import.label.modifiedByUser',
+            'mailvotech.lead.special_fields' => [
+                'dateAdded'      => 'mailvotech.lead.import.label.dateAdded',
+                'createdByUser'  => 'mailvotech.lead.import.label.createdByUser',
+                'dateModified'   => 'mailvotech.lead.import.label.dateModified',
+                'modifiedByUser' => 'mailvotech.lead.import.label.modifiedByUser',
             ],
         ], $event->fields);
     }
@@ -227,7 +227,7 @@ final class ImportCompanySubscriberTest extends \PHPUnit\Framework\TestCase
         $translatorInterfaceMock->expects($this->once())
             ->method('trans')
             ->with(
-                'mautic.import.missing.required.fields',
+                'mailvotech.import.missing.required.fields',
                 [
                     '%requiredFields%' => implode(', ', $missingRequiredFields),
                     '%fieldOrFields%'  => 'field',

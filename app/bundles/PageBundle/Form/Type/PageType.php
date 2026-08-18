@@ -1,24 +1,24 @@
 <?php
 
-namespace Mautic\PageBundle\Form\Type;
+namespace MailVotech\PageBundle\Form\Type;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CategoryBundle\Form\Type\CategoryListType;
-use Mautic\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\PublishDownDateType;
-use Mautic\CoreBundle\Form\Type\PublishUpDateType;
-use Mautic\CoreBundle\Form\Type\ThemeListType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Helper\ThemeHelperInterface;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Entity\PageRepository;
-use Mautic\PageBundle\Helper\PageConfigInterface;
-use Mautic\ProjectBundle\Form\Type\ProjectType;
+use MailVotech\CategoryBundle\Form\Type\CategoryListType;
+use MailVotech\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\PublishDownDateType;
+use MailVotech\CoreBundle\Form\Type\PublishUpDateType;
+use MailVotech\CoreBundle\Form\Type\ThemeListType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Helper\ThemeHelperInterface;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\PageRepository;
+use MailVotech\PageBundle\Helper\PageConfigInterface;
+use MailVotech\ProjectBundle\Form\Type\ProjectType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
@@ -37,7 +37,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class PageType extends AbstractType
 {
-    private readonly ?\Mautic\UserBundle\Entity\User $user;
+    private readonly ?\MailVotech\UserBundle\Entity\User $user;
 
     private readonly bool $canViewOther;
 
@@ -62,7 +62,7 @@ final class PageType extends AbstractType
             'title',
             TextType::class,
             [
-                'label'      => 'mautic.core.title',
+                'label'      => 'mailvotech.core.title',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
             ]
@@ -76,10 +76,10 @@ final class PageType extends AbstractType
             'customHtml',
             TextareaType::class,
             [
-                'label'    => 'mautic.page.form.customhtml',
+                'label'    => 'mailvotech.page.form.customhtml',
                 'required' => false,
                 'attr'     => [
-                    'tooltip'              => 'mautic.page.form.customhtml.help',
+                    'tooltip'              => 'mailvotech.page.form.customhtml.help',
                     'class'                => 'form-control editor-builder-tokens builder-html',
                     'data-token-callback'  => 'page:getBuilderTokens',
                     'data-token-activator' => '{',
@@ -102,25 +102,25 @@ final class PageType extends AbstractType
                 'feature' => 'page',
                 'attr'    => [
                     'class'   => 'form-control not-chosen hidden',
-                    'tooltip' => 'mautic.page.form.template.help',
+                    'tooltip' => 'mailvotech.page.form.template.help',
                 ],
-                'placeholder' => 'mautic.core.none',
+                'placeholder' => 'mailvotech.core.none',
                 'data'        => $template,
             ]
         );
 
         $builder->add('isPublished', YesNoButtonGroupType::class, [
-            'label' => 'mautic.core.form.available',
+            'label' => 'mailvotech.core.form.available',
         ]);
 
         $builder->add(
             'isPreferenceCenter',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.page.form.preference_center',
+                'label' => 'mailvotech.page.form.preference_center',
                 'data'  => $options['data']->isPreferenceCenter() ?: false,
                 'attr'  => [
-                    'tooltip' => 'mautic.page.form.preference_center.tooltip',
+                    'tooltip' => 'mailvotech.page.form.preference_center.tooltip',
                 ],
             ]
         );
@@ -129,7 +129,7 @@ final class PageType extends AbstractType
             'noIndex',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.page.config.no_index',
+                'label' => 'mailvotech.page.config.no_index',
                 'data'  => $options['data']->getNoIndex() ?: false,
             ]
         );
@@ -160,15 +160,15 @@ final class PageType extends AbstractType
                 'translationParent',
                 PageListType::class,
                 [
-                    'label'      => 'mautic.core.form.translation_parent',
+                    'label'      => 'mailvotech.core.form.translation_parent',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.core.form.translation_parent.help',
+                        'tooltip' => 'mailvotech.core.form.translation_parent.help',
                     ],
                     'required'    => false,
                     'multiple'    => false,
-                    'placeholder' => 'mautic.core.form.translation_parent.empty',
+                    'placeholder' => 'mailvotech.core.form.translation_parent.empty',
                     'top_level'   => 'translation',
                     'ignore_ids'  => [(int) $options['data']->getId()],
                 ]
@@ -216,7 +216,7 @@ final class PageType extends AbstractType
             'metaDescription',
             TextareaType::class,
             [
-                'label'      => 'mautic.page.form.metadescription',
+                'label'      => 'mailvotech.page.form.metadescription',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control', 'maxlength' => 160],
                 'required'   => false,
@@ -227,12 +227,12 @@ final class PageType extends AbstractType
             'headScript',
             TextareaType::class,
             [
-                'label'      => 'mautic.page.form.headscript',
+                'label'      => 'mailvotech.page.form.headscript',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
                     'rows'    => '8',
-                    'tooltip' => 'mautic.page.form.script.help',
+                    'tooltip' => 'mailvotech.page.form.script.help',
                 ],
                 'required'   => false,
             ]
@@ -242,12 +242,12 @@ final class PageType extends AbstractType
             'footerScript',
             TextareaType::class,
             [
-                'label'      => 'mautic.page.form.footerscript',
+                'label'      => 'mailvotech.page.form.footerscript',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
                     'rows'    => '8',
-                    'tooltip' => 'mautic.page.form.script.help',
+                    'tooltip' => 'mailvotech.page.form.script.help',
                 ],
                 'required'   => false,
             ]
@@ -260,9 +260,9 @@ final class PageType extends AbstractType
                 'feature' => 'page',
                 'attr'    => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.page.form.redirecttype.help',
+                    'tooltip' => 'mailvotech.page.form.redirecttype.help',
                 ],
-                'placeholder' => 'mautic.page.form.redirecttype.none',
+                'placeholder' => 'mailvotech.page.form.redirecttype.none',
             ]
         );
 
@@ -271,14 +271,14 @@ final class PageType extends AbstractType
             UrlType::class,
             [
                 'required'   => true,
-                'label'      => 'mautic.page.form.redirecturl',
+                'label'      => 'mailvotech.page.form.redirecturl',
                 'label_attr' => [
                     'class' => 'control-label',
                 ],
                 'attr' => [
                     'class'        => 'form-control',
                     'maxlength'    => 200,
-                    'tooltip'      => 'mautic.page.form.redirecturl.help',
+                    'tooltip'      => 'mailvotech.page.form.redirecturl.help',
                     'data-hide-on' => '{"page_redirectType":""}',
                     'data-toggle'  => 'field-lookup',
                     'data-action'  => 'page:fieldList',
@@ -293,11 +293,11 @@ final class PageType extends AbstractType
             'alias',
             TextType::class,
             [
-                'label'      => 'mautic.core.alias',
+                'label'      => 'mailvotech.core.alias',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.page.help.alias',
+                    'tooltip' => 'mailvotech.page.help.alias',
                 ],
                 'required' => false,
             ]
@@ -318,11 +318,11 @@ final class PageType extends AbstractType
             'language',
             LocaleType::class,
             [
-                'label'      => 'mautic.core.language',
+                'label'      => 'mailvotech.core.language',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.page.form.language.help',
+                    'tooltip' => 'mailvotech.page.form.language.help',
                 ],
                 'required'   => true,
             ]
@@ -335,11 +335,11 @@ final class PageType extends AbstractType
         $extraButtons['pre_extra_buttons'] = [
             [
                 'name'  => 'builder',
-                'label' => 'mautic.core.builder',
+                'label' => 'mailvotech.core.builder',
                 'attr'  => [
                     'class'   => 'btn btn-tertiary btn-dnd btn-nospin btn-builder text-interactive',
                     'icon'    => 'ri-layout-line',
-                    'onclick' => "Mautic.launchBuilder('page');",
+                    'onclick' => "MailVotech.launchBuilder('page');",
                 ],
             ],
         ];
@@ -371,7 +371,7 @@ final class PageType extends AbstractType
         if ($page->hasDraft()) {
             $draftActionButtons[] = [
                 'name'  => 'apply_draft',
-                'label' => 'mautic.core.applydraft',
+                'label' => 'mailvotech.core.applydraft',
                 'type'  => SubmitType::class,
                 'attr'  => [
                     'class'   => 'btn btn-primary btn-apply-draft btn-copy',
@@ -380,7 +380,7 @@ final class PageType extends AbstractType
             ];
             $draftActionButtons[] = [
                 'name'  => 'discard_draft',
-                'label' => 'mautic.core.discarddraft',
+                'label' => 'mailvotech.core.discarddraft',
                 'type'  => SubmitType::class,
                 'attr'  => [
                     'class'   => 'btn btn-primary btn-apply-draft btn-copy',
@@ -390,7 +390,7 @@ final class PageType extends AbstractType
         } else {
             $draftActionButtons[] = [
                 'name'  => 'save_draft',
-                'label' => 'mautic.core.saveasdraft',
+                'label' => 'mailvotech.core.saveasdraft',
                 'type'  => SubmitType::class,
                 'attr'  => [
                     'class'   => 'btn btn-primary btn-default text-primary btn-save-draft',

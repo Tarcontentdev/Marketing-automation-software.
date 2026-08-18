@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\WebhookBundle\Entity;
+namespace MailVotech\WebhookBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<Event>

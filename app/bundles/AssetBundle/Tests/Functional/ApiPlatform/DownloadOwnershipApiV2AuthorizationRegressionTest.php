@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\Functional\ApiPlatform;
+namespace MailVotech\AssetBundle\Tests\Functional\ApiPlatform;
 
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Entity\Download;
-use Mautic\LeadBundle\Tests\Functional\ApiPlatform\OwnershipScopedApiAuthorizationTestBase;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Entity\Download;
+use MailVotech\LeadBundle\Tests\Functional\ApiPlatform\OwnershipScopedApiAuthorizationTestBase;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

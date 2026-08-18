@@ -17,9 +17,9 @@ if (typeof Chart != 'undefined') {
  *
  * @param mQuery|string scope
  */
-Mautic.renderCharts = function(scope) {
+MailVotech.renderCharts = function(scope) {
     var charts = [];
-    if (!Mautic.chartObjects) Mautic.chartObjects = [];
+    if (!MailVotech.chartObjects) MailVotech.chartObjects = [];
 
     if (mQuery.type(scope) === 'string') {
         charts = mQuery(scope).find('canvas.chart');
@@ -34,19 +34,19 @@ Mautic.renderCharts = function(scope) {
             canvas = mQuery(canvas);
             if (!canvas.hasClass('chart-rendered')) {
                 if (canvas.hasClass('line-chart')) {
-                    Mautic.renderLineChart(canvas)
+                    MailVotech.renderLineChart(canvas)
                 } else if (canvas.hasClass('pie-chart')) {
-                    Mautic.renderPieChart(canvas)
+                    MailVotech.renderPieChart(canvas)
                 } else if (canvas.hasClass('bar-chart')) {
-                    Mautic.renderBarChart(canvas)
+                    MailVotech.renderBarChart(canvas)
                 } else if (canvas.hasClass('liefechart-bar-chart')) {
-                    Mautic.renderLifechartBarChart(canvas)
+                    MailVotech.renderLifechartBarChart(canvas)
                 } else if (canvas.hasClass('simple-bar-chart')) {
-                    Mautic.renderSimpleBarChart(canvas)
+                    MailVotech.renderSimpleBarChart(canvas)
                 } else if (canvas.hasClass('horizontal-bar-chart')) {
-                    Mautic.renderHorizontalBarChart(canvas)
+                    MailVotech.renderHorizontalBarChart(canvas)
                 } else if (canvas.hasClass('hour-chart')) {
-                    Mautic.renderHourChart(canvas)
+                    MailVotech.renderHourChart(canvas)
                 }
             }
             canvas.addClass('chart-rendered');
@@ -59,7 +59,7 @@ Mautic.renderCharts = function(scope) {
  *
  * @param mQuery element canvas
  */
-Mautic.renderLineChart = function(canvas) {
+MailVotech.renderLineChart = function(canvas) {
     var data = JSON.parse(canvas.text());
     if (!data.labels.length || !data.datasets.length) return;
     var chart = new Chart(canvas, {
@@ -117,10 +117,10 @@ Mautic.renderLineChart = function(canvas) {
             }
         }
     });
-    Mautic.chartObjects.push(chart);
+    MailVotech.chartObjects.push(chart);
 };
 
-Mautic.renderHourChart = function(canvas) {
+MailVotech.renderHourChart = function(canvas) {
     const data = JSON.parse(canvas.text());
     const chart = new Chart(canvas, {
         type: 'line',
@@ -155,7 +155,7 @@ Mautic.renderHourChart = function(canvas) {
             }
         }
     });
-    Mautic.chartObjects.push(chart);
+    MailVotech.chartObjects.push(chart);
 };
 
 
@@ -164,7 +164,7 @@ Mautic.renderHourChart = function(canvas) {
  *
  * @param mQuery element canvas
  */
-Mautic.renderPieChart = function(canvas) {
+MailVotech.renderPieChart = function(canvas) {
     var data = JSON.parse(canvas.text());
     var options = {borderWidth: 1};
     var disableLegend = canvas.attr('data-disable-legend');
@@ -173,13 +173,13 @@ Mautic.renderPieChart = function(canvas) {
             display: false
         }
     }
-    // data = Mautic.emulateNoDataForPieChart(data);
+    // data = MailVotech.emulateNoDataForPieChart(data);
     var chart = new Chart(canvas, {
         type: 'pie',
         data: data,
         options: options
     });
-    Mautic.chartObjects.push(chart);
+    MailVotech.chartObjects.push(chart);
 };
 
 /**
@@ -187,7 +187,7 @@ Mautic.renderPieChart = function(canvas) {
  *
  * @param mQuery element canvas
  */
-Mautic.renderBarChart = function(canvas) {
+MailVotech.renderBarChart = function(canvas) {
     var data = JSON.parse(canvas.text());
     var chart = new Chart(canvas, {
         type: 'bar',
@@ -200,7 +200,7 @@ Mautic.renderBarChart = function(canvas) {
             }
         }
     });
-    Mautic.chartObjects.push(chart);
+    MailVotech.chartObjects.push(chart);
 };
 
 /**
@@ -208,7 +208,7 @@ Mautic.renderBarChart = function(canvas) {
  *
  * @param mQuery element canvas
  */
-Mautic.renderLifechartBarChart = function(canvas) {
+MailVotech.renderLifechartBarChart = function(canvas) {
     var canvasWidth = mQuery(canvas).parent().width();
     var barWidth    = (canvasWidth < 300) ? 5 : 25;
     var data = JSON.parse(canvas.text());
@@ -225,7 +225,7 @@ Mautic.renderLifechartBarChart = function(canvas) {
             }
         }
     });
-    Mautic.chartObjects.push(chart);
+    MailVotech.chartObjects.push(chart);
 };
 
 /**
@@ -233,7 +233,7 @@ Mautic.renderLifechartBarChart = function(canvas) {
  *
  * @param mQuery element canvas
  */
-Mautic.renderSimpleBarChart = function(canvas) {
+MailVotech.renderSimpleBarChart = function(canvas) {
     var data = JSON.parse(canvas.text());
     var chart = new Chart(canvas, {
         type: 'bar',
@@ -258,7 +258,7 @@ Mautic.renderSimpleBarChart = function(canvas) {
             }
         }
     });
-    Mautic.chartObjects.push(chart);
+    MailVotech.chartObjects.push(chart);
 };
 
 /**
@@ -266,7 +266,7 @@ Mautic.renderSimpleBarChart = function(canvas) {
  *
  * @param mQuery element canvas
  */
-Mautic.renderHorizontalBarChart = function(canvas) {
+MailVotech.renderHorizontalBarChart = function(canvas) {
     var data = JSON.parse(canvas.text());
     var chart = new Chart(canvas, {
         type: 'horizontalBar',
@@ -308,13 +308,13 @@ Mautic.renderHorizontalBarChart = function(canvas) {
             }
         }
     });
-    Mautic.chartObjects.push(chart);
+    MailVotech.chartObjects.push(chart);
 };
 
 /**
  * Initialize graph date range selectors
  */
-Mautic.initDateRangePicker = function (fromId, toId) {
+MailVotech.initDateRangePicker = function (fromId, toId) {
     var dateFrom = mQuery(fromId);
     var dateTo = mQuery(toId);
 
@@ -346,7 +346,7 @@ Mautic.initDateRangePicker = function (fromId, toId) {
     }
 };
 
-Mautic.setDateRange = (option) => {
+MailVotech.setDateRange = (option) => {
   const today = new Date();
   const dayInMilliseconds = 24 * 60 * 60 * 1000;
   let fromDate;
@@ -382,12 +382,12 @@ Mautic.setDateRange = (option) => {
     return;
   }
 
-  dateFromInput.value = Mautic.formatDate(fromDate);
-  dateToInput.value = Mautic.formatDate(toDate);
+  dateFromInput.value = MailVotech.formatDate(fromDate);
+  dateToInput.value = MailVotech.formatDate(toDate);
   applyButton.click();
 };
 
-Mautic.formatDate = (date) => {
+MailVotech.formatDate = (date) => {
   const monthNames = [
     'Jan',
     'Feb',
@@ -422,7 +422,7 @@ document.addEventListener('click', (event) => {
   const option = dateRangeTrigger.dataset.dateRangeOption;
   const dateRangeOption = /^\d+$/.test(option) ? Number(option) : option;
 
-  Mautic.setDateRange(dateRangeOption);
+  MailVotech.setDateRange(dateRangeOption);
 });
 
 /**
@@ -433,7 +433,7 @@ document.addEventListener('click', (event) => {
  * @param query
  * @param callback
  */
-Mautic.getChartData = function(element, action, query, callback) {
+MailVotech.getChartData = function(element, action, query, callback) {
     var element = mQuery(element);
     var wrapper = element.closest('ul');
     var button  = mQuery('#time-scopes .button-label');
@@ -446,22 +446,22 @@ Mautic.getChartData = function(element, action, query, callback) {
 
     mQuery.ajax({
         showLoadingBar: true,
-        url: mauticAjaxUrl,
+        url: mailvotechAjaxUrl,
         type: 'POST',
         data: query,
         dataType: "json",
         success: function (response) {
             if (response.success) {
-                Mautic.stopPageLoadingBar();
+                MailVotech.stopPageLoadingBar();
                 if (typeof callback == 'function') {
                     callback(response);
-                } else if(typeof window["Mautic"][callback] !== 'undefined') {
-                    window["Mautic"][callback].apply('window', [response]);
+                } else if(typeof window["MailVotech"][callback] !== 'undefined') {
+                    window["MailVotech"][callback].apply('window', [response]);
                 }
             }
         },
         error: function (request, textStatus, errorThrown) {
-            Mautic.processAjaxError(request, textStatus, errorThrown);
+            MailVotech.processAjaxError(request, textStatus, errorThrown);
         }
     });
 };
@@ -472,7 +472,7 @@ Mautic.getChartData = function(element, action, query, callback) {
  *
  * @param data
  */
-Mautic.emulateNoDataForPieChart = function (data) {
+MailVotech.emulateNoDataForPieChart = function (data) {
     var dataEmpty = true;
     mQuery.each(data, function (i, part) {
         if (part.value) {

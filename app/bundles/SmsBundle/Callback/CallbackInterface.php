@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Callback;
+namespace MailVotech\SmsBundle\Callback;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\SmsBundle\Exception\NumberNotFoundException;
+use MailVotech\SmsBundle\Exception\NumberNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

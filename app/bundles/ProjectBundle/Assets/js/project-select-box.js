@@ -46,14 +46,14 @@ class ProjectSelectBox {
             return;
         }
 
-        Mautic.activateLabelLoadingIndicator($projectSelect.attr('id'));
+        MailVotech.activateLabelLoadingIndicator($projectSelect.attr('id'));
 
-        Mautic.ajaxActionRequest('project:addProjects', {newProjectNames: JSON.stringify(newProjectNames), existingProjectIds: JSON.stringify(existingProjectIds)}, function(response) {
+        MailVotech.ajaxActionRequest('project:addProjects', {newProjectNames: JSON.stringify(newProjectNames), existingProjectIds: JSON.stringify(existingProjectIds)}, function(response) {
             if (response.projects) {
                 mQuery('#' + $projectSelect.attr('id')).html(response.projects).trigger('chosen:updated');
             }
 
-            Mautic.removeLabelLoadingIndicator();
+            MailVotech.removeLabelLoadingIndicator();
         });
     }
 }
@@ -78,8 +78,8 @@ mQuery(document).on('change', '#project-entity-selector, #entity-type-selector',
         const url = $selectedOption.data('href');
         const header = $selectedOption.data('header');
         
-        // Use Mautic's loadAjaxModal function
-        Mautic.loadAjaxModal('#MauticSharedModal', url, 'GET', header);
+        // Use MailVotech's loadAjaxModal function
+        MailVotech.loadAjaxModal('#MailVotechSharedModal', url, 'GET', header);
         
         // Reset the select to placeholder after opening modal
         $select.val('');

@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\SmsBundle\EventListener;
+namespace MailVotech\SmsBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Form\Type\SmsSendType;
-use Mautic\SmsBundle\Model\SmsModel;
-use Mautic\SmsBundle\Sms\TransportChain;
-use Mautic\SmsBundle\SmsEvents;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Form\Type\SmsSendType;
+use MailVotech\SmsBundle\Model\SmsModel;
+use MailVotech\SmsBundle\Sms\TransportChain;
+use MailVotech\SmsBundle\SmsEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -36,12 +36,12 @@ final readonly class CampaignSendSubscriber implements EventSubscriberInterface
             $event->addAction(
                 'sms.send_text_sms',
                 [
-                    'label'            => 'mautic.campaign.sms.send_text_sms',
-                    'description'      => 'mautic.campaign.sms.send_text_sms.tooltip',
+                    'label'            => 'mailvotech.campaign.sms.send_text_sms',
+                    'description'      => 'mailvotech.campaign.sms.send_text_sms.tooltip',
                     'batchEventName'   => SmsEvents::ON_CAMPAIGN_TRIGGER_BATCH_ACTION,
                     'formType'         => SmsSendType::class,
                     'formTypeOptions'  => ['update_select' => 'campaignevent_properties_sms'],
-                    'formTheme'        => '@MauticSms/FormTheme/SmsSendList/smssend_list_row.html.twig',
+                    'formTheme'        => '@MailVotechSms/FormTheme/SmsSendList/smssend_list_row.html.twig',
                     'channel'          => 'sms',
                     'channelIdField'   => 'sms',
                 ]
@@ -55,13 +55,13 @@ final readonly class CampaignSendSubscriber implements EventSubscriberInterface
         $sms   = $smsId ? $this->smsModel->getEntity($smsId) : null;
 
         if (!$sms) {
-            $event->passAllWithError($this->translator->trans('mautic.sms.campaign.failed.missing_entity'));
+            $event->passAllWithError($this->translator->trans('mailvotech.sms.campaign.failed.missing_entity'));
 
             return;
         }
 
         if (!$sms->isPublished()) {
-            $event->passAllWithError($this->translator->trans('mautic.sms.campaign.failed.unpublished'));
+            $event->passAllWithError($this->translator->trans('mailvotech.sms.campaign.failed.unpublished'));
 
             return;
         }
@@ -89,6 +89,6 @@ final readonly class CampaignSendSubscriber implements EventSubscriberInterface
             }
         }
 
-        $event->failRemaining($this->translator->trans('mautic.sms.campaign.failed.missing_entity'));
+        $event->failRemaining($this->translator->trans('mailvotech.sms.campaign.failed.missing_entity'));
     }
 }

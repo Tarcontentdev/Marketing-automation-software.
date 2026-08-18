@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDevice;
-use Mautic\LeadBundle\Entity\LeadDeviceRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDevice;
+use MailVotech\LeadBundle\Entity\LeadDeviceRepository;
 
-final class LeadDeviceRepositoryTest extends MauticMysqlTestCase
+final class LeadDeviceRepositoryTest extends MailVotechMysqlTestCase
 {
     public function testFindExistingDevice(): void
     {

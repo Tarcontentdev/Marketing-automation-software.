@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\IntegrationCampaign;
+namespace MailVotech\LeadBundle\Tests\Segment\IntegrationCampaign;
 
-use Mautic\LeadBundle\Segment\IntegrationCampaign\IntegrationCampaignParts;
+use MailVotech\LeadBundle\Segment\IntegrationCampaign\IntegrationCampaignParts;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(IntegrationCampaignParts::class)]

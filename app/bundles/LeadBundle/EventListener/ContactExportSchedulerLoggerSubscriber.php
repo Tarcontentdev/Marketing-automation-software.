@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Entity\ContactExportScheduler;
-use Mautic\LeadBundle\Event\ContactExportSchedulerEvent;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Entity\ContactExportScheduler;
+use MailVotech\LeadBundle\Event\ContactExportSchedulerEvent;
+use MailVotech\LeadBundle\LeadEvents;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

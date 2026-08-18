@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -19,7 +19,7 @@ final class DncType extends AbstractType
             'reason',
             TextareaType::class,
             [
-                'label'      => 'mautic.lead.batch.dnc_reason',
+                'label'      => 'mailvotech.lead.batch.dnc_reason',
                 'required'   => false,
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
@@ -36,7 +36,7 @@ final class DncType extends AbstractType
             FormButtonsType::class,
             [
                 'apply_text'     => false,
-                'save_text'      => 'mautic.core.form.save',
+                'save_text'      => 'mailvotech.core.form.save',
                 'cancel_onclick' => 'javascript:void(0);',
                 'cancel_attr'    => [
                     'data-dismiss' => 'modal',

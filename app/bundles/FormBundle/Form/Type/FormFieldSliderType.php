@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
-use Mautic\FormBundle\Validator\Constraint\SliderMaxGreaterThanMin;
-use Mautic\FormBundle\Validator\Constraint\SliderStepLessThanMax;
+use MailVotech\FormBundle\Validator\Constraint\SliderMaxGreaterThanMin;
+use MailVotech\FormBundle\Validator\Constraint\SliderStepLessThanMax;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Range;
@@ -18,7 +18,7 @@ final class FormFieldSliderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('min', ConstrainedIntegerType::class, [
-            'label'      => 'mautic.form.field.form.slider_min',
+            'label'      => 'mailvotech.form.field.form.slider_min',
             'label_attr' => ['class' => 'control-label'],
             'required'   => false,
             'attr'       => ['class' => 'form-control'],
@@ -26,25 +26,25 @@ final class FormFieldSliderType extends AbstractType
         ]);
 
         $builder->add('max', ConstrainedIntegerType::class, [
-            'label'       => 'mautic.form.field.form.slider_max',
+            'label'       => 'mailvotech.form.field.form.slider_max',
             'label_attr'  => ['class' => 'control-label'],
             'required'    => false,
             'attr'        => ['class' => 'form-control'],
             'data'        => $options['data']['max'] ?? 100,
             'constraints' => [
-                new SliderMaxGreaterThanMin(message: 'mautic.form.field.form.slider_max_gt_min_error'),
+                new SliderMaxGreaterThanMin(message: 'mailvotech.form.field.form.slider_max_gt_min_error'),
             ],
         ]);
 
         $builder->add('step', ConstrainedIntegerType::class, [
-            'label'       => 'mautic.form.field.form.slider_step',
+            'label'       => 'mailvotech.form.field.form.slider_step',
             'label_attr'  => ['class' => 'control-label'],
             'required'    => false,
             'attr'        => ['class' => 'form-control'],
             'data'        => $options['data']['step'] ?? 1,
             'constraints' => [
-                new Range(minMessage: 'mautic.form.field.form.slider_step_min_error', min: 1),
-                new SliderStepLessThanMax(message: 'mautic.form.field.form.slider_step_lt_max_error'),
+                new Range(minMessage: 'mailvotech.form.field.form.slider_step_min_error', min: 1),
+                new SliderStepLessThanMax(message: 'mailvotech.form.field.form.slider_step_lt_max_error'),
             ],
         ]);
     }

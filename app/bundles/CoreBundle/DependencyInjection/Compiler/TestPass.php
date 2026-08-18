@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\DependencyInjection\Compiler;
+namespace MailVotech\CoreBundle\DependencyInjection\Compiler;
 
 use GuzzleHttp\Handler\MockHandler;
-use Mautic\CoreBundle\Test\Guzzle\ClientFactory;
-use Mautic\CoreBundle\Test\PhpUnitConfigCommand;
+use MailVotech\CoreBundle\Test\Guzzle\ClientFactory;
+use MailVotech\CoreBundle\Test\PhpUnitConfigCommand;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -18,7 +18,7 @@ final class TestPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         // Stub Guzzle HTTP client to prevent accidental request to third parties
-        $definition = $container->getDefinition('mautic.http.client');
+        $definition = $container->getDefinition('mailvotech.http.client');
         $definition->setPublic(true)
             ->setFactory([ClientFactory::class, 'stub'])
             ->addArgument(new Reference(MockHandler::class));

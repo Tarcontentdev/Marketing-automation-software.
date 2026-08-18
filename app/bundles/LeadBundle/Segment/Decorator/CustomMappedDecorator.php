@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Decorator;
+namespace MailVotech\LeadBundle\Segment\Decorator;
 
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Mautic\LeadBundle\Exception\FilterNotFoundException;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterOperator;
-use Mautic\LeadBundle\Services\ContactSegmentFilterDictionary;
+use MailVotech\LeadBundle\Exception\FilterNotFoundException;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterOperator;
+use MailVotech\LeadBundle\Services\ContactSegmentFilterDictionary;
 
 class CustomMappedDecorator extends BaseDecorator implements ContactDecoratorForeignInterface
 {
@@ -36,7 +36,7 @@ class CustomMappedDecorator extends BaseDecorator implements ContactDecoratorFor
         $originalField = $contactSegmentFilterCrate->getField();
 
         try {
-            return MAUTIC_TABLE_PREFIX.$this->dictionary->getFilterProperty($originalField, 'foreign_table');
+            return MAILVOTECH_TABLE_PREFIX.$this->dictionary->getFilterProperty($originalField, 'foreign_table');
         } catch (FilterNotFoundException) {
             return parent::getTable($contactSegmentFilterCrate);
         }

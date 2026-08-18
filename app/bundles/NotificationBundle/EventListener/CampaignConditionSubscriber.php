@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\NotificationBundle\EventListener;
+namespace MailVotech\NotificationBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\NotificationBundle\Entity\PushID;
-use Mautic\NotificationBundle\NotificationEvents;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\NotificationBundle\Entity\PushID;
+use MailVotech\NotificationBundle\NotificationEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class CampaignConditionSubscriber implements EventSubscriberInterface
@@ -24,8 +24,8 @@ final class CampaignConditionSubscriber implements EventSubscriberInterface
         $event->addCondition(
             'notification.has.active',
             [
-                'label'       => 'mautic.notification.campaign.event.notification.has.active',
-                'description' => 'mautic.notification.campaign.event.notification.has.active.desc',
+                'label'       => 'mailvotech.notification.campaign.event.notification.has.active',
+                'description' => 'mailvotech.notification.campaign.event.notification.has.active.desc',
                 'eventName'   => NotificationEvents::ON_CAMPAIGN_TRIGGER_CONDITION,
             ]
         );

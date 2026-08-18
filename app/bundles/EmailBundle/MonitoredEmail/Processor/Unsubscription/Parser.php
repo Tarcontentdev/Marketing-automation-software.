@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor\Unsubscription;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor\Unsubscription;
 
-use Mautic\EmailBundle\MonitoredEmail\Exception\UnsubscriptionNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\UnsubscriptionNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
 
 final readonly class Parser
 {

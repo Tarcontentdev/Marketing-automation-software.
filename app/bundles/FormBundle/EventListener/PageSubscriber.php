@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\FormBundle\EventListener;
+namespace MailVotech\FormBundle\EventListener;
 
-use Mautic\CoreBundle\DTO\TokenFormatOptions;
-use Mautic\CoreBundle\Helper\BuilderTokenHelperFactory;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\FormBundle\FormEvents;
-use Mautic\FormBundle\Model\FormModel;
-use Mautic\PageBundle\Event\PageBuilderEvent;
-use Mautic\PageBundle\Event\PageDisplayEvent;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CoreBundle\DTO\TokenFormatOptions;
+use MailVotech\CoreBundle\Helper\BuilderTokenHelperFactory;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\FormBundle\Model\FormModel;
+use MailVotech\PageBundle\Event\PageBuilderEvent;
+use MailVotech\PageBundle\Event\PageDisplayEvent;
+use MailVotech\PageBundle\PageEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -41,8 +41,8 @@ final class PageSubscriber implements EventSubscriberInterface
         if ($event->abTestWinnerCriteriaRequested()) {
             // add AB Test Winner Criteria
             $formSubmissions = [
-                'group'    => 'mautic.form.abtest.criteria',
-                'label'    => 'mautic.form.abtest.criteria.submissions',
+                'group'    => 'mailvotech.form.abtest.criteria',
+                'label'    => 'mailvotech.form.abtest.criteria.submissions',
                 'event'    => FormEvents::ON_DETERMINE_SUBMISSION_RATE_WINNER,
             ];
             $event->addAbTestWinnerCriteria('form.submissions', $formSubmissions);
@@ -53,7 +53,7 @@ final class PageSubscriber implements EventSubscriberInterface
             $tokenFilter = $event->getTokenFilter();
             $tokens      = $tokenHelper->getFormattedTokens(
                 $this->formRegex,
-                TokenFormatOptions::simplePrefix('mautic.form.form'),
+                TokenFormatOptions::simplePrefix('mailvotech.form.form'),
                 'label' === $tokenFilter['target'] ? $tokenFilter['filter'] : '',
             );
             if ([] !== $tokens) {
@@ -82,12 +82,12 @@ final class PageSubscriber implements EventSubscriberInterface
                     )
                 ) {
                     $formHtml = ($form->isPublished()) ? $this->formModel->getContent($form) :
-                        '<div class="mauticform-error">'.
-                        $this->translator->trans('mautic.form.form.pagetoken.notpublished').
+                        '<div class="mailvotechform-error">'.
+                        $this->translator->trans('mailvotech.form.form.pagetoken.notpublished').
                         '</div>';
 
                     // add the hidden page input
-                    $pageInput = "\n<input type=\"hidden\" name=\"mauticform[mauticpage]\" value=\"{$page->getId()}\" />\n";
+                    $pageInput = "\n<input type=\"hidden\" name=\"mailvotechform[mailvotechpage]\" value=\"{$page->getId()}\" />\n";
                     $formHtml  = preg_replace('#</form>#', $pageInput.'</form>', $formHtml);
 
                     // pouplate get parameters

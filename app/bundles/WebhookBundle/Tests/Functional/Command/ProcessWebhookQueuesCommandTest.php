@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Functional\Command;
+namespace MailVotech\WebhookBundle\Tests\Functional\Command;
 
 use GuzzleHttp\Psr7\Response;
-use Mautic\CoreBundle\Test\Guzzle\ClientMockTrait;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\WebhookBundle\Command\ProcessWebhookQueuesCommand;
-use Mautic\WebhookBundle\Entity\Event;
-use Mautic\WebhookBundle\Entity\Log;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Entity\WebhookQueue;
-use Mautic\WebhookBundle\Model\WebhookModel;
+use MailVotech\CoreBundle\Test\Guzzle\ClientMockTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\WebhookBundle\Command\ProcessWebhookQueuesCommand;
+use MailVotech\WebhookBundle\Entity\Event;
+use MailVotech\WebhookBundle\Entity\Log;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Entity\WebhookQueue;
+use MailVotech\WebhookBundle\Model\WebhookModel;
 use Psr\Http\Message\RequestInterface;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
-final class ProcessWebhookQueuesCommandTest extends MauticMysqlTestCase
+final class ProcessWebhookQueuesCommandTest extends MailVotechMysqlTestCase
 {
     use ClientMockTrait;
 

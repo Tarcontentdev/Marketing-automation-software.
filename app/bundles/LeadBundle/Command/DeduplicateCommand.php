@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Command;
+namespace MailVotech\LeadBundle\Command;
 
-use Mautic\CoreBundle\Service\ProcessQueue;
-use Mautic\LeadBundle\Deduplicate\ContactDeduper;
+use MailVotech\CoreBundle\Service\ProcessQueue;
+use MailVotech\LeadBundle\Deduplicate\ContactDeduper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -27,7 +27,7 @@ TXT
 )]
 final class DeduplicateCommand extends Command
 {
-    public const NAME = 'mautic:contacts:deduplicate';
+    public const NAME = 'mailvotech:contacts:deduplicate';
 
     public function __construct(
         private readonly ContactDeduper $contactDeduper,
@@ -98,7 +98,7 @@ final class DeduplicateCommand extends Command
                 '--contact-ids',
                 implode(',', $contactIdBatch),
                 '-e',
-                MAUTIC_ENV,
+                MAILVOTECH_ENV,
             ];
 
             if ($newerIntoOlder) {
@@ -106,11 +106,11 @@ final class DeduplicateCommand extends Command
             }
 
             $envParams = [
-                'db_table_prefix'                     => MAUTIC_TABLE_PREFIX,
-                'contact_unique_identifiers_operator' => $this->params->get('mautic.contact_unique_identifiers_operator'),
+                'db_table_prefix'                     => MAILVOTECH_TABLE_PREFIX,
+                'contact_unique_identifiers_operator' => $this->params->get('mailvotech.contact_unique_identifiers_operator'),
             ];
 
-            $processQueue->enqueue(new Process($command, null, ['MAUTIC_CONFIG_PARAMETERS' => json_encode($envParams)]));
+            $processQueue->enqueue(new Process($command, null, ['MAILVOTECH_CONFIG_PARAMETERS' => json_encode($envParams)]));
         }
 
         $output->writeln('');

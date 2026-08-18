@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\Query\Expr;
-use Mautic\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
+use MailVotech\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Cache\InvalidArgumentException;
@@ -173,7 +173,7 @@ final class LeadListRepositoryTest extends TestCase
      */
     private function mockIsContactInAnySegment(int $contactId, array $queryResult): void
     {
-        $prefix = MAUTIC_TABLE_PREFIX;
+        $prefix = MAILVOTECH_TABLE_PREFIX;
         $sql    = <<<SQL
             SELECT leadlist_id 
             FROM {$prefix}lead_lists_leads
@@ -196,7 +196,7 @@ SQL;
      */
     private function mockIsContactInSegments(int $contactId, array $expectedSegmentIds, array $queryResult): void
     {
-        $prefix = MAUTIC_TABLE_PREFIX;
+        $prefix = MAILVOTECH_TABLE_PREFIX;
         $sql    = <<<SQL
             SELECT leadlist_id 
             FROM {$prefix}lead_lists_leads
@@ -241,7 +241,7 @@ SQL;
 
         $this->queryBuilderMock->expects($this->once())
             ->method('from')
-            ->with(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'l')
+            ->with(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'l')
             ->willReturnSelf();
 
         $this->expressionMock->expects($this->once())
@@ -285,7 +285,7 @@ SQL;
         $fromPart = [
             [
                 'alias' => 'l',
-                'table' => MAUTIC_TABLE_PREFIX.'lead_lists_leads',
+                'table' => MAILVOTECH_TABLE_PREFIX.'lead_lists_leads',
             ],
         ];
 
@@ -297,14 +297,14 @@ SQL;
         $this->queryBuilderMock->expects($matcher)
             ->method('from')->willReturnCallback(function (...$parameters) use ($matcher) {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame(MAUTIC_TABLE_PREFIX.'lead_lists_leads', $parameters[0]);
+                    $this->assertSame(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', $parameters[0]);
                     $this->assertSame('l', $parameters[1]);
 
                     return $this->queryBuilderMock;
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame(MAUTIC_TABLE_PREFIX.'lead_lists_leads', $parameters[0]);
-                    $this->assertSame('l USE INDEX ('.MAUTIC_TABLE_PREFIX.'manually_removed)', $parameters[1]);
+                    $this->assertSame(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', $parameters[0]);
+                    $this->assertSame('l USE INDEX ('.MAILVOTECH_TABLE_PREFIX.'manually_removed)', $parameters[1]);
 
                     return $this->queryBuilderMock;
                 }

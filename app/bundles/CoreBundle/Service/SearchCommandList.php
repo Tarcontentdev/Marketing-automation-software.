@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Service;
+namespace MailVotech\CoreBundle\Service;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\CommandListEvent;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\CommandListEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class SearchCommandList implements SearchCommandListInterface

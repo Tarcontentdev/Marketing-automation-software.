@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\Form\Type;
+namespace MailVotech\PluginBundle\Tests\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\StandAloneButtonType;
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Form\Type\DetailsType;
-use Mautic\PluginBundle\Form\Type\KeysType;
-use Mautic\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\CoreBundle\Form\Type\StandAloneButtonType;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Form\Type\DetailsType;
+use MailVotech\PluginBundle\Form\Type\KeysType;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -138,7 +138,7 @@ final class DetailsTypeTest extends TestCase
                     ++$calls;
                     self::assertSame(StandAloneButtonType::class, $fieldFQCN);
                     self::assertArrayHasKey('label', $options);
-                    self::assertSame('mautic.integration.form.'.$label, $options['label']);
+                    self::assertSame('mailvotech.integration.form.'.$label, $options['label']);
                 }
 
                 if ('supportedFeatures' === $key) {
@@ -221,7 +221,7 @@ final class DetailsTypeTest extends TestCase
                     ++$calls;
                     self::assertSame(ChoiceType::class, $fieldFQCN);
                     self::assertArrayHasKey('choices', $options);
-                    self::assertSame(['mautic.integration.form.feature.non-configured' => 'non-configured'], $options['choices']);
+                    self::assertSame(['mailvotech.integration.form.feature.non-configured' => 'non-configured'], $options['choices']);
                     self::assertArrayHasKey('data', $options);
                     self::assertSame($expectedFeatures, $options['data']);
                 }

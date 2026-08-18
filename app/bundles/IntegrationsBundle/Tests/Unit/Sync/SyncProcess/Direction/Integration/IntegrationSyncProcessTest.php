@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\SyncProcess\Direction\Integration;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\SyncProcess\Direction\Integration;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO as OrderFieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO as ReportFieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO as ReportObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\ObjectDAO as RequestObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\RequestDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\Helper\MappingHelper;
-use Mautic\IntegrationsBundle\Sync\Helper\SyncDateHelper;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Integration\IntegrationSyncProcess;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Integration\ObjectChangeGenerator;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO as OrderFieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO as ReportFieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO as ReportObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Request\ObjectDAO as RequestObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Request\RequestDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\Helper\MappingHelper;
+use MailVotech\IntegrationsBundle\Sync\Helper\SyncDateHelper;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Integration\IntegrationSyncProcess;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Integration\ObjectChangeGenerator;
 use PHPUnit\Framework\TestCase;
 
 final class IntegrationSyncProcessTest extends TestCase
@@ -136,7 +136,7 @@ final class IntegrationSyncProcessTest extends TestCase
             ->method('getSyncDateTime')
             ->willReturn($toSyncDateTime);
 
-        $syncReport = new ReportDAO(MauticSyncDataExchange::NAME);
+        $syncReport = new ReportDAO(MailVotechSyncDataExchange::NAME);
         $objectDAO  = new ReportObjectDAO(Contact::NAME, 1);
         $objectDAO->addField(new ReportFieldDAO('email', new NormalizedValueDAO(NormalizedValueDAO::EMAIL_TYPE, 'test@test.com')));
         $objectDAO->addField(new ReportFieldDAO('firstname', new NormalizedValueDAO(NormalizedValueDAO::TEXT_TYPE, 'Bob')));
@@ -175,7 +175,7 @@ final class IntegrationSyncProcessTest extends TestCase
         $mappingManual         = new MappingManualDAO(self::INTEGRATION_NAME);
         $this->inputOptionsDAO = new InputOptionsDAO([
             'integration'      => self::INTEGRATION_NAME,
-            'mautic-object-id' => ['contact:1'],
+            'mailvotech-object-id' => ['contact:1'],
         ]);
 
         $contactMapping = new ObjectMappingDAO(Contact::NAME, 'Contact');

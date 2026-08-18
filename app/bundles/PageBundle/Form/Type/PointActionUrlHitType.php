@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\PageBundle\Form\Type;
+namespace MailVotech\PageBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\DataTransformer\SecondsConversionTransformer;
+use MailVotech\CoreBundle\Form\DataTransformer\SecondsConversionTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -20,22 +20,22 @@ final class PointActionUrlHitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('page_url', TextType::class, [
-            'label'      => 'mautic.page.point.action.form.page.url',
+            'label'      => 'mailvotech.page.point.action.form.page.url',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => [
                 'class'       => 'form-control',
-                'tooltip'     => 'mautic.page.point.action.form.page.url.descr',
+                'tooltip'     => 'mailvotech.page.point.action.form.page.url.descr',
                 'placeholder' => 'http://',
             ],
         ]);
 
         $builder->add('page_hits', IntegerType::class, [
-            'label'      => 'mautic.page.hits',
+            'label'      => 'mailvotech.page.hits',
             'label_attr' => ['class' => 'control-label'],
             'required'   => false,
             'attr'       => [
                 'class'   => 'form-control',
-                'tooltip' => 'mautic.page.point.action.form.page.hits.descr',
+                'tooltip' => 'mailvotech.page.point.action.form.page.hits.descr',
             ],
         ]);
 
@@ -48,12 +48,12 @@ final class PointActionUrlHitType extends AbstractType
             $secondsTransformer = new SecondsConversionTransformer($unit);
             $form->add(
                 $builder->create('accumulative_time', TextType::class, [
-                    'label'      => 'mautic.page.point.action.form.accumulative.time',
+                    'label'      => 'mailvotech.page.point.action.form.accumulative.time',
                     'required'   => false,
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.page.point.action.form.accumulative.time.descr',
+                        'tooltip' => 'mailvotech.page.point.action.form.accumulative.time.descr',
                     ],
                     'auto_initialize' => false,
                 ])
@@ -69,13 +69,13 @@ final class PointActionUrlHitType extends AbstractType
 
             $form->add(
                 $builder->create('returns_within', TextType::class, [
-                    'label'      => 'mautic.page.point.action.form.returns.within',
+                    'label'      => 'mailvotech.page.point.action.form.returns.within',
                     'required'   => false,
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.page.point.action.form.returns.within.descr',
-                        'onBlur'  => 'Mautic.EnablesOption(this.id)',
+                        'tooltip' => 'mailvotech.page.point.action.form.returns.within.descr',
+                        'onBlur'  => 'MailVotech.EnablesOption(this.id)',
                     ],
                     'auto_initialize' => false,
                 ])
@@ -90,13 +90,13 @@ final class PointActionUrlHitType extends AbstractType
             ]);
             $form->add(
                 $builder->create('returns_after', TextType::class, [
-                    'label'      => 'mautic.page.point.action.form.returns.after',
+                    'label'      => 'mailvotech.page.point.action.form.returns.after',
                     'required'   => false,
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.page.point.action.form.returns.after.descr',
-                        'onBlur'  => 'Mautic.EnablesOption(this.id)',
+                        'tooltip' => 'mailvotech.page.point.action.form.returns.after.descr',
+                        'onBlur'  => 'MailVotech.EnablesOption(this.id)',
                     ],
                     'auto_initialize' => false,
                 ])

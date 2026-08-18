@@ -1,37 +1,37 @@
 <?php
 
-namespace Mautic\EmailBundle\Controller;
+namespace MailVotech\EmailBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController as CommonFormController;
-use Mautic\CoreBundle\Helper\ThemeHelper;
-use Mautic\CoreBundle\Helper\TrackingPixelHelper;
-use Mautic\CoreBundle\Twig\Helper\AnalyticsHelper;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\EmailBundle\Event\TransportWebhookEvent;
-use Mautic\EmailBundle\Helper\EmailConfig;
-use Mautic\EmailBundle\Helper\EmailDefaultsHelper;
-use Mautic\EmailBundle\Helper\MailHashHelper;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\FormBundle\Model\FormModel;
-use Mautic\LeadBundle\Controller\FrequencyRuleTrait;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Helper\FakeContactHelper;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\MessengerBundle\Message\EmailHitNotification;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Event\PageDisplayEvent;
-use Mautic\PageBundle\EventListener\BuilderSubscriber;
-use Mautic\PageBundle\Model\PageModel;
-use Mautic\PageBundle\PageEvents;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\CoreBundle\Controller\FormController as CommonFormController;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
+use MailVotech\CoreBundle\Helper\TrackingPixelHelper;
+use MailVotech\CoreBundle\Twig\Helper\AnalyticsHelper;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\Event\TransportWebhookEvent;
+use MailVotech\EmailBundle\Helper\EmailConfig;
+use MailVotech\EmailBundle\Helper\EmailDefaultsHelper;
+use MailVotech\EmailBundle\Helper\MailHashHelper;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\FormBundle\Model\FormModel;
+use MailVotech\LeadBundle\Controller\FrequencyRuleTrait;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Helper\FakeContactHelper;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\MessengerBundle\Message\EmailHitNotification;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Event\PageDisplayEvent;
+use MailVotech\PageBundle\EventListener\BuilderSubscriber;
+use MailVotech\PageBundle\Model\PageModel;
+use MailVotech\PageBundle\PageEvents;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,19 +50,19 @@ final class PublicController extends CommonFormController
 
     private LeadModel $leadModel;
 
-    private LoggerInterface $mauticLogger;
+    private LoggerInterface $mailvotechLogger;
 
     #[Required]
     public function autowirePublicController(
         LeadModel $leadModel,
         EmailModel $emailModel,
         LeadRepository $leadRepository,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
     ): void {
         $this->leadModel = $leadModel;
         $this->emailModel = $emailModel;
         $this->leadRepository = $leadRepository;
-        $this->mauticLogger = $mauticLogger;
+        $this->mailvotechLogger = $mailvotechLogger;
     }
 
     public function indexAction(Request $request, AnalyticsHelper $analyticsHelper, $idHash): Response
@@ -130,7 +130,7 @@ final class PublicController extends CommonFormController
 
     /**
      * @throws \Exception
-     * @throws \Mautic\CoreBundle\Exception\FileNotFoundException
+     * @throws \MailVotech\CoreBundle\Exception\FileNotFoundException
      */
     public function unsubscribeAction(Request $request, ContactTracker $contactTracker, EmailModel $model, LeadModel $leadModel, FormModel $formModel, PageModel $pageModel, MailHashHelper $mailHash, ThemeHelper $themeHelper, EmailDefaultsHelper $emailDefaultsHelper, $idHash, ?string $urlEmail = null, ?string $secretHash = null): Response
     {
@@ -151,19 +151,19 @@ final class PublicController extends CommonFormController
 
         if (!empty($stat) && $email = $stat->getEmail()) {
             $template = $email->getTemplate();
-            if ('mautic_code_mode' === $template) {
+            if ('mailvotech_code_mode' === $template) {
                 $template = null; // Use system default
             }
 
-            /** @var \Mautic\FormBundle\Entity\Form $unsubscribeForm */
+            /** @var \MailVotech\FormBundle\Entity\Form $unsubscribeForm */
             $unsubscribeForm = $email->getUnsubscribeForm();
             if (null != $unsubscribeForm && $unsubscribeForm->isPublished()) {
                 $formTemplate = $unsubscribeForm->getTemplate();
-                $formContent  = '<div class="mautic-unsubscribeform">'.$formModel->getContent($unsubscribeForm).'</div>';
+                $formContent  = '<div class="mailvotech-unsubscribeform">'.$formModel->getContent($unsubscribeForm).'</div>';
             }
         } else {
             if ($isOneClickUnsubscribe) {
-                return new Response($this->translator->trans('mautic.email.stat_record.not_found'), Response::HTTP_NOT_FOUND);
+                return new Response($this->translator->trans('mailvotech.email.stat_record.not_found'), Response::HTTP_NOT_FOUND);
             }
         }
 
@@ -180,7 +180,7 @@ final class PublicController extends CommonFormController
         $contentTemplate = $themeHelper->checkForTwigTemplate('@themes/'.$template.'/html/message.html.twig');
         $isCorrectHash   = $secretHash && $urlEmail && $mailHash->getEmailHash($urlEmail) === $secretHash;
         if (!empty($stat) || $isCorrectHash) {
-            $successSessionName = 'mautic.email.prefscenter.success';
+            $successSessionName = 'mailvotech.email.prefscenter.success';
             if (!empty($stat) && $lead = $stat->getLead()) {
                 // Set the lead as current lead
                 $contactTracker->setTrackedContact($lead);
@@ -199,7 +199,7 @@ final class PublicController extends CommonFormController
                 if (is_array($contacts) && count($contacts) > 0) {
                     $lead  = array_pop($contacts);
                 } else {
-                    $message = $this->translator->trans('mautic.email.stat_record.not_found');
+                    $message = $this->translator->trans('mailvotech.email.stat_record.not_found');
                 }
             }
 
@@ -216,12 +216,12 @@ final class PublicController extends CommonFormController
                     $params['secretHash'] = $mailHash->getEmailHash($urlEmail);
                 }
 
-                $action          = $this->generateUrl('mautic_email_unsubscribe', $params);
+                $action          = $this->generateUrl('mailvotech_email_unsubscribe', $params);
                 $viewParameters  = $this->getViewParams($lead, $idHash, $params);
                 $form            = $this->getFrequencyRuleForm($lead, $viewParameters, $data, true, $action, true);
 
                 if ($session->get($successSessionName)) {
-                    $viewParameters['successMessage'] = $this->translator->trans('mautic.email.preferences_center_success_message.text');
+                    $viewParameters['successMessage'] = $this->translator->trans('mailvotech.email.preferences_center_success_message.text');
                 }
 
                 if (true === $form) {
@@ -258,7 +258,7 @@ final class PublicController extends CommonFormController
                 $message = $html;
             }
         } else {
-            $message = $this->translator->trans('mautic.email.stat_record.not_found');
+            $message = $this->translator->trans('mailvotech.email.stat_record.not_found');
         }
 
         $config = $theme->getConfig();
@@ -309,7 +309,7 @@ final class PublicController extends CommonFormController
             $showParameters,
             [
                 'form'       => $formView,
-                'startform'  => $this->renderView('@MauticCore/Default/form.html.twig', ['form' => $formView]),
+                'startform'  => $this->renderView('@MailVotechCore/Default/form.html.twig', ['form' => $formView]),
                 'custom_tag' => '<a name="end-'.$formView->vars['id'].'"></a>',
             ]
         );
@@ -341,7 +341,7 @@ final class PublicController extends CommonFormController
 
     /**
      * @throws \Exception
-     * @throws \Mautic\CoreBundle\Exception\FileNotFoundException
+     * @throws \MailVotech\CoreBundle\Exception\FileNotFoundException
      */
     public function resubscribeAction(ContactTracker $contactTracker, EmailModel $model, MailHashHelper $mailHash, ThemeHelper $themeHelper, AssetsHelper $assetsHelper, AnalyticsHelper $analyticsHelper, $idHash): Response
     {
@@ -373,7 +373,7 @@ final class PublicController extends CommonFormController
 
             if (!$message) {
                 $message = $this->translator->trans(
-                    'mautic.email.resubscribed.success',
+                    'mailvotech.email.resubscribed.success',
                     [
                         '%unsubscribeUrl%' => '|URL|',
                         '%email%'          => '|EMAIL|',
@@ -386,17 +386,17 @@ final class PublicController extends CommonFormController
                     '|EMAIL|',
                 ],
                 [
-                    $this->generateUrl('mautic_email_unsubscribe', ['idHash' => $idHash, 'urlEmail' => $toEmail, 'secretHash' => $unsubscribeHash]),
+                    $this->generateUrl('mailvotech_email_unsubscribe', ['idHash' => $idHash, 'urlEmail' => $toEmail, 'secretHash' => $unsubscribeHash]),
                     $stat->getEmailAddress(),
                 ],
                 $message
             );
         } else {
             $email   = $lead   = false;
-            $message = $this->translator->trans('mautic.email.stat_record.not_found');
+            $message = $this->translator->trans('mailvotech.email.stat_record.not_found');
         }
 
-        $template = (!empty($email) && 'mautic_code_mode' !== $email->getTemplate()) ? $email->getTemplate() : $this->coreParametersHelper->get('theme');
+        $template = (!empty($email) && 'mailvotech_code_mode' !== $email->getTemplate()) ? $email->getTemplate() : $this->coreParametersHelper->get('theme');
 
         $theme = $themeHelper->getTheme($template);
 
@@ -564,7 +564,7 @@ final class PublicController extends CommonFormController
         // if additional data were sent with the tracking pixel
         $query_string = $request->server->get('QUERY_STRING');
         if (!$query_string) {
-            $this->mauticLogger->log('error', $integration.': query string is not available');
+            $this->mailvotechLogger->log('error', $integration.': query string is not available');
 
             return;
         }
@@ -577,7 +577,7 @@ final class PublicController extends CommonFormController
 
         // URL attr 'd' is encoded so let's decode it first.
         if (!isset($query['d'], $query['sig'])) {
-            $this->mauticLogger->log('error', $integration.': query variables are not found');
+            $this->mailvotechLogger->log('error', $integration.': query variables are not found');
 
             return;
         }
@@ -586,7 +586,7 @@ final class PublicController extends CommonFormController
         $myIntegration = $integrationHelper->getIntegrationObject($integration);
 
         if (!$myIntegration) {
-            $this->mauticLogger->log('error', $integration.': integration not found');
+            $this->mailvotechLogger->log('error', $integration.': integration not found');
 
             return;
         }
@@ -608,19 +608,19 @@ final class PublicController extends CommonFormController
             parse_str($gz, $query);
         } else {
             // signatures don't match: stop
-            $this->mauticLogger->log('error', $integration.': signatures don\'t match');
+            $this->mailvotechLogger->log('error', $integration.': signatures don\'t match');
 
             unset($query);
         }
 
         if (empty($query) || !isset($query['email'], $query['subject'], $query['body'])) {
-            $this->mauticLogger->log('error', $integration.': query variables are empty');
+            $this->mailvotechLogger->log('error', $integration.': query variables are empty');
 
             return;
         }
 
-        if (MAUTIC_ENV === 'dev') {
-            $this->mauticLogger->log('error', $integration.': '.json_encode($query, JSON_PRETTY_PRINT));
+        if (MAILVOTECH_ENV === 'dev') {
+            $this->mailvotechLogger->log('error', $integration.': '.json_encode($query, JSON_PRETTY_PRINT));
         }
 
         // email is a semicolon delimited list of emails
@@ -707,14 +707,14 @@ final class PublicController extends CommonFormController
 
     public function getUnsubscribeMessage(string $idHash, $model, $stat): string
     {
-        $model->setDoNotContact($stat, $this->translator->trans('mautic.email.dnc.unsubscribed'), DoNotContact::UNSUBSCRIBED);
+        $model->setDoNotContact($stat, $this->translator->trans('mailvotech.email.dnc.unsubscribed'), DoNotContact::UNSUBSCRIBED);
 
         return $this->getUnsubscribeText($stat->getEmailAddress(), $idHash);
     }
 
     public function getUnsubscribeMessageLead(string $idHash, EmailModel $model, Lead $lead, string $urlEmail): string
     {
-        $model->setDoNotContactLead($lead, $this->translator->trans('mautic.email.dnc.unsubscribed'), DoNotContact::UNSUBSCRIBED);
+        $model->setDoNotContactLead($lead, $this->translator->trans('mailvotech.email.dnc.unsubscribed'), DoNotContact::UNSUBSCRIBED);
 
         return $this->getUnsubscribeText($urlEmail, $idHash);
     }
@@ -724,7 +724,7 @@ final class PublicController extends CommonFormController
         $message = $this->coreParametersHelper->get('unsubscribe_message');
         if (!$message) {
             $message = $this->translator->trans(
-                'mautic.email.unsubscribed.success',
+                'mailvotech.email.unsubscribed.success',
                 [
                     '%resubscribeUrl%' => '|URL|',
                     '%email%'          => '|EMAIL|',
@@ -738,7 +738,7 @@ final class PublicController extends CommonFormController
                 '|EMAIL|',
             ],
             [
-                $this->generateUrl('mautic_email_resubscribe', ['idHash' => $idHash]),
+                $this->generateUrl('mailvotech_email_resubscribe', ['idHash' => $idHash]),
                 $email,
             ],
             $message
@@ -782,16 +782,16 @@ final class PublicController extends CommonFormController
     private function oneClickUnsubscribe(EmailModel $model, ?Stat $stat): Response
     {
         if (!$stat) {
-            $statsNotFount = $this->translator->trans('mautic.email.stat_record.not_found');
+            $statsNotFount = $this->translator->trans('mailvotech.email.stat_record.not_found');
 
             return new Response($statsNotFount, Response::HTTP_NOT_FOUND);
         }
 
         // RFC 8058 One-Click unsubscribe
-        $unsubscribeComment = $this->translator->trans('mautic.email.dnc.unsubscribed');
+        $unsubscribeComment = $this->translator->trans('mailvotech.email.dnc.unsubscribed');
         $model->setDoNotContact($stat, $unsubscribeComment, DoNotContact::UNSUBSCRIBED);
 
-        return new Response($this->translator->trans('mautic.lead.do.not.contact_unsubscribed'));
+        return new Response($this->translator->trans('mailvotech.lead.do.not.contact_unsubscribed'));
     }
 
     /**
@@ -809,7 +809,7 @@ final class PublicController extends CommonFormController
             'showContactPreferredChannels' => $this->coreParametersHelper->get('show_contact_preferred_channels'),
             'showContactCategories'        => $this->coreParametersHelper->get('show_contact_categories'),
             'showContactSegments'          => $this->coreParametersHelper->get('show_contact_segments'),
-            'dncUrl'                       => $this->generateUrl('mautic_email_unsubscribe_all', $params),
+            'dncUrl'                       => $this->generateUrl('mailvotech_email_unsubscribe_all', $params),
         ];
     }
 
@@ -819,13 +819,13 @@ final class PublicController extends CommonFormController
     private function getHtml(FormView $formView, Lead $lead, array $viewParameters): string
     {
         return $this->render(
-            '@MauticEmail/Lead/preference_options.html.twig',
+            '@MailVotechEmail/Lead/preference_options.html.twig',
             array_merge(
                 $viewParameters,
                 [
                     'form'         => $formView,
                     'currentRoute' => $this->generateUrl(
-                        'mautic_contact_action',
+                        'mailvotech_contact_action',
                         [
                             'objectAction' => 'contactFrequency',
                             'objectId'     => $lead->getId(),

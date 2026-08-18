@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Controller;
+namespace MailVotech\CoreBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Model\ReportModel;
-use Mautic\UserBundle\Entity\Permission;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Model\ReportModel;
+use MailVotech\UserBundle\Entity\Permission;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
-final class ExportControllerTest extends MauticMysqlTestCase
+final class ExportControllerTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback   = false;
 

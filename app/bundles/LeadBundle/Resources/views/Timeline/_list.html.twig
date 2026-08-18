@@ -5,34 +5,34 @@
         <tr>
             <th class="timeline-icon np"></th>
             <th class="table-expand np">
-                <a class="table-expand-button" data-activate-details="all" data-toggle="tooltip" title="{{ 'mautic.lead.timeline.toggle_all_details'|trans }}">
+                <a class="table-expand-button" data-activate-details="all" data-toggle="tooltip" title="{{ 'mailvotech.lead.timeline.toggle_all_details'|trans }}">
                     <span class="ri-arrow-down-s-line"></span>
                 </a>
             </th>
-            {{ include('@MauticCore/Helper/tableheader.html.twig', {
+            {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                 'orderBy': 'eventLabel',
-                'text': 'mautic.lead.timeline.event_name',
+                'text': 'mailvotech.lead.timeline.event_name',
                 'class': 'timeline-name',
                 'sessionVar': 'lead.' ~ lead.id ~ '.timeline',
-                'baseUrl': path('mautic_contacttimeline_action', {'leadId': lead.id}),
+                'baseUrl': path('mailvotech_contacttimeline_action', {'leadId': lead.id}),
                 'target': '#timeline-table',
             }) }}
 
-            {{ include('@MauticCore/Helper/tableheader.html.twig', {
+            {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                 'orderBy': 'eventType',
-                'text': 'mautic.lead.timeline.event_type',
+                'text': 'mailvotech.lead.timeline.event_type',
                 'class': 'visible-md visible-lg timeline-type',
                 'sessionVar': 'lead.' ~ lead.id ~ '.timeline',
-                'baseUrl': path('mautic_contacttimeline_action', {'leadId': lead.id}),
+                'baseUrl': path('mailvotech_contacttimeline_action', {'leadId': lead.id}),
                 'target': '#timeline-table',
             }) }}
 
-            {{ include('@MauticCore/Helper/tableheader.html.twig', {
+            {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                 'orderBy': 'timestamp',
-                'text': 'mautic.lead.timeline.event_timestamp',
+                'text': 'mailvotech.lead.timeline.event_timestamp',
                 'class': 'visible-md visible-lg timeline-timestamp',
                 'sessionVar': 'lead.' ~ lead.id ~ '.timeline',
-                'baseUrl': path('mautic_contacttimeline_action', {'leadId': lead.id}),
+                'baseUrl': path('mailvotech_contacttimeline_action', {'leadId': lead.id}),
                 'target': '#timeline-table',
             }) }}
         </tr>
@@ -75,7 +75,7 @@
                     <a href="javascript:void(0);"
                        data-activate-details="{{ loop.index }}"
                        class="table-expand-button {% if details is empty %}hide{% endif %}"
-                       data-toggle="tooltip" title="{{ 'mautic.lead.timeline.toggle_details'|trans }}">
+                       data-toggle="tooltip" title="{{ 'mailvotech.lead.timeline.toggle_details'|trans }}">
                        <span class="ri-arrow-down-s-line"></span>
                     </a>
                 </td>
@@ -96,11 +96,11 @@
         </tbody>
     </table>
 </div>
-{{ include('@MauticCore/Helper/pagination.html.twig', {
+{{ include('@MailVotechCore/Helper/pagination.html.twig', {
         'page': events.page,
         'fixedPages': events.maxPages,
         'fixedLimit': true,
-        'baseUrl': path('mautic_contacttimeline_action', {'leadId': lead.id}),
+        'baseUrl': path('mailvotech_contacttimeline_action', {'leadId': lead.id}),
         'target': '#timeline-table',
         'totalItems': events.total,
 }) }}

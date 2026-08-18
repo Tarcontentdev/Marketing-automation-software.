@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Model;
+namespace MailVotech\PageBundle\Tests\Model;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\PageBundle\Model\PageModel;
-use Mautic\PageBundle\Model\Tracking404Model;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\PageBundle\Model\PageModel;
+use MailVotech\PageBundle\Model\Tracking404Model;
 
 final class Tracking404ModelTest extends \PHPUnit\Framework\TestCase
 {

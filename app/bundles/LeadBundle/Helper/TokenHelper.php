@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Helper;
+namespace MailVotech\LeadBundle\Helper;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\ParamsLoaderHelper;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\ParamsLoaderHelper;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 
 final class TokenHelper
 {
@@ -83,7 +83,7 @@ final class TokenHelper
     /**
      * Returns correct token value from provided list of tokens and the concrete token.
      *
-     * @param array  $tokens like ['{contactfield=website}' => 'https://mautic.org']
+     * @param array  $tokens like ['{contactfield=website}' => 'https://mailvotech.org']
      * @param string $token  like '{contactfield=website|https://default.url}'
      *
      * @return string empty string if no match

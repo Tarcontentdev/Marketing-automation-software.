@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,8 +24,8 @@ final class DateRangeType extends AbstractType
     {
         $session         = $this->requestStack->getSession();
         $humanFormat     = 'M j, Y';
-        $sessionDateFrom = $session->get('mautic.daterange.form.from');
-        $sessionDateTo   = $session->get('mautic.daterange.form.to');
+        $sessionDateFrom = $session->get('mailvotech.daterange.form.from');
+        $sessionDateTo   = $session->get('mailvotech.daterange.form.to');
         if (!empty($sessionDateFrom) && !empty($sessionDateTo)) {
             $defaultFrom = new \DateTime($sessionDateFrom);
             $defaultTo   = new \DateTime($sessionDateTo);
@@ -45,7 +45,7 @@ final class DateRangeType extends AbstractType
             'date_from',
             TextType::class,
             [
-                'label'      => 'mautic.core.date.from',
+                'label'      => 'mailvotech.core.date.from',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -63,7 +63,7 @@ final class DateRangeType extends AbstractType
             'date_to',
             TextType::class,
             [
-                'label'      => 'mautic.core.date.to',
+                'label'      => 'mailvotech.core.date.to',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -75,7 +75,7 @@ final class DateRangeType extends AbstractType
             'apply',
             SubmitType::class,
             [
-                'label' => 'mautic.core.form.apply',
+                'label' => 'mailvotech.core.form.apply',
                 'attr'  => ['class' => 'btn btn-ghost'],
             ]
         );
@@ -84,8 +84,8 @@ final class DateRangeType extends AbstractType
             $builder->setAction($options['action']);
         }
 
-        $session->set('mautic.daterange.form.from', $dateFrom->format($humanFormat));
-        $session->set('mautic.daterange.form.to', $dateTo->format($humanFormat));
+        $session->set('mailvotech.daterange.form.from', $dateFrom->format($humanFormat));
+        $session->set('mailvotech.daterange.form.to', $dateTo->format($humanFormat));
     }
 
     public function getBlockPrefix(): string

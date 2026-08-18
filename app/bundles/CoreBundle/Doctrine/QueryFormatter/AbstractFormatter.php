@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Doctrine\QueryFormatter;
+namespace MailVotech\CoreBundle\Doctrine\QueryFormatter;
 
 use Doctrine\DBAL\Connection;
-use Mautic\CoreBundle\Doctrine\DatabasePlatform;
+use MailVotech\CoreBundle\Doctrine\DatabasePlatform;
 
 /**
  * Help generate SQL statements to format column data.
@@ -20,7 +20,7 @@ abstract class AbstractFormatter
     public static function createFormatter(Connection $db)
     {
         $name  = DatabasePlatform::getDatabasePlatform($db->getDatabasePlatform());
-        $class = '\Mautic\CoreBundle\Doctrine\QueryFormatter\\'.ucfirst($name).'Formatter';
+        $class = '\MailVotech\CoreBundle\Doctrine\QueryFormatter\\'.ucfirst($name).'Formatter';
 
         return new $class($db);
     }

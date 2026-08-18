@@ -1,18 +1,18 @@
 <?php
 
-namespace Mautic\PageBundle\EventListener;
+namespace MailVotech\PageBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Event as Events;
-use Mautic\PageBundle\Event\PageEditSubmitEvent;
-use Mautic\PageBundle\Event\PageEvent;
-use Mautic\PageBundle\Model\PageDraftModel;
-use Mautic\PageBundle\Model\PageModel;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Event as Events;
+use MailVotech\PageBundle\Event\PageEditSubmitEvent;
+use MailVotech\PageBundle\Event\PageEvent;
+use MailVotech\PageBundle\Model\PageDraftModel;
+use MailVotech\PageBundle\Model\PageModel;
+use MailVotech\PageBundle\PageEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

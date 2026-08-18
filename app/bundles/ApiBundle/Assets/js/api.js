@@ -1,11 +1,11 @@
 //ApiBundle
-Mautic.clientOnLoad = function (container) {
+MailVotech.clientOnLoad = function (container) {
     if (mQuery(container + ' #list-search').length) {
-        Mautic.activateSearchAutocomplete('list-search', 'api.client');
+        MailVotech.activateSearchAutocomplete('list-search', 'api.client');
     }
 };
 
-Mautic.refreshApiClientForm = function(url, modeEl) {
+MailVotech.refreshApiClientForm = function(url, modeEl) {
     var mode = mQuery(modeEl).val();
 
     if (mQuery('#client_redirectUris').length) {
@@ -15,5 +15,5 @@ Mautic.refreshApiClientForm = function(url, modeEl) {
     }
     mQuery('#client_name').prop('disabled', true);
 
-    Mautic.loadContent(url + '/' + mode);
+    MailVotech.loadContent(url + '/' + mode);
 };

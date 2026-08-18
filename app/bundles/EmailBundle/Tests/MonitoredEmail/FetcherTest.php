@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\MonitoredEmail;
+namespace MailVotech\EmailBundle\Tests\MonitoredEmail;
 
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Event\ParseEmailEvent;
-use Mautic\EmailBundle\MonitoredEmail\Fetcher;
-use Mautic\EmailBundle\MonitoredEmail\Mailbox;
-use Mautic\EmailBundle\MonitoredEmail\Message;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Event\ParseEmailEvent;
+use MailVotech\EmailBundle\MonitoredEmail\Fetcher;
+use MailVotech\EmailBundle\MonitoredEmail\Mailbox;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 use Symfony\Component\EventDispatcher\EventDispatcher;

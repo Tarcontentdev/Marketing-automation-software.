@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Update\Step;
+namespace MailVotech\CoreBundle\Tests\Unit\Update\Step;
 
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Update\Step\FinalizeUpdateStep;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Update\Step\FinalizeUpdateStep;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,8 +62,8 @@ final class FinalizeUpdateStepTest extends AbstractStepTestCase
         file_put_contents(__DIR__.'/resources/upgrade.php', '');
         file_put_contents(__DIR__.'/resources/lastUpdateCheck.txt', '');
 
-        $wrappingUpKey       = 'mautic.core.command.update.step.wrapping_up';
-        $updateSuccessfulKey = 'mautic.core.update.update_successful';
+        $wrappingUpKey       = 'mailvotech.core.command.update.step.wrapping_up';
+        $updateSuccessfulKey = 'mailvotech.core.update.update_successful';
         $matcher             = $this->exactly(2);
 
         $this->translator->expects($matcher)

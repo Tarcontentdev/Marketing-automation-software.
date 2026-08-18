@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Provider;
+namespace MailVotech\LeadBundle\Provider;
 
 interface FilterOperatorProviderInterface
 {

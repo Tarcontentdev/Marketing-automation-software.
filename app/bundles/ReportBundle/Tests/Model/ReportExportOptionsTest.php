@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Model;
+namespace MailVotech\ReportBundle\Tests\Model;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\ReportBundle\Model\ReportExportOptions;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\ReportBundle\Model\ReportExportOptions;
 
 final class ReportExportOptionsTest extends \PHPUnit\Framework\TestCase
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Unit\Services;
+namespace MailVotech\LeadBundle\Tests\Unit\Services;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\LeadBundle\Field\FieldList;
-use Mautic\LeadBundle\Services\CompanyColumnsDictionary;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\LeadBundle\Field\FieldList;
+use MailVotech\LeadBundle\Services\CompanyColumnsDictionary;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -51,7 +51,7 @@ final class CompanyColumnsDictionaryTest extends TestCase
 
         $columns = $this->dictionary->getColumns();
 
-        $this->assertSame(['companywebsite' => 'mautic.company.website', 'companyname' => 'mautic.company.name'], $columns);
+        $this->assertSame(['companywebsite' => 'mailvotech.company.website', 'companyname' => 'mailvotech.company.name'], $columns);
     }
 
     public function testGetFieldsMergesCoreAndCompanyCustomFields(): void

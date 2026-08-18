@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\PointBundle\Entity\Group;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\PointBundle\Entity\Group;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -40,7 +40,7 @@ final class ContactGroupPointsType extends AbstractType
                     'label'      => $group->getName(),
                     'attr'       => [
                         'class'       => 'form-control',
-                        'placeholder' => $this->translator->trans('mautic.point.form.score_not_set'),
+                        'placeholder' => $this->translator->trans('mailvotech.point.form.score_not_set'),
                     ],
                     'label_attr' => ['class' => 'control-label'],
                     'required'   => false,
@@ -53,7 +53,7 @@ final class ContactGroupPointsType extends AbstractType
             FormButtonsType::class,
             [
                 'apply_text'     => false,
-                'save_text'      => 'mautic.core.form.save',
+                'save_text'      => 'mailvotech.core.form.save',
                 'cancel_onclick' => 'javascript:void(0);',
                 'cancel_attr'    => [
                     'data-dismiss' => 'modal',

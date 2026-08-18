@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Helper\BuilderIntegrationsHelper;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Helper\BuilderIntegrationsHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -27,8 +27,8 @@ final class DynamicContentFilterType extends AbstractType
         $extraClasses = '';
 
         try {
-            $mauticBuilder = $this->builderIntegrationsHelper->getBuilder('email');
-            $mauticBuilder->getName();
+            $mailvotechBuilder = $this->builderIntegrationsHelper->getBuilder('email');
+            $mailvotechBuilder->getName();
         } catch (IntegrationNotFoundException) {
             // Assume legacy builder
             $extraClasses = ' legacy-builder';
@@ -38,7 +38,7 @@ final class DynamicContentFilterType extends AbstractType
             'tokenName',
             TextType::class,
             [
-                'label' => 'mautic.core.dynamicContent.token_name',
+                'label' => 'mailvotech.core.dynamicContent.token_name',
                 'attr'  => [
                     'class' => 'form-control dynamic-content-token-name',
                 ],
@@ -49,7 +49,7 @@ final class DynamicContentFilterType extends AbstractType
             'content',
             TextareaType::class,
             [
-                'label' => 'mautic.core.dynamicContent.default_content',
+                'label' => 'mailvotech.core.dynamicContent.default_content',
                 'attr'  => [
                     'class' => 'form-control editor editor-dynamic-content'.$extraClasses,
                 ],

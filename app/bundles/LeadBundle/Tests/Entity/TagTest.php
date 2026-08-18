@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Entity\Tag;
 
 final class TagTest extends \PHPUnit\Framework\TestCase
 {

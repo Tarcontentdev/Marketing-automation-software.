@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\VariableExpresser;
+namespace MailVotech\IntegrationsBundle\Sync\VariableExpresser;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Value\EncodedValueDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\EncodedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
 
 interface VariableExpresserHelperInterface
 {

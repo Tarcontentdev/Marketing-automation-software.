@@ -1,22 +1,22 @@
 <?php
 
-namespace Mautic\EmailBundle\Model;
+namespace MailVotech\EmailBundle\Model;
 
 use Doctrine\ORM\ORMException;
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\CoreBundle\Exception\InvalidValueException;
-use Mautic\CoreBundle\Exception\RecordException;
-use Mautic\CoreBundle\Helper\ArrayHelper;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Exception\EmailCouldNotBeSentException;
-use Mautic\EmailBundle\Exception\InvalidEmailException;
-use Mautic\EmailBundle\Helper\EmailValidator;
-use Mautic\EmailBundle\OptionsAccessor\EmailToUserAccessor;
-use Mautic\LeadBundle\DataObject\ContactFieldToken;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Exception\InvalidContactFieldTokenException;
-use Mautic\LeadBundle\Validator\CustomFieldValidator;
-use Mautic\UserBundle\Hash\UserHash;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\CoreBundle\Exception\InvalidValueException;
+use MailVotech\CoreBundle\Exception\RecordException;
+use MailVotech\CoreBundle\Helper\ArrayHelper;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Exception\EmailCouldNotBeSentException;
+use MailVotech\EmailBundle\Exception\InvalidEmailException;
+use MailVotech\EmailBundle\Helper\EmailValidator;
+use MailVotech\EmailBundle\OptionsAccessor\EmailToUserAccessor;
+use MailVotech\LeadBundle\DataObject\ContactFieldToken;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Exception\InvalidContactFieldTokenException;
+use MailVotech\LeadBundle\Validator\CustomFieldValidator;
+use MailVotech\UserBundle\Hash\UserHash;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class SendEmailToUser

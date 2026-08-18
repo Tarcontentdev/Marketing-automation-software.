@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\EmailBundle\Stats\Helper;
+namespace MailVotech\EmailBundle\Stats\Helper;
 
-use Mautic\EmailBundle\Stats\FetchOptions\EmailStatOptions;
-use Mautic\StatsBundle\Aggregate\Collection\StatCollection;
+use MailVotech\EmailBundle\Stats\FetchOptions\EmailStatOptions;
+use MailVotech\StatsBundle\Aggregate\Collection\StatCollection;
 
 final class ClickedHelper extends AbstractHelper
 {
@@ -25,7 +25,7 @@ final class ClickedHelper extends AbstractHelper
         if ($segmentId = $options->getSegmentId()) {
             $q->innerJoin(
                 't',
-                '(SELECT DISTINCT email_id, lead_id FROM '.MAUTIC_TABLE_PREFIX.'email_stats WHERE list_id = :segmentId)',
+                '(SELECT DISTINCT email_id, lead_id FROM '.MAILVOTECH_TABLE_PREFIX.'email_stats WHERE list_id = :segmentId)',
                 'es',
                 't.source_id = es.email_id'
             );

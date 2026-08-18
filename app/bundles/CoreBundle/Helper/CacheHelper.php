@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -68,8 +68,8 @@ class CacheHelper
     {
         // Clear the menu items and icons so they can be rebuilt
         try {
-            $this->requestStack->getSession()->remove('mautic.menu.items');
-            $this->requestStack->getSession()->remove('mautic.menu.icons');
+            $this->requestStack->getSession()->remove('mailvotech.menu.items');
+            $this->requestStack->getSession()->remove('mailvotech.menu.icons');
         } catch (SessionNotFoundException) {
             // No need to clear the session if it's not available
         }

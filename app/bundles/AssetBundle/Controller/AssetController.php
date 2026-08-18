@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\AssetBundle\Controller;
+namespace MailVotech\AssetBundle\Controller;
 
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Form\Type\DateRangeType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\FileHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Form\Type\DateRangeType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\FileHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Oneup\UploaderBundle\Templating\Helper\UploaderHelper;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,9 +47,9 @@ final class AssetController extends FormController
 
         $this->setListFilters();
 
-        // Remove the "default_assetlimit" in Mautic 8.
+        // Remove the "default_assetlimit" in MailVotech 8.
         $limit = $request->getSession()->get(
-            'mautic.asset.limit',
+            'mailvotech.asset.limit',
             $parametersHelper->get('default_assetlimit', $parametersHelper->get('default_pagelimit'))
         );
 
@@ -58,8 +58,8 @@ final class AssetController extends FormController
             $start = 0;
         }
 
-        $search = $request->get('search', $request->getSession()->get('mautic.asset.filter', ''));
-        $request->getSession()->set('mautic.asset.filter', $search);
+        $search = $request->get('search', $request->getSession()->get('mailvotech.asset.filter', ''));
+        $request->getSession()->set('mailvotech.asset.filter', $search);
 
         $filter = ['string' => $search, 'force' => []];
 
@@ -68,8 +68,8 @@ final class AssetController extends FormController
                 ['column' => 'a.createdBy', 'expr' => 'eq', 'value' => $this->user->getId()];
         }
 
-        $orderBy    = $request->getSession()->get('mautic.asset.orderby', 'a.dateModified');
-        $orderByDir = $request->getSession()->get('mautic.asset.orderbydir', $this->getDefaultOrderDirection());
+        $orderBy    = $request->getSession()->get('mailvotech.asset.orderby', 'a.dateModified');
+        $orderByDir = $request->getSession()->get('mailvotech.asset.orderbydir', $this->getDefaultOrderDirection());
 
         $assets = $assetModel->getEntities(
             [
@@ -89,22 +89,22 @@ final class AssetController extends FormController
             } else {
                 $lastPage = (ceil($count / $limit)) ?: 1;
             }
-            $request->getSession()->set('mautic.asset.asset', $lastPage);
-            $returnUrl = $this->generateUrl('mautic_asset_index', ['page' => $lastPage]);
+            $request->getSession()->set('mailvotech.asset.asset', $lastPage);
+            $returnUrl = $this->generateUrl('mailvotech_asset_index', ['page' => $lastPage]);
 
             return $this->postActionRedirect([
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['asset' => $lastPage],
-                'contentTemplate' => 'Mautic\AssetBundle\Controller\AssetController::indexAction',
+                'contentTemplate' => 'MailVotech\AssetBundle\Controller\AssetController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_asset_index',
-                    'mauticContent' => 'asset',
+                    'activeLink'    => '#mailvotech_asset_index',
+                    'mailvotechContent' => 'asset',
                 ],
             ]);
         }
 
         // set what asset currently on so that we can return here after form submission/cancellation
-        $request->getSession()->set('mautic.asset.page', $page);
+        $request->getSession()->set('mailvotech.asset.page', $page);
 
         $tmpl = $request->isXmlHttpRequest() ? $request->get('tmpl', 'index') : 'index';
 
@@ -123,11 +123,11 @@ final class AssetController extends FormController
                 'page'        => $page,
                 'security'    => $this->security,
             ],
-            'contentTemplate' => '@MauticAsset/Asset/list.html.twig',
+            'contentTemplate' => '@MailVotechAsset/Asset/list.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_asset_index',
-                'mauticContent' => 'asset',
-                'route'         => $this->generateUrl('mautic_asset_index', ['page' => $page]),
+                'activeLink'    => '#mailvotech_asset_index',
+                'mailvotechContent' => 'asset',
+                'route'         => $this->generateUrl('mailvotech_asset_index', ['page' => $page]),
             ],
         ]);
     }
@@ -142,31 +142,31 @@ final class AssetController extends FormController
         $activeAsset = $model->getEntity($objectId);
 
         // set the asset we came from
-        $page = $request->getSession()->get('mautic.asset.page', 1);
+        $page = $request->getSession()->get('mailvotech.asset.page', 1);
 
         $tmpl = $request->isXmlHttpRequest() ? $request->get('tmpl', 'details') : 'details';
 
         // Init the date range filter form
         $dateRangeValues = $request->get('daterange', []);
-        $action          = $this->generateUrl('mautic_asset_action', ['objectAction' => 'view', 'objectId' => $objectId]);
+        $action          = $this->generateUrl('mailvotech_asset_action', ['objectAction' => 'view', 'objectId' => $objectId]);
         $dateRangeForm   = $this->formFactory->create(DateRangeType::class, $dateRangeValues, ['action' => $action]);
 
         if (null === $activeAsset) {
             // set the return URL
-            $returnUrl = $this->generateUrl('mautic_asset_index', ['page' => $page]);
+            $returnUrl = $this->generateUrl('mailvotech_asset_index', ['page' => $page]);
 
             return $this->postActionRedirect([
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['page' => $page],
-                'contentTemplate' => 'Mautic\AssetBundle\Controller\AssetController::indexAction',
+                'contentTemplate' => 'MailVotech\AssetBundle\Controller\AssetController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_asset_index',
-                    'mauticContent' => 'asset',
+                    'activeLink'    => '#mailvotech_asset_index',
+                    'mailvotechContent' => 'asset',
                 ],
                 'flashes' => [
                     [
                         'type'    => 'error',
-                        'msg'     => 'mautic.asset.asset.error.notfound',
+                        'msg'     => 'mailvotech.asset.asset.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ],
                 ],
@@ -211,10 +211,10 @@ final class AssetController extends FormController
                 'logs'             => $logs,
                 'dateRangeForm'    => $dateRangeForm->createView(),
             ],
-            'contentTemplate' => '@MauticAsset/Asset/'.$tmpl.'.html.twig',
+            'contentTemplate' => '@MailVotechAsset/Asset/'.$tmpl.'.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_asset_index',
-                'mauticContent' => 'asset',
+                'activeLink'    => '#mailvotech_asset_index',
+                'mailvotechContent' => 'asset',
             ],
         ]);
     }
@@ -262,7 +262,7 @@ final class AssetController extends FormController
                 'activeAsset'      => $activeAsset,
                 'assetDownloadUrl' => $model->generateUrl($activeAsset),
             ],
-            'contentTemplate' => '@MauticAsset/Modules/preview.html.twig',
+            'contentTemplate' => '@MailVotechAsset/Modules/preview.html.twig',
             'passthroughVars' => [
                 'route' => false,
             ],
@@ -290,12 +290,12 @@ final class AssetController extends FormController
         $maxSize    = $model->getMaxUploadSize();
         $extensions = '.'.implode(', .', $this->coreParametersHelper->get('allowed_extensions'));
 
-        $maxSizeError = $this->translator->trans('mautic.asset.asset.error.file.size', [
+        $maxSizeError = $this->translator->trans('mailvotech.asset.asset.error.file.size', [
             '%fileSize%' => '{{filesize}}',
             '%maxSize%'  => '{{maxFilesize}}',
         ], 'validators');
 
-        $extensionError = $this->translator->trans('mautic.asset.asset.error.file.extension.js', [
+        $extensionError = $this->translator->trans('mailvotech.asset.asset.error.file.extension.js', [
             '%extensions%' => $extensions,
         ], 'validators');
 
@@ -305,8 +305,8 @@ final class AssetController extends FormController
         $entity->setTempId($tempId);
 
         // Set the page we came from
-        $page   = $session->get('mautic.asset.page', 1);
-        $action = $this->generateUrl('mautic_asset_action', ['objectAction' => 'new']);
+        $page   = $session->get('mailvotech.asset.page', 1);
+        $action = $this->generateUrl('mailvotech_asset_action', ['objectAction' => 'new']);
 
         $uploadEndpoint = $uploaderHelper->endpoint('asset');
 
@@ -328,10 +328,10 @@ final class AssetController extends FormController
                     // remove the asset from request
                     $request->files->remove('asset');
 
-                    $this->addFlashMessage('mautic.core.notice.created', [
+                    $this->addFlashMessage('mailvotech.core.notice.created', [
                         '%name%'      => $entity->getTitle(),
-                        '%menu_link%' => 'mautic_asset_index',
-                        '%url%'       => $this->generateUrl('mautic_asset_action', [
+                        '%menu_link%' => 'mailvotech_asset_index',
+                        '%url%'       => $this->generateUrl('mailvotech_asset_action', [
                             'objectAction' => 'edit',
                             'objectId'     => $entity->getId(),
                         ]),
@@ -346,13 +346,13 @@ final class AssetController extends FormController
                         'objectAction' => 'view',
                         'objectId'     => $entity->getId(),
                     ];
-                    $returnUrl = $this->generateUrl('mautic_asset_action', $viewParameters);
-                    $template  = 'Mautic\AssetBundle\Controller\AssetController::viewAction';
+                    $returnUrl = $this->generateUrl('mailvotech_asset_action', $viewParameters);
+                    $template  = 'MailVotech\AssetBundle\Controller\AssetController::viewAction';
                 }
             } else {
                 $viewParameters = ['page' => $page];
-                $returnUrl      = $this->generateUrl('mautic_asset_index', $viewParameters);
-                $template       = 'Mautic\AssetBundle\Controller\AssetController::indexAction';
+                $returnUrl      = $this->generateUrl('mailvotech_asset_index', $viewParameters);
+                $template       = 'MailVotech\AssetBundle\Controller\AssetController::indexAction';
             }
 
             if ($cancelled || ($valid && $this->getFormButton($form, ['buttons', 'save'])->isClicked())) {
@@ -361,8 +361,8 @@ final class AssetController extends FormController
                     'viewParameters'  => $viewParameters,
                     'contentTemplate' => $template,
                     'passthroughVars' => [
-                        'activeLink'    => 'mautic_asset_index',
-                        'mauticContent' => 'asset',
+                        'activeLink'    => 'mailvotech_asset_index',
+                        'mailvotechContent' => 'asset',
                     ],
                 ]);
             }
@@ -383,11 +383,11 @@ final class AssetController extends FormController
                 'extensions'       => $extensions,
                 'extensionError'   => $extensionError,
             ],
-            'contentTemplate' => '@MauticAsset/Asset/form.html.twig',
+            'contentTemplate' => '@MailVotechAsset/Asset/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_asset_index',
-                'mauticContent' => 'asset',
-                'route'         => $this->generateUrl('mautic_asset_action', [
+                'activeLink'    => '#mailvotech_asset_index',
+                'mailvotechContent' => 'asset',
+                'route'         => $this->generateUrl('mailvotech_asset_action', [
                     'objectAction' => 'new',
                 ]),
             ],
@@ -411,32 +411,32 @@ final class AssetController extends FormController
         $entity->setMaxSize(FileHelper::convertMegabytesToBytes($this->coreParametersHelper->get('max_size')));
 
         $session    = $request->getSession();
-        $page       = $session->get('mautic.asset.page', 1);
+        $page       = $session->get('mailvotech.asset.page', 1);
         $method     = $request->getMethod();
         $maxSize    = $model->getMaxUploadSize();
         $extensions = '.'.implode(', .', $this->coreParametersHelper->get('allowed_extensions'));
 
-        $maxSizeError = $this->translator->trans('mautic.asset.asset.error.file.size', [
+        $maxSizeError = $this->translator->trans('mailvotech.asset.asset.error.file.size', [
             '%fileSize%' => '{{filesize}}',
             '%maxSize%'  => '{{maxFilesize}}',
         ], 'validators');
 
-        $extensionError = $this->translator->trans('mautic.asset.asset.error.file.extension.js', [
+        $extensionError = $this->translator->trans('mailvotech.asset.asset.error.file.extension.js', [
             '%extensions%' => $extensions,
         ], 'validators');
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_asset_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_asset_index', ['page' => $page]);
 
         $uploadEndpoint = $uploaderHelper->endpoint('asset');
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\AssetBundle\Controller\AssetController::indexAction',
+            'contentTemplate' => 'MailVotech\AssetBundle\Controller\AssetController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_asset_index',
-                'mauticContent' => 'asset',
+                'activeLink'    => 'mailvotech_asset_index',
+                'mailvotechContent' => 'asset',
             ],
         ];
 
@@ -447,7 +447,7 @@ final class AssetController extends FormController
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.asset.asset.error.notfound',
+                            'msg'     => 'mailvotech.asset.asset.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -470,7 +470,7 @@ final class AssetController extends FormController
         $entity->setTempId($tempId);
 
         // Create the form
-        $action = $this->generateUrl('mautic_asset_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_asset_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $form   = $model->createForm($entity, $this->formFactory, $action);
 
         // /Check for a submitted form and process it
@@ -488,31 +488,31 @@ final class AssetController extends FormController
                     // remove the asset from request
                     $request->files->remove('asset');
 
-                    $this->addFlashMessage('mautic.core.notice.updated', [
+                    $this->addFlashMessage('mailvotech.core.notice.updated', [
                         '%name%'      => $entity->getTitle(),
-                        '%menu_link%' => 'mautic_asset_index',
-                        '%url%'       => $this->generateUrl('mautic_asset_action', [
+                        '%menu_link%' => 'mailvotech_asset_index',
+                        '%url%'       => $this->generateUrl('mailvotech_asset_action', [
                             'objectAction' => 'edit',
                             'objectId'     => $entity->getId(),
                         ]),
                     ]);
 
-                    $returnUrl = $this->generateUrl('mautic_asset_action', [
+                    $returnUrl = $this->generateUrl('mailvotech_asset_action', [
                         'objectAction' => 'view',
                         'objectId'     => $entity->getId(),
                     ]);
                     $viewParams = ['objectId' => $entity->getId()];
-                    $template   = 'Mautic\AssetBundle\Controller\AssetController::viewAction';
+                    $template   = 'MailVotech\AssetBundle\Controller\AssetController::viewAction';
                 }
             } else {
                 // clear any modified content
-                $session->remove('mautic.asestbuilder.'.$objectId.'.content');
+                $session->remove('mailvotech.asestbuilder.'.$objectId.'.content');
                 // unlock the entity
                 $model->unlockEntity($entity);
 
-                $returnUrl  = $this->generateUrl('mautic_asset_index', ['page' => $page]);
+                $returnUrl  = $this->generateUrl('mailvotech_asset_index', ['page' => $page]);
                 $viewParams = ['page' => $page];
-                $template   = 'Mautic\AssetBundle\Controller\AssetController::indexAction';
+                $template   = 'MailVotech\AssetBundle\Controller\AssetController::indexAction';
             }
 
             if ($cancelled || ($valid && $this->getFormButton($form, ['buttons', 'save'])->isClicked())) {
@@ -545,11 +545,11 @@ final class AssetController extends FormController
                 'extensions'       => $extensions,
                 'extensionError'   => $extensionError,
             ],
-            'contentTemplate' => '@MauticAsset/Asset/form.html.twig',
+            'contentTemplate' => '@MailVotechAsset/Asset/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_asset_index',
-                'mauticContent' => 'asset',
-                'route'         => $this->generateUrl('mautic_asset_action', [
+                'activeLink'    => '#mailvotech_asset_index',
+                'mailvotechContent' => 'asset',
+                'route'         => $this->generateUrl('mailvotech_asset_action', [
                     'objectAction' => 'edit',
                     'objectId'     => $entity->getId(),
                 ]),
@@ -593,17 +593,17 @@ final class AssetController extends FormController
      */
     public function deleteAction(Request $request, AssetModel $model, $objectId): Response
     {
-        $page      = $request->getSession()->get('mautic.asset.page', 1);
-        $returnUrl = $this->generateUrl('mautic_asset_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.asset.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_asset_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\AssetBundle\Controller\AssetController::indexAction',
+            'contentTemplate' => 'MailVotech\AssetBundle\Controller\AssetController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_asset_index',
-                'mauticContent' => 'asset',
+                'activeLink'    => 'mailvotech_asset_index',
+                'mailvotechContent' => 'asset',
             ],
         ];
 
@@ -613,7 +613,7 @@ final class AssetController extends FormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.asset.asset.error.notfound',
+                    'msg'     => 'mailvotech.asset.asset.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->hasEntityAccess(
@@ -632,7 +632,7 @@ final class AssetController extends FormController
 
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $entity->getTitle(),
                     '%id%'   => $objectId,
@@ -652,17 +652,17 @@ final class AssetController extends FormController
      */
     public function batchDeleteAction(Request $request, AssetModel $model): Response
     {
-        $page      = $request->getSession()->get('mautic.asset.page', 1);
-        $returnUrl = $this->generateUrl('mautic_asset_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.asset.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_asset_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\AssetBundle\Controller\AssetController::indexAction',
+            'contentTemplate' => 'MailVotech\AssetBundle\Controller\AssetController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_asset_index',
-                'mauticContent' => 'asset',
+                'activeLink'    => 'mailvotech_asset_index',
+                'mailvotechContent' => 'asset',
             ],
         ];
 
@@ -677,7 +677,7 @@ final class AssetController extends FormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.asset.asset.error.notfound',
+                        'msg'     => 'mailvotech.asset.asset.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->hasEntityAccess(
@@ -698,7 +698,7 @@ final class AssetController extends FormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.asset.asset.notice.batch_deleted',
+                    'msg'     => 'mailvotech.asset.asset.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],
@@ -728,11 +728,11 @@ final class AssetController extends FormController
                 'integrations' => $integrations,
                 'tmpl'         => $tmpl,
             ],
-            'contentTemplate' => '@MauticAsset/Remote/browse.html.twig',
+            'contentTemplate' => '@MailVotechAsset/Remote/browse.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_asset_index',
-                'mauticContent' => 'asset',
-                'route'         => $this->generateUrl('mautic_asset_index', ['page' => $request->getSession()->get('mautic.asset.page', 1)]),
+                'activeLink'    => '#mailvotech_asset_index',
+                'mailvotechContent' => 'asset',
+                'route'         => $this->generateUrl('mailvotech_asset_index', ['page' => $request->getSession()->get('mailvotech.asset.page', 1)]),
             ],
         ]);
     }

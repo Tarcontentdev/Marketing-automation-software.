@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\PluginBundle\Facade;
+namespace MailVotech\PluginBundle\Facade;
 
-use Mautic\PluginBundle\Helper\ReloadHelper;
-use Mautic\PluginBundle\Model\PluginModel;
+use MailVotech\PluginBundle\Helper\ReloadHelper;
+use MailVotech\PluginBundle\Model\PluginModel;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class ReloadFacade
@@ -38,7 +38,7 @@ final readonly class ReloadFacade
 
         // Alert the user to the number of additions
         return $this->translator->trans(
-            'mautic.plugin.notice.reloaded',
+            'mailvotech.plugin.notice.reloaded',
             [
                 '%added%'    => count($installedPlugins),
                 '%disabled%' => count($disabledPlugins),

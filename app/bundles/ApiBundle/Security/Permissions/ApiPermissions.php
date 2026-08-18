@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\ApiBundle\Security\Permissions;
+namespace MailVotech\ApiBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
-use Mautic\UserBundle\Form\Type\PermissionListType;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\UserBundle\Form\Type\PermissionListType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class ApiPermissions extends AbstractPermissions
@@ -35,9 +35,9 @@ final class ApiPermissions extends AbstractPermissions
             PermissionListType::class,
             [
                 'choices' => [
-                    'mautic.api.permissions.granted' => 'full',
+                    'mailvotech.api.permissions.granted' => 'full',
                 ],
-                'label'             => 'mautic.api.permissions.apiaccess',
+                'label'             => 'mailvotech.api.permissions.apiaccess',
                 'data'              => (!empty($data['access']) ? $data['access'] : []),
                 'bundle'            => 'api',
                 'level'             => 'access',

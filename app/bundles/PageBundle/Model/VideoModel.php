@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\PageBundle\Model;
+namespace MailVotech\PageBundle\Model;
 
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\PageBundle\Entity\VideoHit;
-use Mautic\PageBundle\Entity\VideoHitRepository;
-use Mautic\PageBundle\Event\VideoHitEvent;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\PageBundle\Entity\VideoHit;
+use MailVotech\PageBundle\Entity\VideoHitRepository;
+use MailVotech\PageBundle\Event\VideoHitEvent;
+use MailVotech\PageBundle\PageEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -134,7 +134,7 @@ final class VideoModel extends FormModel
             $this->em->persist($hit);
             $this->em->flush();
         } catch (\Exception $exception) {
-            if (MAUTIC_ENV === 'dev') {
+            if (MAILVOTECH_ENV === 'dev') {
                 throw $exception;
             }
             $this->logger->error(

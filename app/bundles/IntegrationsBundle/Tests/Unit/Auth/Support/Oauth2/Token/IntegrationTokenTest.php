@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Auth\Support\Oauth2\Token;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Auth\Support\Oauth2\Token;
 
-use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\IntegrationToken;
+use MailVotech\IntegrationsBundle\Auth\Support\Oauth2\Token\IntegrationToken;
 use PHPUnit\Framework\TestCase;
 
 final class IntegrationTokenTest extends TestCase

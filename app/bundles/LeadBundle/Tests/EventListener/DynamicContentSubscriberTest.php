@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
-use Mautic\DynamicContentBundle\DynamicContentEvents;
-use Mautic\DynamicContentBundle\Event\ContactFiltersEvaluateEvent;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\EventListener\DynamicContentSubscriber;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\DynamicContentBundle\DynamicContentEvents;
+use MailVotech\DynamicContentBundle\Event\ContactFiltersEvaluateEvent;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\EventListener\DynamicContentSubscriber;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

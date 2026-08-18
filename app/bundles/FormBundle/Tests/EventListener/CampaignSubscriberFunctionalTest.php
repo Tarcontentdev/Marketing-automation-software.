@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\EventListener;
+namespace MailVotech\FormBundle\Tests\EventListener;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\FormEvents;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
+final class CampaignSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -69,10 +69,10 @@ final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
 
         // Submitting the form.
         $crawler    = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $saveButton = $crawler->selectButton('mauticform[submit]');
+        $saveButton = $crawler->selectButton('mailvotechform[submit]');
         $form       = $saveButton->form();
-        $form['mauticform[select_a]']->setValue($submittedValue);
-        $form['mauticform[email]']->setValue('testing@ampersand.select');
+        $form['mailvotechform[select_a]']->setValue($submittedValue);
+        $form['mailvotechform[email]']->setValue('testing@ampersand.select');
 
         $this->client->submit($form);
         self::assertResponseIsSuccessful();
@@ -155,7 +155,7 @@ final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
 
     protected function beforeTearDown(): void
     {
-        $tablePrefix = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $tablePrefix = self::getContainer()->getParameter('mailvotech.db_table_prefix');
 
         if ($this->connection->createSchemaManager()->tablesExist("{$tablePrefix}form_results_1_test_form")) {
             $this->connection->executeStatement("DROP TABLE {$tablePrefix}form_results_1_test_form");

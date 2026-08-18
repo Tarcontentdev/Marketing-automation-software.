@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Validator\Constraints;
+namespace MailVotech\LeadBundle\Form\Validator\Constraints;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -15,7 +15,7 @@ final class SegmentInUse extends Constraint
      */
     #[HasNamedArguments]
     public function __construct(
-        public string $message = 'mautic.lead_list.is_in_use.unpublish',
+        public string $message = 'mailvotech.lead_list.is_in_use.unpublish',
         ?array $groups = null,
         mixed $payload = null,
     ) {

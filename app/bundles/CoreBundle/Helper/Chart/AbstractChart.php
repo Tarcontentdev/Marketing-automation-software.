@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper\Chart;
+namespace MailVotech\CoreBundle\Helper\Chart;
 
-use Mautic\CoreBundle\Helper\ColorHelper;
+use MailVotech\CoreBundle\Helper\ColorHelper;
 
 abstract class AbstractChart
 {
@@ -65,7 +65,7 @@ abstract class AbstractChart
     protected $amount;
 
     /**
-     * Default Mautic colors.
+     * Default MailVotech colors.
      *
      * @var array
      */

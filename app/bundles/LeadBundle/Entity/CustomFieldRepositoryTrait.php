@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Cache\ResultCacheHelper;
-use Mautic\CoreBundle\Cache\ResultCacheOptions;
-use Mautic\LeadBundle\Controller\ListController;
-use Mautic\LeadBundle\Helper\CustomFieldHelper;
+use MailVotech\CoreBundle\Cache\ResultCacheHelper;
+use MailVotech\CoreBundle\Cache\ResultCacheOptions;
+use MailVotech\LeadBundle\Controller\ListController;
+use MailVotech\LeadBundle\Helper\CustomFieldHelper;
 
 trait CustomFieldRepositoryTrait
 {
@@ -134,7 +134,7 @@ trait CustomFieldRepositoryTrait
                     // We should probably totally ditch orm for leads
 
                     // This "hack" is in place to allow for custom ordering in the API.
-                    // See https://github.com/mautic/mautic/pull/7494#issuecomment-600970208
+                    // See https://github.com/mailvotech/mailvotech/pull/7494#issuecomment-600970208
                     $order = '(CASE';
                     foreach ($ids as $count => $id) {
                         $order .= ' WHEN '.$this->getTableAlias().'.id = '.$id.' THEN '.$count;
@@ -421,7 +421,7 @@ trait CustomFieldRepositoryTrait
         $fq->select(
             'f.id, f.label, f.alias, f.type, f.field_group as "group", f.object, f.is_fixed, f.properties, f.default_value'
         )
-            ->from(MAUTIC_TABLE_PREFIX.'lead_fields', 'f')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_fields', 'f')
             ->where('f.is_published = :published')
             ->setParameter('published', true, 'boolean')
             ->addOrderBy('f.field_order', 'asc');

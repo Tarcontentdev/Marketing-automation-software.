@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Tracker\Service\DeviceTrackingService;
+namespace MailVotech\LeadBundle\Tests\Tracker\Service\DeviceTrackingService;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\CookieHelper;
-use Mautic\CoreBundle\Helper\RandomHelper\RandomHelperInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDevice;
-use Mautic\LeadBundle\Entity\LeadDeviceRepository;
-use Mautic\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingService;
+use MailVotech\CoreBundle\Helper\CookieHelper;
+use MailVotech\CoreBundle\Helper\RandomHelper\RandomHelperInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDevice;
+use MailVotech\LeadBundle\Entity\LeadDeviceRepository;
+use MailVotech\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -68,7 +68,7 @@ final class DeviceTrackingServiceTest extends \PHPUnit\Framework\TestCase
 
         $this->cookieHelperMock->expects($this->once())
             ->method('getCookie')
-            ->with('mautic_device_id', null)
+            ->with('mailvotech_device_id', null)
             ->willReturn($trackingId);
         $leadDeviceMock = $this->createStub(LeadDevice::class);
 
@@ -95,7 +95,7 @@ final class DeviceTrackingServiceTest extends \PHPUnit\Framework\TestCase
 
         $this->cookieHelperMock->expects($this->once())
             ->method('getCookie')
-            ->with('mautic_device_id', null)
+            ->with('mailvotech_device_id', null)
             ->willReturn($trackingId);
 
         $this->security->expects($this->once())
@@ -122,7 +122,7 @@ final class DeviceTrackingServiceTest extends \PHPUnit\Framework\TestCase
 
         $this->cookieHelperMock->expects($this->once())
             ->method('getCookie')
-            ->with('mautic_device_id', null)
+            ->with('mailvotech_device_id', null)
             ->willReturn($trackingId);
 
         $this->security->expects($this->once())
@@ -149,12 +149,12 @@ final class DeviceTrackingServiceTest extends \PHPUnit\Framework\TestCase
 
         $this->cookieHelperMock->expects($this->once())
             ->method('getCookie')
-            ->with('mautic_device_id', null)
+            ->with('mailvotech_device_id', null)
             ->willReturn(null);
 
         $requestMock->expects($this->once())
             ->method('get')
-            ->with('mautic_device_id', null)
+            ->with('mailvotech_device_id', null)
             ->willReturn($trackingId);
 
         $this->security->expects($this->once())
@@ -179,12 +179,12 @@ final class DeviceTrackingServiceTest extends \PHPUnit\Framework\TestCase
 
         $this->cookieHelperMock->expects($this->once())
             ->method('getCookie')
-            ->with('mautic_device_id', null)
+            ->with('mailvotech_device_id', null)
             ->willReturn(null);
 
         $requestMock->expects($this->once())
             ->method('get')
-            ->with('mautic_device_id', null)
+            ->with('mailvotech_device_id', null)
             ->willReturn(null);
 
         $this->security->expects($this->once())
@@ -219,7 +219,7 @@ final class DeviceTrackingServiceTest extends \PHPUnit\Framework\TestCase
 
         $this->cookieHelperMock->expects($this->once())
             ->method('getCookie')
-            ->with('mautic_device_id', null)
+            ->with('mailvotech_device_id', null)
             ->willReturn($trackingId);
 
         $this->security->expects($this->once())
@@ -253,7 +253,7 @@ final class DeviceTrackingServiceTest extends \PHPUnit\Framework\TestCase
 
         $this->cookieHelperMock->expects($this->once())
             ->method('getCookie')
-            ->with('mautic_device_id', null)
+            ->with('mailvotech_device_id', null)
             ->willReturn($trackingId);
 
         $this->security->expects($this->once())
@@ -296,7 +296,7 @@ final class DeviceTrackingServiceTest extends \PHPUnit\Framework\TestCase
         $this->cookieHelperMock->expects($matcher)->method('setCookie')
             ->willReturnCallback(function (...$parameters) use ($matcher, $uniqueTrackingIdentifier): void {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic_device_id', $parameters[0]);
+                    $this->assertSame('mailvotech_device_id', $parameters[0]);
                     $this->assertSame($uniqueTrackingIdentifier, $parameters[1]);
                     $this->assertSame(31_536_000, $parameters[2]);
                 }
@@ -321,12 +321,12 @@ final class DeviceTrackingServiceTest extends \PHPUnit\Framework\TestCase
 
         $this->cookieHelperMock->expects($this->once())
             ->method('getCookie')
-            ->with('mautic_device_id', null)
+            ->with('mailvotech_device_id', null)
             ->willReturn(null);
 
         $requestMock->expects($this->once())
             ->method('get')
-            ->with('mautic_device_id', null)
+            ->with('mailvotech_device_id', null)
             ->willReturn(null);
 
         $this->randomHelperMock->expects($this->once())
@@ -355,7 +355,7 @@ final class DeviceTrackingServiceTest extends \PHPUnit\Framework\TestCase
         $this->cookieHelperMock->expects($matcher)->method('setCookie')
             ->willReturnCallback(function (...$parameters) use ($matcher, $uniqueTrackingIdentifier): void {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic_device_id', $parameters[0]);
+                    $this->assertSame('mailvotech_device_id', $parameters[0]);
                     $this->assertSame($uniqueTrackingIdentifier, $parameters[1]);
                     $this->assertSame(31_536_000, $parameters[2]);
                 }

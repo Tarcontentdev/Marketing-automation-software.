@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\CoreBundle\Controller\Api;
+namespace MailVotech\CoreBundle\Controller\Api;
 
-use Mautic\ApiBundle\Controller\CommonApiController;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
+use MailVotech\ApiBundle\Controller\CommonApiController;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,13 +41,13 @@ final class ThemeApiController extends CommonApiController
 
         if (!$themeZip) {
             return $this->returnError(
-                $this->translator->trans('mautic.core.theme.upload.empty', [], 'validators'),
+                $this->translator->trans('mailvotech.core.theme.upload.empty', [], 'validators'),
                 Response::HTTP_BAD_REQUEST
             );
         }
         if ('zip' !== $extension) {
             return $this->returnError(
-                $this->translator->trans('mautic.core.not.allowed.file.extension', ['%extension%' => $extension], 'validators'),
+                $this->translator->trans('mailvotech.core.not.allowed.file.extension', ['%extension%' => $extension], 'validators'),
                 Response::HTTP_BAD_REQUEST
             );
         }
@@ -88,7 +88,7 @@ final class ThemeApiController extends CommonApiController
         if (!$themeZip) {
             return $this->returnError(
                 $this->translator->trans(
-                    'mautic.core.dir.not.accesssible',
+                    'mailvotech.core.dir.not.accesssible',
                     ['%dir%' => $theme]
                 )
             );

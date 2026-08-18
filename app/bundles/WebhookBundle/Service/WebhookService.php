@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Service;
+namespace MailVotech\WebhookBundle\Service;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Notificator\WebhookFailureNotificator;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Notificator\WebhookFailureNotificator;
 
 class WebhookService
 {

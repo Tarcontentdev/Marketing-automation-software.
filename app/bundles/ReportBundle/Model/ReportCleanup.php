@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\ReportBundle\Model;
+namespace MailVotech\ReportBundle\Model;
 
-use Mautic\ReportBundle\Scheduler\Model\FileHandler;
+use MailVotech\ReportBundle\Scheduler\Model\FileHandler;
 
 final readonly class ReportCleanup
 {

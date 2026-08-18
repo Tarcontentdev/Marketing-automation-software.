@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\ReportBundle\Entity;
+namespace MailVotech\ReportBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -11,16 +11,16 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\UuidInterface;
-use Mautic\CoreBundle\Entity\UuidTrait;
-use Mautic\EmailBundle\Validator as EmailAssert;
-use Mautic\ReportBundle\Scheduler\Enum\SchedulerEnum;
-use Mautic\ReportBundle\Scheduler\Exception\ScheduleNotValidException;
-use Mautic\ReportBundle\Scheduler\SchedulerInterface;
-use Mautic\ReportBundle\Scheduler\Validator as ReportAssert;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\UuidInterface;
+use MailVotech\CoreBundle\Entity\UuidTrait;
+use MailVotech\EmailBundle\Validator as EmailAssert;
+use MailVotech\ReportBundle\Scheduler\Enum\SchedulerEnum;
+use MailVotech\ReportBundle\Scheduler\Exception\ScheduleNotValidException;
+use MailVotech\ReportBundle\Scheduler\SchedulerInterface;
+use MailVotech\ReportBundle\Scheduler\Validator as ReportAssert;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -219,7 +219,7 @@ class Report extends FormEntity implements SchedulerInterface, UuidInterface
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addPropertyConstraint('name', new NotBlank(message: 'mautic.core.name.required'));
+        $metadata->addPropertyConstraint('name', new NotBlank(message: 'mailvotech.core.name.required'));
 
         $metadata->addPropertyConstraint('toAddress', new EmailAssert\MultipleEmailsValid());
 

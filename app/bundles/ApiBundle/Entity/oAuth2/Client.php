@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\ApiBundle\Entity\oAuth2;
+namespace MailVotech\ApiBundle\Entity\oAuth2;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Model\Client as BaseClient;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use OAuth2\OAuth2;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -21,7 +21,7 @@ class Client extends BaseClient
     /**
      * @var string
      */
-    #[Assert\NotBlank(message: 'mautic.core.name.required')]
+    #[Assert\NotBlank(message: 'mailvotech.core.name.required')]
     protected $name;
 
     /**
@@ -41,7 +41,7 @@ class Client extends BaseClient
     /**
      * @var array<string>
      */
-    #[Assert\NotBlank(message: 'mautic.api.client.redirecturis.notblank')]
+    #[Assert\NotBlank(message: 'mailvotech.api.client.redirecturis.notblank')]
     protected array $redirectUris = [];
 
     /**

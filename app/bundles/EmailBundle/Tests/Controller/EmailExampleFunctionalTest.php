@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller;
+namespace MailVotech\EmailBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class EmailExampleFunctionalTest extends MauticMysqlTestCase
+final class EmailExampleFunctionalTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 
@@ -20,7 +20,7 @@ final class EmailExampleFunctionalTest extends MauticMysqlTestCase
 
     public function testSendExampleEmailWithContact(): void
     {
-        $company = $this->createCompany('Mautic', 'hello@mautic.org');
+        $company = $this->createCompany('MailVotech', 'hello@mailvotech.org');
         $company->setCity('Pune');
         $company->setCountry('India');
 
@@ -47,10 +47,10 @@ final class EmailExampleFunctionalTest extends MauticMysqlTestCase
         $this->client->submit($form);
 
         $message = $this->getMailerMessagesByToAddress('admin@yoursite.com')[0];
-        $this->assertInstanceOf(MauticMessage::class, $message);
+        $this->assertInstanceOf(MailVotechMessage::class, $message);
 
         $this->assertSame('[TEST] [TEST] Email subject', $message->getSubject());
-        $this->assertStringContainsString('Contact emails is test@domain.tld. Company details: Mautic, Pune.', $message->getBody()->toString());
+        $this->assertStringContainsString('Contact emails is test@domain.tld. Company details: MailVotech, Pune.', $message->getBody()->toString());
     }
 
     public function testSendExampleEmailWithOutContact(): void
@@ -68,7 +68,7 @@ final class EmailExampleFunctionalTest extends MauticMysqlTestCase
         $this->client->submit($form);
 
         $message = $this->getMailerMessagesByToAddress('admin@yoursite.com')[0];
-        $this->assertInstanceOf(MauticMessage::class, $message);
+        $this->assertInstanceOf(MailVotechMessage::class, $message);
 
         $this->assertSame('[TEST] [TEST] Email subject', $message->getSubject());
         $this->assertStringContainsString('Contact emails is [Email]. Company details: [Company Name], [City].', $message->getBody()->toString());
@@ -78,7 +78,7 @@ final class EmailExampleFunctionalTest extends MauticMysqlTestCase
     {
         $configParams = $this->configParams;
 
-        // Set values, so \Mautic\EmailBundle\MonitoredEmail\Mailbox::isConfigured will return true.
+        // Set values, so \MailVotech\EmailBundle\MonitoredEmail\Mailbox::isConfigured will return true.
         // Settings are not deep merged, so test is forced to include all other keys rather than just "general"
         $monitoredSettings = [
             'general' => [
@@ -142,7 +142,7 @@ final class EmailExampleFunctionalTest extends MauticMysqlTestCase
         self::assertResponseStatusCodeSame(Response::HTTP_OK, verbose: true);
 
         $message = self::getMailerMessagesByToAddress('admin@yoursite.com')[0];
-        $this->assertInstanceOf(MauticMessage::class, $message);
+        $this->assertInstanceOf(MailVotechMessage::class, $message);
 
         $this->assertSame('[TEST] [TEST] Email subject', $message->getSubject());
         $this->assertStringContainsString('Contact emails is [Email]. Company details: [Company Name], [City].', $message->getBody()->toString());
@@ -214,7 +214,7 @@ final class EmailExampleFunctionalTest extends MauticMysqlTestCase
         $this->client->submit($form);
 
         $message = $this->getMailerMessagesByToAddress('admin@yoursite.com')[0];
-        $this->assertInstanceOf(MauticMessage::class, $message);
+        $this->assertInstanceOf(MailVotechMessage::class, $message);
 
         $this->assertSame('[TEST] [TEST] Email subject', $message->getSubject());
         $this->assertStringContainsString('Default Dynamic Content', $message->getBody()->toString());
@@ -306,7 +306,7 @@ final class EmailExampleFunctionalTest extends MauticMysqlTestCase
         $this->client->submit($form);
 
         $message = $this->getMailerMessagesByToAddress('admin@yoursite.com')[0];
-        $this->assertInstanceOf(MauticMessage::class, $message);
+        $this->assertInstanceOf(MailVotechMessage::class, $message);
 
         $this->assertSame('[TEST] [TEST] Email subject', $message->getSubject());
         $this->assertStringContainsString('Variant 1 Dynamic Content', $message->getBody()->toString());
@@ -398,7 +398,7 @@ final class EmailExampleFunctionalTest extends MauticMysqlTestCase
         $this->client->submit($form);
 
         $message = $this->getMailerMessagesByToAddress('admin@yoursite.com')[0];
-        $this->assertInstanceOf(MauticMessage::class, $message);
+        $this->assertInstanceOf(MailVotechMessage::class, $message);
 
         $this->assertSame('[TEST] [TEST] Email subject', $message->getSubject());
         $this->assertStringContainsString('Default Dynamic Content', $message->getBody()->toString());

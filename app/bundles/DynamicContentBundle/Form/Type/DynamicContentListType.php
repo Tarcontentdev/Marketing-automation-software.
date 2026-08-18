@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Form\Type;
+namespace MailVotech\DynamicContentBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\EntityLookupType;
+use MailVotech\CoreBundle\Form\Type\EntityLookupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,8 +18,8 @@ final class DynamicContentListType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'modal_route'         => 'mautic_dynamicContent_action',
-                'modal_header'        => 'mautic.dynamicContent.header.new',
+                'modal_route'         => 'mailvotech_dynamicContent_action',
+                'modal_header'        => 'mailvotech.dynamicContent.header.new',
                 'model'               => 'dynamicContent',
                 'model_lookup_method' => 'getLookupResults',
                 'lookup_arguments'    => fn (Options $options): array => [

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Form\DataTransformer;
+namespace MailVotech\CoreBundle\Tests\Form\DataTransformer;
 
-use Mautic\CoreBundle\Form\DataTransformer\SortableListTransformer;
+use MailVotech\CoreBundle\Form\DataTransformer\SortableListTransformer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Deduplicate;
+namespace MailVotech\LeadBundle\Deduplicate;
 
-use Mautic\LeadBundle\Deduplicate\Exception\SameContactException;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Deduplicate\Exception\SameContactException;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Model\FieldModel;
 
 final class ContactDeduper
 {

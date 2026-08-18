@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\StageBundle\Form\Type\StageListType;
+use MailVotech\StageBundle\Form\Type\StageListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -19,7 +19,7 @@ final class CampaignEventLeadStagesType extends AbstractType
             'stages',
             StageListType::class,
             [
-                'label'       => 'mautic.lead.lead.field.stage',
+                'label'       => 'mailvotech.lead.lead.field.stage',
                 'label_attr'  => ['class' => 'control-label'],
                 'multiple'    => true,
                 'required'    => false,

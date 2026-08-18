@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment;
+namespace MailVotech\LeadBundle\Tests\Segment;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\ListLead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\ListLead;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\ApplicationTester;
 
 /**
  * Functional tests for ContactSegmentFilterFactory.
  *
- * @see \Mautic\LeadBundle\Segment\ContactSegmentFilterFactory
+ * @see \MailVotech\LeadBundle\Segment\ContactSegmentFilterFactory
  */
-final class ContactSegmentFilterFactoryFunctionalTest extends MauticMysqlTestCase
+final class ContactSegmentFilterFactoryFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * Test that segments with 3+ date filters using OR logic don't throw TypeError.
@@ -30,7 +30,7 @@ final class ContactSegmentFilterFactoryFunctionalTest extends MauticMysqlTestCas
      * 1. The segment update command completes without TypeError
      * 2. The correct leads are included/excluded from the segment
      *
-     * @see https://github.com/mautic/mautic/issues/15701
+     * @see https://github.com/mailvotech/mailvotech/issues/15701
      */
     public function testSegmentWithMultipleDateFiltersAndOrLogicDoesNotThrowTypeError(): void
     {
@@ -109,7 +109,7 @@ final class ContactSegmentFilterFactoryFunctionalTest extends MauticMysqlTestCas
 
         // Run the segment update command - this throws TypeError without the fix
         $exitCode = $applicationTester->run([
-            'command' => 'mautic:segments:update',
+            'command' => 'mailvotech:segments:update',
             '-i'      => $segment->getId(),
         ]);
 

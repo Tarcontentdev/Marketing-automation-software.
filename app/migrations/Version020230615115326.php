@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
 
 /**
  * This migration must run first otherwise the pre-up assertions for other migrations will fail on M5.
  */
-final class Version020230615115326 extends AbstractMauticMigration
+final class Version020230615115326 extends AbstractMailVotechMigration
 {
     public function up(Schema $schema): void
     {

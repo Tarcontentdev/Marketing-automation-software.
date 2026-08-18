@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Utils\PHPStan\Tests\Rule\Fixture;
 
-use Mautic\CoreBundle\Entity\CommonEntity;
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Entity\CommonEntity;
+use MailVotech\CoreBundle\Translation\Translator;
 
 final class ServiceInEntityMethod extends CommonEntity
 {
@@ -14,6 +14,6 @@ final class ServiceInEntityMethod extends CommonEntity
      */
     public function getRowStatusesPieChart(Translator $translator): array
     {
-        return [$translator->trans('mautic.core.success')];
+        return [$translator->trans('mailvotech.core.success')];
     }
 }

@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\StageBundle\Controller;
+namespace MailVotech\StageBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AbstractFormController;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\StageBundle\Entity\StageRepository;
-use Mautic\StageBundle\Form\Type\StageMergeType;
-use Mautic\StageBundle\Model\StageModel;
-use Mautic\StageBundle\Security\Permissions\StagePermissions;
+use MailVotech\CoreBundle\Controller\AbstractFormController;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\StageBundle\Entity\StageRepository;
+use MailVotech\StageBundle\Form\Type\StageMergeType;
+use MailVotech\StageBundle\Model\StageModel;
+use MailVotech\StageBundle\Security\Permissions\StagePermissions;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,14 +50,14 @@ final class StageController extends AbstractFormController
 
         $this->setListFilters();
 
-        $pageHelper = $pageHelperFactory->make('mautic.stage', $page);
+        $pageHelper = $pageHelperFactory->make('mailvotech.stage', $page);
 
         $limit      = $pageHelper->getLimit();
         $start      = $pageHelper->getStart();
-        $search     = $request->get('search', $request->getSession()->get('mautic.stage.filter', ''));
+        $search     = $request->get('search', $request->getSession()->get('mailvotech.stage.filter', ''));
         $filter     = ['string' => $search, 'force' => []];
-        $orderBy    = $request->getSession()->get('mautic.stage.orderby', 's.name');
-        $orderByDir = $request->getSession()->get('mautic.stage.orderbydir', 'ASC');
+        $orderBy    = $request->getSession()->get('mailvotech.stage.orderby', 's.name');
+        $orderByDir = $request->getSession()->get('mailvotech.stage.orderbydir', 'ASC');
         $stages = $this->stageModel->getEntities(
             [
                 'start'      => $start,
@@ -68,22 +68,22 @@ final class StageController extends AbstractFormController
             ]
         );
 
-        $request->getSession()->set('mautic.stage.filter', $search);
+        $request->getSession()->set('mailvotech.stage.filter', $search);
 
         $count = count($stages);
         if ($count && $count < ($start + 1)) {
             $lastPage  = $pageHelper->countPage($count);
-            $returnUrl = $this->generateUrl('mautic_stage_index', ['page' => $lastPage]);
+            $returnUrl = $this->generateUrl('mailvotech_stage_index', ['page' => $lastPage]);
             $pageHelper->rememberPage($lastPage);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $lastPage],
-                    'contentTemplate' => 'Mautic\StageBundle\Controller\StageController::indexAction',
+                    'contentTemplate' => 'MailVotech\StageBundle\Controller\StageController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_stage_index',
-                        'mauticContent' => 'stage',
+                        'activeLink'    => '#mailvotech_stage_index',
+                        'mailvotechContent' => 'stage',
                     ],
                 ]
             );
@@ -105,11 +105,11 @@ final class StageController extends AbstractFormController
                     'permissions' => $permissions,
                     'tmpl'        => $request->isXmlHttpRequest() ? $request->get('tmpl', 'index') : 'index',
                 ],
-                'contentTemplate' => '@MauticStage/Stage/list.html.twig',
+                'contentTemplate' => '@MailVotechStage/Stage/list.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_stage_index',
-                    'mauticContent' => 'stage',
-                    'route'         => $this->generateUrl('mautic_stage_index', ['page' => $page]),
+                    'activeLink'    => '#mailvotech_stage_index',
+                    'mailvotechContent' => 'stage',
+                    'route'         => $this->generateUrl('mailvotech_stage_index', ['page' => $page]),
                 ],
             ]
         );
@@ -132,11 +132,11 @@ final class StageController extends AbstractFormController
         }
 
         // set the page we came from
-        $page       = $request->getSession()->get('mautic.stage.page', 1);
+        $page       = $request->getSession()->get('mailvotech.stage.page', 1);
         $method     = $request->getMethod();
         $stage      = $request->request->all()['stage'] ?? [];
         $actionType = 'POST' === $method ? ($stage['type'] ?? '') : '';
-        $action     = $this->generateUrl('mautic_stage_action', ['objectAction' => 'new']);
+        $action     = $this->generateUrl('mailvotech_stage_action', ['objectAction' => 'new']);
         $actions    = $this->stageModel->getStageActions();
         $form       = $this->stageModel->createForm(
             $entity,
@@ -159,12 +159,12 @@ final class StageController extends AbstractFormController
                     $this->stageModel->saveEntity($entity);
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.created',
+                        'mailvotech.core.notice.created',
                         [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_stage_index',
+                            '%menu_link%' => 'mailvotech_stage_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_stage_action',
+                                'mailvotech_stage_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $entity->getId(),
@@ -174,16 +174,16 @@ final class StageController extends AbstractFormController
                     );
 
                     if ($this->getFormButton($form, ['buttons', 'save'])->isClicked()) {
-                        $returnUrl = $this->generateUrl('mautic_stage_index', $viewParameters);
-                        $template  = 'Mautic\StageBundle\Controller\StageController::indexAction';
+                        $returnUrl = $this->generateUrl('mailvotech_stage_index', $viewParameters);
+                        $template  = 'MailVotech\StageBundle\Controller\StageController::indexAction';
                     } else {
                         // return edit view so that all the session stuff is loaded
                         return $this->editAction($request, $formFactory, $entity->getId(), true);
                     }
                 }
             } else {
-                $returnUrl = $this->generateUrl('mautic_stage_index', $viewParameters);
-                $template  = 'Mautic\StageBundle\Controller\StageController::indexAction';
+                $returnUrl = $this->generateUrl('mailvotech_stage_index', $viewParameters);
+                $template  = 'MailVotech\StageBundle\Controller\StageController::indexAction';
             }
 
             if ($cancelled || ($valid && $this->getFormButton($form, ['buttons', 'save'])->isClicked())) {
@@ -193,15 +193,15 @@ final class StageController extends AbstractFormController
                         'viewParameters'  => $viewParameters,
                         'contentTemplate' => $template,
                         'passthroughVars' => [
-                            'activeLink'    => '#mautic_stage_index',
-                            'mauticContent' => 'stage',
+                            'activeLink'    => '#mailvotech_stage_index',
+                            'mailvotechContent' => 'stage',
                         ],
                     ]
                 );
             }
         }
 
-        $themes = ['MauticStageBundle:FormTheme\Action'];
+        $themes = ['MailVotechStageBundle:FormTheme\Action'];
         if ($actionType && !empty($actions['actions'][$actionType]['formTheme'])) {
             $themes[] = $actions['actions'][$actionType]['formTheme'];
         }
@@ -217,12 +217,12 @@ final class StageController extends AbstractFormController
                     'actions'      => $actions['actions'],
                     'stageWeights' => $stageWeights,
                 ],
-                'contentTemplate' => '@MauticStage/Stage/form.html.twig',
+                'contentTemplate' => '@MailVotechStage/Stage/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_stage_index',
-                    'mauticContent' => 'stage',
+                    'activeLink'    => '#mailvotech_stage_index',
+                    'mailvotechContent' => 'stage',
                     'route'         => $this->generateUrl(
-                        'mautic_stage_action',
+                        'mailvotech_stage_action',
                         [
                             'objectAction' => (!empty($valid) ? 'edit' : 'new'), // valid means a new form was applied
                             'objectId'     => $entity->getId(),
@@ -244,20 +244,20 @@ final class StageController extends AbstractFormController
         $entity = $this->stageModel->getEntity($objectId);
 
         // set the page we came from
-        $page = $request->getSession()->get('mautic.stage.page', 1);
+        $page = $request->getSession()->get('mailvotech.stage.page', 1);
 
         $viewParameters = ['page' => $page];
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_stage_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_stage_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => $viewParameters,
-            'contentTemplate' => 'Mautic\StageBundle\Controller\StageController::indexAction',
+            'contentTemplate' => 'MailVotech\StageBundle\Controller\StageController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_stage_index',
-                'mauticContent' => 'stage',
+                'activeLink'    => '#mailvotech_stage_index',
+                'mailvotechContent' => 'stage',
             ],
         ];
 
@@ -270,7 +270,7 @@ final class StageController extends AbstractFormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.stage.error.notfound',
+                                'msg'     => 'mailvotech.stage.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -287,7 +287,7 @@ final class StageController extends AbstractFormController
 
         $actionType = 'moved to stage';
 
-        $action  = $this->generateUrl('mautic_stage_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action  = $this->generateUrl('mailvotech_stage_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $actions = $this->stageModel->getStageActions();
         $form    = $this->stageModel->createForm(
             $entity,
@@ -308,12 +308,12 @@ final class StageController extends AbstractFormController
                     $this->stageModel->saveEntity($entity, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.updated',
+                        'mailvotech.core.notice.updated',
                         [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_stage_index',
+                            '%menu_link%' => 'mailvotech_stage_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_stage_action',
+                                'mailvotech_stage_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $entity->getId(),
@@ -323,16 +323,16 @@ final class StageController extends AbstractFormController
                     );
 
                     if ($this->getFormButton($form, ['buttons', 'save'])->isClicked()) {
-                        $returnUrl = $this->generateUrl('mautic_stage_index', $viewParameters);
-                        $template  = 'Mautic\StageBundle\Controller\StageController::indexAction';
+                        $returnUrl = $this->generateUrl('mailvotech_stage_index', $viewParameters);
+                        $template  = 'MailVotech\StageBundle\Controller\StageController::indexAction';
                     }
                 }
             } else {
                 // unlock the entity
                 $this->stageModel->unlockEntity($entity);
 
-                $returnUrl = $this->generateUrl('mautic_stage_index', $viewParameters);
-                $template  = 'Mautic\StageBundle\Controller\StageController::indexAction';
+                $returnUrl = $this->generateUrl('mailvotech_stage_index', $viewParameters);
+                $template  = 'MailVotech\StageBundle\Controller\StageController::indexAction';
             }
 
             if ($cancelled || ($valid && $this->getFormButton($form, ['buttons', 'save'])->isClicked())) {
@@ -352,7 +352,7 @@ final class StageController extends AbstractFormController
             $this->stageModel->lockEntity($entity);
         }
 
-        $themes = ['MauticStageBundle:FormTheme\Action'];
+        $themes = ['MailVotechStageBundle:FormTheme\Action'];
         if (!empty($actions['actions'][$actionType]['formTheme'])) {
             $themes[] = $actions['actions'][$actionType]['formTheme'];
         }
@@ -368,12 +368,12 @@ final class StageController extends AbstractFormController
                     'actions'      => $actions['actions'],
                     'stageWeights' => $stageWeights,
                 ],
-                'contentTemplate' => '@MauticStage/Stage/form.html.twig',
+                'contentTemplate' => '@MailVotechStage/Stage/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_stage_index',
-                    'mauticContent' => 'stage',
+                    'activeLink'    => '#mailvotech_stage_index',
+                    'mailvotechContent' => 'stage',
                     'route'         => $this->generateUrl(
-                        'mautic_stage_action',
+                        'mailvotech_stage_action',
                         [
                             'objectAction' => 'edit',
                             'objectId'     => $entity->getId(),
@@ -408,16 +408,16 @@ final class StageController extends AbstractFormController
     public function mergeAction(Request $request, FormFactoryInterface $formFactory, StageModel $model, int $objectId): Response
     {
         $secondaryStage = $model->getEntity($objectId);
-        $page           = $request->getSession()->get('mautic.stage.page', 1);
+        $page           = $request->getSession()->get('mailvotech.stage.page', 1);
 
-        $returnUrl      = $this->generateUrl('mautic_stage_index', ['page' => $page]);
+        $returnUrl      = $this->generateUrl('mailvotech_stage_index', ['page' => $page]);
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\\StageBundle\\Controller\\StageController::indexAction',
+            'contentTemplate' => 'MailVotech\\StageBundle\\Controller\\StageController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_stage_index',
-                'mauticContent' => 'stage',
+                'activeLink'    => '#mailvotech_stage_index',
+                'mailvotechContent' => 'stage',
             ],
         ];
         if (null === $secondaryStage) {
@@ -425,7 +425,7 @@ final class StageController extends AbstractFormController
                 array_merge($postActionVars, [
                     'flashes' => [[
                         'type'    => 'error',
-                        'msg'     => 'mautic.stage.error.notfound',
+                        'msg'     => 'mailvotech.stage.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ]],
                 ])
@@ -439,7 +439,7 @@ final class StageController extends AbstractFormController
 
         $stages = $this->stageRepository->getStages(false, (string) $secondaryStage->getId());
 
-        $action = $this->generateUrl('mautic_stage_action', ['objectAction' => 'merge', 'objectId' => $secondaryStage->getId()]);
+        $action = $this->generateUrl('mailvotech_stage_action', ['objectAction' => 'merge', 'objectId' => $secondaryStage->getId()]);
 
         $form = $formFactory->create(
             StageMergeType::class,
@@ -463,14 +463,14 @@ final class StageController extends AbstractFormController
                     'action'       => $action,
                     'form'         => $form->createView(),
                     'currentRoute' => $this->generateUrl(
-                        'mautic_stage_action',
+                        'mailvotech_stage_action',
                         [
                             'objectAction' => 'merge',
                             'objectId'     => $secondaryStage->getId(),
                         ]
                     ),
                 ],
-                'contentTemplate' => '@MauticStage/Stage/merge.html.twig',
+                'contentTemplate' => '@MailVotechStage/Stage/merge.html.twig',
                 'passthroughVars' => [
                     'route'  => false,
                     'target' => ('update' === $tmpl) ? '.stage-merge-options' : null,
@@ -486,17 +486,17 @@ final class StageController extends AbstractFormController
      */
     public function deleteAction(Request $request, $objectId): Response
     {
-        $page      = $request->getSession()->get('mautic.stage.page', 1);
-        $returnUrl = $this->generateUrl('mautic_stage_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.stage.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_stage_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\StageBundle\Controller\StageController::indexAction',
+            'contentTemplate' => 'MailVotech\StageBundle\Controller\StageController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_stage_index',
-                'mauticContent' => 'stage',
+                'activeLink'    => '#mailvotech_stage_index',
+                'mailvotechContent' => 'stage',
             ],
         ];
 
@@ -506,7 +506,7 @@ final class StageController extends AbstractFormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.stage.error.notfound',
+                    'msg'     => 'mailvotech.stage.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->isGranted(StagePermissions::PERMISSION_DELETE)) {
@@ -520,7 +520,7 @@ final class StageController extends AbstractFormController
             $identifier = $this->translator->trans($entity->getName());
             $flashes[]  = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $identifier,
                     '%id%'   => $objectId,
@@ -543,17 +543,17 @@ final class StageController extends AbstractFormController
      */
     public function batchDeleteAction(Request $request): Response
     {
-        $page      = $request->getSession()->get('mautic.stage.page', 1);
-        $returnUrl = $this->generateUrl('mautic_stage_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.stage.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_stage_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\StageBundle\Controller\StageController::indexAction',
+            'contentTemplate' => 'MailVotech\StageBundle\Controller\StageController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_stage_index',
-                'mauticContent' => 'stage',
+                'activeLink'    => '#mailvotech_stage_index',
+                'mailvotechContent' => 'stage',
             ],
         ];
 
@@ -568,7 +568,7 @@ final class StageController extends AbstractFormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.stage.error.notfound',
+                        'msg'     => 'mailvotech.stage.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->isGranted(StagePermissions::PERMISSION_DELETE)) {
@@ -586,7 +586,7 @@ final class StageController extends AbstractFormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.stage.notice.batch_deleted',
+                    'msg'     => 'mailvotech.stage.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],
@@ -615,8 +615,8 @@ final class StageController extends AbstractFormController
             return $this->postActionRedirect(array_merge($postActionVars, [
                 'passthroughVars' => [
                     'closeModal'    => 1,
-                    'activeLink'    => '#mautic_stage_index',
-                    'mauticContent' => 'stage',
+                    'activeLink'    => '#mailvotech_stage_index',
+                    'mailvotechContent' => 'stage',
                 ],
             ]));
         }
@@ -625,14 +625,14 @@ final class StageController extends AbstractFormController
             return $this->delegateView([
                 'viewParameters' => [
                     'tmpl'         => $request->get('tmpl', 'index'),
-                    'action'       => $this->generateUrl('mautic_stage_action', ['objectAction' => 'merge', 'objectId' => $secondaryStage->getId()]),
+                    'action'       => $this->generateUrl('mailvotech_stage_action', ['objectAction' => 'merge', 'objectId' => $secondaryStage->getId()]),
                     'form'         => $form->createView(),
-                    'currentRoute' => $this->generateUrl('mautic_stage_action', [
+                    'currentRoute' => $this->generateUrl('mailvotech_stage_action', [
                         'objectAction' => 'merge',
                         'objectId'     => $secondaryStage->getId(),
                     ]),
                 ],
-                'contentTemplate' => '@MauticStage/Stage/merge.html.twig',
+                'contentTemplate' => '@MailVotechStage/Stage/merge.html.twig',
                 'passthroughVars' => [
                     'route'  => false,
                     'target' => ('update' === $request->get('tmpl', 'index')) ? '.stage-merge-options' : null,
@@ -656,7 +656,7 @@ final class StageController extends AbstractFormController
             return $this->postActionRedirect(array_merge($postActionVars, [
                 'flashes' => [[
                     'type'    => 'error',
-                    'msg'     => 'mautic.stage.error.notfound',
+                    'msg'     => 'mailvotech.stage.error.notfound',
                     'msgVars' => ['%id%' => $primaryId],
                 ]],
             ]));
@@ -672,17 +672,17 @@ final class StageController extends AbstractFormController
         $viewParameters = ['page' => $page];
 
         return $this->postActionRedirect([
-            'returnUrl'       => $this->generateUrl('mautic_stage_index', $viewParameters),
+            'returnUrl'       => $this->generateUrl('mailvotech_stage_index', $viewParameters),
             'viewParameters'  => $viewParameters,
-            'contentTemplate' => 'Mautic\\StageBundle\\Controller\\StageController::indexAction',
+            'contentTemplate' => 'MailVotech\\StageBundle\\Controller\\StageController::indexAction',
             'passthroughVars' => [
                 'closeModal'    => 1,
-                'activeLink'    => '#mautic_stage_index',
-                'mauticContent' => 'stage',
+                'activeLink'    => '#mailvotech_stage_index',
+                'mailvotechContent' => 'stage',
             ],
             'flashes' => [[
                 'type'    => 'notice',
-                'msg'     => 'mautic.stage.notice.merged',
+                'msg'     => 'mailvotech.stage.notice.merged',
                 'msgVars' => [
                     '%name%' => $secondaryStage->getName(),
                     '%into%' => $primaryStage->getName(),

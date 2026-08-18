@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Controller;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Controller;
 
-use Mautic\CoreBundle\Controller\CommonController;
-use Mautic\CoreBundle\Helper\EmojiHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\CoreBundle\Controller\CommonController;
+use MailVotech\CoreBundle\Helper\EmojiHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\PageBundle\Entity\Page;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,7 +59,7 @@ class GrapesJsController extends CommonController
         });
 
         try {
-            $unserialized = \Mautic\CoreBundle\Helper\Serializer::decode($content);
+            $unserialized = \MailVotech\CoreBundle\Helper\Serializer::decode($content);
         } catch (\Throwable) {
             return [];
         } finally {
@@ -103,7 +103,7 @@ class GrapesJsController extends CommonController
 
     public function builderAction(
         Request $request,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         ThemeHelper $themeHelper,
         string $objectType,
         string $objectId,
@@ -112,7 +112,7 @@ class GrapesJsController extends CommonController
             throw new ConflictHttpException('Object not authorized to load custom builder');
         }
 
-        /** @var \Mautic\EmailBundle\Model\EmailModel|\Mautic\PageBundle\Model\PageModel $model */
+        /** @var \MailVotech\EmailBundle\Model\EmailModel|\MailVotech\PageBundle\Model\PageModel $model */
         $model      = $this->getModel($objectType);
         $aclToCheck = $this->getAclPrefix($objectType);
 
@@ -147,7 +147,7 @@ class GrapesJsController extends CommonController
         $template         = InputHelper::clean($request->query->get('template'));
         $resetEditorState = $request->query->getBoolean('resetEditorState', false);
         if (!$template) {
-            $mauticLogger->warning('Grapesjs: no template in query');
+            $mailvotechLogger->warning('Grapesjs: no template in query');
 
             return $this->json(false);
         }

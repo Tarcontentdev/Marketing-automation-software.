@@ -10,9 +10,9 @@
     <table class="table table-hover" id="{{ summaryId }}">
         <thead>
             <tr>
-                <th class="text-center">{{ 'mautic.campaign.campaign.import.entity'|trans }}</th>
-                <th class="text-center">{{ 'mautic.campaign.campaign.import.name'|trans }}</th>
-                <th class="text-center">{{ 'mautic.campaign.event.actions.header'|trans }}</th>
+                <th class="text-center">{{ 'mailvotech.campaign.campaign.import.entity'|trans }}</th>
+                <th class="text-center">{{ 'mailvotech.campaign.campaign.import.name'|trans }}</th>
+                <th class="text-center">{{ 'mailvotech.campaign.event.actions.header'|trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -20,18 +20,18 @@
                 {% set entity = entityKey|replace({'_create':'', '_update':''}) %}
 
                 {% set entityTranslations = {
-                    'point_group': 'mautic.point.group.header.index',
-                    'page': 'mautic.page.page',
-                    'lists': 'mautic.segment.segment',
-                    'lead_field': 'mautic.lead.field.header.index',
-                    'form_field': 'mautic.form.field',
-                    'form_action': 'mautic.form.actions',
-                    'forms': 'mautic.form.form',
-                    'email': 'mautic.email.email',
-                    'dynamic_content': 'mautic.dynamicContent.dynamicContent',
-                    'campaign_event': 'mautic.campaign.events',
-                    'asset': 'mautic.asset.asset',
-                    'campaign': 'mautic.campaign.campaign'
+                    'point_group': 'mailvotech.point.group.header.index',
+                    'page': 'mailvotech.page.page',
+                    'lists': 'mailvotech.segment.segment',
+                    'lead_field': 'mailvotech.lead.field.header.index',
+                    'form_field': 'mailvotech.form.field',
+                    'form_action': 'mailvotech.form.actions',
+                    'forms': 'mailvotech.form.form',
+                    'email': 'mailvotech.email.email',
+                    'dynamic_content': 'mailvotech.dynamicContent.dynamicContent',
+                    'campaign_event': 'mailvotech.campaign.events',
+                    'asset': 'mailvotech.asset.asset',
+                    'campaign': 'mailvotech.campaign.campaign'
                 } %}
 
                 {% set translatedEntity = entityTranslations[entity] ? entityTranslations[entity]|trans : entity|capitalize %}
@@ -47,7 +47,7 @@
                         <td class="text-center"><strong>{{ translatedEntity }}</strong></td>
                         <td>
                             {% if entity == 'campaign' and showLinks %}
-                                <a href="{{ path('mautic_campaign_action', {'objectAction': 'view', 'objectId': ids[i]}) }}">
+                                <a href="{{ path('mailvotech_campaign_action', {'objectAction': 'view', 'objectId': ids[i]}) }}">
                                     {{ names[i] }}
                                 </a>
                             {% else %}
@@ -57,15 +57,15 @@
                         <td class="text-center">
                             {% if isAnalyzeStage %}
                                 {% if entity == 'campaign_event' %}
-                                    {{ 'mautic.campaign.campaign.import.follow_campaign_action'|trans }}
+                                    {{ 'mailvotech.campaign.campaign.import.follow_campaign_action'|trans }}
                                 {% elseif entity == 'form_field' %}
-                                    {{ 'mautic.campaign.campaign.import.follow_form'|trans }}
+                                    {{ 'mailvotech.campaign.campaign.import.follow_form'|trans }}
                                 {% elseif entity == 'form_action' %}
-                                    {{ 'mautic.campaign.campaign.import.follow_form'|trans }}
+                                    {{ 'mailvotech.campaign.campaign.import.follow_form'|trans }}
                                  {% elseif entityKey ends with '_update' %}
                                     <select name="importAction[{{ entity }}][{{ ids[i] }}]" class="form-control input-sm">
-                                        <option value="update" selected>{{ 'mautic.campaign.campaign.import.update_entity'|trans }}</option>
-                                        <option value="create">{{ 'mautic.campaign.campaign.import.create_entity'|trans }}</option>
+                                        <option value="update" selected>{{ 'mailvotech.campaign.campaign.import.update_entity'|trans }}</option>
+                                        <option value="create">{{ 'mailvotech.campaign.campaign.import.create_entity'|trans }}</option>
                                     </select>
                                 {% else %}
                                     {{ details.status }}

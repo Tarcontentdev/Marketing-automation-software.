@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\Tests\DataFixtures\ORM;
+namespace MailVotech\LeadBundle\Tests\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Hit;
 
 final class LoadPageHitData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -16,7 +16,7 @@ final class LoadPageHitData extends AbstractFixture implements OrderedFixtureInt
                 'ipAddress'  => $this->getReference('ipAddress-1'),
                 'url'        => 'http://test.com',
                 'urlTitle'   => 'Test Title',
-                'referer'    => 'http://mautic.com',
+                'referer'    => 'http://mailvotech.com',
                 'alias'      => 'hit-1',
                 'contact'    => $this->getReference('lead-1'),
                 'dateHit'    => new \DateTime('-1 day'),

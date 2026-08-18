@@ -65,7 +65,7 @@ final class NoParentConstructorForwardingRule implements Rule
      * @var string[]
      */
     private const SKIPPED_CLASSES = [
-        'Mautic\ApiBundle\Controller\CommonApiController',
+        'MailVotech\ApiBundle\Controller\CommonApiController',
     ];
 
     public function getNodeType(): string
@@ -106,7 +106,7 @@ final class NoParentConstructorForwardingRule implements Rule
                 'Constructor hands %d parameter(s) straight over to parent::__construct(), drop them and take the dependency of its own in an autowire*() method instead.',
                 count($passedThroughParams)
             ))
-                ->identifier('mautic.noParentConstructorForwarding')
+                ->identifier('mailvotech.noParentConstructorForwarding')
                 ->line($node->getStartLine())
                 ->build(),
         ];

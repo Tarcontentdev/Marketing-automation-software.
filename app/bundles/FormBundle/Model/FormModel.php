@@ -1,39 +1,39 @@
 <?php
 
-namespace Mautic\FormBundle\Model;
+namespace MailVotech\FormBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
-use Mautic\CoreBundle\Doctrine\Helper\TableSchemaHelper;
-use Mautic\CoreBundle\DTO\GlobalSearchFilterDTO;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\ThemeHelperInterface;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel as CommonFormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\FormBundle\Collector\MappedObjectCollectorInterface;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\FormRepository;
-use Mautic\FormBundle\Event\FormBuilderEvent;
-use Mautic\FormBundle\Event\FormEvent;
-use Mautic\FormBundle\Form\Type\FormType;
-use Mautic\FormBundle\FormEvents;
-use Mautic\FormBundle\Helper\FormFieldHelper;
-use Mautic\FormBundle\Helper\FormUploader;
-use Mautic\FormBundle\ProgressiveProfiling\DisplayManager;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Helper\CustomFieldValueHelper;
-use Mautic\LeadBundle\Helper\FormFieldHelper as ContactFieldHelper;
-use Mautic\LeadBundle\Helper\PrimaryCompanyHelper;
-use Mautic\LeadBundle\Model\FieldModel as LeadFieldModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
+use MailVotech\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
+use MailVotech\CoreBundle\Doctrine\Helper\TableSchemaHelper;
+use MailVotech\CoreBundle\DTO\GlobalSearchFilterDTO;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelperInterface;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel as CommonFormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\FormBundle\Collector\MappedObjectCollectorInterface;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\FormRepository;
+use MailVotech\FormBundle\Event\FormBuilderEvent;
+use MailVotech\FormBundle\Event\FormEvent;
+use MailVotech\FormBundle\Form\Type\FormType;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\FormBundle\Helper\FormFieldHelper;
+use MailVotech\FormBundle\Helper\FormUploader;
+use MailVotech\FormBundle\ProgressiveProfiling\DisplayManager;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Helper\CustomFieldValueHelper;
+use MailVotech\LeadBundle\Helper\FormFieldHelper as ContactFieldHelper;
+use MailVotech\LeadBundle\Helper\PrimaryCompanyHelper;
+use MailVotech\LeadBundle\Model\FieldModel as LeadFieldModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -69,11 +69,11 @@ class FormModel extends CommonFormModel implements GlobalSearchInterface
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         CoreParametersHelper $coreParametersHelper,
         private readonly FormRepository $formRepository,
     ) {
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function getRepository(): FormRepository
@@ -347,9 +347,9 @@ class FormModel extends CommonFormModel implements GlobalSearchInterface
     public function getContent(Form $form, $withScript = true, $useCache = true): string
     {
         if ($form->isSubmissionLimitReached()) {
-            $message = $form->getSubmissionLimitMessage() ?? $this->translator->trans('mautic.form.submission.limit_reached');
+            $message = $form->getSubmissionLimitMessage() ?? $this->translator->trans('mailvotech.form.submission.limit_reached');
 
-            return sprintf('<div class="mautic-form-message">%s</div>', InputHelper::strict_html($message));
+            return sprintf('<div class="mailvotech-form-message">%s</div>', InputHelper::strict_html($message));
         }
 
         $html = $this->getFormHtml($form, $useCache);
@@ -416,18 +416,18 @@ class FormModel extends CommonFormModel implements GlobalSearchInterface
         $submissions   = null;
         $lead          = ($this->requestStack->getCurrentRequest()) ? $this->contactTracker->getContact() : null;
         $style         = '';
-        $styleToRender = '@MauticForm/Builder/_style.html.twig';
-        $formToRender  = '@MauticForm/Builder/form.html.twig';
+        $styleToRender = '@MailVotechForm/Builder/_style.html.twig';
+        $formToRender  = '@MailVotechForm/Builder/form.html.twig';
 
         foreach (['_style', 'style'] as $styleFile) {
-            $stylePath = "@themes/{$theme}/html/MauticFormBundle/Builder/{$styleFile}.html.twig";
+            $stylePath = "@themes/{$theme}/html/MailVotechFormBundle/Builder/{$styleFile}.html.twig";
             if ($this->twig->getLoader()->exists($stylePath)) {
                 $styleToRender = $stylePath;
             }
         }
 
-        if ($this->twig->getLoader()->exists('@themes/'.$theme.'/html/MauticFormBundle/Builder/form.html.twig')) {
-            $formToRender = '@themes/'.$theme.'/html/MauticFormBundle/Builder/form.html.twig';
+        if ($this->twig->getLoader()->exists('@themes/'.$theme.'/html/MailVotechFormBundle/Builder/form.html.twig')) {
+            $formToRender = '@themes/'.$theme.'/html/MailVotechFormBundle/Builder/form.html.twig';
         }
 
         if ($lead instanceof Lead && $lead->getId() && $entity->usesProgressiveProfiling()) {
@@ -692,11 +692,11 @@ class FormModel extends CommonFormModel implements GlobalSearchInterface
     public function getFormScript(Form $form): string
     {
         $theme          = $form->getTemplate();
-        $scriptToRender = '@MauticForm/Builder/_script.html.twig';
+        $scriptToRender = '@MailVotechForm/Builder/_script.html.twig';
 
         if (!empty($theme)) {
-            if ($this->twig->getLoader()->exists('@themes/'.$theme.'/MauticForm/Builder/_script.html.twig')) {
-                $scriptToRender = '@themes/'.$theme.'/MauticForm/Builder/_script.html.twig';
+            if ($this->twig->getLoader()->exists('@themes/'.$theme.'/MailVotechForm/Builder/_script.html.twig')) {
+                $scriptToRender = '@themes/'.$theme.'/MailVotechForm/Builder/_script.html.twig';
             }
         }
 
@@ -799,57 +799,57 @@ class FormModel extends CommonFormModel implements GlobalSearchInterface
     {
         $operatorOptions = [
             '=' => [
-                'label'       => 'mautic.lead.list.form.operator.equals',
+                'label'       => 'mailvotech.lead.list.form.operator.equals',
                 'expr'        => 'eq',
                 'negate_expr' => 'neq',
             ],
             '!=' => [
-                'label'       => 'mautic.lead.list.form.operator.notequals',
+                'label'       => 'mailvotech.lead.list.form.operator.notequals',
                 'expr'        => 'neq',
                 'negate_expr' => 'eq',
             ],
             'gt' => [
-                'label'       => 'mautic.lead.list.form.operator.greaterthan',
+                'label'       => 'mailvotech.lead.list.form.operator.greaterthan',
                 'expr'        => 'gt',
                 'negate_expr' => 'lt',
             ],
             'gte' => [
-                'label'       => 'mautic.lead.list.form.operator.greaterthanequals',
+                'label'       => 'mailvotech.lead.list.form.operator.greaterthanequals',
                 'expr'        => 'gte',
                 'negate_expr' => 'lt',
             ],
             'lt' => [
-                'label'       => 'mautic.lead.list.form.operator.lessthan',
+                'label'       => 'mailvotech.lead.list.form.operator.lessthan',
                 'expr'        => 'lt',
                 'negate_expr' => 'gt',
             ],
             'lte' => [
-                'label'       => 'mautic.lead.list.form.operator.lessthanequals',
+                'label'       => 'mailvotech.lead.list.form.operator.lessthanequals',
                 'expr'        => 'lte',
                 'negate_expr' => 'gt',
             ],
             'like' => [
-                'label'       => 'mautic.lead.list.form.operator.islike',
+                'label'       => 'mailvotech.lead.list.form.operator.islike',
                 'expr'        => 'like',
                 'negate_expr' => 'notLike',
             ],
             '!like' => [
-                'label'       => 'mautic.lead.list.form.operator.isnotlike',
+                'label'       => 'mailvotech.lead.list.form.operator.isnotlike',
                 'expr'        => 'notLike',
                 'negate_expr' => 'like',
             ],
             'startsWith' => [
-                'label'       => 'mautic.core.operator.starts.with',
+                'label'       => 'mailvotech.core.operator.starts.with',
                 'expr'        => 'startsWith',
                 'negate_expr' => 'startsWith',
             ],
             'endsWith' => [
-                'label'       => 'mautic.core.operator.ends.with',
+                'label'       => 'mailvotech.core.operator.ends.with',
                 'expr'        => 'endsWith',
                 'negate_expr' => 'endsWith',
             ],
             'contains' => [
-                'label'       => 'mautic.core.operator.contains',
+                'label'       => 'mailvotech.core.operator.contains',
                 'expr'        => 'contains',
                 'negate_expr' => 'contains',
             ],
@@ -868,7 +868,7 @@ class FormModel extends CommonFormModel implements GlobalSearchInterface
     {
         $q = $this->em->getConnection()->createQueryBuilder();
         $q->select('t.id, t.name, t.date_added, t.date_modified')
-            ->from(MAUTIC_TABLE_PREFIX.'forms', 't')
+            ->from(MAILVOTECH_TABLE_PREFIX.'forms', 't')
             ->setMaxResults($limit);
 
         if (!empty($options['canViewOthers'])) {

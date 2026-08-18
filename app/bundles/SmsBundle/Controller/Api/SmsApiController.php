@@ -1,19 +1,19 @@
 <?php
 
-namespace Mautic\SmsBundle\Controller\Api;
+namespace MailVotech\SmsBundle\Controller\Api;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\ApiBundle\Controller\CommonApiController;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Controller\LeadAccessTrait;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Model\SmsModel;
-use Mautic\SmsBundle\Sms\TransportChain;
+use MailVotech\ApiBundle\Controller\CommonApiController;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Controller\LeadAccessTrait;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Model\SmsModel;
+use MailVotech\SmsBundle\Sms\TransportChain;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -63,7 +63,7 @@ final class SmsApiController extends CommonApiController
         parent::__construct($security, $translator, $entityResultHelper, $router, $formFactory, $appVersion, $requestStack, $doctrine, $modelFactory, $dispatcher, $coreParametersHelper);
     }
 
-    public function sendAction(TransportChain $transportChain, LoggerInterface $mauticLogger, $id, $contactId): JsonResponse|Response
+    public function sendAction(TransportChain $transportChain, LoggerInterface $mailvotechLogger, $id, $contactId): JsonResponse|Response
     {
         if (!$transportChain->getEnabledTransports()) {
             return new JsonResponse(json_encode(['error' => ['message' => 'SMS transport is disabled.', 'code' => Response::HTTP_EXPECTATION_FAILED]]));
@@ -81,12 +81,12 @@ final class SmsApiController extends CommonApiController
             return $this->accessDenied();
         }
 
-        $mauticLogger->debug("Sending SMS #{$id} to contact #{$contactId}", ['originator' => 'api']);
+        $mailvotechLogger->debug("Sending SMS #{$id} to contact #{$contactId}", ['originator' => 'api']);
 
         try {
             $response = $this->model->sendSms($message, $contact, ['channel' => 'api'])[$contact->getId()];
         } catch (\Exception $e) {
-            $mauticLogger->error($e->getMessage(), ['error' => (array) $e]);
+            $mailvotechLogger->error($e->getMessage(), ['error' => (array) $e]);
 
             return new Response('Interval server error', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -94,7 +94,7 @@ final class SmsApiController extends CommonApiController
         $success = !empty($response['sent']);
 
         if (!$success) {
-            $mauticLogger->error('Failed to send SMS.', ['error' => $response['status']]);
+            $mailvotechLogger->error('Failed to send SMS.', ['error' => $response['status']]);
         }
 
         $view = $this->view(

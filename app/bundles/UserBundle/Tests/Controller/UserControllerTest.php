@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Controller;
+namespace MailVotech\UserBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Tests\Traits\CreateEntityTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Tests\Traits\CreateEntityTrait;
 use Symfony\Component\HttpFoundation\Request;
 
-final class UserControllerTest extends MauticMysqlTestCase
+final class UserControllerTest extends MailVotechMysqlTestCase
 {
     use CreateEntityTrait;
     use LoginUserWithSamlTrait;

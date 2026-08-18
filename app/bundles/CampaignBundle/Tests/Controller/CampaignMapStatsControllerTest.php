@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Controller;
+namespace MailVotech\CampaignBundle\Tests\Controller;
 
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
-use Mautic\CampaignBundle\Controller\CampaignMapStatsController;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Helper\MapHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Entity\Trackable;
+use MailVotech\CampaignBundle\Controller\CampaignMapStatsController;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Helper\MapHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Entity\Trackable;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CampaignMapStatsControllerTest extends MauticMysqlTestCase
+final class CampaignMapStatsControllerTest extends MailVotechMysqlTestCase
 {
     private CampaignMapStatsController $mapController;
 

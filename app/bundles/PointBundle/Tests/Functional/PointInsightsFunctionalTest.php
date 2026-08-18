@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Functional;
+namespace MailVotech\PointBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\PointInsight;
-use Mautic\PointBundle\Model\PointGroupModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\PointInsight;
+use MailVotech\PointBundle\Model\PointGroupModel;
 
-final class PointInsightsFunctionalTest extends MauticMysqlTestCase
+final class PointInsightsFunctionalTest extends MailVotechMysqlTestCase
 {
     private const GROUP_A_SUFFIX = ' (Group A)';
 

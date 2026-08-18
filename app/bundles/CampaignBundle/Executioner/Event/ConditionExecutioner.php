@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\CampaignBundle\Executioner\Event;
+namespace MailVotech\CampaignBundle\Executioner\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ConditionAccessor;
-use Mautic\CampaignBundle\Executioner\Dispatcher\ConditionDispatcher;
-use Mautic\CampaignBundle\Executioner\Exception\CannotProcessEventException;
-use Mautic\CampaignBundle\Executioner\Exception\ConditionFailedException;
-use Mautic\CampaignBundle\Executioner\Result\EvaluatedContacts;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ConditionAccessor;
+use MailVotech\CampaignBundle\Executioner\Dispatcher\ConditionDispatcher;
+use MailVotech\CampaignBundle\Executioner\Exception\CannotProcessEventException;
+use MailVotech\CampaignBundle\Executioner\Exception\ConditionFailedException;
+use MailVotech\CampaignBundle\Executioner\Result\EvaluatedContacts;
 
 class ConditionExecutioner implements EventInterface
 {

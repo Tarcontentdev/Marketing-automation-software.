@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor\Bounce;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce;
 
-use Mautic\EmailBundle\MonitoredEmail\Exception\BounceNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\Definition\Category;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\Definition\Type;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\Mapper\CategoryMapper;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\BounceNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\Definition\Category;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\Definition\Type;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\Mapper\CategoryMapper;
 
 final class BodyParser
 {

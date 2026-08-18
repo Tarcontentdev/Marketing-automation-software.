@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Tests\Form\Type;
+namespace MailVotech\NotificationBundle\Tests\Form\Type;
 
 use Doctrine\DBAL\Connection;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Form\Type\EntityLookupType;
-use Mautic\NotificationBundle\Form\Type\NotificationSendType;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Form\Type\EntityLookupType;
+use MailVotech\NotificationBundle\Form\Type\NotificationSendType;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;

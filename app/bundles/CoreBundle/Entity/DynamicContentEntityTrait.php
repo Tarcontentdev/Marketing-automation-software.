@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Entity;
+namespace MailVotech\CoreBundle\Entity;
 
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 trait DynamicContentEntityTrait

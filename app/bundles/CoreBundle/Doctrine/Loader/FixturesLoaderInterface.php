@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine\Loader;
+namespace MailVotech\CoreBundle\Doctrine\Loader;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Entity;
+namespace MailVotech\NotificationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\LeadBundle\Entity\Lead;
 
 class PushID
 {

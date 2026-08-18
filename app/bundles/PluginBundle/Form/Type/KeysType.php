@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\PluginBundle\Form\Type;
+namespace MailVotech\PluginBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -35,7 +35,7 @@ final class KeysType extends AbstractType
                     new Callback(
                         function ($validateMe, ExecutionContextInterface $context) use ($options): void {
                             if (empty($validateMe) && !empty($options['is_published'])) {
-                                $context->buildViolation('mautic.core.value.required')->addViolation();
+                                $context->buildViolation('mailvotech.core.value.required')->addViolation();
                             }
                         }
                     ),

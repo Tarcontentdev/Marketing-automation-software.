@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Command;
+namespace MailVotech\LeadBundle\Command;
 
-use Mautic\CoreBundle\Helper\ExitCode;
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Model\CompanyModel;
+use MailVotech\CoreBundle\Helper\ExitCode;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Model\CompanyModel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Attribute\Option;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 final readonly class DeleteCompanyLeads
 {
-    public const COMMAND_NAME = 'mautic:company:delete_company_leads';
+    public const COMMAND_NAME = 'mailvotech:company:delete_company_leads';
 
     public function __construct(
         private CompanyLeadRepository $companyLeadRepository,

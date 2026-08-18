@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Event;
+namespace MailVotech\CampaignBundle\Tests\Event;
 
-use Mautic\AssetBundle\Form\Type\PointActionAssetDownloadType;
-use Mautic\AssetBundle\Helper\PointActionHelper;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Tests\CampaignTestAbstract;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\FormBundle\Form\Type\CampaignEventFormFieldValueType;
+use MailVotech\AssetBundle\Form\Type\PointActionAssetDownloadType;
+use MailVotech\AssetBundle\Helper\PointActionHelper;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Tests\CampaignTestAbstract;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\FormBundle\Form\Type\CampaignEventFormFieldValueType;
 
 final class CampaignBuilderEventTest extends CampaignTestAbstract
 {
@@ -17,9 +17,9 @@ final class CampaignBuilderEventTest extends CampaignTestAbstract
     {
         $decisionKey = 'email.open';
         $decision    = [
-            'label'                  => 'mautic.email.campaign.event.open',
-            'description'            => 'mautic.email.campaign.event.open_descr',
-            'eventName'              => 'mautic.email.on_campaign_trigger_decision',
+            'label'                  => 'mailvotech.email.campaign.event.open',
+            'description'            => 'mailvotech.email.campaign.event.open_descr',
+            'eventName'              => 'mailvotech.email.on_campaign_trigger_decision',
             'connectionRestrictions' => [
                 'source' => [
                     'action' => [
@@ -41,9 +41,9 @@ final class CampaignBuilderEventTest extends CampaignTestAbstract
     public function testEventDecisionSort(): void
     {
         $decision = [
-            'label'                  => 'mautic.email.campaign.event.open',
-            'description'            => 'mautic.email.campaign.event.open_descr',
-            'eventName'              => 'mautic.email.on_campaign_trigger_decision',
+            'label'                  => 'mailvotech.email.campaign.event.open',
+            'description'            => 'mailvotech.email.campaign.event.open_descr',
+            'eventName'              => 'mailvotech.email.on_campaign_trigger_decision',
             'connectionRestrictions' => [
                 'source' => [
                     'action' => [
@@ -56,9 +56,9 @@ final class CampaignBuilderEventTest extends CampaignTestAbstract
 
         // add 3 unsorted decisions
         $event->addDecision('email.open1', $decision);
-        $decision['label'] = 'mautic.email.campaign.event.open.3';
+        $decision['label'] = 'mailvotech.email.campaign.event.open.3';
         $event->addDecision('email.open3', $decision);
-        $decision['label'] = 'mautic.email.campaign.event.open.2';
+        $decision['label'] = 'mailvotech.email.campaign.event.open.2';
         $event->addDecision('email.open2', $decision);
 
         $decisions = $event->getDecisions();
@@ -75,19 +75,19 @@ final class CampaignBuilderEventTest extends CampaignTestAbstract
     public function testEventConditionSort(): void
     {
         $condition = [
-            'label'       => 'mautic.form.campaign.event.field_value',
-            'description' => 'mautic.form.campaign.event.field_value_descr',
+            'label'       => 'mailvotech.form.campaign.event.field_value',
+            'description' => 'mailvotech.form.campaign.event.field_value_descr',
             'formType'    => CampaignEventFormFieldValueType::class,
-            'formTheme'   => '@MauticForm/FormTheme/FieldValueCondition/_campaignevent_form_field_value_widget.html.twig',
-            'eventName'   => 'mautic.form.on_campaign_trigger_condition',
+            'formTheme'   => '@MailVotechForm/FormTheme/FieldValueCondition/_campaignevent_form_field_value_widget.html.twig',
+            'eventName'   => 'mailvotech.form.on_campaign_trigger_condition',
         ];
         $event = $this->initEvent();
 
         // add 3 unsorted conditions
         $event->addCondition('form.field_value1', $condition);
-        $condition['label'] = 'mautic.form.campaign.event.field_value.3';
+        $condition['label'] = 'mailvotech.form.campaign.event.field_value.3';
         $event->addCondition('form.field_value3', $condition);
-        $condition['label'] = 'mautic.form.campaign.event.field_value.2';
+        $condition['label'] = 'mailvotech.form.campaign.event.field_value.2';
         $event->addCondition('form.field_value2', $condition);
 
         $conditions = $event->getConditions();
@@ -104,9 +104,9 @@ final class CampaignBuilderEventTest extends CampaignTestAbstract
     public function testEventActionSort(): void
     {
         $action = [
-            'group'       => 'mautic.asset.actions',
-            'label'       => 'mautic.asset.point.action.download',
-            'description' => 'mautic.asset.point.action.download_descr',
+            'group'       => 'mailvotech.asset.actions',
+            'label'       => 'mailvotech.asset.point.action.download',
+            'description' => 'mailvotech.asset.point.action.download_descr',
             'callback'    => [PointActionHelper::class, 'validateAssetDownload'],
             'formType'    => PointActionAssetDownloadType::class,
         ];
@@ -114,9 +114,9 @@ final class CampaignBuilderEventTest extends CampaignTestAbstract
 
         // add 3 unsorted actions
         $event->addAction('asset.download1', $action);
-        $action['label'] = 'mautic.asset.point.action.download.3';
+        $action['label'] = 'mailvotech.asset.point.action.download.3';
         $event->addAction('asset.download3', $action);
-        $action['label'] = 'mautic.asset.point.action.download.2';
+        $action['label'] = 'mailvotech.asset.point.action.download.2';
         $event->addAction('asset.download2', $action);
 
         $actions = $event->getActions();

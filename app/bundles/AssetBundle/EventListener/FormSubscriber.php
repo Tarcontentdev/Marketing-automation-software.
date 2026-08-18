@@ -1,21 +1,21 @@
 <?php
 
-namespace Mautic\AssetBundle\EventListener;
+namespace MailVotech\AssetBundle\EventListener;
 
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Entity\AssetRepository;
-use Mautic\AssetBundle\Form\Type\FormSubmitActionDownloadFileType;
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ThemeHelperInterface;
-use Mautic\CoreBundle\Twig\Helper\AnalyticsHelper;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Event\FormBuilderEvent;
-use Mautic\FormBundle\Event\SubmissionEvent;
-use Mautic\FormBundle\FormEvents;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Entity\AssetRepository;
+use MailVotech\AssetBundle\Form\Type\FormSubmitActionDownloadFileType;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelperInterface;
+use MailVotech\CoreBundle\Twig\Helper\AnalyticsHelper;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Event\FormBuilderEvent;
+use MailVotech\FormBundle\Event\SubmissionEvent;
+use MailVotech\FormBundle\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -50,13 +50,13 @@ final readonly class FormSubscriber implements EventSubscriberInterface
     public function onFormBuilder(FormBuilderEvent $event): void
     {
         $event->addSubmitAction('asset.download', [
-            'group'              => 'mautic.asset.actions',
-            'label'              => 'mautic.asset.asset.submitaction.downloadfile',
-            'description'        => 'mautic.asset.asset.submitaction.downloadfile_descr',
+            'group'              => 'mailvotech.asset.actions',
+            'label'              => 'mailvotech.asset.asset.submitaction.downloadfile',
+            'description'        => 'mailvotech.asset.asset.submitaction.downloadfile_descr',
             'formType'           => FormSubmitActionDownloadFileType::class,
             'formTypeCleanMasks' => ['message' => 'html'],
             'eventName'          => FormEvents::ON_EXECUTE_SUBMIT_ACTION,
-            'template'           => '@MauticAsset/Action/asset.html.twig',
+            'template'           => '@MailVotechAsset/Action/asset.html.twig',
         ]);
     }
 
@@ -127,7 +127,7 @@ final readonly class FormSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $msg = $message.$this->translator->trans('mautic.asset.asset.submitaction.downloadfile.msg', [
+        $msg = $message.$this->translator->trans('mailvotech.asset.asset.submitaction.downloadfile.msg', [
             '%url%' => $url,
         ]);
 

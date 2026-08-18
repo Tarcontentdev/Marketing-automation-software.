@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\Controller;
+namespace MailVotech\LeadBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AbstractFormController;
-use Mautic\LeadBundle\Form\Type\BatchType;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Model\SegmentActionModel;
+use MailVotech\CoreBundle\Controller\AbstractFormController;
+use MailVotech\LeadBundle\Form\Type\BatchType;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Model\SegmentActionModel;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,11 +46,11 @@ final class BatchSegmentController extends AbstractFormController
                 $this->segmentActionModel->removeContacts($contactIds, $segmentsToRemove);
             }
 
-            $this->addFlashMessage('mautic.lead.batch_leads_affected', [
+            $this->addFlashMessage('mailvotech.lead.batch_leads_affected', [
                 '%count%' => count($contactIds),
             ]);
         } else {
-            $this->addFlashMessage('mautic.core.error.ids.missing');
+            $this->addFlashMessage('mailvotech.core.error.ids.missing');
         }
 
         return new JsonResponse([
@@ -64,7 +64,7 @@ final class BatchSegmentController extends AbstractFormController
      */
     public function indexAction(): Response
     {
-        $route = $this->generateUrl('mautic_segment_batch_contact_set');
+        $route = $this->generateUrl('mailvotech_segment_batch_contact_set');
         $lists = $this->segmentModel->getUserLists();
         $items = [];
 
@@ -84,10 +84,10 @@ final class BatchSegmentController extends AbstractFormController
                         ]
                     )->createView(),
                 ],
-                'contentTemplate' => '@MauticLead/Batch/form.html.twig',
+                'contentTemplate' => '@MailVotechLead/Batch/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_contact_index',
-                    'mauticContent' => 'leadBatch',
+                    'activeLink'    => '#mailvotech_contact_index',
+                    'mailvotechContent' => 'leadBatch',
                     'route'         => $route,
                 ],
             ]

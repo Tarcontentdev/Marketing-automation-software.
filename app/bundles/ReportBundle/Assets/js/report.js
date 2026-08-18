@@ -1,21 +1,21 @@
 //ReportBundle
-Mautic.reportOnLoad = function (container) {
+MailVotech.reportOnLoad = function (container) {
     // Activate search if the container exists
     if (mQuery(container + ' #list-search').length) {
-        Mautic.activateSearchAutocomplete('list-search', 'report');
+        MailVotech.activateSearchAutocomplete('list-search', 'report');
     }
 
     // Append an index of the number of filters on the edit form
     if (mQuery('div[id=report_filters]').length) {
-        mQuery('div[id=report_filters]').attr('data-index', Mautic.getHighestIndex('report_filters'));
-        mQuery('div[id=report_tableOrder]').attr('data-index', Mautic.getHighestIndex('report_tableOrder'));
-        mQuery('div[id=report_aggregators]').attr('data-index', Mautic.getHighestIndex('report_aggregators'));
+        mQuery('div[id=report_filters]').attr('data-index', MailVotech.getHighestIndex('report_filters'));
+        mQuery('div[id=report_tableOrder]').attr('data-index', MailVotech.getHighestIndex('report_tableOrder'));
+        mQuery('div[id=report_aggregators]').attr('data-index', MailVotech.getHighestIndex('report_aggregators'));
 
         if (mQuery('.filter-columns').length) {
             mQuery('.filter-columns').each(function () {
-                Mautic.updateReportFilterValueInput(this, true);
+                MailVotech.updateReportFilterValueInput(this, true);
                 mQuery(this).on('change', function () {
-                    Mautic.updateReportFilterValueInput(this);
+                    MailVotech.updateReportFilterValueInput(this);
                 });
             });
         }
@@ -29,9 +29,9 @@ Mautic.reportOnLoad = function (container) {
             })
         })
     }
-    Mautic.updateReportGlueTriggers();
-    Mautic.checkSelectedGroupBy();
-    Mautic.initDateRangePicker();
+    MailVotech.updateReportGlueTriggers();
+    MailVotech.checkSelectedGroupBy();
+    MailVotech.initDateRangePicker();
 
     var $isScheduled = mQuery('[data-report-schedule="isScheduled"]');
     var $unitTypeId = mQuery('[data-report-schedule="scheduleUnit"]');
@@ -39,26 +39,26 @@ Mautic.reportOnLoad = function (container) {
     var $scheduleMonthFrequency = mQuery('[data-report-schedule="scheduleMonthFrequency"]');
 
     mQuery($isScheduled).change(function () {
-        Mautic.scheduleDisplay($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency);
+        MailVotech.scheduleDisplay($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency);
     });
     mQuery($unitTypeId).change(function () {
-        Mautic.scheduleDisplay($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency);
+        MailVotech.scheduleDisplay($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency);
     });
     mQuery($scheduleDay).change(function () {
-        Mautic.schedulePreview($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency);
+        MailVotech.schedulePreview($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency);
     });
     mQuery($scheduleMonthFrequency).change(function () {
-        Mautic.schedulePreview($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency);
+        MailVotech.schedulePreview($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency);
     });
-    Mautic.scheduleDisplay($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency);
+    MailVotech.scheduleDisplay($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency);
 
     jQuery(document).ajaxComplete(function(){
-        Mautic.ajaxifyForm('daterange');
+        MailVotech.ajaxifyForm('daterange');
     });
 };
 
-Mautic.scheduleDisplay = function ($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency) {
-    Mautic.checkIsScheduled($isScheduled);
+MailVotech.scheduleDisplay = function ($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency) {
+    MailVotech.checkIsScheduled($isScheduled);
 
     var unitVal = mQuery($unitTypeId).val();
     mQuery('#scheduleDay, #scheduleDay label, #scheduleMonthFrequency').hide();
@@ -72,11 +72,11 @@ Mautic.scheduleDisplay = function ($isScheduled, $unitTypeId, $scheduleDay, $sch
         mQuery('#scheduleDay label').show();
     }
     if($isScheduled.length) {
-        Mautic.schedulePreview($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency);
+        MailVotech.schedulePreview($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency);
     }
 };
 
-Mautic.schedulePreview = function ($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency) {
+MailVotech.schedulePreview = function ($isScheduled, $unitTypeId, $scheduleDay, $scheduleMonthFrequency) {
     var previewUrl = mQuery('#schedule_preview_url').data('url');
     var $schedulePreviewData = mQuery('#schedule_preview_data');
 
@@ -107,7 +107,7 @@ Mautic.schedulePreview = function ($isScheduled, $unitTypeId, $scheduleDay, $sch
     );
 };
 
-Mautic.checkIsScheduled = function ($isScheduled) {
+MailVotech.checkIsScheduled = function ($isScheduled) {
     var $scheduleForm = mQuery('#schedule-container .schedule_form');
     if (mQuery($isScheduled).prop("checked")) {
         $scheduleForm.show();
@@ -119,7 +119,7 @@ Mautic.checkIsScheduled = function ($isScheduled) {
 /**
  * Written with inspiration from http://symfony.com/doc/current/cookbook/form/form_collections.html#allowing-new-tags-with-the-prototype
  */
-Mautic.addReportRow = function (elId) {
+MailVotech.addReportRow = function (elId) {
     // Container with the prototype markup
     var prototypeHolder = mQuery('div[id="' + elId + '"]');
 
@@ -145,30 +145,30 @@ Mautic.addReportRow = function (elId) {
 
     var newColumnId = '#' + elId + '_' + index + '_column';
     if (elId == 'report_filters') {
-        if (typeof Mautic.reportPrototypeFilterOptions != 'undefined') {
+        if (typeof MailVotech.reportPrototypeFilterOptions != 'undefined') {
             // Update the column options if applicable
-            mQuery(newColumnId).html(Mautic.reportPrototypeFilterOptions);
+            mQuery(newColumnId).html(MailVotech.reportPrototypeFilterOptions);
         }
 
         // Add `in-group` class by default
         mQuery('#report_filters_' + index + '_container').addClass('in-group');
 
         mQuery(newColumnId).on('change', function () {
-            Mautic.updateReportFilterValueInput(this);
+            MailVotech.updateReportFilterValueInput(this);
         });
-        Mautic.updateReportFilterValueInput(newColumnId);
-        Mautic.updateReportGlueTriggers();
-    } else if (typeof Mautic.reportPrototypeColumnOptions != 'undefined') {
+        MailVotech.updateReportFilterValueInput(newColumnId);
+        MailVotech.updateReportGlueTriggers();
+    } else if (typeof MailVotech.reportPrototypeColumnOptions != 'undefined') {
         // Update the column options if applicable
-        mQuery(newColumnId).html(Mautic.reportPrototypeColumnOptions.clone());
+        mQuery(newColumnId).html(MailVotech.reportPrototypeColumnOptions.clone());
     }
 
-    Mautic.activateChosenSelect(mQuery('#' + elId + '_' + index + '_column'));
+    MailVotech.activateChosenSelect(mQuery('#' + elId + '_' + index + '_column'));
     mQuery("#" + elId + " *[data-toggle='tooltip']").tooltip({html: true, container: 'body'});
 
 };
 
-Mautic.updateReportGlueTriggers = function () {
+MailVotech.updateReportGlueTriggers = function () {
     var filterContainer = mQuery('#report_filters');
     var glueEl = filterContainer.find('.filter-glue');
 
@@ -184,9 +184,9 @@ Mautic.updateReportGlueTriggers = function () {
     });
 };
 
-Mautic.updateReportFilterValueInput = function (filterColumn, setup) {
-    var definitions = (typeof Mautic.reportPrototypeFilterDefinitions != 'undefined') ? Mautic.reportPrototypeFilterDefinitions : mQuery('#report_filters').data('filter-definitions');
-    var operators = (typeof Mautic.reportPrototypeFilterOperators != 'undefined') ? Mautic.reportPrototypeFilterOperators : mQuery('#report_filters').data('filter-operators');
+MailVotech.updateReportFilterValueInput = function (filterColumn, setup) {
+    var definitions = (typeof MailVotech.reportPrototypeFilterDefinitions != 'undefined') ? MailVotech.reportPrototypeFilterDefinitions : mQuery('#report_filters').data('filter-definitions');
+    var operators = (typeof MailVotech.reportPrototypeFilterOperators != 'undefined') ? MailVotech.reportPrototypeFilterOperators : mQuery('#report_filters').data('filter-operators');
 
     var newValue = mQuery(filterColumn).val();
     if (!newValue) {
@@ -215,7 +215,7 @@ Mautic.updateReportFilterValueInput = function (filterColumn, setup) {
     }
 
     // Replace the value field appropriately
-    Mautic.destroyChosen(mQuery('#' + valueId));
+    MailVotech.destroyChosen(mQuery('#' + valueId));
 
     if (filterType == 'bool' || filterType == 'boolean') {
         const yesId = valueId + '_1';
@@ -242,7 +242,7 @@ Mautic.updateReportFilterValueInput = function (filterColumn, setup) {
         }
 
         if (!isYes) {
-            Mautic.toggleYesNo($label);
+            MailVotech.toggleYesNo($label);
         }
     } else if (mQuery(valueEl).attr('type') != 'text') {
         var newValueEl = mQuery('<input type="text" />').attr({
@@ -289,14 +289,14 @@ Mautic.updateReportFilterValueInput = function (filterColumn, setup) {
         }
         mQuery(valueEl).replaceWith(newSelect);
 
-        Mautic.activateChosenSelect(newSelect);
+        MailVotech.activateChosenSelect(newSelect);
     }
 
     const dateTypes = ['datetime', 'date', 'time'];
     const stringComparisonOperators = ['like', 'notLike', 'startsWith', 'endsWith', 'contains'];
 
     if (dateTypes.includes(filterType)) {
-        Mautic.activateDateTimeInputs('#' + valueId, filterType);
+        MailVotech.activateDateTimeInputs('#' + valueId, filterType);
     } else if (mQuery('#' + valueId).hasClass('calendar-activated')) {
         mQuery('#' + valueId).datetimepicker('destroy');
     }
@@ -318,9 +318,9 @@ Mautic.updateReportFilterValueInput = function (filterColumn, setup) {
             let message = null;
             if (dateTypes.includes(currentFilterType)) {
                 if (stringComparisonOperators.includes(currentOperator)) {
-                    message = Mautic.translate('mautic.report.filter.string_comparison_utc_tooltip');
+                    message = MailVotech.translate('mailvotech.report.filter.string_comparison_utc_tooltip');
                 } else {
-                    message = Mautic.translate('mautic.report.filter.date_comparison_timezone_tooltip');
+                    message = MailVotech.translate('mailvotech.report.filter.date_comparison_timezone_tooltip');
                 }
                 mQuery(this).attr('title', message).tooltip('fixTitle').tooltip('show');
             }
@@ -332,15 +332,15 @@ Mautic.updateReportFilterValueInput = function (filterColumn, setup) {
     }
 };
 
-Mautic.removeReportRow = function (container) {
+MailVotech.removeReportRow = function (container) {
     mQuery("#" + container + " *[data-toggle='tooltip']").tooltip('destroy');
     mQuery('#' + container).remove();
 };
 
-Mautic.updateReportSourceData = function (context) {
-    Mautic.activateLabelLoadingIndicator('report_source');
+MailVotech.updateReportSourceData = function (context) {
+    MailVotech.activateLabelLoadingIndicator('report_source');
     mQuery.ajax({
-        url: mauticAjaxUrl,
+        url: mailvotechAjaxUrl,
         type: 'post',
         data: "action=report:getSourceData&context=" + context,
         success: function (response) {
@@ -357,7 +357,7 @@ Mautic.updateReportSourceData = function (context) {
             mQuery('#report_filters').data('index', 0);
 
             // Update columns
-            Mautic.reportPrototypeColumnOptions = mQuery(response.columns);
+            MailVotech.reportPrototypeColumnOptions = mQuery(response.columns);
 
             // Remove order
             mQuery('#report_tableOrder').find('div').remove().end();
@@ -369,9 +369,9 @@ Mautic.updateReportSourceData = function (context) {
             mQuery('#report_aggregators').data('index', 0);
 
             // Update filter list
-            Mautic.reportPrototypeFilterDefinitions = response.filterDefinitions;
-            Mautic.reportPrototypeFilterOptions = response.filters;
-            Mautic.reportPrototypeFilterOperators = response.filterOperators;
+            MailVotech.reportPrototypeFilterDefinitions = response.filterDefinitions;
+            MailVotech.reportPrototypeFilterOptions = response.filters;
+            MailVotech.reportPrototypeFilterOperators = response.filterOperators;
 
             mQuery('#report_graphs').html(response.graphs);
             mQuery('#report_graphs').multiSelect('refresh');
@@ -385,15 +385,15 @@ Mautic.updateReportSourceData = function (context) {
             }
         },
         error: function (request, textStatus, errorThrown) {
-            Mautic.processAjaxError(request, textStatus, errorThrown);
+            MailVotech.processAjaxError(request, textStatus, errorThrown);
         },
         complete: function () {
-            Mautic.removeLabelLoadingIndicator();
+            MailVotech.removeLabelLoadingIndicator();
         }
     });
 };
 
-Mautic.checkReportCondition = function (selector) {
+MailVotech.checkReportCondition = function (selector) {
     var option = mQuery('#' + selector + ' option:selected').val();
     var valueInput = selector.replace('condition', 'value');
 
@@ -405,7 +405,7 @@ Mautic.checkReportCondition = function (selector) {
     }
 };
 
-Mautic.checkSelectedGroupBy = function () {
+MailVotech.checkSelectedGroupBy = function () {
     var selectedOption = mQuery("select[name='report[groupBy][]'] option:selected").length;
     var existingAggregators = mQuery("select[name*='report[aggregators]']");
     if (selectedOption > 0) {
@@ -413,13 +413,13 @@ Mautic.checkSelectedGroupBy = function () {
     } else {
         existingAggregators.each(function() {
             var containerId = mQuery(this).attr('id').replace('_column', '');
-            Mautic.removeReportRow(containerId + '_container');
+            MailVotech.removeReportRow(containerId + '_container');
         });
         mQuery('#aggregators-button').prop('disabled', true);
     }
 };
 
-Mautic.getHighestIndex = function (selector) {
+MailVotech.getHighestIndex = function (selector) {
     var highestIndex = 1;
     var selectorChildren = mQuery('#' + selector + ' > div');
 
@@ -431,7 +431,7 @@ Mautic.getHighestIndex = function (selector) {
     return parseInt(highestIndex);
 };
 
-Mautic.cloneReportRow = function (containerId) {
+MailVotech.cloneReportRow = function (containerId) {
     // Get the existing filter container
     const container = mQuery(`#${containerId}`);
 
@@ -442,7 +442,7 @@ Mautic.cloneReportRow = function (containerId) {
     const dynamic = container.find('[name*="[dynamic]"]:checked').val();
 
     // Add a new filter row using the existing add function
-    Mautic.addReportRow('report_filters');
+    MailVotech.addReportRow('report_filters');
 
     // Get the new container by finding the last filter container
     const newContainer = mQuery('#report_filters').find('> .panel.in-group').last();
@@ -454,8 +454,8 @@ Mautic.cloneReportRow = function (containerId) {
     // Initialize Chosen when the select field is ready
     const initializeChosenWhenReady = (selectElement) => {
         if (selectElement.find('option').length > 0) {
-            Mautic.destroyChosen(selectElement);
-            Mautic.activateChosenSelect(selectElement);
+            MailVotech.destroyChosen(selectElement);
+            MailVotech.activateChosenSelect(selectElement);
         } else {
             setTimeout(() => initializeChosenWhenReady(selectElement), 200);
         }

@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller;
+namespace MailVotech\EmailBundle\Tests\Controller;
 
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\TransactionRequiredException;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Traits\ControllerTrait;
-use Mautic\DynamicContentBundle\DynamicContent\TypeList;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
-use Mautic\EmailBundle\Tests\Functional\Fixtures\EmailFixturesHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\UserBundle\Entity\Permission;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Model\RoleModel;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Traits\ControllerTrait;
+use MailVotech\DynamicContentBundle\DynamicContent\TypeList;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
+use MailVotech\EmailBundle\Tests\Functional\Fixtures\EmailFixturesHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\UserBundle\Entity\Permission;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Model\RoleModel;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bridge\Doctrine\DataCollector\DoctrineDataCollector;
@@ -33,7 +33,7 @@ use function Symfony\Component\Clock\now;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
-final class EmailControllerFunctionalTest extends MauticMysqlTestCase
+final class EmailControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     use ControllerTrait;
 
@@ -55,7 +55,7 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
     {
         $this->configParams['legacy_builder_enabled'] = true;
         $this->configParams['disable_trackable_urls'] = false;
-        $this->configParams['mailer_from_name']       = 'Mautic Admin';
+        $this->configParams['mailer_from_name']       = 'MailVotech Admin';
         $this->configParams['mailer_from_email']      = 'admin@email.com';
         $this->configParams['mailer_custom_headers']  = ['x-global-custom-header' => 'value123'];
         $this->clientOptions                          = ['debug' => true];
@@ -208,7 +208,7 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
         /** @var DoctrineDataCollector $dbCollector */
         $dbCollector = $profile->getCollector('db');
         $queries     = $dbCollector->getQueries();
-        $prefix      = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix      = self::getContainer()->getParameter('mailvotech.db_table_prefix');
 
         $dncQueries = array_filter(
             $queries['default'],
@@ -249,7 +249,7 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
         /** @var DoctrineDataCollector $dbCollector */
         $dbCollector = $profile->getCollector('db');
         $queries     = $dbCollector->getQueries();
-        $prefix      = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix      = self::getContainer()->getParameter('mailvotech.db_table_prefix');
 
         $dncQueries = array_filter(
             $queries['default'],
@@ -442,12 +442,12 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
         $this->sendBatchEmail($email);
 
         $email = self::getMailerMessage();
-        $this->assertInstanceOf(MauticMessage::class, $email);
+        $this->assertInstanceOf(MailVotechMessage::class, $email);
 
         $quote = $singleOrDoubleQuotes ? '\'' : '"';
         // The order of the recipients is not guaranteed, so we need to check both possibilities.
         $this->assertSame('Subject A', $email->getSubject());
-        $this->assertMatchesRegularExpression('#Ahoy <i>contact@(one|two)\.email</i><a href='.$quote.'(?:\R|)https://localhost/r/[a-z0-9]+\?ct=[a-zA-Z0-9%]+(?:\R|)'.$quote.'>Mautic</a><img height="1" width="1" src="https://localhost/email/[a-z0-9]+\.gif\?ct=[^"]+" alt="" />#', $email->getHtmlBody());
+        $this->assertMatchesRegularExpression('#Ahoy <i>contact@(one|two)\.email</i><a href='.$quote.'(?:\R|)https://localhost/r/[a-z0-9]+\?ct=[a-zA-Z0-9%]+(?:\R|)'.$quote.'>MailVotech</a><img height="1" width="1" src="https://localhost/email/[a-z0-9]+\.gif\?ct=[^"]+" alt="" />#', $email->getHtmlBody());
         $this->assertMatchesRegularExpression('#Ahoy _contact@(one|two).email_#', $email->getTextBody()); // Are the underscores expected?
         $this->assertCount(1, $email->getFrom());
         $this->assertSame($this->configParams['mailer_from_name'], $email->getFrom()[0]->getName());
@@ -499,11 +499,11 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
             foreach ($variantSpaces as $spaceName => $variantSpace) {
                 foreach ($variantNewlines as $newLineName => $variantNewline) {
                     $href = $variantQuote
-                        .str_replace('$', str_replace('$', 'https://mautic.org', $variantSpace), $variantNewline)
+                        .str_replace('$', str_replace('$', 'https://mailvotech.org', $variantSpace), $variantNewline)
                         .$variantQuote;
 
                     yield $quotesName.', '.$spaceName.', '.$newLineName => [
-                        'Ahoy <i>{contactfield=email}</i><a href='.$href.'>Mautic</a>',
+                        'Ahoy <i>{contactfield=email}</i><a href='.$href.'>MailVotech</a>',
                         'single quote' === $quotesName,
                     ];
                 }
@@ -514,7 +514,7 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
     public function testSegmentEmailSendWithAdvancedOptions(): void
     {
         $segment = $this->createSegment('Segment A', 'segment-a');
-        $email   = $this->createEmail('Email A', self::SUBJECT_A, 'list', 'blank', 'Ahoy <i>{contactfield=email}</i><a href="https://mautic.org">Mautic</a>', $segment);
+        $email   = $this->createEmail('Email A', self::SUBJECT_A, 'list', 'blank', 'Ahoy <i>{contactfield=email}</i><a href="https://mailvotech.org">MailVotech</a>', $segment);
         $email->setPlainText('Dear {contactfield=email}');
         $email->setFromAddress('custom@from.address');
         $email->setFromName('Custom From Name');
@@ -538,11 +538,11 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
         $this->sendBatchEmail($email);
 
         $email = $this->getMailerMessage();
-        $this->assertInstanceOf(MauticMessage::class, $email);
+        $this->assertInstanceOf(MailVotechMessage::class, $email);
 
         // The order of the recipients is not guaranteed, so we need to check both possibilities.
         $this->assertSame('Subject A', $email->getSubject());
-        $this->assertMatchesRegularExpression('#Ahoy <i>contact@(one|two)\.email<\/i><a href="https:\/\/localhost\/r\/[a-z0-9]+\?ct=[a-zA-Z0-9%]+&utm_source=utmSourceA&utm_medium=utmMediumA&utm_campaign=utmCampaignA&utm_content=utmContentA">Mautic<\/a><img height="1" width="1" src="https:\/\/localhost\/email\/[a-z0-9]+\.gif\?ct=[^"]+" alt="" \/>#', $email->getHtmlBody());
+        $this->assertMatchesRegularExpression('#Ahoy <i>contact@(one|two)\.email<\/i><a href="https:\/\/localhost\/r\/[a-z0-9]+\?ct=[a-zA-Z0-9%]+&utm_source=utmSourceA&utm_medium=utmMediumA&utm_campaign=utmCampaignA&utm_content=utmContentA">MailVotech<\/a><img height="1" width="1" src="https:\/\/localhost\/email\/[a-z0-9]+\.gif\?ct=[^"]+" alt="" \/>#', $email->getHtmlBody());
         $this->assertMatchesRegularExpression('#Dear contact@(one|two).email#', $email->getTextBody());
         $this->assertCount(1, $email->getFrom());
         $this->assertSame('Custom From Name', $email->getFrom()[0]->getName());
@@ -559,7 +559,7 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
     public function testSegmentEmailSendWithTokenInFromAddress(): void
     {
         $segment = $this->createSegment('Segment A', 'segment-a');
-        $email   = $this->createEmail('Email A', self::SUBJECT_A, 'list', 'blank', 'Ahoy <i>{contactfield=email}</i><a href="https://mautic.org">Mautic</a>', $segment);
+        $email   = $this->createEmail('Email A', self::SUBJECT_A, 'list', 'blank', 'Ahoy <i>{contactfield=email}</i><a href="https://mailvotech.org">MailVotech</a>', $segment);
         $email->setPlainText('Dear {contactfield=email}');
         $email->setFromAddress('{contactfield=address2}');
         $email->setFromName('{contactfield=address1}');
@@ -580,13 +580,13 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
 
         $this->sendBatchEmail($email, 2, 10, true);
 
-        /** @var MauticMessage[] $messages */
+        /** @var MailVotechMessage[] $messages */
         $messages   = self::getMailerMessages();
-        $messageOne = array_values(array_filter($messages, fn (MauticMessage $message): bool => 'contact@one.email' === $message->getTo()[0]->getAddress()))[0];
-        $messageTwo = array_values(array_filter($messages, fn (MauticMessage $message): bool => 'contact@two.email' === $message->getTo()[0]->getAddress()))[0];
+        $messageOne = array_values(array_filter($messages, fn (MailVotechMessage $message): bool => 'contact@one.email' === $message->getTo()[0]->getAddress()))[0];
+        $messageTwo = array_values(array_filter($messages, fn (MailVotechMessage $message): bool => 'contact@two.email' === $message->getTo()[0]->getAddress()))[0];
 
         $this->assertSame('Subject A', $messageOne->getSubject());
-        $this->assertMatchesRegularExpression('#Ahoy <i>contact@one\.email<\/i><a href="https:\/\/localhost\/r\/[a-z0-9]+\?ct=[a-zA-Z0-9%]+">Mautic<\/a><img height="1" width="1" src="https:\/\/localhost\/email\/[a-z0-9]+\.gif\?ct=[^"]+" alt="" \/>#', $messageOne->getHtmlBody());
+        $this->assertMatchesRegularExpression('#Ahoy <i>contact@one\.email<\/i><a href="https:\/\/localhost\/r\/[a-z0-9]+\?ct=[a-zA-Z0-9%]+">MailVotech<\/a><img height="1" width="1" src="https:\/\/localhost\/email\/[a-z0-9]+\.gif\?ct=[^"]+" alt="" \/>#', $messageOne->getHtmlBody());
         $this->assertSame('Dear contact@one.email', $messageOne->getTextBody());
         $this->assertCount(1, $messageOne->getFrom());
         $this->assertSame('address1 name for contact@one.email', $messageOne->getFrom()[0]->getName());
@@ -600,7 +600,7 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
         $this->assertSame('value123', $messageOne->getHeaders()->get('x-global-custom-header')->getBody());
 
         $this->assertSame('Subject A', $messageTwo->getSubject());
-        $this->assertMatchesRegularExpression('#Ahoy <i>contact@two\.email<\/i><a href="https:\/\/localhost\/r\/[a-z0-9]+\?ct=[a-zA-Z0-9%]+">Mautic<\/a><img height="1" width="1" src="https:\/\/localhost\/email\/[a-z0-9]+\.gif\?ct=[^"]+" alt="" \/>#', $messageTwo->getHtmlBody());
+        $this->assertMatchesRegularExpression('#Ahoy <i>contact@two\.email<\/i><a href="https:\/\/localhost\/r\/[a-z0-9]+\?ct=[a-zA-Z0-9%]+">MailVotech<\/a><img height="1" width="1" src="https:\/\/localhost\/email\/[a-z0-9]+\.gif\?ct=[^"]+" alt="" \/>#', $messageTwo->getHtmlBody());
         $this->assertSame('Dear contact@two.email', $messageTwo->getTextBody());
         $this->assertCount(1, $messageTwo->getFrom());
         $this->assertSame('address1 name for contact@two.email', $messageTwo->getFrom()[0]->getName());
@@ -756,7 +756,7 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
         /** @var DoctrineDataCollector $dbCollector */
         $dbCollector = $profile->getCollector('db');
         $queries     = $dbCollector->getQueries();
-        $prefix      = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix      = self::getContainer()->getParameter('mailvotech.db_table_prefix');
 
         $pendingCountQuery = array_filter(
             $queries['default'],
@@ -1218,7 +1218,7 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
     {
         $segment = $this->createSegment('Segment A', 'segment-a');
 
-        $email = $this->createEmail('Email A', self::SUBJECT_A, 'list', 'blank', 'Ahoy <i>{contactfield=email}</i><a href="https://mautic.org">Mautic</a>', $segment);
+        $email = $this->createEmail('Email A', self::SUBJECT_A, 'list', 'blank', 'Ahoy <i>{contactfield=email}</i><a href="https://mailvotech.org">MailVotech</a>', $segment);
         $this->em->persist($email);
         $this->em->flush();
 
@@ -1253,10 +1253,10 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
 
         $this->em->flush();
 
-        $commandTester = $this->testSymfonyCommand('mautic:broadcast:send', ['--channel' => 'email', '--id' => $email->getId()]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:broadcast:send', ['--channel' => 'email', '--id' => $email->getId()]);
         $this->assertStringContainsString('Email: Email A | 2', $commandTester->getDisplay());
 
-        $commandTester = $this->testSymfonyCommand('mautic:broadcast:send', ['--channel' => 'email', '--id' => $email->getId()]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:broadcast:send', ['--channel' => 'email', '--id' => $email->getId()]);
 
         $email = $this->em->getRepository(Email::class)->find($email->getId());
         $this->assertFalse($email->getIsPublished(), $commandTester->getDisplay());
@@ -1266,7 +1266,7 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
     {
         $segment = $this->createSegment('Segment A', 'segment-a');
 
-        $email = $this->createEmail('Email A', self::SUBJECT_A, 'list', 'blank', 'Ahoy <i>{contactfield=email}</i><a href="https://mautic.org">Mautic</a>', $segment);
+        $email = $this->createEmail('Email A', self::SUBJECT_A, 'list', 'blank', 'Ahoy <i>{contactfield=email}</i><a href="https://mailvotech.org">MailVotech</a>', $segment);
         $this->em->persist($email);
         $this->em->flush();
 
@@ -1300,10 +1300,10 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
 
         $this->em->flush();
 
-        $commandTester = $this->testSymfonyCommand('mautic:broadcast:send', ['--channel' => 'email', '--id' => $email->getId()]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:broadcast:send', ['--channel' => 'email', '--id' => $email->getId()]);
         $this->assertStringContainsString('Email: Email A | 3', $commandTester->getDisplay());
 
-        $commandTester = $this->testSymfonyCommand('mautic:broadcast:send', ['--channel' => 'email', '--id' => $email->getId()]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:broadcast:send', ['--channel' => 'email', '--id' => $email->getId()]);
 
         $email = $this->em->getRepository(Email::class)->find($email->getId());
         $this->assertTrue($email->getIsPublished(), $commandTester->getDisplay());
@@ -1313,7 +1313,7 @@ final class EmailControllerFunctionalTest extends MauticMysqlTestCase
     {
         $segment = $this->createSegment('Segment A', 'segment-a');
 
-        $email = $this->createEmail('Email A', self::SUBJECT_A, 'list', 'blank', 'Ahoy <i>{contactfield=email}</i><a href="https://mautic.org">Mautic</a>', $segment);
+        $email = $this->createEmail('Email A', self::SUBJECT_A, 'list', 'blank', 'Ahoy <i>{contactfield=email}</i><a href="https://mailvotech.org">MailVotech</a>', $segment);
         $this->em->persist($email);
         $this->em->flush();
 

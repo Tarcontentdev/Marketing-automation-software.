@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Crate;
+namespace MailVotech\FormBundle\Crate;
 
-use Mautic\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
 
 final readonly class FieldCrate
 {

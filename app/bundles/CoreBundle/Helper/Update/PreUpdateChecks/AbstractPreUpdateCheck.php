@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper\Update\PreUpdateChecks;
+namespace MailVotech\CoreBundle\Helper\Update\PreUpdateChecks;
 
-use Mautic\CoreBundle\Release\Metadata;
+use MailVotech\CoreBundle\Release\Metadata;
 
 abstract class AbstractPreUpdateCheck
 {
@@ -22,7 +22,7 @@ abstract class AbstractPreUpdateCheck
     }
 
     /**
-     * Gets the metadata of the Mautic version that we're trying to update to.
+     * Gets the metadata of the MailVotech version that we're trying to update to.
      */
     public function getUpdateCandidateMetadata(): Metadata
     {

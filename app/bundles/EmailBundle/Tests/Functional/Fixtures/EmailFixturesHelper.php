@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Functional\Fixtures;
+namespace MailVotech\EmailBundle\Tests\Functional\Fixtures;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Entity\Trackable;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Entity\Trackable;
 
 final readonly class EmailFixturesHelper
 {

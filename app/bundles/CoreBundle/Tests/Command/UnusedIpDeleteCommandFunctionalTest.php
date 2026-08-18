@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Command;
+namespace MailVotech\CoreBundle\Tests\Command;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Entity\IpAddressRepository;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Entity\IpAddressRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class UnusedIpDeleteCommandFunctionalTest extends MauticMysqlTestCase
+final class UnusedIpDeleteCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * @throws \Exception
@@ -23,7 +23,7 @@ final class UnusedIpDeleteCommandFunctionalTest extends MauticMysqlTestCase
         $this->assertSame(1, $count);
 
         // Delete unused IP address.
-        $this->testSymfonyCommand('mautic:unusedip:delete');
+        $this->testSymfonyCommand('mailvotech:unusedip:delete');
 
         $count = $ipAddressRepo->count(['ipAddress' => '127.0.0.1']);
         $this->assertSame(0, $count);

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Entity;
+namespace MailVotech\PageBundle\Tests\Entity;
 
-use Mautic\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Entity\Redirect;
 use PHPUnit\Framework\TestCase;
 
 final class RedirectTest extends TestCase

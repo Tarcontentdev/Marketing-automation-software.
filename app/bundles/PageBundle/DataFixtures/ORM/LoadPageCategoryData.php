@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\PageBundle\DataFixtures\ORM;
+namespace MailVotech\PageBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CategoryBundle\Entity\CategoryRepository;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CategoryBundle\Entity\CategoryRepository;
 
 final class LoadPageCategoryData extends AbstractFixture implements OrderedFixtureInterface
 {

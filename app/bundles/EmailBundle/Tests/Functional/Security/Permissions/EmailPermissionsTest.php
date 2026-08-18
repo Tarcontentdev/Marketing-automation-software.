@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Functional\Security\Permissions;
+namespace MailVotech\EmailBundle\Tests\Functional\Security\Permissions;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\Role;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\Role;
 use Symfony\Component\HttpFoundation\Request;
 
-final class EmailPermissionsTest extends MauticMysqlTestCase
+final class EmailPermissionsTest extends MailVotechMysqlTestCase
 {
     public function testEmailSendToDncPermissionIsAvailable(): void
     {

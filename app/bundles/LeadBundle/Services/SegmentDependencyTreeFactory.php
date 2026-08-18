@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Services;
+namespace MailVotech\LeadBundle\Services;
 
-use Mautic\CoreBundle\Helper\Tree\IntNode;
-use Mautic\CoreBundle\Helper\Tree\NodeInterface;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
+use MailVotech\CoreBundle\Helper\Tree\IntNode;
+use MailVotech\CoreBundle\Helper\Tree\NodeInterface;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
 use Symfony\Component\Routing\RouterInterface;
 
 final class SegmentDependencyTreeFactory
@@ -81,7 +81,7 @@ final class SegmentDependencyTreeFactory
     private function generateSegmentDetailRoute(LeadList $segment): string
     {
         return $this->router->generate(
-            'mautic_segment_action',
+            'mailvotech_segment_action',
             [
                 'objectAction' => 'view',
                 'objectId'     => $segment->getId(),

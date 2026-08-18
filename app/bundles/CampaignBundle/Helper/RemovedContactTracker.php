@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CampaignBundle\Helper;
+namespace MailVotech\CampaignBundle\Helper;
 
 class RemovedContactTracker
 {

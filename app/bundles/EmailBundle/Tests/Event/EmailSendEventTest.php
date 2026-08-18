@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Event;
+namespace MailVotech\EmailBundle\Tests\Event;
 
-use Mautic\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
 
 final class EmailSendEventTest extends \PHPUnit\Framework\TestCase
 {

@@ -1,18 +1,18 @@
 <?php
 
-namespace Mautic\LeadBundle\Controller\Api;
+namespace MailVotech\LeadBundle\Controller\Api;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\ApiBundle\Controller\CommonApiController;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\Entity\TagRepository;
-use Mautic\LeadBundle\Model\TagModel;
+use MailVotech\ApiBundle\Controller\CommonApiController;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Entity\TagRepository;
+use MailVotech\LeadBundle\Model\TagModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -56,7 +56,7 @@ final class TagApiController extends CommonApiController
     public function getNewEntity(array $params)
     {
         if (empty($params[$this->entityNameOne])) {
-            throw new \InvalidArgumentException($this->translator->trans('mautic.lead.api.tag.required', [], 'validators'));
+            throw new \InvalidArgumentException($this->translator->trans('mailvotech.lead.api.tag.required', [], 'validators'));
         }
 
         $tagModel = $this->model;

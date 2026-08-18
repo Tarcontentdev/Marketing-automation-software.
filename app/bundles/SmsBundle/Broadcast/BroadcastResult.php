@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Broadcast;
+namespace MailVotech\SmsBundle\Broadcast;
 
 final class BroadcastResult
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Sync;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Sync;
 
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
 
 /**
- * Holds IDs for different types of objects. Can be used for Mautic or integration objects.
+ * Holds IDs for different types of objects. Can be used for MailVotech or integration objects.
  */
 final class ObjectIdsDAO
 {

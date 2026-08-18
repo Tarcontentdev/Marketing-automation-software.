@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Field\Command;
+namespace MailVotech\LeadBundle\Tests\Field\Command;
 
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Field\BackgroundService;
-use Mautic\LeadBundle\Field\Command\DeleteCustomFieldCommand;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Field\BackgroundService;
+use MailVotech\LeadBundle\Field\Command\DeleteCustomFieldCommand;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -46,7 +46,7 @@ final class DeleteCustomFieldCommandTest extends TestCase
         $this->translatorInterfaceMock
             ->expects($this->once())
             ->method('trans')
-            ->with('mautic.lead.field.column_was_deleted')
+            ->with('mailvotech.lead.field.column_was_deleted')
             ->willReturn('Column was deleted');
         $commandTester = new CommandTester($this->deleteCustomFieldCommand);
         $commandTester->execute([

@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\DashboardBundle\Event;
+namespace MailVotech\DashboardBundle\Event;
 
-use Mautic\CacheBundle\Cache\CacheProviderTagAwareInterface;
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\CoreBundle\Helper\CacheStorageHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\DashboardBundle\Entity\Widget;
-use Mautic\DashboardBundle\Exception\CouldNotFormatDateTimeException;
+use MailVotech\CacheBundle\Cache\CacheProviderTagAwareInterface;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\CoreBundle\Helper\CacheStorageHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\DashboardBundle\Entity\Widget;
+use MailVotech\DashboardBundle\Exception\CouldNotFormatDateTimeException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class WidgetDetailEvent extends CommonEvent

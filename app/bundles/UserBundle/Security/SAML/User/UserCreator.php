@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\UserBundle\Security\SAML\User;
+namespace MailVotech\UserBundle\Security\SAML\User;
 
 use Doctrine\ORM\EntityManagerInterface;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\SpBundle\Security\User\UserCreatorInterface;
-use Mautic\CoreBundle\Helper\EncryptionHelper;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\CoreBundle\Helper\EncryptionHelper;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Model\UserModel;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 final class UserCreator implements UserCreatorInterface

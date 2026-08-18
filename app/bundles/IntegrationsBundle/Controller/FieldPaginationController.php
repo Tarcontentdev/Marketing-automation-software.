@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Controller;
+namespace MailVotech\IntegrationsBundle\Controller;
 
-use Mautic\CoreBundle\Controller\CommonController;
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Form\Type\IntegrationSyncSettingsObjectFieldMappingType;
-use Mautic\IntegrationsBundle\Helper\ConfigIntegrationsHelper;
-use Mautic\IntegrationsBundle\Helper\FieldFilterHelper;
-use Mautic\IntegrationsBundle\Helper\FieldMergerHelper;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
+use MailVotech\CoreBundle\Controller\CommonController;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Form\Type\IntegrationSyncSettingsObjectFieldMappingType;
+use MailVotech\IntegrationsBundle\Helper\ConfigIntegrationsHelper;
+use MailVotech\IntegrationsBundle\Helper\FieldFilterHelper;
+use MailVotech\IntegrationsBundle\Helper\FieldMergerHelper;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Event;
+namespace MailVotech\CoreBundle\Event;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class CommonEvent extends Event

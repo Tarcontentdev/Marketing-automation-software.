@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Stat;
+namespace MailVotech\LeadBundle\Segment\Stat;
 
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Segment\Stat\ChartQuery\SegmentContactsLineChartQuery;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Segment\Stat\ChartQuery\SegmentContactsLineChartQuery;
 
 class SegmentChartQueryFactory
 {

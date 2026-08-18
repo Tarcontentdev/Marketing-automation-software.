@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Validator;
+namespace MailVotech\PageBundle\Validator;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\PageBundle\Entity\Hit;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\PageBundle\Entity\Hit;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Tests\Unit\Api;
+namespace MailVotech\NotificationBundle\Tests\Unit\Api;
 
-use Mautic\NotificationBundle\Api\OneSignalApi;
+use MailVotech\NotificationBundle\Api\OneSignalApi;
 use PHPUnit\Framework\TestCase;
 
 final class OneSignalApiTest extends TestCase

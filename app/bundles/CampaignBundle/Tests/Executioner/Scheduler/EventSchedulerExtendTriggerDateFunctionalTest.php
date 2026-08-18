@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Executioner\Scheduler;
+namespace MailVotech\CampaignBundle\Tests\Executioner\Scheduler;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CoreBundle\Entity\AuditLog;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CoreBundle\Entity\AuditLog;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
 
-final class EventSchedulerExtendTriggerDateFunctionalTest extends MauticMysqlTestCase
+final class EventSchedulerExtendTriggerDateFunctionalTest extends MailVotechMysqlTestCase
 {
     private function createPublishAuditLog(Campaign $campaign, \DateTime $dateAdded, bool $isPublished): void
     {
@@ -90,7 +90,7 @@ final class EventSchedulerExtendTriggerDateFunctionalTest extends MauticMysqlTes
 
         // Without the fix, this throws: Exception "Unknown or bad format (PT-XXXXS)"
         // With the fix, this executes successfully
-        $output = $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()])->getDisplay();
+        $output = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()])->getDisplay();
 
         $this->assertStringNotContainsString('Exception', $output, 'Command should execute without errors');
 
@@ -151,7 +151,7 @@ final class EventSchedulerExtendTriggerDateFunctionalTest extends MauticMysqlTes
 
         $this->em->clear();
 
-        $output = $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()])->getDisplay();
+        $output = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()])->getDisplay();
 
         $this->assertStringNotContainsString('Exception', $output, 'Command should execute without errors');
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Mautic\CoreBundle\DependencyInjection\MauticCoreExtension;
+use MailVotech\CoreBundle\DependencyInjection\MailVotechCoreExtension;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return function (ContainerConfigurator $configurator): void {
@@ -15,13 +15,13 @@ return function (ContainerConfigurator $configurator): void {
     $excludes = [
     ];
 
-    $services->load('Mautic\\StageBundle\\', '../')
-        ->exclude('../{'.implode(',', array_merge(MauticCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
+    $services->load('MailVotech\\StageBundle\\', '../')
+        ->exclude('../{'.implode(',', array_merge(MailVotechCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
 
-    $services->load('Mautic\\StageBundle\\Entity\\', '../Entity/*Repository.php')
+    $services->load('MailVotech\\StageBundle\\Entity\\', '../Entity/*Repository.php')
         ->tag(Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\ServiceRepositoryCompilerPass::REPOSITORY_SERVICE_TAG);
 
-    $services->alias('mautic.stage.model.stage', Mautic\StageBundle\Model\StageModel::class);
-    $services->alias('mautic.stage.repository.lead_stage_log', Mautic\StageBundle\Entity\LeadStageLogRepository::class);
-    $services->alias('mautic.stage.repository.stage', Mautic\StageBundle\Entity\StageRepository::class);
+    $services->alias('mailvotech.stage.model.stage', MailVotech\StageBundle\Model\StageModel::class);
+    $services->alias('mailvotech.stage.repository.lead_stage_log', MailVotech\StageBundle\Entity\LeadStageLogRepository::class);
+    $services->alias('mailvotech.stage.repository.stage', MailVotech\StageBundle\Entity\StageRepository::class);
 };

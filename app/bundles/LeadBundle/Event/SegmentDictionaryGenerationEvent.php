@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\CoreBundle\Event\CommonEvent;
 
 /**
  * SegmentDictionaryGenerationEvent is dispatched while dictionary to transform frontend filters into

@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\PointBundle\Model;
+namespace MailVotech\PointBundle\Model;
 
-use Mautic\CoreBundle\Model\FormModel as CommonFormModel;
-use Mautic\PointBundle\Entity\TriggerEvent;
-use Mautic\PointBundle\Entity\TriggerEventRepository;
-use Mautic\PointBundle\Form\Type\TriggerEventType;
+use MailVotech\CoreBundle\Model\FormModel as CommonFormModel;
+use MailVotech\PointBundle\Entity\TriggerEvent;
+use MailVotech\PointBundle\Entity\TriggerEventRepository;
+use MailVotech\PointBundle\Form\Type\TriggerEventType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;

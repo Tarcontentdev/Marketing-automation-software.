@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Executioner;
+namespace MailVotech\CampaignBundle\Tests\Executioner;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\CampaignBundle\Executioner\Result\Counter;
-use Mautic\CampaignBundle\Executioner\ScheduledExecutioner;
-use Mautic\CampaignBundle\Executioner\TestScheduledExecutioner;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CampaignBundle\Executioner\Result\Counter;
+use MailVotech\CampaignBundle\Executioner\ScheduledExecutioner;
+use MailVotech\CampaignBundle\Executioner\TestScheduledExecutioner;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-final class ScheduledExecutionerFunctionalTest extends MauticMysqlTestCase
+final class ScheduledExecutionerFunctionalTest extends MailVotechMysqlTestCase
 {
     private ScheduledExecutioner $scheduledExecutioner;
 
@@ -360,8 +360,8 @@ final class ScheduledExecutionerFunctionalTest extends MauticMysqlTestCase
         // (so getScheduled() picks it up) but dateTriggered + interval still in
         // the future (so shouldSchedule() returns true and the executor takes
         // the validateSchedule->else branch under test). The natural campaign
-        // flow never produces this mismatch — Mautic's kickoff sets
-        // trigger_date = dateTriggered + interval — so mautic:campaigns:update
+        // flow never produces this mismatch — MailVotech's kickoff sets
+        // trigger_date = dateTriggered + interval — so mailvotech:campaigns:update
         // is not usable here. setDateTriggered() also flips isScheduled to
         // false as a side effect, so setIsScheduled(true) must come last.
         $log = new LeadEventLog();
@@ -382,7 +382,7 @@ final class ScheduledExecutionerFunctionalTest extends MauticMysqlTestCase
         $logId = $log->getId();
         $this->em->clear();
 
-        $commandTester = $this->testSymfonyCommand('mautic:campaigns:trigger', [
+        $commandTester = $this->testSymfonyCommand('mailvotech:campaigns:trigger', [
             '--campaign-id'    => $campaign->getId(),
             '--scheduled-only' => true,
             '--contact-id'     => $contact->getId(),

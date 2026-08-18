@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Security\Authenticator;
+namespace MailVotech\UserBundle\Tests\Security\Authenticator;
 
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PluginBundle\Integration\AbstractSsoServiceIntegration;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Event\AuthenticationEvent;
-use Mautic\UserBundle\Security\Authentication\Token\PluginToken;
-use Mautic\UserBundle\Security\Authenticator\Passport\Badge\PasswordStrengthBadge;
-use Mautic\UserBundle\Security\Authenticator\SsoAuthenticator;
-use Mautic\UserBundle\Security\Provider\UserProvider;
-use Mautic\UserBundle\UserEvents;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Integration\AbstractSsoServiceIntegration;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Event\AuthenticationEvent;
+use MailVotech\UserBundle\Security\Authentication\Token\PluginToken;
+use MailVotech\UserBundle\Security\Authenticator\Passport\Badge\PasswordStrengthBadge;
+use MailVotech\UserBundle\Security\Authenticator\SsoAuthenticator;
+use MailVotech\UserBundle\Security\Provider\UserProvider;
+use MailVotech\UserBundle\UserEvents;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -217,7 +217,7 @@ final class SsoAuthenticatorTest extends TestCase
     #[DataProvider('provideEnableCsrf')]
     public function testBadges(bool $enableCsrf): void
     {
-        $username          = 'mautic';
+        $username          = 'mailvotech';
         $password          = 'pw';
         $integration       = 'integration';
         $csrfToken         = 'token';
@@ -288,7 +288,7 @@ final class SsoAuthenticatorTest extends TestCase
 
     public function testAuthenticateDoesNotLoadFromProviderAndNoListenersReturnsNoUser(): void
     {
-        $username          = 'mautic';
+        $username          = 'mailvotech';
         $password          = 'pw';
         $integration       = 'integration';
         $csrfToken         = 'token';
@@ -350,7 +350,7 @@ final class SsoAuthenticatorTest extends TestCase
 
     public function testAuthenticateLoadsFromProviderAndNoListenersReturnsUser(): void
     {
-        $username          = 'mautic';
+        $username          = 'mailvotech';
         $password          = 'pw';
         $integration       = 'integration';
         $csrfToken         = 'token';
@@ -413,7 +413,7 @@ final class SsoAuthenticatorTest extends TestCase
 
     public function testAuthenticateListenerForcesFailure(): void
     {
-        $username          = 'mautic';
+        $username          = 'mailvotech';
         $password          = 'pw';
         $integration       = 'integration';
         $csrfToken         = 'token';
@@ -508,7 +508,7 @@ final class SsoAuthenticatorTest extends TestCase
 
     public function testAuthenticateListenerLoadsUser(): void
     {
-        $username          = 'mautic';
+        $username          = 'mailvotech';
         $password          = 'pw';
         $integration       = 'integration';
         $csrfToken         = 'token';

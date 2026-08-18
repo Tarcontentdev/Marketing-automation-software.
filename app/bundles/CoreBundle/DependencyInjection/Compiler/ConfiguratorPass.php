@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\DependencyInjection\Compiler;
+namespace MailVotech\CoreBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -12,13 +12,13 @@ final class ConfiguratorPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->hasDefinition('mautic.configurator')) {
+        if (!$container->hasDefinition('mailvotech.configurator')) {
             return;
         }
 
-        $configuratorDef = $container->findDefinition('mautic.configurator');
+        $configuratorDef = $container->findDefinition('mailvotech.configurator');
 
-        foreach ($container->findTaggedServiceIds('mautic.configurator.step') as $id => $tags) {
+        foreach ($container->findTaggedServiceIds('mailvotech.configurator.step') as $id => $tags) {
             $priority = $tags[0]['priority'] ?? 0;
             $configuratorDef->addMethodCall('addStep', [new Reference($id), $priority]);
         }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\PluginBundle\Exception;
+namespace MailVotech\PluginBundle\Exception;
 
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Lead;
 
 final class ApiErrorException extends \Exception
 {

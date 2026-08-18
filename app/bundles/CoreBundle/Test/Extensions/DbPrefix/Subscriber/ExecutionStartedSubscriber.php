@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test\Extensions\DbPrefix\Subscriber;
+namespace MailVotech\CoreBundle\Test\Extensions\DbPrefix\Subscriber;
 
 use PHPUnit\Event\TestRunner\ExecutionStarted;
 

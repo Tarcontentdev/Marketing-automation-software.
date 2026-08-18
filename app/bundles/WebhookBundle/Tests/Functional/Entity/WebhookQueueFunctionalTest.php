@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Entity;
+namespace MailVotech\WebhookBundle\Tests\Entity;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\WebhookBundle\Entity\Event;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Entity\WebhookQueue;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\WebhookBundle\Entity\Event;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Entity\WebhookQueue;
 
-final class WebhookQueueFunctionalTest extends MauticMysqlTestCase
+final class WebhookQueueFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testPayloadCompressed(): void
     {
@@ -59,7 +59,7 @@ final class WebhookQueueFunctionalTest extends MauticMysqlTestCase
      */
     private function fetchPayloadDbValues(WebhookQueue $webhookQueue): array
     {
-        $prefix = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix = self::getContainer()->getParameter('mailvotech.db_table_prefix');
         $query  = sprintf('SELECT payload_compressed FROM %swebhook_queue WHERE id = ?', $prefix);
 
         return $this->connection->executeQuery($query, [$webhookQueue->getId()])

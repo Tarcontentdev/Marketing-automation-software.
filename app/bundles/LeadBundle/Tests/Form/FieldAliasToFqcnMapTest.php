@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Form;
+namespace MailVotech\LeadBundle\Tests\Form;
 
-use Mautic\CoreBundle\Form\Type\BooleanType;
-use Mautic\CoreBundle\Form\Type\CountryType;
-use Mautic\CoreBundle\Form\Type\LocaleType;
-use Mautic\CoreBundle\Form\Type\LookupType;
-use Mautic\CoreBundle\Form\Type\MultiselectType;
-use Mautic\CoreBundle\Form\Type\RegionType;
-use Mautic\CoreBundle\Form\Type\SelectType;
-use Mautic\CoreBundle\Form\Type\TelType;
-use Mautic\CoreBundle\Form\Type\TimezoneType;
-use Mautic\LeadBundle\Exception\FieldNotFoundException;
-use Mautic\LeadBundle\Form\FieldAliasToFqcnMap;
-use Mautic\LeadBundle\Form\Type\HtmlType;
+use MailVotech\CoreBundle\Form\Type\BooleanType;
+use MailVotech\CoreBundle\Form\Type\CountryType;
+use MailVotech\CoreBundle\Form\Type\LocaleType;
+use MailVotech\CoreBundle\Form\Type\LookupType;
+use MailVotech\CoreBundle\Form\Type\MultiselectType;
+use MailVotech\CoreBundle\Form\Type\RegionType;
+use MailVotech\CoreBundle\Form\Type\SelectType;
+use MailVotech\CoreBundle\Form\Type\TelType;
+use MailVotech\CoreBundle\Form\Type\TimezoneType;
+use MailVotech\LeadBundle\Exception\FieldNotFoundException;
+use MailVotech\LeadBundle\Form\FieldAliasToFqcnMap;
+use MailVotech\LeadBundle\Form\Type\HtmlType;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;

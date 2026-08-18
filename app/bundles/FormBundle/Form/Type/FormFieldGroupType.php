@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,11 +21,11 @@ final class FormFieldGroupType extends AbstractType
             'labelAttributes',
             TextType::class,
             [
-                'label'      => 'mautic.form.field.group.labelattr',
+                'label'      => 'mailvotech.form.field.group.labelattr',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'     => 'form-control',
-                    'tooltip'   => 'mautic.form.field.help.group.labelattr',
+                    'tooltip'   => 'mailvotech.form.field.help.group.labelattr',
                     'maxlength' => '191',
                 ],
                 'required' => false,

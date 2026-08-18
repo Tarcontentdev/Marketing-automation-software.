@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field;
+namespace MailVotech\LeadBundle\Field;
 
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\DBAL\Schema\SchemaException;
-use Mautic\LeadBundle\Exception\NoListenerException;
-use Mautic\LeadBundle\Field\Dispatcher\FieldColumnBackgroundJobDispatcher;
-use Mautic\LeadBundle\Field\Exception\AbortColumnCreateException;
-use Mautic\LeadBundle\Field\Exception\AbortColumnUpdateException;
-use Mautic\LeadBundle\Field\Exception\ColumnAlreadyCreatedException;
-use Mautic\LeadBundle\Field\Exception\CustomFieldLimitException;
-use Mautic\LeadBundle\Field\Exception\LeadFieldWasNotFoundException;
-use Mautic\LeadBundle\Field\Notification\CustomFieldNotification;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Exception\NoListenerException;
+use MailVotech\LeadBundle\Field\Dispatcher\FieldColumnBackgroundJobDispatcher;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnCreateException;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnUpdateException;
+use MailVotech\LeadBundle\Field\Exception\ColumnAlreadyCreatedException;
+use MailVotech\LeadBundle\Field\Exception\CustomFieldLimitException;
+use MailVotech\LeadBundle\Field\Exception\LeadFieldWasNotFoundException;
+use MailVotech\LeadBundle\Field\Notification\CustomFieldNotification;
+use MailVotech\LeadBundle\Model\FieldModel;
 
 class BackgroundService
 {
@@ -36,7 +36,7 @@ class BackgroundService
      * @throws \Doctrine\DBAL\Exception
      * @throws DriverException
      * @throws SchemaException
-     * @throws \Mautic\CoreBundle\Exception\SchemaException
+     * @throws \MailVotech\CoreBundle\Exception\SchemaException
      */
     public function addColumn(int $leadFieldId, ?int $userId): void
     {
@@ -57,7 +57,7 @@ class BackgroundService
 
         try {
             $this->customFieldColumn->processCreateLeadColumn($leadField, false);
-        } catch (DriverException|SchemaException|\Mautic\CoreBundle\Exception\SchemaException $e) {
+        } catch (DriverException|SchemaException|\MailVotech\CoreBundle\Exception\SchemaException $e) {
             $this->customFieldNotification->customFieldCannotBeCreated($leadField, $userId);
             throw $e;
         } catch (CustomFieldLimitException $e) {
@@ -76,7 +76,7 @@ class BackgroundService
      * @throws DriverException
      * @throws LeadFieldWasNotFoundException
      * @throws SchemaException
-     * @throws \Mautic\CoreBundle\Exception\SchemaException
+     * @throws \MailVotech\CoreBundle\Exception\SchemaException
      */
     public function updateColumn(int $leadFieldId, int $userId): void
     {
@@ -93,7 +93,7 @@ class BackgroundService
         try {
             // Update the column length of leads table.
             $this->customFieldColumn->processUpdateLeadColumnLength($leadField);
-        } catch (\Mautic\CoreBundle\Exception\SchemaException|\OutOfRangeException $e) {
+        } catch (\MailVotech\CoreBundle\Exception\SchemaException|\OutOfRangeException $e) {
             $this->customFieldNotification->customFieldCannotBeUpdated($leadField, $userId);
             throw $e;
         }
@@ -107,7 +107,7 @@ class BackgroundService
      * @throws DriverException
      * @throws LeadFieldWasNotFoundException
      * @throws SchemaException
-     * @throws \Mautic\CoreBundle\Exception\SchemaException
+     * @throws \MailVotech\CoreBundle\Exception\SchemaException
      */
     public function deleteColumn(int $leadFieldId, int $userId): void
     {

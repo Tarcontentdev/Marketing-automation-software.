@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\Helper\DTO;
+namespace MailVotech\SmsBundle\Tests\Helper\DTO;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\SmsBundle\Collection\RecipientCollection;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Helper\DTO\SmsRecipientDTO;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\SmsBundle\Collection\RecipientCollection;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Helper\DTO\SmsRecipientDTO;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

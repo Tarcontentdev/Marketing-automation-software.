@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Security;
+namespace MailVotech\UserBundle\Tests\Security;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Tests\Traits\CreateEntityTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Tests\Traits\CreateEntityTrait;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 
-final class UserLoginTest extends MauticMysqlTestCase
+final class UserLoginTest extends MailVotechMysqlTestCase
 {
     use CreateEntityTrait;
 

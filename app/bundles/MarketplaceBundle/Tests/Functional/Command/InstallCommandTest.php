@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Tests\Functional\Command;
+namespace MailVotech\MarketplaceBundle\Tests\Functional\Command;
 
-use Mautic\CoreBundle\Helper\ComposerHelper;
-use Mautic\CoreBundle\Test\AbstractMauticTestCase;
-use Mautic\MarketplaceBundle\Command\InstallCommand;
-use Mautic\MarketplaceBundle\DTO\ConsoleOutput;
-use Mautic\MarketplaceBundle\DTO\PackageDetail;
-use Mautic\MarketplaceBundle\Exception\ApiException;
-use Mautic\MarketplaceBundle\Model\PackageModel;
+use MailVotech\CoreBundle\Helper\ComposerHelper;
+use MailVotech\CoreBundle\Test\AbstractMailVotechTestCase;
+use MailVotech\MarketplaceBundle\Command\InstallCommand;
+use MailVotech\MarketplaceBundle\DTO\ConsoleOutput;
+use MailVotech\MarketplaceBundle\DTO\PackageDetail;
+use MailVotech\MarketplaceBundle\Exception\ApiException;
+use MailVotech\MarketplaceBundle\Model\PackageModel;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class InstallCommandTest extends AbstractMauticTestCase
+final class InstallCommandTest extends AbstractMailVotechTestCase
 {
     /**
      * @var MockObject&ComposerHelper
@@ -32,7 +32,7 @@ final class InstallCommandTest extends AbstractMauticTestCase
         parent::setUp();
         $this->composerHelper = $this->createMock(ComposerHelper::class);
         $this->packageModel   = $this->createMock(PackageModel::class);
-        $this->packageName    = 'koco/mautic-recaptcha-bundle';
+        $this->packageName    = 'koco/mailvotech-recaptcha-bundle';
     }
 
     public function testInstallCommand(): void
@@ -48,7 +48,7 @@ final class InstallCommandTest extends AbstractMauticTestCase
         $command = new InstallCommand($this->composerHelper, $this->packageModel);
 
         $result = $this->testSymfonyCommand(
-            'mautic:marketplace:install',
+            'mailvotech:marketplace:install',
             ['package' => $this->packageName],
             $command
         );
@@ -69,7 +69,7 @@ final class InstallCommandTest extends AbstractMauticTestCase
         $command = new InstallCommand($this->composerHelper, $this->packageModel);
 
         $result = $this->testSymfonyCommand(
-            'mautic:marketplace:install',
+            'mailvotech:marketplace:install',
             ['package' => $this->packageName, '--dry-run' => null],
             $command
         );
@@ -80,7 +80,7 @@ final class InstallCommandTest extends AbstractMauticTestCase
 
     public function testInstallCommandWithNonExistingPackage(): void
     {
-        $packageName = 'mautic/non-existent-plugin';
+        $packageName = 'mailvotech/non-existent-plugin';
 
         $this->packageModel->method('getPackageDetail')
             ->with($packageName)
@@ -91,7 +91,7 @@ final class InstallCommandTest extends AbstractMauticTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         $this->testSymfonyCommand(
-            'mautic:marketplace:install',
+            'mailvotech:marketplace:install',
             ['package' => $packageName],
             $command
         );
@@ -99,7 +99,7 @@ final class InstallCommandTest extends AbstractMauticTestCase
 
     public function testInstallCommandWithComposerNotAvailable(): void
     {
-        $packageName = 'mautic/non-existent-plugin';
+        $packageName = 'mailvotech/non-existent-plugin';
 
         $this->packageModel->method('getPackageDetail')
             ->with($packageName)
@@ -110,7 +110,7 @@ final class InstallCommandTest extends AbstractMauticTestCase
         $this->expectException(\Exception::class);
 
         $this->testSymfonyCommand(
-            'mautic:marketplace:install',
+            'mailvotech:marketplace:install',
             ['package' => $packageName],
             $command
         );
@@ -118,7 +118,7 @@ final class InstallCommandTest extends AbstractMauticTestCase
 
     public function testInstallCommandWithWrongPackageType(): void
     {
-        $packageName                      = 'mautic/package-with-wrong-type';
+        $packageName                      = 'mailvotech/package-with-wrong-type';
         $packageDetail                    = $this->getPackageDetail();
         $packageDetail->packageBase->type = 'non-existent-type';
 
@@ -131,7 +131,7 @@ final class InstallCommandTest extends AbstractMauticTestCase
         $this->expectException(\Exception::class);
 
         $this->testSymfonyCommand(
-            'mautic:marketplace:install',
+            'mailvotech:marketplace:install',
             ['package' => $packageName],
             $command
         );
@@ -139,7 +139,7 @@ final class InstallCommandTest extends AbstractMauticTestCase
 
     public function testInstallCommandWithFailedComposerCommand(): void
     {
-        $packageName = 'mautic/crash-package';
+        $packageName = 'mailvotech/crash-package';
 
         $this->composerHelper->method('install')
             ->with($packageName)
@@ -151,13 +151,13 @@ final class InstallCommandTest extends AbstractMauticTestCase
 
         $command = new InstallCommand($this->composerHelper, $this->packageModel);
         $result  = $this->testSymfonyCommand(
-            'mautic:marketplace:install',
+            'mailvotech:marketplace:install',
             ['package' => $packageName],
             $command
         );
 
         $this->assertSame(1, $result->getStatusCode());
-        $this->assertSame("Installing mautic/crash-package, this might take a while...\nError while installing this plugin.\nSomething went wrong during the installation\n", $result->getDisplay());
+        $this->assertSame("Installing mailvotech/crash-package, this might take a while...\nError while installing this plugin.\nSomething went wrong during the installation\n", $result->getDisplay());
     }
 
     private function getPackageDetail(): PackageDetail

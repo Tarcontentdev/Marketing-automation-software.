@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Auth\Provider\Oauth1aTwoLegged;
+namespace MailVotech\IntegrationsBundle\Auth\Provider\Oauth1aTwoLegged;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
-use Mautic\IntegrationsBundle\Auth\Provider\AuthConfigInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\AuthProviderInterface;
-use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthConfigInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthProviderInterface;
+use MailVotech\IntegrationsBundle\Exception\PluginNotConfiguredException;
 
 /**
  * Factory for building HTTP clients that will sign the requests with Oauth1a headers.

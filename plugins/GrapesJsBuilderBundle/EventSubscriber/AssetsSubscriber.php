@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\EventSubscriber;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\EventSubscriber;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\CustomAssetsEvent;
-use Mautic\InstallBundle\Install\InstallService;
-use MauticPlugin\GrapesJsBuilderBundle\Integration\Config;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\CustomAssetsEvent;
+use MailVotech\InstallBundle\Install\InstallService;
+use MailVotechPlugin\GrapesJsBuilderBundle\Integration\Config;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -34,7 +34,7 @@ final readonly class AssetsSubscriber implements EventSubscriberInterface
 
     public function injectAssets(CustomAssetsEvent $assetsEvent): void
     {
-        if (!$this->installer->checkIfInstalled() || !$this->isMauticAdministrationPage()) {
+        if (!$this->installer->checkIfInstalled() || !$this->isMailVotechAdministrationPage()) {
             return;
         }
 
@@ -92,7 +92,7 @@ final readonly class AssetsSubscriber implements EventSubscriberInterface
     /**
      * Returns true for routes that starts with /s/.
      */
-    private function isMauticAdministrationPage(): bool
+    private function isMailVotechAdministrationPage(): bool
     {
         return preg_match('/^\/s\//', $this->requestStack->getCurrentRequest()->getPathInfo()) >= 1;
     }

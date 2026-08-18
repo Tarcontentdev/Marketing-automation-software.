@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\ConfigBundle\Event;
+namespace MailVotech\ConfigBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\CoreBundle\Event\CommonEvent;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\ParameterBag;
 

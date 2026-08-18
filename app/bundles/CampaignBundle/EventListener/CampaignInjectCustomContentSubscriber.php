@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\EventListener;
+namespace MailVotech\CampaignBundle\EventListener;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\CustomContentEvent;
-use Mautic\CoreBundle\Model\AuditLogModel;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\CustomContentEvent;
+use MailVotech\CoreBundle\Model\AuditLogModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Twig\Environment;
 
@@ -38,16 +38,16 @@ final readonly class CampaignInjectCustomContentSubscriber implements EventSubsc
             return;
         }
 
-        $viewName = '@MauticCampaign/Campaign/details.html.twig';
+        $viewName = '@MailVotechCampaign/Campaign/details.html.twig';
         if ($customContentEvent->checkContext($viewName, 'tabs')) {
             $content                   = $this->twig->render(
-                '@MauticCampaign/Campaign/Tab/recent-activity-tab.html.twig',
+                '@MailVotechCampaign/Campaign/Tab/recent-activity-tab.html.twig',
             );
             $customContentEvent->addContent($content);
         } elseif ($customContentEvent->checkContext($viewName, 'tabs.content')) {
             $logs    = $this->auditLogModel->getLogForObject('campaign', $campaign->getId(), null, 100);
             $content = $this->twig->render(
-                '@MauticCampaign/Campaign/Tab/recent-activity-tabcontent.html.twig',
+                '@MailVotechCampaign/Campaign/Tab/recent-activity-tabcontent.html.twig',
                 [
                     'campaign' => $campaign,
                     'logs'     => $logs,

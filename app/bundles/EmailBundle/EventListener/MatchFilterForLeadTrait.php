@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Exception\OperatorsNotFoundException;
-use Mautic\LeadBundle\Helper\FormFieldHelper;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Exception\OperatorsNotFoundException;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 
 trait MatchFilterForLeadTrait
 {
@@ -250,7 +250,7 @@ trait MatchFilterForLeadTrait
     /**
      * Duplicate method. Needs refactoring.
      *
-     * @see \Mautic\LeadBundle\EventListener\DynamicContentSubscriber::isContactSegmentRelationshipValid
+     * @see \MailVotech\LeadBundle\EventListener\DynamicContentSubscriber::isContactSegmentRelationshipValid
      *
      * @param string $operator   empty, !empty, in, !in
      * @param int[]  $segmentIds

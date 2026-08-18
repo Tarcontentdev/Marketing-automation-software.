@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests;
+namespace MailVotech\CoreBundle\Tests;
 
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Helper\BundleHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Helper\BundleHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\Translation\Translator;
 use PHPUnit\Framework\MockObject\MockObject;
 
 abstract class CommonMocks extends \PHPUnit\Framework\TestCase

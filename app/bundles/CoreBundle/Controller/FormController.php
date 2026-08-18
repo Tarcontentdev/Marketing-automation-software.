@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Controller;
+namespace MailVotech\CoreBundle\Controller;
 
 /**
  * @deprecated 2.3 - to be removed in 3.0; use AbstractFormController instead
@@ -21,7 +21,7 @@ class FormController extends AbstractStandardFormController
 
     private ?string $deprecatedTemplateBase = null;
 
-    private ?string $deprecatedMauticContent = null;
+    private ?string $deprecatedMailVotechContent = null;
 
     protected $activeLink;
 
@@ -30,12 +30,12 @@ class FormController extends AbstractStandardFormController
      *
      * @param string $modelName       The model for this controller
      * @param string $permissionBase  Permission base for the model (i.e. form.forms or addon.yourAddon.items)
-     * @param string $routeBase       Route base for the controller routes (i.e. mautic_form or custom_addon)
+     * @param string $routeBase       Route base for the controller routes (i.e. mailvotech_form or custom_addon)
      * @param string $sessionBase     Session name base for items saved to session such as filters, page, etc
      * @param string $translationBase Language string base for the shared strings
      * @param string $templateBase    Template base (i.e. YourController:Default) for the view/controller
      * @param string $activeLink      Link ID to return via ajax response
-     * @param string $mauticContent   Mautic content string to return via ajax response for onLoad functions
+     * @param string $mailvotechContent   MailVotech content string to return via ajax response for onLoad functions
      */
     protected function setStandardParameters(
         string $modelName,
@@ -45,18 +45,18 @@ class FormController extends AbstractStandardFormController
         string $translationBase,
         string $templateBase,
         string $activeLink,
-        string $mauticContent,
+        string $mailvotechContent,
     ): void {
         $this->deprecatedModelName      = $modelName;
         $this->deprecatedPermissionBase = $permissionBase;
-        if (!str_starts_with($sessionBase, 'mautic.')) {
-            $sessionBase = 'mautic.'.$sessionBase;
+        if (!str_starts_with($sessionBase, 'mailvotech.')) {
+            $sessionBase = 'mailvotech.'.$sessionBase;
         }
         $this->deprecatedSessionBase     = $sessionBase;
         $this->deprecatedRouteBase       = $routeBase;
         $this->deprecatedTranslationBase = $translationBase;
         $this->activeLink                = $activeLink;
-        $this->deprecatedMauticContent   = $mauticContent;
+        $this->deprecatedMailVotechContent   = $mailvotechContent;
         $this->deprecatedTemplateBase    = $templateBase;
     }
 
@@ -78,7 +78,7 @@ class FormController extends AbstractStandardFormController
      */
     protected function getJsLoadMethodPrefix()
     {
-        return $this->deprecatedMauticContent;
+        return $this->deprecatedMailVotechContent;
     }
 
     /**

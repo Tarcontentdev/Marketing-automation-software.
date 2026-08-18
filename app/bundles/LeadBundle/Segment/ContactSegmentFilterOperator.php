@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Segment;
+namespace MailVotech\LeadBundle\Segment;
 
-use Mautic\LeadBundle\Provider\FilterOperatorProviderInterface;
+use MailVotech\LeadBundle\Provider\FilterOperatorProviderInterface;
 
 class ContactSegmentFilterOperator
 {

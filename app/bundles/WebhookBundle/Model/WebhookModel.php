@@ -1,33 +1,33 @@
 <?php
 
-namespace Mautic\WebhookBundle\Model;
+namespace MailVotech\WebhookBundle\Model;
 
 use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
-use Mautic\ApiBundle\Serializer\Exclusion\PublishDetailsExclusionStrategy;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\EncryptionHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\WebhookBundle\Entity\Event;
-use Mautic\WebhookBundle\Entity\EventRepository;
-use Mautic\WebhookBundle\Entity\Log;
-use Mautic\WebhookBundle\Entity\LogRepository;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Entity\WebhookQueue;
-use Mautic\WebhookBundle\Entity\WebhookQueueRepository;
-use Mautic\WebhookBundle\Entity\WebhookRepository;
-use Mautic\WebhookBundle\Event as Events;
-use Mautic\WebhookBundle\Event\WebhookEvent;
-use Mautic\WebhookBundle\Form\Type\WebhookType;
-use Mautic\WebhookBundle\Http\Client;
-use Mautic\WebhookBundle\Service\WebhookService;
-use Mautic\WebhookBundle\WebhookEvents;
+use MailVotech\ApiBundle\Serializer\Exclusion\PublishDetailsExclusionStrategy;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\EncryptionHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\WebhookBundle\Entity\Event;
+use MailVotech\WebhookBundle\Entity\EventRepository;
+use MailVotech\WebhookBundle\Entity\Log;
+use MailVotech\WebhookBundle\Entity\LogRepository;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Entity\WebhookQueue;
+use MailVotech\WebhookBundle\Entity\WebhookQueueRepository;
+use MailVotech\WebhookBundle\Entity\WebhookRepository;
+use MailVotech\WebhookBundle\Event as Events;
+use MailVotech\WebhookBundle\Event\WebhookEvent;
+use MailVotech\WebhookBundle\Form\Type\WebhookType;
+use MailVotech\WebhookBundle\Http\Client;
+use MailVotech\WebhookBundle\Service\WebhookService;
+use MailVotech\WebhookBundle\WebhookEvents;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -136,7 +136,7 @@ class WebhookModel extends FormModel
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         private readonly WebhookService $webhookService,
         private readonly WebhookRepository $webhookRepository,
         private readonly WebhookQueueRepository $webhookQueueRepository,
@@ -144,7 +144,7 @@ class WebhookModel extends FormModel
         private readonly LogRepository $logRepository,
     ) {
         $this->setConfigProps($coreParametersHelper);
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     /**
@@ -195,7 +195,7 @@ class WebhookModel extends FormModel
     }
 
     /**
-     * Gets array of custom events from bundles subscribed MauticWehbhookBundle::WEBHOOK_ON_BUILD.
+     * Gets array of custom events from bundles subscribed MailVotechWehbhookBundle::WEBHOOK_ON_BUILD.
      *
      * @return mixed
      */
@@ -335,7 +335,7 @@ class WebhookModel extends FormModel
             if ($responseStatusCode >= 300 || $responseStatusCode < 200) {
                 // The receiver of the webhook is telling us to stop bothering him with our requests by code 410
                 if (410 === $responseStatusCode) {
-                    $this->killWebhook($webhook, 'mautic.webhook.stopped.reason.410');
+                    $this->killWebhook($webhook, 'mailvotech.webhook.stopped.reason.410');
                 }
 
                 throw new \ErrorException($webhook->getWebhookUrl().' returned '.$responseStatusCode.' with payload: '.json_encode($payload));
@@ -345,7 +345,7 @@ class WebhookModel extends FormModel
             if ($this->isSick($webhook)) {
                 if (!$this->disableAutoUnpublish && !$webhook->wasModifiedRecently()) {
                     $this->killWebhook($webhook);
-                    $message .= ' '.$this->translator->trans('mautic.webhook.killed', ['%limit%' => $this->disableLimit]);
+                    $message .= ' '.$this->translator->trans('mailvotech.webhook.killed', ['%limit%' => $this->disableLimit]);
                 }
                 $this->markWebhookUnHealthy($webhook, $e->getMessage());
             } else {
@@ -405,7 +405,7 @@ class WebhookModel extends FormModel
      *
      * @param string $reason
      */
-    public function killWebhook(Webhook $webhook, $reason = 'mautic.webhook.stopped.reason'): void
+    public function killWebhook(Webhook $webhook, $reason = 'mailvotech.webhook.stopped.reason'): void
     {
         $webhook->setIsPublished(false);
         $this->saveEntity($webhook);

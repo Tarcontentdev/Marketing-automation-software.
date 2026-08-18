@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CampaignBundle\Event;
+namespace MailVotech\CampaignBundle\Event;
 
-use Mautic\CampaignBundle\Event\Exception\KeyAlreadyRegisteredException;
-use Mautic\CoreBundle\Event\ComponentValidationTrait;
+use MailVotech\CampaignBundle\Event\Exception\KeyAlreadyRegisteredException;
+use MailVotech\CoreBundle\Event\ComponentValidationTrait;
 use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

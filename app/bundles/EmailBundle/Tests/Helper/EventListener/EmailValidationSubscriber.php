@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Helper\EventListener;
+namespace MailVotech\EmailBundle\Tests\Helper\EventListener;
 
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\EmailValidationEvent;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\EmailValidationEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class EmailValidationSubscriber implements EventSubscriberInterface

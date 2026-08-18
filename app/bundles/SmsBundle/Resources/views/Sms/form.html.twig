@@ -1,14 +1,14 @@
-{% extends '@MauticCore/FormTheme/form_simple.html.twig' %}
+{% extends '@MailVotechCore/FormTheme/form_simple.html.twig' %}
 {% form_theme form with [
-    '@MauticSms/FormTheme/SmsSendList/smssend_list_row.html.twig'
+    '@MailVotechSms/FormTheme/SmsSendList/smssend_list_row.html.twig'
 ] %}
 
-{% block mauticContent %}sms{% endblock %}
-{# @var sms \Mautic\SmsBundle\Entity\Sms #}
+{% block mailvotechContent %}sms{% endblock %}
+{# @var sms \MailVotech\SmsBundle\Entity\Sms #}
 {% set type            = sms.getSmsType() %}
 {% set isExisting      = sms.getId() %}
-{% set translationBase = 'mautic.sms' %}
-{% set mauticContent   = 'sms' %}
+{% set translationBase = 'mailvotech.sms' %}
+{% set mailvotechContent   = 'sms' %}
 
 {% block primaryFormContent %}
 <div class="row">
@@ -20,13 +20,13 @@
 <div class="row">
     <div class="col-md-12">
         <div class="characters-count">
-            <span class="control-label" data-toggle="tooltip" data-container="body" data-placement="top" title="" data-original-title="{{ 'mautic.sms.form.nbcharacter.infobox'|trans }}">
-                {{ 'mautic.sms.form.nbcharacter.counter'|trans }}
+            <span class="control-label" data-toggle="tooltip" data-container="body" data-placement="top" title="" data-original-title="{{ 'mailvotech.sms.form.nbcharacter.infobox'|trans }}">
+                {{ 'mailvotech.sms.form.nbcharacter.counter'|trans }}
                 <span size="sm" class="label label-gray" id="sms_nb_char">0</span>
             </span>
         </div>
         {{ form_row(form.message) }}
-        <i class="text-secondary">{{ 'mautic.sms.token.dropdown.hint'|trans|purify }}</i>
+        <i class="text-secondary">{{ 'mailvotech.sms.token.dropdown.hint'|trans|purify }}</i>
 
     </div>
 </div>
@@ -36,17 +36,17 @@
         <div class="control-label">{{ form.media.vars.label|trans }}</div>
     </div>
     <div class="col-md-5">
-        <button type="button" id="upload_mms_media" class="btn btn-primary" onclick="javascript:Mautic.loadNewWindow({windowUrl:'{{ path('mautic_base_index') }}elfinder?editor=media_form'})">
-            <i class="ri-file-upload-line"></i> {{ 'mautic.lead.import.upload'|trans }}
+        <button type="button" id="upload_mms_media" class="btn btn-primary" onclick="javascript:MailVotech.loadNewWindow({windowUrl:'{{ path('mailvotech_base_index') }}elfinder?editor=media_form'})">
+            <i class="ri-file-upload-line"></i> {{ 'mailvotech.lead.import.upload'|trans }}
         </button>
     </div>
     <div class="col-md-2">
-        {{ 'mautic.core.or'|trans }}
+        {{ 'mailvotech.core.or'|trans }}
     </div>
     <div class="col-md-5">
         <div class="input-group sms-media-url-group">
-            <input type="text" id="media_url" class="form-control" placeholder="{{ 'mautic.sms.type_media_url'|trans }}" />
-            <button type="button" class="btn btn-secondary sms-media-upload-btn" onclick="Mautic.addMediaFromUrl()" aria-label="{{ 'mautic.sms.type_media_url'|trans }}">
+            <input type="text" id="media_url" class="form-control" placeholder="{{ 'mailvotech.sms.type_media_url'|trans }}" />
+            <button type="button" class="btn btn-secondary sms-media-upload-btn" onclick="MailVotech.addMediaFromUrl()" aria-label="{{ 'mailvotech.sms.type_media_url'|trans }}">
                 <i class="ri-file-upload-line"></i>
             </button>
         </div>
@@ -59,7 +59,7 @@
             {% set id = field.vars.id %}
             <li id="li_{{ id }}">
                 {{ form_widget(field) }}
-                <label for="{{ id }}"><img src="{{ url }}" alt="{{ 'mautic.sms.type_media_url'|trans }}" /></label>
+                <label for="{{ id }}"><img src="{{ url }}" alt="{{ 'mailvotech.sms.type_media_url'|trans }}" /></label>
             </li>
         {% endfor %}
         </ul>
@@ -69,7 +69,7 @@
     </div>
     <div class="col-md-12">
         <div class="alert alert-info mt-10">
-            {{ 'mautic.sms.form.mms.media.infobox'|trans|raw }}
+            {{ 'mailvotech.sms.form.mms.media.infobox'|trans|raw }}
         </div>
     </div>
 </div>
@@ -82,18 +82,18 @@
 {{ form_row(form.translationParentSelector) }}
 {{ form_row(form.isPublished, {
     'attr': {
-        'data-none': 'mautic.core.form.sending_paused',
-        'data-start': 'mautic.core.form.sending_on_scheduled_start',
-        'data-both': 'mautic.core.form.sending_during_scheduled_period',
-        'data-end': 'mautic.core.form.available_until_scheduled_end'
+        'data-none': 'mailvotech.core.form.sending_paused',
+        'data-start': 'mailvotech.core.form.sending_on_scheduled_start',
+        'data-both': 'mailvotech.core.form.sending_during_scheduled_period',
+        'data-end': 'mailvotech.core.form.available_until_scheduled_end'
     }
 }) }}
 {{ form_row(form.isMms) }}
 
 <div id="leadList"{% if 'template' == type %} class="hide"{% endif %}>
     {{ form_row(form.lists) }}
-    {{ form_row(form.publishUp, {'label': 'mautic.core.form.sending.start_at'}) }}
-    {{ form_row(form.publishDown, {'label': 'mautic.core.form.sending.stop_at'}) }}
+    {{ form_row(form.publishUp, {'label': 'mailvotech.core.form.sending.start_at'}) }}
+    {{ form_row(form.publishDown, {'label': 'mailvotech.core.form.sending.stop_at'}) }}
 </div>
 
 <div class="hide">
@@ -101,26 +101,26 @@
 </div>
 
 {% if (updateSelect is not defined or updateSelect is empty) and not isExisting and not formContainsErrors(form) or type is empty %}
-    {{- include('@MauticCore/Helper/form_selecttype.html.twig',
+    {{- include('@MailVotechCore/Helper/form_selecttype.html.twig',
         {
             'item'       : sms,
-            'mauticLang' : {
-                'newListSms'     : 'mautic.sms.type.list.header',
-                'newTemplateSms' : 'mautic.sms.type.template.header',
+            'mailvotechLang' : {
+                'newListSms'     : 'mailvotech.sms.type.list.header',
+                'newTemplateSms' : 'mailvotech.sms.type.template.header',
             },
             'typePrefix'         : 'sms',
-            'cancelUrl'          : 'mautic_sms_index',
-            'header'             : 'mautic.sms.type.header',
-            'typeOneHeader'      : 'mautic.sms.type.template.header',
+            'cancelUrl'          : 'mailvotech_sms_index',
+            'header'             : 'mailvotech.sms.type.header',
+            'typeOneHeader'      : 'mailvotech.sms.type.template.header',
             'typeOnePictogram': 'process--automation',
-            'typeOneTag'         : 'mautic.sms.type.template.tag',
-            'typeOneDifferences' : ['mautic.sms.type.template.differences.1st', 'mautic.sms.type.template.differences.2nd', 'mautic.sms.type.template.differences.3rd', 'mautic.sms.type.template.differences.4th', 'mautic.sms.type.template.differences.5th'],
-            'typeOneOnClick'     : "Mautic.selectSmsType('template');",
-            'typeTwoHeader'      : 'mautic.sms.type.list.header',
-            'typeTwoTag'         : 'mautic.sms.type.list.tag',
+            'typeOneTag'         : 'mailvotech.sms.type.template.tag',
+            'typeOneDifferences' : ['mailvotech.sms.type.template.differences.1st', 'mailvotech.sms.type.template.differences.2nd', 'mailvotech.sms.type.template.differences.3rd', 'mailvotech.sms.type.template.differences.4th', 'mailvotech.sms.type.template.differences.5th'],
+            'typeOneOnClick'     : "MailVotech.selectSmsType('template');",
+            'typeTwoHeader'      : 'mailvotech.sms.type.list.header',
+            'typeTwoTag'         : 'mailvotech.sms.type.list.tag',
             'typeTwoPictogram': 'chart--pie',
-            'typeTwoDifferences' : ['mautic.sms.type.list.differences.1st', 'mautic.sms.type.list.differences.2nd', 'mautic.sms.type.list.differences.3rd', 'mautic.sms.type.list.differences.4th', 'mautic.sms.type.list.differences.5th'],
-            'typeTwoOnClick'     : "Mautic.selectSmsType('list');",
+            'typeTwoDifferences' : ['mailvotech.sms.type.list.differences.1st', 'mailvotech.sms.type.list.differences.2nd', 'mailvotech.sms.type.list.differences.3rd', 'mailvotech.sms.type.list.differences.4th', 'mailvotech.sms.type.list.differences.5th'],
+            'typeTwoOnClick'     : "MailVotech.selectSmsType('list');",
         }
     ) -}}
 {% endif %}

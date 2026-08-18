@@ -5,29 +5,29 @@ declare(strict_types=1);
 return [
     'name'        => 'Integrations',
     'description' => 'Adds support for plugin integrations',
-    'author'      => 'Mautic, Inc.',
+    'author'      => 'MailVotech, Inc.',
     'routes'      => [
         'main' => [
-            'mautic_integration_config' => [
+            'mailvotech_integration_config' => [
                 'path'       => '/integration/{integration}/config',
-                'controller' => 'Mautic\IntegrationsBundle\Controller\ConfigController::editAction',
+                'controller' => 'MailVotech\IntegrationsBundle\Controller\ConfigController::editAction',
             ],
-            'mautic_integration_config_field_pagination' => [
+            'mailvotech_integration_config_field_pagination' => [
                 'path'       => '/integration/{integration}/config/{object}/{page}',
-                'controller' => 'Mautic\IntegrationsBundle\Controller\FieldPaginationController::paginateAction',
+                'controller' => 'MailVotech\IntegrationsBundle\Controller\FieldPaginationController::paginateAction',
                 'defaults'   => [
                     'page' => 1,
                 ],
             ],
-            'mautic_integration_config_field_update' => [
+            'mailvotech_integration_config_field_update' => [
                 'path'       => '/integration/{integration}/config/{object}/field/{field}',
-                'controller' => 'Mautic\IntegrationsBundle\Controller\UpdateFieldController::updateAction',
+                'controller' => 'MailVotech\IntegrationsBundle\Controller\UpdateFieldController::updateAction',
             ],
         ],
         'public' => [
-            'mautic_integration_public_callback' => [
+            'mailvotech_integration_public_callback' => [
                 'path'       => '/integration/{integration}/callback',
-                'controller' => 'Mautic\IntegrationsBundle\Controller\AuthController::callbackAction',
+                'controller' => 'MailVotech\IntegrationsBundle\Controller\AuthController::callbackAction',
             ],
         ],
     ],

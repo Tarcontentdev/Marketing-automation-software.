@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Form\Type;
+namespace MailVotech\LeadBundle\Tests\Form\Type;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 
-final class ChangeOwnerTypeFunctionalTest extends MauticMysqlTestCase
+final class ChangeOwnerTypeFunctionalTest extends MailVotechMysqlTestCase
 {
-    private const TEMP_CAMPAIGN_ID = 'mautic_89f7f52426c1dff3daa3beaea708a6b39fe7a775';
+    private const TEMP_CAMPAIGN_ID = 'mailvotech_89f7f52426c1dff3daa3beaea708a6b39fe7a775';
 
     public function testCampaignBuilderWithChangeOwnerActionDoesNotBreakOtherEventLinks(): void
     {

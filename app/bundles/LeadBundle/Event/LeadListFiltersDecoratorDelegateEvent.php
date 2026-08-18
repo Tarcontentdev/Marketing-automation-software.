@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
 
 final class LeadListFiltersDecoratorDelegateEvent extends CommonEvent
 {

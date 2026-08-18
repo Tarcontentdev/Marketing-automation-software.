@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\EventListener;
+namespace MailVotech\ChannelBundle\EventListener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
-use Mautic\CampaignBundle\EventCollector\EventCollector;
-use Mautic\CampaignBundle\Executioner\Dispatcher\ActionDispatcher;
-use Mautic\CampaignBundle\Executioner\Exception\NoContactsFoundException;
-use Mautic\ChannelBundle\ChannelEvents;
-use Mautic\ChannelBundle\Form\Type\MessageSendType;
-use Mautic\ChannelBundle\Model\MessageModel;
-use Mautic\ChannelBundle\PreferenceBuilder\PreferenceBuilder;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\CampaignBundle\EventCollector\EventCollector;
+use MailVotech\CampaignBundle\Executioner\Dispatcher\ActionDispatcher;
+use MailVotech\CampaignBundle\Executioner\Exception\NoContactsFoundException;
+use MailVotech\ChannelBundle\ChannelEvents;
+use MailVotech\ChannelBundle\Form\Type\MessageSendType;
+use MailVotech\ChannelBundle\Model\MessageModel;
+use MailVotech\ChannelBundle\PreferenceBuilder\PreferenceBuilder;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -61,8 +61,8 @@ final class CampaignSubscriber implements EventSubscriberInterface
         }
 
         $action = [
-            'label'                  => 'mautic.channel.message.send.marketing.message',
-            'description'            => 'mautic.channel.message.send.marketing.message.descr',
+            'label'                  => 'mailvotech.channel.message.send.marketing.message',
+            'description'            => 'mailvotech.channel.message.send.marketing.message.descr',
             'batchEventName'         => ChannelEvents::ON_CAMPAIGN_BATCH_ACTION,
             'formType'               => MessageSendType::class,
             'channel'                => 'channel.message',
@@ -72,7 +72,7 @@ final class CampaignSubscriber implements EventSubscriberInterface
                     'decision' => $decisions,
                 ],
             ],
-            'timelineTemplate'       => '@MauticChannel/SubscribedEvents/Timeline/index.html.twig',
+            'timelineTemplate'       => '@MailVotechChannel/SubscribedEvents/Timeline/index.html.twig',
             'timelineTemplateVars'   => [
                 'messageSettings' => $channels,
             ],
@@ -81,8 +81,8 @@ final class CampaignSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException
-     * @throws \Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException
+     * @throws \MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException
+     * @throws \MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException
      * @throws \ReflectionException
      */
     public function onCampaignTriggerAction(PendingEvent $pendingEvent): void
@@ -136,7 +136,7 @@ final class CampaignSubscriber implements EventSubscriberInterface
         // This handles Marketing Messages with multiple channels where one channel fails but another succeeds.
         $this->removeSuccessfulFromFailures($pendingEvent);
 
-        $pendingEvent->failRemainingPending($this->translator->trans('mautic.channel.message.failed'));
+        $pendingEvent->failRemainingPending($this->translator->trans('mailvotech.channel.message.failed'));
     }
 
     /**
@@ -144,8 +144,8 @@ final class CampaignSubscriber implements EventSubscriberInterface
      *
      * @return bool|ArrayCollection
      *
-     * @throws \Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException
-     * @throws \Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException
+     * @throws \MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException
+     * @throws \MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException
      * @throws \ReflectionException
      */
     private function sendChannelMessage(ArrayCollection $logs, int|string $channel, array $messageChannel)

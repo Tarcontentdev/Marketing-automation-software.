@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Tests\Functional\Controller;
+namespace MailVotech\ProjectBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\ProjectBundle\Model\ProjectModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\ProjectBundle\Model\ProjectModel;
 
-final class ProjectPopoverSecurityTest extends MauticMysqlTestCase
+final class ProjectPopoverSecurityTest extends MailVotechMysqlTestCase
 {
     public function testProjectPopoverEscapesProjectNameAndDescription(): void
     {

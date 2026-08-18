@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\SyncProcess\Direction\Internal;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\SyncProcess\Direction\Internal;
 
-use Mautic\IntegrationsBundle\Exception\RequiredValueException;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InformationChangeRequestDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO as ReportFieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO as ReportObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectSyncSkippedException;
-use Mautic\IntegrationsBundle\Sync\Notification\BulkNotification;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Helper\FieldHelper;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncJudge\SyncJudgeInterface;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Helper\ValueHelper;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\ObjectChangeGenerator;
+use MailVotech\IntegrationsBundle\Exception\RequiredValueException;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InformationChangeRequestDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO as ReportFieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO as ReportObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectSyncSkippedException;
+use MailVotech\IntegrationsBundle\Sync\Notification\BulkNotification;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Helper\FieldHelper;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncJudge\SyncJudgeInterface;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Helper\ValueHelper;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\ObjectChangeGenerator;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -49,7 +49,7 @@ final class ObjectChangeGeneratorTest extends TestCase
 
     public function testFieldsAreAddedToObjectChangeAndIntegrationFirstNameWins(): void
     {
-        $this->valueHelper->method('getValueForMautic')
+        $this->valueHelper->method('getValueForMailVotech')
             ->willReturnCallback(
                 fn (NormalizedValueDAO $normalizedValueDAO, string $fieldState, string $syncDirection): NormalizedValueDAO => $normalizedValueDAO
             );
@@ -80,7 +80,7 @@ final class ObjectChangeGeneratorTest extends TestCase
 
         $this->assertEquals($integration, $objectChangeDAO->getIntegration());
 
-        // object and object ID should be Mautic's (from the Mautic's POV)
+        // object and object ID should be MailVotech's (from the MailVotech's POV)
         $this->assertEquals(Contact::NAME, $objectChangeDAO->getObject());
         $this->assertEquals(1, $objectChangeDAO->getObjectId());
 
@@ -106,7 +106,7 @@ final class ObjectChangeGeneratorTest extends TestCase
 
     public function testFieldsAreAddedToObjectChangeAndInternalFirstNameWins(): void
     {
-        $this->valueHelper->method('getValueForMautic')
+        $this->valueHelper->method('getValueForMailVotech')
             ->willReturnCallback(
                 fn (NormalizedValueDAO $normalizedValueDAO, string $fieldState, string $syncDirection): NormalizedValueDAO => $normalizedValueDAO
             );
@@ -147,7 +147,7 @@ final class ObjectChangeGeneratorTest extends TestCase
 
         $this->assertEquals($integration, $objectChangeDAO->getIntegration());
 
-        // object and object ID should be Mautic's (from the Mautic's POV)
+        // object and object ID should be MailVotech's (from the MailVotech's POV)
         $this->assertEquals(Contact::NAME, $objectChangeDAO->getObject());
         $this->assertEquals(1, $objectChangeDAO->getObjectId());
 
@@ -175,7 +175,7 @@ final class ObjectChangeGeneratorTest extends TestCase
     {
         $exceptionMessage = 'exceptionMessage';
 
-        $this->valueHelper->method('getValueForMautic')
+        $this->valueHelper->method('getValueForMailVotech')
             ->willThrowException(new RequiredValueException($exceptionMessage));
 
         $integrationName  = 'Test';
@@ -208,7 +208,7 @@ final class ObjectChangeGeneratorTest extends TestCase
         $this->bulkNotification->expects($matcher)
             ->method('addNotification')->willReturnCallback(function (...$parameters) use ($matcher, $exceptionMessage, $integrationName, $objectName): void {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\ObjectChangeGenerator-Test-lead-email', $parameters[0]);
+                    $this->assertSame('MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\ObjectChangeGenerator-Test-lead-email', $parameters[0]);
                     $this->assertSame($exceptionMessage, $parameters[1]);
                     $this->assertSame($integrationName, $parameters[2]);
                     $this->assertSame($objectName, $parameters[3]);
@@ -217,7 +217,7 @@ final class ObjectChangeGeneratorTest extends TestCase
                     $this->assertSame("Field 'email' for object ID '2' mapped to internal 'email' with value 'test@test.com'", $parameters[6]);
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\ObjectChangeGenerator-Test-lead-first_name', $parameters[0]);
+                    $this->assertSame('MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\ObjectChangeGenerator-Test-lead-first_name', $parameters[0]);
                     $this->assertSame($exceptionMessage, $parameters[1]);
                     $this->assertSame($integrationName, $parameters[2]);
                     $this->assertSame($objectName, $parameters[3]);
@@ -240,7 +240,7 @@ final class ObjectChangeGeneratorTest extends TestCase
     {
         $exceptionMessage = 'exceptionMessage';
 
-        $this->valueHelper->method('getValueForMautic')
+        $this->valueHelper->method('getValueForMailVotech')
             ->willThrowException(new RequiredValueException($exceptionMessage));
 
         $integrationName = 'Test';
@@ -273,7 +273,7 @@ final class ObjectChangeGeneratorTest extends TestCase
         $this->bulkNotification->expects($matcher)
             ->method('addNotification')->willReturnCallback(function (...$parameters) use ($matcher, $exceptionMessage, $integrationName, $objectName): void {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\ObjectChangeGenerator-Test-lead-email', $parameters[0]);
+                    $this->assertSame('MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\ObjectChangeGenerator-Test-lead-email', $parameters[0]);
                     $this->assertSame($exceptionMessage, $parameters[1]);
                     $this->assertSame($integrationName, $parameters[2]);
                     $this->assertSame($objectName, $parameters[3]);
@@ -282,7 +282,7 @@ final class ObjectChangeGeneratorTest extends TestCase
                     $this->assertSame("Field 'email' for object ID '2' mapped to internal 'email' with value 'test@test.com'", $parameters[6]);
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\ObjectChangeGenerator-Test-lead-first_name', $parameters[0]);
+                    $this->assertSame('MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\ObjectChangeGenerator-Test-lead-first_name', $parameters[0]);
                     $this->assertSame($exceptionMessage, $parameters[1]);
                     $this->assertSame($integrationName, $parameters[2]);
                     $this->assertSame($objectName, $parameters[3]);
@@ -305,7 +305,7 @@ final class ObjectChangeGeneratorTest extends TestCase
     {
         $exceptionMessage = 'exceptionMessage';
 
-        $this->valueHelper->method('getValueForMautic')
+        $this->valueHelper->method('getValueForMailVotech')
             ->willThrowException(new RequiredValueException($exceptionMessage));
 
         $integrationName = 'Test';
@@ -331,7 +331,7 @@ final class ObjectChangeGeneratorTest extends TestCase
         $this->bulkNotification->expects($this->exactly(1))
             ->method('addNotification')
             ->with(
-                'Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\ObjectChangeGenerator-Test-lead-email',
+                'MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\ObjectChangeGenerator-Test-lead-email',
                 $exceptionMessage.' New object sync skipped.',
                 $integrationName,
                 $objectName,
@@ -392,7 +392,7 @@ final class ObjectChangeGeneratorTest extends TestCase
         $integrationObject = new ReportObjectDAO('Lead', 'integration-id-1');
 
         $objectMappingDAO->addFieldMapping('email', 'Email', ObjectMappingDAO::SYNC_BIDIRECTIONALLY, true);
-        $objectMappingDAO->addFieldMapping('firstname', 'FirstName', ObjectMappingDAO::SYNC_TO_MAUTIC);
+        $objectMappingDAO->addFieldMapping('firstname', 'FirstName', ObjectMappingDAO::SYNC_TO_MAILVOTECH);
         $objectMappingDAO->addFieldMapping('points', 'Score', ObjectMappingDAO::SYNC_TO_INTEGRATION);
 
         $integrationObject->addField(new ReportFieldDAO('Email', new NormalizedValueDAO(NormalizedValueDAO::EMAIL_TYPE, 'john@doe.email')));

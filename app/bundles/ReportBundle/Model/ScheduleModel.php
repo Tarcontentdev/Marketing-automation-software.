@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Model;
+namespace MailVotech\ReportBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Entity\Scheduler;
-use Mautic\ReportBundle\Entity\SchedulerRepository;
-use Mautic\ReportBundle\Scheduler\Model\SchedulerPlanner;
-use Mautic\ReportBundle\Scheduler\Option\ExportOption;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\Scheduler;
+use MailVotech\ReportBundle\Entity\SchedulerRepository;
+use MailVotech\ReportBundle\Scheduler\Model\SchedulerPlanner;
+use MailVotech\ReportBundle\Scheduler\Option\ExportOption;
 
 class ScheduleModel
 {

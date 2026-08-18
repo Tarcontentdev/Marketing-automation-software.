@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\UserBundle\Form\Type;
+namespace MailVotech\UserBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -27,7 +27,7 @@ final class ContactType extends AbstractType
                 'msg_subject',
                 TextType::class,
                 [
-                    'label'       => 'mautic.email.subject',
+                    'label'       => 'mailvotech.email.subject',
                     'label_attr'  => ['class' => 'control-label'],
                     'attr'        => ['class' => 'form-control'],
                     'constraints' => [
@@ -40,7 +40,7 @@ final class ContactType extends AbstractType
                 'msg_body',
                 TextareaType::class,
                 [
-                    'label'      => 'mautic.user.user.contact.message',
+                    'label'      => 'mailvotech.user.user.contact.message',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class' => 'form-control',
@@ -80,7 +80,7 @@ final class ContactType extends AbstractType
                 ]
             )
             ->add('buttons', FormButtonsType::class, [
-                'save_text'  => 'mautic.user.user.contact.send',
+                'save_text'  => 'mailvotech.user.user.contact.send',
                 'save_icon'  => 'ri-send-plane-line',
                 'apply_text' => false,
             ]);

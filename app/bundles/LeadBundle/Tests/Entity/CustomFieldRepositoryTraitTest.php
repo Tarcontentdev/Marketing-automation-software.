@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Tests\StandardImportTestHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Tests\StandardImportTestHelper;
 
 final class CustomFieldRepositoryTraitTest extends StandardImportTestHelper
 {

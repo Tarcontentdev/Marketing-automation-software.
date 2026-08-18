@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\Middleware;
+namespace MailVotech\Middleware;
 
-use Mautic\CoreBundle\Cache\MiddlewareCacheWarmer;
+use MailVotech\CoreBundle\Cache\MiddlewareCacheWarmer;
 
 final class MiddlewareBuilder
 {

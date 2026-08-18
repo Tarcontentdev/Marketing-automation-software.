@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\PointBundle\Controller;
+namespace MailVotech\PointBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\PointBundle\Form\Type\PointActionType;
-use Mautic\PointBundle\Model\PointModel;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\PointBundle\Form\Type\PointActionType;
+use MailVotech\PointBundle\Model\PointModel;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +27,7 @@ final class AjaxController extends CommonAjaxController
         $dataArray   = ['success' => 0];
         $session     = $request->getSession();
         $triggerId   = InputHelper::clean($request->request->get('triggerId'));
-        $sessionName = 'mautic.point.'.$triggerId.'.triggerevents.modified';
+        $sessionName = 'mailvotech.point.'.$triggerId.'.triggerevents.modified';
         $order       = InputHelper::clean($request->request->get('triggerEvent'));
         $components  = $session->get($sessionName);
 
@@ -52,7 +52,7 @@ final class AjaxController extends CommonAjaxController
             $actions = $this->pointModel->getPointActions();
 
             if (isset($actions['actions'][$type])) {
-                $themes = ['@MauticPoint/FormTheme/Action/_pointaction_properties_row.html.twig'];
+                $themes = ['@MailVotechPoint/FormTheme/Action/_pointaction_properties_row.html.twig'];
 
                 if (!empty($actions['actions'][$type]['formTheme'])) {
                     $themes[] = $actions['actions'][$type]['formTheme'];
@@ -61,7 +61,7 @@ final class AjaxController extends CommonAjaxController
                 $formType        = (!empty($actions['actions'][$type]['formType'])) ? $actions['actions'][$type]['formType'] : null;
                 $formTypeOptions = (!empty($actions['actions'][$type]['formTypeOptions'])) ? $actions['actions'][$type]['formTypeOptions'] : [];
                 $form            = $formFactory->create(PointActionType::class, [], ['formType' => $formType, 'formTypeOptions' => $formTypeOptions]);
-                $html            = $this->renderView('@MauticPoint/Point/actionform.html.twig', [
+                $html            = $this->renderView('@MailVotechPoint/Point/actionform.html.twig', [
                     'form'       => $form->createView(),
                     'formThemes' => $themes,
                 ]);

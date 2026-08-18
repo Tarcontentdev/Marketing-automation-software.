@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\ApiBundle\EventListener;
+namespace MailVotech\ApiBundle\EventListener;
 
-use Mautic\ApiBundle\Form\Type\ConfigType;
-use Mautic\ConfigBundle\ConfigEvents;
-use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use Mautic\ConfigBundle\Event\ConfigEvent;
+use MailVotech\ApiBundle\Form\Type\ConfigType;
+use MailVotech\ConfigBundle\ConfigEvents;
+use MailVotech\ConfigBundle\Event\ConfigBuilderEvent;
+use MailVotech\ConfigBundle\Event\ConfigEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ConfigSubscriber implements EventSubscriberInterface
@@ -24,8 +24,8 @@ final class ConfigSubscriber implements EventSubscriberInterface
             'bundle'     => 'ApiBundle',
             'formAlias'  => 'apiconfig',
             'formType'   => ConfigType::class,
-            'formTheme'  => '@MauticApi/FormTheme/Config/_config_apiconfig_widget.html.twig',
-            'parameters' => $event->getParametersFromConfig('MauticApiBundle'),
+            'formTheme'  => '@MailVotechApi/FormTheme/Config/_config_apiconfig_widget.html.twig',
+            'parameters' => $event->getParametersFromConfig('MailVotechApiBundle'),
         ]);
     }
 

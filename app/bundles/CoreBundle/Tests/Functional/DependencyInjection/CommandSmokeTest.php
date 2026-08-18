@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\DependencyInjection;
+namespace MailVotech\CoreBundle\Tests\Functional\DependencyInjection;
 
 use Symfony\Component\Console\Command\Command;
 

@@ -4,18 +4,18 @@
     - fields
     - form
 #}
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent %}lead{% endblock %}
+{% block mailvotechContent %}lead{% endblock %}
 
 {% block headerTitle %}
   {% if lead.id %}
-    {{ 'mautic.lead.lead.header.edit'|trans({
+    {{ 'mailvotech.lead.lead.header.edit'|trans({
         '%name%': lead.primaryIdentifier|trans,
     }) }}
       {{ customContent('lead.name.after', _context) }}
   {% else %}
-    {{ 'mautic.lead.lead.header.new'|trans }}
+    {{ 'mailvotech.lead.lead.header.new'|trans }}
   {% endif %}
 {% endblock %}
 
@@ -54,7 +54,7 @@
                       {% if fields[g] is not empty %}
                           <li class="list-group-item {% if loop.first %}active{% endif %}">
                               <a href="#{{ g }}" class="list-group-item-heading steps" data-toggle="tab">
-                                  {{ ('mautic.lead.field.group.'~g)|trans }}
+                                  {{ ('mailvotech.lead.field.group.'~g)|trans }}
                               </a>
                           </li>
                       {% endif %}
@@ -75,23 +75,23 @@
                           <div class="tab-pane fade {% if loop.first %}in active{% endif %} bdr-rds-0 bdr-w-0" id="{{ group }}">
                               <div class="col-lg-8 pa-md bg-light-xs bdr-b">
                                 {% if not lead.id %}
-                                    {{ include('@MauticCore/Notification/inline_notification.html.twig', {
-                                        'title': 'mautic.contact.import.tip.title',
-                                        'content': 'mautic.contact.import.tip.description',
+                                    {{ include('@MailVotechCore/Notification/inline_notification.html.twig', {
+                                        'title': 'mailvotech.contact.import.tip.title',
+                                        'content': 'mailvotech.contact.import.tip.description',
                                         'alert_type': 'info',
                                         'dismissible': true,
-                                        'action_label': 'mautic.contact.import.tip.button',
-                                        'action_link': path('mautic_import_action', {'object': 'contacts', 'objectAction': 'new'})
+                                        'action_label': 'mailvotech.contact.import.tip.button',
+                                        'action_link': path('mailvotech_import_action', {'object': 'contacts', 'objectAction': 'new'})
                                     }) }}
                                 {% endif %}
 
-                                  <h4 class="fw-sb mt-md">{{ ('mautic.lead.field.group.'~group)|trans }}</h4>
+                                  <h4 class="fw-sb mt-md">{{ ('mailvotech.lead.field.group.'~group)|trans }}</h4>
                               </div>
                               <div class="col-lg-12 pa-md">
                                   {% if 'core' == group %}
                                       {% if form.title is defined or form.firstname is defined or form.lastname is defined %}
                                           <div class="form-group mb-0">
-                                              <label class="control-label mb-xs">{{ 'mautic.core.name'|trans }}</label>
+                                              <label class="control-label mb-xs">{{ 'mailvotech.core.name'|trans }}</label>
                                               <div class="row">
                                                   {% if form.title is defined %}
                                                       <div class="col-sm-2">
@@ -122,7 +122,7 @@
                                       </div>
                                       <hr class="mnr-md mnl-md">
                                       <div class="form-group mb-0">
-                                          <label>{{ 'mautic.company.company'|trans }}</label>
+                                          <label>{{ 'mailvotech.company.company'|trans }}</label>
                                           <div class="row">
                                               {% if form.companies is defined %}
                                                   <div class="col-sm-4">
@@ -139,7 +139,7 @@
                                       <hr class="mnr-md mnl-md">
                                       {% if form.address1 is defined or form.address2 is defined or form.city is defined or form.state is defined or form.zipcode is defined or form.country is defined %}
                                           <div class="form-group mb-0">
-                                              <label class="control-label mb-xs">{{ 'mautic.lead.field.address'|trans }}</label>
+                                              <label class="control-label mb-xs">{{ 'mailvotech.lead.field.address'|trans }}</label>
                                               {% if form.address1 is defined %}
                                                   <div class="row mb-xs">
                                                       <div class="col-sm-8">
@@ -185,11 +185,11 @@
                                           <div class="form-group mb-0">
                                               <div class="row">
                                                   <div class="col-sm-4">
-                                                    <label class="control-label mb-xs" data-toggle="tooltip" data-placement="top" title="{{ 'mautic.lead.attribution.tooltip'|trans }}">{{ 'mautic.lead.attribution'|trans }} <i class="ri-question-line"></i></label>
+                                                    <label class="control-label mb-xs" data-toggle="tooltip" data-placement="top" title="{{ 'mailvotech.lead.attribution.tooltip'|trans }}">{{ 'mailvotech.lead.attribution'|trans }} <i class="ri-question-line"></i></label>
                                                       {{ form_widget(form.attribution, {'attr': {'placeholder': form.attribution.vars.label, 'preaddon': 'ri-cash-line'}}) }}
                                                   </div>
                                                   <div class="col-sm-4">
-                                                    <label class="control-label mb-xs" data-toggle="tooltip" data-placement="top" title="{{ 'mautic.lead.attribution_date.tooltip'|trans }}">{{ 'mautic.lead.attribution_date'|trans }} <i class="ri-question-line"></i></label>
+                                                    <label class="control-label mb-xs" data-toggle="tooltip" data-placement="top" title="{{ 'mailvotech.lead.attribution_date.tooltip'|trans }}">{{ 'mailvotech.lead.attribution_date'|trans }} <i class="ri-question-line"></i></label>
                                                       {{ form_widget(form.attribution_date, {'attr': {'placeholder': form.attribution_date.vars.label}}) }}
                                                   </div>
                                               </div>

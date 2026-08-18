@@ -1,13 +1,13 @@
 {% block integration_company_fields_row %}
   {%- set containerId = 'companyFieldsContainer' -%}
-  {%- set numberOfFields = (form.offsetExists('update_mautic_company1')) ? 5 : 4 -%}
+  {%- set numberOfFields = (form.offsetExists('update_mailvotech_company1')) ? 5 : 4 -%}
   {%- set object = 'company' -%}
   {{- block('fields_row') -}}
 {% endblock %}
 
 {% block integration_fields_row %}
   {%- set containerId = 'leadFieldsContainer' -%}
-  {%- set numberOfFields = (form.offsetExists('update_mautic1')) ? 5 : 4 -%}
+  {%- set numberOfFields = (form.offsetExists('update_mailvotech1')) ? 5 : 4 -%}
   {%- set object = 'lead' -%}
   {{- block('fields_row') -}}
 {% endblock %}
@@ -91,11 +91,11 @@
 
     <div class="{{ object }}-field form-group col-xs-12">
       <div class="row">
-        <div class="mb-xs col-sm-{{ (5 == numberOfFields) ? 5 : 6 }} text-center"><h4>{{ 'mautic.plugins.integration.fields'|trans }}</h4></div>
+        <div class="mb-xs col-sm-{{ (5 == numberOfFields) ? 5 : 6 }} text-center"><h4>{{ 'mailvotech.plugins.integration.fields'|trans }}</h4></div>
         {% if 5 == numberOfFields -%}
           <div class="col-sm-2"></div>
         {%- endif %}
-        <div class="mb-xs col-sm-{{ (5 == numberOfFields) ? 5 : 6 }} text-center"><h4>{{ 'mautic.plugins.mautic.fields'|trans }}</h4></div>
+        <div class="mb-xs col-sm-{{ (5 == numberOfFields) ? 5 : 6 }} text-center"><h4>{{ 'mailvotech.plugins.mailvotech.fields'|trans }}</h4></div>
       </div>
       {% for child in form.children %}
           {% set selected = false %}
@@ -131,8 +131,8 @@
             </div>
           {% endif %}
 
-          {%- if 'update_mautic' in child.vars.name -%}
-            <div class="pr-xs {{ class }}" style="padding-left: 8px;" data-toggle="tooltip" title="{{ 'mautic.plugin.direction.data.update'|trans }}">
+          {%- if 'update_mailvotech' in child.vars.name -%}
+            <div class="pr-xs {{ class }}" style="padding-left: 8px;" data-toggle="tooltip" title="{{ 'mailvotech.plugin.direction.data.update'|trans }}">
               <div class="row">
                 <div class="form-group col-xs-12 ">
                   <div class="choice-wrapper">
@@ -145,7 +145,7 @@
                                title=""
                                autocomplete="false"
                                value="0"
-                               onchange="Mautic.matchedFields({{ indexCount }}, '{{ object }}', '{{ integration }}')"
+                               onchange="MailVotech.matchedFields({{ indexCount }}, '{{ object }}', '{{ integration }}')"
                                {% if checked %}checked="checked"{% endif %}
                                {% if child.vars['attr']['disabled'] %}disabled{% endif %}>
                         <btn class="btn-nospin ri-arrow-left-circle-line"></btn>
@@ -157,7 +157,7 @@
                                title=""
                                autocomplete="false"
                                value="1"
-                               onchange="Mautic.matchedFields({{ indexCount }}, '{{ object }}', '{{ integration }}')"
+                               onchange="MailVotech.matchedFields({{ indexCount }}, '{{ object }}', '{{ integration }}')"
                                {% if '1' == child.vars['value'] %}checked="checked"{% endif %}
                                {% if child.vars['attr']['disabled'] %}disabled{% endif %}>
                         <btn class="btn-nospin ri-arrow-right-circle-line"></btn>
@@ -176,10 +176,10 @@
                       name="{{ child.vars.full_name }}"
                       class="{{ child.vars.attr.class }}"
                       data-placeholder=""
-                      autocomplete="false" onchange="Mautic.matchedFields({{ indexCount }}, '{{ object }}', '{{ integration }}')">
+                      autocomplete="false" onchange="MailVotech.matchedFields({{ indexCount }}, '{{ object }}', '{{ integration }}')">
                 <option value=""></option>
-                {%- set mauticChoices = child.vars.attr['data-choices'] -%}
-                {% for keyLabel, options in mauticChoices %}
+                {%- set mailvotechChoices = child.vars.attr['data-choices'] -%}
+                {% for keyLabel, options in mailvotechChoices %}
                   {% if options is iterable %}
                     <optgroup label="{{ keyLabel }}">
                         {% for optionLabel, keyValue in options %}
@@ -206,13 +206,13 @@
     </div>
     {% if (indexCount - 1) < totalFields %}
       <div class="panel-footer">
-          {{ include('@MauticCore/Helper/pagination.html.twig', {
+          {{ include('@MailVotechCore/Helper/pagination.html.twig', {
                   'page': page,
                   'fixedPages': fixedPageNum,
                   'fixedLimit': true,
                   'target': '#IntegrationEditModal',
                   'totalItems': totalFields,
-                  'jsCallback': 'Mautic.getIntegrationFields',
+                  'jsCallback': 'MailVotech.getIntegrationFields',
                   'jsArguments': [
                       {
                           'object': object,

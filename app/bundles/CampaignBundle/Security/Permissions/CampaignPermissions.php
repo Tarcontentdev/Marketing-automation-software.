@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Security\Permissions;
+namespace MailVotech\CampaignBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class CampaignPermissions extends AbstractPermissions
@@ -34,8 +34,8 @@ final class CampaignPermissions extends AbstractPermissions
             $this->getName(),
             'export',
             $builder,
-            'mautic.core.permissions.export',
-            ['mautic.core.permissions.enable' => 'enable'],
+            'mailvotech.core.permissions.export',
+            ['mailvotech.core.permissions.enable' => 'enable'],
             $data
         );
         $this->addStandardFormFields($this->getName(), 'imports', $builder, $data);

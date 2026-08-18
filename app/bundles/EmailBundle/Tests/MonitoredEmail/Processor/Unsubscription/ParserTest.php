@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\MonitoredEmail\Processor\Unsubscription;
+namespace MailVotech\EmailBundle\Tests\MonitoredEmail\Processor\Unsubscription;
 
-use Mautic\EmailBundle\MonitoredEmail\Exception\UnsubscriptionNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Unsubscription\Parser;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Unsubscription\UnsubscribedEmail;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\UnsubscriptionNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Unsubscription\Parser;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Unsubscription\UnsubscribedEmail;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 

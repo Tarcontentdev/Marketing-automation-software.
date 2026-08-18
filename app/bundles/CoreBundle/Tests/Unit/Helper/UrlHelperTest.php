@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\UrlHelper;
+use MailVotech\CoreBundle\Helper\UrlHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class UrlHelperTest extends \PHPUnit\Framework\TestCase
 {
     public function testAppendQueryToUrl(): void
     {
-        $appendQueryString = 'utm_source=mautic.org';
+        $appendQueryString = 'utm_source=mailvotech.org';
 
         $urls = [
-            'https://mautic.org'               => 'https://mautic.org?'.$appendQueryString,
-            'https://mautic.org?'              => 'https://mautic.org?'.$appendQueryString,
-            'https://mautic.org?test=1'        => 'https://mautic.org?test=1&'.$appendQueryString,
-            'https://mautic.org?test=1&'       => 'https://mautic.org?test=1&'.$appendQueryString,
-            'https://mautic.org?test=1#anchor' => 'https://mautic.org?test=1&'.$appendQueryString.'#anchor',
-            'https://mautic.org?#anchor'       => 'https://mautic.org?'.$appendQueryString.'#anchor',
-            'https://mautic.org#anchor'        => 'https://mautic.org?'.$appendQueryString.'#anchor',
+            'https://mailvotech.org'               => 'https://mailvotech.org?'.$appendQueryString,
+            'https://mailvotech.org?'              => 'https://mailvotech.org?'.$appendQueryString,
+            'https://mailvotech.org?test=1'        => 'https://mailvotech.org?test=1&'.$appendQueryString,
+            'https://mailvotech.org?test=1&'       => 'https://mailvotech.org?test=1&'.$appendQueryString,
+            'https://mailvotech.org?test=1#anchor' => 'https://mailvotech.org?test=1&'.$appendQueryString.'#anchor',
+            'https://mailvotech.org?#anchor'       => 'https://mailvotech.org?'.$appendQueryString.'#anchor',
+            'https://mailvotech.org#anchor'        => 'https://mailvotech.org?'.$appendQueryString.'#anchor',
         ];
         foreach ($urls as $url=>$expectedUrl) {
             $this->assertSame(UrlHelper::appendQueryToUrl($url, $appendQueryString), $expectedUrl);
@@ -135,8 +135,8 @@ final class UrlHelperTest extends \PHPUnit\Framework\TestCase
     public function testGetUrlsFromPlaintextWithHttp(): void
     {
         $this->assertSame(
-            ['http://mautic.org'],
-            UrlHelper::getUrlsFromPlaintext('Hello there, http://mautic.org!')
+            ['http://mailvotech.org'],
+            UrlHelper::getUrlsFromPlaintext('Hello there, http://mailvotech.org!')
         );
     }
 
@@ -154,9 +154,9 @@ final class UrlHelperTest extends \PHPUnit\Framework\TestCase
     public function testGetUrlsFromPlaintextWith2Urls(): void
     {
         $this->assertSame(
-            ['http://mautic.org', 'http://mucktick.org'],
+            ['http://mailvotech.org', 'http://mucktick.org'],
             UrlHelper::getUrlsFromPlaintext(
-                'Hello there, http://mautic.org is the correct URL. Not http://mucktick.org.'
+                'Hello there, http://mailvotech.org is the correct URL. Not http://mucktick.org.'
             )
         );
     }
@@ -226,12 +226,12 @@ STRING
      */
     public static function dataDecodeAmpersands(): iterable
     {
-        yield 'With html encoded ampersands' => ['https://example.org/?utm_source=mautic&amp;utm_medium=phpunit&amp;utm_campaign=tests', 'https://example.org/?utm_source=mautic&utm_medium=phpunit&utm_campaign=tests'];
-        yield 'With decimal encoded ampersands' => ['https://example.org/?utm_source=mautic&#38;utm_medium=phpunit&#38;utm_campaign=tests', 'https://example.org/?utm_source=mautic&utm_medium=phpunit&utm_campaign=tests'];
-        yield 'With hex encoded ampersands' => ['https://example.org/?utm_source=mautic&#x26;utm_medium=phpunit&#x26;utm_campaign=tests', 'https://example.org/?utm_source=mautic&utm_medium=phpunit&utm_campaign=tests'];
-        yield 'With mixed encoded ampersands' => ['https://example.org/?utm_source=mautic&amp;utm_medium=phpunit&#38;utm_campaign=tests', 'https://example.org/?utm_source=mautic&utm_medium=phpunit&utm_campaign=tests'];
-        yield 'With double encoded ampersands' => ['https://example.org/?utm_source=mautic&#38;amp;utm_medium=phpunit&#38;amp;utm_campaign=tests', 'https://example.org/?utm_source=mautic&utm_medium=phpunit&utm_campaign=tests'];
-        yield 'With other encoded characters' => ['https://example.org/?utm_source=mautic&utm_medium=phpunit&utm_campaign=&#60;tests&#62;', 'https://example.org/?utm_source=mautic&utm_medium=phpunit&utm_campaign=&#60;tests&#62;'];
-        yield 'Without encoded ampersands' => ['https://example.org/?utm_source=mautic&utm_medium=phpunit&utm_campaign=tests', 'https://example.org/?utm_source=mautic&utm_medium=phpunit&utm_campaign=tests'];
+        yield 'With html encoded ampersands' => ['https://example.org/?utm_source=mailvotech&amp;utm_medium=phpunit&amp;utm_campaign=tests', 'https://example.org/?utm_source=mailvotech&utm_medium=phpunit&utm_campaign=tests'];
+        yield 'With decimal encoded ampersands' => ['https://example.org/?utm_source=mailvotech&#38;utm_medium=phpunit&#38;utm_campaign=tests', 'https://example.org/?utm_source=mailvotech&utm_medium=phpunit&utm_campaign=tests'];
+        yield 'With hex encoded ampersands' => ['https://example.org/?utm_source=mailvotech&#x26;utm_medium=phpunit&#x26;utm_campaign=tests', 'https://example.org/?utm_source=mailvotech&utm_medium=phpunit&utm_campaign=tests'];
+        yield 'With mixed encoded ampersands' => ['https://example.org/?utm_source=mailvotech&amp;utm_medium=phpunit&#38;utm_campaign=tests', 'https://example.org/?utm_source=mailvotech&utm_medium=phpunit&utm_campaign=tests'];
+        yield 'With double encoded ampersands' => ['https://example.org/?utm_source=mailvotech&#38;amp;utm_medium=phpunit&#38;amp;utm_campaign=tests', 'https://example.org/?utm_source=mailvotech&utm_medium=phpunit&utm_campaign=tests'];
+        yield 'With other encoded characters' => ['https://example.org/?utm_source=mailvotech&utm_medium=phpunit&utm_campaign=&#60;tests&#62;', 'https://example.org/?utm_source=mailvotech&utm_medium=phpunit&utm_campaign=&#60;tests&#62;'];
+        yield 'Without encoded ampersands' => ['https://example.org/?utm_source=mailvotech&utm_medium=phpunit&utm_campaign=tests', 'https://example.org/?utm_source=mailvotech&utm_medium=phpunit&utm_campaign=tests'];
     }
 }

@@ -14,7 +14,7 @@ $paths = [
  * Webroot override for recommended-project installations where the webroot
  * (docroot/ or public/) is a subdirectory of the project root.
  * This is automatically detected from composer.json's:
- *   - extra.mautic-scaffold.locations.web-root (used by mautic/recommended-project)
+ *   - extra.mailvotech-scaffold.locations.web-root (used by mailvotech/recommended-project)
  *   - extra.public-dir (Symfony convention)
  * Set explicitly here or in paths_local.php if auto-detection fails:
  */
@@ -22,7 +22,7 @@ $paths = [
 ];
 
 $root ??= realpath(__DIR__.'/..');
-$projectRoot ??= Mautic\CoreBundle\Loader\ParameterLoader::getProjectDirByRoot($root);
+$projectRoot ??= MailVotech\CoreBundle\Loader\ParameterLoader::getProjectDirByRoot($root);
 
 // allow easy overrides of the above
 if (file_exists($projectRoot.'/config/paths_local.php')) {

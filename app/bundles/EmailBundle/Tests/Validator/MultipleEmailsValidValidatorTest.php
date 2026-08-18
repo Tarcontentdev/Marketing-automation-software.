@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Validator;
+namespace MailVotech\EmailBundle\Tests\Validator;
 
-use Mautic\EmailBundle\Exception\InvalidEmailException;
-use Mautic\EmailBundle\Helper\EmailValidator;
-use Mautic\EmailBundle\Validator\MultipleEmailsValidValidator;
+use MailVotech\EmailBundle\Exception\InvalidEmailException;
+use MailVotech\EmailBundle\Helper\EmailValidator;
+use MailVotech\EmailBundle\Validator\MultipleEmailsValidValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;

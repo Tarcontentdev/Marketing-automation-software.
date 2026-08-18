@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Segment\Decorator\Date;
+namespace MailVotech\LeadBundle\Segment\Decorator\Date;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 
 class TimezoneResolver
 {

@@ -1,13 +1,17 @@
 {
-  "name": "mautic/theme-fresh-left",
-  "description": "Mautic Fresh Left Theme",
-  "type": "mautic-theme",
-  "keywords": ["mautic","theme"],
-  "extra": {
-    "install-directory-name": "fresh-left"
-  },
-  "minimum-stability": "dev",
-  "require": {
-    "mautic/core-lib": "^7.0"
-  }
+    "name": "mailvotech/theme-fresh-left",
+    "description": "MailVotech Fresh Left Theme",
+    "type": "mailvotech-theme",
+    "keywords": [
+        "mailvotech",
+        "theme"
+    ],
+    "extra": {
+        "install-directory-name": "fresh-left"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "mailvotech/core-lib": "^7.0",
+        "mailvotech/composer-installer": "^1.0"
+    }
 }

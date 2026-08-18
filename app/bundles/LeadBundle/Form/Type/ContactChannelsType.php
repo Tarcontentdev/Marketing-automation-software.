@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\LeadBundle\Entity\FrequencyRule;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\LeadBundle\Entity\FrequencyRule;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -36,7 +36,7 @@ final class ContactChannelsType extends AbstractType
                 'choices'           => $options['channels'],
                 'expanded'          => true,
                 'label_attr'        => ['class' => 'control-label'],
-                'attr'              => ['onClick' => 'Mautic.togglePreferredChannel(this.value);'],
+                'attr'              => ['onClick' => 'MailVotech.togglePreferredChannel(this.value);'],
                 'multiple'          => true,
                 'label'             => false,
                 'required'          => false,
@@ -51,13 +51,13 @@ final class ContactChannelsType extends AbstractType
                     'choices'           => $options['channels'],
                     'expanded'          => false,
                     'multiple'          => false,
-                    'label'             => 'mautic.lead.list.frequency.preferred.channel',
+                    'label'             => 'mailvotech.lead.list.frequency.preferred.channel',
                     'label_attr'        => ['class' => 'control-label'],
                     'placeholder'       => false,
                     'required'          => false,
                     'attr'              => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.lead.list.frequency.preferred.channel',
+                        'tooltip' => 'mailvotech.lead.list.frequency.preferred.channel',
                     ],
                 ]
             );
@@ -72,7 +72,7 @@ final class ContactChannelsType extends AbstractType
                     'frequency_number_'.$channel,
                     IntegerType::class,
                     [
-                        'label'      => 'mautic.lead.list.frequency.number',
+                        'label'      => 'mailvotech.lead.list.frequency.number',
                         'label_attr' => ['class' => 'text-secondary fw-n label1'],
                         'attr'       => array_merge(
                             $attr,
@@ -89,11 +89,11 @@ final class ContactChannelsType extends AbstractType
                     ChoiceType::class,
                     [
                         'choices'           => [
-                            'mautic.core.time.days'   => FrequencyRule::TIME_DAY,
-                            'mautic.core.time.weeks'  => FrequencyRule::TIME_WEEK,
-                            'mautic.core.time.months' => FrequencyRule::TIME_MONTH,
+                            'mailvotech.core.time.days'   => FrequencyRule::TIME_DAY,
+                            'mailvotech.core.time.weeks'  => FrequencyRule::TIME_WEEK,
+                            'mailvotech.core.time.months' => FrequencyRule::TIME_MONTH,
                         ],
-                        'label'      => 'mautic.lead.list.frequency.times',
+                        'label'      => 'mailvotech.lead.list.frequency.times',
                         'label_attr' => ['class' => 'text-secondary fw-n frequency-label label2'],
                         'multiple'   => false,
                         'required'   => false,
@@ -140,7 +140,7 @@ final class ContactChannelsType extends AbstractType
                         DateType::class,
                         $this->configureDateTypeOptions([
                             'widget'     => 'single_text',
-                            'label'      => 'mautic.lead.frequency.contact.end.date',
+                            'label'      => 'mailvotech.lead.frequency.contact.end.date',
                             'label_attr' => ['class' => 'frequency-label text-secondary fw-n label4'],
                             'attr'       => $attributes,
                             'required'   => false,
@@ -161,7 +161,7 @@ final class ContactChannelsType extends AbstractType
                 FormButtonsType::class,
                 [
                     'apply_text'     => false,
-                    'save_text'      => 'mautic.core.form.save',
+                    'save_text'      => 'mailvotech.core.form.save',
                     'cancel_onclick' => 'javascript:void(0);',
                     'cancel_attr'    => [
                         'data-dismiss' => 'modal',

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Controller;
+namespace MailVotech\CampaignBundle\Tests\Controller;
 
-use Mautic\CampaignBundle\Command\SummarizeCommand;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CampaignBundle\Tests\Campaign\AbstractCampaignTestCase;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Command\SummarizeCommand;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CampaignBundle\Tests\Campaign\AbstractCampaignTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -43,7 +43,7 @@ final class CampaignControllerFunctionalTest extends AbstractCampaignTestCase
         $model = self::getContainer()->get(CampaignModel::class);
 
         $this->campaignModel                                           = $model;
-        $this->campaignLeadsLabel                                      = self::getContainer()->get(TranslatorInterface::class)->trans('mautic.campaign.campaign.leads');
+        $this->campaignLeadsLabel                                      = self::getContainer()->get(TranslatorInterface::class)->trans('mailvotech.campaign.campaign.leads');
         $this->configParams['delete_campaign_event_log_in_background'] = false;
     }
 
@@ -377,6 +377,6 @@ final class CampaignControllerFunctionalTest extends AbstractCampaignTestCase
         $body     = json_decode($response->getContent(), true);
         $this->assertCount(2, $body);
         self::arrayHasKey('actions');
-        $this->assertStringContainsString('100% 2 0 Event A mautic.campaign.type.a 100% 2 0 Event B mautic.campaign.type.b', (string) preg_replace('/\s+/', ' ', strip_tags($body['actions'])));
+        $this->assertStringContainsString('100% 2 0 Event A mailvotech.campaign.type.a 100% 2 0 Event B mailvotech.campaign.type.b', (string) preg_replace('/\s+/', ' ', strip_tags($body['actions'])));
     }
 }

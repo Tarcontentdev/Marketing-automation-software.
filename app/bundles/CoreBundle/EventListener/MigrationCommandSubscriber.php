@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
 use Doctrine\DBAL\Connection;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumnInterface;
-use Mautic\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
-use Mautic\CoreBundle\Doctrine\Provider\VersionProviderInterface;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumnInterface;
+use MailVotech\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
+use MailVotech\CoreBundle\Doctrine\Provider\VersionProviderInterface;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 use Symfony\Component\Console\Output\OutputInterface;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Mailer\Transport;
+namespace MailVotech\EmailBundle\Mailer\Transport;
 
-use Mautic\EmailBundle\MonitoredEmail\Exception\UnsubscriptionNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Unsubscription\UnsubscribedEmail;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\UnsubscriptionNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Unsubscription\UnsubscribedEmail;
 
 /**
  * Interface InterfaceUnsubscriptionProcessor.

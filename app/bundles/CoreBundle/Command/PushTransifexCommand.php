@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
-use Mautic\CoreBundle\Factory\TransifexFactory;
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\CoreBundle\Helper\UrlHelper;
-use Mautic\Transifex\Connector\Resources;
-use Mautic\Transifex\Exception\InvalidConfigurationException;
-use Mautic\Transifex\Exception\ResponseException;
-use Mautic\Transifex\Exception\TransifexException;
-use Mautic\Transifex\Promise;
+use MailVotech\CoreBundle\Factory\TransifexFactory;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\CoreBundle\Helper\UrlHelper;
+use MailVotech\Transifex\Connector\Resources;
+use MailVotech\Transifex\Exception\InvalidConfigurationException;
+use MailVotech\Transifex\Exception\ResponseException;
+use MailVotech\Transifex\Exception\TransifexException;
+use MailVotech\Transifex\Promise;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -25,7 +25,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 #[AsCommand(
     name: PushTransifexCommand::NAME,
-    description: 'Pushes Mautic translation resources to Transifex',
+    description: 'Pushes MailVotech translation resources to Transifex',
     help: <<<'TXT'
 The <info>%command.name%</info> command is used to push translation resources to Transifex
 
@@ -38,7 +38,7 @@ TXT
 )]
 final class PushTransifexCommand extends Command
 {
-    public const NAME = 'mautic:transifex:push';
+    public const NAME = 'mailvotech:transifex:push';
 
     public function __construct(
         private readonly TransifexFactory $transifexFactory,
@@ -63,7 +63,7 @@ final class PushTransifexCommand extends Command
             $transifex = $this->transifexFactory->getTransifex();
         } catch (InvalidConfigurationException) {
             $output->writeln($this->translator->trans(
-                'mautic.core.command.transifex_no_credentials')
+                'mailvotech.core.command.transifex_no_credentials')
             );
 
             return Command::FAILURE;
@@ -81,7 +81,7 @@ final class PushTransifexCommand extends Command
                 $content = file_get_contents($file);
                 $output->writeln(
                     $this->translator->trans(
-                        'mautic.core.command.transifex_processing_resource',
+                        'mailvotech.core.command.transifex_processing_resource',
                         ['%resource%' => $name]
                     )
                 );
@@ -94,7 +94,7 @@ final class PushTransifexCommand extends Command
                     if (!$resources->resourceExists($existingResources['data'], $alias)) {
                         $resources->create($name, $alias, 'INI');
                         $output->writeln(
-                            $this->translator->trans('mautic.core.command.transifex_resource_created')
+                            $this->translator->trans('mailvotech.core.command.transifex_resource_created')
                         );
                     }
 
@@ -106,7 +106,7 @@ final class PushTransifexCommand extends Command
                 } catch (TransifexException $exception) {
                     $output->writeln(
                         $this->translator->trans(
-                            'mautic.core.command.transifex_error_pushing_data',
+                            'mailvotech.core.command.transifex_error_pushing_data',
                             ['%message%' => $exception->getMessage()]
                         )
                     );
@@ -119,7 +119,7 @@ final class PushTransifexCommand extends Command
             function (ResponseInterface $response, Promise $promise) use ($output): void {
                 $output->writeln(
                     $this->translator->trans(
-                        'mautic.core.command.transifex_resource_updated',
+                        'mailvotech.core.command.transifex_resource_updated',
                         ['%file%' => $promise->getFilePath()]
                     )
                 );

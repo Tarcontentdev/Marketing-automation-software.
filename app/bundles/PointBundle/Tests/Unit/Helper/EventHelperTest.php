@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Unit\Helper;
+namespace MailVotech\PointBundle\Tests\Unit\Helper;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PointBundle\Helper\EventHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PointBundle\Helper\EventHelper;
 use PHPUnit\Framework\TestCase;
 
 final class EventHelperTest extends TestCase

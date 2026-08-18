@@ -1,27 +1,27 @@
 <?php
 
-namespace Mautic\CampaignBundle\Executioner\Scheduler;
+namespace MailVotech\CampaignBundle\Executioner\Scheduler;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Enum\RepublishBehavior;
-use Mautic\CampaignBundle\Event\ScheduledBatchEvent;
-use Mautic\CampaignBundle\Event\ScheduledEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
-use Mautic\CampaignBundle\EventCollector\EventCollector;
-use Mautic\CampaignBundle\Executioner\Exception\IntervalNotConfiguredException;
-use Mautic\CampaignBundle\Executioner\Logger\EventLogger;
-use Mautic\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException;
-use Mautic\CampaignBundle\Executioner\Scheduler\Mode\DateTime as DateTimeScheduler;
-use Mautic\CampaignBundle\Executioner\Scheduler\Mode\Interval as IntervalScheduler;
-use Mautic\CampaignBundle\Executioner\Scheduler\Mode\Optimized as OptimizedScheduler;
-use Mautic\CampaignBundle\Service\PublishStateService;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Service\OptimisticLockServiceInterface;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Enum\RepublishBehavior;
+use MailVotech\CampaignBundle\Event\ScheduledBatchEvent;
+use MailVotech\CampaignBundle\Event\ScheduledEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
+use MailVotech\CampaignBundle\EventCollector\EventCollector;
+use MailVotech\CampaignBundle\Executioner\Exception\IntervalNotConfiguredException;
+use MailVotech\CampaignBundle\Executioner\Logger\EventLogger;
+use MailVotech\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException;
+use MailVotech\CampaignBundle\Executioner\Scheduler\Mode\DateTime as DateTimeScheduler;
+use MailVotech\CampaignBundle\Executioner\Scheduler\Mode\Interval as IntervalScheduler;
+use MailVotech\CampaignBundle\Executioner\Scheduler\Mode\Optimized as OptimizedScheduler;
+use MailVotech\CampaignBundle\Service\PublishStateService;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Service\OptimisticLockServiceInterface;
+use MailVotech\LeadBundle\Entity\Lead;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -29,7 +29,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class EventScheduler
 {
     public function __construct(
-        #[Autowire(service: 'monolog.logger.mautic')]
+        #[Autowire(service: 'monolog.logger.mailvotech')]
         private readonly LoggerInterface $logger,
         private readonly EventLogger $eventLogger,
         private readonly IntervalScheduler $intervalScheduler,

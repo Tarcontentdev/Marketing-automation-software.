@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\AbstractQuery;
-use Mautic\CoreBundle\Test\Doctrine\DBALMocker;
-use Mautic\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\CoreBundle\Test\Doctrine\DBALMocker;
+use MailVotech\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class LeadRepositoryTest extends \PHPUnit\Framework\TestCase
@@ -109,16 +109,16 @@ final class LeadRepositoryTest extends \PHPUnit\Framework\TestCase
     public function testApplySearchQueryRelationshipJoinOnlyOnce(): void
     {
         $queryBuilder = new QueryBuilder($this->connection);
-        $queryBuilder->select('*')->from(MAUTIC_TABLE_PREFIX.'table_a');
+        $queryBuilder->select('*')->from(MAILVOTECH_TABLE_PREFIX.'table_a');
         $tableB = [
             'alias'      => 'alias_b',
-            'from_alias' => MAUTIC_TABLE_PREFIX.'table_a',
+            'from_alias' => MAILVOTECH_TABLE_PREFIX.'table_a',
             'table'      => 'table_b',
             'condition'  => 'condition_b',
         ];
         $tableC = [
             'alias'      => 'alias_c',
-            'from_alias' => MAUTIC_TABLE_PREFIX.'table_a',
+            'from_alias' => MAILVOTECH_TABLE_PREFIX.'table_a',
             'table'      => 'table_c',
             'condition'  => 'condition_c',
         ];
@@ -129,7 +129,7 @@ final class LeadRepositoryTest extends \PHPUnit\Framework\TestCase
             true
         );
 
-        $this->assertSame('SELECT * FROM '.MAUTIC_TABLE_PREFIX.'table_a INNER JOIN '.MAUTIC_TABLE_PREFIX.'table_b alias_b ON condition_b INNER JOIN '.MAUTIC_TABLE_PREFIX.'table_c alias_c ON condition_c GROUP BY l.id', $queryBuilder->getSQL());
+        $this->assertSame('SELECT * FROM '.MAILVOTECH_TABLE_PREFIX.'table_a INNER JOIN '.MAILVOTECH_TABLE_PREFIX.'table_b alias_b ON condition_b INNER JOIN '.MAILVOTECH_TABLE_PREFIX.'table_c alias_c ON condition_c GROUP BY l.id', $queryBuilder->getSQL());
     }
 
     public function testGetContactIdsByEmails(): void

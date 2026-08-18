@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\LeadBundle\EventListener\SegmentLogReportSubscriber;
-use Mautic\ReportBundle\Entity\Report;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\LeadBundle\EventListener\SegmentLogReportSubscriber;
+use MailVotech\ReportBundle\Entity\Report;
 
-final class SegmentLogReportSubscriberFunctionalTest extends MauticMysqlTestCase
+final class SegmentLogReportSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 

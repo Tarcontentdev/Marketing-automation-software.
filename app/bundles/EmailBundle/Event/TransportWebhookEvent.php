@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Event;
+namespace MailVotech\EmailBundle\Event;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
- * Event triggered when a transport service send Mautic a webhook request.
+ * Event triggered when a transport service send MailVotech a webhook request.
  */
 final class TransportWebhookEvent extends Event
 {

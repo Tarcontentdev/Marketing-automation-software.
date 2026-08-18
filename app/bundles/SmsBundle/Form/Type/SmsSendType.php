@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Form\Type;
+namespace MailVotech\SmsBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -31,18 +31,18 @@ final class SmsSendType extends AbstractType
             'sms',
             SmsListType::class,
             [
-                'label'      => 'mautic.sms.send.selectsmss',
+                'label'      => 'mailvotech.sms.send.selectsmss',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.sms.choose.smss',
-                    'onchange' => 'Mautic.disabledSmsAction()',
+                    'tooltip'  => 'mailvotech.sms.choose.smss',
+                    'onchange' => 'MailVotech.disabledSmsAction()',
                 ],
                 'multiple'    => false,
                 'required'    => true,
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.sms.choosesms.notblank'
+                        message: 'mailvotech.sms.choosesms.notblank'
                     ),
                 ],
             ]
@@ -50,7 +50,7 @@ final class SmsSendType extends AbstractType
 
         if (!empty($options['update_select'])) {
             $windowUrl = $this->router->generate(
-                'mautic_sms_action',
+                'mailvotech_sms_action',
                 [
                     'objectAction' => 'new',
                     'contentOnly'  => 1,
@@ -64,18 +64,18 @@ final class SmsSendType extends AbstractType
                 [
                     'attr' => [
                         'class'   => 'btn btn-primary btn-nospin',
-                        'onclick' => 'Mautic.loadNewWindow({
+                        'onclick' => 'MailVotech.loadNewWindow({
                         "windowUrl": "'.$windowUrl.'"
                     })',
                         'icon' => 'ri-add-line',
                     ],
-                    'label' => 'mautic.sms.send.new.sms',
+                    'label' => 'mailvotech.sms.send.new.sms',
                 ]
             );
 
             // create button edit sms
             $windowUrlEdit = $this->router->generate(
-                'mautic_sms_action',
+                'mailvotech_sms_action',
                 [
                     'objectAction' => 'edit',
                     'objectId'     => 'smsId',
@@ -90,11 +90,11 @@ final class SmsSendType extends AbstractType
                 [
                     'attr' => [
                         'class'    => 'btn btn-primary btn-nospin',
-                        'onclick'  => 'Mautic.loadNewWindow(Mautic.standardSmsUrl({"windowUrl": "'.$windowUrlEdit.'"}))',
+                        'onclick'  => 'MailVotech.loadNewWindow(MailVotech.standardSmsUrl({"windowUrl": "'.$windowUrlEdit.'"}))',
                         'disabled' => !isset($options['data']['sms']),
                         'icon'     => 'ri-edit-line',
                     ],
-                    'label' => 'mautic.sms.send.edit.sms',
+                    'label' => 'mailvotech.sms.send.edit.sms',
                 ]
             );
         }

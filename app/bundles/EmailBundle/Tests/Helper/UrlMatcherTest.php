@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Helper;
+namespace MailVotech\EmailBundle\Tests\Helper;
 
-use Mautic\EmailBundle\Helper\UrlMatcher;
+use MailVotech\EmailBundle\Helper\UrlMatcher;
 
 final class UrlMatcherTest extends \PHPUnit\Framework\TestCase
 {

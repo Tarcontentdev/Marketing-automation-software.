@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Event;
+namespace MailVotech\CampaignBundle\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
-use Mautic\CampaignBundle\Executioner\Result\EvaluatedContacts;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
+use MailVotech\CampaignBundle\Executioner\Result\EvaluatedContacts;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class DecisionResultsEvent extends Event

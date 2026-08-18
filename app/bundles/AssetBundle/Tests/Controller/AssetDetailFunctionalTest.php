@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\Controller;
+namespace MailVotech\AssetBundle\Tests\Controller;
 
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class AssetDetailFunctionalTest extends MauticMysqlTestCase
+final class AssetDetailFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testLeadViewPreventsXSS(): void
     {

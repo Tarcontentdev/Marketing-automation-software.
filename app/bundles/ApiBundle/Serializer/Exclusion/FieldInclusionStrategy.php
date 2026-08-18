@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Serializer\Exclusion;
+namespace MailVotech\ApiBundle\Serializer\Exclusion;
 
 use JMS\Serializer\Context;
 use JMS\Serializer\Exclusion\ExclusionStrategyInterface;

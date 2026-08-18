@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,12 +24,12 @@ final class ModifyLeadTagsType extends AbstractType
             'add_tags',
             TagType::class,
             [
-                'label' => 'mautic.lead.tags.add',
+                'label' => 'mailvotech.lead.tags.add',
                 'attr'  => [
-                    'data-placeholder'     => $this->translator->trans('mautic.lead.tags.select_or_create'),
-                    'data-no-results-text' => $this->translator->trans('mautic.lead.tags.enter_to_create'),
+                    'data-placeholder'     => $this->translator->trans('mailvotech.lead.tags.select_or_create'),
+                    'data-no-results-text' => $this->translator->trans('mailvotech.lead.tags.enter_to_create'),
                     'data-allow-add'       => 'true',
-                    'onchange'             => 'Mautic.createLeadTag(this)',
+                    'onchange'             => 'MailVotech.createLeadTag(this)',
                 ],
                 'data'            => $options['data']['add_tags'] ?? null,
                 'add_transformer' => true,
@@ -40,12 +40,12 @@ final class ModifyLeadTagsType extends AbstractType
             'remove_tags',
             TagType::class,
             [
-                'label' => 'mautic.lead.tags.remove',
+                'label' => 'mailvotech.lead.tags.remove',
                 'attr'  => [
-                    'data-placeholder'     => $this->translator->trans('mautic.lead.tags.select_or_create'),
-                    'data-no-results-text' => $this->translator->trans('mautic.lead.tags.enter_to_create'),
+                    'data-placeholder'     => $this->translator->trans('mailvotech.lead.tags.select_or_create'),
+                    'data-no-results-text' => $this->translator->trans('mailvotech.lead.tags.enter_to_create'),
                     'data-allow-add'       => 'true',
-                    'onchange'             => 'Mautic.createLeadTag(this)',
+                    'onchange'             => 'MailVotech.createLeadTag(this)',
                 ],
                 'data'            => $options['data']['remove_tags'] ?? null,
                 'add_transformer' => true,

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Field\DTO;
+namespace MailVotech\LeadBundle\Tests\Field\DTO;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Exception\InvalidObjectTypeException;
-use Mautic\LeadBundle\Field\DTO\CustomFieldObject;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Exception\InvalidObjectTypeException;
+use MailVotech\LeadBundle\Field\DTO\CustomFieldObject;
 
 final class CustomFieldObjectTest extends \PHPUnit\Framework\TestCase
 {

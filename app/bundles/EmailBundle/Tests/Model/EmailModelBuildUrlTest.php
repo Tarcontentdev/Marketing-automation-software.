@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Model;
+namespace MailVotech\EmailBundle\Tests\Model;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Model\EmailModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Model\EmailModel;
 
-final class EmailModelBuildUrlTest extends MauticMysqlTestCase
+final class EmailModelBuildUrlTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -20,7 +20,7 @@ final class EmailModelBuildUrlTest extends MauticMysqlTestCase
         /** @var EmailModel $emailModel */
         $emailModel = self::getContainer()->get(EmailModel::class);
         $idHash     = uniqid();
-        $url        = $emailModel->buildUrl('mautic_email_unsubscribe', ['idHash' => $idHash]);
+        $url        = $emailModel->buildUrl('mailvotech_email_unsubscribe', ['idHash' => $idHash]);
 
         $this->assertSame('https://foo.bar.com/email/unsubscribe/'.$idHash, $url);
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\EmailBundle\Stats\FetchOptions;
+namespace MailVotech\EmailBundle\Stats\FetchOptions;
 
-use Mautic\StatsBundle\Event\Options\FetchOptions;
+use MailVotech\StatsBundle\Event\Options\FetchOptions;
 
 final class EmailStatOptions extends FetchOptions
 {

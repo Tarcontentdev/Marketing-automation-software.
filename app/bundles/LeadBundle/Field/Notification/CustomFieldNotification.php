@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field\Notification;
+namespace MailVotech\LeadBundle\Field\Notification;
 
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Field\Exception\NoUserException;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Field\Exception\NoUserException;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Model\UserModel;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CustomFieldNotification
@@ -29,10 +29,10 @@ class CustomFieldNotification
         }
 
         $message = $this->translator->trans(
-            'mautic.lead.field.notification.created_message',
+            'mailvotech.lead.field.notification.created_message',
             ['%label%' => $leadField->getLabel()]
         );
-        $header  = $this->translator->trans('mautic.lead.field.notification.created_header');
+        $header  = $this->translator->trans('mailvotech.lead.field.notification.created_header');
 
         $this->addToNotificationCenter($user, $message, $header);
     }
@@ -46,10 +46,10 @@ class CustomFieldNotification
         }
 
         $message = $this->translator->trans(
-            'mautic.lead.field.notification.updated_message',
+            'mailvotech.lead.field.notification.updated_message',
             ['%label%' => $leadField->getLabel()]
         );
-        $header  = $this->translator->trans('mautic.lead.field.notification.updated_header');
+        $header  = $this->translator->trans('mailvotech.lead.field.notification.updated_header');
 
         $this->addToNotificationCenter($user, $message, $header);
     }
@@ -63,10 +63,10 @@ class CustomFieldNotification
         }
 
         $message = $this->translator->trans(
-            'mautic.lead.field.notification.deleted_message',
+            'mailvotech.lead.field.notification.deleted_message',
             ['%label%' => $leadField->getLabel()]
         );
-        $header  = $this->translator->trans('mautic.lead.field.notification.deleted_header');
+        $header  = $this->translator->trans('mailvotech.lead.field.notification.deleted_header');
 
         $this->addToNotificationCenter($user, $message, $header);
     }
@@ -80,10 +80,10 @@ class CustomFieldNotification
         }
 
         $message = $this->translator->trans(
-            'mautic.lead.field.notification.custom_field_limit_hit_message',
+            'mailvotech.lead.field.notification.custom_field_limit_hit_message',
             ['%label%' => $leadField->getLabel()]
         );
-        $header  = $this->translator->trans('mautic.lead.field.notification.custom_field_limit_hit_header');
+        $header  = $this->translator->trans('mailvotech.lead.field.notification.custom_field_limit_hit_header');
 
         $this->addToNotificationCenter($user, $message, $header);
     }
@@ -97,10 +97,10 @@ class CustomFieldNotification
         }
 
         $message = $this->translator->trans(
-            'mautic.lead.field.notification.cannot_be_created_message',
+            'mailvotech.lead.field.notification.cannot_be_created_message',
             ['%label%' => $leadField->getLabel()]
         );
-        $header  = $this->translator->trans('mautic.lead.field.notification.cannot_be_created_header');
+        $header  = $this->translator->trans('mailvotech.lead.field.notification.cannot_be_created_header');
 
         $this->addToNotificationCenter($user, $message, $header);
     }
@@ -114,10 +114,10 @@ class CustomFieldNotification
         }
 
         $message = $this->translator->trans(
-            'mautic.lead.field.notification.cannot_be_updated_message',
+            'mailvotech.lead.field.notification.cannot_be_updated_message',
             ['%label%' => $leadField->getLabel()]
         );
-        $header  = $this->translator->trans('mautic.lead.field.notification.cannot_be_updated_header');
+        $header  = $this->translator->trans('mailvotech.lead.field.notification.cannot_be_updated_header');
 
         $this->addToNotificationCenter($user, $message, $header);
     }

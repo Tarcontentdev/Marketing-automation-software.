@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\PluginBundle\Form\Type;
+namespace MailVotech\PluginBundle\Form\Type;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,11 +42,11 @@ final class FeatureSettingsType extends AbstractType
             $integrationName = $integrationObject->getName();
             $session         = $this->requestStack->getSession();
             $limit           = $session->get(
-                'mautic.plugin.'.$integrationName.'.lead.limit',
+                'mailvotech.plugin.'.$integrationName.'.lead.limit',
                 $this->coreParametersHelper->get('default_pagelimit')
             );
-            $page        = $session->get('mautic.plugin.'.$integrationName.'.lead.page', 1);
-            $companyPage = $session->get('mautic.plugin.'.$integrationName.'.company.page', 1);
+            $page        = $session->get('mailvotech.plugin.'.$integrationName.'.lead.page', 1);
+            $companyPage = $session->get('mailvotech.plugin.'.$integrationName.'.company.page', 1);
             $settings    = [
                 'silence_exceptions' => false,
                 'feature_settings'   => $data,
@@ -83,9 +83,9 @@ final class FeatureSettingsType extends AbstractType
                 'leadFields',
                 FieldsType::class,
                 [
-                    'label'                => 'mautic.integration.leadfield_matches',
+                    'label'                => 'mailvotech.integration.leadfield_matches',
                     'required'             => true,
-                    'mautic_fields'        => $leadFields,
+                    'mailvotech_fields'        => $leadFields,
                     'data'                 => $data,
                     'integration_fields'   => $fields,
                     'enable_data_priority' => $enableDataPriority,
@@ -103,9 +103,9 @@ final class FeatureSettingsType extends AbstractType
                     'companyFields',
                     CompanyFieldsType::class,
                     [
-                        'label'                => 'mautic.integration.companyfield_matches',
+                        'label'                => 'mailvotech.integration.companyfield_matches',
                         'required'             => true,
-                        'mautic_fields'        => $companyFields,
+                        'mailvotech_fields'        => $companyFields,
                         'data'                 => $data,
                         'integration_fields'   => $integrationCompanyFields,
                         'enable_data_priority' => $enableDataPriority,

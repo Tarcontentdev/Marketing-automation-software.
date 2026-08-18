@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Tests\Command;
+namespace MailVotech\ChannelBundle\Tests\Command;
 
-use Mautic\ChannelBundle\Entity\MessageQueue;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\ChannelBundle\Entity\MessageQueue;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\LeadBundle\Entity\Lead;
 
-final class ProcessMarketingMessagesQueueCommandFunctionalTest extends MauticMysqlTestCase
+final class ProcessMarketingMessagesQueueCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 
     public function testIdleCommand(): void
     {
-        $commandTester = $this->testSymfonyCommand('mautic:messages:send');
+        $commandTester = $this->testSymfonyCommand('mailvotech:messages:send');
         $this->assertSame(0, $commandTester->getStatusCode());
     }
 
@@ -49,7 +49,7 @@ final class ProcessMarketingMessagesQueueCommandFunctionalTest extends MauticMys
         }
         $this->em->flush();
 
-        $commandTester = $this->testSymfonyCommand('mautic:messages:send');
+        $commandTester = $this->testSymfonyCommand('mailvotech:messages:send');
         $this->assertSame(0, $commandTester->getStatusCode());
         $this->assertStringContainsString('Messages sent: 60', $commandTester->getDisplay());
 
@@ -81,7 +81,7 @@ final class ProcessMarketingMessagesQueueCommandFunctionalTest extends MauticMys
         }
         $this->em->flush();
 
-        $commandTester = $this->testSymfonyCommand('mautic:messages:send', ['--limit' => 2]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:messages:send', ['--limit' => 2]);
         $this->assertSame(0, $commandTester->getStatusCode());
         $this->assertStringContainsString('Messages sent: 2', $commandTester->getDisplay());
     }

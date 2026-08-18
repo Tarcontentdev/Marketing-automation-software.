@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
 
 /**
  * @extends CommonRepository<DoNotContact>
@@ -37,7 +37,7 @@ class DoNotContactRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('count(dnc.id) as dnc_count')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_donotcontact', 'dnc');
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_donotcontact', 'dnc');
 
         if ($ids) {
             if (!is_array($ids)) {
@@ -61,7 +61,7 @@ class DoNotContactRepository extends CommonRepository
 
         if ($listId) {
             if (!$combined) {
-                $q->innerJoin('dnc', MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'cs', 'cs.lead_id = dnc.lead_id');
+                $q->innerJoin('dnc', MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'cs', 'cs.lead_id = dnc.lead_id');
 
                 if (true === $listId) {
                     $q->addSelect('cs.leadlist_id')
@@ -82,7 +82,7 @@ class DoNotContactRepository extends CommonRepository
             } else {
                 $subQ = $this->getEntityManager()->getConnection()->createQueryBuilder();
                 $subQ->select('distinct(list.lead_id)')
-                    ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'list')
+                    ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'list')
                     ->andWhere(
                         $q->expr()->in('list.leadlist_id', ':segmentIds')
                     );
@@ -120,7 +120,7 @@ class DoNotContactRepository extends CommonRepository
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $query->select('dnc.id, dnc.channel, dnc.channel_id, dnc.date_added, dnc.reason, dnc.comments, dnc.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_donotcontact', 'dnc');
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_donotcontact', 'dnc');
 
         if ($leadId) {
             $query->where($query->expr()->eq('dnc.lead_id', (int) $leadId));
@@ -149,8 +149,8 @@ class DoNotContactRepository extends CommonRepository
         }
 
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder()
-            ->from(MAUTIC_TABLE_PREFIX.'lead_donotcontact', 'dnc')
-            ->leftJoin('dnc', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = dnc.lead_id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_donotcontact', 'dnc')
+            ->leftJoin('dnc', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = dnc.lead_id');
 
         if (null === $channel) {
             $q->select('dnc.channel, dnc.reason, l.id as lead_id');

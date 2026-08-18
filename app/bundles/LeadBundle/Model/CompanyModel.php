@@ -1,37 +1,37 @@
 <?php
 
-namespace Mautic\LeadBundle\Model;
+namespace MailVotech\LeadBundle\Model;
 
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Cache\ResultCacheOptions;
-use Mautic\CoreBundle\Form\RequestTrait;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\AjaxLookupModelInterface;
-use Mautic\CoreBundle\Model\FormModel as CommonFormModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Helper\EmailValidator;
-use Mautic\LeadBundle\Deduplicate\CompanyDeduper;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyLead;
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Event\CompanyEvent;
-use Mautic\LeadBundle\Event\CompanyMergeEvent;
-use Mautic\LeadBundle\Event\LeadChangeCompanyEvent;
-use Mautic\LeadBundle\Exception\UniqueFieldNotFoundException;
-use Mautic\LeadBundle\Field\FieldList;
-use Mautic\LeadBundle\Form\Type\CompanyType;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\CoreBundle\Cache\ResultCacheOptions;
+use MailVotech\CoreBundle\Form\RequestTrait;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\AjaxLookupModelInterface;
+use MailVotech\CoreBundle\Model\FormModel as CommonFormModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Helper\EmailValidator;
+use MailVotech\LeadBundle\Deduplicate\CompanyDeduper;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyLead;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Event\CompanyEvent;
+use MailVotech\LeadBundle\Event\CompanyMergeEvent;
+use MailVotech\LeadBundle\Event\LeadChangeCompanyEvent;
+use MailVotech\LeadBundle\Exception\UniqueFieldNotFoundException;
+use MailVotech\LeadBundle\Field\FieldList;
+use MailVotech\LeadBundle\Form\Type\CompanyType;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -72,7 +72,7 @@ class CompanyModel extends CommonFormModel implements AjaxLookupModelInterface
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         CoreParametersHelper $coreParametersHelper,
         private FieldList $fieldList,
         private readonly CompanyRepository $companyRepository,
@@ -80,7 +80,7 @@ class CompanyModel extends CommonFormModel implements AjaxLookupModelInterface
         private readonly LeadRepository $leadRepository,
         private readonly UserRepository $userRepository,
     ) {
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     /**
@@ -754,13 +754,13 @@ class CompanyModel extends CommonFormModel implements AjaxLookupModelInterface
             unset($mappedFields['company']);
         }
 
-        foreach ($mappedFields as $mauticField => $importField) {
+        foreach ($mappedFields as $mailvotechField => $importField) {
             foreach ($internalFields as $entityField) {
-                if ($entityField['alias'] === $mauticField) {
+                if ($entityField['alias'] === $mailvotechField) {
                     $companyData[$importField]   = $data[$importField];
-                    $companyFields[$mauticField] = $importField;
+                    $companyFields[$mailvotechField] = $importField;
                     unset($data[$importField]);
-                    unset($mappedFields[$mauticField]);
+                    unset($mappedFields[$mailvotechField]);
                     break;
                 }
             }
@@ -779,7 +779,7 @@ class CompanyModel extends CommonFormModel implements AjaxLookupModelInterface
         $company = $this->importCompany($fields, $data, $owner, false, $skipIfExists);
 
         if (null === $company) {
-            throw new \Exception($this->translator->trans('mautic.lead.import.unique_field_not_exist', [], 'flashes'));
+            throw new \Exception($this->translator->trans('mailvotech.lead.import.unique_field_not_exist', [], 'flashes'));
         }
 
         $merged = !$company->isNew();
@@ -817,7 +817,7 @@ class CompanyModel extends CommonFormModel implements AjaxLookupModelInterface
         }
 
         if (!$granted) {
-            throw new \Exception($this->translator->trans('mautic.lead.import.error.unauthorized', ['%username%' => $this->userHelper->getUser()->getUserIdentifier()]));
+            throw new \Exception($this->translator->trans('mailvotech.lead.import.error.unauthorized', ['%username%' => $this->userHelper->getUser()->getUserIdentifier()]));
         }
 
         if (!empty($fields['dateAdded']) && !empty($data[$fields['dateAdded']])) {

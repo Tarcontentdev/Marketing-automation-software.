@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\SmsBundle\EventListener;
+namespace MailVotech\SmsBundle\EventListener;
 
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\SmsBundle\Entity\StatRepository;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\SmsBundle\Entity\StatRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -38,7 +38,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
     {
         // Set available event types
         $eventTypeKey  = 'sms.'.$state;
-        $eventTypeName = $this->translator->trans('mautic.sms.timeline.status.'.$state);
+        $eventTypeName = $this->translator->trans('mailvotech.sms.timeline.status.'.$state);
         $event->addEventType($eventTypeKey, $eventTypeName);
         $event->addSerializerGroup('smsList');
 
@@ -60,12 +60,12 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                 if (!empty($stat['sms_name'])) {
                     $label = $stat['sms_name'];
                 } else {
-                    $label = $this->translator->trans('mautic.sms.timeline.event.custom_sms');
+                    $label = $this->translator->trans('mailvotech.sms.timeline.event.custom_sms');
                 }
 
                 $eventName = [
                     'label'      => $label,
-                    'href'       => $this->router->generate('mautic_sms_action', ['objectAction'=>'view', 'objectId' => $stat['sms_id']]),
+                    'href'       => $this->router->generate('mailvotech_sms_action', ['objectAction'=>'view', 'objectId' => $stat['sms_id']]),
                 ];
                 if ('failed' === $state || 'sent' === $state) { // this is to get the correct column for date dateSent
                     $dateSent = 'sent';
@@ -84,7 +84,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                             'stat'   => $stat,
                             'type'   => $state,
                         ],
-                        'contentTemplate' => '@MauticSms/SubscribedEvents/Timeline/index.html.twig',
+                        'contentTemplate' => '@MailVotechSms/SubscribedEvents/Timeline/index.html.twig',
                         'icon'            => ('read' === $state) ? 'ri-chat-1-fill' : 'ri-message-2-fill',
                         'contactId'       => $contactId,
                     ]

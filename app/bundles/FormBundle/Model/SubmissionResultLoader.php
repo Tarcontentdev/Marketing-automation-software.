@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\FormBundle\Model;
+namespace MailVotech\FormBundle\Model;
 
-use Mautic\CoreBundle\Model\MauticModelInterface;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\FormBundle\Entity\SubmissionRepository;
+use MailVotech\CoreBundle\Model\MailVotechModelInterface;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
 
-final readonly class SubmissionResultLoader implements MauticModelInterface
+final readonly class SubmissionResultLoader implements MailVotechModelInterface
 {
     public function __construct(
         private SubmissionRepository $submissionRepository,

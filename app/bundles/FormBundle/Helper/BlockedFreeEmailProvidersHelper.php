@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Helper;
+namespace MailVotech\FormBundle\Helper;
 
 final class BlockedFreeEmailProvidersHelper
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
-use Mautic\CampaignBundle\Form\Type\CampaignListType;
-use Mautic\LeadBundle\Form\Type\CompanyListType;
-use Mautic\LeadBundle\Form\Type\LeadListType;
+use MailVotech\CampaignBundle\Form\Type\CampaignListType;
+use MailVotech\LeadBundle\Form\Type\CompanyListType;
+use MailVotech\LeadBundle\Form\Type\LeadListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,13 +22,13 @@ final class DashboardEmailsInTimeWidgetType extends AbstractType
             'flag',
             ChoiceType::class,
             [
-                'label'             => 'mautic.email.flag.filter',
+                'label'             => 'mailvotech.email.flag.filter',
                 'choices'           => [
-                    'mautic.email.flag.sent'                       => '',
-                    'mautic.email.flag.opened'                     => 'opened',
-                    'mautic.email.flag.failed'                     => 'failed',
-                    'mautic.email.flag.sent.and.opened'            => 'sent_and_opened',
-                    'mautic.email.flag.sent.and.opened.and.failed' => 'sent_and_opened_and_failed',
+                    'mailvotech.email.flag.sent'                       => '',
+                    'mailvotech.email.flag.opened'                     => 'opened',
+                    'mailvotech.email.flag.failed'                     => 'failed',
+                    'mailvotech.email.flag.sent.and.opened'            => 'sent_and_opened',
+                    'mailvotech.email.flag.sent.and.opened.and.failed' => 'sent_and_opened_and_failed',
                 ],
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
@@ -41,7 +41,7 @@ final class DashboardEmailsInTimeWidgetType extends AbstractType
             'companyId',
             CompanyListType::class,
             [
-                'label'       => 'mautic.email.companyId.filter',
+                'label'       => 'mailvotech.email.companyId.filter',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => ['class' => 'form-control'],
                 'placeholder' => '',
@@ -55,7 +55,7 @@ final class DashboardEmailsInTimeWidgetType extends AbstractType
             'campaignId',
             CampaignListType::class,
             [
-                'label'       => 'mautic.email.campaignId.filter',
+                'label'       => 'mailvotech.email.campaignId.filter',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => ['class' => 'form-control'],
                 'empty_data'  => '',
@@ -69,7 +69,7 @@ final class DashboardEmailsInTimeWidgetType extends AbstractType
             'segmentId',
             LeadListType::class,
             [
-                'label'       => 'mautic.email.segmentId.filter',
+                'label'       => 'mailvotech.email.segmentId.filter',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => ['class' => 'form-control'],
                 'placeholder' => '',

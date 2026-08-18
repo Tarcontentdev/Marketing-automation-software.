@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Mautic\ConfigBundle\ConfigEvents;
-use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use Mautic\LeadBundle\Form\Type\ConfigCompanyType;
-use Mautic\LeadBundle\Form\Type\ConfigType;
-use Mautic\LeadBundle\Form\Type\SegmentConfigType;
+use MailVotech\ConfigBundle\ConfigEvents;
+use MailVotech\ConfigBundle\Event\ConfigBuilderEvent;
+use MailVotech\LeadBundle\Form\Type\ConfigCompanyType;
+use MailVotech\LeadBundle\Form\Type\ConfigType;
+use MailVotech\LeadBundle\Form\Type\SegmentConfigType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ConfigSubscriber implements EventSubscriberInterface
@@ -26,17 +26,17 @@ final class ConfigSubscriber implements EventSubscriberInterface
 
     public function onConfigGenerate(ConfigBuilderEvent $event): void
     {
-        $leadParameters = $event->getParametersFromConfig('MauticLeadBundle');
+        $leadParameters = $event->getParametersFromConfig('MailVotechLeadBundle');
         unset($leadParameters['company_unique_identifiers_operator'], $leadParameters['company_columns']);
         $event->addForm([
             'bundle'     => 'LeadBundle',
             'formAlias'  => 'leadconfig',
             'formType'   => ConfigType::class,
-            'formTheme'  => '@MauticLead/FormTheme/Config/_config_leadconfig_widget.html.twig',
+            'formTheme'  => '@MailVotechLead/FormTheme/Config/_config_leadconfig_widget.html.twig',
             'parameters' => $leadParameters,
         ]);
 
-        $segmentParameters = $event->getParametersFromConfig('MauticLeadBundle');
+        $segmentParameters = $event->getParametersFromConfig('MailVotechLeadBundle');
         unset(
             $segmentParameters['contact_unique_identifiers_operator'],
             $segmentParameters['contact_columns'],
@@ -51,19 +51,19 @@ final class ConfigSubscriber implements EventSubscriberInterface
             'bundle'     => 'LeadBundle',
             'formAlias'  => 'segment_config',
             'formType'   => SegmentConfigType::class,
-            'formTheme'  => '@MauticLead/FormTheme/Config/_config_segment_config_widget.html.twig',
+            'formTheme'  => '@MailVotechLead/FormTheme/Config/_config_segment_config_widget.html.twig',
             'parameters' => $segmentParameters,
         ]);
     }
 
     public function onConfigCompanyGenerate(ConfigBuilderEvent $event): void
     {
-        $parameters = $event->getParametersFromConfig('MauticLeadBundle');
+        $parameters = $event->getParametersFromConfig('MailVotechLeadBundle');
         $event->addForm([
             'bundle'     => 'LeadBundle',
             'formAlias'  => 'companyconfig',
             'formType'   => ConfigCompanyType::class,
-            'formTheme'  => '@MauticLead/FormTheme/Config/_config_companyconfig_widget.html.twig',
+            'formTheme'  => '@MailVotechLead/FormTheme/Config/_config_companyconfig_widget.html.twig',
             'parameters' => [
                 'company_unique_identifiers_operator' => $parameters['company_unique_identifiers_operator'] ?? CompositeExpression::TYPE_OR,
                 'company_columns'                     => $parameters['company_columns'] ?? [],

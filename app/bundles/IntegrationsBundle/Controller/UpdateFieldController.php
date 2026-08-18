@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Controller;
+namespace MailVotech\IntegrationsBundle\Controller;
 
-use Mautic\CoreBundle\Controller\CommonController;
+use MailVotech\CoreBundle\Controller\CommonController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 

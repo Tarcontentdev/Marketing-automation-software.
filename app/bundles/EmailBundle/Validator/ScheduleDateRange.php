@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Validator;
+namespace MailVotech\EmailBundle\Validator;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -15,7 +15,7 @@ final class ScheduleDateRange extends Constraint
      */
     #[HasNamedArguments]
     public function __construct(
-        public string $message = 'mautic.form.date_time_range.invalid_range',
+        public string $message = 'mailvotech.form.date_time_range.invalid_range',
         ?array $groups = null,
         mixed $payload = null,
     ) {

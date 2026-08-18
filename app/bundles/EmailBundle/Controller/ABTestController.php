@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Controller;
+namespace MailVotech\EmailBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AbstractFormController;
-use Mautic\CoreBundle\Model\AbTest\AbTestSettingsService;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Form\Type\GenerateABTestType;
-use Mautic\EmailBundle\Model\EmailModel;
+use MailVotech\CoreBundle\Controller\AbstractFormController;
+use MailVotech\CoreBundle\Model\AbTest\AbTestSettingsService;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Form\Type\GenerateABTestType;
+use MailVotech\EmailBundle\Model\EmailModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -32,7 +32,7 @@ final class ABTestController extends AbstractFormController
             $this->throwAccessDenied();
         }
 
-        $action = $this->generateUrl('mautic_abtest_generate', ['objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_abtest_generate', ['objectId' => $objectId]);
         $data1  = $parent->getVariantSettings();
         $form   =  $this->createForm(GenerateABTestType::class, $data1, ['action' => $action]);
 
@@ -53,11 +53,11 @@ final class ABTestController extends AbstractFormController
 
                 return $this->postActionRedirect(
                     [
-                        'returnUrl'       => $this->generateUrl('mautic_email_action', $viewParameters),
+                        'returnUrl'       => $this->generateUrl('mailvotech_email_action', $viewParameters),
                         'viewParameters'  => $viewParameters,
-                        'contentTemplate' => 'Mautic\EmailBundle\Controller\EmailController::viewAction',
+                        'contentTemplate' => 'MailVotech\EmailBundle\Controller\EmailController::viewAction',
                         'passthroughVars' => [
-                            'mauticContent' => 'email',
+                            'mailvotechContent' => 'email',
                             'closeModal'    => 1,
                         ],
                     ]
@@ -70,7 +70,7 @@ final class ABTestController extends AbstractFormController
                 'viewParameters' => [
                     'form' => $form->createView(),
                 ],
-                'contentTemplate' => '@MauticEmail/Email/abtest.html.twig',
+                'contentTemplate' => '@MailVotechEmail/Email/abtest.html.twig',
             ]
         );
     }

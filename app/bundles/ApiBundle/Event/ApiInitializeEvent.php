@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Event;
+namespace MailVotech\ApiBundle\Event;
 
 use JMS\Serializer\Exclusion\ExclusionStrategyInterface;
 use Symfony\Contracts\EventDispatcher\Event;

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller;
+namespace MailVotech\LeadBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Traits\ControllerTrait;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Traits\ControllerTrait;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
 
-final class ListControllerTest extends MauticMysqlTestCase
+final class ListControllerTest extends MailVotechMysqlTestCase
 {
     use ControllerTrait;
 

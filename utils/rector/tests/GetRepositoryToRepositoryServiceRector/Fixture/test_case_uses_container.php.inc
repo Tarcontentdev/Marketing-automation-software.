@@ -2,10 +2,10 @@
 
 namespace Utils\Rector\Tests\GetRepositoryToRepositoryServiceRector\Fixture;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PageBundle\Entity\Hit;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PageBundle\Entity\Hit;
 
-final class TestCaseUsesContainer extends MauticMysqlTestCase
+final class TestCaseUsesContainer extends MailVotechMysqlTestCase
 {
     public function testSomething(): void
     {
@@ -19,14 +19,14 @@ final class TestCaseUsesContainer extends MauticMysqlTestCase
 
 namespace Utils\Rector\Tests\GetRepositoryToRepositoryServiceRector\Fixture;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PageBundle\Entity\Hit;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PageBundle\Entity\Hit;
 
-final class TestCaseUsesContainer extends MauticMysqlTestCase
+final class TestCaseUsesContainer extends MailVotechMysqlTestCase
 {
     public function testSomething(): void
     {
-        $hitRepository = self::getContainer()->get(\Mautic\PageBundle\Entity\HitRepository::class);
+        $hitRepository = self::getContainer()->get(\MailVotech\PageBundle\Entity\HitRepository::class);
     }
 }
 

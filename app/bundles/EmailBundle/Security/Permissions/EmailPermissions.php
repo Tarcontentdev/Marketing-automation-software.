@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\EmailBundle\Security\Permissions;
+namespace MailVotech\EmailBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
-use Mautic\UserBundle\Form\Type\PermissionListType;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\UserBundle\Form\Type\PermissionListType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class EmailPermissions extends AbstractPermissions
@@ -44,20 +44,20 @@ final class EmailPermissions extends AbstractPermissions
     protected function addExtendedFormFields($bundle, $level, &$builder, $data, $includePublish = true): void
     {
         $choices = [
-            'mautic.core.permissions.viewown'     => 'viewown',
-            'mautic.core.permissions.viewother'   => 'viewother',
-            'mautic.core.permissions.editown'     => 'editown',
-            'mautic.core.permissions.editother'   => 'editother',
-            'mautic.core.permissions.create'      => 'create',
-            'mautic.core.permissions.deleteown'   => 'deleteown',
-            'mautic.core.permissions.deleteother' => 'deleteother',
-            'mautic.core.permissions.full'        => 'full',
-            'mautic.email.send.dnc.label'         => 'sendtodnc',
+            'mailvotech.core.permissions.viewown'     => 'viewown',
+            'mailvotech.core.permissions.viewother'   => 'viewother',
+            'mailvotech.core.permissions.editown'     => 'editown',
+            'mailvotech.core.permissions.editother'   => 'editother',
+            'mailvotech.core.permissions.create'      => 'create',
+            'mailvotech.core.permissions.deleteown'   => 'deleteown',
+            'mailvotech.core.permissions.deleteother' => 'deleteother',
+            'mailvotech.core.permissions.full'        => 'full',
+            'mailvotech.email.send.dnc.label'         => 'sendtodnc',
         ];
 
         if ($includePublish) {
-            $choices['mautic.core.permissions.publishown']   = 'publishown';
-            $choices['mautic.core.permissions.publishother'] = 'publishother';
+            $choices['mailvotech.core.permissions.publishown']   = 'publishown';
+            $choices['mailvotech.core.permissions.publishother'] = 'publishother';
         }
 
         $builder->add(

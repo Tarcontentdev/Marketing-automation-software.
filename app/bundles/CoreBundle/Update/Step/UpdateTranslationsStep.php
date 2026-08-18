@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Update\Step;
+namespace MailVotech\CoreBundle\Update\Step;
 
-use Mautic\CoreBundle\Helper\LanguageHelper;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -38,7 +38,7 @@ final readonly class UpdateTranslationsStep implements StepInterface
             return;
         }
 
-        $progressBar->setMessage($this->translator->trans('mautic.core.command.update.step.update_languages'));
+        $progressBar->setMessage($this->translator->trans('mailvotech.core.command.update.step.update_languages'));
         $progressBar->advance();
 
         // First, update the cached language data
@@ -72,7 +72,7 @@ final readonly class UpdateTranslationsStep implements StepInterface
         $this->logger->error(
             'UPDATE ERROR: '.
             $this->translator->trans(
-                'mautic.core.update.error_updating_language',
+                'mailvotech.core.update.error_updating_language',
                 [
                     '%language%' => $name,
                 ]

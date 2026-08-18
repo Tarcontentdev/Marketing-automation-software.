@@ -6,12 +6,12 @@
     <thead>
         <tr>
             <th class="timeline-icon"></th>
-            <th>{{ 'mautic.lead.device.header'|trans }}</th>
-            <th>{{ 'mautic.lead.device_os_name.header'|trans }}</th>
-            <th>{{ 'mautic.lead.device_os_version.header'|trans }}</th>
-            <th>{{ 'mautic.lead.device_browser.header'|trans }}</th>
-            <th>{{ 'mautic.lead.device_brand.header'|trans }}</th>
-            <th>{{ 'mautic.core.date.added'|trans }}</th>
+            <th>{{ 'mailvotech.lead.device.header'|trans }}</th>
+            <th>{{ 'mailvotech.lead.device_os_name.header'|trans }}</th>
+            <th>{{ 'mailvotech.lead.device_os_version.header'|trans }}</th>
+            <th>{{ 'mailvotech.lead.device_browser.header'|trans }}</th>
+            <th>{{ 'mailvotech.lead.device_brand.header'|trans }}</th>
+            <th>{{ 'mailvotech.core.date.added'|trans }}</th>
         </tr>
     </thead>
     <tbody>
@@ -20,7 +20,7 @@
               <td>
                   <i class="fa ri-fw ri-{{ device.device }}-line"></i>
               </td>
-              <td>{{ translatorConditional('mautic.lead.device.' ~ device['device'], device['device']|title) }}</td>
+              <td>{{ translatorConditional('mailvotech.lead.device.' ~ device['device'], device['device']|title) }}</td>
               <td>{{ device['device_os_name'] }}</td>
               <td>{{ device['device_os_version'] }}</td>
               <td>

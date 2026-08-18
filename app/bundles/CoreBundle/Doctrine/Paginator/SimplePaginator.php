@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine\Paginator;
+namespace MailVotech\CoreBundle\Doctrine\Paginator;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\CountWalker;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\DependencyInjection;
+namespace MailVotech\CoreBundle\Tests\Functional\DependencyInjection;
 
-use Mautic\CoreBundle\Test\EnvLoader;
+use MailVotech\CoreBundle\Test\EnvLoader;
 
 /**
  * Minimal kernel to boot the container without the KernelTestCase machinery.
@@ -14,7 +14,7 @@ final class TestKernel extends \AppTestKernel
     public function __construct()
     {
         // pin the platform version, so Doctrine does not open a connection to detect it
-        \defined('MAUTIC_DB_SERVER_VERSION') || \define('MAUTIC_DB_SERVER_VERSION', '8.4');
+        \defined('MAILVOTECH_DB_SERVER_VERSION') || \define('MAILVOTECH_DB_SERVER_VERSION', '8.4');
 
         // the phpunit.xml.dist config is not used when a single test file is run, so make the environment explicit
         \defined('IS_PHPUNIT') || \define('IS_PHPUNIT', true);

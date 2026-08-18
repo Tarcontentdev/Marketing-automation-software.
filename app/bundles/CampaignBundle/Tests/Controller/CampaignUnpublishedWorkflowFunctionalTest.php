@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Controller;
+namespace MailVotech\CampaignBundle\Tests\Controller;
 
-use Mautic\CampaignBundle\Tests\Campaign\AbstractCampaignTestCase;
+use MailVotech\CampaignBundle\Tests\Campaign\AbstractCampaignTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -44,16 +44,16 @@ final class CampaignUnpublishedWorkflowFunctionalTest extends AbstractCampaignTe
         $crawler  = $this->client->request('GET', sprintf('/s/campaigns/edit/%d', $campaign->getId()));
         $this->assertResponseIsSuccessful();
 
-        $republishBehavior = $translator->trans('mautic.campaignconfig.campaign_republish_behavior.'.$campaign->getRepublishBehavior());
+        $republishBehavior = $translator->trans('mailvotech.campaignconfig.campaign_republish_behavior.'.$campaign->getRepublishBehavior());
 
         $attributes = [
-            'onchange'               => 'Mautic.showCampaignConfirmation(mQuery(this));',
+            'onchange'               => 'MailVotech.showCampaignConfirmation(mQuery(this));',
             'data-toggle'            => 'confirmation',
-            'data-message-publish'   => $translator->trans('mautic.campaign.form.confirmation.message.publish', ['%republishBehavior%' => $republishBehavior]),
-            'data-message-unpublish' => $translator->trans('mautic.campaign.form.confirmation.message'),
-            'data-confirm-text'      => $translator->trans('mautic.campaign.form.confirmation.confirm_text'),
+            'data-message-publish'   => $translator->trans('mailvotech.campaign.form.confirmation.message.publish', ['%republishBehavior%' => $republishBehavior]),
+            'data-message-unpublish' => $translator->trans('mailvotech.campaign.form.confirmation.message'),
+            'data-confirm-text'      => $translator->trans('mailvotech.campaign.form.confirmation.confirm_text'),
             'data-confirm-callback'  => 'dismissConfirmation',
-            'data-cancel-text'       => $translator->trans('mautic.campaign.form.confirmation.cancel_text'),
+            'data-cancel-text'       => $translator->trans('mailvotech.campaign.form.confirmation.cancel_text'),
             'data-cancel-callback'   => 'setPublishedButtonToYes',
         ];
 
@@ -76,17 +76,17 @@ final class CampaignUnpublishedWorkflowFunctionalTest extends AbstractCampaignTe
         $crawler  = $this->client->request('GET', '/s/campaigns');
         $this->assertResponseIsSuccessful();
 
-        $republishBehavior = $translator->trans('mautic.campaignconfig.campaign_republish_behavior.'.$campaign->getRepublishBehavior());
+        $republishBehavior = $translator->trans('mailvotech.campaignconfig.campaign_republish_behavior.'.$campaign->getRepublishBehavior());
 
         $attributes = [
-            'onclick'                => 'Mautic.confirmationCampaignPublishStatus(mQuery(this));',
+            'onclick'                => 'MailVotech.confirmationCampaignPublishStatus(mQuery(this));',
             'data-toggle'            => 'confirmation',
             'data-confirm-callback'  => 'confirmCallbackCampaignPublishStatus',
             'data-cancel-callback'   => 'dismissConfirmation',
-            'data-message-publish'   => $translator->trans('mautic.campaign.form.confirmation.message.publish', ['%republishBehavior%' => $republishBehavior]),
-            'data-message-unpublish' => $translator->trans('mautic.campaign.form.confirmation.message'),
-            'data-confirm-text'      => $translator->trans('mautic.campaign.form.confirmation.confirm_text'),
-            'data-cancel-text'       => $translator->trans('mautic.campaign.form.confirmation.cancel_text'),
+            'data-message-publish'   => $translator->trans('mailvotech.campaign.form.confirmation.message.publish', ['%republishBehavior%' => $republishBehavior]),
+            'data-message-unpublish' => $translator->trans('mailvotech.campaign.form.confirmation.message'),
+            'data-confirm-text'      => $translator->trans('mailvotech.campaign.form.confirmation.confirm_text'),
+            'data-cancel-text'       => $translator->trans('mailvotech.campaign.form.confirmation.cancel_text'),
         ];
 
         $toggleElement = $crawler->filter('.toggle-publish-status');
@@ -106,13 +106,13 @@ final class CampaignUnpublishedWorkflowFunctionalTest extends AbstractCampaignTe
         $this->assertResponseIsSuccessful();
 
         $attributes    = [
-            'onclick'               => 'Mautic.confirmationCampaignPublishStatus(mQuery(this));',
+            'onclick'               => 'MailVotech.confirmationCampaignPublishStatus(mQuery(this));',
             'data-toggle'           => 'confirmation',
             'data-confirm-callback' => 'confirmCallbackCampaignPublishStatus',
             'data-cancel-callback'  => 'dismissConfirmation',
-            'data-message'          => $translator->trans('mautic.campaign.form.confirmation.message'),
-            'data-confirm-text'     => $translator->trans('mautic.campaign.form.confirmation.confirm_text'),
-            'data-cancel-text'      => $translator->trans('mautic.campaign.form.confirmation.cancel_text'),
+            'data-message'          => $translator->trans('mailvotech.campaign.form.confirmation.message'),
+            'data-confirm-text'     => $translator->trans('mailvotech.campaign.form.confirmation.confirm_text'),
+            'data-cancel-text'      => $translator->trans('mailvotech.campaign.form.confirmation.cancel_text'),
         ];
 
         $content = $response->getContent();

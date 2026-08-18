@@ -1,7 +1,7 @@
 //ConfigBundle
 
-Mautic.removeConfigValue = function(action, el) {
-    Mautic.executeAction(action, function(response) {
+MailVotech.removeConfigValue = function(action, el) {
+    MailVotech.executeAction(action, function(response) {
     	if (response.success) {
             mQuery(el).parent().addClass('hide');
         }
@@ -12,7 +12,7 @@ Mautic.removeConfigValue = function(action, el) {
  *
  * @returns string|false
  */
-Mautic.parseQuery = function (query) {
+MailVotech.parseQuery = function (query) {
     var vars = query.split('&');
     var queryString = {};
     for (var i = 0; i < vars.length; i++) {
@@ -34,7 +34,7 @@ Mautic.parseQuery = function (query) {
     return queryString;
 }
 
-Mautic.parseUrlHashParameter = function(url) {
+MailVotech.parseUrlHashParameter = function(url) {
     var url = url.split('#');
     if ('undefined' != typeof url[1]) {
         return url[1];
@@ -43,13 +43,13 @@ Mautic.parseUrlHashParameter = function(url) {
     return false;
 }
 
-Mautic.observeConfigTabs = function() {
+MailVotech.observeConfigTabs = function() {
 
     if (!mQuery('#config_coreconfig_last_shown_tab').length) {
         return;
     }
 
-    var parameters = Mautic.parseQuery(window.location.search.substr(1));
+    var parameters = MailVotech.parseQuery(window.location.search.substr(1));
     if ('undefined' != typeof parameters['tab']) {
         mQuery('#config_coreconfig_last_shown_tab').val(parameters['tab']);
         mQuery('a[data-toggle="tab"]').each(function (i, tab) {
@@ -60,14 +60,14 @@ Mautic.observeConfigTabs = function() {
     }
 
     mQuery('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-        var tab = Mautic.parseUrlHashParameter(e.target.href);
+        var tab = MailVotech.parseUrlHashParameter(e.target.href);
         if (tab) {
             mQuery('#config_coreconfig_last_shown_tab').val(tab);
         }
     });
 }
 
-Mautic.resetEmailsToNotification = function(obj) {
+MailVotech.resetEmailsToNotification = function(obj) {
     const send_to_owner = obj.value;
     if (parseInt(send_to_owner, 10) === 1)
     {
@@ -75,13 +75,13 @@ Mautic.resetEmailsToNotification = function(obj) {
     }
 };
 
-Mautic.configDsnTestExecute = function(element, action, key) {
+MailVotech.configDsnTestExecute = function(element, action, key) {
     const $button = mQuery(element),
         $container = $button.closest('.config-dsn-container');
 
     $container.find('.ri-loader-3-line').removeClass('hide');
 
-    Mautic.ajaxActionRequest(action, {key: key}, function(response) {
+    MailVotech.ajaxActionRequest(action, {key: key}, function(response) {
         const theClass = (response.success) ? 'has-success' : 'has-error',
             theMessage = response.message;
         $container.find('.config-dsn-test-container').removeClass('has-success has-error').addClass(theClass);
@@ -90,7 +90,7 @@ Mautic.configDsnTestExecute = function(element, action, key) {
     });
 };
 
-Mautic.configDsnTestDisable = function(element) {
+MailVotech.configDsnTestDisable = function(element) {
     const $container = mQuery(element).closest('.config-dsn-container');
 
     $container.find('.help-block .status-msg').html('');
@@ -99,7 +99,7 @@ Mautic.configDsnTestDisable = function(element) {
 };
 
 
-Mautic.showAnonymizeWarningMessage = function(anonymize_ip) {
+MailVotech.showAnonymizeWarningMessage = function(anonymize_ip) {
     if (mQuery(anonymize_ip).siblings('.toggle__label').attr('aria-checked') === 'true') {
         mQuery('.anonymize_ip_address').addClass('hide');
     } else {
@@ -107,4 +107,4 @@ Mautic.showAnonymizeWarningMessage = function(anonymize_ip) {
     }
 };
 
-mQuery(Mautic.observeConfigTabs);
+mQuery(MailVotech.observeConfigTabs);

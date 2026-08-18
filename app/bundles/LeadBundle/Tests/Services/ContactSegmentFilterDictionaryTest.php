@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Services;
+namespace MailVotech\LeadBundle\Tests\Services;
 
-use Mautic\LeadBundle\Event\SegmentDictionaryGenerationEvent;
-use Mautic\LeadBundle\Exception\FilterNotFoundException;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Services\ContactSegmentFilterDictionary;
+use MailVotech\LeadBundle\Event\SegmentDictionaryGenerationEvent;
+use MailVotech\LeadBundle\Exception\FilterNotFoundException;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Services\ContactSegmentFilterDictionary;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -32,7 +32,7 @@ final class ContactSegmentFilterDictionaryTest extends TestCase
                 return true;
             }), LeadEvents::SEGMENT_DICTIONARY_ON_GENERATE);
 
-        $this->assertSame(['type' => 'mautic.lead.query.builder.special.dnc'], $dictionary->getFilter('dnc_bounced'));
+        $this->assertSame(['type' => 'mailvotech.lead.query.builder.special.dnc'], $dictionary->getFilter('dnc_bounced'));
         $this->assertSame('campaign_leads.manually_removed = 0', $dictionary->getFilterProperty('campaign', 'where'));
         $this->assertSame('blah blah', $dictionary->getFilterProperty('plugin_key', 'type'));
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\InstallBundle\Helper;
+namespace MailVotech\InstallBundle\Helper;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
@@ -12,8 +12,8 @@ use Doctrine\DBAL\Schema\Index;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\SchemaTool;
-use Mautic\CoreBundle\Release\ThisRelease;
-use Mautic\InstallBundle\Exception\DatabaseVersionTooOldException;
+use MailVotech\CoreBundle\Release\ThisRelease;
+use MailVotech\InstallBundle\Exception\DatabaseVersionTooOldException;
 
 final class SchemaHelper
 {
@@ -141,19 +141,19 @@ final class SchemaHelper
 
         $schemaTool    = new SchemaTool($this->em);
         $installSchema = $schemaTool->getSchemaFromMetadata($metadatas);
-        $mauticTables  = [];
+        $mailvotechTables  = [];
 
         foreach ($installSchema->getTables() as $m) {
             $tableName                = $m->getName();
-            $mauticTables[$tableName] = $this->generateBackupName($this->dbParams['table_prefix'], $backupPrefix, $tableName);
+            $mailvotechTables[$tableName] = $this->generateBackupName($this->dbParams['table_prefix'], $backupPrefix, $tableName);
         }
 
         $isSqlite = $this->em->getConnection()->getDatabasePlatform() instanceof SqlitePlatform;
         $sql      = $isSqlite ? [] : ['SET foreign_key_checks = 0;'];
         if ($this->dbParams['backup_tables']) {
-            $sql = array_merge($sql, $this->backupExistingSchema($tables, $mauticTables, $backupPrefix));
+            $sql = array_merge($sql, $this->backupExistingSchema($tables, $mailvotechTables, $backupPrefix));
         } else {
-            $sql = array_merge($sql, $this->dropExistingSchema($tables, $mauticTables));
+            $sql = array_merge($sql, $this->dropExistingSchema($tables, $mailvotechTables));
         }
 
         $sql = array_merge($sql, $installSchema->toSql($this->platform));
@@ -192,7 +192,7 @@ final class SchemaHelper
         } elseif (str_contains($platform, 'mysql')) {
             $minSupported = $metadata->getMinSupportedMySqlVersion();
         } else {
-            throw new \Exception('Invalid database platform '.$platform.'. Mautic only supports MySQL and MariaDB!');
+            throw new \Exception('Invalid database platform '.$platform.'. MailVotech only supports MySQL and MariaDB!');
         }
 
         if (version_compare($version, $minSupported, '<')) {
@@ -203,7 +203,7 @@ final class SchemaHelper
     /**
      * @throws \Doctrine\DBAL\Exception
      */
-    private function backupExistingSchema($tables, array $mauticTables, $backupPrefix): array
+    private function backupExistingSchema($tables, array $mailvotechTables, $backupPrefix): array
     {
         $sql = [];
         $sm  = $this->getSchemaManager();
@@ -213,17 +213,17 @@ final class SchemaHelper
 
         // cycle through the first time to drop all the foreign keys
         foreach ($tables as $t) {
-            if (!isset($mauticTables[$t]) && !in_array($t, $mauticTables)) {
+            if (!isset($mailvotechTables[$t]) && !in_array($t, $mailvotechTables)) {
                 // Not an applicable table
                 continue;
             }
 
             $restraints = $sm->listTableForeignKeys($t);
 
-            if (isset($mauticTables[$t])) {
+            if (isset($mailvotechTables[$t])) {
                 // to be backed up
-                $backupRestraints[$mauticTables[$t]] = $restraints;
-                $backupTables[$t]                    = $mauticTables[$t];
+                $backupRestraints[$mailvotechTables[$t]] = $restraints;
+                $backupTables[$t]                    = $mailvotechTables[$t];
                 $backupIndexes[$t]                   = $sm->listTableIndexes($t);
             } else {
                 // existing backup to be dropped
@@ -297,13 +297,13 @@ final class SchemaHelper
         return $sql;
     }
 
-    private function dropExistingSchema($tables, array $mauticTables): array
+    private function dropExistingSchema($tables, array $mailvotechTables): array
     {
         $sql = [];
 
         // drop tables
         foreach ($tables as $t) {
-            if (isset($mauticTables[$t])) {
+            if (isset($mailvotechTables[$t])) {
                 $sql[] = $this->platform->getDropTableSQL($t);
             }
         }

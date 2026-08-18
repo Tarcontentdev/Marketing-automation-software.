@@ -1,23 +1,23 @@
 <?php
 
-namespace Mautic\PluginBundle\Model;
+namespace MailVotech\PluginBundle\Model;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Mautic\CoreBundle\Helper\BundleHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Field\FieldList;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Entity\IntegrationEntityRepository;
-use Mautic\PluginBundle\Entity\Plugin;
-use Mautic\PluginBundle\Entity\PluginRepository;
+use MailVotech\CoreBundle\Helper\BundleHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Field\FieldList;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Entity\IntegrationEntityRepository;
+use MailVotech\PluginBundle\Entity\Plugin;
+use MailVotech\PluginBundle\Entity\PluginRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -38,11 +38,11 @@ class PluginModel extends FormModel
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         private readonly PluginRepository $pluginRepository,
         private readonly IntegrationEntityRepository $integrationEntityRepository,
     ) {
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function getRepository(): PluginRepository
@@ -119,7 +119,7 @@ class PluginModel extends FormModel
         foreach ($allMetadata as $meta) {
             $namespace = $meta->namespace;
 
-            if (str_contains($namespace, 'MauticPlugin')) {
+            if (str_contains($namespace, 'MailVotechPlugin')) {
                 $bundleName = preg_replace('/\\\Entity$/', '', $namespace);
                 if (!isset($pluginsMetadata[$bundleName])) {
                     $pluginsMetadata[$bundleName] = [];

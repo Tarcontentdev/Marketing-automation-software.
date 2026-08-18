@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\PointBundle\Entity\Group;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\PointBundle\Entity\Group;
 
 class PointsChangeLog
 {

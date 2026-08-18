@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\PointBundle\Tests\Functional;
+namespace MailVotech\PointBundle\Tests\Functional;
 
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\Trigger;
-use Mautic\PointBundle\Entity\TriggerEvent;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\Trigger;
+use MailVotech\PointBundle\Entity\TriggerEvent;
 
 trait TriggerTrait
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Model\AbTest;
+namespace MailVotech\EmailBundle\Model\AbTest;
 
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Email;
 
 final class EmailStatus
 {

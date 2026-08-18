@@ -12,7 +12,7 @@ return function (ContainerConfigurator $configurator): void {
         ->autoconfigure();
 
     $services
-        ->load('Mautic\\MessengerBundle\\', '../')
+        ->load('MailVotech\\MessengerBundle\\', '../')
         ->exclude('../{Config,Tests,Message}');
 
     $services->alias(TransportFactory::class, 'messenger.transport_factory');

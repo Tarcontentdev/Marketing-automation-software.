@@ -7,7 +7,7 @@ on:
 
 jobs:
   sync-scaffolding:
-    if: github.actor == 'dependabot[bot]' && startsWith(github.head_ref, 'dependabot/') && github.repository == 'mautic/mautic'
+    if: github.actor == 'dependabot[bot]' && startsWith(github.head_ref, 'dependabot/') && github.repository == 'mailvotech/mailvotech'
     runs-on: ubuntu-latest
     permissions:
       contents: write

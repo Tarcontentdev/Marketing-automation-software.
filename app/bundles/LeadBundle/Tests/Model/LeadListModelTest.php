@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Model;
+namespace MailVotech\LeadBundle\Tests\Model;
 
-use Mautic\CoreBundle\Helper\Serializer;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\CoreBundle\Helper\Serializer;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Model\ListModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 

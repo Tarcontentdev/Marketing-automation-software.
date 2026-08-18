@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,7 +18,7 @@ final class ListActionType extends AbstractType
             'addToLists',
             LeadListType::class,
             [
-                'label'      => 'mautic.lead.lead.events.addtolists',
+                'label'      => 'mailvotech.lead.lead.events.addtolists',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -32,7 +32,7 @@ final class ListActionType extends AbstractType
             'removeFromLists',
             LeadListType::class,
             [
-                'label'      => 'mautic.lead.lead.events.removefromlists',
+                'label'      => 'mailvotech.lead.lead.events.removefromlists',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',

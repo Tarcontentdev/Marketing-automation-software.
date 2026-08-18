@@ -2,10 +2,10 @@
 {% set tooltip = tooltip is defined ? tooltip : null %}
 
 {{ buttonReset(
-    constant('Mautic\\CoreBundle\\Twig\\Helper\\ButtonHelper::LOCATION_PAGE_ACTIONS'),
-    constant('Mautic\\CoreBundle\\Twig\\Helper\\ButtonHelper::TYPE_BUTTON_DROPDOWN'),
+    constant('MailVotech\\CoreBundle\\Twig\\Helper\\ButtonHelper::LOCATION_PAGE_ACTIONS'),
+    constant('MailVotech\\CoreBundle\\Twig\\Helper\\ButtonHelper::TYPE_BUTTON_DROPDOWN'),
     item) }}
-{{- include('@MauticCore/Helper/action_button_helper.html.twig') -}}
+{{- include('@MailVotechCore/Helper/action_button_helper.html.twig') -}}
 {{ restore('action_button_helper') }}
 
 {% if templateButtons is not empty %}
@@ -18,11 +18,11 @@
 
 <div class="dropdown">
     {% if dropdownItems %}
-    {% include '@MauticCore/Helper/button.html.twig' with {
+    {% include '@MailVotechCore/Helper/button.html.twig' with {
         buttons: [
             {
                 variant: 'ghost',
-                label: toolbarOptionsLabel|default('mautic.core.options'),
+                label: toolbarOptionsLabel|default('mailvotech.core.options'),
                 icon_only: true,
                 icon: toolbarOptionsIcon|default('ri-settings-5-line ri-1x'),
                 attributes: {

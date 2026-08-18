@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Model;
+namespace MailVotech\FormBundle\Tests\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
-use Mautic\CoreBundle\Doctrine\Helper\TableSchemaHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ThemeHelperInterface;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\FormBundle\Collector\MappedObjectCollectorInterface;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\FormRepository;
-use Mautic\FormBundle\Helper\FormFieldHelper;
-use Mautic\FormBundle\Helper\FormUploader;
-use Mautic\FormBundle\Model\ActionModel;
-use Mautic\FormBundle\Model\FieldModel;
-use Mautic\FormBundle\Model\FormModel;
-use Mautic\LeadBundle\Helper\PrimaryCompanyHelper;
-use Mautic\LeadBundle\Model\FieldModel as LeadFieldModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
+use MailVotech\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
+use MailVotech\CoreBundle\Doctrine\Helper\TableSchemaHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelperInterface;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\FormBundle\Collector\MappedObjectCollectorInterface;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\FormRepository;
+use MailVotech\FormBundle\Helper\FormFieldHelper;
+use MailVotech\FormBundle\Helper\FormUploader;
+use MailVotech\FormBundle\Model\ActionModel;
+use MailVotech\FormBundle\Model\FieldModel;
+use MailVotech\FormBundle\Model\FormModel;
+use MailVotech\LeadBundle\Helper\PrimaryCompanyHelper;
+use MailVotech\LeadBundle\Model\FieldModel as LeadFieldModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -79,10 +79,10 @@ final class DeleteFormTest extends \PHPUnit\Framework\TestCase
         $dispatcher->expects($matcher)
             ->method('hasListeners')->willReturnCallback(function (...$parameters) use ($matcher): false {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.form_pre_delete', $parameters[0]);
+                    $this->assertSame('mailvotech.form_pre_delete', $parameters[0]);
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.form_post_delete', $parameters[0]);
+                    $this->assertSame('mailvotech.form_post_delete', $parameters[0]);
                 }
 
                 return false;

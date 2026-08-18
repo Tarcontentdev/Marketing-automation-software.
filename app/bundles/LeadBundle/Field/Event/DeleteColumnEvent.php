@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field\Event;
+namespace MailVotech\LeadBundle\Field\Event;
 
-use Mautic\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadField;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class DeleteColumnEvent extends Event

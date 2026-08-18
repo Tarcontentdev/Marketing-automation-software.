@@ -49,7 +49,7 @@
 {% set common_tags_content %}
     {% if tags is defined %}
         <div class="mt-16">
-            {% include '@MauticCore/Helper/_tag.html.twig' with {'tags': tags} %}
+            {% include '@MailVotechCore/Helper/_tag.html.twig' with {'tags': tags} %}
         </div>
     {% endif %}
 {% endset %}
@@ -57,7 +57,7 @@
 {% set common_pictogram_content %}
     {% if type == 'pictogram' and pictogram is defined %}
         <div class="card__pictogram-wrapper mt-a">
-            {% include '@MauticCore/Components/pictogram.html.twig' with {'pictogram': pictogram, 'size': 48} %}
+            {% include '@MailVotechCore/Components/pictogram.html.twig' with {'pictogram': pictogram, 'size': 48} %}
         </div>
     {% endif %}
 {% endset %}
@@ -74,13 +74,13 @@
                     {{ common_tags_content }}
                     <div class="card__footer-wrapper">
                         {% if cta is defined %}
-                            {% include '@MauticCore/Helper/button.html.twig' with {'buttons': [cta|merge({'variant': 'link', 'icon': 'ri-arrow-right-line', 'attributes': {'class': 'type-body-02'}})]} %}
+                            {% include '@MailVotechCore/Helper/button.html.twig' with {'buttons': [cta|merge({'variant': 'link', 'icon': 'ri-arrow-right-line', 'attributes': {'class': 'type-body-02'}})]} %}
                         {% endif %}
                     </div>
                 </div>
             </div>
         {% endset %}
-        {% include '@MauticCore/Components/tile.html.twig' with {
+        {% include '@MailVotechCore/Components/tile.html.twig' with {
             type: 'base',
             content: cardContent,
             className: 'card pa-0' ~ (disabled is defined ? ' tile--disabled' : ''),
@@ -99,7 +99,7 @@
                 </div>
             </div>
         {% endset %}
-        {% include '@MauticCore/Components/tile.html.twig' with {
+        {% include '@MailVotechCore/Components/tile.html.twig' with {
             type: 'clickable',
             content: cardContent,
             className: 'card pa-0 card--link' ~ (disabled is defined ? ' tile--disabled' : ''),
@@ -118,7 +118,7 @@
             </div>
             
         {% endset %}
-        {% include '@MauticCore/Components/tile.html.twig' with {
+        {% include '@MailVotechCore/Components/tile.html.twig' with {
             type: 'clickable',
             content: cardContent,
             className: 'card pa-0 card--link' ~ (disabled is defined ? ' tile--disabled' : ''),
@@ -137,7 +137,7 @@
                 </div>
             </div>
         {% endset %}
-        {% include '@MauticCore/Components/tile.html.twig' with {
+        {% include '@MailVotechCore/Components/tile.html.twig' with {
             type: 'clickable',
             content: cardContent,
             className: 'card pa-0 card--link' ~ (disabled is defined ? ' tile--disabled' : ''),
@@ -158,7 +158,7 @@
                 </div>
             </div>
         {% endset %}
-        {% include '@MauticCore/Components/tile.html.twig' with {
+        {% include '@MailVotechCore/Components/tile.html.twig' with {
             type: 'clickable',
             content: cardContent,
             className: 'card pa-0 card--link' ~ (disabled is defined ? ' tile--disabled' : ''),
@@ -181,7 +181,7 @@
             </div>
         </div>
         {% endset %}
-        {% include '@MauticCore/Components/tile.html.twig' with {
+        {% include '@MailVotechCore/Components/tile.html.twig' with {
             type: 'clickable',
             content: cardContent,
             className: 'card pa-0 card--link',
@@ -206,7 +206,7 @@
             </div>
         </div>
         {% endset %}
-        {% include '@MauticCore/Components/tile.html.twig' with {
+        {% include '@MailVotechCore/Components/tile.html.twig' with {
             type: 'clickable',
             content: cardContent,
             className: 'card pa-0 card--link',

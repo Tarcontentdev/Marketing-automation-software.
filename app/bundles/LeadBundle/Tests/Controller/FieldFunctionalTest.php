@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller;
+namespace MailVotech\LeadBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Model\FieldModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DomCrawler\Field\InputFormField;
 use Symfony\Component\HttpFoundation\Request;
 
-final class FieldFunctionalTest extends MauticMysqlTestCase
+final class FieldFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -25,7 +25,7 @@ final class FieldFunctionalTest extends MauticMysqlTestCase
         $field      = $this->createField('a', 'text', [], $inputLength);
         $fieldModel->saveEntity($field);
 
-        $tablePrefix = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $tablePrefix = self::getContainer()->getParameter('mailvotech.db_table_prefix');
         $columns     = $this->connection->createSchemaManager()->listTableColumns("{$tablePrefix}leads");
         $this->assertEquals($expectedLength, $columns[$field->getAlias()]->getLength());
     }
@@ -37,7 +37,7 @@ final class FieldFunctionalTest extends MauticMysqlTestCase
         $field      = $this->createField('s', 'select', ['properties' => ['list' => ['choice_a' => 'Choice A']]]);
         $fieldModel->saveEntity($field);
 
-        $tablePrefix = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $tablePrefix = self::getContainer()->getParameter('mailvotech.db_table_prefix');
         $columns     = $this->connection->createSchemaManager()->listTableColumns("{$tablePrefix}leads");
         $this->assertArrayHasKey('field_s', $columns);
     }

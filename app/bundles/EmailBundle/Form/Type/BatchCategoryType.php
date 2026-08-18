@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\ORM\QueryBuilder;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CategoryBundle\Entity\CategoryRepository;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CategoryBundle\Entity\CategoryRepository;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -47,7 +47,7 @@ final class BatchCategoryType extends AbstractType
             FormButtonsType::class,
             [
                 'apply_text'     => false,
-                'save_text'      => 'mautic.core.form.save',
+                'save_text'      => 'mailvotech.core.form.save',
                 'cancel_onclick' => 'javascript:void(0);',
                 'cancel_attr'    => [
                     'data-dismiss' => 'modal',

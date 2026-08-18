@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Executioner\Dispatcher\Exception;
+namespace MailVotech\CampaignBundle\Executioner\Dispatcher\Exception;
 
-use Mautic\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
 
 final class LogPassedAndFailedException extends \Exception
 {

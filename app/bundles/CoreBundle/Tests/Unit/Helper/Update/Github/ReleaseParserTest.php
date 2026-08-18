@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper\Update\Github;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper\Update\Github;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Mautic\CoreBundle\Helper\Update\Exception\LatestVersionSupportedException;
-use Mautic\CoreBundle\Helper\Update\Github\ReleaseParser;
+use MailVotech\CoreBundle\Helper\Update\Exception\LatestVersionSupportedException;
+use MailVotech\CoreBundle\Helper\Update\Github\ReleaseParser;
 use PHPUnit\Framework\TestCase;
 
 final class ReleaseParserTest extends TestCase
@@ -58,10 +58,10 @@ final class ReleaseParserTest extends TestCase
     public function testMatchingReleaseReturnedForAlphaStability(): void
     {
         $expects       = '3.0.1-beta';
-        $mauticVersion = '3.0.0-alpha';
+        $mailvotechVersion = '3.0.0-alpha';
         $stability     = 'alpha';
 
-        $release = $this->releaseParser->getLatestSupportedRelease($this->getReleases(), $mauticVersion, $stability);
+        $release = $this->releaseParser->getLatestSupportedRelease($this->getReleases(), $mailvotechVersion, $stability);
 
         $this->assertSame($expects, $release->getVersion());
     }
@@ -69,10 +69,10 @@ final class ReleaseParserTest extends TestCase
     public function testMatchingReleaseReturnedForBetaStability(): void
     {
         $expects       = '3.0.1-beta';
-        $mauticVersion = '3.0.0-alpha';
+        $mailvotechVersion = '3.0.0-alpha';
         $stability     = 'beta';
 
-        $release = $this->releaseParser->getLatestSupportedRelease($this->getReleases(), $mauticVersion, $stability);
+        $release = $this->releaseParser->getLatestSupportedRelease($this->getReleases(), $mailvotechVersion, $stability);
 
         $this->assertSame($expects, $release->getVersion());
     }
@@ -80,21 +80,21 @@ final class ReleaseParserTest extends TestCase
     public function testMatchingReleaseReturnedForStableStability(): void
     {
         $expects       = '3.0.0';
-        $mauticVersion = '2.20.0';
+        $mailvotechVersion = '2.20.0';
         $stability     = 'stable';
 
-        $release = $this->releaseParser->getLatestSupportedRelease($this->getReleases(), $mauticVersion, $stability);
+        $release = $this->releaseParser->getLatestSupportedRelease($this->getReleases(), $mailvotechVersion, $stability);
 
         $this->assertSame($expects, $release->getVersion());
     }
 
-    public function testMatchingReleaseReturnedForMinimumMauticVersion(): void
+    public function testMatchingReleaseReturnedForMinimumMailVotechVersion(): void
     {
         $expects       = '2.15.0';
-        $mauticVersion = '2.1.0';
+        $mailvotechVersion = '2.1.0';
         $stability     = 'stable';
 
-        $release = $this->releaseParser->getLatestSupportedRelease($this->getReleases(), $mauticVersion, $stability);
+        $release = $this->releaseParser->getLatestSupportedRelease($this->getReleases(), $mailvotechVersion, $stability);
 
         $this->assertSame($expects, $release->getVersion());
     }
@@ -103,7 +103,7 @@ final class ReleaseParserTest extends TestCase
     {
         $this->expectException(LatestVersionSupportedException::class);
 
-        $mauticVersion = '2.16.0';
+        $mailvotechVersion = '2.16.0';
         $stability     = 'stable';
 
         $client = new Client(
@@ -116,14 +116,14 @@ final class ReleaseParserTest extends TestCase
             ]
         );
 
-        (new ReleaseParser($client))->getLatestSupportedRelease([['html_url' => 'foo://bar']], $mauticVersion, $stability);
+        (new ReleaseParser($client))->getLatestSupportedRelease([['html_url' => 'foo://bar']], $mailvotechVersion, $stability);
     }
 
     public function testLatestVersionSupportedExceptionThrownIfMetadataNotFound(): void
     {
         $this->expectException(LatestVersionSupportedException::class);
 
-        $mauticVersion = '2.16.0';
+        $mailvotechVersion = '2.16.0';
         $stability     = 'stable';
 
         $client = new Client(
@@ -136,7 +136,7 @@ final class ReleaseParserTest extends TestCase
             ]
         );
 
-        (new ReleaseParser($client))->getLatestSupportedRelease([['html_url' => 'foo://bar']], $mauticVersion, $stability);
+        (new ReleaseParser($client))->getLatestSupportedRelease([['html_url' => 'foo://bar']], $mailvotechVersion, $stability);
     }
 
     /**

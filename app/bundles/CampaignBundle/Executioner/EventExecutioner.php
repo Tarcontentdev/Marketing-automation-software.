@@ -1,24 +1,24 @@
 <?php
 
-namespace Mautic\CampaignBundle\Executioner;
+namespace MailVotech\CampaignBundle\Executioner;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\FailedLeadEventLog;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\EventCollector\Accessor\Exception\TypeNotFoundException;
-use Mautic\CampaignBundle\EventCollector\EventCollector;
-use Mautic\CampaignBundle\EventListener\CampaignActionJumpToEventSubscriber;
-use Mautic\CampaignBundle\Executioner\Event\ActionExecutioner;
-use Mautic\CampaignBundle\Executioner\Event\ConditionExecutioner;
-use Mautic\CampaignBundle\Executioner\Event\DecisionExecutioner;
-use Mautic\CampaignBundle\Executioner\Logger\EventLogger;
-use Mautic\CampaignBundle\Executioner\Result\Counter;
-use Mautic\CampaignBundle\Executioner\Result\EvaluatedContacts;
-use Mautic\CampaignBundle\Executioner\Result\Responses;
-use Mautic\CampaignBundle\Executioner\Scheduler\EventScheduler;
-use Mautic\CampaignBundle\Helper\RemovedContactTracker;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\FailedLeadEventLog;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Exception\TypeNotFoundException;
+use MailVotech\CampaignBundle\EventCollector\EventCollector;
+use MailVotech\CampaignBundle\EventListener\CampaignActionJumpToEventSubscriber;
+use MailVotech\CampaignBundle\Executioner\Event\ActionExecutioner;
+use MailVotech\CampaignBundle\Executioner\Event\ConditionExecutioner;
+use MailVotech\CampaignBundle\Executioner\Event\DecisionExecutioner;
+use MailVotech\CampaignBundle\Executioner\Logger\EventLogger;
+use MailVotech\CampaignBundle\Executioner\Result\Counter;
+use MailVotech\CampaignBundle\Executioner\Result\EvaluatedContacts;
+use MailVotech\CampaignBundle\Executioner\Result\Responses;
+use MailVotech\CampaignBundle\Executioner\Scheduler\EventScheduler;
+use MailVotech\CampaignBundle\Helper\RemovedContactTracker;
+use MailVotech\LeadBundle\Entity\Lead;
 use Psr\Log\LoggerInterface;
 
 class EventExecutioner

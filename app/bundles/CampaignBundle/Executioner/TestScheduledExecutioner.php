@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Executioner;
+namespace MailVotech\CampaignBundle\Executioner;
 
 /**
  * @internal Used in tests

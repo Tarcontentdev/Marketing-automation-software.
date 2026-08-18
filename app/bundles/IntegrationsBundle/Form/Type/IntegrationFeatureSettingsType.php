@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Form\Type;
+namespace MailVotech\IntegrationsBundle\Form\Type;
 
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormFeatureSettingsInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormFeatureSettingsInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

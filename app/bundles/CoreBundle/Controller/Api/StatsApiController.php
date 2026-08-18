@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\CoreBundle\Controller\Api;
+namespace MailVotech\CoreBundle\Controller\Api;
 
-use Mautic\ApiBundle\Controller\CommonApiController;
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\StatsEvent;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
+use MailVotech\ApiBundle\Controller\CommonApiController;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\StatsEvent;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

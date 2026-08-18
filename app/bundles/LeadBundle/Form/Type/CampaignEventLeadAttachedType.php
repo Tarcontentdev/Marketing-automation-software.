@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Model\ListModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -27,7 +27,7 @@ final class CampaignEventLeadAttachedType extends AbstractType
             'timestamp',
             ChoiceType::class,
             [
-                'label'             => 'mautic.lead.lead.events.campaigns.timestamp',
+                'label'             => 'mailvotech.lead.lead.events.campaigns.timestamp',
                 'label_attr'        => ['class' => 'control-label'],
                 'multiple'          => false,
                 'choices'           => ['Campaign Start Date' => 'campaign_start_date'],
@@ -40,7 +40,7 @@ final class CampaignEventLeadAttachedType extends AbstractType
             'operator',
             ChoiceType::class,
             [
-                'label'             => 'mautic.lead.lead.events.campaigns.operator',
+                'label'             => 'mailvotech.lead.lead.events.campaigns.operator',
                 'multiple'          => false,
                 'choices'           => $this->listModel->getOperatorsForFieldType([
                     'include' => [
@@ -63,7 +63,7 @@ final class CampaignEventLeadAttachedType extends AbstractType
             'triggerInterval',
             NumberType::class,
             [
-                'label'     => 'mautic.lead.lead.events.campaigns.number',
+                'label'     => 'mailvotech.lead.lead.events.campaigns.number',
                 'attr'      => [
                     'class'    => 'form-control',
                 ],
@@ -77,13 +77,13 @@ final class CampaignEventLeadAttachedType extends AbstractType
             'triggerIntervalUnit',
             ChoiceType::class,
             [
-                'label'       => 'mautic.lead.lead.events.campaigns.unit',
+                'label'       => 'mailvotech.lead.lead.events.campaigns.unit',
                 'choices'     => [
-                    'mautic.campaign.event.intervalunit.choice.i' => 'i',
-                    'mautic.campaign.event.intervalunit.choice.h' => 'h',
-                    'mautic.campaign.event.intervalunit.choice.d' => 'd',
-                    'mautic.campaign.event.intervalunit.choice.m' => 'm',
-                    'mautic.campaign.event.intervalunit.choice.y' => 'y',
+                    'mailvotech.campaign.event.intervalunit.choice.i' => 'i',
+                    'mailvotech.campaign.event.intervalunit.choice.h' => 'h',
+                    'mailvotech.campaign.event.intervalunit.choice.d' => 'd',
+                    'mailvotech.campaign.event.intervalunit.choice.m' => 'm',
+                    'mailvotech.campaign.event.intervalunit.choice.y' => 'y',
                 ],
                 'multiple'          => false,
                 'label_attr'        => ['class' => 'control-label'],

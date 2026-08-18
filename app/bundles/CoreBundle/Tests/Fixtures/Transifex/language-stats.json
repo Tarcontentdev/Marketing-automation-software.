@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "id": "o:mautic:p:mautic:r:webhookbundle-messages:l:cs",
+      "id": "o:mailvotech:p:mailvotech:r:webhookbundle-messages:l:cs",
       "type": "resource_language_stats",
       "attributes": {
         "last_proofread_update": "XXXX-XX-XXTXX:XX:XXZ",
@@ -20,7 +20,7 @@
         "untranslated_words": 10
       },
       "links": {
-        "self": "/resource_stats/o:mautic:p:mautic:r:webhookbundle-messages:l:language_code"
+        "self": "/resource_stats/o:mailvotech:p:mailvotech:r:webhookbundle-messages:l:language_code"
       },
       "relationships": {
         "language": {
@@ -34,19 +34,19 @@
         },
         "resource": {
           "data": {
-            "id": "o:mautic:p:mautic:r:webhookbundle-messages",
+            "id": "o:mailvotech:p:mailvotech:r:webhookbundle-messages",
             "type": "resources"
           },
           "links": {
-            "related": "/resources/o:mautic:p:mautic:r:webhookbundle-messages"
+            "related": "/resources/o:mailvotech:p:mailvotech:r:webhookbundle-messages"
           }
         }
       }
     }
   ],
   "links": {
-    "last": "/resource_language_stats/o:mautic:p:mautic:r:webhookbundle-messages:l:language_code&page[cursor]=XXX",
-    "next": "/resource_language_stats/o:mautic:p:mautic:r:webhookbundle-messages:l:language_code&page[cursor]=XXX",
-    "self": "/resource_language_stats/o:mautic:p:mautic:r:webhookbundle-messages:l:language_code"
+    "last": "/resource_language_stats/o:mailvotech:p:mailvotech:r:webhookbundle-messages:l:language_code&page[cursor]=XXX",
+    "next": "/resource_language_stats/o:mailvotech:p:mailvotech:r:webhookbundle-messages:l:language_code&page[cursor]=XXX",
+    "self": "/resource_language_stats/o:mailvotech:p:mailvotech:r:webhookbundle-messages:l:language_code"
   }
 }

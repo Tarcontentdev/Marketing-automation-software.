@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\NotificationBundle\Api;
+namespace MailVotech\NotificationBundle\Api;
 
 use GuzzleHttp\Client;
-use Mautic\NotificationBundle\Entity\Notification;
-use Mautic\PageBundle\Model\TrackableModel;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\NotificationBundle\Entity\Notification;
+use MailVotech\PageBundle\Model\TrackableModel;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractNotificationApi

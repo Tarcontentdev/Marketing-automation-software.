@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
 
-final class Version20260501090000 extends AbstractMauticMigration
+final class Version20260501090000 extends AbstractMailVotechMigration
 {
     protected const TABLE_NAME = 'roles';
 
@@ -59,7 +59,7 @@ final class Version20260501090000 extends AbstractMauticMigration
             return [];
         }
 
-        $decoded = @\Mautic\CoreBundle\Helper\Serializer::decode($permissions);
+        $decoded = @\MailVotech\CoreBundle\Helper\Serializer::decode($permissions);
 
         return is_array($decoded) ? $decoded : [];
     }

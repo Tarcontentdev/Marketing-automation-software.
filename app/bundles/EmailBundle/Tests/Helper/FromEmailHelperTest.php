@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Helper;
+namespace MailVotech\EmailBundle\Tests\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Helper\DTO\AddressDTO;
-use Mautic\EmailBundle\Helper\Exception\OwnerNotFoundException;
-use Mautic\EmailBundle\Helper\FromEmailHelper;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Helper\DTO\AddressDTO;
+use MailVotech\EmailBundle\Helper\Exception\OwnerNotFoundException;
+use MailVotech\EmailBundle\Helper\FromEmailHelper;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

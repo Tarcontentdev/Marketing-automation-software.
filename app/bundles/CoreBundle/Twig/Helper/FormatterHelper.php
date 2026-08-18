@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Twig\Helper;
+namespace MailVotech\CoreBundle\Twig\Helper;
 
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\Serializer;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\Serializer;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class FormatterHelper
@@ -83,7 +83,7 @@ final readonly class FormatterHelper
                 $string = InputHelper::strict_html($val);
                 break;
             case 'bool':
-                $translate = $val ? 'mautic.core.yes' : 'mautic.core.no';
+                $translate = $val ? 'mailvotech.core.yes' : 'mailvotech.core.no';
                 $string    = $this->translator->trans($translate);
                 break;
             default:

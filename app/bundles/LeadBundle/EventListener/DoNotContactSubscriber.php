@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\LeadBundle\Event\DoNotContactAddEvent;
-use Mautic\LeadBundle\Event\DoNotContactRemoveEvent;
-use Mautic\LeadBundle\Model\DoNotContact;
+use MailVotech\LeadBundle\Event\DoNotContactAddEvent;
+use MailVotech\LeadBundle\Event\DoNotContactRemoveEvent;
+use MailVotech\LeadBundle\Model\DoNotContact;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class DoNotContactSubscriber implements EventSubscriberInterface

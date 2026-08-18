@@ -9,7 +9,7 @@
     - limit
     - totalItems
 #}
-{% set baseUrl = path('mautic_company_contacts_list', {'objectId': company_id}) %}
+{% set baseUrl = path('mailvotech_company_contacts_list', {'objectId': company_id}) %}
 {% set customButtons = [] %}
 
 {% if permissions['lead:leads:editown'] or permissions['load:leads:editother'] %}
@@ -18,66 +18,66 @@
             'attr': {
                 'class': 'btn btn-ghost btn-sm btn-nospin',
                 'data-toggle': 'ajaxmodal',
-                'data-target': '#MauticSharedModal',
-                'href': path('mautic_segment_batch_contact_view'),
-                'data-header': 'mautic.lead.batch.lists'|trans,
+                'data-target': '#MailVotechSharedModal',
+                'href': path('mailvotech_segment_batch_contact_view'),
+                'data-header': 'mailvotech.lead.batch.lists'|trans,
             },
-            'btnText': 'mautic.lead.batch.lists'|trans,
+            'btnText': 'mailvotech.lead.batch.lists'|trans,
             'iconClass': 'fa ri-pie-chart-line',
         },
         {
             'attr': {
                 'class': 'btn btn-ghost btn-sm btn-nospin',
                 'data-toggle': 'ajaxmodal',
-                'data-target': '#MauticSharedModal',
-                'href': path('mautic_contact_action', {'objectAction': 'batchStages'}),
-                'data-header': 'mautic.lead.batch.stages'|trans,
+                'data-target': '#MailVotechSharedModal',
+                'href': path('mailvotech_contact_action', {'objectAction': 'batchStages'}),
+                'data-header': 'mailvotech.lead.batch.stages'|trans,
             },
-            'btnText': 'mautic.lead.batch.stages'|trans,
+            'btnText': 'mailvotech.lead.batch.stages'|trans,
             'iconClass': 'ri-speed-up-line',
         },
         {
             'attr': {
                 'class': 'btn btn-ghost btn-sm btn-nospin',
                 'data-toggle': 'ajaxmodal',
-                'data-target': '#MauticSharedModal',
-                'href': path('mautic_contact_action', {'objectAction': 'batchCampaigns'}),
-                'data-header': 'mautic.lead.batch.campaigns'|trans,
+                'data-target': '#MailVotechSharedModal',
+                'href': path('mailvotech_contact_action', {'objectAction': 'batchCampaigns'}),
+                'data-header': 'mailvotech.lead.batch.campaigns'|trans,
             },
-            'btnText': 'mautic.lead.batch.campaigns'|trans,
+            'btnText': 'mailvotech.lead.batch.campaigns'|trans,
             'iconClass': 'ri-time-line',
         },
         {
             'attr': {
                 'class': 'btn btn-ghost btn-sm btn-nospin',
                 'data-toggle': 'ajaxmodal',
-                'data-target': '#MauticSharedModal',
-                'href': path('mautic_contact_action', {'objectAction': 'batchOwners'}),
-                'data-header': 'mautic.lead.batch.owner'|trans,
+                'data-target': '#MailVotechSharedModal',
+                'href': path('mailvotech_contact_action', {'objectAction': 'batchOwners'}),
+                'data-header': 'mailvotech.lead.batch.owner'|trans,
             },
-            'btnText': 'mautic.lead.batch.owner'|trans,
+            'btnText': 'mailvotech.lead.batch.owner'|trans,
             'iconClass': 'ri-user-6-line',
         },
         {
             'attr': {
                 'class': 'btn btn-ghost btn-sm btn-nospin',
                 'data-toggle': 'ajaxmodal',
-                'data-target': '#MauticSharedModal',
-                'href': path('mautic_contact_action', {'objectAction': 'batchFindReplace'}),
-                'data-header': 'mautic.core.find_replace'|trans,
+                'data-target': '#MailVotechSharedModal',
+                'href': path('mailvotech_contact_action', {'objectAction': 'batchFindReplace'}),
+                'data-header': 'mailvotech.core.find_replace'|trans,
             },
-            'btnText': 'mautic.core.find_replace'|trans,
+            'btnText': 'mailvotech.core.find_replace'|trans,
             'iconClass': 'ri-find-replace-line',
         },
         {
             'attr': {
                 'class': 'btn btn-ghost btn-sm btn-nospin',
                 'data-toggle': 'ajaxmodal',
-                'data-target': '#MauticSharedModal',
-                'href': path('mautic_contact_action', {'objectAction': 'batchDnc'}),
-                'data-header': 'mautic.lead.batch.dnc'|trans,
+                'data-target': '#MailVotechSharedModal',
+                'href': path('mailvotech_contact_action', {'objectAction': 'batchDnc'}),
+                'data-header': 'mailvotech.lead.batch.dnc'|trans,
             },
-            'btnText': 'mautic.lead.batch.dnc'|trans,
+            'btnText': 'mailvotech.lead.batch.dnc'|trans,
             'iconClass': 'ri-prohibited-line text-danger',
         },
     ] %}
@@ -88,7 +88,7 @@
         <table class="table table-hover" id="leadTable">
             <thead>
                 <tr>
-                    {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                    {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'checkall': 'true',
                         'target': '#contacts-table',
                         'templateButtons': {
@@ -97,61 +97,61 @@
                         'customButtons': customButtons,
                         'langVar': 'lead.lead',
                         'routeBase': 'contact',
-                        'tooltip': 'mautic.lead.list.checkall.help'|trans,
+                        'tooltip': 'mailvotech.lead.list.checkall.help'|trans,
                     }) }}
-                    {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                    {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'company.'~company_id~'.contacts',
                         'orderBy': 'l.lastname, l.firstname, l.company, l.email',
-                        'text': 'mautic.core.name',
+                        'text': 'mailvotech.core.name',
                         'class': 'col-lead-name',
                         'target': '#contacts-table',
                         'baseUrl': baseUrl,
                     }) }}
-                    {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                    {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'company.'~company_id~'.contacts',
                         'orderBy': 'l.email',
-                        'text': 'mautic.core.type.email',
+                        'text': 'mailvotech.core.type.email',
                         'class': 'col-lead-email visible-md visible-lg',
                         'target': '#contacts-table',
                         'baseUrl': baseUrl,
                     }) }}
-                    {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                    {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'company.'~company_id~'.contacts',
                         'orderBy': 'l.city, l.state',
-                        'text': 'mautic.lead.lead.thead.location',
+                        'text': 'mailvotech.lead.lead.thead.location',
                         'class': 'col-lead-location visible-md visible-lg',
                         'target': '#contacts-table',
                         'baseUrl': baseUrl,
                     }) }}
-                    {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                    {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'company.'~company_id~'.contacts',
                         'orderBy': 'l.stage_id',
-                        'text': 'mautic.lead.stage.label',
+                        'text': 'mailvotech.lead.stage.label',
                         'class': 'col-lead-stage',
                         'target': '#contacts-table',
                         'baseUrl': baseUrl,
                     }) }}
-                    {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                    {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'company.'~company_id~'.contacts',
                         'orderBy': 'l.points',
-                        'text': 'mautic.lead.points',
+                        'text': 'mailvotech.lead.points',
                         'class': 'visible-md visible-lg col-lead-points',
                         'target': '#contacts-table',
                         'baseUrl': baseUrl,
                     }) }}
-                    {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                    {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'company.'~company_id~'.contacts',
                         'orderBy': 'l.last_active',
-                        'text': 'mautic.lead.lastactive',
+                        'text': 'mailvotech.lead.lastactive',
                         'class': 'col-lead-lastactive visible-md visible-lg',
                         'default': true,
                         'target': '#contacts-table',
                         'baseUrl': baseUrl,
                     }) }}
-                    {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                    {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'company.'~company_id~'.contacts',
                         'orderBy': 'l.id',
-                        'text': 'mautic.core.id',
+                        'text': 'mailvotech.core.id',
                         'class': 'col-lead-id visible-md visible-lg',
                         'target': '#contacts-table',
                         'baseUrl': baseUrl,
@@ -169,11 +169,11 @@
                             {# this lead was manually added to a list so give an option to remove them #}
                             {% set custom = custom|merge([{
                                 'attr': {
-                                    'href': path('mautic_segment_action', {'objectAction': 'removeLead', 'objectId': currentList.id, 'leadId': contact.id}),
+                                    'href': path('mailvotech_segment_action', {'objectAction': 'removeLead', 'objectId': currentList.id, 'leadId': contact.id}),
                                     'data-toggle': 'ajax',
                                     'data-method': 'POST',
                                 },
-                                'btnText': 'mautic.lead.lead.remove.fromlist',
+                                'btnText': 'mailvotech.lead.lead.remove.fromlist',
                                 'iconClass': 'ri-close-line',
                             }]) %}
                         {% endif %}
@@ -182,15 +182,15 @@
                             {% set custom = custom|merge([{
                                 'attr': {
                                     'data-toggle': 'ajaxmodal',
-                                    'data-target': '#MauticSharedModal',
-                                    'data-header': 'mautic.lead.email.send_email.header'|trans({'%email%': fields.core.email.value}),
-                                    'href': path('mautic_contact_action', {'objectId': contact.id, 'objectAction': 'email', 'list': 1}),
+                                    'data-target': '#MailVotechSharedModal',
+                                    'data-header': 'mailvotech.lead.email.send_email.header'|trans({'%email%': fields.core.email.value}),
+                                    'href': path('mailvotech_contact_action', {'objectId': contact.id, 'objectAction': 'email', 'list': 1}),
                                 },
-                                'btnText': 'mautic.lead.email.send_email',
+                                'btnText': 'mailvotech.lead.email.send_email',
                                 'iconClass': 'ri-send-plane-line',
                             }]) %}
                         {% endif %}
-                        {{ include('@MauticCore/Helper/list_actions.html.twig', {
+                        {{ include('@MailVotechCore/Helper/list_actions.html.twig', {
                             'item': contact,
                             'templateButtons': {
                                 'edit': hasEditAccess,
@@ -202,7 +202,7 @@
                         }) }}
                     </td>
                     <td>
-                        <a href="{{ path('mautic_contact_action', {'objectAction': 'view', 'objectId': contact.id}) }}" data-toggle="ajax">
+                        <a href="{{ path('mailvotech_contact_action', {'objectAction': 'view', 'objectId': contact.id}) }}" data-toggle="ajax">
                             <div>{% if contact.isAnonymous %}{{ contact.primaryIdentifier|trans }}{% else %}{{ contact.primaryIdentifier|purify }}{% endif %}</div>
                             {{ customContent('lead.name.after', _context) }}
                             <div class="small">{{ contact.secondaryIdentifier|purify }}</div>
@@ -245,7 +245,7 @@
             </tbody>
         </table>
     </div>
-    {{ include('@MauticCore/Helper/pagination.html.twig', {
+    {{ include('@MailVotechCore/Helper/pagination.html.twig', {
             'page': page,
             'limit': limit,
             'baseUrl': baseUrl,
@@ -254,5 +254,5 @@
             'sessionVar': 'company.'~company_id~'.contacts',
     }) }}
 {% else %}
-    {{ include('@MauticCore/Helper/noresults.html.twig') }}
+    {{ include('@MailVotechCore/Helper/noresults.html.twig') }}
 {% endif %}

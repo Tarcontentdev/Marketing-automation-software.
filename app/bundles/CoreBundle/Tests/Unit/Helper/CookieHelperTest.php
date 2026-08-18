@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\CookieHelper;
+use MailVotech\CoreBundle\Helper\CookieHelper;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -55,7 +55,7 @@ final class CookieHelperTest extends TestCase
 
         $response          = $this->createStub(Response::class);
         $response->headers = $headers;
-        $kernel            = new \AppKernel(MAUTIC_ENV, false);
+        $kernel            = new \AppKernel(MAILVOTECH_ENV, false);
         $request           = $this->createStub(Request::class);
 
         $event   = new ResponseEvent($kernel, $request, HttpKernelInterface::MAIN_REQUEST, $response);
@@ -85,7 +85,7 @@ final class CookieHelperTest extends TestCase
 
         $response          = $this->createStub(Response::class);
         $response->headers = $headers;
-        $kernel            = new \AppKernel(MAUTIC_ENV, false);
+        $kernel            = new \AppKernel(MAILVOTECH_ENV, false);
         $request           = $this->createStub(Request::class);
 
         $event             = new ResponseEvent($kernel, $request, HttpKernelInterface::MAIN_REQUEST, $response);
@@ -118,7 +118,7 @@ final class CookieHelperTest extends TestCase
 
         $response          = $this->createStub(Response::class);
         $response->headers = $headers;
-        $kernel            = new \AppKernel(MAUTIC_ENV, false);
+        $kernel            = new \AppKernel(MAILVOTECH_ENV, false);
         $request           = $this->createStub(Request::class);
         $event             = new ResponseEvent($kernel, $request, HttpKernelInterface::MAIN_REQUEST, $response);
 

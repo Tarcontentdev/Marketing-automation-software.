@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\DataTransformer;
+namespace MailVotech\CoreBundle\Form\DataTransformer;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\PersistentCollection;

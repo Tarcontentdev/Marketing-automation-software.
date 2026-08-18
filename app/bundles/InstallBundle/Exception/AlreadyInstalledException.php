@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\InstallBundle\Exception;
+namespace MailVotech\InstallBundle\Exception;
 
 final class AlreadyInstalledException extends \Exception
 {
-    protected $message = 'Mautic is already installed.';
+    protected $message = 'MailVotech is already installed.';
 }

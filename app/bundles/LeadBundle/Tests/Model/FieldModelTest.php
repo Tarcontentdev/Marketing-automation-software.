@@ -2,32 +2,32 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Model;
+namespace MailVotech\LeadBundle\Tests\Model;
 
 use Doctrine\DBAL\Logging\SQLLogger;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Field\CustomFieldColumn;
-use Mautic\LeadBundle\Field\Dispatcher\FieldSaveDispatcher;
-use Mautic\LeadBundle\Field\FieldList;
-use Mautic\LeadBundle\Field\LeadFieldDeleter;
-use Mautic\LeadBundle\Field\LeadFieldSaver;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Field\CustomFieldColumn;
+use MailVotech\LeadBundle\Field\Dispatcher\FieldSaveDispatcher;
+use MailVotech\LeadBundle\Field\FieldList;
+use MailVotech\LeadBundle\Field\LeadFieldDeleter;
+use MailVotech\LeadBundle\Field\LeadFieldSaver;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\ListModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final class FieldModelTest extends MauticMysqlTestCase
+final class FieldModelTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -60,7 +60,7 @@ final class FieldModelTest extends MauticMysqlTestCase
      */
     public static function dataForGetFieldsProperties(): iterable
     {
-        // When mautic is installed the total number of fields are 42.
+        // When mailvotech is installed the total number of fields are 42.
         yield 'All fields' => [
             // Filters
             [],
@@ -324,9 +324,9 @@ final class FieldModelTest extends MauticMysqlTestCase
         $this->assertEquals('ui1', $columns[1]['COLUMN_NAME']);
         $alteredIndexes = $stack->getIndexQueries();
         $this->assertCount(3, $alteredIndexes);
-        $this->assertEquals(sprintf('DROP INDEX %1$sunique_identifier_search ON %1$sleads', MAUTIC_TABLE_PREFIX), $alteredIndexes[0]);
-        $this->assertEquals(sprintf('CREATE INDEX %1$sunique_identifier_search ON %1$sleads (email, ui1)', MAUTIC_TABLE_PREFIX), $alteredIndexes[1]);
-        $this->assertEquals(sprintf('CREATE INDEX %1$sui1_search ON %1$sleads (ui1)', MAUTIC_TABLE_PREFIX), $alteredIndexes[2]);
+        $this->assertEquals(sprintf('DROP INDEX %1$sunique_identifier_search ON %1$sleads', MAILVOTECH_TABLE_PREFIX), $alteredIndexes[0]);
+        $this->assertEquals(sprintf('CREATE INDEX %1$sunique_identifier_search ON %1$sleads (email, ui1)', MAILVOTECH_TABLE_PREFIX), $alteredIndexes[1]);
+        $this->assertEquals(sprintf('CREATE INDEX %1$sui1_search ON %1$sleads (ui1)', MAILVOTECH_TABLE_PREFIX), $alteredIndexes[2]);
         $stack->resetQueries();
 
         // Test only the first 3 columns are used for the index
@@ -350,10 +350,10 @@ final class FieldModelTest extends MauticMysqlTestCase
         $this->assertEquals('ui2', $columns[2]['COLUMN_NAME']);
         $alteredIndexes = $stack->getIndexQueries();
         $this->assertCount(4, $alteredIndexes);
-        $this->assertEquals(sprintf('DROP INDEX %1$sunique_identifier_search ON %1$sleads', MAUTIC_TABLE_PREFIX), $alteredIndexes[0]);
-        $this->assertEquals(sprintf('CREATE INDEX %1$sunique_identifier_search ON %1$sleads (email, ui1, ui2)', MAUTIC_TABLE_PREFIX), $alteredIndexes[1]);
-        $this->assertEquals(sprintf('CREATE INDEX %1$sui2_search ON %1$sleads (ui2)', MAUTIC_TABLE_PREFIX), $alteredIndexes[2]);
-        $this->assertEquals(sprintf('CREATE INDEX %1$sui3_search ON %1$sleads (ui3)', MAUTIC_TABLE_PREFIX), $alteredIndexes[3]);
+        $this->assertEquals(sprintf('DROP INDEX %1$sunique_identifier_search ON %1$sleads', MAILVOTECH_TABLE_PREFIX), $alteredIndexes[0]);
+        $this->assertEquals(sprintf('CREATE INDEX %1$sunique_identifier_search ON %1$sleads (email, ui1, ui2)', MAILVOTECH_TABLE_PREFIX), $alteredIndexes[1]);
+        $this->assertEquals(sprintf('CREATE INDEX %1$sui2_search ON %1$sleads (ui2)', MAILVOTECH_TABLE_PREFIX), $alteredIndexes[2]);
+        $this->assertEquals(sprintf('CREATE INDEX %1$sui3_search ON %1$sleads (ui3)', MAILVOTECH_TABLE_PREFIX), $alteredIndexes[3]);
         $stack->resetQueries();
 
         // Test that the index was not touched if only the label was updated
@@ -374,7 +374,7 @@ final class FieldModelTest extends MauticMysqlTestCase
     {
         $stmt = $this->connection->executeQuery(
             "SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '{$this->connection->getDatabase()}' AND TABLE_NAME = '"
-            .MAUTIC_TABLE_PREFIX
+            .MAILVOTECH_TABLE_PREFIX
             ."{$table}' AND COLUMN_NAME = '{$column}'"
         );
 
@@ -390,8 +390,8 @@ final class FieldModelTest extends MauticMysqlTestCase
             sprintf(
                 "SELECT * FROM information_schema.statistics where table_schema = '%s' and table_name = '%s' and index_name = '%sunique_identifier_search'",
                 $this->connection->getDatabase(),
-                MAUTIC_TABLE_PREFIX.$table,
-                MAUTIC_TABLE_PREFIX
+                MAILVOTECH_TABLE_PREFIX.$table,
+                MAILVOTECH_TABLE_PREFIX
             )
         );
 

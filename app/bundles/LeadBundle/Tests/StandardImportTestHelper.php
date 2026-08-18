@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests;
+namespace MailVotech\LeadBundle\Tests;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalService;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Tests\CommonMocks;
-use Mautic\LeadBundle\Entity\Import;
-use Mautic\LeadBundle\Entity\ImportRepository;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\LeadBundle\Entity\LeadEventLogRepository;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\ImportModel;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalService;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Tests\CommonMocks;
+use MailVotech\LeadBundle\Entity\Import;
+use MailVotech\LeadBundle\Entity\ImportRepository;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Entity\LeadEventLogRepository;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\ImportModel;
+use MailVotech\LeadBundle\Model\LeadModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -73,7 +73,7 @@ abstract class StandardImportTestHelper extends CommonMocks
 
     public static function generateSmallCSV(): void
     {
-        $tmpFile = tempnam(sys_get_temp_dir(), 'mautic_import_test_');
+        $tmpFile = tempnam(sys_get_temp_dir(), 'mailvotech_import_test_');
         $file    = fopen($tmpFile, 'w');
 
         foreach (self::$initialList as $line) {
@@ -86,7 +86,7 @@ abstract class StandardImportTestHelper extends CommonMocks
 
     public static function generateLargeCSV(): void
     {
-        $tmpFile = tempnam(sys_get_temp_dir(), 'mautic_import_large_test_');
+        $tmpFile = tempnam(sys_get_temp_dir(), 'mailvotech_import_large_test_');
         $file    = fopen($tmpFile, 'w');
         CsvHelper::putCsv($file, ['email', 'firstname', 'lastname']);
         $counter = 510;
@@ -102,7 +102,7 @@ abstract class StandardImportTestHelper extends CommonMocks
 
     public function setUp(): void
     {
-        defined('MAUTIC_ENV') || define('MAUTIC_ENV', 'test');
+        defined('MAILVOTECH_ENV') || define('MAILVOTECH_ENV', 'test');
 
         $this->eventEntities = [];
     }

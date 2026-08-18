@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\EventListener;
+namespace MailVotech\CoreBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\EventListener\CoreSubscriber;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\EventListener\CoreSubscriber;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Http\SecurityEvents;
 

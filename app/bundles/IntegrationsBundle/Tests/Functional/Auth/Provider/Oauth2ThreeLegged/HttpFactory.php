@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Functional\Auth\Provider\Oauth2ThreeLegged;
+namespace MailVotech\IntegrationsBundle\Tests\Functional\Auth\Provider\Oauth2ThreeLegged;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
-use Mautic\IntegrationsBundle\Auth\Provider\AuthConfigInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\AuthProviderInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\HttpFactory as OriginalHttpFactory;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthConfigInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthProviderInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\HttpFactory as OriginalHttpFactory;
 
 /**
  * This mock class should just implement the interface.

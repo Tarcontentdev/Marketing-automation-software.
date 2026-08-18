@@ -3,15 +3,15 @@
     - form
     - currentRoute
 #}
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent %}leadfield{% endblock %}
+{% block mailvotechContent %}leadfield{% endblock %}
 
 {% block headerTitle %}
   {%- if form.vars.data.id -%}
-    {{- 'mautic.lead.field.header.edit'|trans({'%name%': form.vars.data.label}) -}}
+    {{- 'mailvotech.lead.field.header.edit'|trans({'%name%': form.vars.data.label}) -}}
   {%- else -%}
-    {{- 'mautic.lead.field.header.new'|trans -}}
+    {{- 'mailvotech.lead.field.header.new'|trans -}}
   {%- endif -%}
 {% endblock %}
 
@@ -53,23 +53,23 @@
                 <div class="form-group col-md-6 {% if errors > 0 %}has-error{% endif %}">
                     <div id="leadfield_properties">
                         {% if 'boolean' == type %}
-                            {{ include('@MauticLead/Field/properties_boolean.html.twig', {
+                            {{ include('@MailVotechLead/Field/properties_boolean.html.twig', {
                                 'yes':  properties.yes|default(''),
                                 'no':  properties.no|default(''),
                             }) }}
                         {% elseif 'number' == type %}
-                            {{ include('@MauticLead/Field/properties_number.html.twig', {
+                            {{ include('@MailVotechLead/Field/properties_number.html.twig', {
                                 'roundMode': properties.roundmode|default(''),
                                 'scale': properties.scale|default(''),
                             }) }}
                         {% elseif 'select' == type or 'multiselect' == type %}
-                            {{ include('@MauticLead/Field/properties_select.html.twig', {
+                            {{ include('@MailVotechLead/Field/properties_select.html.twig', {
                                 'form': form.properties,
                                 'selectTemplate': selectTemplate,
                                 'type': 'select',
                             }) }}
                         {% elseif 'lookup' == type %}
-                            {{ include('@MauticLead/Field/properties_select.html.twig', {
+                            {{ include('@MailVotechLead/Field/properties_select.html.twig', {
                                 'form': form.properties,
                                 'selectTemplate': lookupTemplate,
                                 'type': 'lookup',
@@ -84,46 +84,46 @@
         {% set fieldGuidanceModalId = 'fieldGuidanceModal' %}
         {% set fieldItems = [
             {
-                'heading': 'mautic.lead.field.shouldbe.field.item1.heading',
+                'heading': 'mailvotech.lead.field.shouldbe.field.item1.heading',
                 'icon': 'ri-mail-line'
             },
             {
-                'heading': 'mautic.lead.field.shouldbe.field.item2.heading',
-                'copy': 'mautic.lead.field.shouldbe.field.item2.copy',
+                'heading': 'mailvotech.lead.field.shouldbe.field.item2.heading',
+                'copy': 'mailvotech.lead.field.shouldbe.field.item2.copy',
                 'icon': 'ri-user-line'
             },
             {
-                'heading': 'mautic.lead.field.shouldbe.field.item3.heading',
+                'heading': 'mailvotech.lead.field.shouldbe.field.item3.heading',
                 'icon': 'ri-upload-line'
             },
             {
-                'heading': 'mautic.lead.field.shouldbe.field.item4.heading',
+                'heading': 'mailvotech.lead.field.shouldbe.field.item4.heading',
                 'icon': 'ri-git-merge-line'
             }
         ] %}
         {% set tagItems = [
             {
-                'heading': 'mautic.lead.field.shouldbe.tag.item1.heading',
-                'copy': 'mautic.lead.field.shouldbe.tag.item1.copy',
+                'heading': 'mailvotech.lead.field.shouldbe.tag.item1.heading',
+                'copy': 'mailvotech.lead.field.shouldbe.tag.item1.copy',
                 'icon': 'ri-eye-line'
             },
             {
-                'heading': 'mautic.lead.field.shouldbe.tag.item2.heading',
+                'heading': 'mailvotech.lead.field.shouldbe.tag.item2.heading',
                 'icon': 'ri-add-line'
             },
             {
-                'heading': 'mautic.lead.field.shouldbe.tag.item3.heading',
+                'heading': 'mailvotech.lead.field.shouldbe.tag.item3.heading',
                 'icon': 'ri-group-line'
             },
             {
-                'heading': 'mautic.lead.field.shouldbe.tag.item4.heading',
-                'copy': 'mautic.lead.field.shouldbe.tag.item4.copy',
+                'heading': 'mailvotech.lead.field.shouldbe.tag.item4.heading',
+                'copy': 'mailvotech.lead.field.shouldbe.tag.item4.copy',
                 'icon': 'ri-checkbox-circle-line'
             }
         ] %}
         {% set itemTypes = [
-            {'items': fieldItems, 'label': 'mautic.lead.field.shouldbe.field.heading', 'color': 'green'},
-            {'items': tagItems, 'label': 'mautic.lead.field.shouldbe.tag.heading', 'color': 'red'}
+            {'items': fieldItems, 'label': 'mailvotech.lead.field.shouldbe.field.heading', 'color': 'green'},
+            {'items': tagItems, 'label': 'mailvotech.lead.field.shouldbe.tag.heading', 'color': 'red'}
         ] %}
         {% set tilesHtml %}
         <div class="mb-32">
@@ -132,7 +132,7 @@
                 {% for item in type.items %}
                     {% set tileContent %}
                     <div class="mb-sm">
-                    {% include '@MauticCore/Helper/_tag.html.twig' with {
+                    {% include '@MailVotechCore/Helper/_tag.html.twig' with {
                         tags: [{
                             label: '',
                             icon: item.icon,
@@ -146,7 +146,7 @@
                             <span class="type-label-01 mt-sm break-word">{{ item.copy|trans }}</span>
                         {% endif %}
                         <div class="mt-a pt-md">
-                        {% include '@MauticCore/Helper/_tag.html.twig' with {
+                        {% include '@MailVotechCore/Helper/_tag.html.twig' with {
                             tags: [{
                                 label: type.label,
                                 color: type.color,
@@ -155,31 +155,31 @@
                         } %}
                         </div>
                     {% endset %}
-                    {% include '@MauticCore/Components/tile.html.twig' with {type: 'base', content: tileContent} only %}
+                    {% include '@MailVotechCore/Components/tile.html.twig' with {type: 'base', content: tileContent} only %}
                 {% endfor %}
             {% endfor %}
                 </div>
             </div>
 
-            {{ include('@MauticCore/Components/content-item-row.html.twig', {
+            {{ include('@MailVotechCore/Components/content-item-row.html.twig', {
                 type: 'default',
-                eyebrow: 'mautic.lead.field.shouldbe.faq',
-                heading: 'mautic.lead.field.shouldbe.faq.heading',
-                copy: 'mautic.lead.field.shouldbe.faq.copy',
+                eyebrow: 'mailvotech.lead.field.shouldbe.faq',
+                heading: 'mailvotech.lead.field.shouldbe.faq.heading',
+                copy: 'mailvotech.lead.field.shouldbe.faq.copy',
             }) }}
 
         {% endset %}
         {% set shouldBeFieldModalContent %}
-            {% include '@MauticCore/Components/content-block.html.twig' with {
-                heading: 'mautic.lead.field.shouldbe.heading',
-                subheading: 'mautic.lead.field.shouldbe.subheading',
+            {% include '@MailVotechCore/Components/content-block.html.twig' with {
+                heading: 'mailvotech.lead.field.shouldbe.heading',
+                subheading: 'mailvotech.lead.field.shouldbe.subheading',
                 childContainer: tilesHtml,
 
             } only %}
         {% endset %}
         <div class="pa-md">
-        {% include '@MauticCore/Components/card.html.twig' with {
-            heading: 'mautic.lead.field.shouldbe.heading',
+        {% include '@MailVotechCore/Components/card.html.twig' with {
+            heading: 'mailvotech.lead.field.shouldbe.heading',
             href: '',
             attributes: {
                 'data-toggle': 'modal',
@@ -189,9 +189,9 @@
             ctaType: 'modal'
         } only %}
         </div>
-        {% include '@MauticCore/Components/modal.html.twig' with {
+        {% include '@MailVotechCore/Components/modal.html.twig' with {
             id: fieldGuidanceModalId,
-            modalLabel: 'mautic.lead.field.shouldbe.label',
+            modalLabel: 'mailvotech.lead.field.shouldbe.label',
             modalContent: shouldBeFieldModalContent,
             type: 'expressive',
             size: 'lg',
@@ -228,7 +228,7 @@
             </div>
             <div class="row unique-identifier-warning" style="{% if not form.isUniqueIdentifer.vars.data %}display:none;{% endif %}">
                 <div class="col-md-12">
-                    <div class="alert alert-danger">{{ 'mautic.lead.field.form.isuniqueidentifer.warning'|trans|purify }}</div>
+                    <div class="alert alert-danger">{{ 'mailvotech.lead.field.form.isuniqueidentifer.warning'|trans|purify }}</div>
                 </div>
             </div>
             {{ form_rest(form) }}
@@ -247,21 +247,21 @@
       <div class="default_template_locale">{{ defaultLocaleTemplate|raw }}</div>
       <div class="default_template_timezone">{{ defaultTimezoneTemplate|raw }}</div>
       <div class="default_template_select">{{ defaultSelectTemplate|raw }}</div>
-      {{ include('@MauticLead/Field/properties_number.html.twig') }}
-      {{ include('@MauticLead/Field/properties_boolean.html.twig') }}
-      {{ include('@MauticLead/Field/properties_select.html.twig', {
+      {{ include('@MailVotechLead/Field/properties_number.html.twig') }}
+      {{ include('@MailVotechLead/Field/properties_boolean.html.twig') }}
+      {{ include('@MailVotechLead/Field/properties_select.html.twig', {
           'form': null,
           'selectTemplate': selectTemplate,
           'type': 'select',
       }) }}
 
-      {{ include('@MauticLead/Field/properties_select.html.twig', {
+      {{ include('@MailVotechLead/Field/properties_select.html.twig', {
           'form': null,
           'selectTemplate': selectTemplate,
           'type': 'multiselect',
       }) }}
 
-      {{ include('@MauticLead/Field/properties_select.html.twig', {
+      {{ include('@MailVotechLead/Field/properties_select.html.twig', {
           'form': null,
           'selectTemplate': selectTemplate,
           'type': 'lookup',

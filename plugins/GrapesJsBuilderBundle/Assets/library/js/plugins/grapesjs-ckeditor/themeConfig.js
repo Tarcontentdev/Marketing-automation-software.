@@ -70,7 +70,7 @@ export const themeConfigMixin = {
 
   /**
    * Looks up the theme alias from the global window object.
-   * Checks Mautic global and mauticThemeAlias.
+   * Checks MailVotech global and mailvotechThemeAlias.
    *
    * @returns {string|null}
    */
@@ -79,16 +79,16 @@ export const themeConfigMixin = {
       return null;
     }
 
-    const { Mautic: mauticGlobal } = window;
-    if (mauticGlobal && typeof mauticGlobal.builderTheme === 'string') {
-      const alias = mauticGlobal.builderTheme.trim();
+    const { MailVotech: mailvotechGlobal } = window;
+    if (mailvotechGlobal && typeof mailvotechGlobal.builderTheme === 'string') {
+      const alias = mailvotechGlobal.builderTheme.trim();
       if (alias) {
         return alias;
       }
     }
 
-    if (typeof window.mauticThemeAlias === 'string') {
-      const alias = window.mauticThemeAlias.trim();
+    if (typeof window.mailvotechThemeAlias === 'string') {
+      const alias = window.mailvotechThemeAlias.trim();
       if (alias) {
         return alias;
       }
@@ -138,10 +138,10 @@ export const themeConfigMixin = {
 
     let base = null;
 
-    if (typeof mauticBaseUrl !== 'undefined' && typeof mauticBaseUrl === 'string' && mauticBaseUrl.trim()) {
-      base = mauticBaseUrl.trim();
-    } else if (typeof window !== 'undefined' && typeof window.mauticBaseUrl === 'string' && window.mauticBaseUrl.trim()) {
-      base = window.mauticBaseUrl.trim();
+    if (typeof mailvotechBaseUrl !== 'undefined' && typeof mailvotechBaseUrl === 'string' && mailvotechBaseUrl.trim()) {
+      base = mailvotechBaseUrl.trim();
+    } else if (typeof window !== 'undefined' && typeof window.mailvotechBaseUrl === 'string' && window.mailvotechBaseUrl.trim()) {
+      base = window.mailvotechBaseUrl.trim();
     }
 
     if (!base) {

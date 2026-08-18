@@ -31,8 +31,8 @@
             onlyMimes: allowedMimeTypes,
             getFileCallback : function(file, fm) {
                 let fileUrl = file.url;
-                if (file.baseUrl == '' && typeof window.opener.mauticImagesPath !== 'undefined') {
-                    fileUrl = window.opener.mauticImagesPath+'/'+file.name;
+                if (file.baseUrl == '' && typeof window.opener.mailvotechImagesPath !== 'undefined') {
+                    fileUrl = window.opener.mailvotechImagesPath+'/'+file.name;
                 } else if (file.baseUrl != '') {
                     fileUrl = file.baseUrl + '' + (file.path).replace('//', '');
                 }

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Collector;
+namespace MailVotech\FormBundle\Collector;
 
-use Mautic\FormBundle\Collection\MappedObjectCollection;
+use MailVotech\FormBundle\Collection\MappedObjectCollection;
 
 interface MappedObjectCollectorInterface
 {

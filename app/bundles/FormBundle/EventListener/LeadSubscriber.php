@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\FormBundle\EventListener;
+namespace MailVotech\FormBundle\EventListener;
 
-use Mautic\FormBundle\Entity\SubmissionRepository;
-use Mautic\FormBundle\Model\FormModel;
-use Mautic\LeadBundle\Event\LeadMergeEvent;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
+use MailVotech\FormBundle\Model\FormModel;
+use MailVotech\LeadBundle\Event\LeadMergeEvent;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\PageBundle\Model\PageModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -38,7 +38,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
     {
         // Set available event types
         $eventTypeKey  = 'form.submitted';
-        $eventTypeName = $this->translator->trans('mautic.form.event.submitted');
+        $eventTypeName = $this->translator->trans('mailvotech.form.event.submitted');
         $event->addEventType($eventTypeKey, $eventTypeName);
         $event->addSerializerGroup(['formList', 'submissionEventDetails']);
 
@@ -64,7 +64,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                         'eventId'    => $eventTypeKey.$row['id'],
                         'eventLabel' => [
                             'label' => $form->getName(),
-                            'href'  => $this->router->generate('mautic_form_action', ['objectAction' => 'view', 'objectId' => $form->getId()]),
+                            'href'  => $this->router->generate('mailvotech_form_action', ['objectAction' => 'view', 'objectId' => $form->getId()]),
                         ],
                         'eventType' => $eventTypeName,
                         'timestamp' => $row['dateSubmitted'],
@@ -73,7 +73,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                             'form'       => $form,
                             'page'       => $this->pageModel->getEntity($row['page_id']),
                         ],
-                        'contentTemplate' => '@MauticForm/SubscribedEvents/Timeline/index.html.twig',
+                        'contentTemplate' => '@MailVotechForm/SubscribedEvents/Timeline/index.html.twig',
                         'icon'            => 'ri-edit-2-line',
                         'contactId'       => $row['lead_id'],
                     ]

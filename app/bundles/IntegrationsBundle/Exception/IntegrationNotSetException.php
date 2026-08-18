@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Exception;
+namespace MailVotech\IntegrationsBundle\Exception;
 
 final class IntegrationNotSetException extends \Exception
 {

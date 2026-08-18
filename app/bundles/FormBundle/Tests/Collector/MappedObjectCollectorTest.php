@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Collector;
+namespace MailVotech\FormBundle\Tests\Collector;
 
-use Mautic\FormBundle\Collection\FieldCollection;
-use Mautic\FormBundle\Collector\FieldCollectorInterface;
-use Mautic\FormBundle\Collector\MappedObjectCollector;
+use MailVotech\FormBundle\Collection\FieldCollection;
+use MailVotech\FormBundle\Collector\FieldCollectorInterface;
+use MailVotech\FormBundle\Collector\MappedObjectCollector;
 use PHPUnit\Framework\Assert;
 
 final class MappedObjectCollectorTest extends \PHPUnit\Framework\TestCase

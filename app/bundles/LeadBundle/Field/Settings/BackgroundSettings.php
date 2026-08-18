@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field\Settings;
+namespace MailVotech\LeadBundle\Field\Settings;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 
 class BackgroundSettings
 {

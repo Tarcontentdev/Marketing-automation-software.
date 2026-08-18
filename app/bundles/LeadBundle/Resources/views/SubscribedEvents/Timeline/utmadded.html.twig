@@ -5,23 +5,23 @@
 {% set utmTags = event.extra.utmtags %}
 <dl class="dl-horizontal">
   {% if utmTags.utm_campaign is not empty %}
-    <dt>{{ 'mautic.lead.timeline.event.utmcampaign'|trans }}:</dt>
+    <dt>{{ 'mailvotech.lead.timeline.event.utmcampaign'|trans }}:</dt>
     <dd>{{ utmTags['utm_campaign'] }}</dd>
   {% endif %}
   {% if utmTags.utm_content is not empty %}
-    <dt>{{ 'mautic.lead.timeline.event.utmcontent'|trans }}:</dt>
+    <dt>{{ 'mailvotech.lead.timeline.event.utmcontent'|trans }}:</dt>
     <dd>{{ utmTags['utm_content'] }}</dd>
   {% endif %}
   {% if utmTags.utm_medium is not empty %}
-    <dt>{{ 'mautic.lead.timeline.event.utmmedium'|trans }}:</dt>
+    <dt>{{ 'mailvotech.lead.timeline.event.utmmedium'|trans }}:</dt>
     <dd>{{ utmTags['utm_medium'] }}</dd>
   {% endif %}
   {% if utmTags.utm_source is not empty %}
-    <dt>{{ 'mautic.lead.timeline.event.umtsource'|trans }}:</dt>
+    <dt>{{ 'mailvotech.lead.timeline.event.umtsource'|trans }}:</dt>
     <dd>{{ utmTags['utm_source'] }}</dd>
   {% endif %}
   {% if utmTags.utm_term is not empty %}
-    <dt>{{ 'mautic.lead.timeline.event.utmterm'|trans }}:</dt>
+    <dt>{{ 'mailvotech.lead.timeline.event.utmterm'|trans }}:</dt>
     <dd>{{ utmTags['utm_term'] }}</dd>
   {% endif %}
   {% set counter = 1 %}
@@ -48,8 +48,8 @@
 
           {% if showMore is defined and showMore == true %}
               </div>
-              <a href="javascript:void(0);" class="text-center small center-block mt-xs" onclick="Mautic.toggleTimelineMoreVisiblity(mQuery(this).prev());">
-                {{- 'mautic.core.more.show'|trans -}}
+              <a href="javascript:void(0);" class="text-center small center-block mt-xs" onclick="MailVotech.toggleTimelineMoreVisiblity(mQuery(this).prev());">
+                {{- 'mailvotech.core.more.show'|trans -}}
               </a>
           {% endif %}
       {% endfor %}

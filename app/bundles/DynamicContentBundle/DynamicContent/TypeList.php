@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\DynamicContent;
+namespace MailVotech\DynamicContentBundle\DynamicContent;
 
 final class TypeList
 {
@@ -16,8 +16,8 @@ final class TypeList
     public function getChoices(): array
     {
         return [
-            'mautic.dynamic.content.type.html' => self::HTML,
-            'mautic.dynamic.content.type.text' => self::TEXT,
+            'mailvotech.dynamic.content.type.html' => self::HTML,
+            'mailvotech.dynamic.content.type.text' => self::TEXT,
         ];
     }
 }

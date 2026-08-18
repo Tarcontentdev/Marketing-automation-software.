@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\SyncDataExchange\Internal\Executioner;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\SyncDataExchange\Internal\Executioner;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Result;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\ReferenceValueDAO;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Executioner\ReferenceResolver;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\ReferenceValueDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Executioner\ReferenceResolver;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\EventListener\ReportUtmTagSubscriber;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\LeadBundle\Report\FieldsBuilder;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\Helper\ReportHelper;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\EventListener\ReportUtmTagSubscriber;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\LeadBundle\Report\FieldsBuilder;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\Helper\ReportHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -85,14 +85,14 @@ final class ReportUtmTagSubscriberTest extends \PHPUnit\Framework\TestCase
             ->method('getLeadFilter')
             ->willReturn([
                 'tag' => [
-                    'label'     => 'mautic.core.filter.tags',
+                    'label'     => 'mailvotech.core.filter.tags',
                     'type'      => 'multiselect',
                     'list'      => ['A', 'B', 'C'],
                     'operators' => [
-                        'in'       => 'mautic.core.operator.in',
-                        'notIn'    => 'mautic.core.operator.notin',
-                        'empty'    => 'mautic.core.operator.isempty',
-                        'notEmpty' => 'mautic.core.operator.isnotempty',
+                        'in'       => 'mailvotech.core.operator.in',
+                        'notIn'    => 'mailvotech.core.operator.notin',
+                        'empty'    => 'mailvotech.core.operator.isempty',
+                        'notEmpty' => 'mailvotech.core.operator.isnotempty',
                     ],
                 ],
             ]);
@@ -147,7 +147,7 @@ final class ReportUtmTagSubscriberTest extends \PHPUnit\Framework\TestCase
 
         $expected = [
             'lead.utmTag' => [
-                'display_name' => 'mautic.lead.report.utm.utm_tag',
+                'display_name' => 'mailvotech.lead.report.utm.utm_tag',
                 'columns'      => $expectedColumns,
                 'filters'      => array_merge($expectedColumns, [
                     'tag' => [
@@ -155,10 +155,10 @@ final class ReportUtmTagSubscriberTest extends \PHPUnit\Framework\TestCase
                         'type'      => 'multiselect',
                         'list'      => ['A', 'B', 'C'],
                         'operators' => [
-                            'in'       => 'mautic.core.operator.in',
-                            'notIn'    => 'mautic.core.operator.notin',
-                            'empty'    => 'mautic.core.operator.isempty',
-                            'notEmpty' => 'mautic.core.operator.isnotempty',
+                            'in'       => 'mailvotech.core.operator.in',
+                            'notIn'    => 'mailvotech.core.operator.notin',
+                            'empty'    => 'mailvotech.core.operator.isempty',
+                            'notEmpty' => 'mailvotech.core.operator.isnotempty',
                         ],
                         'alias' => 'tag',
                     ],
@@ -238,7 +238,7 @@ final class ReportUtmTagSubscriberTest extends \PHPUnit\Framework\TestCase
 
         $queryBuilderMock->expects($this->once())
             ->method('from')
-            ->with(MAUTIC_TABLE_PREFIX.'lead_utmtags', 'utm')
+            ->with(MAILVOTECH_TABLE_PREFIX.'lead_utmtags', 'utm')
             ->willReturn($queryBuilderMock);
         $matcher = $this->any();
 
@@ -246,7 +246,7 @@ final class ReportUtmTagSubscriberTest extends \PHPUnit\Framework\TestCase
             ->willReturnCallback(function (...$parameters) use ($matcher, $queryBuilderMock): MockObject {
                 if (1 === $matcher->numberOfInvocations()) {
                     $this->assertSame('utm', $parameters[0]);
-                    $this->assertSame(MAUTIC_TABLE_PREFIX.'leads', $parameters[1]);
+                    $this->assertSame(MAILVOTECH_TABLE_PREFIX.'leads', $parameters[1]);
                     $this->assertSame('l', $parameters[2]);
                     $this->assertSame('l.id = utm.lead_id', $parameters[3]);
                 }

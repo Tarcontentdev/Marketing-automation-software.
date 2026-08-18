@@ -29,24 +29,24 @@
 
 {%- if status is same as 'published' %}
   {%- set icon = 'ri-toggle-fill text-success' %}
-  {%- set text = 'mautic.core.form.active'|trans %}
+  {%- set text = 'mailvotech.core.form.active'|trans %}
 {%- elseif status is same as 'unpublished' %}
   {%- set icon = 'ri-toggle-line text-danger' %}
-  {%- set text = 'mautic.core.form.inactive'|trans %}
+  {%- set text = 'mailvotech.core.form.inactive'|trans %}
 {%- elseif status is same as 'expired' %}
   {%- set icon = 'ri-checkbox-circle-line text-info' %}
-  {%- set text = 'mautic.core.form.expired_to'|trans({'%date%': dateToFull(item.publishDown)}) %}
+  {%- set text = 'mailvotech.core.form.expired_to'|trans({'%date%': dateToFull(item.publishDown)}) %}
 {%- elseif status is same as 'pending' %}
   {%- set icon = 'ri-donut-chart-line text-info' %}
-  {%- set text = 'mautic.core.form.pending.start_at'|trans({'%date%': dateToFull(item.publishUp)}) %}
+  {%- set text = 'mailvotech.core.form.pending.start_at'|trans({'%date%': dateToFull(item.publishUp)}) %}
 {%- endif %}
 
 {%- if true is same as status %}
   {%- set icon = 'ri-toggle-fill text-success' %}
-  {%- set text = 'mautic.core.form.public'|trans %}
+  {%- set text = 'mailvotech.core.form.public'|trans %}
 {%- elseif false is same as status %}
   {%- set icon = 'ri-toggle-line text-danger' %}
-  {%- set text = 'mautic.core.form.not.public'|trans %}
+  {%- set text = 'mailvotech.core.form.not.public'|trans %}
 {%- endif %}
 
 {%- set text = text ~ aditionalLabel|default('') %}
@@ -60,7 +60,7 @@
 
 {%- set backdropFlag = (backdrop is defined) ? 'true' : 'false' %}
 
-{%- set onclick = onclick is empty ? 'Mautic.togglePublishStatus(event, \'.%s\', \'%s\', \'%s\', \'%s\', %s);'|format(idClass, model, item.id, query, backdropFlag) : onclick %}
+{%- set onclick = onclick is empty ? 'MailVotech.togglePublishStatus(event, \'.%s\', \'%s\', \'%s\', \'%s\', %s);'|format(idClass, model, item.id, query, backdropFlag) : onclick %}
 
 {%- set defaultAttributes = {
           'data-container': 'body',

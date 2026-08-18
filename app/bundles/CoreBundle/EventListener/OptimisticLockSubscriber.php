@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
-use Mautic\CoreBundle\Entity\OptimisticLockInterface;
-use Mautic\CoreBundle\Service\OptimisticLockServiceInterface;
+use MailVotech\CoreBundle\Entity\OptimisticLockInterface;
+use MailVotech\CoreBundle\Service\OptimisticLockServiceInterface;
 
 #[AsDoctrineListener(Events::postUpdate)]
 final readonly class OptimisticLockSubscriber

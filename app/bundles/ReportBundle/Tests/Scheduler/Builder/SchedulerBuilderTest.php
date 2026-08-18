@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Scheduler\Builder;
+namespace MailVotech\ReportBundle\Tests\Scheduler\Builder;
 
-use Mautic\ReportBundle\Scheduler\Builder\SchedulerBuilder;
-use Mautic\ReportBundle\Scheduler\Entity\SchedulerEntity;
-use Mautic\ReportBundle\Scheduler\Enum\SchedulerEnum;
-use Mautic\ReportBundle\Scheduler\Exception\InvalidSchedulerException;
-use Mautic\ReportBundle\Scheduler\Factory\SchedulerTemplateFactory;
+use MailVotech\ReportBundle\Scheduler\Builder\SchedulerBuilder;
+use MailVotech\ReportBundle\Scheduler\Entity\SchedulerEntity;
+use MailVotech\ReportBundle\Scheduler\Enum\SchedulerEnum;
+use MailVotech\ReportBundle\Scheduler\Exception\InvalidSchedulerException;
+use MailVotech\ReportBundle\Scheduler\Factory\SchedulerTemplateFactory;
 use Recurr\Recurrence;
 
 final class SchedulerBuilderTest extends \PHPUnit\Framework\TestCase

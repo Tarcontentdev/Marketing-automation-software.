@@ -85,13 +85,13 @@
       display: flex;
       align-items: center;
 
-      > .mautic-brand > .mautic-logo-text {
+      > .mailvotech-brand > .mailvotech-logo-text {
         opacity: 1;
         margin-left: 3px;
         position: absolute;
         @include transition(unquote("opacity .3s ease .1s, margin-left 0s ease .2s"));
       }
-      > .mautic-brand {
+      > .mailvotech-brand {
         @include transition(padding-left .3s ease);
       }
 

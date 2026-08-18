@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Helper;
+namespace MailVotech\CoreBundle\Twig\Helper;
 
-use Mautic\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\AppVersion;
 
 /**
  * final class VersionHelper.

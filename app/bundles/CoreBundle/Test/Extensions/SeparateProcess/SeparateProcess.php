@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test\Extensions\SeparateProcess;
+namespace MailVotech\CoreBundle\Test\Extensions\SeparateProcess;
 
-use Mautic\CoreBundle\Test\Extensions\SeparateProcess\Subscriber\TestFinishedSubscriber;
-use Mautic\CoreBundle\Test\Extensions\SeparateProcess\Subscriber\TestPreparationFailedSubscriber;
-use Mautic\CoreBundle\Test\Extensions\SeparateProcess\Subscriber\TestPreparedSubscriber;
-use Mautic\CoreBundle\Test\Extensions\SeparateProcess\Subscriber\TestSuiteFinishedSubscriber;
+use MailVotech\CoreBundle\Test\Extensions\SeparateProcess\Subscriber\TestFinishedSubscriber;
+use MailVotech\CoreBundle\Test\Extensions\SeparateProcess\Subscriber\TestPreparationFailedSubscriber;
+use MailVotech\CoreBundle\Test\Extensions\SeparateProcess\Subscriber\TestPreparedSubscriber;
+use MailVotech\CoreBundle\Test\Extensions\SeparateProcess\Subscriber\TestSuiteFinishedSubscriber;
 use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Event\Test\Finished;
 use PHPUnit\Runner\Extension\Extension;
@@ -27,7 +27,7 @@ final class SeparateProcess implements Extension
     private array $problematicTests = [];
 
     private const PROBLEMATIC_CONSTANTS = [
-        'MAUTIC_INTEGRATION_SYNC_IN_PROGRESS',
+        'MAILVOTECH_INTEGRATION_SYNC_IN_PROGRESS',
     ];
 
     public function bootstrap(Configuration $configuration, Facade $facade, ParameterCollection $parameters): void

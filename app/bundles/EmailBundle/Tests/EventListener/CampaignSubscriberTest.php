@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
-use Mautic\CampaignBundle\Executioner\RealTimeExecutioner;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\EventListener\CampaignSubscriber;
-use Mautic\EmailBundle\Exception\EmailCouldNotBeSentException;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\EmailBundle\Model\SendEmailToUser;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\CampaignBundle\Executioner\RealTimeExecutioner;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\EventListener\CampaignSubscriber;
+use MailVotech\EmailBundle\Exception\EmailCouldNotBeSentException;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\EmailBundle\Model\SendEmailToUser;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class CampaignSubscriberTest extends \PHPUnit\Framework\TestCase
@@ -47,7 +47,7 @@ final class CampaignSubscriberTest extends \PHPUnit\Framework\TestCase
     {
         $eventAccessor = $this->createStub(ActionAccessor::class);
         $event         = new Event();
-        $lead          = (new Lead())->setEmail('tester@mautic.org');
+        $lead          = (new Lead())->setEmail('tester@mailvotech.org');
 
         $event->setType(Event::TYPE_ACTION);
 
@@ -72,7 +72,7 @@ final class CampaignSubscriberTest extends \PHPUnit\Framework\TestCase
     {
         $eventAccessor = $this->createStub(ActionAccessor::class);
         $event         = (new Event())->setType('email.send.to.user');
-        $lead          = (new Lead())->setEmail('tester@mautic.org');
+        $lead          = (new Lead())->setEmail('tester@mailvotech.org');
 
         $leadEventLog = $this->createMock(LeadEventLog::class);
         $leadEventLog
@@ -99,7 +99,7 @@ final class CampaignSubscriberTest extends \PHPUnit\Framework\TestCase
     {
         $eventAccessor = $this->createStub(ActionAccessor::class);
         $event         = (new Event())->setType('email.send.to.user');
-        $lead          = (new Lead())->setEmail('tester@mautic.org');
+        $lead          = (new Lead())->setEmail('tester@mailvotech.org');
 
         $leadEventLog = $this->createMock(LeadEventLog::class);
         $leadEventLog
@@ -135,18 +135,18 @@ final class CampaignSubscriberTest extends \PHPUnit\Framework\TestCase
         $failedLead = $failure->getLead();
         $this->assertInstanceOf(Lead::class, $failedLead);
 
-        $this->assertSame('tester@mautic.org', $failedLead->getEmail());
+        $this->assertSame('tester@mailvotech.org', $failedLead->getEmail());
     }
 
     /**
-     * @throws \Mautic\CampaignBundle\Executioner\Exception\NoContactsFoundException
+     * @throws \MailVotech\CampaignBundle\Executioner\Exception\NoContactsFoundException
      * @throws \Doctrine\ORM\ORMException
      */
     public function testOnCampaignTriggerActionSendEmailToContactWithWrongEventType(): void
     {
         $eventAccessor = $this->createStub(ActionAccessor::class);
         $event         = new Event();
-        $lead          = (new Lead())->setEmail('tester@mautic.org');
+        $lead          = (new Lead())->setEmail('tester@mailvotech.org');
 
         $leadEventLog = $this->createMock(LeadEventLog::class);
         $leadEventLog

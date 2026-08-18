@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Tests\Traits;
+namespace MailVotech\LeadBundle\Tests\Traits;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
 
 trait LeadFieldTestTrait
 {

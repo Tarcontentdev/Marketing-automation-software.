@@ -5,124 +5,124 @@ declare(strict_types=1);
 return [
     'routes' => [
         'main' => [
-            'mautic_pointtriggerevent_action' => [
+            'mailvotech_pointtriggerevent_action' => [
                 'path'       => '/points/triggers/events/{objectAction}/{objectId}',
-                'controller' => 'Mautic\PointBundle\Controller\TriggerEventController::executeAction',
+                'controller' => 'MailVotech\PointBundle\Controller\TriggerEventController::executeAction',
             ],
-            'mautic_pointtrigger_index' => [
+            'mailvotech_pointtrigger_index' => [
                 'path'       => '/points/triggers/{page}',
-                'controller' => 'Mautic\PointBundle\Controller\TriggerController::indexAction',
+                'controller' => 'MailVotech\PointBundle\Controller\TriggerController::indexAction',
             ],
-            'mautic_pointtrigger_action' => [
+            'mailvotech_pointtrigger_action' => [
                 'path'       => '/points/triggers/{objectAction}/{objectId}',
-                'controller' => 'Mautic\PointBundle\Controller\TriggerController::executeAction',
+                'controller' => 'MailVotech\PointBundle\Controller\TriggerController::executeAction',
             ],
-            'mautic_point.group_index' => [
+            'mailvotech_point.group_index' => [
                 'path'       => '/points/groups/{page}',
-                'controller' => 'Mautic\PointBundle\Controller\GroupController::indexAction',
+                'controller' => 'MailVotech\PointBundle\Controller\GroupController::indexAction',
             ],
-            'mautic_point.group_action' => [
+            'mailvotech_point.group_action' => [
                 'path'       => '/points/groups/{objectAction}/{objectId}',
-                'controller' => 'Mautic\PointBundle\Controller\GroupController::executeAction',
+                'controller' => 'MailVotech\PointBundle\Controller\GroupController::executeAction',
             ],
-            'mautic_point.insight_index' => [
+            'mailvotech_point.insight_index' => [
                 'path'       => '/points/insights/{page}',
-                'controller' => 'Mautic\PointBundle\Controller\InsightController::indexAction',
+                'controller' => 'MailVotech\PointBundle\Controller\InsightController::indexAction',
             ],
-            'mautic_point.insight_action' => [
+            'mailvotech_point.insight_action' => [
                 'path'       => '/points/insights/{objectAction}/{objectId}',
-                'controller' => 'Mautic\PointBundle\Controller\InsightController::executeAction',
+                'controller' => 'MailVotech\PointBundle\Controller\InsightController::executeAction',
             ],
-            'mautic_point_index' => [
+            'mailvotech_point_index' => [
                 'path'       => '/points/{page}',
-                'controller' => 'Mautic\PointBundle\Controller\PointController::indexAction',
+                'controller' => 'MailVotech\PointBundle\Controller\PointController::indexAction',
             ],
-            'mautic_point_action' => [
+            'mailvotech_point_action' => [
                 'path'       => '/points/{objectAction}/{objectId}',
-                'controller' => 'Mautic\PointBundle\Controller\PointController::executeAction',
+                'controller' => 'MailVotech\PointBundle\Controller\PointController::executeAction',
             ],
         ],
         'api' => [
-            'mautic_api_pointactionsstandard' => [
+            'mailvotech_api_pointactionsstandard' => [
                 'standard_entity' => true,
                 'name'            => 'points',
                 'path'            => '/points',
-                'controller'      => Mautic\PointBundle\Controller\Api\PointApiController::class,
+                'controller'      => MailVotech\PointBundle\Controller\Api\PointApiController::class,
             ],
-            'mautic_api_getpointactiontypes' => [
+            'mailvotech_api_getpointactiontypes' => [
                 'path'       => '/points/actions/types',
-                'controller' => 'Mautic\PointBundle\Controller\Api\PointApiController::getPointActionTypesAction',
+                'controller' => 'MailVotech\PointBundle\Controller\Api\PointApiController::getPointActionTypesAction',
             ],
-            'mautic_api_pointtriggersstandard' => [
+            'mailvotech_api_pointtriggersstandard' => [
                 'standard_entity' => true,
                 'name'            => 'triggers',
                 'path'            => '/points/triggers',
-                'controller'      => Mautic\PointBundle\Controller\Api\TriggerApiController::class,
+                'controller'      => MailVotech\PointBundle\Controller\Api\TriggerApiController::class,
             ],
-            'mautic_api_getpointtriggereventtypes' => [
+            'mailvotech_api_getpointtriggereventtypes' => [
                 'path'       => '/points/triggers/events/types',
-                'controller' => 'Mautic\PointBundle\Controller\Api\TriggerApiController::getPointTriggerEventTypesAction',
+                'controller' => 'MailVotech\PointBundle\Controller\Api\TriggerApiController::getPointTriggerEventTypesAction',
             ],
-            'mautic_api_pointtriggerdeleteevents' => [
+            'mailvotech_api_pointtriggerdeleteevents' => [
                 'path'       => '/points/triggers/{triggerId}/events/delete',
-                'controller' => 'Mautic\PointBundle\Controller\Api\TriggerApiController::deletePointTriggerEventsAction',
+                'controller' => 'MailVotech\PointBundle\Controller\Api\TriggerApiController::deletePointTriggerEventsAction',
                 'method'     => 'DELETE',
             ],
-            'mautic_api_adjustcontactpoints' => [
+            'mailvotech_api_adjustcontactpoints' => [
                 'path'       => '/contacts/{leadId}/points/{operator}/{delta}',
-                'controller' => 'Mautic\PointBundle\Controller\Api\PointApiController::adjustPointsAction',
+                'controller' => 'MailVotech\PointBundle\Controller\Api\PointApiController::adjustPointsAction',
                 'method'     => 'POST',
             ],
-            'mautic_api_pointgroupsstandard' => [
+            'mailvotech_api_pointgroupsstandard' => [
                 'standard_entity' => true,
                 'name'            => 'pointGroups',
                 'path'            => '/points/groups',
-                'controller'      => Mautic\PointBundle\Controller\Api\PointGroupsApiController::class,
+                'controller'      => MailVotech\PointBundle\Controller\Api\PointGroupsApiController::class,
             ],
-            'mautic_api_getcontactpointgroups' => [
+            'mailvotech_api_getcontactpointgroups' => [
                 'path'       => '/contacts/{contactId}/points/groups',
-                'controller' => 'Mautic\PointBundle\Controller\Api\PointGroupsApiController::getContactPointGroupsAction',
+                'controller' => 'MailVotech\PointBundle\Controller\Api\PointGroupsApiController::getContactPointGroupsAction',
             ],
-            'mautic_api_getcontactpointgroup' => [
+            'mailvotech_api_getcontactpointgroup' => [
                 'path'       => '/contacts/{contactId}/points/groups/{groupId}',
-                'controller' => 'Mautic\PointBundle\Controller\Api\PointGroupsApiController::getContactPointGroupAction',
+                'controller' => 'MailVotech\PointBundle\Controller\Api\PointGroupsApiController::getContactPointGroupAction',
             ],
-            'mautic_api_adjustcontactgrouppoints' => [
+            'mailvotech_api_adjustcontactgrouppoints' => [
                 'path'       => '/contacts/{contactId}/points/groups/{groupId}/{operator}/{value}',
-                'controller' => 'Mautic\PointBundle\Controller\Api\PointGroupsApiController::adjustGroupPointsAction',
+                'controller' => 'MailVotech\PointBundle\Controller\Api\PointGroupsApiController::adjustGroupPointsAction',
                 'method'     => 'POST',
             ],
-            'mautic_api_pointinsightsstandard' => [
+            'mailvotech_api_pointinsightsstandard' => [
                 'standard_entity' => true,
                 'name'            => 'insights',
                 'path'            => '/points/insights',
-                'controller'      => Mautic\PointBundle\Controller\Api\PointInsightApiController::class,
+                'controller'      => MailVotech\PointBundle\Controller\Api\PointInsightApiController::class,
             ],
         ],
     ],
 
     'menu' => [
         'main' => [
-            'mautic.points.menu.root' => [
-                'id'        => 'mautic_points_root',
+            'mailvotech.points.menu.root' => [
+                'id'        => 'mailvotech_points_root',
                 'iconClass' => 'ri-coins-fill',
                 'access'    => ['point:points:view', 'point:triggers:view', 'point:groups:view'],
                 'priority'  => 30,
                 'children'  => [
-                    'mautic.point.menu.index' => [
-                        'route'  => 'mautic_point_index',
+                    'mailvotech.point.menu.index' => [
+                        'route'  => 'mailvotech_point_index',
                         'access' => 'point:points:view',
                     ],
-                    'mautic.point.trigger.menu.index' => [
-                        'route'  => 'mautic_pointtrigger_index',
+                    'mailvotech.point.trigger.menu.index' => [
+                        'route'  => 'mailvotech_pointtrigger_index',
                         'access' => 'point:triggers:view',
                     ],
-                    'mautic.point.group.menu.index' => [
-                        'route'  => 'mautic_point.group_index',
+                    'mailvotech.point.group.menu.index' => [
+                        'route'  => 'mailvotech_point.group_index',
                         'access' => 'point:groups:view',
                     ],
-                    'mautic.point.insights.menu' => [
-                        'route'  => 'mautic_point.insight_index',
+                    'mailvotech.point.insights.menu' => [
+                        'route'  => 'mailvotech_point.insight_index',
                         'access' => 'point:insights:view',
                     ],
                 ],
@@ -132,7 +132,7 @@ return [
 
     'categories' => [
         'point' => [
-            'class' => Mautic\PointBundle\Entity\Point::class,
+            'class' => MailVotech\PointBundle\Entity\Point::class,
         ],
     ],
 ];

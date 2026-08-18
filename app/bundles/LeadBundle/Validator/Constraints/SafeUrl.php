@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Validator\Constraints;
+namespace MailVotech\LeadBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -15,7 +15,7 @@ final class SafeUrl extends Constraint
      */
     #[HasNamedArguments]
     public function __construct(
-        public string $dataProtocolMessage = 'mautic.lead.dataProtocolMessage',
+        public string $dataProtocolMessage = 'mailvotech.lead.dataProtocolMessage',
         ?array $groups = null,
         mixed $payload = null,
     ) {

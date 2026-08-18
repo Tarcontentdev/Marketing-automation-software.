@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\MonitoredEmail;
+namespace MailVotech\EmailBundle\Tests\MonitoredEmail;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\EmailBundle\MonitoredEmail\Mailbox;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\EmailBundle\MonitoredEmail\Mailbox;
 
 final class MailboxTest extends \PHPUnit\Framework\TestCase
 {

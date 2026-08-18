@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\PageBundle\EventListener;
+namespace MailVotech\PageBundle\EventListener;
 
-use Mautic\PageBundle\Event\PageDisplayEvent;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\PageBundle\Event\PageDisplayEvent;
+use MailVotech\PageBundle\PageEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class TokenSubscriber implements EventSubscriberInterface

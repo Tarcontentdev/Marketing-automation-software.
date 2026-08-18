@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Functional\ApiPlatform;
+namespace MailVotech\UserBundle\Tests\Functional\ApiPlatform;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\User;
 
 /**
  * Tests that the User API endpoints properly handle password as write-only field.
@@ -18,7 +18,7 @@ use Mautic\UserBundle\Entity\User;
  * This ensures that password hashes are never exposed through the API,
  * which is critical for security.
  */
-final class UserApiTest extends MauticMysqlTestCase
+final class UserApiTest extends MailVotechMysqlTestCase
 {
     protected function beforeBeginTransaction(): void
     {

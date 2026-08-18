@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\SyncDataExchange\Internal\ReportBuilder;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\SyncDataExchange\Internal\ReportBuilder;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\ObjectDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Helper\FieldHelper;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper\ContactObjectHelper;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ReportBuilder\FieldBuilder;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Request\ObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Helper\FieldHelper;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper\ContactObjectHelper;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ReportBuilder\FieldBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Router;
@@ -43,8 +43,8 @@ final class FieldBuilderTest extends TestCase
 
     public function testIdFieldIsAdded(): void
     {
-        $field = $this->getFieldBuilder()->buildObjectField('mautic_internal_id', ['id' => 1], new ObjectDAO('Test'), 'Test');
-        $this->assertSame('mautic_internal_id', $field->getName());
+        $field = $this->getFieldBuilder()->buildObjectField('mailvotech_internal_id', ['id' => 1], new ObjectDAO('Test'), 'Test');
+        $this->assertSame('mailvotech_internal_id', $field->getName());
         $this->assertSame(FieldDAO::FIELD_CHANGED, $field->getState());
         $this->assertEquals(1, $field->getValue()->getNormalizedValue());
     }
@@ -70,9 +70,9 @@ final class FieldBuilderTest extends TestCase
             ->with(1, 'email')
             ->willReturn(0);
 
-        $field = $this->getFieldBuilder()->buildObjectField('mautic_internal_dnc_email', ['id' => 1], new ObjectDAO('Test'), 'Test');
+        $field = $this->getFieldBuilder()->buildObjectField('mailvotech_internal_dnc_email', ['id' => 1], new ObjectDAO('Test'), 'Test');
 
-        $this->assertSame('mautic_internal_dnc_email', $field->getName());
+        $this->assertSame('mailvotech_internal_dnc_email', $field->getName());
         $this->assertSame(FieldDAO::FIELD_CHANGED, $field->getState());
         $this->assertEquals(0, $field->getValue()->getNormalizedValue());
     }
@@ -82,7 +82,7 @@ final class FieldBuilderTest extends TestCase
         $this->router->expects($this->once())
             ->method('generate')
             ->with(
-                'mautic_plugin_timeline_view',
+                'mailvotech_plugin_timeline_view',
                 [
                     'integration' => 'Test',
                     'leadId'      => 1,
@@ -90,9 +90,9 @@ final class FieldBuilderTest extends TestCase
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
 
-        $field = $this->getFieldBuilder()->buildObjectField('mautic_internal_contact_timeline', ['id' => 1], new ObjectDAO('Test'), 'Test');
+        $field = $this->getFieldBuilder()->buildObjectField('mailvotech_internal_contact_timeline', ['id' => 1], new ObjectDAO('Test'), 'Test');
 
-        $this->assertSame('mautic_internal_contact_timeline', $field->getName());
+        $this->assertSame('mailvotech_internal_contact_timeline', $field->getName());
         $this->assertSame(FieldDAO::FIELD_CHANGED, $field->getState());
         $this->assertEquals('', $field->getValue()->getNormalizedValue());
     }

@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\CampaignBundle\Model;
+namespace MailVotech\CampaignBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Executioner\Scheduler\EventScheduler;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AbstractCommonModel;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Executioner\Scheduler\EventScheduler;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AbstractCommonModel;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Contracts\Service\Attribute\Required;
 
 /**
@@ -87,17 +87,17 @@ final class EventLogModel extends AbstractCommonModel
         $membership = $campaign->getContactMembership($contact);
         if (0 === count($membership)) {
             return $this->translator->trans(
-                'mautic.campaign.error.contact_not_in_campaign',
+                'mailvotech.campaign.error.contact_not_in_campaign',
                 ['%campaign%' => $campaign->getId(), '%contact%' => $contact->getId()],
                 'flashes'
             );
         }
 
-        /** @var \Mautic\CampaignBundle\Entity\Lead $m */
+        /** @var \MailVotech\CampaignBundle\Entity\Lead $m */
         foreach ($membership as $m) {
             if ($m->getManuallyRemoved()) {
                 return $this->translator->trans(
-                    'mautic.campaign.error.contact_not_in_campaign',
+                    'mailvotech.campaign.error.contact_not_in_campaign',
                     ['%campaign%' => $campaign->getId(), '%contact%' => $contact->getId()],
                     'flashes'
                 );
@@ -111,7 +111,7 @@ final class EventLogModel extends AbstractCommonModel
             $log = $logs[0];
             if ($log->getDateTriggered()) {
                 return $this->translator->trans(
-                    'mautic.campaign.error.event_already_executed',
+                    'mailvotech.campaign.error.event_already_executed',
                     [
                         '%campaign%'      => $campaign->getId(),
                         '%event%'         => $event->getId(),
@@ -124,7 +124,7 @@ final class EventLogModel extends AbstractCommonModel
         } else {
             if (!isset($parameters['triggerDate']) && !isset($parameters['dateTriggered'])) {
                 return $this->translator->trans(
-                    'mautic.campaign.error.event_must_be_scheduled',
+                    'mailvotech.campaign.error.event_must_be_scheduled',
                     [
                         '%campaign%' => $campaign->getId(),
                         '%event%'    => $event->getId(),
@@ -150,7 +150,7 @@ final class EventLogModel extends AbstractCommonModel
                 case 'triggerDate':
                     if (Event::TYPE_DECISION === $event->getEventType()) {
                         return $this->translator->trans(
-                            'mautic.campaign.error.decision_cannot_be_scheduled',
+                            'mailvotech.campaign.error.decision_cannot_be_scheduled',
                             [
                                 '%campaign%' => $campaign->getId(),
                                 '%event%'    => $event->getId(),
@@ -165,7 +165,7 @@ final class EventLogModel extends AbstractCommonModel
                     );
                     break;
                 case 'ipAddress':
-                    if (!defined('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED')) {
+                    if (!defined('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED')) {
                         $log->setIpAddress(
                             $this->ipLookupHelper->getIpAddress($value)
                         );

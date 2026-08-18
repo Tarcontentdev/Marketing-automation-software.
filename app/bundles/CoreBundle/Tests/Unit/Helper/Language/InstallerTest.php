@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper\Language;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper\Language;
 
-use Mautic\CoreBundle\Helper\Language\Installer;
+use MailVotech\CoreBundle\Helper\Language\Installer;
 use Symfony\Component\Filesystem\Filesystem;
 
 final class InstallerTest extends \PHPUnit\Framework\TestCase

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field\Dispatcher;
+namespace MailVotech\LeadBundle\Field\Dispatcher;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Event\LeadFieldEvent;
-use Mautic\LeadBundle\Exception\NoListenerException;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Event\LeadFieldEvent;
+use MailVotech\LeadBundle\Exception\NoListenerException;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class FieldSaveDispatcher

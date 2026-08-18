@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Campaign;
+namespace MailVotech\CampaignBundle\Tests\Functional\Campaign;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\PageBundle\Entity\Page;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-final class CampaignRotationTest extends MauticMysqlTestCase
+final class CampaignRotationTest extends MailVotechMysqlTestCase
 {
     private Campaign $campaignWithoutJump;
 
@@ -126,7 +126,7 @@ final class CampaignRotationTest extends MauticMysqlTestCase
         // with the EventLogger class.
         $conn = $this->em->getConnection();
         $conn->executeQuery(
-            'UPDATE '.MAUTIC_TABLE_PREFIX.'campaign_lead_event_log SET rotation = 3 WHERE event_id = ? AND lead_id = ?',
+            'UPDATE '.MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log SET rotation = 3 WHERE event_id = ? AND lead_id = ?',
             [$leadLogWithJump->getEvent()->getId(), $this->lead->getId()]
         );
 

@@ -3,7 +3,7 @@
         {
             "name": "theme-goldstar",
             "directory": "themes/goldstar",
-            "target": "git@github.com:mautic/theme-goldstar.git"
+            "target": "git@github.com:mailvotech/theme-goldstar.git"
         }
     ]
 }

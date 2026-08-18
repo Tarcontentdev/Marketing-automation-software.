@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Extension;
+namespace MailVotech\CoreBundle\Twig\Extension;
 
-use Mautic\CoreBundle\Twig\Helper\SecurityHelper;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Twig\Helper\SecurityHelper;
+use MailVotech\UserBundle\Entity\User;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

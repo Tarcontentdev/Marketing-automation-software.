@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Model;
+namespace MailVotech\FormBundle\Tests\Model;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\FormBundle\Entity\FieldRepository;
-use Mautic\FormBundle\Model\FieldModel;
+use MailVotech\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\FormBundle\Entity\FieldRepository;
+use MailVotech\FormBundle\Model\FieldModel;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -45,7 +45,7 @@ final class FieldModelTest extends TestCase
         $connection->method('getDatabasePlatform')
             ->willReturn($platform);
 
-        $leadFieldModel = $this->createStub(\Mautic\LeadBundle\Model\FieldModel::class);
+        $leadFieldModel = $this->createStub(\MailVotech\LeadBundle\Model\FieldModel::class);
         $entityManager  = $this->createMock(EntityManager::class);
         $schemaHelper   = $this->createStub(ColumnSchemaHelper::class);
         $fieldModel     = new FieldModel(

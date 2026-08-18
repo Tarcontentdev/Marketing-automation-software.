@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\DependencyInjection\EnvProcessor;
+namespace MailVotech\EmailBundle\DependencyInjection\EnvProcessor;
 
-use Mautic\CoreBundle\Helper\Dsn\Dsn;
+use MailVotech\CoreBundle\Helper\Dsn\Dsn;
 use Symfony\Component\DependencyInjection\EnvVarProcessorInterface;
 
 final class MailerDsnEnvVarProcessor implements EnvVarProcessorInterface

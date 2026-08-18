@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\SmsBundle\Controller;
+namespace MailVotech\SmsBundle\Controller;
 
 use Doctrine\Common\Collections\Collection;
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\CoreBundle\Form\Type\DateRangeType;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\LeadBundle\Controller\EntityContactsTrait;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Model\SmsModel;
-use Mautic\SmsBundle\Sms\TransportChain;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\CoreBundle\Form\Type\DateRangeType;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\LeadBundle\Controller\EntityContactsTrait;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Model\SmsModel;
+use MailVotech\SmsBundle\Sms\TransportChain;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,14 +65,14 @@ final class SmsController extends FormController
         $session = $request->getSession();
 
         // set limits
-        $limit = $session->get('mautic.sms.limit', $this->coreParametersHelper->get('default_pagelimit'));
+        $limit = $session->get('mailvotech.sms.limit', $this->coreParametersHelper->get('default_pagelimit'));
         $start = (1 === $page) ? 0 : (($page - 1) * $limit);
         if ($start < 0) {
             $start = 0;
         }
 
-        $search = $request->get('search', $session->get('mautic.sms.filter', ''));
-        $session->set('mautic.sms.filter', $search);
+        $search = $request->get('search', $session->get('mailvotech.sms.filter', ''));
+        $session->set('mailvotech.sms.filter', $search);
 
         $filter = ['string' => $search];
 
@@ -88,8 +88,8 @@ final class SmsController extends FormController
         // Not to include translations
         $filter['force'][] = ['column' => 'e.translationParent', 'expr' => 'isNull'];
 
-        $orderBy    = $session->get('mautic.sms.orderby', 'e.name');
-        $orderByDir = $session->get('mautic.sms.orderbydir', $this->getDefaultOrderDirection());
+        $orderBy    = $session->get('mailvotech.sms.orderby', 'e.name');
+        $orderByDir = $session->get('mailvotech.sms.orderbydir', $this->getDefaultOrderDirection());
 
         $smss = $this->smsModel->getEntities([
             'start'      => $start,
@@ -108,20 +108,20 @@ final class SmsController extends FormController
                 $lastPage = (floor($count / $limit)) ?: 1;
             }
 
-            $session->set('mautic.sms.page', $lastPage);
-            $returnUrl = $this->generateUrl('mautic_sms_index', ['page' => $lastPage]);
+            $session->set('mailvotech.sms.page', $lastPage);
+            $returnUrl = $this->generateUrl('mailvotech_sms_index', ['page' => $lastPage]);
 
             return $this->postActionRedirect([
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['page' => $lastPage],
-                'contentTemplate' => 'Mautic\SmsBundle\Controller\SmsController::indexAction',
+                'contentTemplate' => 'MailVotech\SmsBundle\Controller\SmsController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_sms_index',
-                    'mauticContent' => 'sms',
+                    'activeLink'    => '#mailvotech_sms_index',
+                    'mailvotechContent' => 'sms',
                 ],
             ]);
         }
-        $session->set('mautic.sms.page', $page);
+        $session->set('mailvotech.sms.page', $page);
 
         return $this->delegateView([
             'viewParameters' => [
@@ -136,11 +136,11 @@ final class SmsController extends FormController
                 'security'    => $this->security,
                 'configured'  => count($transportChain->getEnabledTransports()) > 0,
             ],
-            'contentTemplate' => '@MauticSms/Sms/list.html.twig',
+            'contentTemplate' => '@MailVotechSms/Sms/list.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_sms_index',
-                'mauticContent' => 'sms',
-                'route'         => $this->generateUrl('mautic_sms_index', ['page' => $page]),
+                'activeLink'    => '#mailvotech_sms_index',
+                'mailvotechContent' => 'sms',
+                'route'         => $this->generateUrl('mailvotech_sms_index', ['page' => $page]),
             ],
         ]);
     }
@@ -155,24 +155,24 @@ final class SmsController extends FormController
         /** @var Sms $sms */
         $sms = $this->smsModel->getEntity($objectId);
         // set the page we came from
-        $page = $request->getSession()->get('mautic.sms.page', 1);
+        $page = $request->getSession()->get('mailvotech.sms.page', 1);
 
         if (null === $sms) {
             // set the return URL
-            $returnUrl = $this->generateUrl('mautic_sms_index', ['page' => $page]);
+            $returnUrl = $this->generateUrl('mailvotech_sms_index', ['page' => $page]);
 
             return $this->postActionRedirect([
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['page' => $page],
-                'contentTemplate' => 'Mautic\SmsBundle\Controller\SmsController::indexAction',
+                'contentTemplate' => 'MailVotech\SmsBundle\Controller\SmsController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_sms_index',
-                    'mauticContent' => 'sms',
+                    'activeLink'    => '#mailvotech_sms_index',
+                    'mailvotechContent' => 'sms',
                 ],
                 'flashes' => [
                     [
                         'type'    => 'error',
-                        'msg'     => 'mautic.sms.error.notfound',
+                        'msg'     => 'mailvotech.sms.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ],
                 ],
@@ -190,7 +190,7 @@ final class SmsController extends FormController
 
         // Init the date range filter form
         $dateRangeValues = $request->query->all()['daterange'] ?? $request->request->all()['daterange'] ?? [];
-        $action          = $this->generateUrl('mautic_sms_action', ['objectAction' => 'view', 'objectId' => $objectId]);
+        $action          = $this->generateUrl('mailvotech_sms_action', ['objectAction' => 'view', 'objectId' => $objectId]);
         $dateRangeForm   = $this->formFactory->create(DateRangeType::class, $dateRangeValues, ['action' => $action]);
         $entityViews     = $this->smsModel->getHitsLineChartData(
             null,
@@ -211,7 +211,7 @@ final class SmsController extends FormController
         [$translationParent, $translationChildren] = $translations;
 
         return $this->delegateView([
-            'returnUrl'      => $this->generateUrl('mautic_sms_action', ['objectAction' => 'view', 'objectId' => $sms->getId()]),
+            'returnUrl'      => $this->generateUrl('mailvotech_sms_action', ['objectAction' => 'view', 'objectId' => $sms->getId()]),
             'viewParameters' => [
                 'sms'         => $sms,
                 'trackables'  => $trackableLinks,
@@ -231,10 +231,10 @@ final class SmsController extends FormController
                 'security'    => $security,
                 'entityViews' => $entityViews,
                 'contacts'    => $this->forward(
-                    'Mautic\SmsBundle\Controller\SmsController::contactsAction',
+                    'MailVotech\SmsBundle\Controller\SmsController::contactsAction',
                     [
                         'objectId'   => $sms->getId(),
-                        'page'       => $request->getSession()->get('mautic.sms.contact.page', 1),
+                        'page'       => $request->getSession()->get('mailvotech.sms.contact.page', 1),
                         'ignoreAjax' => true,
                     ]
                 )->getContent(),
@@ -244,10 +244,10 @@ final class SmsController extends FormController
                     'children' => $translationChildren,
                 ],
             ],
-            'contentTemplate' => '@MauticSms/Sms/details.html.twig',
+            'contentTemplate' => '@MailVotechSms/Sms/details.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_sms_index',
-                'mauticContent' => 'sms',
+                'activeLink'    => '#mailvotech_sms_index',
+                'mailvotechContent' => 'sms',
             ],
         ]);
     }
@@ -272,8 +272,8 @@ final class SmsController extends FormController
         }
 
         // set the page we came from
-        $page         = $session->get('mautic.sms.page', 1);
-        $action       = $this->generateUrl('mautic_sms_action', ['objectAction' => 'new']);
+        $page         = $session->get('mailvotech.sms.page', 1);
+        $action       = $this->generateUrl('mailvotech_sms_action', ['objectAction' => 'new']);
         $sms          = $request->request->all()['sms'] ?? [];
         $updateSelect = 'POST' === $method
             ? ($sms['updateSelect'] ?? false)
@@ -298,12 +298,12 @@ final class SmsController extends FormController
                     $this->smsModel->saveEntity($entity);
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.created',
+                        'mailvotech.core.notice.created',
                         [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_sms_index',
+                            '%menu_link%' => 'mailvotech_sms_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_sms_action',
+                                'mailvotech_sms_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $entity->getId(),
@@ -317,8 +317,8 @@ final class SmsController extends FormController
                             'objectAction' => 'view',
                             'objectId'     => $entity->getId(),
                         ];
-                        $returnUrl = $this->generateUrl('mautic_sms_action', $viewParameters);
-                        $template  = 'Mautic\SmsBundle\Controller\SmsController::viewAction';
+                        $returnUrl = $this->generateUrl('mailvotech_sms_action', $viewParameters);
+                        $template  = 'MailVotech\SmsBundle\Controller\SmsController::viewAction';
                     } else {
                         // return edit view so that all the session stuff is loaded
                         return $this->editAction($request, $entity->getId(), true);
@@ -326,15 +326,15 @@ final class SmsController extends FormController
                 }
             } else {
                 $viewParameters = ['page' => $page];
-                $returnUrl      = $this->generateUrl('mautic_sms_index', $viewParameters);
-                $template       = 'Mautic\SmsBundle\Controller\SmsController::indexAction';
+                $returnUrl      = $this->generateUrl('mailvotech_sms_index', $viewParameters);
+                $template       = 'MailVotech\SmsBundle\Controller\SmsController::indexAction';
                 // clear any modified content
-                $session->remove('mautic.sms.'.$entity->getId().'.content');
+                $session->remove('mailvotech.sms.'.$entity->getId().'.content');
             }
 
             $passthrough = [
-                'activeLink'    => 'mautic_sms_index',
-                'mauticContent' => 'sms',
+                'activeLink'    => 'mailvotech_sms_index',
+                'mailvotechContent' => 'sms',
             ];
 
             // Check to see if this is a popup
@@ -369,13 +369,13 @@ final class SmsController extends FormController
                     'form' => $form->createView(),
                     'sms'  => $entity,
                 ],
-                'contentTemplate' => '@MauticSms/Sms/form.html.twig',
+                'contentTemplate' => '@MailVotechSms/Sms/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_sms_index',
-                    'mauticContent' => 'sms',
+                    'activeLink'    => '#mailvotech_sms_index',
+                    'mailvotechContent' => 'sms',
                     'updateSelect'  => InputHelper::clean($request->query->get('updateSelect')),
                     'route'         => $this->generateUrl(
-                        'mautic_sms_action',
+                        'mailvotech_sms_action',
                         [
                             'objectAction' => 'new',
                         ]
@@ -394,18 +394,18 @@ final class SmsController extends FormController
         $method  = $request->getMethod();
         $entity  = $this->smsModel->getEntity($objectId);
         $session = $request->getSession();
-        $page    = $session->get('mautic.sms.page', 1);
+        $page    = $session->get('mailvotech.sms.page', 1);
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_sms_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_sms_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\SmsBundle\Controller\SmsController::indexAction',
+            'contentTemplate' => 'MailVotech\SmsBundle\Controller\SmsController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_sms_index',
-                'mauticContent' => 'sms',
+                'activeLink'    => 'mailvotech_sms_index',
+                'mailvotechContent' => 'sms',
             ],
         ];
 
@@ -418,7 +418,7 @@ final class SmsController extends FormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.sms.error.notfound',
+                                'msg'     => 'mailvotech.sms.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -439,7 +439,7 @@ final class SmsController extends FormController
         }
 
         // Create the form
-        $action       = $this->generateUrl('mautic_sms_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action       = $this->generateUrl('mailvotech_sms_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $sms          = $request->request->all()['sms'] ?? [];
         $updateSelect = 'POST' === $method
             ? ($sms['updateSelect'] ?? false)
@@ -459,12 +459,12 @@ final class SmsController extends FormController
                     $this->smsModel->saveEntity($entity, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.updated',
+                        'mailvotech.core.notice.updated',
                         [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_sms_index',
+                            '%menu_link%' => 'mailvotech_sms_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_sms_action',
+                                'mailvotech_sms_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $entity->getId(),
@@ -476,17 +476,17 @@ final class SmsController extends FormController
                 }
             } else {
                 // clear any modified content
-                $session->remove('mautic.sms.'.$objectId.'.content');
+                $session->remove('mailvotech.sms.'.$objectId.'.content');
                 // unlock the entity
                 $this->smsModel->unlockEntity($entity);
             }
 
             $passthrough = [
-                'activeLink'    => 'mautic_sms_index',
-                'mauticContent' => 'sms',
+                'activeLink'    => 'mailvotech_sms_index',
+                'mailvotechContent' => 'sms',
             ];
 
-            $template = 'Mautic\SmsBundle\Controller\SmsController::viewAction';
+            $template = 'MailVotech\SmsBundle\Controller\SmsController::viewAction';
 
             // Check to see if this is a popup
             if (isset($form['updateSelect'])) {
@@ -512,7 +512,7 @@ final class SmsController extends FormController
                     array_merge(
                         $postActionVars,
                         [
-                            'returnUrl'       => $this->generateUrl('mautic_sms_action', $viewParameters),
+                            'returnUrl'       => $this->generateUrl('mailvotech_sms_action', $viewParameters),
                             'viewParameters'  => $viewParameters,
                             'contentTemplate' => $template,
                             'passthroughVars' => $passthrough,
@@ -532,13 +532,13 @@ final class SmsController extends FormController
                     'sms'                => $entity,
                     'forceTypeSelection' => $forceTypeSelection,
                 ],
-                'contentTemplate' => '@MauticSms/Sms/form.html.twig',
+                'contentTemplate' => '@MailVotechSms/Sms/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_sms_index',
-                    'mauticContent' => 'sms',
+                    'activeLink'    => '#mailvotech_sms_index',
+                    'mailvotechContent' => 'sms',
                     'updateSelect'  => InputHelper::clean($request->query->get('updateSelect')),
                     'route'         => $this->generateUrl(
-                        'mautic_sms_action',
+                        'mailvotech_sms_action',
                         [
                             'objectAction' => 'edit',
                             'objectId'     => $entity->getId(),
@@ -578,17 +578,17 @@ final class SmsController extends FormController
      */
     public function deleteAction(Request $request, $objectId): Response
     {
-        $page      = $request->getSession()->get('mautic.sms.page', 1);
-        $returnUrl = $this->generateUrl('mautic_sms_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.sms.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_sms_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\SmsBundle\Controller\SmsController::indexAction',
+            'contentTemplate' => 'MailVotech\SmsBundle\Controller\SmsController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_sms_index',
-                'mauticContent' => 'sms',
+                'activeLink'    => 'mailvotech_sms_index',
+                'mailvotechContent' => 'sms',
             ],
         ];
 
@@ -598,7 +598,7 @@ final class SmsController extends FormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.sms.error.notfound',
+                    'msg'     => 'mailvotech.sms.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->hasEntityAccess(
@@ -616,7 +616,7 @@ final class SmsController extends FormController
 
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $entity->getName(),
                     '%id%'   => $objectId,
@@ -637,17 +637,17 @@ final class SmsController extends FormController
      */
     public function batchDeleteAction(Request $request): Response
     {
-        $page      = $request->getSession()->get('mautic.sms.page', 1);
-        $returnUrl = $this->generateUrl('mautic_sms_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.sms.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_sms_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\SmsBundle\Controller\SmsController::indexAction',
+            'contentTemplate' => 'MailVotech\SmsBundle\Controller\SmsController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_sms_index',
-                'mauticContent' => 'sms',
+                'activeLink'    => '#mailvotech_sms_index',
+                'mailvotechContent' => 'sms',
             ],
         ];
 
@@ -663,7 +663,7 @@ final class SmsController extends FormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.sms.error.notfound',
+                        'msg'     => 'mailvotech.sms.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->hasEntityAccess(
@@ -686,7 +686,7 @@ final class SmsController extends FormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.sms.notice.batch_deleted',
+                    'msg'     => 'mailvotech.sms.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],
@@ -712,7 +712,7 @@ final class SmsController extends FormController
                 'viewParameters' => [
                     'sms' => $sms,
                 ],
-                'contentTemplate' => '@MauticSms/Sms/preview.html.twig',
+                'contentTemplate' => '@MailVotechSms/Sms/preview.html.twig',
             ]);
         }
 

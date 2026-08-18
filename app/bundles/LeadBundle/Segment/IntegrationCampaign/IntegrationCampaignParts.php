@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\IntegrationCampaign;
+namespace MailVotech\LeadBundle\Segment\IntegrationCampaign;
 
 final class IntegrationCampaignParts
 {

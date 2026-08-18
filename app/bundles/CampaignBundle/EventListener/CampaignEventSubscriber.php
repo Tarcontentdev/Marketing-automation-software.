@@ -1,25 +1,25 @@
 <?php
 
-namespace Mautic\CampaignBundle\EventListener;
+namespace MailVotech\CampaignBundle\EventListener;
 
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\TransactionRequiredException;
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Event\CampaignEvent;
-use Mautic\CampaignBundle\Event\EventPreview;
-use Mautic\CampaignBundle\Event\ExecutedEvent;
-use Mautic\CampaignBundle\Event\FailedEvent;
-use Mautic\CampaignBundle\Event\NotifyOfFailureEvent;
-use Mautic\CampaignBundle\Event\NotifyOfUnpublishEvent;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CampaignBundle\Model\Exceptions\CampaignAlreadyUnpublishedException;
-use Mautic\CampaignBundle\Model\Exceptions\CampaignVersionMismatchedException;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Event\CampaignEvent;
+use MailVotech\CampaignBundle\Event\EventPreview;
+use MailVotech\CampaignBundle\Event\ExecutedEvent;
+use MailVotech\CampaignBundle\Event\FailedEvent;
+use MailVotech\CampaignBundle\Event\NotifyOfFailureEvent;
+use MailVotech\CampaignBundle\Event\NotifyOfUnpublishEvent;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CampaignBundle\Model\Exceptions\CampaignAlreadyUnpublishedException;
+use MailVotech\CampaignBundle\Model\Exceptions\CampaignVersionMismatchedException;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

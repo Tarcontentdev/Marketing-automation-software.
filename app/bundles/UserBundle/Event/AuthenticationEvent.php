@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\UserBundle\Event;
+namespace MailVotech\UserBundle\Event;
 
-use Mautic\PluginBundle\Integration\AbstractIntegration;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Security\Authentication\Token\PluginToken;
-use Mautic\UserBundle\Security\Provider\UserProvider;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Security\Authentication\Token\PluginToken;
+use MailVotech\UserBundle\Security\Provider\UserProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -47,7 +47,7 @@ class AuthenticationEvent extends Event
 
     /**
      * @param string|User|null                $user
-     * @param bool                            $isLoginCheck          Event executed from the mautic_sso_login_check route typically used as the SSO callback
+     * @param bool                            $isLoginCheck          Event executed from the mailvotech_sso_login_check route typically used as the SSO callback
      * @param string                          $authenticatingService Service Service requesting authentication
      * @param array<AbstractIntegration>|null $integrations
      */
@@ -63,7 +63,7 @@ class AuthenticationEvent extends Event
         $this->isFormLogin           = $token instanceof UsernamePasswordToken;
 
         if ($userProvider instanceof ChainUserProvider) {
-            // Chain of user providers so let's find Mautic's
+            // Chain of user providers so let's find MailVotech's
             $providers = $userProvider->getProviders();
             foreach ($providers as $provider) {
                 if ($provider instanceof UserProvider) {
@@ -253,7 +253,7 @@ class AuthenticationEvent extends Event
     }
 
     /**
-     * Check if the event is executed as the result of accessing mautic_sso_login_check.
+     * Check if the event is executed as the result of accessing mailvotech_sso_login_check.
      *
      * @return bool
      */

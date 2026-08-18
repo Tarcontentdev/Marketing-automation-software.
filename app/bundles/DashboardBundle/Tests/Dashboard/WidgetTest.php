@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DashboardBundle\Tests\Dashboard;
+namespace MailVotech\DashboardBundle\Tests\Dashboard;
 
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\DashboardBundle\Dashboard\Widget;
-use Mautic\DashboardBundle\Entity\Widget as WidgetEntity;
-use Mautic\DashboardBundle\Model\DashboardModel;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\DashboardBundle\Dashboard\Widget;
+use MailVotech\DashboardBundle\Entity\Widget as WidgetEntity;
+use MailVotech\DashboardBundle\Model\DashboardModel;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\RequestStack;

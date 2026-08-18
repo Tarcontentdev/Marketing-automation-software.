@@ -8,6 +8,6 @@ final class DefineOtherConstantTest
 {
     public function setUp(): void
     {
-        defined('MAUTIC_ENV') or define('MAUTIC_ENV', 'test');
+        defined('MAILVOTECH_ENV') or define('MAILVOTECH_ENV', 'test');
     }
 }

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Controller;
+namespace MailVotech\CampaignBundle\Tests\Controller;
 
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Tests\Functional\Fixtures\FixtureHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Tests\Functional\Fixtures\EmailFixturesHelper;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Tests\Functional\Fixtures\FixtureHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Tests\Functional\Fixtures\EmailFixturesHelper;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
-final class CampaignMetricsControllerFunctionalTest extends MauticMysqlTestCase
+final class CampaignMetricsControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     private FixtureHelper $campaignFixturesHelper;
 
@@ -210,7 +210,7 @@ final class CampaignMetricsControllerFunctionalTest extends MauticMysqlTestCase
             ]
         );
 
-        $commandResult = $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $commandResult = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
         $this->assertStringContainsString('7 total events were executed', $commandResult->getDisplay());
 
         // check condition event details after running the campaign
@@ -286,7 +286,7 @@ final class CampaignMetricsControllerFunctionalTest extends MauticMysqlTestCase
         $this->em->persist($campaignLead);
         $this->em->flush();
 
-        $commandResult = $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $commandResult = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
         $this->assertStringContainsString('1 total event was executed', $commandResult->getDisplay());
 
         // check condition event details after second rotation for the lead

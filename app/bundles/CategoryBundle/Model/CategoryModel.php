@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\CategoryBundle\Model;
+namespace MailVotech\CategoryBundle\Model;
 
-use Mautic\CategoryBundle\CategoryEvents;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CategoryBundle\Entity\CategoryRepository;
-use Mautic\CategoryBundle\Event\CategoryEvent;
-use Mautic\CategoryBundle\Event\CategoryTypeEntityEvent;
-use Mautic\CategoryBundle\Form\Type\CategoryType;
-use Mautic\CoreBundle\Model\AjaxLookupModelInterface;
-use Mautic\CoreBundle\Model\FormModel;
+use MailVotech\CategoryBundle\CategoryEvents;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CategoryBundle\Entity\CategoryRepository;
+use MailVotech\CategoryBundle\Event\CategoryEvent;
+use MailVotech\CategoryBundle\Event\CategoryTypeEntityEvent;
+use MailVotech\CategoryBundle\Form\Type\CategoryType;
+use MailVotech\CoreBundle\Model\AjaxLookupModelInterface;
+use MailVotech\CoreBundle\Model\FormModel;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;

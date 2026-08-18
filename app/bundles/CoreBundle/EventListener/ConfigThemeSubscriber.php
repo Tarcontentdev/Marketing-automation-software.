@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
-use Mautic\ConfigBundle\ConfigEvents;
-use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use Mautic\CoreBundle\Form\Type\ConfigThemeType;
+use MailVotech\ConfigBundle\ConfigEvents;
+use MailVotech\ConfigBundle\Event\ConfigBuilderEvent;
+use MailVotech\CoreBundle\Form\Type\ConfigThemeType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ConfigThemeSubscriber implements EventSubscriberInterface
@@ -25,13 +25,13 @@ final class ConfigThemeSubscriber implements EventSubscriberInterface
                 'bundle'     => 'CoreBundle',
                 'formAlias'  => 'themeconfig',
                 'formType'   => ConfigThemeType::class,
-                'formTheme'  => '@MauticCore/FormTheme/Config/_config_themeconfig_widget.html.twig',
+                'formTheme'  => '@MailVotechCore/FormTheme/Config/_config_themeconfig_widget.html.twig',
                 'parameters' => [
-                    'theme'                           => $event->getParametersFromConfig('MauticCoreBundle')['theme'],
-                    'theme_import_allowed_extensions' => $event->getParametersFromConfig('MauticCoreBundle')['theme_import_allowed_extensions'],
-                    'brand_name'                      => $event->getParametersFromConfig('MauticCoreBundle')['brand_name'] ?? '',
-                    'primary_brand_color'             => $event->getParametersFromConfig('MauticCoreBundle')['primary_brand_color'] ?? '000000',
-                    'rounded_corners'                 => $event->getParametersFromConfig('MauticCoreBundle')['rounded_corners'] ?? '0',
+                    'theme'                           => $event->getParametersFromConfig('MailVotechCoreBundle')['theme'],
+                    'theme_import_allowed_extensions' => $event->getParametersFromConfig('MailVotechCoreBundle')['theme_import_allowed_extensions'],
+                    'brand_name'                      => $event->getParametersFromConfig('MailVotechCoreBundle')['brand_name'] ?? '',
+                    'primary_brand_color'             => $event->getParametersFromConfig('MailVotechCoreBundle')['primary_brand_color'] ?? '000000',
+                    'rounded_corners'                 => $event->getParametersFromConfig('MailVotechCoreBundle')['rounded_corners'] ?? '0',
                 ],
             ]
         );

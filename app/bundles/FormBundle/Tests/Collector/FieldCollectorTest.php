@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Collector;
+namespace MailVotech\FormBundle\Tests\Collector;
 
-use Mautic\FormBundle\Collection\FieldCollection;
-use Mautic\FormBundle\Collector\FieldCollector;
-use Mautic\FormBundle\Event\FieldCollectEvent;
+use MailVotech\FormBundle\Collection\FieldCollection;
+use MailVotech\FormBundle\Collector\FieldCollector;
+use MailVotech\FormBundle\Event\FieldCollectEvent;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 

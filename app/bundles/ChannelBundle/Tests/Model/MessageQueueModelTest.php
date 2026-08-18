@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Tests\Model;
+namespace MailVotech\ChannelBundle\Tests\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\ChannelBundle\Entity\MessageQueue;
-use Mautic\ChannelBundle\Entity\MessageQueueRepository;
-use Mautic\ChannelBundle\Model\MessageQueueModel;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\FrequencyRuleRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\ChannelBundle\Entity\MessageQueue;
+use MailVotech\ChannelBundle\Entity\MessageQueueRepository;
+use MailVotech\ChannelBundle\Model\MessageQueueModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\FrequencyRuleRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\LeadModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

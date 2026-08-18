@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Controller;
+namespace MailVotech\LeadBundle\Controller;
 
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 trait EntityContactsTrait
@@ -64,9 +64,9 @@ trait EntityContactsTrait
                         'objectId'        => $entityId,
                         'target'          => $paginationTarget,
                     ],
-                    'contentTemplate' => '@MauticLead/Lead/grid.html.twig',
+                    'contentTemplate' => '@MailVotechLead/Lead/grid.html.twig',
                     'passthroughVars' => [
-                        'mauticContent' => $sessionVar.'Contacts',
+                        'mailvotechContent' => $sessionVar.'Contacts',
                         'route'         => false,
                     ],
                 ]
@@ -74,9 +74,9 @@ trait EntityContactsTrait
         }
 
         // Set the route if not standardized
-        $route = "mautic_{$sessionVar}_contacts";
+        $route = "mailvotech_{$sessionVar}_contacts";
         if (method_exists($this, 'getRouteBase') && $this->getRouteBase()) {
-            $route = 'mautic_'.$this->getRouteBase().'_contacts';
+            $route = 'mailvotech_'.$this->getRouteBase().'_contacts';
         }
 
         // Apply filters
@@ -84,17 +84,17 @@ trait EntityContactsTrait
             $this->setListFilters($sessionVar.'.contact');
         }
 
-        $search = $request->get('search', $request->getSession()->get('mautic.'.$sessionVar.'.contact.filter', ''));
-        $request->getSession()->set('mautic.'.$sessionVar.'.contact.filter', $search);
+        $search = $request->get('search', $request->getSession()->get('mailvotech.'.$sessionVar.'.contact.filter', ''));
+        $request->getSession()->set('mailvotech.'.$sessionVar.'.contact.filter', $search);
 
-        $pageHelper = $pageHelperFactory->make("mautic.{$sessionVar}", $page);
+        $pageHelper = $pageHelperFactory->make("mailvotech.{$sessionVar}", $page);
 
         $filter     = ['string' => $search, 'force' => []];
-        $orderBy    = $orderBy ?: $request->getSession()->get('mautic.'.$sessionVar.'.contact.orderby', 'l.id');
-        $orderByDir = $orderByDir ?: $request->getSession()->get('mautic.'.$sessionVar.'.contact.orderbydir', 'DESC');
+        $orderBy    = $orderBy ?: $request->getSession()->get('mailvotech.'.$sessionVar.'.contact.orderby', 'l.id');
+        $orderByDir = $orderByDir ?: $request->getSession()->get('mailvotech.'.$sessionVar.'.contact.orderbydir', 'DESC');
 
         $limit = $request->getSession()->get(
-            'mautic.'.$sessionVar.'.contact.limit',
+            'mailvotech.'.$sessionVar.'.contact.limit',
             $this->coreParametersHelper->get('default_pagelimit')
         );
 
@@ -146,10 +146,10 @@ trait EntityContactsTrait
                 [
                     'returnUrl'         => $returnUrl,
                     'viewParameters'    => ['page' => $lastPage, 'objectId' => $entityId],
-                    'contentTemplate'   => '@MauticLead/Lead/grid.html.twig',
+                    'contentTemplate'   => '@MailVotechLead/Lead/grid.html.twig',
                     'forwardController' => false,
                     'passthroughVars'   => [
-                        'mauticContent' => $sessionVar.'Contacts',
+                        'mailvotechContent' => $sessionVar.'Contacts',
                     ],
                 ]
             );
@@ -182,9 +182,9 @@ trait EntityContactsTrait
                     'noContactList'   => $dnc,
                     'target'          => $paginationTarget,
                 ],
-                'contentTemplate' => '@MauticLead/Lead/grid.html.twig',
+                'contentTemplate' => '@MailVotechLead/Lead/grid.html.twig',
                 'passthroughVars' => [
-                    'mauticContent' => $sessionVar.'Contacts',
+                    'mailvotechContent' => $sessionVar.'Contacts',
                     'route'         => false,
                 ],
             ]

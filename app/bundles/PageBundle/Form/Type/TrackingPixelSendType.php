@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Form\Type;
+namespace MailVotech\PageBundle\Form\Type;
 
-use Mautic\PageBundle\Helper\TrackingHelper;
+use MailVotech\PageBundle\Helper\TrackingHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,7 +26,7 @@ final class TrackingPixelSendType extends AbstractType
         $trackingServices = $this->trackingHelper->getEnabledServices();
 
         $builder->add('services', ChoiceType::class, [
-            'label'      => 'mautic.page.tracking.form.services',
+            'label'      => 'mailvotech.page.tracking.form.services',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => [
                 'class' => 'form-control',
@@ -34,10 +34,10 @@ final class TrackingPixelSendType extends AbstractType
             'expanded'    => false,
             'multiple'    => true,
             'choices'     => array_flip($trackingServices),
-            'placeholder' => 'mautic.core.form.chooseone',
+            'placeholder' => 'mailvotech.core.form.chooseone',
             'constraints' => [
                 new NotBlank(
-                    message: 'mautic.core.ab_test.winner_criteria.not_blank'
+                    message: 'mailvotech.core.ab_test.winner_criteria.not_blank'
                 ),
             ],
         ]);
@@ -46,11 +46,11 @@ final class TrackingPixelSendType extends AbstractType
             'category',
             TextType::class,
             [
-                'label'      => 'mautic.page.tracking.form.category',
+                'label'      => 'mailvotech.page.tracking.form.category',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.page.tracking.form.category.tooltip',
+                    'tooltip' => 'mailvotech.page.tracking.form.category.tooltip',
                 ],
                 'required'    => true,
                 'constraints' => [
@@ -63,7 +63,7 @@ final class TrackingPixelSendType extends AbstractType
             'action',
             TextType::class,
             [
-                'label'      => 'mautic.page.tracking.form.action',
+                'label'      => 'mailvotech.page.tracking.form.action',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -79,7 +79,7 @@ final class TrackingPixelSendType extends AbstractType
             'label',
             TextType::class,
             [
-                'label'      => 'mautic.page.tracking.form.label',
+                'label'      => 'mailvotech.page.tracking.form.label',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
 
-final class LeadFieldRepositoryFunctionalTest extends MauticMysqlTestCase
+final class LeadFieldRepositoryFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback     = false;
 

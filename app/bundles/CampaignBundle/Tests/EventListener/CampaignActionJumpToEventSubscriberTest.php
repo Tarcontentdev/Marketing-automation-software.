@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\EventListener;
+namespace MailVotech\CampaignBundle\Tests\EventListener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
-use Mautic\CampaignBundle\EventListener\CampaignActionJumpToEventSubscriber;
-use Mautic\CampaignBundle\Executioner\EventExecutioner;
-use Mautic\CampaignBundle\Executioner\Result\Counter;
-use Mautic\CampaignBundle\Executioner\Scheduler\EventScheduler;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\CampaignBundle\EventListener\CampaignActionJumpToEventSubscriber;
+use MailVotech\CampaignBundle\Executioner\EventExecutioner;
+use MailVotech\CampaignBundle\Executioner\Result\Counter;
+use MailVotech\CampaignBundle\Executioner\Scheduler\EventScheduler;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Translation\Translator;
@@ -92,7 +92,7 @@ final class CampaignActionJumpToEventSubscriberTest extends TestCase
              */
             public function trans(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
             {
-                Assert::assertSame('mautic.campaign.campaign.jump_to_event.target_not_exist', $id);
+                Assert::assertSame('mailvotech.campaign.campaign.jump_to_event.target_not_exist', $id);
 
                 return $id;
             }
@@ -129,7 +129,7 @@ final class CampaignActionJumpToEventSubscriberTest extends TestCase
 
         $this->AssertSame([
             'failed' => 1,
-            'reason' => 'mautic.campaign.campaign.jump_to_event.target_not_exist',
+            'reason' => 'mailvotech.campaign.campaign.jump_to_event.target_not_exist',
         ], $leadLog->getMetadata());
     }
 

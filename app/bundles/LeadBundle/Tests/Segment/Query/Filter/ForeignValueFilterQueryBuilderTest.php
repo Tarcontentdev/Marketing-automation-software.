@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\Query\Filter;
+namespace MailVotech\LeadBundle\Tests\Segment\Query\Filter;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Test\Doctrine\MockedConnectionTrait;
-use Mautic\LeadBundle\Provider\FilterOperatorProvider;
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterOperator;
-use Mautic\LeadBundle\Segment\Decorator\CustomMappedDecorator;
-use Mautic\LeadBundle\Segment\Query\Filter\ForeignValueFilterQueryBuilder;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
-use Mautic\LeadBundle\Segment\RandomParameterName;
-use Mautic\LeadBundle\Segment\TableSchemaColumnsCache;
-use Mautic\LeadBundle\Services\ContactSegmentFilterDictionary;
+use MailVotech\CoreBundle\Test\Doctrine\MockedConnectionTrait;
+use MailVotech\LeadBundle\Provider\FilterOperatorProvider;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterOperator;
+use MailVotech\LeadBundle\Segment\Decorator\CustomMappedDecorator;
+use MailVotech\LeadBundle\Segment\Query\Filter\ForeignValueFilterQueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\RandomParameterName;
+use MailVotech\LeadBundle\Segment\TableSchemaColumnsCache;
+use MailVotech\LeadBundle\Services\ContactSegmentFilterDictionary;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -48,7 +48,7 @@ final class ForeignValueFilterQueryBuilderTest extends TestCase
     public function testGetServiceId(): void
     {
         $this->assertSame(
-            'mautic.lead.query.builder.foreign.value',
+            'mailvotech.lead.query.builder.foreign.value',
             $this->queryBuilder::getServiceId()
         );
     }
@@ -74,10 +74,10 @@ final class ForeignValueFilterQueryBuilderTest extends TestCase
     #[DataProvider('dataApplyQuery')]
     public function testApplyQuery(string $operator, string $parameterValue, string $expectedQuery): void
     {
-        $expectedQuery = str_replace('__PREFIX__', MAUTIC_TABLE_PREFIX, $expectedQuery);
+        $expectedQuery = str_replace('__PREFIX__', MAILVOTECH_TABLE_PREFIX, $expectedQuery);
         $queryBuilder  = new QueryBuilder($this->connectionMock);
         $queryBuilder->select('1');
-        $queryBuilder->from(MAUTIC_TABLE_PREFIX.'leads', 'l');
+        $queryBuilder->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l');
 
         $filter = $this->getContactSegmentFilter([
             'object'     => 'behaviors',
@@ -112,10 +112,10 @@ final class ForeignValueFilterQueryBuilderTest extends TestCase
     #[DataProvider('dataApplyQueryAdditionalFilters')]
     public function testApplyQueryAdditionalFilters(string $operator, array $parameterValue, string $expectedQuery): void
     {
-        $expectedQuery = str_replace('__PREFIX__', MAUTIC_TABLE_PREFIX, $expectedQuery);
+        $expectedQuery = str_replace('__PREFIX__', MAILVOTECH_TABLE_PREFIX, $expectedQuery);
         $queryBuilder  = new QueryBuilder($this->connectionMock);
         $queryBuilder->select('1');
-        $queryBuilder->from(MAUTIC_TABLE_PREFIX.'leads', 'l');
+        $queryBuilder->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l');
 
         $filter = $this->getContactSegmentFilter([
             'glue'       => 'and',
@@ -185,10 +185,10 @@ final class ForeignValueFilterQueryBuilderTest extends TestCase
     #[DataProvider('dataApplyQueryWithBatchFilters')]
     public function testApplyQueryWithBatchFilters(array $batchLimiters, string $operator, string $parameterValue, string $expectedQuery): void
     {
-        $expectedQuery = str_replace('__PREFIX__', MAUTIC_TABLE_PREFIX, $expectedQuery);
+        $expectedQuery = str_replace('__PREFIX__', MAILVOTECH_TABLE_PREFIX, $expectedQuery);
         $queryBuilder  = new QueryBuilder($this->connectionMock);
         $queryBuilder->select('1');
-        $queryBuilder->from(MAUTIC_TABLE_PREFIX.'leads', 'l');
+        $queryBuilder->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l');
 
         $filter = $this->getContactSegmentFilter([
             'object'     => 'behaviors',
@@ -226,10 +226,10 @@ final class ForeignValueFilterQueryBuilderTest extends TestCase
     #[DataProvider('dataApplyQueryAdditionalFiltersWithBatchLimiters')]
     public function testApplyQueryAdditionalFiltersWithBatchLimiters(array $batchLimiters, string $operator, array $parameterValue, string $expectedQuery): void
     {
-        $expectedQuery = str_replace('__PREFIX__', MAUTIC_TABLE_PREFIX, $expectedQuery);
+        $expectedQuery = str_replace('__PREFIX__', MAILVOTECH_TABLE_PREFIX, $expectedQuery);
         $queryBuilder  = new QueryBuilder($this->connectionMock);
         $queryBuilder->select('1');
-        $queryBuilder->from(MAUTIC_TABLE_PREFIX.'leads', 'l');
+        $queryBuilder->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l');
 
         $filter = $this->getContactSegmentFilter([
             'glue'       => 'and',

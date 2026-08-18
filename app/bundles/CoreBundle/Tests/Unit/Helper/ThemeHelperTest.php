@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Exception\FileNotFoundException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\Filesystem;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Helper\BuilderIntegrationsHelper;
-use Mautic\IntegrationsBundle\Integration\Interfaces\BuilderInterface;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\CoreBundle\Exception\FileNotFoundException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\Filesystem;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Helper\BuilderIntegrationsHelper;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\BuilderInterface;
+use MailVotech\PluginBundle\Entity\Integration;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -98,7 +98,7 @@ final class ThemeHelperTest extends TestCase
 
         $this->translator->expects($this->once())
             ->method('trans')
-            ->with('mautic.core.theme.missing.files', $this->anything(), 'validators')
+            ->with('mailvotech.core.theme.missing.files', $this->anything(), 'validators')
             ->willReturnCallback(
                 function ($key, array $parameters): void {
                     $this->assertStringContainsString('config.json', (string) $parameters['%files%']);
@@ -118,7 +118,7 @@ final class ThemeHelperTest extends TestCase
 
         $this->translator->expects($this->once())
             ->method('trans')
-            ->with('mautic.core.theme.missing.files', $this->anything(), 'validators')
+            ->with('mailvotech.core.theme.missing.files', $this->anything(), 'validators')
             ->willReturnCallback(
                 function ($key, array $parameters): void {
                     $this->assertStringContainsString('message.html.twig', (string) $parameters['%files%']);
@@ -138,7 +138,7 @@ final class ThemeHelperTest extends TestCase
 
         $this->translator->expects($this->once())
             ->method('trans')
-            ->with('mautic.core.theme.missing.files', $this->anything(), 'validators')
+            ->with('mailvotech.core.theme.missing.files', $this->anything(), 'validators')
             ->willReturnCallback(
                 function ($key, array $parameters): void {
                     $this->assertStringContainsString('page.html.twig', (string) $parameters['%files%']);

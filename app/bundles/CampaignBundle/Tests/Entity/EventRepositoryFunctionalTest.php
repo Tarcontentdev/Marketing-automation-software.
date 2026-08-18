@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Entity;
+namespace MailVotech\CampaignBundle\Tests\Entity;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CampaignBundle\Entity\Lead as CampaignMember;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignMember;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class EventRepositoryFunctionalTest extends MauticMysqlTestCase
+final class EventRepositoryFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * @return iterable<string, array{?\DateTime, ?\DateTime, int}>

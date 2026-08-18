@@ -4,9 +4,9 @@
 {# load base template #}
 {% set template = null %}
 {% if not request.isXmlHttpRequest() and not modalView %}
-    {% set template = contentOnly ? '@MauticCore/Default/slim.html.twig' :  '@MauticCore/Default/base.html.twig' %}
+    {% set template = contentOnly ? '@MailVotechCore/Default/slim.html.twig' :  '@MailVotechCore/Default/base.html.twig' %}
 {% elseif not modalView %}
-    {% set template = '@MauticCore/Default/output.html.twig' %}
+    {% set template = '@MailVotechCore/Default/output.html.twig' %}
 {% endif %}
 {{- '' -}}
 {% if template is not empty %}
@@ -19,7 +19,7 @@
         publishStatus: block('publishStatus') is defined ? block('publishStatus') : publishStatus|default(''),
         actions: block('actions') is defined ? block('actions') : actions|default(''),
         toolbar: block('toolbar') is defined ? block('toolbar') : toolbar|default(''),
-        mauticTemplateVars: mauticTemplateVars|default({}),
+        mailvotechTemplateVars: mailvotechTemplateVars|default({}),
         isXmlHttpRequest: request.isXmlHttpRequest,
     }) -}}
 {% else %}

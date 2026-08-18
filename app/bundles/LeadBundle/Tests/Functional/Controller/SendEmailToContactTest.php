@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\Controller;
+namespace MailVotech\LeadBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Helper\EncryptionHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Helper\SMimeHelper;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Helper\EncryptionHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Helper\SMimeHelper;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mime\Message;
 
-final class SendEmailToContactTest extends MauticMysqlTestCase
+final class SendEmailToContactTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 

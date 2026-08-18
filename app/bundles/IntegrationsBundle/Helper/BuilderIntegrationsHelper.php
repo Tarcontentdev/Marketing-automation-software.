@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Helper;
+namespace MailVotech\IntegrationsBundle\Helper;
 
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Integration\Interfaces\BuilderInterface;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\BuilderInterface;
+use MailVotech\PluginBundle\Entity\Integration;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 class BuilderIntegrationsHelper
@@ -21,7 +21,7 @@ class BuilderIntegrationsHelper
      */
     public function __construct(
         private readonly IntegrationsHelper $integrationsHelper,
-        #[AutowireIterator('mautic.builder_integration')]
+        #[AutowireIterator('mailvotech.builder_integration')]
         iterable $integrations = [],
     ) {
         foreach ($integrations as $integration) {
@@ -69,7 +69,7 @@ class BuilderIntegrationsHelper
     public function getIntegration(string $integration): BuilderInterface
     {
         if (!isset($this->builders[$integration])) {
-            throw new IntegrationNotFoundException("{$integration} either doesn't exist or has not been tagged with mautic.builder_integration");
+            throw new IntegrationNotFoundException("{$integration} either doesn't exist or has not been tagged with mailvotech.builder_integration");
         }
 
         // Ensure the configuration is hydrated

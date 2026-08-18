@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\CategoryBundle\EventListener;
+namespace MailVotech\CategoryBundle\EventListener;
 
-use Mautic\CategoryBundle\CategoryEvents;
-use Mautic\CategoryBundle\Event\CategoryEvent;
-use Mautic\CategoryBundle\Event\CategoryTypeEntityEvent;
-use Mautic\CategoryBundle\Event\CategoryTypesEvent;
-use Mautic\CategoryBundle\Model\CategoryModel;
-use Mautic\CoreBundle\Helper\BundleHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
+use MailVotech\CategoryBundle\CategoryEvents;
+use MailVotech\CategoryBundle\Event\CategoryEvent;
+use MailVotech\CategoryBundle\Event\CategoryTypeEntityEvent;
+use MailVotech\CategoryBundle\Event\CategoryTypesEvent;
+use MailVotech\CategoryBundle\Model\CategoryModel;
+use MailVotech\CoreBundle\Helper\BundleHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -40,7 +40,7 @@ final readonly class CategorySubscriber implements EventSubscriberInterface
      */
     public function onCategoryBundleListBuild(CategoryTypesEvent $event): void
     {
-        $bundles = $this->bundleHelper->getMauticBundles(true);
+        $bundles = $this->bundleHelper->getMailVotechBundles(true);
 
         foreach ($bundles as $bundle) {
             if (!empty($bundle['config']['categories'])) {
@@ -91,7 +91,7 @@ final readonly class CategorySubscriber implements EventSubscriberInterface
     {
         if ($usage = $this->categoryModel->getUsage($event->getCategory())) {
             $message = $this->translator->trans(
-                'mautic.category.is_in_use.delete',
+                'mailvotech.category.is_in_use.delete',
                 [
                     '%entities%'     => implode(', ', array_map(fn (array $entity): string => $this->translator->trans($entity['label']).' Id: '.$entity['id'], $usage)),
                     '%categoryName%' => $event->getCategory()->getTitle(),
@@ -103,7 +103,7 @@ final readonly class CategorySubscriber implements EventSubscriberInterface
 
     public function onCategoryTypeEntity(CategoryTypeEntityEvent $event): void
     {
-        $bundles = $this->bundleHelper->getMauticBundles(true);
+        $bundles = $this->bundleHelper->getMailVotechBundles(true);
 
         foreach ($bundles as $bundle) {
             if (!empty($bundle['config']['categories'])) {

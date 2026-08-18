@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\EventListener;
+namespace MailVotech\CoreBundle\Tests\Functional\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\MaintenanceEvent;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\MaintenanceEvent;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class MaintenanceSubscriberTest extends MauticMysqlTestCase
+final class MaintenanceSubscriberTest extends MailVotechMysqlTestCase
 {
     public function testMaintenanceDataCleanUp(): void
     {
         // Insert the audit_log and notification
-        $prefix        = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix        = self::getContainer()->getParameter('mailvotech.db_table_prefix');
         $threeDaysAgo  = (new \DateTime('3 days ago', new \DateTimeZone('UTC')))->format('Y-m-d H:i:s');
         $today         = (new \DateTime('+1 min', new \DateTimeZone('UTC')))->format('Y-m-d H:i:s');
 
@@ -55,9 +55,9 @@ final class MaintenanceSubscriberTest extends MauticMysqlTestCase
         $event = $dispatcher->dispatch(new MaintenanceEvent(2, false, 0), CoreEvents::MAINTENANCE_CLEANUP_DATA);
         $stats = $event->getStats();
 
-        $this->assertArrayHasKey($translator->trans('mautic.maintenance.audit_log'), $stats);
-        $this->assertSame(6, $stats[$translator->trans('mautic.maintenance.audit_log')]);
-        $this->assertArrayHasKey($translator->trans('mautic.maintenance.notifications'), $stats);
-        $this->assertSame(4, $stats[$translator->trans('mautic.maintenance.notifications')]);
+        $this->assertArrayHasKey($translator->trans('mailvotech.maintenance.audit_log'), $stats);
+        $this->assertSame(6, $stats[$translator->trans('mailvotech.maintenance.audit_log')]);
+        $this->assertArrayHasKey($translator->trans('mailvotech.maintenance.notifications'), $stats);
+        $this->assertSame(4, $stats[$translator->trans('mailvotech.maintenance.notifications')]);
     }
 }

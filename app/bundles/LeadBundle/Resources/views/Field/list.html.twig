@@ -8,7 +8,7 @@
     - limit
     - page
     - currentRoute
-    - mauticContent
+    - mailvotechContent
     - isIndex
     - contentOnly
     - modalView
@@ -16,16 +16,16 @@
 #}
 {% set isIndex = 'index' == tmpl ? true : false %}
 {% set tmpl = 'list' %}
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
 
-{% block mauticContent %}leadfield{% endblock %}
+{% block mailvotechContent %}leadfield{% endblock %}
 
-{% block headerTitle %}{{ 'mautic.lead.field.header.index'|trans }}{% endblock %}
+{% block headerTitle %}{{ 'mailvotech.lead.field.header.index'|trans }}{% endblock %}
 
 {% block content %}
   {% if isIndex %}
     <div id="page-list-wrapper" class="panel panel-default">
-        {{ include('@MauticCore/Helper/list_toolbar.html.twig', {
+        {{ include('@MailVotechCore/Helper/list_toolbar.html.twig', {
             'searchValue': searchValue,
             'action': currentRoute,
             'page_actions': {
@@ -52,44 +52,44 @@
               <thead>
               <tr>
                   <th class="col-leadfield-orderhandle"></th>
-                  {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                  {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'checkall': 'true',
                     'target': '#leadFieldTable',
                 }) }}
-                  {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                  {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar': 'leadfield',
                     'orderBy': 'f.label',
-                    'text': 'mautic.lead.field.label',
+                    'text': 'mailvotech.lead.field.label',
                     'class': 'col-leadfield-label'
                   }) }}
-                  {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                  {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar': 'leadfield',
                     'orderBy': 'f.alias',
-                    'text': 'mautic.core.alias',
+                    'text': 'mailvotech.core.alias',
                     'class': 'visible-md visible-lg col-leadfield-alias'
                   }) }}
-                  {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                  {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar': 'leadfield',
                     'orderBy': 'f.object',
-                    'text': 'mautic.lead.field.object',
+                    'text': 'mailvotech.lead.field.object',
                     'class': 'visible-md visible-lg col-leadfield-group'
                   }) }}
-                  {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                  {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar': 'leadfield',
                     'orderBy': 'f.group',
-                    'text': 'mautic.lead.field.group',
+                    'text': 'mailvotech.lead.field.group',
                     'class': 'visible-md visible-lg col-leadfield-group'
                   }) }}
-                  {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                  {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar': 'leadfield',
                     'orderBy': 'f.type',
-                    'text': 'mautic.lead.field.type',
+                    'text': 'mailvotech.lead.field.type',
                     'class': 'col-leadfield-type'
                   }) }}
-                  {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                  {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar': 'leadfield',
                     'orderBy': 'f.id',
-                    'text': 'mautic.core.id',
+                    'text': 'mailvotech.core.id',
                     'class': 'visible-md visible-lg col-leadfield-id'
                   }) }}
                    <th class="visible-sm visible-md visible-lg col-leadfield-statusicons"></th>
@@ -100,7 +100,7 @@
                   <tr id="field_{{ item.id }}">
                       <td><i class="ri-xl ri-draggable text-secondary"></i></td>
                       <td>
-                          {{ include('@MauticCore/Helper/list_actions.html.twig', {
+                          {{ include('@MailVotechCore/Helper/list_actions.html.twig', {
                                   'item': item,
                                   'templateButtons': {
                                       'edit': item.getColumnIsNotRemoved() ? false : permissions['lead:fields:full'],
@@ -114,50 +114,50 @@
                       </td>
                       <td>
                       <span class="ellipsis">
-                          {{ include('@MauticCore/Helper/publishstatus_icon.html.twig', {
+                          {{ include('@MailVotechCore/Helper/publishstatus_icon.html.twig', {
                                       'item': item,
                                       'model': 'lead.field',
                                       'disableToggle': item.disablePublishChange,
-                                      'aditionalLabel': (item.columnIsNotCreated ? 'mautic.lead.field.being_created_in_background'|trans : '') ~ (item.getColumnIsNotRemoved() ? 'mautic.lead.field.being_removed_in_background'|trans : ''),
+                                      'aditionalLabel': (item.columnIsNotCreated ? 'mailvotech.lead.field.being_created_in_background'|trans : '') ~ (item.getColumnIsNotRemoved() ? 'mailvotech.lead.field.being_removed_in_background'|trans : ''),
                           }) }}
-                          <a href="{{ path('mautic_contactfield_action', {'objectAction': 'edit', 'objectId': item.id}) }}" data-toggle="ajax">{{ item.label }}</a>
+                          <a href="{{ path('mailvotech_contactfield_action', {'objectAction': 'edit', 'objectId': item.id}) }}" data-toggle="ajax">{{ item.label }}</a>
                           {{ customContent('lead.field.name', _context) }}
                       </span>
                       </td>
                       <td class="visible-md visible-lg">
                           {% set tokenText = item.object == 'user' ? '{ownerfield=' ~ item.alias ~ '}' : '{contactfield=' ~ item.alias ~ '}' %}
-                          {% include '@MauticCore/Components/code-snippet.html.twig' with {
+                          {% include '@MailVotechCore/Components/code-snippet.html.twig' with {
                               variant: 'inline',
                               innerText: tokenText,
                               copyText: tokenText,
-                              copyButtonDescription: 'mautic.lead.field.copy_token'
+                              copyButtonDescription: 'mailvotech.lead.field.copy_token'
                           } %}
                       </td>
-                      <td class="visible-md visible-lg">{{ ('mautic.'~item.object~'.'~item.object)|trans }}</td>
-                      <td class="visible-md visible-lg">{{ ('mautic.lead.field.group.'~item.group)|trans }}</td>
-                      <td>{{ translatorConditional('mautic.core.type.'~item.type, 'mautic.lead.field.type.'~item.type) }}</td>
+                      <td class="visible-md visible-lg">{{ ('mailvotech.'~item.object~'.'~item.object)|trans }}</td>
+                      <td class="visible-md visible-lg">{{ ('mailvotech.lead.field.group.'~item.group)|trans }}</td>
+                      <td>{{ translatorConditional('mailvotech.core.type.'~item.type, 'mailvotech.lead.field.type.'~item.type) }}</td>
                       <td class="visible-md visible-lg">{{ item.id }}</td>
                       <td class="visible-sm visible-md visible-lg">
                           {% if item.isRequired %}
-                              <i class="ri-asterisk" data-toggle="tooltip" data-placement="left" title="{{ 'mautic.lead.field.tooltip.required'|trans }}"></i>
+                              <i class="ri-asterisk" data-toggle="tooltip" data-placement="left" title="{{ 'mailvotech.lead.field.tooltip.required'|trans }}"></i>
                           {% endif %}
                           {% if item.isVisible %}
-                              <i class="ri-eye-line-slash" data-toggle="tooltip" data-placement="left" title="{{ 'mautic.lead.field.tooltip.invisible'|trans }}"></i>
+                              <i class="ri-eye-line-slash" data-toggle="tooltip" data-placement="left" title="{{ 'mailvotech.lead.field.tooltip.invisible'|trans }}"></i>
                           {% endif %}
                           {% if item.isFixed %}
-                              <i class="ri-lock-fill" data-toggle="tooltip" data-placement="left" title="{{ 'mautic.lead.field.tooltip.fixed'|trans }}"></i>
+                              <i class="ri-lock-fill" data-toggle="tooltip" data-placement="left" title="{{ 'mailvotech.lead.field.tooltip.fixed'|trans }}"></i>
                           {% endif %}
                           {% if item.isListable %}
-                              <i class="ri-list-check " data-toggle="tooltip" data-placement="left" title="{{ 'mautic.lead.field.tooltip.listable'|trans }}"></i>
+                              <i class="ri-list-check " data-toggle="tooltip" data-placement="left" title="{{ 'mailvotech.lead.field.tooltip.listable'|trans }}"></i>
                           {% endif %}
                           {% if item.isPubliclyUpdatable %}
-                              <i class="ri-earth-line text-danger " data-toggle="tooltip" data-placement="left" title="{{ 'mautic.lead.field.tooltip.public'|trans }}"></i>
+                              <i class="ri-earth-line text-danger " data-toggle="tooltip" data-placement="left" title="{{ 'mailvotech.lead.field.tooltip.public'|trans }}"></i>
                           {% endif %}
                           {% if item.isUniqueIdentifer %}
-                              <i class="ri-key-2-line " data-toggle="tooltip" data-placement="left" title="{{ 'mautic.lead.field.tooltip.isuniqueidentifer'|trans }}"></i>
+                              <i class="ri-key-2-line " data-toggle="tooltip" data-placement="left" title="{{ 'mailvotech.lead.field.tooltip.isuniqueidentifer'|trans }}"></i>
                           {% endif %}
                           {% if item.isIsIndex %}
-                              <i class="ri-menu-search-line " data-toggle="tooltip" data-placement="left" title="{{ 'mautic.lead.field.tooltip.isindex'|trans }}"></i>
+                              <i class="ri-menu-search-line " data-toggle="tooltip" data-placement="left" title="{{ 'mailvotech.lead.field.tooltip.isindex'|trans }}"></i>
                           {% endif %}
                       </td>
                   </tr>
@@ -166,16 +166,16 @@
           </table>
       </div>
       <div class="panel-footer">
-          {{ include('@MauticCore/Helper/pagination.html.twig', {
+          {{ include('@MailVotechCore/Helper/pagination.html.twig', {
                   'totalItems': totalItems,
                   'page': page,
                   'limit': limit,
-                  'baseUrl': path('mautic_contactfield_index'),
+                  'baseUrl': path('mailvotech_contactfield_index'),
                   'sessionVar': 'leadfield',
           }) }}
       </div>
   {% else %}
-      {{ include('@MauticCore/Helper/noresults.html.twig') }}
+      {{ include('@MailVotechCore/Helper/noresults.html.twig') }}
   {% endif %}
 
   {% if isIndex %}

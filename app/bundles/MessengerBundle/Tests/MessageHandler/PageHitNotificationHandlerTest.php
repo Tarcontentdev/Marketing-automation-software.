@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\Tests\MessageHandler;
+namespace MailVotech\MessengerBundle\Tests\MessageHandler;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\MessengerBundle\Message\PageHitNotification;
-use Mautic\MessengerBundle\MessageHandler\PageHitNotificationHandler;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\HitRepository;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Entity\PageRepository;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Entity\RedirectRepository;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\MessengerBundle\Message\PageHitNotification;
+use MailVotech\MessengerBundle\MessageHandler\PageHitNotificationHandler;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\HitRepository;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\PageRepository;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Entity\RedirectRepository;
+use MailVotech\PageBundle\Model\PageModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;

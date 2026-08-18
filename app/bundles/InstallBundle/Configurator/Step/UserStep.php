@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\InstallBundle\Configurator\Step;
+namespace MailVotech\InstallBundle\Configurator\Step;
 
-use Mautic\CoreBundle\Configurator\Step\StepInterface;
-use Mautic\InstallBundle\Configurator\Form\UserStepType;
+use MailVotech\CoreBundle\Configurator\Step\StepInterface;
+use MailVotech\InstallBundle\Configurator\Form\UserStepType;
 
 final class UserStep implements StepInterface
 {
@@ -51,7 +51,7 @@ final class UserStep implements StepInterface
 
     public function getTemplate(): string
     {
-        return '@MauticInstall/Install/user.html.twig';
+        return '@MailVotechInstall/Install/user.html.twig';
     }
 
     public function update(StepInterface $data): array

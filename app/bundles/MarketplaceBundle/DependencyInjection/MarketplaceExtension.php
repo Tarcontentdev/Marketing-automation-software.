@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\DependencyInjection;
+namespace MailVotech\MarketplaceBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

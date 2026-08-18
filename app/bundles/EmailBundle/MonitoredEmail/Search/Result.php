@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\MonitoredEmail\Search;
+namespace MailVotech\EmailBundle\MonitoredEmail\Search;
 
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\Lead;
 
 final class Result
 {

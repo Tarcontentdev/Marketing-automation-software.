@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Security\Permissions;
+namespace MailVotech\ProjectBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
-use Mautic\UserBundle\Form\Type\PermissionListType;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\UserBundle\Form\Type\PermissionListType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class ProjectPermissions extends AbstractPermissions
@@ -51,14 +51,14 @@ final class ProjectPermissions extends AbstractPermissions
             PermissionListType::class,
             [
                 'choices' => [
-                    'mautic.core.permissions.view'      => 'view',
-                    'mautic.core.permissions.associate' => 'associate',
-                    'mautic.core.permissions.edit'      => 'edit',
-                    'mautic.core.permissions.create'    => 'create',
-                    'mautic.core.permissions.delete'    => 'delete',
-                    'mautic.core.permissions.full'      => 'full',
+                    'mailvotech.core.permissions.view'      => 'view',
+                    'mailvotech.core.permissions.associate' => 'associate',
+                    'mailvotech.core.permissions.edit'      => 'edit',
+                    'mailvotech.core.permissions.create'    => 'create',
+                    'mailvotech.core.permissions.delete'    => 'delete',
+                    'mailvotech.core.permissions.full'      => 'full',
                 ],
-                'label'   => 'mautic.project.permissions.project',
+                'label'   => 'mailvotech.project.permissions.project',
                 'bundle'  => $this->getName(),
                 'level'   => $this->getName(),
                 'data'    => (!empty($data[$this->getName()]) ? $data[$this->getName()] : []),

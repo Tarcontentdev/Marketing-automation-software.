@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Form\Type;
+namespace MailVotech\CampaignBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -39,7 +39,7 @@ final class CampaignImportType extends AbstractType
             'start',
             SubmitType::class,
             [
-                'label' => 'mautic.campaign.campaign.import.upload.button',
+                'label' => 'mailvotech.campaign.campaign.import.upload.button',
                 'attr'  => [
                     'class' => 'btn btn-tertiary btn-sm',
                     'icon'  => 'ri-import-line',

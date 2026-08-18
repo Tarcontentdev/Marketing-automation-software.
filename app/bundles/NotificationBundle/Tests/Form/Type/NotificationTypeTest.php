@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Tests\Form\Type;
+namespace MailVotech\NotificationBundle\Tests\Form\Type;
 
 use Doctrine\ORM\EntityManager;
-use Mautic\CategoryBundle\Form\Type\CategoryListType;
-use Mautic\CategoryBundle\Model\CategoryModel;
-use Mautic\NotificationBundle\Entity\Notification;
-use Mautic\NotificationBundle\Form\Type\NotificationType;
+use MailVotech\CategoryBundle\Form\Type\CategoryListType;
+use MailVotech\CategoryBundle\Model\CategoryModel;
+use MailVotech\NotificationBundle\Entity\Notification;
+use MailVotech\NotificationBundle\Form\Type\NotificationType;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\FormErrorIterator;
 use Symfony\Component\Form\FormExtensionInterface;

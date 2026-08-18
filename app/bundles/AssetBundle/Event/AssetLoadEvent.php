@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\AssetBundle\Event;
+namespace MailVotech\AssetBundle\Event;
 
-use Mautic\AssetBundle\Entity\Download;
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\AssetBundle\Entity\Download;
+use MailVotech\CoreBundle\Event\CommonEvent;
 
 final class AssetLoadEvent extends CommonEvent
 {
@@ -25,7 +25,7 @@ final class AssetLoadEvent extends CommonEvent
     }
 
     /**
-     * @return \Mautic\AssetBundle\Entity\Asset
+     * @return \MailVotech\AssetBundle\Entity\Asset
      */
     public function getAsset()
     {

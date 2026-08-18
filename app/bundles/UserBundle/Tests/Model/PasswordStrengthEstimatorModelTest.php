@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Model;
+namespace MailVotech\UserBundle\Tests\Model;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\RoleRepository;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Form\Validator\Constraints\NotWeak;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\RoleRepository;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Form\Validator\Constraints\NotWeak;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class PasswordStrengthEstimatorModelTest extends MauticMysqlTestCase
+final class PasswordStrengthEstimatorModelTest extends MailVotechMysqlTestCase
 {
     private PasswordHasherFactoryInterface $passwordHasher;
 

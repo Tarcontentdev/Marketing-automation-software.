@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Mapping;
+namespace MailVotech\IntegrationsBundle\Mapping;
 
 interface MappedFieldInfoInterface
 {
@@ -20,5 +20,5 @@ interface MappedFieldInfoInterface
 
     public function isToIntegrationSyncEnabled(): bool;
 
-    public function isToMauticSyncEnabled(): bool;
+    public function isToMailVotechSyncEnabled(): bool;
 }

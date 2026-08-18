@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\Integration\Twilio;
+namespace MailVotech\SmsBundle\Tests\Integration\Twilio;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\SmsBundle\Integration\Twilio\Configuration;
-use Mautic\SmsBundle\Integration\Twilio\TwilioTransport;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\SmsBundle\Integration\Twilio\Configuration;
+use MailVotech\SmsBundle\Integration\Twilio\TwilioTransport;
 use Monolog\Logger;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -35,7 +35,7 @@ final class TwilioTransportTest extends TestCase
         $lead->setMobile('123456');
         $this->logger->expects($this->once())
             ->method('warning')
-            ->with('mautic.sms.transport.twilio.not_configured');
+            ->with('mailvotech.sms.transport.twilio.not_configured');
 
         $this->twilioTransport->sendSms($lead, 'some_content');
     }

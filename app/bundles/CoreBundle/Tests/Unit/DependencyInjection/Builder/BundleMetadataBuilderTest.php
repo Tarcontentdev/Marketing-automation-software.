@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\DependencyInjection\Builder;
+namespace MailVotech\CoreBundle\Tests\Unit\DependencyInjection\Builder;
 
-use Mautic\CoreBundle\DependencyInjection\Builder\BundleMetadataBuilder;
-use Mautic\CoreBundle\MauticCoreBundle;
-use Mautic\CoreBundle\Security\Permissions\SystemPermissions;
-use MauticPlugin\MauticFocusBundle\MauticFocusBundle;
-use MauticPlugin\MauticFocusBundle\Security\Permissions\FocusPermissions;
+use MailVotech\CoreBundle\DependencyInjection\Builder\BundleMetadataBuilder;
+use MailVotech\CoreBundle\MailVotechCoreBundle;
+use MailVotech\CoreBundle\Security\Permissions\SystemPermissions;
+use MailVotechPlugin\MailVotechFocusBundle\MailVotechFocusBundle;
+use MailVotechPlugin\MailVotechFocusBundle\Security\Permissions\FocusPermissions;
 use PHPUnit\Framework\TestCase;
 
 final class BundleMetadataBuilderTest extends TestCase
@@ -32,24 +32,24 @@ final class BundleMetadataBuilderTest extends TestCase
 
     public function testCoreBundleMetadataLoaded(): void
     {
-        $bundles = ['MauticCoreBundle' => MauticCoreBundle::class];
+        $bundles = ['MailVotechCoreBundle' => MailVotechCoreBundle::class];
 
         $builder  = new BundleMetadataBuilder($bundles, $this->paths);
         $metadata = $builder->getCoreBundleMetadata();
 
         $this->assertSame([], $builder->getPluginMetadata());
-        $this->assertArrayHasKey('MauticCoreBundle', $metadata);
+        $this->assertArrayHasKey('MailVotechCoreBundle', $metadata);
 
-        $bundleMetadata = $metadata['MauticCoreBundle'];
+        $bundleMetadata = $metadata['MailVotechCoreBundle'];
 
         $this->assertFalse($bundleMetadata['isPlugin']);
         $this->assertEquals('Core', $bundleMetadata['base']);
         $this->assertEquals('CoreBundle', $bundleMetadata['bundle']);
-        $this->assertEquals('MauticCoreBundle', $bundleMetadata['symfonyBundleName']);
+        $this->assertEquals('MailVotechCoreBundle', $bundleMetadata['symfonyBundleName']);
         $this->assertEquals('app/bundles/CoreBundle', $bundleMetadata['relative']);
         $this->assertEquals(realpath($this->paths['root']).'/app/bundles/CoreBundle', $bundleMetadata['directory']);
-        $this->assertEquals('Mautic\CoreBundle', $bundleMetadata['namespace']);
-        $this->assertEquals(MauticCoreBundle::class, $bundleMetadata['bundleClass']);
+        $this->assertEquals('MailVotech\CoreBundle', $bundleMetadata['namespace']);
+        $this->assertEquals(MailVotechCoreBundle::class, $bundleMetadata['bundleClass']);
         $this->assertArrayHasKey('permissionClasses', $bundleMetadata);
         $this->assertArrayHasKey(SystemPermissions::class, $bundleMetadata['permissionClasses']);
         $this->assertArrayHasKey('config', $bundleMetadata);
@@ -58,23 +58,23 @@ final class BundleMetadataBuilderTest extends TestCase
 
     public function testPluginMetadataLoaded(): void
     {
-        $bundles = ['MauticFocusBundle' => MauticFocusBundle::class];
+        $bundles = ['MailVotechFocusBundle' => MailVotechFocusBundle::class];
 
         $builder  = new BundleMetadataBuilder($bundles, $this->paths);
         $metadata = $builder->getPluginMetadata();
 
         $this->assertSame([], $builder->getCoreBundleMetadata());
-        $this->assertArrayHasKey('MauticFocusBundle', $metadata);
-        $bundleMetadata = $metadata['MauticFocusBundle'];
+        $this->assertArrayHasKey('MailVotechFocusBundle', $metadata);
+        $bundleMetadata = $metadata['MailVotechFocusBundle'];
 
         $this->assertTrue($bundleMetadata['isPlugin']);
-        $this->assertEquals('MauticFocus', $bundleMetadata['base']);
-        $this->assertEquals('MauticFocusBundle', $bundleMetadata['bundle']);
-        $this->assertEquals('MauticFocusBundle', $bundleMetadata['symfonyBundleName']);
-        $this->assertEquals('plugins/MauticFocusBundle', $bundleMetadata['relative']);
-        $this->assertEquals(realpath($this->paths['root']).'/plugins/MauticFocusBundle', $bundleMetadata['directory']);
-        $this->assertEquals('MauticPlugin\MauticFocusBundle', $bundleMetadata['namespace']);
-        $this->assertEquals(MauticFocusBundle::class, $bundleMetadata['bundleClass']);
+        $this->assertEquals('MailVotechFocus', $bundleMetadata['base']);
+        $this->assertEquals('MailVotechFocusBundle', $bundleMetadata['bundle']);
+        $this->assertEquals('MailVotechFocusBundle', $bundleMetadata['symfonyBundleName']);
+        $this->assertEquals('plugins/MailVotechFocusBundle', $bundleMetadata['relative']);
+        $this->assertEquals(realpath($this->paths['root']).'/plugins/MailVotechFocusBundle', $bundleMetadata['directory']);
+        $this->assertEquals('MailVotechPlugin\MailVotechFocusBundle', $bundleMetadata['namespace']);
+        $this->assertEquals(MailVotechFocusBundle::class, $bundleMetadata['bundleClass']);
         $this->assertArrayHasKey('permissionClasses', $bundleMetadata);
         $this->assertArrayHasKey(FocusPermissions::class, $bundleMetadata['permissionClasses']);
         $this->assertArrayHasKey('config', $bundleMetadata);

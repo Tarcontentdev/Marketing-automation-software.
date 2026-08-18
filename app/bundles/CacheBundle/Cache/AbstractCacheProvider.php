@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CacheBundle\Cache;
+namespace MailVotech\CacheBundle\Cache;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Psr\Cache\CacheItemInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\CacheItem;

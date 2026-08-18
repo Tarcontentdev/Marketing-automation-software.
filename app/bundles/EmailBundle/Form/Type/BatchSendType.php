@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

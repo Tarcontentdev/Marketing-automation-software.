@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Form\DataTransformer;
+namespace MailVotech\ReportBundle\Tests\Form\DataTransformer;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\ReportBundle\Form\DataTransformer\ReportFilterDataTransformer;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\ReportBundle\Form\DataTransformer\ReportFilterDataTransformer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;

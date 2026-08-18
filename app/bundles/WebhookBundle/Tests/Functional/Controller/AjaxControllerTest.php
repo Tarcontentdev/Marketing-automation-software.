@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Functional\Controller;
+namespace MailVotech\WebhookBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class AjaxControllerTest extends MauticMysqlTestCase
+final class AjaxControllerTest extends MailVotechMysqlTestCase
 {
     public function testSendHookTestWithMissingUrl(): void
     {
@@ -19,7 +19,7 @@ final class AjaxControllerTest extends MauticMysqlTestCase
             [
                 'url'    => '',
                 'secret' => 'test-secret',
-                'types'  => ['mautic.lead_post_save_new'],
+                'types'  => ['mailvotech.lead_post_save_new'],
             ],
             [],
             $this->createAjaxHeaders()
@@ -67,7 +67,7 @@ final class AjaxControllerTest extends MauticMysqlTestCase
             [
                 'url'    => 'http://localhost/webhook',
                 'secret' => 'test-secret',
-                'types'  => ['mautic.lead_post_save_new'],
+                'types'  => ['mailvotech.lead_post_save_new'],
             ],
             [],
             $this->createAjaxHeaders()
@@ -92,7 +92,7 @@ final class AjaxControllerTest extends MauticMysqlTestCase
             [
                 'url'    => $url,
                 'secret' => 'test-secret',
-                'types'  => ['mautic.lead_post_save_new'],
+                'types'  => ['mailvotech.lead_post_save_new'],
             ],
             [],
             $this->createAjaxHeaders()

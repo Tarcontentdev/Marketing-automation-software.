@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Scheduler\Validator;
+namespace MailVotech\ReportBundle\Scheduler\Validator;
 
 use Symfony\Component\Validator\Constraint;
 

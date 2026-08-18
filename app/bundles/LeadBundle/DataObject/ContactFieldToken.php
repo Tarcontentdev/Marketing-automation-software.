@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\DataObject;
+namespace MailVotech\LeadBundle\DataObject;
 
-use Mautic\CoreBundle\Form\DataTransformer\BarStringTransformer;
-use Mautic\LeadBundle\Exception\InvalidContactFieldTokenException;
+use MailVotech\CoreBundle\Form\DataTransformer\BarStringTransformer;
+use MailVotech\LeadBundle\Exception\InvalidContactFieldTokenException;
 
 /**
  * A value object representation of a contact field token.

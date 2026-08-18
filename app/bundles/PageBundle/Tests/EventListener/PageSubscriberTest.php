@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\EventListener;
+namespace MailVotech\PageBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Event\PageBuilderEvent;
-use Mautic\PageBundle\Event\PageDisplayEvent;
-use Mautic\PageBundle\EventListener\PageSubscriber;
-use Mautic\PageBundle\Model\PageDraftModel;
-use Mautic\PageBundle\Model\PageModel;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Event\PageBuilderEvent;
+use MailVotech\PageBundle\Event\PageDisplayEvent;
+use MailVotech\PageBundle\EventListener\PageSubscriber;
+use MailVotech\PageBundle\Model\PageDraftModel;
+use MailVotech\PageBundle\Model\PageModel;
+use MailVotech\PageBundle\PageEvents;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Packages;
@@ -61,7 +61,7 @@ EOF;
     <head>
     </head>
     <body class="mt-6 md:max-w-2xl p-[5px]"  onclick="myFunction()" data-help-text="téxt with nön äscii charactêrs">
-<script data-source="mautic">
+<script data-source="mailvotech">
 const foo='bar';
 </script>
 

@@ -1,21 +1,21 @@
 <?php
 
-namespace Mautic\CoreBundle\Controller;
+namespace MailVotech\CoreBundle\Controller;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\CustomTemplateEvent;
-use Mautic\CoreBundle\Event\GlobalSearchEvent;
-use Mautic\CoreBundle\Exception\RecordCanNotUnpublishException;
-use Mautic\CoreBundle\Factory\IpLookupFactory;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\TokenSorter;
-use Mautic\CoreBundle\IpLookup\AbstractLocalDataLookup;
-use Mautic\CoreBundle\IpLookup\AbstractLookup;
-use Mautic\CoreBundle\IpLookup\IpLookupFormInterface;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Service\SearchCommandListInterface;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\CustomTemplateEvent;
+use MailVotech\CoreBundle\Event\GlobalSearchEvent;
+use MailVotech\CoreBundle\Exception\RecordCanNotUnpublishException;
+use MailVotech\CoreBundle\Factory\IpLookupFactory;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\TokenSorter;
+use MailVotech\CoreBundle\IpLookup\AbstractLocalDataLookup;
+use MailVotech\CoreBundle\IpLookup\AbstractLookup;
+use MailVotech\CoreBundle\IpLookup\IpLookupFormInterface;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Service\SearchCommandListInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,10 +77,10 @@ class AjaxController extends CommonController
             if (str_contains($action, ':')) {
                 // call the specified bundle's ajax action
                 $parts     = explode(':', $action);
-                $namespace = 'Mautic';
+                $namespace = 'MailVotech';
 
                 if (3 === count($parts) && 'plugin' == $parts['0']) {
-                    $namespace = 'MauticPlugin';
+                    $namespace = 'MailVotechPlugin';
                     array_shift($parts);
                 }
 
@@ -90,8 +90,8 @@ class AjaxController extends CommonController
                     $action     = $parts[1];
 
                     if (!$classExists = class_exists($namespace.'\\'.$bundle.'Bundle\\Controller\\AjaxController')) {
-                        // Check if a plugin is prefixed with Mautic
-                        $bundle      = 'Mautic'.$bundle;
+                        // Check if a plugin is prefixed with MailVotech
+                        $bundle      = 'MailVotech'.$bundle;
                         $classExists = class_exists($namespace.'\\'.$bundle.'Bundle\\Controller\\AjaxController');
                     }
 
@@ -139,13 +139,13 @@ class AjaxController extends CommonController
     {
         $dataArray = ['success' => 1];
         $searchStr = $request->query->get('global_search', '');
-        $request->getSession()->set('mautic.global_search', $searchStr);
+        $request->getSession()->set('mailvotech.global_search', $searchStr);
 
         $event = new GlobalSearchEvent($searchStr, $this->translator);
         $this->dispatcher->dispatch($event, CoreEvents::GLOBAL_SEARCH);
 
         $dataArray['newContent'] = $this->renderView(
-            '@MauticCore/GlobalSearch/results.html.twig',
+            '@MailVotechCore/GlobalSearch/results.html.twig',
             ['results' => $event->getResults()]
         );
 
@@ -273,7 +273,7 @@ class AjaxController extends CommonController
                     } else {
                         // get updated icon HTML
                         $html = $this->renderView(
-                            '@MauticCore/Helper/publishstatus_icon.html.twig',
+                            '@MailVotechCore/Helper/publishstatus_icon.html.twig',
                             [
                                 'item'  => $entity,
                                 'model' => $name,
@@ -288,7 +288,7 @@ class AjaxController extends CommonController
                     $status = Response::HTTP_UNPROCESSABLE_ENTITY;
                 }
             } else {
-                $this->addFlashMessage('mautic.core.error.access.denied');
+                $this->addFlashMessage('mailvotech.core.error.access.denied');
                 $status = Response::HTTP_FORBIDDEN;
             }
         }
@@ -364,14 +364,14 @@ class AjaxController extends CommonController
             if ($ipService instanceof AbstractLocalDataLookup) {
                 if ($ipService->downloadRemoteDataStore()) {
                     $dataArray['success'] = 1;
-                    $dataArray['message'] = $this->translator->trans('mautic.core.success');
+                    $dataArray['message'] = $this->translator->trans('mailvotech.core.success');
                 } else {
                     $remoteUrl = $ipService->getRemoteDateStoreDownloadUrl();
                     $localPath = $ipService->getLocalDataStoreFilepath();
 
                     if ($remoteUrl && $localPath) {
                         $dataArray['error'] = $this->translator->trans(
-                            'mautic.core.ip_lookup.remote_fetch_error',
+                            'mailvotech.core.ip_lookup.remote_fetch_error',
                             [
                                 '%remoteUrl%' => AbstractLocalDataLookup::cleanUrl($remoteUrl),
                                 '%localPath%' => $localPath,
@@ -379,7 +379,7 @@ class AjaxController extends CommonController
                         );
                     } else {
                         $dataArray['error'] = $this->translator->trans(
-                            'mautic.core.ip_lookup.remote_fetch_error_generic'
+                            'mailvotech.core.ip_lookup.remote_fetch_error_generic'
                         );
                     }
                 }
@@ -406,7 +406,7 @@ class AjaxController extends CommonController
                 if ($ipService instanceof IpLookupFormInterface) {
                     if ($formType = $ipService->getConfigFormService()) {
                         $themes   = $ipService->getConfigFormThemes();
-                        $themes[] = '@MauticCore/FormTheme/Config/config_layout.html.twig';
+                        $themes[] = '@MailVotechCore/FormTheme/Config/config_layout.html.twig';
 
                         $form = $formFactory->createBuilder()
                             ->add(
@@ -421,7 +421,7 @@ class AjaxController extends CommonController
                             ->getForm();
 
                         $html = $this->renderView(
-                            '@MauticCore/Default/ajax_form.html.twig',
+                            '@MailVotechCore/Default/ajax_form.html.twig',
                             [
                                 'form'       => $form->createView(),
                                 'formThemes' => $themes,

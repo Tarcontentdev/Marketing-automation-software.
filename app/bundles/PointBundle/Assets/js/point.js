@@ -1,13 +1,13 @@
 //PointBundle
-Mautic.pointOnLoad = function (container) {
+MailVotech.pointOnLoad = function (container) {
     if (mQuery(container + ' #list-search').length) {
-        Mautic.activateSearchAutocomplete('list-search', 'point');
+        MailVotech.activateSearchAutocomplete('list-search', 'point');
     }
 };
 
-Mautic.pointTriggerOnLoad = function (container) {
+MailVotech.pointTriggerOnLoad = function (container) {
     if (mQuery(container + ' #list-search').length) {
-        Mautic.activateSearchAutocomplete('list-search', 'point.trigger');
+        MailVotech.activateSearchAutocomplete('list-search', 'point.trigger');
     }
 
     if (mQuery('#triggerEvents')) {
@@ -18,7 +18,7 @@ Mautic.pointTriggerOnLoad = function (container) {
             stop: function(i) {
                 mQuery.ajax({
                     type: "POST",
-                    url: mauticAjaxUrl + "?action=point:reorderTriggerEvents",
+                    url: mailvotechAjaxUrl + "?action=point:reorderTriggerEvents",
                     data: mQuery('#triggerEvents').sortable("serialize") + "&triggerId=" + mQuery('#pointtrigger_sessionId').val()
                 });
             }
@@ -35,7 +35,7 @@ Mautic.pointTriggerOnLoad = function (container) {
     }
 };
 
-Mautic.pointTriggerEventOnLoad = function (container, response) {
+MailVotech.pointTriggerEventOnLoad = function (container, response) {
     //new action created so append it to the form
     if (response.eventHtml) {
         var newHtml = response.eventHtml;
@@ -56,14 +56,14 @@ Mautic.pointTriggerEventOnLoad = function (container, response) {
         //activate new stuff
         mQuery(eventId + " a[data-toggle='ajax']").click(function (event) {
             event.preventDefault();
-            return Mautic.ajaxifyLink(this, event);
+            return MailVotech.ajaxifyLink(this, event);
         });
 
         //initialize ajax'd modals
         mQuery(eventId + " a[data-toggle='ajaxmodal']").on('click.ajaxmodal', function (event) {
             event.preventDefault();
 
-            Mautic.ajaxifyModal(this, event);
+            MailVotech.ajaxifyModal(this, event);
         });
 
         mQuery('#triggerEvents .trigger-event-row').off(".triggerevents");
@@ -87,30 +87,30 @@ Mautic.pointTriggerEventOnLoad = function (container, response) {
     }
 };
 
-Mautic.getPointActionPropertiesForm = function(actionType) {
-    Mautic.activateLabelLoadingIndicator('point_type');
+MailVotech.getPointActionPropertiesForm = function(actionType) {
+    MailVotech.activateLabelLoadingIndicator('point_type');
 
     var query = "action=point:getActionForm&actionType=" + actionType;
     mQuery.ajax({
-        url: mauticAjaxUrl,
+        url: mailvotechAjaxUrl,
         type: "POST",
         data: query,
         dataType: "json",
         success: function (response) {
             if (typeof response.html != 'undefined') {
                 mQuery('#pointActionProperties').html(response.html);
-                Mautic.onPageLoad('#pointActionProperties', response);
+                MailVotech.onPageLoad('#pointActionProperties', response);
             }
         },
         error: function (request, textStatus, errorThrown) {
-            Mautic.processAjaxError(request, textStatus, errorThrown);
+            MailVotech.processAjaxError(request, textStatus, errorThrown);
         },
         complete: function() {
-            Mautic.removeLabelLoadingIndicator();
+            MailVotech.removeLabelLoadingIndicator();
         }
     });
 };
-Mautic.EnablesOption = function (urlActionProperty) {
+MailVotech.EnablesOption = function (urlActionProperty) {
     if (urlActionProperty === 'point_properties_returns_within' && mQuery('#point_properties_returns_within').val() > 0) {
         mQuery('#point_properties_returns_after').val(0);
     } else {

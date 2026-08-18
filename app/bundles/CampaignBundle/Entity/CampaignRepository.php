@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CampaignBundle\Entity;
+namespace MailVotech\CampaignBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
@@ -8,10 +8,10 @@ use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
-use Mautic\CampaignBundle\Entity\Result\CountResult;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\ProjectBundle\Entity\ProjectRepositoryTrait;
+use MailVotech\CampaignBundle\Entity\Result\CountResult;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\ProjectBundle\Entity\ProjectRepositoryTrait;
 
 /**
  * @extends CommonRepository<Campaign>
@@ -47,13 +47,13 @@ class CampaignRepository extends CommonRepository
         $dateTime = (new \DateTime())->format('Y-m-d H:i:s');
 
         $this->getEntityManager()->getConnection()->update(
-            MAUTIC_TABLE_PREFIX.Event::TABLE_NAME,
+            MAILVOTECH_TABLE_PREFIX.Event::TABLE_NAME,
             ['deleted'     => $dateTime],
             ['campaign_id' => $campaignId]
         );
 
         $this->getEntityManager()->getConnection()->update(
-            MAUTIC_TABLE_PREFIX.Campaign::TABLE_NAME,
+            MAILVOTECH_TABLE_PREFIX.Campaign::TABLE_NAME,
             ['deleted'   => $dateTime, 'is_published' => 0],
             ['id'        => $campaignId]
         );
@@ -129,9 +129,9 @@ class CampaignRepository extends CommonRepository
 
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('c.id, c.name, ll.leadlist_id as list_id')
-            ->from(MAUTIC_TABLE_PREFIX.'campaigns', 'c');
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaigns', 'c');
 
-        $q->join('c', MAUTIC_TABLE_PREFIX.'campaign_leadlist_xref', 'll', 'c.id = ll.campaign_id')
+        $q->join('c', MAILVOTECH_TABLE_PREFIX.'campaign_leadlist_xref', 'll', 'c.id = ll.campaign_id')
             ->where($this->getPublishedByDateDbalExpression($q));
 
         $q->andWhere(
@@ -168,7 +168,7 @@ class CampaignRepository extends CommonRepository
     public function getCampaignListIds($id = null): array
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder()
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_leadlist_xref', 'cl');
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_leadlist_xref', 'cl');
 
         if ($id) {
             $q->select('cl.leadlist_id')
@@ -197,8 +197,8 @@ class CampaignRepository extends CommonRepository
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('cl.leadlist_id, l.name')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_leadlist_xref', 'cl')
-            ->join('cl', MAUTIC_TABLE_PREFIX.'lead_lists', 'l', 'l.id = cl.leadlist_id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_leadlist_xref', 'cl')
+            ->join('cl', MAILVOTECH_TABLE_PREFIX.'lead_lists', 'l', 'l.id = cl.leadlist_id');
         $q->where(
             $q->expr()->eq('cl.campaign_id', $id)
         );
@@ -220,8 +220,8 @@ class CampaignRepository extends CommonRepository
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('cf.form_id, f.name')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_form_xref', 'cf')
-            ->join('cf', MAUTIC_TABLE_PREFIX.'forms', 'f', 'f.id = cf.form_id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_form_xref', 'cf')
+            ->join('cf', MAILVOTECH_TABLE_PREFIX.'forms', 'f', 'f.id = cf.form_id');
         $q->where(
             $q->expr()->eq('cf.campaign_id', $id)
         );
@@ -279,8 +279,8 @@ class CampaignRepository extends CommonRepository
         $unique  = $this->generateRandomParameterName();
 
         switch ($filter->command) {
-            case $this->translator->trans('mautic.campaign.campaign.searchcommand.isexpired'):
-            case $this->translator->trans('mautic.campaign.campaign.searchcommand.isexpired', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.campaign.campaign.searchcommand.isexpired'):
+            case $this->translator->trans('mailvotech.campaign.campaign.searchcommand.isexpired', [], null, 'en_US'):
                 $expr = $q->expr()->and(
                     $q->expr()->eq('c.isPublished', ":{$unique}"),
                     $q->expr()->isNotNull('c.publishDown'),
@@ -289,8 +289,8 @@ class CampaignRepository extends CommonRepository
                 );
                 $forceParameters = [$unique => true];
                 break;
-            case $this->translator->trans('mautic.campaign.campaign.searchcommand.ispending'):
-            case $this->translator->trans('mautic.campaign.campaign.searchcommand.ispending', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.campaign.campaign.searchcommand.ispending'):
+            case $this->translator->trans('mailvotech.campaign.campaign.searchcommand.ispending', [], null, 'en_US'):
                 $expr = $q->expr()->and(
                     $q->expr()->eq('c.isPublished', ":{$unique}"),
                     $q->expr()->isNotNull('c.publishUp'),
@@ -299,8 +299,8 @@ class CampaignRepository extends CommonRepository
                 );
                 $forceParameters = [$unique => true];
                 break;
-            case $this->translator->trans('mautic.project.searchcommand.name'):
-            case $this->translator->trans('mautic.project.searchcommand.name', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.project.searchcommand.name'):
+            case $this->translator->trans('mailvotech.project.searchcommand.name', [], null, 'en_US'):
                 return $this->handleProjectFilter(
                     $this->_em->getConnection()->createQueryBuilder(),
                     'campaign_id',
@@ -328,9 +328,9 @@ class CampaignRepository extends CommonRepository
     public function getSearchCommands(): array
     {
         return array_merge([
-            'mautic.campaign.campaign.searchcommand.isexpired',
-            'mautic.campaign.campaign.searchcommand.ispending',
-            'mautic.project.searchcommand.name',
+            'mailvotech.campaign.campaign.searchcommand.isexpired',
+            'mailvotech.campaign.campaign.searchcommand.ispending',
+            'mailvotech.project.searchcommand.name',
         ], $this->getStandardSearchCommands());
     }
 
@@ -344,8 +344,8 @@ class CampaignRepository extends CommonRepository
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $q->select('count(cl.ip_id) as hits, c.id AS campaign_id, c.name')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'cl')
-            ->leftJoin('cl', MAUTIC_TABLE_PREFIX.'campaigns', 'c', 'cl.campaign_id = c.id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'cl')
+            ->leftJoin('cl', MAILVOTECH_TABLE_PREFIX.'campaigns', 'c', 'cl.campaign_id = c.id')
             ->orderBy('hits', 'DESC')
             ->groupBy('c.id, c.name')
             ->setMaxResults($limit);
@@ -361,7 +361,7 @@ class CampaignRepository extends CommonRepository
         $q = $this->getReplicaConnection($limiter)->createQueryBuilder();
 
         $q->select('min(cl.lead_id) as min_id, max(cl.lead_id) as max_id, count(cl.lead_id) as the_count')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_leads', 'cl')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_leads', 'cl')
             ->where(
                 $q->expr()->and(
                     $q->expr()->eq('cl.campaign_id', (int) $campaignId),
@@ -375,7 +375,7 @@ class CampaignRepository extends CommonRepository
         if (count($pendingEvents) > 0) {
             $sq = $this->getEntityManager()->getConnection()->createQueryBuilder();
             $sq->select('null')
-                ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'e')
+                ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'e')
                 ->where(
                     $sq->expr()->and(
                         $sq->expr()->eq('cl.lead_id', 'e.lead_id'),
@@ -408,7 +408,7 @@ class CampaignRepository extends CommonRepository
         $q = $this->getReplicaConnection($limiter)->createQueryBuilder();
 
         $q->select('cl.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_leads', 'cl')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_leads', 'cl')
             ->where(
                 $q->expr()->and(
                     $q->expr()->eq('cl.campaign_id', (int) $campaignId),
@@ -423,7 +423,7 @@ class CampaignRepository extends CommonRepository
         // Only leads that have not started the campaign
         $sq = $this->getReplicaConnection($limiter)->createQueryBuilder();
         $sq->select('null')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'e')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'e')
             ->where(
                 $sq->expr()->and(
                     $sq->expr()->eq('e.lead_id', 'cl.lead_id'),
@@ -471,7 +471,7 @@ class CampaignRepository extends CommonRepository
         $q = $this->getReplicaConnection()->createQueryBuilder();
 
         $q->select('count(cl.lead_id) as lead_count')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_leads', 'cl')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_leads', 'cl')
             ->where(
                 $q->expr()->and(
                     $q->expr()->eq('cl.campaign_id', (int) $campaignId),
@@ -495,7 +495,7 @@ class CampaignRepository extends CommonRepository
         if (count($pendingEvents) > 0) {
             $sq = $this->getReplicaConnection()->createQueryBuilder();
             $sq->select('null')
-                ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'e')
+                ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'e')
                 ->where(
                     $sq->expr()->and(
                         $sq->expr()->eq('cl.lead_id', 'e.lead_id'),
@@ -536,7 +536,7 @@ class CampaignRepository extends CommonRepository
         $q = $this->getReplicaConnection()->createQueryBuilder();
 
         $q->select('1')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_leads', 'cl')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_leads', 'cl')
             ->where(
                 $q->expr()->and(
                     $q->expr()->eq('cl.campaign_id', ':campaignId'),
@@ -574,7 +574,7 @@ class CampaignRepository extends CommonRepository
         $q = $this->getReplicaConnection()->createQueryBuilder();
 
         $q->select($select)
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_leads', 'cl')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_leads', 'cl')
             ->where(
                 $q->expr()->and(
                     $q->expr()->eq('cl.campaign_id', (int) $campaignId),
@@ -600,9 +600,9 @@ class CampaignRepository extends CommonRepository
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         return $q->select('ll.id, ll.name')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists', 'll')
-            ->join('ll', MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'lll', 'lll.leadlist_id = ll.id and lll.lead_id = :contactId and lll.manually_removed = 0')
-            ->join('ll', MAUTIC_TABLE_PREFIX.'campaign_leadlist_xref', 'clx', 'clx.leadlist_id = ll.id and clx.campaign_id = :campaignId')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists', 'll')
+            ->join('ll', MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'lll', 'lll.leadlist_id = ll.id and lll.lead_id = :contactId and lll.manually_removed = 0')
+            ->join('ll', MAILVOTECH_TABLE_PREFIX.'campaign_leadlist_xref', 'clx', 'clx.leadlist_id = ll.id and clx.campaign_id = :campaignId')
             ->setParameter('contactId', (int) $contactId)
             ->setParameter('campaignId', (int) $campaignId)
             ->setMaxResults(1)
@@ -617,10 +617,10 @@ class CampaignRepository extends CommonRepository
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $q->select('c.id, c.name, ROUND(IFNULL(COUNT(DISTINCT t.lead_id)/COUNT(DISTINCT cl.lead_id)*100, 0),1) segmentCampaignShare');
-        $q->from(MAUTIC_TABLE_PREFIX.'campaigns', 'c')
-            ->leftJoin('c', MAUTIC_TABLE_PREFIX.'campaign_leads', 'cl', 'cl.campaign_id = c.id AND cl.manually_removed = 0')
+        $q->from(MAILVOTECH_TABLE_PREFIX.'campaigns', 'c')
+            ->leftJoin('c', MAILVOTECH_TABLE_PREFIX.'campaign_leads', 'cl', 'cl.campaign_id = c.id AND cl.manually_removed = 0')
             ->leftJoin('cl',
-                '(SELECT lll.lead_id AS ll, lll.lead_id FROM '.MAUTIC_TABLE_PREFIX.'lead_lists_leads lll WHERE lll.leadlist_id = '.$segmentId
+                '(SELECT lll.lead_id AS ll, lll.lead_id FROM '.MAILVOTECH_TABLE_PREFIX.'lead_lists_leads lll WHERE lll.leadlist_id = '.$segmentId
                 .' AND lll.manually_removed = 0)',
                 't',
                 't.lead_id = cl.lead_id'
@@ -647,11 +647,11 @@ class CampaignRepository extends CommonRepository
      *
      * @param int $id
      *
-     * @deprecated The method is deprecated and will be removed in Mautic 8.x.
-     * Use the `\Mautic\CampaignBundle\Entity\EventRepository::getCampaignEmailEvents()` method instead.
+     * @deprecated The method is deprecated and will be removed in MailVotech 8.x.
+     * Use the `\MailVotech\CampaignBundle\Entity\EventRepository::getCampaignEmailEvents()` method instead.
      * @see EventRepository::getCampaignEmailEvents
      */
-    #[\Deprecated('The method is deprecated and will be removed in Mautic 8.x. Use the `\Mautic\CampaignBundle\Entity\EventRepository::getCampaignEmailEvents()` method instead.')]
+    #[\Deprecated('The method is deprecated and will be removed in MailVotech 8.x. Use the `\MailVotech\CampaignBundle\Entity\EventRepository::getCampaignEmailEvents()` method instead.')]
     public function fetchEmailIdsById($id): array
     {
         $emails = $this->getEntityManager()
@@ -674,7 +674,7 @@ class CampaignRepository extends CommonRepository
         $return = [];
         foreach ($emails as $email) {
             // Every channelId represents e-mail ID
-            $return[] = $email['channelId']; // mautic_campaign_events.channel_id
+            $return[] = $email['channelId']; // mailvotech_campaign_events.channel_id
         }
 
         return $return;
@@ -723,25 +723,25 @@ class CampaignRepository extends CommonRepository
             'parent.id AS parent_event_id',
             'DATE_FORMAT(log.date_triggered, \'%Y-%m-%d %H:%i\') AS last_executed_date'
         )
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_leads', 'clr')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_leads', 'clr')
             // Ensure the contact is still active in the campaign and get the latest rotation
             ->innerJoin(
                 'clr',
-                MAUTIC_TABLE_PREFIX.'campaign_lead_event_log',
+                MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log',
                 'log',
                 'clr.lead_id = log.lead_id AND clr.campaign_id = :campaign_id  AND clr.manually_removed = 0
                  AND clr.rotation = log.rotation'
             )
             ->innerJoin(
                 'log',
-                MAUTIC_TABLE_PREFIX.'campaign_events',
+                MAILVOTECH_TABLE_PREFIX.'campaign_events',
                 'parent',
                 'log.campaign_id = :campaign_id AND log.event_id = parent.id AND parent.deleted IS NULL'
             )
             // Join to get the next event (child event) in the campaign also ignore scheduled events
             ->innerJoin(
                 'parent',
-                MAUTIC_TABLE_PREFIX.'campaign_events',
+                MAILVOTECH_TABLE_PREFIX.'campaign_events',
                 'ce',
                 "ce.campaign_id = :campaign_id AND ce.parent_id = parent.id AND ce.deleted IS NULL AND
                  ce.event_type != 'decision' AND log.is_scheduled = 0 AND ce.date_linked <= log.date_triggered"
@@ -749,7 +749,7 @@ class CampaignRepository extends CommonRepository
             // Check the executed events for the current rotation
             ->leftJoin(
                 'ce',
-                MAUTIC_TABLE_PREFIX.'campaign_lead_event_log',
+                MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log',
                 'executed',
                 'executed.lead_id = log.lead_id AND executed.campaign_id = :campaign_id
                 AND (executed.event_id = ce.id OR executed.is_scheduled = 1)
@@ -821,7 +821,7 @@ class CampaignRepository extends CommonRepository
     {
         $result = $this->getEntityManager()->getConnection()
             ->executeQuery(
-                'SELECT is_published, version FROM '.MAUTIC_TABLE_PREFIX.'campaigns WHERE id = ? FOR UPDATE',
+                'SELECT is_published, version FROM '.MAILVOTECH_TABLE_PREFIX.'campaigns WHERE id = ? FOR UPDATE',
                 [$campaignId],
                 [\PDO::PARAM_INT]
             )->fetchAssociative();
@@ -838,7 +838,7 @@ class CampaignRepository extends CommonRepository
     {
         $innerQuery = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $innerQuery->select('1')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_leads', 'clr')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_leads', 'clr')
             ->where(
                 $innerQuery->expr()->and(
                     $innerQuery->expr()->eq('clr.campaign_id', 'c.id'),
@@ -852,7 +852,7 @@ class CampaignRepository extends CommonRepository
             'c.id AS id',
             'c.name AS name'
         )
-            ->from(MAUTIC_TABLE_PREFIX.'campaigns', 'c')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaigns', 'c')
             ->where('c.deleted IS NULL')
             ->andWhere($this->getPublishedByDateDbalExpression($query))
             ->andWhere(

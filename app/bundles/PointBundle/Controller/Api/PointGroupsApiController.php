@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Controller\Api;
+namespace MailVotech\PointBundle\Controller\Api;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\ApiBundle\Controller\CommonApiController;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Model\PointGroupModel;
+use MailVotech\ApiBundle\Controller\CommonApiController;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Model\PointGroupModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,7 +63,7 @@ final class PointGroupsApiController extends CommonApiController
         $contact = $this->leadModel->getEntity($contactId);
 
         if (null === $contact) {
-            return $this->notFound($this->translator->trans('mautic.lead.event.api.lead.not.found'));
+            return $this->notFound($this->translator->trans('mailvotech.lead.event.api.lead.not.found'));
         }
 
         if (!$this->checkEntityAccess($contact)) {
@@ -90,7 +90,7 @@ final class PointGroupsApiController extends CommonApiController
         $contact = $this->leadModel->getEntity($contactId);
 
         if (null === $contact) {
-            return $this->notFound($this->translator->trans('mautic.lead.event.api.lead.not.found'));
+            return $this->notFound($this->translator->trans('mailvotech.lead.event.api.lead.not.found'));
         }
 
         if (!$this->checkEntityAccess($contact)) {
@@ -99,7 +99,7 @@ final class PointGroupsApiController extends CommonApiController
 
         $pointGroup = $this->model->getEntity($groupId);
         if (null === $pointGroup) {
-            return $this->notFound($this->translator->trans('mautic.lead.event.api.point.group.not.found'));
+            return $this->notFound($this->translator->trans('mailvotech.lead.event.api.point.group.not.found'));
         }
 
         $groupScore  = $contact->getGroupScore($pointGroup);
@@ -121,7 +121,7 @@ final class PointGroupsApiController extends CommonApiController
         $contact = $this->leadModel->getEntity($contactId);
 
         if (null === $contact) {
-            return $this->notFound($this->translator->trans('mautic.lead.event.api.lead.not.found'));
+            return $this->notFound($this->translator->trans('mailvotech.lead.event.api.lead.not.found'));
         }
 
         if (!$this->checkEntityAccess($contact)) {
@@ -130,11 +130,11 @@ final class PointGroupsApiController extends CommonApiController
 
         $pointGroup = $this->model->getEntity($groupId);
         if (null === $pointGroup) {
-            return $this->notFound($this->translator->trans('mautic.lead.event.api.point.group.not.found'));
+            return $this->notFound($this->translator->trans('mailvotech.lead.event.api.point.group.not.found'));
         }
 
         if (!PointGroupModel::isAllowedPointOperation($operator)) {
-            return $this->badRequest($this->translator->trans('mautic.lead.event.api.operation.not.allowed'));
+            return $this->badRequest($this->translator->trans('mailvotech.lead.event.api.operation.not.allowed'));
         }
 
         $oldScore    = $contact->getGroupScore($pointGroup)?->getScore();
@@ -142,8 +142,8 @@ final class PointGroupsApiController extends CommonApiController
         $newScore    = $contact->getGroupScore($pointGroup)->getScore();
         $delta       = $newScore - ($oldScore ?? 0);
 
-        $eventName  = InputHelper::clean($request->request->get('eventName', $this->translator->trans('mautic.point.event.manual_change')));
-        $actionName = InputHelper::clean($request->request->get('actionName', $this->translator->trans('mautic.lead.event.api')));
+        $eventName  = InputHelper::clean($request->request->get('eventName', $this->translator->trans('mailvotech.point.event.manual_change')));
+        $actionName = InputHelper::clean($request->request->get('actionName', $this->translator->trans('mailvotech.lead.event.api')));
         $contact->addPointsChangeLogEntry(
             type: 'API',
             name: $eventName,

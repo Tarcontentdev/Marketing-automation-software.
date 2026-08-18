@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Form\Type;
+namespace MailVotech\AssetBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,11 +18,11 @@ final class CampaignEventAssetDownloadType extends AbstractType
             'assets',
             AssetListType::class,
             [
-                'label'      => 'mautic.asset.campaign.event.assets',
+                'label'      => 'mailvotech.asset.campaign.event.assets',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.asset.campaign.event.assets.descr',
+                    'tooltip' => 'mailvotech.asset.campaign.event.assets.descr',
                 ],
             ]
         );

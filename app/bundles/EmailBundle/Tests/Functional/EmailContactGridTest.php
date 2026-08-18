@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Functional;
+namespace MailVotech\EmailBundle\Tests\Functional;
 
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\Mapping\MappingException;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\CoreBundle\Tests\Functional\UserEntityTrait;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\CoreBundle\Tests\Functional\UserEntityTrait;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class EmailContactGridTest extends MauticMysqlTestCase
+final class EmailContactGridTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
     use UserEntityTrait;
@@ -35,7 +35,7 @@ final class EmailContactGridTest extends MauticMysqlTestCase
         // create users
         $nonAdminUser = $this->createUserWithPermission([
             'user-name'  => 'non-admin',
-            'email'      => 'non-admin@mautic-test.com',
+            'email'      => 'non-admin@mailvotech-test.com',
             'first-name' => 'non-admin',
             'last-name'  => 'non-admin',
             'role'       => [
@@ -74,7 +74,7 @@ final class EmailContactGridTest extends MauticMysqlTestCase
         // create users
         $nonAdminUser = $this->createUserWithPermission([
             'user-name'  => 'non-admin',
-            'email'      => 'non-admin@mautic-test.com',
+            'email'      => 'non-admin@mailvotech-test.com',
             'first-name' => 'non-admin',
             'last-name'  => 'non-admin',
             'role'       => [

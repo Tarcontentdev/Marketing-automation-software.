@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\EventListener;
+namespace MailVotech\AssetBundle\EventListener;
 
-use Mautic\AssetBundle\Form\Type\ConfigType;
-use Mautic\ConfigBundle\ConfigEvents;
-use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
+use MailVotech\AssetBundle\Form\Type\ConfigType;
+use MailVotech\ConfigBundle\ConfigEvents;
+use MailVotech\ConfigBundle\Event\ConfigBuilderEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ConfigSubscriber implements EventSubscriberInterface
@@ -24,8 +24,8 @@ final class ConfigSubscriber implements EventSubscriberInterface
             'bundle'     => 'AssetBundle',
             'formAlias'  => 'assetconfig',
             'formType'   => ConfigType::class,
-            'formTheme'  => '@MauticAsset/FormTheme/Config/_config_assetconfig_widget.html.twig',
-            'parameters' => $event->getParametersFromConfig('MauticAssetBundle'),
+            'formTheme'  => '@MailVotechAsset/FormTheme/Config/_config_assetconfig_widget.html.twig',
+            'parameters' => $event->getParametersFromConfig('MailVotechAssetBundle'),
         ]);
     }
 }

@@ -1,13 +1,17 @@
 {
-  "name": "mautic/theme-confirmme",
-  "description": "Mautic Confirmme Theme",
-  "type": "mautic-theme",
-  "keywords": ["mautic","theme"],
-  "extra": {
-    "install-directory-name": "confirmme"
-  },
-  "minimum-stability": "dev",
-  "require": {
-    "mautic/core-lib": "^7.0"
-  }
+    "name": "mailvotech/theme-confirmme",
+    "description": "MailVotech Confirmme Theme",
+    "type": "mailvotech-theme",
+    "keywords": [
+        "mailvotech",
+        "theme"
+    ],
+    "extra": {
+        "install-directory-name": "confirmme"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "mailvotech/core-lib": "^7.0",
+        "mailvotech/composer-installer": "^1.0"
+    }
 }

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\LeadBundle\Entity\ContactExportScheduler;
-use Mautic\LeadBundle\Event\ContactExportSchedulerEvent;
-use Mautic\LeadBundle\EventListener\ContactExportSchedulerNotificationSubscriber;
-use Mautic\LeadBundle\Notification\ContactExportAdminNotification;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\LeadBundle\Entity\ContactExportScheduler;
+use MailVotech\LeadBundle\Event\ContactExportSchedulerEvent;
+use MailVotech\LeadBundle\EventListener\ContactExportSchedulerNotificationSubscriber;
+use MailVotech\LeadBundle\Notification\ContactExportAdminNotification;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -44,7 +44,7 @@ final class ContactExportSchedulerNotificationSubscriberTest extends TestCase
 
         $translator = $this->createMock(TranslatorInterface::class);
         $translator->method('trans')
-            ->with('mautic.lead.export.being.prepared', ['%user_email%' => 'requester@example.com'])
+            ->with('mailvotech.lead.export.being.prepared', ['%user_email%' => 'requester@example.com'])
             ->willReturn('Requester notification for requester@example.com');
 
         $contactExportAdminNotification = $this->createMock(ContactExportAdminNotification::class);
@@ -59,7 +59,7 @@ final class ContactExportSchedulerNotificationSubscriberTest extends TestCase
         $this->assertSame('Requester notification for requester@example.com', $notificationModel->notifications[0][0]);
         $this->assertSame('info', $notificationModel->notifications[0][1]);
         $this->assertFalse($notificationModel->notifications[0][2]);
-        $this->assertSame('mautic.lead.export.being.prepared.header', $notificationModel->notifications[0][3]);
+        $this->assertSame('mailvotech.lead.export.being.prepared.header', $notificationModel->notifications[0][3]);
         $this->assertSame($requestingUser, $notificationModel->notifications[0][6]);
     }
 

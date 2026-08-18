@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\Service;
+namespace MailVotech\MessengerBundle\Service;
 
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\MessengerBundle\Message\TestEmail;
-use Mautic\MessengerBundle\Message\TestFailed;
-use Mautic\MessengerBundle\Message\TestHit;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\MessengerBundle\Message\TestEmail;
+use MailVotech\MessengerBundle\Message\TestFailed;
+use MailVotech\MessengerBundle\Message\TestHit;
 
 final readonly class TestMessageFactory
 {

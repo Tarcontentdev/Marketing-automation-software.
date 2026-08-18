@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\NotificationBundle\Security\Permissions;
+namespace MailVotech\NotificationBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class NotificationPermissions extends AbstractPermissions

@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Model;
+namespace MailVotech\LeadBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ExportHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\AbstractCommonModel;
-use Mautic\CoreBundle\Model\IteratorExportDataModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\LeadBundle\Entity\ContactExportScheduler;
-use Mautic\LeadBundle\Entity\ContactExportSchedulerRepository;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ExportHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\AbstractCommonModel;
+use MailVotech\CoreBundle\Model\IteratorExportDataModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\LeadBundle\Entity\ContactExportScheduler;
+use MailVotech\LeadBundle\Entity\ContactExportSchedulerRepository;
+use MailVotech\UserBundle\Entity\User;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -43,11 +43,11 @@ final class ContactExportSchedulerModel extends AbstractCommonModel
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         CoreParametersHelper $coreParametersHelper,
         private readonly ContactExportSchedulerRepository $contactExportSchedulerRepository,
     ) {
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function getRepository(): ContactExportSchedulerRepository
@@ -62,12 +62,12 @@ final class ContactExportSchedulerModel extends AbstractCommonModel
      */
     public function prepareData(array $permissions): array
     {
-        $search     = $this->requestStack->getSession()->get('mautic.lead.filter', '');
-        $orderBy    = $this->requestStack->getSession()->get('mautic.lead.orderby', 'l.last_active');
-        $orderByDir = $this->requestStack->getSession()->get('mautic.lead.orderbydir', 'DESC');
-        $indexMode  = $this->requestStack->getSession()->get('mautic.lead.indexmode', 'list');
+        $search     = $this->requestStack->getSession()->get('mailvotech.lead.filter', '');
+        $orderBy    = $this->requestStack->getSession()->get('mailvotech.lead.orderby', 'l.last_active');
+        $orderByDir = $this->requestStack->getSession()->get('mailvotech.lead.orderbydir', 'DESC');
+        $indexMode  = $this->requestStack->getSession()->get('mailvotech.lead.indexmode', 'list');
 
-        $anonymous = $this->translator->trans('mautic.lead.lead.searchcommand.isanonymous');
+        $anonymous = $this->translator->trans('mailvotech.lead.lead.searchcommand.isanonymous');
 
         /** @var Request $request */
         $request = $this->getRequest();
@@ -156,7 +156,7 @@ final class ContactExportSchedulerModel extends AbstractCommonModel
     private function getEmailMessageWithLink(User $user, string $filePath): string
     {
         return $this->translator->trans(
-            'mautic.lead.export.email',
+            'mailvotech.lead.export.email',
             [
                 '%user_name%' => $user->getName(),
                 '%link%'      => $this->getDownloadLink($filePath),
@@ -174,7 +174,7 @@ final class ContactExportSchedulerModel extends AbstractCommonModel
 
         $mailer->setTo([$user->getEmail() => $user->getName()]);
         $mailer->setSubject(
-            $this->translator->trans('mautic.lead.export.email_subject')
+            $this->translator->trans('mailvotech.lead.export.email_subject')
         );
         $mailer->setBody($message);
         $mailer->parsePlainText($message);
@@ -184,7 +184,7 @@ final class ContactExportSchedulerModel extends AbstractCommonModel
     private function getDownloadLink(string $filePath): string
     {
         return $this->router->generate(
-            'mautic_contact_export_download',
+            'mailvotech_contact_export_download',
             ['fileName' => basename($filePath)],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
@@ -222,7 +222,7 @@ final class ContactExportSchedulerModel extends AbstractCommonModel
     private function exportResultsAs(IteratorExportDataModel $iterator, string $fileType, string $fileName): string
     {
         if (!in_array($fileType, $this->exportHelper->getSupportedExportTypes(), true)) {
-            throw new BadRequestHttpException($this->translator->trans('mautic.error.invalid.export.type', ['%type%' => $fileType]));
+            throw new BadRequestHttpException($this->translator->trans('mailvotech.error.invalid.export.type', ['%type%' => $fileType]));
         }
 
         $csvFilePath = $this->exportHelper
@@ -239,6 +239,6 @@ final class ContactExportSchedulerModel extends AbstractCommonModel
             return 'application/zip';
         }
 
-        throw new BadRequestHttpException($this->translator->trans('mautic.error.invalid.specific.export.type', ['%type%' => $ext, '%expected_type%' => 'zip']));
+        throw new BadRequestHttpException($this->translator->trans('mailvotech.error.invalid.specific.export.type', ['%type%' => $ext, '%expected_type%' => 'zip']));
     }
 }

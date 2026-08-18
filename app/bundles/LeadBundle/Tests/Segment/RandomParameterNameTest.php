@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment;
+namespace MailVotech\LeadBundle\Tests\Segment;
 
-use Mautic\LeadBundle\Segment\RandomParameterName;
+use MailVotech\LeadBundle\Segment\RandomParameterName;
 use PHPUnit\Framework\TestCase;
 
 final class RandomParameterNameTest extends TestCase

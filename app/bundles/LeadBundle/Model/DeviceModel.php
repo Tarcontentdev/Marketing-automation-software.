@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\LeadBundle\Model;
+namespace MailVotech\LeadBundle\Model;
 
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\LeadBundle\Entity\LeadDevice;
-use Mautic\LeadBundle\Entity\LeadDeviceRepository;
-use Mautic\LeadBundle\Event\LeadDeviceEvent;
-use Mautic\LeadBundle\Form\Type\DeviceType;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\LeadBundle\Entity\LeadDevice;
+use MailVotech\LeadBundle\Entity\LeadDeviceRepository;
+use MailVotech\LeadBundle\Event\LeadDeviceEvent;
+use MailVotech\LeadBundle\Form\Type\DeviceType;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;

@@ -3,7 +3,7 @@
         {
             "name": "theme-survey",
             "directory": "themes/_survey",
-            "target": "git@github.com:mautic/theme-survey.git"
+            "target": "git@github.com:mailvotech/theme-survey.git"
         }
     ]
 }

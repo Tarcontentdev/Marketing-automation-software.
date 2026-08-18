@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Command;
+namespace MailVotech\FormBundle\Tests\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\FormBundle\Entity\SubmissionRepository;
-use Mautic\FormBundle\Tests\FormTestHelperTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
+use MailVotech\FormBundle\Tests\FormTestHelperTrait;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
-final class DeleteOrphanSubmissionRecordsFromResultsTableCommandTest extends MauticMysqlTestCase
+final class DeleteOrphanSubmissionRecordsFromResultsTableCommandTest extends MailVotechMysqlTestCase
 {
     use FormTestHelperTrait;
 
@@ -48,7 +48,7 @@ final class DeleteOrphanSubmissionRecordsFromResultsTableCommandTest extends Mau
         $kernel      = self::$kernel;
         $application = new Application($kernel);
         $application->setAutoExit(false);
-        $command       = $application->find('mautic:forms:delete-orphan-form-submission-records-from-form-results-table');
+        $command       = $application->find('mailvotech:forms:delete-orphan-form-submission-records-from-form-results-table');
 
         $commandTester = new CommandTester($command);
         $this->em->clear();

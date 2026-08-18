@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\SyncProcess\Direction\Integration;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\SyncProcess\Direction\Integration;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO as ReportFieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO as ReportObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Helper\ValueHelper;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Integration\ObjectChangeGenerator;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO as ReportFieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO as ReportObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Helper\ValueHelper;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Integration\ObjectChangeGenerator;
 use PHPUnit\Framework\TestCase;
 
 final class ObjectChangeGeneratorTest extends TestCase
@@ -60,7 +60,7 @@ final class ObjectChangeGeneratorTest extends TestCase
         $this->assertEquals($objectName, $objectChangeDAO->getObject());
         $this->assertEquals(2, $objectChangeDAO->getObjectId());
 
-        // mapped object and ID should be Mautic's
+        // mapped object and ID should be MailVotech's
         $this->assertEquals(Contact::NAME, $objectChangeDAO->getMappedObject());
         $this->assertEquals(1, $objectChangeDAO->getMappedObjectId());
 
@@ -109,7 +109,7 @@ final class ObjectChangeGeneratorTest extends TestCase
         $this->assertEquals($objectName, $objectChangeDAO->getObject());
         $this->assertEquals(2, $objectChangeDAO->getObjectId());
 
-        // mapped object and ID should be Mautic's
+        // mapped object and ID should be MailVotech's
         $this->assertEquals(Contact::NAME, $objectChangeDAO->getMappedObject());
         $this->assertEquals(1, $objectChangeDAO->getMappedObjectId());
 
@@ -138,7 +138,7 @@ final class ObjectChangeGeneratorTest extends TestCase
 
         $objectMappingDAO->addFieldMapping('email', 'Email', ObjectMappingDAO::SYNC_BIDIRECTIONALLY, true);
         $objectMappingDAO->addFieldMapping('firstname', 'FirstName', ObjectMappingDAO::SYNC_TO_INTEGRATION);
-        $objectMappingDAO->addFieldMapping('points', 'Score', ObjectMappingDAO::SYNC_TO_MAUTIC);
+        $objectMappingDAO->addFieldMapping('points', 'Score', ObjectMappingDAO::SYNC_TO_MAILVOTECH);
 
         $internalObject->addField(new ReportFieldDAO('email', new NormalizedValueDAO(NormalizedValueDAO::EMAIL_TYPE, 'john@doe.email')));
         $internalObject->addField(new ReportFieldDAO('firstname', new NormalizedValueDAO(NormalizedValueDAO::TEXT_TYPE, 'John')));
@@ -148,7 +148,7 @@ final class ObjectChangeGeneratorTest extends TestCase
 
         $objectChange = $objectChangeGenerator->getSyncObjectChange($reportDAO, $mappingManualDAO, $objectMappingDAO, $internalObject, $integrationObject);
 
-        // The points/Score field should not be recorded as a change because it has direction to Mautic.
+        // The points/Score field should not be recorded as a change because it has direction to MailVotech.
         $this->assertCount(2, $objectChange->getFields());
         $this->assertSame('john@doe.email', $objectChange->getField('Email')->getValue()->getNormalizedValue());
         $this->assertSame('John', $objectChange->getField('FirstName')->getValue()->getNormalizedValue());
@@ -172,7 +172,7 @@ final class ObjectChangeGeneratorTest extends TestCase
 
     private function getInternalSyncReport(bool $includeFirstNameField = true): ReportDAO
     {
-        $syncReport           = new ReportDAO(MauticSyncDataExchange::NAME);
+        $syncReport           = new ReportDAO(MailVotechSyncDataExchange::NAME);
         $internalReportObject = new ReportObjectDAO(Contact::NAME, 1);
         $internalReportObject->addField(
             new ReportFieldDAO('email', new NormalizedValueDAO(NormalizedValueDAO::EMAIL_TYPE, 'test@test.com'), ReportFieldDAO::FIELD_REQUIRED)

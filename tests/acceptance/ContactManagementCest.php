@@ -1,7 +1,7 @@
 <?php
 
 use Facebook\WebDriver\WebDriverKeys;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
 use Page\Acceptance\CampaignPage;
 use Page\Acceptance\ContactPage;
 use PHPUnit\Framework\Assert;
@@ -31,7 +31,7 @@ final class ContactManagementCest
         $I->waitForElementVisible(ContactPage::$quickAddModal, AcceptanceTester::TIMEOUT);
         $I->see('Quick Add', 'h4.modal-title');
         $I->waitForJS(
-            "return !document.querySelector('#MauticSharedModal .modal-loading-bar').classList.contains('active')"
+            "return !document.querySelector('#MailVotechSharedModal .modal-loading-bar').classList.contains('active')"
             ." && document.querySelector('".ContactPage::$firstNameField."') !== null;",
             30,
         );
@@ -43,7 +43,7 @@ final class ContactManagementCest
 
         // Submit the form
         $I->executeJS("document.querySelector('button[name=\"lead[buttons][save]\"]').click();");
-        $I->waitForElementNotVisible('#MauticSharedModal', AcceptanceTester::TIMEOUT);
+        $I->waitForElementNotVisible('#MailVotechSharedModal', AcceptanceTester::TIMEOUT);
 
         $I->ensureNotificationAppears('has been created');
     }
@@ -313,7 +313,7 @@ final class ContactManagementCest
         $I->waitForElementVisible(ContactPage::$firstCampaignFromRemoveList, AcceptanceTester::TIMEOUT);
         $I->click(ContactPage::$firstCampaignFromRemoveList);
         $I->click(ContactPage::$campaignsModalSaveButton);
-        $I->waitForElementNotVisible('#MauticSharedModal', AcceptanceTester::TIMEOUT);
+        $I->waitForElementNotVisible('#MailVotechSharedModal', AcceptanceTester::TIMEOUT);
         $I->ensureNotificationAppears('2 contacts affected');
 
         // Navigate to the campaign page and click the Contacts tab
@@ -323,7 +323,7 @@ final class ContactManagementCest
         $I->waitForElement(CampaignPage::$contactsTabContainer, AcceptanceTester::TIMEOUT);
         $I->waitForJS('return document.querySelector("#leads-container .contact-cards") !== null || document.querySelector("#leads-container h4") !== null;', 15);
 
-        // Mautic soft-deletes campaign membership: the row is kept with manually_removed=1 rather than deleted.
+        // MailVotech soft-deletes campaign membership: the row is kept with manually_removed=1 rather than deleted.
         $I->seeInDatabase('test_campaign_leads', ['lead_id' => $leadId1, 'campaign_id' => $campaignId, 'manually_removed' => 1]);
         $I->seeInDatabase('test_campaign_leads', ['lead_id' => $leadId2, 'campaign_id' => $campaignId, 'manually_removed' => 1]);
     }

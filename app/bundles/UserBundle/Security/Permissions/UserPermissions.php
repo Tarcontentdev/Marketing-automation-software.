@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\UserBundle\Security\Permissions;
+namespace MailVotech\UserBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
-use Mautic\UserBundle\Form\Type\PermissionListType;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\UserBundle\Form\Type\PermissionListType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class UserPermissions extends AbstractPermissions
@@ -42,13 +42,13 @@ final class UserPermissions extends AbstractPermissions
             PermissionListType::class,
             [
                 'choices'           => [
-                    'mautic.user.account.permissions.editname'     => 'editname',
-                    'mautic.user.account.permissions.editusername' => 'editusername',
-                    'mautic.user.account.permissions.editemail'    => 'editemail',
-                    'mautic.user.account.permissions.editposition' => 'editposition',
-                    'mautic.user.account.permissions.editall'      => 'full',
+                    'mailvotech.user.account.permissions.editname'     => 'editname',
+                    'mailvotech.user.account.permissions.editusername' => 'editusername',
+                    'mailvotech.user.account.permissions.editemail'    => 'editemail',
+                    'mailvotech.user.account.permissions.editposition' => 'editposition',
+                    'mailvotech.user.account.permissions.editall'      => 'full',
                 ],
-                'label'  => 'mautic.user.permissions.profile',
+                'label'  => 'mailvotech.user.permissions.profile',
                 'data'   => (!empty($data['profile']) ? $data['profile'] : []),
                 'bundle' => 'user',
                 'level'  => 'profile',

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Controller;
+namespace MailVotech\PageBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Helper\ClickthroughHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Entity\Redirect;
+use MailVotech\CoreBundle\Helper\ClickthroughHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\Redirect;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class PublicControllerRedirectTest extends MauticMysqlTestCase
+final class PublicControllerRedirectTest extends MailVotechMysqlTestCase
 {
     #[DataProvider('redirectTypeOptions')]
     public function testValidationRedirectWithoutUrl(string $redirectUrl, string $expectedMessage): void
@@ -27,7 +27,7 @@ final class PublicControllerRedirectTest extends MauticMysqlTestCase
         $form['page[title]']->setValue('Redirect test');
         $form['page[redirectType]']->setValue((string) Response::HTTP_MOVED_PERMANENTLY);
         $form['page[redirectUrl]']->setValue($redirectUrl);
-        $form['page[template]']->setValue('mautic_code_mode');
+        $form['page[template]']->setValue('mailvotech_code_mode');
 
         $this->client->submit($form);
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Event;
+namespace MailVotech\LeadBundle\Tests\Event;
 
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\Event\TagMergeEvent;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Event\TagMergeEvent;
 use PHPUnit\Framework\TestCase;
 
 final class TagMergeEventTest extends TestCase

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\EventListener;
+namespace MailVotech\PointBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\EventListener\CommonStatsSubscriber;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\PointBundle\Entity\LeadPointLog;
-use Mautic\PointBundle\Entity\LeadTriggerLog;
+use MailVotech\CoreBundle\EventListener\CommonStatsSubscriber;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\PointBundle\Entity\LeadPointLog;
+use MailVotech\PointBundle\Entity\LeadTriggerLog;
 
 final class StatsSubscriber extends CommonStatsSubscriber
 {

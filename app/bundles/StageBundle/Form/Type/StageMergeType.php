@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\Form\Type;
+namespace MailVotech\StageBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,14 +27,14 @@ final class StageMergeType extends AbstractType
             [
                 'choices'     => $stageChoices,
                 'multiple'    => false,
-                'label'       => 'mautic.stage.to.merge.into',
+                'label'       => 'mailvotech.stage.to.merge.into',
                 'required'    => true,
-                'placeholder' => 'mautic.core.form.chooseone',
+                'placeholder' => 'mailvotech.core.form.chooseone',
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
-                    new Choice(choices: array_values($stageChoices), message: 'mautic.core.value.invalid'),
+                    new Choice(choices: array_values($stageChoices), message: 'mailvotech.core.value.invalid'),
                 ],
             ]
         );
@@ -43,7 +43,7 @@ final class StageMergeType extends AbstractType
             FormButtonsType::class,
             [
                 'apply_text' => false,
-                'save_text'  => 'mautic.lead.merge',
+                'save_text'  => 'mailvotech.lead.merge',
                 'save_icon'  => 'ri-flag-line',
             ]
         );

@@ -1,5 +1,5 @@
 const ckEditors = new Map();
-MauticVars.maxButtons = ['undo', 'redo', '|', 'bold', 'italic', 'underline', 'heading', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor', 'alignment', 'numberedList', 'bulletedList', 'blockQuote', 'TokenPlugin', 'removeFormat', 'link', 'ckfinder', 'mediaEmbed', 'insertTable', 'sourceEditing'];
+MailVotechVars.maxButtons = ['undo', 'redo', '|', 'bold', 'italic', 'underline', 'heading', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor', 'alignment', 'numberedList', 'bulletedList', 'blockQuote', 'TokenPlugin', 'removeFormat', 'link', 'ckfinder', 'mediaEmbed', 'insertTable', 'sourceEditing'];
 
 /**
  * Takes a given route, retrieves the HTML, and then updates the content
@@ -12,16 +12,16 @@ MauticVars.maxButtons = ['undo', 'redo', '|', 'bold', 'italic', 'underline', 'he
  * @param callback
  * @param data
  */
-Mautic.loadContent = function (route, link, method, target, showPageLoading, callback, data) {
-    if (typeof Mautic.loadContentXhr == 'undefined') {
-        Mautic.loadContentXhr = {};
-    } else if (typeof Mautic.loadContentXhr[target] != 'undefined') {
-        Mautic.loadContentXhr[target].abort();
+MailVotech.loadContent = function (route, link, method, target, showPageLoading, callback, data) {
+    if (typeof MailVotech.loadContentXhr == 'undefined') {
+        MailVotech.loadContentXhr = {};
+    } else if (typeof MailVotech.loadContentXhr[target] != 'undefined') {
+        MailVotech.loadContentXhr[target].abort();
     }
 
     showPageLoading = (typeof showPageLoading == 'undefined' || showPageLoading) ? true : false;
 
-    Mautic.loadContentXhr[target] = mQuery.ajax({
+    MailVotech.loadContentXhr[target] = mQuery.ajax({
         showLoadingBar: showPageLoading,
         url: route,
         type: method,
@@ -32,18 +32,18 @@ Mautic.loadContent = function (route, link, method, target, showPageLoading, cal
                 response.stopPageLoading = showPageLoading;
 
                 if (response.callback) {
-                    window["Mautic"][response.callback].apply('window', [response]);
+                    window["MailVotech"][response.callback].apply('window', [response]);
                     return;
                 }
                 if (response.redirect) {
-                    Mautic.redirectWithBackdrop(response.redirect);
+                    MailVotech.redirectWithBackdrop(response.redirect);
                 } else if (target || response.target) {
                     if (target) response.target = target;
-                    Mautic.processPageContent(response);
+                    MailVotech.processPageContent(response);
                 } else {
                     //clear the live cache
-                    MauticVars.liveCache = new Array();
-                    MauticVars.lastSearchStr = '';
+                    MailVotechVars.liveCache = new Array();
+                    MailVotechVars.lastSearchStr = '';
 
                     //set route and activeLink if the response didn't override
                     if (typeof response.route === 'undefined') {
@@ -54,36 +54,36 @@ Mautic.loadContent = function (route, link, method, target, showPageLoading, cal
                         response.activeLink = link;
                     }
 
-                    Mautic.processPageContent(response);
+                    MailVotech.processPageContent(response);
                 }
 
                 //restore button class if applicable
-                Mautic.stopIconSpinPostEvent();
+                MailVotech.stopIconSpinPostEvent();
             }
-            MauticVars.routeInProgress = '';
+            MailVotechVars.routeInProgress = '';
         },
         error: function (request, textStatus, errorThrown) {
-            Mautic.processAjaxError(request, textStatus, errorThrown, true);
+            MailVotech.processAjaxError(request, textStatus, errorThrown, true);
 
             //clear routeInProgress
-            MauticVars.routeInProgress = '';
+            MailVotechVars.routeInProgress = '';
 
             //restore button class if applicable
-            Mautic.stopIconSpinPostEvent();
+            MailVotech.stopIconSpinPostEvent();
 
             //stop loading bar
-            Mautic.stopPageLoadingBar();
+            MailVotech.stopPageLoadingBar();
         },
         complete: function () {
             if (typeof callback !== 'undefined') {
                 if (typeof callback == 'function') {
                     callback();
                 } else {
-                    window["Mautic"][callback].apply('window', []);
+                    window["MailVotech"][callback].apply('window', []);
                 }
             }
-            Mautic.generatePageTitle( route );
-            delete Mautic.loadContentXhr[target];
+            MailVotech.generatePageTitle( route );
+            delete MailVotech.loadContentXhr[target];
         }
     });
 
@@ -99,7 +99,7 @@ Mautic.loadContent = function (route, link, method, target, showPageLoading, cal
  * @param route
  * @param callback
  */
-Mautic.loadAjaxColumn = function(elementName, route, callback){
+MailVotech.loadAjaxColumn = function(elementName, route, callback){
     var className = '.'+elementName;
     if (mQuery(className).length) {
         var ids = [];
@@ -114,15 +114,15 @@ Mautic.loadAjaxColumn = function(elementName, route, callback){
 
         // If not gonna load any data, then just callback
         if(ids.length == 0) {
-            Mautic.getCallback(callback);
+            MailVotech.getCallback(callback);
         }
 
         // Get all stats numbers in batches of 10
         while (ids.length > 0) {
             batchIds = ids.splice(0, 10);
-            Mautic.ajaxActionRequest(
+            MailVotech.ajaxActionRequest(
                 route,
-                {ids: batchIds, entityId: Mautic.getEntityId()},
+                {ids: batchIds, entityId: MailVotech.getEntityId()},
                 function (response) {
                     if (response.success && response.stats) {
                         for (var i = 0; i < response.stats.length; i++) {
@@ -132,7 +132,7 @@ Mautic.loadAjaxColumn = function(elementName, route, callback){
                             }
                         }
                         if(batchIds.length < 10) {
-                            Mautic.getCallback(callback);
+                            MailVotech.getCallback(callback);
                         }
                     }
                 },
@@ -150,7 +150,7 @@ Mautic.loadAjaxColumn = function(elementName, route, callback){
  * @param tableId
  * @param sortElement
  */
-Mautic.sortTableByColumn = function(tableId, sortElement, removeZero){
+MailVotech.sortTableByColumn = function(tableId, sortElement, removeZero){
     var tbody = mQuery(tableId).find('tbody');
     tbody.find('tr').each(function () {
         if(parseInt(mQuery(this).find(sortElement).text()) == 0) {
@@ -172,12 +172,12 @@ Mautic.sortTableByColumn = function(tableId, sortElement, removeZero){
 /**
  * @param callback
  */
-Mautic.getCallback = function (callback) {
+MailVotech.getCallback = function (callback) {
     if (callback && typeof callback !== 'undefined') {
         if (typeof callback == 'function') {
             callback();
         } else {
-            window["Mautic"][callback].apply('window', []);
+            window["MailVotech"][callback].apply('window', []);
         }
     }
 }
@@ -188,7 +188,7 @@ Mautic.getCallback = function (callback) {
  *
  * @param route
  */
-Mautic.generatePageTitle = function(route){
+MailVotech.generatePageTitle = function(route){
 
     if (-1 !== route.indexOf('timeline')) {
         return
@@ -209,10 +209,10 @@ Mautic.generatePageTitle = function(route){
         // Safely set the text content to prevent XSS
         currentModuleItem = mQuery('<div>').text(currentModuleItem).html();
 
-        mQuery('title').html( currentModule[0].toUpperCase() + currentModule.slice(1) + ' | ' + currentModuleItem + ' | Mautic' );
+        mQuery('title').html( currentModule[0].toUpperCase() + currentModule.slice(1) + ' | ' + currentModuleItem + ' | MailVotech' );
     } else {
         //loading basic title
-        mQuery('title').html( mQuery('.page-header h1').text() + ' | Mautic' );
+        mQuery('title').html( mQuery('.page-header h1').text() + ' | MailVotech' );
     }
 };
 
@@ -220,11 +220,11 @@ Mautic.generatePageTitle = function(route){
  * Updates new content
  * @param response
  */
-Mautic.processPageContent = function (response) {
+MailVotech.processPageContent = function (response) {
     if (response) {
-        Mautic.deactivateBackgroup();
+        MailVotech.deactivateBackgroup();
 
-        if (response.errors && 'dev' == mauticEnv) {
+        if (response.errors && 'dev' == mailvotechEnv) {
             alert(response.errors[0].message);
             console.log(response.errors);
         }
@@ -234,7 +234,7 @@ Mautic.processPageContent = function (response) {
         }
 
         //inactive tooltips, etc
-        Mautic.onPageUnload(response.target, response);
+        MailVotech.onPageUnload(response.target, response);
 
         //set content
         if (response.newContent) {
@@ -246,21 +246,21 @@ Mautic.processPageContent = function (response) {
         }
 
         if (response.notifications) {
-            Mautic.setNotifications(response.notifications);
+            MailVotech.setNotifications(response.notifications);
         }
 
         if (response.route) {
             //update URL in address bar
-            history.pushState(null, "Mautic", response.route);
+            history.pushState(null, "MailVotech", response.route);
 
             //update Title
-            Mautic.generatePageTitle( response.route );
+            MailVotech.generatePageTitle( response.route );
         }
 
         if (response.target == '#app-content') {
             //update type of content displayed
-            if (response.mauticContent) {
-                mauticContent = response.mauticContent;
+            if (response.mailvotechContent) {
+                mailvotechContent = response.mailvotechContent;
             }
 
             if (response.activeLink) {
@@ -310,35 +310,35 @@ Mautic.processPageContent = function (response) {
         }
 
         //activate content specific stuff
-        Mautic.onPageLoad(response.target, response);
+        MailVotech.onPageLoad(response.target, response);
     }
 };
 
 /**
  * Initiate various functions on page load, manual or ajax
  */
-Mautic.onPageLoad = function (container, response, inModal) {
-    mQuery(container).trigger('mautic:onPageLoad:before', [container, response, inModal]);
+MailVotech.onPageLoad = function (container, response, inModal) {
+    mQuery(container).trigger('mailvotech:onPageLoad:before', [container, response, inModal]);
 
-    Mautic.initDateRangePicker(container + ' #daterange_date_from', container + ' #daterange_date_to');
+    MailVotech.initDateRangePicker(container + ' #daterange_date_from', container + ' #daterange_date_to');
 
     //initiate links
-    Mautic.makeLinksAlive(mQuery(container + " a[data-toggle='ajax']"));
+    MailVotech.makeLinksAlive(mQuery(container + " a[data-toggle='ajax']"));
 
     //initialize forms
     mQuery(container + " form[data-toggle='ajax']").each(function (index) {
-        Mautic.ajaxifyForm(mQuery(this).attr('name'));
+        MailVotech.ajaxifyForm(mQuery(this).attr('name'));
     });
 
     //initialize ajax'd modals
-    Mautic.makeModalsAlive(mQuery(container + " *[data-toggle='ajaxmodal']"))
+    MailVotech.makeModalsAlive(mQuery(container + " *[data-toggle='ajaxmodal']"))
 
     //initialize embedded modal forms
-    Mautic.activateModalEmbeddedForms(container);
+    MailVotech.activateModalEmbeddedForms(container);
 
     //initalize live search boxes
     mQuery(container + " *[data-toggle='livesearch']").each(function (index) {
-        Mautic.activateLiveSearch(mQuery(this), "lastSearchStr", "liveCache");
+        MailVotech.activateLiveSearch(mQuery(this), "lastSearchStr", "liveCache");
     });
 
     //initialize tooltips
@@ -365,7 +365,7 @@ Mautic.onPageLoad = function (container, response, inModal) {
 
     //initialize sortable lists
     mQuery(container + " *[data-toggle='sortablelist']").each(function (index) {
-        Mautic.activateSortable(this);
+        MailVotech.activateSortable(this);
     });
 
     //downloads
@@ -373,29 +373,29 @@ Mautic.onPageLoad = function (container, response, inModal) {
     mQuery(container + " a[data-toggle='download']").on('click.download', function (event) {
         event.preventDefault();
 
-        Mautic.initiateFileDownload(mQuery(this).attr('href'));
+        MailVotech.initiateFileDownload(mQuery(this).attr('href'));
     });
 
-    Mautic.makeConfirmationsAlive(mQuery(container + " a[data-toggle='confirmation']"));
+    MailVotech.makeConfirmationsAlive(mQuery(container + " a[data-toggle='confirmation']"));
 
     //initialize date/time
     mQuery(container + " *[data-toggle='datetime']").each(function() {
-        Mautic.activateDateTimeInputs(this, 'datetime');
+        MailVotech.activateDateTimeInputs(this, 'datetime');
     });
 
     mQuery(container + " *[data-toggle='date']").each(function() {
-        Mautic.activateDateTimeInputs(this, 'date');
+        MailVotech.activateDateTimeInputs(this, 'date');
     });
 
     mQuery(container + " *[data-toggle='time']").each(function() {
-        Mautic.activateDateTimeInputs(this, 'time');
+        MailVotech.activateDateTimeInputs(this, 'time');
     });
 
     // Initialize callback options
     mQuery(container + " *[data-onload-callback]").each(function() {
         var callback = function(el) {
-            if (typeof window["Mautic"][mQuery(el).attr('data-onload-callback')] == 'function') {
-                window["Mautic"][mQuery(el).attr('data-onload-callback')].apply('window', [el]);
+            if (typeof window["MailVotech"][mQuery(el).attr('data-onload-callback')] == 'function') {
+                window["MailVotech"][mQuery(el).attr('data-onload-callback')].apply('window', [el]);
             }
         }
 
@@ -404,22 +404,22 @@ Mautic.onPageLoad = function (container, response, inModal) {
 
     mQuery(container + " *[data-copy]").off('click.copy').on('click.copy', function (event) {
         event.preventDefault();
-        Mautic.copyToClipboard(mQuery(this).data('copy'));
+        MailVotech.copyToClipboard(mQuery(this).data('copy'));
     });
 
     mQuery(container + " input[data-toggle='color']").each(function() {
-        Mautic.activateColorPicker(this);
+        MailVotech.activateColorPicker(this);
     });
 
     mQuery(container + " select").not('.multiselect, .not-chosen').each(function() {
-        Mautic.activateChosenSelect(this);
+        MailVotech.activateChosenSelect(this);
     });
 
     mQuery(container + " select.multiselect").each(function() {
-        Mautic.activateMultiSelect(this);
+        MailVotech.activateMultiSelect(this);
     });
 
-    Mautic.activateLookupTypeahead(mQuery(container));
+    MailVotech.activateLookupTypeahead(mQuery(container));
 
     // Fix dropdowns in responsive tables - https://github.com/twbs/bootstrap/issues/11037#issuecomment-163746965
     mQuery(container + " .table-responsive").on('shown.bs.dropdown', function (e) {
@@ -461,23 +461,23 @@ Mautic.onPageLoad = function (container, response, inModal) {
 
     // Initialize tab overflow
     mQuery(container + " .nav-overflow-tabs ul").each(function() {
-        Mautic.activateOverflowTabs(this);
+        MailVotech.activateOverflowTabs(this);
     });
 
     mQuery(container + " .nav.sortable").each(function() {
-        Mautic.activateSortableTabs(this);
+        MailVotech.activateSortableTabs(this);
     });
 
     // Initialize tab delete buttons
-    Mautic.activateTabDeleteButtons(container);
+    MailVotech.activateTabDeleteButtons(container);
 
     //spin icons on button click
     mQuery(container + ' .btn:not(.btn-nospin)').on('click.spinningicons', function (event) {
-        Mautic.startIconSpinOnEvent(event);
+        MailVotech.startIconSpinOnEvent(event);
     });
 
     mQuery(container + ' input[class=list-checkbox]').on('change', function () {
-        var disabled = Mautic.batchActionPrecheck(container) ? false : true;
+        var disabled = MailVotech.batchActionPrecheck(container) ? false : true;
         var color    = (disabled) ? 'btn-ghost' : 'btn-info';
         var button   = container + ' th.col-actions .btn.dropdown-toggle';
         mQuery(button).prop('disabled', disabled);
@@ -517,7 +517,7 @@ Mautic.onPageLoad = function (container, response, inModal) {
 
                             event.preventDefault();
                             if (!mQuery(this).hasClass('btn-nospin')) {
-                                Mautic.startIconSpinOnEvent(event);
+                                MailVotech.startIconSpinOnEvent(event);
                             }
                             mQuery('#' + id).click();
                         });
@@ -549,7 +549,7 @@ Mautic.onPageLoad = function (container, response, inModal) {
                             mQuery(this).parent().find('button').prop('disabled', true);
                         }
 
-                        Mautic.startIconSpinOnEvent(event);
+                        MailVotech.startIconSpinOnEvent(event);
                         mQuery('#' + id).click();
                     };
 
@@ -580,11 +580,11 @@ Mautic.onPageLoad = function (container, response, inModal) {
             }
         }
     });
-    Mautic.getBuilderContainer = function() {
+    MailVotech.getBuilderContainer = function() {
         return container;
     }
 
-    // This turns all textarea elements with class "editor" into CKEditor ones, except for Dynamic Content elements, which can be initialized with Mautic.setDynamicContentEditors().
+    // This turns all textarea elements with class "editor" into CKEditor ones, except for Dynamic Content elements, which can be initialized with MailVotech.setDynamicContentEditors().
     if (mQuery(container + ' textarea.editor:not(".editor-dynamic-content")').length) {
         mQuery(container + ' textarea.editor:not(".editor-dynamic-content")').each(function () {
             const textarea = mQuery(this);
@@ -596,10 +596,10 @@ Mautic.onPageLoad = function (container, response, inModal) {
 
             let ckEditorToolbar = minButtons;
             if (textarea.hasClass('editor-advanced') || textarea.hasClass('editor-basic-fullpage')) {
-                ckEditorToolbar = MauticVars.maxButtons;
+                ckEditorToolbar = MailVotechVars.maxButtons;
             }
 
-            Mautic.ConvertFieldToCkeditor(textarea, ckEditorToolbar);
+            MailVotech.ConvertFieldToCkeditor(textarea, ckEditorToolbar);
         });
     }
 
@@ -612,15 +612,15 @@ Mautic.onPageLoad = function (container, response, inModal) {
 
     if (response && response.updateSelect && typeof response.id !== 'undefined') {
         // An new item is to be injected
-        Mautic.updateEntitySelect(response);
+        MailVotech.updateEntitySelect(response);
     }
 
     //run specific on loads
     var contentSpecific = false;
-    if (response && response.mauticContent) {
-        contentSpecific = response.mauticContent;
+    if (response && response.mailvotechContent) {
+        contentSpecific = response.mailvotechContent;
     } else if (container == 'body') {
-        contentSpecific = mauticContent;
+        contentSpecific = mailvotechContent;
     }
 
     if (response && response.sidebar) {
@@ -650,17 +650,17 @@ Mautic.onPageLoad = function (container, response, inModal) {
 
     if (container == '#app-content' || container == 'body') {
         //register global keyboard shortcuts
-        Mautic.bindGlobalKeyboardShortcuts();
+        MailVotech.bindGlobalKeyboardShortcuts();
 
         mQuery(".sidebar-left a[data-toggle='ajax']").on('click.ajax', function (event) {
             mQuery("html").removeClass('sidebar-open-ltr');
         });
     }
 
-    if (contentSpecific && typeof Mautic[contentSpecific + "OnLoad"] == 'function') {
-        if (inModal || typeof Mautic.loadedContent[contentSpecific] == 'undefined') {
-            Mautic.loadedContent[contentSpecific] = true;
-            Mautic[contentSpecific + "OnLoad"](container, response);
+    if (contentSpecific && typeof MailVotech[contentSpecific + "OnLoad"] == 'function') {
+        if (inModal || typeof MailVotech.loadedContent[contentSpecific] == 'undefined') {
+            MailVotech.loadedContent[contentSpecific] = true;
+            MailVotech[contentSpecific + "OnLoad"](container, response);
         }
     }
 
@@ -683,7 +683,7 @@ Mautic.onPageLoad = function (container, response, inModal) {
             if (!hasValue) $panel.empty();
         });
 
-        Mautic.activateLiveSearch("#globalSearchInput", "lastGlobalSearchStr", "globalLivecache");
+        MailVotech.activateLiveSearch("#globalSearchInput", "lastGlobalSearchStr", "globalLivecache");
 
         $modal
             .on('shown.bs.modal', () => setTimeout(() => $input.focus(), 100))
@@ -696,12 +696,12 @@ Mautic.onPageLoad = function (container, response, inModal) {
         $results.on('click', 'a', () => $modal.modal('hide'));
     }
 
-    Mautic.renderCharts(container);
-    Mautic.stopIconSpinPostEvent();
+    MailVotech.renderCharts(container);
+    MailVotech.stopIconSpinPostEvent();
 
     //stop loading bar
     if ((response && typeof response.stopPageLoading != 'undefined' && response.stopPageLoading) || container == '#app-content' || container == '.page-list') {
-        Mautic.stopPageLoadingBar();
+        MailVotech.stopPageLoadingBar();
     }
 
     const maps= mQuery(container).find('[data-load="map"]');
@@ -720,16 +720,16 @@ Mautic.onPageLoad = function (container, response, inModal) {
                 const mapUrl = scope.attr('data-map-url');
 
                 scope.load(mapUrl, '', () => {
-                    const map = Mautic.initMap(scope, 'regions');
+                    const map = MailVotech.initMap(scope, 'regions');
                 });
             }
         }, false));
     }
 
-    mQuery(container).trigger('mautic:onPageLoad:after', [container, response, inModal]);
+    mQuery(container).trigger('mailvotech:onPageLoad:after', [container, response, inModal]);
 };
 
-Mautic.setDynamicContentEditors = function(container) {
+MailVotech.setDynamicContentEditors = function(container) {
     // The editor for dynamic content should only be initialized when the modal is opened due to conflicts and not being able to edit content otherwise
     if (mQuery(container + ' textarea.editor-dynamic-content').length) {
         console.log('[Builder] Using CKEditor for the Dynamic Content editor');
@@ -747,7 +747,7 @@ Mautic.setDynamicContentEditors = function(container) {
                 ckEditorToolbar = maxButtons;
             }
 
-            Mautic.ConvertFieldToCkeditor(textarea, ckEditorToolbar);
+            MailVotech.ConvertFieldToCkeditor(textarea, ckEditorToolbar);
         });
     }
 }
@@ -755,12 +755,12 @@ Mautic.setDynamicContentEditors = function(container) {
 /**
  * @param jQueryObject
  */
-Mautic.activateLookupTypeahead = function(containerEl) {
+MailVotech.activateLookupTypeahead = function(containerEl) {
     containerEl.find("*[data-toggle='field-lookup']").each(function () {
         var lookup = mQuery(this),
             callback = lookup.attr('data-callback') ? lookup.attr('data-callback') : 'activateFieldTypeahead';
 
-        Mautic[callback](
+        MailVotech[callback](
             lookup.attr('id'),
             lookup.attr('data-target'),
             lookup.attr('data-options'),
@@ -772,12 +772,12 @@ Mautic.activateLookupTypeahead = function(containerEl) {
 /**
  * @param jQueryObject
  */
-Mautic.makeConfirmationsAlive = function(jQueryObject) {
+MailVotech.makeConfirmationsAlive = function(jQueryObject) {
     jQueryObject.off('click.confirmation');
     jQueryObject.on('click.confirmation', function (event) {
         event.preventDefault();
-        MauticVars.ignoreIconSpin = true;
-        return Mautic.showConfirmation(this);
+        MailVotechVars.ignoreIconSpin = true;
+        return MailVotech.showConfirmation(this);
     });
 };
 
@@ -785,12 +785,12 @@ Mautic.makeConfirmationsAlive = function(jQueryObject) {
  *
  * @param jQueryObject
  */
-Mautic.makeModalsAlive = function(jQueryObject) {
+MailVotech.makeModalsAlive = function(jQueryObject) {
     jQueryObject.off('click.ajaxmodal');
     jQueryObject.on('click.ajaxmodal', function (event) {
         event.preventDefault();
 
-        Mautic.ajaxifyModal(this, event);
+        MailVotech.ajaxifyModal(this, event);
     });
 };
 
@@ -798,26 +798,26 @@ Mautic.makeModalsAlive = function(jQueryObject) {
  *
  * @param jQueryObject
  */
-Mautic.makeLinksAlive = function(jQueryObject) {
+MailVotech.makeLinksAlive = function(jQueryObject) {
     jQueryObject.off('click.ajax');
     jQueryObject.on('click.ajax', function (event) {
         event.preventDefault();
 
-        return Mautic.ajaxifyLink(this, event);
+        return MailVotech.ajaxifyLink(this, event);
     });
 };
 
 /**
  * Functions to be ran on ajax page unload
  */
-Mautic.onPageUnload = function (container, response) {
+MailVotech.onPageUnload = function (container, response) {
     //unload tooltips so they don't double show
     if (typeof container != 'undefined') {
         mQuery(container + " *[data-toggle='tooltip']").tooltip('destroy');
 
         //unload lingering modals from body so that there will not be multiple modals generated from new ajaxed content
-        if (typeof MauticVars.modalsReset == 'undefined') {
-            MauticVars.modalsReset = {};
+        if (typeof MailVotechVars.modalsReset == 'undefined') {
+            MailVotechVars.modalsReset = {};
         }
 
         if (ckEditors.size > 0) {
@@ -840,39 +840,39 @@ Mautic.onPageUnload = function (container, response) {
         //full page gets precedence
         Mousetrap.reset();
 
-        contentSpecific = mauticContent;
+        contentSpecific = mailvotechContent;
 
         // trash created chart objects to save some memory
-        if (typeof Mautic.chartObjects !== 'undefined') {
-            mQuery.each(Mautic.chartObjects, function (i, chart) {
+        if (typeof MailVotech.chartObjects !== 'undefined') {
+            mQuery.each(MailVotech.chartObjects, function (i, chart) {
                 chart.destroy();
             });
-            Mautic.chartObjects = [];
+            MailVotech.chartObjects = [];
         }
 
         // trash created map objects to save some memory
-        if (typeof Mautic.mapObjects !== 'undefined') {
-            mQuery.each(Mautic.mapObjects, (i, map) => {
+        if (typeof MailVotech.mapObjects !== 'undefined') {
+            mQuery.each(MailVotech.mapObjects, (i, map) => {
                 map.destroyMap();
             });
-            Mautic.mapObjects = [];
+            MailVotech.mapObjects = [];
         }
 
         // trash tokens to save some memory
-        if (typeof Mautic.builderTokens !== 'undefined') {
-            Mautic.builderTokens = {};
+        if (typeof MailVotech.builderTokens !== 'undefined') {
+            MailVotech.builderTokens = {};
         }
-    } else if (response && response.mauticContent) {
-        contentSpecific = response.mauticContent;
+    } else if (response && response.mailvotechContent) {
+        contentSpecific = response.mailvotechContent;
     }
 
     if (contentSpecific) {
-        if (typeof Mautic[contentSpecific + "OnUnload"] == 'function') {
-            Mautic[contentSpecific + "OnUnload"](container, response);
+        if (typeof MailVotech[contentSpecific + "OnUnload"] == 'function') {
+            MailVotech[contentSpecific + "OnUnload"](container, response);
         }
 
-        if (typeof Mautic.loadedContent[contentSpecific] !== 'undefined') {
-            delete Mautic.loadedContent[contentSpecific];
+        if (typeof MailVotech.loadedContent[contentSpecific] !== 'undefined') {
+            delete MailVotech.loadedContent[contentSpecific];
         }
     }
 };
@@ -883,18 +883,18 @@ Mautic.onPageUnload = function (container, response) {
  * @param event
  * @returns {boolean}
  */
-Mautic.ajaxifyLink = function (el, event, extraData = {}) {
+MailVotech.ajaxifyLink = function (el, event, extraData = {}) {
     if (mQuery(el).hasClass('disabled')) {
         return false;
     }
 
     var route = mQuery(el).attr('href');
-    if (route.indexOf('javascript') >= 0 || MauticVars.routeInProgress === route) {
+    if (route.indexOf('javascript') >= 0 || MailVotechVars.routeInProgress === route) {
         return false;
     }
 
     if (route.indexOf('batchExport') >= 0) {
-        Mautic.initiateFileDownload(route);
+        MailVotech.initiateFileDownload(route);
         return true;
     }
 
@@ -909,7 +909,7 @@ Mautic.ajaxifyLink = function (el, event, extraData = {}) {
     if (mQuery(".form-exit-unlock-id").length) {
         if (mQuery(el).attr('data-ignore-formexit') != 'true') {
             var unlockParameter = (mQuery('.form-exit-unlock-parameter').length) ? mQuery('.form-exit-unlock-parameter').val() : '';
-            Mautic.unlockEntity(mQuery('.form-exit-unlock-model').val(), mQuery('.form-exit-unlock-id').val(), unlockParameter);
+            MailVotech.unlockEntity(mQuery('.form-exit-unlock-model').val(), mQuery('.form-exit-unlock-id').val(), unlockParameter);
         }
     }
 
@@ -923,7 +923,7 @@ Mautic.ajaxifyLink = function (el, event, extraData = {}) {
         method = 'GET'
     }
 
-    MauticVars.routeInProgress = route;
+    MailVotechVars.routeInProgress = route;
 
     var target = mQuery(el).attr('data-target');
     if (!target) {
@@ -933,7 +933,7 @@ Mautic.ajaxifyLink = function (el, event, extraData = {}) {
     //give an ajaxified link the option of not displaying the global loading bar
     var showLoadingBar = (mQuery(el).attr('data-hide-loadingbar')) ? false : true;
 
-    Mautic.loadContent(route, link, method, target, showLoadingBar, undefined, extraData);
+    MailVotech.loadContent(route, link, method, target, showLoadingBar, undefined, extraData);
 };
 
 /**
@@ -941,7 +941,7 @@ Mautic.ajaxifyLink = function (el, event, extraData = {}) {
  *
  * @param el
  */
-Mautic.activateChosenSelect = function(el, ignoreGlobal, jQueryVariant) {
+MailVotech.activateChosenSelect = function(el, ignoreGlobal, jQueryVariant) {
     var mQuery = (typeof jQueryVariant != 'undefined') ? jQueryVariant : window.mQuery;
     const $select = mQuery(el);
     if ($select.parents('.no-chosen').length && !ignoreGlobal) {
@@ -951,7 +951,7 @@ Mautic.activateChosenSelect = function(el, ignoreGlobal, jQueryVariant) {
 
     var noResultsText = $select.data('no-results-text');
     if (!noResultsText) {
-        noResultsText = mauticLang['chosenNoResults'];
+        noResultsText = mailvotechLang['chosenNoResults'];
     }
 
     var isLookup = $select.attr('data-chosen-lookup');
@@ -968,20 +968,20 @@ Mautic.activateChosenSelect = function(el, ignoreGlobal, jQueryVariant) {
                     $select.find('option[value="new"]').prop('selected', false);
                     $select.trigger('chosen:updated');
 
-                    Mautic.loadNewWindow({
+                    MailVotech.loadNewWindow({
                         "windowUrl": url + queryGlue + "contentOnly=1&updateSelect=" + $select.attr('id')
                     });
                 } else {
-                    Mautic.loadAjaxModalBySelectValue(this, 'new', url, $select.attr('data-header'));
+                    MailVotech.loadAjaxModalBySelectValue(this, 'new', url, $select.attr('data-header'));
                 }
             });
         }
 
-        var multiPlaceholder = mauticLang['mautic.core.lookup.search_options'],
-            singlePlaceholder = mauticLang['mautic.core.lookup.search_options'];
+        var multiPlaceholder = mailvotechLang['mailvotech.core.lookup.search_options'],
+            singlePlaceholder = mailvotechLang['mailvotech.core.lookup.search_options'];
     } else {
-        var multiPlaceholder = mauticLang['chosenChooseMore'],
-            singlePlaceholder = mauticLang['chosenChooseOne'];
+        var multiPlaceholder = mailvotechLang['chosenChooseMore'],
+            singlePlaceholder = mailvotechLang['chosenChooseOne'];
     }
 
     if (typeof $select.data('chosen-placeholder') !== 'undefined') {
@@ -1008,7 +1008,7 @@ Mautic.activateChosenSelect = function(el, ignoreGlobal, jQueryVariant) {
         if (searchTerm) {
             $select.ajaxChosen({
                 type: 'GET',
-                url: mauticAjaxUrl + '?action=' + $select.attr('data-chosen-lookup'),
+                url: mailvotechAjaxUrl + '?action=' + $select.attr('data-chosen-lookup'),
                 dataType: 'json',
                 afterTypeDelay: 2,
                 minTermLength: minTermLength ? minTermLength : 2,
@@ -1033,7 +1033,7 @@ Mautic.activateChosenSelect = function(el, ignoreGlobal, jQueryVariant) {
  *
  * @param el
  */
-Mautic.destroyChosen = function(el) {
+MailVotech.destroyChosen = function(el) {
     if(el.get(0)) {
         var eventObject = mQuery._data(el.get(0), 'events');
     }
@@ -1048,7 +1048,7 @@ Mautic.destroyChosen = function(el) {
 /**
  * Activate a typeahead lookup
  */
-Mautic.activateFieldTypeahead = function (field, target, options, action) {
+MailVotech.activateFieldTypeahead = function (field, target, options, action) {
     var fieldId = '#' + field;
     var fieldEl = mQuery('#' + field);
 
@@ -1067,7 +1067,7 @@ Mautic.activateFieldTypeahead = function (field, target, options, action) {
             values = options[0].split('|');
         }
 
-        var fieldTypeahead = Mautic.activateTypeahead(fieldId, {
+        var fieldTypeahead = MailVotech.activateTypeahead(fieldId, {
             dataOptions: values,
             dataOptionKeys: keys,
             minLength: 0
@@ -1087,7 +1087,7 @@ Mautic.activateFieldTypeahead = function (field, target, options, action) {
             typeAheadOptions.noRrecordMessage = options.noRrecordMessage;
         }
 
-        var fieldTypeahead = Mautic.activateTypeahead(fieldId, typeAheadOptions);
+        var fieldTypeahead = MailVotech.activateTypeahead(fieldId, typeAheadOptions);
     }
 
     var callback = function (event, datum) {
@@ -1095,8 +1095,8 @@ Mautic.activateFieldTypeahead = function (field, target, options, action) {
             fieldEl.val(datum["value"]);
 
             var lookupCallback = mQuery(fieldId).data('lookup-callback');
-            if (lookupCallback && typeof Mautic[lookupCallback] == 'function') {
-                Mautic[lookupCallback](field, datum);
+            if (lookupCallback && typeof MailVotech[lookupCallback] == 'function') {
+                MailVotech[lookupCallback](field, datum);
             }
         }
     };
@@ -1109,7 +1109,7 @@ Mautic.activateFieldTypeahead = function (field, target, options, action) {
  *
  * @param el
  */
-Mautic.activateMultiSelect = function(el) {
+MailVotech.activateMultiSelect = function(el) {
     var moveOption = function(v, prev) {
         var theOption = mQuery(el).find('option[value="' + v + '"]').first();
         var lastSelected = mQuery(el).find('option:not(:disabled)').filter(function () {
@@ -1133,7 +1133,7 @@ Mautic.activateMultiSelect = function(el) {
         afterInit: function(container) {
             var funcName = mQuery(el).data('afterInit');
             if (funcName) {
-                Mautic[funcName]('init', container);
+                MailVotech[funcName]('init', container);
             }
 
             var selectThat = this,
@@ -1184,7 +1184,7 @@ Mautic.activateMultiSelect = function(el) {
         afterSelect: function(value) {
             var funcName = mQuery(el).data('afterSelect');
             if (funcName) {
-                Mautic[funcName]('select', value);
+                MailVotech[funcName]('select', value);
             }
             this.qs1.cache();
             this.qs2.cache();
@@ -1194,7 +1194,7 @@ Mautic.activateMultiSelect = function(el) {
         afterDeselect: function(value) {
             var funcName = mQuery(el).data('afterDeselect');
             if (funcName) {
-                Mautic[funcName]('deselect', value);
+                MailVotech[funcName]('deselect', value);
             }
 
             this.qs1.cache();
@@ -1211,7 +1211,7 @@ Mautic.activateMultiSelect = function(el) {
  *
  * @param container
  */
-Mautic.activateModalEmbeddedForms = function(container) {
+MailVotech.activateModalEmbeddedForms = function(container) {
     mQuery(container + " *[data-embedded-form='cancel']").off('click.embeddedform');
     mQuery(container + " *[data-embedded-form='cancel']").on('click.embeddedform', function (event) {
         event.preventDefault();
@@ -1220,12 +1220,12 @@ Mautic.activateModalEmbeddedForms = function(container) {
         mQuery(modal).modal('hide');
 
         if (mQuery(this).attr('data-embedded-form-clear') === 'true') {
-            Mautic.resetForm(modal);
+            MailVotech.resetForm(modal);
         }
 
         if (typeof mQuery(this).attr('data-embedded-form-callback') != 'undefined') {
-            if (typeof window["Mautic"][mQuery(this).attr('data-embedded-form-callback')] == 'function') {
-                window["Mautic"][mQuery(this).attr('data-embedded-form-callback')].apply('window', [this, modal]);
+            if (typeof window["MailVotech"][mQuery(this).attr('data-embedded-form-callback')] == 'function') {
+                window["MailVotech"][mQuery(this).attr('data-embedded-form-callback')].apply('window', [this, modal]);
             }
         }
     });
@@ -1245,7 +1245,7 @@ Mautic.activateModalEmbeddedForms = function(container) {
         mQuery(modal).on('show.bs.modal', function () {
             // Don't allow submitting with enter key
             mQuery(this).on("keydown.embeddedForm", ":input:not(textarea)", function(event) {
-                if (Mautic.Keyboard.isEnter(Mautic.Keyboard.getKey(event))) {
+                if (MailVotech.Keyboard.isEnter(MailVotech.Keyboard.getKey(event))) {
                     event.preventDefault();
                     if (event.metaKey || event.ctrlKey) {
                         // Submit the modal
@@ -1269,8 +1269,8 @@ Mautic.activateModalEmbeddedForms = function(container) {
         mQuery(modal).modal('hide');
 
         if (typeof mQuery(this).attr('data-embedded-form-callback') != 'undefined') {
-            if (typeof window["Mautic"][mQuery(this).attr('data-embedded-form-callback')] == 'function') {
-                window["Mautic"][mQuery(this).attr('data-embedded-form-callback')].apply('window', [this, modal]);
+            if (typeof window["MailVotech"][mQuery(this).attr('data-embedded-form-callback')] == 'function') {
+                window["MailVotech"][mQuery(this).attr('data-embedded-form-callback')].apply('window', [this, modal]);
             }
         }
     });
@@ -1280,7 +1280,7 @@ Mautic.activateModalEmbeddedForms = function(container) {
  * Activate containers datetime inputs
  * @param container
  */
-Mautic.activateDateTimeInputs = function(el, type) {
+MailVotech.activateDateTimeInputs = function(el, type) {
     if (typeof type == 'undefined') {
         type = 'datetime';
     }
@@ -1326,11 +1326,11 @@ Mautic.activateDateTimeInputs = function(el, type) {
  * @param elId
  * @param modelName
  */
-Mautic.activateSearchAutocomplete = function (elId, modelName) {
+MailVotech.activateSearchAutocomplete = function (elId, modelName) {
     if (mQuery('#' + elId).length) {
         var livesearch = (mQuery('#' + elId).attr("data-toggle=['livesearch']")) ? true : false;
 
-        var typeaheadObject = Mautic.activateTypeahead('#' + elId, {
+        var typeaheadObject = MailVotech.activateTypeahead('#' + elId, {
             prefetch: true,
             remote: false,
             limit: 0,
@@ -1340,20 +1340,20 @@ Mautic.activateSearchAutocomplete = function (elId, modelName) {
         mQuery(typeaheadObject).on('typeahead:selected', function (event, datum) {
             if (livesearch) {
                 //force live search update,
-                MauticVars.lastSearchStr = '';
+                MailVotechVars.lastSearchStr = '';
                 mQuery('#' + elId).keyup();
             }
         }).on('typeahead:autocompleted', function (event, datum) {
             if (livesearch) {
                 //force live search update
-                MauticVars.lastSearchStr = '';
+                MailVotechVars.lastSearchStr = '';
                 mQuery('#' + elId).keyup();
             }
         });
     }
 };
 
-Mautic.Keyboard = {
+MailVotech.Keyboard = {
     /**
      * Extract the key from a keyboard event safely.
      * @param {KeyboardEvent} event
@@ -1410,7 +1410,7 @@ Mautic.Keyboard = {
     }
 };
 
-Mautic.isGlobalSearchInput = function (el) {
+MailVotech.isGlobalSearchInput = function (el) {
     return mQuery(el).attr('id') === 'globalSearchInput';
 };
 
@@ -1422,7 +1422,7 @@ Mautic.isGlobalSearchInput = function (el) {
  * @param searchStrVar
  * @param liveCacheVar
  */
-Mautic.activateLiveSearch = function (el, searchStrVar, liveCacheVar) {
+MailVotech.activateLiveSearch = function (el, searchStrVar, liveCacheVar) {
     if (!mQuery(el).length) {
         return;
     }
@@ -1433,28 +1433,28 @@ Mautic.activateLiveSearch = function (el, searchStrVar, liveCacheVar) {
     var btn = "button[data-livesearch-parent='" + mQuery(el).attr('id') + "']";
 
     mQuery(el).on('focus', function () {
-        Mautic.currentSearchString = mQuery(this).val().trim();
+        MailVotech.currentSearchString = mQuery(this).val().trim();
     });
 
     mQuery(el).on('change keyup paste', {}, function (event) {
         // Prevent LiveSearch from re-triggering on navigation keys
-        if (Mautic.Keyboard.isLiveSearchNavigation(event)) {
+        if (MailVotech.Keyboard.isLiveSearchNavigation(event)) {
             return;
         }
 
         var searchStr = mQuery(el).val().trim();
 
-        const key = Mautic.Keyboard.getKey(event);
-        const spaceKeyPressed = Mautic.Keyboard.isSpace(key);
-        const enterKeyPressed = Mautic.Keyboard.isEnter(key);
-        const deleteKeyPressed = Mautic.Keyboard.isBackspace(key);
+        const key = MailVotech.Keyboard.getKey(event);
+        const spaceKeyPressed = MailVotech.Keyboard.isSpace(key);
+        const enterKeyPressed = MailVotech.Keyboard.isEnter(key);
+        const deleteKeyPressed = MailVotech.Keyboard.isBackspace(key);
 
-        if (!enterKeyPressed && Mautic.currentSearchString && Mautic.currentSearchString == searchStr) {
+        if (!enterKeyPressed && MailVotech.currentSearchString && MailVotech.currentSearchString == searchStr) {
             return;
         }
 
         var target = mQuery(el).attr('data-target');
-        var diff = searchStr.length - MauticVars[searchStrVar].length;
+        var diff = searchStr.length - MailVotechVars[searchStrVar].length;
 
         if (diff < 0) {
             diff = parseInt(diff) * -1;
@@ -1490,21 +1490,21 @@ Mautic.activateLiveSearch = function (el, searchStrVar, liveCacheVar) {
             }
         }
 
-        if ((!searchStr && MauticVars[searchStrVar].length)
+        if ((!searchStr && MailVotechVars[searchStrVar].length)
             || diff >= 3
             || spaceKeyPressed
             || enterKeyPressed
         ) {
-            MauticVars[searchStrVar] = searchStr;
+            MailVotechVars[searchStrVar] = searchStr;
             event.data.livesearch = true;
 
             // Reset active index for global search
-            if (Mautic.isGlobalSearchInput(el)) {
+            if (MailVotech.isGlobalSearchInput(el)) {
                 activeIndex = -1;
                 mQuery('.gsearch--results-item', el).removeClass('active');
             }
 
-            Mautic.filterList(
+            MailVotech.filterList(
                 event,
                 mQuery(el).attr('id'),
                 mQuery(el).attr('data-action'),
@@ -1523,11 +1523,11 @@ Mautic.activateLiveSearch = function (el, searchStrVar, liveCacheVar) {
     if (mQuery(btn).length) {
         mQuery(btn).on('click', {'parent': mQuery(el).attr('id')}, function (event) {
             var searchStr = mQuery(el).val().trim();
-            MauticVars[searchStrVar] = searchStr;
+            MailVotechVars[searchStrVar] = searchStr;
 
-            Mautic.filterButtonClicked = true;
+            MailVotech.filterButtonClicked = true;
 
-            Mautic.filterList(
+            MailVotech.filterList(
                 event,
                 event.data.parent,
                 mQuery('#' + event.data.parent).attr('data-action'),
@@ -1550,13 +1550,13 @@ Mautic.activateLiveSearch = function (el, searchStrVar, liveCacheVar) {
      * Keyboard navigation for Global Search modal.
      * Supports: ArrowUp, ArrowDown, Tab, Enter, Escape
      */
-    if (Mautic.isGlobalSearchInput(el)) {
+    if (MailVotech.isGlobalSearchInput(el)) {
         mQuery(el).off('keydown.globalSearchNav');
 
         mQuery(el).on('keydown.globalSearchNav', function (e) {
-            const key = Mautic.Keyboard.getKey(e);
+            const key = MailVotech.Keyboard.getKey(e);
 
-            if (Mautic.Keyboard.isEscape(key)) {
+            if (MailVotech.Keyboard.isEscape(key)) {
                 mQuery('#gsearchModal').modal('hide');
                 return;
             }
@@ -1565,19 +1565,19 @@ Mautic.activateLiveSearch = function (el, searchStrVar, liveCacheVar) {
             if (!items.length) return;
 
             switch (true) {
-                case Mautic.Keyboard.isArrowDown(key):
-                case Mautic.Keyboard.isTab(key) && !e.shiftKey:
+                case MailVotech.Keyboard.isArrowDown(key):
+                case MailVotech.Keyboard.isTab(key) && !e.shiftKey:
                     e.preventDefault();
                     activeIndex = (activeIndex + 1) % items.length;
                     break;
 
-                case Mautic.Keyboard.isArrowUp(key):
-                case Mautic.Keyboard.isTab(key) && e.shiftKey:
+                case MailVotech.Keyboard.isArrowUp(key):
+                case MailVotech.Keyboard.isTab(key) && e.shiftKey:
                     e.preventDefault();
                     activeIndex = activeIndex <= 0 ? items.length - 1 : activeIndex - 1;
                     break;
 
-                case Mautic.Keyboard.isEnter(key): {
+                case MailVotech.Keyboard.isEnter(key): {
                     if (activeIndex < 0 || activeIndex >= items.length) {
                         return;
                     }
@@ -1615,7 +1615,7 @@ Mautic.activateLiveSearch = function (el, searchStrVar, liveCacheVar) {
  * Converts an input to a color picker
  * @param el
  */
-Mautic.activateColorPicker = function(el, options) {
+MailVotech.activateColorPicker = function(el, options) {
     let input = mQuery(el);
     var pickerOptions = input.data('color-options');
     if (!pickerOptions) {
@@ -1647,7 +1647,7 @@ Mautic.activateColorPicker = function(el, options) {
  * @param options
  * @returns {*}
  */
-Mautic.activateTypeahead = function (el, options) {
+MailVotech.activateTypeahead = function (el, options) {
     if (typeof options == 'undefined' || !mQuery(el).length) {
         return;
     }
@@ -1717,7 +1717,7 @@ Mautic.activateTypeahead = function (el, options) {
 
         if (options.remote) {
             sourceOptions.remote = {
-                url: mauticAjaxUrl + "?action=" + options.action + "&filter=%QUERY",
+                url: mailvotechAjaxUrl + "?action=" + options.action + "&filter=%QUERY",
                 filter: filterClosure,
                 wildcard: '%QUERY',
             };
@@ -1725,7 +1725,7 @@ Mautic.activateTypeahead = function (el, options) {
 
         if (options.prefetch) {
             sourceOptions.prefetch = {
-                url: mauticAjaxUrl + "?action=" + options.action,
+                url: mailvotechAjaxUrl + "?action=" + options.action,
                 filter: filterClosure
             };
         }
@@ -1798,7 +1798,7 @@ Mautic.activateTypeahead = function (el, options) {
         },
         dataset
     ).on('keypress', function (event) {
-        if (Mautic.Keyboard.isEnter(Mautic.Keyboard.getKey(event))) {
+        if (MailVotech.Keyboard.isEnter(MailVotech.Keyboard.getKey(event))) {
             mQuery(el).typeahead('close');
         }
     }).on('focus', function() {
@@ -1815,7 +1815,7 @@ Mautic.activateTypeahead = function (el, options) {
  *
  * @param el
  */
-Mautic.activateSortable = function(el) {
+MailVotech.activateSortable = function(el) {
     var prefix = mQuery(el).attr('data-prefix');
     if (mQuery('#' + prefix + '_additem').length) {
         mQuery('#' + prefix + '_additem').click(function () {
@@ -1859,9 +1859,9 @@ Mautic.activateSortable = function(el) {
  *
  * @param link
  */
-Mautic.initiateFileDownload = function (link) {
-    if (mauticContactExportInBackground === 1 && link.indexOf('filetype=csv') >= 0) {
-        Mautic.processCsvContactExport(link);
+MailVotech.initiateFileDownload = function (link) {
+    if (mailvotechContactExportInBackground === 1 && link.indexOf('filetype=csv') >= 0) {
+        MailVotech.processCsvContactExport(link);
         return;
     }
 
@@ -1880,8 +1880,8 @@ Mautic.initiateFileDownload = function (link) {
 
             // If we get here, it's JSON error response
             if (response.message) {
-                const flashMessage = Mautic.addErrorFlashMessage(response.message);
-                Mautic.setFlashes(flashMessage);
+                const flashMessage = MailVotech.addErrorFlashMessage(response.message);
+                MailVotech.setFlashes(flashMessage);
             }
         } catch (e) {
             // If JSON.parse fails, it means we got a file download - this is expected
@@ -1889,21 +1889,21 @@ Mautic.initiateFileDownload = function (link) {
     });
 };
 
-Mautic.processCsvContactExport = function (route) {
+MailVotech.processCsvContactExport = function (route) {
     mQuery.ajax({
         showLoadingBar: true,
         url: route,
         type: "POST",
         dataType: "json",
         success: function (response) {
-            Mautic.processPageContent(response);
+            MailVotech.processPageContent(response);
 
             if (typeof callback == 'function') {
                 callback(response);
             }
         },
         error: function (request, textStatus, errorThrown) {
-            Mautic.processAjaxError(request, textStatus, errorThrown);
+            MailVotech.processAjaxError(request, textStatus, errorThrown);
         }
     });
 };
@@ -1913,20 +1913,20 @@ Mautic.processCsvContactExport = function (route) {
  *
  * @param {string} text
  */
-Mautic.copyToClipboard = function (text) {
+MailVotech.copyToClipboard = function (text) {
     const textArea = document.createElement('textarea');
     textArea.innerHTML = text;
     const decodedText = textArea.value || textArea.innerText;
 
     navigator.clipboard.writeText(decodedText).then(function () {
-        const message = Mautic.translate('mautic.core.notice.copiedtoclipboard');
-        const flashMessage = Mautic.addInfoFlashMessage(message);
-        Mautic.setFlashes(flashMessage);
+        const message = MailVotech.translate('mailvotech.core.notice.copiedtoclipboard');
+        const flashMessage = MailVotech.addInfoFlashMessage(message);
+        MailVotech.setFlashes(flashMessage);
     }).catch(function (err) {
         console.error('Clipboard write error:', err);
-        const message = Mautic.translate('mautic.core.error.copyfailed');
-        const flashMessage = Mautic.addErrorFlashMessage(message);
-        Mautic.setFlashes(flashMessage);
+        const message = MailVotech.translate('mailvotech.core.error.copyfailed');
+        const flashMessage = MailVotech.addErrorFlashMessage(message);
+        MailVotech.setFlashes(flashMessage);
     });
 };
 
@@ -1937,9 +1937,9 @@ Mautic.copyToClipboard = function (text) {
 /**
  * Initializes the filter commands by collecting them from the DOM.
  */
-Mautic.initFilterCommands = function () {
+MailVotech.initFilterCommands = function () {
     const filterElements = document.querySelectorAll('.label[data-filter]');
-    Mautic.filterCommands = Array.from(filterElements).map(function (el) {
+    MailVotech.filterCommands = Array.from(filterElements).map(function (el) {
         return el.dataset.filter;
     });
 
@@ -1948,7 +1948,7 @@ Mautic.initFilterCommands = function () {
 
     selectFields.forEach(function (selectElement) {
         const options = Array.from(selectElement.options).map(option => option.value);
-        Mautic.filterCommands.push(...options);
+        MailVotech.filterCommands.push(...options);
     });
 };
 
@@ -1957,7 +1957,7 @@ Mautic.initFilterCommands = function () {
  *
  * @param {HTMLElement} element
  */
-Mautic.toggleFilter = function (element) {
+MailVotech.toggleFilter = function (element) {
     const filterValue = element.dataset.filter;
     const conflictGroup = element.dataset.conflictGroup || null;
 
@@ -1979,10 +1979,10 @@ Mautic.toggleFilter = function (element) {
 /**
  * Applies the selected filters when the "Apply filters" button is clicked.
  */
-Mautic.applyFilters = function () {
+MailVotech.applyFilters = function () {
     const searchInput = document.getElementById('list-search');
     let currentSearchValue = searchInput.value || '';
-    currentSearchValue = Mautic.removeFilterCommands(currentSearchValue);
+    currentSearchValue = MailVotech.removeFilterCommands(currentSearchValue);
 
     const activeFilters = document.querySelectorAll('.label.active');
     const searchCommands = Array.from(activeFilters).map(function (filterElement) {
@@ -2021,10 +2021,10 @@ Mautic.applyFilters = function () {
 /**
  * Resets the filters when the "Reset filters" button is clicked.
  */
-Mautic.resetFilters = function () {
+MailVotech.resetFilters = function () {
     const searchInput = document.getElementById('list-search');
     let currentSearchValue = searchInput.value || '';
-    currentSearchValue = Mautic.removeFilterCommands(currentSearchValue);
+    currentSearchValue = MailVotech.removeFilterCommands(currentSearchValue);
     searchInput.value = currentSearchValue.trim();
     searchInput.dataset.filters = JSON.stringify([]);
 
@@ -2060,13 +2060,13 @@ Mautic.resetFilters = function () {
  * @param {string} searchValue
  * @returns {string}
  */
-Mautic.removeFilterCommands = function (searchValue) {
-    if (!Mautic.filterCommands || Mautic.filterCommands.length === 0) {
-        Mautic.initFilterCommands();
+MailVotech.removeFilterCommands = function (searchValue) {
+    if (!MailVotech.filterCommands || MailVotech.filterCommands.length === 0) {
+        MailVotech.initFilterCommands();
     }
 
     // Escape special characters in filter commands for regex
-    const escapedCommands = Mautic.filterCommands.map(cmd => cmd.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+    const escapedCommands = MailVotech.filterCommands.map(cmd => cmd.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
 
     // Create a regex to match filter commands as whole words
     const regex = new RegExp('\\b(' + escapedCommands.join('|') + ')\\b', 'g');
@@ -2080,19 +2080,19 @@ Mautic.removeFilterCommands = function (searchValue) {
  *
  * @returns {Array<string>}
  */
-Mautic.getActiveFilterCommands = function () {
+MailVotech.getActiveFilterCommands = function () {
     const searchInput = document.getElementById('list-search');
     if (!searchInput) {
         return []; // Return an empty array if there's no search input
     }
     const searchValue = searchInput.value || '';
 
-    if (!Mautic.filterCommands || Mautic.filterCommands.length === 0) {
-        Mautic.initFilterCommands();
+    if (!MailVotech.filterCommands || MailVotech.filterCommands.length === 0) {
+        MailVotech.initFilterCommands();
     }
 
     // Escape special characters in filter commands for regex
-    const escapedCommands = Mautic.filterCommands.map(cmd => cmd.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+    const escapedCommands = MailVotech.filterCommands.map(cmd => cmd.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
 
     // Create a regex to match filter commands as whole words
     const regex = new RegExp('\\b(' + escapedCommands.join('|') + ')\\b', 'g');
@@ -2101,7 +2101,7 @@ Mautic.getActiveFilterCommands = function () {
     return matches ? matches : [];
 };
 
-Mautic.getSelectedPopoverFilters = function () {
+MailVotech.getSelectedPopoverFilters = function () {
     const searchInput = document.getElementById('list-search');
     if (!searchInput) {
         return [];
@@ -2126,9 +2126,9 @@ Mautic.getSelectedPopoverFilters = function () {
  *
  * @param {HTMLElement} popoverElement
  */
-Mautic.initializePopoverFilters = function (popoverElement) {
-    const activeFilterCommands = Mautic.getActiveFilterCommands();
-    const selectedPopoverFilters = Mautic.getSelectedPopoverFilters();
+MailVotech.initializePopoverFilters = function (popoverElement) {
+    const activeFilterCommands = MailVotech.getActiveFilterCommands();
+    const selectedPopoverFilters = MailVotech.getSelectedPopoverFilters();
     const selectFields = popoverElement.querySelectorAll('select');
 
     // Handle regular filter labels
@@ -2159,7 +2159,7 @@ Mautic.initializePopoverFilters = function (popoverElement) {
 /**
  * Handles the insertion of the popover and initializes active filter labels.
  */
-Mautic.handlePopoverInsertion = function () {
+MailVotech.handlePopoverInsertion = function () {
     mQuery(document).on('inserted.bs.popover', '[data-toggle="popover"]', function () {
         const popoverId = mQuery(this).attr('aria-describedby');
         if (!popoverId) return;
@@ -2167,7 +2167,7 @@ Mautic.handlePopoverInsertion = function () {
         const popoverElement = document.getElementById(popoverId);
         if (!popoverElement) return;
 
-        Mautic.initializePopoverFilters(popoverElement);
+        MailVotech.initializePopoverFilters(popoverElement);
 
         // Initialize Chosen after popover content is inserted
         mQuery('.popover-content select').chosen({
@@ -2179,6 +2179,6 @@ Mautic.handlePopoverInsertion = function () {
 
 // Initialize filter commands on page load
 document.addEventListener('DOMContentLoaded', function () {
-    Mautic.initFilterCommands();
-    Mautic.handlePopoverInsertion();
+    MailVotech.initFilterCommands();
+    MailVotech.handlePopoverInsertion();
 });

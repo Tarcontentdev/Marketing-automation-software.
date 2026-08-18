@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Integration\Interfaces;
+namespace MailVotech\IntegrationsBundle\Integration\Interfaces;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
 
 interface SyncInterface extends IntegrationInterface
 {

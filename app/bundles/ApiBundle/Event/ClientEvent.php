@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Event;
+namespace MailVotech\ApiBundle\Event;
 
-use Mautic\ApiBundle\Entity\oAuth2\Client;
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\ApiBundle\Entity\oAuth2\Client;
+use MailVotech\CoreBundle\Event\CommonEvent;
 
 final class ClientEvent extends CommonEvent
 {

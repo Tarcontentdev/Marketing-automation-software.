@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine\Helper;
+namespace MailVotech\CoreBundle\Doctrine\Helper;
 
 final readonly class FulltextKeyword implements \Stringable
 {

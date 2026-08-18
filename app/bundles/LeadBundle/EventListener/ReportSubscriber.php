@@ -1,26 +1,26 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CampaignBundle\EventCollector\EventCollector;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Helper\Chart\PieChart;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Report\DncReportService;
-use Mautic\LeadBundle\Report\FieldsBuilder;
-use Mautic\ReportBundle\Event\ColumnCollectEvent;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportDataEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\Event\ReportGraphEvent;
-use Mautic\ReportBundle\ReportEvents;
-use Mautic\StageBundle\Model\StageModel;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CampaignBundle\EventCollector\EventCollector;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Helper\Chart\PieChart;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Report\DncReportService;
+use MailVotech\LeadBundle\Report\FieldsBuilder;
+use MailVotech\ReportBundle\Event\ColumnCollectEvent;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportDataEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\Event\ReportGraphEvent;
+use MailVotech\ReportBundle\ReportEvents;
+use MailVotech\StageBundle\Model\StageModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ReportSubscriber implements EventSubscriberInterface
@@ -133,8 +133,8 @@ final class ReportSubscriber implements EventSubscriberInterface
 
             if ($event->checkContext([self::CONTEXT_LEADS, self::CONTEXT_LEAD_POINT_LOG])) {
                 // Add shared graphs
-                $event->addGraph(self::CONTEXT_LEADS, 'line', 'mautic.lead.graph.line.leads');
-                $event->addGraph(self::CONTEXT_LEAD_POINT_LOG, 'line', 'mautic.lead.graph.line.leads');
+                $event->addGraph(self::CONTEXT_LEADS, 'line', 'mailvotech.lead.graph.line.leads');
+                $event->addGraph(self::CONTEXT_LEAD_POINT_LOG, 'line', 'mailvotech.lead.graph.line.leads');
 
                 if ($event->checkContext(self::CONTEXT_LEAD_POINT_LOG)) {
                     $this->injectPointsReportData($event, $columns, $filters);
@@ -144,26 +144,26 @@ final class ReportSubscriber implements EventSubscriberInterface
             if ($event->checkContext([self::CONTEXT_LEADS])) {
                 $stageColumns = [
                     'l.stage_id'           => [
-                        'label' => 'mautic.lead.report.attribution.stage_id',
+                        'label' => 'mailvotech.lead.report.attribution.stage_id',
                         'type'  => 'int',
                     ],
                     'ss.name'               => [
                         'alias' => 'stage_name',
-                        'label' => 'mautic.lead.report.attribution.stage_name',
+                        'label' => 'mailvotech.lead.report.attribution.stage_name',
                         'type'  => 'string',
                     ],
                     'ss.date_added' => [
                         'alias'   => 'stage_date_added',
-                        'label'   => 'mautic.lead.report.attribution.stage_date_added',
+                        'label'   => 'mailvotech.lead.report.attribution.stage_date_added',
                         'type'    => 'string',
-                        'formula' => '(SELECT MAX(stage_log.date_added) FROM '.MAUTIC_TABLE_PREFIX.'lead_stages_change_log stage_log WHERE stage_log.stage_id = l.stage_id AND stage_log.lead_id = l.id)',
+                        'formula' => '(SELECT MAX(stage_log.date_added) FROM '.MAILVOTECH_TABLE_PREFIX.'lead_stages_change_log stage_log WHERE stage_log.stage_id = l.stage_id AND stage_log.lead_id = l.id)',
                     ],
                 ];
                 $columns      = array_merge($columns, $stageColumns, $this->dncReportService->getDncColumns());
             }
 
             $data = [
-                'display_name' => 'mautic.lead.leads',
+                'display_name' => 'mailvotech.lead.leads',
                 'columns'      => $columns,
                 'filters'      => $filters,
             ];
@@ -177,17 +177,17 @@ final class ReportSubscriber implements EventSubscriberInterface
             $companyFilters = $companyColumns;
 
             $data = [
-                'display_name' => 'mautic.lead.lead.companies',
+                'display_name' => 'mailvotech.lead.lead.companies',
                 'columns'      => $companyColumns,
                 'filters'      => $companyFilters,
             ];
 
             foreach ($this->companyContexts as $context) {
                 $event->addTable($context, $data, self::CONTEXT_COMPANIES);
-                $event->addGraph($context, 'line', 'mautic.lead.graph.line.companies');
-                $event->addGraph($context, 'pie', 'mautic.lead.graph.pie.companies.industry');
-                $event->addGraph($context, 'pie', 'mautic.lead.table.pie.company.country');
-                $event->addGraph($context, 'table', 'mautic.lead.company.table.top.cities');
+                $event->addGraph($context, 'line', 'mailvotech.lead.graph.line.companies');
+                $event->addGraph($context, 'pie', 'mailvotech.lead.graph.pie.companies.industry');
+                $event->addGraph($context, 'pie', 'mailvotech.lead.table.pie.company.country');
+                $event->addGraph($context, 'table', 'mailvotech.lead.company.table.top.cities');
             }
         }
     }
@@ -206,10 +206,10 @@ final class ReportSubscriber implements EventSubscriberInterface
 
         switch ($context) {
             case self::CONTEXT_LEADS:
-                $qb->from(MAUTIC_TABLE_PREFIX.'leads', 'l');
+                $qb->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l');
 
                 if ($event->usesColumn(['u.first_name', 'u.last_name'])) {
-                    $qb->leftJoin('l', MAUTIC_TABLE_PREFIX.'users', 'u', 'u.id = l.owner_id');
+                    $qb->leftJoin('l', MAILVOTECH_TABLE_PREFIX.'users', 'u', 'u.id = l.owner_id');
                 }
 
                 if ($event->usesColumn('i.ip_address')) {
@@ -217,11 +217,11 @@ final class ReportSubscriber implements EventSubscriberInterface
                 }
 
                 if ($event->usesColumn('ss.name')) {
-                    $qb->leftJoin('l', MAUTIC_TABLE_PREFIX.'stages', 'ss', 'ss.id = l.stage_id');
+                    $qb->leftJoin('l', MAILVOTECH_TABLE_PREFIX.'stages', 'ss', 'ss.id = l.stage_id');
                 }
 
                 if ($event->hasFilter('s.leadlist_id')) {
-                    $qb->join('l', MAUTIC_TABLE_PREFIX.'lead_lists_leads', 's', 's.lead_id = l.id AND s.manually_removed = 0');
+                    $qb->join('l', MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 's', 's.lead_id = l.id AND s.manually_removed = 0');
                     $event->applyDateFilters($qb, 'date_added', 's');
                 } else {
                     $event->applyDateFilters($qb, 'date_added', 'l');
@@ -231,11 +231,11 @@ final class ReportSubscriber implements EventSubscriberInterface
 
             case self::CONTEXT_LEAD_POINT_LOG:
                 $event->applyDateFilters($qb, 'date_added', 'lp');
-                $qb->from(MAUTIC_TABLE_PREFIX.'lead_points_change_log', 'lp')
-                    ->leftJoin('lp', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = lp.lead_id');
+                $qb->from(MAILVOTECH_TABLE_PREFIX.'lead_points_change_log', 'lp')
+                    ->leftJoin('lp', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = lp.lead_id');
 
                 if ($event->usesColumn(['u.first_name', 'u.last_name'])) {
-                    $qb->leftJoin('l', MAUTIC_TABLE_PREFIX.'users', 'u', 'u.id = l.owner_id');
+                    $qb->leftJoin('l', MAILVOTECH_TABLE_PREFIX.'users', 'u', 'u.id = l.owner_id');
                 }
 
                 if ($event->usesColumn('i.ip_address')) {
@@ -243,21 +243,21 @@ final class ReportSubscriber implements EventSubscriberInterface
                 }
 
                 if ($event->usesColumn('s.leadlist_id')) {
-                    $qb->join('l', MAUTIC_TABLE_PREFIX.'lead_lists_leads', 's', 's.lead_id = l.id AND s.manually_removed = 0');
+                    $qb->join('l', MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 's', 's.lead_id = l.id AND s.manually_removed = 0');
                 }
 
                 if ($event->usesColumn(['pl.id', 'pl.name'])) {
-                    $qb->leftJoin('lp', MAUTIC_TABLE_PREFIX.'point_groups', 'pl', 'lp.group_id = pl.id');
+                    $qb->leftJoin('lp', MAILVOTECH_TABLE_PREFIX.'point_groups', 'pl', 'lp.group_id = pl.id');
                 }
 
                 break;
             case self::CONTEXT_CONTACT_FREQUENCYRULES:
                 $event->applyDateFilters($qb, 'date_added', 'lf');
-                $qb->from(MAUTIC_TABLE_PREFIX.'lead_frequencyrules', 'lf')
-                    ->leftJoin('lf', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = lf.lead_id');
+                $qb->from(MAILVOTECH_TABLE_PREFIX.'lead_frequencyrules', 'lf')
+                    ->leftJoin('lf', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = lf.lead_id');
 
                 if ($event->usesColumn(['u.first_name', 'u.last_name'])) {
-                    $qb->leftJoin('l', MAUTIC_TABLE_PREFIX.'users', 'u', 'u.id = l.owner_id');
+                    $qb->leftJoin('l', MAILVOTECH_TABLE_PREFIX.'users', 'u', 'u.id = l.owner_id');
                 }
 
                 if ($event->usesColumn('i.ip_address')) {
@@ -265,7 +265,7 @@ final class ReportSubscriber implements EventSubscriberInterface
                 }
 
                 if ($event->usesColumn('s.leadlist_id')) {
-                    $qb->join('l', MAUTIC_TABLE_PREFIX.'lead_lists_leads', 's', 's.lead_id = l.id AND s.manually_removed = 0');
+                    $qb->join('l', MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 's', 's.lead_id = l.id AND s.manually_removed = 0');
                 }
 
                 break;
@@ -275,11 +275,11 @@ final class ReportSubscriber implements EventSubscriberInterface
             case self::CONTEXT_CONTACT_ATTRIBUTION_LAST:
                 $localDateTriggered = 'CONVERT_TZ(log.date_triggered,\'UTC\',\''.date_default_timezone_get().'\')';
                 $event->applyDateFilters($qb, 'attribution_date', 'l', true);
-                $qb->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
-                    ->join('l', MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'log', 'l.id = log.lead_id')
-                    ->leftJoin('l', MAUTIC_TABLE_PREFIX.'stages', 'ss', 'l.stage_id = ss.id')
-                    ->join('log', MAUTIC_TABLE_PREFIX.'campaign_events', 'e', 'log.event_id = e.id')
-                    ->join('log', MAUTIC_TABLE_PREFIX.'campaigns', 'c', 'log.campaign_id = c.id')
+                $qb->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
+                    ->join('l', MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'log', 'l.id = log.lead_id')
+                    ->leftJoin('l', MAILVOTECH_TABLE_PREFIX.'stages', 'ss', 'l.stage_id = ss.id')
+                    ->join('log', MAILVOTECH_TABLE_PREFIX.'campaign_events', 'e', 'log.event_id = e.id')
+                    ->join('log', MAILVOTECH_TABLE_PREFIX.'campaigns', 'c', 'log.campaign_id = c.id')
                     ->andWhere(
                         $qb->expr()->and(
                             $qb->expr()->eq('e.event_type', $qb->expr()->literal('decision')),
@@ -291,7 +291,7 @@ final class ReportSubscriber implements EventSubscriberInterface
                     );
 
                 if ($event->usesColumn(['u.first_name', 'u.last_name'])) {
-                    $qb->leftJoin('l', MAUTIC_TABLE_PREFIX.'users', 'u', 'u.id = l.owner_id');
+                    $qb->leftJoin('l', MAILVOTECH_TABLE_PREFIX.'users', 'u', 'u.id = l.owner_id');
                 }
 
                 if ($event->usesColumn('i.ip_address')) {
@@ -303,7 +303,7 @@ final class ReportSubscriber implements EventSubscriberInterface
                 }
 
                 if ($event->usesColumn('s.leadlist_id')) {
-                    $qb->join('l', MAUTIC_TABLE_PREFIX.'lead_lists_leads', 's', 's.lead_id = l.id AND s.manually_removed = 0');
+                    $qb->join('l', MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 's', 's.lead_id = l.id AND s.manually_removed = 0');
                 }
 
                 $subQ = clone $qb;
@@ -337,9 +337,9 @@ final class ReportSubscriber implements EventSubscriberInterface
                     }
                 }
 
-                $subQ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', "{$alias}log")
-                    ->join("{$alias}log", MAUTIC_TABLE_PREFIX.'campaign_events', "{$alias}e", "{$alias}log.event_id = {$alias}e.id")
-                    ->join("{$alias}e", MAUTIC_TABLE_PREFIX.'campaigns', "{$alias}c", "{$alias}e.campaign_id = {$alias}c.id")
+                $subQ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', "{$alias}log")
+                    ->join("{$alias}log", MAILVOTECH_TABLE_PREFIX.'campaign_events', "{$alias}e", "{$alias}log.event_id = {$alias}e.id")
+                    ->join("{$alias}e", MAILVOTECH_TABLE_PREFIX.'campaigns', "{$alias}c", "{$alias}e.campaign_id = {$alias}c.id")
                     ->where($expr);
 
                 if ('multi' != $alias) {
@@ -360,10 +360,10 @@ final class ReportSubscriber implements EventSubscriberInterface
                 break;
             case self::CONTEXT_COMPANIES:
                 $event->applyDateFilters($qb, 'date_added', 'comp');
-                $qb->from(MAUTIC_TABLE_PREFIX.'companies', 'comp');
+                $qb->from(MAILVOTECH_TABLE_PREFIX.'companies', 'comp');
 
                 if ($event->usesColumn(['u.first_name', 'u.last_name'])) {
-                    $qb->leftJoin('comp', MAUTIC_TABLE_PREFIX.'users', 'u', 'u.id = comp.owner_id');
+                    $qb->leftJoin('comp', MAILVOTECH_TABLE_PREFIX.'users', 'u', 'u.id = comp.owner_id');
                 }
 
                 break;
@@ -407,7 +407,7 @@ final class ReportSubscriber implements EventSubscriberInterface
                 $join = $queryBuilder->getQueryPart('join');
                 $queryBuilder->resetQueryPart('join');
 
-                $queryBuilder->leftJoin('lp', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = lp.lead_id');
+                $queryBuilder->leftJoin('lp', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = lp.lead_id');
                 if (isset($join['l'])) {
                     $where = $queryBuilder->getQueryPart('where');
                     foreach ($join['l'] as $item) {
@@ -419,17 +419,17 @@ final class ReportSubscriber implements EventSubscriberInterface
             }
 
             switch ($g) {
-                case 'mautic.lead.graph.pie.attribution_stages':
-                case 'mautic.lead.graph.pie.attribution_campaigns':
-                case 'mautic.lead.graph.pie.attribution_actions':
-                case 'mautic.lead.graph.pie.attribution_channels':
+                case 'mailvotech.lead.graph.pie.attribution_stages':
+                case 'mailvotech.lead.graph.pie.attribution_campaigns':
+                case 'mailvotech.lead.graph.pie.attribution_actions':
+                case 'mailvotech.lead.graph.pie.attribution_channels':
                     $attributionQb->resetQueryParts(['select', 'orderBy']);
                     $outerQb = clone $attributionQb;
                     $outerQb->resetQueryParts()
                         ->select('slice, sum(contact_attribution) as total_attribution')
                         ->groupBy('slice');
 
-                    $groupBy = str_replace('mautic.lead.graph.pie.attribution_', '', $g);
+                    $groupBy = str_replace('mailvotech.lead.graph.pie.attribution_', '', $g);
                     switch ($groupBy) {
                         case 'stages':
                             $attributionQb->select('CONCAT_WS(\':\', ss.id, ss.name) as slice, l.attribution as contact_attribution')
@@ -463,7 +463,7 @@ final class ReportSubscriber implements EventSubscriberInterface
                         $label = match ($groupBy) {
                             'actions'  => $this->channelActions[$row['slice']],
                             'channels' => $this->channels[$row['slice']],
-                            default    => (empty($row['slice'])) ? $this->translator->trans('mautic.core.none') : $row['slice'],
+                            default    => (empty($row['slice'])) ? $this->translator->trans('mailvotech.core.none') : $row['slice'],
                         };
                         $chart->setDataset($label, $row['total_attribution']);
                     }
@@ -478,33 +478,33 @@ final class ReportSubscriber implements EventSubscriberInterface
                     );
                     break;
 
-                case 'mautic.lead.graph.line.leads':
+                case 'mailvotech.lead.graph.line.leads':
                     $chart          = new LineChart(null, $options['dateFrom'], $options['dateTo']);
                     $parametersKeys = array_keys($queryBuilder->getParameters() ?? []);
                     $leadListFilter = preg_grep('/leadlistid/', $parametersKeys);
                     $tablePrefix    = $leadListFilter ? 's' : 'l';
                     $chartQuery->modifyTimeDataQuery($queryBuilder, 'date_added', $tablePrefix);
                     $leads = $chartQuery->loadAndBuildTimeData($queryBuilder);
-                    $chart->setDataset($options['translator']->trans('mautic.lead.all.leads'), $leads);
+                    $chart->setDataset($options['translator']->trans('mailvotech.lead.all.leads'), $leads);
                     $queryBuilder->andwhere($qb->expr()->isNotNull('l.date_identified'));
                     $identified = $chartQuery->loadAndBuildTimeData($queryBuilder);
-                    $chart->setDataset($options['translator']->trans('mautic.lead.identified'), $identified);
+                    $chart->setDataset($options['translator']->trans('mailvotech.lead.identified'), $identified);
                     $data         = $chart->render();
                     $data['name'] = $g;
                     $event->setGraph($g, $data);
                     break;
 
-                case 'mautic.lead.graph.line.points':
+                case 'mailvotech.lead.graph.line.points':
                     $chart = new LineChart(null, $options['dateFrom'], $options['dateTo']);
                     $chartQuery->modifyTimeDataQuery($queryBuilder, 'date_added', 'lp');
                     $leads = $chartQuery->loadAndBuildTimeData($queryBuilder);
-                    $chart->setDataset($options['translator']->trans('mautic.lead.graph.line.points'), $leads);
+                    $chart->setDataset($options['translator']->trans('mailvotech.lead.graph.line.points'), $leads);
                     $data         = $chart->render();
                     $data['name'] = $g;
                     $event->setGraph($g, $data);
                     break;
 
-                case 'mautic.lead.table.most.points':
+                case 'mailvotech.lead.table.most.points':
                     $queryBuilder->select('l.id, l.email as title, sum(lp.delta) as points')
                         ->groupBy('l.id, l.email')
                         ->orderBy('points', 'DESC');
@@ -515,11 +515,11 @@ final class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-asterisk';
-                    $graphData['link']      = 'mautic_contact_action';
+                    $graphData['link']      = 'mailvotech_contact_action';
                     $event->setGraph($g, $graphData);
                     break;
 
-                case 'mautic.lead.table.top.countries':
+                case 'mailvotech.lead.table.top.countries':
                     $queryBuilder->select('l.country as title, count(l.country) as quantity')
                         ->groupBy('l.country')
                         ->orderBy('quantity', 'DESC');
@@ -534,7 +534,7 @@ final class ReportSubscriber implements EventSubscriberInterface
                     $event->setGraph($g, $graphData);
                     break;
 
-                case 'mautic.lead.table.top.cities':
+                case 'mailvotech.lead.table.top.cities':
                     $queryBuilder->select('l.city as title, count(l.city) as quantity')
                         ->groupBy('l.city')
                         ->orderBy('quantity', 'DESC');
@@ -549,7 +549,7 @@ final class ReportSubscriber implements EventSubscriberInterface
                     $event->setGraph($g, $graphData);
                     break;
 
-                case 'mautic.lead.table.top.events':
+                case 'mailvotech.lead.table.top.events':
                     $queryBuilder->select('lp.event_name as title, count(lp.event_name) as events')
                         ->groupBy('lp.event_name')
                         ->orderBy('events', 'DESC');
@@ -563,7 +563,7 @@ final class ReportSubscriber implements EventSubscriberInterface
                     $event->setGraph($g, $graphData);
                     break;
 
-                case 'mautic.lead.table.top.actions':
+                case 'mailvotech.lead.table.top.actions':
                     $queryBuilder->select('lp.action_name as title, count(lp.action_name) as actions')
                         ->groupBy('lp.action_name')
                         ->orderBy('actions', 'DESC');
@@ -577,7 +577,7 @@ final class ReportSubscriber implements EventSubscriberInterface
                     $event->setGraph($g, $graphData);
                     break;
 
-                case 'mautic.lead.table.pie.company.country':
+                case 'mailvotech.lead.table.pie.company.country':
                     $counts       = $this->companyRepository->getCompaniesByGroup($queryBuilder, 'companycountry');
                     $chart        = new PieChart();
                     $companyCount = 0;
@@ -587,7 +587,7 @@ final class ReportSubscriber implements EventSubscriberInterface
                         }
                         $companyCount += $count['companies'];
                     }
-                    $chart->setDataset($options['translator']->trans('mautic.lead.all.companies'), $companyCount);
+                    $chart->setDataset($options['translator']->trans('mailvotech.lead.all.companies'), $companyCount);
                     $event->setGraph(
                         $g,
                         [
@@ -597,16 +597,16 @@ final class ReportSubscriber implements EventSubscriberInterface
                         ]
                     );
                     break;
-                case 'mautic.lead.graph.line.companies':
+                case 'mailvotech.lead.graph.line.companies':
                     $chart = new LineChart(null, $options['dateFrom'], $options['dateTo']);
                     $chartQuery->modifyTimeDataQuery($queryBuilder, 'date_added', 'comp');
                     $companies = $chartQuery->loadAndBuildTimeData($queryBuilder);
-                    $chart->setDataset($options['translator']->trans('mautic.lead.all.companies'), $companies);
+                    $chart->setDataset($options['translator']->trans('mailvotech.lead.all.companies'), $companies);
                     $data         = $chart->render();
                     $data['name'] = $g;
                     $event->setGraph($g, $data);
                     break;
-                case 'mautic.lead.graph.pie.companies.industry':
+                case 'mailvotech.lead.graph.pie.companies.industry':
                     $counts       = $this->companyRepository->getCompaniesByGroup($queryBuilder, 'companyindustry');
                     $chart        = new PieChart();
                     $companyCount = 0;
@@ -616,7 +616,7 @@ final class ReportSubscriber implements EventSubscriberInterface
                         }
                         $companyCount += $count['companies'];
                     }
-                    $chart->setDataset($options['translator']->trans('mautic.lead.all.companies'), $companyCount);
+                    $chart->setDataset($options['translator']->trans('mailvotech.lead.all.companies'), $companyCount);
                     $event->setGraph(
                         $g,
                         [
@@ -626,7 +626,7 @@ final class ReportSubscriber implements EventSubscriberInterface
                         ]
                     );
                     break;
-                case 'mautic.lead.company.table.top.cities':
+                case 'mailvotech.lead.company.table.top.cities':
                     $queryBuilder->select('comp.companycity as title, count(comp.companycity) as quantity')
                         ->groupBy('comp.companycity')
                         ->andWhere(
@@ -668,15 +668,15 @@ final class ReportSubscriber implements EventSubscriberInterface
         $leadFields = $this->fieldModel->getPublishedFieldArrays();
         foreach ($leadFields as $fieldArray) {
             $fields[$prefix.$fieldArray['alias']] = [
-                'label' => $this->translator->trans('mautic.lead.report.field.lead.label', ['%field%' => $fieldArray['label']]),
+                'label' => $this->translator->trans('mailvotech.lead.report.field.lead.label', ['%field%' => $fieldArray['label']]),
                 'type'  => $fieldArray['type'],
                 'alias' => $fieldArray['alias'],
             ];
         }
         $fields[$prefix.'id'] = [
-            'label' => 'mautic.lead.report.contact_id',
+            'label' => 'mailvotech.lead.report.contact_id',
             'type'  => 'int',
-            'link'  => 'mautic_contact_action',
+            'link'  => 'mailvotech_contact_action',
             'alias' => 'contactId',
         ];
 
@@ -687,43 +687,43 @@ final class ReportSubscriber implements EventSubscriberInterface
     {
         $pointColumns = [
             'lp.id' => [
-                'label' => 'mautic.lead.report.points.id',
+                'label' => 'mailvotech.lead.report.points.id',
                 'type'  => 'int',
             ],
             'lp.type' => [
-                'label' => 'mautic.lead.report.points.type',
+                'label' => 'mailvotech.lead.report.points.type',
                 'type'  => 'string',
             ],
             'lp.event_name' => [
-                'label' => 'mautic.lead.report.points.event_name',
+                'label' => 'mailvotech.lead.report.points.event_name',
                 'type'  => 'string',
             ],
             'lp.action_name' => [
-                'label' => 'mautic.lead.report.points.action_name',
+                'label' => 'mailvotech.lead.report.points.action_name',
                 'type'  => 'string',
             ],
             'lp.delta' => [
-                'label' => 'mautic.lead.report.points.delta',
+                'label' => 'mailvotech.lead.report.points.delta',
                 'type'  => 'int',
             ],
             'lp.date_added' => [
-                'label'          => 'mautic.lead.report.points.date_added',
+                'label'          => 'mailvotech.lead.report.points.date_added',
                 'type'           => 'datetime',
                 'groupByFormula' => 'DATE(lp.date_added)',
             ],
             'pl.id' => [
                 'alias'          => 'group_id',
-                'label'          => 'mautic.lead.report.points.group_id',
+                'label'          => 'mailvotech.lead.report.points.group_id',
                 'type'           => 'int',
             ],
             'pl.name' => [
                 'alias'          => 'group_name',
-                'label'          => 'mautic.lead.report.points.group_name',
+                'label'          => 'mailvotech.lead.report.points.group_name',
                 'type'           => 'string',
             ],
         ];
         $data = [
-            'display_name' => 'mautic.lead.report.points.table',
+            'display_name' => 'mailvotech.lead.report.points.table',
             'columns'      => array_merge($columns, $pointColumns, $event->getIpColumn()),
             'filters'      => array_merge($filters, $pointColumns),
         ];
@@ -731,49 +731,49 @@ final class ReportSubscriber implements EventSubscriberInterface
 
         // Register graphs
         $context = self::CONTEXT_LEAD_POINT_LOG;
-        $event->addGraph($context, 'line', 'mautic.lead.graph.line.points')
-            ->addGraph($context, 'table', 'mautic.lead.table.most.points')
-            ->addGraph($context, 'table', 'mautic.lead.table.top.countries')
-            ->addGraph($context, 'table', 'mautic.lead.table.top.cities')
-            ->addGraph($context, 'table', 'mautic.lead.table.top.events')
-            ->addGraph($context, 'table', 'mautic.lead.table.top.actions');
+        $event->addGraph($context, 'line', 'mailvotech.lead.graph.line.points')
+            ->addGraph($context, 'table', 'mailvotech.lead.table.most.points')
+            ->addGraph($context, 'table', 'mailvotech.lead.table.top.countries')
+            ->addGraph($context, 'table', 'mailvotech.lead.table.top.cities')
+            ->addGraph($context, 'table', 'mailvotech.lead.table.top.events')
+            ->addGraph($context, 'table', 'mailvotech.lead.table.top.actions');
     }
 
     private function injectFrequencyReportData(ReportBuilderEvent $event, array $columns, array $filters): void
     {
         $frequencyColumns = [
             'lf.frequency_number' => [
-                'label' => 'mautic.lead.report.frequency.frequency_number',
+                'label' => 'mailvotech.lead.report.frequency.frequency_number',
                 'type'  => 'int',
             ],
             'lf.frequency_time' => [
-                'label' => 'mautic.lead.report.frequency.frequency_time',
+                'label' => 'mailvotech.lead.report.frequency.frequency_time',
                 'type'  => 'string',
             ],
             'lf.channel' => [
-                'label' => 'mautic.lead.report.frequency.channel',
+                'label' => 'mailvotech.lead.report.frequency.channel',
                 'type'  => 'string',
             ],
             'lf.preferred_channel' => [
-                'label' => 'mautic.lead.report.frequency.preferred_channel',
+                'label' => 'mailvotech.lead.report.frequency.preferred_channel',
                 'type'  => 'boolean',
             ],
             'lf.pause_from_date' => [
-                'label' => 'mautic.lead.report.frequency.pause_from_date',
+                'label' => 'mailvotech.lead.report.frequency.pause_from_date',
                 'type'  => 'datetime',
             ],
             'lf.pause_to_date' => [
-                'label' => 'mautic.lead.report.frequency.pause_to_date',
+                'label' => 'mailvotech.lead.report.frequency.pause_to_date',
                 'type'  => 'datetime',
             ],
             'lf.date_added' => [
-                'label'          => 'mautic.lead.report.frequency.date_added',
+                'label'          => 'mailvotech.lead.report.frequency.date_added',
                 'type'           => 'datetime',
                 'groupByFormula' => 'DATE(lf.date_added)',
             ],
         ];
         $data = [
-            'display_name' => 'mautic.lead.report.frequency.messages',
+            'display_name' => 'mailvotech.lead.report.frequency.messages',
             'columns'      => array_merge($columns, $frequencyColumns),
             'filters'      => array_merge($filters, $frequencyColumns),
         ];
@@ -784,44 +784,44 @@ final class ReportSubscriber implements EventSubscriberInterface
     {
         $attributionColumns = [
             'log.campaign_id' => [
-                'label' => 'mautic.lead.report.attribution.campaign_id',
+                'label' => 'mailvotech.lead.report.attribution.campaign_id',
                 'type'  => 'int',
-                'link'  => 'mautic_campaign_action',
+                'link'  => 'mailvotech_campaign_action',
             ],
             'log.date_triggered' => [
-                'label'          => 'mautic.lead.report.attribution.action_date',
+                'label'          => 'mailvotech.lead.report.attribution.action_date',
                 'type'           => 'datetime',
                 'groupByFormula' => 'DATE(log.date_triggered)',
             ],
             'c.name' => [
                 'alias' => 'campaign_name',
-                'label' => 'mautic.lead.report.attribution.campaign_name',
+                'label' => 'mailvotech.lead.report.attribution.campaign_name',
                 'type'  => 'string',
             ],
             'l.stage_id' => [
-                'label' => 'mautic.lead.report.attribution.stage_id',
+                'label' => 'mailvotech.lead.report.attribution.stage_id',
                 'type'  => 'int',
             ],
             'ss.name' => [
                 'alias' => 'stage_name',
-                'label' => 'mautic.lead.report.attribution.stage_name',
+                'label' => 'mailvotech.lead.report.attribution.stage_name',
                 'type'  => 'string',
             ],
             'channel' => [
                 'alias'   => 'channel',
                 'formula' => 'SUBSTRING_INDEX(e.type, \'.\', 1)',
-                'label'   => 'mautic.lead.report.attribution.channel',
+                'label'   => 'mailvotech.lead.report.attribution.channel',
                 'type'    => 'string',
             ],
             'channel_action' => [
                 'alias'   => 'channel_action',
                 'formula' => 'SUBSTRING_INDEX(e.type, \'.\', -1)',
-                'label'   => 'mautic.lead.report.attribution.channel_action',
+                'label'   => 'mailvotech.lead.report.attribution.channel_action',
                 'type'    => 'string',
             ],
             'e.name' => [
                 'alias' => 'action_name',
-                'label' => 'mautic.lead.report.attribution.action_name',
+                'label' => 'mailvotech.lead.report.attribution.action_name',
                 'type'  => 'string',
             ],
         ];
@@ -836,28 +836,28 @@ final class ReportSubscriber implements EventSubscriberInterface
         foreach ($availableChannels['decision'] as $channel => $decision) {
             $parts                  = explode('.', $channel);
             $channelName            = $parts[0];
-            $channels[$channelName] = $this->translator->hasId('mautic.channel.'.$channelName) ? $this->translator->trans(
-                'mautic.channel.'.$channelName
+            $channels[$channelName] = $this->translator->hasId('mailvotech.channel.'.$channelName) ? $this->translator->trans(
+                'mailvotech.channel.'.$channelName
             ) : ucfirst($channelName);
             unset($parts[0]);
             $actionValue = implode('.', $parts);
 
-            if ($this->translator->hasId('mautic.channel.action.'.$channel)) {
-                $actionName = $this->translator->trans('mautic.channel.action.'.$channel);
-            } elseif ($this->translator->hasId('mautic.campaign.'.$channel)) {
-                $actionName = $this->translator->trans('mautic.campaign.'.$channel);
+            if ($this->translator->hasId('mailvotech.channel.action.'.$channel)) {
+                $actionName = $this->translator->trans('mailvotech.channel.action.'.$channel);
+            } elseif ($this->translator->hasId('mailvotech.campaign.'.$channel)) {
+                $actionName = $this->translator->trans('mailvotech.campaign.'.$channel);
             } else {
                 $actionName = $channelName.': '.$actionValue;
             }
             $channelActions[$actionValue] = $actionName;
         }
         $filters['channel'] = [
-            'label' => 'mautic.lead.report.attribution.channel',
+            'label' => 'mailvotech.lead.report.attribution.channel',
             'type'  => 'select',
             'list'  => $channels,
         ];
         $filters['channel_action'] = [
-            'label' => 'mautic.lead.report.attribution.channel_action',
+            'label' => 'mailvotech.lead.report.attribution.channel_action',
             'type'  => 'select',
             'list'  => $channelActions,
         ];
@@ -868,7 +868,7 @@ final class ReportSubscriber implements EventSubscriberInterface
         // Setup available channels
         $campaigns                  = $this->campaignRepository->getSimpleList();
         $filters['log.campaign_id'] = [
-            'label' => 'mautic.lead.report.attribution.filter.campaign',
+            'label' => 'mailvotech.lead.report.attribution.filter.campaign',
             'type'  => 'select',
             'list'  => $campaigns,
         ];
@@ -881,7 +881,7 @@ final class ReportSubscriber implements EventSubscriberInterface
             $stages[$stage['id']] = $stage['name'];
         }
         $filters['l.stage_id'] = [
-            'label' => 'mautic.lead.report.attribution.filter.stage',
+            'label' => 'mailvotech.lead.report.attribution.filter.stage',
             'type'  => 'select',
             'list'  => $stages,
         ];
@@ -889,13 +889,13 @@ final class ReportSubscriber implements EventSubscriberInterface
 
         $context = "contact.attribution.{$type}";
         $event
-            ->addGraph($context, 'pie', 'mautic.lead.graph.pie.attribution_stages')
-            ->addGraph($context, 'pie', 'mautic.lead.graph.pie.attribution_campaigns')
-            ->addGraph($context, 'pie', 'mautic.lead.graph.pie.attribution_actions')
-            ->addGraph($context, 'pie', 'mautic.lead.graph.pie.attribution_channels');
+            ->addGraph($context, 'pie', 'mailvotech.lead.graph.pie.attribution_stages')
+            ->addGraph($context, 'pie', 'mailvotech.lead.graph.pie.attribution_campaigns')
+            ->addGraph($context, 'pie', 'mailvotech.lead.graph.pie.attribution_actions')
+            ->addGraph($context, 'pie', 'mailvotech.lead.graph.pie.attribution_channels');
 
         $data = [
-            'display_name' => 'mautic.lead.report.attribution.'.$type,
+            'display_name' => 'mailvotech.lead.report.attribution.'.$type,
             'columns'      => $columns,
             'filters'      => $filters,
         ];

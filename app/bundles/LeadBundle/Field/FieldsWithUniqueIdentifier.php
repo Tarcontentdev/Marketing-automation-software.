@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field;
+namespace MailVotech\LeadBundle\Field;
 
 class FieldsWithUniqueIdentifier
 {

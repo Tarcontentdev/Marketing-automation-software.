@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\NotificationBundle\Controller;
+namespace MailVotech\NotificationBundle\Controller;
 
-use Mautic\CoreBundle\Controller\CommonController;
+use MailVotech\CoreBundle\Controller\CommonController;
 use Symfony\Component\HttpFoundation\Response;
 
 final class JsController extends CommonController

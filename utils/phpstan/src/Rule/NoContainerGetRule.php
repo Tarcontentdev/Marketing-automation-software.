@@ -99,7 +99,7 @@ final class NoContainerGetRule implements Rule
         }
 
         $ruleError = RuleErrorBuilder::message($isTestFile ? self::TEST_ERROR_MESSAGE : self::ERROR_MESSAGE)
-            ->identifier('mautic.noContainerGet')
+            ->identifier('mailvotech.noContainerGet')
             ->build();
 
         return [$ruleError];
@@ -107,7 +107,7 @@ final class NoContainerGetRule implements Rule
 
     /**
      * Only a hardcoded service name can be turned into a constructor dependency, e.g. get(SomeService::class) or
-     * get('mautic.helper.something'). A variable name is resolved at runtime, so there is nothing to inject.
+     * get('mailvotech.helper.something'). A variable name is resolved at runtime, so there is nothing to inject.
      */
     private function isStaticServiceName(MethodCall $methodCall): bool
     {

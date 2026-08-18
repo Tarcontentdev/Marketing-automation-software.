@@ -7,9 +7,9 @@ $parameters = [
     'db_host'               => '127.0.0.1',
     'db_table_prefix'       => null,
     'db_port'               => getenv('DB_PORT'),
-    'db_name'               => 'mautictest',
+    'db_name'               => 'mailvotechtest',
     'db_user'               => 'root',
     'db_password'           => '',
-    'admin_email'           => 'github-actions@mautic.org',
+    'admin_email'           => 'github-actions@mailvotech.org',
     'admin_password'        => 'GitHubActionsIsAwesome',
 ];

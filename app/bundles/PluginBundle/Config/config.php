@@ -5,43 +5,43 @@ declare(strict_types=1);
 return [
     'routes' => [
         'main' => [
-            'mautic_integration_auth_callback_secure' => [
+            'mailvotech_integration_auth_callback_secure' => [
                 'path'       => '/plugins/integrations/authcallback/{integration}',
-                'controller' => 'Mautic\PluginBundle\Controller\AuthController::authCallbackAction',
+                'controller' => 'MailVotech\PluginBundle\Controller\AuthController::authCallbackAction',
             ],
-            'mautic_integration_auth_postauth_secure' => [
+            'mailvotech_integration_auth_postauth_secure' => [
                 'path'       => '/plugins/integrations/authstatus/{integration}',
-                'controller' => 'Mautic\PluginBundle\Controller\AuthController::authStatusAction',
+                'controller' => 'MailVotech\PluginBundle\Controller\AuthController::authStatusAction',
             ],
-            'mautic_plugin_index' => [
+            'mailvotech_plugin_index' => [
                 'path'       => '/plugins',
-                'controller' => 'Mautic\PluginBundle\Controller\PluginController::indexAction',
+                'controller' => 'MailVotech\PluginBundle\Controller\PluginController::indexAction',
             ],
-            'mautic_plugin_config' => [
+            'mailvotech_plugin_config' => [
                 'path'       => '/plugins/config/{name}/{page}',
-                'controller' => 'Mautic\PluginBundle\Controller\PluginController::configAction',
+                'controller' => 'MailVotech\PluginBundle\Controller\PluginController::configAction',
             ],
-            'mautic_plugin_info' => [
+            'mailvotech_plugin_info' => [
                 'path'       => '/plugins/info/{name}',
-                'controller' => 'Mautic\PluginBundle\Controller\PluginController::infoAction',
+                'controller' => 'MailVotech\PluginBundle\Controller\PluginController::infoAction',
             ],
-            'mautic_plugin_reload' => [
+            'mailvotech_plugin_reload' => [
                 'path'       => '/plugins/reload',
-                'controller' => 'Mautic\PluginBundle\Controller\PluginController::reloadAction',
+                'controller' => 'MailVotech\PluginBundle\Controller\PluginController::reloadAction',
             ],
         ],
         'public' => [
-            'mautic_integration_auth_user' => [
+            'mailvotech_integration_auth_user' => [
                 'path'       => '/plugins/integrations/authuser/{integration}',
-                'controller' => 'Mautic\PluginBundle\Controller\AuthController::authUserAction',
+                'controller' => 'MailVotech\PluginBundle\Controller\AuthController::authUserAction',
             ],
-            'mautic_integration_auth_callback' => [
+            'mailvotech_integration_auth_callback' => [
                 'path'       => '/plugins/integrations/authcallback/{integration}',
-                'controller' => 'Mautic\PluginBundle\Controller\AuthController::authCallbackAction',
+                'controller' => 'MailVotech\PluginBundle\Controller\AuthController::authCallbackAction',
             ],
-            'mautic_integration_auth_postauth' => [
+            'mailvotech_integration_auth_postauth' => [
                 'path'       => '/plugins/integrations/authstatus/{integration}',
-                'controller' => 'Mautic\PluginBundle\Controller\AuthController::authStatusAction',
+                'controller' => 'MailVotech\PluginBundle\Controller\AuthController::authStatusAction',
             ],
         ],
     ],
@@ -49,11 +49,11 @@ return [
         'admin' => [
             'priority' => 50,
             'items'    => [
-                'mautic.plugin.plugins' => [
-                    'id'        => 'mautic_plugin_root',
+                'mailvotech.plugin.plugins' => [
+                    'id'        => 'mailvotech_plugin_root',
                     'access'    => 'plugin:plugins:manage',
-                    'route'     => 'mautic_plugin_index',
-                    'parent'    => 'mautic.core.integrations',
+                    'route'     => 'mailvotech_plugin_index',
+                    'parent'    => 'mailvotech.core.integrations',
                     'iconClass' => 'ri-plug-line',
                 ],
             ],

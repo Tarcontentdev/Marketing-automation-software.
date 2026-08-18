@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Entity;
+namespace MailVotech\ReportBundle\Tests\Entity;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
-use Mautic\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
-use Mautic\ReportBundle\Entity\Scheduler;
-use Mautic\ReportBundle\Scheduler\Option\ExportOption;
+use MailVotech\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
+use MailVotech\ReportBundle\Entity\Scheduler;
+use MailVotech\ReportBundle\Scheduler\Option\ExportOption;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class SchedulerRepositoryTest extends \PHPUnit\Framework\TestCase

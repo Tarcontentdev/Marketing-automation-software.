@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\LeadBundle\Controller\Api;
+namespace MailVotech\LeadBundle\Controller\Api;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\Cache\ResultCacheOptions;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CustomFieldEntityInterface;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\CoreBundle\Cache\ResultCacheOptions;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CustomFieldEntityInterface;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -106,7 +106,7 @@ trait CustomFieldsApiControllerTrait
                 if (!isset($fieldDefinition['properties'])) {
                     $fieldDefinition['properties'] = [];
                 }
-                $properties = is_string($fieldDefinition['properties']) ? \Mautic\CoreBundle\Helper\Serializer::decode($fieldDefinition['properties']) : $fieldDefinition['properties'];
+                $properties = is_string($fieldDefinition['properties']) ? \MailVotech\CoreBundle\Helper\Serializer::decode($fieldDefinition['properties']) : $fieldDefinition['properties'];
 
                 $fields[$group][$field]['value']           = empty($properties['scale']) ? (int) $fields[$group][$field]['value']
                     : (float) $fields[$group][$field]['value'];

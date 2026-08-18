@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\WebhookBundle\Form\DataTransformer;
+namespace MailVotech\WebhookBundle\Form\DataTransformer;
 
 use Doctrine\Common\Collections\Collection;
-use Mautic\WebhookBundle\Entity\Event;
-use Mautic\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Entity\Event;
+use MailVotech\WebhookBundle\Entity\Webhook;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**

@@ -81,7 +81,7 @@ final class NoRequiredMethodWithConstructorInControllerRule implements Rule
                 $classMethod->name->toString(),
                 $shortClassName
             ))
-                ->identifier('mautic.noRequiredMethodWithConstructorInController')
+                ->identifier('mailvotech.noRequiredMethodWithConstructorInController')
                 ->line($classMethod->getStartLine())
                 ->nonIgnorable()
                 ->build();

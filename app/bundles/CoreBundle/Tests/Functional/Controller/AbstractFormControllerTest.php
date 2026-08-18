@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Controller;
+namespace MailVotech\CoreBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class AbstractFormControllerTest extends MauticMysqlTestCase
+final class AbstractFormControllerTest extends MailVotechMysqlTestCase
 {
     public function testUnlockActionWithValidReturnUrl(): void
     {

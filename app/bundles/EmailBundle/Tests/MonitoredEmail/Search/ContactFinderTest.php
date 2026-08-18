@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\MonitoredEmail\Search;
+namespace MailVotech\EmailBundle\Tests\MonitoredEmail\Search;
 
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Address;
-use Mautic\EmailBundle\MonitoredEmail\Search\ContactFinder;
-use Mautic\EmailBundle\MonitoredEmail\Search\Result;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Address;
+use MailVotech\EmailBundle\MonitoredEmail\Search\ContactFinder;
+use MailVotech\EmailBundle\MonitoredEmail\Search\Result;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 use Monolog\Logger;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;

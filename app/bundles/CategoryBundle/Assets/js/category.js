@@ -1,8 +1,8 @@
 /** CategoryBundle **/
 
-Mautic.categoryOnLoad = function (container, response) {
+MailVotech.categoryOnLoad = function (container, response) {
     if (mQuery(container + ' #list-search').length) {
-        Mautic.activateSearchAutocomplete('list-search', 'category');
+        MailVotech.activateSearchAutocomplete('list-search', 'category');
     }
 
     if (response && response.inForm) {

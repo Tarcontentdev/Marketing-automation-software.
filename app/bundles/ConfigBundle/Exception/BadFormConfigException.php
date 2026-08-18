@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ConfigBundle\Exception;
+namespace MailVotech\ConfigBundle\Exception;
 
 final class BadFormConfigException extends \Exception
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\CampaignBundle\EventCollector\Accessor;
+namespace MailVotech\CampaignBundle\EventCollector\Accessor;
 
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\DecisionAccessor;
-use Mautic\CampaignBundle\EventCollector\Accessor\Exception\EventNotFoundException;
-use Mautic\CampaignBundle\EventCollector\Accessor\Exception\TypeNotFoundException;
-use Mautic\CampaignBundle\EventCollector\Builder\EventBuilder;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\DecisionAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Exception\EventNotFoundException;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Exception\TypeNotFoundException;
+use MailVotech\CampaignBundle\EventCollector\Builder\EventBuilder;
 
 final class EventAccessor
 {

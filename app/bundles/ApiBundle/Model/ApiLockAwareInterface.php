@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Model;
+namespace MailVotech\ApiBundle\Model;
 
 interface ApiLockAwareInterface
 {

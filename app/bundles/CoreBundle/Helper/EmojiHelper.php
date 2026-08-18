@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 /**
  * Helper class for Emoji unicodes.
  *
  * Build from modified https://github.com/iamcal/php-emoji
  *
- * @deprecated since Mautic 7.2, to be removed in 8.0 with no replacement. Emoji are stored and rendered as UTF-8 (utf8mb4) directly, so no conversion is needed.
+ * @deprecated since MailVotech 7.2, to be removed in 8.0 with no replacement. Emoji are stored and rendered as UTF-8 (utf8mb4) directly, so no conversion is needed.
  */
 final class EmojiHelper
 {
@@ -77,7 +77,7 @@ final class EmojiHelper
         }
 
         foreach ($maps as $useMap) {
-            $mapClass = "Mautic\\CoreBundle\\Helper\\EmojiMap\\{$useMap}EmojiMap";
+            $mapClass = "MailVotech\\CoreBundle\\Helper\\EmojiMap\\{$useMap}EmojiMap";
             $text     = str_replace(array_keys($mapClass::$map), $mapClass::$map, $text);
 
             if (isset($mapClass::$exceptions)) {

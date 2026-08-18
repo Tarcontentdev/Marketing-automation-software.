@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Form\Type;
+namespace MailVotech\UserBundle\Tests\Form\Type;
 
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Form\Type\UserInviteRegistrationType;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Form\Type\UserInviteRegistrationType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormBuilderInterface;

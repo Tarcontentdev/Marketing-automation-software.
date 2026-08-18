@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller\Api;
+namespace MailVotech\LeadBundle\Tests\Controller\Api;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Controller\Api\FieldApiController;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Field\Command\CreateCustomFieldCommand;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Controller\Api\FieldApiController;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Field\Command\CreateCustomFieldCommand;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 #[CoversClass(FieldApiController::class)]
 #[CoversClass(CreateCustomFieldCommand::class)]
-final class FieldApiControllerFunctionalTest extends MauticMysqlTestCase
+final class FieldApiControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -75,7 +75,7 @@ final class FieldApiControllerFunctionalTest extends MauticMysqlTestCase
         $id      = $this->assertCreateResponse($payload, Response::HTTP_ACCEPTED);
 
         // Test that the command will create the field
-        $commandTester = $this->testSymfonyCommand('mautic:custom-field:create-column', ['--id' => $id]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:custom-field:create-column', ['--id' => $id]);
 
         $this->assertSame(0, $commandTester->getStatusCode());
 
@@ -549,7 +549,7 @@ final class FieldApiControllerFunctionalTest extends MauticMysqlTestCase
             $id = $this->assertCreateResponse($payload, Response::HTTP_CREATED);
         }
         // Execute the command to create the field
-        $commandTester = $this->testSymfonyCommand('mautic:custom-field:create-column', ['--id' => $id]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:custom-field:create-column', ['--id' => $id]);
 
         $this->assertSame(0, $commandTester->getStatusCode());
 

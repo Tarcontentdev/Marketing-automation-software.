@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller;
+namespace MailVotech\EmailBundle\Tests\Controller;
 
 use Doctrine\ORM\ORMException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Event\TransportWebhookEvent;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Entity\PageRepository;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Event\TransportWebhookEvent;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\PageRepository;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class PublicControllerFunctionalTest extends MauticMysqlTestCase
+final class PublicControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     private ?int $leadId = null;
 
@@ -143,7 +143,7 @@ final class PublicControllerFunctionalTest extends MauticMysqlTestCase
         self::assertResponseIsSuccessful();
 
         $this->assertCount(1, $crawler->filter('#success-message-text'), $this->client->getResponse()->getContent());
-        $expectedMessage = self::getContainer()->get(TranslatorInterface::class)->trans('mautic.email.preferences_center_success_message.text');
+        $expectedMessage = self::getContainer()->get(TranslatorInterface::class)->trans('mailvotech.email.preferences_center_success_message.text');
         $this->assertEquals($expectedMessage, trim($crawler->filter('#success-message-text')->text(null, false)));
         $this->assertResponseIsSuccessful();
 
@@ -330,7 +330,7 @@ final class PublicControllerFunctionalTest extends MauticMysqlTestCase
         $this->assertResponseIsSuccessful();
 
         $translator = self::getContainer()->get(TranslatorInterface::class);
-        $needle     = $translator->trans('mautic.page.form.saveprefs', [], null, $expectedLocale);
+        $needle     = $translator->trans('mailvotech.page.form.saveprefs', [], null, $expectedLocale);
 
         $this->assertStringContainsString($needle, $crawler->html());
     }
@@ -512,8 +512,8 @@ final class PublicControllerFunctionalTest extends MauticMysqlTestCase
     private function getUnsubscribeProvider(): array
     {
         // Emails
-        $wrongEmail = 'test@mautictest.sk';
-        $rightEmail = 'test@mautictest.cz';
+        $wrongEmail = 'test@mailvotechtest.sk';
+        $rightEmail = 'test@mailvotechtest.cz';
         $lead       = new Lead();
         $lead->setEmail($rightEmail);
         $this->em->persist($lead);

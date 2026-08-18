@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\CoreBundle\Security\Cryptography\Cipher\Symmetric\SymmetricCipherInterface;
-use Mautic\CoreBundle\Security\Exception\Cryptography\Symmetric\InvalidDecryptionException;
+use MailVotech\CoreBundle\Security\Cryptography\Cipher\Symmetric\SymmetricCipherInterface;
+use MailVotech\CoreBundle\Security\Exception\Cryptography\Symmetric\InvalidDecryptionException;
 
 class EncryptionHelper
 {
@@ -36,7 +36,7 @@ class EncryptionHelper
             throw new \RuntimeException('None of possible cryptography libraries is supported');
         }
 
-        $this->key = $coreParametersHelper->get('mautic.secret_key');
+        $this->key = $coreParametersHelper->get('mailvotech.secret_key');
     }
 
     /**

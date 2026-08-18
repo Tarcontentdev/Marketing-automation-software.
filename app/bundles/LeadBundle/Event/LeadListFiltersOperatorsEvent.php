@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\CoreBundle\Event\CommonEvent;
 
 final class LeadListFiltersOperatorsEvent extends CommonEvent
 {
     /**
-     * @deprecated to be removed in Mautic 3
+     * @deprecated to be removed in MailVotech 3
      *
-     * @param array $operators @deprecated to be removed in Mautic 3. Subscribe operators instead.
+     * @param array $operators @deprecated to be removed in MailVotech 3. Subscribe operators instead.
      */
     public function __construct(
         private $operators,

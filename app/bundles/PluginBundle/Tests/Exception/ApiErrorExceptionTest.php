@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\Exception;
+namespace MailVotech\PluginBundle\Tests\Exception;
 
-use Mautic\PluginBundle\Exception\ApiErrorException;
+use MailVotech\PluginBundle\Exception\ApiErrorException;
 
 final class ApiErrorExceptionTest extends \PHPUnit\Framework\TestCase
 {

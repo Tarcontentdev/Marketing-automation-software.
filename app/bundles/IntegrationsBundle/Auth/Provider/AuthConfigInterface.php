@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Auth\Provider;
+namespace MailVotech\IntegrationsBundle\Auth\Provider;
 
 interface AuthConfigInterface
 {

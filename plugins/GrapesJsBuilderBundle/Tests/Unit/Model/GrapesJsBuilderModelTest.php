@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Tests\Unit\Model;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Tests\Unit\Model;
 
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Model\EmailModel;
-use MauticPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilder;
-use MauticPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilderRepository;
-use MauticPlugin\GrapesJsBuilderBundle\Model\GrapesJsBuilderModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotechPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilder;
+use MailVotechPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilderRepository;
+use MailVotechPlugin\GrapesJsBuilderBundle\Model\GrapesJsBuilderModel;
 use PHPUnit\Framework\Assert;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;

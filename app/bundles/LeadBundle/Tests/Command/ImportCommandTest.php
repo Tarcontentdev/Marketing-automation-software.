@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Command;
+namespace MailVotech\LeadBundle\Tests\Command;
 
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalService;
-use Mautic\LeadBundle\Command\ImportCommand;
-use Mautic\LeadBundle\Entity\Import;
-use Mautic\LeadBundle\Exception\ImportFailedException;
-use Mautic\LeadBundle\Model\ImportModel;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Model\UserModel;
-use Mautic\UserBundle\Security\UserTokenSetter;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalService;
+use MailVotech\LeadBundle\Command\ImportCommand;
+use MailVotech\LeadBundle\Entity\Import;
+use MailVotech\LeadBundle\Exception\ImportFailedException;
+use MailVotech\LeadBundle\Model\ImportModel;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Model\UserModel;
+use MailVotech\UserBundle\Security\UserTokenSetter;
 use Monolog\Logger;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;

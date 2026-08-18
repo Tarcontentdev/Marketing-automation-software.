@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Event;
+namespace MailVotech\CoreBundle\Event;
 
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\Routing\RouteCollection;

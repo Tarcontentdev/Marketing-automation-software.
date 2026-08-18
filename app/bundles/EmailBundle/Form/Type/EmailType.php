@@ -1,36 +1,36 @@
 <?php
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Form\Type\AssetListType;
-use Mautic\CategoryBundle\Form\Type\CategoryListType;
-use Mautic\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\DynamicContentFilterType;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\PublishDownDateType;
-use Mautic\CoreBundle\Form\Type\PublishUpDateType;
-use Mautic\CoreBundle\Form\Type\SortableListType;
-use Mautic\CoreBundle\Form\Type\ThemeListType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ThemeHelperInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Helper\EmailConfigInterface;
-use Mautic\EmailBundle\Helper\EmailDefaultsHelper;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Form\Type\FormListType;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Form\Type\LeadListType;
-use Mautic\LeadBundle\Helper\FormFieldHelper;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Form\Type\PreferenceCenterListType;
-use Mautic\ProjectBundle\Form\Type\ProjectType;
-use Mautic\StageBundle\Entity\StageRepository;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Form\Type\AssetListType;
+use MailVotech\CategoryBundle\Form\Type\CategoryListType;
+use MailVotech\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\DynamicContentFilterType;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\PublishDownDateType;
+use MailVotech\CoreBundle\Form\Type\PublishUpDateType;
+use MailVotech\CoreBundle\Form\Type\SortableListType;
+use MailVotech\CoreBundle\Form\Type\ThemeListType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelperInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Helper\EmailConfigInterface;
+use MailVotech\EmailBundle\Helper\EmailDefaultsHelper;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Form\Type\FormListType;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Form\Type\LeadListType;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Form\Type\PreferenceCenterListType;
+use MailVotech\ProjectBundle\Form\Type\ProjectType;
+use MailVotech\StageBundle\Entity\StageRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -82,7 +82,7 @@ final class EmailType extends AbstractType
             'name',
             TextType::class,
             [
-                'label'      => 'mautic.email.form.internal.name',
+                'label'      => 'mailvotech.email.form.internal.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
             ]
@@ -92,11 +92,11 @@ final class EmailType extends AbstractType
             'subject',
             TextType::class,
             [
-                'label'      => 'mautic.email.subject',
+                'label'      => 'mailvotech.email.subject',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'onBlur'  => 'Mautic.copySubjectToName(mQuery(this))',
+                    'onBlur'  => 'MailVotech.copySubjectToName(mQuery(this))',
                 ],
             ]
         );
@@ -105,12 +105,12 @@ final class EmailType extends AbstractType
             'fromName',
             TextType::class,
             [
-                'label'      => 'mautic.email.from_name',
+                'label'      => 'mailvotech.email.from_name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
                     'preaddon' => 'ri-user-6-fill',
-                    'tooltip'  => 'mautic.email.from_name.tooltip',
+                    'tooltip'  => 'mailvotech.email.from_name.tooltip',
                 ],
                 'required' => false,
             ]
@@ -120,12 +120,12 @@ final class EmailType extends AbstractType
             'fromAddress',
             TextType::class,
             [
-                'label'      => 'mautic.email.from_email',
+                'label'      => 'mailvotech.email.from_email',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
                     'preaddon' => 'ri-mail-line',
-                    'tooltip'  => 'mautic.email.from_email.tooltip',
+                    'tooltip'  => 'mailvotech.email.from_email.tooltip',
                 ],
                 'required' => false,
             ]
@@ -135,12 +135,12 @@ final class EmailType extends AbstractType
             'replyToAddress',
             TextType::class,
             [
-                'label'      => 'mautic.email.reply_to_email',
+                'label'      => 'mailvotech.email.reply_to_email',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
                     'preaddon' => 'ri-mail-line',
-                    'tooltip'  => 'mautic.email.reply_to_email.tooltip',
+                    'tooltip'  => 'mailvotech.email.reply_to_email.tooltip',
                 ],
                 'required' => false,
             ]
@@ -150,12 +150,12 @@ final class EmailType extends AbstractType
             'bccAddress',
             TextType::class,
             [
-                'label'      => 'mautic.email.bcc',
+                'label'      => 'mailvotech.email.bcc',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
                     'preaddon' => 'ri-mail-line',
-                    'tooltip'  => 'mautic.email.bcc.tooltip',
+                    'tooltip'  => 'mailvotech.email.bcc.tooltip',
                 ],
                 'required' => false,
             ]
@@ -165,17 +165,17 @@ final class EmailType extends AbstractType
             'useOwnerAsMailer',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.email.use.owner.as.mailer',
+                'label'      => 'mailvotech.email.use.owner.as.mailer',
                 'label_attr' => ['class' => 'control-label'],
                 'data'       => $this->getUseOwnerAsMailerOrDefaultValue($emailEntity),
                 'required'   => false,
                 'attr'       => [
                     'data-global-mailer-is-onwer' => (string) $this->getGlobalMailerIsOwner(),
                     'class'                       => 'form-control mailer-is-owner-local',
-                    'tooltip'                     => 'mautic.email.use.owner.as.mailer.tooltip',
+                    'tooltip'                     => 'mailvotech.email.use.owner.as.mailer.tooltip',
                     'data-warning'                => $this->translator->trans(
-                        'mautic.email.config.mailer.is.owner.local.warning',
-                        ['%value%' => $this->translator->trans($this->getGlobalMailerIsOwner() ? 'mautic.core.yes' : 'mautic.core.no')]
+                        'mailvotech.email.config.mailer.is.owner.local.warning',
+                        ['%value%' => $this->translator->trans($this->getGlobalMailerIsOwner() ? 'mailvotech.core.yes' : 'mailvotech.core.no')]
                     ),
                 ],
             ]
@@ -185,17 +185,17 @@ final class EmailType extends AbstractType
             'sendToDnc',
             YesNoButtonGroupType::class,
             [
-                'label'    => 'mautic.email.send.dnc.label',
+                'label'    => 'mailvotech.email.send.dnc.label',
                 'attr'     => [
-                    'onchange'               => 'Mautic.showSendToDncConfirmation(mQuery(this))',
+                    'onchange'               => 'MailVotech.showSendToDncConfirmation(mQuery(this))',
                     'data-toggle'            => 'confirmation',
-                    'data-message'           => $this->translator->trans('mautic.email.send.dnc.confirmation'),
-                    'data-confirm-text'      => $this->translator->trans('mautic.email.send.dnc.confirmation.confirm.text'),
+                    'data-message'           => $this->translator->trans('mailvotech.email.send.dnc.confirmation'),
+                    'data-confirm-text'      => $this->translator->trans('mailvotech.email.send.dnc.confirmation.confirm.text'),
                     'data-confirm-callback'  => 'dismissConfirmation',
-                    'data-cancel-text'       => $this->translator->trans('mautic.email.send.dnc.confirmation.cancel.text'),
+                    'data-cancel-text'       => $this->translator->trans('mailvotech.email.send.dnc.confirmation.cancel.text'),
                     'data-cancel-callback'   => 'setSendToDncToNo',
                     'data-confirm-btn-class' => 'btn btn-success',
-                    'tooltip'                => 'mautic.email.send.dnc.tooltip',
+                    'tooltip'                => 'mailvotech.email.send.dnc.tooltip',
                     'readonly'               => !$this->corePermissions->isGranted('email:emails:sendtodnc'),
                 ],
                 'required' => false,
@@ -206,11 +206,11 @@ final class EmailType extends AbstractType
             'utmTags',
             EmailUtmTagsType::class,
             [
-                'label'      => 'mautic.email.utm_tags',
+                'label'      => 'mailvotech.email.utm_tags',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.utm_tags.tooltip',
+                    'tooltip' => 'mailvotech.email.utm_tags.tooltip',
                 ],
                 'required' => false,
             ]
@@ -221,9 +221,9 @@ final class EmailType extends AbstractType
             SortableListType::class,
             [
                 'required'        => false,
-                'label'           => 'mautic.email.custom_headers',
+                'label'           => 'mailvotech.email.custom_headers',
                 'attr'            => [
-                    'tooltip' => 'mautic.email.custom_headers.tooltip',
+                    'tooltip' => 'mailvotech.email.custom_headers.tooltip',
                 ],
                 'option_required' => false,
                 'with_labels'     => true,
@@ -245,7 +245,7 @@ final class EmailType extends AbstractType
                 'feature' => 'email',
                 'attr'    => [
                     'class'   => 'form-control not-chosen hidden',
-                    'tooltip' => 'mautic.email.form.template.help',
+                    'tooltip' => 'mailvotech.email.form.template.help',
                 ],
                 'data' => $template,
             ]
@@ -270,10 +270,10 @@ final class EmailType extends AbstractType
             'plainText',
             TextareaType::class,
             [
-                'label'      => 'mautic.email.form.plaintext',
+                'label'      => 'mailvotech.email.form.plaintext',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'tooltip'              => 'mautic.email.form.plaintext.help',
+                    'tooltip'              => 'mailvotech.email.form.plaintext.help',
                     'class'                => 'form-control',
                     'rows'                 => '15',
                     'data-token-callback'  => 'email:getBuilderTokens',
@@ -292,11 +292,11 @@ final class EmailType extends AbstractType
             'customHtml',
             TextareaType::class,
             [
-                'label'      => 'mautic.email.form.body',
+                'label'      => 'mailvotech.email.form.body',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
                 'attr'       => [
-                    'tooltip'              => 'mautic.email.form.body.help',
+                    'tooltip'              => 'mailvotech.email.form.body.help',
                     'class'                => 'form-control editor-builder-tokens builder-html editor-email',
                     'data-token-callback'  => 'email:getBuilderTokens',
                     'data-token-activator' => '{',
@@ -312,12 +312,12 @@ final class EmailType extends AbstractType
                 'unsubscribeForm',
                 FormListType::class,
                 [
-                    'label'      => 'mautic.email.form.unsubscribeform',
+                    'label'      => 'mailvotech.email.form.unsubscribeform',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'            => 'form-control',
-                        'tooltip'          => 'mautic.email.form.unsubscribeform.tooltip',
-                        'data-placeholder' => $this->translator->trans('mautic.core.form.chooseone'),
+                        'tooltip'          => 'mailvotech.email.form.unsubscribeform.tooltip',
+                        'data-placeholder' => $this->translator->trans('mailvotech.core.form.chooseone'),
                     ],
                     'required'    => false,
                     'multiple'    => false,
@@ -333,12 +333,12 @@ final class EmailType extends AbstractType
                 'preferenceCenter',
                 PreferenceCenterListType::class,
                 [
-                    'label'      => 'mautic.email.form.preference_center',
+                    'label'      => 'mailvotech.email.form.preference_center',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'            => 'form-control',
-                        'tooltip'          => 'mautic.email.form.preference_center.tooltip',
-                        'data-placeholder' => $this->translator->trans('mautic.core.form.chooseone'),
+                        'tooltip'          => 'mailvotech.email.form.preference_center.tooltip',
+                        'data-placeholder' => $this->translator->trans('mailvotech.core.form.chooseone'),
                     ],
                     'required'    => false,
                     'multiple'    => false,
@@ -369,16 +369,16 @@ final class EmailType extends AbstractType
             'segmentTranslationParent',
             EmailListType::class,
             [
-                'label'      => 'mautic.core.form.translation_parent',
+                'label'      => 'mailvotech.core.form.translation_parent',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.form.translation_parent.help',
+                    'tooltip' => 'mailvotech.core.form.translation_parent.help',
                 ],
                 'required'       => false,
                 'multiple'       => false,
                 'email_type'     => 'list',
-                'placeholder'    => 'mautic.core.form.translation_parent.empty',
+                'placeholder'    => 'mailvotech.core.form.translation_parent.empty',
                 'top_level'      => 'translation',
                 'variant_parent' => $variantParent ? $variantParent->getId() : null,
                 'ignore_ids'     => [(int) $emailEntity->getId()],
@@ -391,15 +391,15 @@ final class EmailType extends AbstractType
             'templateTranslationParent',
             EmailListType::class,
             [
-                'label'      => 'mautic.core.form.translation_parent',
+                'label'      => 'mailvotech.core.form.translation_parent',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.form.translation_parent.help',
+                    'tooltip' => 'mailvotech.core.form.translation_parent.help',
                 ],
                 'required'       => false,
                 'multiple'       => false,
-                'placeholder'    => 'mautic.core.form.translation_parent.empty',
+                'placeholder'    => 'mailvotech.core.form.translation_parent.empty',
                 'top_level'      => 'translation',
                 'variant_parent' => $variantParent ? $variantParent->getId() : null,
                 'email_type'     => 'template',
@@ -414,7 +414,7 @@ final class EmailType extends AbstractType
                 'variantSettings',
                 VariantType::class,
                 [
-                    'label'       => 'mautic.core.ab_test.form.abtest_settings',
+                    'label'       => 'mailvotech.core.ab_test.form.abtest_settings',
                     'required'    => false,
                     'is_parent'   => $isParent,
                     'is_existing' => $isExisting,
@@ -475,7 +475,7 @@ final class EmailType extends AbstractType
                 'lists',
                 LeadListType::class,
                 [
-                    'label'      => 'mautic.email.form.list',
+                    'label'      => 'mailvotech.email.form.list',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'        => 'form-control',
@@ -494,7 +494,7 @@ final class EmailType extends AbstractType
                 'excludedLists',
                 LeadListType::class,
                 [
-                    'label'      => 'mautic.email.form.excluded_list',
+                    'label'      => 'mailvotech.email.form.excluded_list',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class' => 'form-control',
@@ -510,7 +510,7 @@ final class EmailType extends AbstractType
             'language',
             LocaleType::class,
             [
-                'label'      => 'mautic.core.language',
+                'label'      => 'mailvotech.core.language',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -532,12 +532,12 @@ final class EmailType extends AbstractType
                 'assetAttachments',
                 AssetListType::class,
                 [
-                    'label'      => 'mautic.email.attachments',
+                    'label'      => 'mailvotech.email.attachments',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'    => 'form-control',
-                        'onchange' => 'Mautic.getTotalAttachmentSize();',
-                        'tooltip'  => 'mautic.email.attachments.help',
+                        'onchange' => 'MailVotech.getTotalAttachmentSize();',
+                        'tooltip'  => 'mailvotech.email.attachments.help',
                     ],
                     'multiple' => true,
                     'expanded' => false,
@@ -553,11 +553,11 @@ final class EmailType extends AbstractType
         $extraButtons['pre_extra_buttons'] = [
             [
                 'name'  => 'builder',
-                'label' => 'mautic.core.builder',
+                'label' => 'mailvotech.core.builder',
                 'attr'  => [
                     'class'   => 'btn btn-tertiary btn-dnd btn-nospin text-interactive btn-builder',
                     'icon'    => 'ri-layout-line',
-                    'onclick' => "Mautic.launchBuilder('{$this->getBlockPrefix()}', 'email');",
+                    'onclick' => "MailVotech.launchBuilder('{$this->getBlockPrefix()}', 'email');",
                 ],
             ],
         ];
@@ -577,11 +577,11 @@ final class EmailType extends AbstractType
                 'preheaderText',
                 TextType::class,
                 [
-                    'label'      => 'mautic.email.preheader_text',
+                    'label'      => 'mailvotech.email.preheader_text',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'    => 'form-control',
-                        'tooltip'  => 'mautic.email.preheader_text.tooltip',
+                        'tooltip'  => 'mailvotech.email.preheader_text.tooltip',
                     ],
                     'required'    => false,
                 ]
@@ -593,11 +593,11 @@ final class EmailType extends AbstractType
                 'preheaderText',
                 TextType::class,
                 [
-                    'label'      => 'mautic.email.preheader_text',
+                    'label'      => 'mailvotech.email.preheader_text',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'    => 'form-control',
-                        'tooltip'  => 'mautic.email.preheader_text.tooltip',
+                        'tooltip'  => 'mailvotech.email.preheader_text.tooltip',
                     ],
                     'required'    => false,
                 ]
@@ -639,7 +639,7 @@ final class EmailType extends AbstractType
         if ($email->hasDraft()) {
             $draftActionButtons[] = [
                 'name'  => 'apply_draft',
-                'label' => 'mautic.core.applydraft',
+                'label' => 'mailvotech.core.applydraft',
                 'type'  => SubmitType::class,
                 'attr'  => [
                     'class'   => 'btn btn-primary btn-apply-draft',
@@ -648,7 +648,7 @@ final class EmailType extends AbstractType
             ];
             $draftActionButtons[] = [
                 'name'  => 'discard_draft',
-                'label' => 'mautic.core.discarddraft',
+                'label' => 'mailvotech.core.discarddraft',
                 'type'  => SubmitType::class,
                 'attr'  => [
                     'class'   => 'btn btn-primary btn-discard-draft',
@@ -658,7 +658,7 @@ final class EmailType extends AbstractType
         } else {
             $draftActionButtons[] = [
                 'name'  => 'save_draft',
-                'label' => 'mautic.core.saveasdraft',
+                'label' => 'mailvotech.core.saveasdraft',
                 'type'  => SubmitType::class,
                 'attr'  => [
                     'class'   => 'btn btn-primary btn-save-draft',

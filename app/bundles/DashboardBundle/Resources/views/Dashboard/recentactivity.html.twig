@@ -1,4 +1,4 @@
-{% set system_user = 'mautic.core.system'|trans %}
+{% set system_user = 'mailvotech.core.system'|trans %}
 
 {% if logs is defined and logs is iterable %}
     <div class="pt-md pr-md pb-md pl-md">
@@ -14,11 +14,11 @@
                         {% if log.userId is not defined or log.userId == 0 %}
                             {{ system_user }}
                         {% else %}
-                            <a href="{{ path('mautic_user_action', {'objectAction': 'edit', 'objectId': log.userId}) }}" data-toggle="ajax">
+                            <a href="{{ path('mailvotech_user_action', {'objectAction': 'edit', 'objectId': log.userId}) }}" data-toggle="ajax">
                                 {{ log.userName }}
                             </a>
                         {% endif %}
-                        {{ ('mautic.dashboard.'~log.action~'.past.tense')|trans }}
+                        {{ ('mailvotech.dashboard.'~log.action~'.past.tense')|trans }}
 
                         {% if log.route is defined and log.route is not empty and log.userId != 0 %}
                             <a href="{{ log.route }}" data-toggle="ajax">

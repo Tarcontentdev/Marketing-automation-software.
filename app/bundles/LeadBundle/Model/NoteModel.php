@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\LeadBundle\Model;
+namespace MailVotech\LeadBundle\Model;
 
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadNote;
-use Mautic\LeadBundle\Entity\LeadNoteRepository;
-use Mautic\LeadBundle\Event\LeadNoteEvent;
-use Mautic\LeadBundle\Form\Type\NoteType;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadNote;
+use MailVotech\LeadBundle\Entity\LeadNoteRepository;
+use MailVotech\LeadBundle\Event\LeadNoteEvent;
+use MailVotech\LeadBundle\Form\Type\NoteType;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -123,8 +123,8 @@ final class NoteModel extends FormModel
             return 0;
         }
 
-        $filter    = ($useFilters) ? $this->requestStack->getSession()->get('mautic.lead.'.$lead->getId().'.note.filter', '') : null;
-        $noteType  = ($useFilters) ? $this->requestStack->getSession()->get('mautic.lead.'.$lead->getId().'.notetype.filter', []) : null;
+        $filter    = ($useFilters) ? $this->requestStack->getSession()->get('mailvotech.lead.'.$lead->getId().'.note.filter', '') : null;
+        $noteType  = ($useFilters) ? $this->requestStack->getSession()->get('mailvotech.lead.'.$lead->getId().'.notetype.filter', []) : null;
         $createdBy = $canViewOther ? null : $this->userHelper->getUser()?->getId();
 
         return $this->leadNoteRepository->getNoteCount($lead->getId(), $filter, $noteType, $createdBy);

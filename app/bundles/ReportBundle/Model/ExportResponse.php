@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Model;
+namespace MailVotech\ReportBundle\Model;
 
 use Symfony\Component\HttpFoundation\Response;
 

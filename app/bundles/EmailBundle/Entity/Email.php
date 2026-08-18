@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\EmailBundle\Entity;
+namespace MailVotech\EmailBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -14,31 +14,31 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\DynamicContentEntityTrait;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\OptimisticLockInterface;
-use Mautic\CoreBundle\Entity\OptimisticLockTrait;
-use Mautic\CoreBundle\Entity\TranslationEntityInterface;
-use Mautic\CoreBundle\Entity\TranslationEntityTrait;
-use Mautic\CoreBundle\Entity\UuidInterface;
-use Mautic\CoreBundle\Entity\UuidTrait;
-use Mautic\CoreBundle\Entity\VariantEntityInterface;
-use Mautic\CoreBundle\Entity\VariantEntityTrait;
-use Mautic\CoreBundle\Helper\UrlHelper;
-use Mautic\CoreBundle\Validator\EntityEvent;
-use Mautic\EmailBundle\Validator\EmailLists;
-use Mautic\EmailBundle\Validator\EmailOrEmailTokenList;
-use Mautic\EmailBundle\Validator\ScheduleDateRange;
-use Mautic\EmailBundle\Validator\TextOnlyDynamicContent;
-use Mautic\EmailBundle\Validator\ValidEmailLinks;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\ProjectBundle\Entity\ProjectTrait;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\DynamicContentEntityTrait;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\OptimisticLockInterface;
+use MailVotech\CoreBundle\Entity\OptimisticLockTrait;
+use MailVotech\CoreBundle\Entity\TranslationEntityInterface;
+use MailVotech\CoreBundle\Entity\TranslationEntityTrait;
+use MailVotech\CoreBundle\Entity\UuidInterface;
+use MailVotech\CoreBundle\Entity\UuidTrait;
+use MailVotech\CoreBundle\Entity\VariantEntityInterface;
+use MailVotech\CoreBundle\Entity\VariantEntityTrait;
+use MailVotech\CoreBundle\Helper\UrlHelper;
+use MailVotech\CoreBundle\Validator\EntityEvent;
+use MailVotech\EmailBundle\Validator\EmailLists;
+use MailVotech\EmailBundle\Validator\EmailOrEmailTokenList;
+use MailVotech\EmailBundle\Validator\ScheduleDateRange;
+use MailVotech\EmailBundle\Validator\TextOnlyDynamicContent;
+use MailVotech\EmailBundle\Validator\ValidEmailLinks;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\ProjectBundle\Entity\ProjectTrait;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
@@ -470,30 +470,30 @@ class Email extends FormEntity implements VariantEntityInterface, TranslationEnt
         $metadata->addPropertyConstraint(
             'name',
             new NotBlank(
-                message: 'mautic.core.name.required'
+                message: 'mailvotech.core.name.required'
             )
         );
 
         $metadata->addPropertyConstraint(
             'name',
-            new Length(max: self::MAX_NAME_SUBJECT_LENGTH, maxMessage: 'mautic.email.name.length')
+            new Length(max: self::MAX_NAME_SUBJECT_LENGTH, maxMessage: 'mailvotech.email.name.length')
         );
 
         $metadata->addPropertyConstraint(
             'subject',
             new NotBlank(
-                message: 'mautic.core.subject.required'
+                message: 'mailvotech.core.subject.required'
             )
         );
 
         $metadata->addPropertyConstraint(
             'subject',
-            new Length(max: self::MAX_NAME_SUBJECT_LENGTH, maxMessage: 'mautic.email.subject.length')
+            new Length(max: self::MAX_NAME_SUBJECT_LENGTH, maxMessage: 'mailvotech.email.subject.length')
         );
 
         $metadata->addPropertyConstraint(
             'preheaderText',
-            new Length(max: 130, maxMessage: 'mautic.email.preheader_text.length')
+            new Length(max: 130, maxMessage: 'mailvotech.email.preheader_text.length')
         );
 
         $metadata->addPropertyConstraint(
@@ -504,14 +504,14 @@ class Email extends FormEntity implements VariantEntityInterface, TranslationEnt
         $metadata->addPropertyConstraint(
             'replyToAddress',
             new \Symfony\Component\Validator\Constraints\Email(
-                message: 'mautic.core.email.required'
+                message: 'mailvotech.core.email.required'
             )
         );
 
         $metadata->addPropertyConstraint(
             'bccAddress',
             new \Symfony\Component\Validator\Constraints\Email(
-                message: 'mautic.core.email.required'
+                message: 'mailvotech.core.email.required'
             )
         );
 
@@ -536,7 +536,7 @@ class Email extends FormEntity implements VariantEntityInterface, TranslationEnt
                     }
 
                     if ($total > 100) {
-                        $context->buildViolation('mautic.core.variant_weights_invalid')
+                        $context->buildViolation('mailvotech.core.variant_weights_invalid')
                             ->atPath('variantSettings[weight]')
                             ->addViolation();
                     }

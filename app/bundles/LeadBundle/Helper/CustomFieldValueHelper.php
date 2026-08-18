@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\LeadBundle\Helper;
+namespace MailVotech\LeadBundle\Helper;
 
-use Mautic\CoreBundle\Helper\Serializer;
+use MailVotech\CoreBundle\Helper\Serializer;
 
 /**
  * Helper class custom field operations.

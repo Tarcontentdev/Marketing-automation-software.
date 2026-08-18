@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\EventListener;
+namespace MailVotech\AssetBundle\Tests\EventListener;
 
-use Mautic\AssetBundle\EventListener\DashboardSubscriber;
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CacheBundle\Cache\CacheProviderTagAwareInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\DashboardBundle\Entity\Widget;
-use Mautic\DashboardBundle\Event\WidgetDetailEvent;
+use MailVotech\AssetBundle\EventListener\DashboardSubscriber;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CacheBundle\Cache\CacheProviderTagAwareInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\DashboardBundle\Entity\Widget;
+use MailVotech\DashboardBundle\Event\WidgetDetailEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\Routing\RouterInterface;

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Helper;
+namespace MailVotech\IntegrationsBundle\Helper;
 
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
-use Mautic\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
+use MailVotech\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
 
 final class FieldFilterHelper
 {

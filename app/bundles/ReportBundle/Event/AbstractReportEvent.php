@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Event;
+namespace MailVotech\ReportBundle\Event;
 
-use Mautic\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\Report;
 use Symfony\Contracts\EventDispatcher\Event;
 
 abstract class AbstractReportEvent extends Event

@@ -1,8 +1,8 @@
 <?php
 
-use Mautic\CoreBundle\Loader\ParameterLoader;
+use MailVotech\CoreBundle\Loader\ParameterLoader;
 
-$root          = $container->getParameter('mautic.application_dir').'/app';
+$root          = $container->getParameter('mailvotech.application_dir').'/app';
 $configBaseDir = ParameterLoader::getLocalConfigBaseDir($root);
 
 $loader->import('config.php');
@@ -19,19 +19,19 @@ $container->loadFromExtension('twig', [
     'debug'            => '%kernel.debug%',
     'strict_variables' => true,
     'paths'            => [
-        '%mautic.application_dir%/app/bundles'                  => 'bundles',
-        '%mautic.application_dir%/app/bundles/CoreBundle'       => 'MauticCore',
-        '%mautic.application_dir%/themes'                       => 'themes',
+        '%mailvotech.application_dir%/app/bundles'                  => 'bundles',
+        '%mailvotech.application_dir%/app/bundles/CoreBundle'       => 'MailVotechCore',
+        '%mailvotech.application_dir%/themes'                       => 'themes',
     ],
     'form_themes' => [
-        // Can be found at bundles/CoreBundle/Resources/views/mautic_form_layout.html.twig
-        '@MauticCore/FormTheme/mautic_form_layout.html.twig',
+        // Can be found at bundles/CoreBundle/Resources/views/mailvotech_form_layout.html.twig
+        '@MailVotechCore/FormTheme/mailvotech_form_layout.html.twig',
     ],
 ]);
 
 $container->loadFromExtension('framework', [
     'router' => [
-        'resource'            => '%mautic.application_dir%/app/config/routing_dev.php',
+        'resource'            => '%mailvotech.application_dir%/app/config/routing_dev.php',
         'strict_requirements' => true,
     ],
     'profiler' => [
@@ -49,17 +49,17 @@ $container->loadFromExtension('web_profiler', [
 
 $container->loadFromExtension('monolog', [
     'channels' => [
-        'mautic',
+        'mailvotech',
         'chrome',
     ],
     'handlers' => [
         'main' => [
-            'formatter' => 'mautic.monolog.fulltrace.formatter',
+            'formatter' => 'mailvotech.monolog.fulltrace.formatter',
             'type'      => 'rotating_file',
             'path'      => '%kernel.logs_dir%/%kernel.environment%.php',
             'level'     => 'debug',
             'channels'  => [
-                '!mautic',
+                '!mailvotech',
             ],
             'max_files' => 7,
         ],
@@ -67,13 +67,13 @@ $container->loadFromExtension('monolog', [
             'type'   => 'console',
             'bubble' => false,
         ],
-        'mautic' => [
-            'formatter' => 'mautic.monolog.fulltrace.formatter',
+        'mailvotech' => [
+            'formatter' => 'mailvotech.monolog.fulltrace.formatter',
             'type'      => 'rotating_file',
-            'path'      => '%kernel.logs_dir%/mautic_%kernel.environment%.php',
+            'path'      => '%kernel.logs_dir%/mailvotech_%kernel.environment%.php',
             'level'     => 'debug',
             'channels'  => [
-                'mautic',
+                'mailvotech',
             ],
             'max_files' => 7,
         ],
@@ -88,7 +88,7 @@ $container->loadFromExtension('monolog', [
 ]);
 
 $container->loadFromExtension('maker', [
-    'root_namespace' => 'Mautic',
+    'root_namespace' => 'MailVotech',
 ]);
 
 // API Platform Configuration

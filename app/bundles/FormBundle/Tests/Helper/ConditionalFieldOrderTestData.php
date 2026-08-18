@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Helper;
+namespace MailVotech\FormBundle\Tests\Helper;
 
 final class ConditionalFieldOrderTestData
 {

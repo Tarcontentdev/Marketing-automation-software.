@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Validator\Constraints;
+namespace MailVotech\LeadBundle\Form\Validator\Constraints;
 
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\LeadBundle\Entity\LeadListRepository;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;

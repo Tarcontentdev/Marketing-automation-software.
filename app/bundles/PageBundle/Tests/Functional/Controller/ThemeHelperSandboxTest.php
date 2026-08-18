@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Functional\Controller;
+namespace MailVotech\PageBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PageBundle\Entity\Page;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
  * - configGetParameter() for credential/secret leakage
  * - source() for arbitrary file read
  */
-final class ThemeHelperSandboxTest extends MauticMysqlTestCase
+final class ThemeHelperSandboxTest extends MailVotechMysqlTestCase
 {
     private string $themesDir;
 
@@ -53,8 +53,8 @@ final class ThemeHelperSandboxTest extends MauticMysqlTestCase
             "{% block content %}<pre>{{ configGetParameter('db_password') }}</pre>{% endblock %}",
         ];
 
-        yield 'secret leak via configGetParameter mautic.secret_key' => [
-            "{% block content %}<pre>{{ configGetParameter('mautic.secret_key') }}</pre>{% endblock %}",
+        yield 'secret leak via configGetParameter mailvotech.secret_key' => [
+            "{% block content %}<pre>{{ configGetParameter('mailvotech.secret_key') }}</pre>{% endblock %}",
         ];
 
         yield 'arbitrary file read via source filter' => [
@@ -80,7 +80,7 @@ final class ThemeHelperSandboxTest extends MauticMysqlTestCase
     public function testSafeThemeTemplateRendersSuccessfully(): void
     {
         $themeName = $this->createMaliciousTheme(
-            '{% block content %}<p>Hello Mautic</p>{% endblock %}'
+            '{% block content %}<p>Hello MailVotech</p>{% endblock %}'
         );
         $page = $this->createPage($themeName);
 
@@ -90,7 +90,7 @@ final class ThemeHelperSandboxTest extends MauticMysqlTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertStringContainsString(
-            'Hello Mautic',
+            'Hello MailVotech',
             (string) $response->getContent()
         );
     }

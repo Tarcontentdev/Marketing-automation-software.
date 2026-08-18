@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CampaignBundle\EventCollector\Accessor\Event;
+namespace MailVotech\CampaignBundle\EventCollector\Accessor\Event;
 
 abstract class AbstractEventAccessor
 {

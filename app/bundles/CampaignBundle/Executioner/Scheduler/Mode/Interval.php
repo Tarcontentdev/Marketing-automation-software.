@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\CampaignBundle\Executioner\Scheduler\Mode;
+namespace MailVotech\CampaignBundle\Executioner\Scheduler\Mode;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException;
-use Mautic\CampaignBundle\Executioner\Scheduler\Mode\DAO\GroupExecutionDateDAO;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException;
+use MailVotech\CampaignBundle\Executioner\Scheduler\Mode\DAO\GroupExecutionDateDAO;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Entity\Lead;
 use Psr\Log\LoggerInterface;
 
 final class Interval implements ScheduleModeInterface
@@ -228,7 +228,7 @@ final class Interval implements ScheduleModeInterface
             );
 
             if (in_array(7, $daysOfWeek, true) || in_array('7', $daysOfWeek, true)) {
-                throw new \LogicException('The Mautic accepts only 0-6 as day of week (0 is Sunday).');
+                throw new \LogicException('The MailVotech accepts only 0-6 as day of week (0 is Sunday).');
             }
 
             // Schedule for the next day of the week if applicable

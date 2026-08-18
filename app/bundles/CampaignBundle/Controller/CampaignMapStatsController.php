@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Controller;
+namespace MailVotech\CampaignBundle\Controller;
 
 use Doctrine\DBAL\Exception;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Helper\MapHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Helper\MapHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -17,15 +17,15 @@ final class CampaignMapStatsController extends AbstractController
 {
     public const MAP_OPTIONS = [
         'contacts' => [
-            'label' => 'mautic.lead.leads',
+            'label' => 'mailvotech.lead.leads',
             'unit'  => 'Contact',
         ],
         'read_count' => [
-            'label' => 'mautic.email.read',
+            'label' => 'mailvotech.email.read',
             'unit'  => 'Read',
         ],
         'clicked_through_count'=> [
-            'label' => 'mautic.email.click',
+            'label' => 'mailvotech.email.click',
             'unit'  => 'Click',
         ],
     ];
@@ -94,7 +94,7 @@ final class CampaignMapStatsController extends AbstractController
         $mapData        = MapHelper::buildMapData($statsCountries, $this->getMapOptions($entity), self::LEGEND_TEXT);
 
         return $this->render(
-            '@MauticCore/Helper/map.html.twig',
+            '@MailVotechCore/Helper/map.html.twig',
             [
                 'data'           => $mapData[0]['data'],
                 'height'         => 315,

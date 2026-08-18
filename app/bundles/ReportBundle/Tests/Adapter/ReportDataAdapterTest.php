@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Adapter;
+namespace MailVotech\ReportBundle\Tests\Adapter;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\ReportBundle\Adapter\ReportDataAdapter;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Model\ReportExportOptions;
-use Mautic\ReportBundle\Model\ReportModel;
-use Mautic\ReportBundle\Tests\Fixtures;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\ReportBundle\Adapter\ReportDataAdapter;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Model\ReportExportOptions;
+use MailVotech\ReportBundle\Model\ReportModel;
+use MailVotech\ReportBundle\Tests\Fixtures;
 
 final class ReportDataAdapterTest extends \PHPUnit\Framework\TestCase
 {

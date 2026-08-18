@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Controller;
+namespace MailVotech\ReportBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ReportControllerTest extends MauticMysqlTestCase
+final class ReportControllerTest extends MailVotechMysqlTestCase
 {
     /**
      * Smoke test to ensure the '/s/reports' route loads.

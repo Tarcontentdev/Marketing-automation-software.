@@ -6,7 +6,7 @@ return [
     'routes'   => [],
     'services' => [
         'menus' => [
-            'mautic.menu.main' => [
+            'mailvotech.menu.main' => [
                 'alias' => 'main',
             ],
         ],

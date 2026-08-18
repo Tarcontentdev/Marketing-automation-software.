@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Sync\Order;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order;
 
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\RemappedObjectDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\RemappedObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
 
 final class OrderResultsDAO
 {

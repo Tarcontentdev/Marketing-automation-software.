@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Loader\EnvVars;
+namespace MailVotech\CoreBundle\Tests\Unit\Loader\EnvVars;
 
-use Mautic\CoreBundle\Loader\EnvVars\ConfigEnvVars;
+use MailVotech\CoreBundle\Loader\EnvVars\ConfigEnvVars;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -25,12 +25,12 @@ final class ConfigEnvVarsTest extends TestCase
 
     public function testGetEnvWorks(): void
     {
-        putenv('MAUTIC_FOOBAR=bar');
-        $this->config->set('foo', 'getenv(MAUTIC_FOOBAR)');
+        putenv('MAILVOTECH_FOOBAR=bar');
+        $this->config->set('foo', 'getenv(MAILVOTECH_FOOBAR)');
 
         ConfigEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals('bar', $this->envVars->get('MAUTIC_FOO'));
+        $this->assertEquals('bar', $this->envVars->get('MAILVOTECH_FOO'));
     }
 
     public function testLocalValueIsSet(): void
@@ -39,7 +39,7 @@ final class ConfigEnvVarsTest extends TestCase
 
         ConfigEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals('bar', $this->envVars->get('MAUTIC_FOO'));
+        $this->assertEquals('bar', $this->envVars->get('MAILVOTECH_FOO'));
     }
 
     public function testValueIsJsonEncodedIfArray(): void
@@ -48,7 +48,7 @@ final class ConfigEnvVarsTest extends TestCase
 
         ConfigEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals('["bar"]', $this->envVars->get('MAUTIC_FOO'));
+        $this->assertEquals('["bar"]', $this->envVars->get('MAILVOTECH_FOO'));
     }
 
     public function testDefaultValueIsJsonEncodedIfArray(): void
@@ -58,6 +58,6 @@ final class ConfigEnvVarsTest extends TestCase
 
         ConfigEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals('["bar"]', $this->envVars->get('MAUTIC_FOO'));
+        $this->assertEquals('["bar"]', $this->envVars->get('MAILVOTECH_FOO'));
     }
 }

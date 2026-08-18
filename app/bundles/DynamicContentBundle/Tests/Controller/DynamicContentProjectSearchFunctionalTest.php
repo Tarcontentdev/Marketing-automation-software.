@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Tests\Controller;
+namespace MailVotech\DynamicContentBundle\Tests\Controller;
 
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\ProjectBundle\Tests\Functional\AbstractProjectSearchTestCase;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\ProjectBundle\Tests\Functional\AbstractProjectSearchTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class DynamicContentProjectSearchFunctionalTest extends AbstractProjectSearchTestCase

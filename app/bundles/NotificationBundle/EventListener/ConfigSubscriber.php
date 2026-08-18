@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\EventListener;
+namespace MailVotech\NotificationBundle\EventListener;
 
-use Mautic\ConfigBundle\ConfigEvents;
-use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use Mautic\NotificationBundle\Form\Type\NotificationConfigType;
+use MailVotech\ConfigBundle\ConfigEvents;
+use MailVotech\ConfigBundle\Event\ConfigBuilderEvent;
+use MailVotech\NotificationBundle\Form\Type\NotificationConfigType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ConfigSubscriber implements EventSubscriberInterface
@@ -24,8 +24,8 @@ final class ConfigSubscriber implements EventSubscriberInterface
             'bundle'     => 'NotificationBundle',
             'formAlias'  => 'notification_config',
             'formType'   => NotificationConfigType::class,
-            'formTheme'  => '@MauticNotification/FormTheme/Config/_config_notification_config_widget.html.twig',
-            'parameters' => $event->getParametersFromConfig('MauticNotificationBundle'),
+            'formTheme'  => '@MailVotechNotification/FormTheme/Config/_config_notification_config_widget.html.twig',
+            'parameters' => $event->getParametersFromConfig('MailVotechNotificationBundle'),
         ]);
     }
 }

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Tests\Validator\Constraints;
+namespace MailVotech\DynamicContentBundle\Tests\Validator\Constraints;
 
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\DynamicContentBundle\Model\DynamicContentModel;
-use Mautic\DynamicContentBundle\Validator\Constraints\SlotNameType;
-use Mautic\DynamicContentBundle\Validator\Constraints\SlotNameTypeValidator;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\DynamicContentBundle\Model\DynamicContentModel;
+use MailVotech\DynamicContentBundle\Validator\Constraints\SlotNameType;
+use MailVotech\DynamicContentBundle\Validator\Constraints\SlotNameTypeValidator;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 

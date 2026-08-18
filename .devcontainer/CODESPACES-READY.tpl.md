@@ -1,6 +1,6 @@
-## You are ready to use Mautic now
+## You are ready to use MailVotech now
 
- - Mautic URL: {mauticUrl}
+ - MailVotech URL: {mailvotechUrl}
    - Username: `admin`
    - Password: `Maut1cR0cks!`
  - Mailpit URL: {mailpitUrl}

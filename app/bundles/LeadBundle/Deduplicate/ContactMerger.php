@@ -1,20 +1,20 @@
 <?php
 
-namespace Mautic\LeadBundle\Deduplicate;
+namespace MailVotech\LeadBundle\Deduplicate;
 
-use Mautic\CoreBundle\Helper\ArrayHelper;
-use Mautic\LeadBundle\Deduplicate\Exception\SameContactException;
-use Mautic\LeadBundle\Deduplicate\Exception\ValueNotMergeableException;
-use Mautic\LeadBundle\Deduplicate\Helper\MergeValueHelper;
-use Mautic\LeadBundle\Entity\CompanyLead;
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\MergeRecord;
-use Mautic\LeadBundle\Entity\MergeRecordRepository;
-use Mautic\LeadBundle\Event\LeadMergeEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Helper\ArrayHelper;
+use MailVotech\LeadBundle\Deduplicate\Exception\SameContactException;
+use MailVotech\LeadBundle\Deduplicate\Exception\ValueNotMergeableException;
+use MailVotech\LeadBundle\Deduplicate\Helper\MergeValueHelper;
+use MailVotech\LeadBundle\Entity\CompanyLead;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\MergeRecord;
+use MailVotech\LeadBundle\Entity\MergeRecordRepository;
+use MailVotech\LeadBundle\Event\LeadMergeEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

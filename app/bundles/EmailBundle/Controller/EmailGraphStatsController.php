@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\EmailBundle\Controller;
+namespace MailVotech\EmailBundle\Controller;
 
-use Mautic\CoreBundle\Form\Type\DateRangeType;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\EmailBundle\Model\EmailModel;
+use MailVotech\CoreBundle\Form\Type\DateRangeType;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\EmailBundle\Model\EmailModel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,12 +33,12 @@ final class EmailGraphStatsController extends AbstractController
         $dateFrom = null,
         $dateTo = null,
     ): Response {
-        /** @var \Mautic\EmailBundle\Entity\Email $email */
+        /** @var \MailVotech\EmailBundle\Entity\Email $email */
         $email = $model->getEntity($objectId);
 
         // Init the date range filter form
         $dateRangeValues = ['date_from' => $dateFrom, 'date_to' => $dateTo];
-        $action          = $this->generateUrl('mautic_email_action', ['objectAction' => 'view', 'objectId' => $objectId]);
+        $action          = $this->generateUrl('mailvotech_email_action', ['objectAction' => 'view', 'objectId' => $objectId]);
         $dateRangeForm   = $formFactory->create(DateRangeType::class, $dateRangeValues, ['action' => $action]);
 
         if (null === $email || !$security->hasEntityAccess(
@@ -90,7 +90,7 @@ final class EmailGraphStatsController extends AbstractController
         );
 
         return $this->render(
-            '@MauticEmail/Email/graph.html.twig',
+            '@MailVotechEmail/Email/graph.html.twig',
             [
                 'email'         => $email,
                 'stats'         => $stats,

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -30,7 +30,7 @@ final class FormFieldCheckboxGroupType extends AbstractType
             'minimum',
             IntegerType::class,
             [
-                'label'      => 'mautic.form.field.checkboxgrp.minimum',
+                'label'      => 'mailvotech.form.field.checkboxgrp.minimum',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -47,12 +47,12 @@ final class FormFieldCheckboxGroupType extends AbstractType
             'min_message',
             TextType::class,
             [
-                'label'      => 'mautic.form.field.checkboxgrp.min_message',
+                'label'      => 'mailvotech.form.field.checkboxgrp.min_message',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'         => 'form-control',
-                    'placeholder'   => $this->translator->trans('mautic.form.field.checkboxgrp.min_message.placeholder'),
-                    'tooltip'       => 'mautic.form.field.checkboxgrp.min_message.tooltip',
+                    'placeholder'   => $this->translator->trans('mailvotech.form.field.checkboxgrp.min_message.placeholder'),
+                    'tooltip'       => 'mailvotech.form.field.checkboxgrp.min_message.tooltip',
                 ],
                 'required'   => false,
                 'data'       => $options['data']['min_message'] ?? null,
@@ -63,7 +63,7 @@ final class FormFieldCheckboxGroupType extends AbstractType
             'maximum',
             IntegerType::class,
             [
-                'label'      => 'mautic.form.field.checkboxgrp.maximum',
+                'label'      => 'mailvotech.form.field.checkboxgrp.maximum',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -80,12 +80,12 @@ final class FormFieldCheckboxGroupType extends AbstractType
             'max_message',
             TextType::class,
             [
-                'label'      => 'mautic.form.field.checkboxgrp.max_message',
+                'label'      => 'mailvotech.form.field.checkboxgrp.max_message',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'         => 'form-control',
-                    'placeholder'   => $this->translator->trans('mautic.form.field.checkboxgrp.max_message.placeholder'),
-                    'tooltip'       => 'mautic.form.field.checkboxgrp.max_message.tooltip',
+                    'placeholder'   => $this->translator->trans('mailvotech.form.field.checkboxgrp.max_message.placeholder'),
+                    'tooltip'       => 'mailvotech.form.field.checkboxgrp.max_message.tooltip',
                 ],
                 'required'   => false,
                 'data'       => $options['data']['max_message'] ?? null,
@@ -99,7 +99,7 @@ final class FormFieldCheckboxGroupType extends AbstractType
             if (isset($data['minimum'], $data['maximum']) && '' !== $data['minimum'] && '' !== $data['maximum']) {
                 if ((int) $data['maximum'] < (int) $data['minimum']) {
                     $form->get('maximum')->addError(new FormError(
-                        $this->translator->trans('mautic.form.field.checkboxgrp.range.invalid', [], 'validators')
+                        $this->translator->trans('mailvotech.form.field.checkboxgrp.range.invalid', [], 'validators')
                     ));
                 }
             }

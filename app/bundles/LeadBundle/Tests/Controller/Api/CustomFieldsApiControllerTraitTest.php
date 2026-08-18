@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller\Api;
+namespace MailVotech\LeadBundle\Tests\Controller\Api;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\LeadBundle\Controller\Api\CustomFieldsApiControllerTrait;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Controller\Api\CustomFieldsApiControllerTrait;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\FieldModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Form\Form;
 

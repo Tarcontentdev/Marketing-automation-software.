@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CampaignBundle\Form\Type;
+namespace MailVotech\CampaignBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -34,12 +34,12 @@ final class ConfigType extends AbstractType
             'campaign_time_wait_on_event_false',
             ChoiceType::class,
             [
-                'label'      => 'mautic.campaignconfig.campaign_time_wait_on_event_false',
+                'label'      => 'mailvotech.campaignconfig.campaign_time_wait_on_event_false',
                 'label_attr' => ['class' => 'control-label'],
-                'help'       => 'mautic.campaignconfig.campaign_time_wait_on_event_false_help',
+                'help'       => 'mailvotech.campaignconfig.campaign_time_wait_on_event_false_help',
                 'data'       => $options['data']['campaign_time_wait_on_event_false'],
                 'choices'    => [
-                    'mautic.core.never' => 'null',
+                    'mailvotech.core.never' => 'null',
                     '15 mn'             => 'PT15M',
                     '30 mn'             => 'PT30M',
                     '45 mn'             => 'PT45M',
@@ -56,7 +56,7 @@ final class ConfigType extends AbstractType
                 ],
                 'attr'              => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.campaignconfig.campaign_time_wait_on_event_false_tooltip',
+                    'tooltip' => 'mailvotech.campaignconfig.campaign_time_wait_on_event_false_tooltip',
                 ],
                 'required' => false,
             ]
@@ -66,9 +66,9 @@ final class ConfigType extends AbstractType
             'campaign_by_range',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.campaignconfig.campaign_by_range',
+                'label' => 'mailvotech.campaignconfig.campaign_by_range',
                 'attr'  => [
-                    'tooltip' => 'mautic.campaignconfig.campaign_by_range.tooltip',
+                    'tooltip' => 'mailvotech.campaignconfig.campaign_by_range.tooltip',
                 ],
                 'data'  => (bool) ($options['data']['campaign_by_range'] ?? false),
             ]
@@ -78,9 +78,9 @@ final class ConfigType extends AbstractType
             'campaign_use_summary',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.campaignconfig.use_summary',
+                'label' => 'mailvotech.campaignconfig.use_summary',
                 'attr'  => [
-                    'tooltip' => 'mautic.campaignconfig.use_summary.tooltip',
+                    'tooltip' => 'mailvotech.campaignconfig.use_summary.tooltip',
                 ],
                 'data'  => (bool) ($options['data']['campaign_use_summary'] ?? false),
             ]
@@ -90,13 +90,13 @@ final class ConfigType extends AbstractType
             'campaign_email_stats_enabled',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.campaignconfig.campaign_email_stats_enabled',
+                'label'      => 'mailvotech.campaignconfig.campaign_email_stats_enabled',
                 'label_attr' => ['class' => 'control-label'],
                 'data'       => $options['data']['campaign_email_stats_enabled'] ?? true,
                 'required'   => false,
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.campaignconfig.campaign_email_stats_enabled.tooltip',
+                    'tooltip' => 'mailvotech.campaignconfig.campaign_email_stats_enabled.tooltip',
                 ],
             ]
         );
@@ -105,11 +105,11 @@ final class ConfigType extends AbstractType
             'peak_interaction_timer_best_default_hour_start',
             NumberType::class,
             [
-                'label'      => 'mautic.config.peak_interaction_timer.best_default_hour_start',
+                'label'      => 'mailvotech.config.peak_interaction_timer.best_default_hour_start',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.config.peak_interaction_timer.best_default_hour_start.tooltip',
+                    'tooltip' => 'mailvotech.config.peak_interaction_timer.best_default_hour_start.tooltip',
                 ],
                 'data'        => $options['data']['peak_interaction_timer_best_default_hour_start'] ?? 9,
                 'constraints' => [
@@ -122,11 +122,11 @@ final class ConfigType extends AbstractType
             'peak_interaction_timer_best_default_hour_end',
             NumberType::class,
             [
-                'label'      => 'mautic.config.peak_interaction_timer.best_default_hour_end',
+                'label'      => 'mailvotech.config.peak_interaction_timer.best_default_hour_end',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.config.peak_interaction_timer.best_default_hour_end.tooltip',
+                    'tooltip' => 'mailvotech.config.peak_interaction_timer.best_default_hour_end.tooltip',
                 ],
                 'data'        => $options['data']['peak_interaction_timer_best_default_hour_end'] ?? 12,
                 'constraints' => [
@@ -136,7 +136,7 @@ final class ConfigType extends AbstractType
                             $data      = $context->getRoot()->getData();
                             $hourStart = $data['campaignconfig']['peak_interaction_timer_best_default_hour_start'] ?? null;
                             if (null !== $hourStart && null !== $hourEnd && $hourStart >= $hourEnd) {
-                                $context->buildViolation('mautic.config.peak_interaction_timer.best_default_hour.validation.range')->addViolation();
+                                $context->buildViolation('mailvotech.config.peak_interaction_timer.best_default_hour.validation.range')->addViolation();
                             }
                         }
                     ),
@@ -148,20 +148,20 @@ final class ConfigType extends AbstractType
             'peak_interaction_timer_best_default_days',
             ChoiceType::class,
             [
-                'label'      => 'mautic.config.peak_interaction_timer.best_default_days',
+                'label'      => 'mailvotech.config.peak_interaction_timer.best_default_days',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.config.peak_interaction_timer.best_default_days.tooltip',
+                    'tooltip' => 'mailvotech.config.peak_interaction_timer.best_default_days.tooltip',
                 ],
                 'choices' => [
-                    'mautic.core.date.monday'    => 1,
-                    'mautic.core.date.tuesday'   => 2,
-                    'mautic.core.date.wednesday' => 3,
-                    'mautic.core.date.thursday'  => 4,
-                    'mautic.core.date.friday'    => 5,
-                    'mautic.core.date.saturday'  => 6,
-                    'mautic.core.date.sunday'    => 7,
+                    'mailvotech.core.date.monday'    => 1,
+                    'mailvotech.core.date.tuesday'   => 2,
+                    'mailvotech.core.date.wednesday' => 3,
+                    'mailvotech.core.date.thursday'  => 4,
+                    'mailvotech.core.date.friday'    => 5,
+                    'mailvotech.core.date.saturday'  => 6,
+                    'mailvotech.core.date.sunday'    => 7,
                 ],
                 'data'     => $options['data']['peak_interaction_timer_best_default_days'] ?? [2, 3, 4],
                 'multiple' => true,
@@ -173,17 +173,17 @@ final class ConfigType extends AbstractType
             'peak_interaction_timer_cache_timeout',
             ChoiceType::class,
             [
-                'label'      => 'mautic.config.peak_interaction_timer.cache_timeout',
+                'label'      => 'mailvotech.config.peak_interaction_timer.cache_timeout',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.config.peak_interaction_timer.cache_timeout.tooltip',
+                    'tooltip' => 'mailvotech.config.peak_interaction_timer.cache_timeout.tooltip',
                 ],
                 'choices' => [
-                    'mautic.config.peak_interaction_timer.cache.off'                                        => 0,
-                    '1 '.$this->translator->trans('mautic.campaign.event.intervalunit.d', ['%count%' => 1]) => 1440,
-                    '7 '.$this->translator->trans('mautic.campaign.event.intervalunit.d', ['%count%' => 7]) => 10080,
-                    '1 '.$this->translator->trans('mautic.campaign.event.intervalunit.m', ['%count%' => 1]) => 43800,
+                    'mailvotech.config.peak_interaction_timer.cache.off'                                        => 0,
+                    '1 '.$this->translator->trans('mailvotech.campaign.event.intervalunit.d', ['%count%' => 1]) => 1440,
+                    '7 '.$this->translator->trans('mailvotech.campaign.event.intervalunit.d', ['%count%' => 7]) => 10080,
+                    '1 '.$this->translator->trans('mailvotech.campaign.event.intervalunit.m', ['%count%' => 1]) => 43800,
                 ],
                 'data'        => $options['data']['peak_interaction_timer_cache_timeout'] ?? 43800,
                 'constraints' => [
@@ -196,16 +196,16 @@ final class ConfigType extends AbstractType
             'peak_interaction_timer_fetch_interactions_from',
             ChoiceType::class,
             [
-                'label'      => 'mautic.config.peak_interaction_timer.fetch_interactions_from',
+                'label'      => 'mailvotech.config.peak_interaction_timer.fetch_interactions_from',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.config.peak_interaction_timer.fetch_interactions_from.tooltip',
+                    'tooltip' => 'mailvotech.config.peak_interaction_timer.fetch_interactions_from.tooltip',
                 ],
                 'choices' => [
-                    'mautic.config.peak_interaction_timer.fetch.from_30_days' => '-30 days',
-                    'mautic.config.peak_interaction_timer.fetch.from_60_days' => '-60 days',
-                    'mautic.config.peak_interaction_timer.fetch.from_90_days' => '-90 days',
+                    'mailvotech.config.peak_interaction_timer.fetch.from_30_days' => '-30 days',
+                    'mailvotech.config.peak_interaction_timer.fetch.from_60_days' => '-60 days',
+                    'mailvotech.config.peak_interaction_timer.fetch.from_90_days' => '-90 days',
                 ],
                 'data' => $options['data']['peak_interaction_timer_fetch_interactions_from'] ?? '-60 days',
             ]
@@ -215,11 +215,11 @@ final class ConfigType extends AbstractType
             'peak_interaction_timer_fetch_limit',
             NumberType::class,
             [
-                'label'      => 'mautic.config.peak_interaction_timer.fetch_limit',
+                'label'      => 'mailvotech.config.peak_interaction_timer.fetch_limit',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.config.peak_interaction_timer.fetch_limit.tooltip',
+                    'tooltip' => 'mailvotech.config.peak_interaction_timer.fetch_limit.tooltip',
                 ],
                 'data'        => $options['data']['peak_interaction_timer_fetch_limit'] ?? 50,
                 'constraints' => [

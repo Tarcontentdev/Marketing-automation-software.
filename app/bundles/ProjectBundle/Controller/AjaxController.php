@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Controller;
+namespace MailVotech\ProjectBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\CoreBundle\Controller\AjaxLookupControllerTrait;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\ProjectBundle\Entity\ProjectRepository;
-use Mautic\ProjectBundle\Model\ProjectModel;
-use Mautic\ProjectBundle\Security\Permissions\ProjectPermissions;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\CoreBundle\Controller\AjaxLookupControllerTrait;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\ProjectBundle\Entity\ProjectRepository;
+use MailVotech\ProjectBundle\Model\ProjectModel;
+use MailVotech\ProjectBundle\Security\Permissions\ProjectPermissions;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 

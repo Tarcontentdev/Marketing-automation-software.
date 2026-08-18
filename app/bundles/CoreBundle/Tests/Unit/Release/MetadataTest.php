@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Release;
+namespace MailVotech\CoreBundle\Tests\Unit\Release;
 
-use Mautic\CoreBundle\Release\Metadata;
+use MailVotech\CoreBundle\Release\Metadata;
 use PHPUnit\Framework\TestCase;
 
 final class MetadataTest extends TestCase
@@ -17,7 +17,7 @@ final class MetadataTest extends TestCase
             'minimum_php_version'               => '7.2.21',
             'maximum_php_version'               => '7.3.99',
             'show_php_version_warning_if_under' => '7.3.0',
-            'minimum_mautic_version'            => '3.0.0-alpha',
+            'minimum_mailvotech_version'            => '3.0.0-alpha',
             'announcement_url'                  => '',
         ];
 
@@ -32,7 +32,7 @@ final class MetadataTest extends TestCase
         $this->assertSame($releaseMetadata['minimum_php_version'], $metadata->getMinSupportedPHPVersion());
         $this->assertSame($releaseMetadata['maximum_php_version'], $metadata->getMaxSupportedPHPVersion());
         $this->assertSame($releaseMetadata['show_php_version_warning_if_under'], $metadata->getShowPHPVersionWarningIfUnder());
-        $this->assertSame($releaseMetadata['minimum_mautic_version'], $metadata->getMinSupportedMauticVersion());
+        $this->assertSame($releaseMetadata['minimum_mailvotech_version'], $metadata->getMinSupportedMailVotechVersion());
         $this->assertSame($releaseMetadata['announcement_url'], $metadata->getAnnouncementUrl());
     }
 
@@ -43,7 +43,7 @@ final class MetadataTest extends TestCase
             'stability'                         => 'stable',
             'minimum_php_version'               => '7.2.21',
             'maximum_php_version'               => '7.3.99',
-            'minimum_mautic_version'            => '3.0.0-alpha',
+            'minimum_mailvotech_version'            => '3.0.0-alpha',
             'announcement_url'                  => '',
         ];
 
@@ -58,7 +58,7 @@ final class MetadataTest extends TestCase
         $this->assertSame($releaseMetadata['minimum_php_version'], $metadata->getMinSupportedPHPVersion());
         $this->assertSame($releaseMetadata['maximum_php_version'], $metadata->getMaxSupportedPHPVersion());
         $this->assertSame('', $metadata->getShowPHPVersionWarningIfUnder());
-        $this->assertSame($releaseMetadata['minimum_mautic_version'], $metadata->getMinSupportedMauticVersion());
+        $this->assertSame($releaseMetadata['minimum_mailvotech_version'], $metadata->getMinSupportedMailVotechVersion());
         $this->assertSame($releaseMetadata['announcement_url'], $metadata->getAnnouncementUrl());
     }
 
@@ -70,7 +70,7 @@ final class MetadataTest extends TestCase
             'minimum_php_version'               => '7.2.21',
             'maximum_php_version'               => '7.3.99',
             'show_php_version_warning_if_under' => '7.3.0',
-            'minimum_mautic_version'            => '3.0.0-alpha',
+            'minimum_mailvotech_version'            => '3.0.0-alpha',
             'announcement_url'                  => '',
             'minimum_mysql_version'             => '5.7.14',
             'minimum_mariadb_version'           => '10.3.5',
@@ -87,7 +87,7 @@ final class MetadataTest extends TestCase
         $this->assertSame($releaseMetadata['minimum_php_version'], $metadata->getMinSupportedPHPVersion());
         $this->assertSame($releaseMetadata['maximum_php_version'], $metadata->getMaxSupportedPHPVersion());
         $this->assertSame($releaseMetadata['show_php_version_warning_if_under'], $metadata->getShowPHPVersionWarningIfUnder());
-        $this->assertSame($releaseMetadata['minimum_mautic_version'], $metadata->getMinSupportedMauticVersion());
+        $this->assertSame($releaseMetadata['minimum_mailvotech_version'], $metadata->getMinSupportedMailVotechVersion());
         $this->assertSame($releaseMetadata['announcement_url'], $metadata->getAnnouncementUrl());
         $this->assertSame($releaseMetadata['minimum_mysql_version'], $metadata->getMinSupportedMySqlVersion());
         $this->assertSame($releaseMetadata['minimum_mariadb_version'], $metadata->getMinSupportedMariaDbVersion());
@@ -101,7 +101,7 @@ final class MetadataTest extends TestCase
             'minimum_php_version'               => '7.2.21',
             'maximum_php_version'               => '7.3.99',
             'show_php_version_warning_if_under' => '7.3.0',
-            'minimum_mautic_version'            => '3.0.0-alpha',
+            'minimum_mailvotech_version'            => '3.0.0-alpha',
             'announcement_url'                  => '',
             'minimum_mysql_version'             => '5.7.14',
             'minimum_mariadb_version'           => '10.3.5',
@@ -116,7 +116,7 @@ final class MetadataTest extends TestCase
         $this->assertSame($releaseMetadata['minimum_php_version'], $metadata->getMinSupportedPHPVersion());
         $this->assertSame($releaseMetadata['maximum_php_version'], $metadata->getMaxSupportedPHPVersion());
         $this->assertSame($releaseMetadata['show_php_version_warning_if_under'], $metadata->getShowPHPVersionWarningIfUnder());
-        $this->assertSame($releaseMetadata['minimum_mautic_version'], $metadata->getMinSupportedMauticVersion());
+        $this->assertSame($releaseMetadata['minimum_mailvotech_version'], $metadata->getMinSupportedMailVotechVersion());
         $this->assertSame($releaseMetadata['announcement_url'], $metadata->getAnnouncementUrl());
         $this->assertSame($releaseMetadata['minimum_mysql_version'], $metadata->getMinSupportedMySqlVersion());
         $this->assertSame($releaseMetadata['minimum_mariadb_version'], $metadata->getMinSupportedMariaDbVersion());

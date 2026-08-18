@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -11,15 +11,15 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\CacheInvalidateInterface;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\UuidInterface;
-use Mautic\CoreBundle\Entity\UuidTrait;
-use Mautic\LeadBundle\Field\DTO\CustomFieldObject;
-use Mautic\LeadBundle\Form\Validator\Constraints\FieldAliasKeyword;
-use Mautic\LeadBundle\Validator\LeadFieldMinimumLength;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\CacheInvalidateInterface;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\UuidInterface;
+use MailVotech\CoreBundle\Entity\UuidTrait;
+use MailVotech\LeadBundle\Field\DTO\CustomFieldObject;
+use MailVotech\LeadBundle\Form\Validator\Constraints\FieldAliasKeyword;
+use MailVotech\LeadBundle\Validator\LeadFieldMinimumLength;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -311,12 +311,12 @@ class LeadField extends FormEntity implements CacheInvalidateInterface, UuidInte
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addPropertyConstraint('label', new Assert\NotBlank(
-            message: 'mautic.lead.field.label.notblank'
+            message: 'mailvotech.lead.field.label.notblank'
         ));
 
-        $metadata->addPropertyConstraint('label', new Assert\Length(max: 191, maxMessage: 'mautic.lead.field.label.maxlength'));
+        $metadata->addPropertyConstraint('label', new Assert\Length(max: 191, maxMessage: 'mailvotech.lead.field.label.maxlength'));
 
-        $metadata->addConstraint(new UniqueEntity(fields: ['alias'], message: 'mautic.lead.field.alias.unique'));
+        $metadata->addConstraint(new UniqueEntity(fields: ['alias'], message: 'mailvotech.lead.field.alias.unique'));
 
         $metadata->addConstraint(new Assert\Callback(
             function (LeadField $field, ExecutionContextInterface $context): void {

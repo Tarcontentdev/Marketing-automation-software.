@@ -1,16 +1,16 @@
 name: API library compatibility
 
-# Runs the mautic/api-library integration test suite against THIS checkout of
-# Mautic, so a change in Mautic that breaks the public API is caught before merge.
-# It is the mirror of mautic/api-library's own workflow, which tests the library
-# against Mautic's main branch.
+# Runs the mailvotech/api-library integration test suite against THIS checkout of
+# MailVotech, so a change in MailVotech that breaks the public API is caught before merge.
+# It is the mirror of mailvotech/api-library's own workflow, which tests the library
+# against MailVotech's main branch.
 
 on:
   pull_request:
   workflow_dispatch:
     inputs:
       api-library-ref:
-        description: 'Branch, tag or commit of mautic/api-library to test against'
+        description: 'Branch, tag or commit of mailvotech/api-library to test against'
         required: false
         default: 'main'
 
@@ -27,7 +27,7 @@ jobs:
         image: mysql:8.4
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: mautictest
+          MYSQL_DATABASE: mailvotechtest
         ports:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -43,7 +43,7 @@ jobs:
           - 6379:6379
 
     steps:
-    - name: Checkout Mautic (this PR)
+    - name: Checkout MailVotech (this PR)
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
     - name: Setup PHP, with composer and extensions
@@ -58,7 +58,7 @@ jobs:
       run: echo "SYMFONY_ENV=test" >> $GITHUB_ENV
 
     - name: Install Apache
-      # Apache serves Mautic over HTTP so the api-library tests can hit a live instance.
+      # Apache serves MailVotech over HTTP so the api-library tests can hit a live instance.
       # The mod-php version below must exist in the ubuntu-24.04 image; keep it in sync
       # with the range in app/release_metadata.json.
       run: |
@@ -71,15 +71,15 @@ jobs:
         sudo sed -i 's,^memory_limit =.*$,memory_limit = 256M,' /etc/php/8.3/apache2/php.ini
         sudo service apache2 restart
 
-    - name: Clone mautic/api-library
+    - name: Clone mailvotech/api-library
       # Cloned outside the workspace so the "move to web root" step below does not sweep it up.
       run: |
-        gh repo clone mautic/api-library "$HOME/api-library" -- \
+        gh repo clone mailvotech/api-library "$HOME/api-library" -- \
           --branch "${{ github.event.inputs.api-library-ref || 'main' }}" --single-branch --depth 1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Move Mautic to the web root
+    - name: Move MailVotech to the web root
       run: |
         shopt -s dotglob
         sudo chmod -R 777 /var/www/html
@@ -90,22 +90,22 @@ jobs:
         sed -i 's/DB_PORT=3306/DB_PORT=${{ job.services.mysql.ports[3306] }}/g' /var/www/html/.env
         rm -f /var/www/html/.env.test
 
-    - name: Install Mautic
+    - name: Install MailVotech
       working-directory: /var/www/html
       env:
         DB_PORT: ${{ job.services.mysql.ports[3306] }}
       run: |
         APP_ENV=prod SYMFONY_ENV=prod composer install --prefer-dist --no-progress
         cp "$HOME/api-library/.github/ci-files/local_5.php" ./config/local.php
-        php bin/console mautic:install http://localhost/ --force --env=test
+        php bin/console mailvotech:install http://localhost/ --force --env=test
         php bin/console cache:warmup --no-interaction --env=test
 
     - name: Enable Twilio plugin
       # Needed for MessagesTest; the credentials are dummy and never contact Twilio.
       working-directory: /var/www/html
       run: |
-        mysql -uroot -P${{ job.services.mysql.ports[3306] }} -h127.0.0.1 -e "USE mautictest; INSERT INTO plugin_integration_settings (plugin_id, name, is_published, supported_features, api_keys, feature_settings) VALUES (NULL, 'Twilio', 1, 'a:0:{}', 'a:2:{s:8:\"username\";s:169:\"bzFmNlIydWRSZXlIN2lQVkdpanJ4aTQ2NUh6RVdDbHlLRVhsWGZ4b0kyZVNxLzYrQ1J6V1RvMnlhVEp0c245TEp6eStQekx5ZVhLWjB1YVdoR3RnR2dHQ3k1emVVdGt5NzZKUmtjUnJ3c1E9|L8tbZRIYhwatT7Mq+HAdYA==\";s:8:\"password\";s:169:\"T2d2cFpXQWE5YVZnNFFianJSYURRYUtGRHBNZGZjM1VETXg2Wm5Va3NheW43MjVWUlJhTVlCL2pYMDBpbElONStiVVBNbEM3M3BaeGJMNkFKNUFEN1pTNldSRjc4bUM4SDh1SE9OY1k5MTg9|TeuSvfx4XSUOvp0O7T49Cg==\";}', 'a:4:{s:20:\"sending_phone_number\";N;s:22:\"disable_trackable_urls\";i:0;s:16:\"frequency_number\";N;s:14:\"frequency_time\";N;}');"
-        php bin/console mautic:plugins:reload --env=test
+        mysql -uroot -P${{ job.services.mysql.ports[3306] }} -h127.0.0.1 -e "USE mailvotechtest; INSERT INTO plugin_integration_settings (plugin_id, name, is_published, supported_features, api_keys, feature_settings) VALUES (NULL, 'Twilio', 1, 'a:0:{}', 'a:2:{s:8:\"username\";s:169:\"bzFmNlIydWRSZXlIN2lQVkdpanJ4aTQ2NUh6RVdDbHlLRVhsWGZ4b0kyZVNxLzYrQ1J6V1RvMnlhVEp0c245TEp6eStQekx5ZVhLWjB1YVdoR3RnR2dHQ3k1emVVdGt5NzZKUmtjUnJ3c1E9|L8tbZRIYhwatT7Mq+HAdYA==\";s:8:\"password\";s:169:\"T2d2cFpXQWE5YVZnNFFianJSYURRYUtGRHBNZGZjM1VETXg2Wm5Va3NheW43MjVWUlJhTVlCL2pYMDBpbElONStiVVBNbEM3M3BaeGJMNkFKNUFEN1pTNldSRjc4bUM4SDh1SE9OY1k5MTg9|TeuSvfx4XSUOvp0O7T49Cg==\";}', 'a:4:{s:20:\"sending_phone_number\";N;s:22:\"disable_trackable_urls\";i:0;s:16:\"frequency_number\";N;s:14:\"frequency_time\";N;}');"
+        php bin/console mailvotech:plugins:reload --env=test
 
     - name: Set correct ownership so Apache can access the files
       run: sudo chown -R www-data:www-data /var/www/html
@@ -117,9 +117,9 @@ jobs:
         composer install --prefer-dist --no-progress
         vendor/bin/phpunit
 
-    - name: Upload Mautic logs as artifacts
+    - name: Upload MailVotech logs as artifacts
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       if: always()
       with:
-        name: mautic-logs
+        name: mailvotech-logs
         path: /var/www/html/var/logs/

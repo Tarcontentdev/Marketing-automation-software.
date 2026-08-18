@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncProcess;
+namespace MailVotech\IntegrationsBundle\Sync\SyncProcess;
 
-use Mautic\IntegrationsBundle\Event\CompletedSyncIterationEvent;
-use Mautic\IntegrationsBundle\Event\SyncEvent;
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\ObjectIdsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectMappingsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\OrderResultsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\HandlerNotSupportedException;
-use Mautic\IntegrationsBundle\Sync\Helper\MappingHelper;
-use Mautic\IntegrationsBundle\Sync\Helper\RelationsHelper;
-use Mautic\IntegrationsBundle\Sync\Helper\SyncDateHelper;
-use Mautic\IntegrationsBundle\Sync\Logger\DebugLogger;
-use Mautic\IntegrationsBundle\Sync\Notification\Notifier;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Integration\IntegrationSyncProcess;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\MauticSyncProcess;
-use Mautic\IntegrationsBundle\Sync\SyncService\SyncServiceInterface;
+use MailVotech\IntegrationsBundle\Event\CompletedSyncIterationEvent;
+use MailVotech\IntegrationsBundle\Event\SyncEvent;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\ObjectIdsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectMappingsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\OrderResultsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\HandlerNotSupportedException;
+use MailVotech\IntegrationsBundle\Sync\Helper\MappingHelper;
+use MailVotech\IntegrationsBundle\Sync\Helper\RelationsHelper;
+use MailVotech\IntegrationsBundle\Sync\Helper\SyncDateHelper;
+use MailVotech\IntegrationsBundle\Sync\Logger\DebugLogger;
+use MailVotech\IntegrationsBundle\Sync\Notification\Notifier;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Integration\IntegrationSyncProcess;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\MailVotechSyncProcess;
+use MailVotech\IntegrationsBundle\Sync\SyncService\SyncServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class SyncProcess
@@ -37,11 +37,11 @@ final class SyncProcess
         private readonly MappingHelper $mappingHelper,
         private readonly RelationsHelper $relationsHelper,
         private IntegrationSyncProcess $integrationSyncProcess,
-        private readonly MauticSyncProcess $mauticSyncProcess,
+        private readonly MailVotechSyncProcess $mailvotechSyncProcess,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly Notifier $notifier,
         private readonly MappingManualDAO $mappingManualDAO,
-        private readonly MauticSyncDataExchange $internalSyncDataExchange,
+        private readonly MailVotechSyncDataExchange $internalSyncDataExchange,
         private readonly SyncDataExchangeInterface $integrationSyncDataExchange,
         private readonly InputOptionsDAO $inputOptionsDAO,
         private readonly SyncServiceInterface $syncService,
@@ -53,12 +53,12 @@ final class SyncProcess
      */
     public function execute(): void
     {
-        defined('MAUTIC_INTEGRATION_ACTIVE_SYNC') || define('MAUTIC_INTEGRATION_ACTIVE_SYNC', 1);
+        defined('MAILVOTECH_INTEGRATION_ACTIVE_SYNC') || define('MAILVOTECH_INTEGRATION_ACTIVE_SYNC', 1);
 
         // Setup/prepare for the sync
         $this->syncDateHelper->setSyncDateTimes($this->inputOptionsDAO->getStartDateTime(), $this->inputOptionsDAO->getEndDateTime());
         $this->integrationSyncProcess->setupSync($this->inputOptionsDAO, $this->mappingManualDAO, $this->integrationSyncDataExchange);
-        $this->mauticSyncProcess->setupSync($this->inputOptionsDAO, $this->mappingManualDAO, $this->internalSyncDataExchange);
+        $this->mailvotechSyncProcess->setupSync($this->inputOptionsDAO, $this->mappingManualDAO, $this->internalSyncDataExchange);
 
         if ($this->inputOptionsDAO->pullIsEnabled()) {
             $this->executeIntegrationSync();
@@ -82,7 +82,7 @@ final class SyncProcess
         while (true) {
             DebugLogger::log(
                 $this->mappingManualDAO->getIntegration(),
-                sprintf('Integration to Mautic; syncing iteration %s', $this->syncIteration),
+                sprintf('Integration to MailVotech; syncing iteration %s', $this->syncIteration),
                 self::class.':'.__FUNCTION__
             );
 
@@ -90,7 +90,7 @@ final class SyncProcess
             if (!$syncReport->shouldSync()) {
                 DebugLogger::log(
                     $this->mappingManualDAO->getIntegration(),
-                    'Integration to Mautic; no objects were mapped to be synced',
+                    'Integration to MailVotech; no objects were mapped to be synced',
                     self::class.':'.__FUNCTION__
                 );
 
@@ -103,12 +103,12 @@ final class SyncProcess
             // Maps relations, synchronizes missing objects if necessary
             $this->manageRelations($syncReport);
 
-            // Convert the integrations' report into an "order" or instructions for Mautic
-            $syncOrder = $this->mauticSyncProcess->getSyncOrder($syncReport);
+            // Convert the integrations' report into an "order" or instructions for MailVotech
+            $syncOrder = $this->mailvotechSyncProcess->getSyncOrder($syncReport);
             if (!$syncOrder->shouldSync()) {
                 DebugLogger::log(
                     $this->mappingManualDAO->getIntegration(),
-                    'Integration to Mautic; no object changes were recorded possible due to field direction configurations',
+                    'Integration to MailVotech; no object changes were recorded possible due to field direction configurations',
                     self::class.':'.__FUNCTION__
                 );
 
@@ -118,7 +118,7 @@ final class SyncProcess
             DebugLogger::log(
                 $this->mappingManualDAO->getIntegration(),
                 sprintf(
-                    'Integration to Mautic; syncing %d total objects',
+                    'Integration to MailVotech; syncing %d total objects',
                     $syncOrder->getObjectCount()
                 ),
                 self::class.':'.__FUNCTION__
@@ -127,11 +127,11 @@ final class SyncProcess
             // Execute the sync instructions
             $objectMappings = $this->internalSyncDataExchange->executeSyncOrder($syncOrder);
 
-            // Dispatch an event to allow subscribers to take action after this batch of objects has been synced to Mautic
+            // Dispatch an event to allow subscribers to take action after this batch of objects has been synced to MailVotech
             $orderResults = $this->getOrderResultsForIntegrationSync($syncOrder, $objectMappings);
             $this->eventDispatcher->dispatch(
                 new CompletedSyncIterationEvent($orderResults, $this->syncIteration, $this->inputOptionsDAO, $this->mappingManualDAO),
-                IntegrationEvents::INTEGRATION_BATCH_SYNC_COMPLETED_INTEGRATION_TO_MAUTIC
+                IntegrationEvents::INTEGRATION_BATCH_SYNC_COMPLETED_INTEGRATION_TO_MAILVOTECH
             );
             unset($orderResults);
 
@@ -150,16 +150,16 @@ final class SyncProcess
         while (true) {
             DebugLogger::log(
                 $this->mappingManualDAO->getIntegration(),
-                sprintf('Mautic to integration; syncing iteration %s', $this->syncIteration),
+                sprintf('MailVotech to integration; syncing iteration %s', $this->syncIteration),
                 self::class.':'.__FUNCTION__
             );
 
-            $syncReport = $this->mauticSyncProcess->getSyncReport($this->syncIteration);
+            $syncReport = $this->mailvotechSyncProcess->getSyncReport($this->syncIteration);
 
             if (!$syncReport->shouldSync()) {
                 DebugLogger::log(
                     $this->mappingManualDAO->getIntegration(),
-                    'Mautic to integration; no objects were mapped to be synced',
+                    'MailVotech to integration; no objects were mapped to be synced',
                     self::class.':'.__FUNCTION__
                 );
 
@@ -172,7 +172,7 @@ final class SyncProcess
             if (!$syncOrder->shouldSync()) {
                 DebugLogger::log(
                     $this->mappingManualDAO->getIntegration(),
-                    'Mautic to integration; no object changes were recorded possible due to field direction configurations',
+                    'MailVotech to integration; no object changes were recorded possible due to field direction configurations',
                     self::class.':'.__FUNCTION__
                 );
 
@@ -185,7 +185,7 @@ final class SyncProcess
             DebugLogger::log(
                 $this->mappingManualDAO->getIntegration(),
                 sprintf(
-                    'Mautic to integration; syncing %d total objects',
+                    'MailVotech to integration; syncing %d total objects',
                     $syncOrder->getObjectCount()
                 ),
                 self::class.':'.__FUNCTION__
@@ -201,7 +201,7 @@ final class SyncProcess
             $orderResults = $this->getOrderResultsForInternalSync($syncOrder);
             $this->eventDispatcher->dispatch(
                 new CompletedSyncIterationEvent($orderResults, $this->syncIteration, $this->inputOptionsDAO, $this->mappingManualDAO),
-                IntegrationEvents::INTEGRATION_BATCH_SYNC_COMPLETED_MAUTIC_TO_INTEGRATION
+                IntegrationEvents::INTEGRATION_BATCH_SYNC_COMPLETED_MAILVOTECH_TO_INTEGRATION
             );
             unset($orderResults);
 
@@ -235,21 +235,21 @@ final class SyncProcess
     }
 
     /**
-     * @throws \Mautic\IntegrationsBundle\Exception\InvalidValueException
+     * @throws \MailVotech\IntegrationsBundle\Exception\InvalidValueException
      */
     private function getInputOptionsForObjects(array $objectsToSynchronize): InputOptionsDAO
     {
-        $mauticObjectIds = new ObjectIdsDAO();
+        $mailvotechObjectIds = new ObjectIdsDAO();
 
         foreach ($objectsToSynchronize as $object) {
-            $mauticObjectIds->addObjectId($object->getObject(), $object->getObjectId());
+            $mailvotechObjectIds->addObjectId($object->getObject(), $object->getObjectId());
         }
 
         $integration  = $this->mappingManualDAO->getIntegration();
 
         return new InputOptionsDAO([
             'integration'           => $integration,
-            'integration-object-id' => $mauticObjectIds,
+            'integration-object-id' => $mailvotechObjectIds,
         ]);
     }
 
@@ -277,10 +277,10 @@ final class SyncProcess
      */
     private function finalizeSync(OrderDAO $syncOrder): void
     {
-        // Save the mappings between Mautic objects and the integration's objects
+        // Save the mappings between MailVotech objects and the integration's objects
         $this->mappingHelper->saveObjectMappings($syncOrder->getObjectMappings());
 
-        // Remap integration objects to Mautic objects if applicable
+        // Remap integration objects to MailVotech objects if applicable
         $this->mappingHelper->remapIntegrationObjects($syncOrder->getRemappedObjects());
 
         // Update last sync dates on existing object mappings
@@ -290,7 +290,7 @@ final class SyncProcess
         $this->mappingHelper->markAsDeleted($syncOrder->getDeletedObjects());
 
         // Inject notifications
-        $this->notifier->noteMauticSyncIssue($syncOrder->getNotifications());
+        $this->notifier->noteMailVotechSyncIssue($syncOrder->getNotifications());
 
         // Cleanup field tracking for successfully synced objects
         $this->internalSyncDataExchange->cleanupProcessedObjects($syncOrder->getSuccessfullySyncedObjects());

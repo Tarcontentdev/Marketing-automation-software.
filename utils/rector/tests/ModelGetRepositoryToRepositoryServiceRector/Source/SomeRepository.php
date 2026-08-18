@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Utils\Rector\Tests\ModelGetRepositoryToRepositoryServiceRector\Source;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<object>

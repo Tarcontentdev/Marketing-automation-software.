@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\DataTransformer\ArrayLinebreakTransformer;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Form\DataTransformer\ArrayLinebreakTransformer;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -22,9 +22,9 @@ final class ConfigFormType extends AbstractType
             'form_field_autofill',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.form.config.form.form_field_autofill',
+                'label' => 'mailvotech.form.config.form.form_field_autofill',
                 'attr'  => [
-                    'tooltip' => 'mautic.form.config.form.form_field_autofill.tooltip',
+                    'tooltip' => 'mailvotech.form.config.form.form_field_autofill.tooltip',
                 ],
             ]
         );
@@ -34,11 +34,11 @@ final class ConfigFormType extends AbstractType
                 'do_not_submit_emails',
                 TextareaType::class,
                 [
-                    'label'      => 'mautic.form.config.form.do_not_submit_email',
+                    'label'      => 'mailvotech.form.config.form.do_not_submit_email',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.form.config.form.do_not_submit_email.tooltip',
+                        'tooltip' => 'mailvotech.form.config.form.do_not_submit_email.tooltip',
                         'rows'    => 8,
                     ],
                     'required' => false,
@@ -51,11 +51,11 @@ final class ConfigFormType extends AbstractType
                 'blocked_free_email_providers',
                 TextareaType::class,
                 [
-                    'label'      => 'mautic.form.config.form.blocked_free_email_providers',
+                    'label'      => 'mailvotech.form.config.form.blocked_free_email_providers',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.form.config.form.blocked_free_email_providers.tooltip',
+                        'tooltip' => 'mailvotech.form.config.form.blocked_free_email_providers.tooltip',
                         'rows'    => 8,
                     ],
                     'required' => false,
@@ -67,11 +67,11 @@ final class ConfigFormType extends AbstractType
             'form_results_data_sources',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.form.config.form_results_data_sources',
+                'label'      => 'mailvotech.form.config.form_results_data_sources',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.form.config.form_results_data_sources.tooltip',
+                    'tooltip' => 'mailvotech.form.config.form_results_data_sources.tooltip',
                 ],
                 'data'       => isset($options['data']['form_results_data_sources']) && (bool) $options['data']['form_results_data_sources'],
             ]
@@ -82,14 +82,14 @@ final class ConfigFormType extends AbstractType
             ChoiceType::class,
             [
                 'choices'           => [
-                    'mautic.form.config.form.successful_submit_action_at_the_top'    => 'top',
-                    'mautic.form.config.form.successful_submit_action_at_the_bottom' => 'bottom',
+                    'mailvotech.form.config.form.successful_submit_action_at_the_top'    => 'top',
+                    'mailvotech.form.config.form.successful_submit_action_at_the_bottom' => 'bottom',
                 ],
-                'label'             => 'mautic.form.config.form.successful_submit_action',
+                'label'             => 'mailvotech.form.config.form.successful_submit_action',
                 'required'          => true,
                 'attr'              => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.form.config.form.successful_submit_action.tooltip',
+                    'tooltip' => 'mailvotech.form.config.form.successful_submit_action.tooltip',
                 ],
             ]
         );

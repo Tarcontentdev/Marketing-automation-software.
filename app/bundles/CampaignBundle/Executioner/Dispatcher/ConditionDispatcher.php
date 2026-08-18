@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\CampaignBundle\Executioner\Dispatcher;
+namespace MailVotech\CampaignBundle\Executioner\Dispatcher;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\ConditionEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ConditionAccessor;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\ConditionEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ConditionAccessor;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final readonly class ConditionDispatcher

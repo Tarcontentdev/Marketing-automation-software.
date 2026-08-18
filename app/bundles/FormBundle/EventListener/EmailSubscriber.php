@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\EventListener;
+namespace MailVotech\FormBundle\EventListener;
 
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\EmailBuilderEvent;
-use Mautic\FormBundle\FormEvents;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\EmailBuilderEvent;
+use MailVotech\FormBundle\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class EmailSubscriber implements EventSubscriberInterface
@@ -23,8 +23,8 @@ final class EmailSubscriber implements EventSubscriberInterface
         if ($event->abTestWinnerCriteriaRequested()) {
             // add AB Test Winner Criteria
             $formSubmissions = [
-                'group'    => 'mautic.form.abtest.criteria',
-                'label'    => 'mautic.form.abtest.criteria.submissions',
+                'group'    => 'mailvotech.form.abtest.criteria',
+                'label'    => 'mailvotech.form.abtest.criteria.submissions',
                 'event'    => FormEvents::ON_DETERMINE_SUBMISSION_RATE_WINNER,
             ];
             $event->addAbTestWinnerCriteria('form.submissions', $formSubmissions);

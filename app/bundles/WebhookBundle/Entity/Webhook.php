@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\WebhookBundle\Entity;
+namespace MailVotech\WebhookBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -15,11 +15,11 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\SkipModifiedInterface;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\SkipModifiedInterface;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -193,21 +193,21 @@ class Webhook extends FormEntity implements SkipModifiedInterface
         $metadata->addPropertyConstraint(
             'name',
             new NotBlank(
-                message: 'mautic.core.name.required'
+                message: 'mailvotech.core.name.required'
             )
         );
 
         $metadata->addPropertyConstraint(
             'webhookUrl',
             new Assert\Url(
-                message: 'mautic.core.valid_url_required'
+                message: 'mailvotech.core.valid_url_required'
             )
         );
 
         $metadata->addPropertyConstraint(
             'webhookUrl',
             new NotBlank(
-                message: 'mautic.core.valid_url_required'
+                message: 'mailvotech.core.valid_url_required'
             )
         );
 

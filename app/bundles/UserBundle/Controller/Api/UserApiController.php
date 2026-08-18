@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\UserBundle\Controller\Api;
+namespace MailVotech\UserBundle\Controller\Api;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\ApiBundle\Controller\CommonApiController;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\ApiBundle\Controller\CommonApiController;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Model\UserModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -180,7 +180,7 @@ final class UserApiController extends CommonApiController
         $permissions = $request->request->all()['permissions'] ?? [];
 
         if (empty($permissions)) {
-            return $this->badRequest('mautic.api.call.permissionempty');
+            return $this->badRequest('mailvotech.api.call.permissionempty');
         }
         if (!is_array($permissions)) {
             $permissions = [$permissions];

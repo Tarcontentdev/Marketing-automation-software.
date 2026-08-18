@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\CampaignBundle\Command;
+namespace MailVotech\CampaignBundle\Command;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\CampaignBundle\Membership\MembershipBuilder;
-use Mautic\CoreBundle\Command\ModeratedCommand;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Twig\Helper\FormatterHelper;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CampaignBundle\Membership\MembershipBuilder;
+use MailVotech\CoreBundle\Command\ModeratedCommand;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Twig\Helper\FormatterHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -20,9 +20,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
-    name: 'mautic:campaigns:rebuild',
+    name: 'mailvotech:campaigns:rebuild',
     description: 'Rebuild campaigns based on contact segments.',
-    aliases: ['mautic:campaigns:update']
+    aliases: ['mailvotech:campaigns:update']
 )]
 final class UpdateLeadCampaignsCommand extends ModeratedCommand
 {
@@ -162,7 +162,7 @@ final class UpdateLeadCampaignsCommand extends ModeratedCommand
         if ($id) {
             $campaign = $this->campaignRepository->getEntity($id);
             if (null === $campaign) {
-                $output->writeln('<error>'.$this->translator->trans('mautic.campaign.rebuild.not_found', ['%id%' => $id]).'</error>');
+                $output->writeln('<error>'.$this->translator->trans('mailvotech.campaign.rebuild.not_found', ['%id%' => $id]).'</error>');
 
                 return Command::FAILURE;
             }
@@ -209,7 +209,7 @@ final class UpdateLeadCampaignsCommand extends ModeratedCommand
 
         try {
             $this->output->writeln(
-                '<info>'.$this->translator->trans('mautic.campaign.rebuild.rebuilding', ['%id%' => $campaign->getId()]).'</info>'
+                '<info>'.$this->translator->trans('mailvotech.campaign.rebuild.rebuilding', ['%id%' => $campaign->getId()]).'</info>'
             );
 
             // Reset batch limiter
@@ -217,7 +217,7 @@ final class UpdateLeadCampaignsCommand extends ModeratedCommand
 
             $this->membershipBuilder->build($campaign, $this->contactLimiter, $this->runLimit, ($this->quiet) ? null : $this->output);
         } catch (\Exception $exception) {
-            if ('prod' !== MAUTIC_ENV) {
+            if ('prod' !== MAILVOTECH_ENV) {
                 // Throw the exception for dev/test mode
                 throw $exception;
             }
@@ -226,7 +226,7 @@ final class UpdateLeadCampaignsCommand extends ModeratedCommand
         }
 
         // Don't detach in tests since this command will be ran multiple times in the same process
-        if ('test' !== MAUTIC_ENV) {
+        if ('test' !== MAILVOTECH_ENV) {
             $this->campaignRepository->detachEntity($campaign);
         }
 

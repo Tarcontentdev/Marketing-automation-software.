@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Entity;
+namespace MailVotech\FormBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\LeadBundle\Entity\LeadField;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\LeadBundle\Entity\LeadField;
 
 /**
  * @extends CommonRepository<Field>
@@ -16,7 +16,7 @@ class FieldRepository extends CommonRepository
     {
         return (bool) $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('1')
-            ->from(MAUTIC_TABLE_PREFIX.Field::TABLE_NAME, 'f')
+            ->from(MAILVOTECH_TABLE_PREFIX.Field::TABLE_NAME, 'f')
             ->where('f.type = :type')
             ->andWhere('f.form_id = :formId')
             ->setParameter('type', $type)

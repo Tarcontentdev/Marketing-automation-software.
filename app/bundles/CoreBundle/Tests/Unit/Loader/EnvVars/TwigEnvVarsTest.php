@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Loader\EnvVars;
+namespace MailVotech\CoreBundle\Tests\Unit\Loader\EnvVars;
 
-use Mautic\CoreBundle\Loader\EnvVars\TwigEnvVars;
+use MailVotech\CoreBundle\Loader\EnvVars\TwigEnvVars;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -28,6 +28,6 @@ final class TwigEnvVarsTest extends TestCase
         $this->config->set('tmp_path', '/foo/bar');
         TwigEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals('/foo/bar/twig', $this->envVars->get('MAUTIC_TWIG_CACHE_DIR'));
+        $this->assertEquals('/foo/bar/twig', $this->envVars->get('MAILVOTECH_TWIG_CACHE_DIR'));
     }
 }

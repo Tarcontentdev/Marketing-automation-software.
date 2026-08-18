@@ -15,11 +15,11 @@
 
 {% set isIndex = 'index' == tmpl ? true : false %}
 {% set tmpl = 'list' %}
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
 
-{% block mauticContent %}config{% endblock %}
+{% block mailvotechContent %}config{% endblock %}
 
-{% block headerTitle %}{{ 'mautic.config.header.index'|trans }}{% endblock %}
+{% block headerTitle %}{{ 'mailvotech.config.header.index'|trans }}{% endblock %}
 
 {% block content %}
 <!-- start: box layout -->
@@ -29,7 +29,7 @@
          <div class="col-md-3 height-auto">
              <div class="">
                  {% if not isWritable %}
-                     <div class="alert alert-danger">{{ 'mautic.config.notwritable'|trans }}</div>
+                     <div class="alert alert-danger">{{ 'mailvotech.config.notwritable'|trans }}</div>
                  {% endif %}
                  <!-- Nav tabs -->
                  <ul class="list-group list-group-tabs" role="tablist">
@@ -37,7 +37,7 @@
                          <li role="presentation" class="list-group-item {% if loop.first %}in active{% endif %}">
                              {% set containsErrors = formContainsErrors(form[key]) %}
                              <a href="#{{ key }}" aria-controls="{{ key }}" role="tab" data-toggle="tab" class="list-group-item-text steps {% if formContainsErrors(form[key]) %}text-danger{% endif %}">
-                                 {{ ('mautic.config.tab.' ~ key)|trans }}
+                                 {{ ('mailvotech.config.tab.' ~ key)|trans }}
                                  {% if formContainsErrors(form[key]) %}
                                      <i class="ri-alert-line"></i>
                                  {% endif %}
@@ -58,7 +58,7 @@
                        <div role="tabpanel" class="tab-pane fade {% if loop.first %}in active{% endif %} bdr-w-0" id="{{ key }}">
                            <div>
                             <div class="row pa-md bdr-b">
-                                <h4 class="fw-sb">{{ ('mautic.config.tab.' ~ key)|trans }}</h4>
+                                <h4 class="fw-sb">{{ ('mailvotech.config.tab.' ~ key)|trans }}</h4>
                             </div>
                                {{ form_widget(form[key], {'formConfig': formConfigs[key]}) }}
                            </div>

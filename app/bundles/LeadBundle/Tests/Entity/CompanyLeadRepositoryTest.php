@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Exception\PrimaryCompanyNotFoundException;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Exception\PrimaryCompanyNotFoundException;
 
 final class CompanyLeadRepositoryTest extends \PHPUnit\Framework\TestCase
 {

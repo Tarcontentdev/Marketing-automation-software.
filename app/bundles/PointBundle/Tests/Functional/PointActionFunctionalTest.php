@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Functional;
+namespace MailVotech\PointBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\Point;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\Point;
 
-final class PointActionFunctionalTest extends MauticMysqlTestCase
+final class PointActionFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testPointActionReadEmail(): void
     {

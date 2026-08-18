@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CampaignBundle\Form\Type;
+namespace MailVotech\CampaignBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -31,14 +31,14 @@ final class CampaignLeadSourceType extends AbstractType
                     [
                         'choices'           => array_flip($sourceChoices),
                         'multiple'          => true,
-                        'label'             => 'mautic.campaign.leadsource.lists',
+                        'label'             => 'mailvotech.campaign.leadsource.lists',
                         'label_attr'        => ['class' => 'control-label'],
                         'attr'              => [
                             'class' => 'form-control',
                         ],
                         'constraints' => [
                             new NotBlank(
-                                message: 'mautic.core.value.required'
+                                message: 'mailvotech.core.value.required'
                             ),
                         ],
                     ]
@@ -51,14 +51,14 @@ final class CampaignLeadSourceType extends AbstractType
                     [
                         'choices'           => array_flip($sourceChoices),
                         'multiple'          => true,
-                        'label'             => 'mautic.campaign.leadsource.forms',
+                        'label'             => 'mailvotech.campaign.leadsource.forms',
                         'label_attr'        => ['class' => 'control-label'],
                         'attr'              => [
                             'class' => 'form-control',
                         ],
                         'constraints' => [
                             new NotBlank(
-                                message: 'mautic.core.value.required'
+                                message: 'mailvotech.core.value.required'
                             ),
                         ],
                     ]
@@ -76,17 +76,17 @@ final class CampaignLeadSourceType extends AbstractType
 
         $update = !empty($options['data'][$sourceType]);
         if (!empty($update)) {
-            $btnValue = 'mautic.core.form.update';
+            $btnValue = 'mailvotech.core.form.update';
             $btnIcon  = 'ri-edit-line';
         } else {
-            $btnValue = 'mautic.core.form.add';
+            $btnValue = 'mailvotech.core.form.add';
             $btnIcon  = 'ri-add-line';
         }
 
         $builder->add('buttons', FormButtonsType::class, [
             'save_text'       => $btnValue,
             'save_icon'       => $btnIcon,
-            'save_onclick'    => 'Mautic.submitCampaignSource(event)',
+            'save_onclick'    => 'MailVotech.submitCampaignSource(event)',
             'apply_text'      => false,
             'container_class' => 'bottom-form-buttons',
         ]);

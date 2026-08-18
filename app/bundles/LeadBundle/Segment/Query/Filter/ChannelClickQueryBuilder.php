@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Segment\Query\Filter;
+namespace MailVotech\LeadBundle\Segment\Query\Filter;
 
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\Query\LeadBatchLimiterTrait;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\Query\LeadBatchLimiterTrait;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
 
 final class ChannelClickQueryBuilder extends BaseFilterQueryBuilder
 {
@@ -14,12 +14,12 @@ final class ChannelClickQueryBuilder extends BaseFilterQueryBuilder
 
     public static function getServiceId(): string
     {
-        return 'mautic.lead.query.builder.channel_click.value';
+        return 'mailvotech.lead.query.builder.channel_click.value';
     }
 
     public function applyQuery(QueryBuilder $queryBuilder, ContactSegmentFilter $filter): QueryBuilder
     {
-        $leadsTableAlias  = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.'leads');
+        $leadsTableAlias  = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.'leads');
         $filterOperator   = $filter->getOperator();
         $filterChannel    = $this->getChannel($filter->getField());
         $batchLimiters    = $filter->getBatchLimiters();
@@ -50,7 +50,7 @@ final class ChannelClickQueryBuilder extends BaseFilterQueryBuilder
         }
 
         $subQb->select($tableAlias.'.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'page_hits', $tableAlias)
+            ->from(MAILVOTECH_TABLE_PREFIX.'page_hits', $tableAlias)
             ->where($expr);
 
         $this->addLeadAndMinMaxLimiters($subQb, $batchLimiters, 'page_hits');

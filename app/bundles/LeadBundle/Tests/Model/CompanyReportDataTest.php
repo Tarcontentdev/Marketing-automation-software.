@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Model;
+namespace MailVotech\LeadBundle\Tests\Model;
 
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(CompanyReportData::class)]
@@ -59,24 +59,24 @@ final class CompanyReportDataTest extends \PHPUnit\Framework\TestCase
         $expected = [
             'comp.id' => [
                 'alias' => 'comp_id',
-                'label' => 'mautic.lead.report.company.company_id',
+                'label' => 'mailvotech.lead.report.company.company_id',
                 'type'  => 'int',
-                'link'  => 'mautic_company_action',
+                'link'  => 'mailvotech_company_action',
             ],
             'companies_lead.is_primary' => [
-                'label' => 'mautic.lead.report.company.is_primary',
+                'label' => 'mailvotech.lead.report.company.is_primary',
                 'type'  => 'bool',
             ],
             'companies_lead.date_added' => [
-                'label' => 'mautic.lead.report.company.date_added',
+                'label' => 'mailvotech.lead.report.company.date_added',
                 'type'  => 'datetime',
             ],
             'comp.boolField' => [
-                'label' => 'mautic.report.field.company.label',
+                'label' => 'mailvotech.report.field.company.label',
                 'type'  => 'bool',
             ],
             'comp.emailField' => [
-                'label' => 'mautic.report.field.company.label',
+                'label' => 'mailvotech.report.field.company.label',
                 'type'  => 'email',
             ],
         ];

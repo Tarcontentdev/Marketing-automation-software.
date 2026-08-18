@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\Helper;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\Helper;
 
-use Mautic\IntegrationsBundle\Sync\Helper\SyncDateHelper;
+use MailVotech\IntegrationsBundle\Sync\Helper\SyncDateHelper;
 use PHPUnit\Framework\TestCase;
 
 final class SyncDateHelperTest extends TestCase

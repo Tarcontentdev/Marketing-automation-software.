@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CoreBundle\Twig\Helper;
+namespace MailVotech\CoreBundle\Twig\Helper;
 
-use Mautic\CoreBundle\Exception\BadConfigurationException;
-use Mautic\CoreBundle\Exception\FileNotFoundException;
-use Mautic\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Exception\BadConfigurationException;
+use MailVotech\CoreBundle\Exception\FileNotFoundException;
+use MailVotech\CoreBundle\Helper\PathsHelper;
 
 /**
  * final class ThemeHelper.

@@ -1,8 +1,8 @@
 {% if quickFilters is defined and quickFilters is not empty %}
     {% set filterGroups = {
-        'mautic.core.quick_filters.status': 'ispublished|isunpublished|isexpired|ispending',
-        'mautic.core.quick_filters.ownership': 'ismine|isunowned',
-        'mautic.core.quick_filters.others': ''
+        'mailvotech.core.quick_filters.status': 'ispublished|isunpublished|isexpired|ispending',
+        'mailvotech.core.quick_filters.ownership': 'ismine|isunowned',
+        'mailvotech.core.quick_filters.others': ''
     } %}
 
     {% set visibleGroups = [] %}
@@ -29,12 +29,12 @@
                     {% for filter in groupFilters %}
                         <a class="label label-outline label-selectable"
                         data-filter="{{ filter.search|trans }}"
-                        {% if header == 'mautic.core.quick_filters.status' %}
+                        {% if header == 'mailvotech.core.quick_filters.status' %}
                             data-conflict-group="status"
-                        {% elseif header == 'mautic.core.quick_filters.ownership' %}
+                        {% elseif header == 'mailvotech.core.quick_filters.ownership' %}
                             data-conflict-group="ownership"
                         {% endif %}
-                        onclick="Mautic.toggleFilter(this)"
+                        onclick="MailVotech.toggleFilter(this)"
                         data-toggle="tooltip"
                         data-placement="top"
                         data-original-title="{{ filter.tooltip|trans }}">

@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Model;
+namespace MailVotech\CoreBundle\Model;
 
-use Mautic\CoreBundle\Helper\DataExporterHelper;
+use MailVotech\CoreBundle\Helper\DataExporterHelper;
 
 class IteratorExportDataModel implements \Iterator
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Update\Step;
+namespace MailVotech\CoreBundle\Tests\Unit\Update\Step;
 
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Update\Step\RemoveDeletedFilesStep;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Update\Step\RemoveDeletedFilesStep;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;

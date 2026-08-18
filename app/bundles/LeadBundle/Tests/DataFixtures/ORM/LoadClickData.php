@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\DataFixtures\ORM;
+namespace MailVotech\LeadBundle\Tests\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\SmsBundle\Entity\Sms;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\SmsBundle\Entity\Sms;
 
 final class LoadClickData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -33,7 +33,7 @@ final class LoadClickData extends AbstractFixture implements OrderedFixtureInter
 
         // Create redirect URL
         $redirect = new Redirect();
-        $redirect->setUrl('https://mautic.org');
+        $redirect->setUrl('https://mailvotech.org');
         $redirect->setRedirectId();
         $manager->persist($redirect);
         $manager->flush();
@@ -108,7 +108,7 @@ final class LoadClickData extends AbstractFixture implements OrderedFixtureInter
         $hit = new Hit();
 
         $hit->setIpAddress($this->getReference('ipAddress-1'));
-        $hit->setUrl('https://mautic.org');
+        $hit->setUrl('https://mailvotech.org');
         $hit->setReferer('https://google.com');
         $hit->setUrlTitle('Test Title');
         $hit->setLead($this->getReference('lead-'.$hitConfig['lead_id']));

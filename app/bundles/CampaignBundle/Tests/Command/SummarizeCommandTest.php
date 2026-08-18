@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Command;
+namespace MailVotech\CampaignBundle\Tests\Command;
 
-use Mautic\CampaignBundle\Command\SummarizeCommand;
-use Mautic\CampaignBundle\Entity\Summary;
-use Mautic\CampaignBundle\Entity\SummaryRepository;
-use Mautic\CampaignBundle\Tests\Campaign\AbstractCampaignTestCase;
+use MailVotech\CampaignBundle\Command\SummarizeCommand;
+use MailVotech\CampaignBundle\Entity\Summary;
+use MailVotech\CampaignBundle\Entity\SummaryRepository;
+use MailVotech\CampaignBundle\Tests\Campaign\AbstractCampaignTestCase;
 
 final class SummarizeCommandTest extends AbstractCampaignTestCase
 {

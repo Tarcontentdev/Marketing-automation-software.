@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Security;
+namespace MailVotech\UserBundle\Security;
 
-use Mautic\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;

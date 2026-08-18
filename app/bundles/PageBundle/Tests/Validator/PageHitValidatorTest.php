@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Validator;
+namespace MailVotech\PageBundle\Tests\Validator;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Validator\PageHitValidator;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Validator\PageHitValidator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraint;

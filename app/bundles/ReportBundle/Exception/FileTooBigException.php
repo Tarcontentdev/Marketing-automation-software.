@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Exception;
+namespace MailVotech\ReportBundle\Exception;
 
 final class FileTooBigException extends \Exception
 {

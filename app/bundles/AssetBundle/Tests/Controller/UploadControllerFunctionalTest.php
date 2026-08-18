@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\Controller;
+namespace MailVotech\AssetBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class UploadControllerFunctionalTest extends MauticMysqlTestCase
+final class UploadControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     private string $assetPath;
 
@@ -27,7 +27,7 @@ final class UploadControllerFunctionalTest extends MauticMysqlTestCase
         $this->configParams['allowed_extensions'] = ['csv', 'gif', 'jpg', 'jpeg', 'png'];
 
         parent::setUp();
-        $this->assetPath      = self::getContainer()->getParameter('mautic.upload_dir');
+        $this->assetPath      = self::getContainer()->getParameter('mailvotech.upload_dir');
         $this->tempId         = uniqid('tempId_');
         $this->cleanupPaths[] = $this->assetPath.'/tmp/'.$this->tempId;
     }
@@ -64,7 +64,7 @@ final class UploadControllerFunctionalTest extends MauticMysqlTestCase
     public function testSuccessUploadWithPng(): void
     {
         $filePath = $this->createSourcePath('png');
-        $this->copyFile('app/assets/images/mautic_logo_db64.png', $filePath);
+        $this->copyFile('app/assets/images/mailvotech_logo_db64.png', $filePath);
 
         $this->upload($this->createUploadedFile($filePath, 'image/png'));
 

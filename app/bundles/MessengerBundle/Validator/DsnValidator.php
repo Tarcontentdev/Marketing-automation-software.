@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\Validator;
+namespace MailVotech\MessengerBundle\Validator;
 
-use Mautic\CoreBundle\Helper\Dsn\Dsn as CoreDsn;
-use Mautic\MessengerBundle\Validator\Dsn as DsnConstraint;
+use MailVotech\CoreBundle\Helper\Dsn\Dsn as CoreDsn;
+use MailVotech\MessengerBundle\Validator\Dsn as DsnConstraint;
 use Symfony\Component\Messenger\Transport\TransportFactory;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -35,13 +35,13 @@ final class DsnValidator extends ConstraintValidator
         try {
             $dsn = CoreDsn::fromString($value);
         } catch (\InvalidArgumentException) {
-            $this->context->addViolation('mautic.messenger.dsn.invalid_dsn');
+            $this->context->addViolation('mailvotech.messenger.dsn.invalid_dsn');
 
             return;
         }
 
         if (!$this->transportFactory->supports($value, $dsn->getOptions())) {
-            $this->context->addViolation('mautic.messenger.dsn.unsupported_scheme');
+            $this->context->addViolation('mailvotech.messenger.dsn.unsupported_scheme');
         }
     }
 }

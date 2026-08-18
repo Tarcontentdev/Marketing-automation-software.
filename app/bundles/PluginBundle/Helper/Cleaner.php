@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\PluginBundle\Helper;
+namespace MailVotech\PluginBundle\Helper;
 
 final class Cleaner
 {

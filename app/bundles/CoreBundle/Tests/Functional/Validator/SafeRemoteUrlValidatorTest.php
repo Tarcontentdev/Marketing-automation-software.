@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Validator;
+namespace MailVotech\CoreBundle\Tests\Functional\Validator;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Validator\SafeRemoteUrl;
-use Mautic\CoreBundle\Validator\SafeRemoteUrlValidator;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Validator\SafeRemoteUrl;
+use MailVotech\CoreBundle\Validator\SafeRemoteUrlValidator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class SafeRemoteUrlValidatorTest extends MauticMysqlTestCase
+final class SafeRemoteUrlValidatorTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -32,7 +32,7 @@ final class SafeRemoteUrlValidatorTest extends MauticMysqlTestCase
     public function testInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessageMatches('/Expected argument of type "Mautic\\\\CoreBundle\\\\Validator\\\\SafeRemoteUrl"/');
+        $this->expectExceptionMessageMatches('/Expected argument of type "MailVotech\\\\CoreBundle\\\\Validator\\\\SafeRemoteUrl"/');
 
         $validator  = new SafeRemoteUrlValidator(self::getContainer()->get(CoreParametersHelper::class));
         $validator->initialize($this->createStub(ExecutionContextInterface::class));

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\Model;
+namespace MailVotech\AssetBundle\Tests\Model;
 
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class AssetModelFunctionalTest extends MauticMysqlTestCase
+final class AssetModelFunctionalTest extends MailVotechMysqlTestCase
 {
     protected function beforeBeginTransaction(): void
     {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\CategoryBundle\Form\Type;
+namespace MailVotech\CategoryBundle\Form\Type;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CategoryBundle\Model\CategoryModel;
-use Mautic\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CategoryBundle\Model\CategoryModel;
+use MailVotech\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -39,7 +39,7 @@ final class CategoryListType extends AbstractType
     {
         $resolver->setDefaults([
             'choices' => function (Options $options): array {
-                $createNew  = $this->translator->trans('mautic.category.createnew');
+                $createNew  = $this->translator->trans('mailvotech.category.createnew');
                 $categories = $this->model->getLookupResults($options['bundle'], '', 0);
                 $choices    = [];
                 foreach ($categories as $l) {
@@ -49,13 +49,13 @@ final class CategoryListType extends AbstractType
 
                 return $choices;
             },
-            'label'             => 'mautic.core.category',
+            'label'             => 'mailvotech.core.category',
             'label_attr'        => ['class' => 'control-label'],
             'multiple'          => false,
-            'placeholder'       => 'mautic.core.form.uncategorized',
+            'placeholder'       => 'mailvotech.core.form.uncategorized',
             'attr'              => function (Options $options): array {
-                $modalHeader = $this->translator->trans('mautic.category.header.new');
-                $newUrl      = $this->router->generate('mautic_category_action', [
+                $modalHeader = $this->translator->trans('mailvotech.category.header.new');
+                $newUrl      = $this->router->generate('mailvotech_category_action', [
                     'objectAction' => 'new',
                     'bundle'       => $options['bundle'],
                     'inForm'       => 1,
@@ -63,7 +63,7 @@ final class CategoryListType extends AbstractType
 
                 return [
                     'class'    => 'form-control category-select',
-                    'onchange' => "Mautic.loadAjaxModalBySelectValue(this, 'new', '{$newUrl}', '{$modalHeader}');",
+                    'onchange' => "MailVotech.loadAjaxModalBySelectValue(this, 'new', '{$newUrl}', '{$modalHeader}');",
                 ];
             },
             'required'      => false,

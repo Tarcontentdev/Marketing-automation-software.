@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Event;
+namespace MailVotech\EmailBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\EmailBundle\Entity\Email;
 
 class EmailEditSubmitEvent extends CommonEvent
 {

@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\Decorator\Date;
+namespace MailVotech\LeadBundle\Tests\Segment\Decorator\Date;
 
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\DataFixtures\ORM\LoadLeadData;
-use Mautic\LeadBundle\DataFixtures\ORM\LoadLeadListData;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Segment\ContactSegmentService;
-use Mautic\LeadBundle\Tests\DataFixtures\ORM\LoadSegmentsData;
-use Mautic\UserBundle\DataFixtures\ORM\LoadRoleData;
-use Mautic\UserBundle\DataFixtures\ORM\LoadUserData;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\DataFixtures\ORM\LoadLeadData;
+use MailVotech\LeadBundle\DataFixtures\ORM\LoadLeadListData;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Segment\ContactSegmentService;
+use MailVotech\LeadBundle\Tests\DataFixtures\ORM\LoadSegmentsData;
+use MailVotech\UserBundle\DataFixtures\ORM\LoadRoleData;
+use MailVotech\UserBundle\DataFixtures\ORM\LoadUserData;
 
-final class RelativeDateFunctionalTest extends MauticMysqlTestCase
+final class RelativeDateFunctionalTest extends MailVotechMysqlTestCase
 {
     private ReferenceRepository $fixtures;
 

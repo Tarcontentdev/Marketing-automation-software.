@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Helper;
+namespace MailVotech\LeadBundle\Tests\Helper;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Helper\CustomFieldHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Helper\CustomFieldHelper;
 use PHPUnit\Framework\TestCase;
 
 final class CustomFieldHelperTest extends TestCase

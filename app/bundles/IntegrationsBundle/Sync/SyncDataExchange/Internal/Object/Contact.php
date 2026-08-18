@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object;
+namespace MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object;
 
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Lead;
 
 final class Contact implements ObjectInterface
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\EventListener;
+namespace MailVotech\AssetBundle\EventListener;
 
-use Mautic\AssetBundle\AssetEvents;
-use Mautic\AssetBundle\Event as Events;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
+use MailVotech\AssetBundle\AssetEvents;
+use MailVotech\AssetBundle\Event as Events;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class AssetSubscriber implements EventSubscriberInterface

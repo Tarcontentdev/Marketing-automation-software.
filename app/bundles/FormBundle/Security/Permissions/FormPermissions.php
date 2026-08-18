@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\FormBundle\Security\Permissions;
+namespace MailVotech\FormBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class FormPermissions extends AbstractPermissions
@@ -31,8 +31,8 @@ final class FormPermissions extends AbstractPermissions
             $this->getName(),
             'export',
             $builder,
-            'mautic.core.permissions.export',
-            ['mautic.core.permissions.enable' => 'enable'],
+            'mailvotech.core.permissions.export',
+            ['mailvotech.core.permissions.enable' => 'enable'],
             $data
         );
     }

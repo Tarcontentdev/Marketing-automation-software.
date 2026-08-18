@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\FormBundle\Event;
+namespace MailVotech\FormBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Entity\Submission;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Entity\Submission;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ServerBag;
@@ -104,7 +104,7 @@ class SubmissionEvent extends CommonEvent
     }
 
     /**
-     * @return \Mautic\FormBundle\Entity\Form
+     * @return \MailVotech\FormBundle\Entity\Form
      */
     public function getForm()
     {

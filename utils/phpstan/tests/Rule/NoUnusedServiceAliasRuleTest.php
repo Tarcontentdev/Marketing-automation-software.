@@ -50,7 +50,7 @@ final class NoUnusedServiceAliasRuleTest extends RuleTestCase
                 17,
             ],
             [
-                'Service alias "mautic.alias.legacy_unused_helper" is never used, remove it.',
+                'Service alias "mailvotech.alias.legacy_unused_helper" is never used, remove it.',
                 18,
             ],
         ]);

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Migration;
+namespace MailVotech\IntegrationsBundle\Migration;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\IntegrationsBundle\Exception\PathNotFoundException;
+use MailVotech\IntegrationsBundle\Exception\PathNotFoundException;
 
 final readonly class Engine
 {
@@ -73,7 +73,7 @@ final readonly class Engine
         foreach ($migrationFileNames as $fileName) {
             require_once $this->migrationsPath.$fileName;
             $className          = preg_replace('/\\.[^.\\s]{3,4}$/', '', $fileName);
-            $className          = 'MauticPlugin\\'.$this->bundleName."\Migrations\\{$className}";
+            $className          = 'MailVotechPlugin\\'.$this->bundleName."\Migrations\\{$className}";
             $migrationClasses[] = $className;
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\DataTransformer;
+namespace MailVotech\CoreBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 

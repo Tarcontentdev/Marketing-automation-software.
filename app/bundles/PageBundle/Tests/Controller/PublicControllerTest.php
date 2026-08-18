@@ -2,35 +2,35 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Controller;
+namespace MailVotech\PageBundle\Tests\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Exception\InvalidDecodedStringException;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\CookieHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\CoreBundle\Twig\Helper\AnalyticsHelper;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Helper\ContactRequestHelper;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
-use Mautic\PageBundle\Controller\PublicController;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Event\TrackingEvent;
-use Mautic\PageBundle\Helper\TrackingHelper;
-use Mautic\PageBundle\Model\PageModel;
-use Mautic\PageBundle\Model\RedirectModel;
-use Mautic\PageBundle\Model\Tracking404Model;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Exception\InvalidDecodedStringException;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\CookieHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Twig\Helper\AnalyticsHelper;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Helper\ContactRequestHelper;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
+use MailVotech\PageBundle\Controller\PublicController;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Event\TrackingEvent;
+use MailVotech\PageBundle\Helper\TrackingHelper;
+use MailVotech\PageBundle\Model\PageModel;
+use MailVotech\PageBundle\Model\RedirectModel;
+use MailVotech\PageBundle\Model\Tracking404Model;
+use MailVotech\PageBundle\PageEvents;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -189,8 +189,8 @@ final class PublicControllerTest extends TestCase
 
         $assetHelper = new AssetsHelper($this->createStub(Packages::class));
 
-        $mauticSecurity = $this->createMock(CorePermissions::class);
-        $mauticSecurity->method('hasEntityAccess')
+        $mailvotechSecurity = $this->createMock(CorePermissions::class);
+        $mailvotechSecurity->method('hasEntityAccess')
             ->willReturn(false);
 
         $analyticsHelper = new AnalyticsHelper($this->createStub(CoreParametersHelper::class));
@@ -220,7 +220,7 @@ final class PublicControllerTest extends TestCase
             $this->createStub(Translator::class),
             $this->createStub(FlashBag::class),
             new RequestStack([$this->request]),
-            $mauticSecurity
+            $mailvotechSecurity
         );
         $controller->setContainer($this->internalContainer);
 
@@ -362,7 +362,7 @@ final class PublicControllerTest extends TestCase
 
         $this->router->expects($this->once())
             ->method('generate')
-            ->with('mautic_asset_download')
+            ->with('mailvotech_asset_download')
             ->willReturn('/asset');
 
         $this->internalContainer

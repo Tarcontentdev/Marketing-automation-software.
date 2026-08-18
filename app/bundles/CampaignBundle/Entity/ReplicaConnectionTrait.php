@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CampaignBundle\Entity;
+namespace MailVotech\CampaignBundle\Entity;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Connections\PrimaryReadReplicaConnection;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
 
 /**
  * Trait ReplicaConnectionTrait.

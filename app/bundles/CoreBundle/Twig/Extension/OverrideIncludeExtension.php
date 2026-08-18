@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Extension;
+namespace MailVotech\CoreBundle\Twig\Extension;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\CustomTemplateEvent;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\CustomTemplateEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
@@ -71,7 +71,7 @@ final class OverrideIncludeExtension extends AbstractExtension
 
     public function getName(): string
     {
-        return 'mautic_override_include';
+        return 'mailvotech_override_include';
     }
 
     public function getPriority(): int

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Form\Type;
+namespace MailVotech\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -20,7 +20,7 @@ final class UserPreferencesType extends AbstractType
             'theme',
             HiddenType::class,
             [
-                'label'      => 'mautic.user.preferences.theme',
+                'label'      => 'mailvotech.user.preferences.theme',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -34,7 +34,7 @@ final class UserPreferencesType extends AbstractType
             'reduce_transparency',
             HiddenType::class,
             [
-                'label'      => 'mautic.user.preferences.reduce_transparency',
+                'label'      => 'mailvotech.user.preferences.reduce_transparency',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
             ]
@@ -45,7 +45,7 @@ final class UserPreferencesType extends AbstractType
             'reduce_motion',
             HiddenType::class,
             [
-                'label'      => 'mautic.user.preferences.reduce_motion',
+                'label'      => 'mailvotech.user.preferences.reduce_motion',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
             ]
@@ -56,7 +56,7 @@ final class UserPreferencesType extends AbstractType
             'contrast_borders',
             HiddenType::class,
             [
-                'label'      => 'mautic.user.preferences.contrast_borders',
+                'label'      => 'mailvotech.user.preferences.contrast_borders',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
             ]
@@ -67,7 +67,7 @@ final class UserPreferencesType extends AbstractType
             'enable_underlines',
             HiddenType::class,
             [
-                'label'      => 'mautic.user.preferences.enable_underlines',
+                'label'      => 'mailvotech.user.preferences.enable_underlines',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
             ]

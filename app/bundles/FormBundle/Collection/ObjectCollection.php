@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Collection;
+namespace MailVotech\FormBundle\Collection;
 
-use Mautic\FormBundle\Crate\ObjectCrate;
+use MailVotech\FormBundle\Crate\ObjectCrate;
 
 /**
  * @extends \ArrayIterator<int,ObjectCrate>

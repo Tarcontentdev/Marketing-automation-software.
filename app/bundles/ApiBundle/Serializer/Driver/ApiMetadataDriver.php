@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\ApiBundle\Serializer\Driver;
+namespace MailVotech\ApiBundle\Serializer\Driver;
 
 use JMS\Serializer\Metadata\ClassMetadata;
 use JMS\Serializer\Metadata\PropertyMetadata;

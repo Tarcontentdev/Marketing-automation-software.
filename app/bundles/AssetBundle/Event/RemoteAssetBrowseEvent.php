@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Event;
+namespace MailVotech\AssetBundle\Event;
 
 use Gaufrette\Adapter;
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\PluginBundle\Integration\UnifiedIntegrationInterface;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\PluginBundle\Integration\UnifiedIntegrationInterface;
 
 final class RemoteAssetBrowseEvent extends CommonEvent
 {

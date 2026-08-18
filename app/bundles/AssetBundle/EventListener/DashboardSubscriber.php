@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\AssetBundle\EventListener;
+namespace MailVotech\AssetBundle\EventListener;
 
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\DashboardBundle\Event\WidgetDetailEvent;
-use Mautic\DashboardBundle\EventListener\DashboardSubscriber as MainDashboardSubscriber;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\DashboardBundle\Event\WidgetDetailEvent;
+use MailVotech\DashboardBundle\EventListener\DashboardSubscriber as MainDashboardSubscriber;
 use Symfony\Component\Routing\RouterInterface;
 
 final class DashboardSubscriber extends MainDashboardSubscriber
@@ -71,7 +71,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
                 ]);
             }
 
-            $event->setTemplate('@MauticCore/Helper/chart.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/chart.html.twig');
             $event->stopPropagation();
         }
 
@@ -85,7 +85,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
                 ]);
             }
 
-            $event->setTemplate('@MauticCore/Helper/chart.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/chart.html.twig');
             $event->stopPropagation();
         }
 
@@ -105,7 +105,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
                 // Build table rows with links
                 foreach ($assets as &$asset) {
-                    $assetUrl = $this->router->generate('mautic_asset_action', ['objectAction' => 'view', 'objectId' => $asset['id']]);
+                    $assetUrl = $this->router->generate('mailvotech_asset_action', ['objectAction' => 'view', 'objectId' => $asset['id']]);
                     $row      = [
                         [
                             'value' => $asset['title'],
@@ -121,15 +121,15 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
                 $event->setTemplateData([
                     'headItems' => [
-                        'mautic.dashboard.label.title',
-                        'mautic.dashboard.label.downloads',
+                        'mailvotech.dashboard.label.title',
+                        'mailvotech.dashboard.label.downloads',
                     ],
                     'bodyItems' => $items,
                     'raw'       => $assets,
                 ]);
             }
 
-            $event->setTemplate('@MauticCore/Helper/table.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/table.html.twig');
             $event->stopPropagation();
         }
 
@@ -149,7 +149,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
                 // Build table rows with links
                 foreach ($assets as &$asset) {
-                    $assetUrl = $this->router->generate('mautic_asset_action', ['objectAction' => 'view', 'objectId' => $asset['id']]);
+                    $assetUrl = $this->router->generate('mailvotech_asset_action', ['objectAction' => 'view', 'objectId' => $asset['id']]);
                     $row      = [
                         [
                             'value' => $asset['name'],
@@ -162,14 +162,14 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
                 $event->setTemplateData([
                     'headItems' => [
-                        'mautic.dashboard.label.title',
+                        'mailvotech.dashboard.label.title',
                     ],
                     'bodyItems' => $items,
                     'raw'       => $assets,
                 ]);
             }
 
-            $event->setTemplate('@MauticCore/Helper/table.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/table.html.twig');
             $event->stopPropagation();
         }
     }

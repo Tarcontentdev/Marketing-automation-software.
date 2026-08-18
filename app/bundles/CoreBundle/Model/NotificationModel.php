@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\CoreBundle\Model;
+namespace MailVotech\CoreBundle\Model;
 
-use Mautic\CoreBundle\Entity\Notification;
-use Mautic\CoreBundle\Entity\NotificationRepository;
-use Mautic\CoreBundle\Helper\EmojiHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\UpdateHelper;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\Notification;
+use MailVotech\CoreBundle\Entity\NotificationRepository;
+use MailVotech\CoreBundle\Helper\EmojiHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\UpdateHelper;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -172,10 +172,10 @@ class NotificationModel extends FormModel
             $cacheFile  = $this->pathsHelper->getSystemPath('cache').'/lastUpdateCheck.txt';
 
             // check to see when we last checked for an update
-            $lastChecked = $this->getSession()->get('mautic.update.checked', 0);
+            $lastChecked = $this->getSession()->get('mailvotech.update.checked', 0);
 
             if (time() - $lastChecked > 3600) {
-                $this->getSession()->set('mautic.update.checked', time());
+                $this->getSession()->set('mailvotech.update.checked', time());
 
                 $updateData = $this->updateHelper->fetchData();
             } elseif (file_exists($cacheFile)) {
@@ -185,7 +185,7 @@ class NotificationModel extends FormModel
             // If the version key is set, we have an update
             if (isset($updateData['version'])) {
                 $announcement = $this->translator->trans(
-                    'mautic.core.updater.update.announcement_link',
+                    'mailvotech.core.updater.update.announcement_link',
                     ['%announcement%' => $updateData['announcement']]
                 );
 
@@ -194,11 +194,11 @@ class NotificationModel extends FormModel
                     ['%version%' => $updateData['version'], '%announcement%' => $announcement]
                 );
 
-                $alreadyNotified = $this->getSession()->get('mautic.update.notified');
+                $alreadyNotified = $this->getSession()->get('mailvotech.update.notified');
 
                 if (empty($alreadyNotified) || $alreadyNotified != $updateData['version']) {
                     $newUpdate = true;
-                    $this->getSession()->set('mautic.update.notified', $updateData['version']);
+                    $this->getSession()->set('mailvotech.update.notified', $updateData['version']);
                 }
             }
         }

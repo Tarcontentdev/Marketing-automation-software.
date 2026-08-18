@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\DependencyInjection\Compiler;
+namespace MailVotech\CoreBundle\DependencyInjection\Compiler;
 
-use Mautic\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Factory\ModelFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class ModelPass implements CompilerPassInterface
 {
-    public const TAG = 'mautic.model';
+    public const TAG = 'mailvotech.model';
 
     public function process(ContainerBuilder $container): void
     {

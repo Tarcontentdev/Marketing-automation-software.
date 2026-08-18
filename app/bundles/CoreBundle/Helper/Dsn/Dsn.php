@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper\Dsn;
+namespace MailVotech\CoreBundle\Helper\Dsn;
 
 final class Dsn implements \Stringable
 {

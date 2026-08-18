@@ -1,18 +1,18 @@
 <?php
 
-namespace Mautic\CampaignBundle\Form\Type;
+namespace MailVotech\CampaignBundle\Form\Type;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CategoryBundle\Form\Type\CategoryListType;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\PublishDownDateType;
-use Mautic\CoreBundle\Form\Type\PublishUpDateType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\ProjectBundle\Form\Type\ProjectType;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CategoryBundle\Form\Type\CategoryListType;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\PublishDownDateType;
+use MailVotech\CoreBundle\Form\Type\PublishUpDateType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\ProjectBundle\Form\Type\ProjectType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -39,13 +39,13 @@ final class CampaignType extends AbstractType
         $builder->addEventSubscriber(new FormExitSubscriber('campaign', $options));
 
         $builder->add('name', TextType::class, [
-            'label'      => 'mautic.core.name',
+            'label'      => 'mailvotech.core.name',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => ['class' => 'form-control'],
         ]);
 
         $builder->add('description', TextareaType::class, [
-            'label'      => 'mautic.core.description',
+            'label'      => 'mailvotech.core.description',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => ['class' => 'form-control editor'],
             'required'   => false,
@@ -54,9 +54,9 @@ final class CampaignType extends AbstractType
         $builder->add('allowRestart',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.campaign.allow_restart',
+                'label' => 'mailvotech.campaign.allow_restart',
                 'attr'  => [
-                    'tooltip' => 'mautic.campaign.allow_restart.tooltip',
+                    'tooltip' => 'mailvotech.campaign.allow_restart.tooltip',
                 ],
             ]
         );
@@ -73,15 +73,15 @@ final class CampaignType extends AbstractType
             $readonly          = !$this->security->isGranted('campaign:campaigns:publish');
             $data              = $campaign->isPublished(false);
             $republishBehavior = $campaign->getRepublishBehavior() ?? $this->coreParametersHelper->get('campaign_republish_behavior');
-            $republishBehavior = $this->translator->trans('mautic.campaignconfig.campaign_republish_behavior.'.$republishBehavior);
+            $republishBehavior = $this->translator->trans('mailvotech.campaignconfig.campaign_republish_behavior.'.$republishBehavior);
             $attr              = [
-                'onchange'               => 'Mautic.showCampaignConfirmation(mQuery(this));',
+                'onchange'               => 'MailVotech.showCampaignConfirmation(mQuery(this));',
                 'data-toggle'            => 'confirmation',
-                'data-message-publish'   => $this->translator->trans('mautic.campaign.form.confirmation.message.publish', ['%republishBehavior%' => $republishBehavior]),
-                'data-message-unpublish' => $this->translator->trans('mautic.campaign.form.confirmation.message'),
-                'data-confirm-text'      => $this->translator->trans('mautic.campaign.form.confirmation.confirm_text'),
+                'data-message-publish'   => $this->translator->trans('mailvotech.campaign.form.confirmation.message.publish', ['%republishBehavior%' => $republishBehavior]),
+                'data-message-unpublish' => $this->translator->trans('mailvotech.campaign.form.confirmation.message'),
+                'data-confirm-text'      => $this->translator->trans('mailvotech.campaign.form.confirmation.confirm_text'),
                 'data-confirm-callback'  => 'dismissConfirmation',
-                'data-cancel-text'       => $this->translator->trans('mautic.campaign.form.confirmation.cancel_text'),
+                'data-cancel-text'       => $this->translator->trans('mailvotech.campaign.form.confirmation.cancel_text'),
                 'data-cancel-callback'   => 'setPublishedButtonToYes',
                 'class'                  => 'btn btn-ghost',
             ];
@@ -125,11 +125,11 @@ final class CampaignType extends AbstractType
             'pre_extra_buttons' => [
                 [
                     'name'  => 'builder',
-                    'label' => 'mautic.campaign.campaign.launch.builder',
+                    'label' => 'mailvotech.campaign.campaign.launch.builder',
                     'attr'  => [
                         'class'   => 'btn btn-tertiary btn-dnd',
                         'icon'    => 'ri-organization-chart',
-                        'onclick' => 'Mautic.launchCampaignEditor();',
+                        'onclick' => 'MailVotech.launchCampaignEditor();',
                     ],
                 ],
             ],

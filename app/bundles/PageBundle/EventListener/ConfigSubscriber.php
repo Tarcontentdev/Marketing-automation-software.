@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\PageBundle\EventListener;
+namespace MailVotech\PageBundle\EventListener;
 
-use Mautic\ConfigBundle\ConfigEvents;
-use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use Mautic\ConfigBundle\Event\ConfigEvent;
-use Mautic\PageBundle\Form\Type\ConfigTrackingPageType;
-use Mautic\PageBundle\Form\Type\ConfigType;
+use MailVotech\ConfigBundle\ConfigEvents;
+use MailVotech\ConfigBundle\Event\ConfigBuilderEvent;
+use MailVotech\ConfigBundle\Event\ConfigEvent;
+use MailVotech\PageBundle\Form\Type\ConfigTrackingPageType;
+use MailVotech\PageBundle\Form\Type\ConfigType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ConfigSubscriber implements EventSubscriberInterface
@@ -28,9 +28,9 @@ final class ConfigSubscriber implements EventSubscriberInterface
             'bundle'     => 'PageBundle',
             'formAlias'  => 'pageconfig',
             'formType'   => ConfigType::class,
-            'formTheme'  => '@MauticPage/FormTheme/Config/_config_pageconfig_widget.html.twig',
+            'formTheme'  => '@MailVotechPage/FormTheme/Config/_config_pageconfig_widget.html.twig',
             // parameters must be defined directly in case there are 2 config forms per bundle.
-            // $event->getParametersFromConfig('MauticPageBundle') would return all params for PageBundle
+            // $event->getParametersFromConfig('MailVotechPageBundle') would return all params for PageBundle
             // and trackingconfig form would overwrote values in the pageconfig form. See #5559.
             'parameters' => [
                 'cat_in_page_url'  => false,
@@ -45,7 +45,7 @@ final class ConfigSubscriber implements EventSubscriberInterface
             'bundle'     => 'PageBundle',
             'formAlias'  => 'trackingconfig',
             'formType'   => ConfigTrackingPageType::class,
-            'formTheme'  => '@MauticPage/FormTheme/Config/_config_trackingconfig_widget.html.twig',
+            'formTheme'  => '@MailVotechPage/FormTheme/Config/_config_trackingconfig_widget.html.twig',
             // parameters defined this way because of the reason as above.
             'parameters' => [
                 'anonymize_ip'                          => false,

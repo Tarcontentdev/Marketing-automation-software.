@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Event\Service;
+namespace MailVotech\FormBundle\Event\Service;
 
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Event\SubmissionEvent;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Event\SubmissionEvent;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -36,7 +36,7 @@ final class FieldValueTransformer
         foreach ($fields as $field) {
             if ('file' === $field->getType()) {
                 $newValue = $this->router->generate(
-                    'mautic_form_file_download',
+                    'mailvotech_form_file_download',
                     [
                         'submissionId' => $submissionEvent->getSubmission()->getId(),
                         'field'        => $field->getAlias(),

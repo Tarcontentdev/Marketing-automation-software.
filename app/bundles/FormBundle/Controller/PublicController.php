@@ -1,25 +1,25 @@
 <?php
 
-namespace Mautic\FormBundle\Controller;
+namespace MailVotech\FormBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController as CommonFormController;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\CoreBundle\Twig\Helper\AnalyticsHelper;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
-use Mautic\FormBundle\Entity\FieldRepository;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Event\SubmissionEvent;
-use Mautic\FormBundle\Model\FieldModel;
-use Mautic\FormBundle\Model\FormModel;
-use Mautic\FormBundle\Model\SubmissionModel;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Helper\TokenHelper;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\PageBundle\Helper\TokenHelper as PageTokenHelper;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\CoreBundle\Controller\FormController as CommonFormController;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\Twig\Helper\AnalyticsHelper;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\FormBundle\Entity\FieldRepository;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Event\SubmissionEvent;
+use MailVotech\FormBundle\Model\FieldModel;
+use MailVotech\FormBundle\Model\FormModel;
+use MailVotech\FormBundle\Model\SubmissionModel;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Helper\TokenHelper;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\PageBundle\Helper\TokenHelper as PageTokenHelper;
+use MailVotech\UserBundle\Entity\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,7 +85,7 @@ final class PublicController extends CommonFormController
     private function createSubmitContext(Request $request): array
     {
         $server = $request->server->all();
-        $post   = $request->request->all()['mauticform'] ?? [];
+        $post   = $request->request->all()['mailvotechform'] ?? [];
         $post   = is_array($post) ? $post : [];
         $return = $post['return'] ?? false;
         $query  = '?';
@@ -96,8 +96,8 @@ final class PublicController extends CommonFormController
         }
 
         if (!empty($return)) {
-            // remove mauticError and mauticMessage from the referer so it doesn't get sent back
-            $return = InputHelper::url((string) $return, false, null, null, ['mauticError', 'mauticMessage'], true);
+            // remove mailvotechError and mailvotechMessage from the referer so it doesn't get sent back
+            $return = InputHelper::url((string) $return, false, null, null, ['mailvotechError', 'mailvotechMessage'], true);
             $query  = (!str_contains($return, '?')) ? '?' : '&';
         }
 
@@ -136,12 +136,12 @@ final class PublicController extends CommonFormController
         \assert(is_array($post));
 
         if (!isset($post['formId'])) {
-            $result['error'] = $this->translator->trans('mautic.form.submit.error.unavailable', [], 'flashes');
+            $result['error'] = $this->translator->trans('mailvotech.form.submit.error.unavailable', [], 'flashes');
         } else {
             $form      = $this->formModel->getEntity($post['formId']);
 
             if (null === $form) {
-                $result['error'] = $this->translator->trans('mautic.form.submit.error.unavailable', [], 'flashes');
+                $result['error'] = $this->translator->trans('mailvotech.form.submit.error.unavailable', [], 'flashes');
             } else {
                 $result['form']               = $form;
                 $result['postAction']         = $form->getPostAction();
@@ -168,7 +168,7 @@ final class PublicController extends CommonFormController
             $publishUp = $form->getPublishUp();
 
             return $this->translator->trans(
-                'mautic.form.submit.error.pending',
+                'mailvotech.form.submit.error.pending',
                 ['%date%' => $dateTemplateHelper->toFull($publishUp instanceof \DateTime ? $publishUp : $publishUp->format('Y-m-d H:i:s'))],
                 'flashes'
             );
@@ -178,14 +178,14 @@ final class PublicController extends CommonFormController
             $publishDown = $form->getPublishDown();
 
             return $this->translator->trans(
-                'mautic.form.submit.error.expired',
+                'mailvotech.form.submit.error.expired',
                 ['%date%' => $dateTemplateHelper->toFull($publishDown instanceof \DateTime ? $publishDown : $publishDown->format('Y-m-d H:i:s'))],
                 'flashes'
             );
         }
 
         return ('published' !== $status)
-            ? $this->translator->trans('mautic.form.submit.error.unavailable', [], 'flashes')
+            ? $this->translator->trans('mailvotech.form.submit.error.unavailable', [], 'flashes')
             : null;
     }
 
@@ -207,7 +207,7 @@ final class PublicController extends CommonFormController
             $this->notifySubmissionLimitReached($form, $notificationModel, $userRepository);
 
             return [
-                'error' => $form->getSubmissionLimitMessage() ?? $this->translator->trans('mautic.form.submission.limit_reached'),
+                'error' => $form->getSubmissionLimitMessage() ?? $this->translator->trans('mailvotech.form.submission.limit_reached'),
             ];
         }
 
@@ -234,7 +234,7 @@ final class PublicController extends CommonFormController
         }
 
         $notificationModel->addNotification(
-            $this->translator->trans('mautic.form.submission.limit_reached.notification', ['%form%' => $form->getName()]),
+            $this->translator->trans('mailvotech.form.submission.limit_reached.notification', ['%form%' => $form->getName()]),
             'warning',
             false,
             $form->getName(),
@@ -289,7 +289,7 @@ final class PublicController extends CommonFormController
         }
 
         return is_array($errors)
-            ? $this->translator->trans('mautic.form.submission.errors').'<br /><ol><li>'.implode('</li><li>', $errors).'</li></ol>'
+            ? $this->translator->trans('mailvotech.form.submission.errors').'<br /><ol><li>'.implode('</li><li>', $errors).'</li></ol>'
             : (string) $errors;
     }
 
@@ -359,7 +359,7 @@ final class PublicController extends CommonFormController
             return new JsonResponse($data);
         }
 
-        return $this->render('@MauticForm/messenger.html.twig', ['response' => json_encode($data)]);
+        return $this->render('@MailVotechForm/messenger.html.twig', ['response' => json_encode($data)]);
     }
 
     /**
@@ -441,19 +441,19 @@ final class PublicController extends CommonFormController
                 $msg     = $submissionResult['error'];
                 $msgType = 'error';
             } elseif ('return' === $submissionResult['postAction']) {
-                $msg = $this->translator->trans('mautic.form.submission.thankyou');
+                $msg = $this->translator->trans('mailvotech.form.submission.thankyou');
             }
 
             $session = $request->getSession();
             $session->set(
-                'mautic.emailbundle.message',
+                'mailvotech.emailbundle.message',
                 [
                     'message' => $msg,
                     'type'    => $msgType,
                 ]
             );
 
-            $response = $this->redirectToRoute('mautic_form_postmessage');
+            $response = $this->redirectToRoute('mailvotech_form_postmessage');
         }
 
         return $response;
@@ -472,13 +472,13 @@ final class PublicController extends CommonFormController
             $form = $submissionResult['form'];
             $hash = ($form instanceof Form) ? '#'.strtolower($form->getAlias()) : '';
 
-            $response = $this->redirect($context['return'].$context['query'].'mauticError='.rawurlencode((string) $error).$hash); // NOSONAR return URL is sanitized in createSubmitContext().
+            $response = $this->redirect($context['return'].$context['query'].'mailvotechError='.rawurlencode((string) $error).$hash); // NOSONAR return URL is sanitized in createSubmitContext().
         } elseif ('redirect' === $submissionResult['postAction']) {
             $response = $this->redirect((string) $submissionResult['postActionProperty']);
         } elseif ('return' === $submissionResult['postAction'] && !empty($context['return'])) {
             $return = (string) $context['return'];
             if (!empty($submissionResult['postActionProperty'])) {
-                $return .= $context['query'].'mauticMessage='.rawurlencode((string) $submissionResult['postActionProperty']);
+                $return .= $context['query'].'mailvotechMessage='.rawurlencode((string) $submissionResult['postActionProperty']);
             }
 
             $response = $this->redirect($return); // NOSONAR return URL is sanitized in createSubmitContext().
@@ -493,7 +493,7 @@ final class PublicController extends CommonFormController
     public function messageAction(Request $request, AnalyticsHelper $analyticsHelper, AssetsHelper $assetsHelper, ThemeHelper $themeHelper): Response
     {
         $session = $request->getSession();
-        $message = $session->get('mautic.emailbundle.message', []);
+        $message = $session->get('mailvotech.emailbundle.message', []);
 
         $msg     = (!empty($message['message'])) ? $message['message'] : '';
         $msgType = (!empty($message['type'])) ? $message['type'] : 'notice';
@@ -517,7 +517,7 @@ final class PublicController extends CommonFormController
      * Gives a preview of the form.
      *
      * @throws \Exception
-     * @throws \Mautic\CoreBundle\Exception\FileNotFoundException
+     * @throws \MailVotech\CoreBundle\Exception\FileNotFoundException
      */
     public function previewAction(Request $request, AnalyticsHelper $analyticsHelper, AssetsHelper $assetsHelper, ThemeHelper $themeHelper, int $id = 0): Response
     {
@@ -579,7 +579,7 @@ final class PublicController extends CommonFormController
             return new Response($themeHelper->renderThemeTemplate($logicalName, $viewParams));
         }
 
-        return $this->render('@MauticForm/form.html.twig', $viewParams);
+        return $this->render('@MailVotechForm/form.html.twig', $viewParams);
     }
 
     /**
@@ -588,7 +588,7 @@ final class PublicController extends CommonFormController
     public function generateAction(Request $request): Response
     {
         // Don't store a visitor with this request
-        defined('MAUTIC_NON_TRACKABLE_REQUEST') || define('MAUTIC_NON_TRACKABLE_REQUEST', 1);
+        defined('MAILVOTECH_NON_TRACKABLE_REQUEST') || define('MAILVOTECH_NON_TRACKABLE_REQUEST', 1);
 
         $formId = (int) $request->get('id');
         $form  = $this->formModel->getEntity($formId);
@@ -619,7 +619,7 @@ final class PublicController extends CommonFormController
             if ('published' === $status) {
                 if ($request->get('video')) {
                     return $this->render(
-                        '@MauticForm/Public/videoembed.html.twig',
+                        '@MailVotechForm/Public/videoembed.html.twig',
                         ['form' => $form, 'fieldSettings' => $this->formModel->getCustomComponents()['fields']]
                     );
                 }

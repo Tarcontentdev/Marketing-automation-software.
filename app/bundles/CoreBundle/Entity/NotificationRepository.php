@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Entity;
+namespace MailVotech\CoreBundle\Entity;
 
 use Doctrine\Common\Collections\Order;
 
@@ -26,7 +26,7 @@ class NotificationRepository extends CommonRepository
      */
     public function markAllReadForUser($userId): void
     {
-        $this->_em->getConnection()->update(MAUTIC_TABLE_PREFIX.'notifications', ['is_read' => 1], ['user_id' => (int) $userId]);
+        $this->_em->getConnection()->update(MAILVOTECH_TABLE_PREFIX.'notifications', ['is_read' => 1], ['user_id' => (int) $userId]);
     }
 
     /**
@@ -36,7 +36,7 @@ class NotificationRepository extends CommonRepository
     {
         if (!empty($id)) {
             $this->getEntityManager()->getConnection()->update(
-                MAUTIC_TABLE_PREFIX.'notifications',
+                MAILVOTECH_TABLE_PREFIX.'notifications',
                 [
                     'is_read' => 1,
                 ],
@@ -48,7 +48,7 @@ class NotificationRepository extends CommonRepository
         } else {
             // Only mark the first 30 read
             $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
-            $qb->update(MAUTIC_TABLE_PREFIX.'notifications')
+            $qb->update(MAILVOTECH_TABLE_PREFIX.'notifications')
                 ->set('is_read', 1)
                 ->where('user_id = '.(int) $userId.' AND is_read = 0')
                 ->orderBy('id');
@@ -132,7 +132,7 @@ class NotificationRepository extends CommonRepository
             ->createQueryBuilder();
 
         $qb->select('1')
-            ->from(MAUTIC_TABLE_PREFIX.'notifications')
+            ->from(MAILVOTECH_TABLE_PREFIX.'notifications')
             ->where('user_id = :userId')
             ->andWhere('deduplicate = :deduplicate')
             ->andWhere('date_added >= :from')

@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\SmsBundle\Controller;
+namespace MailVotech\SmsBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\CoreBundle\Controller\AjaxLookupControllerTrait;
-use Mautic\CoreBundle\Helper\CacheStorageHelper;
-use Mautic\CoreBundle\Helper\TokenSorter;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\SmsBundle\Broadcast\BroadcastQuery;
-use Mautic\SmsBundle\Event\TokensBuildEvent;
-use Mautic\SmsBundle\Model\SmsModel;
-use Mautic\SmsBundle\SmsEvents;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\CoreBundle\Controller\AjaxLookupControllerTrait;
+use MailVotech\CoreBundle\Helper\CacheStorageHelper;
+use MailVotech\CoreBundle\Helper\TokenSorter;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\SmsBundle\Broadcast\BroadcastQuery;
+use MailVotech\SmsBundle\Event\TokensBuildEvent;
+use MailVotech\SmsBundle\Model\SmsModel;
+use MailVotech\SmsBundle\SmsEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,7 +58,7 @@ final class AjaxController extends CommonAjaxController
                 $data[] = [
                     'id'          => $id,
                     'pending'     => $this->translator->trans(
-                        'mautic.sms.stat.leadcount',
+                        'mailvotech.sms.stat.leadcount',
                         ['%count%' => $pending]
                     ),
                 ];

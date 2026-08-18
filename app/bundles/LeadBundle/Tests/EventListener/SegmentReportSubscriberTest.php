@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\EventListener\SegmentReportSubscriber;
-use Mautic\LeadBundle\Report\FieldsBuilder;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\Helper\ReportHelper;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\EventListener\SegmentReportSubscriber;
+use MailVotech\LeadBundle\Report\FieldsBuilder;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\Helper\ReportHelper;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -81,7 +81,7 @@ final class SegmentReportSubscriberTest extends \PHPUnit\Framework\TestCase
 
         $expected = [
             'segment.membership' => [
-                'display_name' => 'mautic.lead.report.segment.membership',
+                'display_name' => 'mailvotech.lead.report.segment.membership',
                 'columns'      => [
                     'xx.yyy' => [
                         'label' => '',
@@ -178,7 +178,7 @@ final class SegmentReportSubscriberTest extends \PHPUnit\Framework\TestCase
 
         $queryBuilder->expects($this->once())
             ->method('from')
-            ->with(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'lll')
+            ->with(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'lll')
             ->willReturn($queryBuilder);
         $matcher = $this->exactly(2);
 
@@ -186,13 +186,13 @@ final class SegmentReportSubscriberTest extends \PHPUnit\Framework\TestCase
             ->method('leftJoin')->willReturnCallback(function (...$parameters) use ($matcher, $queryBuilder): \PHPUnit\Framework\MockObject\MockObject {
                 if (1 === $matcher->numberOfInvocations()) {
                     $this->assertSame('lll', $parameters[0]);
-                    $this->assertSame(MAUTIC_TABLE_PREFIX.'leads', $parameters[1]);
+                    $this->assertSame(MAILVOTECH_TABLE_PREFIX.'leads', $parameters[1]);
                     $this->assertSame('l', $parameters[2]);
                     $this->assertSame('l.id = lll.lead_id', $parameters[3]);
                 }
                 if (2 === $matcher->numberOfInvocations()) {
                     $this->assertSame('lll', $parameters[0]);
-                    $this->assertSame(MAUTIC_TABLE_PREFIX.'lead_lists', $parameters[1]);
+                    $this->assertSame(MAILVOTECH_TABLE_PREFIX.'lead_lists', $parameters[1]);
                     $this->assertSame('s', $parameters[2]);
                     $this->assertSame('s.id = lll.leadlist_id', $parameters[3]);
                 }

@@ -10,7 +10,7 @@ const normalizeHref = (href) => {
   if (!value) {
     return value;
   }
-  // schemes, protocol-relative, anchors/relative paths, Mautic tokens - leave as-is
+  // schemes, protocol-relative, anchors/relative paths, MailVotech tokens - leave as-is
   if (
     /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(value) ||
     value.startsWith('//') ||

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Integration;
+namespace MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Integration;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\ObjectDAO as RequestObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\RequestDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectDeletedException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Helper\MappingHelper;
-use Mautic\IntegrationsBundle\Sync\Helper\SyncDateHelper;
-use Mautic\IntegrationsBundle\Sync\Logger\DebugLogger;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Request\ObjectDAO as RequestObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Request\RequestDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectDeletedException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Helper\MappingHelper;
+use MailVotech\IntegrationsBundle\Sync\Helper\SyncDateHelper;
+use MailVotech\IntegrationsBundle\Sync\Logger\DebugLogger;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
 
 class IntegrationSyncProcess
 {
@@ -45,25 +45,25 @@ class IntegrationSyncProcess
      */
     public function getSyncReport(int $syncIteration): ReportDAO
     {
-        $integrationRequestDAO   = new RequestDAO(MauticSyncDataExchange::NAME, $syncIteration, $this->inputOptionsDAO);
+        $integrationRequestDAO   = new RequestDAO(MailVotechSyncDataExchange::NAME, $syncIteration, $this->inputOptionsDAO);
         $integrationObjectsNames = $this->mappingManualDAO->getIntegrationObjectNames();
-        $mauticObjectTypes       = $integrationRequestDAO->getInputOptionsDAO()->getMauticObjectIds() ?
-            $integrationRequestDAO->getInputOptionsDAO()->getMauticObjectIds()->getObjectTypes() : [];
-        $hasMauticObjectIDs = 0 < count($mauticObjectTypes);
+        $mailvotechObjectTypes       = $integrationRequestDAO->getInputOptionsDAO()->getMailVotechObjectIds() ?
+            $integrationRequestDAO->getInputOptionsDAO()->getMailVotechObjectIds()->getObjectTypes() : [];
+        $hasMailVotechObjectIDs = 0 < count($mailvotechObjectTypes);
 
         foreach ($integrationObjectsNames as $integrationObjectName) {
-            if ($hasMauticObjectIDs) {
+            if ($hasMailVotechObjectIDs) {
                 $mappedInternalObjectsNames = [];
                 try {
                     $mappedInternalObjectsNames = $this->mappingManualDAO->getMappedInternalObjectsNames($integrationObjectName);
                 } catch (ObjectNotFoundException) {
                 }
 
-                if (1 > count(array_intersect($mauticObjectTypes, $mappedInternalObjectsNames))) {
+                if (1 > count(array_intersect($mailvotechObjectTypes, $mappedInternalObjectsNames))) {
                     DebugLogger::log(
                         $this->mappingManualDAO->getIntegration(),
                         sprintf(
-                            'Integration to Mautic; skipping sync for the %s object because object IDs have been explicitly specified for other objects',
+                            'Integration to MailVotech; skipping sync for the %s object because object IDs have been explicitly specified for other objects',
                             $integrationObjectName
                         ),
                         self::class.':'.__FUNCTION__
@@ -72,13 +72,13 @@ class IntegrationSyncProcess
                 }
             }
 
-            $integrationObjectFields = $this->mappingManualDAO->getIntegrationObjectFieldsToSyncToMautic($integrationObjectName);
+            $integrationObjectFields = $this->mappingManualDAO->getIntegrationObjectFieldsToSyncToMailVotech($integrationObjectName);
             if (0 === count($integrationObjectFields)) {
                 // No fields configured for a sync
                 DebugLogger::log(
                     $this->mappingManualDAO->getIntegration(),
                     sprintf(
-                        'Integration to Mautic; there are no fields for the %s object',
+                        'Integration to MailVotech; there are no fields for the %s object',
                         $integrationObjectName
                     ),
                     self::class.':'.__FUNCTION__
@@ -92,7 +92,7 @@ class IntegrationSyncProcess
             DebugLogger::log(
                 $this->mappingManualDAO->getIntegration(),
                 sprintf(
-                    'Integration to Mautic; syncing from %s to %s for the %s object with %d fields',
+                    'Integration to MailVotech; syncing from %s to %s for the %s object with %d fields',
                     $objectSyncFromDateTime->format('Y-m-d H:i:s'),
                     $objectSyncToDateTime->format('Y-m-d H:i:s'),
                     $integrationObjectName,
@@ -139,7 +139,7 @@ class IntegrationSyncProcess
                 DebugLogger::log(
                     $this->mappingManualDAO->getIntegration(),
                     sprintf(
-                        'Mautic to integration; syncing %d objects for the %s object mapped to the %s integration object',
+                        'MailVotech to integration; syncing %d objects for the %s object mapped to the %s integration object',
                         count($internalObjects),
                         $internalObjectName,
                         $mappedIntegrationObjectName
@@ -170,7 +170,7 @@ class IntegrationSyncProcess
                         DebugLogger::log(
                             $this->mappingManualDAO->getIntegration(),
                             sprintf(
-                                "Mautic to integration; Mautic's %s:%s object was deleted from the integration so don't try to sync",
+                                "MailVotech to integration; MailVotech's %s:%s object was deleted from the integration so don't try to sync",
                                 $internalObject->getObject(),
                                 $internalObject->getObjectId()
                             ),

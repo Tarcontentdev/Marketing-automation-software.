@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\PluginBundle\Helper;
+namespace MailVotech\PluginBundle\Helper;
 
-use Mautic\PluginBundle\Integration\UnifiedIntegrationInterface;
+use MailVotech\PluginBundle\Integration\UnifiedIntegrationInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

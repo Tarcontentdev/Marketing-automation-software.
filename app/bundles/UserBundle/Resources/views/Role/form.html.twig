@@ -1,13 +1,13 @@
-{% extends '@MauticCore/Default/content.html.twig' %}
-{% block mauticContent %}role{% endblock %}
-{% do assetAddScriptDeclaration('MauticVars.permissionList = ' ~ (permissionsConfig['list']|json_encode), 'bodyClose') %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
+{% block mailvotechContent %}role{% endblock %}
+{% do assetAddScriptDeclaration('MailVotechVars.permissionList = ' ~ (permissionsConfig['list']|json_encode), 'bodyClose') %}
 
 {% set objectId = form.vars.data.getId() %}
 {% if objectId is not empty %}
     {% set name = form.vars.data.getName() %}
-    {% set header = 'mautic.user.role.header.edit'|trans({'%name%' : name}) %}
+    {% set header = 'mailvotech.user.role.header.edit'|trans({'%name%' : name}) %}
 {% else %}
-    {% set header = 'mautic.user.role.header.new'|trans %}
+    {% set header = 'mailvotech.user.role.header.new'|trans %}
 {% endif %}
 
 {% block headerTitle %}{{ header }}{% endblock %}
@@ -18,8 +18,8 @@
 	<div class="col-xs-12 height-auto">
 		<!-- tabs controls -->
 		<ul class="nav nav-tabs nav-tabs-contained">
-			<li class="active"><a href="#details-container" role="tab" data-toggle="tab">{% trans %}mautic.core.details{% endtrans %}</a></li>
-			<li class="" id="permissions-tab"><a href="#permissions-container" role="tab" data-toggle="tab">{% trans %}mautic.user.role.permissions{% endtrans %}</a></li>
+			<li class="active"><a href="#details-container" role="tab" data-toggle="tab">{% trans %}mailvotech.core.details{% endtrans %}</a></li>
+			<li class="" id="permissions-tab"><a href="#permissions-container" role="tab" data-toggle="tab">{% trans %}mailvotech.user.role.permissions{% endtrans %}</a></li>
 		</ul>
 		<!--/ tabs controls -->
 
@@ -93,8 +93,8 @@
 				</div>
 				<div id="isAdminMessage"{% if not hidePerms %} class="hide"{% endif %}>
 					<div class="alert alert-warning">
-						<h4>{% trans %}mautic.user.role.permission.isadmin.header{% endtrans %}</h4>
-						<p>{% trans %}mautic.user.role.permission.isadmin.message{% endtrans %}</p>
+						<h4>{% trans %}mailvotech.user.role.permission.isadmin.header{% endtrans %}</h4>
+						<p>{% trans %}mailvotech.user.role.permission.isadmin.message{% endtrans %}</p>
 					</div>
 				</div>
 			</div>

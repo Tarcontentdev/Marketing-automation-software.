@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\Functional;
+namespace MailVotech\SmsBundle\Tests\Functional;
 
-use Mautic\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Entity\Sms;
 
 trait CreateEntitiesTrait
 {

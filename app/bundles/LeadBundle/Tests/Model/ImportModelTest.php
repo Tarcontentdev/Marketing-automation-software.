@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Model;
+namespace MailVotech\LeadBundle\Tests\Model;
 
 use Doctrine\ORM\Exception\ORMException;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalService;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Test\ReflectionHelper;
-use Mautic\LeadBundle\Entity\Import;
-use Mautic\LeadBundle\Entity\ImportRepository;
-use Mautic\LeadBundle\Entity\LeadEventLogRepository;
-use Mautic\LeadBundle\Event\ImportProcessEvent;
-use Mautic\LeadBundle\Exception\ImportDelayedException;
-use Mautic\LeadBundle\Exception\ImportFailedException;
-use Mautic\LeadBundle\Helper\Progress;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\ImportModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tests\StandardImportTestHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalService;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Test\ReflectionHelper;
+use MailVotech\LeadBundle\Entity\Import;
+use MailVotech\LeadBundle\Entity\ImportRepository;
+use MailVotech\LeadBundle\Entity\LeadEventLogRepository;
+use MailVotech\LeadBundle\Event\ImportProcessEvent;
+use MailVotech\LeadBundle\Exception\ImportDelayedException;
+use MailVotech\LeadBundle\Exception\ImportFailedException;
+use MailVotech\LeadBundle\Helper\Progress;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\ImportModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tests\StandardImportTestHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -160,7 +160,7 @@ final class ImportModelTest extends StandardImportTestHelper
 
     public function testBeginImportWhenParallelLimitHit(): void
     {
-        $model = $this->getMockBuilder(\Mautic\LeadBundle\Tests\Fixtures\Model\ImportModel::class)
+        $model = $this->getMockBuilder(\MailVotech\LeadBundle\Tests\Fixtures\Model\ImportModel::class)
             ->onlyMethods(['checkParallelImportLimit', 'setGhostImportsAsFailed', 'saveEntity', 'getParallelImportLimit'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -196,7 +196,7 @@ final class ImportModelTest extends StandardImportTestHelper
 
     public function testBeginImportWhenDatabaseException(): void
     {
-        $model = $this->getMockBuilder(\Mautic\LeadBundle\Tests\Fixtures\Model\ImportModel::class)
+        $model = $this->getMockBuilder(\MailVotech\LeadBundle\Tests\Fixtures\Model\ImportModel::class)
             ->onlyMethods(['checkParallelImportLimit', 'setGhostImportsAsFailed', 'saveEntity', 'logDebug', 'process'])
             ->disableOriginalConstructor()
             ->getMock();

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Controller;
+namespace MailVotech\CoreBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-final class FileControllerTest extends MauticMysqlTestCase
+final class FileControllerTest extends MailVotechMysqlTestCase
 {
     private ?string $uploadedFilePath = null;
 
@@ -22,7 +22,7 @@ final class FileControllerTest extends MauticMysqlTestCase
         $this->arrayHasKey('url');
         $this->assertNotEmpty($responseData['url']);
         $uploadedFileName = basename($responseData['url']);
-        $uploadedImage    = self::getContainer()->getParameter('mautic.application_dir').'/media/images/'.$uploadedFileName;
+        $uploadedImage    = self::getContainer()->getParameter('mailvotech.application_dir').'/media/images/'.$uploadedFileName;
         $this->assertFileExists($uploadedImage);
     }
 

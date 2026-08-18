@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Form;
+namespace MailVotech\CoreBundle\Tests\Form;
 
-use Mautic\CoreBundle\Form\ToBcBccFieldsTrait;
-use Mautic\EmailBundle\Helper\EmailValidator;
-use Mautic\EmailBundle\Validator\MultipleEmailsValidValidator;
+use MailVotech\CoreBundle\Form\ToBcBccFieldsTrait;
+use MailVotech\EmailBundle\Helper\EmailValidator;
+use MailVotech\EmailBundle\Validator\MultipleEmailsValidValidator;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;

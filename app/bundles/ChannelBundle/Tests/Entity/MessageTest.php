@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Tests\Entity;
+namespace MailVotech\ChannelBundle\Tests\Entity;
 
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\ChannelBundle\Entity\Message;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\ChannelBundle\Entity\Message;
 use PHPUnit\Framework\TestCase;
 
 final class MessageTest extends TestCase

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Model;
+namespace MailVotech\ReportBundle\Tests\Model;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
-use Mautic\CoreBundle\Twig\Helper\FormatterHelper;
-use Mautic\ReportBundle\Crate\ReportDataResult;
-use Mautic\ReportBundle\Model\CsvExporter;
-use Mautic\ReportBundle\Tests\Fixtures;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\CoreBundle\Twig\Helper\FormatterHelper;
+use MailVotech\ReportBundle\Crate\ReportDataResult;
+use MailVotech\ReportBundle\Model\CsvExporter;
+use MailVotech\ReportBundle\Tests\Fixtures;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -42,7 +42,7 @@ final class CsvExporterTest extends \PHPUnit\Framework\TestCase
         $this->translator = $this->createMock(TranslatorInterface::class);
         $this->translator
             ->method('trans')
-            ->with('mautic.report.report.groupby.totals')
+            ->with('mailvotech.report.report.groupby.totals')
             ->willReturn('Totals');
         $coreParametersHelperMock  = $this->createMock(CoreParametersHelper::class);
 
@@ -58,7 +58,7 @@ final class CsvExporterTest extends \PHPUnit\Framework\TestCase
         $this->formatterHelperMock = new FormatterHelper($dateHelperMock, $this->translator);
 
         $this->csvExporter = new CsvExporter($this->formatterHelperMock, $coreParametersHelperMock, $this->translator);
-        $this->tmpFile     = tempnam(sys_get_temp_dir(), 'mautic_csv_export_test_');
+        $this->tmpFile     = tempnam(sys_get_temp_dir(), 'mailvotech_csv_export_test_');
         $this->file        = fopen($this->tmpFile, 'w');
 
         parent::setUp();
@@ -198,7 +198,7 @@ final class CsvExporterTest extends \PHPUnit\Framework\TestCase
 
         $expectedHeaders                                  = ['ID', 'Name', 'SUM Read', 'AVG Read', 'COUNT Contact ID'];
         $expectedTotals                                   = $reportDataResult->getTotalsToExport($this->formatterHelperMock);
-        $expectedTotals[array_key_first($expectedTotals)] = $this->translator->trans('mautic.report.report.groupby.totals');
+        $expectedTotals[array_key_first($expectedTotals)] = $this->translator->trans('mailvotech.report.report.groupby.totals');
         $expectedData                                     = $reportDataResult->getData();
 
         $this->assertCount(4, $result);

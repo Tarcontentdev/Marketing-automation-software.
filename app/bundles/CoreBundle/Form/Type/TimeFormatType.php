@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -23,12 +23,12 @@ final class TimeFormatType extends AbstractType
     {
         $resolver->setDefaults([
             'choices' => [
-                '24-'.$this->translator->trans('mautic.core.time.hour') => '24',
-                '12-'.$this->translator->trans('mautic.core.time.hour') => '12',
+                '24-'.$this->translator->trans('mailvotech.core.time.hour') => '24',
+                '12-'.$this->translator->trans('mailvotech.core.time.hour') => '12',
             ],
             'expanded'    => false,
             'multiple'    => false,
-            'label'       => 'mautic.core.type.time_format',
+            'label'       => 'mailvotech.core.type.time_format',
             'label_attr'  => ['class' => ''],
             'empty_value' => false,
             'required'    => false,

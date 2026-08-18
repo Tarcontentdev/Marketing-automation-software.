@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller;
+namespace MailVotech\LeadBundle\Tests\Controller;
 
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\UserBundle\Entity\Permission;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\UserBundle\Entity\Permission;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
-final class ListControllerPermissionFunctionalTest extends MauticMysqlTestCase
+final class ListControllerPermissionFunctionalTest extends MailVotechMysqlTestCase
 {
     private const SEGMENTS_ROUTE = '/s/segments';
 
@@ -35,7 +35,7 @@ final class ListControllerPermissionFunctionalTest extends MauticMysqlTestCase
 
         $this->nonAdminUser = $this->createUser([
             'user-name'     => 'non-admin',
-            'email'         => 'non-admin@mautic-test.com',
+            'email'         => 'non-admin@mailvotech-test.com',
             'first-name'    => 'non-admin',
             'last-name'     => 'non-admin',
             'role'          => [
@@ -48,7 +48,7 @@ final class ListControllerPermissionFunctionalTest extends MauticMysqlTestCase
         $this->userOne = $this->createUser(
             [
                 'user-name'     => 'user-one',
-                'email'         => 'user-one@mautic-test.com',
+                'email'         => 'user-one@mailvotech-test.com',
                 'first-name'    => 'user-one',
                 'last-name'     => 'user-one',
                 'role'          => [
@@ -61,7 +61,7 @@ final class ListControllerPermissionFunctionalTest extends MauticMysqlTestCase
 
         $this->userTwo = $this->createUser([
             'user-name'     => 'user-two',
-            'email'         => 'user-two@mautic-test.com',
+            'email'         => 'user-two@mailvotech-test.com',
             'first-name'    => 'user-two',
             'last-name'     => 'user-two',
             'role'          => [
@@ -179,7 +179,7 @@ final class ListControllerPermissionFunctionalTest extends MauticMysqlTestCase
         $user = $this->createUser(
             [
                 'user-name'     => $name,
-                'email'         => $name.'@mautic-test.com',
+                'email'         => $name.'@mailvotech-test.com',
                 'first-name'    => $name,
                 'last-name'     => $name,
                 'role'          => [
@@ -212,7 +212,7 @@ final class ListControllerPermissionFunctionalTest extends MauticMysqlTestCase
         $user = $this->createUser(
             [
                 'user-name'     => 'user-3',
-                'email'         => 'user-3@mautic-test.com',
+                'email'         => 'user-3@mailvotech-test.com',
                 'first-name'    => 'user-3',
                 'last-name'     => 'user-3',
                 'role'          => [
@@ -295,7 +295,7 @@ final class ListControllerPermissionFunctionalTest extends MauticMysqlTestCase
     {
         $user = $this->createUser([
             'user-name'     => 'user-edit',
-            'email'         => 'user-edit@mautic-test.com',
+            'email'         => 'user-edit@mailvotech-test.com',
             'first-name'    => 'user-edit',
             'last-name'     => 'user-edit',
             'role'          => [
@@ -336,7 +336,7 @@ final class ListControllerPermissionFunctionalTest extends MauticMysqlTestCase
     {
         $user = $this->createUser([
             'user-name'     => 'user-delete-other',
-            'email'         => 'user-delete-other@mautic-test.com',
+            'email'         => 'user-delete-other@mailvotech-test.com',
             'first-name'    => 'user-delete-other',
             'last-name'     => 'user-delete-other',
             'role'          => [
@@ -398,7 +398,7 @@ final class ListControllerPermissionFunctionalTest extends MauticMysqlTestCase
     {
         $user = $this->createUser([
             'user-name'     => 'user-delete-a',
-            'email'         => 'user-delete-a@mautic-test.com',
+            'email'         => 'user-delete-a@mailvotech-test.com',
             'first-name'    => 'user-delete-a',
             'last-name'     => 'user-delete-a',
             'role'          => [
@@ -425,7 +425,7 @@ final class ListControllerPermissionFunctionalTest extends MauticMysqlTestCase
     {
         $user = $this->createUser([
             'user-name'     => 'user-delete-a',
-            'email'         => 'user-delete-a@mautic-test.com',
+            'email'         => 'user-delete-a@mailvotech-test.com',
             'first-name'    => 'user-delete-a',
             'last-name'     => 'user-delete-a',
             'role'          => [
@@ -452,7 +452,7 @@ final class ListControllerPermissionFunctionalTest extends MauticMysqlTestCase
     {
         $user = $this->createUser([
             'user-name'     => 'user-delete-a',
-            'email'         => 'user-delete-a@mautic-test.com',
+            'email'         => 'user-delete-a@mailvotech-test.com',
             'first-name'    => 'user-delete-a',
             'last-name'     => 'user-delete-a',
             'role'          => [
@@ -482,7 +482,7 @@ final class ListControllerPermissionFunctionalTest extends MauticMysqlTestCase
     {
         $user = $this->createUser([
             'user-name'     => 'user-delete-a',
-            'email'         => 'user-delete-a@mautic-test.com',
+            'email'         => 'user-delete-a@mailvotech-test.com',
             'first-name'    => 'user-delete-a',
             'last-name'     => 'user-delete-a',
             'role'          => [
@@ -515,7 +515,7 @@ final class ListControllerPermissionFunctionalTest extends MauticMysqlTestCase
     {
         $user = $this->createUser([
             'user-name'     => 'user-delete-a',
-            'email'         => 'user-delete-a@mautic-test.com',
+            'email'         => 'user-delete-a@mailvotech-test.com',
             'first-name'    => 'user-delete-a',
             'last-name'     => 'user-delete-a',
             'role'          => [
@@ -560,7 +560,7 @@ final class ListControllerPermissionFunctionalTest extends MauticMysqlTestCase
     {
         $user = $this->createUser([
             'user-name'     => 'user-view-own',
-            'email'         => 'user-view-own@mautic-test.com',
+            'email'         => 'user-view-own@mailvotech-test.com',
             'first-name'    => 'user-view-own',
             'last-name'     => 'user-view-own',
             'role'          => [

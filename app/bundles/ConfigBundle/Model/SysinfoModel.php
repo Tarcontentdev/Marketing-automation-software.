@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\ConfigBundle\Model;
+namespace MailVotech\ConfigBundle\Model;
 
 use Doctrine\DBAL\Connection;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Loader\ParameterLoader;
-use Mautic\InstallBundle\Configurator\Step\CheckStep;
-use Mautic\InstallBundle\Install\InstallService;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Loader\ParameterLoader;
+use MailVotech\InstallBundle\Configurator\Step\CheckStep;
+use MailVotech\InstallBundle\Install\InstallService;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class SysinfoModel
@@ -62,9 +62,9 @@ final class SysinfoModel
             // ensure TZ is set back to default
             date_default_timezone_set($currentTz);
         } elseif (function_exists('phpversion')) {
-            $this->phpInfo = $this->translator->trans('mautic.sysinfo.phpinfo.phpversion', ['%phpversion%' => PHP_VERSION]);
+            $this->phpInfo = $this->translator->trans('mailvotech.sysinfo.phpinfo.phpversion', ['%phpversion%' => PHP_VERSION]);
         } else {
-            $this->phpInfo = $this->translator->trans('mautic.sysinfo.phpinfo.missing');
+            $this->phpInfo = $this->translator->trans('mailvotech.sysinfo.phpinfo.missing');
         }
 
         return $this->phpInfo;
@@ -122,7 +122,7 @@ final class SysinfoModel
      */
     public function getLogTail($lines = 10): ?string
     {
-        $log = $this->coreParametersHelper->get('log_path').'/mautic_'.MAUTIC_ENV.'-'.date('Y-m-d').'.php';
+        $log = $this->coreParametersHelper->get('log_path').'/mailvotech_'.MAILVOTECH_ENV.'-'.date('Y-m-d').'.php';
 
         if (!file_exists($log)) {
             return null;

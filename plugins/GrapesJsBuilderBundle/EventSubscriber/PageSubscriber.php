@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\EventSubscriber;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\EventSubscriber;
 
-use Mautic\PageBundle\Event\PageEvent;
-use Mautic\PageBundle\PageEvents;
-use MauticPlugin\GrapesJsBuilderBundle\Integration\Config;
-use MauticPlugin\GrapesJsBuilderBundle\Model\GrapesJsBuilderModel;
+use MailVotech\PageBundle\Event\PageEvent;
+use MailVotech\PageBundle\PageEvents;
+use MailVotechPlugin\GrapesJsBuilderBundle\Integration\Config;
+use MailVotechPlugin\GrapesJsBuilderBundle\Model\GrapesJsBuilderModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class PageSubscriber implements EventSubscriberInterface

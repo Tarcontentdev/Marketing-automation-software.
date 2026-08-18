@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Security\Authenticator;
+namespace MailVotech\UserBundle\Security\Authenticator;
 
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Event\AuthenticationEvent;
-use Mautic\UserBundle\Security\Authentication\AuthenticationHandler;
-use Mautic\UserBundle\Security\Authentication\Token\Permissions\TokenPermissions;
-use Mautic\UserBundle\Security\Authentication\Token\PluginToken;
-use Mautic\UserBundle\Security\Authenticator\Passport\Badge\PluginBadge;
-use Mautic\UserBundle\UserEvents;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Event\AuthenticationEvent;
+use MailVotech\UserBundle\Security\Authentication\AuthenticationHandler;
+use MailVotech\UserBundle\Security\Authentication\Token\Permissions\TokenPermissions;
+use MailVotech\UserBundle\Security\Authentication\Token\PluginToken;
+use MailVotech\UserBundle\Security\Authenticator\Passport\Badge\PluginBadge;
+use MailVotech\UserBundle\UserEvents;
 use OAuth2\OAuth2;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -66,7 +66,7 @@ final class PluginAuthenticator extends AbstractAuthenticator
         if ($this->dispatcher->hasListeners(UserEvents::USER_PRE_AUTHENTICATION)) {
             $integrations = $this->integrationHelper->getIntegrationObjects($authenticatingService, ['sso_service'], false, null, true);
 
-            $loginCheck = 'mautic_sso_login_check' === $request->attributes->get('_route');
+            $loginCheck = 'mailvotech_sso_login_check' === $request->attributes->get('_route');
             $authEvent  = new AuthenticationEvent(
                 null,
                 $token,
@@ -111,7 +111,7 @@ final class PluginAuthenticator extends AbstractAuthenticator
 
         // The check is intended to catch: Plugin authenticator must be authenticated and have $user. oAuth should have a response.
         if (!$user instanceof User && !$authenticated && null === $response) {
-            throw new AuthenticationException('mautic.user.auth.error.invalidlogin');
+            throw new AuthenticationException('mailvotech.user.auth.error.invalidlogin');
         }
 
         // Otherwise if the plugin authenticator has a response, then pass it to the Symfony.

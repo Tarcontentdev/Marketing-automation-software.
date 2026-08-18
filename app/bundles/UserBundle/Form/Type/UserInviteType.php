@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Form\Type;
+namespace MailVotech\UserBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
-use Mautic\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\Role;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -24,15 +24,15 @@ final class UserInviteType extends AbstractType
             'email',
             EmailType::class,
             [
-                'label'      => 'mautic.user.invite.email.label',
+                'label'      => 'mailvotech.user.invite.email.label',
                 'label_attr' => ['class' => 'sr-only'],
                 'attr'       => [
                     'class'       => 'form-control',
-                    'placeholder' => 'mautic.user.invite.email.label',
+                    'placeholder' => 'mailvotech.user.invite.email.label',
                 ],
                 'constraints' => [
-                    new NotBlank(message: 'mautic.user.invite.error.email_required'),
-                    new Email(message: 'mautic.user.invite.error.email_invalid'),
+                    new NotBlank(message: 'mailvotech.user.invite.error.email_required'),
+                    new Email(message: 'mailvotech.user.invite.error.email_invalid'),
                 ],
             ]
         );
@@ -41,19 +41,19 @@ final class UserInviteType extends AbstractType
             'role',
             EntityType::class,
             [
-                'label'      => 'mautic.user.invite.role.label',
+                'label'      => 'mailvotech.user.invite.role.label',
                 'label_attr' => ['class' => 'sr-only'],
                 'attr'       => [
                     'class' => 'form-control',
                 ],
-                'placeholder'   => 'mautic.user.invite.role.placeholder',
+                'placeholder'   => 'mailvotech.user.invite.role.placeholder',
                 'class'         => Role::class,
                 'choice_label'  => 'name',
                 'query_builder' => fn (EntityRepository $er) => $er->createQueryBuilder('r')
                     ->where('r.isPublished = true')
                     ->orderBy('r.name', 'ASC'),
                 'constraints' => [
-                    new NotBlank(message: 'mautic.user.invite.error.role_required'),
+                    new NotBlank(message: 'mailvotech.user.invite.error.role_required'),
                 ],
             ]
         );

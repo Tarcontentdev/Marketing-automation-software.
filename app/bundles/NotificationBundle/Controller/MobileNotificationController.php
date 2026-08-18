@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\NotificationBundle\Controller;
+namespace MailVotech\NotificationBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\CoreBundle\Form\Type\DateRangeType;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\LeadBundle\Controller\EntityContactsTrait;
-use Mautic\NotificationBundle\Entity\Notification;
-use Mautic\NotificationBundle\Model\NotificationModel;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\CoreBundle\Form\Type\DateRangeType;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\LeadBundle\Controller\EntityContactsTrait;
+use MailVotech\NotificationBundle\Entity\Notification;
+use MailVotech\NotificationBundle\Model\NotificationModel;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -60,14 +60,14 @@ final class MobileNotificationController extends FormController
         $session = $request->getSession();
 
         // set limits
-        $limit = $session->get('mautic.mobile_notification.limit', $this->coreParametersHelper->get('default_pagelimit'));
+        $limit = $session->get('mailvotech.mobile_notification.limit', $this->coreParametersHelper->get('default_pagelimit'));
         $start = (1 === $page) ? 0 : (($page - 1) * $limit);
         if ($start < 0) {
             $start = 0;
         }
 
-        $search = $request->get('search', $session->get('mautic.mobile_notification.filter', ''));
-        $session->set('mautic.mobile_notification.filter', $search);
+        $search = $request->get('search', $session->get('mailvotech.mobile_notification.filter', ''));
+        $session->set('mailvotech.mobile_notification.filter', $search);
 
         $filter = [
             'string' => $search,
@@ -89,8 +89,8 @@ final class MobileNotificationController extends FormController
                 ['column' => 'e.createdBy', 'expr' => 'eq', 'value' => $this->user->getId()];
         }
 
-        $orderBy    = $session->get('mautic.mobile_notification.orderby', 'e.name');
-        $orderByDir = $session->get('mautic.mobile_notification.orderbydir', 'DESC');
+        $orderBy    = $session->get('mailvotech.mobile_notification.orderby', 'e.name');
+        $orderByDir = $session->get('mailvotech.mobile_notification.orderbydir', 'DESC');
 
         $notifications = $this->notificationModel->getEntities(
             [
@@ -111,22 +111,22 @@ final class MobileNotificationController extends FormController
                 $lastPage = (floor($count / $limit)) ?: 1;
             }
 
-            $session->set('mautic.mobile_notification.page', $lastPage);
-            $returnUrl = $this->generateUrl('mautic_mobile_notification_index', ['page' => $lastPage]);
+            $session->set('mailvotech.mobile_notification.page', $lastPage);
+            $returnUrl = $this->generateUrl('mailvotech_mobile_notification_index', ['page' => $lastPage]);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $lastPage],
-                    'contentTemplate' => 'Mautic\NotificationBundle\Controller\MobileNotificationController::indexAction',
+                    'contentTemplate' => 'MailVotech\NotificationBundle\Controller\MobileNotificationController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_mobile_notification_index',
-                        'mauticContent' => 'mobile_notification',
+                        'activeLink'    => '#mailvotech_mobile_notification_index',
+                        'mailvotechContent' => 'mobile_notification',
                     ],
                 ]
             );
         }
-        $session->set('mautic.mobile_notification.page', $page);
+        $session->set('mailvotech.mobile_notification.page', $page);
 
         return $this->delegateView(
             [
@@ -141,11 +141,11 @@ final class MobileNotificationController extends FormController
                     'model'       => $this->notificationModel,
                     'security'    => $this->security,
                 ],
-                'contentTemplate' => '@MauticNotification/MobileNotification/list.html.twig',
+                'contentTemplate' => '@MailVotechNotification/MobileNotification/list.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_mobile_notification_index',
-                    'mauticContent' => 'mobile_notification',
-                    'route'         => $this->generateUrl('mautic_mobile_notification_index', ['page' => $page]),
+                    'activeLink'    => '#mailvotech_mobile_notification_index',
+                    'mailvotechContent' => 'mobile_notification',
+                    'route'         => $this->generateUrl('mailvotech_mobile_notification_index', ['page' => $page]),
                 ],
             ]
         );
@@ -161,25 +161,25 @@ final class MobileNotificationController extends FormController
         $notification = $this->notificationModel->getEntity($objectId);
 
         // set the page we came from
-        $page = $request->getSession()->get('mautic.mobile_notification.page', 1);
+        $page = $request->getSession()->get('mailvotech.mobile_notification.page', 1);
 
         if (null === $notification) {
             // set the return URL
-            $returnUrl = $this->generateUrl('mautic_mobile_notification_index', ['page' => $page]);
+            $returnUrl = $this->generateUrl('mailvotech_mobile_notification_index', ['page' => $page]);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $page],
-                    'contentTemplate' => 'Mautic\NotificationBundle\Controller\MobileNotificationController::indexAction',
+                    'contentTemplate' => 'MailVotech\NotificationBundle\Controller\MobileNotificationController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_mobile_notification_index',
-                        'mauticContent' => 'mobile_notification',
+                        'activeLink'    => '#mailvotech_mobile_notification_index',
+                        'mailvotechContent' => 'mobile_notification',
                     ],
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.notification.error.notfound',
+                            'msg'     => 'mailvotech.notification.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -198,7 +198,7 @@ final class MobileNotificationController extends FormController
 
         // Init the date range filter form
         $dateRangeValues = $request->query->all()['daterange'] ?? $request->request->all()['daterange'] ?? [];
-        $action          = $this->generateUrl('mautic_mobile_notification_action', ['objectAction' => 'view', 'objectId' => $objectId]);
+        $action          = $this->generateUrl('mailvotech_mobile_notification_action', ['objectAction' => 'view', 'objectId' => $objectId]);
         $dateRangeForm   = $this->formFactory->create(DateRangeType::class, $dateRangeValues, ['action' => $action]);
         $entityViews     = $this->notificationModel->getHitsLineChartData(
             null,
@@ -214,7 +214,7 @@ final class MobileNotificationController extends FormController
         [$translationParent, $translationChildren] = $notification->getTranslations();
 
         return $this->delegateView([
-            'returnUrl'      => $this->generateUrl('mautic_mobile_notification_action', ['objectAction' => 'view', 'objectId' => $notification->getId()]),
+            'returnUrl'      => $this->generateUrl('mailvotech_mobile_notification_action', ['objectAction' => 'view', 'objectId' => $notification->getId()]),
             'viewParameters' => [
                 'notification' => $notification,
                 'trackables'   => $trackableLinks,
@@ -233,10 +233,10 @@ final class MobileNotificationController extends FormController
                 'security'    => $security,
                 'entityViews' => $entityViews,
                 'contacts'    => $this->forward(
-                    'Mautic\NotificationBundle\Controller\MobileNotificationController::contactsAction',
+                    'MailVotech\NotificationBundle\Controller\MobileNotificationController::contactsAction',
                     [
                         'objectId'   => $notification->getId(),
-                        'page'       => $request->getSession()->get('mautic.mobile_notification.contact.page', 1),
+                        'page'       => $request->getSession()->get('mailvotech.mobile_notification.contact.page', 1),
                         'ignoreAjax' => true,
                     ]
                 )->getContent(),
@@ -246,10 +246,10 @@ final class MobileNotificationController extends FormController
                     'children' => $translationChildren,
                 ],
             ],
-            'contentTemplate' => '@MauticNotification/MobileNotification/details.html.twig',
+            'contentTemplate' => '@MailVotechNotification/MobileNotification/details.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_mobile_notification_index',
-                'mauticContent' => 'mobile_notification',
+                'activeLink'    => '#mailvotech_mobile_notification_index',
+                'mailvotechContent' => 'mobile_notification',
             ],
         ]);
     }
@@ -274,8 +274,8 @@ final class MobileNotificationController extends FormController
         }
 
         // set the page we came from
-        $page         = $session->get('mautic.mobile_notification.page', 1);
-        $action       = $this->generateUrl('mautic_mobile_notification_action', ['objectAction' => 'new']);
+        $page         = $session->get('mailvotech.mobile_notification.page', 1);
+        $action       = $this->generateUrl('mailvotech_mobile_notification_action', ['objectAction' => 'new']);
         $notification = $request->request->all()['notification'] ?? [];
         $updateSelect = 'POST' === $method
             ? ($notification['updateSelect'] ?? false)
@@ -297,12 +297,12 @@ final class MobileNotificationController extends FormController
                     $this->notificationModel->saveEntity($entity);
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.created',
+                        'mailvotech.core.notice.created',
                         [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_mobile_notification_index',
+                            '%menu_link%' => 'mailvotech_mobile_notification_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_mobile_notification_action',
+                                'mailvotech_mobile_notification_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $entity->getId(),
@@ -316,8 +316,8 @@ final class MobileNotificationController extends FormController
                             'objectAction' => 'view',
                             'objectId'     => $entity->getId(),
                         ];
-                        $returnUrl = $this->generateUrl('mautic_mobile_notification_action', $viewParameters);
-                        $template  = 'Mautic\NotificationBundle\Controller\MobileNotificationController::viewAction';
+                        $returnUrl = $this->generateUrl('mailvotech_mobile_notification_action', $viewParameters);
+                        $template  = 'MailVotech\NotificationBundle\Controller\MobileNotificationController::viewAction';
                     } else {
                         // return edit view so that all the session stuff is loaded
                         return $this->editAction($request, $integrationHelper, $entity->getId(), true);
@@ -325,15 +325,15 @@ final class MobileNotificationController extends FormController
                 }
             } else {
                 $viewParameters = ['page' => $page];
-                $returnUrl      = $this->generateUrl('mautic_mobile_notification_index', $viewParameters);
-                $template       = 'Mautic\NotificationBundle\Controller\MobileNotificationController::indexAction';
+                $returnUrl      = $this->generateUrl('mailvotech_mobile_notification_index', $viewParameters);
+                $template       = 'MailVotech\NotificationBundle\Controller\MobileNotificationController::indexAction';
                 // clear any modified content
-                $session->remove('mautic.mobile_notification.'.$entity->getId().'.content');
+                $session->remove('mailvotech.mobile_notification.'.$entity->getId().'.content');
             }
 
             $passthrough = [
-                'activeLink'    => 'mautic_mobile_notification_index',
-                'mauticContent' => 'mobile_notification',
+                'activeLink'    => 'mailvotech_mobile_notification_index',
+                'mailvotechContent' => 'mobile_notification',
             ];
 
             // Check to see if this is a popup
@@ -371,13 +371,13 @@ final class MobileNotificationController extends FormController
                     'notification' => $entity,
                     'integration'  => $integration,
                 ],
-                'contentTemplate' => '@MauticNotification/MobileNotification/form.html.twig',
+                'contentTemplate' => '@MailVotechNotification/MobileNotification/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_mobile_notification_index',
-                    'mauticContent' => 'mobile_notification',
+                    'activeLink'    => '#mailvotech_mobile_notification_index',
+                    'mailvotechContent' => 'mobile_notification',
                     'updateSelect'  => InputHelper::clean($request->query->get('updateSelect')),
                     'route'         => $this->generateUrl(
-                        'mautic_mobile_notification_action',
+                        'mailvotech_mobile_notification_action',
                         [
                             'objectAction' => 'new',
                         ]
@@ -396,18 +396,18 @@ final class MobileNotificationController extends FormController
         $method  = $request->getMethod();
         $entity  = $this->notificationModel->getEntity($objectId);
         $session = $request->getSession();
-        $page    = $session->get('mautic.mobile_notification.page', 1);
+        $page    = $session->get('mailvotech.mobile_notification.page', 1);
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_mobile_notification_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_mobile_notification_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\NotificationBundle\Controller\MobileNotificationController::indexAction',
+            'contentTemplate' => 'MailVotech\NotificationBundle\Controller\MobileNotificationController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_mobile_notification_index',
-                'mauticContent' => 'mobile_notification',
+                'activeLink'    => 'mailvotech_mobile_notification_index',
+                'mailvotechContent' => 'mobile_notification',
             ],
         ];
 
@@ -420,7 +420,7 @@ final class MobileNotificationController extends FormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.notification.error.notfound',
+                                'msg'     => 'mailvotech.notification.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -441,7 +441,7 @@ final class MobileNotificationController extends FormController
         }
 
         // Create the form
-        $action       = $this->generateUrl('mautic_mobile_notification_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action       = $this->generateUrl('mailvotech_mobile_notification_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $notification = $request->request->all()['notification'] ?? [];
         $updateSelect = 'POST' === $method
             ? ($notification['updateSelect'] ?? false)
@@ -458,12 +458,12 @@ final class MobileNotificationController extends FormController
                     $this->notificationModel->saveEntity($entity, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.updated',
+                        'mailvotech.core.notice.updated',
                         [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_mobile_notification_index',
+                            '%menu_link%' => 'mailvotech_mobile_notification_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_mobile_notification_action',
+                                'mailvotech_mobile_notification_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $entity->getId(),
@@ -475,15 +475,15 @@ final class MobileNotificationController extends FormController
                 }
             } else {
                 // clear any modified content
-                $session->remove('mautic.mobile_notification.'.$objectId.'.content');
+                $session->remove('mailvotech.mobile_notification.'.$objectId.'.content');
                 // unlock the entity
                 $this->notificationModel->unlockEntity($entity);
             }
 
-            $template    = 'Mautic\NotificationBundle\Controller\MobileNotificationController::viewAction';
+            $template    = 'MailVotech\NotificationBundle\Controller\MobileNotificationController::viewAction';
             $passthrough = [
-                'activeLink'    => 'mautic_mobile_notification_index',
-                'mauticContent' => 'mobile_notification',
+                'activeLink'    => 'mailvotech_mobile_notification_index',
+                'mailvotechContent' => 'mobile_notification',
             ];
 
             // Check to see if this is a popup
@@ -510,7 +510,7 @@ final class MobileNotificationController extends FormController
                     array_merge(
                         $postActionVars,
                         [
-                            'returnUrl'       => $this->generateUrl('mautic_mobile_notification_action', $viewParameters),
+                            'returnUrl'       => $this->generateUrl('mailvotech_mobile_notification_action', $viewParameters),
                             'viewParameters'  => $viewParameters,
                             'contentTemplate' => $template,
                             'passthroughVars' => $passthrough,
@@ -533,13 +533,13 @@ final class MobileNotificationController extends FormController
                     'forceTypeSelection' => $forceTypeSelection,
                     'integration'        => $integration,
                 ],
-                'contentTemplate' => '@MauticNotification/MobileNotification/form.html.twig',
+                'contentTemplate' => '@MailVotechNotification/MobileNotification/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_mobile_notification_index',
-                    'mauticContent' => 'mobile_notification',
+                    'activeLink'    => '#mailvotech_mobile_notification_index',
+                    'mailvotechContent' => 'mobile_notification',
                     'updateSelect'  => InputHelper::clean($request->query->get('updateSelect')),
                     'route'         => $this->generateUrl(
-                        'mautic_mobile_notification_action',
+                        'mailvotech_mobile_notification_action',
                         [
                             'objectAction' => 'edit',
                             'objectId'     => $entity->getId(),
@@ -579,17 +579,17 @@ final class MobileNotificationController extends FormController
      */
     public function deleteAction(Request $request, $objectId): Response
     {
-        $page      = $request->getSession()->get('mautic.mobile_notification.page', 1);
-        $returnUrl = $this->generateUrl('mautic_mobile_notification_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.mobile_notification.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_mobile_notification_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\NotificationBundle\Controller\MobileNotificationController::indexAction',
+            'contentTemplate' => 'MailVotech\NotificationBundle\Controller\MobileNotificationController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_mobile_notification_index',
-                'mauticContent' => 'mobile_notification',
+                'activeLink'    => 'mailvotech_mobile_notification_index',
+                'mailvotechContent' => 'mobile_notification',
             ],
         ];
 
@@ -599,7 +599,7 @@ final class MobileNotificationController extends FormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.notification.error.notfound',
+                    'msg'     => 'mailvotech.notification.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->hasEntityAccess(
@@ -617,7 +617,7 @@ final class MobileNotificationController extends FormController
 
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $entity->getName(),
                     '%id%'   => $objectId,
@@ -640,17 +640,17 @@ final class MobileNotificationController extends FormController
      */
     public function batchDeleteAction(Request $request): Response
     {
-        $page      = $request->getSession()->get('mautic.mobile_notification.page', 1);
-        $returnUrl = $this->generateUrl('mautic_mobile_notification_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.mobile_notification.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_mobile_notification_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\NotificationBundle\Controller\MobileNotificationController::indexAction',
+            'contentTemplate' => 'MailVotech\NotificationBundle\Controller\MobileNotificationController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_mobile_notification_index',
-                'mauticContent' => 'mobile_notification',
+                'activeLink'    => '#mailvotech_mobile_notification_index',
+                'mailvotechContent' => 'mobile_notification',
             ],
         ];
 
@@ -666,7 +666,7 @@ final class MobileNotificationController extends FormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.notification.error.notfound',
+                        'msg'     => 'mailvotech.notification.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->hasEntityAccess(
@@ -689,7 +689,7 @@ final class MobileNotificationController extends FormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.notification.notice.batch_deleted',
+                    'msg'     => 'mailvotech.notification.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],
@@ -716,7 +716,7 @@ final class MobileNotificationController extends FormController
                 'viewParameters' => [
                     'notification' => $notification,
                 ],
-                'contentTemplate' => '@MauticNotification/MobileNotification/preview.html.twig',
+                'contentTemplate' => '@MailVotechNotification/MobileNotification/preview.html.twig',
             ]
         );
     }

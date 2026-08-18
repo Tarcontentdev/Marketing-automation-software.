@@ -5,11 +5,11 @@
     - socialProfileUrls
 #}
 {% if socialProfiles is empty %}
-{{ include('@MauticCore/Helper/no_information.html.twig', {
-    'tip': 'mautic.lead.socialprofiles.header',
-    'link': 'mautic.lead.socialprofiles.noresults',
+{{ include('@MailVotechCore/Helper/no_information.html.twig', {
+    'tip': 'mailvotech.lead.socialprofiles.header',
+    'link': 'mailvotech.lead.socialprofiles.noresults',
     'href': 'javascript: void(0);',
-    'onclick': "Mautic.refreshLeadSocialProfile('', {{ lead.id }}, event);"
+    'onclick': "MailVotech.refreshLeadSocialProfile('', {{ lead.id }}, event);"
 }) }}
 {% else %}
   <div class="row">
@@ -18,14 +18,14 @@
       <div class="col-md-6">
           <div class="panel panel-default panel-{{ integrationName|lower }}">
               <div class="panel-heading pr-0">
-                  <h3 class="panel-title">{{ ('mautic.integration.'~integrationName)|trans }}</h3>
+                  <h3 class="panel-title">{{ ('mailvotech.integration.'~integrationName)|trans }}</h3>
                   <div class="panel-toolbar text-right">
-                      <a href="javascript:void(0);" class="btn" data-toggle="tooltip" onclick="Mautic.refreshLeadSocialProfile('{{ integrationName }}', '{{ lead.id }}', event);"
-                         title="{{ 'mautic.lead.lead.social.lastupdate'|trans({'%datetime%': dateToFullConcat(details.lastRefresh, 'utc')}) }}">
+                      <a href="javascript:void(0);" class="btn" data-toggle="tooltip" onclick="MailVotech.refreshLeadSocialProfile('{{ integrationName }}', '{{ lead.id }}', event);"
+                         title="{{ 'mailvotech.lead.lead.social.lastupdate'|trans({'%datetime%': dateToFullConcat(details.lastRefresh, 'utc')}) }}">
                           <i class="text-white ri-refresh-line"></i>
                       </a>
-                      <a href="javascript:void(0);" class="btn" onclick="Mautic.clearLeadSocialProfile('{{ integrationName }}', '{{ lead.id }}', event);" data-toggle="tooltip"
-                         title="{{ 'mautic.lead.lead.social.removecache'|trans }}">
+                      <a href="javascript:void(0);" class="btn" onclick="MailVotech.clearLeadSocialProfile('{{ integrationName }}', '{{ lead.id }}', event);" data-toggle="tooltip"
+                         title="{{ 'mailvotech.lead.lead.social.removecache'|trans }}">
                           <i class="text-white ri-close-line"></i>
                       </a>
                       {# trickery to allow tooltip and onclick for close button #}
@@ -45,7 +45,7 @@
       {% endfor %}
   </div>
 {% endif %}
-{{ include('@MauticCore/Helper/modal.html.twig', {
+{{ include('@MailVotechCore/Helper/modal.html.twig', {
     'id': 'socialImageModal',
     'body': '<img class="img-responsive img-thumbnail" />',
     'header': false,

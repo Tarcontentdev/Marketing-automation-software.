@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Entity\Result;
+namespace MailVotech\CampaignBundle\Entity\Result;
 
 final class CountResult
 {

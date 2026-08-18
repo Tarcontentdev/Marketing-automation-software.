@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Event;
+namespace MailVotech\CampaignBundle\Event;
 
-use Mautic\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Campaign;
 
 final class DeleteCampaign extends \Symfony\Contracts\EventDispatcher\Event
 {

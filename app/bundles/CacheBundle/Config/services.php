@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Mautic\CoreBundle\DependencyInjection\MauticCoreExtension;
+use MailVotech\CoreBundle\DependencyInjection\MailVotechCoreExtension;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
@@ -15,34 +15,34 @@ return function (ContainerConfigurator $configurator): void {
         ->autoconfigure()
         ->public();
 
-    $services->load('Mautic\\CacheBundle\\', '../')
-        ->exclude('../{'.implode(',', MauticCoreExtension::DEFAULT_EXCLUDES).'}');
-    $services->set('mautic.cache.adapter.filesystem', Mautic\CacheBundle\Cache\Adapter\FilesystemTagAwareAdapter::class)
-        ->arg('$prefix', param('mautic.cache_prefix'))
-        ->arg('$lifetime', param('mautic.cache_lifetime'))
-        ->arg('$directory', param('mautic.tmp_path'))
-        ->tag('mautic.cache.adapter');
-    $services->alias(Mautic\CacheBundle\Cache\Adapter\FilesystemTagAwareAdapter::class, 'mautic.cache.adapter.filesystem');
-    $services->set('mautic.cache.adapter.memcached', Mautic\CacheBundle\Cache\Adapter\MemcachedTagAwareAdapter::class)
-        ->arg('$servers', param('mautic.cache_adapter_memcached'))
-        ->arg('$namespace', param('mautic.cache_prefix'))
-        ->arg('$lifetime', param('mautic.cache_lifetime'))
-        ->tag('mautic.cache.adapter');
-    $services->alias(Mautic\CacheBundle\Cache\Adapter\MemcachedTagAwareAdapter::class, 'mautic.cache.adapter.memcached');
-    $services->set('mautic.cache.clear_cache_subscriber', Mautic\CacheBundle\EventListener\CacheClearSubscriber::class)
-        ->arg('$cacheProvider', service('mautic.cache.provider'))
-        ->arg('$logger', service('monolog.logger.mautic'))
+    $services->load('MailVotech\\CacheBundle\\', '../')
+        ->exclude('../{'.implode(',', MailVotechCoreExtension::DEFAULT_EXCLUDES).'}');
+    $services->set('mailvotech.cache.adapter.filesystem', MailVotech\CacheBundle\Cache\Adapter\FilesystemTagAwareAdapter::class)
+        ->arg('$prefix', param('mailvotech.cache_prefix'))
+        ->arg('$lifetime', param('mailvotech.cache_lifetime'))
+        ->arg('$directory', param('mailvotech.tmp_path'))
+        ->tag('mailvotech.cache.adapter');
+    $services->alias(MailVotech\CacheBundle\Cache\Adapter\FilesystemTagAwareAdapter::class, 'mailvotech.cache.adapter.filesystem');
+    $services->set('mailvotech.cache.adapter.memcached', MailVotech\CacheBundle\Cache\Adapter\MemcachedTagAwareAdapter::class)
+        ->arg('$servers', param('mailvotech.cache_adapter_memcached'))
+        ->arg('$namespace', param('mailvotech.cache_prefix'))
+        ->arg('$lifetime', param('mailvotech.cache_lifetime'))
+        ->tag('mailvotech.cache.adapter');
+    $services->alias(MailVotech\CacheBundle\Cache\Adapter\MemcachedTagAwareAdapter::class, 'mailvotech.cache.adapter.memcached');
+    $services->set('mailvotech.cache.clear_cache_subscriber', MailVotech\CacheBundle\EventListener\CacheClearSubscriber::class)
+        ->arg('$cacheProvider', service('mailvotech.cache.provider'))
+        ->arg('$logger', service('monolog.logger.mailvotech'))
         ->tag('kernel.cache_clearer');
-    $services->alias(Mautic\CacheBundle\EventListener\CacheClearSubscriber::class, 'mautic.cache.clear_cache_subscriber');
+    $services->alias(MailVotech\CacheBundle\EventListener\CacheClearSubscriber::class, 'mailvotech.cache.clear_cache_subscriber');
 
-    $services->alias(Mautic\CacheBundle\Cache\CacheProviderInterface::class, Mautic\CacheBundle\Cache\CacheProvider::class);
-    $services->alias('mautic.cache.provider', Mautic\CacheBundle\Cache\CacheProvider::class);
-    $services->alias('mautic.cache.provider_tag_aware', Mautic\CacheBundle\Cache\CacheProviderTagAware::class);
-    $services->alias('mautic.cache.adapter.redis', Mautic\CacheBundle\Cache\Adapter\RedisAdapter::class);
-    $services->alias('mautic.cache.adapter.redis_tag_aware', Mautic\CacheBundle\Cache\Adapter\RedisTagAwareAdapter::class);
+    $services->alias(MailVotech\CacheBundle\Cache\CacheProviderInterface::class, MailVotech\CacheBundle\Cache\CacheProvider::class);
+    $services->alias('mailvotech.cache.provider', MailVotech\CacheBundle\Cache\CacheProvider::class);
+    $services->alias('mailvotech.cache.provider_tag_aware', MailVotech\CacheBundle\Cache\CacheProviderTagAware::class);
+    $services->alias('mailvotech.cache.adapter.redis', MailVotech\CacheBundle\Cache\Adapter\RedisAdapter::class);
+    $services->alias('mailvotech.cache.adapter.redis_tag_aware', MailVotech\CacheBundle\Cache\Adapter\RedisTagAwareAdapter::class);
 
-    $services->get(Mautic\CacheBundle\Cache\Adapter\RedisAdapter::class)
-        ->tag('mautic.cache.adapter');
-    $services->get(Mautic\CacheBundle\Cache\Adapter\RedisTagAwareAdapter::class)
-        ->tag('mautic.cache.adapter');
+    $services->get(MailVotech\CacheBundle\Cache\Adapter\RedisAdapter::class)
+        ->tag('mailvotech.cache.adapter');
+    $services->get(MailVotech\CacheBundle\Cache\Adapter\RedisTagAwareAdapter::class)
+        ->tag('mailvotech.cache.adapter');
 };

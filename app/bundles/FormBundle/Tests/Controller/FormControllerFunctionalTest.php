@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Controller;
+namespace MailVotech\FormBundle\Tests\Controller;
 
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\ProjectBundle\Entity\Project;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\ProjectBundle\Entity\Project;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Filesystem\Filesystem;
@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class FormControllerFunctionalTest extends MauticMysqlTestCase
+final class FormControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -63,27 +63,27 @@ final class FormControllerFunctionalTest extends MauticMysqlTestCase
     }
 
     /**
-     * @see https://github.com/mautic/mautic/issues/10453
+     * @see https://github.com/mailvotech/mailvotech/issues/10453
      */
     public function testSaveActionForm(): void
     {
         $crawler = $this->client->request('GET', '/s/forms/new/');
         $this->assertResponseIsSuccessful();
 
-        $form = $crawler->filterXPath('//form[@name="mauticform"]')->form();
+        $form = $crawler->filterXPath('//form[@name="mailvotechform"]')->form();
         $form->setValues(
             [
-                'mauticform[name]'        => 'Test',
-                'mauticform[renderStyle]' => '0',
+                'mailvotechform[name]'        => 'Test',
+                'mailvotechform[renderStyle]' => '0',
             ]
         );
         $crawler = $this->client->submit($form);
         $this->assertResponseIsSuccessful();
 
-        $form = $crawler->filterXPath('//form[@name="mauticform"]')->form();
+        $form = $crawler->filterXPath('//form[@name="mailvotechform"]')->form();
         $form->setValues(
             [
-                'mauticform[renderStyle]' => '0',
+                'mailvotechform[renderStyle]' => '0',
             ]
         );
 
@@ -109,22 +109,22 @@ final class FormControllerFunctionalTest extends MauticMysqlTestCase
         $crawler = $this->client->request('GET', '/s/forms/new/');
         $this->assertResponseIsSuccessful();
 
-        $selectedValue = $crawler->filter('#mauticform_postAction option:selected')->attr('value');
+        $selectedValue = $crawler->filter('#mailvotechform_postAction option:selected')->attr('value');
 
         $this->assertSame('message', $selectedValue);
 
-        $form = $crawler->filterXPath('//form[@name="mauticform"]')->form();
+        $form = $crawler->filterXPath('//form[@name="mailvotechform"]')->form();
 
         $form->setValues(
             [
-                'mauticform[name]'       => 'Test',
-                'mauticform[postAction]' => 'hideform',
+                'mailvotechform[name]'       => 'Test',
+                'mailvotechform[postAction]' => 'hideform',
             ]
         );
 
         $crawler = $this->client->submit($form);
         $this->assertResponseIsSuccessful();
-        $divClass = $crawler->filter('#mauticform_postActionProperty')->ancestors()->first()->attr('class');
+        $divClass = $crawler->filter('#mailvotechform_postActionProperty')->ancestors()->first()->attr('class');
         $this->assertStringContainsString('has-error', (string) $divClass, $crawler->html());
     }
 
@@ -133,22 +133,22 @@ final class FormControllerFunctionalTest extends MauticMysqlTestCase
         $crawler = $this->client->request('GET', '/s/forms/new/');
         $this->assertResponseIsSuccessful();
 
-        $selectedValue = $crawler->filter('#mauticform_postAction option:selected')->attr('value');
+        $selectedValue = $crawler->filter('#mailvotechform_postAction option:selected')->attr('value');
 
         $this->assertSame('message', $selectedValue);
 
-        $form = $crawler->filterXPath('//form[@name="mauticform"]')->form();
+        $form = $crawler->filterXPath('//form[@name="mailvotechform"]')->form();
 
         $form->setValues(
             [
-                'mauticform[name]'               => 'Test',
-                'mauticform[postAction]'         => 'hideform',
-                'mauticform[postActionProperty]' => 'message',
+                'mailvotechform[name]'               => 'Test',
+                'mailvotechform[postAction]'         => 'hideform',
+                'mailvotechform[postActionProperty]' => 'message',
             ]
         );
         $crawler = $this->client->submit($form);
         $this->assertResponseIsSuccessful();
-        $divClass = $crawler->filter('#mauticform_postActionProperty')->ancestors()->first()->attr('class');
+        $divClass = $crawler->filter('#mailvotechform_postActionProperty')->ancestors()->first()->attr('class');
         $this->assertStringNotContainsString('has-error', (string) $divClass, $crawler->html());
     }
 
@@ -213,7 +213,7 @@ final class FormControllerFunctionalTest extends MauticMysqlTestCase
         $crawler = $this->client->request('GET', sprintf('/s/forms/edit/%d', $form->getId()));
         $this->assertResponseIsSuccessful();
 
-        $formElement = $crawler->filterXPath('//form[@name="mauticform"]')->form();
+        $formElement = $crawler->filterXPath('//form[@name="mailvotechform"]')->form();
         $this->client->submit($formElement);
         $response = $this->client->getResponse();
         $this->assertResponseIsSuccessful();
@@ -236,7 +236,7 @@ final class FormControllerFunctionalTest extends MauticMysqlTestCase
         $crawler = $this->client->request('GET', sprintf('/s/forms/edit/%d', $form->getId()));
         $this->assertResponseIsSuccessful();
 
-        $formElement = $crawler->filterXPath('//form[@name="mauticform"]')->form();
+        $formElement = $crawler->filterXPath('//form[@name="mailvotechform"]')->form();
         $this->client->submit($formElement);
         $this->assertResponseIsSuccessful();
 
@@ -345,7 +345,7 @@ final class FormControllerFunctionalTest extends MauticMysqlTestCase
 
         // Edit and submit the form to be able to push action into session
         $crawler     = $this->client->request('GET', sprintf('/s/forms/edit/%d', $form->getId()));
-        $formElement = $crawler->filterXPath('//form[@name="mauticform"]')->form();
+        $formElement = $crawler->filterXPath('//form[@name="mailvotechform"]')->form();
         $this->client->submit($formElement);
         $this->assertResponseIsSuccessful();
 
@@ -475,7 +475,7 @@ final class FormControllerFunctionalTest extends MauticMysqlTestCase
             // expected
             [
                 [
-                    'message'     => 'mautic.form.field.asset.use_category',
+                    'message'     => 'mailvotech.form.field.asset.use_category',
                     'message_arg' => [
                         '%category_name%' => $category->getTitle(),
                     ],
@@ -492,7 +492,7 @@ final class FormControllerFunctionalTest extends MauticMysqlTestCase
             // expected
             [
                 [
-                    'message'     => 'mautic.form.form.change_points_by',
+                    'message'     => 'mailvotech.form.form.change_points_by',
                     'message_arg' => ['%value%' => 10],
                 ],
             ],
@@ -511,7 +511,7 @@ final class FormControllerFunctionalTest extends MauticMysqlTestCase
             // expected
             [
                 [
-                    'message'     => 'mautic.form.field.points.operation',
+                    'message'     => 'mailvotech.form.field.points.operation',
                     'message_arg' => [
                         '%operator%' => '(+)',
                         '%points%'   => 10,
@@ -648,11 +648,11 @@ final class FormControllerFunctionalTest extends MauticMysqlTestCase
 
         // request for form clone
         $crawler        = $this->client->request(Request::METHOD_GET, "/s/forms/clone/{$form->getId()}");
-        $mauticform     = $crawler->filterXPath('//form[@name="mauticform"]')->form();
-        $mauticform['mauticform[name]']->setValue('Clone Conditional Form');
-        $mauticform['mauticform[isPublished]']->setValue('1');
+        $mailvotechform     = $crawler->filterXPath('//form[@name="mailvotechform"]')->form();
+        $mailvotechform['mailvotechform[name]']->setValue('Clone Conditional Form');
+        $mailvotechform['mailvotechform[isPublished]']->setValue('1');
 
-        $this->client->submit($mauticform);
+        $this->client->submit($mailvotechform);
 
         $this->assertResponseIsSuccessful();
 
@@ -684,7 +684,7 @@ final class FormControllerFunctionalTest extends MauticMysqlTestCase
 
         $crawler     = $this->client->request('GET', '/s/forms/edit/'.$form->getId());
         $formCrawler = $crawler->selectButton('Save')->form();
-        $formCrawler['mauticform[projects]']->setValue((string) $project->getId());
+        $formCrawler['mailvotechform[projects]']->setValue((string) $project->getId());
 
         $this->client->submit($formCrawler);
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Form\Type;
+namespace MailVotech\IntegrationsBundle\Form\Type;
 
-use Mautic\IntegrationsBundle\Exception\InvalidFormOptionException;
-use Mautic\IntegrationsBundle\Helper\FieldFilterHelper;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
+use MailVotech\IntegrationsBundle\Exception\InvalidFormOptionException;
+use MailVotech\IntegrationsBundle\Helper\FieldFilterHelper;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

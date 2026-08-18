@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\Functional\Controller;
+namespace MailVotech\PluginBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
 use Symfony\Component\HttpFoundation\Request;
 
-final class AjaxControllerTest extends MauticMysqlTestCase
+final class AjaxControllerTest extends MailVotechMysqlTestCase
 {
     public function testGetIntegrationFieldsAcceptsPostedPayloadAndStoresPageInSession(): void
     {
@@ -39,7 +39,7 @@ final class AjaxControllerTest extends MauticMysqlTestCase
             ->with('Salesforce')
             ->willReturn($integration);
 
-        self::getContainer()->set('mautic.helper.integration', $helper);
+        self::getContainer()->set('mailvotech.helper.integration', $helper);
         self::getContainer()->set(IntegrationHelper::class, $helper);
 
         $this->client->request(
@@ -61,6 +61,6 @@ final class AjaxControllerTest extends MauticMysqlTestCase
         $this->assertSame(1, $data['success']);
 
         $session = $this->client->getRequest()->getSession();
-        $this->assertSame('3', $session->get('mautic.plugin.Salesforce.lead.page'));
+        $this->assertSame('3', $session->get('mailvotech.plugin.Salesforce.lead.page'));
     }
 }

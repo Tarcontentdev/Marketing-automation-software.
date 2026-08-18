@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Auth\Support\Oauth2\Token;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Auth\Support\Oauth2\Token;
 
-use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenPersistenceFactory;
-use Mautic\IntegrationsBundle\Helper\IntegrationsHelper;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenPersistenceFactory;
+use MailVotech\IntegrationsBundle\Helper\IntegrationsHelper;
+use MailVotech\PluginBundle\Entity\Integration;
 use PHPUnit\Framework\TestCase;
 
 final class TokenPersistenceFactoryTest extends TestCase

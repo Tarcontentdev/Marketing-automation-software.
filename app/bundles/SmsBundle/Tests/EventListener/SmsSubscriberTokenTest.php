@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\EventListener;
+namespace MailVotech\SmsBundle\Tests\EventListener;
 
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Model\SmsModel;
-use Mautic\SmsBundle\Tests\SmsTestHelperTrait;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Model\SmsModel;
+use MailVotech\SmsBundle\Tests\SmsTestHelperTrait;
 
-final class SmsSubscriberTokenTest extends MauticMysqlTestCase
+final class SmsSubscriberTokenTest extends MailVotechMysqlTestCase
 {
     use SmsTestHelperTrait;
 
@@ -57,7 +57,7 @@ final class SmsSubscriberTokenTest extends MauticMysqlTestCase
 
         $sms = new Sms();
         $sms->setName('Test SMS');
-        $sms->setMessage("Hello {contactfield=firstname}, download {assetlink={$asset->getId()}} or visit {pagelink={$page->getId()}} or https://mautic.org");
+        $sms->setMessage("Hello {contactfield=firstname}, download {assetlink={$asset->getId()}} or visit {pagelink={$page->getId()}} or https://mailvotech.org");
 
         $smsModel->saveEntity($sms);
         $smsModel->sendSms($sms, $contactModel->getEntity($contact->getId()));

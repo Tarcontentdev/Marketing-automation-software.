@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Tests\Controller\Api;
+namespace MailVotech\ChannelBundle\Tests\Controller\Api;
 
-use Mautic\ChannelBundle\Entity\Channel;
-use Mautic\ChannelBundle\Entity\Message;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\ChannelBundle\Entity\Channel;
+use MailVotech\ChannelBundle\Entity\Message;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class MessageApiControllerTest extends MauticMysqlTestCase
+final class MessageApiControllerTest extends MailVotechMysqlTestCase
 {
     public function testCreateMessage(): void
     {

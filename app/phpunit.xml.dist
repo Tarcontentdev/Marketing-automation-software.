@@ -67,7 +67,7 @@
     <env name="MAXMIND_LICENSE_KEY" value=""/>
     <env name="KERNEL_CLASS" value="AppTestKernel"/>
     <const name="IS_PHPUNIT" value="true"/>
-    <const name="MAUTIC_ENV" value="test"/>
+    <const name="MAILVOTECH_ENV" value="test"/>
     <server name="KERNEL_DIR" value="app"/>
     <server name="APP_DEBUG" value="0"/>
     <server name="APP_ENV" value="test" force="true"/>
@@ -75,9 +75,9 @@
     <ini name="date.timezone" value="UTC"/>
   </php>
   <extensions>
-    <bootstrap class="\Mautic\CoreBundle\Test\Extensions\SeparateProcess\SeparateProcess" />
-    <bootstrap class="\Mautic\CoreBundle\Test\Extensions\DbPrefix\DbPrefix" />
-    <bootstrap class="\Mautic\CoreBundle\Test\Extensions\SlowTest\SlowTest" />
-<!--    <bootstrap class="\Mautic\CoreBundle\Test\Extensions\Cleanup\Cleanup" />-->
+    <bootstrap class="\MailVotech\CoreBundle\Test\Extensions\SeparateProcess\SeparateProcess" />
+    <bootstrap class="\MailVotech\CoreBundle\Test\Extensions\DbPrefix\DbPrefix" />
+    <bootstrap class="\MailVotech\CoreBundle\Test\Extensions\SlowTest\SlowTest" />
+<!--    <bootstrap class="\MailVotech\CoreBundle\Test\Extensions\Cleanup\Cleanup" />-->
   </extensions>
 </phpunit>

@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\NotificationBundle\Entity;
+namespace MailVotech\NotificationBundle\Entity;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<Notification>
@@ -68,8 +68,8 @@ final class NotificationRepository extends CommonRepository
         $returnParameter = false; // returning a parameter that is not used will lead to a Doctrine error
 
         switch ($command) {
-            case $this->translator->trans('mautic.core.searchcommand.lang'):
-            case $this->translator->trans('mautic.core.searchcommand.lang', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.lang'):
+            case $this->translator->trans('mailvotech.core.searchcommand.lang', [], null, 'en_US'):
                 $langUnique      = $this->generateRandomParameterName();
                 $langValue       = $filter->string.'_%';
                 $forceParameters = [
@@ -104,12 +104,12 @@ final class NotificationRepository extends CommonRepository
     public function getSearchCommands(): array
     {
         $commands = [
-            'mautic.core.searchcommand.ispublished',
-            'mautic.core.searchcommand.isunpublished',
-            'mautic.core.searchcommand.isuncategorized',
-            'mautic.core.searchcommand.ismine',
-            'mautic.core.searchcommand.category',
-            'mautic.core.searchcommand.lang',
+            'mailvotech.core.searchcommand.ispublished',
+            'mailvotech.core.searchcommand.isunpublished',
+            'mailvotech.core.searchcommand.isuncategorized',
+            'mailvotech.core.searchcommand.ismine',
+            'mailvotech.core.searchcommand.category',
+            'mailvotech.core.searchcommand.lang',
         ];
 
         return array_merge($commands, parent::getSearchCommands());
@@ -141,7 +141,7 @@ final class NotificationRepository extends CommonRepository
         try {
             $q = $this->_em->getConnection()->createQueryBuilder();
 
-            $q->update(MAUTIC_TABLE_PREFIX.'push_notifications')
+            $q->update(MAILVOTECH_TABLE_PREFIX.'push_notifications')
                 ->set($type.'_count', $type.'_count + '.(int) $increaseBy)
                 ->where('id = '.(int) $id);
 

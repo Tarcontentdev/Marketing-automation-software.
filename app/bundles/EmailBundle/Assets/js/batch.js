@@ -1,10 +1,10 @@
 //EmailBundle (Copied from app/bundles/LeadBundle/Assets/js/lead.js)
-Mautic.emailBatchSubmit = function() {
-    if (Mautic.batchActionPrecheck("")) {
+MailVotech.emailBatchSubmit = function() {
+    if (MailVotech.batchActionPrecheck("")) {
         if (mQuery('#email_batch_newCategory').val()) {
             const $emailBatchIds = mQuery('#email_batch_ids');
             if ($emailBatchIds.length) {
-                $emailBatchIds.val(Mautic.getCheckedListIds(false, true));
+                $emailBatchIds.val(MailVotech.getCheckedListIds(false, true));
             }
 
             return true;
@@ -26,8 +26,8 @@ function setCategory(id, newCategory) {
     div.prepend(span);
 }
 
-Mautic.emailBatchSubmitCallback = function( response ) {
-    mQuery('#MauticSharedModal').modal('hide');
+MailVotech.emailBatchSubmitCallback = function( response ) {
+    mQuery('#MailVotechSharedModal').modal('hide');
     console.log("Received: " + JSON.stringify(response));
     response.affected.forEach( function(id){
         setCategory(id, response.newCategory);

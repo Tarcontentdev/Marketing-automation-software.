@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Entity;
+namespace MailVotech\FormBundle\Tests\Entity;
 
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class FormTest extends \PHPUnit\Framework\TestCase

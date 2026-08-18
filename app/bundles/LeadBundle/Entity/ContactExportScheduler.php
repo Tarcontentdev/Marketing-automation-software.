@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata as ValidatorClassMetadata;
 
@@ -54,7 +54,7 @@ class ContactExportScheduler
         $metadata->addPropertyConstraint(
             'scheduledDate',
             new Assert\NotBlank(
-                message: 'mautic.lead.import.dir.notblank'
+                message: 'mailvotech.lead.import.dir.notblank'
             )
         );
     }

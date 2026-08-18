@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
+use MailVotech\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,13 +19,13 @@ final class ConfigThemeType extends AbstractType
             'brand_name',
             TextType::class,
             [
-                'label'      => 'mautic.core.config.form.brand_name',
+                'label'      => 'mailvotech.core.config.form.brand_name',
                 'label_attr' => [
                     'class' => 'control-label',
                 ],
                 'attr'  => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.brand_name.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.brand_name.tooltip',
                 ],
                 'required' => false,
                 'data'     => $options['data']['brand_name'] ?? '',
@@ -36,13 +36,13 @@ final class ConfigThemeType extends AbstractType
             'primary_brand_color',
             TextType::class,
             [
-                'label'      => 'mautic.core.config.form.primary_brand_color',
+                'label'      => 'mailvotech.core.config.form.primary_brand_color',
                 'label_attr' => [
                     'class' => 'control-label',
                 ],
                 'attr'  => [
                     'class'        => 'form-control minicolors-input',
-                    'tooltip'      => 'mautic.core.config.form.primary_brand_color.tooltip',
+                    'tooltip'      => 'mailvotech.core.config.form.primary_brand_color.tooltip',
                     'data-toggle'  => 'color',
                     'autocomplete' => 'false',
                     'size'         => '7',
@@ -55,10 +55,10 @@ final class ConfigThemeType extends AbstractType
             'theme',
             ThemeListType::class,
             [
-                'label' => 'mautic.core.config.form.theme',
+                'label' => 'mailvotech.core.config.form.theme',
                 'attr'  => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.theme.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.theme.tooltip',
                 ],
             ]
         );
@@ -68,7 +68,7 @@ final class ConfigThemeType extends AbstractType
             'accent',
             HiddenType::class,
             [
-                'label'      => 'mautic.user.preferences.accent',
+                'label'      => 'mailvotech.user.preferences.accent',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -94,7 +94,7 @@ final class ConfigThemeType extends AbstractType
                 'theme_import_allowed_extensions',
                 TextType::class,
                 [
-                    'label'      => 'mautic.core.config.form.theme.import.allowed.extensions',
+                    'label'      => 'mailvotech.core.config.form.theme.import.allowed.extensions',
                     'label_attr' => [
                         'class' => 'control-label',
                     ],

@@ -1,9 +1,9 @@
-Mautic.integrationsConfigOnLoad = function () {
+MailVotech.integrationsConfigOnLoad = function () {
     mQuery('.integration-keyword-filter').each(function() {
         mQuery(this).off("keyup.integration-filter").on("keyup.integration-filter", function (event) {
             var integration = mQuery(this).attr('data-integration');
             var object = mQuery(this).attr('data-object');
-            Mautic.getPaginatedIntegrationFields(
+            MailVotech.getPaginatedIntegrationFields(
                 {
                     'integration': integration,
                     'object': object,
@@ -15,34 +15,34 @@ Mautic.integrationsConfigOnLoad = function () {
         });
     });
 
-    Mautic.activateIntegrationFieldUpdateActions();
+    MailVotech.activateIntegrationFieldUpdateActions();
 };
 
-Mautic.getPaginatedIntegrationFields = function(settings, page, element) {
+MailVotech.getPaginatedIntegrationFields = function(settings, page, element) {
     var requestName = settings.integration + '-' + settings.object;
-    var action = mauticBaseUrl + 's/integration/' + settings.integration + '/config/' + settings.object + '/' + page;
+    var action = mailvotechBaseUrl + 's/integration/' + settings.integration + '/config/' + settings.object + '/' + page;
     if (settings.keyword) {
         action = action + '?keyword=' + settings.keyword;
     }
 
-    if (typeof Mautic.activeActions == 'undefined') {
-        Mautic.activeActions = {};
-    } else if (typeof Mautic.activeActions[requestName] != 'undefined') {
-        Mautic.activeActions[requestName].abort();
+    if (typeof MailVotech.activeActions == 'undefined') {
+        MailVotech.activeActions = {};
+    } else if (typeof MailVotech.activeActions[requestName] != 'undefined') {
+        MailVotech.activeActions[requestName].abort();
     }
 
     var object    = settings.object;
     var fieldsTab = '#field-mappings-'+object+'-container';
 
     if (element && mQuery(element).is('input')) {
-        Mautic.activateLabelLoadingIndicator(mQuery(element).attr('id'));
+        MailVotech.activateLabelLoadingIndicator(mQuery(element).attr('id'));
     }
     var fieldsContainer = '#field-mappings-'+object;
 
     var modalId = '#'+mQuery(fieldsContainer).closest('.modal').attr('id');
-    Mautic.startModalLoadingBar(modalId);
+    MailVotech.startModalLoadingBar(modalId);
 
-    Mautic.activeActions[requestName] = mQuery.ajax({
+    MailVotech.activeActions[requestName] = mQuery.ajax({
         showLoadingBar: false,
         url: action,
         type: "POST",
@@ -50,8 +50,8 @@ Mautic.getPaginatedIntegrationFields = function(settings, page, element) {
         success: function (response) {
             if (response.success) {
                 mQuery(fieldsContainer).html(response.html);
-                Mautic.onPageLoad(fieldsContainer);
-                Mautic.activateIntegrationFieldUpdateActions();
+                MailVotech.onPageLoad(fieldsContainer);
+                MailVotech.activateIntegrationFieldUpdateActions();
                 if (mQuery(fieldsTab).length) {
                     mQuery(fieldsTab).removeClass('hide');
                 }
@@ -60,63 +60,63 @@ Mautic.getPaginatedIntegrationFields = function(settings, page, element) {
             }
 
             if (element) {
-                Mautic.removeLabelLoadingIndicator();
+                MailVotech.removeLabelLoadingIndicator();
             }
 
-            Mautic.stopModalLoadingBar(modalId);
+            MailVotech.stopModalLoadingBar(modalId);
         },
         error: function (request, textStatus, errorThrown) {
-            Mautic.processAjaxError(request, textStatus, errorThrown);
+            MailVotech.processAjaxError(request, textStatus, errorThrown);
         },
         complete: function () {
-            delete Mautic.activeActions[requestName]
+            delete MailVotech.activeActions[requestName]
         }
     });
 };
 
-Mautic.updateIntegrationField = function(integration, object, field, fieldOption, fieldValue) {
-    var action = mauticBaseUrl + 's/integration/' + integration + '/config/' + object + '/field/' + field;
+MailVotech.updateIntegrationField = function(integration, object, field, fieldOption, fieldValue) {
+    var action = mailvotechBaseUrl + 's/integration/' + integration + '/config/' + object + '/field/' + field;
     var modal = mQuery('form[name=integration_config]').closest('.modal');
     var requestName = integration + object + field + fieldOption;
 
     // Disable submit buttons until the action is done so nothing is lost
     mQuery(modal).find('.modal-form-buttons .btn').prop('disabled', true);
 
-    if (typeof Mautic.activeActions == 'undefined') {
-        Mautic.activeActions = {};
-    } else if (typeof Mautic.activeActions[requestName] != 'undefined') {
-        Mautic.activeActions[requestName].abort();
+    if (typeof MailVotech.activeActions == 'undefined') {
+        MailVotech.activeActions = {};
+    } else if (typeof MailVotech.activeActions[requestName] != 'undefined') {
+        MailVotech.activeActions[requestName].abort();
     }
 
-    Mautic.startModalLoadingBar(mQuery(modal).attr('id'));
+    MailVotech.startModalLoadingBar(mQuery(modal).attr('id'));
 
     // Must use bracket notation to use variable for key
     var obj = {};
     obj[fieldOption] = fieldValue;
 
-    Mautic.activeActions[requestName] = mQuery.ajax({
+    MailVotech.activeActions[requestName] = mQuery.ajax({
         showLoadingBar: false,
         url: action,
         type: "POST",
         dataType: "json",
         data: obj,
         error: function (request, textStatus, errorThrown) {
-            Mautic.processAjaxError(request, textStatus, errorThrown);
+            MailVotech.processAjaxError(request, textStatus, errorThrown);
         },
         complete: function () {
             modal.find('.modal-form-buttons .btn').prop('disabled', false);
-            delete Mautic.activeActions[requestName];
+            delete MailVotech.activeActions[requestName];
         }
     });
 };
 
-Mautic.activateIntegrationFieldUpdateActions = function () {
+MailVotech.activateIntegrationFieldUpdateActions = function () {
     mQuery('.integration-mapped-field').each(function() {
         mQuery(this).off("change.integration-mapped-field").on("change.integration-mapped-field", function (event) {
             var integration = mQuery(this).attr('data-integration');
             var object = mQuery(this).attr('data-object');
             var field = mQuery(this).attr('data-field');
-            Mautic.updateIntegrationField(integration, object, field, 'mappedField', mQuery(this).val());
+            MailVotech.updateIntegrationField(integration, object, field, 'mappedField', mQuery(this).val());
         });
     });
 
@@ -125,12 +125,12 @@ Mautic.activateIntegrationFieldUpdateActions = function () {
             var integration = mQuery(this).attr('data-integration');
             var object = mQuery(this).attr('data-object');
             var field = mQuery(this).attr('data-field');
-            Mautic.updateIntegrationField(integration, object, field, 'syncDirection', mQuery(this).val());
+            MailVotech.updateIntegrationField(integration, object, field, 'syncDirection', mQuery(this).val());
         });
     });
 };
 
-Mautic.authorizeIntegration = function () {
+MailVotech.authorizeIntegration = function () {
     mQuery('#integration_details_in_auth').val(1);
-    Mautic.postForm(mQuery('form[name="integration_config"]'), 'loadIntegrationAuthWindow');
+    MailVotech.postForm(mQuery('form[name="integration_config"]'), 'loadIntegrationAuthWindow');
 };

@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\EventListener;
+namespace MailVotech\CoreBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Entity\CommonEntity;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Event\IconEvent;
-use Mautic\CoreBundle\EventListener\DashboardSubscriber;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Model\AbstractCommonModel;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\DashboardBundle\Entity\Widget;
-use Mautic\DashboardBundle\Event\WidgetDetailEvent;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\CommonEntity;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Event\IconEvent;
+use MailVotech\CoreBundle\EventListener\DashboardSubscriber;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Model\AbstractCommonModel;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\DashboardBundle\Entity\Widget;
+use MailVotech\DashboardBundle\Event\WidgetDetailEvent;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -143,7 +143,7 @@ final class DashboardSubscriberTest extends TestCase
 
         $this->translator->expects($this->once())
             ->method('trans')
-            ->with('mautic.lead.lead.anonymous')
+            ->with('mailvotech.lead.lead.anonymous')
             ->willReturn('whatever');
 
         $logs   = $expectedLogs   = [];
@@ -178,7 +178,7 @@ final class DashboardSubscriberTest extends TestCase
             ->willReturn($this->createStub(FormEntity::class));
         $notLead       = $this->createMock(FormModel::class);
         $anonymousUser = $this->createMock(User::class);
-        $anonymousUser->method('getName')->willReturn('mautic.lead.lead.anonymous');
+        $anonymousUser->method('getName')->willReturn('mailvotech.lead.lead.anonymous');
         $notLead->expects($this->once())
             ->method('getEntity')
             ->with(456)
@@ -225,27 +225,27 @@ final class DashboardSubscriberTest extends TestCase
         $routeCollection->expects($matcher) // no null object and  exception object
             ->method('get')->willReturnCallback(function (...$parameters) use ($matcher, $route): ?\PHPUnit\Framework\MockObject\Stub {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic_model_action', $parameters[0]);
+                    $this->assertSame('mailvotech_model_action', $parameters[0]);
 
                     return null;
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic_model_action', $parameters[0]);
+                    $this->assertSame('mailvotech_model_action', $parameters[0]);
 
                     return $route;
                 }
                 if (3 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic_item_action', $parameters[0]);
+                    $this->assertSame('mailvotech_item_action', $parameters[0]);
 
                     return $route;
                 }
                 if (4 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic_lead_action', $parameters[0]);
+                    $this->assertSame('mailvotech_lead_action', $parameters[0]);
 
                     return $route;
                 }
                 if (5 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic_lead_action', $parameters[0]);
+                    $this->assertSame('mailvotech_lead_action', $parameters[0]);
 
                     return null;
                 }
@@ -259,9 +259,9 @@ final class DashboardSubscriberTest extends TestCase
         $this->router->expects($this->exactly(3))
             ->method('generate')
             ->willReturnMap([
-                ['mautic_model_action', ['objectAction' => 'view', 'objectId' => 345], UrlGeneratorInterface::ABSOLUTE_PATH, '/not-getter'],
-                ['mautic_item_action', ['objectAction' => 'view', 'objectId' => 456], UrlGeneratorInterface::ABSOLUTE_PATH, '/not-lead'],
-                ['mautic_lead_action', ['objectAction' => 'view', 'objectId' => 567], UrlGeneratorInterface::ABSOLUTE_PATH, '/not-anonymous'],
+                ['mailvotech_model_action', ['objectAction' => 'view', 'objectId' => 345], UrlGeneratorInterface::ABSOLUTE_PATH, '/not-getter'],
+                ['mailvotech_item_action', ['objectAction' => 'view', 'objectId' => 456], UrlGeneratorInterface::ABSOLUTE_PATH, '/not-lead'],
+                ['mailvotech_lead_action', ['objectAction' => 'view', 'objectId' => 567], UrlGeneratorInterface::ABSOLUTE_PATH, '/not-anonymous'],
             ]);
 
         $iconEvent = new IconEvent($this->createStub(CorePermissions::class));
@@ -275,7 +275,7 @@ final class DashboardSubscriberTest extends TestCase
         $expectedLogs[2]['route']      = false;
         $expectedLogs[3]['objectName'] = ''; // has no getter
         $expectedLogs[3]['route']      = '/not-getter';
-        $expectedLogs[4]['objectName'] = 'mautic.lead.lead.anonymous';  // not lead
+        $expectedLogs[4]['objectName'] = 'mailvotech.lead.lead.anonymous';  // not lead
         $expectedLogs[4]['route']      = '/not-lead';
         $expectedLogs[5]['objectName'] = 'admin';  // not anonymous
         $expectedLogs[5]['route']      = '/not-anonymous';

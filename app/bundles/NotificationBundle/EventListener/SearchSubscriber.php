@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\EventListener;
+namespace MailVotech\NotificationBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\DTO\GlobalSearchFilterDTO;
-use Mautic\CoreBundle\Event as MauticEvents;
-use Mautic\CoreBundle\Service\GlobalSearch;
-use Mautic\NotificationBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\DTO\GlobalSearchFilterDTO;
+use MailVotech\CoreBundle\Event as MailVotechEvents;
+use MailVotech\CoreBundle\Service\GlobalSearch;
+use MailVotech\NotificationBundle\Model\NotificationModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class SearchSubscriber implements EventSubscriberInterface
@@ -29,7 +29,7 @@ final readonly class SearchSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onGlobalSearchWebNotification(MauticEvents\GlobalSearchEvent $event): void
+    public function onGlobalSearchWebNotification(MailVotechEvents\GlobalSearchEvent $event): void
     {
         $filterDTO = new GlobalSearchFilterDTO($event->getSearchString());
         $filterDTO->setFilters([
@@ -44,15 +44,15 @@ final readonly class SearchSubscriber implements EventSubscriberInterface
         $results = $this->globalSearch->performSearch(
             $filterDTO,
             $this->model,
-            '@MauticNotification/SubscribedEvents/Search/global-web.html.twig'
+            '@MailVotechNotification/SubscribedEvents/Search/global-web.html.twig'
         );
 
         if ([] !== $results) {
-            $event->addResults('mautic.notification.notification.header', $results);
+            $event->addResults('mailvotech.notification.notification.header', $results);
         }
     }
 
-    public function onGlobalSearchMobileNotification(MauticEvents\GlobalSearchEvent $event): void
+    public function onGlobalSearchMobileNotification(MailVotechEvents\GlobalSearchEvent $event): void
     {
         $filterDTO = new GlobalSearchFilterDTO($event->getSearchString());
         $filterDTO->setFilters([
@@ -67,11 +67,11 @@ final readonly class SearchSubscriber implements EventSubscriberInterface
         $results = $this->globalSearch->performSearch(
             $filterDTO,
             $this->model,
-            '@MauticNotification/SubscribedEvents/Search/global-mobile.html.twig'
+            '@MailVotechNotification/SubscribedEvents/Search/global-mobile.html.twig'
         );
 
         if ([] !== $results) {
-            $event->addResults('mautic.notification.mobile_notification.header', $results);
+            $event->addResults('mailvotech.notification.mobile_notification.header', $results);
         }
     }
 }

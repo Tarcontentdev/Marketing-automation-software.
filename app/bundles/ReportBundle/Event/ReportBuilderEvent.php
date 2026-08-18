@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\ReportBundle\Event;
+namespace MailVotech\ReportBundle\Event;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\ReportBundle\Builder\MauticReportBuilder;
-use Mautic\ReportBundle\Helper\ReportHelper;
-use Mautic\ReportBundle\Model\ReportModel;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\ReportBundle\Builder\MailVotechReportBuilder;
+use MailVotech\ReportBundle\Helper\ReportHelper;
+use MailVotech\ReportBundle\Model\ReportModel;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ReportBuilderEvent extends AbstractReportEvent
@@ -131,15 +131,15 @@ class ReportBuilderEvent extends AbstractReportEvent
 
         foreach ($this->leadFields as $fieldArray) {
             $fields[$prefix.$fieldArray['alias']] = [
-                'label' => $this->translator->trans('mautic.report.field.lead.label', ['%field%' => $fieldArray['label']]),
+                'label' => $this->translator->trans('mailvotech.report.field.lead.label', ['%field%' => $fieldArray['label']]),
                 'type'  => $this->reportHelper->getReportBuilderFieldType($fieldArray['type']),
                 'alias' => $fieldArray['alias'],
             ];
         }
         $fields[$prefix.'id'] = [
-            'label' => 'mautic.report.field.lead.id',
+            'label' => 'mailvotech.report.field.lead.id',
             'type'  => 'int',
-            'link'  => 'mautic_contact_action',
+            'link'  => 'mailvotech_contact_action',
             'alias' => 'contactId',
         ];
 
@@ -155,7 +155,7 @@ class ReportBuilderEvent extends AbstractReportEvent
     {
         return [
             $prefix.'ip_address' => [
-                'label' => 'mautic.core.ipaddress',
+                'label' => 'mailvotech.core.ipaddress',
                 'type'  => 'string',
             ],
         ];
@@ -170,12 +170,12 @@ class ReportBuilderEvent extends AbstractReportEvent
     {
         return [
             $prefix.'id' => [
-                'label' => 'mautic.report.field.category_id',
+                'label' => 'mailvotech.report.field.category_id',
                 'type'  => 'int',
                 'alias' => 'category_id',
             ],
             $prefix.'title' => [
-                'label' => 'mautic.report.field.category_name',
+                'label' => 'mailvotech.report.field.category_name',
                 'type'  => 'string',
                 'alias' => 'category_title',
             ],
@@ -189,54 +189,54 @@ class ReportBuilderEvent extends AbstractReportEvent
     {
         return [
             'clel.campaign_id' => [
-                'label' => 'mautic.campaign.campaign.id',
+                'label' => 'mailvotech.campaign.campaign.id',
                 'type'  => 'string',
             ],
             'cmp.name' => [
-                'label' => 'mautic.campaign.campaign',
+                'label' => 'mailvotech.campaign.campaign',
                 'type'  => 'string',
             ],
         ];
     }
 
     /**
-     * @return array<MauticReportBuilder::*, mixed[]>
+     * @return array<MailVotechReportBuilder::*, mixed[]>
      */
     public function getChannelColumns(): array
     {
         $channelColumns = [
-            MauticReportBuilder::CHANNEL_COLUMN_CATEGORY_ID => [
-                'label'       => 'mautic.report.campaign.channel.category_id',
+            MailVotechReportBuilder::CHANNEL_COLUMN_CATEGORY_ID => [
+                'label'       => 'mailvotech.report.campaign.channel.category_id',
                 'type'        => 'int',
                 'alias'       => 'channel_category_id',
                 'channelData' => [],
             ],
-            MauticReportBuilder::CHANNEL_COLUMN_CREATED_BY => [
-                'label'       => 'mautic.report.campaign.channel.created_by',
+            MailVotechReportBuilder::CHANNEL_COLUMN_CREATED_BY => [
+                'label'       => 'mailvotech.report.campaign.channel.created_by',
                 'type'        => 'int',
                 'alias'       => 'channel_created_by',
                 'channelData' => [],
             ],
-            MauticReportBuilder::CHANNEL_COLUMN_CREATED_BY_USER => [
-                'label'       => 'mautic.report.campaign.channel.created_by_user',
+            MailVotechReportBuilder::CHANNEL_COLUMN_CREATED_BY_USER => [
+                'label'       => 'mailvotech.report.campaign.channel.created_by_user',
                 'type'        => 'string',
                 'alias'       => 'channel_created_by_user',
                 'channelData' => [],
             ],
-            MauticReportBuilder::CHANNEL_COLUMN_DATE_ADDED => [
-                'label'       => 'mautic.report.campaign.channel.date_added',
+            MailVotechReportBuilder::CHANNEL_COLUMN_DATE_ADDED => [
+                'label'       => 'mailvotech.report.campaign.channel.date_added',
                 'type'        => 'datetime',
                 'alias'       => 'channel_date_added',
                 'channelData' => [],
             ],
-            MauticReportBuilder::CHANNEL_COLUMN_DESCRIPTION => [
-                'label'       => 'mautic.report.campaign.channel.description',
+            MailVotechReportBuilder::CHANNEL_COLUMN_DESCRIPTION => [
+                'label'       => 'mailvotech.report.campaign.channel.description',
                 'type'        => 'string',
                 'alias'       => 'channel_description',
                 'channelData' => [],
             ],
-            MauticReportBuilder::CHANNEL_COLUMN_NAME => [
-                'label'       => 'mautic.report.campaign.channel.name',
+            MailVotechReportBuilder::CHANNEL_COLUMN_NAME => [
+                'label'       => 'mailvotech.report.campaign.channel.name',
                 'type'        => 'string',
                 'alias'       => 'channel_name',
                 'channelData' => [],

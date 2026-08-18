@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token;
+namespace MailVotech\IntegrationsBundle\Auth\Support\Oauth2\Token;
 
 use kamermans\OAuth2\Token\RawToken;
-use Mautic\IntegrationsBundle\Helper\IntegrationsHelper;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\IntegrationsBundle\Helper\IntegrationsHelper;
+use MailVotech\PluginBundle\Entity\Integration;
 
 final readonly class TokenPersistenceFactory
 {

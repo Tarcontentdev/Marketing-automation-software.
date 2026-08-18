@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment;
+namespace MailVotech\LeadBundle\Segment;
 
 use Doctrine\ORM\EntityManagerInterface;
 

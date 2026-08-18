@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\LeadBundle\Command;
+namespace MailVotech\LeadBundle\Command;
 
-use Mautic\CoreBundle\Command\ModeratedCommand;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\CoreBundle\Command\ModeratedCommand;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Model\ListModel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,11 +19,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[AsCommand(
     name: UpdateLeadListsCommand::NAME,
     description: 'Update contacts in smart segments based on new contact data.',
-    aliases: ['mautic:segments:rebuild']
+    aliases: ['mailvotech:segments:rebuild']
 )]
 final class UpdateLeadListsCommand extends ModeratedCommand
 {
-    public const NAME = 'mautic:segments:update';
+    public const NAME = 'mailvotech:segments:update';
 
     public function __construct(
         private readonly ListModel $listModel,
@@ -98,7 +98,7 @@ final class UpdateLeadListsCommand extends ModeratedCommand
             $list = $this->listModel->getEntity($id);
 
             if (!$list) {
-                $output->writeln('<error>'.$this->translator->trans('mautic.lead.list.rebuild.not_found', ['%id%' => $id]).'</error>');
+                $output->writeln('<error>'.$this->translator->trans('mailvotech.lead.list.rebuild.not_found', ['%id%' => $id]).'</error>');
 
                 return Command::FAILURE;
             }
@@ -161,7 +161,7 @@ final class UpdateLeadListsCommand extends ModeratedCommand
 
         if ($enableTimeMeasurement) {
             $totalTime = round(microtime(true) - $startTime, 2);
-            $output->writeln('<fg=magenta>'.$this->translator->trans('mautic.lead.list.rebuild.total.time', ['%time%' => $totalTime]).'</>'."\n");
+            $output->writeln('<fg=magenta>'.$this->translator->trans('mailvotech.lead.list.rebuild.total.time', ['%time%' => $totalTime]).'</>'."\n");
         }
 
         return Command::SUCCESS;
@@ -243,7 +243,7 @@ final class UpdateLeadListsCommand extends ModeratedCommand
             return;
         }
 
-        $output->writeln('<info>'.$this->translator->trans('mautic.lead.list.rebuild.rebuilding', ['%id%' => $segment->getId()]).'</info>');
+        $output->writeln('<info>'.$this->translator->trans('mailvotech.lead.list.rebuild.rebuilding', ['%id%' => $segment->getId()]).'</info>');
         $lastBuiltDateBefore = $segment->getLastBuiltDate();
         $startTime           = microtime(true);
         $processed           = $this->listModel->rebuildListLeads($segment, $batch, $max, $output);
@@ -262,12 +262,12 @@ final class UpdateLeadListsCommand extends ModeratedCommand
         }
 
         $output->writeln(
-            '<comment>'.$this->translator->trans('mautic.lead.list.rebuild.leads_affected', ['%leads%' => $processed]).'</comment>'
+            '<comment>'.$this->translator->trans('mailvotech.lead.list.rebuild.leads_affected', ['%leads%' => $processed]).'</comment>'
         );
 
         if ($enableTimeMeasurement) {
             $output->writeln('<fg=cyan>'.$this->translator->trans(
-                'mautic.lead.list.rebuild.contacts.time',
+                'mailvotech.lead.list.rebuild.contacts.time',
                 ['%time%' => $rebuildTime]
             ).'</>'."\n");
         }

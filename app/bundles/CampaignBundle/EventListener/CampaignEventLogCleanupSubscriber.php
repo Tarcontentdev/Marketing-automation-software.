@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\EventListener;
+namespace MailVotech\CampaignBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\FailedLeadEventLogRepository;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\ExecutedBatchEvent;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\FailedLeadEventLogRepository;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\ExecutedBatchEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class CampaignEventLogCleanupSubscriber implements EventSubscriberInterface

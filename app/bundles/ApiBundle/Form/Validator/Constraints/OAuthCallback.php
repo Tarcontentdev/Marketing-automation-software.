@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\ApiBundle\Form\Validator\Constraints;
+namespace MailVotech\ApiBundle\Form\Validator\Constraints;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;

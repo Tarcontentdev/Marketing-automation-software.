@@ -1,74 +1,74 @@
 <?php
 
-namespace Mautic\EmailBundle\Model;
+namespace MailVotech\EmailBundle\Model;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\ApiBundle\Model\ApiEntityLockTrait;
-use Mautic\ApiBundle\Model\ApiLockAwareInterface;
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\ChannelBundle\Entity\MessageQueue;
-use Mautic\ChannelBundle\Model\MessageQueueModel;
-use Mautic\CoreBundle\Helper\ArrayHelper;
-use Mautic\CoreBundle\Helper\CacheStorageHelper;
-use Mautic\CoreBundle\Helper\Chart\BarChart;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Helper\Chart\PieChart;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\ThemeHelperInterface;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\AbTest\AbTestSettingsService;
-use Mautic\CoreBundle\Model\AjaxLookupModelInterface;
-use Mautic\CoreBundle\Model\BuilderModelTrait;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\CoreBundle\Model\TranslationModelTrait;
-use Mautic\CoreBundle\Model\VariantModelTrait;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\CopyRepository;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatDevice;
-use Mautic\EmailBundle\Entity\StatDeviceRepository;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\Event\EmailBuilderEvent;
-use Mautic\EmailBundle\Event\EmailEvent;
-use Mautic\EmailBundle\Event\EmailOpenEvent;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\EmailBundle\Exception\EmailCouldNotBeSentException;
-use Mautic\EmailBundle\Exception\FailedToSendToContactException;
-use Mautic\EmailBundle\Form\Type\EmailType;
-use Mautic\EmailBundle\Helper\BotRatioHelper;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\Helper\StatsCollectionHelper;
-use Mautic\EmailBundle\Model\AbTest\EmailVariantConverterService;
-use Mautic\EmailBundle\MonitoredEmail\Mailbox;
-use Mautic\EmailBundle\Stats\FetchOptions\EmailStatOptions;
-use Mautic\EmailBundle\Stats\Helper\FilterTrait;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDeviceRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\DoNotContact as DNC;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\LeadBundle\Tracker\DeviceTracker;
-use Mautic\PageBundle\Entity\RedirectRepository;
-use Mautic\PageBundle\Entity\TrackableRepository;
-use Mautic\PageBundle\Model\TrackableModel;
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\ApiBundle\Model\ApiEntityLockTrait;
+use MailVotech\ApiBundle\Model\ApiLockAwareInterface;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\ChannelBundle\Entity\MessageQueue;
+use MailVotech\ChannelBundle\Model\MessageQueueModel;
+use MailVotech\CoreBundle\Helper\ArrayHelper;
+use MailVotech\CoreBundle\Helper\CacheStorageHelper;
+use MailVotech\CoreBundle\Helper\Chart\BarChart;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Helper\Chart\PieChart;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelperInterface;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\AbTest\AbTestSettingsService;
+use MailVotech\CoreBundle\Model\AjaxLookupModelInterface;
+use MailVotech\CoreBundle\Model\BuilderModelTrait;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CoreBundle\Model\TranslationModelTrait;
+use MailVotech\CoreBundle\Model\VariantModelTrait;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\CopyRepository;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatDevice;
+use MailVotech\EmailBundle\Entity\StatDeviceRepository;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\Event\EmailBuilderEvent;
+use MailVotech\EmailBundle\Event\EmailEvent;
+use MailVotech\EmailBundle\Event\EmailOpenEvent;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\Exception\EmailCouldNotBeSentException;
+use MailVotech\EmailBundle\Exception\FailedToSendToContactException;
+use MailVotech\EmailBundle\Form\Type\EmailType;
+use MailVotech\EmailBundle\Helper\BotRatioHelper;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\Helper\StatsCollectionHelper;
+use MailVotech\EmailBundle\Model\AbTest\EmailVariantConverterService;
+use MailVotech\EmailBundle\MonitoredEmail\Mailbox;
+use MailVotech\EmailBundle\Stats\FetchOptions\EmailStatOptions;
+use MailVotech\EmailBundle\Stats\Helper\FilterTrait;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDeviceRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\DoNotContact as DNC;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\LeadBundle\Tracker\DeviceTracker;
+use MailVotech\PageBundle\Entity\RedirectRepository;
+use MailVotech\PageBundle\Entity\TrackableRepository;
+use MailVotech\PageBundle\Model\TrackableModel;
+use MailVotech\UserBundle\Model\UserModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -126,7 +126,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         CoreParametersHelper $coreParametersHelper,
         private EmailStatModel $emailStatModel,
         private BotRatioHelper $botRatioHelper,
@@ -144,7 +144,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
         private readonly CompanyRepository $companyRepository,
     ) {
         $this->connection = $em->getConnection(); // Necessary for FilterTrait
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function getRepository(): EmailRepository
@@ -434,7 +434,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
         }
 
         if (!$stat) {
-            trigger_deprecation('mautic/mautic', '5.0', 'Calls to hitEmail without a stat are deprecated');
+            trigger_deprecation('mailvotech/mailvotech', '5.0', 'Calls to hitEmail without a stat are deprecated');
 
             return;
         }
@@ -721,12 +721,12 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
         $listCount = count($lists);
         $chart     = new BarChart(
             [
-                $this->translator->trans('mautic.email.sent'),
-                $this->translator->trans('mautic.email.read'),
-                $this->translator->trans('mautic.email.failed'),
-                $this->translator->trans('mautic.email.unique_clicked'),
-                $this->translator->trans('mautic.email.unsubscribed'),
-                $this->translator->trans('mautic.email.bounced'),
+                $this->translator->trans('mailvotech.email.sent'),
+                $this->translator->trans('mailvotech.email.read'),
+                $this->translator->trans('mailvotech.email.failed'),
+                $this->translator->trans('mailvotech.email.unique_clicked'),
+                $this->translator->trans('mailvotech.email.unsubscribed'),
+                $this->translator->trans('mailvotech.email.bounced'),
             ]
         );
 
@@ -780,7 +780,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
 
             if ($listCount > 1) {
                 $chart->setDataset(
-                    $this->translator->trans('mautic.email.lists.combined'),
+                    $this->translator->trans('mailvotech.email.lists.combined'),
                     $combined,
                     0
                 );
@@ -817,7 +817,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
         $devices = [];
         foreach ($results as $result) {
             if (empty($result['device'])) {
-                $result['device'] = $this->translator->trans('mautic.core.unknown');
+                $result['device'] = $this->translator->trans('mailvotech.core.unknown');
             } else {
                 $result['device'] = mb_substr($result['device'], 0, 12);
             }
@@ -888,7 +888,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
 
             if ($listCount > 1) {
                 $chart->setDataset(
-                    $this->translator->trans('mautic.email.lists.combined'),
+                    $this->translator->trans('mailvotech.email.lists.combined'),
                     array_values($combined),
                     0
                 );
@@ -901,7 +901,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
     /**
      * @param bool $includeVariants
      *
-     * @throws \Mautic\EmailBundle\Stats\Exception\InvalidStatHelperException
+     * @throws \MailVotech\EmailBundle\Stats\Exception\InvalidStatHelperException
      */
     public function getEmailGeneralStats($email, $includeVariants, $unit, \DateTime $dateFrom, \DateTime $dateTo): array
     {
@@ -921,32 +921,32 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
         $fetchOptions->setUnit($chart->getUnit());
 
         $chart->setDataset(
-            $this->translator->trans('mautic.email.sent.emails'),
+            $this->translator->trans('mailvotech.email.sent.emails'),
             $this->statsCollectionHelper->fetchSentStats($dateFrom, $dateTo, $fetchOptions)
         );
 
         $chart->setDataset(
-            $this->translator->trans('mautic.email.read.emails'),
+            $this->translator->trans('mailvotech.email.read.emails'),
             $this->statsCollectionHelper->fetchOpenedStats($dateFrom, $dateTo, $fetchOptions)
         );
 
         $chart->setDataset(
-            $this->translator->trans('mautic.email.failed.emails'),
+            $this->translator->trans('mailvotech.email.failed.emails'),
             $this->statsCollectionHelper->fetchFailedStats($dateFrom, $dateTo, $fetchOptions)
         );
 
         $chart->setDataset(
-            $this->translator->trans('mautic.email.unique_clicked'),
+            $this->translator->trans('mailvotech.email.unique_clicked'),
             $this->statsCollectionHelper->fetchClickedStats($dateFrom, $dateTo, $fetchOptions)
         );
 
         $chart->setDataset(
-            $this->translator->trans('mautic.email.unsubscribed'),
+            $this->translator->trans('mailvotech.email.unsubscribed'),
             $this->statsCollectionHelper->fetchUnsubscribedStats($dateFrom, $dateTo, $fetchOptions)
         );
 
         $chart->setDataset(
-            $this->translator->trans('mautic.email.bounced'),
+            $this->translator->trans('mailvotech.email.bounced'),
             $this->statsCollectionHelper->fetchBouncedStats($dateFrom, $dateTo, $fetchOptions)
         );
 
@@ -1104,7 +1104,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
         }
 
         // Doesn't make sense to send unpublished emails. Probably a user error.
-        // @todo throw an exception in Mautic 3 here.
+        // @todo throw an exception in MailVotech 3 here.
         if (!$email->isPublished()) {
             return [0, 0, []];
         }
@@ -1406,7 +1406,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
 
             foreach ($dnc as $removeMeId => $removeMeEmail) {
                 if ($dncAsError) {
-                    $errors[$removeMeId] = $this->translator->trans('mautic.email.dnc');
+                    $errors[$removeMeId] = $this->translator->trans('mailvotech.email.dnc');
                 }
                 unset($sendTo[$removeMeId]);
                 unset($leadIds[$removeMeId]);
@@ -1631,7 +1631,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
             $mailer->setIdHash($idHash, $saveStat);
 
             if (!$mailer->addTo($toAddress)) {
-                $errors[] = "{$toAddress}: ".$this->translator->trans('mautic.email.bounce.reason.bad_email');
+                $errors[] = "{$toAddress}: ".$this->translator->trans('mailvotech.email.bounce.reason.bad_email');
                 continue;
             }
 
@@ -1680,7 +1680,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
             }
 
             if (!$mailer->setTo($user['email'], $user['firstname'].' '.$user['lastname'])) {
-                $errors[] = "{$user['email']}: ".$this->translator->trans('mautic.email.bounce.reason.bad_email');
+                $errors[] = "{$user['email']}: ".$this->translator->trans('mailvotech.email.bounce.reason.bad_email');
                 continue;
             }
 
@@ -1849,7 +1849,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
      */
     public function limitQueryToCreator(QueryBuilder &$q): void
     {
-        $q->join('t', MAUTIC_TABLE_PREFIX.'emails', 'e', 'e.id = t.email_id')
+        $q->join('t', MAILVOTECH_TABLE_PREFIX.'emails', 'e', 'e.id = t.email_id')
             ->andWhere('e.created_by = :userId')
             ->setParameter('userId', $this->userHelper->getUser()->getId());
     }
@@ -1904,7 +1904,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
             $percentage = round(($percentage / $total) * 100, 1);
         });
 
-        $chart->setDataset($this->translator->trans('mautic.widget.emails.best.hours.reads_total', ['%reads%'=>$total]), $counts);
+        $chart->setDataset($this->translator->trans('mailvotech.widget.emails.best.hours.reads_total', ['%reads%'=>$total]), $counts);
 
         return $chart->render();
     }
@@ -1915,7 +1915,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
      * @param string|null $unit       {@link php.net/manual/en/function.date.php#refsect1-function.date-parameters}
      * @param string|null $dateFormat
      *
-     * @throws \Mautic\EmailBundle\Stats\Exception\InvalidStatHelperException
+     * @throws \MailVotech\EmailBundle\Stats\Exception\InvalidStatHelperException
      */
     public function getEmailsLineChartData(
         $unit,
@@ -1953,42 +1953,42 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
         $chart = new LineChart($unit, $dateFrom, $dateTo, $dateFormat);
         if (in_array($flag, ['all', 'sent_and_opened_and_failed', 'sent_and_opened']) || !$flag || in_array('sent', $dataset)) {
             $chart->setDataset(
-                $this->translator->trans('mautic.email.sent.emails'),
+                $this->translator->trans('mailvotech.email.sent.emails'),
                 $this->statsCollectionHelper->fetchSentStats($dateFrom, $dateTo, $fetchOptions)
             );
         }
 
         if (in_array($flag, ['all', 'sent_and_opened_and_failed', 'sent_and_opened', 'opened']) || in_array('opened', $dataset)) {
             $chart->setDataset(
-                $this->translator->trans('mautic.email.read.emails'),
+                $this->translator->trans('mailvotech.email.read.emails'),
                 $this->statsCollectionHelper->fetchOpenedStats($dateFrom, $dateTo, $fetchOptions)
             );
         }
 
         if (in_array($flag, ['all', 'sent_and_opened_and_failed', 'failed']) || in_array('failed', $dataset)) {
             $chart->setDataset(
-                $this->translator->trans('mautic.email.failed.emails'),
+                $this->translator->trans('mailvotech.email.failed.emails'),
                 $this->statsCollectionHelper->fetchFailedStats($dateFrom, $dateTo, $fetchOptions)
             );
         }
 
         if (in_array($flag, ['all', 'clicked']) || in_array('clicked', $dataset)) {
             $chart->setDataset(
-                $this->translator->trans('mautic.email.clicked'),
+                $this->translator->trans('mailvotech.email.clicked'),
                 $this->statsCollectionHelper->fetchClickedStats($dateFrom, $dateTo, $fetchOptions)
             );
         }
 
         if (in_array($flag, ['all', 'unsubscribed']) || in_array('unsubscribed', $dataset)) {
             $chart->setDataset(
-                $this->translator->trans('mautic.email.unsubscribed'),
+                $this->translator->trans('mailvotech.email.unsubscribed'),
                 $this->statsCollectionHelper->fetchUnsubscribedStats($dateFrom, $dateTo, $fetchOptions)
             );
         }
 
         if (in_array($flag, ['all', 'bounced']) || in_array('bounced', $dataset)) {
             $chart->setDataset(
-                $this->translator->trans('mautic.email.bounced'),
+                $this->translator->trans('mailvotech.email.bounced'),
                 $this->statsCollectionHelper->fetchBouncedStats($dateFrom, $dateTo, $fetchOptions)
             );
         }
@@ -2028,9 +2028,9 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
         $read   = $query->fetchCount($readQ);
         $failed = $query->fetchCount($failedQ);
 
-        $chart->setDataset($this->translator->trans('mautic.email.graph.pie.ignored.read.failed.ignored'), $sent - $read - $failed);
-        $chart->setDataset($this->translator->trans('mautic.email.graph.pie.ignored.read.failed.read'), $read);
-        $chart->setDataset($this->translator->trans('mautic.email.graph.pie.ignored.read.failed.failed'), $failed);
+        $chart->setDataset($this->translator->trans('mailvotech.email.graph.pie.ignored.read.failed.ignored'), $sent - $read - $failed);
+        $chart->setDataset($this->translator->trans('mailvotech.email.graph.pie.ignored.read.failed.read'), $read);
+        $chart->setDataset($this->translator->trans('mailvotech.email.graph.pie.ignored.read.failed.failed'), $failed);
 
         return $chart->render();
     }
@@ -2051,14 +2051,14 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
         if ([] === $deviceStats) {
             $deviceStats[] = [
                 'count'   => 0,
-                'device'  => $this->translator->trans('mautic.report.report.noresults'),
+                'device'  => $this->translator->trans('mailvotech.report.report.noresults'),
                 'list_id' => 0,
             ];
         }
 
         foreach ($deviceStats as $device) {
             $chart->setDataset(
-                $device['device'] ?: $this->translator->trans('mautic.core.unknown'),
+                $device['device'] ?: $this->translator->trans('mailvotech.core.unknown'),
                 $device['count']
             );
         }
@@ -2077,8 +2077,8 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
         $canViewOthers = empty($options['canViewOthers']) ? false : $options['canViewOthers'];
         $q             = $this->em->getConnection()->createQueryBuilder();
         $q->select('COUNT(DISTINCT t.id) AS count, e.id, e.name')
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats', 't')
-            ->join('t', MAUTIC_TABLE_PREFIX.'emails', 'e', 'e.id = t.email_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 't')
+            ->join('t', MAILVOTECH_TABLE_PREFIX.'emails', 'e', 'e.id = t.email_id')
             ->orderBy('count', 'DESC')
             ->groupBy('e.id')
             ->setMaxResults($limit);
@@ -2113,7 +2113,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
         $canViewOthers = empty($options['canViewOthers']) ? false : $options['canViewOthers'];
         $q             = $this->em->getConnection()->createQueryBuilder();
         $q->select('t.id, t.name, t.date_added, t.date_modified')
-            ->from(MAUTIC_TABLE_PREFIX.'emails', 't')
+            ->from(MAILVOTECH_TABLE_PREFIX.'emails', 't')
             ->setMaxResults($limit);
 
         if (!$canViewOthers) {
@@ -2281,7 +2281,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
             }
 
             if (!$mailer->setTo($user['email'], $user['firstname'].' '.$user['lastname'])) {
-                $errors[] = "{$user['email']}: ".$this->translator->trans('mautic.email.bounce.reason.bad_email');
+                $errors[] = "{$user['email']}: ".$this->translator->trans('mailvotech.email.bounce.reason.bad_email');
             } else {
                 if (!$mailer->queue(true)) {
                     $errorArray = $mailer->getErrors();
@@ -2356,7 +2356,7 @@ class EmailModel extends FormModel implements AjaxLookupModelInterface, GlobalSe
             return null;
         }
 
-        $suffix    = $this->translator->trans('mautic.email.clone.copy_suffix');
+        $suffix    = $this->translator->trans('mailvotech.email.clone.copy_suffix');
         $maxLength = Email::MAX_NAME_SUBJECT_LENGTH - mb_strlen($suffix);
 
         return mb_substr($name, 0, $maxLength).$suffix;

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Model;
+namespace MailVotech\FormBundle\Tests\Model;
 
-use Mautic\CoreBundle\Exception\FileUploadException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\FileUploader;
-use Mautic\FormBundle\Crate\UploadFileCrate;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\FormBundle\Helper\FormUploader;
+use MailVotech\CoreBundle\Exception\FileUploadException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\FileUploader;
+use MailVotech\FormBundle\Crate\UploadFileCrate;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\FormBundle\Helper\FormUploader;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Exception;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

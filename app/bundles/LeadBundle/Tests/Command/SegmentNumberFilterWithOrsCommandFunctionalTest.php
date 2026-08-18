@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Command;
+namespace MailVotech\LeadBundle\Tests\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
 
-final class SegmentNumberFilterWithOrsCommandFunctionalTest extends MauticMysqlTestCase
+final class SegmentNumberFilterWithOrsCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testSegmentNuberFilterWithOrsCommand(): void
     {
@@ -61,7 +61,7 @@ final class SegmentNumberFilterWithOrsCommandFunctionalTest extends MauticMysqlT
         $this->em->persist($segment);
         $this->em->flush();
 
-        $this->testSymfonyCommand('mautic:segments:update', ['-i' => $segment->getId()]);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['-i' => $segment->getId()]);
         $this->assertCount(3, $this->em->getRepository(ListLead::class)->findBy(['list' => $segment]));
     }
 
@@ -96,7 +96,7 @@ final class SegmentNumberFilterWithOrsCommandFunctionalTest extends MauticMysqlT
         $this->em->persist($segment);
         $this->em->flush();
 
-        $this->testSymfonyCommand('mautic:segments:update', ['-i' => $segment->getId()]);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['-i' => $segment->getId()]);
         $this->assertCount(2, $this->em->getRepository(ListLead::class)->findBy(['list' => $segment]));
     }
 }

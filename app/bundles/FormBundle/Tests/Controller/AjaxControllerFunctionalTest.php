@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Controller;
+namespace MailVotech\FormBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Request;
 
-final class AjaxControllerFunctionalTest extends MauticMysqlTestCase
+final class AjaxControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testGetFieldsForObjectAction(): void
     {

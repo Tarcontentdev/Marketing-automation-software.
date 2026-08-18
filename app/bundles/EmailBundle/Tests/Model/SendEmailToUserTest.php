@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Model;
+namespace MailVotech\EmailBundle\Tests\Model;
 
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\CoreBundle\Exception\RecordNotPublishedException;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\EmailBundle\Exception\EmailCouldNotBeSentException;
-use Mautic\EmailBundle\Exception\InvalidEmailException;
-use Mautic\EmailBundle\Helper\EmailValidator;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\EmailBundle\Model\SendEmailToUser;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Validator\CustomFieldValidator;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\CoreBundle\Exception\RecordNotPublishedException;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\Exception\EmailCouldNotBeSentException;
+use MailVotech\EmailBundle\Exception\InvalidEmailException;
+use MailVotech\EmailBundle\Helper\EmailValidator;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\EmailBundle\Model\SendEmailToUser;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Validator\CustomFieldValidator;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

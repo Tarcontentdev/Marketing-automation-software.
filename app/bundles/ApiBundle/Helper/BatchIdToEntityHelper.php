@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\ApiBundle\Helper;
+namespace MailVotech\ApiBundle\Helper;
 
-use Mautic\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Helper\CsvHelper;
 
 final class BatchIdToEntityHelper
 {
@@ -124,7 +124,7 @@ final class BatchIdToEntityHelper
 
         // Couldn't parse the 'ids' key; not throwing an exception in order to keep BC with
         // the old CommonApiController code and the use of a foreach in extractIdsFromParams
-        $this->errors[] = 'mautic.api.call.id_missing';
+        $this->errors[] = 'mailvotech.api.call.id_missing';
     }
 
     private function extractIdsFromParams(array $parameters): void
@@ -144,7 +144,7 @@ final class BatchIdToEntityHelper
         foreach ($parameters as $key => $params) {
             // Missing id column key in the array; terrible but keep BC
             if (!isset($params[$this->idKey])) {
-                $this->errors[$key] = 'mautic.api.call.id_missing';
+                $this->errors[$key] = 'mailvotech.api.call.id_missing';
 
                 continue;
             }

@@ -1,0 +1,18 @@
+{
+    "name": "mailvotech/plugin-emailmarketing",
+    "description": "Email Marketing Plugin",
+    "type": "mailvotech-plugin",
+    "keywords": [
+        "mailvotech",
+        "plugin",
+        "integration"
+    ],
+    "extra": {
+        "install-directory-name": "MailVotechEmailMarketingBundle"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "mailvotech/core-lib": "^7.0",
+        "mailvotech/composer-installer": "^1.0"
+    }
+}

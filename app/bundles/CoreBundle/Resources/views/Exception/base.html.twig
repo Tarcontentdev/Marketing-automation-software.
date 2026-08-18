@@ -1,9 +1,9 @@
 {#
 /*
- * @copyright   2014 Mautic Contributors. All rights reserved
- * @author      Mautic
+ * @copyright   2014 MailVotech Contributors. All rights reserved
+ * @author      MailVotech
  *
- * @link        http://mautic.org
+ * @link        http://mailvotech.org
  *
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -13,7 +13,7 @@
 #}
 
 
-{% set message = message | default('mautic.core.error.generic') %}
+{% set message = message | default('mailvotech.core.error.generic') %}
 {% set previousExceptions = [] %}
 {% set exceptionMessage = exception.message %}
 {% if exceptionMessage is defined and exceptionMessage is not empty%}
@@ -26,7 +26,7 @@
 {% set src = src|default(mautibotGetImage('wave'))  %}
 
  {% set headerTitle = headerTitle|default('') %}
-{% set pageTitle = pageTitle|default('Mautic') %}
+{% set pageTitle = pageTitle|default('MailVotech') %}
 
 {% if isAjax == false %}
     {% extends baseTemplate %}
@@ -57,7 +57,7 @@
                     <footer class="text-right">Mautibot</footer>
                 </blockquote>
                 <div class="pull-right">
-                    <a class="text-secondary" href="http://mau.tc/report-issue" target="_new">{{ 'mautic.core.report_issue' | trans }}</a>
+                    <a class="text-secondary" href="http://mau.tc/report-issue" target="_new">{{ 'mailvotech.core.report_issue' | trans }}</a>
                 </div>
             </div>
             {% endif %}
@@ -73,7 +73,7 @@
                 <div class="col-sm-12">
                     <h5 class="ml-lg text-danger">{{ exception.class }}</h5>
                     <div class="well well-sm ma-md">
-                        {{ include ('@MauticCore/Exception/traces.html.twig', {
+                        {{ include ('@MailVotechCore/Exception/traces.html.twig', {
                             'traces': exception.trace,
                         })}}
                     </div>
@@ -83,7 +83,7 @@
             {% if previousExceptions and previousExceptions|length > 0 %}
             <div class="row mt-20">
                 <div class="col-sm-12">
-                    <h5 class="ml-lg">{{ 'mautic.core.error.previousexceptions' | trans }}</h5>
+                    <h5 class="ml-lg">{{ 'mailvotech.core.error.previousexceptions' | trans }}</h5>
                     <div class="panel-group" id="previous" role="tablist" aria-multiselectable="true">
                     {% for key, e  in previousExceptions %}
                         <div class="panel panel-default">
@@ -97,7 +97,7 @@
                             <div id="previous_body_{{ key }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body">
                                     <div class="pa-sm">
-                                        {{ include ('@MauticCore/Exception/traces.html.twig', {
+                                        {{ include ('@MailVotechCore/Exception/traces.html.twig', {
                                             'traces': e.trace,
                                         })}}
                                     </div>

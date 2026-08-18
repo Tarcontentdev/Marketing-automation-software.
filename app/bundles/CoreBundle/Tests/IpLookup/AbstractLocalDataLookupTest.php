@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\IpLookup;
+namespace MailVotech\CoreBundle\Tests\IpLookup;
 
-use Mautic\CoreBundle\IpLookup\AbstractLocalDataLookup;
+use MailVotech\CoreBundle\IpLookup\AbstractLocalDataLookup;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

@@ -1,9 +1,9 @@
 <!-- Batch actions: always visible -->
-{{- include('@MauticCore/Helper/action_button_helper.html.twig') -}}
+{{- include('@MailVotechCore/Helper/action_button_helper.html.twig') -}}
 {{ restore('action_button_helper') }}
 
 {{ buttonReset(
-    constant('Mautic\\CoreBundle\\Twig\\Helper\\ButtonHelper::LOCATION_TOOLBAR_BULK_ACTIONS')
+    constant('MailVotech\\CoreBundle\\Twig\\Helper\\ButtonHelper::LOCATION_TOOLBAR_BULK_ACTIONS')
 ) }}
 
 {% if templateButtons.delete is defined and templateButtons.delete is not empty %}
@@ -11,7 +11,7 @@
         confirm: {
             message: translatorHasId(translationBase ~ '.form.confirmbatchdelete')
                 ? (translationBase ~ '.form.confirmbatchdelete')|trans
-                : 'mautic.core.form.confirmbatchdelete'|trans,
+                : 'mailvotech.core.form.confirmbatchdelete'|trans,
             confirmAction: path(actionRoute, query|filter((v, k) => k != 'tmpl')|merge({objectAction: 'batchDelete'})),
             template: 'batchdelete'
         },
@@ -23,20 +23,20 @@
 
 <!-- Batch actions: others, within the dropdown -->
 {{ buttonReset(
-    constant('Mautic\\CoreBundle\\Twig\\Helper\\ButtonHelper::LOCATION_BULK_ACTIONS'),
-    constant('Mautic\\CoreBundle\\Twig\\Helper\\ButtonHelper::TYPE_DROPDOWN')
+    constant('MailVotech\\CoreBundle\\Twig\\Helper\\ButtonHelper::LOCATION_BULK_ACTIONS'),
+    constant('MailVotech\\CoreBundle\\Twig\\Helper\\ButtonHelper::TYPE_DROPDOWN')
     ) }}
 
-{{- include('@MauticCore/Helper/action_button_helper.html.twig') -}}
+{{- include('@MailVotechCore/Helper/action_button_helper.html.twig') -}}
 {{ restore('action_button_helper') }}
 
 {% set dropdownButtons = buttonsRender() %}
 {% if dropdownButtons is not empty %}
     <div class="dropdown ml-xs">
-        {% include '@MauticCore/Helper/button.html.twig' with {
+        {% include '@MailVotechCore/Helper/button.html.twig' with {
             buttons: [
                 {
-                    label: 'mautic.core.options',
+                    label: 'mailvotech.core.options',
                     size: 'lg',
                     variant: 'primary',
                     icon: 'ri-more-2-line',

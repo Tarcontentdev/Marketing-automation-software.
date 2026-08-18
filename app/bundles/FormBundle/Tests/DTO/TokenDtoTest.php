@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\DTO;
+namespace MailVotech\FormBundle\Tests\DTO;
 
-use Mautic\FormBundle\DTO\TokenDto;
+use MailVotech\FormBundle\DTO\TokenDto;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;

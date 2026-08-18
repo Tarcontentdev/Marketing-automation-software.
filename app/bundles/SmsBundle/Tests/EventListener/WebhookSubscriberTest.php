@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\EventListener;
+namespace MailVotech\SmsBundle\Tests\EventListener;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\SmsBundle\Event\SmsSendEvent;
-use Mautic\SmsBundle\EventListener\WebhookSubscriber;
-use Mautic\SmsBundle\SmsEvents;
-use Mautic\WebhookBundle\Event\WebhookBuilderEvent;
-use Mautic\WebhookBundle\Model\WebhookModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\SmsBundle\Event\SmsSendEvent;
+use MailVotech\SmsBundle\EventListener\WebhookSubscriber;
+use MailVotech\SmsBundle\SmsEvents;
+use MailVotech\WebhookBundle\Event\WebhookBuilderEvent;
+use MailVotech\WebhookBundle\Model\WebhookModel;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class WebhookSubscriberTest extends \PHPUnit\Framework\TestCase
@@ -38,8 +38,8 @@ final class WebhookSubscriberTest extends \PHPUnit\Framework\TestCase
             ->with(
                 SmsEvents::SMS_ON_SEND,
                 [
-                    'label'       => 'mautic.sms.webhook.event.send',
-                    'description' => 'mautic.sms.webhook.event.send_desc',
+                    'label'       => 'mailvotech.sms.webhook.event.send',
+                    'description' => 'mailvotech.sms.webhook.event.send_desc',
                 ]
             );
 

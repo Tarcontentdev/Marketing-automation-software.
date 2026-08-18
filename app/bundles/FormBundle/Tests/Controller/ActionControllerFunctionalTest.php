@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Controller;
+namespace MailVotech\FormBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Form;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Form;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ActionControllerFunctionalTest extends MauticMysqlTestCase
+final class ActionControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * @throws \Doctrine\ORM\OptimisticLockException

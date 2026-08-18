@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Campaign;
+namespace MailVotech\CampaignBundle\Tests\Campaign;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLeads;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Entity\LeadRepository as CampaignLeadsRepository;
-use Mautic\CampaignBundle\Enum\RepublishBehavior;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLeads;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Entity\LeadRepository as CampaignLeadsRepository;
+use MailVotech\CampaignBundle\Enum\RepublishBehavior;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 
-abstract class AbstractCampaignTestCase extends MauticMysqlTestCase
+abstract class AbstractCampaignTestCase extends MailVotechMysqlTestCase
 {
     protected function saveSomeCampaignLeadEventLogs(bool $withPendingAction = false, bool $withActionOfRemovedLead = false): Campaign
     {

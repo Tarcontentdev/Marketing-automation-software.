@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\DataTransformer;
+namespace MailVotech\LeadBundle\Form\DataTransformer;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Segment\OperatorOptions;
-use Mautic\LeadBundle\Segment\RelativeDate;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Segment\RelativeDate;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

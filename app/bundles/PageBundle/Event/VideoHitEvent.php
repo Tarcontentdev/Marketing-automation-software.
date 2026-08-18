@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Event;
+namespace MailVotech\PageBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\PageBundle\Entity\VideoHit;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\PageBundle\Entity\VideoHit;
 
 final class VideoHitEvent extends CommonEvent
 {

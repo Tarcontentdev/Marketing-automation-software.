@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -40,13 +40,13 @@ final class DateSpanType extends AbstractType
             'unit',
             ChoiceType::class,
             [
-                'label'      => 'mautic.core.date.to',
+                'label'      => 'mailvotech.core.date.to',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'choices'    => [
-                    'mautic.core.time.days'   => 'day',
-                    'mautic.core.time.months' => 'month',
-                    'mautic.core.time.years'  => 'year',
+                    'mailvotech.core.time.days'   => 'day',
+                    'mailvotech.core.time.months' => 'month',
+                    'mailvotech.core.time.years'  => 'year',
                 ],
             ]
         );

@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\AssetBundle\Entity;
+namespace MailVotech\AssetBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ApiResource(

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Validator\Constraints;
+namespace MailVotech\DynamicContentBundle\Validator\Constraints;
 
-use Mautic\DynamicContentBundle\Helper\DynamicContentHelper;
+use MailVotech\DynamicContentBundle\Helper\DynamicContentHelper;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

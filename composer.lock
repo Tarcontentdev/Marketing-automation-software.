@@ -933,7 +933,7 @@
                 "Lan Management System",
                 "MODX Evo",
                 "MantisBT",
-                "Mautic",
+                "MailVotech",
                 "Maya",
                 "OXID",
                 "Plentymarkets",
@@ -6315,10 +6315,10 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Mautic\\": "bundles/",
+                    "MailVotech\\": "bundles/",
                     "MauticPlugin\\": "plugins/",
-                    "Mautic\\Middleware\\": "middlewares/",
-                    "Mautic\\Migrations\\": "migrations/"
+                    "MailVotech\\Middleware\\": "middlewares/",
+                    "MailVotech\\Migrations\\": "migrations/"
                 },
                 "files": [
                     "AppKernel.php",
@@ -6327,13 +6327,13 @@
             },
             "scripts": {
                 "pre-autoload-dump": [
-                    "Mautic\\ComposerBundle\\ComposerBundle::preAutoloadDump"
+                    "MailVotech\\ComposerBundle\\ComposerBundle::preAutoloadDump"
                 ]
             },
             "license": [
                 "GPL-3.0"
             ],
-            "description": "Mautic Open Source Distribution",
+            "description": "MailVotech Open Source Distribution",
             "transport-options": {
                 "relative": true
             }
@@ -16077,7 +16077,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Mautic\\Transifex\\": "src/"
+                    "MailVotech\\Transifex\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",

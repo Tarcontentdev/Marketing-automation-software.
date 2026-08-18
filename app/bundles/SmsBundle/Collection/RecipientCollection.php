@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Collection;
+namespace MailVotech\SmsBundle\Collection;
 
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Exception\RecipientNotFoundException;
-use Mautic\SmsBundle\Helper\DTO\SmsRecipientDTO;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Exception\RecipientNotFoundException;
+use MailVotech\SmsBundle\Helper\DTO\SmsRecipientDTO;
 
 final class RecipientCollection extends \ArrayIterator
 {

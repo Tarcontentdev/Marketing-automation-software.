@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail;
+namespace MailVotech\EmailBundle\MonitoredEmail;
 
 final class Message
 {

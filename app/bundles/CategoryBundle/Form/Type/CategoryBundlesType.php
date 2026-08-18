@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CategoryBundle\Form\Type;
+namespace MailVotech\CategoryBundle\Form\Type;
 
-use Mautic\CategoryBundle\CategoryEvents;
-use Mautic\CategoryBundle\Event\CategoryTypesEvent;
+use MailVotech\CategoryBundle\CategoryEvents;
+use MailVotech\CategoryBundle\Event\CategoryTypesEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Tests\Form\Type;
+namespace MailVotech\NotificationBundle\Tests\Form\Type;
 
-use Mautic\NotificationBundle\Form\Type\MobileNotificationDetailsType;
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\NotificationBundle\Form\Type\MobileNotificationDetailsType;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;

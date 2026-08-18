@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,7 +26,7 @@ final class FormFieldPageBreakType extends AbstractType
             'next_page_label',
             TextType::class,
             [
-                'label'      => 'mautic.form.field.form.property_pagebreak_nextpage_label',
+                'label'      => 'mailvotech.form.field.form.property_pagebreak_nextpage_label',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -34,10 +34,10 @@ final class FormFieldPageBreakType extends AbstractType
                 'required'    => true,
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
-                'empty_data' => $this->translator->trans('mautic.core.continue'),
+                'empty_data' => $this->translator->trans('mailvotech.core.continue'),
             ]
         );
 
@@ -45,11 +45,11 @@ final class FormFieldPageBreakType extends AbstractType
             'prev_page_label',
             TextType::class,
             [
-                'label'      => 'mautic.form.field.form.property_pagebreak_prevpage_label',
+                'label'      => 'mailvotech.form.field.form.property_pagebreak_prevpage_label',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'       => 'form-control',
-                    'placeholder' => 'mautic.form.field.form.property_pagebreak_prevpage_placeholder',
+                    'placeholder' => 'mailvotech.form.field.form.property_pagebreak_prevpage_placeholder',
                 ],
                 'required' => false,
             ]

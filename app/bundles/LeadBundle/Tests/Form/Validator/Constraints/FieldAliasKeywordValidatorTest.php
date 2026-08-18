@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Form\Validator\Constraints;
+namespace MailVotech\LeadBundle\Tests\Form\Validator\Constraints;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\UnitOfWork;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Form\Validator\Constraints\FieldAliasKeyword;
-use Mautic\LeadBundle\Form\Validator\Constraints\FieldAliasKeywordValidator;
-use Mautic\LeadBundle\Helper\FieldAliasHelper;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Services\ContactSegmentFilterDictionary;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Form\Validator\Constraints\FieldAliasKeyword;
+use MailVotech\LeadBundle\Form\Validator\Constraints\FieldAliasKeywordValidator;
+use MailVotech\LeadBundle\Helper\FieldAliasHelper;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Services\ContactSegmentFilterDictionary;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -48,13 +48,13 @@ final class FieldAliasKeywordValidatorTest extends \PHPUnit\Framework\TestCase
                 [
                     'lead' => [
                         'date_added' => [
-                            'label'      => 'mautic.core.date.added',
+                            'label'      => 'mailvotech.core.date.added',
                             'properties' => ['type' => 'date'],
                             'operators'  => 'default',
                             'object'     => 'lead',
                         ],
                         'date_identified' => [
-                            'label'      => 'mautic.lead.list.filter.date_identified',
+                            'label'      => 'mailvotech.lead.list.filter.date_identified',
                             'properties' => ['type' => 'date'],
                             'operators'  => 'default',
                             'object'     => 'lead',
@@ -91,7 +91,7 @@ final class FieldAliasKeywordValidatorTest extends \PHPUnit\Framework\TestCase
         $field->setObject('lead');
         $field->setAlias('date_added');
 
-        $this->executionContextMock->expects($this->once())->method('addViolation')->with('mautic.lead.field.keyword.invalid');
+        $this->executionContextMock->expects($this->once())->method('addViolation')->with('mailvotech.lead.field.keyword.invalid');
 
         $this->validator->validate($field, new FieldAliasKeyword());
     }
@@ -127,7 +127,7 @@ final class FieldAliasKeywordValidatorTest extends \PHPUnit\Framework\TestCase
         $field->setObject('lead');
         $field->setAlias('date_added');
 
-        $this->executionContextMock->expects($this->once())->method('addViolation')->with('mautic.lead.field.keyword.invalid');
+        $this->executionContextMock->expects($this->once())->method('addViolation')->with('mailvotech.lead.field.keyword.invalid');
 
         $this->validator->validate($field, new FieldAliasKeyword());
     }

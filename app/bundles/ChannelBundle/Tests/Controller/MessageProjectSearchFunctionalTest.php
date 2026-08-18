@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Tests\Controller;
+namespace MailVotech\ChannelBundle\Tests\Controller;
 
-use Mautic\ChannelBundle\Entity\Channel;
-use Mautic\ChannelBundle\Entity\Message;
-use Mautic\ProjectBundle\Tests\Functional\AbstractProjectSearchTestCase;
+use MailVotech\ChannelBundle\Entity\Channel;
+use MailVotech\ChannelBundle\Entity\Message;
+use MailVotech\ProjectBundle\Tests\Functional\AbstractProjectSearchTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class MessageProjectSearchFunctionalTest extends AbstractProjectSearchTestCase

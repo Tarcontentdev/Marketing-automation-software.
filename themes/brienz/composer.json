@@ -1,13 +1,17 @@
 {
-  "name": "mautic/theme-brienz",
-  "description": "Mautic Brienz Theme",
-  "type": "mautic-theme",
-  "keywords": ["mautic","theme"],
-  "extra": {
-    "install-directory-name": "brienz"
-  },
-  "minimum-stability": "dev",
-  "require": {
-    "mautic/core-lib": "^7.0"
-  }
+    "name": "mailvotech/theme-brienz",
+    "description": "MailVotech Brienz Theme",
+    "type": "mailvotech-theme",
+    "keywords": [
+        "mailvotech",
+        "theme"
+    ],
+    "extra": {
+        "install-directory-name": "brienz"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "mailvotech/core-lib": "^7.0",
+        "mailvotech/composer-installer": "^1.0"
+    }
 }

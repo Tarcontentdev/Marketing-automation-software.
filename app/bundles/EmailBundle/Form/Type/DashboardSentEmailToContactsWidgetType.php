@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
-use Mautic\CampaignBundle\Form\Type\CampaignListType;
-use Mautic\LeadBundle\Form\Type\CompanyListType;
-use Mautic\LeadBundle\Form\Type\LeadListType;
+use MailVotech\CampaignBundle\Form\Type\CampaignListType;
+use MailVotech\LeadBundle\Form\Type\CompanyListType;
+use MailVotech\LeadBundle\Form\Type\LeadListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -21,7 +21,7 @@ final class DashboardSentEmailToContactsWidgetType extends AbstractType
             'companyId',
             CompanyListType::class,
             [
-                'label'       => 'mautic.email.companyId.filter',
+                'label'       => 'mailvotech.email.companyId.filter',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => ['class' => 'form-control'],
                 'empty_data'  => '',
@@ -35,7 +35,7 @@ final class DashboardSentEmailToContactsWidgetType extends AbstractType
             'campaignId',
             CampaignListType::class,
             [
-                'label'       => 'mautic.email.campaignId.filter',
+                'label'       => 'mailvotech.email.campaignId.filter',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => ['class' => 'form-control'],
                 'empty_data'  => '',
@@ -49,7 +49,7 @@ final class DashboardSentEmailToContactsWidgetType extends AbstractType
             'segmentId',
             LeadListType::class,
             [
-                'label'      => 'mautic.email.segmentId.filter',
+                'label'      => 'mailvotech.email.segmentId.filter',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'empty_data' => '',

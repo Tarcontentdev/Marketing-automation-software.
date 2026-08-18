@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\Controller;
+namespace MailVotech\LeadBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Import;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\ImportModel;
-use Mautic\LeadBundle\Model\TagModel;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Security\UserTokenSetter;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Import;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\ImportModel;
+use MailVotech\LeadBundle\Model\TagModel;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Security\UserTokenSetter;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ImportControllerFunctionalTest extends MauticMysqlTestCase
+final class ImportControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -57,7 +57,7 @@ final class ImportControllerFunctionalTest extends MauticMysqlTestCase
         ]);
         $html = $this->client->submit($form);
 
-        $this->assertStringContainsString('Match the columns from the imported file to Mautic\'s contact fields.', $html->text(null, false));
+        $this->assertStringContainsString('Match the columns from the imported file to MailVotech\'s contact fields.', $html->text(null, false));
 
         $importButton = $html->selectButton('Import');
         $importForm   = $importButton->form();
@@ -125,7 +125,7 @@ final class ImportControllerFunctionalTest extends MauticMysqlTestCase
     {
         $this->generateSmallCSV();
         $user = $this->em->getRepository(User::class)->findOneBy(['username' => 'admin']);
-        $this->client->loginUser($user, 'mautic');
+        $this->client->loginUser($user, 'mailvotech');
 
         $tagRepository  = $this->em->getRepository(Tag::class);
         $tagCountBefore = $tagRepository->count([]);
@@ -151,7 +151,7 @@ final class ImportControllerFunctionalTest extends MauticMysqlTestCase
         $this->client->submit($importForm);
 
         $import = $this->em->getRepository(Import::class)->findOneBy(['object' => 'lead']);
-        $output = $this->testSymfonyCommand('mautic:import', [
+        $output = $this->testSymfonyCommand('mailvotech:import', [
             '-e'      => 'dev',
             '--id'    => $import->getId(),
             '--limit' => 10000,
@@ -251,7 +251,7 @@ final class ImportControllerFunctionalTest extends MauticMysqlTestCase
         $this->assertResponseIsSuccessful();
 
         $this->assertStringContainsString(
-            'Match the columns from the imported file to Mautic\'s contact fields.',
+            'Match the columns from the imported file to MailVotech\'s contact fields.',
             $html->text(null, false)
         );
 
@@ -271,7 +271,7 @@ final class ImportControllerFunctionalTest extends MauticMysqlTestCase
 
         $this->assertSelectorTextContains(
             '.alert.alert-danger a.text-danger',
-            $translator->trans('mautic.user.exception.user.not_found', ['%identifier%' => $invalidOwner])
+            $translator->trans('mailvotech.user.exception.user.not_found', ['%identifier%' => $invalidOwner])
         );
     }
 
@@ -419,7 +419,7 @@ final class ImportControllerFunctionalTest extends MauticMysqlTestCase
             ['test3.pdf', 'john3@doe.email', 'John', 'Doe3', 'MP'],
         ];
 
-        $tmpFile = tempnam(sys_get_temp_dir(), 'mautic_import_test_').'.csv';
+        $tmpFile = tempnam(sys_get_temp_dir(), 'mailvotech_import_test_').'.csv';
         $file    = fopen($tmpFile, 'wb');
         foreach ($csvRows as $line) {
             CsvHelper::putCsv($file, $line);
@@ -442,9 +442,9 @@ final class ImportControllerFunctionalTest extends MauticMysqlTestCase
         ]);
         $html = $this->client->submit($form);
 
-        $this->assertStringContainsString('Match the columns from the imported file to Mautic\'s contact fields.', $html->text());
+        $this->assertStringContainsString('Match the columns from the imported file to MailVotech\'s contact fields.', $html->text());
 
-        return $this->testSymfonyCommand('mautic:import', [
+        return $this->testSymfonyCommand('mailvotech:import', [
             '-e'      => 'dev',
             '--id'    => $import->getId(),
             '--limit' => 10000,

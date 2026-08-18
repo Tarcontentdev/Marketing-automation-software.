@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -14,19 +14,19 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Entity\SkipModifiedInterface;
-use Mautic\LeadBundle\DataObject\LeadManipulator;
-use Mautic\LeadBundle\Form\Validator\Constraints\UniqueCustomField;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\NotificationBundle\Entity\PushID;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\GroupContactScore;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Entity\SkipModifiedInterface;
+use MailVotech\LeadBundle\DataObject\LeadManipulator;
+use MailVotech\LeadBundle\Form\Validator\Constraints\UniqueCustomField;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\NotificationBundle\Entity\PushID;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\GroupContactScore;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -759,7 +759,7 @@ class Lead extends FormEntity implements CustomFieldEntityInterface, IdentifierF
             return $ips->first()->getIpAddress();
         }
 
-        return 'mautic.lead.lead.anonymous';
+        return 'mailvotech.lead.lead.anonymous';
     }
 
     /**

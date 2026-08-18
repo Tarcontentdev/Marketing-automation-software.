@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CampaignBundle\Helper;
+namespace MailVotech\CampaignBundle\Helper;
 
-use Mautic\CampaignBundle\Entity\ChannelInterface;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
+use MailVotech\CampaignBundle\Entity\ChannelInterface;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
 
 final class ChannelExtractor
 {

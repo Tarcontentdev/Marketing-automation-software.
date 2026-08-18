@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Tests\Functional\EventListener;
+namespace MailVotech\NotificationBundle\Tests\Functional\EventListener;
 
 use GuzzleHttp\Psr7\Response;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event as CampaignEvent;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\DoNotContact as DoNotContactModel;
-use Mautic\NotificationBundle\Api\AbstractNotificationApi;
-use Mautic\NotificationBundle\Api\OneSignalApi;
-use Mautic\NotificationBundle\Entity\Notification;
-use Mautic\NotificationBundle\Entity\NotificationRepository;
-use Mautic\NotificationBundle\EventListener\CampaignSubscriber;
-use Mautic\NotificationBundle\Model\NotificationModel;
-use Mautic\NotificationBundle\Tests\NotificationTrait;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event as CampaignEvent;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\DoNotContact as DoNotContactModel;
+use MailVotech\NotificationBundle\Api\AbstractNotificationApi;
+use MailVotech\NotificationBundle\Api\OneSignalApi;
+use MailVotech\NotificationBundle\Entity\Notification;
+use MailVotech\NotificationBundle\Entity\NotificationRepository;
+use MailVotech\NotificationBundle\EventListener\CampaignSubscriber;
+use MailVotech\NotificationBundle\Model\NotificationModel;
+use MailVotech\NotificationBundle\Tests\NotificationTrait;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use PHPUnit\Framework\Assert;
 use Psr\Http\Message\RequestInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class CampaignSubscriberTest extends MauticMysqlTestCase
+final class CampaignSubscriberTest extends MailVotechMysqlTestCase
 {
     use NotificationTrait;
 
@@ -424,7 +424,7 @@ final class CampaignSubscriberTest extends MauticMysqlTestCase
         $subscriber = new class(self::getContainer()->get(IntegrationHelper::class), self::getContainer()->get(NotificationModel::class), self::getContainer()->get(OneSignalApi::class), self::getContainer()->get(EventDispatcherInterface::class), self::getContainer()->get(DoNotContactModel::class), self::getContainer()->get(TranslatorInterface::class), self::getContainer()->get(NotificationRepository::class)) extends CampaignSubscriber {
             protected const MAX_PLAYER_IDS_PER_REQUEST = 2;
         };
-        self::getContainer()->set('mautic.notification.campaignbundle.subscriber', $subscriber);
+        self::getContainer()->set('mailvotech.notification.campaignbundle.subscriber', $subscriber);
 
         $notification = $this->createNotification($this->em);
         $this->em->flush();
@@ -506,7 +506,7 @@ final class CampaignSubscriberTest extends MauticMysqlTestCase
 
     private function triggerCampaigns(): void
     {
-        $this->testSymfonyCommand('mautic:campaigns:trigger');
+        $this->testSymfonyCommand('mailvotech:campaigns:trigger');
         $this->em->clear();
     }
 
@@ -574,7 +574,7 @@ final class CampaignSubscriberTest extends MauticMysqlTestCase
         $metadata = $log->getMetadata();
         $this->assertIsArray($metadata);
         $this->assertArrayHasKey('status', $metadata);
-        $this->assertSame('mautic.notification.timeline.status.delivered', $metadata['status']);
+        $this->assertSame('mailvotech.notification.timeline.status.delivered', $metadata['status']);
     }
 
     private function assertEventLogFailed(CampaignEvent $event, Lead $leadOne, ?string $reason, bool $isScheduled = false): void

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Mautic\CoreBundle\Doctrine\PreUpAssertionMigration;
+use MailVotech\CoreBundle\Doctrine\PreUpAssertionMigration;
 
 final class Version20241212090146 extends PreUpAssertionMigration
 {
     protected const TABLE_NAME = 'sync_object_mapping';
 
-    private string $indexName = MAUTIC_TABLE_PREFIX.'internal_object_id_idx';
+    private string $indexName = MAILVOTECH_TABLE_PREFIX.'internal_object_id_idx';
 
     protected function preUpAssertions(): void
     {

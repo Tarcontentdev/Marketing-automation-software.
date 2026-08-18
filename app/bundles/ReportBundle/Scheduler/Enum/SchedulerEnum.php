@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Scheduler\Enum;
+namespace MailVotech\ReportBundle\Scheduler\Enum;
 
 final class SchedulerEnum
 {
@@ -37,32 +37,32 @@ final class SchedulerEnum
     public static function getUnitEnumForSelect(): array
     {
         return [
-            'mautic.report.schedule.unit.now'   => self::UNIT_NOW,
-            'mautic.report.schedule.unit.day'   => self::UNIT_DAILY,
-            'mautic.report.schedule.unit.week'  => self::UNIT_WEEKLY,
-            'mautic.report.schedule.unit.month' => self::UNIT_MONTHLY,
+            'mailvotech.report.schedule.unit.now'   => self::UNIT_NOW,
+            'mailvotech.report.schedule.unit.day'   => self::UNIT_DAILY,
+            'mailvotech.report.schedule.unit.week'  => self::UNIT_WEEKLY,
+            'mailvotech.report.schedule.unit.month' => self::UNIT_MONTHLY,
         ];
     }
 
     public static function getDayEnumForSelect(): array
     {
         return [
-            'mautic.report.schedule.day.monday'    => self::DAY_MO,
-            'mautic.report.schedule.day.tuesday'   => self::DAY_TU,
-            'mautic.report.schedule.day.wednesday' => self::DAY_WE,
-            'mautic.report.schedule.day.thursday'  => self::DAY_TH,
-            'mautic.report.schedule.day.friday'    => self::DAY_FR,
-            'mautic.report.schedule.day.saturday'  => self::DAY_SA,
-            'mautic.report.schedule.day.sunday'    => self::DAY_SU,
-            'mautic.report.schedule.day.week_days' => self::DAY_WEEK_DAYS,
+            'mailvotech.report.schedule.day.monday'    => self::DAY_MO,
+            'mailvotech.report.schedule.day.tuesday'   => self::DAY_TU,
+            'mailvotech.report.schedule.day.wednesday' => self::DAY_WE,
+            'mailvotech.report.schedule.day.thursday'  => self::DAY_TH,
+            'mailvotech.report.schedule.day.friday'    => self::DAY_FR,
+            'mailvotech.report.schedule.day.saturday'  => self::DAY_SA,
+            'mailvotech.report.schedule.day.sunday'    => self::DAY_SU,
+            'mailvotech.report.schedule.day.week_days' => self::DAY_WEEK_DAYS,
         ];
     }
 
     public static function getMonthFrequencyForSelect(): array
     {
         return [
-            'mautic.report.schedule.month_frequency.first' => self::MONTH_FREQUENCY_FIRST,
-            'mautic.report.schedule.month_frequency.last'  => self::MONTH_FREQUENCY_LAST,
+            'mailvotech.report.schedule.month_frequency.first' => self::MONTH_FREQUENCY_FIRST,
+            'mailvotech.report.schedule.month_frequency.last'  => self::MONTH_FREQUENCY_LAST,
         ];
     }
 

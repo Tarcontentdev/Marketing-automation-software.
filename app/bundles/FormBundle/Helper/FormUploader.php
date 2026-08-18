@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\FormBundle\Helper;
+namespace MailVotech\FormBundle\Helper;
 
-use Mautic\CoreBundle\Exception\FileUploadException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\FileUploader;
-use Mautic\FormBundle\Crate\UploadFileCrate;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\Submission;
+use MailVotech\CoreBundle\Exception\FileUploadException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\FileUploader;
+use MailVotech\FormBundle\Crate\UploadFileCrate;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\Submission;
 
 class FormUploader
 {

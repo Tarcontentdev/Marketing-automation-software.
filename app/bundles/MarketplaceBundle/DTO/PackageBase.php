@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\DTO;
+namespace MailVotech\MarketplaceBundle\DTO;
 
 final class PackageBase
 {
@@ -17,7 +17,7 @@ final class PackageBase
         public int $downloads,
         public int $favers,
         /**
-         * E.g. mautic-plugin.
+         * E.g. mailvotech-plugin.
          */
         public ?string $type,
         public ?string $displayName = null,
@@ -39,7 +39,7 @@ final class PackageBase
     }
 
     /**
-     * Just an alias to getName(). Used in Mautic helpers.
+     * Just an alias to getName(). Used in MailVotech helpers.
      */
     public function getId(): string
     {
@@ -47,7 +47,7 @@ final class PackageBase
     }
 
     /**
-     * Used in Mautic helpers.
+     * Used in MailVotech helpers.
      */
     public function getName(): string
     {

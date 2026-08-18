@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\DependencyInjection\EnvProcessor;
+namespace MailVotech\MessengerBundle\DependencyInjection\EnvProcessor;
 
 use Symfony\Component\DependencyInjection\EnvVarProcessorInterface;
 

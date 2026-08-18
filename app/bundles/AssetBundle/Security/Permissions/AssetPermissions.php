@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\AssetBundle\Security\Permissions;
+namespace MailVotech\AssetBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class AssetPermissions extends AbstractPermissions

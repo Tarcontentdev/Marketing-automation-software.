@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DashboardBundle\Tests\Controller;
+namespace MailVotech\DashboardBundle\Tests\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\DashboardBundle\Controller\DashboardController;
-use Mautic\DashboardBundle\Dashboard\Widget;
-use Mautic\DashboardBundle\Model\DashboardModel;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\DashboardBundle\Controller\DashboardController;
+use MailVotech\DashboardBundle\Dashboard\Widget;
+use MailVotech\DashboardBundle\Model\DashboardModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -106,7 +106,7 @@ final class DashboardControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->translatorMock->expects($this->once())
             ->method('trans')
-            ->with('mautic.core.url.error.401');
+            ->with('mailvotech.core.url.error.401');
 
         $this->expectException(AccessDeniedHttpException::class);
         $this->controller->saveAction($this->requestMock);
@@ -138,7 +138,7 @@ final class DashboardControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->translatorMock->expects($this->once())
             ->method('trans')
-            ->with('mautic.dashboard.notice.save');
+            ->with('mailvotech.dashboard.notice.save');
 
         $this->controller->saveAction($this->requestMock);
     }
@@ -169,7 +169,7 @@ final class DashboardControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->translatorMock->expects($this->once())
             ->method('trans')
-            ->with('mautic.dashboard.error.save');
+            ->with('mailvotech.dashboard.error.save');
 
         $this->controller->saveAction($this->requestMock);
     }
@@ -210,7 +210,7 @@ final class DashboardControllerTest extends \PHPUnit\Framework\TestCase
     public function testWidget(): void
     {
         $widgetId        = '1';
-        $widget          = new \Mautic\DashboardBundle\Entity\Widget();
+        $widget          = new \MailVotech\DashboardBundle\Entity\Widget();
         $renderedContent = 'lfsadkdhfůasfjds';
         $twig            = $this->createMock(Environment::class);
 

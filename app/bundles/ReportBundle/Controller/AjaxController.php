@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\ReportBundle\Controller;
+namespace MailVotech\ReportBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\ReportBundle\Model\ReportModel;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\ReportBundle\Model\ReportModel;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Service\Attribute\Required;

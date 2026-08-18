@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Security\SAML;
+namespace MailVotech\UserBundle\Security\SAML;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final readonly class Helper

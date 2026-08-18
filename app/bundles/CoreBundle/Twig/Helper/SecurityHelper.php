@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\CoreBundle\Twig\Helper;
+namespace MailVotech\CoreBundle\Twig\Helper;
 
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Event\AuthenticationContentEvent;
-use Mautic\UserBundle\UserEvents;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Event\AuthenticationContentEvent;
+use MailVotech\UserBundle\UserEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;

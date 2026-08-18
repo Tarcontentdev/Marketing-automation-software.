@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\IpLookup;
+namespace MailVotech\CoreBundle\Tests\IpLookup;
 
-use Mautic\CoreBundle\IpLookup\MaxmindDownloadLookup;
+use MailVotech\CoreBundle\IpLookup\MaxmindDownloadLookup;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;

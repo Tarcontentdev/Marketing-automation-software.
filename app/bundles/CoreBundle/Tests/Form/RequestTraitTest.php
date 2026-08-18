@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Form;
+namespace MailVotech\CoreBundle\Tests\Form;
 
-use Mautic\CoreBundle\Form\RequestTrait;
+use MailVotech\CoreBundle\Form\RequestTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\DataMapperInterface;

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDevice;
-use Mautic\ReportBundle\Entity\Report;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDevice;
+use MailVotech\ReportBundle\Entity\Report;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ReportDevicesSubscriberFunctionalTest extends MauticMysqlTestCase
+final class ReportDevicesSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * @var array<int, array<string, mixed>>

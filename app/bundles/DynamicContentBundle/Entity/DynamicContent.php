@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\DynamicContentBundle\Entity;
+namespace MailVotech\DynamicContentBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -13,21 +13,21 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\FiltersEntityTrait;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\TranslationEntityInterface;
-use Mautic\CoreBundle\Entity\TranslationEntityTrait;
-use Mautic\CoreBundle\Entity\UuidInterface;
-use Mautic\CoreBundle\Entity\UuidTrait;
-use Mautic\CoreBundle\Entity\VariantEntityInterface;
-use Mautic\CoreBundle\Entity\VariantEntityTrait;
-use Mautic\DynamicContentBundle\DynamicContent\TypeList;
-use Mautic\DynamicContentBundle\Validator\Constraints\NoNesting;
-use Mautic\DynamicContentBundle\Validator\Constraints\SlotNameType;
-use Mautic\ProjectBundle\Entity\ProjectTrait;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\FiltersEntityTrait;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\TranslationEntityInterface;
+use MailVotech\CoreBundle\Entity\TranslationEntityTrait;
+use MailVotech\CoreBundle\Entity\UuidInterface;
+use MailVotech\CoreBundle\Entity\UuidTrait;
+use MailVotech\CoreBundle\Entity\VariantEntityInterface;
+use MailVotech\CoreBundle\Entity\VariantEntityTrait;
+use MailVotech\DynamicContentBundle\DynamicContent\TypeList;
+use MailVotech\DynamicContentBundle\Validator\Constraints\NoNesting;
+use MailVotech\DynamicContentBundle\Validator\Constraints\SlotNameType;
+use MailVotech\ProjectBundle\Entity\ProjectTrait;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Choice;
@@ -231,10 +231,10 @@ class DynamicContent extends FormEntity implements VariantEntityInterface, Trans
      */
     public static function loadValidatorMetaData(ClassMetadata $metadata): void
     {
-        $metadata->addPropertyConstraint('name', new NotBlank(message: 'mautic.core.name.required'));
+        $metadata->addPropertyConstraint('name', new NotBlank(message: 'mailvotech.core.name.required'));
         $metadata->addPropertyConstraint('content', new NoNesting());
 
-        $metadata->addPropertyConstraint('type', new NotBlank(message: 'mautic.core.type.required'));
+        $metadata->addPropertyConstraint('type', new NotBlank(message: 'mailvotech.core.type.required'));
         $metadata->addPropertyConstraint('type', new Choice(choices: (new TypeList())->getChoices()));
 
         $metadata->addConstraint(new SlotNameType());
@@ -247,7 +247,7 @@ class DynamicContent extends FormEntity implements VariantEntityInterface, Trans
                         $dwc->getSlotName(),
                         [
                             new NotBlank(
-                                message: 'mautic.dynamicContent.slot_name.notblank'
+                                message: 'mailvotech.dynamicContent.slot_name.notblank'
                             ),
                         ]
                     );
@@ -259,7 +259,7 @@ class DynamicContent extends FormEntity implements VariantEntityInterface, Trans
                     $violations = $validator->validate(
                         $dwc->getFilters(),
                         [
-                            new Count(min: 1, minMessage: 'mautic.dynamicContent.filter.options.empty'),
+                            new Count(min: 1, minMessage: 'mailvotech.dynamicContent.filter.options.empty'),
                         ]
                     );
                     foreach ($violations as $violation) {

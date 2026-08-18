@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Form\Type;
+namespace MailVotech\EmailBundle\Tests\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\LookupType;
-use Mautic\CoreBundle\Form\Type\SortableListType;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\EmailBundle\Form\Type\ExampleSendType;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\LookupType;
+use MailVotech\CoreBundle\Form\Type\SortableListType;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\EmailBundle\Form\Type\ExampleSendType;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -60,8 +60,8 @@ final class ExampleSendTypeTest extends TestCase
                     $this->assertSame(SortableListType::class, $parameters[1]);
                     $this->assertSame([
                         'entry_type'       => EmailType::class,
-                        'label'            => 'mautic.email.example_recipients',
-                        'add_value_button' => 'mautic.email.add_recipient',
+                        'label'            => 'mailvotech.email.example_recipients',
+                        'add_value_button' => 'mailvotech.email.add_recipient',
                         'option_notblank'  => false,
                     ], $parameters[2]);
                 }
@@ -70,7 +70,7 @@ final class ExampleSendTypeTest extends TestCase
                     $this->assertSame(FormButtonsType::class, $parameters[1]);
                     $this->assertSame([
                         'apply_text' => false,
-                        'save_text'  => 'mautic.email.send',
+                        'save_text'  => 'mailvotech.email.send',
                         'save_icon'  => 'ri-send-plane-line',
                     ], $parameters[2]);
                 }
@@ -106,12 +106,12 @@ final class ExampleSendTypeTest extends TestCase
         $this->translator->expects($matcher)
             ->method('trans')->willReturnCallback(function (...$parameters) use ($matcher): string {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.lead.list.form.startTyping', $parameters[0]);
+                    $this->assertSame('mailvotech.lead.list.form.startTyping', $parameters[0]);
 
                     return 'startTyping';
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.core.form.nomatches', $parameters[0]);
+                    $this->assertSame('mailvotech.core.form.nomatches', $parameters[0]);
 
                     return 'nomatches';
                 }
@@ -128,8 +128,8 @@ final class ExampleSendTypeTest extends TestCase
                     $this->assertSame(SortableListType::class, $parameters[1]);
                     $this->assertSame([
                         'entry_type'       => EmailType::class,
-                        'label'            => 'mautic.email.example_recipients',
-                        'add_value_button' => 'mautic.email.add_recipient',
+                        'label'            => 'mailvotech.email.example_recipients',
+                        'add_value_button' => 'mailvotech.email.add_recipient',
                         'option_notblank'  => false,
                     ], $parameters[2]);
                 }
@@ -158,7 +158,7 @@ final class ExampleSendTypeTest extends TestCase
                     $this->assertSame(FormButtonsType::class, $parameters[1]);
                     $this->assertSame([
                         'apply_text' => false,
-                        'save_text'  => 'mautic.email.send',
+                        'save_text'  => 'mailvotech.email.send',
                         'save_icon'  => 'ri-send-plane-line',
                     ], $parameters[2]);
                 }

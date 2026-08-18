@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\Lead;
 
-final class DoNotContactRepositoryFunctionalTest extends MauticMysqlTestCase
+final class DoNotContactRepositoryFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testGetChannelList(): void
     {

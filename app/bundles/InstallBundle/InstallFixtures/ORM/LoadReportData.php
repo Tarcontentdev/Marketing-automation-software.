@@ -1,20 +1,20 @@
 <?php
 
-namespace Mautic\InstallBundle\InstallFixtures\ORM;
+namespace MailVotech\InstallBundle\InstallFixtures\ORM;
 
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\CoreBundle\Helper\Serializer;
-use Mautic\ReportBundle\Entity\Report;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Helper\Serializer;
+use MailVotech\ReportBundle\Entity\Report;
 
 final class LoadReportData extends AbstractFixture implements OrderedFixtureInterface, FixtureGroupInterface
 {
     public static function getGroups(): array
     {
-        return ['group_install', 'group_mautic_install_data'];
+        return ['group_install', 'group_mailvotech_install_data'];
     }
 
     public function load(ObjectManager $manager): void

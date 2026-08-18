@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\Asset;
+namespace MailVotech\AssetBundle\Tests\Asset;
 
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\Mapping\MappingException;
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-abstract class AbstractAssetTestCase extends MauticMysqlTestCase
+abstract class AbstractAssetTestCase extends MailVotechMysqlTestCase
 {
     protected Asset $asset;
 
@@ -98,7 +98,7 @@ abstract class AbstractAssetTestCase extends MauticMysqlTestCase
     protected function generateCsv(): void
     {
         $uploadDir  = static::getContainer()->get(CoreParametersHelper::class)->get('upload_dir') ?? sys_get_temp_dir();
-        $tmpFile    = tempnam($uploadDir, 'mautic_asset_test_');
+        $tmpFile    = tempnam($uploadDir, 'mailvotech_asset_test_');
         $file       = fopen($tmpFile, 'w');
 
         $initialList = [

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Notification;
+namespace MailVotech\IntegrationsBundle\Sync\Notification;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\UserBundle\Entity\User;
 
 class Writer
 {

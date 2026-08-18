@@ -2,32 +2,32 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Executioner;
+namespace MailVotech\CampaignBundle\Tests\Executioner;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
-use Mautic\CampaignBundle\EventCollector\EventCollector;
-use Mautic\CampaignBundle\EventListener\CampaignActionJumpToEventSubscriber;
-use Mautic\CampaignBundle\Executioner\Event\ActionExecutioner;
-use Mautic\CampaignBundle\Executioner\Event\ConditionExecutioner;
-use Mautic\CampaignBundle\Executioner\Event\DecisionExecutioner;
-use Mautic\CampaignBundle\Executioner\EventExecutioner;
-use Mautic\CampaignBundle\Executioner\Logger\EventLogger;
-use Mautic\CampaignBundle\Executioner\Result\EvaluatedContacts;
-use Mautic\CampaignBundle\Executioner\Scheduler\EventScheduler;
-use Mautic\CampaignBundle\Form\Type\CampaignEventJumpToEventType;
-use Mautic\CampaignBundle\Helper\RemovedContactTracker;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Form\Type\EmailSendType;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\CampaignBundle\EventCollector\EventCollector;
+use MailVotech\CampaignBundle\EventListener\CampaignActionJumpToEventSubscriber;
+use MailVotech\CampaignBundle\Executioner\Event\ActionExecutioner;
+use MailVotech\CampaignBundle\Executioner\Event\ConditionExecutioner;
+use MailVotech\CampaignBundle\Executioner\Event\DecisionExecutioner;
+use MailVotech\CampaignBundle\Executioner\EventExecutioner;
+use MailVotech\CampaignBundle\Executioner\Logger\EventLogger;
+use MailVotech\CampaignBundle\Executioner\Result\EvaluatedContacts;
+use MailVotech\CampaignBundle\Executioner\Scheduler\EventScheduler;
+use MailVotech\CampaignBundle\Form\Type\CampaignEventJumpToEventType;
+use MailVotech\CampaignBundle\Helper\RemovedContactTracker;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Form\Type\EmailSendType;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 
@@ -85,12 +85,12 @@ final class EventExecutionerTest extends \PHPUnit\Framework\TestCase
             ->setCampaign($campaign);
         $otherConfig = new ActionAccessor(
             [
-                'label'                => 'mautic.email.campaign.event.send',
-                'description'          => 'mautic.email.campaign.event.send_descr',
+                'label'                => 'mailvotech.email.campaign.event.send',
+                'description'          => 'mailvotech.email.campaign.event.send_descr',
                 'batchEventName'       => EmailEvents::ON_CAMPAIGN_BATCH_ACTION,
                 'formType'             => EmailSendType::class,
                 'formTypeOptions'      => ['update_select' => 'campaignevent_properties_email', 'with_email_types' => true],
-                'formTheme'            => 'MauticEmailBundle:FormTheme\EmailSendList',
+                'formTheme'            => 'MailVotechEmailBundle:FormTheme\EmailSendList',
                 'channel'              => 'email',
                 'channelIdField'       => 'email',
             ]
@@ -102,10 +102,10 @@ final class EventExecutionerTest extends \PHPUnit\Framework\TestCase
             ->setCampaign($campaign);
         $jumpConfig = new ActionAccessor(
             [
-                'label'                  => 'mautic.campaign.event.jump_to_event',
-                'description'            => 'mautic.campaign.event.jump_to_event_descr',
+                'label'                  => 'mailvotech.campaign.event.jump_to_event',
+                'description'            => 'mailvotech.campaign.event.jump_to_event_descr',
                 'formType'               => CampaignEventJumpToEventType::class,
-                'template'               => '@MauticCampaign/Event/jump.html.twig',
+                'template'               => '@MailVotechCampaign/Event/jump.html.twig',
                 'batchEventName'         => CampaignEvents::ON_EVENT_JUMP_TO_EVENT,
                 'connectionRestrictions' => [
                     'target' => [
@@ -219,10 +219,10 @@ final class EventExecutionerTest extends \PHPUnit\Framework\TestCase
 
         $config = new ActionAccessor(
             [
-                'label'                  => 'mautic.campaign.event.jump_to_event',
-                'description'            => 'mautic.campaign.event.jump_to_event_descr',
+                'label'                  => 'mailvotech.campaign.event.jump_to_event',
+                'description'            => 'mailvotech.campaign.event.jump_to_event_descr',
                 'formType'               => CampaignEventJumpToEventType::class,
-                'template'               => '@MauticCampaign/Event/jump.html.twig',
+                'template'               => '@MailVotechCampaign/Event/jump.html.twig',
                 'batchEventName'         => CampaignEvents::ON_EVENT_JUMP_TO_EVENT,
                 'connectionRestrictions' => [
                     'target' => [

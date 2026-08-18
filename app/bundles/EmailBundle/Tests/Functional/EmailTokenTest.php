@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Functional;
+namespace MailVotech\EmailBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
-final class EmailTokenTest extends MauticMysqlTestCase
+final class EmailTokenTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -111,7 +111,7 @@ final class EmailTokenTest extends MauticMysqlTestCase
 
         $body = $crawler->filter('body');
 
-        // Remove the tracking tags that are causing troubles with different Mautic configurations.
+        // Remove the tracking tags that are causing troubles with different MailVotech configurations.
         $body->filter('a,img,div')->each(function (Crawler $crawler): void {
             foreach ($crawler as $node) {
                 $node->parentNode->removeChild($node);

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Scheduler\Option;
+namespace MailVotech\ReportBundle\Tests\Scheduler\Option;
 
-use Mautic\ReportBundle\Scheduler\Option\ExportOption;
+use MailVotech\ReportBundle\Scheduler\Option\ExportOption;
 
 final class ExportOptionTest extends \PHPUnit\Framework\TestCase
 {

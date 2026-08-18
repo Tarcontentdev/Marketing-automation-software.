@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 use GuzzleHttp\Psr7\Query;
 use Joomla\Filter\InputFilter;
@@ -40,7 +40,7 @@ final class InputHelper
     private static function getFilter(bool $html = false, bool $strict = false): ?InputFilter
     {
         if (!self::$htmlFilter instanceof InputFilter) {
-            // Most of Mautic's HTML uses include full HTML documents so use blacklist method
+            // Most of MailVotech's HTML uses include full HTML documents so use blacklist method
             self::$htmlFilter               = new InputFilter([], [], 1, 1);
             self::$htmlFilter->blockedTags  = [
                 'applet',

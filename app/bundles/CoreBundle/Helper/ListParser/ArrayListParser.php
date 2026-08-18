@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper\ListParser;
+namespace MailVotech\CoreBundle\Helper\ListParser;
 
-use Mautic\CoreBundle\Helper\ListParser\Exception\FormatNotSupportedException;
+use MailVotech\CoreBundle\Helper\ListParser\Exception\FormatNotSupportedException;
 
 final class ArrayListParser implements ListParserInterface
 {

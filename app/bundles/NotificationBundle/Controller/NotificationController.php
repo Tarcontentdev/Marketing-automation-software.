@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\NotificationBundle\Controller;
+namespace MailVotech\NotificationBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AbstractFormController;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\CoreBundle\Form\Type\DateRangeType;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\LeadBundle\Controller\EntityContactsTrait;
-use Mautic\NotificationBundle\Entity\Notification;
-use Mautic\NotificationBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\Controller\AbstractFormController;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\CoreBundle\Form\Type\DateRangeType;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\LeadBundle\Controller\EntityContactsTrait;
+use MailVotech\NotificationBundle\Entity\Notification;
+use MailVotech\NotificationBundle\Model\NotificationModel;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,14 +63,14 @@ final class NotificationController extends AbstractFormController
 
         $session = $request->getSession();
 
-        $limit = $session->get('mautic.notification.limit', $this->coreParametersHelper->get('default_pagelimit'));
+        $limit = $session->get('mailvotech.notification.limit', $this->coreParametersHelper->get('default_pagelimit'));
         $start = (1 === $page) ? 0 : (($page - 1) * $limit);
         if ($start < 0) {
             $start = 0;
         }
 
-        $search = $request->get('search', $session->get('mautic.notification.filter', ''));
-        $session->set('mautic.notification.filter', $search);
+        $search = $request->get('search', $session->get('mailvotech.notification.filter', ''));
+        $session->set('mailvotech.notification.filter', $search);
 
         $filter = [
             'string' => $search,
@@ -88,8 +88,8 @@ final class NotificationController extends AbstractFormController
                 ['column' => 'e.createdBy', 'expr' => 'eq', 'value' => $this->user->getId()];
         }
 
-        $orderBy    = $session->get('mautic.notification.orderby', 'e.name');
-        $orderByDir = $session->get('mautic.notification.orderbydir', 'DESC');
+        $orderBy    = $session->get('mailvotech.notification.orderby', 'e.name');
+        $orderByDir = $session->get('mailvotech.notification.orderbydir', 'DESC');
 
         $notifications = $this->notificationModel->getEntities(
             [
@@ -110,22 +110,22 @@ final class NotificationController extends AbstractFormController
                 $lastPage = (floor($count / $limit)) ?: 1;
             }
 
-            $session->set('mautic.notification.page', $lastPage);
-            $returnUrl = $this->generateUrl('mautic_notification_index', ['page' => $lastPage]);
+            $session->set('mailvotech.notification.page', $lastPage);
+            $returnUrl = $this->generateUrl('mailvotech_notification_index', ['page' => $lastPage]);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $lastPage],
-                    'contentTemplate' => 'Mautic\NotificationBundle\Controller\NotificationController::indexAction',
+                    'contentTemplate' => 'MailVotech\NotificationBundle\Controller\NotificationController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_notification_index',
-                        'mauticContent' => 'notification',
+                        'activeLink'    => '#mailvotech_notification_index',
+                        'mailvotechContent' => 'notification',
                     ],
                 ]
             );
         }
-        $session->set('mautic.notification.page', $page);
+        $session->set('mailvotech.notification.page', $page);
 
         return $this->delegateView(
             [
@@ -140,11 +140,11 @@ final class NotificationController extends AbstractFormController
                     'model'       => $this->notificationModel,
                     'security'    => $this->security,
                 ],
-                'contentTemplate' => '@MauticNotification/Notification/list.html.twig',
+                'contentTemplate' => '@MailVotechNotification/Notification/list.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_notification_index',
-                    'mauticContent' => 'notification',
-                    'route'         => $this->generateUrl('mautic_notification_index', ['page' => $page]),
+                    'activeLink'    => '#mailvotech_notification_index',
+                    'mailvotechContent' => 'notification',
+                    'route'         => $this->generateUrl('mailvotech_notification_index', ['page' => $page]),
                 ],
             ]
         );
@@ -160,25 +160,25 @@ final class NotificationController extends AbstractFormController
         /** @var Notification $notification */
         $notification = $this->notificationModel->getEntity($objectId);
         // set the page we came from
-        $page = $request->getSession()->get('mautic.notification.page', 1);
+        $page = $request->getSession()->get('mailvotech.notification.page', 1);
 
         if (null === $notification) {
             // set the return URL
-            $returnUrl = $this->generateUrl('mautic_notification_index', ['page' => $page]);
+            $returnUrl = $this->generateUrl('mailvotech_notification_index', ['page' => $page]);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $page],
-                    'contentTemplate' => 'Mautic\NotificationBundle\Controller\NotificationController::indexAction',
+                    'contentTemplate' => 'MailVotech\NotificationBundle\Controller\NotificationController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_notification_index',
-                        'mauticContent' => 'notification',
+                        'activeLink'    => '#mailvotech_notification_index',
+                        'mailvotechContent' => 'notification',
                     ],
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.notification.error.notfound',
+                            'msg'     => 'mailvotech.notification.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -197,7 +197,7 @@ final class NotificationController extends AbstractFormController
 
         // Init the date range filter form
         $dateRangeValues = $request->query->all()['daterange'] ?? $request->request->all()['daterange'] ?? [];
-        $action          = $this->generateUrl('mautic_notification_action', ['objectAction' => 'view', 'objectId' => $objectId]);
+        $action          = $this->generateUrl('mailvotech_notification_action', ['objectAction' => 'view', 'objectId' => $objectId]);
         $dateRangeForm   = $formFactory->create(DateRangeType::class, $dateRangeValues, ['action' => $action]);
         $entityViews     = $this->notificationModel->getHitsLineChartData(
             null,
@@ -211,7 +211,7 @@ final class NotificationController extends AbstractFormController
         $trackableLinks = $this->notificationModel->getNotificationClickStats($notification->getId());
 
         return $this->delegateView([
-            'returnUrl'      => $this->generateUrl('mautic_notification_action', ['objectAction' => 'view', 'objectId' => $notification->getId()]),
+            'returnUrl'      => $this->generateUrl('mailvotech_notification_action', ['objectAction' => 'view', 'objectId' => $notification->getId()]),
             'viewParameters' => [
                 'notification' => $notification,
                 'trackables'   => $trackableLinks,
@@ -230,19 +230,19 @@ final class NotificationController extends AbstractFormController
                 'security'    => $security,
                 'entityViews' => $entityViews,
                 'contacts'    => $this->forward(
-                    'Mautic\NotificationBundle\Controller\NotificationController::contactsAction',
+                    'MailVotech\NotificationBundle\Controller\NotificationController::contactsAction',
                     [
                         'objectId'   => $notification->getId(),
-                        'page'       => $request->getSession()->get('mautic.notification.contact.page', 1),
+                        'page'       => $request->getSession()->get('mailvotech.notification.contact.page', 1),
                         'ignoreAjax' => true,
                     ]
                 )->getContent(),
                 'dateRangeForm' => $dateRangeForm->createView(),
             ],
-            'contentTemplate' => '@MauticNotification/Notification/details.html.twig',
+            'contentTemplate' => '@MailVotechNotification/Notification/details.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_notification_index',
-                'mauticContent' => 'notification',
+                'activeLink'    => '#mailvotech_notification_index',
+                'mailvotechContent' => 'notification',
             ],
         ]);
     }
@@ -267,8 +267,8 @@ final class NotificationController extends AbstractFormController
         }
 
         // set the page we came from
-        $page         = $session->get('mautic.notification.page', 1);
-        $action       = $this->generateUrl('mautic_notification_action', ['objectAction' => 'new']);
+        $page         = $session->get('mailvotech.notification.page', 1);
+        $action       = $this->generateUrl('mailvotech_notification_action', ['objectAction' => 'new']);
         $notification = $request->request->all()['notification'] ?? [];
         $updateSelect = ('POST' === $method)
             ? ($notification['updateSelect'] ?? false)
@@ -290,12 +290,12 @@ final class NotificationController extends AbstractFormController
                     $this->notificationModel->saveEntity($entity);
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.created',
+                        'mailvotech.core.notice.created',
                         [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_notification_index',
+                            '%menu_link%' => 'mailvotech_notification_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_notification_action',
+                                'mailvotech_notification_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $entity->getId(),
@@ -309,8 +309,8 @@ final class NotificationController extends AbstractFormController
                             'objectAction' => 'view',
                             'objectId'     => $entity->getId(),
                         ];
-                        $returnUrl = $this->generateUrl('mautic_notification_action', $viewParameters);
-                        $template  = 'Mautic\NotificationBundle\Controller\NotificationController::viewAction';
+                        $returnUrl = $this->generateUrl('mailvotech_notification_action', $viewParameters);
+                        $template  = 'MailVotech\NotificationBundle\Controller\NotificationController::viewAction';
                     } else {
                         // return edit view so that all the session stuff is loaded
                         return $this->editAction($request, $formFactory, $entity->getId(), true);
@@ -318,15 +318,15 @@ final class NotificationController extends AbstractFormController
                 }
             } else {
                 $viewParameters = ['page' => $page];
-                $returnUrl      = $this->generateUrl('mautic_notification_index', $viewParameters);
-                $template       = 'Mautic\NotificationBundle\Controller\NotificationController::indexAction';
+                $returnUrl      = $this->generateUrl('mailvotech_notification_index', $viewParameters);
+                $template       = 'MailVotech\NotificationBundle\Controller\NotificationController::indexAction';
                 // clear any modified content
-                $session->remove('mautic.notification.'.$entity->getId().'.content');
+                $session->remove('mailvotech.notification.'.$entity->getId().'.content');
             }
 
             $passthrough = [
-                'activeLink'    => 'mautic_notification_index',
-                'mauticContent' => 'notification',
+                'activeLink'    => 'mailvotech_notification_index',
+                'mailvotechContent' => 'notification',
             ];
 
             // Check to see if this is a popup
@@ -361,13 +361,13 @@ final class NotificationController extends AbstractFormController
                     'form'         => $form->createView(),
                     'notification' => $entity,
                 ],
-                'contentTemplate' => '@MauticNotification/Notification/form.html.twig',
+                'contentTemplate' => '@MailVotechNotification/Notification/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_notification_index',
-                    'mauticContent' => 'notification',
+                    'activeLink'    => '#mailvotech_notification_index',
+                    'mailvotechContent' => 'notification',
                     'updateSelect'  => InputHelper::clean($request->query->get('updateSelect')),
                     'route'         => $this->generateUrl(
-                        'mautic_notification_action',
+                        'mailvotech_notification_action',
                         [
                             'objectAction' => 'new',
                         ]
@@ -386,18 +386,18 @@ final class NotificationController extends AbstractFormController
         $method  = $request->getMethod();
         $entity  = $this->notificationModel->getEntity($objectId);
         $session = $request->getSession();
-        $page    = $session->get('mautic.notification.page', 1);
+        $page    = $session->get('mailvotech.notification.page', 1);
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_notification_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_notification_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\NotificationBundle\Controller\NotificationController::indexAction',
+            'contentTemplate' => 'MailVotech\NotificationBundle\Controller\NotificationController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_notification_index',
-                'mauticContent' => 'notification',
+                'activeLink'    => 'mailvotech_notification_index',
+                'mailvotechContent' => 'notification',
             ],
         ];
 
@@ -410,7 +410,7 @@ final class NotificationController extends AbstractFormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.notification.error.notfound',
+                                'msg'     => 'mailvotech.notification.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -431,7 +431,7 @@ final class NotificationController extends AbstractFormController
         }
 
         // Create the form
-        $action       = $this->generateUrl('mautic_notification_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action       = $this->generateUrl('mailvotech_notification_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $notification = $request->request->all()['notification'] ?? [];
         $updateSelect = 'POST' === $method
             ? ($notification['updateSelect'] ?? false)
@@ -449,12 +449,12 @@ final class NotificationController extends AbstractFormController
                     $this->notificationModel->saveEntity($entity, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.updated',
+                        'mailvotech.core.notice.updated',
                         [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_notification_index',
+                            '%menu_link%' => 'mailvotech_notification_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_notification_action',
+                                'mailvotech_notification_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $entity->getId(),
@@ -466,15 +466,15 @@ final class NotificationController extends AbstractFormController
                 }
             } else {
                 // clear any modified content
-                $session->remove('mautic.notification.'.$objectId.'.content');
+                $session->remove('mailvotech.notification.'.$objectId.'.content');
                 // unlock the entity
                 $this->notificationModel->unlockEntity($entity);
             }
 
-            $template    = 'Mautic\NotificationBundle\Controller\NotificationController::viewAction';
+            $template    = 'MailVotech\NotificationBundle\Controller\NotificationController::viewAction';
             $passthrough = [
-                'activeLink'    => 'mautic_notification_index',
-                'mauticContent' => 'notification',
+                'activeLink'    => 'mailvotech_notification_index',
+                'mailvotechContent' => 'notification',
             ];
 
             // Check to see if this is a popup
@@ -501,7 +501,7 @@ final class NotificationController extends AbstractFormController
                     array_merge(
                         $postActionVars,
                         [
-                            'returnUrl'       => $this->generateUrl('mautic_notification_action', $viewParameters),
+                            'returnUrl'       => $this->generateUrl('mailvotech_notification_action', $viewParameters),
                             'viewParameters'  => $viewParameters,
                             'contentTemplate' => $template,
                             'passthroughVars' => $passthrough,
@@ -521,13 +521,13 @@ final class NotificationController extends AbstractFormController
                     'notification'       => $entity,
                     'forceTypeSelection' => $forceTypeSelection,
                 ],
-                'contentTemplate' => '@MauticNotification/Notification/form.html.twig',
+                'contentTemplate' => '@MailVotechNotification/Notification/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_notification_index',
-                    'mauticContent' => 'notification',
+                    'activeLink'    => '#mailvotech_notification_index',
+                    'mailvotechContent' => 'notification',
                     'updateSelect'  => InputHelper::clean($request->query->get('updateSelect')),
                     'route'         => $this->generateUrl(
-                        'mautic_notification_action',
+                        'mailvotech_notification_action',
                         [
                             'objectAction' => 'edit',
                             'objectId'     => $entity->getId(),
@@ -567,17 +567,17 @@ final class NotificationController extends AbstractFormController
      */
     public function deleteAction(Request $request, $objectId): Response
     {
-        $page      = $request->getSession()->get('mautic.notification.page', 1);
-        $returnUrl = $this->generateUrl('mautic_notification_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.notification.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_notification_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\NotificationBundle\Controller\NotificationController::indexAction',
+            'contentTemplate' => 'MailVotech\NotificationBundle\Controller\NotificationController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_notification_index',
-                'mauticContent' => 'notification',
+                'activeLink'    => 'mailvotech_notification_index',
+                'mailvotechContent' => 'notification',
             ],
         ];
 
@@ -587,7 +587,7 @@ final class NotificationController extends AbstractFormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.notification.error.notfound',
+                    'msg'     => 'mailvotech.notification.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->hasEntityAccess(
@@ -605,7 +605,7 @@ final class NotificationController extends AbstractFormController
 
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $entity->getName(),
                     '%id%'   => $objectId,
@@ -628,17 +628,17 @@ final class NotificationController extends AbstractFormController
      */
     public function batchDeleteAction(Request $request): Response
     {
-        $page      = $request->getSession()->get('mautic.notification.page', 1);
-        $returnUrl = $this->generateUrl('mautic_notification_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.notification.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_notification_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\NotificationBundle\Controller\NotificationController::indexAction',
+            'contentTemplate' => 'MailVotech\NotificationBundle\Controller\NotificationController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_notification_index',
-                'mauticContent' => 'notification',
+                'activeLink'    => '#mailvotech_notification_index',
+                'mailvotechContent' => 'notification',
             ],
         ];
 
@@ -654,7 +654,7 @@ final class NotificationController extends AbstractFormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.notification.error.notfound',
+                        'msg'     => 'mailvotech.notification.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->hasEntityAccess(
@@ -677,7 +677,7 @@ final class NotificationController extends AbstractFormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.notification.notice.batch_deleted',
+                    'msg'     => 'mailvotech.notification.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],
@@ -704,7 +704,7 @@ final class NotificationController extends AbstractFormController
                 'viewParameters' => [
                     'notification' => $notification,
                 ],
-                'contentTemplate' => '@MauticNotification/Notification/preview.html.twig',
+                'contentTemplate' => '@MailVotechNotification/Notification/preview.html.twig',
             ]
         );
     }

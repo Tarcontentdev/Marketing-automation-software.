@@ -1,19 +1,19 @@
 <?php
 
-namespace Mautic\ChannelBundle\Model;
+namespace MailVotech\ChannelBundle\Model;
 
-use Mautic\ChannelBundle\ChannelEvents;
-use Mautic\ChannelBundle\Entity\MessageQueue;
-use Mautic\ChannelBundle\Entity\MessageQueueRepository;
-use Mautic\ChannelBundle\Event\MessageQueueBatchProcessEvent;
-use Mautic\ChannelBundle\Event\MessageQueueEvent;
-use Mautic\ChannelBundle\Event\MessageQueueProcessEvent;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\LeadBundle\Entity\FrequencyRuleRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\ChannelBundle\ChannelEvents;
+use MailVotech\ChannelBundle\Entity\MessageQueue;
+use MailVotech\ChannelBundle\Entity\MessageQueueRepository;
+use MailVotech\ChannelBundle\Event\MessageQueueBatchProcessEvent;
+use MailVotech\ChannelBundle\Event\MessageQueueEvent;
+use MailVotech\ChannelBundle\Event\MessageQueueProcessEvent;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\LeadBundle\Entity\FrequencyRuleRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -151,7 +151,7 @@ class MessageQueueModel extends FormModel
 
             $messageQueue = new MessageQueue();
             if ($campaignEventId) {
-                $messageQueue->setEvent($this->em->getReference(\Mautic\CampaignBundle\Entity\Event::class, $campaignEventId));
+                $messageQueue->setEvent($this->em->getReference(\MailVotech\CampaignBundle\Entity\Event::class, $campaignEventId));
             }
             $messageQueue->setChannel($channel);
             $messageQueue->setChannelId($channelId);

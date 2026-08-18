@@ -1,18 +1,18 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\RequestOptions;
-use Mautic\CoreBundle\Helper\Update\Exception\CouldNotFetchLatestVersionException;
-use Mautic\CoreBundle\Helper\Update\Exception\LatestVersionSupportedException;
-use Mautic\CoreBundle\Helper\Update\Exception\UpdateCacheDataNeedsToBeRefreshedException;
-use Mautic\CoreBundle\Helper\Update\Github\Release;
-use Mautic\CoreBundle\Helper\Update\Github\ReleaseParser;
-use Mautic\CoreBundle\Helper\Update\PreUpdateChecks\PreUpdateCheckError;
-use Mautic\CoreBundle\Helper\Update\PreUpdateChecks\PreUpdateCheckResult;
-use Mautic\CoreBundle\Release\Metadata;
+use MailVotech\CoreBundle\Helper\Update\Exception\CouldNotFetchLatestVersionException;
+use MailVotech\CoreBundle\Helper\Update\Exception\LatestVersionSupportedException;
+use MailVotech\CoreBundle\Helper\Update\Exception\UpdateCacheDataNeedsToBeRefreshedException;
+use MailVotech\CoreBundle\Helper\Update\Github\Release;
+use MailVotech\CoreBundle\Helper\Update\Github\ReleaseParser;
+use MailVotech\CoreBundle\Helper\Update\PreUpdateChecks\PreUpdateCheckError;
+use MailVotech\CoreBundle\Helper\Update\PreUpdateChecks\PreUpdateCheckResult;
+use MailVotech\CoreBundle\Release\Metadata;
 use Monolog\Logger;
 
 /**
@@ -25,7 +25,7 @@ class UpdateHelper
     /**
      * @var string
      */
-    private $mauticVersion;
+    private $mailvotechVersion;
 
     public function __construct(
         private readonly PathsHelper $pathsHelper,
@@ -35,7 +35,7 @@ class UpdateHelper
         private readonly ReleaseParser $releaseParser,
         private readonly PreUpdateCheckHelper $preUpdateCheckHelper,
     ) {
-        $this->mauticVersion = defined('MAUTIC_VERSION') ? MAUTIC_VERSION : 'unknown';
+        $this->mailvotechVersion = defined('MAILVOTECH_VERSION') ? MAILVOTECH_VERSION : 'unknown';
         $this->phpVersion    = defined('PHP_VERSION') ? PHP_VERSION : 'unknown';
     }
 
@@ -59,7 +59,7 @@ class UpdateHelper
 
             return [
                 'error'   => true,
-                'message' => 'mautic.core.updater.error.fetching.package',
+                'message' => 'mailvotech.core.updater.error.fetching.package',
             ];
         }
 
@@ -102,12 +102,12 @@ class UpdateHelper
         } catch (LatestVersionSupportedException) {
             return [
                 'error'   => false,
-                'message' => 'mautic.core.updater.running.latest.version',
+                'message' => 'mailvotech.core.updater.running.latest.version',
             ];
         } catch (CouldNotFetchLatestVersionException) {
             return [
                 'error'   => true,
-                'message' => 'mautic.core.updater.error.fetching.updates',
+                'message' => 'mailvotech.core.updater.error.fetching.updates',
             ];
         } catch (RequestException $exception) {
             if ($exception->getResponse() instanceof \Psr\Http\Message\ResponseInterface) {
@@ -129,21 +129,21 @@ class UpdateHelper
 
             return [
                 'error'   => true,
-                'message' => 'mautic.core.updater.error.fetching.updates',
+                'message' => 'mailvotech.core.updater.error.fetching.updates',
             ];
         } catch (\Exception $exception) {
             $this->logger->error(sprintf('UPDATE CHECK: %s', $exception->getMessage()));
 
             return [
                 'error'   => true,
-                'message' => 'mautic.core.updater.error.fetching.updates',
+                'message' => 'mailvotech.core.updater.error.fetching.updates',
             ];
         }
 
         // The user is able to update to the latest version, cache the data first
         $data = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => $release->getVersion(),
             'announcement' => $release->getAnnouncementUrl(),
             'package'      => $release->getDownloadUrl(),
@@ -171,11 +171,11 @@ class UpdateHelper
 
         if (true === $updateData['error']) {
             $checkResults[] = new PreUpdateCheckResult(false, null, [new PreUpdateCheckError($updateData['message'])]);
-        } elseif (false === $updateData['error'] && 'mautic.core.updater.running.latest.version' === $updateData['message']) {
+        } elseif (false === $updateData['error'] && 'mailvotech.core.updater.running.latest.version' === $updateData['message']) {
             // If we're already running the latest version, let's consider that an error so that the updater doesn't accidentally continue.
-            $checkResults[] = new PreUpdateCheckResult(false, null, [new PreUpdateCheckError('mautic.core.updater.running.latest.version')]);
+            $checkResults[] = new PreUpdateCheckResult(false, null, [new PreUpdateCheckError('mailvotech.core.updater.running.latest.version')]);
         } elseif (empty($updateData['metadata'])) {
-            $checkResults[] = new PreUpdateCheckResult(false, null, [new PreUpdateCheckError('mautic.core.update.check.error.release_data')]);
+            $checkResults[] = new PreUpdateCheckResult(false, null, [new PreUpdateCheckError('mailvotech.core.update.check.error.release_data')]);
         }
 
         if ([] !== $checkResults) {
@@ -207,7 +207,7 @@ class UpdateHelper
         try {
             $key           = $this->coreParametersHelper->get('secret_key');
             $dbDriver      = $this->coreParametersHelper->get('db_driver');
-            $installSource = $this->coreParametersHelper->get('install_source', 'Mautic');
+            $installSource = $this->coreParametersHelper->get('install_source', 'MailVotech');
 
             // Generate a unique instance ID for the site
             $instanceId = hash('sha1', $key.$installSource.$dbDriver);
@@ -215,8 +215,8 @@ class UpdateHelper
             $data = array_map(
                 trim(...),
                 [
-                    'application'   => 'Mautic',
-                    'version'       => $this->mauticVersion,
+                    'application'   => 'MailVotech',
+                    'version'       => $this->mailvotechVersion,
                     'phpVersion'    => $this->phpVersion,
                     'dbDriver'      => $dbDriver,
                     'serverOs'      => $this->getServerOs(),
@@ -312,7 +312,7 @@ class UpdateHelper
             throw new CouldNotFetchLatestVersionException();
         }
 
-        return $this->releaseParser->getLatestSupportedRelease($releases, $this->mauticVersion, $updateStability);
+        return $this->releaseParser->getLatestSupportedRelease($releases, $this->mailvotechVersion, $updateStability);
     }
 
     /**

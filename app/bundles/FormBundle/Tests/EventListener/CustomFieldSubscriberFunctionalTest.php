@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\EventListener;
+namespace MailVotech\FormBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Collector\FieldCollector;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Collector\FieldCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CustomFieldSubscriberFunctionalTest extends MauticMysqlTestCase
+final class CustomFieldSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     private const CUSTOM_FIELD_ALIAS = 'test_select_field';
 

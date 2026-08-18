@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Loader;
+namespace MailVotech\CoreBundle\Tests\Unit\Loader;
 
-use Mautic\CoreBundle\Loader\ParameterLoader;
+use MailVotech\CoreBundle\Loader\ParameterLoader;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
@@ -14,20 +14,20 @@ final class ParameterLoaderTest extends TestCase
     public function testParametersAreLoaded(): void
     {
         $envParameters = json_encode(['default_daterange_filter' => '-1 day']);
-        putenv('MAUTIC_CONFIG_PARAMETERS='.$envParameters);
+        putenv('MAILVOTECH_CONFIG_PARAMETERS='.$envParameters);
 
         $loader = new ParameterLoader(__DIR__.'/TestRoot/app');
         $loader->loadIntoEnvironment();
 
         $parameterBag = $loader->getParameterBag();
 
-        $this->assertEquals('https://language-packs.mautic.com/', $parameterBag->get('translations_fetch_url'));
-        $this->assertEquals('https://language-packs.mautic.com/', $_ENV['MAUTIC_TRANSLATIONS_FETCH_URL']);
+        $this->assertEquals('https://language-packs.mailvotech.com/', $parameterBag->get('translations_fetch_url'));
+        $this->assertEquals('https://language-packs.mailvotech.com/', $_ENV['MAILVOTECH_TRANSLATIONS_FETCH_URL']);
 
         $this->assertEquals('-1 day', $parameterBag->get('default_daterange_filter'));
-        $this->assertEquals('-1 day', $_ENV['MAUTIC_DEFAULT_DATERANGE_FILTER']);
+        $this->assertEquals('-1 day', $_ENV['MAILVOTECH_DEFAULT_DATERANGE_FILTER']);
 
-        putenv('MAUTIC_CONFIG_PARAMETERS=');
+        putenv('MAILVOTECH_CONFIG_PARAMETERS=');
     }
 
     public function testDefaultParametersAreLoaded(): void
@@ -39,7 +39,7 @@ final class ParameterLoaderTest extends TestCase
 
     public function testGetWebrootDirReturnsProjectRootWhenNoWebRootConfigured(): void
     {
-        $tempDir = sys_get_temp_dir().'/mautic_test_'.uniqid();
+        $tempDir = sys_get_temp_dir().'/mailvotech_test_'.uniqid();
         mkdir($tempDir);
 
         // Create a composer.json without web-root configuration
@@ -59,17 +59,17 @@ final class ParameterLoaderTest extends TestCase
         rmdir($tempDir);
     }
 
-    public function testGetWebrootDirDetectsMauticScaffoldWebRoot(): void
+    public function testGetWebrootDirDetectsMailVotechScaffoldWebRoot(): void
     {
-        $tempDir = sys_get_temp_dir().'/mautic_test_'.uniqid();
+        $tempDir = sys_get_temp_dir().'/mailvotech_test_'.uniqid();
         mkdir($tempDir);
         mkdir($tempDir.'/docroot');
 
-        // Create a composer.json with mautic-scaffold web-root (recommended-project style)
+        // Create a composer.json with mailvotech-scaffold web-root (recommended-project style)
         file_put_contents($tempDir.'/composer.json', json_encode([
-            'name' => 'mautic/recommended-project',
+            'name' => 'mailvotech/recommended-project',
             'extra' => [
-                'mautic-scaffold' => [
+                'mailvotech-scaffold' => [
                     'locations' => [
                         'web-root' => 'docroot/',
                     ],
@@ -89,7 +89,7 @@ final class ParameterLoaderTest extends TestCase
 
     public function testGetWebrootDirDetectsSymfonyPublicDir(): void
     {
-        $tempDir = sys_get_temp_dir().'/mautic_test_'.uniqid();
+        $tempDir = sys_get_temp_dir().'/mailvotech_test_'.uniqid();
         mkdir($tempDir);
         mkdir($tempDir.'/public');
 
@@ -113,14 +113,14 @@ final class ParameterLoaderTest extends TestCase
 
     public function testGetWebrootDirFallsBackToProjectRootWhenDirectoryDoesNotExist(): void
     {
-        $tempDir = sys_get_temp_dir().'/mautic_test_'.uniqid();
+        $tempDir = sys_get_temp_dir().'/mailvotech_test_'.uniqid();
         mkdir($tempDir);
 
         // Create a composer.json pointing to a non-existent directory
         file_put_contents($tempDir.'/composer.json', json_encode([
             'name' => 'test/project',
             'extra' => [
-                'mautic-scaffold' => [
+                'mailvotech-scaffold' => [
                     'locations' => [
                         'web-root' => 'nonexistent/',
                     ],
@@ -149,20 +149,20 @@ final class ParameterLoaderTest extends TestCase
      *
      * Run in an isolated process: the fix only protects the first time ParameterLoader populates
      * a given key in a process (see ParameterLoader::$selfPopulatedEnvKeys), so this needs a
-     * process where MAUTIC_MAILER_DSN has not already been touched by another test's loader call.
+     * process where MAILVOTECH_MAILER_DSN has not already been touched by another test's loader call.
      */
     #[PreserveGlobalState(false)]
     #[RunInSeparateProcess]
     public function testLoadIntoEnvironmentDoesNotOverrideAnExistingEnvValue(): void
     {
         // The TestRoot fixture's local.php sets 'mailer_dsn' => 'foobar.com', which is mapped to
-        // the MAUTIC_MAILER_DSN environment variable.
-        $_ENV['MAUTIC_MAILER_DSN']   = 'from-dotenv-file';
-        $_ENV['SYMFONY_DOTENV_VARS'] = 'MAUTIC_MAILER_DSN';
+        // the MAILVOTECH_MAILER_DSN environment variable.
+        $_ENV['MAILVOTECH_MAILER_DSN']   = 'from-dotenv-file';
+        $_ENV['SYMFONY_DOTENV_VARS'] = 'MAILVOTECH_MAILER_DSN';
 
         $loader = new ParameterLoader(__DIR__.'/TestRoot/app');
         $loader->loadIntoEnvironment();
 
-        $this->assertEquals('from-dotenv-file', $_ENV['MAUTIC_MAILER_DSN']);
+        $this->assertEquals('from-dotenv-file', $_ENV['MAILVOTECH_MAILER_DSN']);
     }
 }

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Helper;
+namespace MailVotech\LeadBundle\Tests\Helper;
 
-use Mautic\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
 use PHPUnit\Framework\TestCase;
 
 final class FormFieldHelperTest extends TestCase
@@ -13,13 +13,13 @@ final class FormFieldHelperTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->defaultUploadDir    = $_ENV['MAUTIC_UPLOAD_DIR'] ?? null;
-        $_ENV['MAUTIC_UPLOAD_DIR'] = __DIR__; // may not be set unless Symfony is booted
+        $this->defaultUploadDir    = $_ENV['MAILVOTECH_UPLOAD_DIR'] ?? null;
+        $_ENV['MAILVOTECH_UPLOAD_DIR'] = __DIR__; // may not be set unless Symfony is booted
     }
 
     protected function tearDown(): void
     {
-        $_ENV['MAUTIC_UPLOAD_DIR'] = $this->defaultUploadDir;
+        $_ENV['MAILVOTECH_UPLOAD_DIR'] = $this->defaultUploadDir;
     }
 
     public function testDefaultCountryList(): void
@@ -33,7 +33,7 @@ final class FormFieldHelperTest extends TestCase
 
     public function testCustomCountryList(): void
     {
-        $_ENV['MAUTIC_UPLOAD_DIR'] = __DIR__.'/files';
+        $_ENV['MAILVOTECH_UPLOAD_DIR'] = __DIR__.'/files';
         $list                      = FormFieldHelper::getCountryChoices();
         $first                     = array_shift($list);
         $last                      = array_pop($list);
@@ -54,7 +54,7 @@ final class FormFieldHelperTest extends TestCase
 
     public function testCustomRegionList(): void
     {
-        $_ENV['MAUTIC_UPLOAD_DIR'] = __DIR__.'/files';
+        $_ENV['MAILVOTECH_UPLOAD_DIR'] = __DIR__.'/files';
         $list                      = FormFieldHelper::getRegionChoices();
         $firstCountry              = array_shift($list);
         $firstCountryRegion        = array_shift($firstCountry);

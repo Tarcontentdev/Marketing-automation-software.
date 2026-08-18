@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\Controller;
+namespace MailVotech\MessengerBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\MessengerBundle\Service\TestMessageFactory;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\MessengerBundle\Service\TestMessageFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -25,14 +25,14 @@ final class AjaxController extends CommonAjaxController
 
         $data = [
             'success' => 1,
-            'message' => $this->translator->trans('mautic.core.success'),
+            'message' => $this->translator->trans('mailvotech.core.success'),
         ];
 
         try {
             $bus->dispatch($message);
         } catch (\Throwable $e) {
             $data['success'] = 0;
-            $data['message'] = $this->translator->trans('mautic.messenger.config.dsn.test_message_failed', ['%message%' => $e->getMessage()]);
+            $data['message'] = $this->translator->trans('mailvotech.messenger.config.dsn.test_message_failed', ['%message%' => $e->getMessage()]);
         }
 
         return $this->sendJsonResponse($data);

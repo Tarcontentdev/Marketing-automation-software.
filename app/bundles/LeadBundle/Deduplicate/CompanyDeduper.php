@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Deduplicate;
+namespace MailVotech\LeadBundle\Deduplicate;
 
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Exception\UniqueFieldNotFoundException;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Exception\UniqueFieldNotFoundException;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Model\FieldModel;
 
 class CompanyDeduper
 {

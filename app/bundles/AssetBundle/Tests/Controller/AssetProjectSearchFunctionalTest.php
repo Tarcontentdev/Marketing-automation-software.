@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\Controller;
+namespace MailVotech\AssetBundle\Tests\Controller;
 
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\ProjectBundle\Tests\Functional\AbstractProjectSearchTestCase;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\ProjectBundle\Tests\Functional\AbstractProjectSearchTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class AssetProjectSearchFunctionalTest extends AbstractProjectSearchTestCase

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Controller;
+namespace MailVotech\PointBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PointBundle\Model\TriggerModel;
-use Mautic\PointBundle\Tests\Functional\TriggerTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PointBundle\Model\TriggerModel;
+use MailVotech\PointBundle\Tests\Functional\TriggerTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class TriggerControllerTest extends MauticMysqlTestCase
+final class TriggerControllerTest extends MailVotechMysqlTestCase
 {
     use TriggerTrait;
 

@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional;
+namespace MailVotech\CoreBundle\Tests\Functional;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog as CampaignLeadEventLog;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyLead;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadCategory;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog as CampaignLeadEventLog;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyLead;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadCategory;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\UserBundle\Entity\User;
 
 trait CreateTestEntitiesTrait
 {

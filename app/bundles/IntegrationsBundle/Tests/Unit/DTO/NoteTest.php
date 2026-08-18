@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\DTO;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\DTO;
 
-use Mautic\IntegrationsBundle\DTO\Note;
+use MailVotech\IntegrationsBundle\DTO\Note;
 use PHPUnit\Framework\TestCase;
 
 final class NoteTest extends TestCase

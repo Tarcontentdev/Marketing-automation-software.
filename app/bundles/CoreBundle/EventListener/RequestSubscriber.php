@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -36,9 +36,9 @@ final readonly class RequestSubscriber implements EventSubscriberInterface
         $request = $event->getRequest();
 
         if ($this->isAjaxPost($request) && $this->isSecurePath($request) && !$this->isCsrfTokenFromRequestHeaderValid($request)) {
-            $message  = $this->translator->trans('mautic.core.error.csrf', [], 'flashes');
+            $message  = $this->translator->trans('mailvotech.core.error.csrf', [], 'flashes');
             $data     = ['flashes' => ['error' => $message]];
-            $content  = $this->twig->render('@MauticCore/Notification/flash_messages.html.twig', $data);
+            $content  = $this->twig->render('@MailVotechCore/Notification/flash_messages.html.twig', $data);
             $response = new JsonResponse(['flashes' => $content], Response::HTTP_OK);
             $event->setResponse($response);
             $event->stopPropagation();
@@ -59,6 +59,6 @@ final readonly class RequestSubscriber implements EventSubscriberInterface
     {
         $csrfRequestToken = $request->headers->get('X-CSRF-Token');
 
-        return $this->tokenManager->isTokenValid(new CsrfToken('mautic_ajax_post', $csrfRequestToken));
+        return $this->tokenManager->isTokenValid(new CsrfToken('mailvotech_ajax_post', $csrfRequestToken));
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\PageBundle\EventListener;
+namespace MailVotech\PageBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\BuildJsEvent;
-use Mautic\CoreBundle\Event\BuildJsScope;
-use Mautic\PageBundle\Helper\TrackingHelper;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\BuildJsEvent;
+use MailVotech\CoreBundle\Event\BuildJsScope;
+use MailVotech\PageBundle\Helper\TrackingHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -21,7 +21,7 @@ final readonly class BuildJsSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            CoreEvents::BUILD_MAUTIC_JS => [
+            CoreEvents::BUILD_MAILVOTECH_JS => [
                 // onBuildJs must always needs to be last to ensure setup before delivering the event
                 ['onBuildJs', -255],
                 ['onBuildJsForTrackingEvent', 256],
@@ -35,7 +35,7 @@ final readonly class BuildJsSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $pageTrackingUrl = $this->router->generate('mautic_page_tracker', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $pageTrackingUrl = $this->router->generate('mailvotech_page_tracker', [], UrlGeneratorInterface::ABSOLUTE_URL);
         // Determine if this is https
         $parts           = parse_url($pageTrackingUrl);
         $scheme          = $parts['scheme'];
@@ -44,12 +44,12 @@ final readonly class BuildJsSubscriber implements EventSubscriberInterface
         $pageTrackingCORSUrl = str_replace(
             ['http://', 'https://'],
             '',
-            $this->router->generate('mautic_page_tracker_cors', [], UrlGeneratorInterface::ABSOLUTE_URL)
+            $this->router->generate('mailvotech_page_tracker_cors', [], UrlGeneratorInterface::ABSOLUTE_URL)
         );
         $contactIdUrl = str_replace(
             ['http://', 'https://'],
             '',
-            $this->router->generate('mautic_page_tracker_getcontact', [], UrlGeneratorInterface::ABSOLUTE_URL)
+            $this->router->generate('mailvotech_page_tracker_getcontact', [], UrlGeneratorInterface::ABSOLUTE_URL)
         );
 
         $js = <<<JS
@@ -97,7 +97,7 @@ final readonly class BuildJsSubscriber implements EventSubscriberInterface
 
         m.makeCORSRequest('POST', m.pageTrackingCORSUrl, params,
         function(response) {
-            m.dispatchEvent('mauticPageEventDelivered', {'event': event, 'params': params, 'response': response});
+            m.dispatchEvent('mailvotechPageEventDelivered', {'event': event, 'params': params, 'response': response});
         },
         function() {
             // CORS failed so load an image
@@ -121,7 +121,7 @@ final readonly class BuildJsSubscriber implements EventSubscriberInterface
         }
         
         m.trackingPixel.onload = function(e) {
-            m.dispatchEvent('mauticPageEventDelivered', {'event': pageview, 'params': params, 'image': true});
+            m.dispatchEvent('mailvotechPageEventDelivered', {'event': pageview, 'params': params, 'image': true});
         };
 
         m.trackingPixel.src = m.pageTrackingUrl + '?' + m.serialize(params);
@@ -182,15 +182,15 @@ final readonly class BuildJsSubscriber implements EventSubscriberInterface
     m.sendPageview();
 
     // Process pageviews after new are added
-    document.addEventListener('eventAddedToMauticQueue', function(e) {
+    document.addEventListener('eventAddedToMailVotechQueue', function(e) {
       if (m.ensureEventContext(e, 'send', 'pageview')) {
           m.sendPageview(e.detail);
       }
     });
-})(window.MauticJS, location, navigator, document);
+})(window.MailVotechJS, location, navigator, document);
 JS;
 
-        $event->appendJsForScope($js, BuildJsScope::TRACKING, 'Mautic Tracking Pixel');
+        $event->appendJsForScope($js, BuildJsScope::TRACKING, 'MailVotech Tracking Pixel');
     }
 
     public function onBuildJsForTrackingEvent(BuildJsEvent $event): void
@@ -200,7 +200,7 @@ JS;
         }
 
         $js = <<<'JS_WRAP'
-if (window.MauticJS && window.MauticJS.runtimeReady === true) {
+if (window.MailVotechJS && window.MailVotechJS.runtimeReady === true) {
 JS_WRAP;
 
         $lead   = $this->trackingHelper->getLead();
@@ -267,17 +267,17 @@ fbq('track', 'PageView', {$customMatch});
 JS;
         }
         $js .= <<<'JS_WRAP'
-        MauticJS.mtcEventSet=false;
-        document.addEventListener('mauticPageEventDelivered', function(e) {
+        MailVotechJS.mtcEventSet=false;
+        document.addEventListener('mailvotechPageEventDelivered', function(e) {
             var detail   = e.detail;
-            if (!MauticJS.mtcEventSet && detail.response && detail.response.events) {
-                MauticJS.setTrackedEvents(detail.response.events);
+            if (!MailVotechJS.mtcEventSet && detail.response && detail.response.events) {
+                MailVotechJS.setTrackedEvents(detail.response.events);
             }
       });
       
       
-MauticJS.setTrackedEvents = function(events) {
-        MauticJS.mtcEventSet=true;
+MailVotechJS.setTrackedEvents = function(events) {
+        MailVotechJS.mtcEventSet=true;
        if (typeof fbq  !== 'undefined' && typeof events.facebook_pixel !== 'undefined') {
                  var e = events.facebook_pixel; 
                      for(var i = 0; i < e.length; i++) {
@@ -306,7 +306,7 @@ MauticJS.setTrackedEvents = function(events) {
                  var e = events.focus_item; 
                     for(var i = 0; i < e.length; i++) {
                          if(typeof e[i]['id']  !== 'undefined' && typeof e[i]['js']  !== 'undefined' ){
-                             MauticJS.insertScript(e[i]['js']);
+                             MailVotechJS.insertScript(e[i]['js']);
                      }
                    }
                 }
@@ -314,6 +314,6 @@ MauticJS.setTrackedEvents = function(events) {
 
 }
 JS_WRAP;
-        $event->appendJsForScope($js, BuildJsScope::TRACKING, 'Mautic 3rd party tracking pixels');
+        $event->appendJsForScope($js, BuildJsScope::TRACKING, 'MailVotech 3rd party tracking pixels');
     }
 }

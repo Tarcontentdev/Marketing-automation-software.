@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Update\Step;
+namespace MailVotech\CoreBundle\Update\Step;
 
-use Mautic\CoreBundle\Exception\UpdateFailedException;
+use MailVotech\CoreBundle\Exception\UpdateFailedException;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\ArgvInput;
@@ -36,7 +36,7 @@ final readonly class UpdateSchemaStep implements StepInterface
     public function execute(ProgressBar $progressBar, InputInterface $input, OutputInterface $output): void
     {
         // Migrate the database to the current version
-        $progressBar->setMessage($this->translator->trans('mautic.core.update.migrating.database.schema'));
+        $progressBar->setMessage($this->translator->trans('mailvotech.core.update.migrating.database.schema'));
         $progressBar->advance();
 
         $migrationApplication = new Application($this->kernel);
@@ -49,7 +49,7 @@ final readonly class UpdateSchemaStep implements StepInterface
 
         // Output the error (if exists) from the migrate command after we've finished the progress bar
         if (0 !== $migrateExitCode) {
-            throw new UpdateFailedException($this->translator->trans('mautic.core.update.error_performing_migration'));
+            throw new UpdateFailedException($this->translator->trans('mailvotech.core.update.error_performing_migration'));
         }
     }
 }

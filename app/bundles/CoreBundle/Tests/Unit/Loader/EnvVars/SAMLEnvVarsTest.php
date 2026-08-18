@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Loader\EnvVars;
+namespace MailVotech\CoreBundle\Tests\Unit\Loader\EnvVars;
 
-use Mautic\CoreBundle\Loader\EnvVars\SAMLEnvVars;
+use MailVotech\CoreBundle\Loader\EnvVars\SAMLEnvVars;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -28,7 +28,7 @@ final class SAMLEnvVarsTest extends TestCase
         $this->config->set('saml_idp_entity_id', 'foobar');
         SAMLEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals('foobar', $this->envVars->get('MAUTIC_SAML_ENTITY_ID'));
+        $this->assertEquals('foobar', $this->envVars->get('MAILVOTECH_SAML_ENTITY_ID'));
     }
 
     public function testEntityIdIsSetToSiteUrlIfNotEmpty(): void
@@ -38,17 +38,17 @@ final class SAMLEnvVarsTest extends TestCase
 
         SAMLEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals('https://foobar.com', $this->envVars->get('MAUTIC_SAML_ENTITY_ID'));
+        $this->assertEquals('https://foobar.com', $this->envVars->get('MAILVOTECH_SAML_ENTITY_ID'));
     }
 
-    public function testEntityIdIsSetToMauticByDefault(): void
+    public function testEntityIdIsSetToMailVotechByDefault(): void
     {
         $this->config->set('saml_idp_entity_id', '');
         $this->config->set('site_url', '');
 
         SAMLEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals('mautic', $this->envVars->get('MAUTIC_SAML_ENTITY_ID'));
+        $this->assertEquals('mailvotech', $this->envVars->get('MAILVOTECH_SAML_ENTITY_ID'));
     }
 
     public function testLoginPathIsDefaultIfSamlIsDisabled(): void
@@ -57,8 +57,8 @@ final class SAMLEnvVarsTest extends TestCase
 
         SAMLEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals('/s/saml/login', $this->envVars->get('MAUTIC_SAML_LOGIN_PATH'));
-        $this->assertEquals('/s/saml/login_check', $this->envVars->get('MAUTIC_SAML_LOGIN_CHECK_PATH'));
+        $this->assertEquals('/s/saml/login', $this->envVars->get('MAILVOTECH_SAML_LOGIN_PATH'));
+        $this->assertEquals('/s/saml/login_check', $this->envVars->get('MAILVOTECH_SAML_LOGIN_CHECK_PATH'));
     }
 
     public function testCorrectLoginPathIfSamlIsEnabled(): void
@@ -67,7 +67,7 @@ final class SAMLEnvVarsTest extends TestCase
 
         SAMLEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals('/s/saml/login', $this->envVars->get('MAUTIC_SAML_LOGIN_PATH'));
-        $this->assertEquals('/s/saml/login_check', $this->envVars->get('MAUTIC_SAML_LOGIN_CHECK_PATH'));
+        $this->assertEquals('/s/saml/login', $this->envVars->get('MAILVOTECH_SAML_LOGIN_PATH'));
+        $this->assertEquals('/s/saml/login_check', $this->envVars->get('MAILVOTECH_SAML_LOGIN_CHECK_PATH'));
     }
 }

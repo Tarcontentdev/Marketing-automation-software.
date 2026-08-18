@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Field;
+namespace MailVotech\LeadBundle\Tests\Field;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Field\BackgroundService;
-use Mautic\LeadBundle\Field\CustomFieldColumn;
-use Mautic\LeadBundle\Field\Dispatcher\FieldColumnBackgroundJobDispatcher;
-use Mautic\LeadBundle\Field\Exception\AbortColumnCreateException;
-use Mautic\LeadBundle\Field\Exception\AbortColumnUpdateException;
-use Mautic\LeadBundle\Field\Exception\ColumnAlreadyCreatedException;
-use Mautic\LeadBundle\Field\Exception\CustomFieldLimitException;
-use Mautic\LeadBundle\Field\Exception\LeadFieldWasNotFoundException;
-use Mautic\LeadBundle\Field\LeadFieldDeleter;
-use Mautic\LeadBundle\Field\LeadFieldSaver;
-use Mautic\LeadBundle\Field\Notification\CustomFieldNotification;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Field\BackgroundService;
+use MailVotech\LeadBundle\Field\CustomFieldColumn;
+use MailVotech\LeadBundle\Field\Dispatcher\FieldColumnBackgroundJobDispatcher;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnCreateException;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnUpdateException;
+use MailVotech\LeadBundle\Field\Exception\ColumnAlreadyCreatedException;
+use MailVotech\LeadBundle\Field\Exception\CustomFieldLimitException;
+use MailVotech\LeadBundle\Field\Exception\LeadFieldWasNotFoundException;
+use MailVotech\LeadBundle\Field\LeadFieldDeleter;
+use MailVotech\LeadBundle\Field\LeadFieldSaver;
+use MailVotech\LeadBundle\Field\Notification\CustomFieldNotification;
+use MailVotech\LeadBundle\Model\FieldModel;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class BackgroundServiceTest extends \PHPUnit\Framework\TestCase

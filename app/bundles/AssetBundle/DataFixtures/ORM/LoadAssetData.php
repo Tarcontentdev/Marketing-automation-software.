@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\DataFixtures\ORM;
+namespace MailVotech\AssetBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Entity\Asset;
 
 final class LoadAssetData extends AbstractFixture implements OrderedFixtureInterface
 {

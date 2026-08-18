@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\DTO;
+namespace MailVotech\MarketplaceBundle\DTO;
 
 final class ConsoleOutput
 {

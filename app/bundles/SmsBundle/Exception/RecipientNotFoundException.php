@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Exception;
+namespace MailVotech\SmsBundle\Exception;
 
 final class RecipientNotFoundException extends \Exception
 {

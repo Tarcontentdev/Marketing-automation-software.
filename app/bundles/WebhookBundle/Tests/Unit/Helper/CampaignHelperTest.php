@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Unit\Helper;
+namespace MailVotech\WebhookBundle\Tests\Unit\Helper;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\RequestOptions;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\WebhookBundle\Helper\CampaignHelper;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\WebhookBundle\Helper\CampaignHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -51,7 +51,7 @@ final class CampaignHelperTest extends \PHPUnit\Framework\TestCase
 
         $this->contact->expects($this->once())
             ->method('getProfileFields')
-            ->willReturn(['email' => 'john@doe.email', 'company' => 'Mautic']);
+            ->willReturn(['email' => 'john@doe.email', 'company' => 'MailVotech']);
 
         $this->contact->expects($this->once())
             ->method('getIpAddresses')
@@ -60,12 +60,12 @@ final class CampaignHelperTest extends \PHPUnit\Framework\TestCase
 
     public function testFireWebhookWithGet(): void
     {
-        $expectedUrl = 'https://mautic.org?test=tee&email=john%40doe.email&IP=127.0.0.1%2C127.0.0.2';
+        $expectedUrl = 'https://mailvotech.org?test=tee&email=john%40doe.email&IP=127.0.0.1%2C127.0.0.2';
 
         $this->client->expects($this->once())
             ->method('get')
             ->with($expectedUrl, [
-                RequestOptions::HEADERS => ['test' => 'tee', 'company' => 'Mautic'],
+                RequestOptions::HEADERS => ['test' => 'tee', 'company' => 'MailVotech'],
                 RequestOptions::TIMEOUT => 10,
             ])
             ->willReturn(new Response(200));
@@ -79,9 +79,9 @@ final class CampaignHelperTest extends \PHPUnit\Framework\TestCase
 
         $this->client->expects($this->once())
             ->method('request')
-            ->with('post', 'https://mautic.org', [
+            ->with('post', 'https://mailvotech.org', [
                 RequestOptions::FORM_PARAMS => ['test'  => 'tee', 'email' => 'john@doe.email', 'IP' => '127.0.0.1,127.0.0.2'],
-                RequestOptions::HEADERS     => ['test' => 'tee', 'company' => 'Mautic'],
+                RequestOptions::HEADERS     => ['test' => 'tee', 'company' => 'MailVotech'],
                 RequestOptions::TIMEOUT     => 10,
             ])
             ->willReturn(new Response(200));
@@ -94,10 +94,10 @@ final class CampaignHelperTest extends \PHPUnit\Framework\TestCase
         $config = $this->provideSampleConfig('post', 'application/json');
         $this->client->expects($this->once())
             ->method('request')
-            ->with('post', 'https://mautic.org', [
+            ->with('post', 'https://mailvotech.org', [
                 RequestOptions::HEADERS => [
                     'test'         => 'tee',
-                    'company'      => 'Mautic',
+                    'company'      => 'MailVotech',
                     'content-type' => 'application/json',
                 ],
                 RequestOptions::TIMEOUT => 10,
@@ -127,7 +127,7 @@ final class CampaignHelperTest extends \PHPUnit\Framework\TestCase
     private function provideSampleConfig(string $method = 'get', string $type = 'application/x-www-form-urlencoded'): array
     {
         $sample = [
-            'url'             => 'https://mautic.org',
+            'url'             => 'https://mailvotech.org',
             'method'          => $method,
             'timeout'         => 10,
             'additional_data' => [

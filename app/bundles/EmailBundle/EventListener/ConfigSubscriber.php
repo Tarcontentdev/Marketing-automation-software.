@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\ConfigBundle\ConfigEvents;
-use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use Mautic\ConfigBundle\Event\ConfigEvent;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\EmailBundle\Form\Type\ConfigType;
+use MailVotech\ConfigBundle\ConfigEvents;
+use MailVotech\ConfigBundle\Event\ConfigBuilderEvent;
+use MailVotech\ConfigBundle\Event\ConfigEvent;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\EmailBundle\Form\Type\ConfigType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ConfigSubscriber implements EventSubscriberInterface
@@ -30,8 +30,8 @@ final readonly class ConfigSubscriber implements EventSubscriberInterface
             'bundle'     => 'EmailBundle',
             'formType'   => ConfigType::class,
             'formAlias'  => 'emailconfig',
-            'formTheme'  => '@MauticEmail/FormTheme/Config/_config_emailconfig_widget.html.twig',
-            'parameters' => $event->getParametersFromConfig('MauticEmailBundle'),
+            'formTheme'  => '@MailVotechEmail/FormTheme/Config/_config_emailconfig_widget.html.twig',
+            'parameters' => $event->getParametersFromConfig('MailVotechEmailBundle'),
         ]);
     }
 

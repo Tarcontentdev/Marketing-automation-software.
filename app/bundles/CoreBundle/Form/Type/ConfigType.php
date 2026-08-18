@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
-use Mautic\CoreBundle\Factory\IpLookupFactory;
-use Mautic\CoreBundle\Form\DataTransformer\ArrayLinebreakTransformer;
-use Mautic\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\CoreBundle\IpLookup\AbstractLookup;
-use Mautic\CoreBundle\IpLookup\IpLookupFormInterface;
-use Mautic\CoreBundle\Shortener\Shortener;
-use Mautic\CoreBundle\Shortener\ShortenerServiceInterface;
-use Mautic\PageBundle\Form\Type\PageListType;
+use MailVotech\CoreBundle\Factory\IpLookupFactory;
+use MailVotech\CoreBundle\Form\DataTransformer\ArrayLinebreakTransformer;
+use MailVotech\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\CoreBundle\IpLookup\AbstractLookup;
+use MailVotech\CoreBundle\IpLookup\IpLookupFormInterface;
+use MailVotech\CoreBundle\Shortener\Shortener;
+use MailVotech\CoreBundle\Shortener\ShortenerServiceInterface;
+use MailVotech\PageBundle\Form\Type\PageListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -55,16 +55,16 @@ final class ConfigType extends AbstractType
             'site_url',
             UrlType::class,
             [
-                'label'      => 'mautic.core.config.form.site.url',
+                'label'      => 'mailvotech.core.config.form.site.url',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.site.url.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.site.url.tooltip',
                 ],
                 'default_protocol' => 'https',
                 'constraints'      => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -74,13 +74,13 @@ final class ConfigType extends AbstractType
             'webroot',
             PageListType::class,
             [
-                'label'      => 'mautic.core.config.form.webroot',
+                'label'      => 'mailvotech.core.config.form.webroot',
                 'label_attr' => ['class' => 'control-label'],
-                'help'       => 'mautic.core.config.form.webroot.help',
+                'help'       => 'mailvotech.core.config.form.webroot.help',
                 'attr'       => [
                     'class'            => 'form-control',
-                    'tooltip'          => 'mautic.core.config.form.webroot.tooltip',
-                    'data-placeholder' => $this->translator->trans('mautic.core.config.form.webroot.dashboard'),
+                    'tooltip'          => 'mailvotech.core.config.form.webroot.tooltip',
+                    'data-placeholder' => $this->translator->trans('mailvotech.core.config.form.webroot.dashboard'),
                 ],
                 'multiple'    => false,
                 'placeholder' => '',
@@ -92,12 +92,12 @@ final class ConfigType extends AbstractType
             '404_page',
             PageListType::class,
             [
-                'label'         => 'mautic.core.config.form.404_page',
+                'label'         => 'mailvotech.core.config.form.404_page',
                 'label_attr'    => ['class' => 'control-label'],
-                'help'          => 'mautic.core.config.form.404_page.help',
+                'help'          => 'mailvotech.core.config.form.404_page.help',
                 'attr'          => [
                     'class'            => 'form-control',
-                    'tooltip'          => 'mautic.core.config.form.404_page.tooltip',
+                    'tooltip'          => 'mailvotech.core.config.form.404_page.tooltip',
                 ],
                 'multiple'       => false,
                 'placeholder'    => '',
@@ -109,15 +109,15 @@ final class ConfigType extends AbstractType
             'cache_path',
             TextType::class,
             [
-                'label'      => 'mautic.core.config.form.cache.path',
+                'label'      => 'mailvotech.core.config.form.cache.path',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.cache.path.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.cache.path.tooltip',
                 ],
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -127,15 +127,15 @@ final class ConfigType extends AbstractType
             'log_path',
             TextType::class,
             [
-                'label'      => 'mautic.core.config.form.log.path',
+                'label'      => 'mailvotech.core.config.form.log.path',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.log.path.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.log.path.tooltip',
                 ],
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -145,15 +145,15 @@ final class ConfigType extends AbstractType
             'image_path',
             TextType::class,
             [
-                'label'      => 'mautic.core.config.form.image.path',
+                'label'      => 'mailvotech.core.config.form.image.path',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.image.path.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.image.path.tooltip',
                 ],
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                     new Callback($this->validateImagePath(...)),
                 ],
@@ -164,11 +164,11 @@ final class ConfigType extends AbstractType
             'composer_updates',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.core.config.form.update.composer',
+                'label' => 'mailvotech.core.config.form.update.composer',
                 'data'  => (array_key_exists('composer_updates', $options['data']) && !empty($options['data']['composer_updates'])),
                 'attr'  => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.update.composer.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.update.composer.tooltip',
                 ],
             ]
         );
@@ -178,13 +178,13 @@ final class ConfigType extends AbstractType
             ChoiceType::class,
             [
                 'choices'           => $this->langHelper->getLanguageChoices(),
-                'label'             => 'mautic.core.config.form.locale',
+                'label'             => 'mailvotech.core.config.form.locale',
                 'required'          => false,
                 'attr'              => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.locale.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.locale.tooltip',
                 ],
-                'help'              => 'mautic.core.config.form.locale.help',
+                'help'              => 'mailvotech.core.config.form.locale.help',
                 'placeholder'       => false,
             ]
         );
@@ -195,13 +195,13 @@ final class ConfigType extends AbstractType
                 'trusted_hosts',
                 TextType::class,
                 [
-                    'label'      => 'mautic.core.config.form.trusted.hosts',
+                    'label'      => 'mailvotech.core.config.form.trusted.hosts',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.core.config.form.trusted.hosts.tooltip',
+                        'tooltip' => 'mailvotech.core.config.form.trusted.hosts.tooltip',
                     ],
-                    'help'        => 'mautic.core.config.form.trusted_hosts.help',
+                    'help'        => 'mailvotech.core.config.form.trusted_hosts.help',
                     'required'    => false,
                     'constraints' => [
                         new Callback(static function (?array $values, ExecutionContextInterface $context): void {
@@ -231,18 +231,18 @@ final class ConfigType extends AbstractType
                                         return true;
                                     });
 
-                                    // There is no way Mautic can validate rexep better than PCRE library.
+                                    // There is no way MailVotech can validate rexep better than PCRE library.
                                     $pregMatchResult = @preg_match('/'.$value.'/', '');
 
                                     restore_error_handler();
 
                                     if (false === $pregMatchResult || $regexpError) {
-                                        $context->buildViolation('mautic.core.config.form.trusted_hosts.invalid.regexp')->atPath('trusted_hosts')->addViolation();
+                                        $context->buildViolation('mailvotech.core.config.form.trusted_hosts.invalid.regexp')->atPath('trusted_hosts')->addViolation();
 
                                         break;
                                     }
                                 } else {
-                                    $context->buildViolation('mautic.core.config.form.trusted_hosts.invalid.domain')->atPath('trusted_hosts')->addViolation();
+                                    $context->buildViolation('mailvotech.core.config.form.trusted_hosts.invalid.domain')->atPath('trusted_hosts')->addViolation();
 
                                     break;
                                 }
@@ -258,11 +258,11 @@ final class ConfigType extends AbstractType
                 'trusted_proxies',
                 TextType::class,
                 [
-                    'label'      => 'mautic.core.config.form.trusted.proxies',
+                    'label'      => 'mailvotech.core.config.form.trusted.proxies',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.core.config.form.trusted.proxies.tooltip',
+                        'tooltip' => 'mailvotech.core.config.form.trusted.proxies.tooltip',
                     ],
                     'required' => false,
                 ]
@@ -275,11 +275,11 @@ final class ConfigType extends AbstractType
                 'do_not_track_ips',
                 TextareaType::class,
                 [
-                    'label'      => 'mautic.core.config.form.do_not_track_ips',
+                    'label'      => 'mailvotech.core.config.form.do_not_track_ips',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.core.config.form.do_not_track_ips.tooltip',
+                        'tooltip' => 'mailvotech.core.config.form.do_not_track_ips.tooltip',
                         'rows'    => 8,
                     ],
                     'required' => false,
@@ -292,11 +292,11 @@ final class ConfigType extends AbstractType
                 'do_not_track_bots',
                 TextareaType::class,
                 [
-                    'label'      => 'mautic.core.config.form.do_not_track_bots',
+                    'label'      => 'mailvotech.core.config.form.do_not_track_bots',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.core.config.form.do_not_track_bots.tooltip',
+                        'tooltip' => 'mailvotech.core.config.form.do_not_track_bots.tooltip',
                         'rows'    => 8,
                     ],
                     'required' => false,
@@ -309,22 +309,22 @@ final class ConfigType extends AbstractType
             ChoiceType::class,
             [
                 'choices'           => [
-                    'mautic.core.pagination.5'   => 5,
-                    'mautic.core.pagination.10'  => 10,
-                    'mautic.core.pagination.15'  => 15,
-                    'mautic.core.pagination.20'  => 20,
-                    'mautic.core.pagination.25'  => 25,
-                    'mautic.core.pagination.30'  => 30,
-                    'mautic.core.pagination.50'  => 50,
-                    'mautic.core.pagination.100' => 100,
+                    'mailvotech.core.pagination.5'   => 5,
+                    'mailvotech.core.pagination.10'  => 10,
+                    'mailvotech.core.pagination.15'  => 15,
+                    'mailvotech.core.pagination.20'  => 20,
+                    'mailvotech.core.pagination.25'  => 25,
+                    'mailvotech.core.pagination.30'  => 30,
+                    'mailvotech.core.pagination.50'  => 50,
+                    'mailvotech.core.pagination.100' => 100,
                 ],
                 'expanded'          => false,
                 'multiple'          => false,
-                'label'             => 'mautic.core.config.form.default.pagelimit',
+                'label'             => 'mailvotech.core.config.form.default.pagelimit',
                 'label_attr'        => ['class' => 'control-label'],
                 'attr'              => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.default.pagelimit.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.default.pagelimit.tooltip',
                 ],
                 'required'          => false,
                 'placeholder'       => false,
@@ -335,14 +335,14 @@ final class ConfigType extends AbstractType
             'default_timezone',
             TimezoneType::class,
             [
-                'label'      => 'mautic.core.config.form.default.timezone',
+                'label'      => 'mailvotech.core.config.form.default.timezone',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.default.timezone.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.default.timezone.tooltip',
                 ],
                 'multiple'    => false,
-                'placeholder' => 'mautic.user.user.form.defaulttimezone',
+                'placeholder' => 'mailvotech.user.user.form.defaulttimezone',
                 'required'    => false,
             ]
         );
@@ -351,16 +351,16 @@ final class ConfigType extends AbstractType
             'cached_data_timeout',
             NumberType::class,
             [
-                'label'      => 'mautic.core.config.form.cached.data.timeout',
+                'label'      => 'mailvotech.core.config.form.cached.data.timeout',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'          => 'form-control',
-                    'tooltip'        => 'mautic.core.config.form.cached.data.timeout.tooltip',
+                    'tooltip'        => 'mailvotech.core.config.form.cached.data.timeout.tooltip',
                     'postaddon'      => '',
-                    'postaddon_text' => $this->translator->trans('mautic.core.time.minutes'),
+                    'postaddon_text' => $this->translator->trans('mailvotech.core.time.minutes'),
                 ],
                 'constraints' => [
-                    new NotBlank(message: 'mautic.core.value.required'),
+                    new NotBlank(message: 'mailvotech.core.value.required'),
                     new GreaterThanOrEqual(value: 0),
                 ],
             ]
@@ -370,15 +370,15 @@ final class ConfigType extends AbstractType
             'date_format_full',
             TextType::class,
             [
-                'label'      => 'mautic.core.config.form.date.format.full',
+                'label'      => 'mailvotech.core.config.form.date.format.full',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.date.format.full.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.date.format.full.tooltip',
                 ],
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -388,15 +388,15 @@ final class ConfigType extends AbstractType
             'date_format_short',
             TextType::class,
             [
-                'label'      => 'mautic.core.config.form.date.format.short',
+                'label'      => 'mailvotech.core.config.form.date.format.short',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.date.format.short.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.date.format.short.tooltip',
                 ],
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -406,15 +406,15 @@ final class ConfigType extends AbstractType
             'date_format_dateonly',
             TextType::class,
             [
-                'label'      => 'mautic.core.config.form.date.format.dateonly',
+                'label'      => 'mailvotech.core.config.form.date.format.dateonly',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.date.format.dateonly.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.date.format.dateonly.tooltip',
                 ],
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -424,15 +424,15 @@ final class ConfigType extends AbstractType
             'date_format_timeonly',
             TextType::class,
             [
-                'label'      => 'mautic.core.config.form.date.format.timeonly',
+                'label'      => 'mailvotech.core.config.form.date.format.timeonly',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.date.format.timeonly.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.date.format.timeonly.tooltip',
                 ],
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -443,24 +443,24 @@ final class ConfigType extends AbstractType
             ChoiceType::class,
             [
                 'choices' => [
-                    'mautic.core.daterange.0days'                                                                 => 'midnight',
-                    'mautic.core.daterange.1days'                                                                 => '-24 hours',
-                    $this->translator->trans('mautic.core.daterange.week', ['%count%' => 1])                      => '-1 week',
-                    $this->translator->trans('mautic.core.daterange.week', ['%count%' => 2])                      => '-2 weeks',
-                    $this->translator->trans('mautic.core.daterange.week', ['%count%' => 3])                      => '-3 weeks',
-                    $this->translator->trans('mautic.core.daterange.month', ['%count%' => 1])                     => '-1 month',
-                    $this->translator->trans('mautic.core.daterange.month', ['%count%' => 2])                     => '-2 months',
-                    $this->translator->trans('mautic.core.daterange.month', ['%count%' => 3])                     => '-3 months',
-                    $this->translator->trans('mautic.core.daterange.year', ['%count%' => 1])                      => '-1 year',
-                    $this->translator->trans('mautic.core.daterange.year', ['%count%' => 2])                      => '-2 years',
+                    'mailvotech.core.daterange.0days'                                                                 => 'midnight',
+                    'mailvotech.core.daterange.1days'                                                                 => '-24 hours',
+                    $this->translator->trans('mailvotech.core.daterange.week', ['%count%' => 1])                      => '-1 week',
+                    $this->translator->trans('mailvotech.core.daterange.week', ['%count%' => 2])                      => '-2 weeks',
+                    $this->translator->trans('mailvotech.core.daterange.week', ['%count%' => 3])                      => '-3 weeks',
+                    $this->translator->trans('mailvotech.core.daterange.month', ['%count%' => 1])                     => '-1 month',
+                    $this->translator->trans('mailvotech.core.daterange.month', ['%count%' => 2])                     => '-2 months',
+                    $this->translator->trans('mailvotech.core.daterange.month', ['%count%' => 3])                     => '-3 months',
+                    $this->translator->trans('mailvotech.core.daterange.year', ['%count%' => 1])                      => '-1 year',
+                    $this->translator->trans('mailvotech.core.daterange.year', ['%count%' => 2])                      => '-2 years',
                 ],
                 'expanded'          => false,
                 'multiple'          => false,
-                'label'             => 'mautic.core.config.form.default.daterange_default',
+                'label'             => 'mailvotech.core.config.form.default.daterange_default',
                 'label_attr'        => ['class' => 'control-label'],
                 'attr'              => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.default.daterange_default.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.default.daterange_default.tooltip',
                 ],
                 'required'          => false,
                 'placeholder'       => false,
@@ -472,16 +472,16 @@ final class ConfigType extends AbstractType
             ChoiceType::class,
             [
                 'choices'           => $this->getIpServicesChoices(),
-                'label'             => 'mautic.core.config.form.ip.lookup.service',
+                'label'             => 'mailvotech.core.config.form.ip.lookup.service',
                 'label_attr'        => [
                     'class' => 'control-label',
                 ],
-                'help'              => 'mautic.core.config.form.ip.lookup.service.help',
+                'help'              => 'mailvotech.core.config.form.ip.lookup.service.help',
                 'required'          => false,
                 'attr'              => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.core.config.form.ip.lookup.service.tooltip',
-                    'onchange' => 'Mautic.getIpLookupFormConfig()',
+                    'tooltip'  => 'mailvotech.core.config.form.ip.lookup.service.tooltip',
+                    'onchange' => 'MailVotech.getIpLookupFormConfig()',
                 ],
             ]
         );
@@ -490,11 +490,11 @@ final class ConfigType extends AbstractType
             'ip_lookup_auth',
             TextType::class,
             [
-                'label'      => 'mautic.core.config.form.ip.lookup.auth',
+                'label'      => 'mailvotech.core.config.form.ip.lookup.auth',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.ip.lookup.auth.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.ip.lookup.auth.tooltip',
                 ],
                 'required' => false,
             ]
@@ -504,11 +504,11 @@ final class ConfigType extends AbstractType
             'ip_lookup_create_organization',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.core.config.create.organization.from.ip.lookup',
+                'label'      => 'mailvotech.core.config.create.organization.from.ip.lookup',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.create.organization.from.ip.lookup.tooltip',
+                    'tooltip' => 'mailvotech.core.config.create.organization.from.ip.lookup.tooltip',
                 ],
                 'data'     => isset($options['data']['ip_lookup_create_organization']) && (bool) $options['data']['ip_lookup_create_organization'],
                 'required' => false,
@@ -554,16 +554,16 @@ final class ConfigType extends AbstractType
             ChoiceType::class,
             [
                 'choices'           => [
-                    'mautic.core.config.update_stability.alpha'  => 'alpha',
-                    'mautic.core.config.update_stability.beta'   => 'beta',
-                    'mautic.core.config.update_stability.rc'     => 'rc',
-                    'mautic.core.config.update_stability.stable' => 'stable',
+                    'mailvotech.core.config.update_stability.alpha'  => 'alpha',
+                    'mailvotech.core.config.update_stability.beta'   => 'beta',
+                    'mailvotech.core.config.update_stability.rc'     => 'rc',
+                    'mailvotech.core.config.update_stability.stable' => 'stable',
                 ],
-                'label'             => 'mautic.core.config.form.update.stability',
+                'label'             => 'mailvotech.core.config.form.update.stability',
                 'required'          => false,
                 'attr'              => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.update.stability.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.update.stability.tooltip',
                 ],
                 'placeholder'       => false,
             ]
@@ -577,11 +577,11 @@ final class ConfigType extends AbstractType
             ChoiceType::class,
             [
                 'choices'           => $choices,
-                'label'             => 'mautic.core.config.form.shortener',
+                'label'             => 'mailvotech.core.config.form.shortener',
                 'required'          => false,
                 'attr'              => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.shortener.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.shortener.tooltip',
                 ],
             ]
         );
@@ -590,11 +590,11 @@ final class ConfigType extends AbstractType
             'shortener_email_enable',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.core.config.form.shortener.enable_email',
+                'label'      => 'mailvotech.core.config.form.shortener.enable_email',
                 'data'       => (array_key_exists('shortener_email_enable', $options['data']) && !empty($options['data']['shortener_email_enable'])),
                 'attr'       => [
                     'class'        => 'form-control',
-                    'tooltip'      => 'mautic.core.config.form.shortener.enable_email.tooltip',
+                    'tooltip'      => 'mailvotech.core.config.form.shortener.enable_email.tooltip',
                 ],
             ]
         );
@@ -603,11 +603,11 @@ final class ConfigType extends AbstractType
             'shortener_sms_enable',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.core.config.form.shortener.enable_sms',
+                'label'      => 'mailvotech.core.config.form.shortener.enable_sms',
                 'data'       => (array_key_exists('shortener_sms_enable', $options['data']) && !empty($options['data']['shortener_sms_enable'])),
                 'attr'       => [
                     'class'        => 'form-control',
-                    'tooltip'      => 'mautic.core.config.form.shortener.enable_sms.tooltip',
+                    'tooltip'      => 'mailvotech.core.config.form.shortener.enable_sms.tooltip',
                 ],
             ]
         );
@@ -615,12 +615,12 @@ final class ConfigType extends AbstractType
             'max_entity_lock_time',
             NumberType::class,
             [
-                'label'      => 'mautic.core.config.form.link.max_entity_lock_time',
+                'label'      => 'mailvotech.core.config.form.link.max_entity_lock_time',
                 'label_attr' => ['class' => 'control-label'],
-                'help'       => 'mautic.core.config.form.link.max_entity_lock_time.help',
+                'help'       => 'mailvotech.core.config.form.link.max_entity_lock_time.help',
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.link.max_entity_lock_time.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.link.max_entity_lock_time.tooltip',
                 ],
                 'required' => false,
             ]
@@ -630,11 +630,11 @@ final class ConfigType extends AbstractType
             'transliterate_page_title',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.core.config.form.transliterate.page.title',
+                'label' => 'mailvotech.core.config.form.transliterate.page.title',
                 'data'  => (array_key_exists('transliterate_page_title', $options['data']) && !empty($options['data']['transliterate_page_title'])),
                 'attr'  => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.form.transliterate.page.title.tooltip',
+                    'tooltip' => 'mailvotech.core.config.form.transliterate.page.title.tooltip',
                 ],
             ]
         );
@@ -643,12 +643,12 @@ final class ConfigType extends AbstractType
             'cors_restrict_domains',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.core.config.cors.restrict.domains',
-                'help'  => 'mautic.core.config.cors.restrict.domains.help',
+                'label' => 'mailvotech.core.config.cors.restrict.domains',
+                'help'  => 'mailvotech.core.config.cors.restrict.domains.help',
                 'data'  => (array_key_exists('cors_restrict_domains', $options['data']) && !empty($options['data']['cors_restrict_domains'])),
                 'attr'  => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.cors.restrict.domains.tooltip',
+                    'tooltip' => 'mailvotech.core.config.cors.restrict.domains.tooltip',
                 ],
             ]
         );
@@ -659,14 +659,14 @@ final class ConfigType extends AbstractType
                 'cors_valid_domains',
                 TextareaType::class,
                 [
-                    'label'      => 'mautic.core.config.cors.valid.domains',
+                    'label'      => 'mailvotech.core.config.cors.valid.domains',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'        => 'form-control',
-                        'tooltip'      => 'mautic.core.config.cors.valid.domains.tooltip',
+                        'tooltip'      => 'mailvotech.core.config.cors.valid.domains.tooltip',
                         'data-show-on' => '{"config_coreconfig_cors_restrict_domains_1":"checked"}',
                     ],
-                    'help'       => 'mautic.core.config.form.cors_valid_domains.help',
+                    'help'       => 'mailvotech.core.config.form.cors_valid_domains.help',
                 ]
             )->addViewTransformer($arrayLinebreakTransformer)
         );
@@ -677,11 +677,11 @@ final class ConfigType extends AbstractType
                     'allowed_remote_domains',
                     TextareaType::class,
                     [
-                        'label'      => 'mautic.core.config.allowed.remote.domains',
+                        'label'      => 'mailvotech.core.config.allowed.remote.domains',
                         'label_attr' => ['class' => 'control-label'],
                         'attr'       => [
                             'class'   => 'form-control',
-                            'tooltip' => 'mautic.core.config.allowed.remote.domains.tooltip',
+                            'tooltip' => 'mailvotech.core.config.allowed.remote.domains.tooltip',
                             'rows'    => 8,
                         ],
                         'required'   => false,
@@ -694,11 +694,11 @@ final class ConfigType extends AbstractType
             'headers_sts',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.core.config.response.headers.sts',
+                'label' => 'mailvotech.core.config.response.headers.sts',
                 'data'  => (array_key_exists('headers_sts', $options['data']) && !empty($options['data']['headers_sts'])),
                 'attr'  => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.response.headers.sts.tooltip',
+                    'tooltip' => 'mailvotech.core.config.response.headers.sts.tooltip',
                 ],
             ]
         );
@@ -707,7 +707,7 @@ final class ConfigType extends AbstractType
             'headers_sts_expire_time',
             IntegerType::class,
             [
-                'label' => 'mautic.core.config.response.headers.sts.expire_time',
+                'label' => 'mailvotech.core.config.response.headers.sts.expire_time',
                 'data'  => $options['data']['headers_sts_expire_time'] ?? 60,
                 'attr'  => [
                     'class'          => 'form-control',
@@ -721,11 +721,11 @@ final class ConfigType extends AbstractType
             'headers_sts_subdomains',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.core.config.response.headers.sts.subdomains',
+                'label' => 'mailvotech.core.config.response.headers.sts.subdomains',
                 'data'  => (array_key_exists('headers_sts_subdomains', $options['data']) && !empty($options['data']['headers_sts_subdomains'])),
                 'attr'  => [
                     'class'          => 'form-control',
-                    'tooltip'        => 'mautic.core.config.response.headers.sts.subdomains.tooltip',
+                    'tooltip'        => 'mailvotech.core.config.response.headers.sts.subdomains.tooltip',
                     'data-enable-on' => '{"config_coreconfig_headers_sts_1":"checked"}',
                 ],
             ]
@@ -735,11 +735,11 @@ final class ConfigType extends AbstractType
             'headers_sts_preload',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.core.config.response.headers.sts.preload',
+                'label' => 'mailvotech.core.config.response.headers.sts.preload',
                 'data'  => (array_key_exists('headers_sts_preload', $options['data']) && !empty($options['data']['headers_sts_preload'])),
                 'attr'  => [
                     'class'          => 'form-control',
-                    'tooltip'        => 'mautic.core.config.response.headers.sts.preload.tooltip',
+                    'tooltip'        => 'mailvotech.core.config.response.headers.sts.preload.tooltip',
                     'data-enable-on' => '{"config_coreconfig_headers_sts_1":"checked"}',
                 ],
             ]
@@ -773,7 +773,7 @@ final class ConfigType extends AbstractType
         }
 
         if (!$isValid) {
-            $context->buildViolation('mautic.core.config.form.image.path.invalid')->atPath('image_path')->addViolation();
+            $context->buildViolation('mailvotech.core.config.form.image.path.invalid')->atPath('image_path')->addViolation();
         }
     }
 

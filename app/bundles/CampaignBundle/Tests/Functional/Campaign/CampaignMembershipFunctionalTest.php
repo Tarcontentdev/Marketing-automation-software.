@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Campaign;
+namespace MailVotech\CampaignBundle\Tests\Functional\Campaign;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Membership\Action\Adder;
-use Mautic\CampaignBundle\Membership\Exception\ContactCannotBeAddedToCampaignException;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Membership\Action\Adder;
+use MailVotech\CampaignBundle\Membership\Exception\ContactCannotBeAddedToCampaignException;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
 
-final class CampaignMembershipFunctionalTest extends MauticMysqlTestCase
+final class CampaignMembershipFunctionalTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -56,12 +56,12 @@ final class CampaignMembershipFunctionalTest extends MauticMysqlTestCase
         $eventId    = $event->getId();
         $contactId  = $contact->getId();
         $db         = $this->em->getConnection();
-        $prefix     = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix     = self::getContainer()->getParameter('mailvotech.db_table_prefix');
 
         $this->em->clear();
 
         // Phase 1: Initial trigger - action executes at rotation=1
-        $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaignId]);
+        $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaignId]);
         $this->em->clear();
 
         $logsPhase1 = $db->createQueryBuilder()
@@ -75,7 +75,7 @@ final class CampaignMembershipFunctionalTest extends MauticMysqlTestCase
         $this->assertEquals(1, $logsPhase1[0]['rotation'], 'Phase 1: Log at rotation=1');
 
         $db->executeStatement(
-            'UPDATE '.MAUTIC_TABLE_PREFIX.'campaign_leads SET manually_removed = 1, date_last_exited = NOW() WHERE campaign_id = ? AND lead_id = ?',
+            'UPDATE '.MAILVOTECH_TABLE_PREFIX.'campaign_leads SET manually_removed = 1, date_last_exited = NOW() WHERE campaign_id = ? AND lead_id = ?',
             [$campaignId, $contactId]
         );
         $this->em->clear();
@@ -112,7 +112,7 @@ final class CampaignMembershipFunctionalTest extends MauticMysqlTestCase
 
         $this->em->clear();
 
-        $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaignId]);
+        $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaignId]);
         $this->em->clear();
 
         $logsFinal = $db->createQueryBuilder()

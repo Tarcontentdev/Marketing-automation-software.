@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Event;
+namespace MailVotech\PluginBundle\Event;
 
-use Mautic\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
 use Symfony\Contracts\EventDispatcher\Event;
 
 abstract class AbstractPluginIntegrationEvent extends Event

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test;
+namespace MailVotech\CoreBundle\Test;
 
-use Mautic\CoreBundle\Helper\ExitCode;
+use MailVotech\CoreBundle\Helper\ExitCode;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 
 #[AsCommand(
-    name: 'mautic:phpunit:config',
+    name: 'mailvotech:phpunit:config',
     description: 'Outputs PHPUnit configuration with <testsuites> split into passed [numberOfSuites]'
 )]
 final class PhpUnitConfigCommand extends Command
@@ -74,17 +74,17 @@ final class PhpUnitConfigCommand extends Command
             return true;
         }
 
-        return is_subclass_of($this->getClassName($file->getRealPath()), MauticMysqlTestCase::class);
+        return is_subclass_of($this->getClassName($file->getRealPath()), MailVotechMysqlTestCase::class);
     }
 
     private function getClassName(string $path): string
     {
         if (preg_match('~/plugins(/.+?)\.php$~', $path, $matches)) {
-            return 'MauticPlugin'.str_replace('/', '\\', $matches[1]);
+            return 'MailVotechPlugin'.str_replace('/', '\\', $matches[1]);
         }
 
         if (preg_match('~/app/bundles(/.+?)\.php$~', $path, $matches)) {
-            return 'Mautic'.str_replace('/', '\\', $matches[1]);
+            return 'MailVotech'.str_replace('/', '\\', $matches[1]);
         }
 
         throw new \InvalidArgumentException(sprintf('Unknown path: "%s"', $path));

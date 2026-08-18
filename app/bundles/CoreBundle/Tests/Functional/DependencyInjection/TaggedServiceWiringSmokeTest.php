@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\DependencyInjection;
+namespace MailVotech\CoreBundle\Tests\Functional\DependencyInjection;
 
-use Mautic\CoreBundle\Shortener\Shortener;
+use MailVotech\CoreBundle\Shortener\Shortener;
 
 /**
  * These services used to collect their tagged services through compiler passes and now use #[AutowireIterator].
@@ -18,16 +18,16 @@ final class TaggedServiceWiringSmokeTest extends AbstractContainerSmokeTestCase
      * @var array<string, int>
      */
     private const EXPECTED_COLLECTED_SERVICE_COUNTS = [
-        'mautic.email.stats.helper_container'                     => 6,
-        'mautic.helper.update_checks'                             => 2,
-        'mautic.integrations.helper'                              => 4,
-        'mautic.integrations.helper.auth_integrations'            => 0,
-        'mautic.integrations.helper.builder_integrations'         => 1,
-        'mautic.integrations.helper.config_integrations'          => 4,
-        'mautic.integrations.helper.sync_integrations'            => 0,
-        'mautic.integrations.sync.notification.handler_container' => 2,
-        'mautic.sms.callback_handler_container'                   => 1,
-        'mautic.update.step_provider'                             => 7,
+        'mailvotech.email.stats.helper_container'                     => 6,
+        'mailvotech.helper.update_checks'                             => 2,
+        'mailvotech.integrations.helper'                              => 4,
+        'mailvotech.integrations.helper.auth_integrations'            => 0,
+        'mailvotech.integrations.helper.builder_integrations'         => 1,
+        'mailvotech.integrations.helper.config_integrations'          => 4,
+        'mailvotech.integrations.helper.sync_integrations'            => 0,
+        'mailvotech.integrations.sync.notification.handler_container' => 2,
+        'mailvotech.sms.callback_handler_container'                   => 1,
+        'mailvotech.update.step_provider'                             => 7,
         Shortener::class                                          => 0,
     ];
 

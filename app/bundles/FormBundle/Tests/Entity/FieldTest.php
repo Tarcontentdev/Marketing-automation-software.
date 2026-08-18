@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Entity;
+namespace MailVotech\FormBundle\Tests\Entity;
 
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 

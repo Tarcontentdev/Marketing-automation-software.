@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Entity;
+namespace MailVotech\CoreBundle\Entity;
 
 /**
  * Optimistic locking is applied for entities that implements this interface.

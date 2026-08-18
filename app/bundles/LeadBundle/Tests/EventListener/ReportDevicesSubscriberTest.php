@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\EventListener\ReportDevicesSubscriber;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\LeadBundle\Report\FieldsBuilder;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\Helper\ReportHelper;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\EventListener\ReportDevicesSubscriber;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\LeadBundle\Report\FieldsBuilder;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\Helper\ReportHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -105,7 +105,7 @@ final class ReportDevicesSubscriberTest extends \PHPUnit\Framework\TestCase
 
         $expected = [
             ReportDevicesSubscriber::DEVICES => [
-                'display_name' => 'mautic.lead.report.devices',
+                'display_name' => 'mailvotech.lead.report.devices',
                 'columns'      => [
                     'lead.name' => [
                         'label' => '',
@@ -250,11 +250,11 @@ final class ReportDevicesSubscriberTest extends \PHPUnit\Framework\TestCase
 
         $queryBuilderMock->expects($this->once())
             ->method('from')
-            ->with(MAUTIC_TABLE_PREFIX.'lead_devices', 'dev')
+            ->with(MAILVOTECH_TABLE_PREFIX.'lead_devices', 'dev')
             ->willReturn($queryBuilderMock);
 
         $queryBuilderMock->method('leftJoin')
-            ->with('dev', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = dev.lead_id')
+            ->with('dev', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = dev.lead_id')
             ->willReturnSelf();
 
         return $queryBuilderMock;

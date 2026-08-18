@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Tests\Unit\EventSubscriber;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Tests\Unit\EventSubscriber;
 
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Event\EmailEditSubmitEvent;
-use Mautic\EmailBundle\Helper\EmailConfigInterface;
-use MauticPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilder;
-use MauticPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilderRepository;
-use MauticPlugin\GrapesJsBuilderBundle\EventSubscriber\EmailSubscriber;
-use MauticPlugin\GrapesJsBuilderBundle\Integration\Config;
-use MauticPlugin\GrapesJsBuilderBundle\Model\GrapesJsBuilderModel;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Event\EmailEditSubmitEvent;
+use MailVotech\EmailBundle\Helper\EmailConfigInterface;
+use MailVotechPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilder;
+use MailVotechPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilderRepository;
+use MailVotechPlugin\GrapesJsBuilderBundle\EventSubscriber\EmailSubscriber;
+use MailVotechPlugin\GrapesJsBuilderBundle\Integration\Config;
+use MailVotechPlugin\GrapesJsBuilderBundle\Model\GrapesJsBuilderModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

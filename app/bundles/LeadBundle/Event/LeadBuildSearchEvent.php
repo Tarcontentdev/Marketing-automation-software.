@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\CoreBundle\Event\CommonEvent;
 
 class LeadBuildSearchEvent extends CommonEvent
 {

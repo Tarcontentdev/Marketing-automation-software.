@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\CoreBundle\DependencyInjection\Builder\Metadata;
+namespace MailVotech\CoreBundle\DependencyInjection\Builder\Metadata;
 
-use Mautic\CoreBundle\DependencyInjection\Builder\BundleMetadata;
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\CoreBundle\DependencyInjection\Builder\BundleMetadata;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
 use Symfony\Component\Finder\Finder;
 
 /**
- * This is an temporary necessity until https://github.com/mautic/mautic/pull/7312 is merged and permission classes are
+ * This is an temporary necessity until https://github.com/mailvotech/mailvotech/pull/7312 is merged and permission classes are
  * converted to services.
  */
 final readonly class PermissionClassMetadata
@@ -32,7 +32,7 @@ final readonly class PermissionClassMetadata
             $className       = basename($file->getFilename(), '.php');
             $permissionClass = sprintf('%s\\Security\\Permissions\\%s', $this->metadata->getNamespace(), $className);
 
-            // Required because https://github.com/mautic/mautic/pull/7312 introduces permission DI and thus classes cannot be instantiated here
+            // Required because https://github.com/mailvotech/mailvotech/pull/7312 introduces permission DI and thus classes cannot be instantiated here
             $reflectionClass = new \ReflectionClass($permissionClass);
             if ($reflectionClass->isAbstract()) {
                 // Skip abstract classes

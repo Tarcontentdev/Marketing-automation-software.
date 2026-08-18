@@ -95,7 +95,7 @@ final class ControllerMethodMustReturnResponseRule implements Rule
             'Controller action "%s()" must return a Response, either alone or as part of a union.',
             $node->name->toString()
         ))
-            ->identifier('mautic.controllerMethodMustReturnResponse')
+            ->identifier('mailvotech.controllerMethodMustReturnResponse')
             ->build();
 
         return [$ruleError];

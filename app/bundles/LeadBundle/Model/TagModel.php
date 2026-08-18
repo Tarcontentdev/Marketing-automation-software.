@@ -1,24 +1,24 @@
 <?php
 
-namespace Mautic\LeadBundle\Model;
+namespace MailVotech\LeadBundle\Model;
 
-use Mautic\CampaignBundle\Entity\Event as CampaignEvent;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Entity\ActionRepository;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\Entity\TagRepository;
-use Mautic\LeadBundle\Event\TagEvent;
-use Mautic\LeadBundle\Event\TagMergeEvent;
-use Mautic\LeadBundle\Form\Type\TagEntityType;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\PointBundle\Entity\TriggerEvent;
-use Mautic\PointBundle\Entity\TriggerEventRepository;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Entity\ReportRepository;
+use MailVotech\CampaignBundle\Entity\Event as CampaignEvent;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Entity\ActionRepository;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Entity\TagRepository;
+use MailVotech\LeadBundle\Event\TagEvent;
+use MailVotech\LeadBundle\Event\TagMergeEvent;
+use MailVotech\LeadBundle\Form\Type\TagEntityType;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\PointBundle\Entity\TriggerEvent;
+use MailVotech\PointBundle\Entity\TriggerEventRepository;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\ReportRepository;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -182,7 +182,7 @@ class TagModel extends FormModel
         $connection = $this->em->getConnection();
 
         $connection->executeStatement(
-            sprintf('UPDATE IGNORE %slead_tags_xref SET tag_id = :primaryTagId WHERE tag_id = :secondaryTagId', MAUTIC_TABLE_PREFIX),
+            sprintf('UPDATE IGNORE %slead_tags_xref SET tag_id = :primaryTagId WHERE tag_id = :secondaryTagId', MAILVOTECH_TABLE_PREFIX),
             [
                 'primaryTagId'   => (int) $primaryTag->getId(),
                 'secondaryTagId' => (int) $secondaryTag->getId(),
@@ -190,7 +190,7 @@ class TagModel extends FormModel
         );
 
         $connection->executeStatement(
-            sprintf('DELETE FROM %slead_tags_xref WHERE tag_id = :secondaryTagId', MAUTIC_TABLE_PREFIX),
+            sprintf('DELETE FROM %slead_tags_xref WHERE tag_id = :secondaryTagId', MAILVOTECH_TABLE_PREFIX),
             ['secondaryTagId' => (int) $secondaryTag->getId()],
         );
     }

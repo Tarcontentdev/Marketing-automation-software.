@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Tracker\Service\ContactTrackingService;
+namespace MailVotech\LeadBundle\Tests\Tracker\Service\ContactTrackingService;
 
-use Mautic\CoreBundle\Helper\CookieHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDeviceRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\MergeRecordRepository;
-use Mautic\LeadBundle\Tracker\Service\ContactTrackingService\ContactTrackingService;
+use MailVotech\CoreBundle\Helper\CookieHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDeviceRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\MergeRecordRepository;
+use MailVotech\LeadBundle\Tracker\Service\ContactTrackingService\ContactTrackingService;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -50,7 +50,7 @@ final class ContactTrackingServiceTest extends \PHPUnit\Framework\TestCase
 
         $this->cookieHelperMock->expects($this->once())
             ->method('getCookie')
-            ->with('mautic_session_id', null)
+            ->with('mailvotech_session_id', null)
             ->willReturn($trackingId);
 
         $contactTrackingService = $this->getContactTrackingService();
@@ -77,7 +77,7 @@ final class ContactTrackingServiceTest extends \PHPUnit\Framework\TestCase
 
         $this->cookieHelperMock->expects($this->once())
             ->method('getCookie')
-            ->with('mautic_session_id', null)
+            ->with('mailvotech_session_id', null)
             ->willReturn(null);
 
         $contactTrackingService = $this->getContactTrackingService();
@@ -100,7 +100,7 @@ final class ContactTrackingServiceTest extends \PHPUnit\Framework\TestCase
         $this->cookieHelperMock->expects($matcher)
             ->method('getCookie')->willReturnCallback(function (...$parameters) use ($matcher, $trackingId): mixed {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic_session_id', $parameters[0]);
+                    $this->assertSame('mailvotech_session_id', $parameters[0]);
                     $this->assertNull($parameters[1]);
 
                     return $trackingId;
@@ -141,7 +141,7 @@ final class ContactTrackingServiceTest extends \PHPUnit\Framework\TestCase
         $this->cookieHelperMock->expects($matcher)
             ->method('getCookie')->willReturnCallback(function (...$parameters) use ($matcher, $trackingId): mixed {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic_session_id', $parameters[0]);
+                    $this->assertSame('mailvotech_session_id', $parameters[0]);
                     $this->assertNull($parameters[1]);
 
                     return $trackingId;
@@ -188,7 +188,7 @@ final class ContactTrackingServiceTest extends \PHPUnit\Framework\TestCase
         $this->cookieHelperMock->expects($matcher)
             ->method('getCookie')->willReturnCallback(function (...$parameters) use ($matcher, $trackingId): mixed {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic_session_id', $parameters[0]);
+                    $this->assertSame('mailvotech_session_id', $parameters[0]);
                     $this->assertNull($parameters[1]);
 
                     return $trackingId;
@@ -240,7 +240,7 @@ final class ContactTrackingServiceTest extends \PHPUnit\Framework\TestCase
         $this->cookieHelperMock->expects($matcher)
             ->method('getCookie')->willReturnCallback(function (...$parameters) use ($matcher, $trackingId): mixed {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic_session_id', $parameters[0]);
+                    $this->assertSame('mailvotech_session_id', $parameters[0]);
                     $this->assertNull($parameters[1]);
 
                     return $trackingId;
@@ -292,7 +292,7 @@ final class ContactTrackingServiceTest extends \PHPUnit\Framework\TestCase
         $this->cookieHelperMock->expects($matcher)
             ->method('getCookie')->willReturnCallback(function (...$parameters) use ($matcher, $trackingId, $leadId): mixed {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic_session_id', $parameters[0]);
+                    $this->assertSame('mailvotech_session_id', $parameters[0]);
                     $this->assertNull($parameters[1]);
 
                     return $trackingId;

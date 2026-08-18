@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Validator;
+namespace MailVotech\EmailBundle\Validator;
 
-use Mautic\CoreBundle\Exception\InvalidValueException;
-use Mautic\CoreBundle\Exception\RecordException;
-use Mautic\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
-use Mautic\EmailBundle\Exception\InvalidEmailException;
-use Mautic\EmailBundle\Helper\EmailValidator;
-use Mautic\LeadBundle\DataObject\ContactFieldToken;
-use Mautic\LeadBundle\Exception\InvalidContactFieldTokenException;
-use Mautic\LeadBundle\Validator\CustomFieldValidator;
+use MailVotech\CoreBundle\Exception\InvalidValueException;
+use MailVotech\CoreBundle\Exception\RecordException;
+use MailVotech\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
+use MailVotech\EmailBundle\Exception\InvalidEmailException;
+use MailVotech\EmailBundle\Helper\EmailValidator;
+use MailVotech\LeadBundle\DataObject\ContactFieldToken;
+use MailVotech\LeadBundle\Exception\InvalidContactFieldTokenException;
+use MailVotech\LeadBundle\Validator\CustomFieldValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -71,7 +71,7 @@ final class EmailOrEmailTokenListValidator extends ConstraintValidator
                     $this->customFieldValidator->validateFieldType($contactFieldToken->getFieldAlias(), 'email');
                 } catch (RecordException|InvalidValueException|InvalidContactFieldTokenException $tokenException) {
                     $this->context->addViolation(
-                        'mautic.email.email_or_token.not_valid',
+                        'mailvotech.email.email_or_token.not_valid',
                         ['%value%' => $emailOrToken, '%details%' => $tokenException->getMessage()]
                     );
                 }

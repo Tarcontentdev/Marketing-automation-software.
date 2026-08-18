@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\Controller;
+namespace MailVotech\SmsBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\SmsBundle\Entity\Sms;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\SmsBundle\Entity\Sms;
 use Symfony\Component\HttpFoundation\Request;
 
-final class SMSControllerFunctionalTest extends MauticMysqlTestCase
+final class SMSControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     private const EDIT_SMS_PATH       = '/s/sms/edit/';
 

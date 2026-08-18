@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\PointBundle\Event;
+namespace MailVotech\PointBundle\Event;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PointBundle\Entity\TriggerEvent as TriggerEventEntity;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PointBundle\Entity\TriggerEvent as TriggerEventEntity;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class TriggerExecutedEvent extends Event

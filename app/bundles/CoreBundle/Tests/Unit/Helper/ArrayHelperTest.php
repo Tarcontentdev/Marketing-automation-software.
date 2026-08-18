@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\ArrayHelper;
+use MailVotech\CoreBundle\Helper\ArrayHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class ArrayHelperTest extends \PHPUnit\Framework\TestCase

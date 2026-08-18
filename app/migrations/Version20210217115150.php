@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Migrations\Exception\SkipMigration;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
 
-final class Version20210217115150 extends AbstractMauticMigration
+final class Version20210217115150 extends AbstractMailVotechMigration
 {
     public function preUp(Schema $schema): void
     {

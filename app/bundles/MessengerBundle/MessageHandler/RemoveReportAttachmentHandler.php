@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\MessageHandler;
+namespace MailVotech\MessengerBundle\MessageHandler;
 
-use Mautic\CoreBundle\Helper\FilePathResolver;
-use Mautic\ReportBundle\Model\ExportHandler;
+use MailVotech\CoreBundle\Helper\FilePathResolver;
+use MailVotech\ReportBundle\Model\ExportHandler;
 use Symfony\Component\Mailer\Messenger\SendEmailMessage;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Mime\Email;
@@ -43,7 +43,7 @@ final readonly class RemoveReportAttachmentHandler
             $attachmentPath = $this->exportHandler->getPath(pathinfo($filename, \PATHINFO_FILENAME));
 
             $this->filePathResolver->delete($attachmentPath);
-            // str_replace as in \Mautic\ReportBundle\Scheduler\Model\FileHandler::zipIt
+            // str_replace as in \MailVotech\ReportBundle\Scheduler\Model\FileHandler::zipIt
             $this->filePathResolver->delete(str_replace('.csv', '.zip', $attachmentPath));
         }
     }

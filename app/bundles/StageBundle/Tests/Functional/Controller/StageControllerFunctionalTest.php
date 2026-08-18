@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\Tests\Functional\Controller;
+namespace MailVotech\StageBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\StageBundle\Model\StageModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\StageBundle\Model\StageModel;
 use Symfony\Component\HttpFoundation\Request;
 
-final class StageControllerFunctionalTest extends MauticMysqlTestCase
+final class StageControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     private const COUNT_SQL_PREFIX    = 'SELECT COUNT(*) FROM ';
 
@@ -24,7 +24,7 @@ final class StageControllerFunctionalTest extends MauticMysqlTestCase
 
         $stage = $this->client->request(Request::METHOD_GET, '/s/stages');
         self::assertResponseIsSuccessful($this->client->getResponse()->getContent());
-        $stageMenuString = $stage->filterXPath('//a[@id="mautic_stage_index"]');
+        $stageMenuString = $stage->filterXPath('//a[@id="mailvotech_stage_index"]');
         $this->assertStringContainsString('Stages', $stageMenuString->text());
     }
 
@@ -77,24 +77,24 @@ final class StageControllerFunctionalTest extends MauticMysqlTestCase
         $duplicateLogContactId = $duplicateLogContact->getId();
 
         $connection = $this->em->getConnection();
-        $connection->insert(MAUTIC_TABLE_PREFIX.'stage_lead_action_log', [
+        $connection->insert(MAILVOTECH_TABLE_PREFIX.'stage_lead_action_log', [
             'stage_id'   => $mergedStageId,
             'lead_id'    => $contactId,
             'date_fired' => self::MERGE_TEST_LOG_DATE,
         ]);
-        $connection->insert(MAUTIC_TABLE_PREFIX.'lead_stages_change_log', [
+        $connection->insert(MAILVOTECH_TABLE_PREFIX.'lead_stages_change_log', [
             'lead_id'     => $contactId,
             'stage_id'    => $mergedStageId,
             'event_name'  => 'Stage changed',
             'action_name' => 'Merged stage',
             'date_added'  => self::MERGE_TEST_LOG_DATE,
         ]);
-        $connection->insert(MAUTIC_TABLE_PREFIX.'stage_lead_action_log', [
+        $connection->insert(MAILVOTECH_TABLE_PREFIX.'stage_lead_action_log', [
             'stage_id'   => $primaryStageId,
             'lead_id'    => $duplicateLogContactId,
             'date_fired' => self::MERGE_TEST_LOG_DATE,
         ]);
-        $connection->insert(MAUTIC_TABLE_PREFIX.'stage_lead_action_log', [
+        $connection->insert(MAILVOTECH_TABLE_PREFIX.'stage_lead_action_log', [
             'stage_id'   => $mergedStageId,
             'lead_id'    => $duplicateLogContactId,
             'date_fired' => '2026-01-02 00:00:00',
@@ -112,23 +112,23 @@ final class StageControllerFunctionalTest extends MauticMysqlTestCase
         $this->assertSame($primaryStageId, $savedContactStage->getId());
         $this->assertNotInstanceOf(Stage::class, $this->em->find(Stage::class, $mergedStageId));
         $this->assertSame(1, (int) $connection->fetchOne(
-            self::COUNT_SQL_PREFIX.MAUTIC_TABLE_PREFIX.'stage_lead_action_log WHERE stage_id = ? AND lead_id = ?',
+            self::COUNT_SQL_PREFIX.MAILVOTECH_TABLE_PREFIX.'stage_lead_action_log WHERE stage_id = ? AND lead_id = ?',
             [$primaryStageId, $contactId]
         ));
         $this->assertSame(1, (int) $connection->fetchOne(
-            self::COUNT_SQL_PREFIX.MAUTIC_TABLE_PREFIX.'stage_lead_action_log WHERE stage_id = ? AND lead_id = ?',
+            self::COUNT_SQL_PREFIX.MAILVOTECH_TABLE_PREFIX.'stage_lead_action_log WHERE stage_id = ? AND lead_id = ?',
             [$primaryStageId, $duplicateLogContactId]
         ));
         $this->assertSame(1, (int) $connection->fetchOne(
-            self::COUNT_SQL_PREFIX.MAUTIC_TABLE_PREFIX.'lead_stages_change_log WHERE stage_id = ? AND lead_id = ?',
+            self::COUNT_SQL_PREFIX.MAILVOTECH_TABLE_PREFIX.'lead_stages_change_log WHERE stage_id = ? AND lead_id = ?',
             [$primaryStageId, $contactId]
         ));
         $this->assertSame(0, (int) $connection->fetchOne(
-            self::COUNT_SQL_PREFIX.MAUTIC_TABLE_PREFIX.'stage_lead_action_log WHERE stage_id = ?',
+            self::COUNT_SQL_PREFIX.MAILVOTECH_TABLE_PREFIX.'stage_lead_action_log WHERE stage_id = ?',
             [$mergedStageId]
         ));
         $this->assertSame(0, (int) $connection->fetchOne(
-            self::COUNT_SQL_PREFIX.MAUTIC_TABLE_PREFIX.'lead_stages_change_log WHERE stage_id = ?',
+            self::COUNT_SQL_PREFIX.MAILVOTECH_TABLE_PREFIX.'lead_stages_change_log WHERE stage_id = ?',
             [$mergedStageId]
         ));
     }

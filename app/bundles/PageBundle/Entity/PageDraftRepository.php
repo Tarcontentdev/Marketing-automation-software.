@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Entity;
+namespace MailVotech\PageBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 final class PageDraftRepository extends CommonRepository
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\CoreBundle\Event\DependencyErrorEventInterface;
-use Mautic\CoreBundle\Event\DependencyErrorEventTrait;
-use Mautic\LeadBundle\Entity\LeadList;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\CoreBundle\Event\DependencyErrorEventInterface;
+use MailVotech\CoreBundle\Event\DependencyErrorEventTrait;
+use MailVotech\LeadBundle\Entity\LeadList;
 
 class LeadListEvent extends CommonEvent implements DependencyErrorEventInterface
 {

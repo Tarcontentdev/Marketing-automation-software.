@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Controller;
+namespace MailVotech\CampaignBundle\Tests\Functional\Controller;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
 
-final class CampaignOptimisticLockTest extends MauticMysqlTestCase
+final class CampaignOptimisticLockTest extends MailVotechMysqlTestCase
 {
     use CampaignControllerTrait;
 

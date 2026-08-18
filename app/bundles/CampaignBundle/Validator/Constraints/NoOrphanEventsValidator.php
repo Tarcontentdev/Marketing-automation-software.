@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Validator\Constraints;
+namespace MailVotech\CampaignBundle\Validator\Constraints;
 
-use Mautic\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Campaign;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -17,7 +17,7 @@ final class NoOrphanEventsValidator extends ConstraintValidator
         }
 
         if ($value->hasOrphanEvents()) {
-            $this->context->buildViolation('mautic.campaign.form.events.orphan')
+            $this->context->buildViolation('mailvotech.campaign.form.events.orphan')
                 ->addViolation();
         }
     }

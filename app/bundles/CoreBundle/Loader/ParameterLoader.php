@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Loader;
+namespace MailVotech\CoreBundle\Loader;
 
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Filesystem\Path;
@@ -72,7 +72,7 @@ final class ParameterLoader
         // Load from local configuration file first
         EnvVars\ConfigEnvVars::load($this->parameterBag, $defaultParameters, $envVariables);
 
-        // Load special values used in Mautic configuration files in app/config
+        // Load special values used in MailVotech configuration files in app/config
         EnvVars\ApiEnvVars::load($this->parameterBag, $defaultParameters, $envVariables);
         EnvVars\ElFinderEnvVars::load($this->parameterBag, $defaultParameters, $envVariables);
         EnvVars\MigrationsEnvVars::load($this->parameterBag, $defaultParameters, $envVariables);
@@ -82,7 +82,7 @@ final class ParameterLoader
         EnvVars\TwigEnvVars::load($this->parameterBag, $defaultParameters, $envVariables);
 
         // Load the values into the environment for cache use
-        $dotenv = new Dotenv(MAUTIC_ENV);
+        $dotenv = new Dotenv(MAILVOTECH_ENV);
         foreach ($envVariables->all() as $key => $value) {
             if (null === $value) {
                 $envVariables->set($key, '');
@@ -142,7 +142,7 @@ final class ParameterLoader
 
         // We need this for the file manager (ElFinder) and other webroot-relative paths.
         // If local_root is explicitly set in paths_local.php, use that.
-        // Otherwise, auto-detect from composer.json's mautic-scaffold.locations.web-root
+        // Otherwise, auto-detect from composer.json's mailvotech-scaffold.locations.web-root
         // or extra.public-dir for recommended-project installations.
         if (isset($paths['local_root'])) {
             if ($updateDefaultParameters) {
@@ -209,7 +209,7 @@ final class ParameterLoader
         }
 
         // Load from environment
-        $envParameters = getenv('MAUTIC_CONFIG_PARAMETERS');
+        $envParameters = getenv('MAILVOTECH_CONFIG_PARAMETERS');
         if ($envParameters) {
             $compiledParameters = array_merge($compiledParameters, json_decode($envParameters, true));
         }
@@ -265,7 +265,7 @@ final class ParameterLoader
     /**
      * Detects the webroot directory from composer.json configuration.
      *
-     * Checks for mautic-scaffold.locations.web-root (used by recommended-project)
+     * Checks for mailvotech-scaffold.locations.web-root (used by recommended-project)
      * or Symfony's extra.public-dir. Returns the project root if no subdirectory
      * webroot is configured.
      */
@@ -286,8 +286,8 @@ final class ParameterLoader
             return $projectRoot;
         }
 
-        // Check mautic-scaffold.locations.web-root (used by recommended-project)
-        $webRoot = $composerJson['extra']['mautic-scaffold']['locations']['web-root'] ?? null;
+        // Check mailvotech-scaffold.locations.web-root (used by recommended-project)
+        $webRoot = $composerJson['extra']['mailvotech-scaffold']['locations']['web-root'] ?? null;
 
         // Fallback to Symfony's public-dir
         if (null === $webRoot) {

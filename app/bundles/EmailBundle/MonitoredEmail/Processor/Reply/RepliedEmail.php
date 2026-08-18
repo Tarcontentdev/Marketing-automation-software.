@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor\Reply;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor\Reply;
 
 final class RepliedEmail
 {

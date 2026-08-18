@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\Integration\Twilio;
+namespace MailVotech\SmsBundle\Tests\Integration\Twilio;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\SmsBundle\Integration\TwilioIntegration;
-use Mautic\SmsBundle\Tests\SmsTestHelperTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\SmsBundle\Integration\TwilioIntegration;
+use MailVotech\SmsBundle\Tests\SmsTestHelperTrait;
 
-final class TwilioConfigurationFunctionalTest extends MauticMysqlTestCase
+final class TwilioConfigurationFunctionalTest extends MailVotechMysqlTestCase
 {
     use SmsTestHelperTrait;
 

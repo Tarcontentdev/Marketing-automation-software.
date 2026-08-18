@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\DTO;
+namespace MailVotech\MarketplaceBundle\DTO;
 
-use Mautic\MarketplaceBundle\Collection\MaintainerCollection;
-use Mautic\MarketplaceBundle\Collection\VersionCollection;
+use MailVotech\MarketplaceBundle\Collection\MaintainerCollection;
+use MailVotech\MarketplaceBundle\Collection\VersionCollection;
 
 final class PackageDetail
 {

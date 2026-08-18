@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\DAO\Sync\Order;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\DAO\Sync\Order;
 
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectMappingsDAO;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectMappingsDAO;
 use PHPUnit\Framework\TestCase;
 
 final class ObjectMappingsDAOTest extends TestCase

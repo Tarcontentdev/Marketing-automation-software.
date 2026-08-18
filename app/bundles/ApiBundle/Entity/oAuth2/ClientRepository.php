@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\ApiBundle\Entity\oAuth2;
+namespace MailVotech\ApiBundle\Entity\oAuth2;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\UserBundle\Entity\User;
 
 /**
  * @extends CommonRepository<Client>

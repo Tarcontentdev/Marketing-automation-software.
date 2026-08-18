@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Unit\Model;
+namespace MailVotech\ReportBundle\Tests\Unit\Model;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Model\ReportModel;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Model\ReportModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-final class ReportModelTest extends MauticMysqlTestCase
+final class ReportModelTest extends MailVotechMysqlTestCase
 {
     public function testThatGetReportDataUsesCorrectDataRange(): void
     {

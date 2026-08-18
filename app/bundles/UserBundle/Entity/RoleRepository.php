@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\UserBundle\Entity;
+namespace MailVotech\UserBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Event\GlobalSearchEvent;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Event\GlobalSearchEvent;
 
 /**
  * @extends CommonRepository<Role>
@@ -102,12 +102,12 @@ class RoleRepository extends CommonRepository
         [$expr, $parameters]     = parent::addSearchCommandWhereClause($q, $filter);
 
         switch ($command) {
-            case $this->translator->trans('mautic.user.user.searchcommand.isadmin'):
-            case $this->translator->trans('mautic.user.user.searchcommand.isadmin', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.user.user.searchcommand.isadmin'):
+            case $this->translator->trans('mailvotech.user.user.searchcommand.isadmin', [], null, 'en_US'):
                 $expr = $q->expr()->eq('r.isAdmin', 1);
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.name'):
-            case $this->translator->trans('mautic.core.searchcommand.name', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.name'):
+            case $this->translator->trans('mailvotech.core.searchcommand.name', [], null, 'en_US'):
                 $expr            = $q->expr()->like('r.name', ':'.$unique);
                 $returnParameter = true;
                 break;
@@ -138,7 +138,7 @@ class RoleRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('count(u.id) as thecount, u.role_id')
-            ->from(MAUTIC_TABLE_PREFIX.'users', 'u');
+            ->from(MAILVOTECH_TABLE_PREFIX.'users', 'u');
 
         $returnArray = is_array($roleIds);
 
@@ -175,8 +175,8 @@ class RoleRepository extends CommonRepository
     public function getSearchCommands(): array
     {
         $commands = [
-            'mautic.user.user.searchcommand.isadmin',
-            'mautic.core.searchcommand.name',
+            'mailvotech.user.user.searchcommand.isadmin',
+            'mailvotech.core.searchcommand.name',
         ];
 
         return array_merge($commands, parent::getSearchCommands());

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Executioner;
+namespace MailVotech\CampaignBundle\Tests\Executioner;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Enum\RepublishBehavior;
-use Mautic\CampaignBundle\Executioner\Scheduler\Mode\Interval;
-use Mautic\CampaignBundle\Tests\CampaignAuditLogTrait;
-use Mautic\CampaignBundle\Tests\Command\AbstractCampaignCommand;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Enum\RepublishBehavior;
+use MailVotech\CampaignBundle\Executioner\Scheduler\Mode\Interval;
+use MailVotech\CampaignBundle\Tests\CampaignAuditLogTrait;
+use MailVotech\CampaignBundle\Tests\Command\AbstractCampaignCommand;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class ScheduledExecutionerExtendTriggerDateTest extends AbstractCampaignCommand
@@ -79,7 +79,7 @@ final class ScheduledExecutionerExtendTriggerDateTest extends AbstractCampaignCo
 
         // Execute using the command
         $logId         = $eventLog->getId();
-        $commandTester = $this->testSymfonyCommand('mautic:campaigns:execute', [
+        $commandTester = $this->testSymfonyCommand('mailvotech:campaigns:execute', [
             '--scheduled-log-ids' => (string) $logId,
             '--execution-time'    => (new \DateTime('2025-01-10 00:02:00'))->format(Interval::LOG_DATE_FORMAT),
         ]);

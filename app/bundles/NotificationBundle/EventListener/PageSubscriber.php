@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\NotificationBundle\EventListener;
+namespace MailVotech\NotificationBundle\EventListener;
 
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
-use Mautic\PageBundle\Event\PageDisplayEvent;
-use Mautic\PageBundle\PageEvents;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\PageBundle\Event\PageDisplayEvent;
+use MailVotech\PageBundle\PageEvents;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class PageSubscriber implements EventSubscriberInterface

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Functional\Controller;
+namespace MailVotech\UserBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\Permission;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\Permission;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class RoleControllerFunctionalTest extends MauticMysqlTestCase
+final class RoleControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     private const ROLE_NAME_FIELD        = 'role[name]';
 

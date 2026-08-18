@@ -1,27 +1,27 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
-use Mautic\CoreBundle\Helper\Chart\BarChart;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Helper\Chart\PieChart;
-use Mautic\CoreBundle\Helper\Chart\SeriesPieChart;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\LeadBundle\Report\DncReportService;
-use Mautic\LeadBundle\Report\FieldsBuilder;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportDataEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\Event\ReportGraphEvent;
-use Mautic\ReportBundle\ReportEvents;
+use MailVotech\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
+use MailVotech\CoreBundle\Helper\Chart\BarChart;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Helper\Chart\PieChart;
+use MailVotech\CoreBundle\Helper\Chart\SeriesPieChart;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\LeadBundle\Report\DncReportService;
+use MailVotech\LeadBundle\Report\FieldsBuilder;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportDataEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\Event\ReportGraphEvent;
+use MailVotech\ReportBundle\ReportEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ReportSubscriber implements EventSubscriberInterface
@@ -49,87 +49,87 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
     public const DNC_COLUMNS = [
         'unsubscribed' => [
             'alias'   => 'unsubscribed',
-            'label'   => 'mautic.email.report.unsubscribed',
+            'label'   => 'mailvotech.email.report.unsubscribed',
             'type'    => 'string',
-            'formula' => 'IFNULL((SELECT SUM(IF('.self::DNC_PREFIX.'.id IS NOT NULL AND '.self::DNC_PREFIX.'.channel_id='.self::EMAILS_PREFIX.'.id AND dnc.reason='.DoNotContact::UNSUBSCRIBED.' , 1, 0)) FROM '.MAUTIC_TABLE_PREFIX.'lead_donotcontact dnc), 0)',
+            'formula' => 'IFNULL((SELECT SUM(IF('.self::DNC_PREFIX.'.id IS NOT NULL AND '.self::DNC_PREFIX.'.channel_id='.self::EMAILS_PREFIX.'.id AND dnc.reason='.DoNotContact::UNSUBSCRIBED.' , 1, 0)) FROM '.MAILVOTECH_TABLE_PREFIX.'lead_donotcontact dnc), 0)',
         ],
         'unsubscribed_ratio' => [
             'alias'   => 'unsubscribed_ratio',
-            'label'   => 'mautic.email.report.unsubscribed_ratio',
+            'label'   => 'mailvotech.email.report.unsubscribed_ratio',
             'type'    => 'string',
-            'formula' => 'IFNULL((SELECT ROUND((SUM(IF('.self::DNC_PREFIX.'.id IS NOT NULL AND '.self::DNC_PREFIX.'.channel_id='.self::EMAILS_PREFIX.'.id AND dnc.reason='.DoNotContact::UNSUBSCRIBED.' , 1, 0))/'.self::EMAILS_PREFIX.'.sent_count)*100, 1) FROM '.MAUTIC_TABLE_PREFIX.'lead_donotcontact dnc), \'0.0\')',
+            'formula' => 'IFNULL((SELECT ROUND((SUM(IF('.self::DNC_PREFIX.'.id IS NOT NULL AND '.self::DNC_PREFIX.'.channel_id='.self::EMAILS_PREFIX.'.id AND dnc.reason='.DoNotContact::UNSUBSCRIBED.' , 1, 0))/'.self::EMAILS_PREFIX.'.sent_count)*100, 1) FROM '.MAILVOTECH_TABLE_PREFIX.'lead_donotcontact dnc), \'0.0\')',
             'suffix'  => '%',
         ],
         'unsubscribed_to_open_ratio' => [
             'alias'   => 'unsubscribed_to_open_ratio',
-            'label'   => 'mautic.email.report.unsubscribed_to_open_ratio',
+            'label'   => 'mailvotech.email.report.unsubscribed_to_open_ratio',
             'type'    => 'string',
-            'formula' => 'IFNULL((SELECT ROUND((SUM(IF('.self::DNC_PREFIX.'.id IS NOT NULL AND '.self::DNC_PREFIX.'.channel_id='.self::EMAILS_PREFIX.'.id AND dnc.reason='.DoNotContact::UNSUBSCRIBED.' , 1, 0))/'.self::EMAILS_PREFIX.'.read_count)*100, 1) FROM '.MAUTIC_TABLE_PREFIX.'lead_donotcontact dnc), \'0.0\')',
+            'formula' => 'IFNULL((SELECT ROUND((SUM(IF('.self::DNC_PREFIX.'.id IS NOT NULL AND '.self::DNC_PREFIX.'.channel_id='.self::EMAILS_PREFIX.'.id AND dnc.reason='.DoNotContact::UNSUBSCRIBED.' , 1, 0))/'.self::EMAILS_PREFIX.'.read_count)*100, 1) FROM '.MAILVOTECH_TABLE_PREFIX.'lead_donotcontact dnc), \'0.0\')',
             'suffix'  => '%',
         ],
         'bounced' => [
             'alias'   => 'bounced',
-            'label'   => 'mautic.email.report.bounced',
+            'label'   => 'mailvotech.email.report.bounced',
             'type'    => 'string',
-            'formula' => 'IFNULL((SELECT SUM(IF('.self::DNC_PREFIX.'.id IS NOT NULL AND '.self::DNC_PREFIX.'.channel_id='.self::EMAILS_PREFIX.'.id AND dnc.reason='.DoNotContact::BOUNCED.' , 1, 0)) FROM '.MAUTIC_TABLE_PREFIX.'lead_donotcontact dnc), 0)',
+            'formula' => 'IFNULL((SELECT SUM(IF('.self::DNC_PREFIX.'.id IS NOT NULL AND '.self::DNC_PREFIX.'.channel_id='.self::EMAILS_PREFIX.'.id AND dnc.reason='.DoNotContact::BOUNCED.' , 1, 0)) FROM '.MAILVOTECH_TABLE_PREFIX.'lead_donotcontact dnc), 0)',
         ],
         'bounced_ratio' => [
             'alias'   => 'bounced_ratio',
-            'label'   => 'mautic.email.report.bounced_ratio',
+            'label'   => 'mailvotech.email.report.bounced_ratio',
             'type'    => 'string',
-            'formula' => 'IFNULL((SELECT ROUND((SUM(IF('.self::DNC_PREFIX.'.id IS NOT NULL AND '.self::DNC_PREFIX.'.channel_id='.self::EMAILS_PREFIX.'.id AND dnc.reason='.DoNotContact::BOUNCED.' , 1, 0))/'.self::EMAILS_PREFIX.'.sent_count)*100, 1) FROM '.MAUTIC_TABLE_PREFIX.'lead_donotcontact dnc), \'0.0\')',
+            'formula' => 'IFNULL((SELECT ROUND((SUM(IF('.self::DNC_PREFIX.'.id IS NOT NULL AND '.self::DNC_PREFIX.'.channel_id='.self::EMAILS_PREFIX.'.id AND dnc.reason='.DoNotContact::BOUNCED.' , 1, 0))/'.self::EMAILS_PREFIX.'.sent_count)*100, 1) FROM '.MAILVOTECH_TABLE_PREFIX.'lead_donotcontact dnc), \'0.0\')',
             'suffix'  => '%',
         ],
     ];
 
     public const EMAIL_STATS_COLUMNS = [
         self::EMAIL_STATS_PREFIX.'.email_address' => [
-            'label' => 'mautic.email.report.stat.email_address',
+            'label' => 'mailvotech.email.report.stat.email_address',
             'type'  => 'email',
         ],
         self::EMAIL_STATS_PREFIX.'.date_sent' => [
-            'label'          => 'mautic.email.report.stat.date_sent',
+            'label'          => 'mailvotech.email.report.stat.date_sent',
             'type'           => 'datetime',
             'groupByFormula' => 'DATE('.self::EMAIL_STATS_PREFIX.'.date_sent)',
         ],
         self::EMAIL_STATS_PREFIX.'.is_read' => [
-            'label' => 'mautic.email.report.stat.is_read',
+            'label' => 'mailvotech.email.report.stat.is_read',
             'type'  => 'bool',
         ],
         self::EMAIL_STATS_PREFIX.'.is_failed' => [
-            'label' => 'mautic.email.report.stat.is_failed',
+            'label' => 'mailvotech.email.report.stat.is_failed',
             'type'  => 'bool',
         ],
         self::EMAIL_STATS_PREFIX.'.viewed_in_browser' => [
-            'label' => 'mautic.email.report.stat.viewed_in_browser',
+            'label' => 'mailvotech.email.report.stat.viewed_in_browser',
             'type'  => 'bool',
         ],
         self::EMAIL_STATS_PREFIX.'.date_read' => [
-            'label'          => 'mautic.email.report.stat.date_read',
+            'label'          => 'mailvotech.email.report.stat.date_read',
             'type'           => 'datetime',
             'groupByFormula' => 'DATE('.self::EMAIL_STATS_PREFIX.'.date_read)',
         ],
         self::EMAIL_STATS_PREFIX.'.retry_count' => [
-            'label' => 'mautic.email.report.stat.retry_count',
+            'label' => 'mailvotech.email.report.stat.retry_count',
             'type'  => 'int',
         ],
         self::EMAIL_STATS_PREFIX.'.source' => [
-            'label' => 'mautic.report.field.source',
+            'label' => 'mailvotech.report.field.source',
             'type'  => 'string',
         ],
         self::EMAIL_STATS_PREFIX.'.source_id' => [
-            'label' => 'mautic.report.field.source_id',
+            'label' => 'mailvotech.report.field.source_id',
             'type'  => 'int',
         ],
     ];
 
     public const EMAIL_VARIANT_COLUMNS = [
         self::EMAIL_VARIANT_PREFIX.'.id' => [
-            'label' => 'mautic.email.report.variant_parent_id',
+            'label' => 'mailvotech.email.report.variant_parent_id',
             'type'  => 'int',
         ],
         self::EMAIL_VARIANT_PREFIX.'.subject' => [
-            'label' => 'mautic.email.report.variant_parent_subject',
+            'label' => 'mailvotech.email.report.variant_parent_subject',
             'type'  => 'string',
         ],
     ];
@@ -137,26 +137,26 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
     public const CLICK_COLUMNS = [
         'hits' => [
             'alias'   => 'hits',
-            'label'   => 'mautic.email.report.hits_count',
+            'label'   => 'mailvotech.email.report.hits_count',
             'type'    => 'string',
             'formula' => 'IFNULL('.self::CLICK_PREFIX.'.hits, 0)',
         ],
         'unique_hits' => [
             'alias'   => 'unique_hits',
-            'label'   => 'mautic.email.report.unique_hits_count',
+            'label'   => 'mailvotech.email.report.unique_hits_count',
             'type'    => 'string',
             'formula' => 'IFNULL('.self::CLICK_PREFIX.'.unique_hits, 0)',
         ],
         'hits_ratio' => [
             'alias'   => 'hits_ratio',
-            'label'   => 'mautic.email.report.hits_ratio',
+            'label'   => 'mailvotech.email.report.hits_ratio',
             'type'    => 'string',
             'formula' => 'IFNULL(ROUND('.self::CLICK_PREFIX.'.hits/('.self::EMAILS_PREFIX.'.sent_count)*100, 1), \'0.0\')',
             'suffix'  => '%',
         ],
         'unique_ratio' => [
             'alias'   => 'unique_ratio',
-            'label'   => 'mautic.email.report.unique_ratio',
+            'label'   => 'mailvotech.email.report.unique_ratio',
             'type'    => 'string',
             'formula' => 'IFNULL(ROUND('.self::CLICK_PREFIX.'.unique_hits/('.self::EMAILS_PREFIX.'.sent_count)*100, 1), \'0.0\')',
             'suffix'  => '%',
@@ -196,61 +196,61 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
         $prefix  = self::EMAILS_PREFIX.'.';
         $columns = [
             $prefix.'subject' => [
-                'label' => 'mautic.email.subject',
+                'label' => 'mailvotech.email.subject',
                 'type'  => 'string',
             ],
             $prefix.'lang' => [
-                'label' => 'mautic.core.language',
+                'label' => 'mailvotech.core.language',
                 'type'  => 'string',
             ],
             $prefix.'read_count' => [
-                'label' => 'mautic.email.report.read_count',
+                'label' => 'mailvotech.email.report.read_count',
                 'type'  => 'int',
             ],
             'read_ratio' => [
                 'alias'   => 'read_ratio',
-                'label'   => 'mautic.email.report.read_ratio',
+                'label'   => 'mailvotech.email.report.read_ratio',
                 'type'    => 'string',
                 'formula' => 'IFNULL(ROUND(('.$prefix.'read_count/'.$prefix.'sent_count)*100, 1), \'0.0\')',
                 'suffix'  => '%',
             ],
             $prefix.'sent_count' => [
-                'label' => 'mautic.email.report.sent_count',
+                'label' => 'mailvotech.email.report.sent_count',
                 'type'  => 'int',
             ],
             $prefix.'revision' => [
-                'label' => 'mautic.email.report.revision',
+                'label' => 'mailvotech.email.report.revision',
                 'type'  => 'int',
             ],
             $prefix.'variant_start_date' => [
-                'label'          => 'mautic.email.report.variant_start_date',
+                'label'          => 'mailvotech.email.report.variant_start_date',
                 'type'           => 'datetime',
                 'groupByFormula' => 'DATE('.$prefix.'variant_start_date)',
             ],
             $prefix.'variant_sent_count' => [
-                'label' => 'mautic.email.report.variant_sent_count',
+                'label' => 'mailvotech.email.report.variant_sent_count',
                 'type'  => 'int',
             ],
             $prefix.'variant_read_count' => [
-                'label' => 'mautic.email.report.variant_read_count',
+                'label' => 'mailvotech.email.report.variant_read_count',
                 'type'  => 'int',
             ],
             'click_through_count' => [
                 'alias'   => 'click_through_count',
-                'label'   => 'mautic.email.report.click_through_count',
+                'label'   => 'mailvotech.email.report.click_through_count',
                 'type'    => 'string',
                 'formula' => 'IFNULL('.self::CLICK_THROUGH_PREFIX.'.click_through_count, 0)',
             ],
             'click_through_rate' => [
                 'alias'   => 'click_through_rate',
-                'label'   => 'mautic.email.report.click_through_rate',
+                'label'   => 'mailvotech.email.report.click_through_rate',
                 'type'    => 'string',
                 'formula' => 'IFNULL(ROUND('.self::CLICK_THROUGH_PREFIX.'.click_through_count/'.$prefix.'sent_count * 100, 1), \'0.0\')',
                 'suffix'  => '%',
             ],
             'click_to_open_rate' => [
                 'alias'   => 'click_to_open_rate',
-                'label'   => 'mautic.email.report.click_to_open_rate',
+                'label'   => 'mailvotech.email.report.click_to_open_rate',
                 'type'    => 'string',
                 'formula' => 'IFNULL(ROUND('.self::CLICK_THROUGH_PREFIX.'.click_through_count/'.$prefix.'read_count * 100, 1), \'0.0\')',
                 'suffix'  => '%',
@@ -259,7 +259,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
         $columns = array_merge(
             $columns,
-            $event->getStandardColumns($prefix, [], 'mautic_email_action'),
+            $event->getStandardColumns($prefix, [], 'mailvotech_email_action'),
             $event->getCategoryColumns(),
             self::DNC_COLUMNS,
             self::EMAIL_VARIANT_COLUMNS,
@@ -267,15 +267,15 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             $this->dncReportService->getDncColumns()
         );
         $data = [
-            'display_name' => 'mautic.email.emails',
+            'display_name' => 'mailvotech.email.emails',
             'columns'      => $columns,
         ];
         $event->addTable(self::CONTEXT_EMAILS, $data);
         $context = self::CONTEXT_EMAILS;
-        $event->addGraph($context, 'pie', 'mautic.email.graph.pie.read.ingored.unsubscribed.bounced');
-        $event->addGraph($context, 'pie', 'mautic.email.graph.pie.sent.read.clicked.unsubscribed');
-        $event->addGraph($context, 'table', 'mautic.email.table.most.emails.clicks');
-        $event->addGraph($context, 'table', 'mautic.email.table.most.emails.table');
+        $event->addGraph($context, 'pie', 'mailvotech.email.graph.pie.read.ingored.unsubscribed.bounced');
+        $event->addGraph($context, 'pie', 'mailvotech.email.graph.pie.sent.read.clicked.unsubscribed');
+        $event->addGraph($context, 'table', 'mailvotech.email.table.most.emails.clicks');
+        $event->addGraph($context, 'table', 'mailvotech.email.table.most.emails.table');
 
         if ($event->checkContext(self::CONTEXT_EMAIL_STATS)) {
             // Ratios are not applicable for individual stats
@@ -297,7 +297,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             // clicked column for individual stats
             $columns['is_hit'] = [
                 'alias'   => 'is_hit',
-                'label'   => 'mautic.email.report.is_hit',
+                'label'   => 'mailvotech.email.report.is_hit',
                 'type'    => 'bool',
                 'formula' => 'IF('.self::CLICK_PREFIX.'.hits is NULL, 0, 1)',
             ];
@@ -305,7 +305,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             // time between sent and read
             $columns['read_delay'] = [
                 'alias'   => 'read_delay',
-                'label'   => 'mautic.email.report.read.delay',
+                'label'   => 'mailvotech.email.report.read.delay',
                 'type'    => 'string',
                 'formula' => 'IF(es.date_read IS NOT NULL, TIMEDIFF(es.date_read, es.date_sent), \'-\')',
             ];
@@ -325,7 +325,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             );
 
             $data = [
-                'display_name' => 'mautic.email.stats.report.table',
+                'display_name' => 'mailvotech.email.stats.report.table',
                 'columns'      => $columns,
                 'filters'      => $filters,
             ];
@@ -333,15 +333,15 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
             // Register Graphs
             $context = self::CONTEXT_EMAIL_STATS;
-            $event->addGraph($context, 'line', 'mautic.email.graph.line.stats');
-            $event->addGraph($context, 'pie', 'mautic.email.graph.pie.ignored.read.failed');
-            $event->addGraph($context, 'table', 'mautic.email.table.most.emails.sent');
-            $event->addGraph($context, 'table', 'mautic.email.table.most.emails.read');
-            $event->addGraph($context, 'table', 'mautic.email.table.most.emails.read.percent');
-            $event->addGraph($context, 'table', 'mautic.email.table.most.emails.unsubscribed');
-            $event->addGraph($context, 'table', 'mautic.email.table.most.emails.bounced');
-            $event->addGraph($context, 'table', 'mautic.email.table.most.emails.failed');
-            $event->addGraph($context, 'table', 'mautic.email.table.most.emails.clicks');
+            $event->addGraph($context, 'line', 'mailvotech.email.graph.line.stats');
+            $event->addGraph($context, 'pie', 'mailvotech.email.graph.pie.ignored.read.failed');
+            $event->addGraph($context, 'table', 'mailvotech.email.table.most.emails.sent');
+            $event->addGraph($context, 'table', 'mailvotech.email.table.most.emails.read');
+            $event->addGraph($context, 'table', 'mailvotech.email.table.most.emails.read.percent');
+            $event->addGraph($context, 'table', 'mailvotech.email.table.most.emails.unsubscribed');
+            $event->addGraph($context, 'table', 'mailvotech.email.table.most.emails.bounced');
+            $event->addGraph($context, 'table', 'mailvotech.email.table.most.emails.failed');
+            $event->addGraph($context, 'table', 'mailvotech.email.table.most.emails.clicks');
         }
     }
 
@@ -363,8 +363,8 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
         switch ($context) {
             case self::CONTEXT_EMAILS:
-                $qb->from(MAUTIC_TABLE_PREFIX.'emails', self::EMAILS_PREFIX)
-                    ->leftJoin(self::EMAILS_PREFIX, MAUTIC_TABLE_PREFIX.'emails', self::EMAIL_VARIANT_PREFIX, 'vp.id = e.variant_parent_id');
+                $qb->from(MAILVOTECH_TABLE_PREFIX.'emails', self::EMAILS_PREFIX)
+                    ->leftJoin(self::EMAILS_PREFIX, MAILVOTECH_TABLE_PREFIX.'emails', self::EMAIL_VARIANT_PREFIX, 'vp.id = e.variant_parent_id');
 
                 $event->addCategoryLeftJoin($qb, self::EMAILS_PREFIX)
                     ->applyDateFilters($qb, 'date_added', self::EMAILS_PREFIX);
@@ -379,7 +379,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                         'SUM(cut2.unique_hits) AS unique_hits',
                         'cut2.channel_id'
                     )
-                        ->from(MAUTIC_TABLE_PREFIX.'channel_url_trackables', 'cut2')
+                        ->from(MAILVOTECH_TABLE_PREFIX.'channel_url_trackables', 'cut2')
                         ->where('cut2.channel = \'email\'')
                         ->groupBy('cut2.channel_id');
                     $qb->leftJoin(self::EMAILS_PREFIX, sprintf('(%s)', $qbcut->getSQL()), self::CLICK_PREFIX, 'e.id = cut.channel_id');
@@ -394,25 +394,25 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                         'COUNT(DISTINCT ph.lead_id) AS click_through_count',
                         'cut.channel_id',
                     )
-                        ->from(MAUTIC_TABLE_PREFIX.'page_hits', 'ph')
-                        ->innerJoin('ph', MAUTIC_TABLE_PREFIX.'channel_url_trackables', 'cut', 'cut.redirect_id = ph.redirect_id AND cut.channel_id = ph.source_id')
+                        ->from(MAILVOTECH_TABLE_PREFIX.'page_hits', 'ph')
+                        ->innerJoin('ph', MAILVOTECH_TABLE_PREFIX.'channel_url_trackables', 'cut', 'cut.redirect_id = ph.redirect_id AND cut.channel_id = ph.source_id')
                         ->groupBy('cut.channel_id');
                     $qb->leftJoin(self::EMAILS_PREFIX, sprintf('(%s)', $qbct->getSQL()), self::CLICK_THROUGH_PREFIX, 'e.id = ct.channel_id');
                 }
 
                 break;
             case self::CONTEXT_EMAIL_STATS:
-                $qb->from(MAUTIC_TABLE_PREFIX.'email_stats', self::EMAIL_STATS_PREFIX);
+                $qb->from(MAILVOTECH_TABLE_PREFIX.'email_stats', self::EMAIL_STATS_PREFIX);
 
                 if ($event->usesColumnWithPrefix(self::EMAILS_PREFIX)
                     || $event->usesColumnWithPrefix(ReportGeneratorEvent::CATEGORY_PREFIX)
                     || $useVariantColumns
                 ) {
-                    $qb->leftJoin(self::EMAIL_STATS_PREFIX, MAUTIC_TABLE_PREFIX.'emails', self::EMAILS_PREFIX, 'e.id = es.email_id');
+                    $qb->leftJoin(self::EMAIL_STATS_PREFIX, MAILVOTECH_TABLE_PREFIX.'emails', self::EMAILS_PREFIX, 'e.id = es.email_id');
                 }
 
                 if ($useVariantColumns) {
-                    $qb->leftJoin(self::EMAILS_PREFIX, MAUTIC_TABLE_PREFIX.'emails', self::EMAIL_VARIANT_PREFIX, 'vp.id = e.variant_parent_id');
+                    $qb->leftJoin(self::EMAILS_PREFIX, MAILVOTECH_TABLE_PREFIX.'emails', self::EMAIL_VARIANT_PREFIX, 'vp.id = e.variant_parent_id');
                 }
 
                 if ($useDncColumns) {
@@ -420,7 +420,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                 }
 
                 if ($event->hasFilter('s.leadlist_id')) {
-                    $qb->join('l', MAUTIC_TABLE_PREFIX.'lead_lists_leads', 's', 's.lead_id = l.id AND s.manually_removed = 0');
+                    $qb->join('l', MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 's', 's.lead_id = l.id AND s.manually_removed = 0');
                 }
 
                 $event->addCategoryLeftJoin($qb, self::EMAILS_PREFIX)
@@ -434,10 +434,10 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                         'cut2.channel_id',
                         'ph.lead_id'
                     )
-                        ->from(MAUTIC_TABLE_PREFIX.'channel_url_trackables', 'cut2')
+                        ->from(MAILVOTECH_TABLE_PREFIX.'channel_url_trackables', 'cut2')
                         ->join(
                             'cut2',
-                            MAUTIC_TABLE_PREFIX.'page_hits',
+                            MAILVOTECH_TABLE_PREFIX.'page_hits',
                             'ph',
                             'cut2.redirect_id = ph.redirect_id AND cut2.channel_id = ph.source_id'
                         )
@@ -492,9 +492,9 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
         }
 
         if ($event->checkContext(self::CONTEXT_EMAILS)
-            && !in_array('mautic.email.graph.pie.read.ingored.unsubscribed.bounced', $graphs)
-            && !in_array('mautic.email.graph.pie.sent.read.clicked.unsubscribed', $graphs)
-            && !in_array('mautic.email.table.most.emails.clicks', $graphs)) {
+            && !in_array('mailvotech.email.graph.pie.read.ingored.unsubscribed.bounced', $graphs)
+            && !in_array('mailvotech.email.graph.pie.sent.read.clicked.unsubscribed', $graphs)
+            && !in_array('mailvotech.email.table.most.emails.clicks', $graphs)) {
             return;
         }
 
@@ -511,7 +511,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             }
 
             switch ($g) {
-                case 'mautic.email.graph.line.stats':
+                case 'mailvotech.email.graph.line.stats':
                     $chartQuery->setGeneratedColumnProvider($this->generatedColumnsProvider);
                     $chart     = new LineChart(null, $options['dateFrom'], $options['dateTo']);
                     $sendQuery = clone $queryBuilder;
@@ -527,23 +527,23 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $sends  = $chartQuery->loadAndBuildTimeData($sendQuery);
                     $reads  = $chartQuery->loadAndBuildTimeData($readQuery);
                     $failes = $chartQuery->loadAndBuildTimeData($failedQuery);
-                    $chart->setDataset($options['translator']->trans('mautic.email.sent.emails'), $sends);
-                    $chart->setDataset($options['translator']->trans('mautic.email.read.emails'), $reads);
-                    $chart->setDataset($options['translator']->trans('mautic.email.failed.emails'), $failes);
+                    $chart->setDataset($options['translator']->trans('mailvotech.email.sent.emails'), $sends);
+                    $chart->setDataset($options['translator']->trans('mailvotech.email.read.emails'), $reads);
+                    $chart->setDataset($options['translator']->trans('mailvotech.email.failed.emails'), $failes);
                     $data         = $chart->render();
                     $data['name'] = $g;
 
                     $event->setGraph($g, $data);
                     break;
 
-                case 'mautic.email.graph.pie.ignored.read.failed':
+                case 'mailvotech.email.graph.pie.ignored.read.failed':
                     $queryBuilder->resetQueryPart('groupBy');
                     $counts = $this->statRepository->getIgnoredReadFailed($queryBuilder);
                     $chart  = new PieChart();
-                    $chart->setDataset($options['translator']->trans('mautic.email.read.emails'), $counts['read']);
-                    $chart->setDataset($options['translator']->trans('mautic.email.failed.emails'), $counts['failed']);
+                    $chart->setDataset($options['translator']->trans('mailvotech.email.read.emails'), $counts['read']);
+                    $chart->setDataset($options['translator']->trans('mailvotech.email.failed.emails'), $counts['failed']);
                     $chart->setDataset(
-                        $options['translator']->trans('mautic.email.ignored.emails'),
+                        $options['translator']->trans('mailvotech.email.ignored.emails'),
                         $counts['ignored']
                     );
                     $event->setGraph(
@@ -556,7 +556,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     );
                     break;
 
-                case 'mautic.email.graph.pie.sent.read.clicked.unsubscribed':
+                case 'mailvotech.email.graph.pie.sent.read.clicked.unsubscribed':
                     $counts       = $this->emailRepository->getSentReadNotReadCount($queryBuilder);
                     $clicked      = $this->emailRepository->getUniqueClicks($queryBuilder);
                     $unsubscribed = $this->emailRepository->getUnsubscribedCount($queryBuilder);
@@ -566,11 +566,11 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $chart  = new SeriesPieChart();
                     $chart->setTotalCount($counts['sent_count']);
                     $chart->setLabels([
-                        $chart->buildFullLabel($options['translator']->trans('mautic.email.report.unsubscribed'), $unsubCount['unsubscribed']),
-                        $chart->buildFullLabel($options['translator']->trans('mautic.email.clicked'), $clicked),
-                        $chart->buildFullLabel($options['translator']->trans('mautic.email.stat.read'), $counts['read_count']),
-                        $chart->buildFullLabel($options['translator']->trans('mautic.email.stat.notread'), $counts['not_read']),
-                        $chart->buildFullLabel($options['translator']->trans('mautic.email.stat.sent'), $counts['sent_count']),
+                        $chart->buildFullLabel($options['translator']->trans('mailvotech.email.report.unsubscribed'), $unsubCount['unsubscribed']),
+                        $chart->buildFullLabel($options['translator']->trans('mailvotech.email.clicked'), $clicked),
+                        $chart->buildFullLabel($options['translator']->trans('mailvotech.email.stat.read'), $counts['read_count']),
+                        $chart->buildFullLabel($options['translator']->trans('mailvotech.email.stat.notread'), $counts['not_read']),
+                        $chart->buildFullLabel($options['translator']->trans('mailvotech.email.stat.sent'), $counts['sent_count']),
                     ]);
 
                     $chart->setDataset([$unsubCount['unsubscribed'], 0, $unsubCount['vsRead'], $unsubCount['vsNotRead'], 0]);
@@ -587,7 +587,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                         ]
                     );
                     break;
-                case 'mautic.email.graph.bar.read.clicked.unsubscribed.bounced':
+                case 'mailvotech.email.graph.bar.read.clicked.unsubscribed.bounced':
                     $queryBuilder->select('e.id, e.name, e.sent_count, e.read_count,
                         count(CASE WHEN '.self::DNC_PREFIX.'.id and '.self::DNC_PREFIX.'.reason = '.DoNotContact::UNSUBSCRIBED.' THEN 1 ELSE null END) as unsubscribed,
                         count(CASE WHEN '.self::DNC_PREFIX.'.id and '.self::DNC_PREFIX.'.reason = '.DoNotContact::BOUNCED.' THEN 1 ELSE null END) as bounced'
@@ -627,7 +627,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                         );
                     }
                     break;
-                case 'mautic.email.graph.pie.read.ingored.unsubscribed.bounced':
+                case 'mailvotech.email.graph.pie.read.ingored.unsubscribed.bounced':
                     $queryBuilder->select('SUM(DISTINCT e.sent_count) as sent_count,
                         SUM(DISTINCT e.read_count) as read_count,
                         count(CASE WHEN '.self::DNC_PREFIX.'.id and '.self::DNC_PREFIX.'.reason = '.DoNotContact::UNSUBSCRIBED.' THEN 1 ELSE null END) as unsubscribed,
@@ -638,19 +638,19 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $counts = $queryBuilder->executeQuery()->fetchAssociative();
                     $chart  = new PieChart();
                     $chart->setDataset(
-                        $options['translator']->trans('mautic.email.stat.read'),
+                        $options['translator']->trans('mailvotech.email.stat.read'),
                         $counts['read_count'] ?? 0
                     );
                     $chart->setDataset(
-                        $options['translator']->trans('mautic.email.graph.pie.ignored.read.failed.ignored'),
+                        $options['translator']->trans('mailvotech.email.graph.pie.ignored.read.failed.ignored'),
                         ($counts['sent_count'] ?? 0) - ($counts['read_count'] ?? 0)
                     );
                     $chart->setDataset(
-                        $options['translator']->trans('mautic.email.unsubscribed'),
+                        $options['translator']->trans('mailvotech.email.unsubscribed'),
                         $counts['unsubscribed'] ?? 0
                     );
                     $chart->setDataset(
-                        $options['translator']->trans('mautic.email.bounced'),
+                        $options['translator']->trans('mailvotech.email.bounced'),
                         $counts['bounced'] ?? 0
                     );
 
@@ -664,7 +664,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     );
                     break;
 
-                case 'mautic.email.table.most.emails.sent':
+                case 'mailvotech.email.table.most.emails.sent':
                     $this->joinEmailsTableIfMissing($queryBuilder, $event);
                     $queryBuilder->select('e.id, e.subject as title, SUM(DISTINCT e. sent_count) as sent')
                         ->groupBy('e.id, e.subject')
@@ -676,11 +676,11 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-send-plane-line';
-                    $graphData['link']      = 'mautic_email_action';
+                    $graphData['link']      = 'mailvotech_email_action';
                     $event->setGraph($g, $graphData);
                     break;
 
-                case 'mautic.email.table.most.emails.read':
+                case 'mailvotech.email.table.most.emails.read':
                     $this->joinEmailsTableIfMissing($queryBuilder, $event);
                     $queryBuilder->select('e.id, e.subject as title, SUM(DISTINCT e. read_count) as opens')
                         ->groupBy('e.id, e.subject')
@@ -692,11 +692,11 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-eye-line';
-                    $graphData['link']      = 'mautic_email_action';
+                    $graphData['link']      = 'mailvotech_email_action';
                     $event->setGraph($g, $graphData);
                     break;
 
-                case 'mautic.email.table.most.emails.failed':
+                case 'mailvotech.email.table.most.emails.failed':
                     $this->joinEmailsTableIfMissing($queryBuilder, $event);
                     $queryBuilder->select(
                         'e.id, e.subject as title, count(CASE WHEN es.is_failed THEN 1 ELSE null END) as failed'
@@ -712,11 +712,11 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-alert-line';
-                    $graphData['link']      = 'mautic_email_action';
+                    $graphData['link']      = 'mailvotech_email_action';
                     $event->setGraph($g, $graphData);
                     break;
 
-                case 'mautic.email.table.most.emails.unsubscribed':
+                case 'mailvotech.email.table.most.emails.unsubscribed':
                     $this->joinEmailsTableIfMissing($queryBuilder, $event);
                     $this->addDNCTableForEmailStats($queryBuilder);
                     $queryBuilder->select(
@@ -735,11 +735,11 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-alert-line';
-                    $graphData['link']      = 'mautic_email_action';
+                    $graphData['link']      = 'mailvotech_email_action';
                     $event->setGraph($g, $graphData);
                     break;
 
-                case 'mautic.email.table.most.emails.bounced':
+                case 'mailvotech.email.table.most.emails.bounced':
                     $this->joinEmailsTableIfMissing($queryBuilder, $event);
                     $this->addDNCTableForEmailStats($queryBuilder);
                     $queryBuilder->select(
@@ -757,11 +757,11 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-alert-line';
-                    $graphData['link']      = 'mautic_email_action';
+                    $graphData['link']      = 'mailvotech_email_action';
                     $event->setGraph($g, $graphData);
                     break;
 
-                case 'mautic.email.table.most.emails.read.percent':
+                case 'mailvotech.email.table.most.emails.read.percent':
                     $this->joinEmailsTableIfMissing($queryBuilder, $event);
                     $queryBuilder->select('e.id, e.subject as title, round(e.read_count / e.sent_count * 100) as ratio')
                         ->groupBy('e.id, e.subject')
@@ -773,11 +773,11 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-speed-up-line';
-                    $graphData['link']      = 'mautic_email_action';
+                    $graphData['link']      = 'mailvotech_email_action';
                     $event->setGraph($g, $graphData);
                     break;
 
-                case 'mautic.email.table.most.emails.clicks':
+                case 'mailvotech.email.table.most.emails.clicks':
                     $this->addTrackableTablesForEmailStats($queryBuilder);
                     $queryBuilder->select('e.id, e.subject as `title`, tr.hits as `clicks`, tr.unique_hits as `unique clicks`, pr.url as `URL`')
                         ->andWhere('pr.url IS NOT NULL')
@@ -790,7 +790,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-external-link-line';
-                    $graphData['link']      = 'mautic_email_action';
+                    $graphData['link']      = 'mailvotech_email_action';
                     $event->setGraph($g, $graphData);
                     break;
             }
@@ -832,8 +832,8 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
     private function joinEmailsTableIfMissing(QueryBuilder $queryBuilder, ReportGraphEvent $event): void
     {
-        if ($event->checkContext(self::CONTEXT_EMAIL_STATS) && !$this->isJoined($queryBuilder, MAUTIC_TABLE_PREFIX.'emails', self::EMAIL_STATS_PREFIX, self::EMAILS_PREFIX)) {
-            $queryBuilder->leftJoin(self::EMAIL_STATS_PREFIX, MAUTIC_TABLE_PREFIX.'emails', self::EMAILS_PREFIX, 'e.id = es.email_id');
+        if ($event->checkContext(self::CONTEXT_EMAIL_STATS) && !$this->isJoined($queryBuilder, MAILVOTECH_TABLE_PREFIX.'emails', self::EMAIL_STATS_PREFIX, self::EMAILS_PREFIX)) {
+            $queryBuilder->leftJoin(self::EMAIL_STATS_PREFIX, MAILVOTECH_TABLE_PREFIX.'emails', self::EMAILS_PREFIX, 'e.id = es.email_id');
         }
     }
 
@@ -842,7 +842,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
      */
     private function addDNCTableForEmails(QueryBuilder $qb): void
     {
-        $table = MAUTIC_TABLE_PREFIX.'lead_donotcontact';
+        $table = MAILVOTECH_TABLE_PREFIX.'lead_donotcontact';
 
         if (!$this->isJoined($qb, $table, self::EMAILS_PREFIX, self::DNC_PREFIX)) {
             $qb->leftJoin(
@@ -856,8 +856,8 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
     private function addTrackableTablesForEmailStats(QueryBuilder $qb): void
     {
-        $trTable = MAUTIC_TABLE_PREFIX.'channel_url_trackables';
-        $prTable = MAUTIC_TABLE_PREFIX.'page_redirects';
+        $trTable = MAILVOTECH_TABLE_PREFIX.'channel_url_trackables';
+        $prTable = MAILVOTECH_TABLE_PREFIX.'page_redirects';
 
         if (!$this->isJoined($qb, $trTable, self::EMAILS_PREFIX, self::TRACKABLE_PREFIX)) {
             $qb->leftJoin(
@@ -882,7 +882,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
      */
     private function addDNCTableForEmailStats(QueryBuilder $qb): void
     {
-        $table = MAUTIC_TABLE_PREFIX.'lead_donotcontact';
+        $table = MAILVOTECH_TABLE_PREFIX.'lead_donotcontact';
 
         if (!$this->isJoined($qb, $table, self::EMAIL_STATS_PREFIX, self::DNC_PREFIX)) {
             $qb->leftJoin(

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\FormBundle\Entity;
+namespace MailVotech\FormBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -11,13 +11,13 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\UuidInterface;
-use Mautic\CoreBundle\Entity\UuidTrait;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\FormBundle\ProgressiveProfiling\DisplayManager;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\UuidInterface;
+use MailVotech\CoreBundle\Entity\UuidTrait;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\FormBundle\ProgressiveProfiling\DisplayManager;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ApiResource(
@@ -163,7 +163,7 @@ class Field implements UuidInterface
     /**
      * @var string|null
      *
-     * @deprecated, to be removed in Mautic 4. Use mappedObject and mappedField instead.
+     * @deprecated, to be removed in MailVotech 4. Use mappedObject and mappedField instead.
      */
     #[Groups(['field:read', 'field:write', 'form:read', 'campaign:read', 'email:read'])]
     private $leadField;
@@ -319,7 +319,7 @@ class Field implements UuidInterface
                     'labelAttributes',
                     'inputAttributes',
                     'containerAttributes',
-                    'leadField', // @deprecated, to be removed in Mautic 4. Use mappedObject and mappedField instead.
+                    'leadField', // @deprecated, to be removed in MailVotech 4. Use mappedObject and mappedField instead.
                     'saveResult',
                     'isAutoFill',
                     'isReadOnly',
@@ -725,7 +725,7 @@ class Field implements UuidInterface
     }
 
     /**
-     * @deprecated, to be removed in Mautic 4. Use mappedObject and mappedField instead.
+     * @deprecated, to be removed in MailVotech 4. Use mappedObject and mappedField instead.
      *
      * @return string|null
      */
@@ -735,7 +735,7 @@ class Field implements UuidInterface
     }
 
     /**
-     * @deprecated, to be removed in Mautic 4. Use mappedObject and mappedField instead.
+     * @deprecated, to be removed in MailVotech 4. Use mappedObject and mappedField instead.
      *
      * @param mixed $leadField
      */
@@ -1011,7 +1011,7 @@ class Field implements UuidInterface
         }
 
         /**
-         * Ignoring this line because the leadField is deprecated and will be removed in Mautic 4.
+         * Ignoring this line because the leadField is deprecated and will be removed in MailVotech 4.
          * Todo: Use mappedObject or mappedField instead.
          *
          * @phpstan-ignore-next-line

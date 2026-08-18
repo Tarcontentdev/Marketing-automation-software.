@@ -1,63 +1,63 @@
 <?php
 
-namespace Mautic\FormBundle\Model;
+namespace MailVotech\FormBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Membership\MembershipManager;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Doctrine\Paginator\SimplePaginator;
-use Mautic\CoreBundle\Exception\FileUploadException;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel as CommonFormModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
-use Mautic\FormBundle\Crate\UploadFileCrate;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\FormBundle\Entity\SubmissionRepository;
-use Mautic\FormBundle\Event\Service\FieldValueTransformer;
-use Mautic\FormBundle\Event\SubmissionEvent;
-use Mautic\FormBundle\Event\ValidationEvent;
-use Mautic\FormBundle\Exception\FileValidationException;
-use Mautic\FormBundle\Exception\NoFileGivenException;
-use Mautic\FormBundle\Exception\ValidationException;
-use Mautic\FormBundle\FormEvents;
-use Mautic\FormBundle\Helper\FormFieldHelper;
-use Mautic\FormBundle\Helper\FormUploader;
-use Mautic\FormBundle\ProgressiveProfiling\DisplayManager;
-use Mautic\FormBundle\Validator\UploadFieldValidator;
-use Mautic\LeadBundle\DataObject\LeadManipulator;
-use Mautic\LeadBundle\Deduplicate\ContactMerger;
-use Mautic\LeadBundle\Deduplicate\Exception\SameContactException;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\Helper\CustomFieldValueHelper;
-use Mautic\LeadBundle\Helper\IdentifyCompanyHelper;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\FieldModel as LeadFieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
-use Mautic\PageBundle\Model\PageModel;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\StageBundle\Entity\StageRepository;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Membership\MembershipManager;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Doctrine\Paginator\SimplePaginator;
+use MailVotech\CoreBundle\Exception\FileUploadException;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel as CommonFormModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\FormBundle\Crate\UploadFileCrate;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
+use MailVotech\FormBundle\Event\Service\FieldValueTransformer;
+use MailVotech\FormBundle\Event\SubmissionEvent;
+use MailVotech\FormBundle\Event\ValidationEvent;
+use MailVotech\FormBundle\Exception\FileValidationException;
+use MailVotech\FormBundle\Exception\NoFileGivenException;
+use MailVotech\FormBundle\Exception\ValidationException;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\FormBundle\Helper\FormFieldHelper;
+use MailVotech\FormBundle\Helper\FormUploader;
+use MailVotech\FormBundle\ProgressiveProfiling\DisplayManager;
+use MailVotech\FormBundle\Validator\UploadFieldValidator;
+use MailVotech\LeadBundle\DataObject\LeadManipulator;
+use MailVotech\LeadBundle\Deduplicate\ContactMerger;
+use MailVotech\LeadBundle\Deduplicate\Exception\SameContactException;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Helper\CustomFieldValueHelper;
+use MailVotech\LeadBundle\Helper\IdentifyCompanyHelper;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\FieldModel as LeadFieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
+use MailVotech\PageBundle\Model\PageModel;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\StageBundle\Entity\StageRepository;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Psr\Log\LoggerInterface;
@@ -98,14 +98,14 @@ final class SubmissionModel extends CommonFormModel
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         CoreParametersHelper $coreParametersHelper,
         private readonly SubmissionRepository $submissionRepository,
         private readonly LeadRepository $leadRepository,
         private readonly StageRepository $stageRepository,
         private readonly UserRepository $userRepository,
     ) {
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function getRepository(): SubmissionRepository
@@ -128,8 +128,8 @@ final class SubmissionModel extends CommonFormModel
         $submission->setForm($form);
 
         // set the landing page the form was submitted from if applicable
-        if (!empty($post['mauticpage'])) {
-            $page = $this->pageModel->getEntity((int) $post['mauticpage']);
+        if (!empty($post['mailvotechpage'])) {
+            $page = $this->pageModel->getEntity((int) $post['mailvotechpage']);
             if (null != $page) {
                 $submission->setPage($page);
             }
@@ -146,8 +146,8 @@ final class SubmissionModel extends CommonFormModel
             $referer = '';
         }
 
-        // clean the referer by removing mauticError and mauticMessage
-        $referer = InputHelper::url($referer, null, null, ['mauticError', 'mauticMessage']);
+        // clean the referer by removing mailvotechError and mailvotechMessage
+        $referer = InputHelper::url($referer, null, null, ['mailvotechError', 'mailvotechMessage']);
         $submission->setReferer($referer);
 
         // Create an event to be dispatched through the processes
@@ -212,7 +212,7 @@ final class SubmissionModel extends CommonFormModel
                 $msg = $f->getValidationMessage();
                 if (empty($msg)) {
                     $msg = $this->translator->trans(
-                        'mautic.form.field.generic.validationfailed',
+                        'mailvotech.form.field.generic.validationfailed',
                         [
                             '%label%' => $f->getLabel(),
                         ],
@@ -345,7 +345,7 @@ final class SubmissionModel extends CommonFormModel
         try {
             $this->formUploader->uploadFiles($filesToUpload, $submission);
         } catch (FileUploadException $e) {
-            $msg                                = $this->translator->trans('mautic.form.submission.error.file.uploadFailed', [], 'validators');
+            $msg                                = $this->translator->trans('mailvotech.form.submission.error.file.uploadFailed', [], 'validators');
             $validationErrors[$e->getMessage()] = $msg;
 
             return ['errors' => $validationErrors];
@@ -508,7 +508,7 @@ final class SubmissionModel extends CommonFormModel
                 return $response;
             case 'html':
                 $content = $this->twig->render(
-                    '@MauticForm/Result/export.html.twig',
+                    '@MailVotechForm/Result/export.html.twig',
                     [
                         'form'           => $form,
                         'results'        => $results,
@@ -611,7 +611,7 @@ final class SubmissionModel extends CommonFormModel
                 return $response;
             case 'html':
                 $content = $this->twig->render(
-                    '@MauticPage/Result/export.html.twig',
+                    '@MailVotechPage/Result/export.html.twig',
                     [
                         'page'      => $page,
                         'results'   => $results,
@@ -745,15 +745,15 @@ final class SubmissionModel extends CommonFormModel
     private function getExportHeaderForPage(string $format = 'csv'): array
     {
         $header = [
-            $this->translator->trans('mautic.form.report.submission.id'),
-            $this->translator->trans('mautic.lead.report.contact_id'),
-            $this->translator->trans('mautic.form.result.thead.date'),
-            $this->translator->trans('mautic.core.ipaddress'),
-            $this->translator->trans('mautic.form.result.thead.referrer'),
+            $this->translator->trans('mailvotech.form.report.submission.id'),
+            $this->translator->trans('mailvotech.lead.report.contact_id'),
+            $this->translator->trans('mailvotech.form.result.thead.date'),
+            $this->translator->trans('mailvotech.core.ipaddress'),
+            $this->translator->trans('mailvotech.form.result.thead.referrer'),
         ];
 
         if ('csv' === $format) {
-            array_splice($header, 2, 0, $this->translator->trans('mautic.form.report.form_id'));
+            array_splice($header, 2, 0, $this->translator->trans('mailvotech.form.report.form_id'));
         }
 
         return $header;
@@ -769,11 +769,11 @@ final class SubmissionModel extends CommonFormModel
         $fields = $form->getFields();
 
         $header = [
-            $this->translator->trans('mautic.form.report.submission.id'),
-            $this->translator->trans('mautic.lead.report.contact_id'),
-            $this->translator->trans('mautic.form.result.thead.date'),
-            $this->translator->trans('mautic.core.ipaddress'),
-            $this->translator->trans('mautic.form.result.thead.referrer'),
+            $this->translator->trans('mailvotech.form.report.submission.id'),
+            $this->translator->trans('mailvotech.lead.report.contact_id'),
+            $this->translator->trans('mailvotech.form.result.thead.date'),
+            $this->translator->trans('mailvotech.core.ipaddress'),
+            $this->translator->trans('mailvotech.form.result.thead.referrer'),
         ];
 
         foreach ($fields as $f) {
@@ -807,13 +807,13 @@ final class SubmissionModel extends CommonFormModel
         $q     = $query->prepareTimeDataQuery('form_submissions', 'date_submitted', $filter);
 
         if (!$canViewOthers) {
-            $q->join('t', MAUTIC_TABLE_PREFIX.'forms', 'f', 'f.id = t.form_id')
+            $q->join('t', MAILVOTECH_TABLE_PREFIX.'forms', 'f', 'f.id = t.form_id')
                 ->andWhere('f.created_by = :userId')
                 ->setParameter('userId', $this->userHelper->getUser()->getId());
         }
 
         $data = $query->loadAndBuildTimeData($q);
-        $chart->setDataset($this->translator->trans('mautic.form.submission.count'), $data);
+        $chart->setDataset($this->translator->trans('mailvotech.form.submission.count'), $data);
 
         return $chart->render();
     }
@@ -831,13 +831,13 @@ final class SubmissionModel extends CommonFormModel
     {
         $q = $this->em->getConnection()->createQueryBuilder();
         $q->select('COUNT(DISTINCT t.id) AS submissions, t.referer')
-            ->from(MAUTIC_TABLE_PREFIX.'form_submissions', 't')
+            ->from(MAILVOTECH_TABLE_PREFIX.'form_submissions', 't')
             ->orderBy('submissions', 'DESC')
             ->groupBy('t.referer')
             ->setMaxResults($limit);
 
         if (!$canViewOthers) {
-            $q->join('t', MAUTIC_TABLE_PREFIX.'forms', 'f', 'f.id = t.form_id')
+            $q->join('t', MAILVOTECH_TABLE_PREFIX.'forms', 'f', 'f.id = t.form_id')
                 ->andWhere('f.created_by = :userId')
                 ->setParameter('userId', $this->userHelper->getUser()->getId());
         }
@@ -862,14 +862,14 @@ final class SubmissionModel extends CommonFormModel
     {
         $q = $this->em->getConnection()->createQueryBuilder();
         $q->select('COUNT(DISTINCT t.id) AS submissions, t.lead_id, l.firstname, l.lastname, l.email')
-            ->from(MAUTIC_TABLE_PREFIX.'form_submissions', 't')
-            ->join('t', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = t.lead_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'form_submissions', 't')
+            ->join('t', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = t.lead_id')
             ->orderBy('submissions', 'DESC')
             ->groupBy('t.lead_id, l.firstname, l.lastname, l.email')
             ->setMaxResults($limit);
 
         if (!$canViewOthers) {
-            $q->join('t', MAUTIC_TABLE_PREFIX.'forms', 'f', 'f.id = t.form_id')
+            $q->join('t', MAILVOTECH_TABLE_PREFIX.'forms', 'f', 'f.id = t.form_id')
                 ->andWhere('f.created_by = :userId')
                 ->setParameter('userId', $this->userHelper->getUser()->getId());
         }
@@ -1096,7 +1096,7 @@ final class SubmissionModel extends CommonFormModel
                     $stage,
                     sprintf('%d:%s', $stage->getId(), $stage->getName()),
                     $this->translator->trans(
-                        'mautic.stage.import.action.name',
+                        'mailvotech.stage.import.action.name',
                         ['%name%' => $this->userHelper->getUser()->getUserIdentifier()]
                     )
                 );
@@ -1104,7 +1104,7 @@ final class SubmissionModel extends CommonFormModel
                 $this->logger->warning(sprintf(
                     'Form: Associating stage failed as %s',
                     $this->translator->trans(
-                        'mautic.lead.import.stage.not.exists',
+                        'mailvotech.lead.import.stage.not.exists',
                         ['%id%' => $data['stagebyname']]
                     )
                 ));

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Factory;
+namespace MailVotech\CoreBundle\Factory;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PageHelper;
-use Mautic\CoreBundle\Helper\PageHelperInterface;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PageHelper;
+use MailVotech\CoreBundle\Helper\PageHelperInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final readonly class PageHelperFactory implements PageHelperFactoryInterface

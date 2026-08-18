@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Helper;
+namespace MailVotech\IntegrationsBundle\Helper;
 
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormFeaturesInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\SyncInterface;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormFeaturesInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\SyncInterface;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 class SyncIntegrationsHelper
@@ -31,7 +31,7 @@ class SyncIntegrationsHelper
     public function __construct(
         private readonly IntegrationsHelper $integrationsHelper,
         private readonly ObjectProvider $objectProvider,
-        #[AutowireIterator('mautic.sync_integration')]
+        #[AutowireIterator('mailvotech.sync_integration')]
         iterable $integrations = [],
     ) {
         foreach ($integrations as $integration) {
@@ -55,7 +55,7 @@ class SyncIntegrationsHelper
     public function getIntegration(string $integration)
     {
         if (!isset($this->integrations[$integration])) {
-            throw new IntegrationNotFoundException("{$integration} either doesn't exist or has not been tagged with mautic.sync_integration");
+            throw new IntegrationNotFoundException("{$integration} either doesn't exist or has not been tagged with mailvotech.sync_integration");
         }
 
         return $this->integrations[$integration];
@@ -90,10 +90,10 @@ class SyncIntegrationsHelper
      * @throws IntegrationNotFoundException
      * @throws ObjectNotFoundException
      */
-    public function hasObjectSyncEnabled(string $mauticObject): bool
+    public function hasObjectSyncEnabled(string $mailvotechObject): bool
     {
         // Ensure the internal object exists.
-        $this->objectProvider->getObjectByName($mauticObject);
+        $this->objectProvider->getObjectByName($mailvotechObject);
 
         $enabledIntegrations = $this->getEnabledIntegrations();
 
@@ -114,9 +114,9 @@ class SyncIntegrationsHelper
             }
 
             try {
-                // Find what object is mapped to Mautic's object
+                // Find what object is mapped to MailVotech's object
                 $mappingManual     = $syncIntegration->getMappingManual();
-                $mappedObjectNames = $mappingManual->getMappedIntegrationObjectsNames($mauticObject);
+                $mappedObjectNames = $mappingManual->getMappedIntegrationObjectsNames($mailvotechObject);
                 foreach ($mappedObjectNames as $mappedObjectName) {
                     if (in_array($mappedObjectName, $featureSettings['sync']['objects'])) {
                         return true;

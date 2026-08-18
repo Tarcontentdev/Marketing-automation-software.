@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\ChannelBundle\Event;
+namespace MailVotech\ChannelBundle\Event;
 
-use Mautic\ChannelBundle\Entity\MessageQueue;
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\ChannelBundle\Entity\MessageQueue;
+use MailVotech\CoreBundle\Event\CommonEvent;
 
 final class MessageQueueProcessEvent extends CommonEvent
 {

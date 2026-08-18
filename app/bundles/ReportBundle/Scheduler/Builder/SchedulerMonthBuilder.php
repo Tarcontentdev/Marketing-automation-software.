@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Scheduler\Builder;
+namespace MailVotech\ReportBundle\Scheduler\Builder;
 
-use Mautic\ReportBundle\Scheduler\BuilderInterface;
-use Mautic\ReportBundle\Scheduler\Enum\SchedulerEnum;
-use Mautic\ReportBundle\Scheduler\Exception\InvalidSchedulerException;
-use Mautic\ReportBundle\Scheduler\SchedulerInterface;
+use MailVotech\ReportBundle\Scheduler\BuilderInterface;
+use MailVotech\ReportBundle\Scheduler\Enum\SchedulerEnum;
+use MailVotech\ReportBundle\Scheduler\Exception\InvalidSchedulerException;
+use MailVotech\ReportBundle\Scheduler\SchedulerInterface;
 use Recurr\Exception\InvalidArgument;
 use Recurr\Exception\InvalidRRule;
 use Recurr\Rule;

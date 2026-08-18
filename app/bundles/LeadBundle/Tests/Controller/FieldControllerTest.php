@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller;
+namespace MailVotech\LeadBundle\Tests\Controller;
 
 use Doctrine\DBAL\Schema\Column;
-use Mautic\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 
-final class FieldControllerTest extends MauticMysqlTestCase
+final class FieldControllerTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 

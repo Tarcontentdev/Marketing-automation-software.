@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\EmailBundle\Stats;
+namespace MailVotech\EmailBundle\Stats;
 
-use Mautic\EmailBundle\Stats\Exception\InvalidStatHelperException;
-use Mautic\EmailBundle\Stats\Helper\StatHelperInterface;
+use MailVotech\EmailBundle\Stats\Exception\InvalidStatHelperException;
+use MailVotech\EmailBundle\Stats\Helper\StatHelperInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 final class StatHelperContainer
@@ -14,7 +14,7 @@ final class StatHelperContainer
     private array $helpers = [];
 
     public function __construct(
-        #[AutowireIterator(tag: 'mautic.email_stat_helper')]
+        #[AutowireIterator(tag: 'mailvotech.email_stat_helper')]
         iterable $helpersIterator,
     ) {
         foreach ($helpersIterator as $helper) {

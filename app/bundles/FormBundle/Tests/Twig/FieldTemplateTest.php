@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Twig;
+namespace MailVotech\FormBundle\Tests\Twig;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Field;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Field;
 use Symfony\Component\DomCrawler\Crawler;
 use Twig\Environment;
 
-final class FieldTemplateTest extends MauticMysqlTestCase
+final class FieldTemplateTest extends MailVotechMysqlTestCase
 {
     private const FIELD_LABEL         = 'Test Field';
 
-    private const FULL_WIDTH_CLASS    = 'mauticform-100';
+    private const FULL_WIDTH_CLASS    = 'mailvotechform-100';
 
-    private const TEXT_FIELD_TEMPLATE = '@MauticForm/Field/text.html.twig';
+    private const TEXT_FIELD_TEMPLATE = '@MailVotechForm/Field/text.html.twig';
 
-    private const RADIO_GROUP_FIELD_TEMPLATE = '@MauticForm/Field/radiogrp.html.twig';
+    private const RADIO_GROUP_FIELD_TEMPLATE = '@MailVotechForm/Field/radiogrp.html.twig';
 
     public function testFieldTemplateRendersWithCssClasses(): void
     {
         $html = $this->renderTextField($this->createField('50%'));
 
-        $this->assertStringContainsString('mauticform-50', $html);
+        $this->assertStringContainsString('mailvotechform-50', $html);
         $this->assertStringNotContainsString('style="width: 50%"', $html);
     }
 
@@ -38,11 +38,11 @@ final class FieldTemplateTest extends MauticMysqlTestCase
     {
         $widthMappings = [
             '100%'   => self::FULL_WIDTH_CLASS,
-            '75%'    => 'mauticform-75',
-            '66.66%' => 'mauticform-66',
-            '50%'    => 'mauticform-50',
-            '33.33%' => 'mauticform-33',
-            '25%'    => 'mauticform-25',
+            '75%'    => 'mailvotechform-75',
+            '66.66%' => 'mailvotechform-66',
+            '50%'    => 'mailvotechform-50',
+            '33.33%' => 'mailvotechform-33',
+            '25%'    => 'mailvotechform-25',
         ];
 
         foreach ($widthMappings as $percentage => $expectedClass) {
@@ -65,8 +65,8 @@ final class FieldTemplateTest extends MauticMysqlTestCase
     {
         $html = $this->renderTextField($this->createField('33.33%'));
 
-        $this->assertStringContainsString('mauticform-33', $html);
-        $this->assertStringNotContainsString('mauticform-33.33', $html);
+        $this->assertStringContainsString('mailvotechform-33', $html);
+        $this->assertStringNotContainsString('mailvotechform-33.33', $html);
     }
 
     public function testFieldTemplateKeepsCustomContainerAttributesWithWidthClass(): void
@@ -78,7 +78,7 @@ final class FieldTemplateTest extends MauticMysqlTestCase
 
         $this->assertStringContainsString('custom-row', $html);
         $this->assertStringContainsString('data-test="custom-attr"', $html);
-        $this->assertStringContainsString('mauticform-25', $html);
+        $this->assertStringContainsString('mailvotechform-25', $html);
     }
 
     public function testRadioGroupDoesNotSelectZeroOptionWithoutDefaultValue(): void

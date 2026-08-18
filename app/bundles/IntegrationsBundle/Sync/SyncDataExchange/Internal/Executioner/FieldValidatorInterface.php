@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Executioner;
+namespace MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Executioner;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
 
 interface FieldValidatorInterface
 {

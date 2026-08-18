@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\LeadBundle\Event\ContactExportSchedulerEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Notification\ContactExportAdminNotification;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\LeadBundle\Event\ContactExportSchedulerEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Notification\ContactExportAdminNotification;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -33,13 +33,13 @@ final readonly class ContactExportSchedulerNotificationSubscriber implements Eve
     {
         /** @var User $user */
         $user    = $event->getContactExportScheduler()->getUser();
-        $message = $this->translator->trans('mautic.lead.export.being.prepared', ['%user_email%' => $user->getEmail()]);
+        $message = $this->translator->trans('mailvotech.lead.export.being.prepared', ['%user_email%' => $user->getEmail()]);
 
         $this->notificationModel->addNotification(
             $message,
             'info',
             false,
-            'mautic.lead.export.being.prepared.header',
+            'mailvotech.lead.export.being.prepared.header',
             null,
             null,
             $user

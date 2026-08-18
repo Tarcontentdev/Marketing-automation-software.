@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Functional;
+namespace MailVotech\PointBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Model\PointGroupModel;
-use Mautic\PointBundle\Model\TriggerModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Model\PointGroupModel;
+use MailVotech\PointBundle\Model\TriggerModel;
 
-final class PointTriggerFunctionalTest extends MauticMysqlTestCase
+final class PointTriggerFunctionalTest extends MailVotechMysqlTestCase
 {
     use TriggerTrait;
 

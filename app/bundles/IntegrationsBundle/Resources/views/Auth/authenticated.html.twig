@@ -1,4 +1,4 @@
-{% extends '@MauticCore/Default/slim.html.twig' %}
+{% extends '@MailVotechCore/Default/slim.html.twig' %}
 {% set alertClass = authenticationError ? 'danger' : 'success' %}
 {% block content %}
 <style>
@@ -12,10 +12,10 @@
     </div>
 </div>
 <div class="row text-center">
-    {% include '@MauticCore/Helper/button.html.twig' with {
+    {% include '@MailVotechCore/Helper/button.html.twig' with {
         buttons: [
             {
-                label: 'mautic.integration.closewindow',
+                label: 'mailvotech.integration.closewindow',
                 variant: 'success',
                 icon: 'ri-check-line',
                 attributes: {

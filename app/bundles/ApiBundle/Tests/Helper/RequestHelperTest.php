@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Tests\Helper;
+namespace MailVotech\ApiBundle\Tests\Helper;
 
-use Mautic\ApiBundle\Helper\RequestHelper;
+use MailVotech\ApiBundle\Helper\RequestHelper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;

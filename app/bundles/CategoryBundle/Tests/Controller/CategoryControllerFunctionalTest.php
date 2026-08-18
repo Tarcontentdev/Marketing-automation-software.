@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CategoryBundle\Tests\Controller;
+namespace MailVotech\CategoryBundle\Tests\Controller;
 
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CategoryBundle\Model\CategoryModel;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CategoryBundle\Model\CategoryModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Model\UserModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class CategoryControllerFunctionalTest extends MauticMysqlTestCase
+final class CategoryControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     private TranslatorInterface $translator;
 
@@ -188,7 +188,7 @@ final class CategoryControllerFunctionalTest extends MauticMysqlTestCase
         $this->em->flush();
 
         $expectedErrorMessage = $this->translator->trans(
-            'mautic.category.is_in_use.delete',
+            'mailvotech.category.is_in_use.delete',
             [
                 '%entities%'      => 'Stage Id: '.$stage->getId(),
                 '%categoryName%'  => $category->getTitle(),
@@ -199,7 +199,7 @@ final class CategoryControllerFunctionalTest extends MauticMysqlTestCase
         $this->client->request('POST', 's/categories/category/delete/'.$category->getId(), [], [], [
             'HTTP_Content-Type'     => 'application/x-www-form-urlencoded; charset=UTF-8',
             'HTTP_X-Requested-With' => 'XMLHttpRequest',
-            'HTTP_X-CSRF-Token'     => $this->getCsrfToken('mautic_ajax_post'),
+            'HTTP_X-CSRF-Token'     => $this->getCsrfToken('mailvotech_ajax_post'),
         ]);
 
         $clientResponse     = $this->client->getResponse();
@@ -221,7 +221,7 @@ final class CategoryControllerFunctionalTest extends MauticMysqlTestCase
         $this->em->flush();
 
         $expectedErrorMessage = $this->translator->trans(
-            'mautic.category.is_in_use.delete',
+            'mailvotech.category.is_in_use.delete',
             [
                 '%entities%'      => 'Stage Id: '.$stage->getId(),
                 '%categoryName%'  => $category->getTitle(),
@@ -233,7 +233,7 @@ final class CategoryControllerFunctionalTest extends MauticMysqlTestCase
         $this->client->request('POST', 's/categories/category/batchDelete?'.$parameters, [], [], [
             'HTTP_Content-Type'     => 'application/x-www-form-urlencoded; charset=UTF-8',
             'HTTP_X-Requested-With' => 'XMLHttpRequest',
-            'HTTP_X-CSRF-Token'     => $this->getCsrfToken('mautic_ajax_post'),
+            'HTTP_X-CSRF-Token'     => $this->getCsrfToken('mailvotech_ajax_post'),
         ]);
 
         $clientResponse = $this->client->getResponse();
@@ -321,7 +321,7 @@ final class CategoryControllerFunctionalTest extends MauticMysqlTestCase
         $user->setEmail('john.doe@email.com');
         $hasher = self::getContainer()->get(PasswordHasherFactoryInterface::class)->getPasswordHasher($user);
         $this->assertInstanceOf(PasswordHasherInterface::class, $hasher);
-        $user->setPassword($hasher->hash('mautic'));
+        $user->setPassword($hasher->hash('mailvotech'));
         $user->setRole($role);
 
         $this->em->persist($user);

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\Functional\Entity;
+namespace MailVotech\AssetBundle\Tests\Functional\Entity;
 
-use Mautic\AssetBundle\Entity\Download;
-use Mautic\AssetBundle\Entity\DownloadRepository;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\AssetBundle\Entity\Download;
+use MailVotech\AssetBundle\Entity\DownloadRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\PageBundle\Entity\Page;
 
-final class DownloadRepositoryFunctionalTest extends MauticMysqlTestCase
+final class DownloadRepositoryFunctionalTest extends MailVotechMysqlTestCase
 {
     private DownloadRepository $downloadRepository;
 

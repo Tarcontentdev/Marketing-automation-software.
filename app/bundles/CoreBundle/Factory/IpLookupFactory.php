@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CoreBundle\Factory;
+namespace MailVotech\CoreBundle\Factory;
 
 use GuzzleHttp\Client;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\IpLookup\AbstractLookup;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\IpLookup\AbstractLookup;
 use Psr\Log\LoggerInterface;
 
 class IpLookupFactory

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\DataFixtures\ORM;
+namespace MailVotech\LeadBundle\Tests\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\DoNotContact;
 
 final class LoadDncData extends AbstractFixture implements OrderedFixtureInterface
 {

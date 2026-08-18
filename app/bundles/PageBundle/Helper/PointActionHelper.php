@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\PageBundle\Helper;
+namespace MailVotech\PageBundle\Helper;
 
-use Mautic\EmailBundle\Helper\UrlMatcher;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\HitRepository;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\EmailBundle\Helper\UrlMatcher;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\HitRepository;
+use MailVotech\PageBundle\Entity\Page;
 
 class PointActionHelper
 {

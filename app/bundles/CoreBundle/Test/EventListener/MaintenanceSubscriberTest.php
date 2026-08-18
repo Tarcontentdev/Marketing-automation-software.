@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test\EventListener;
+namespace MailVotech\CoreBundle\Test\EventListener;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Result;
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\MaintenanceEvent;
-use Mautic\CoreBundle\EventListener\MaintenanceSubscriber;
-use Mautic\UserBundle\Entity\UserTokenRepositoryInterface;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\MaintenanceEvent;
+use MailVotech\CoreBundle\EventListener\MaintenanceSubscriber;
+use MailVotech\UserBundle\Entity\UserTokenRepositoryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class MaintenanceSubscriberTest extends \PHPUnit\Framework\TestCase
@@ -33,7 +33,7 @@ final class MaintenanceSubscriberTest extends \PHPUnit\Framework\TestCase
 
     public function testOnDataCleanup(): void
     {
-        defined('MAUTIC_TABLE_PREFIX') || define('MAUTIC_TABLE_PREFIX', getenv('MAUTIC_DB_PREFIX') ?: '');
+        defined('MAILVOTECH_TABLE_PREFIX') || define('MAILVOTECH_TABLE_PREFIX', getenv('MAILVOTECH_DB_PREFIX') ?: '');
 
         $dateTime         = new \DateTimeImmutable();
         $format           = 'Y-m-d H:i:s';

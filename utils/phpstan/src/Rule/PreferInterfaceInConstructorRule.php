@@ -18,7 +18,7 @@ use PHPStan\Rules\RuleErrorBuilder;
  * Typing "Router $router" locks the service to one implementation and blocks decoration, while
  * "RouterInterface $router" describes what the class actually needs. The interface is discovered by
  * convention: a param typed "X" is reported when "XInterface" exists and "X" implements it. Only
- * Symfony and Doctrine classes are checked - Mautic's own classes are left alone.
+ * Symfony and Doctrine classes are checked - MailVotech's own classes are left alone.
  *
  * @implements Rule<ClassMethod>
  */
@@ -28,7 +28,7 @@ final class PreferInterfaceInConstructorRule implements Rule
      * @var string[]
      */
     /**
-     * Only 3rd-party contracts are enforced - Mautic's own classes are free to be typed directly.
+     * Only 3rd-party contracts are enforced - MailVotech's own classes are free to be typed directly.
      *
      * @var string[]
      */
@@ -90,7 +90,7 @@ final class PreferInterfaceInConstructorRule implements Rule
                 $className,
                 $interfaceName
             ))
-                ->identifier('mautic.preferInterfaceInConstructor')
+                ->identifier('mailvotech.preferInterfaceInConstructor')
                 ->line($param->getStartLine())
                 ->build();
         }

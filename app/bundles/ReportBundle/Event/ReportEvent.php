@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Event;
+namespace MailVotech\ReportBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\ReportBundle\Entity\Report;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\ReportBundle\Entity\Report;
 
 final class ReportEvent extends CommonEvent
 {

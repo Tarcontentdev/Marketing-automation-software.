@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Security\Permissions;
+namespace MailVotech\LeadBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
-use Mautic\UserBundle\Form\Type\PermissionListType;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\UserBundle\Form\Type\PermissionListType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class LeadPermissions extends AbstractPermissions
@@ -64,10 +64,10 @@ final class LeadPermissions extends AbstractPermissions
             PermissionListType::class,
             [
                 'choices' => [
-                    'mautic.core.permissions.manage' => 'full',
-                    'mautic.core.permissions.view'   => 'view',
+                    'mailvotech.core.permissions.manage' => 'full',
+                    'mailvotech.core.permissions.view'   => 'view',
                 ],
-                'label'             => 'mautic.lead.permissions.fields',
+                'label'             => 'mailvotech.lead.permissions.fields',
                 'data'              => (!empty($data['fields']) ? $data['fields'] : []),
                 'bundle'            => 'lead',
                 'level'             => 'fields',
@@ -78,8 +78,8 @@ final class LeadPermissions extends AbstractPermissions
             $this->getName(),
             'export',
             $builder,
-            'mautic.core.permissions.export',
-            ['mautic.core.permissions.enable' => 'enable'],
+            'mailvotech.core.permissions.export',
+            ['mailvotech.core.permissions.enable' => 'enable'],
             $data
         );
         $this->addStandardFormFields($this->getName(), 'imports', $builder, $data);

@@ -1,7 +1,7 @@
 <?php
 
-use Mautic\CoreBundle\Loader\ParameterLoader;
-use Mautic\CoreBundle\Release\ThisRelease;
+use MailVotech\CoreBundle\Loader\ParameterLoader;
+use MailVotech\CoreBundle\Release\ThisRelease;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
 /**
- * Mautic Application Kernel.
+ * MailVotech Application Kernel.
  */
 class AppKernel extends Kernel
 {
@@ -40,18 +40,18 @@ class AppKernel extends Kernel
     {
         $metadata = ThisRelease::getMetadata();
 
-        defined('MAUTIC_ENV') or define('MAUTIC_ENV', $environment);
-        defined('MAUTIC_VERSION') or define('MAUTIC_VERSION', $metadata->getVersion());
+        defined('MAILVOTECH_ENV') or define('MAILVOTECH_ENV', $environment);
+        defined('MAILVOTECH_VERSION') or define('MAILVOTECH_VERSION', $metadata->getVersion());
 
         /**
-         * This is required for Doctrine's automatic database detection. When Mautic hasn't been
+         * This is required for Doctrine's automatic database detection. When MailVotech hasn't been
          * installed yet, we don't have a database to connect to, causing automatic database platform
-         * detection to fail. We use the MAUTIC_DB_SERVER_VERSION constant to temporarily set a server_version
+         * detection to fail. We use the MAILVOTECH_DB_SERVER_VERSION constant to temporarily set a server_version
          * if no database settings have been provided yet.
          */
-        if (!defined('MAUTIC_DB_SERVER_VERSION')) {
+        if (!defined('MAILVOTECH_DB_SERVER_VERSION')) {
             $localConfigFile = ParameterLoader::getLocalConfigFile($this->getApplicationDir().'/app', false);
-            define('MAUTIC_DB_SERVER_VERSION', file_exists($localConfigFile) ? null : '8.4');
+            define('MAILVOTECH_DB_SERVER_VERSION', file_exists($localConfigFile) ? null : '8.4');
         }
 
         parent::__construct($environment, $debug);
@@ -60,10 +60,10 @@ class AppKernel extends Kernel
     public function handle(Request $request, $type = HttpKernelInterface::MAIN_REQUEST, $catch = true): Response
     {
         if (false !== strpos($request->getRequestUri(), 'installer') || !$this->isInstalled()) {
-            defined('MAUTIC_INSTALLER') or define('MAUTIC_INSTALLER', 1);
+            defined('MAILVOTECH_INSTALLER') or define('MAILVOTECH_INSTALLER', 1);
         }
 
-        if (defined('MAUTIC_INSTALLER')) {
+        if (defined('MAILVOTECH_INSTALLER')) {
             $uri = $request->getRequestUri();
             if (false === strpos($uri, 'installer')) {
                 $base   = $request->getBaseUrl();
@@ -88,13 +88,13 @@ class AppKernel extends Kernel
         }
 
         // Check for an an active db connection and die with error if unable to connect
-        if (!defined('MAUTIC_INSTALLER')) {
+        if (!defined('MAILVOTECH_INSTALLER')) {
             $db = $this->getContainer()->get('database_connection');
             try {
                 $db->connect();
             } catch (Exception $e) {
                 error_log($e);
-                throw new Mautic\CoreBundle\Exception\DatabaseConnectionException($this->getContainer()->get('translator')->trans('mautic.core.db.connection.error', ['%code%' => $e->getCode()]), 0, $e);
+                throw new MailVotech\CoreBundle\Exception\DatabaseConnectionException($this->getContainer()->get('translator')->trans('mailvotech.core.db.connection.error', ['%code%' => $e->getCode()]), 0, $e);
             }
         }
 
@@ -124,38 +124,38 @@ class AppKernel extends Kernel
             new ApiPlatform\Symfony\Bundle\ApiPlatformBundle(),
             new Symfonycasts\SassBundle\SymfonycastsSassBundle(),
 
-            // Mautic Bundles
-            new Mautic\ApiBundle\MauticApiBundle(),
-            new Mautic\AssetBundle\MauticAssetBundle(),
-            new Mautic\CampaignBundle\MauticCampaignBundle(),
-            new Mautic\CategoryBundle\MauticCategoryBundle(),
-            new Mautic\ChannelBundle\MauticChannelBundle(),
-            new Mautic\ConfigBundle\MauticConfigBundle(),
-            new Mautic\CoreBundle\MauticCoreBundle(),
-            new Mautic\DashboardBundle\MauticDashboardBundle(),
-            new Mautic\DynamicContentBundle\MauticDynamicContentBundle(),
-            new Mautic\EmailBundle\MauticEmailBundle(),
-            new Mautic\FormBundle\MauticFormBundle(),
-            new Mautic\InstallBundle\MauticInstallBundle(),
-            new Mautic\IntegrationsBundle\IntegrationsBundle(),
-            new Mautic\LeadBundle\MauticLeadBundle(),
-            new Mautic\MarketplaceBundle\MarketplaceBundle(),
-            new Mautic\MessengerBundle\MauticMessengerBundle(),
-            new Mautic\NotificationBundle\MauticNotificationBundle(),
-            new Mautic\PageBundle\MauticPageBundle(),
-            new Mautic\PluginBundle\MauticPluginBundle(),
-            new Mautic\PointBundle\MauticPointBundle(),
-            new Mautic\ProjectBundle\MauticProjectBundle(),
-            new Mautic\ReportBundle\MauticReportBundle(),
-            new Mautic\SmsBundle\MauticSmsBundle(),
-            new Mautic\StageBundle\MauticStageBundle(),
-            new Mautic\StatsBundle\MauticStatsBundle(),
-            new Mautic\UserBundle\MauticUserBundle(),
-            new Mautic\WebhookBundle\MauticWebhookBundle(),
-            new Mautic\CacheBundle\MauticCacheBundle(),
+            // MailVotech Bundles
+            new MailVotech\ApiBundle\MailVotechApiBundle(),
+            new MailVotech\AssetBundle\MailVotechAssetBundle(),
+            new MailVotech\CampaignBundle\MailVotechCampaignBundle(),
+            new MailVotech\CategoryBundle\MailVotechCategoryBundle(),
+            new MailVotech\ChannelBundle\MailVotechChannelBundle(),
+            new MailVotech\ConfigBundle\MailVotechConfigBundle(),
+            new MailVotech\CoreBundle\MailVotechCoreBundle(),
+            new MailVotech\DashboardBundle\MailVotechDashboardBundle(),
+            new MailVotech\DynamicContentBundle\MailVotechDynamicContentBundle(),
+            new MailVotech\EmailBundle\MailVotechEmailBundle(),
+            new MailVotech\FormBundle\MailVotechFormBundle(),
+            new MailVotech\InstallBundle\MailVotechInstallBundle(),
+            new MailVotech\IntegrationsBundle\IntegrationsBundle(),
+            new MailVotech\LeadBundle\MailVotechLeadBundle(),
+            new MailVotech\MarketplaceBundle\MarketplaceBundle(),
+            new MailVotech\MessengerBundle\MailVotechMessengerBundle(),
+            new MailVotech\NotificationBundle\MailVotechNotificationBundle(),
+            new MailVotech\PageBundle\MailVotechPageBundle(),
+            new MailVotech\PluginBundle\MailVotechPluginBundle(),
+            new MailVotech\PointBundle\MailVotechPointBundle(),
+            new MailVotech\ProjectBundle\MailVotechProjectBundle(),
+            new MailVotech\ReportBundle\MailVotechReportBundle(),
+            new MailVotech\SmsBundle\MailVotechSmsBundle(),
+            new MailVotech\StageBundle\MailVotechStageBundle(),
+            new MailVotech\StatsBundle\MailVotechStatsBundle(),
+            new MailVotech\UserBundle\MailVotechUserBundle(),
+            new MailVotech\WebhookBundle\MailVotechWebhookBundle(),
+            new MailVotech\CacheBundle\MailVotechCacheBundle(),
         ];
 
-        // dynamically register Mautic Plugin Bundles
+        // dynamically register MailVotech Plugin Bundles
         $searchPath = $this->getApplicationDir().'/plugins';
         $finder     = new Symfony\Component\Finder\Finder();
         $finder->files()
@@ -168,14 +168,14 @@ class AppKernel extends Kernel
             $dirname  = basename($file->getRelativePath());
             $filename = substr($file->getFilename(), 0, -4);
 
-            $class = '\\MauticPlugin\\'.$dirname.'\\'.$filename;
+            $class = '\\MailVotechPlugin\\'.$dirname.'\\'.$filename;
             if (class_exists($class)) {
                 $plugin = new $class();
 
                 if ($plugin instanceof Symfony\Component\HttpKernel\Bundle\Bundle) {
-                    if (defined($class.'::MINIMUM_MAUTIC_VERSION')) {
+                    if (defined($class.'::MINIMUM_MAILVOTECH_VERSION')) {
                         // Check if this version supports the plugin before loading it
-                        if (version_compare($this->getVersion(), constant($class.'::MINIMUM_MAUTIC_VERSION'), 'lt')) {
+                        if (version_compare($this->getVersion(), constant($class.'::MINIMUM_MAILVOTECH_VERSION'), 'lt')) {
                             continue;
                         }
                     }
@@ -206,8 +206,8 @@ class AppKernel extends Kernel
 
     protected function build(ContainerBuilder $container): void
     {
-        $container->registerForAutoconfiguration(Mautic\CoreBundle\Model\MauticModelInterface::class)
-            ->addTag(Mautic\CoreBundle\DependencyInjection\Compiler\ModelPass::TAG);
+        $container->registerForAutoconfiguration(MailVotech\CoreBundle\Model\MailVotechModelInterface::class)
+            ->addTag(MailVotech\CoreBundle\DependencyInjection\Compiler\ModelPass::TAG);
     }
 
     public function boot(): void
@@ -219,16 +219,16 @@ class AppKernel extends Kernel
         // load parameters with defaults into the environment
         $parameterLoader = $this->getParameterLoader();
         $parameterLoader->loadIntoEnvironment();
-        if (!defined('MAUTIC_TABLE_PREFIX')) {
+        if (!defined('MAILVOTECH_TABLE_PREFIX')) {
             // Set the table prefix before boot.
             // Firstly look into environment variables.
-            $prefix = $_SERVER['MAUTIC_TABLE_PREFIX'];
+            $prefix = $_SERVER['MAILVOTECH_TABLE_PREFIX'];
             // Secondly look into the local.php file.
             if (empty($prefix)) {
                 $prefix = $parameterLoader->getLocalParameterBag()->get('db_table_prefix', '');
             }
 
-            define('MAUTIC_TABLE_PREFIX', $prefix);
+            define('MAILVOTECH_TABLE_PREFIX', $prefix);
         }
 
         // init bundles
@@ -248,7 +248,7 @@ class AppKernel extends Kernel
 
     protected function prepareContainer(ContainerBuilder $container): void
     {
-        $container->setParameter('mautic.application_dir', $this->getApplicationDir());
+        $container->setParameter('mailvotech.application_dir', $this->getApplicationDir());
 
         parent::prepareContainer($container);
     }
@@ -263,7 +263,7 @@ class AppKernel extends Kernel
      */
     public function getVersion(): string
     {
-        return MAUTIC_VERSION;
+        return MAILVOTECH_VERSION;
     }
 
     /**

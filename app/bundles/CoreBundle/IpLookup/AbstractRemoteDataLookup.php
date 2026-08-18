@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\IpLookup;
+namespace MailVotech\CoreBundle\IpLookup;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;

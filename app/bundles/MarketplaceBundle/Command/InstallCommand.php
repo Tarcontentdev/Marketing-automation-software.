@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\MarketplaceBundle\Command;
+namespace MailVotech\MarketplaceBundle\Command;
 
-use Mautic\CoreBundle\Helper\ComposerHelper;
-use Mautic\MarketplaceBundle\Exception\ApiException;
-use Mautic\MarketplaceBundle\Model\PackageModel;
+use MailVotech\CoreBundle\Helper\ComposerHelper;
+use MailVotech\MarketplaceBundle\Exception\ApiException;
+use MailVotech\MarketplaceBundle\Model\PackageModel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 final class InstallCommand extends Command
 {
-    public const NAME = 'mautic:marketplace:install';
+    public const NAME = 'mailvotech:marketplace:install';
 
     public function __construct(
         private readonly ComposerHelper $composer,
@@ -28,7 +28,7 @@ final class InstallCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument('package', InputArgument::REQUIRED, 'The Packagist package to install (e.g. mautic/example-plugin)');
+        $this->addArgument('package', InputArgument::REQUIRED, 'The Packagist package to install (e.g. mailvotech/example-plugin)');
         $this->addOption('dry-run', null, null, 'Simulate the installation of the package. Doesn\'t actually install it.');
 
         parent::configure();
@@ -48,8 +48,8 @@ final class InstallCommand extends Command
             throw new \Exception('Error while trying to get package details: '.$e->getMessage(), $e->getCode(), $e);
         }
 
-        if (empty($package->packageBase->type) || 'mautic-plugin' !== $package->packageBase->type) {
-            throw new \Exception('Package type is not mautic-plugin. Cannot install this plugin.');
+        if (empty($package->packageBase->type) || 'mailvotech-plugin' !== $package->packageBase->type) {
+            throw new \Exception('Package type is not mailvotech-plugin. Cannot install this plugin.');
         }
 
         if ($dryRun) {

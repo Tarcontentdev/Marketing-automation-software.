@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Model\UserToken;
+namespace MailVotech\UserBundle\Tests\Model\UserToken;
 
-use Mautic\CoreBundle\Helper\RandomHelper\RandomHelperInterface;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserToken;
-use Mautic\UserBundle\Entity\UserTokenRepositoryInterface;
-use Mautic\UserBundle\Model\UserToken\UserTokenService;
+use MailVotech\CoreBundle\Helper\RandomHelper\RandomHelperInterface;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserToken;
+use MailVotech\UserBundle\Entity\UserTokenRepositoryInterface;
+use MailVotech\UserBundle\Model\UserToken\UserTokenService;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class UserTokenServiceTest extends \PHPUnit\Framework\TestCase

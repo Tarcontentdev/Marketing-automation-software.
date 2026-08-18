@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Notification\Handler;
+namespace MailVotech\IntegrationsBundle\Sync\Notification\Handler;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\NotificationDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\NotificationDAO;
 
 interface HandlerInterface
 {

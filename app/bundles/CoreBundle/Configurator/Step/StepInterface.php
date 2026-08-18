@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Configurator\Step;
+namespace MailVotech\CoreBundle\Configurator\Step;
 
 interface StepInterface
 {

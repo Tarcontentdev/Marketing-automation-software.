@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
-use Mautic\AssetBundle\Event\AssetExportListEvent;
-use Mautic\CoreBundle\Event\EntityExportEvent;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ExportHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
+use MailVotech\AssetBundle\Event\AssetExportListEvent;
+use MailVotech\CoreBundle\Event\EntityExportEvent;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ExportHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -21,7 +21,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 )]
 final class EntityExportCommand extends ModeratedCommand
 {
-    public const COMMAND_NAME = 'mautic:entity:export';
+    public const COMMAND_NAME = 'mailvotech:entity:export';
 
     public function __construct(
         private readonly EventDispatcherInterface $dispatcher,

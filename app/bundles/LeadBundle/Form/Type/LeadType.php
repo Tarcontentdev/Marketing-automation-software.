@@ -1,19 +1,19 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\StageBundle\Form\Type\StageListType;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Form\Type\UserListType;
+use MailVotech\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\StageBundle\Form\Type\StageListType;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Form\Type\UserListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -44,7 +44,7 @@ final class LeadType extends AbstractType
         if (!$options['isShortForm']) {
             $imageChoices = [
                 'Gravatar'                             => 'gravatar',
-                'mautic.lead.lead.field.custom_avatar' => 'custom',
+                'mailvotech.lead.lead.field.custom_avatar' => 'custom',
             ];
 
             $cache = $options['data']->getSocialCache() ?? [];
@@ -59,7 +59,7 @@ final class LeadType extends AbstractType
                 ChoiceType::class,
                 [
                     'choices'           => $imageChoices,
-                    'label'             => 'mautic.lead.lead.field.preferred_profile',
+                    'label'             => 'mailvotech.lead.lead.field.preferred_profile',
                     'label_attr'        => ['class' => 'control-label'],
                     'attr'              => ['class' => 'form-control'],
                     'required'          => true,
@@ -83,7 +83,7 @@ final class LeadType extends AbstractType
                             'image/gif',
                             'image/jpeg',
                             'image/png',
-                        ], mimeTypesMessage: 'mautic.lead.avatar.types_invalid'),
+                        ], mimeTypesMessage: 'mailvotech.lead.avatar.types_invalid'),
                     ],
                 ]
             );
@@ -99,13 +99,13 @@ final class LeadType extends AbstractType
                 'by_reference' => false,
                 'attr'         => [
                     'id'                   => 'lead_tags',
-                    'data-placeholder'     => $this->translator->trans('mautic.lead.tags.select_or_create'),
-                    'data-no-results-text' => $this->translator->trans('mautic.lead.tags.enter_to_create'),
+                    'data-placeholder'     => $this->translator->trans('mailvotech.lead.tags.select_or_create'),
+                    'data-no-results-text' => $this->translator->trans('mailvotech.lead.tags.enter_to_create'),
                     'data-allow-add'       => 'true',
-                    'onchange'             => 'Mautic.createLeadTag(this)',
+                    'onchange'             => 'MailVotech.createLeadTag(this)',
                     'autocomplete'         => 'off',
                     'multiple'             => 'multiple',
-                    'aria-label'           => $this->translator->trans('mautic.lead.tags.aria.label'),
+                    'aria-label'           => $this->translator->trans('mailvotech.lead.tags.aria.label'),
                     'aria-describedby'     => 'lead_tags_help',
                     'aria-expanded'        => 'false',
                     'role'                 => 'combobox',
@@ -121,7 +121,7 @@ final class LeadType extends AbstractType
             'companies',
             CompanyListType::class,
             [
-                'label'      => 'mautic.company.selectcompany',
+                'label'      => 'mailvotech.company.selectcompany',
                 'label_attr' => ['class' => 'control-label'],
                 'multiple'   => $allowMultipleCompanies,
                 'required'   => false,
@@ -137,7 +137,7 @@ final class LeadType extends AbstractType
                 'owner',
                 UserListType::class,
                 [
-                    'label'      => 'mautic.lead.lead.field.owner',
+                    'label'      => 'mailvotech.lead.lead.field.owner',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class' => 'form-control',
@@ -156,7 +156,7 @@ final class LeadType extends AbstractType
                 'stage',
                 StageListType::class,
                 [
-                    'label'      => 'mautic.lead.lead.field.stage',
+                    'label'      => 'mailvotech.lead.lead.field.stage',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class' => 'form-control',
@@ -176,7 +176,7 @@ final class LeadType extends AbstractType
                 FormButtonsType::class,
                 [
                     'apply_text' => false,
-                    'save_text'  => 'mautic.core.form.save',
+                    'save_text'  => 'mailvotech.core.form.save',
                 ]
             );
         }

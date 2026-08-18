@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\ReportBundle\Model;
+namespace MailVotech\ReportBundle\Model;
 
-use Mautic\CoreBundle\Event\JobExtendTimeEvent;
-use Mautic\ReportBundle\Adapter\ReportDataAdapter;
-use Mautic\ReportBundle\Entity\Scheduler;
-use Mautic\ReportBundle\Event\ReportScheduleSendEvent;
-use Mautic\ReportBundle\Exception\FileIOException;
-use Mautic\ReportBundle\ReportEvents;
-use Mautic\ReportBundle\Scheduler\Enum\SchedulerEnum;
-use Mautic\ReportBundle\Scheduler\Option\ExportOption;
+use MailVotech\CoreBundle\Event\JobExtendTimeEvent;
+use MailVotech\ReportBundle\Adapter\ReportDataAdapter;
+use MailVotech\ReportBundle\Entity\Scheduler;
+use MailVotech\ReportBundle\Event\ReportScheduleSendEvent;
+use MailVotech\ReportBundle\Exception\FileIOException;
+use MailVotech\ReportBundle\ReportEvents;
+use MailVotech\ReportBundle\Scheduler\Enum\SchedulerEnum;
+use MailVotech\ReportBundle\Scheduler\Option\ExportOption;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final readonly class ReportExporter

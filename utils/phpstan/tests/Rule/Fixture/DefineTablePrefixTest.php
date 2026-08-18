@@ -9,13 +9,13 @@ final class DefineTablePrefixTest
 {
     public function setUp(): void
     {
-        defined('MAUTIC_TABLE_PREFIX') or define('MAUTIC_TABLE_PREFIX', '');
+        defined('MAILVOTECH_TABLE_PREFIX') or define('MAILVOTECH_TABLE_PREFIX', '');
     }
 
     public function setUpWithIf(): void
     {
-        if (!defined('MAUTIC_TABLE_PREFIX')) {
-            define('MAUTIC_TABLE_PREFIX', '');
+        if (!defined('MAILVOTECH_TABLE_PREFIX')) {
+            define('MAILVOTECH_TABLE_PREFIX', '');
         }
     }
 }

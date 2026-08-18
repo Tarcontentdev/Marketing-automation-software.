@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\CoreBundle\Controller\Api;
+namespace MailVotech\CoreBundle\Controller\Api;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\ApiBundle\Controller\CommonApiController;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\ApiBundle\Controller\CommonApiController;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -44,7 +44,7 @@ final class FileApiController extends CommonApiController
         ModelFactory $modelFactory,
         EventDispatcherInterface $dispatcher,
         CoreParametersHelper $coreParametersHelper,
-        private readonly LoggerInterface $mauticLogger,
+        private readonly LoggerInterface $mailvotechLogger,
     ) {
         $this->entityNameOne     = 'file';
         $this->entityNameMulti   = 'files';
@@ -199,7 +199,7 @@ final class FileApiController extends CommonApiController
 
             return $path;
         } catch (\Exception $e) {
-            $this->mauticLogger->error($e->getMessage(), ['exception' => $e]);
+            $this->mailvotechLogger->error($e->getMessage(), ['exception' => $e]);
 
             throw $e;
         }

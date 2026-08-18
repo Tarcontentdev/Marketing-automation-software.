@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Model;
+namespace MailVotech\CoreBundle\Model;
 
-use Mautic\CoreBundle\Entity\TranslationEntityInterface;
-use Mautic\CoreBundle\Entity\VariantEntityInterface;
+use MailVotech\CoreBundle\Entity\TranslationEntityInterface;
+use MailVotech\CoreBundle\Entity\VariantEntityInterface;
 
 trait VariantModelTrait
 {

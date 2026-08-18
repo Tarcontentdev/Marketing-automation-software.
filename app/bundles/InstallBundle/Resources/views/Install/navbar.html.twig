@@ -1,7 +1,7 @@
 {#
-    @copyright   2014 Mautic Contributors. All rights reserved
-    @author      Mautic
-    @link        http://mautic.org
+    @copyright   2014 MailVotech Contributors. All rights reserved
+    @author      MailVotech
+    @link        http://mailvotech.org
     @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 #}
 
@@ -10,9 +10,9 @@
     <ul class="horizontal-step">
         {% for start in 1..count-1 %}
         <li{{ (start == step) ? ' class="active"' : '' }}>
-            {% set url = (start == step or (start in completedSteps) or (start - 1 in completedSteps)) ? path('mautic_installer_step', {'index' : start}) : '#' %}
+            {% set url = (start == step or (start in completedSteps) or (start - 1 in completedSteps)) ? path('mailvotech_installer_step', {'index' : start}) : '#' %}
             <a href="{{ url }}" class="steps{{ ('#' == url) ? ' disabled' : '' }}">
-                <span class="steps-figure">{{ ('mautic.install.step.'~start)|trans }}</span>
+                <span class="steps-figure">{{ ('mailvotech.install.step.'~start)|trans }}</span>
             </a>
         </li>
         {% set start = start + 1 %}

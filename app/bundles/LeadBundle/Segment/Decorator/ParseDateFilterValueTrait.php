@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Segment\Decorator;
+namespace MailVotech\LeadBundle\Segment\Decorator;
 
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 
 trait ParseDateFilterValueTrait
 {

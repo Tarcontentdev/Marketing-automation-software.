@@ -16,7 +16,7 @@ use PHPStan\Rules\RuleErrorBuilder;
  * A controller must not fetch a model by its string name, e.g. $this->getModel('lead').
  *
  * The string hides the real model class from static analysis and from the IDE, so the returned type is only the
- * generic MauticModelInterface. Injecting the model as a typed property gives the exact type and makes the
+ * generic MailVotechModelInterface. Injecting the model as a typed property gives the exact type and makes the
  * dependency visible.
  *
  * @implements Rule<MethodCall>
@@ -80,7 +80,7 @@ final class NoGetModelWithStringInControllerRule implements Rule
             'Controller must not fetch the "%s" model by string. Inject the model as a typed property instead, to make the dependency and its type explicit.',
             $firstArg->value->value
         ))
-            ->identifier('mautic.noGetModelWithStringInController')
+            ->identifier('mailvotech.noGetModelWithStringInController')
             ->nonIgnorable()
             ->build();
 

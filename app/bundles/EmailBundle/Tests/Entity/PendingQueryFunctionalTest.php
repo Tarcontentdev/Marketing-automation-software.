@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Entity;
+namespace MailVotech\EmailBundle\Tests\Entity;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
+use MailVotech\LeadBundle\Model\LeadModel;
 
 /**
  * This test ensures that the pending query will work even if a contact was deleted between batches.
  * After the refactoring from NOT EXISTS to NOT IN the single deleted contact could cause the
  * pending query to find no contacts due to null value in the lead_id column.
  */
-final class PendingQueryFunctionalTest extends MauticMysqlTestCase
+final class PendingQueryFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testDelayedSends(): void
     {

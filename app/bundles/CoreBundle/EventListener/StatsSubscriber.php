@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Entity\AuditLogRepository;
-use Mautic\CoreBundle\Entity\IpAddressRepository;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Entity\AuditLogRepository;
+use MailVotech\CoreBundle\Entity\IpAddressRepository;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
 
 final class StatsSubscriber extends CommonStatsSubscriber
 {
@@ -18,9 +18,9 @@ final class StatsSubscriber extends CommonStatsSubscriber
         IpAddressRepository $ipAddressRepository,
     ) {
         parent::__construct($security, $entityManager);
-        $this->repositories['MauticCoreBundle:AuditLog'] = $auditLogRepository;
-        $this->permissions['MauticCoreBundle:AuditLog']  = ['admin'];
+        $this->repositories['MailVotechCoreBundle:AuditLog'] = $auditLogRepository;
+        $this->permissions['MailVotechCoreBundle:AuditLog']  = ['admin'];
 
-        $this->repositories['MauticCoreBundle:IpAddress'] = $ipAddressRepository;
+        $this->repositories['MailVotechCoreBundle:IpAddress'] = $ipAddressRepository;
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\ChannelBundle\Command;
+namespace MailVotech\ChannelBundle\Command;
 
-use Mautic\ChannelBundle\Model\MessageQueueModel;
-use Mautic\CoreBundle\Command\ModeratedCommand;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
+use MailVotech\ChannelBundle\Model\MessageQueueModel;
+use MailVotech\CoreBundle\Command\ModeratedCommand;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,11 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
-    name: 'mautic:messages:send',
+    name: 'mailvotech:messages:send',
     description: 'Process sending of messages queue.',
     aliases: [
-        'mautic:campaigns:messagequeue',
-        'mautic:campaigns:messages',
+        'mailvotech:campaigns:messagequeue',
+        'mailvotech:campaigns:messages',
     ]
 )]
 final class ProcessMarketingMessagesQueueCommand extends ModeratedCommand
@@ -74,7 +74,7 @@ final class ProcessMarketingMessagesQueueCommand extends ModeratedCommand
             return Command::SUCCESS;
         }
 
-        $output->writeln('<info>'.$this->translator->trans('mautic.campaign.command.process.messages').'</info>');
+        $output->writeln('<info>'.$this->translator->trans('mailvotech.campaign.command.process.messages').'</info>');
 
         if ($messageId) {
             if ($message = $this->messageQueueModel->getEntity($messageId)) {
@@ -91,7 +91,7 @@ final class ProcessMarketingMessagesQueueCommand extends ModeratedCommand
             } while ($batchProcessed > 0 && (!$limit || $processed < $limit));
         }
 
-        $output->writeln('<comment>'.$this->translator->trans('mautic.campaign.command.messages.sent', ['%events%' => $processed]).'</comment>'."\n");
+        $output->writeln('<comment>'.$this->translator->trans('mailvotech.campaign.command.messages.sent', ['%events%' => $processed]).'</comment>'."\n");
 
         $this->completeRun();
 

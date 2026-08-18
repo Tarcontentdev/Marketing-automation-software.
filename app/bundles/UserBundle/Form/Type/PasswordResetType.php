@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\UserBundle\Form\Type;
+namespace MailVotech\UserBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,15 +22,15 @@ final class PasswordResetType extends AbstractType
             'identifier',
             TextType::class,
             [
-                'label'      => 'mautic.user.auth.form.loginusername',
+                'label'      => 'mailvotech.user.auth.form.loginusername',
                 'label_attr' => ['class' => 'sr-only'],
                 'attr'       => [
                     'class'       => 'form-control',
                     'preaddon'    => 'ri-user-6-fill',
-                    'placeholder' => 'mautic.user.auth.form.loginusername',
+                    'placeholder' => 'mailvotech.user.auth.form.loginusername',
                 ],
                 'constraints' => [
-                    new Assert\NotBlank(message: 'mautic.user.user.passwordreset.notblank'),
+                    new Assert\NotBlank(message: 'mailvotech.user.user.passwordreset.notblank'),
                 ],
             ]
         );
@@ -42,7 +42,7 @@ final class PasswordResetType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-lg btn-primary btn-block',
                 ],
-                'label' => 'mautic.user.user.passwordreset.reset',
+                'label' => 'mailvotech.user.user.passwordreset.reset',
             ]
         );
 

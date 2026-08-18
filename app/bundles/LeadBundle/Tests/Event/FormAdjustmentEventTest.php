@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Event;
+namespace MailVotech\LeadBundle\Tests\Event;
 
-use Mautic\LeadBundle\Event\FormAdjustmentEvent;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Event\FormAdjustmentEvent;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use Symfony\Component\Form\FormInterface;
 
 final class FormAdjustmentEventTest extends \PHPUnit\Framework\TestCase

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\DependencyInjection\EnvProcessor;
+namespace MailVotech\CoreBundle\Tests\Unit\DependencyInjection\EnvProcessor;
 
-use Mautic\CoreBundle\DependencyInjection\EnvProcessor\NullableProcessor;
+use MailVotech\CoreBundle\DependencyInjection\EnvProcessor\NullableProcessor;
 use PHPUnit\Framework\TestCase;
 
 final class NullableProcessorTest extends TestCase

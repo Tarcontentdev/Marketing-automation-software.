@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
-use Mautic\CoreBundle\Exception\MessageOfTheDayException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Exception\MessageOfTheDayException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Helper;
@@ -15,7 +15,7 @@ use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[AsCommand(
-    name: 'mautic:motd',
+    name: 'mailvotech:motd',
     description: 'Displays the Message of the Day'
 )]
 final class MessageOfTheDayCommand extends Command

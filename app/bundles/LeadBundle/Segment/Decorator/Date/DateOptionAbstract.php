@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Decorator\Date;
+namespace MailVotech\LeadBundle\Segment\Decorator\Date;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\Decorator\DateDecorator;
-use Mautic\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\Decorator\DateDecorator;
+use MailVotech\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
 
 abstract class DateOptionAbstract implements FilterDecoratorInterface
 {

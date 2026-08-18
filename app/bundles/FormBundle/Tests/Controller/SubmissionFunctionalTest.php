@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Controller;
+namespace MailVotech\FormBundle\Tests\Controller;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Lead;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\FormBundle\Entity\SubmissionRepository;
-use Mautic\FormBundle\Model\SubmissionModel;
-use Mautic\FormBundle\Tests\FormTestHelperTrait;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\RoleRepository;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
+use MailVotech\FormBundle\Model\SubmissionModel;
+use MailVotech\FormBundle\Tests\FormTestHelperTrait;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\RoleRepository;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
-final class SubmissionFunctionalTest extends MauticMysqlTestCase
+final class SubmissionFunctionalTest extends MailVotechMysqlTestCase
 {
     use FormTestHelperTrait;
 
@@ -77,14 +77,14 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // Submit the form:
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_redirectpostactiontestform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_redirectpostactiontestform]');
 
         $this->assertCount(1, $formCrawler);
 
         $form = $formCrawler->form();
 
         $form->setValues([
-            'mauticform[email]' => 'john@doe.com',
+            'mailvotechform[email]' => 'john@doe.com',
         ]);
 
         $this->client->submit($form);
@@ -163,13 +163,13 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // Submit the form:
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_submissiontestform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_submissiontestform]');
         $this->assertCount(1, $formCrawler);
         $this->assertStringContainsString(' class="foobar"', $crawler->html());
         $form = $formCrawler->form();
         $form->setValues([
-            'mauticform[country]' => 'Australia',
-            'mauticform[state]'   => 'Victoria',
+            'mailvotechform[country]' => 'Australia',
+            'mailvotechform[state]'   => 'Victoria',
         ]);
         $this->client->submit($form);
 
@@ -192,7 +192,7 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // A contact should be created by the submission.
         $contact = $submission->getLead();
-        $this->assertInstanceOf(\Mautic\LeadBundle\Entity\Lead::class, $contact);
+        $this->assertInstanceOf(\MailVotech\LeadBundle\Entity\Lead::class, $contact);
 
         $this->assertSame('Australia', $contact->getCountry());
         $this->assertSame('Victoria', $contact->getState());
@@ -263,12 +263,12 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // Submit the form:
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_submissiontestform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_submissiontestform]');
         $this->assertCount(1, $formCrawler);
         $form = $formCrawler->form();
         $form->setValues([
-            'mauticform[country]' => '',
-            'mauticform[state]'   => '',
+            'mailvotechform[country]' => '',
+            'mailvotechform[state]'   => '',
         ]);
         $this->client->submit($form);
 
@@ -284,7 +284,7 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // A contact should be created by the submission.
         $contact = $submission->getLead();
-        $this->assertInstanceOf(\Mautic\LeadBundle\Entity\Lead::class, $contact);
+        $this->assertInstanceOf(\MailVotech\LeadBundle\Entity\Lead::class, $contact);
 
         $this->assertNull($contact->getCountry());
         $this->assertNull($contact->getState());
@@ -354,12 +354,12 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // Submit the form:
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_submissiontestform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_submissiontestform]');
         $this->assertCount(1, $formCrawler);
         $form = $formCrawler->form();
         $form->setValues([
-            'mauticform[country]' => 'Australia',
-            'mauticform[state]'   => '',
+            'mailvotechform[country]' => 'Australia',
+            'mailvotechform[state]'   => '',
         ]);
         $this->client->submit($form);
 
@@ -426,10 +426,10 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // Submit the form:
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_submissiontestform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_submissiontestform]');
         $this->assertCount(1, $formCrawler);
         // show just one text field
-        $this->assertCount(1, $formCrawler->filter('.mauticform-text'));
+        $this->assertCount(1, $formCrawler->filter('.mailvotechform-text'));
     }
 
     #[DataProvider('formTypeDataProvider')]
@@ -481,11 +481,11 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // Submit the form:
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_submissiontestform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_submissiontestform]');
         $this->assertCount(1, $formCrawler);
         $form = $formCrawler->form();
         $form->setValues([
-            'mauticform[email]' => 'test@example.com',
+            'mailvotechform[email]' => 'test@example.com',
         ]);
         $this->client->submit($form);
 
@@ -535,11 +535,11 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // Submit the form:
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_submissiontestform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_submissiontestform]');
         $this->assertCount(1, $formCrawler);
         $form = $formCrawler->form();
         $form->setValues([
-            'mauticform[country]' => 'Australia',
+            'mailvotechform[country]' => 'Australia',
         ]);
         $this->client->submit($form);
 
@@ -642,12 +642,12 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // Submit the form:
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$form->getId()}");
-        $formCrawler = $crawler->filter('form[id=mauticform_submissiontestform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_submissiontestform]');
         $this->assertCount(1, $formCrawler);
         $htmlForm = $formCrawler->form();
         $htmlForm->setValues([
-            'mauticform[company]' => 'Acquia',
-            'mauticform[email]'   => 'leeloo@fifth.element',
+            'mailvotechform[company]' => 'Acquia',
+            'mailvotechform[email]'   => 'leeloo@fifth.element',
         ]);
         $this->client->submit($htmlForm);
 
@@ -664,7 +664,7 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // A contact should be created by the submission.
         $contact = $submission->getLead();
-        $this->assertInstanceOf(\Mautic\LeadBundle\Entity\Lead::class, $contact);
+        $this->assertInstanceOf(\MailVotech\LeadBundle\Entity\Lead::class, $contact);
 
         $this->assertSame('Acquia', $contact->getCompany());
         $this->assertSame($company->getId(), $contact->getCompanyChangeLog()->get(0)->getCompany());
@@ -709,11 +709,11 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // Submit the form:
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_submissiontestform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_submissiontestform]');
         $this->assertCount(1, $formCrawler, $crawler->html());
         $form = $formCrawler->form();
         $form->setValues([
-            'mauticform[f_all]' => 'test',
+            'mailvotechform[f_all]' => 'test',
         ]);
         $this->client->submit($form);
 
@@ -729,7 +729,7 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // A contact should be created by the submission.
         $contact = $submission->getLead();
-        $this->assertInstanceOf(\Mautic\LeadBundle\Entity\Lead::class, $contact);
+        $this->assertInstanceOf(\MailVotech\LeadBundle\Entity\Lead::class, $contact);
 
         $this->assertSame('test', $contact->getFirstname());
 
@@ -843,13 +843,13 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // Submit the form
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_submissiontestform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_submissiontestform]');
         $this->assertCount(1, $formCrawler);
         $form = $formCrawler->form();
 
         $formData = [];
         foreach ($submissionData as $key => $value) {
-            $formData["mauticform[{$key}]"] = $value;
+            $formData["mailvotechform[{$key}]"] = $value;
         }
         $form->setValues($formData);
 
@@ -1074,13 +1074,13 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // Submit the form
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_submissiontestform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_submissiontestform]');
         $this->assertCount(1, $formCrawler);
         $form = $formCrawler->form();
 
         $formData = [];
         foreach ($submissionData as $key => $value) {
-            $formData["mauticform[{$key}]"] = $value;
+            $formData["mailvotechform[{$key}]"] = $value;
         }
         $form->setValues($formData);
 
@@ -1260,7 +1260,7 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
             Request::METHOD_POST,
             "/form/submit?formId={$formId}",
             [
-                'mauticform' => [
+                'mailvotechform' => [
                     'your_story' => $submittedHtml,
                     'email'      => $submittedEmail,
                     'formId'     => $formId,
@@ -1325,7 +1325,7 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
         $formId       = $responseData['form']['id'];
 
         $submitPayload = [
-            'mauticform' => [
+            'mailvotechform' => [
                 'email'    => 'limit@test.com',
                 'formId'   => $formId,
                 'formName' => 'Submission limit test form',
@@ -1349,7 +1349,7 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
         $this->assertCount(1, $submissionsData['submissions']);
 
         // The denormalised counter must match the single submission that was just created.
-        $prefix   = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix   = self::getContainer()->getParameter('mailvotech.db_table_prefix');
         $countSql = "SELECT submission_count FROM {$prefix}forms WHERE id = ?";
         $this->assertSame(1, (int) $this->connection->fetchOne($countSql, [$formId]));
 
@@ -1372,7 +1372,7 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
             parse_str($urlParts['query'], $query);
         }
 
-        $this->assertSame('Stop here', urldecode($query['mauticError'] ?? ''));
+        $this->assertSame('Stop here', urldecode($query['mailvotechError'] ?? ''));
         $this->client->followRedirects(true);
 
         // Ensure no additional submissions were created after hitting the limit.
@@ -1442,11 +1442,11 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         // Submit the form:
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_submissiontestform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_submissiontestform]');
         $this->assertCount(1, $formCrawler);
         $form = $formCrawler->form();
         $form->setValues([
-            'mauticform[name]' => 'Name',
+            'mailvotechform[name]' => 'Name',
         ]);
         $this->client->submit($form);
         $this->assertResponseIsSuccessful();
@@ -1466,7 +1466,7 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         $this->assertResponseIsSuccessful();
 
-        $tablePrefix = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $tablePrefix = self::getContainer()->getParameter('mailvotech.db_table_prefix');
 
         // we are expecting form results table to be deleted in background, so the table should exists
         $this->assertTrue($this->connection->createSchemaManager()->tablesExist("{$tablePrefix}form_results_{$formId}_{$formAlias}"));
@@ -1499,7 +1499,7 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
         $this->assertResponseIsSuccessful();
 
         $conn        = $this->em->getConnection();
-        $tablePrefix = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $tablePrefix = self::getContainer()->getParameter('mailvotech.db_table_prefix');
         $sql         = "select * from {$tablePrefix}form_results_{$form['id']}_{$form['alias']} where submission_id = {$submissionId}";
         $stmt        = $conn->prepare($sql);
         $results     = $stmt->executeQuery()->fetchAllAssociative();
@@ -1541,7 +1541,7 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
         $this->assertResponseIsSuccessful();
 
-        $tablePrefix = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $tablePrefix = self::getContainer()->getParameter('mailvotech.db_table_prefix');
 
         $qb       = $this->em->getConnection()->createQueryBuilder();
 
@@ -1556,7 +1556,7 @@ final class SubmissionFunctionalTest extends MauticMysqlTestCase
 
     protected function beforeTearDown(): void
     {
-        $tablePrefix = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $tablePrefix = self::getContainer()->getParameter('mailvotech.db_table_prefix');
 
         parent::beforeTearDown();
 

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Unit\EventListener;
+namespace MailVotech\WebhookBundle\Tests\Unit\EventListener;
 
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Event\WebhookEvent;
-use Mautic\WebhookBundle\EventListener\WebhookSubscriber;
-use Mautic\WebhookBundle\Notificator\WebhookKillNotificator;
-use Mautic\WebhookBundle\WebhookEvents;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Event\WebhookEvent;
+use MailVotech\WebhookBundle\EventListener\WebhookSubscriber;
+use MailVotech\WebhookBundle\Notificator\WebhookKillNotificator;
+use MailVotech\WebhookBundle\WebhookEvents;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class WebhookSubscriberTest extends \PHPUnit\Framework\TestCase

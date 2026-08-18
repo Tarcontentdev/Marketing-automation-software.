@@ -15,7 +15,7 @@ use PHPStan\Collectors\Collector;
 
 /**
  * Collects the service aliases registered in bundle Config/services.php files,
- * e.g. $services->alias('mautic.some.helper', SomeHelper::class).
+ * e.g. $services->alias('mailvotech.some.helper', SomeHelper::class).
  *
  * @implements Collector<MethodCall, array{string, string, int, int}>
  */

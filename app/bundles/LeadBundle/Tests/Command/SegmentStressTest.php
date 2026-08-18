@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Command;
+namespace MailVotech\LeadBundle\Tests\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\LeadBundle\Command\UpdateLeadListsCommand;
-use Mautic\LeadBundle\Entity\LeadList;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\LeadBundle\Command\UpdateLeadListsCommand;
+use MailVotech\LeadBundle\Entity\LeadList;
 use Symfony\Component\Console\Command\Command;
 
-final class SegmentStressTest extends MauticMysqlTestCase
+final class SegmentStressTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 

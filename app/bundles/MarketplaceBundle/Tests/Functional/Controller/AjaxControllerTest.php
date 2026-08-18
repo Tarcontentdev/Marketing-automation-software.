@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Tests\Functional\Controller;
+namespace MailVotech\MarketplaceBundle\Tests\Functional\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\CacheHelper;
-use Mautic\CoreBundle\Helper\ComposerHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Test\AbstractMauticTestCase;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\MarketplaceBundle\Controller\AjaxController;
-use Mautic\MarketplaceBundle\DTO\ConsoleOutput;
-use Mautic\MarketplaceBundle\Security\Permissions\MarketplacePermissions;
-use Mautic\MarketplaceBundle\Service\Config;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\CacheHelper;
+use MailVotech\CoreBundle\Helper\ComposerHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Test\AbstractMailVotechTestCase;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\MarketplaceBundle\Controller\AjaxController;
+use MailVotech\MarketplaceBundle\DTO\ConsoleOutput;
+use MailVotech\MarketplaceBundle\Security\Permissions\MarketplacePermissions;
+use MailVotech\MarketplaceBundle\Service\Config;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-final class AjaxControllerTest extends AbstractMauticTestCase
+final class AjaxControllerTest extends AbstractMailVotechTestCase
 {
     /**
      * @var MockObject|CorePermissions
@@ -43,7 +43,7 @@ final class AjaxControllerTest extends AbstractMauticTestCase
 
     public function testInstallPackageAction(): void
     {
-        $request    = new Request([], [], [], [], [], [], '{"vendor":"mautic","package":"test-plugin-bundle"}');
+        $request    = new Request([], [], [], [], [], [], '{"vendor":"mailvotech","package":"test-plugin-bundle"}');
         $controller = $this->generateController(false);
 
         $this->marketplaceConfig->method('marketplaceIsEnabled')->willReturn(true);
@@ -61,7 +61,7 @@ final class AjaxControllerTest extends AbstractMauticTestCase
 
     public function testRemovePackageAction(): void
     {
-        $request    = new Request([], [], [], [], [], [], '{"vendor":"mautic","package":"test-plugin-bundle"}');
+        $request    = new Request([], [], [], [], [], [], '{"vendor":"mailvotech","package":"test-plugin-bundle"}');
         $controller = $this->generateController(true);
 
         $this->marketplaceConfig->method('marketplaceIsEnabled')->willReturn(true);

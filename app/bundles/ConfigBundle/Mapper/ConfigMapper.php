@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\ConfigBundle\Mapper;
+namespace MailVotech\ConfigBundle\Mapper;
 
-use Mautic\ConfigBundle\Exception\BadFormConfigException;
-use Mautic\ConfigBundle\Mapper\Helper\ConfigHelper;
-use Mautic\ConfigBundle\Mapper\Helper\RestrictionHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\ConfigBundle\Exception\BadFormConfigException;
+use MailVotech\ConfigBundle\Mapper\Helper\ConfigHelper;
+use MailVotech\ConfigBundle\Mapper\Helper\RestrictionHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 
 final readonly class ConfigMapper
 {

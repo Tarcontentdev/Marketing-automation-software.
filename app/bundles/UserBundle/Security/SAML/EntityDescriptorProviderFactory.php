@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Security\SAML;
+namespace MailVotech\UserBundle\Security\SAML;
 
 use LightSaml\Builder\EntityDescriptor\SimpleEntityDescriptorBuilder;
 use LightSaml\Credential\X509Credential;

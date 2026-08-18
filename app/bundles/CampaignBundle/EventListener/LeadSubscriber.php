@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\CampaignBundle\EventListener;
+namespace MailVotech\CampaignBundle\EventListener;
 
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CampaignBundle\EventCollector\EventCollector;
-use Mautic\LeadBundle\Event\LeadMergeEvent;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\EventCollector\EventCollector;
+use MailVotech\LeadBundle\Event\LeadMergeEvent;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -40,8 +40,8 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
      */
     public function onTimelineGenerate(LeadTimelineEvent $event): void
     {
-        $this->addTimelineEvents($event, 'campaign.event', $this->translator->trans('mautic.campaign.triggered'));
-        $this->addTimelineEvents($event, 'campaign.event.scheduled', $this->translator->trans('mautic.campaign.scheduled'));
+        $this->addTimelineEvents($event, 'campaign.event', $this->translator->trans('mailvotech.campaign.triggered'));
+        $this->addTimelineEvents($event, 'campaign.event.scheduled', $this->translator->trans('mailvotech.campaign.scheduled'));
     }
 
     /**
@@ -74,7 +74,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
         if (!$event->isEngagementCount()) {
             foreach ($logs['results'] as $log) {
                 $template = (!empty($eventSettings['action'][$log['type']]['timelineTemplate']))
-                    ? $eventSettings['action'][$log['type']]['timelineTemplate'] : '@MauticCampaign/SubscribedEvents/Timeline/index.html.twig';
+                    ? $eventSettings['action'][$log['type']]['timelineTemplate'] : '@MailVotechCampaign/SubscribedEvents/Timeline/index.html.twig';
 
                 $label = $log['event_name'].' / '.$log['campaign_name'];
 
@@ -86,7 +86,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                     && !empty($log['metadata']['redirect_applied'])
                     && !empty($log['metadata']['originalEventName'])) {
                     $label = $log['event_name'].' / '.$log['campaign_name'].
-                        ' <span class="small">'.$this->translator->trans('mautic.campaign.event.redirected',
+                        ' <span class="small">'.$this->translator->trans('mailvotech.campaign.event.redirected',
                             ['%original%' => $log['metadata']['originalEventName']]).'</span>';
                 }
 
@@ -95,7 +95,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                 // - Event is marked as deleted
                 // - Event has been triggered (not just scheduled)
                 if (!empty($log['event_deleted_timestamp'])) {
-                    $label .= ' <span class="label label-danger">'.$this->translator->trans('mautic.campaign.deleted').
+                    $label .= ' <span class="label label-danger">'.$this->translator->trans('mailvotech.campaign.deleted').
                         '</span>';
                 }
 
@@ -104,12 +104,12 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
 
                 if (empty($log['isScheduled']) && empty($log['dateTriggered'])) {
                     // Note as cancelled
-                    $label .= ' <i data-toggle="tooltip" title="'.$this->translator->trans('mautic.campaign.event.cancelled')
+                    $label .= ' <i data-toggle="tooltip" title="'.$this->translator->trans('mailvotech.campaign.event.cancelled')
                         .'" class="ri-calendar-close-fill text-warning timeline-campaign-event-cancelled-'.$log['event_id'].'"></i>';
                 }
 
                 if ((!empty($log['metadata']['errors']) && empty($log['dateTriggered'])) || !empty($log['metadata']['failed']) || !empty($log['fail_reason'])) {
-                    $label .= ' <i data-toggle="tooltip" title="'.$this->translator->trans('mautic.campaign.event.has_last_attempt_error')
+                    $label .= ' <i data-toggle="tooltip" title="'.$this->translator->trans('mailvotech.campaign.event.has_last_attempt_error')
                         .'" class="ri-alert-line text-danger"></i>';
                 }
 
@@ -123,7 +123,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                     $extra['eventDetails'] = $this->getCampaignEventDetails($log);
 
                     $toolTipClass = 'yes' === $extra['eventDetails']['path'] ? 'text-success' : 'text-danger';
-                    $toolTip      = $this->translator->trans('mautic.campaign.event.path.tooltip', ['%path%' => ucfirst($extra['eventDetails']['path'])]);
+                    $toolTip      = $this->translator->trans('mailvotech.campaign.event.path.tooltip', ['%path%' => ucfirst($extra['eventDetails']['path'])]);
 
                     $label .= sprintf(' <i class="ri-node-tree %s" data-toggle="tooltip" title="%s"></i>', $toolTipClass, $toolTip);
                 }
@@ -139,7 +139,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                         'eventLabel' => [
                             'label' => $label,
                             'href'  => $this->router->generate(
-                                'mautic_campaign_action',
+                                'mailvotech_campaign_action',
                                 ['objectAction' => 'view', 'objectId' => $log['campaign_id']]
                             ),
                         ],

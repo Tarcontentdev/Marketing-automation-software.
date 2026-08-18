@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\PluginBundle\Form\Type;
+namespace MailVotech\PluginBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,7 +17,7 @@ final class FieldsType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $this->buildFormFields($builder, $options, $options['integration_fields'], $options['mautic_fields'], '', $options['limit'], $options['start']);
+        $this->buildFormFields($builder, $options, $options['integration_fields'], $options['mailvotech_fields'], '', $options['limit'], $options['start']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper\RandomHelper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper\RandomHelper;
 
-use Mautic\CoreBundle\Helper\RandomHelper\RandomHelper;
+use MailVotech\CoreBundle\Helper\RandomHelper\RandomHelper;
 
 final class RandomHelperTest extends \PHPUnit\Framework\TestCase
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Migrations;
+namespace MailVotech\IntegrationsBundle\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\SchemaException;
-use Mautic\IntegrationsBundle\Migration\AbstractMigration;
+use MailVotech\IntegrationsBundle\Migration\AbstractMigration;
 
 final class Version_0_0_1 extends AbstractMigration
 {

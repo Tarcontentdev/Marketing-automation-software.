@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Helper;
+namespace MailVotech\PointBundle\Helper;
 
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Lead;
 
 final class EventHelper
 {

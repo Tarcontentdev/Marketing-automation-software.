@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\EventListener\CommonStatsSubscriber;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\LeadBundle\Entity\CompanyChangeLog;
-use Mautic\LeadBundle\Entity\CompanyLead;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\FrequencyRule;
-use Mautic\LeadBundle\Entity\LeadCategory;
-use Mautic\LeadBundle\Entity\LeadDevice;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\LeadBundle\Entity\ListLead;
-use Mautic\LeadBundle\Entity\PointsChangeLog;
-use Mautic\LeadBundle\Entity\StagesChangeLog;
-use Mautic\LeadBundle\Entity\UtmTag;
+use MailVotech\CoreBundle\EventListener\CommonStatsSubscriber;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\LeadBundle\Entity\CompanyChangeLog;
+use MailVotech\LeadBundle\Entity\CompanyLead;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\FrequencyRule;
+use MailVotech\LeadBundle\Entity\LeadCategory;
+use MailVotech\LeadBundle\Entity\LeadDevice;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Entity\ListLead;
+use MailVotech\LeadBundle\Entity\PointsChangeLog;
+use MailVotech\LeadBundle\Entity\StagesChangeLog;
+use MailVotech\LeadBundle\Entity\UtmTag;
 
 final class StatsSubscriber extends CommonStatsSubscriber
 {

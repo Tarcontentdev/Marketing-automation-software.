@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\CampaignBundle\Membership;
+namespace MailVotech\CampaignBundle\Membership;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Lead as CampaignMember;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CampaignBundle\Membership\Action\Adder;
-use Mautic\CampaignBundle\Membership\Action\Remover;
-use Mautic\CampaignBundle\Membership\Exception\ContactAlreadyRemovedFromCampaignException;
-use Mautic\CampaignBundle\Membership\Exception\ContactCannotBeAddedToCampaignException;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignMember;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Membership\Action\Adder;
+use MailVotech\CampaignBundle\Membership\Action\Remover;
+use MailVotech\CampaignBundle\Membership\Exception\ContactAlreadyRemovedFromCampaignException;
+use MailVotech\CampaignBundle\Membership\Exception\ContactCannotBeAddedToCampaignException;
+use MailVotech\LeadBundle\Entity\Lead;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 

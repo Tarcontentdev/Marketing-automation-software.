@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Entity\oAuth2;
+namespace MailVotech\ApiBundle\Entity\oAuth2;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<AccessToken>

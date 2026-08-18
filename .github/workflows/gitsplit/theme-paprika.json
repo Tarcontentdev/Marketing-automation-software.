@@ -3,7 +3,7 @@
         {
             "name": "theme-paprika",
             "directory": "themes/paprika",
-            "target": "git@github.com:mautic/theme-paprika.git"
+            "target": "git@github.com:mailvotech/theme-paprika.git"
         }
     ]
 }

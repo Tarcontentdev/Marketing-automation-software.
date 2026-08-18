@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\EventListener;
+namespace MailVotech\IntegrationsBundle\EventListener;
 
-use Mautic\IntegrationsBundle\Entity\FieldChange;
-use Mautic\IntegrationsBundle\Entity\FieldChangeRepository;
-use Mautic\IntegrationsBundle\Entity\ObjectMappingRepository;
-use Mautic\IntegrationsBundle\Event\InternalCompanyEvent;
-use Mautic\IntegrationsBundle\Event\InternalContactEvent;
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Exception\InvalidValueException;
-use Mautic\IntegrationsBundle\Helper\SyncIntegrationsHelper;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\IntegrationsBundle\Sync\VariableExpresser\VariableExpresserHelperInterface;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Event as Events;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\IntegrationsBundle\Entity\FieldChange;
+use MailVotech\IntegrationsBundle\Entity\FieldChangeRepository;
+use MailVotech\IntegrationsBundle\Entity\ObjectMappingRepository;
+use MailVotech\IntegrationsBundle\Event\InternalCompanyEvent;
+use MailVotech\IntegrationsBundle\Event\InternalContactEvent;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Exception\InvalidValueException;
+use MailVotech\IntegrationsBundle\Helper\SyncIntegrationsHelper;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\IntegrationsBundle\Sync\VariableExpresser\VariableExpresserHelperInterface;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Event as Events;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -58,7 +58,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if (defined('MAUTIC_INTEGRATION_SYNC_IN_PROGRESS')) {
+        if (defined('MAILVOTECH_INTEGRATION_SYNC_IN_PROGRESS')) {
             // Don't track changes just made by an active sync
             return;
         }
@@ -90,7 +90,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                 $oldValue = $change['old_reason'] ?? '';
                 $newValue = $change['reason'];
 
-                $dncChanges['mautic_internal_dnc_'.$channel] = [$oldValue, $newValue];
+                $dncChanges['mailvotech_internal_dnc_'.$channel] = [$oldValue, $newValue];
             }
 
             $this->recordFieldChanges($dncChanges, $lead->getId(), Lead::class, $lead);
@@ -104,7 +104,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
         }
 
         $this->fieldChangeRepo->deleteEntitiesForObject((int) $event->getLead()->deletedId, Lead::class);
-        $this->objectMappingRepository->deleteEntitiesForObject((int) $event->getLead()->deletedId, MauticSyncDataExchange::OBJECT_CONTACT);
+        $this->objectMappingRepository->deleteEntitiesForObject((int) $event->getLead()->deletedId, MailVotechSyncDataExchange::OBJECT_CONTACT);
     }
 
     /**
@@ -113,12 +113,12 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
      */
     public function onCompanyPostSave(Events\CompanyEvent $event): void
     {
-        if (defined('MAUTIC_INTEGRATION_SYNC_IN_PROGRESS')) {
+        if (defined('MAILVOTECH_INTEGRATION_SYNC_IN_PROGRESS')) {
             // Don't track changes just made by an active sync
             return;
         }
 
-        if (!$this->syncIntegrationsHelper->hasObjectSyncEnabled(MauticSyncDataExchange::OBJECT_COMPANY)) {
+        if (!$this->syncIntegrationsHelper->hasObjectSyncEnabled(MailVotechSyncDataExchange::OBJECT_COMPANY)) {
             // Only track if an integration is syncing with companies
             return;
         }
@@ -141,7 +141,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
     public function onCompanyPostDelete(Events\CompanyEvent $event): void
     {
         $this->fieldChangeRepo->deleteEntitiesForObject((int) $event->getCompany()->deletedId, Company::class);
-        $this->objectMappingRepository->deleteEntitiesForObject((int) $event->getCompany()->deletedId, MauticSyncDataExchange::OBJECT_COMPANY);
+        $this->objectMappingRepository->deleteEntitiesForObject((int) $event->getCompany()->deletedId, MailVotechSyncDataExchange::OBJECT_COMPANY);
     }
 
     public function onLeadCompanyChange(Events\LeadChangeCompanyEvent $event): void

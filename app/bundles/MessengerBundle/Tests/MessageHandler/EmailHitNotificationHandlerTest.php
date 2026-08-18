@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\Tests\MessageHandler;
+namespace MailVotech\MessengerBundle\Tests\MessageHandler;
 
 use Doctrine\DBAL\Exception\RetryableException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\MessengerBundle\Message\EmailHitNotification;
-use Mautic\MessengerBundle\MessageHandler\EmailHitNotificationHandler;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\MessengerBundle\Message\EmailHitNotification;
+use MailVotech\MessengerBundle\MessageHandler\EmailHitNotificationHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;

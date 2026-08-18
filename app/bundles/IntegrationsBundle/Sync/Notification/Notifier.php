@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Notification;
+namespace MailVotech\IntegrationsBundle\Sync\Notification;
 
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Helper\ConfigIntegrationsHelper;
-use Mautic\IntegrationsBundle\Helper\SyncIntegrationsHelper;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\NotificationDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\HandlerNotSupportedException;
-use Mautic\IntegrationsBundle\Sync\Notification\Handler\HandlerContainer;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Helper\ConfigIntegrationsHelper;
+use MailVotech\IntegrationsBundle\Helper\SyncIntegrationsHelper;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\NotificationDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\HandlerNotSupportedException;
+use MailVotech\IntegrationsBundle\Sync\Notification\Handler\HandlerContainer;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class Notifier
@@ -30,10 +30,10 @@ class Notifier
      * @throws HandlerNotSupportedException
      * @throws IntegrationNotFoundException
      */
-    public function noteMauticSyncIssue(array $notifications, string $integrationHandler = MauticSyncDataExchange::NAME): void
+    public function noteMailVotechSyncIssue(array $notifications, string $integrationHandler = MailVotechSyncDataExchange::NAME): void
     {
         foreach ($notifications as $notification) {
-            $handler = $this->handlerContainer->getHandler($integrationHandler, $notification->getMauticObject());
+            $handler = $this->handlerContainer->getHandler($integrationHandler, $notification->getMailVotechObject());
 
             $integrationDisplayName = $this->syncIntegrationsHelper->getIntegration($notification->getIntegration())->getDisplayName();
             $objectDisplayName      = $this->getObjectDisplayName($notification->getIntegration(), $notification->getIntegrationObject());

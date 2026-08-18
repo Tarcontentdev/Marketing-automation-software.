@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\PageBundle\Form\Type;
+namespace MailVotech\PageBundle\Form\Type;
 
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\PageBundle\Entity\PageRepository;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\PageBundle\Entity\PageRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\Options;

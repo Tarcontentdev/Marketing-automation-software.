@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Helper;
+namespace MailVotech\IntegrationsBundle\Helper;
 
-use Mautic\IntegrationsBundle\Event\KeysDecryptionEvent;
-use Mautic\IntegrationsBundle\Event\KeysEncryptionEvent;
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Facade\EncryptionService;
-use Mautic\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Entity\IntegrationRepository;
+use MailVotech\IntegrationsBundle\Event\KeysDecryptionEvent;
+use MailVotech\IntegrationsBundle\Event\KeysEncryptionEvent;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Facade\EncryptionService;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Entity\IntegrationRepository;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -31,7 +31,7 @@ class IntegrationsHelper
         private readonly IntegrationRepository $integrationRepository,
         private readonly EncryptionService $encryptionService,
         private readonly EventDispatcherInterface $eventDispatcher,
-        #[AutowireIterator('mautic.basic_integration')]
+        #[AutowireIterator('mailvotech.basic_integration')]
         iterable $integrations = [],
     ) {
         foreach ($integrations as $integration) {
@@ -52,7 +52,7 @@ class IntegrationsHelper
     public function getIntegration(string $integration)
     {
         if (!isset($this->integrations[$integration])) {
-            throw new IntegrationNotFoundException("{$integration} either doesn't exist or has not been tagged with mautic.basic_integration");
+            throw new IntegrationNotFoundException("{$integration} either doesn't exist or has not been tagged with mailvotech.basic_integration");
         }
 
         // Ensure the configuration is hydrated

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Form\Type;
+namespace MailVotech\NotificationBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\EntityLookupType;
+use MailVotech\CoreBundle\Form\Type\EntityLookupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,8 +18,8 @@ final class NotificationListType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'modal_route'         => 'mautic_notification_action',
-                'modal_header'        => 'mautic.notification.header.new',
+                'modal_route'         => 'mailvotech_notification_action',
+                'modal_header'        => 'mailvotech.notification.header.new',
                 'model'               => 'notification',
                 'model_lookup_method' => 'getLookupResults',
                 'lookup_arguments'    => fn (Options $options): array => [

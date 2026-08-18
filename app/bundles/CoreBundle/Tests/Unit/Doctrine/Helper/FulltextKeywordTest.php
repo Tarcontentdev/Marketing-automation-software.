@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Doctrine\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Doctrine\Helper;
 
-use Mautic\CoreBundle\Doctrine\Helper\FulltextKeyword;
+use MailVotech\CoreBundle\Doctrine\Helper\FulltextKeyword;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\PluginBundle\Command;
+namespace MailVotech\PluginBundle\Command;
 
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PluginBundle\Integration\UnifiedIntegrationInterface;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Integration\UnifiedIntegrationInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,10 +12,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
-    name: 'mautic:integration:fetchleads',
+    name: 'mailvotech:integration:fetchleads',
     description: 'Fetch leads from integration.',
     aliases: [
-        'mautic:integration:synccontacts',
+        'mailvotech:integration:synccontacts',
     ]
 )]
 final class FetchLeadsCommand extends Command
@@ -104,18 +104,18 @@ final class FetchLeadsCommand extends Command
         $integrationObject = $this->integrationHelper->getIntegrationObject($integration);
 
         if (!$integrationObject->isAuthorized()) {
-            $output->writeln(sprintf('<error>ERROR:</error> <info>'.$this->translator->trans('mautic.plugin.command.notauthorized').'</info>', $integration));
+            $output->writeln(sprintf('<error>ERROR:</error> <info>'.$this->translator->trans('mailvotech.plugin.command.notauthorized').'</info>', $integration));
 
             return 255;
         }
 
         // Tell audit log to use integration name
-        define('MAUTIC_AUDITLOG_USER', $integration);
+        define('MAILVOTECH_AUDITLOG_USER', $integration);
 
         $config            = $integrationObject->mergeConfigToFeatureSettings();
         $supportedFeatures = $integrationObject->getIntegrationSettings()->getSupportedFeatures();
 
-        defined('MAUTIC_CONSOLE_VERBOSITY') || define('MAUTIC_CONSOLE_VERBOSITY', $output->getVerbosity());
+        defined('MAILVOTECH_CONSOLE_VERBOSITY') || define('MAILVOTECH_CONSOLE_VERBOSITY', $output->getVerbosity());
 
         if (!isset($config['objects'])) {
             $config['objects'] = [];
@@ -130,12 +130,12 @@ final class FetchLeadsCommand extends Command
         $integrationObject->setCommandParameters($params);
 
         // set this constant to ensure that all contacts have the same date modified time and date synced time to prevent a pull/push loop
-        define('MAUTIC_DATE_MODIFIED_OVERRIDE', time());
+        define('MAILVOTECH_DATE_MODIFIED_OVERRIDE', time());
 
         if (isset($supportedFeatures) && in_array('get_leads', $supportedFeatures)) {
             if (null !== $integrationObject && method_exists($integrationObject, 'getLeads') && isset($config['objects'])) {
-                $output->writeln('<info>'.$this->translator->trans('mautic.plugin.command.fetch.leads', ['%integration%' => $integration]).'</info>');
-                $output->writeln('<comment>'.$this->translator->trans('mautic.plugin.command.fetch.leads.starting').'</comment>');
+                $output->writeln('<info>'.$this->translator->trans('mailvotech.plugin.command.fetch.leads', ['%integration%' => $integration]).'</info>');
+                $output->writeln('<comment>'.$this->translator->trans('mailvotech.plugin.command.fetch.leads.starting').'</comment>');
 
                 // Handle case when integration object are named "Contacts" and "Leads"
                 $leadObjectName = 'Lead';
@@ -161,7 +161,7 @@ final class FetchLeadsCommand extends Command
                 }
                 if (in_array(strtolower($contactObjectName), array_map(strtolower(...), $config['objects']), true)) {
                     $output->writeln('');
-                    $output->writeln('<comment>'.$this->translator->trans('mautic.plugin.command.fetch.contacts.starting').'</comment>');
+                    $output->writeln('<comment>'.$this->translator->trans('mailvotech.plugin.command.fetch.contacts.starting').'</comment>');
                     $contactList = [];
                     $results     = $integrationObject->getLeads($params, null, $contactsExecuted, $contactList, $contactObjectName);
                     if (is_array($results)) {
@@ -177,13 +177,13 @@ final class FetchLeadsCommand extends Command
 
                 if ($processed) {
                     $output->writeln(
-                        '<comment>'.$this->translator->trans('mautic.plugin.command.fetch.leads.events_executed', ['%events%' => $processed])
+                        '<comment>'.$this->translator->trans('mailvotech.plugin.command.fetch.leads.events_executed', ['%events%' => $processed])
                         .'</comment>'."\n"
                     );
                 } else {
                     $output->writeln(
                         '<comment>'.$this->translator->trans(
-                            'mautic.plugin.command.fetch.leads.events_executed_breakout',
+                            'mailvotech.plugin.command.fetch.leads.events_executed_breakout',
                             ['%updated%' => $updated, '%created%' => $created]
                         )
                         .'</comment>'."\n"
@@ -198,8 +198,8 @@ final class FetchLeadsCommand extends Command
                 )
             ) {
                 $updated = $created = $processed = 0;
-                $output->writeln('<info>'.$this->translator->trans('mautic.plugin.command.fetch.companies', ['%integration%' => $integration]).'</info>');
-                $output->writeln('<comment>'.$this->translator->trans('mautic.plugin.command.fetch.companies.starting').'</comment>');
+                $output->writeln('<info>'.$this->translator->trans('mailvotech.plugin.command.fetch.companies', ['%integration%' => $integration]).'</info>');
+                $output->writeln('<comment>'.$this->translator->trans('mailvotech.plugin.command.fetch.companies.starting').'</comment>');
 
                 $results = $integrationObject->getCompanies($params);
                 if (is_array($results)) {
@@ -212,13 +212,13 @@ final class FetchLeadsCommand extends Command
                 $output->writeln('');
                 if ($processed) {
                     $output->writeln(
-                        '<comment>'.$this->translator->trans('mautic.plugin.command.fetch.companies.events_executed', ['%events%' => $processed])
+                        '<comment>'.$this->translator->trans('mailvotech.plugin.command.fetch.companies.events_executed', ['%events%' => $processed])
                         .'</comment>'."\n"
                     );
                 } else {
                     $output->writeln(
                         '<comment>'.$this->translator->trans(
-                            'mautic.plugin.command.fetch.companies.events_executed_breakout',
+                            'mailvotech.plugin.command.fetch.companies.events_executed_breakout',
                             ['%updated%' => $updated, '%created%' => $created]
                         )
                         .'</comment>'."\n"
@@ -228,7 +228,7 @@ final class FetchLeadsCommand extends Command
         }
 
         if (isset($supportedFeatures) && in_array('push_leads', $supportedFeatures) && method_exists($integrationObject, 'pushLeads')) {
-            $output->writeln('<info>'.$this->translator->trans('mautic.plugin.command.pushing.leads', ['%integration%' => $integration]).'</info>');
+            $output->writeln('<info>'.$this->translator->trans('mailvotech.plugin.command.pushing.leads', ['%integration%' => $integration]).'</info>');
             $result  = $integrationObject->pushLeads($params);
             $ignored = 0;
 
@@ -242,7 +242,7 @@ final class FetchLeadsCommand extends Command
             }
             $output->writeln(
                 '<comment>'.$this->translator->trans(
-                    'mautic.plugin.command.fetch.pushing.leads.events_executed',
+                    'mailvotech.plugin.command.fetch.pushing.leads.events_executed',
                     [
                         '%updated%' => $updated,
                         '%created%' => $created,
@@ -254,7 +254,7 @@ final class FetchLeadsCommand extends Command
             );
 
             if (in_array('push_companies', $supportedFeatures) && method_exists($integrationObject, 'pushCompanies')) {
-                $output->writeln('<info>'.$this->translator->trans('mautic.plugin.command.pushing.companies', ['%integration%' => $integration]).'</info>');
+                $output->writeln('<info>'.$this->translator->trans('mailvotech.plugin.command.pushing.companies', ['%integration%' => $integration]).'</info>');
                 $result  = $integrationObject->pushCompanies($params);
                 $ignored = 0;
 
@@ -268,7 +268,7 @@ final class FetchLeadsCommand extends Command
                 }
                 $output->writeln(
                     '<comment>'.$this->translator->trans(
-                        'mautic.plugin.command.fetch.pushing.companies.events_executed',
+                        'mailvotech.plugin.command.fetch.pushing.companies.events_executed',
                         [
                             '%updated%' => $updated,
                             '%created%' => $created,

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Form\Type;
+namespace MailVotech\UserBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -28,7 +28,7 @@ final class UserInviteRegistrationType extends AbstractType
             'username',
             TextType::class,
             [
-                'label'      => 'mautic.core.username',
+                'label'      => 'mailvotech.core.username',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'        => 'form-control',
@@ -43,7 +43,7 @@ final class UserInviteRegistrationType extends AbstractType
             'firstName',
             TextType::class,
             [
-                'label'      => 'mautic.core.firstname',
+                'label'      => 'mailvotech.core.firstname',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => true,
@@ -54,7 +54,7 @@ final class UserInviteRegistrationType extends AbstractType
             'lastName',
             TextType::class,
             [
-                'label'      => 'mautic.core.lastname',
+                'label'      => 'mailvotech.core.lastname',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => true,
@@ -67,11 +67,11 @@ final class UserInviteRegistrationType extends AbstractType
             [
                 'first_name'    => 'password',
                 'first_options' => [
-                    'label'      => 'mautic.core.password',
+                    'label'      => 'mailvotech.core.password',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'        => 'form-control',
-                        'tooltip'      => 'mautic.user.user.form.help.passwordrequirements',
+                        'tooltip'      => 'mailvotech.user.user.form.help.passwordrequirements',
                         'preaddon'     => 'ri-lock-fill',
                         'autocomplete' => 'off',
                     ],
@@ -80,7 +80,7 @@ final class UserInviteRegistrationType extends AbstractType
                 ],
                 'second_name'    => 'confirm',
                 'second_options' => [
-                    'label'      => 'mautic.user.user.form.passwordconfirm',
+                    'label'      => 'mailvotech.user.user.form.passwordconfirm',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'        => 'form-control',
@@ -91,7 +91,7 @@ final class UserInviteRegistrationType extends AbstractType
                     'error_bubbling' => false,
                 ],
                 'type'            => PasswordType::class,
-                'invalid_message' => 'mautic.user.user.password.mismatch',
+                'invalid_message' => 'mailvotech.user.user.password.mismatch',
                 'required'        => true,
                 'error_bubbling'  => false,
             ]
@@ -102,19 +102,19 @@ final class UserInviteRegistrationType extends AbstractType
             ChoiceType::class,
             [
                 'choices'           => $this->getSupportedLanguageChoices(),
-                'label'             => 'mautic.core.language',
+                'label'             => 'mailvotech.core.language',
                 'label_attr'        => ['class' => 'control-label'],
                 'attr'              => [
                     'class' => 'form-control',
                 ],
                 'multiple'    => false,
-                'placeholder' => 'mautic.user.user.form.defaultlocale',
+                'placeholder' => 'mailvotech.user.user.form.defaultlocale',
                 'required'    => false,
             ]
         );
 
         $builder->add('buttons', FormButtonsType::class, [
-            'save_text'   => 'mautic.user.invite.register',
+            'save_text'   => 'mailvotech.user.invite.register',
             'apply_text'  => false,
             'cancel_text' => false,
         ]);

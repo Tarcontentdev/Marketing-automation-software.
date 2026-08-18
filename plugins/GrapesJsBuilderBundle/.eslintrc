@@ -14,7 +14,7 @@
     "mQuery": true,
     // "grapesjs": true,
     "Mousetrap":true,
-    "Mautic":true,
-    "mauticAjaxCsrf":true
+    "MailVotech":true,
+    "mailvotechAjaxCsrf":true
   }
 }

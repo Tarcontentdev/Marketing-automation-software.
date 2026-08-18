@@ -1,14 +1,14 @@
-<form action="{{ path('mautic_contactnote_index', {'page': page, 'leadId': lead.id, 'tmpl': 'list'}) }}" class="panel" id="note-filters" method="post">
+<form action="{{ path('mailvotech_contactnote_index', {'page': page, 'leadId': lead.id, 'tmpl': 'list'}) }}" class="panel" id="note-filters" method="post">
     <div class="form-control-icon pa-md">
         <input type="text"
                name="search"
                value="{{ search|e }}"
                id="NoteFilter"
                class="form-control bdr-w-0"
-               placeholder="{{ 'mautic.core.search.placeholder'|trans }}"
+               placeholder="{{ 'mailvotech.core.search.placeholder'|trans }}"
                data-toggle="livesearch"
                data-target="#NoteList"
-               data-action="{{ path('mautic_contactnote_index', {'leadId': lead.id, 'page': 1}) }}">
+               data-action="{{ path('mailvotech_contactnote_index', {'leadId': lead.id, 'page': 1}) }}">
         <span class="the-icon ri-search-line text-secondary"></span><!-- must below `form-control` -->
     </div>
     <input type="hidden" name="leadId" id="leadId" value="{{ lead.id|e }}" />

@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\StageBundle\Entity;
+namespace MailVotech\StageBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
@@ -30,7 +30,7 @@ final class LeadStageLogRepository extends CommonRepository
     public function updateLead(string $fromLeadId, string $toLeadId): void
     {
         $connection = $this->_em->getConnection();
-        $table      = MAUTIC_TABLE_PREFIX.LeadStageLog::TABLE_NAME;
+        $table      = MAILVOTECH_TABLE_PREFIX.LeadStageLog::TABLE_NAME;
 
         // First check to ensure the $toLead doesn't already exist
         $stageIds = $connection->createQueryBuilder()
@@ -71,7 +71,7 @@ final class LeadStageLogRepository extends CommonRepository
     public function updateStage(int $fromStageId, int $toStageId): void
     {
         $connection = $this->_em->getConnection();
-        $table      = MAUTIC_TABLE_PREFIX.LeadStageLog::TABLE_NAME;
+        $table      = MAILVOTECH_TABLE_PREFIX.LeadStageLog::TABLE_NAME;
 
         foreach ($this->getLeadIdBatchesForStage($fromStageId, $table) as $leadIds) {
             $this->deleteDuplicateStageLogs($connection, $table, $fromStageId, $toStageId, $leadIds);

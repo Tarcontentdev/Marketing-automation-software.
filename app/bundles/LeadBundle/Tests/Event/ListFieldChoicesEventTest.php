@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Event;
+namespace MailVotech\LeadBundle\Tests\Event;
 
-use Mautic\LeadBundle\Event\ListFieldChoicesEvent;
+use MailVotech\LeadBundle\Event\ListFieldChoicesEvent;
 
 final class ListFieldChoicesEventTest extends \PHPUnit\Framework\TestCase
 {

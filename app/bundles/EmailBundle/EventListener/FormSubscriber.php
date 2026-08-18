@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
 use Doctrine\ORM\ORMException;
-use Mautic\EmailBundle\Form\Type\EmailSendType;
-use Mautic\EmailBundle\Form\Type\FormSubmitActionUserEmailType;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\FormBundle\Event\FormBuilderEvent;
-use Mautic\FormBundle\Event\SubmissionEvent;
-use Mautic\FormBundle\FormEvents;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Tracker\ContactTracker;
+use MailVotech\EmailBundle\Form\Type\EmailSendType;
+use MailVotech\EmailBundle\Form\Type\FormSubmitActionUserEmailType;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\FormBundle\Event\FormBuilderEvent;
+use MailVotech\FormBundle\Event\SubmissionEvent;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class FormSubscriber implements EventSubscriberInterface
@@ -37,24 +37,24 @@ final readonly class FormSubscriber implements EventSubscriberInterface
     public function onFormBuilder(FormBuilderEvent $event): void
     {
         $event->addSubmitAction('email.send.user', [
-            'group'       => 'mautic.email.actions',
-            'label'       => 'mautic.email.form.action.sendemail.admin',
-            'description' => 'mautic.email.form.action.sendemail.admin.descr',
+            'group'       => 'mailvotech.email.actions',
+            'label'       => 'mailvotech.email.form.action.sendemail.admin',
+            'description' => 'mailvotech.email.form.action.sendemail.admin.descr',
             'formType'    => FormSubmitActionUserEmailType::class,
-            'formTheme'   => '@MauticEmail/FormTheme/FormAction/_formaction_properties_useremail_row.html.twig',
+            'formTheme'   => '@MailVotechEmail/FormTheme/FormAction/_formaction_properties_useremail_row.html.twig',
             'eventName'   => FormEvents::ON_EXECUTE_SUBMIT_ACTION,
-            'template'    => '@MauticEmail/Action/email.html.twig',
+            'template'    => '@MailVotechEmail/Action/email.html.twig',
         ]);
 
         $event->addSubmitAction('email.send.lead', [
-            'group'           => 'mautic.email.actions',
-            'label'           => 'mautic.email.form.action.sendemail.lead',
-            'description'     => 'mautic.email.form.action.sendemail.lead.descr',
+            'group'           => 'mailvotech.email.actions',
+            'label'           => 'mailvotech.email.form.action.sendemail.lead',
+            'description'     => 'mailvotech.email.form.action.sendemail.lead.descr',
             'formType'        => EmailSendType::class,
             'formTypeOptions' => ['update_select' => 'formaction_properties_email'],
-            'formTheme'       => '@MauticEmail/FormTheme/EmailSendList/emailsend_list_row.html.twig',
+            'formTheme'       => '@MailVotechEmail/FormTheme/EmailSendList/emailsend_list_row.html.twig',
             'eventName'       => FormEvents::ON_EXECUTE_SUBMIT_ACTION,
-            'template'        => '@MauticEmail/Action/email.html.twig',
+            'template'        => '@MailVotechEmail/Action/email.html.twig',
         ]);
     }
 

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Functional\Model;
+namespace MailVotech\WebhookBundle\Tests\Functional\Model;
 
 use Doctrine\Common\Collections\Order;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\WebhookBundle\Entity\Event;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Entity\WebhookQueue;
-use Mautic\WebhookBundle\Model\WebhookModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\WebhookBundle\Entity\Event;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Entity\WebhookQueue;
+use MailVotech\WebhookBundle\Model\WebhookModel;
 
-final class WebhookModelTest extends MauticMysqlTestCase
+final class WebhookModelTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -20,8 +20,8 @@ final class WebhookModelTest extends MauticMysqlTestCase
         parent::setUp();
 
         // Cleanup from previous tests
-        $this->connection->executeStatement('DELETE FROM '.MAUTIC_TABLE_PREFIX.'webhook_queue');
-        $this->connection->executeStatement('ALTER TABLE '.MAUTIC_TABLE_PREFIX.'webhook_queue AUTO_INCREMENT = 1');
+        $this->connection->executeStatement('DELETE FROM '.MAILVOTECH_TABLE_PREFIX.'webhook_queue');
+        $this->connection->executeStatement('ALTER TABLE '.MAILVOTECH_TABLE_PREFIX.'webhook_queue AUTO_INCREMENT = 1');
     }
 
     public function testEventsOrderByDirAsc(): void
@@ -77,7 +77,7 @@ final class WebhookModelTest extends MauticMysqlTestCase
 
         $event = new Event();
         $event->setWebhook($webhook);
-        $event->setEventType('mautic.email_on_send');
+        $event->setEventType('mailvotech.email_on_send');
         $this->em->persist($event);
         $this->em->flush();
 

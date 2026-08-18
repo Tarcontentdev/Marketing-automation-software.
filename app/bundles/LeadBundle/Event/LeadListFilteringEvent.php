@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
 
 /**
  * Please refer to LeadListRepository.php, inside getListFilterExprCombined method, for examples.
@@ -33,7 +33,7 @@ final class LeadListFilteringEvent extends CommonEvent
         EntityManagerInterface $entityManager,
     ) {
         $this->em              = $entityManager;
-        $this->leadsTableAlias = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.'leads');
+        $this->leadsTableAlias = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.'leads');
     }
 
     /**

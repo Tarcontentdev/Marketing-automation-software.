@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DashboardBundle\Tests\Model;
+namespace MailVotech\DashboardBundle\Tests\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CacheBundle\Cache\CacheProviderTagAwareInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\Filesystem;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\DashboardBundle\Entity\Widget;
-use Mautic\DashboardBundle\Entity\WidgetRepository;
-use Mautic\DashboardBundle\Event\WidgetDetailEvent;
-use Mautic\DashboardBundle\Factory\WidgetDetailEventFactory;
-use Mautic\DashboardBundle\Model\DashboardModel;
+use MailVotech\CacheBundle\Cache\CacheProviderTagAwareInterface;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\Filesystem;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\DashboardBundle\Entity\Widget;
+use MailVotech\DashboardBundle\Entity\WidgetRepository;
+use MailVotech\DashboardBundle\Event\WidgetDetailEvent;
+use MailVotech\DashboardBundle\Factory\WidgetDetailEventFactory;
+use MailVotech\DashboardBundle\Model\DashboardModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -131,6 +131,6 @@ final class DashboardModelTest extends TestCase
         // Pass timezone to skip userHelper->getUser()->getTimezone()
         $model->populateWidgetContent($widget, ['timezone' => 'UTC']);
 
-        $this->assertSame('mautic.dashboard.widget.load.failed', $widget->getErrorMessage());
+        $this->assertSame('mailvotech.dashboard.widget.load.failed', $widget->getErrorMessage());
     }
 }

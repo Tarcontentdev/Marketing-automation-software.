@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Fixtures\Model;
+namespace MailVotech\LeadBundle\Tests\Fixtures\Model;
 
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Translation\Translator;
 
-class ImportModel extends \Mautic\LeadBundle\Model\ImportModel
+class ImportModel extends \MailVotech\LeadBundle\Model\ImportModel
 {
     public function setTranslator(Translator $translator): void
     {

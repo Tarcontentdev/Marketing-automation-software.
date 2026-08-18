@@ -1,10 +1,10 @@
-{% extends '@MauticCore/Default/content.html.twig' %}
-{% block mauticContent %}stage{% endblock %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
+{% block mailvotechContent %}stage{% endblock %}
 {% block headerTitle %}
     {% if entity.getId() %}
-        {{ 'mautic.stage.menu.edit'|trans({'%name%' : entity.getName()|trans}) }}
+        {{ 'mailvotech.stage.menu.edit'|trans({'%name%' : entity.getName()|trans}) }}
     {% else %}
-        {% trans %}mautic.stage.menu.new{% endtrans %}
+        {% trans %}mailvotech.stage.menu.new{% endtrans %}
     {% endif %}
 {% endblock %}
 
@@ -36,12 +36,12 @@
                          data-weights='{{ stageWeights|json_encode|escape('html_attr') }}'
                          data-weight-field-id="{{ form.weight.vars.id }}"
                          data-entity-id="{% if entity.getId() %}{{ entity.getId() }}{% endif %}">
-                        <div class="text-muted mb-xs">{{ 'mautic.stage.weight.current_sequence'|trans }}</div>
+                        <div class="text-muted mb-xs">{{ 'mailvotech.stage.weight.current_sequence'|trans }}</div>
                         <table class="table table-condensed mb-0">
                             <thead>
                                 <tr>
-                                    <th>{{ 'mautic.stage.stage'|trans }}</th>
-                                    <th>{{ 'mautic.stage.action.weight'|trans }}</th>
+                                    <th>{{ 'mailvotech.stage.stage'|trans }}</th>
+                                    <th>{{ 'mailvotech.stage.action.weight'|trans }}</th>
                                 </tr>
                             </thead>
                             <tbody>

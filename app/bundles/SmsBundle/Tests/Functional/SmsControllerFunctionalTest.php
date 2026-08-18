@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\Functional;
+namespace MailVotech\SmsBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Entity\TranslationEntityInterface;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\SmsBundle\Entity\Sms;
+use MailVotech\CoreBundle\Entity\TranslationEntityInterface;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\SmsBundle\Entity\Sms;
 use Symfony\Component\HttpFoundation\Request;
 
-final class SmsControllerFunctionalTest extends MauticMysqlTestCase
+final class SmsControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     use CreateEntitiesTrait;
 

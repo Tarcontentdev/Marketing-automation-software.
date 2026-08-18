@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,17 +21,17 @@ final class MergeType extends AbstractType
             ChoiceType::class,
             [
                 'choices'           => $options['leads'],
-                'label'             => 'mautic.lead.merge.select',
+                'label'             => 'mailvotech.lead.merge.select',
                 'label_attr'        => ['class' => 'control-label'],
                 'multiple'          => false,
                 'placeholder'       => '',
                 'attr'              => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.lead.merge.select.modal.tooltip',
+                    'tooltip' => 'mailvotech.lead.merge.select.modal.tooltip',
                 ],
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -42,7 +42,7 @@ final class MergeType extends AbstractType
             FormButtonsType::class,
             [
                 'apply_text' => false,
-                'save_text'  => 'mautic.lead.merge',
+                'save_text'  => 'mailvotech.lead.merge',
                 'save_icon'  => 'ri-user-6-line',
             ]
         );

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,11 +14,11 @@ final class EmailOpenType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $defaultOptions = [
-            'label'      => 'mautic.email.open.limittoemails',
+            'label'      => 'mailvotech.email.open.limittoemails',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => [
                 'class'   => 'form-control',
-                'tooltip' => 'mautic.email.open.limittoemails_descr',
+                'tooltip' => 'mailvotech.email.open.limittoemails_descr',
             ],
             'required'   => false,
             'email_type' => null,

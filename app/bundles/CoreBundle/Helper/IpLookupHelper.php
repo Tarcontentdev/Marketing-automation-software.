@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Entity\IpAddressRepository;
-use Mautic\CoreBundle\IpLookup\AbstractLookup;
-use Mautic\LeadBundle\Tracker\Factory\DeviceDetectorFactory\DeviceDetectorFactoryInterface;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Entity\IpAddressRepository;
+use MailVotech\CoreBundle\IpLookup\AbstractLookup;
+use MailVotech\LeadBundle\Tracker\Factory\DeviceDetectorFactory\DeviceDetectorFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 

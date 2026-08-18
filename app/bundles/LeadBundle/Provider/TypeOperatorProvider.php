@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Provider;
+namespace MailVotech\LeadBundle\Provider;
 
-use Mautic\LeadBundle\Entity\OperatorListTrait;
-use Mautic\LeadBundle\Event\FieldOperatorsEvent;
-use Mautic\LeadBundle\Event\TypeOperatorsEvent;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Entity\OperatorListTrait;
+use MailVotech\LeadBundle\Event\FieldOperatorsEvent;
+use MailVotech\LeadBundle\Event\TypeOperatorsEvent;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class TypeOperatorProvider implements TypeOperatorProviderInterface

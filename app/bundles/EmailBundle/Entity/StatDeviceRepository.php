@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\EmailBundle\Entity;
+namespace MailVotech\EmailBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 
 /**
  * @extends CommonRepository<StatDevice>
@@ -16,9 +16,9 @@ class StatDeviceRepository extends CommonRepository
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $qb->select('count(es.id) as count, d.device as device, es.list_id')
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats_devices', 'ed')
-            ->join('ed', MAUTIC_TABLE_PREFIX.'lead_devices', 'd', 'd.id = ed.device_id')
-            ->join('ed', MAUTIC_TABLE_PREFIX.'email_stats', 'es', 'es.id = ed.stat_id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats_devices', 'ed')
+            ->join('ed', MAILVOTECH_TABLE_PREFIX.'lead_devices', 'd', 'd.id = ed.device_id')
+            ->join('ed', MAILVOTECH_TABLE_PREFIX.'email_stats', 'es', 'es.id = ed.stat_id');
         if (null != $emailIds) {
             if (!is_array($emailIds)) {
                 $emailIds = [(int) $emailIds];

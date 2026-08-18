@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
-use Mautic\DashboardBundle\Event\WidgetDetailEvent;
-use Mautic\DashboardBundle\EventListener\DashboardSubscriber as MainDashboardSubscriber;
-use Mautic\LeadBundle\Form\Type\DashboardLeadsInTimeWidgetType;
-use Mautic\LeadBundle\Form\Type\DashboardLeadsLifetimeWidgetType;
-use Mautic\LeadBundle\Form\Type\DashboardSegmentsBuildTime;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\DashboardBundle\Event\WidgetDetailEvent;
+use MailVotech\DashboardBundle\EventListener\DashboardSubscriber as MainDashboardSubscriber;
+use MailVotech\LeadBundle\Form\Type\DashboardLeadsInTimeWidgetType;
+use MailVotech\LeadBundle\Form\Type\DashboardLeadsLifetimeWidgetType;
+use MailVotech\LeadBundle\Form\Type\DashboardSegmentsBuildTime;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -95,7 +95,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
                 ]);
             }
 
-            $event->setTemplate('@MauticCore/Helper/chart.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/chart.html.twig');
             $event->stopPropagation();
 
             return;
@@ -111,7 +111,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
                 ]);
             }
 
-            $event->setTemplate('@MauticCore/Helper/chart.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/chart.html.twig');
             $event->stopPropagation();
 
             return;
@@ -126,7 +126,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
                 ]);
             }
 
-            $event->setTemplate('@MauticCore/Helper/map.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/map.html.twig');
             $event->stopPropagation();
 
             return;
@@ -148,8 +148,8 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
                 // Build table rows with links
                 foreach ($lists as &$list) {
-                    $listUrl    = $this->router->generate('mautic_segment_action', ['objectAction' => 'edit', 'objectId' => $list['id']]);
-                    $contactUrl = $this->router->generate('mautic_contact_index', ['search' => 'segment:'.$list['alias']]);
+                    $listUrl    = $this->router->generate('mailvotech_segment_action', ['objectAction' => 'edit', 'objectId' => $list['id']]);
+                    $contactUrl = $this->router->generate('mailvotech_contact_index', ['search' => 'segment:'.$list['alias']]);
                     $row        = [
                         [
                             'value' => $list['name'],
@@ -167,15 +167,15 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
                 $event->setTemplateData([
                     'headItems' => [
-                        'mautic.dashboard.label.title',
-                        'mautic.lead.leads',
+                        'mailvotech.dashboard.label.title',
+                        'mailvotech.lead.leads',
                     ],
                     'bodyItems' => $items,
                     'raw'       => $lists,
                 ]);
             }
 
-            $event->setTemplate('@MauticCore/Helper/table.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/table.html.twig');
             $event->stopPropagation();
 
             return;
@@ -206,7 +206,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
                 $lists[] = [
                     'leads' => 0,
                     'id'    => 0,
-                    'name'  => $event->getTranslator()->trans('mautic.lead.all.leads'),
+                    'name'  => $event->getTranslator()->trans('mailvotech.lead.all.leads'),
                     'alias' => '',
                 ];
             }
@@ -217,9 +217,9 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
             foreach ($lists as &$list) {
                 if ('' != $list['alias']) {
-                    $listUrl = $this->router->generate('mautic_contact_index', ['search' => 'segment:'.$list['alias']]);
+                    $listUrl = $this->router->generate('mailvotech_contact_index', ['search' => 'segment:'.$list['alias']]);
                 } else {
-                    $listUrl = $this->router->generate('mautic_contact_index', []);
+                    $listUrl = $this->router->generate('mailvotech_contact_index', []);
                 }
                 if ($list['id']) {
                     $params['filter']['leadlist_id'] = [
@@ -275,7 +275,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
                 'stages'      => $stages,
                 'devices'     => $deviceGranularity,
             ]);
-            $event->setTemplate('@MauticCore/Helper/lifecycle.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/lifecycle.html.twig');
             $event->stopPropagation();
 
             return;
@@ -283,7 +283,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
         if ('top.owners' == $event->getType()) {
             if (!$canViewOthers) {
-                $event->setErrorMessage($this->translator->trans('mautic.dashboard.missing.permission', ['%section%' => $this->bundle]));
+                $event->setErrorMessage($this->translator->trans('mailvotech.dashboard.missing.permission', ['%section%' => $this->bundle]));
                 $event->stopPropagation();
 
                 return;
@@ -304,7 +304,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
                 // Build table rows with links
                 foreach ($owners as &$owner) {
-                    $ownerUrl = $this->router->generate('mautic_user_action', ['objectAction' => 'edit', 'objectId' => $owner['owner_id']]);
+                    $ownerUrl = $this->router->generate('mailvotech_user_action', ['objectAction' => 'edit', 'objectId' => $owner['owner_id']]);
                     $row      = [
                         [
                             'value' => $owner['first_name'].' '.$owner['last_name'],
@@ -320,15 +320,15 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
                 $event->setTemplateData([
                     'headItems' => [
-                        'mautic.user.account.permissions.editname',
-                        'mautic.lead.leads',
+                        'mailvotech.user.account.permissions.editname',
+                        'mailvotech.lead.leads',
                     ],
                     'bodyItems' => $items,
                     'raw'       => $owners,
                 ]);
             }
 
-            $event->setTemplate('@MauticCore/Helper/table.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/table.html.twig');
             $event->stopPropagation();
 
             return;
@@ -336,7 +336,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
         if ('top.creators' == $event->getType()) {
             if (!$canViewOthers) {
-                $event->setErrorMessage($this->translator->trans('mautic.dashboard.missing.permission', ['%section%' => $this->bundle]));
+                $event->setErrorMessage($this->translator->trans('mailvotech.dashboard.missing.permission', ['%section%' => $this->bundle]));
                 $event->stopPropagation();
 
                 return;
@@ -357,7 +357,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
                 // Build table rows with links
                 foreach ($creators as &$creator) {
-                    $creatorUrl = $this->router->generate('mautic_user_action', ['objectAction' => 'edit', 'objectId' => $creator['created_by']]);
+                    $creatorUrl = $this->router->generate('mailvotech_user_action', ['objectAction' => 'edit', 'objectId' => $creator['created_by']]);
                     $row        = [
                         [
                             'value' => $creator['created_by_user'],
@@ -373,15 +373,15 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
                 $event->setTemplateData([
                     'headItems' => [
-                        'mautic.user.account.permissions.editname',
-                        'mautic.lead.leads',
+                        'mailvotech.user.account.permissions.editname',
+                        'mailvotech.lead.leads',
                     ],
                     'bodyItems' => $items,
                     'raw'       => $creators,
                 ]);
             }
 
-            $event->setTemplate('@MauticCore/Helper/table.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/table.html.twig');
             $event->stopPropagation();
 
             return;
@@ -403,13 +403,13 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
                 if ([] === $leads) {
                     $leads[] = [
-                        'name' => $this->translator->trans('mautic.report.report.noresults'),
+                        'name' => $this->translator->trans('mailvotech.report.report.noresults'),
                     ];
                 }
 
                 // Build table rows with links
                 foreach ($leads as &$lead) {
-                    $leadUrl = isset($lead['id']) ? $this->router->generate('mautic_contact_action', ['objectAction' => 'view', 'objectId' => $lead['id']]) : '';
+                    $leadUrl = isset($lead['id']) ? $this->router->generate('mailvotech_contact_action', ['objectAction' => 'view', 'objectId' => $lead['id']]) : '';
                     $type    = isset($lead['id']) ? 'link' : 'text';
                     $row     = [
                         [
@@ -423,14 +423,14 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
                 $event->setTemplateData([
                     'headItems' => [
-                        'mautic.dashboard.label.title',
+                        'mailvotech.dashboard.label.title',
                     ],
                     'bodyItems' => $items,
                     'raw'       => $leads,
                 ]);
             }
 
-            $event->setTemplate('@MauticCore/Helper/table.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/table.html.twig');
             $event->stopPropagation();
 
             return;
@@ -452,7 +452,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
                 // Build table rows with links
                 foreach ($segments as $segment) {
-                    $listUrl    = $this->router->generate('mautic_segment_action', ['objectAction' => 'view', 'objectId' => $segment->getId()]);
+                    $listUrl    = $this->router->generate('mailvotech_segment_action', ['objectAction' => 'view', 'objectId' => $segment->getId()]);
                     $buildTime  = explode(':', gmdate('H:i:s', (int) $segment->getLastBuiltTime()));
                     $timeString = $this->dateHelper->formatRange(
                         new \DateInterval("PT{$buildTime[0]}H{$buildTime[1]}M{$buildTime[2]}S")
@@ -476,16 +476,16 @@ final class DashboardSubscriber extends MainDashboardSubscriber
 
                 $event->setTemplateData([
                     'headItems' => [
-                        'mautic.dashboard.label.title',
-                        'mautic.core.createdby',
-                        'mautic.lead.list.last_built_time',
+                        'mailvotech.dashboard.label.title',
+                        'mailvotech.core.createdby',
+                        'mailvotech.lead.list.last_built_time',
                     ],
                     'bodyItems' => $items,
                     'raw'       => $segments,
                 ]);
             }
 
-            $event->setTemplate('@MauticCore/Helper/table.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/table.html.twig');
             $event->stopPropagation();
 
             return;

@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
 use Doctrine\ORM\QueryBuilder;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\LeadBundle\Event\CompanyBuildSearchEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\ProjectBundle\Entity\ProjectRepositoryTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\LeadBundle\Event\CompanyBuildSearchEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\ProjectBundle\Entity\ProjectRepositoryTrait;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -96,7 +96,7 @@ class CompanyRepository extends CommonRepository implements CustomFieldRepositor
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
-        return $q->from(MAUTIC_TABLE_PREFIX.'companies', $this->getTableAlias())
+        return $q->from(MAILVOTECH_TABLE_PREFIX.'companies', $this->getTableAlias())
             ->andWhere($q->expr()->isNull($this->getTableAlias().'.deleted'));
     }
 
@@ -131,8 +131,8 @@ class CompanyRepository extends CommonRepository implements CustomFieldRepositor
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $q->select('comp.*, cl.is_primary')
-            ->from(MAUTIC_TABLE_PREFIX.'companies', 'comp')
-            ->leftJoin('comp', MAUTIC_TABLE_PREFIX.'companies_leads', 'cl', 'cl.company_id = comp.id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies', 'comp')
+            ->leftJoin('comp', MAILVOTECH_TABLE_PREFIX.'companies_leads', 'cl', 'cl.company_id = comp.id')
             ->where('cl.lead_id = :leadId')
             ->setParameter('leadId', $leadId)
             ->andWhere($q->expr()->isNull('comp.deleted'))
@@ -178,8 +178,8 @@ class CompanyRepository extends CommonRepository implements CustomFieldRepositor
         $command                 = $filter->command;
 
         if (in_array($command, [
-            $this->translator->trans('mautic.project.searchcommand.name'),
-            $this->translator->trans('mautic.project.searchcommand.name', [], null, 'en_US'),
+            $this->translator->trans('mailvotech.project.searchcommand.name'),
+            $this->translator->trans('mailvotech.project.searchcommand.name', [], null, 'en_US'),
         ])) {
             return $this->handleProjectFilter(
                 $this->_em->getConnection()->createQueryBuilder(),
@@ -222,7 +222,7 @@ class CompanyRepository extends CommonRepository implements CustomFieldRepositor
      */
     public function getSearchCommands(): array
     {
-        $commands = array_merge(['mautic.project.searchcommand.name'], $this->getStandardSearchCommands());
+        $commands = array_merge(['mailvotech.project.searchcommand.name'], $this->getStandardSearchCommands());
         if ([] !== $this->availableSearchFields) {
             $commands = array_merge($commands, $this->availableSearchFields);
         }
@@ -251,8 +251,8 @@ class CompanyRepository extends CommonRepository implements CustomFieldRepositor
         }
 
         $q->select('comp.*, cl.is_primary')
-            ->from(MAUTIC_TABLE_PREFIX.'companies', 'comp')
-            ->leftJoin('comp', MAUTIC_TABLE_PREFIX.'companies_leads', 'cl', 'cl.company_id = comp.id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies', 'comp')
+            ->leftJoin('comp', MAILVOTECH_TABLE_PREFIX.'companies_leads', 'cl', 'cl.company_id = comp.id');
 
         if (!empty($id)) {
             $q->where(
@@ -285,7 +285,7 @@ class CompanyRepository extends CommonRepository implements CustomFieldRepositor
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('count(cl.lead_id) as thecount, cl.company_id')
-            ->from(MAUTIC_TABLE_PREFIX.'companies_leads', 'cl');
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies_leads', 'cl');
 
         $returnArray = is_array($companyIds);
 
@@ -327,7 +327,7 @@ class CompanyRepository extends CommonRepository implements CustomFieldRepositor
             return [];
         }
         $q->select('comp.id, comp.companyname, comp.companycity, comp.companycountry, comp.companystate')
-            ->from(MAUTIC_TABLE_PREFIX.'companies', 'comp');
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies', 'comp');
 
         $q->where(
             $q->expr()->eq('comp.companyname', ':companyName')
@@ -362,8 +362,8 @@ class CompanyRepository extends CommonRepository implements CustomFieldRepositor
 
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $qb->select('c.*, l.lead_id, l.is_primary')
-            ->from(MAUTIC_TABLE_PREFIX.'companies', 'c')
-            ->join('c', MAUTIC_TABLE_PREFIX.'companies_leads', 'l', 'l.company_id = c.id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies', 'c')
+            ->join('c', MAILVOTECH_TABLE_PREFIX.'companies_leads', 'l', 'l.company_id = c.id')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->in('l.lead_id', ':leadIds')
@@ -516,7 +516,7 @@ class CompanyRepository extends CommonRepository implements CustomFieldRepositor
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select($select)
-            ->from(MAUTIC_TABLE_PREFIX.'companies', 'c');
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies', 'c');
 
         // loop through the fields and
         foreach ($uniqueFieldsWithData as $col => $val) {
@@ -584,7 +584,7 @@ class CompanyRepository extends CommonRepository implements CustomFieldRepositor
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('id, companyname, companycity, companystate')
-            ->from(MAUTIC_TABLE_PREFIX.Company::TABLE_NAME)
+            ->from(MAILVOTECH_TABLE_PREFIX.Company::TABLE_NAME)
             ->where($q->expr()->eq('is_published', true))
             ->andWhere($q->expr()->like('companyname', ':filterVar'))
             ->setParameter('filterVar', '%'.$filterVal.'%')

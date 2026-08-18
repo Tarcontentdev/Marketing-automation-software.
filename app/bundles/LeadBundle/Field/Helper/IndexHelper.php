@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field\Helper;
+namespace MailVotech\LeadBundle\Field\Helper;
 
 use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Lead;
 
 /**
  * Helper for getting and counting indexes on lead table.

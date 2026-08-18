@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Executioner\Dispatcher;
+namespace MailVotech\CampaignBundle\Tests\Executioner\Dispatcher;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\ConditionEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ConditionAccessor;
-use Mautic\CampaignBundle\Executioner\Dispatcher\ConditionDispatcher;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\ConditionEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ConditionAccessor;
+use MailVotech\CampaignBundle\Executioner\Dispatcher\ConditionDispatcher;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

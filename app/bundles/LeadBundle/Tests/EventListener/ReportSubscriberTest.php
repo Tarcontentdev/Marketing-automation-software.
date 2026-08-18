@@ -2,32 +2,32 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CampaignBundle\EventCollector\EventCollector;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Form\Type\EmailClickDecisionType;
-use Mautic\EmailBundle\Form\Type\EmailSendType;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Entity\PointsChangeLogRepository;
-use Mautic\LeadBundle\EventListener\ReportSubscriber;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Report\DncReportService;
-use Mautic\LeadBundle\Report\FieldsBuilder;
-use Mautic\ReportBundle\Event\ColumnCollectEvent;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportDataEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\Event\ReportGraphEvent;
-use Mautic\ReportBundle\Helper\ReportHelper;
-use Mautic\StageBundle\Model\StageModel;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CampaignBundle\EventCollector\EventCollector;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Form\Type\EmailClickDecisionType;
+use MailVotech\EmailBundle\Form\Type\EmailSendType;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Entity\PointsChangeLogRepository;
+use MailVotech\LeadBundle\EventListener\ReportSubscriber;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Report\DncReportService;
+use MailVotech\LeadBundle\Report\FieldsBuilder;
+use MailVotech\ReportBundle\Event\ColumnCollectEvent;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportDataEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\Event\ReportGraphEvent;
+use MailVotech\ReportBundle\Helper\ReportHelper;
+use MailVotech\StageBundle\Model\StageModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -232,13 +232,13 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
                         'email.send' => [
                             'label'           => 'Send email',
                             'description'     => 'Send the selected email to the contact.',
-                            'batchEventName'  => 'mautic.email.on_campaign_batch_action',
+                            'batchEventName'  => 'mailvotech.email.on_campaign_batch_action',
                             'formType'        => EmailSendType::class,
                             'formTypeOptions' => [
                                 'update_select'    => 'campaignevent_properties_email',
                                 'with_email_types' => true,
                             ],
-                            'formTheme'      => "MauticEmailBundle:FormTheme\EmailSendList",
+                            'formTheme'      => "MailVotechEmailBundle:FormTheme\EmailSendList",
                             'channel'        => 'email',
                             'channelIdField' => 'email',
                         ],
@@ -247,7 +247,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
                         'email.click' => [
                             'label'                  => 'Clicks email',
                             'description'            => 'Trigger actions when an email is clicked. Connect a Send Email action to the top of this decision.',
-                            'eventName'              => 'mautic.email.on_campaign_trigger_decision',
+                            'eventName'              => 'mailvotech.email.on_campaign_trigger_decision',
                             'formType'               => EmailClickDecisionType::class,
                             'connectionRestrictions' => [
                                 'source' => [
@@ -385,7 +385,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
 
         $expected = [
             'leads' => [
-                'display_name' => 'mautic.lead.leads',
+                'display_name' => 'mailvotech.lead.leads',
                 'columns'      => [
                     'xx.yy' => [
                         'label' => '',
@@ -429,12 +429,12 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
                     'alias'   => 'stage_date_added',
                     'label'   => null,
                     'type'    => 'string',
-                    'formula' => sprintf('(SELECT MAX(stage_log.date_added) FROM %slead_stages_change_log stage_log WHERE stage_log.stage_id = l.stage_id AND stage_log.lead_id = l.id)', MAUTIC_TABLE_PREFIX),
+                    'formula' => sprintf('(SELECT MAX(stage_log.date_added) FROM %slead_stages_change_log stage_log WHERE stage_log.stage_id = l.stage_id AND stage_log.lead_id = l.id)', MAILVOTECH_TABLE_PREFIX),
                 ];
                 break;
             case 'contact.frequencyrules':
                 $expected['contact.frequencyrules'] = [
-                    'display_name' => 'mautic.lead.report.frequency.messages',
+                    'display_name' => 'mailvotech.lead.report.frequency.messages',
                     'columns'      => [
                         'xx.yy' => [
                             'label' => '',
@@ -536,7 +536,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
                 break;
             case 'lead.pointlog':
                 $expected['lead.pointlog'] = [
-                    'display_name' => 'mautic.lead.report.points.table',
+                    'display_name' => 'mailvotech.lead.report.points.table',
                     'columns'      => [
                         'xx.yy' => [
                             'label' => '',
@@ -654,7 +654,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
             case 'contact.attribution.first':
             case 'contact.attribution.last':
             case 'contact.attribution.multi':
-                $displayName      = 'mautic.lead.report.attribution.'.explode('.', $event)[2];
+                $displayName      = 'mailvotech.lead.report.attribution.'.explode('.', $event)[2];
                 $expected[$event] = [
                     'display_name' => $displayName,
                     'columns'      => [
@@ -681,7 +681,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
                         'log.campaign_id' => [
                             'label' => '',
                             'type'  => 'int',
-                            'link'  => 'mautic_campaign_action',
+                            'link'  => 'mailvotech_campaign_action',
                             'alias' => 'campaign_id',
                         ],
                         'log.date_triggered' => [
@@ -803,7 +803,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
             case 'companies':
                 unset($expected['leads']);
                 $expected['companies'] = [
-                    'display_name' => 'mautic.lead.lead.companies',
+                    'display_name' => 'mailvotech.lead.lead.companies',
                     'columns'      => [
                         'comp.name' => [
                             'label' => '',
@@ -869,13 +869,13 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
         $this->reportGraphEventMock->expects($this->once())
             ->method('getRequestedGraphs')
             ->willReturn([
-                'mautic.lead.graph.line.leads',
-                'mautic.lead.table.top.actions',
-                'mautic.lead.table.top.cities',
-                'mautic.lead.table.top.countries',
-                'mautic.lead.table.top.events',
-                'mautic.lead.graph.line.points',
-                'mautic.lead.table.most.points',
+                'mailvotech.lead.graph.line.leads',
+                'mailvotech.lead.table.top.actions',
+                'mailvotech.lead.table.top.cities',
+                'mailvotech.lead.table.top.countries',
+                'mailvotech.lead.table.top.events',
+                'mailvotech.lead.graph.line.points',
+                'mailvotech.lead.table.most.points',
             ]);
 
         $this->leadModelMock->expects($this->once())
@@ -952,12 +952,12 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
         ->method('getCategoryColumns')
         ->willReturn([
             'c.id' => [
-                'label' => 'mautic.report.field.category_id',
+                'label' => 'mailvotech.report.field.category_id',
                 'type'  => 'int',
                 'alias' => 'category_id',
             ],
             'c.title' => [
-                'label' => 'mautic.report.field.category_name',
+                'label' => 'mailvotech.report.field.category_name',
                 'type'  => 'string',
                 'alias' => 'category_title',
             ],
@@ -967,7 +967,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
         ->willReturn(
             [
                 'i.ip_address' => [
-                    'label' => 'mautic.core.ipaddress',
+                    'label' => 'mailvotech.core.ipaddress',
                     'type'  => 'string',
                 ],
             ]
@@ -997,16 +997,16 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
         $companyFields  = [
             'comp.id'   => [
                 'alias' => 'comp_id',
-                'label' => 'mautic.lead.report.company.company_id',
+                'label' => 'mailvotech.lead.report.company.company_id',
                 'type'  => 'int',
-                'link'  => 'mautic_company_action',
+                'link'  => 'mailvotech_company_action',
             ],
             'companies_lead.is_primary' => [
-                'label' => 'mautic.lead.report.company.is_primary',
+                'label' => 'mailvotech.lead.report.company.is_primary',
                 'type'  => 'bool',
             ],
             'companies_lead.date_added' => [
-                'label' => 'mautic.lead.report.company.date_added',
+                'label' => 'mailvotech.lead.report.company.date_added',
                 'type'  => 'datetime',
             ],
         ];
@@ -1014,9 +1014,9 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
         $columns        = [
             'comp.id'   => [
                 'alias' => 'comp_id',
-                'label' => 'mautic.lead.report.company.company_id',
+                'label' => 'mailvotech.lead.report.company.company_id',
                 'type'  => 'int',
-                'link'  => 'mautic_company_action',
+                'link'  => 'mailvotech_company_action',
             ],
         ];
 
@@ -1058,9 +1058,9 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
                 'alias'   => 'firstname',
             ],
             'l.id'        => [
-                'label'   => 'mautic.lead.report.contact_id',
+                'label'   => 'mailvotech.lead.report.contact_id',
                 'type'    => 'int',
-                'link'    => 'mautic_contact_action',
+                'link'    => 'mailvotech_contact_action',
                 'alias'   => 'contactId',
             ],
         ];

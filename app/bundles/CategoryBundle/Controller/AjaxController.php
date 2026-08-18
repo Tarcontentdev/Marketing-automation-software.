@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CategoryBundle\Controller;
+namespace MailVotech\CategoryBundle\Controller;
 
-use Mautic\CategoryBundle\Model\CategoryModel;
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\CoreBundle\Helper\InputHelper;
+use MailVotech\CategoryBundle\Model\CategoryModel;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\CoreBundle\Helper\InputHelper;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Service\Attribute\Required;

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Event;
+namespace MailVotech\CampaignBundle\Event;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CoreBundle\Event\CommonEvent;
 
 final class CampaignEvent extends CommonEvent
 {

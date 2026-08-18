@@ -1,41 +1,41 @@
 <?php
 
 use Doctrine\DBAL\Types\Types;
-use Mautic\CoreBundle\Doctrine\Type;
-use Mautic\CoreBundle\EventListener\ConsoleErrorListener;
-use Mautic\CoreBundle\EventListener\ConsoleTerminateListener;
+use MailVotech\CoreBundle\Doctrine\Type;
+use MailVotech\CoreBundle\EventListener\ConsoleErrorListener;
+use MailVotech\CoreBundle\EventListener\ConsoleTerminateListener;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /** @var Symfony\Component\DependencyInjection\ContainerBuilder $container */
 
 // Include path settings
-$root        = $container->getParameter('mautic.application_dir').'/app';
+$root        = $container->getParameter('mailvotech.application_dir').'/app';
 $projectRoot = $container->getParameter('kernel.project_dir');
 
 include __DIR__.'/paths_helper.php';
 
-// Build and store Mautic bundle metadata
+// Build and store MailVotech bundle metadata
 $symfonyBundles        = $container->getParameter('kernel.bundles');
-$bundleMetadataBuilder = new Mautic\CoreBundle\DependencyInjection\Builder\BundleMetadataBuilder($symfonyBundles, $paths);
+$bundleMetadataBuilder = new MailVotech\CoreBundle\DependencyInjection\Builder\BundleMetadataBuilder($symfonyBundles, $paths);
 
-$container->setParameter('mautic.bundles', $bundleMetadataBuilder->getCoreBundleMetadata());
-$container->setParameter('mautic.plugin.bundles', $bundleMetadataBuilder->getPluginMetadata());
+$container->setParameter('mailvotech.bundles', $bundleMetadataBuilder->getCoreBundleMetadata());
+$container->setParameter('mailvotech.plugin.bundles', $bundleMetadataBuilder->getPluginMetadata());
 
 // Set IP lookup services
-$container->setParameter('mautic.ip_lookup_services', $bundleMetadataBuilder->getIpLookupServices());
+$container->setParameter('mailvotech.ip_lookup_services', $bundleMetadataBuilder->getIpLookupServices());
 
 // Load parameters
 include __DIR__.'/parameters.php';
-$container->loadFromExtension('mautic_core');
-$parameterLoader         = new Mautic\CoreBundle\Loader\ParameterLoader();
+$container->loadFromExtension('mailvotech_core');
+$parameterLoader         = new MailVotech\CoreBundle\Loader\ParameterLoader();
 $configParameterBag      = $parameterLoader->getParameterBag();
 $localConfigParameterBag = $parameterLoader->getLocalParameterBag();
 
 // Decide on secure cookie based on site_url setting or the request if in installer
 // This cannot be set dynamically
 
-if (defined('MAUTIC_INSTALLER')) {
+if (defined('MAILVOTECH_INSTALLER')) {
     $request      = Symfony\Component\HttpFoundation\Request::createFromGlobals();
     $secureCookie = $request->isSecure();
 } else {
@@ -49,7 +49,7 @@ $container->loadFromExtension('framework', [
     ],
     'asset_mapper' => [
         'paths' => [
-            '%mautic.application_dir%/app/bundles/CoreBundle/Assets'             => '',
+            '%mailvotech.application_dir%/app/bundles/CoreBundle/Assets'             => '',
             '%kernel.project_dir%/vendor/twbs/bootstrap-sass/assets/javascripts' => 'vendor/bootstrap',
         ],
         'public_prefix'       => '/assets/build/',
@@ -71,9 +71,9 @@ $container->loadFromExtension('framework', [
             '*/app/bundles/CoreBundle/Assets/css/libraries/**/_*.scss',
         ],
     ],
-    'secret' => '%mautic.secret_key%',
+    'secret' => '%mailvotech.secret_key%',
     'router' => [
-        'resource'            => '%mautic.application_dir%/app/config/routing.php',
+        'resource'            => '%mailvotech.application_dir%/app/config/routing.php',
         'strict_requirements' => null,
     ],
     'form'            => null,
@@ -81,14 +81,14 @@ $container->loadFromExtension('framework', [
     'validation'      => [
         'enable_attributes' => true,
     ],
-    'default_locale' => '%mautic.locale%',
+    'default_locale' => '%mailvotech.locale%',
     'translator'     => [
         'enabled'  => true,
         'fallback' => 'en_US',
     ],
     'session'         => [ // handler_id set to null will use default session handler from php.ini
         'handler_id'           => null,
-        'name'                 => '%env(MAUTIC_SESSION_NAME)%',
+        'name'                 => '%env(MAILVOTECH_SESSION_NAME)%',
         'cookie_secure'        => $secureCookie,
         'cookie_samesite'      => 'lax',
     ],
@@ -96,33 +96,33 @@ $container->loadFromExtension('framework', [
     'http_method_override' => true,
     'mailer'               => [
         'transports' => [
-            'main' => '%env(urlencoded-dsn:MAUTIC_MAILER_DSN)%',
+            'main' => '%env(urlencoded-dsn:MAILVOTECH_MAILER_DSN)%',
         ],
     ],
     'messenger'            => [
         'failure_transport'  => 'failed',
         'transports'         => [
             'email' => [
-                'dsn'            => '%env(urlencoded-dsn:MAUTIC_MESSENGER_DSN_EMAIL)%',
+                'dsn'            => '%env(urlencoded-dsn:MAILVOTECH_MESSENGER_DSN_EMAIL)%',
                 'retry_strategy' => [
-                    'service' => Mautic\MessengerBundle\Retry\RetryStrategy::class,
+                    'service' => MailVotech\MessengerBundle\Retry\RetryStrategy::class,
                 ],
             ],
             'hit' => [
-                'dsn'            => '%env(urlencoded-dsn:MAUTIC_MESSENGER_DSN_HIT)%',
+                'dsn'            => '%env(urlencoded-dsn:MAILVOTECH_MESSENGER_DSN_HIT)%',
                 'retry_strategy' => [
-                    'service' => Mautic\MessengerBundle\Retry\RetryStrategy::class,
+                    'service' => MailVotech\MessengerBundle\Retry\RetryStrategy::class,
                 ],
             ],
-            'failed' => '%env(messenger-nullable:MAUTIC_MESSENGER_DSN_FAILED)%',
+            'failed' => '%env(messenger-nullable:MAILVOTECH_MESSENGER_DSN_FAILED)%',
         ],
         'routing' => [
             Symfony\Component\Mailer\Messenger\SendEmailMessage::class => 'email',
-            Mautic\MessengerBundle\Message\TestEmail::class            => 'email',
-            Mautic\MessengerBundle\Message\TestHit::class              => 'hit',
-            Mautic\MessengerBundle\Message\TestFailed::class           => 'failed',
-            Mautic\MessengerBundle\Message\PageHitNotification::class  => 'hit',
-            Mautic\MessengerBundle\Message\EmailHitNotification::class => 'hit',
+            MailVotech\MessengerBundle\Message\TestEmail::class            => 'email',
+            MailVotech\MessengerBundle\Message\TestHit::class              => 'hit',
+            MailVotech\MessengerBundle\Message\TestFailed::class           => 'failed',
+            MailVotech\MessengerBundle\Message\PageHitNotification::class  => 'hit',
+            MailVotech\MessengerBundle\Message\EmailHitNotification::class => 'hit',
         ],
     ],
 
@@ -133,7 +133,7 @@ $container->loadFromExtension('framework', [
 
 $container->loadFromExtension('symfonycasts_sass', [
     'root_sass'    => [
-        '%mautic.application_dir%/app/bundles/CoreBundle/Assets/css/app.scss',
+        '%mailvotech.application_dir%/app/bundles/CoreBundle/Assets/css/app.scss',
     ],
     'sass_options' => [
         'load_path'  => [
@@ -143,42 +143,42 @@ $container->loadFromExtension('symfonycasts_sass', [
     ],
 ]);
 
-$container->setParameter('mautic.famework.csrf_protection', true);
+$container->setParameter('mailvotech.famework.csrf_protection', true);
 
 // Doctrine Configuration
 $connectionSettings = [
-    'driver'                => '%mautic.db_driver%',
-    'host'                  => '%mautic.db_host%',
-    'port'                  => '%mautic.db_port%',
-    'dbname'                => '%mautic.db_name%',
-    'user'                  => '%mautic.db_user%',
-    'password'              => '%mautic.db_password%',
+    'driver'                => '%mailvotech.db_driver%',
+    'host'                  => '%mailvotech.db_host%',
+    'port'                  => '%mailvotech.db_port%',
+    'dbname'                => '%mailvotech.db_name%',
+    'user'                  => '%mailvotech.db_user%',
+    'password'              => '%mailvotech.db_password%',
     'charset'               => 'utf8mb4',
     'default_table_options' => [
         'charset'    => 'utf8mb4',
         'row_format' => 'DYNAMIC',
     ],
-    // Prevent Doctrine from crapping out with "unsupported type" errors due to it examining all tables in the database and not just Mautic's
+    // Prevent Doctrine from crapping out with "unsupported type" errors due to it examining all tables in the database and not just MailVotech's
     'mapping_types' => [
         'enum'  => 'string',
         'point' => 'string',
         'bit'   => 'string',
     ],
-    'server_version' => '%env(mauticconst:MAUTIC_DB_SERVER_VERSION)%',
-    'wrapper_class'  => Mautic\CoreBundle\Doctrine\Connection\ConnectionWrapper::class,
+    'server_version' => '%env(mailvotechconst:MAILVOTECH_DB_SERVER_VERSION)%',
+    'wrapper_class'  => MailVotech\CoreBundle\Doctrine\Connection\ConnectionWrapper::class,
     'options'        => [PDO::ATTR_STRINGIFY_FETCHES => true], // @see https://www.php.net/manual/en/migration81.incompatible.php#migration81.incompatible.pdo.mysql
 ];
 
 if (!empty($localConfigParameterBag->get('db_host_ro'))) {
-    $connectionSettings['wrapper_class']   = Mautic\CoreBundle\Doctrine\Connection\PrimaryReadReplicaConnectionWrapper::class;
+    $connectionSettings['wrapper_class']   = MailVotech\CoreBundle\Doctrine\Connection\PrimaryReadReplicaConnectionWrapper::class;
     $connectionSettings['keep_replica']    = true;
     $connectionSettings['replicas']        = [
         'replica1' => [
-            'host'                  => '%mautic.db_host_ro%',
-            'port'                  => '%mautic.db_port%',
-            'dbname'                => '%mautic.db_name%',
-            'user'                  => '%mautic.db_user%',
-            'password'              => '%mautic.db_password%',
+            'host'                  => '%mailvotech.db_host_ro%',
+            'port'                  => '%mailvotech.db_port%',
+            'dbname'                => '%mailvotech.db_name%',
+            'user'                  => '%mailvotech.db_user%',
+            'password'              => '%mailvotech.db_password%',
             'charset'               => 'utf8mb4',
         ],
     ];
@@ -225,19 +225,19 @@ $container->loadFromExtension('doctrine', [
 // MigrationsBundle Configuration
 $container->loadFromExtension('doctrine_migrations', [
     'migrations_paths' => [
-        'Mautic\\Migrations' => '%mautic.application_dir%/app/migrations',
+        'MailVotech\\Migrations' => '%mailvotech.application_dir%/app/migrations',
     ],
     'storage' => [
         'table_storage' => [
-            'table_name' => '%env(MAUTIC_MIGRATIONS_TABLE_NAME)%',
+            'table_name' => '%env(MAILVOTECH_MIGRATIONS_TABLE_NAME)%',
         ],
     ],
-    'custom_template' => '%mautic.application_dir%/app/migrations/Migration.template',
+    'custom_template' => '%mailvotech.application_dir%/app/migrations/Migration.template',
 ]);
 
 // KnpMenu Configuration
 $container->loadFromExtension('knp_menu', [
-    'default_renderer' => 'mautic',
+    'default_renderer' => 'mailvotech',
 ]);
 
 // OneupUploader Configuration
@@ -248,16 +248,16 @@ $container->loadFromExtension('oneup_uploader', [
     // ),
     'mappings' => [
         'asset' => [
-            'error_handler'   => 'mautic.asset.upload.error.handler',
+            'error_handler'   => 'mailvotech.asset.upload.error.handler',
             'frontend'        => 'custom',
             'custom_frontend' => [
-                'class' => 'Mautic\AssetBundle\Controller\UploadController',
-                'name'  => 'mautic',
+                'class' => 'MailVotech\AssetBundle\Controller\UploadController',
+                'name'  => 'mailvotech',
             ],
             // 'max_size' => ($maxSize * 1000000),
             // 'use_orphanage' => true,
             'storage' => [
-                'directory' => '%mautic.upload_dir%',
+                'directory' => '%mailvotech.upload_dir%',
             ],
         ],
     ],
@@ -317,7 +317,7 @@ $container->setParameter(
 );
 
 // Monolog formatter
-$container->register('mautic.monolog.fulltrace.formatter', 'Monolog\Formatter\LineFormatter')
+$container->register('mailvotech.monolog.fulltrace.formatter', 'Monolog\Formatter\LineFormatter')
     ->addMethodCall('includeStacktraces', [true])
     ->addMethodCall('ignoreEmptyContextAndExtra', [true]);
 
@@ -328,14 +328,14 @@ $container->setParameter(
 );
 $definitionConsoleErrorListener = new Definition(
     '%console_error_listener.class%',
-    [new Reference('monolog.logger.mautic')]
+    [new Reference('monolog.logger.mailvotech')]
 );
 $definitionConsoleErrorListener->addTag(
     'kernel.event_listener',
     ['event' => 'console.error']
 );
 $container->setDefinition(
-    'mautic.kernel.listener.command_exception',
+    'mailvotech.kernel.listener.command_exception',
     $definitionConsoleErrorListener
 );
 
@@ -345,14 +345,14 @@ $container->setParameter(
 );
 $definitionConsoleErrorListener = new Definition(
     '%console_terminate_listener.class%',
-    [new Reference('monolog.logger.mautic')]
+    [new Reference('monolog.logger.mailvotech')]
 );
 $definitionConsoleErrorListener->addTag(
     'kernel.event_listener',
     ['event' => 'console.terminate']
 );
 $container->setDefinition(
-    'mautic.kernel.listener.command_terminate',
+    'mailvotech.kernel.listener.command_terminate',
     $definitionConsoleErrorListener
 );
 
@@ -361,7 +361,7 @@ $container->loadFromExtension('fm_elfinder', [
     'assets_path' => 'media/assets',
     'instances'   => [
         'default' => [
-            'locale'          => '%mautic.locale%',
+            'locale'          => '%mailvotech.locale%',
             'cors_support'    => true,
             'editor'          => 'custom',
             'editor_template' => '@bundles/CoreBundle/Assets/js/libraries/filemanager/index.html.twig',
@@ -381,7 +381,7 @@ $container->loadFromExtension('fm_elfinder', [
                 'plugins' => [
                     'Sanitizer' => [
                         'enable'   => true,
-                        'callBack' => '\Mautic\CoreBundle\Helper\InputHelper::transliterateFilename',
+                        'callBack' => '\MailVotech\CoreBundle\Helper\InputHelper::transliterateFilename',
                     ],
                 ],
                 'roots' => [
@@ -390,15 +390,15 @@ $container->loadFromExtension('fm_elfinder', [
                         'path'          => '',
                         'flysystem'     => [
                             'type'            => 'custom',
-                            'adapter_service' => 'mautic.core.service.local_file_adapter',
+                            'adapter_service' => 'mailvotech.core.service.local_file_adapter',
                             'options'         => [],
                         ],
                         'upload_allow'  => ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'],
                         'upload_deny'   => ['all'],
                         'accepted_name' => '/^[\w\x{0300}-\x{036F}][\w\x{0300}-\x{036F}\s\.\%\-]*$/u', // Supports diacritic symbols
-                        'url'           => '%env(resolve:MAUTIC_EL_FINDER_URL)%', // We need to specify URL in case mod_rewrite is disabled
-                        'tmb_path'      => '%env(resolve:MAUTIC_EL_FINDER_PATH)%/.tmb/',
-                        'tmb_url'       => '%env(resolve:MAUTIC_EL_FINDER_URL)%/.tmb/',
+                        'url'           => '%env(resolve:MAILVOTECH_EL_FINDER_URL)%', // We need to specify URL in case mod_rewrite is disabled
+                        'tmb_path'      => '%env(resolve:MAILVOTECH_EL_FINDER_PATH)%/.tmb/',
+                        'tmb_url'       => '%env(resolve:MAILVOTECH_EL_FINDER_URL)%/.tmb/',
                     ],
                 ],
             ],
@@ -408,8 +408,8 @@ $container->loadFromExtension('fm_elfinder', [
 
 // API Platform Configuration
 $container->loadFromExtension('api_platform', [
-    'title'             => 'Mautic API',
-    'description'       => 'API endpoints for Mautic',
+    'title'             => 'MailVotech API',
+    'description'       => 'API endpoints for MailVotech',
     'version'           => '1.0.0',
     'show_webby'        => false,
     'enable_swagger'    => true,

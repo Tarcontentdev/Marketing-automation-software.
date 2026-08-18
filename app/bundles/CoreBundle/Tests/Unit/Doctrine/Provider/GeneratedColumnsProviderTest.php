@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Doctrine\Provider;
+namespace MailVotech\CoreBundle\Tests\Unit\Doctrine\Provider;
 
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
-use Mautic\CoreBundle\Doctrine\Provider\GeneratedColumnsProvider;
-use Mautic\CoreBundle\Doctrine\Provider\VersionProviderInterface;
-use Mautic\CoreBundle\Event\GeneratedColumnsEvent;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
+use MailVotech\CoreBundle\Doctrine\Provider\GeneratedColumnsProvider;
+use MailVotech\CoreBundle\Doctrine\Provider\VersionProviderInterface;
+use MailVotech\CoreBundle\Event\GeneratedColumnsEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -71,7 +71,7 @@ final class GeneratedColumnsProviderTest extends TestCase
         $generatedColumns = $this->provider->getGeneratedColumns();
 
         $generatedColumn = $generatedColumns->current();
-        $this->assertSame(MAUTIC_TABLE_PREFIX.'page_hits', $generatedColumn->getTableName());
+        $this->assertSame(MAILVOTECH_TABLE_PREFIX.'page_hits', $generatedColumn->getTableName());
 
         // Ensure that the cache works and dispatcher is called only once
         $generatedColumns = $this->provider->getGeneratedColumns();

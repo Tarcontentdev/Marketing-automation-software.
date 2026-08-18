@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Entity\LeadNote;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Entity\LeadNote;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -35,7 +35,7 @@ final class NoteType extends AbstractType
             'text',
             TextareaType::class,
             [
-                'label'      => 'mautic.lead.note.form.text',
+                'label'      => 'mailvotech.lead.note.form.text',
                 'label_attr' => ['class' => 'control-label sr-only'],
                 'attr'       => ['class' => 'mousetrap form-control editor', 'rows' => 10, 'autofocus' => 'autofocus'],
             ]
@@ -45,12 +45,12 @@ final class NoteType extends AbstractType
             'type',
             ChoiceType::class,
             [
-                'label'             => 'mautic.lead.note.form.type',
+                'label'             => 'mailvotech.lead.note.form.type',
                 'choices'           => [
-                    'mautic.lead.note.type.general' => 'general',
-                    'mautic.lead.note.type.email'   => 'email',
-                    'mautic.lead.note.type.call'    => 'call',
-                    'mautic.lead.note.type.meeting' => 'meeting',
+                    'mailvotech.lead.note.type.general' => 'general',
+                    'mailvotech.lead.note.type.email'   => 'email',
+                    'mailvotech.lead.note.type.call'    => 'call',
+                    'mailvotech.lead.note.type.meeting' => 'meeting',
                 ],
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
@@ -64,7 +64,7 @@ final class NoteType extends AbstractType
             'dateTime',
             DateTimeType::class,
             [
-                'label'      => 'mautic.core.date.added',
+                'label'      => 'mailvotech.core.date.added',
                 'label_attr' => ['class' => 'control-label'],
                 'widget'     => 'single_text',
                 'attr'       => [
@@ -80,7 +80,7 @@ final class NoteType extends AbstractType
 
         $builder->add('buttons', FormButtonsType::class, [
             'apply_text' => false,
-            'save_text'  => 'mautic.core.form.save',
+            'save_text'  => 'mailvotech.core.form.save',
         ]);
 
         if (!empty($options['action'])) {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Form\Type;
+namespace MailVotech\PageBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,10 +20,10 @@ final class ConfigType extends AbstractType
             'cat_in_page_url',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.page.config.form.cat.in.url',
+                'label' => 'mailvotech.page.config.form.cat.in.url',
                 'data'  => (bool) $options['data']['cat_in_page_url'],
                 'attr'  => [
-                    'tooltip' => 'mautic.page.config.form.cat.in.url.tooltip',
+                    'tooltip' => 'mailvotech.page.config.form.cat.in.url.tooltip',
                 ],
             ]
         );
@@ -32,12 +32,12 @@ final class ConfigType extends AbstractType
             'google_analytics',
             TextareaType::class,
             [
-                'label'      => 'mautic.page.config.form.google.analytics',
+                'label'      => 'mailvotech.page.config.form.google.analytics',
                 'label_attr' => ['class' => 'control-label'],
                 'data'       => htmlspecialchars_decode((string) $options['data']['google_analytics']),
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.page.config.form.google.analytics.tooltip',
+                    'tooltip' => 'mailvotech.page.config.form.google.analytics.tooltip',
                     'rows'    => 10,
                 ],
                 'required' => false,

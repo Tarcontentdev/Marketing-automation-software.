@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\FileHelper;
+use MailVotech\CoreBundle\Helper\FileHelper;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;

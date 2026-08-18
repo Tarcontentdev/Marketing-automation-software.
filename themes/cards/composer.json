@@ -1,13 +1,17 @@
 {
-  "name": "mautic/theme-cards",
-  "description": "Mautic Cards Theme",
-  "type": "mautic-theme",
-  "keywords": ["mautic","theme"],
-  "extra": {
-    "install-directory-name": "cards"
-  },
-  "minimum-stability": "dev",
-  "require": {
-    "mautic/core-lib": "^7.0"
-  }
+    "name": "mailvotech/theme-cards",
+    "description": "MailVotech Cards Theme",
+    "type": "mailvotech-theme",
+    "keywords": [
+        "mailvotech",
+        "theme"
+    ],
+    "extra": {
+        "install-directory-name": "cards"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "mailvotech/core-lib": "^7.0",
+        "mailvotech/composer-installer": "^1.0"
+    }
 }

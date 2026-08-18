@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Validator\Constraint;
+namespace MailVotech\FormBundle\Validator\Constraint;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -15,7 +15,7 @@ final class IsPostActionRedirectUrl extends Constraint
      */
     #[HasNamedArguments]
     public function __construct(
-        public string $message = 'mautic.form.form.postactionproperty_redirect.url',
+        public string $message = 'mailvotech.form.form.postactionproperty_redirect.url',
         ?array $groups = null,
         mixed $payload = null,
     ) {

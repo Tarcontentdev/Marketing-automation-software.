@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper\Update\PreUpdateChecks;
+namespace MailVotech\CoreBundle\Helper\Update\PreUpdateChecks;
 
 final class PreUpdateCheckResult
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\Middleware;
+namespace MailVotech\Middleware;
 
 interface PrioritizedMiddlewareInterface
 {

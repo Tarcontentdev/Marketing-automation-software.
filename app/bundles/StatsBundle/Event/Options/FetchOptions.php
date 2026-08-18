@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StatsBundle\Event\Options;
+namespace MailVotech\StatsBundle\Event\Options;
 
 class FetchOptions
 {

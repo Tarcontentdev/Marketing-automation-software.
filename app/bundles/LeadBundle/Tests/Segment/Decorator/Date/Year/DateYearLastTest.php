@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\Decorator\Date\Year;
+namespace MailVotech\LeadBundle\Tests\Segment\Decorator\Date\Year;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\Decorator\Date\DateOptionParameters;
-use Mautic\LeadBundle\Segment\Decorator\Date\TimezoneResolver;
-use Mautic\LeadBundle\Segment\Decorator\Date\Year\DateYearLast;
-use Mautic\LeadBundle\Segment\Decorator\DateDecorator;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\Decorator\Date\DateOptionParameters;
+use MailVotech\LeadBundle\Segment\Decorator\Date\TimezoneResolver;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Year\DateYearLast;
+use MailVotech\LeadBundle\Segment\Decorator\DateDecorator;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(DateYearLast::class)]

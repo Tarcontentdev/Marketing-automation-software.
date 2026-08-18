@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Tests\Unit\EventListener;
+namespace MailVotech\DynamicContentBundle\Tests\Unit\EventListener;
 
-use Mautic\AssetBundle\Helper\TokenHelper as AssetTokenHelper;
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\DynamicContentBundle\EventListener\DynamicContentSubscriber;
-use Mautic\DynamicContentBundle\Helper\DynamicContentHelper;
-use Mautic\DynamicContentBundle\Model\DynamicContentModel;
-use Mautic\FormBundle\Helper\TokenHelper as FormTokenHelper;
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\PageBundle\Event\PageDisplayEvent;
-use Mautic\PageBundle\Helper\TokenHelper as PageTokenHelper;
-use Mautic\PageBundle\Model\TrackableModel;
-use MauticPlugin\MauticFocusBundle\Helper\TokenHelper as FocusTokenHelper;
+use MailVotech\AssetBundle\Helper\TokenHelper as AssetTokenHelper;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\DynamicContentBundle\EventListener\DynamicContentSubscriber;
+use MailVotech\DynamicContentBundle\Helper\DynamicContentHelper;
+use MailVotech\DynamicContentBundle\Model\DynamicContentModel;
+use MailVotech\FormBundle\Helper\TokenHelper as FormTokenHelper;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\PageBundle\Event\PageDisplayEvent;
+use MailVotech\PageBundle\Helper\TokenHelper as PageTokenHelper;
+use MailVotech\PageBundle\Model\TrackableModel;
+use MailVotechPlugin\MailVotechFocusBundle\Helper\TokenHelper as FocusTokenHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class DynamicContentSubscriberTest extends \PHPUnit\Framework\TestCase

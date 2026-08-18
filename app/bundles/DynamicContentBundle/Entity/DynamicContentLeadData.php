@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\DynamicContentBundle\Entity;
+namespace MailVotech\DynamicContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\CommonEntity;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\CommonEntity;
+use MailVotech\LeadBundle\Entity\Lead;
 
 class DynamicContentLeadData extends CommonEntity
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Segment\Decorator\Date\Month;
+namespace MailVotech\LeadBundle\Segment\Decorator\Date\Month;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 
 final class DateMonthLast extends DateMonthAbstract
 {

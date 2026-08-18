@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\Controller;
+namespace MailVotech\LeadBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\LeadBundle\Entity\LeadNote;
-use Mautic\LeadBundle\Model\NoteModel;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\LeadBundle\Entity\LeadNote;
+use MailVotech\LeadBundle\Model\NoteModel;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,7 +44,7 @@ final class NoteController extends FormController
 
         // set limits
         $limit = $session->get(
-            'mautic.lead.'.$lead->getId().'.note.limit',
+            'mailvotech.lead.'.$lead->getId().'.note.limit',
             $this->coreParametersHelper->get('default_pagelimit')
         );
         $start = (1 === $page) ? 0 : (($page - 1) * $limit);
@@ -52,12 +52,12 @@ final class NoteController extends FormController
             $start = 0;
         }
 
-        $search = $request->get('search', $session->get('mautic.lead.'.$lead->getId().'.note.filter', ''));
-        $session->set('mautic.lead.'.$lead->getId().'.note.filter', $search);
+        $search = $request->get('search', $session->get('mailvotech.lead.'.$lead->getId().'.note.filter', ''));
+        $session->set('mailvotech.lead.'.$lead->getId().'.note.filter', $search);
 
         // do some default filtering
-        $orderBy    = $session->get('mautic.lead.'.$lead->getId().'.note.orderby', 'n.dateTime');
-        $orderByDir = $session->get('mautic.lead.'.$lead->getId().'.note.orderbydir', 'DESC');
+        $orderBy    = $session->get('mailvotech.lead.'.$lead->getId().'.note.orderby', 'n.dateTime');
+        $orderByDir = $session->get('mailvotech.lead.'.$lead->getId().'.note.orderbydir', 'DESC');
 
         $force = [
             [
@@ -70,15 +70,15 @@ final class NoteController extends FormController
         $tmpl     = $request->isXmlHttpRequest() ? $request->get('tmpl', 'index') : 'index';
         $noteType = InputHelper::clean($request->request->all()['noteTypes'] ?? []);
         if (empty($noteType) && 'index' === $tmpl) {
-            $noteType = $session->get('mautic.lead.'.$lead->getId().'.notetype.filter', []);
+            $noteType = $session->get('mailvotech.lead.'.$lead->getId().'.notetype.filter', []);
         }
-        $session->set('mautic.lead.'.$lead->getId().'.notetype.filter', $noteType);
+        $session->set('mailvotech.lead.'.$lead->getId().'.notetype.filter', $noteType);
 
         $noteTypes = [
-            'general' => 'mautic.lead.note.type.general',
-            'email'   => 'mautic.lead.note.type.email',
-            'call'    => 'mautic.lead.note.type.call',
-            'meeting' => 'mautic.lead.note.type.meeting',
+            'general' => 'mailvotech.lead.note.type.general',
+            'email'   => 'mailvotech.lead.note.type.email',
+            'call'    => 'mailvotech.lead.note.type.call',
+            'meeting' => 'mailvotech.lead.note.type.meeting',
         ];
 
         if (!empty($noteType)) {
@@ -154,10 +154,10 @@ final class NoteController extends FormController
                 ],
                 'passthroughVars' => [
                     'route'         => false,
-                    'mauticContent' => 'leadNote',
+                    'mailvotechContent' => 'leadNote',
                     'noteCount'     => count($items),
                 ],
-                'contentTemplate' => '@MauticLead/Note/list.html.twig',
+                'contentTemplate' => '@MailVotechLead/Note/list.html.twig',
             ]
         );
     }
@@ -179,7 +179,7 @@ final class NoteController extends FormController
         $note = new LeadNote();
         $note->setLead($lead);
         $action = $this->generateUrl(
-            'mautic_contactnote_action',
+            'mailvotech_contactnote_action',
             [
                 'objectAction' => 'new',
                 'leadId'       => $leadId,
@@ -213,13 +213,13 @@ final class NoteController extends FormController
             // just close the modal
             $passthroughVars = [
                 'closeModal'    => 1,
-                'mauticContent' => 'leadNote',
+                'mailvotechContent' => 'leadNote',
             ];
 
             if ($valid && !$cancelled) {
                 $passthroughVars['upNoteCount'] = 1;
                 $passthroughVars['noteHtml']    = $this->renderView(
-                    '@MauticLead/Note/note.html.twig',
+                    '@MailVotechLead/Note/note.html.twig',
                     [
                         'note'        => $note,
                         'lead'        => $lead,
@@ -228,7 +228,7 @@ final class NoteController extends FormController
                 );
                 $passthroughVars['noteId'] = $note->getId();
 
-                $this->addFlashMessage('mautic.lead.note.created');
+                $this->addFlashMessage('mailvotech.lead.note.created');
             }
 
             $passthroughVars['flashes'] = $this->getFlashContent();
@@ -243,7 +243,7 @@ final class NoteController extends FormController
                     'lead'        => $lead,
                     'permissions' => $permissions,
                 ],
-                'contentTemplate' => '@MauticLead/Note/form.html.twig',
+                'contentTemplate' => '@MailVotechLead/Note/form.html.twig',
             ]
         );
     }
@@ -266,7 +266,7 @@ final class NoteController extends FormController
         }
 
         $action = $this->generateUrl(
-            'mautic_contactnote_action',
+            'mailvotech_contactnote_action',
             [
                 'objectAction' => 'edit',
                 'objectId'     => $objectId,
@@ -300,7 +300,7 @@ final class NoteController extends FormController
 
             if ($valid && !$cancelled) {
                 $passthroughVars['noteHtml'] = $this->renderView(
-                    '@MauticLead/Note/note.html.twig',
+                    '@MailVotechLead/Note/note.html.twig',
                     [
                         'note'        => $note,
                         'lead'        => $lead,
@@ -310,7 +310,7 @@ final class NoteController extends FormController
                 $passthroughVars['noteId'] = $note->getId();
             }
 
-            $passthroughVars['mauticContent'] = 'leadNote';
+            $passthroughVars['mailvotechContent'] = 'leadNote';
 
             return new JsonResponse($passthroughVars);
         }
@@ -322,7 +322,7 @@ final class NoteController extends FormController
                     'lead'        => $lead,
                     'permissions' => $permissions,
                 ],
-                'contentTemplate' => '@MauticLead/Note/form.html.twig',
+                'contentTemplate' => '@MailVotechLead/Note/form.html.twig',
             ]
         );
     }
@@ -354,7 +354,7 @@ final class NoteController extends FormController
         return new JsonResponse(
             [
                 'deleteId'      => $objectId,
-                'mauticContent' => 'leadNote',
+                'mailvotechContent' => 'leadNote',
                 'downNoteCount' => 1,
             ]
         );

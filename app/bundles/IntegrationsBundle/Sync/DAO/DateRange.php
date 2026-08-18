@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO;
+namespace MailVotech\IntegrationsBundle\Sync\DAO;
 
 final readonly class DateRange
 {

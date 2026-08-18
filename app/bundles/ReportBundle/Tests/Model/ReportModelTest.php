@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Model;
+namespace MailVotech\ReportBundle\Tests\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\ReportBundle\Entity\ReportRepository;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Helper\ReportHelper;
-use Mautic\ReportBundle\Model\CsvExporter;
-use Mautic\ReportBundle\Model\ExcelExporter;
-use Mautic\ReportBundle\Model\ReportModel;
-use Mautic\ReportBundle\Tests\Fixtures;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\ReportBundle\Entity\ReportRepository;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Helper\ReportHelper;
+use MailVotech\ReportBundle\Model\CsvExporter;
+use MailVotech\ReportBundle\Model\ExcelExporter;
+use MailVotech\ReportBundle\Model\ReportModel;
+use MailVotech\ReportBundle\Tests\Fixtures;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

@@ -1,4 +1,4 @@
-(function(window, document, Mautic, $, Math) {
+(function(window, document, MailVotech, $, Math) {
     class Heatmap {
         constructor(emailId) {
             this.emailId = emailId;
@@ -36,7 +36,7 @@
         }
 
         fetchHeatmap(callback) {
-            Mautic.ajaxActionRequest('email:heatmap', {id: this.emailId}, function(response){
+            MailVotech.ajaxActionRequest('email:heatmap', {id: this.emailId}, function(response){
                 this.content = response.content;
                 this.clickStats = response.clickStats;
                 this.totalClicks = response.totalClicks;
@@ -135,7 +135,7 @@
             this.iframeDocument.write(this.content);
 
             const cssLink = document.createElement("link");
-            const baseUrl = window.mauticBaseUrl || '/';
+            const baseUrl = window.mailvotechBaseUrl || '/';
             cssLink.href = baseUrl + 'app/bundles/EmailBundle/Assets/css/heatmap.css';
             cssLink.rel = "stylesheet";
             cssLink.type = "text/css";
@@ -253,4 +253,4 @@
         });
     });
 
-})(window, document, Mautic, mQuery, Math);
+})(window, document, MailVotech, mQuery, Math);

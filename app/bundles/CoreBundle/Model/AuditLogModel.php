@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CoreBundle\Model;
+namespace MailVotech\CoreBundle\Model;
 
-use Mautic\CoreBundle\Entity\AuditLog;
-use Mautic\CoreBundle\Entity\AuditLogRepository;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\AuditLog;
+use MailVotech\CoreBundle\Entity\AuditLogRepository;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Contracts\Service\Attribute\Required;
 
 /**
@@ -48,9 +48,9 @@ class AuditLogModel extends AbstractCommonModel
         $log->setIpAddress($ipAddress);
         $log->setDateAdded(new \DateTime());
 
-        $user     = (!defined('MAUTIC_IGNORE_AUDITLOG_USER') && !defined('MAUTIC_AUDITLOG_USER')) ? $this->userHelper->getUser() : null;
+        $user     = (!defined('MAILVOTECH_IGNORE_AUDITLOG_USER') && !defined('MAILVOTECH_AUDITLOG_USER')) ? $this->userHelper->getUser() : null;
         $userId   = 0;
-        $userName = defined('MAUTIC_AUDITLOG_USER') ? MAUTIC_AUDITLOG_USER : $this->translator->trans('mautic.core.system');
+        $userName = defined('MAILVOTECH_AUDITLOG_USER') ? MAILVOTECH_AUDITLOG_USER : $this->translator->trans('mailvotech.core.system');
         if ($user instanceof User && $user->getId()) {
             $userId   = $user->getId();
             $userName = $user->getName();

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Event;
+namespace MailVotech\ApiBundle\Event;
 
 use FOS\RestBundle\Context\Context;
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\CoreBundle\Event\CommonEvent;
 use Symfony\Component\HttpFoundation\Request;
 
 final class ApiSerializationContextEvent extends CommonEvent

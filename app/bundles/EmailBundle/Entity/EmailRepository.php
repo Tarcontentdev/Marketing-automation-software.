@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\EmailBundle\Entity;
+namespace MailVotech\EmailBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Exception;
@@ -10,12 +10,12 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\ChannelBundle\Entity\MessageQueue;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\QueryBuilderManipulatorTrait;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\ProjectBundle\Entity\ProjectRepositoryTrait;
+use MailVotech\ChannelBundle\Entity\MessageQueue;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\QueryBuilderManipulatorTrait;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\ProjectBundle\Entity\ProjectRepositoryTrait;
 
 /**
  * @extends CommonRepository<Email>
@@ -42,8 +42,8 @@ class EmailRepository extends CommonRepository
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $q->select('l.id, l.email')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_donotcontact', 'dnc')
-            ->leftJoin('dnc', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = dnc.lead_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_donotcontact', 'dnc')
+            ->leftJoin('dnc', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = dnc.lead_id')
             ->where($q->expr()->eq('dnc.channel', $q->expr()->literal('email')))
             ->andWhere($q->expr()->neq('l.email', $q->expr()->literal('')));
 
@@ -75,8 +75,8 @@ class EmailRepository extends CommonRepository
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $q->select('dnc.*')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_donotcontact', 'dnc')
-            ->leftJoin('dnc', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = dnc.lead_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_donotcontact', 'dnc')
+            ->leftJoin('dnc', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = dnc.lead_id')
             ->where($q->expr()->eq('dnc.channel', $q->expr()->literal('email')))
             ->andWhere('l.email = :email')
             ->setParameter('email', $email);
@@ -107,7 +107,7 @@ class EmailRepository extends CommonRepository
      */
     public function deleteDoNotEmailEntry($id): void
     {
-        $this->getEntityManager()->getConnection()->delete(MAUTIC_TABLE_PREFIX.'lead_donotcontact', ['id' => (int) $id]);
+        $this->getEntityManager()->getConnection()->delete(MAILVOTECH_TABLE_PREFIX.'lead_donotcontact', ['id' => (int) $id]);
     }
 
     /**
@@ -185,7 +185,7 @@ class EmailRepository extends CommonRepository
         // Do not include leads in the do not contact table
         $dncQb = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $dncQb->select('dnc.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_donotcontact', 'dnc')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_donotcontact', 'dnc')
             ->where(
                 $dncQb->expr()->and(
                     $dncQb->expr()->eq('dnc.lead_id', 'l.id'),
@@ -196,7 +196,7 @@ class EmailRepository extends CommonRepository
         // Do not include contacts where the message is pending in the message queue
         $mqQb = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $mqQb->select('mq.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'message_queue', 'mq')
+            ->from(MAILVOTECH_TABLE_PREFIX.'message_queue', 'mq')
             ->where(
                 $mqQb->expr()->and(
                     $mqQb->expr()->eq('mq.lead_id', 'l.id'),
@@ -208,7 +208,7 @@ class EmailRepository extends CommonRepository
         // Do not include leads that have already been emailed
         $statQb = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $statQb->select('null')
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats', 'stat')
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 'stat')
             ->where(
                 $statQb->expr()->eq('stat.lead_id', 'l.id')
             );
@@ -233,7 +233,7 @@ class EmailRepository extends CommonRepository
             // Get a list of lists associated with this email
             $lists = $this->getEntityManager()->getConnection()->createQueryBuilder()
                 ->select('el.leadlist_id')
-                ->from(MAUTIC_TABLE_PREFIX.'email_list_xref', 'el')
+                ->from(MAILVOTECH_TABLE_PREFIX.'email_list_xref', 'el')
                 ->where('el.email_id = '.(int) $emailId)
                 ->executeQuery()
                 ->fetchAllAssociative();
@@ -254,7 +254,7 @@ class EmailRepository extends CommonRepository
         // Only include those in associated segments
         $segmentQb = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $segmentQb->select('ll.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'll')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'll')
             ->where(
                 $segmentQb->expr()->and(
                     $segmentQb->expr()->eq('ll.lead_id', 'l.id'),
@@ -284,7 +284,7 @@ class EmailRepository extends CommonRepository
             $q->select('l.*');
         }
 
-        $q->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+        $q->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->andWhere(sprintf('l.id IN (%s)', $segmentQb->getSQL()))
             ->andWhere(sprintf('l.id NOT IN (%s)', $dncQb->getSQL()))
             ->andWhere(sprintf('NOT EXISTS (%s)', $statQb->getSQL()))
@@ -520,8 +520,8 @@ class EmailRepository extends CommonRepository
 
     private function addTrackableTablesForEmailStats(QueryBuilder $qb): void
     {
-        $trTable = MAUTIC_TABLE_PREFIX.'channel_url_trackables';
-        $prTable = MAUTIC_TABLE_PREFIX.'page_redirects';
+        $trTable = MAILVOTECH_TABLE_PREFIX.'channel_url_trackables';
+        $prTable = MAILVOTECH_TABLE_PREFIX.'page_redirects';
 
         if (!$this->isJoined($qb, $trTable, self::EMAILS_PREFIX, self::TRACKABLE_PREFIX)) {
             $qb->leftJoin(
@@ -546,7 +546,7 @@ class EmailRepository extends CommonRepository
      */
     private function addDNCTableForEmails(QueryBuilder $qb): void
     {
-        $table = MAUTIC_TABLE_PREFIX.'lead_donotcontact';
+        $table = MAILVOTECH_TABLE_PREFIX.'lead_donotcontact';
 
         if (!$this->isJoined($qb, $table, self::EMAILS_PREFIX, self::DNC_PREFIX)) {
             $qb->leftJoin(
@@ -603,23 +603,23 @@ class EmailRepository extends CommonRepository
         $returnParameter = false; // returning a parameter that is not used will lead to a Doctrine error
 
         switch ($command) {
-            case $this->translator->trans('mautic.email.email.searchcommand.isexpired'):
-            case $this->translator->trans('mautic.email.email.searchcommand.isexpired', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.email.email.searchcommand.isexpired'):
+            case $this->translator->trans('mailvotech.email.email.searchcommand.isexpired', [], null, 'en_US'):
                 $expr = sprintf(
                     "(e.isPublished = :%1\$s AND e.publishDown IS NOT NULL AND e.publishDown <> '' AND e.publishDown < CURRENT_TIMESTAMP())",
                     $unique
                 );
                 $forceParameters = [$unique => true];
                 break;
-            case $this->translator->trans('mautic.email.email.searchcommand.ispending'):
-            case $this->translator->trans('mautic.email.email.searchcommand.ispending', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.email.email.searchcommand.ispending'):
+            case $this->translator->trans('mailvotech.email.email.searchcommand.ispending', [], null, 'en_US'):
                 $expr = sprintf(
                     "(e.isPublished = :%1\$s AND e.publishUp IS NOT NULL AND e.publishUp <> '' AND e.publishUp > CURRENT_TIMESTAMP())",
                     $unique
                 );
                 $forceParameters = [$unique => true];
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.lang'):
+            case $this->translator->trans('mailvotech.core.searchcommand.lang'):
                 $langUnique      = $this->generateRandomParameterName();
                 $langValue       = $filter->string.'_%';
                 $forceParameters = [
@@ -629,8 +629,8 @@ class EmailRepository extends CommonRepository
                 $expr            = '('.$q->expr()->eq('e.language', ":{$unique}").' OR '.$q->expr()->like('e.language', ":{$langUnique}").')';
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.project.searchcommand.name'):
-            case $this->translator->trans('mautic.project.searchcommand.name', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.project.searchcommand.name'):
+            case $this->translator->trans('mailvotech.project.searchcommand.name', [], null, 'en_US'):
                 return $this->handleProjectFilter(
                     $this->_em->getConnection()->createQueryBuilder(),
                     'email_id',
@@ -661,15 +661,15 @@ class EmailRepository extends CommonRepository
     public function getSearchCommands(): array
     {
         $commands = [
-            'mautic.core.searchcommand.ispublished',
-            'mautic.core.searchcommand.isunpublished',
-            'mautic.core.searchcommand.isuncategorized',
-            'mautic.core.searchcommand.ismine',
-            'mautic.email.email.searchcommand.isexpired',
-            'mautic.email.email.searchcommand.ispending',
-            'mautic.core.searchcommand.category',
-            'mautic.core.searchcommand.lang',
-            'mautic.project.searchcommand.name',
+            'mailvotech.core.searchcommand.ispublished',
+            'mailvotech.core.searchcommand.isunpublished',
+            'mailvotech.core.searchcommand.isuncategorized',
+            'mailvotech.core.searchcommand.ismine',
+            'mailvotech.email.email.searchcommand.isexpired',
+            'mailvotech.email.email.searchcommand.ispending',
+            'mailvotech.core.searchcommand.category',
+            'mailvotech.core.searchcommand.lang',
+            'mailvotech.project.searchcommand.name',
         ];
 
         return array_merge($commands, parent::getSearchCommands());
@@ -704,7 +704,7 @@ class EmailRepository extends CommonRepository
 
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
-        $qb->update(MAUTIC_TABLE_PREFIX.'emails')
+        $qb->update(MAILVOTECH_TABLE_PREFIX.'emails')
             ->set('variant_read_count', 0)
             ->set('variant_sent_count', 0)
             ->set('variant_start_date', ':date')
@@ -725,7 +725,7 @@ class EmailRepository extends CommonRepository
     {
         /** @var Email $parent */
         $parent    = $entity->getVariantParent() ?: $entity;
-        $hasParent = $entity->getVariantParent() instanceof \Mautic\CoreBundle\Entity\VariantEntityInterface;
+        $hasParent = $entity->getVariantParent() instanceof \MailVotech\CoreBundle\Entity\VariantEntityInterface;
 
         if ($hasParent) {
             $entity->setPublishUp($parent->getPublishUp());
@@ -753,7 +753,7 @@ class EmailRepository extends CommonRepository
 
         $connection  = $this->getEntityManager()->getConnection();
         $updateQuery = $connection->createQueryBuilder()
-            ->update(MAUTIC_TABLE_PREFIX.'emails')
+            ->update(MAILVOTECH_TABLE_PREFIX.'emails')
             ->set('sent_count', 'sent_count + :increaseBy')
             ->where('id = :id');
 
@@ -787,11 +787,11 @@ class EmailRepository extends CommonRepository
 
         $subQuery = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('es.email_id')
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats', 'es')
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 'es')
             ->where('es.id = :statId')
             ->andWhere('es.is_read = 1');
 
-        $q->update(MAUTIC_TABLE_PREFIX.'emails', 'e')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'emails', 'e')
             ->set('read_count', 'read_count + 1')
             ->where(
                 $q->expr()->and(
@@ -876,8 +876,8 @@ class EmailRepository extends CommonRepository
             ->createQueryBuilder();
 
         return $qb->select('lc.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_categories', 'lc')
-            ->innerJoin('lc', MAUTIC_TABLE_PREFIX.'emails', 'e', 'e.category_id = lc.category_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_categories', 'lc')
+            ->innerJoin('lc', MAILVOTECH_TABLE_PREFIX.'emails', 'e', 'e.category_id = lc.category_id')
             ->where($qb->expr()->eq('e.id', $emailId))
             ->andWhere('lc.manually_removed = 1');
     }
@@ -891,8 +891,8 @@ class EmailRepository extends CommonRepository
 
         $includedIds = $connection->createQueryBuilder()
             ->select('DISTINCT xref.email_id')
-            ->from(MAUTIC_TABLE_PREFIX.'email_list_xref', 'xref')
-            ->innerJoin('xref', MAUTIC_TABLE_PREFIX.'emails', 'e', 'e.id = xref.email_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_list_xref', 'xref')
+            ->innerJoin('xref', MAILVOTECH_TABLE_PREFIX.'emails', 'e', 'e.id = xref.email_id')
             ->where('xref.leadlist_id = :listId')
             ->andWhere("e.email_type = 'list'")
             ->setParameter('listId', $listId)
@@ -900,8 +900,8 @@ class EmailRepository extends CommonRepository
 
         $excludedIds = $connection->createQueryBuilder()
             ->select('DISTINCT excl.email_id')
-            ->from(MAUTIC_TABLE_PREFIX.'email_list_excluded', 'excl')
-            ->innerJoin('excl', MAUTIC_TABLE_PREFIX.'emails', 'e', 'e.id = excl.email_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_list_excluded', 'excl')
+            ->innerJoin('excl', MAILVOTECH_TABLE_PREFIX.'emails', 'e', 'e.id = excl.email_id')
             ->where('excl.leadlist_id = :listId')
             ->andWhere("e.email_type = 'list'")
             ->setParameter('listId', $listId)
@@ -916,7 +916,7 @@ class EmailRepository extends CommonRepository
             ->getConnection();
         $excludedListIds = $connection->createQueryBuilder()
             ->select('eel.leadlist_id')
-            ->from(MAUTIC_TABLE_PREFIX.'email_list_excluded', 'eel')
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_list_excluded', 'eel')
             ->where('eel.email_id = :emailId')
             ->setParameter('emailId', $emailId)
             ->executeQuery()
@@ -932,7 +932,7 @@ class EmailRepository extends CommonRepository
              * Uses FORCE INDEX to ensure the PRIMARY key (leadlist_id, lead_id) is used,
              * preventing full table scans on large lead_lists_leads tables.
              */
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads ll FORCE INDEX (`PRIMARY`)')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads ll FORCE INDEX (`PRIMARY`)')
             ->where($queryBuilder->expr()->in('ll.leadlist_id', ':excludedListIds'))
             ->setParameter('excludedListIds', $excludedListIds, ArrayParameterType::INTEGER);
 

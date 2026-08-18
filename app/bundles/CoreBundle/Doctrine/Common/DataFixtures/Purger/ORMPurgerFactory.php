@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine\Common\DataFixtures\Purger;
+namespace MailVotech\CoreBundle\Doctrine\Common\DataFixtures\Purger;
 
 use Doctrine\Bundle\FixturesBundle\Purger\PurgerFactory;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\Common\DataFixtures\Purger\PurgerInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Doctrine\Common\DataFixtures\Event\PreExecuteEvent;
+use MailVotech\CoreBundle\Doctrine\Common\DataFixtures\Event\PreExecuteEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final readonly class ORMPurgerFactory implements PurgerFactory

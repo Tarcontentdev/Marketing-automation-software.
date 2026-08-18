@@ -1,8 +1,8 @@
 <?php
 
-use Mautic\CoreBundle\Loader\ParameterLoader;
+use MailVotech\CoreBundle\Loader\ParameterLoader;
 
-$root          = $container->getParameter('mautic.application_dir').'/app';
+$root          = $container->getParameter('mailvotech.application_dir').'/app';
 $configBaseDir = ParameterLoader::getLocalConfigBaseDir($root);
 
 $loader->import('config.php');
@@ -30,7 +30,7 @@ $container->loadFromExtension("doctrine", array(
 
 $container->loadFromExtension('monolog', [
     'channels' => [
-        'mautic',
+        'mailvotech',
     ],
     'handlers' => [
         'main' => [
@@ -39,7 +39,7 @@ $container->loadFromExtension('monolog', [
             'action_level' => 'error',
             'handler'      => 'nested',
             'channels'     => [
-                '!mautic',
+                '!mailvotech',
             ],
         ],
         'nested' => [
@@ -48,11 +48,11 @@ $container->loadFromExtension('monolog', [
             'level'     => 'error',
             'max_files' => 7,
         ],
-        'mautic' => [
+        'mailvotech' => [
             'type'      => 'service',
-            'id'        => 'mautic.monolog.handler',
+            'id'        => 'mailvotech.monolog.handler',
             'channels'  => [
-                'mautic',
+                'mailvotech',
             ],
         ],
     ],
@@ -60,17 +60,17 @@ $container->loadFromExtension('monolog', [
 
 // Twig Configuration
 $container->loadFromExtension('twig', [
-    'cache'            => '%env(resolve:MAUTIC_TWIG_CACHE_DIR)%',
+    'cache'            => '%env(resolve:MAILVOTECH_TWIG_CACHE_DIR)%',
     'auto_reload'      => true,
     'strict_variables' => true,
     'paths'            => [
-        '%mautic.application_dir%/app/bundles'                  => 'bundles',
-        '%mautic.application_dir%/app/bundles/CoreBundle'       => 'MauticCore',
-        '%mautic.application_dir%/themes'                       => 'themes',
+        '%mailvotech.application_dir%/app/bundles'                  => 'bundles',
+        '%mailvotech.application_dir%/app/bundles/CoreBundle'       => 'MailVotechCore',
+        '%mailvotech.application_dir%/themes'                       => 'themes',
     ],
     'form_themes' => [
-        // Can be found at bundles/CoreBundle/Resources/views/mautic_form_layout.html.twig
-        '@MauticCore/FormTheme/mautic_form_layout.html.twig',
+        // Can be found at bundles/CoreBundle/Resources/views/mailvotech_form_layout.html.twig
+        '@MailVotechCore/FormTheme/mailvotech_form_layout.html.twig',
     ],
 ]);
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test\Service;
+namespace MailVotech\CoreBundle\Test\Service;
 
-use Mautic\CoreBundle\Model\AbTest\AbTestSettingsService;
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\CoreBundle\Model\AbTest\AbTestSettingsService;
+use MailVotech\EmailBundle\Entity\Email;
 use PHPUnit\Framework\TestCase;
 
 final class AbTestSettingsServiceTest extends TestCase

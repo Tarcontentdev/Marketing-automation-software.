@@ -1,18 +1,18 @@
 <?php
 
-namespace Mautic\CoreBundle\Model;
+namespace MailVotech\CoreBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\Doctrine\Paginator\SimplePaginator;
-use Mautic\CoreBundle\DTO\GlobalSearchFilterDTO;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Exception\InvalidDecodedStringException;
-use Mautic\CoreBundle\Helper\ClickthroughHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Doctrine\Paginator\SimplePaginator;
+use MailVotech\CoreBundle\DTO\GlobalSearchFilterDTO;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Exception\InvalidDecodedStringException;
+use MailVotech\CoreBundle\Helper\ClickthroughHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Intl\Locales;
@@ -22,7 +22,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @template T of object
  */
-abstract class AbstractCommonModel implements MauticModelInterface
+abstract class AbstractCommonModel implements MailVotechModelInterface
 {
     public function __construct(
         protected EntityManagerInterface $em,
@@ -201,7 +201,7 @@ abstract class AbstractCommonModel implements MauticModelInterface
         }
 
         // Check for uncategorized
-        if ($this->translator->trans('mautic.core.url.uncategorized') == $category) {
+        if ($this->translator->trans('mailvotech.core.url.uncategorized') == $category) {
             $category = null;
         }
 

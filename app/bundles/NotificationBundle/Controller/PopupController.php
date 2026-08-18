@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\NotificationBundle\Controller;
+namespace MailVotech\NotificationBundle\Controller;
 
-use Mautic\CoreBundle\Controller\CommonController;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Event\PageDisplayEvent;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CoreBundle\Controller\CommonController;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Event\PageDisplayEvent;
+use MailVotech\PageBundle\PageEvents;
 use Symfony\Component\HttpFoundation\Response;
 
 final class PopupController extends CommonController
@@ -16,7 +16,7 @@ final class PopupController extends CommonController
         $assetsHelper->addStylesheet('/app/bundles/NotificationBundle/Assets/css/popup/popup.css');
 
         $response = $this->render(
-            '@MauticNotification/Popup/index.html.twig',
+            '@MailVotechNotification/Popup/index.html.twig',
             [
                 'siteUrl' => $this->coreParametersHelper->get('site_url'),
             ]

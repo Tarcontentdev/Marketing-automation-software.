@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Event\SubmissionEvent;
-use Mautic\FormBundle\Form\Type\FormFieldFileType;
-use Mautic\FormBundle\FormEvents;
-use Mautic\FormBundle\Helper\FormUploader;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Twig\Helper\AvatarHelper;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Event\SubmissionEvent;
+use MailVotech\FormBundle\Form\Type\FormFieldFileType;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\FormBundle\Helper\FormUploader;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Twig\Helper\AvatarHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class SetContactAvatarFormSubscriber implements EventSubscriberInterface

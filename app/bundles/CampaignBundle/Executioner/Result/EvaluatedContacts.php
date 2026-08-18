@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Executioner\Result;
+namespace MailVotech\CampaignBundle\Executioner\Result;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Lead;
 
 final readonly class EvaluatedContacts
 {

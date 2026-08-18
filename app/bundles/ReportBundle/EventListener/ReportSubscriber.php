@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\EventListener;
+namespace MailVotech\ReportBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\ReportBundle\Event\ReportEvent;
-use Mautic\ReportBundle\ReportEvents;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\ReportBundle\Event\ReportEvent;
+use MailVotech\ReportBundle\ReportEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ReportSubscriber implements EventSubscriberInterface

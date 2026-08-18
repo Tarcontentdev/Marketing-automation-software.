@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\EmailBundle\Exception;
+namespace MailVotech\EmailBundle\Exception;
 
 final class MailboxException extends \Exception
 {

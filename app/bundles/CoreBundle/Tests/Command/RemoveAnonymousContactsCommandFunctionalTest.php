@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Command;
+namespace MailVotech\CoreBundle\Tests\Command;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CoreBundle\Command\RemoveAnonymousContactsCommand;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CoreBundle\Command\RemoveAnonymousContactsCommand;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
 
-final class RemoveAnonymousContactsCommandFunctionalTest extends MauticMysqlTestCase
+final class RemoveAnonymousContactsCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * @throws \Exception

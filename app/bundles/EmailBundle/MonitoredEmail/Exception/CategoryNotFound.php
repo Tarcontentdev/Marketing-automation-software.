@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\MonitoredEmail\Exception;
+namespace MailVotech\EmailBundle\MonitoredEmail\Exception;
 
 final class CategoryNotFound extends \Exception
 {

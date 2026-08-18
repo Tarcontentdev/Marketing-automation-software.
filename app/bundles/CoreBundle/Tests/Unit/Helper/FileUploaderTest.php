@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Exception\FilePathException;
-use Mautic\CoreBundle\Exception\FileUploadException;
-use Mautic\CoreBundle\Helper\FilePathResolver;
-use Mautic\CoreBundle\Helper\FileUploader;
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Exception\FilePathException;
+use MailVotech\CoreBundle\Exception\FileUploadException;
+use MailVotech\CoreBundle\Helper\FilePathResolver;
+use MailVotech\CoreBundle\Helper\FileUploader;
+use MailVotech\CoreBundle\Translation\Translator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;

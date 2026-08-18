@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\UserBundle\Security\SAML\User;
+namespace MailVotech\UserBundle\Security\SAML\User;
 
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\SpBundle\Security\User\UsernameMapperInterface;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\User;
 
 final readonly class UserMapper implements UsernameMapperInterface
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Executioner\ContactFinder\Limiter;
+namespace MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter;
 
-use Mautic\CampaignBundle\Executioner\Exception\NoContactsFoundException;
+use MailVotech\CampaignBundle\Executioner\Exception\NoContactsFoundException;
 
 final class ContactLimiter
 {

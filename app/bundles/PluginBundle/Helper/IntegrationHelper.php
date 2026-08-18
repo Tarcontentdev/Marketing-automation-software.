@@ -1,21 +1,21 @@
 <?php
 
-namespace Mautic\PluginBundle\Helper;
+namespace MailVotech\PluginBundle\Helper;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Cache\ResultCacheOptions;
-use Mautic\CoreBundle\Helper\BundleHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Entity\IntegrationRepository;
-use Mautic\PluginBundle\Entity\Plugin;
-use Mautic\PluginBundle\Integration\AbstractIntegration;
-use Mautic\PluginBundle\Integration\UnifiedIntegrationInterface;
-use Mautic\PluginBundle\Model\PluginModel;
+use MailVotech\CoreBundle\Cache\ResultCacheOptions;
+use MailVotech\CoreBundle\Helper\BundleHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Entity\IntegrationRepository;
+use MailVotech\PluginBundle\Entity\Plugin;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\PluginBundle\Integration\UnifiedIntegrationInterface;
+use MailVotech\PluginBundle\Model\PluginModel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
 use Twig\Environment;
@@ -104,7 +104,7 @@ class IntegrationHelper
                     $id                  = $installedPlugins[$plugin['bundle']]['id'];
                     $this->byPlugin[$id] = [];
                     $pluginReference     = $this->em->getReference(Plugin::class, $id);
-                    $pluginNamespace     = str_replace('MauticPlugin', '', $plugin['bundle']);
+                    $pluginNamespace     = str_replace('MailVotechPlugin', '', $plugin['bundle']);
 
                     foreach ($finder as $file) {
                         $integrationName = substr($file->getBaseName(), 0, -15);
@@ -114,7 +114,7 @@ class IntegrationHelper
                             $newIntegration->setName($integrationName)
                                 ->setPlugin($pluginReference);
                             $integrationSettings[$integrationName] = $newIntegration;
-                            $integrationContainerKey               = strtolower("mautic.integration.{$integrationName}");
+                            $integrationContainerKey               = strtolower("mailvotech.integration.{$integrationName}");
 
                             // Initiate the class in order to get the features supported
                             if ($this->container->has($integrationContainerKey)) {
@@ -157,7 +157,7 @@ class IntegrationHelper
             $coreIntegrationSettings = $this->getCoreIntegrationSettings();
 
             // Scan core bundles for integration classes
-            foreach ($this->bundleHelper->getMauticBundles() as $coreBundle) {
+            foreach ($this->bundleHelper->getMailVotechBundles() as $coreBundle) {
                 if (
                     // Skip plugin bundles
                     str_contains($coreBundle['relative'], 'app/bundles')
@@ -167,7 +167,7 @@ class IntegrationHelper
                     $finder = new Finder();
                     $finder->files()->name('*Integration.php')->in($coreBundle['directory'].'/Integration')->ignoreDotFiles(true);
 
-                    $coreBundleNamespace = str_replace('Mautic', '', $coreBundle['bundle']);
+                    $coreBundleNamespace = str_replace('MailVotech', '', $coreBundle['bundle']);
 
                     foreach ($finder as $file) {
                         $integrationName = substr($file->getBaseName(), 0, -15);
@@ -177,7 +177,7 @@ class IntegrationHelper
                             $newIntegration->setName($integrationName);
                             $integrationSettings[$integrationName] = $newIntegration;
 
-                            $integrationContainerKey = strtolower("mautic.integration.{$integrationName}");
+                            $integrationContainerKey = strtolower("mailvotech.integration.{$integrationName}");
 
                             // Initiate the class in order to get the features supported
                             if ($this->container->has($integrationContainerKey)) {
@@ -256,7 +256,7 @@ class IntegrationHelper
 
             if (!isset($this->integrations[$integrationName])) {
                 $integration             = $this->available[$integrationName];
-                $integrationContainerKey = strtolower("mautic.integration.{$integrationName}");
+                $integrationContainerKey = strtolower("mailvotech.integration.{$integrationName}");
 
                 if ($this->container->has($integrationContainerKey)) {
                     $this->integrations[$integrationName] = $this->container->get($integrationContainerKey);
@@ -415,7 +415,7 @@ class IntegrationHelper
             // check to see if there are social profiles activated
             $socialIntegrations = $this->getIntegrationObjects($specificIntegration, ['public_profile', 'public_activity']);
 
-            /** @var \MauticPlugin\MauticSocialBundle\Integration\SocialIntegration $sn */
+            /** @var \MailVotechPlugin\MailVotechSocialBundle\Integration\SocialIntegration $sn */
             foreach ($socialIntegrations as $integration => $sn) {
                 $settings        = $sn->getIntegrationSettings();
                 $features        = $settings->getSupportedFeatures();

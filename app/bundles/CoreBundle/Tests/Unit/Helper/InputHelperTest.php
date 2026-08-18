@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -148,8 +148,8 @@ final class InputHelperTest extends TestCase
     public static function urlProvider(): iterable
     {
         yield [
-            'https://www.mautic.org/somewhere/something?foo=bar#abc123',
-            'https://www.mautic.org/somewhere/something?foo=bar#abc123',
+            'https://www.mailvotech.org/somewhere/something?foo=bar#abc123',
+            'https://www.mailvotech.org/somewhere/something?foo=bar#abc123',
             'A valid URL is reconstructed as expected.',
         ];
 
@@ -160,24 +160,24 @@ final class InputHelperTest extends TestCase
         ];
 
         yield [
-            'foo://www.mautic.org',
-            'http://www.mautic.org',
+            'foo://www.mailvotech.org',
+            'http://www.mailvotech.org',
             'A disallowed protocol is changed to the default (http).',
         ];
 
         // user and password are included
         yield [
-            'http://user:password@www.mautic.org',
-            'http://user:password@www.mautic.org',
+            'http://user:password@www.mailvotech.org',
+            'http://user:password@www.mailvotech.org',
             'User and password are included in the URL.',
         ];
 
         // PHP 7.3.26 changed behavior for this type of URL but in either case, the <img> tag is sanitized
         $sanitizedUrl = (\version_compare(PHP_VERSION, '7.3.26', '>=')) ?
-            'http://&#60;img&#62;:&#60;img&#62;@www.mautic.org' :
-            'http://:@www.mautic.org';
+            'http://&#60;img&#62;:&#60;img&#62;@www.mailvotech.org' :
+            'http://:@www.mailvotech.org';
         yield [
-            'http://<img>:<img>@www.mautic.org',
+            'http://<img>:<img>@www.mailvotech.org',
             $sanitizedUrl,
             'User and password have tags stripped.',
         ];
@@ -189,50 +189,50 @@ final class InputHelperTest extends TestCase
         ];
 
         yield [
-            'http://www.mautic.org:8080/path',
-            'http://www.mautic.org:8080/path',
+            'http://www.mailvotech.org:8080/path',
+            'http://www.mailvotech.org:8080/path',
             'Port is included in the URL.',
         ];
 
         yield [
-            'http://www.mautic.org/abc<img/src="doesnotexist.jpg">123',
-            'http://www.mautic.org/abc123',
+            'http://www.mailvotech.org/abc<img/src="doesnotexist.jpg">123',
+            'http://www.mailvotech.org/abc123',
             'Path has tags stripped.',
         ];
 
         yield [
-            'http://www.mautic.org?<foo>=bar',
-            'http://www.mautic.org?%3Cfoo%3E=bar',
+            'http://www.mailvotech.org?<foo>=bar',
+            'http://www.mailvotech.org?%3Cfoo%3E=bar',
             'Query keys are urlencoded.',
         ];
 
         yield [
-            'http://www.mautic.org?%3Cfoo%3E=<bar>',
-            'http://www.mautic.org?%3Cfoo%3E=%3Cbar%3E',
+            'http://www.mailvotech.org?%3Cfoo%3E=<bar>',
+            'http://www.mailvotech.org?%3Cfoo%3E=%3Cbar%3E',
             'Query values are urlencoded.',
         ];
 
         yield [
-            'http://www.mautic.org#<img/src="doesnotexist.jpg">',
-            'http://www.mautic.org#',
+            'http://www.mailvotech.org#<img/src="doesnotexist.jpg">',
+            'http://www.mailvotech.org#',
             'Fragment is cleaned and tags are stripped.',
         ];
 
         yield [
-            'http://www.mautic.org#%3Cimg%2Fsrc%3D%22doesnotexist.jpg%22%3E',
-            'http://www.mautic.org#%3Cimg%2Fsrc%3D%22doesnotexist.jpg%22%3E',
+            'http://www.mailvotech.org#%3Cimg%2Fsrc%3D%22doesnotexist.jpg%22%3E',
+            'http://www.mailvotech.org#%3Cimg%2Fsrc%3D%22doesnotexist.jpg%22%3E',
             'Fragment is cleaned and tags are stripped.',
         ];
 
         yield [
-            'http://www.mautic.org#abc<img/src="doesnotexist.jpg">123',
-            'http://www.mautic.org#abc123',
+            'http://www.mailvotech.org#abc<img/src="doesnotexist.jpg">123',
+            'http://www.mailvotech.org#abc123',
             'Fragment is cleaned and tags are stripped.',
         ];
 
         yield [
-            'http://www.mautic.org#abc123',
-            'http://www.mautic.org',
+            'http://www.mailvotech.org#abc123',
+            'http://www.mailvotech.org',
             'Fragment is removed when ignoreFragment is true.',
             true,
         ];

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Executioner\ContactFinder;
+namespace MailVotech\CampaignBundle\Tests\Executioner\ContactFinder;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Executioner\ContactFinder\ScheduledContactFinder;
-use Mautic\CampaignBundle\Executioner\Exception\NoContactsFoundException;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\ScheduledContactFinder;
+use MailVotech\CampaignBundle\Executioner\Exception\NoContactsFoundException;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\NullLogger;
 

@@ -1,9 +1,9 @@
 {#
 /*
- # @copyright   2014 Mautic Contributors. All rights reserved
- # @author      Mautic
+ # @copyright   2014 MailVotech Contributors. All rights reserved
+ # @author      MailVotech
  #
- # @link        http://mautic.org
+ # @link        http://mailvotech.org
  #
  # @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -12,7 +12,7 @@
 {% set isInline = inline ?? false %}
 {% set isAjax = app.request.isxmlhttprequest ?? false %}
 {% set src = src|default(mautibotGetImage('wave'))  %}
-{% set message = message|default('mautic.core.error.generic') %}
+{% set message = message|default('mailvotech.core.error.generic') %}
 {% set status_code = status_code | default('') %}
 
 {% set pageTitle = pageTitle|default('') %}
@@ -46,7 +46,7 @@
                     <footer class="text-right">Mautibot</footer>
                 </blockquote>
                 <div class="pull-right">
-                    <a class="text-secondary" href="http://mau.tc/report-issue" target="_new">{{ 'mautic.core.report_issue' | trans }}</a>
+                    <a class="text-secondary" href="http://mau.tc/report-issue" target="_new">{{ 'mailvotech.core.report_issue' | trans }}</a>
                 </div>
             </div>
             {% endif %}

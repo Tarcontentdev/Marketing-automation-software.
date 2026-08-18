@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Model\ListModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,13 +25,13 @@ final class DashboardLeadsLifetimeWidgetType extends AbstractType
     {
         $lists                                                       = $this->segmentModel->getUserLists();
         $segments                                                    = [];
-        $segments[$this->translator->trans('mautic.lead.all.leads')] = 0;
+        $segments[$this->translator->trans('mailvotech.lead.all.leads')] = 0;
         foreach ($lists as $list) {
             $segments[$list['name']] = $list['id'];
         }
 
         $builder->add('flag', ChoiceType::class, [
-            'label'             => 'mautic.lead.list.filter',
+            'label'             => 'mailvotech.lead.list.filter',
             'multiple'          => true,
             'choices'           => $segments,
             'label_attr'        => ['class' => 'control-label'],

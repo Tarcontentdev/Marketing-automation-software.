@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Form\Type;
+namespace MailVotech\ProjectBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\ProjectBundle\Security\Permissions\ProjectPermissions;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\ProjectBundle\Security\Permissions\ProjectPermissions;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,12 +23,12 @@ final class ProjectType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $attr = ['data-placeholder' => $this->translator->trans('mautic.project.mautic.project.select')];
+        $attr = ['data-placeholder' => $this->translator->trans('mailvotech.project.mailvotech.project.select')];
 
         if ($this->corePermissions->isGranted(ProjectPermissions::CAN_CREATE)) {
-            $attr['data-placeholder']     = $this->translator->trans('mautic.project.select_or_create');
+            $attr['data-placeholder']     = $this->translator->trans('mailvotech.project.select_or_create');
             $attr['data-action']          = 'createProject';
-            $attr['data-no-results-text'] = $this->translator->trans('mautic.project.enter_to_create');
+            $attr['data-no-results-text'] = $this->translator->trans('mailvotech.project.enter_to_create');
             $attr['data-allow-add']       = 'true';
         }
 

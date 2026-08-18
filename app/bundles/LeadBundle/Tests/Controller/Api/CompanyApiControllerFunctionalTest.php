@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller\Api;
+namespace MailVotech\LeadBundle\Tests\Controller\Api;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Tests\TestEntityCreationTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Tests\TestEntityCreationTrait;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CompanyApiControllerFunctionalTest extends MauticMysqlTestCase
+final class CompanyApiControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     use TestEntityCreationTrait;
 
@@ -194,7 +194,7 @@ final class CompanyApiControllerFunctionalTest extends MauticMysqlTestCase
                 'city'        => 'Boston',
                 'state'       => 'Massachusetts',
                 'country'     => 'United States',
-                'name'        => 'Mautic',
+                'name'        => 'MailVotech',
                 'industry'    => 'Software',
             ],
             'expectedStatusCode' => Response::HTTP_CREATED,

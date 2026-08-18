@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Controller;
+namespace MailVotech\ReportBundle\Tests\Controller;
 
 use Doctrine\ORM\Exception\NotSupported;
 use Doctrine\Persistence\Mapping\MappingException;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Model\PageModel;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Entity\SchedulerRepository;
-use Mautic\ReportBundle\Model\ReportFileWriter;
-use Mautic\ReportBundle\Model\ReportModel;
-use Mautic\ReportBundle\Scheduler\Enum\SchedulerEnum;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Model\PageModel;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\SchedulerRepository;
+use MailVotech\ReportBundle\Model\ReportFileWriter;
+use MailVotech\ReportBundle\Model\ReportModel;
+use MailVotech\ReportBundle\Scheduler\Enum\SchedulerEnum;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ReportControllerFunctionalTest extends MauticMysqlTestCase
+final class ReportControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     private const TEST_EMAIL         = 'test@email.com';
 
@@ -36,8 +36,8 @@ final class ReportControllerFunctionalTest extends MauticMysqlTestCase
         $this->createHit(null);
 
         $query = $this->em->getConnection()->createQueryBuilder();
-        $query->from(MAUTIC_TABLE_PREFIX.'page_hits', 'ph');
-        $query->leftJoin('ph', MAUTIC_TABLE_PREFIX.'pages', 'p', 'ph.page_id = p.id');
+        $query->from(MAILVOTECH_TABLE_PREFIX.'page_hits', 'ph');
+        $query->leftJoin('ph', MAILVOTECH_TABLE_PREFIX.'pages', 'p', 'ph.page_id = p.id');
 
         /** @var PageModel $pageModel */
         $pageModel = self::getContainer()->get(PageModel::class);
@@ -57,8 +57,8 @@ final class ReportControllerFunctionalTest extends MauticMysqlTestCase
         $this->createHit(null);
 
         $report = $this->createReport('Report Most Visited Pages', 'page.hits', [
-            'mautic.page.table.most.visited.unique',
-            'mautic.page.table.most.visited',
+            'mailvotech.page.table.most.visited.unique',
+            'mailvotech.page.table.most.visited',
         ]);
 
         // Check the details page
@@ -533,12 +533,12 @@ final class ReportControllerFunctionalTest extends MauticMysqlTestCase
         self::assertResponseIsSuccessful();
 
         while ($scheduler->getScheduleDate() > new \DateTime()) {
-            // This ugly thing is needed, because \Mautic\ReportBundle\Scheduler\Model\SchedulerPlanner::computeScheduler
+            // This ugly thing is needed, because \MailVotech\ReportBundle\Scheduler\Model\SchedulerPlanner::computeScheduler
             // plans the schedule with the "ceil" of seconds. E.g. now is 12:32:11, the schedule will be 12:33:00.
             usleep(100);
         }
 
-        $this->testSymfonyCommand('mautic:reports:scheduler');
+        $this->testSymfonyCommand('mailvotech:reports:scheduler');
 
         $reportFileWriter = self::getContainer()->get(ReportFileWriter::class);
         $this->assertInstanceOf(ReportFileWriter::class, $reportFileWriter);
@@ -546,7 +546,7 @@ final class ReportControllerFunctionalTest extends MauticMysqlTestCase
         $csvPath = $reportFileWriter->getFilePath($scheduler);
         $this->assertFileExists($csvPath);
 
-        // Pretend Mautic has created a ZIP file as in \Mautic\ReportBundle\Scheduler\Model\FileHandler::zipIt
+        // Pretend MailVotech has created a ZIP file as in \MailVotech\ReportBundle\Scheduler\Model\FileHandler::zipIt
         $zipPath      = str_replace('.csv', '.zip', $csvPath);
         $bytesWritten = file_put_contents($zipPath, 'ZIP');
         $this->assertNotFalse($bytesWritten);
@@ -707,7 +707,7 @@ final class ReportControllerFunctionalTest extends MauticMysqlTestCase
         ];
 
         $reportModel->method('getFilterList')->willReturn($filterDefinitions);
-        self::getContainer()->set('mautic.report.model.report', $reportModel);
+        self::getContainer()->set('mailvotech.report.model.report', $reportModel);
 
         $this->client->request('GET', '/s/reports/view/'.$report->getId());
         self::assertResponseIsSuccessful();

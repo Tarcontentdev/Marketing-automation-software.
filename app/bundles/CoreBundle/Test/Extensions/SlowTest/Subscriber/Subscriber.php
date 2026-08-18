@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test\Extensions\SlowTest\Subscriber;
+namespace MailVotech\CoreBundle\Test\Extensions\SlowTest\Subscriber;
 
-use Mautic\CoreBundle\Test\Extensions\SlowTest\SlowTest;
+use MailVotech\CoreBundle\Test\Extensions\SlowTest\SlowTest;
 
 abstract class Subscriber
 {

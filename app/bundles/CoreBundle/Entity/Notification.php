@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\CoreBundle\Entity;
+namespace MailVotech\CoreBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\UserBundle\Entity\User;
 
 class Notification
 {

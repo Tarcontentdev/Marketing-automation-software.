@@ -2,34 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller\Api;
+namespace MailVotech\LeadBundle\Tests\Controller\Api;
 
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Entity\Download;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Test\Session\FixedMockFileSessionStorage;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\DynamicContentBundle\Entity\Stat as StatDC;
-use Mautic\EmailBundle\Entity\Stat as StatEmail;
-use Mautic\LeadBundle\Deduplicate\ContactMerger;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadNote;
-use Mautic\UserBundle\Entity\Permission;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Entity\Download;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Test\Session\FixedMockFileSessionStorage;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\DynamicContentBundle\Entity\Stat as StatDC;
+use MailVotech\EmailBundle\Entity\Stat as StatEmail;
+use MailVotech\LeadBundle\Deduplicate\ContactMerger;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadNote;
+use MailVotech\UserBundle\Entity\Permission;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
-final class LeadApiControllerFunctionalTest extends MauticMysqlTestCase
+final class LeadApiControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     use ApiTestUserTrait;
     use CreateTestEntitiesTrait;
@@ -60,7 +60,7 @@ final class LeadApiControllerFunctionalTest extends MauticMysqlTestCase
         $clientResponse = $this->client->getResponse();
         $this->assertEquals(Response::HTTP_FORBIDDEN, $clientResponse->getStatusCode(), $clientResponse->getContent());
         $this->assertEquals(
-            '{"errors":[{"message":"API disabled. You need to enable the API in the API settings of Mautic\u0027s Configuration.","code":403,"type":"api_disabled"}]}',
+            '{"errors":[{"message":"API disabled. You need to enable the API in the API settings of MailVotech\u0027s Configuration.","code":403,"type":"api_disabled"}]}',
             $clientResponse->getContent()
         );
     }
@@ -405,7 +405,7 @@ final class LeadApiControllerFunctionalTest extends MauticMysqlTestCase
         // Emulate an unsanitized email to ensure that doesn't cause duplicates
         $payload[0]['email'] = 'batchemail1@email.com,';
 
-        // Set first name as null - Mautic should keep the value
+        // Set first name as null - MailVotech should keep the value
         $payload[0]['firstname'] = null;
 
         // Remove tags from contact 1 to see if they will stick in the database
@@ -1128,7 +1128,7 @@ final class LeadApiControllerFunctionalTest extends MauticMysqlTestCase
     public function testBatchDncAddAndRemove(): void
     {
         // Create contact
-        $emailAddress = uniqid('', false).'@mautic.com';
+        $emailAddress = uniqid('', false).'@mailvotech.com';
 
         $payload = [
             'id'    => 80,
@@ -1232,7 +1232,7 @@ final class LeadApiControllerFunctionalTest extends MauticMysqlTestCase
     public function testAddAndRemoveDncToExistingContact(): void
     {
         // Create contact
-        $payload = ['email' => 'addDncDemo@mautic.org'];
+        $payload = ['email' => 'addDncDemo@mailvotech.org'];
 
         $this->client->request(Request::METHOD_POST, '/api/contacts/new', $payload);
         $clientResponse = $this->client->getResponse();
@@ -1258,7 +1258,7 @@ final class LeadApiControllerFunctionalTest extends MauticMysqlTestCase
         $clientResponse = $this->client->getResponse();
         $dncResponse    = json_decode($clientResponse->getContent(), true);
 
-        // MANUAL (3) is the default value according to the dev docs: https://developer.mautic.org/#add-do-not-contact
+        // MANUAL (3) is the default value according to the dev docs: https://developer.mailvotech.org/#add-do-not-contact
         $this->assertSame(DoNotContact::MANUAL, $dncResponse['contact']['doNotContact'][0]['reason']);
         $this->assertSame($dncChannel, $dncResponse['contact']['doNotContact'][0]['channel']);
 

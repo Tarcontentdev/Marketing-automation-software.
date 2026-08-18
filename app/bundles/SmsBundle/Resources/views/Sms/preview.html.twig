@@ -1,4 +1,4 @@
-{# sms @var \Mautic\SmsBundle\Entity\Sms #}
+{# sms @var \MailVotech\SmsBundle\Entity\Sms #}
 <div class="d-flex jc-center pa-md">
     <div class="phone-preview animation--slide-in-right">
         <div class="phone-preview__silence-switch phone-preview__button--outer"></div>
@@ -33,10 +33,10 @@
             </div>
             {% for image in sms.getMedia() %}
                 <div class="phone-preview__message phone-preview__message--from phone-preview__message--media">
-                    <span class="phone-preview__message-content"><img src="{{ image }}" alt="{{ 'mautic.sms.preview.input.placeholder'|trans }}"></span>
+                    <span class="phone-preview__message-content"><img src="{{ image }}" alt="{{ 'mailvotech.sms.preview.input.placeholder'|trans }}"></span>
                 </div>
             {% endfor %}
-            <div class="phone-preview__message phone-preview__message--to">{{ 'mautic.sms.preview.demo.message'|trans }}</div>
+            <div class="phone-preview__message phone-preview__message--to">{{ 'mailvotech.sms.preview.demo.message'|trans }}</div>
         </div>
 
         <div class="phone-preview__keyboard">
@@ -47,7 +47,7 @@
                 <div class="phone-preview__cursor">
                     <i class="ri-arrow-up-circle-fill phone-preview__send-button"></i>
                 </div>
-                <input type="text" class="phone-preview__input-field" placeholder="{{ 'mautic.sms.preview.input.placeholder'|trans }}" maxlength="1000"/>
+                <input type="text" class="phone-preview__input-field" placeholder="{{ 'mailvotech.sms.preview.input.placeholder'|trans }}" maxlength="1000"/>
             </div>
 
             <div class="phone-preview__keypad">

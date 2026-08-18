@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Controller;
+namespace MailVotech\PageBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PageBundle\Entity\Page;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 
-final class DeviceTrackingServiceClearCookiesTest extends MauticMysqlTestCase
+final class DeviceTrackingServiceClearCookiesTest extends MailVotechMysqlTestCase
 {
     /**
      * @return \Iterator<string, array{bool}>
@@ -48,7 +48,7 @@ final class DeviceTrackingServiceClearCookiesTest extends MauticMysqlTestCase
             // Check if tracking cookies are being deleted (empty value + past expiration)
             $cookieIsDeleted = '' === $cookie->getValue() && $cookie->getExpiresTime() < time();
 
-            if ('mautic_device_id' === $cookie->getName() && $cookieIsDeleted) {
+            if ('mailvotech_device_id' === $cookie->getName() && $cookieIsDeleted) {
                 $deviceIdCookieCleared = true;
             }
 

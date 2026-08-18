@@ -4,7 +4,7 @@
     - themes
     - active
 #}
-{% set codeMode = 'mautic_code_mode' %}
+{% set codeMode = 'mailvotech_code_mode' %}
 {% set isCodeMode = active == codeMode %}
 {% if themes %}
   <div class="row">
@@ -32,11 +32,11 @@
                                 <i class="ri-file-image-line ri-5x text-secondary" aria-hidden="true" style="padding-top: 75px; color: #E4E4E4;"></i>
                             </div>
                         {% endif %}
-                        {% include '@MauticCore/Helper/button.html.twig' with {
+                        {% include '@MailVotechCore/Helper/button.html.twig' with {
                             buttons: [
                                 {
                                     href: '#',
-                                    label: 'mautic.core.select',
+                                    label: 'mailvotech.core.select',
                                     variant: 'tertiary',
                                     attributes: {
                                         'type': 'button',
@@ -46,7 +46,7 @@
                                     },
                                 },
                                 {
-                                    label: 'mautic.core.form.filters.selected',
+                                    label: 'mailvotech.core.form.filters.selected',
                                     variant: 'tertiary',
                                     attributes: {
                                         'type': 'button',
@@ -60,7 +60,7 @@
                             {% set tags = [] %}
                             {% for tag in themeInfo.config.tags %}
                                 {% set tagObj = {
-                                    'label': 'mautic.core.theme.tag.' ~ tag|replace({'-': '_'}),
+                                    'label': 'mailvotech.core.theme.tag.' ~ tag|replace({'-': '_'}),
                                     'size': 'sm'
                                 } %}
                                 {% if tag == 'adaptative' %}
@@ -73,7 +73,7 @@
                                 {% set tags = tags|merge([tagObj]) %}
                             {% endfor %}
                             <div class="mt-md">
-                                {% include '@MauticCore/Helper/_tag.html.twig' with { tags: tags } %}
+                                {% include '@MailVotechCore/Helper/_tag.html.twig' with { tags: tags } %}
                             </div>
                         {% endif %}
                     </div>
@@ -100,15 +100,15 @@
     <div class="col-md-3 theme-list">
         <div class="panel panel-default {% if isCodeMode %}theme-selected{% endif %}">
             <div class="panel-body text-center">
-                <h3>{{ 'mautic.core.code.mode'|trans }}</h3>
+                <h3>{{ 'mailvotech.core.code.mode'|trans }}</h3>
                 <div class="panel-body text-center" style="height: 250px">
                     <i class="ri-code-s-slash-line ri-5x text-secondary" aria-hidden="true" style="padding-top: 75px; color: #E4E4E4;"></i>
                 </div>
-                {% include '@MauticCore/Helper/button.html.twig' with {
+                {% include '@MailVotechCore/Helper/button.html.twig' with {
                   buttons: [
                       {
                           href: '#',
-                          label: 'mautic.core.select',
+                          label: 'mailvotech.core.select',
                           variant: 'tertiary',
                           attributes: {
                               'type': 'button',
@@ -118,7 +118,7 @@
                           },
                       },
                       {
-                          label: 'mautic.core.form.filters.selected',
+                          label: 'mailvotech.core.form.filters.selected',
                           variant: 'tertiary',
                           attributes: {
                               'type': 'button',

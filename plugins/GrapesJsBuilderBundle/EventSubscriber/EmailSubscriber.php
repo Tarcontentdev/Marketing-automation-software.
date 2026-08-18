@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\EventSubscriber;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\EventSubscriber;
 
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Event as Events;
-use Mautic\EmailBundle\Helper\EmailConfigInterface;
-use MauticPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilderRepository;
-use MauticPlugin\GrapesJsBuilderBundle\Integration\Config;
-use MauticPlugin\GrapesJsBuilderBundle\Model\GrapesJsBuilderModel;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Event as Events;
+use MailVotech\EmailBundle\Helper\EmailConfigInterface;
+use MailVotechPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilderRepository;
+use MailVotechPlugin\GrapesJsBuilderBundle\Integration\Config;
+use MailVotechPlugin\GrapesJsBuilderBundle\Model\GrapesJsBuilderModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class EmailSubscriber implements EventSubscriberInterface

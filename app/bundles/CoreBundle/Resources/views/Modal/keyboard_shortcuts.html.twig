@@ -3,11 +3,11 @@
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'mautic.core.close' | trans }}">
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'mailvotech.core.close' | trans }}">
           <span aria-hidden="true">&times;</span>
         </button>
         <h4 class="modal-title" id="keyboardShortcutsModalLabel">
-          {{ "mautic.keyboard.shortcuts" | trans }}
+          {{ "mailvotech.keyboard.shortcuts" | trans }}
         </h4>
       </div>
       <div class="modal-body modal-scroll-content">
@@ -15,32 +15,32 @@
           <div class="col-md-12">
             {% set shortcuts = {
             'navigation': {
-            'g+d': 'mautic.keyboard.load_dashboard',
-            'g+c': 'mautic.keyboard.load_contacts',
-            'g+e': 'mautic.keyboard.load_emails',
-            'g+f': 'mautic.keyboard.load_forms',
-            'g+s': 'mautic.keyboard.load_segments',
-            'g+p': 'mautic.keyboard.load_landing_pages',
+            'g+d': 'mailvotech.keyboard.load_dashboard',
+            'g+c': 'mailvotech.keyboard.load_contacts',
+            'g+e': 'mailvotech.keyboard.load_emails',
+            'g+f': 'mailvotech.keyboard.load_forms',
+            'g+s': 'mailvotech.keyboard.load_segments',
+            'g+p': 'mailvotech.keyboard.load_landing_pages',
             },
             'functions': {
-            '/' : 'mautic.keyboard.list_search',
-            'f+/': 'mautic.keyboard.global_search',
-            'f+n': 'mautic.keyboard.show_notifications',
-            'f+m': 'mautic.keyboard.open_settings',
+            '/' : 'mailvotech.keyboard.list_search',
+            'f+/': 'mailvotech.keyboard.global_search',
+            'f+n': 'mailvotech.keyboard.show_notifications',
+            'f+m': 'mailvotech.keyboard.open_settings',
             },
             'actions': {
-            'e' : 'mautic.keyboard.edit',
-            'c' : 'mautic.keyboard.create',
-            '⌘+Enter' : 'mautic.keyboard.save',
-            'g+i' : 'mautic.keyboard.back',
-            'Del / ⌘+⌫' : 'mautic.keyboard.delete',
+            'e' : 'mailvotech.keyboard.edit',
+            'c' : 'mailvotech.keyboard.create',
+            '⌘+Enter' : 'mailvotech.keyboard.save',
+            'g+i' : 'mailvotech.keyboard.back',
+            'Del / ⌘+⌫' : 'mailvotech.keyboard.delete',
             } } %}
             <h4 class="fw-sb">
-              {{ "mautic.keyboard.section.global" | trans }}
+              {{ "mailvotech.keyboard.section.global" | trans }}
             </h4>
             {% for section, shortcut_list in shortcuts %}
             <h5 class="mb-xs mt-md fw-sb">
-              {{ ('mautic.keyboard.section.' ~ section)|trans }}
+              {{ ('mailvotech.keyboard.section.' ~ section)|trans }}
             </h5>
             <table class="shortcut-table bsv-xs">
               {% for key, description in shortcut_list %}
@@ -58,9 +58,9 @@
                     {% for k in keys %}
                       {% set title = '' %}
                       {% if k == '⌫' %}
-                        {% set title = 'mautic.keyboard.backspace'|trans %}
+                        {% set title = 'mailvotech.keyboard.backspace'|trans %}
                       {% elseif k == '⌘' %}
-                        {% set title = 'mautic.keyboard.command'|trans %}
+                        {% set title = 'mailvotech.keyboard.command'|trans %}
                      {% endif %}
                   <kbd{% if title %} title="{{ title }}" data-toggle="tooltip" {% endif %}>{{ k }}</kbd>
                     {% endfor %}
@@ -75,12 +75,12 @@
         <div class="row">
           <hr />
           <ul class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
-            {{ include('@MauticLead/KeyboardShortcuts/lead_shortcuts.html.twig', ignore_missing = true) }}
-            {{ include('@MauticEmail/KeyboardShortcuts/emails_shortcuts.html.twig', ignore_missing = true) }}
+            {{ include('@MailVotechLead/KeyboardShortcuts/lead_shortcuts.html.twig', ignore_missing = true) }}
+            {{ include('@MailVotechEmail/KeyboardShortcuts/emails_shortcuts.html.twig', ignore_missing = true) }}
           </ul>
           <div class="alert alert-info col-xs-12">
             <div class="d-flex jc-space-between ai-center small">
-              <div> <strong class="mr-xs">{{ 'mautic.keyboard.tip'|trans }}</strong><kbd>⌘</kbd> <i
+              <div> <strong class="mr-xs">{{ 'mailvotech.keyboard.tip'|trans }}</strong><kbd>⌘</kbd> <i
                   class="ri-arrow-right-line"></i> <kbd>Ctrl</kbd></div>
             </div>
           </div>
@@ -88,7 +88,7 @@
       </div>
       <div class="modal-footer">
         <p>
-          {{ 'mautic.keyboard.press_to_view'|trans({'%shift%': '', '%question%': '<kbd>?</kbd>'})|raw }}
+          {{ 'mailvotech.keyboard.press_to_view'|trans({'%shift%': '', '%question%': '<kbd>?</kbd>'})|raw }}
         </p>
       </div>
     </div>

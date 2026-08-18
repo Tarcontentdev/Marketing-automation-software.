@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\EventListener;
+namespace MailVotech\UserBundle\EventListener;
 
-use Mautic\UserBundle\Exception\WeakPasswordException;
-use Mautic\UserBundle\Model\PasswordStrengthEstimatorModel;
-use Mautic\UserBundle\Security\Authenticator\Passport\Badge\PasswordStrengthBadge;
+use MailVotech\UserBundle\Exception\WeakPasswordException;
+use MailVotech\UserBundle\Model\PasswordStrengthEstimatorModel;
+use MailVotech\UserBundle\Security\Authenticator\Passport\Badge\PasswordStrengthBadge;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Http\Event\CheckPassportEvent;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Form\Type;
+namespace MailVotech\ProjectBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,7 +37,7 @@ final class ProjectAddEntityType extends AbstractType
             'entityIds',
             ProjectListEntityType::class,
             [
-                'label'            => 'mautic.project.form.select_entities',
+                'label'            => 'mailvotech.project.form.select_entities',
                 'required'         => true,
                 'multiple'         => true,
                 'entityType'       => $options['entityType'],
@@ -50,7 +50,7 @@ final class ProjectAddEntityType extends AbstractType
             FormButtonsType::class,
             [
                 'apply_text' => false,
-                'save_text'  => 'mautic.core.form.add',
+                'save_text'  => 'mailvotech.core.form.add',
                 'save_icon'  => 'ri-add-line',
             ]
         );

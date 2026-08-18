@@ -12,7 +12,7 @@
     <div class="box-layout">
         <div class="col-md-1 va-m">
             <h3>
-                {{ include('@MauticCore/Helper/publishstatus_icon.html.twig', {
+                {{ include('@MailVotechCore/Helper/publishstatus_icon.html.twig', {
                         'item': translation,
                         'model': model,
                         'size': '',
@@ -26,10 +26,10 @@
                     <span>{{ attribute(translation, nameGetter) }}</span>
                 </a>
                 {% if isCurrent %}
-                    &nbsp;<span class="label label-success">{{ 'mautic.core.current'|trans }}</span>
+                    &nbsp;<span class="label label-success">{{ 'mailvotech.core.current'|trans }}</span>
                 {% endif %}
                 {% if translations.parent.id is same as translation.id %}
-                    &nbsp;<span class="label label-warning">{{ 'mautic.core.parent'|trans }}</span>
+                    &nbsp;<span class="label label-warning">{{ 'mailvotech.core.parent'|trans }}</span>
                 {% endif %}
             </h5>
             {% if method_exists(translation, 'getAlias') %}

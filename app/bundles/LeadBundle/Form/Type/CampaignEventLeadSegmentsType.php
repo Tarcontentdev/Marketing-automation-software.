@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,7 +19,7 @@ final class CampaignEventLeadSegmentsType extends AbstractType
             LeadListType::class,
             [
                 'global_only' => true,
-                'label'       => 'mautic.lead.lead.lists',
+                'label'       => 'mailvotech.lead.lead.lists',
                 'label_attr'  => ['class' => 'control-label'],
                 'multiple'    => true,
                 'required'    => false,

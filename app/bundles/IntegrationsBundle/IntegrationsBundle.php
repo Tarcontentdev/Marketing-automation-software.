@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle;
+namespace MailVotech\IntegrationsBundle;
 
-use Mautic\IntegrationsBundle\Bundle\AbstractPluginBundle;
-use Mautic\IntegrationsBundle\DependencyInjection\Compiler\TestPass;
+use MailVotech\IntegrationsBundle\Bundle\AbstractPluginBundle;
+use MailVotech\IntegrationsBundle\DependencyInjection\Compiler\TestPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 final class IntegrationsBundle extends AbstractPluginBundle

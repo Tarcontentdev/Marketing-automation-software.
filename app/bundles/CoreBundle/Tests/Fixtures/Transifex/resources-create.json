@@ -19,9 +19,9 @@
             "word_count": 0,
             "youtube_url": "https://www.youtube.com/"
         },
-        "id": "o:mautic:p:mautic:r:resource_slug",
+        "id": "o:mailvotech:p:mailvotech:r:resource_slug",
         "links": {
-            "self": "/resources/o:mautic:p:mautic:r:resource_slug"
+            "self": "/resources/o:mailvotech:p:mailvotech:r:resource_slug"
         },
         "relationships": {
             "i18n_format": {
@@ -32,11 +32,11 @@
             },
             "project": {
                 "data": {
-                    "id": "o:mautic:p:mautic",
+                    "id": "o:mailvotech:p:mailvotech",
                     "type": "projects"
                 },
                 "links": {
-                    "related": "/projects/o:mautic:p:mautic"
+                    "related": "/projects/o:mailvotech:p:mailvotech"
                 }
             }
         },

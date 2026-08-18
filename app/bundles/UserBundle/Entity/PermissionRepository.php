@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\UserBundle\Entity;
+namespace MailVotech\UserBundle\Entity;
 
 use Doctrine\ORM\Query;
-use Mautic\CoreBundle\Cache\ResultCacheHelper;
-use Mautic\CoreBundle\Cache\ResultCacheOptions;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Cache\ResultCacheHelper;
+use MailVotech\CoreBundle\Cache\ResultCacheOptions;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<Permission>

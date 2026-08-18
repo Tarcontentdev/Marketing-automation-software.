@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Campaign;
+namespace MailVotech\CampaignBundle\Tests\Functional\Campaign;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class DetailsTest extends MauticMysqlTestCase
+final class DetailsTest extends MailVotechMysqlTestCase
 {
     public function testDetailsPageLoadCorrectly(): void
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine\Mapping;
+namespace MailVotech\CoreBundle\Doctrine\Mapping;
 
 /**
  * ManyToMany Association Builder.

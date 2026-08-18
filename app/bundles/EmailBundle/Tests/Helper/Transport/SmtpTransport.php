@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Helper\Transport;
+namespace MailVotech\EmailBundle\Tests\Helper\Transport;
 
 use Symfony\Component\Mailer\Envelope;
 use Symfony\Component\Mailer\SentMessage;

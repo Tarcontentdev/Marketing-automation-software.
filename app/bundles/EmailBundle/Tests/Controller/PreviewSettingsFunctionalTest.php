@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller;
+namespace MailVotech\EmailBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PreviewSettingsFunctionalTest extends MauticMysqlTestCase
+final class PreviewSettingsFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testPreviewSettingsAllEnabled(): void
     {

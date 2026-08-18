@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Form\Validator;
+namespace MailVotech\CoreBundle\Tests\Functional\Form\Validator;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
-final class FileEncodingValidatorTest extends MauticMysqlTestCase
+final class FileEncodingValidatorTest extends MailVotechMysqlTestCase
 {
     public function testFileNONUTF8(): void
     {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Functional;
+namespace MailVotech\EmailBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Stat;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Stat;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 
-final class BotRatioHelperFunctionalTest extends MauticMysqlTestCase
+final class BotRatioHelperFunctionalTest extends MailVotechMysqlTestCase
 {
     private const DO_NOT_TRACK_IP = '218.30.65.10';
 
@@ -47,7 +47,7 @@ final class BotRatioHelperFunctionalTest extends MauticMysqlTestCase
         $emailSendTime = new \DateTime();
         $stat->setDateSent($emailSendTime->modify($sentBefore));
         $stat->setTrackingHash($trackingHash);
-        $stat->setEmailAddress('lukas@mautic.test');
+        $stat->setEmailAddress('lukas@mailvotech.test');
         $this->em->persist($stat);
         $this->em->flush();
         $statId = $stat->getId();

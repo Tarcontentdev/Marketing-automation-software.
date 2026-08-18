@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StatsBundle\Tests\Aggregate\Collection\Stats;
+namespace MailVotech\StatsBundle\Tests\Aggregate\Collection\Stats;
 
-use Mautic\StatsBundle\Aggregate\Collection\Stats\MonthStat;
-use Mautic\StatsBundle\Aggregate\Collection\Stats\YearStat;
+use MailVotech\StatsBundle\Aggregate\Collection\Stats\MonthStat;
+use MailVotech\StatsBundle\Aggregate\Collection\Stats\YearStat;
 use PHPUnit\Framework\TestCase;
 
 final class YearStatTest extends TestCase

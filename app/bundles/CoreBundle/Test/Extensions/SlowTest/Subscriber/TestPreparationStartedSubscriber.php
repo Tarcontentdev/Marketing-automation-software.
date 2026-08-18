@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test\Extensions\SlowTest\Subscriber;
+namespace MailVotech\CoreBundle\Test\Extensions\SlowTest\Subscriber;
 
 use PHPUnit\Event\Test\PreparationStarted;
 use PHPUnit\Event\Test\PreparationStartedSubscriber;

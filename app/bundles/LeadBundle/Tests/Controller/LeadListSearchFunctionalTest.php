@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller;
+namespace MailVotech\LeadBundle\Tests\Controller;
 
 use Doctrine\Bundle\DoctrineBundle\DataCollector\DoctrineDataCollector;
 use Doctrine\Bundle\DoctrineBundle\Twig\DoctrineExtension;
 use Doctrine\ORM\ORMException;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
 use Symfony\Component\HttpFoundation\Request;
 
-final class LeadListSearchFunctionalTest extends MauticMysqlTestCase
+final class LeadListSearchFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * @var mixed[]
@@ -41,7 +41,7 @@ final class LeadListSearchFunctionalTest extends MauticMysqlTestCase
         $this->em->clear();
 
         $this->client->enableProfiler();
-        $prefix          = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix          = self::getContainer()->getParameter('mailvotech.db_table_prefix');
         $previousQueries = [];
 
         // non-existent segment search

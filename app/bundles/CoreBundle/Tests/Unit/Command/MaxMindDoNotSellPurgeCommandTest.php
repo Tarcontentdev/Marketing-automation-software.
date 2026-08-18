@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Command;
+namespace MailVotech\CoreBundle\Tests\Unit\Command;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Result;
 use Doctrine\DBAL\Statement;
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Command\MaxMindDoNotSellPurgeCommand;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\IpLookup\DoNotSellList\MaxMindDoNotSellList;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\CoreBundle\Command\MaxMindDoNotSellPurgeCommand;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\IpLookup\DoNotSellList\MaxMindDoNotSellList;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;

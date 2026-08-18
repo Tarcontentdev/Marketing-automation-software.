@@ -90,7 +90,7 @@ final class NoEntityManagerGetRepositoryRule implements Rule
             'Entity manager must not fetch the "%s" repository by entity constant. Inject the repository as a typed dependency instead, to make the dependency and its type explicit.',
             $firstArg->value->class->toString()
         ))
-            ->identifier('mautic.noEntityManagerGetRepository')
+            ->identifier('mailvotech.noEntityManagerGetRepository')
             ->build();
 
         return [$ruleError];

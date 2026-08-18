@@ -17,7 +17,7 @@ Good practices:
 - Never mock objects that have no PHP service dependencies like event or entity classes. Use the real object instead.
 - The best way to write a functional test is to use the actual endpoint. Either call a route or a command. The next best thing is to call a subscriber via EventDispatcher. If that is still too broad call a service.
 - Make all new classes final by default. Including tests.
-- Provide property, param and return types. If not possible to use native types you can always specify the types in the docblock. Mautic uses PHPSTAN so be sure to add types so the PHPSTAN won't fail.
+- Provide property, param and return types. If not possible to use native types you can always specify the types in the docblock. MailVotech uses PHPSTAN so be sure to add types so the PHPSTAN won't fail.
 - Use `$this->assertResponseIsSuccessful();` to assert successful requests.
 - Use PHPUNIT's data providers to test multiple scenarios in a single test method.
 - Use PHP attributes for PHPUnit annotations (e.g., `#[\PHPUnit\Framework\Attributes\DataProvider('methodName')]` instead of `@dataProvider`).
@@ -26,11 +26,11 @@ Suggestions for AI:
 - Do not modify the production code unless requested. Always just modify the test code.
 - Make the simplest test possible. The human will suggest improvements if needed.
 
-You can take an inspiration of existing functional tests. They all extend the `MauticMysqlTestCase` class and are located in the app/bundles or plugins directories under Tests folders. The tests are written in PHPUNIT. You can read the version in the `composer.json` file.
+You can take an inspiration of existing functional tests. They all extend the `MailVotechMysqlTestCase` class and are located in the app/bundles or plugins directories under Tests folders. The tests are written in PHPUNIT. You can read the version in the `composer.json` file.
 
-When testing commands, use the `testSymfonyCommand()` method inherited from `MauticMysqlTestCase`:
+When testing commands, use the `testSymfonyCommand()` method inherited from `MailVotechMysqlTestCase`:
 - Always call `$this->em->clear()` before running commands to ensure clean entity state
-- Example: `$output = $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $id]);`
+- Example: `$output = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $id]);`
 - Check the output string for errors or expected messages
 - Do not use Application/ArrayInput/BufferedOutput manually
 

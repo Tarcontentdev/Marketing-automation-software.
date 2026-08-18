@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper\Chart;
+namespace MailVotech\CoreBundle\Helper\Chart;
 
 final class PieChart extends AbstractChart implements ChartInterface
 {

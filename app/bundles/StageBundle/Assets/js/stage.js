@@ -1,5 +1,5 @@
 //StageBundle
-Mautic.stageOnLoad = function (container, response) {
+MailVotech.stageOnLoad = function (container, response) {
     const sequence = mQuery('#stage-weight-sequence');
 
     if (!sequence.length) {
@@ -11,35 +11,35 @@ Mautic.stageOnLoad = function (container, response) {
 
     if (stageWeights && weightFieldId) {
         const entityId = sequence.data('entity-id');
-        Mautic.initStageWeightConflictCheck(stageWeights, weightFieldId, entityId);
+        MailVotech.initStageWeightConflictCheck(stageWeights, weightFieldId, entityId);
     }
 };
 
-Mautic.getStageActionPropertiesForm = function(actionType) {
-    Mautic.activateLabelLoadingIndicator('stage_type');
+MailVotech.getStageActionPropertiesForm = function(actionType) {
+    MailVotech.activateLabelLoadingIndicator('stage_type');
 
     var query = "action=stage:getActionForm&actionType=" + actionType;
     mQuery.ajax({
-        url: mauticAjaxUrl,
+        url: mailvotechAjaxUrl,
         type: "POST",
         data: query,
         dataType: "json",
         success: function (response) {
             if (typeof response.html != 'undefined') {
                 mQuery('#stageActionProperties').html(response.html);
-                Mautic.onPageLoad('#stageActionProperties', response);
+                MailVotech.onPageLoad('#stageActionProperties', response);
             }
         },
         error: function (request, textStatus, errorThrown) {
-            Mautic.processAjaxError(request, textStatus, errorThrown);
+            MailVotech.processAjaxError(request, textStatus, errorThrown);
         },
         complete: function() {
-            Mautic.removeLabelLoadingIndicator();
+            MailVotech.removeLabelLoadingIndicator();
         }
     });
 };
 
-Mautic.initStageWeightConflictCheck = function(weights, weightFieldId, entityId) {
+MailVotech.initStageWeightConflictCheck = function(weights, weightFieldId, entityId) {
     mQuery(document).ready(function() {
         const weightField = mQuery('#' + weightFieldId);
         const group = weightField.closest('.form-group');
@@ -53,7 +53,7 @@ Mautic.initStageWeightConflictCheck = function(weights, weightFieldId, entityId)
 
             if (conflict) {
                 group.addClass('has-error');
-                message.text(Mautic.translate('mautic.stage.weight.conflict'));
+                message.text(MailVotech.translate('mailvotech.stage.weight.conflict'));
             } else {
                 group.removeClass('has-error');
                 message.text('');

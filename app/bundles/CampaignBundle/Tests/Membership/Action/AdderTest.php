@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Membership\Action;
+namespace MailVotech\CampaignBundle\Tests\Membership\Action;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Lead as CampaignMember;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CampaignBundle\Membership\Action\Adder;
-use Mautic\CampaignBundle\Membership\Exception\ContactCannotBeAddedToCampaignException;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignMember;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Membership\Action\Adder;
+use MailVotech\CampaignBundle\Membership\Exception\ContactCannotBeAddedToCampaignException;
+use MailVotech\LeadBundle\Entity\Lead;
 
 final class AdderTest extends \PHPUnit\Framework\TestCase
 {

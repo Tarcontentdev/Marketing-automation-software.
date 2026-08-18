@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Monolog;
+namespace MailVotech\CoreBundle\Tests\Unit\Monolog;
 
-use Mautic\CoreBundle\Monolog\LogProcessor;
+use MailVotech\CoreBundle\Monolog\LogProcessor;
 use Monolog\Level;
 use Monolog\LogRecord;
 use PHPUnit\Framework\TestCase;
@@ -17,7 +17,7 @@ final class LogProcessorTest extends TestCase
 
         $record = new LogRecord(
             datetime: new \DateTimeImmutable(),
-            channel: 'mautic',
+            channel: 'mailvotech',
             level: Level::Debug,
             message: 'This is debug message',
             context: [],

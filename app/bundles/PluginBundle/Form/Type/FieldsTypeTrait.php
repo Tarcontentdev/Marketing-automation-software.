@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\PluginBundle\Form\Type;
+namespace MailVotech\PluginBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\ButtonGroupType;
+use MailVotech\CoreBundle\Form\Type\ButtonGroupType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,14 +22,14 @@ trait FieldsTypeTrait
         FormBuilderInterface $builder,
         array $options,
         array $integrationFields,
-        array $mauticFields,
+        array $mailvotechFields,
         $fieldObject,
         $limit,
         $start,
     ): void {
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) use ($options, $integrationFields, $mauticFields, $fieldObject, $limit, $start): void {
+            function (FormEvent $event) use ($options, $integrationFields, $mailvotechFields, $fieldObject, $limit, $start): void {
                 $form           = $event->getForm();
                 $index          = 0;
                 $choices        = [];
@@ -38,9 +38,9 @@ trait FieldsTypeTrait
                 $group          = [];
                 $fieldData      = $event->getData();
 
-                foreach ($mauticFields as $key => $value) {
+                foreach ($mailvotechFields as $key => $value) {
                     if (is_array($value)) {
-                        $mauticFields[$key] = array_flip($value);
+                        $mailvotechFields[$key] = array_flip($value);
                     }
                 }
 
@@ -142,19 +142,19 @@ trait FieldsTypeTrait
                         ]
                     );
                     if (isset($options['enable_data_priority']) && $options['enable_data_priority']) {
-                        $updateName = 'update_mautic';
+                        $updateName = 'update_mailvotech';
 
                         if ($fieldObject) {
                             $updateName .= '_'.$fieldObject;
                         }
 
                         $forceDirection = false;
-                        $disabled       = (isset($fieldData[$fieldsName][$field])) ? $options['integration_object']->isCompoundMauticField($fieldData[$fieldsName][$field]) : false;
+                        $disabled       = (isset($fieldData[$fieldsName][$field])) ? $options['integration_object']->isCompoundMailVotechField($fieldData[$fieldsName][$field]) : false;
                         $data           = isset($fieldData[$updateName][$field]) ? (int) $fieldData[$updateName][$field] : 1;
 
                         // Force to use just one way for certainly fields
-                        if (isset($fields[$field]['update_mautic'])) {
-                            $data           = (bool) $fields[$field]['update_mautic'];
+                        if (isset($fields[$field]['update_mailvotech'])) {
+                            $data           = (bool) $fields[$field]['update_mailvotech'];
                             $disabled       = true;
                             $forceDirection = true;
                         }
@@ -172,7 +172,7 @@ trait FieldsTypeTrait
                                 'placeholder'       => false,
                                 'attr'              => [
                                     'data-toggle'   => 'tooltip',
-                                    'title'         => 'mautic.plugin.direction.data.update',
+                                    'title'         => 'mailvotech.plugin.direction.data.update',
                                     'disabled'      => $disabled,
                                     'forceDirection'=> $forceDirection,
                                 ],
@@ -181,16 +181,16 @@ trait FieldsTypeTrait
                     }
 
                     if (!$fieldObject) {
-                        $mauticFields['mautic.lead.report.contact_id']                        = 'mauticContactId';
-                        $mauticFields['mautic.plugin.integration.contact.timeline.link']      = 'mauticContactTimelineLink';
-                        $mauticFields['mautic.plugin.integration.contact.donotcontact.email'] = 'mauticContactIsContactableByEmail';
+                        $mailvotechFields['mailvotech.lead.report.contact_id']                        = 'mailvotechContactId';
+                        $mailvotechFields['mailvotech.plugin.integration.contact.timeline.link']      = 'mailvotechContactTimelineLink';
+                        $mailvotechFields['mailvotech.plugin.integration.contact.donotcontact.email'] = 'mailvotechContactIsContactableByEmail';
                     }
 
                     $form->add(
                         'm_'.$index,
                         ChoiceType::class,
                         [
-                            'choices'    => $mauticFields,
+                            'choices'    => $mailvotechFields,
                             'label'      => false,
                             'data'       => $matched && isset($fieldData[$fieldsName][$field]) ? $fieldData[$fieldsName][$field] : '',
                             'label_attr' => ['class' => 'control-label'],
@@ -199,7 +199,7 @@ trait FieldsTypeTrait
                                 'data-placeholder' => ' ',
                                 'data-required'    => $required,
                                 'data-value'       => $matched && isset($fieldData[$fieldsName][$field]) ? $fieldData[$fieldsName][$field] : '',
-                                'data-choices'     => $mauticFields,
+                                'data-choices'     => $mailvotechFields,
                             ],
                         ]
                     );
@@ -232,8 +232,8 @@ trait FieldsTypeTrait
 
     protected function configureFieldOptions(OptionsResolver $resolver, $object): void
     {
-        $resolver->setRequired(['integration_fields', 'mautic_fields', 'integration', 'integration_object', 'page']);
-        $resolver->setDefined([('lead' === $object) ? 'update_mautic' : 'update_mautic_company']);
+        $resolver->setRequired(['integration_fields', 'mailvotech_fields', 'integration', 'integration_object', 'page']);
+        $resolver->setDefined([('lead' === $object) ? 'update_mailvotech' : 'update_mailvotech_company']);
         $resolver->setDefaults(
             [
                 'special_instructions' => function (Options $options) {

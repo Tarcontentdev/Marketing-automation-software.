@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyLead;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\CompanyModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyLead;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\CompanyModel;
 
-final class CompanyLeadRepositoryFunctionalTest extends MauticMysqlTestCase
+final class CompanyLeadRepositoryFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testGetCompaniesByLeadIds(): void
     {

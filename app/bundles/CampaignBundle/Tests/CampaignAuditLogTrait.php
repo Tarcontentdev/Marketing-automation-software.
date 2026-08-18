@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests;
+namespace MailVotech\CampaignBundle\Tests;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CoreBundle\Entity\AuditLog;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CoreBundle\Entity\AuditLog;
+use MailVotech\UserBundle\Entity\User;
 
 trait CampaignAuditLogTrait
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,10 +27,10 @@ final class CampaignEventLeadTagsType extends AbstractType
                 'add_transformer' => true,
                 'by_reference'    => false,
                 'attr'            => [
-                    'data-placeholder'     => $this->translator->trans('mautic.lead.tags.select_or_create'),
-                    'data-no-results-text' => $this->translator->trans('mautic.lead.tags.enter_to_create'),
+                    'data-placeholder'     => $this->translator->trans('mailvotech.lead.tags.select_or_create'),
+                    'data-no-results-text' => $this->translator->trans('mailvotech.lead.tags.enter_to_create'),
                     'data-allow-add'       => 'true',
-                    'onchange'             => 'Mautic.createLeadTag(this)',
+                    'onchange'             => 'MailVotech.createLeadTag(this)',
                 ],
             ]
         );

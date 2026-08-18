@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Helper;
+namespace MailVotech\FormBundle\Tests\Helper;
 
-use Mautic\FormBundle\Helper\BlockedFreeEmailProvidersHelper;
+use MailVotech\FormBundle\Helper\BlockedFreeEmailProvidersHelper;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

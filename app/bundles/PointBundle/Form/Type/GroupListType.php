@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\PointBundle\Form\Type;
+namespace MailVotech\PointBundle\Form\Type;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\GroupRepository;
+use MailVotech\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\GroupRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -43,7 +43,7 @@ final class GroupListType extends AbstractType
 
                 return $choices;
             },
-            'label'             => 'mautic.point.group.form.group',
+            'label'             => 'mailvotech.point.group.form.group',
             'label_attr'        => ['class' => 'control-label'],
             'multiple'          => false,
             'required'          => false,

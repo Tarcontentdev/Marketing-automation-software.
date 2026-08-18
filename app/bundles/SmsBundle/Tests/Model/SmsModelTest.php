@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\Model;
+namespace MailVotech\SmsBundle\Tests\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\CacheStorageHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Test\ReflectionHelper;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PageBundle\Model\TrackableModel;
-use Mautic\SmsBundle\Collection\RecipientCollection;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Entity\SmsRepository;
-use Mautic\SmsBundle\Entity\StatRepository;
-use Mautic\SmsBundle\Form\Type\SmsType;
-use Mautic\SmsBundle\Helper\DTO\SmsRecipientDTO;
-use Mautic\SmsBundle\Model\SmsModel;
-use Mautic\SmsBundle\Sms\TransportChain;
+use MailVotech\CoreBundle\Helper\CacheStorageHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Test\ReflectionHelper;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PageBundle\Model\TrackableModel;
+use MailVotech\SmsBundle\Collection\RecipientCollection;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Entity\SmsRepository;
+use MailVotech\SmsBundle\Entity\StatRepository;
+use MailVotech\SmsBundle\Form\Type\SmsType;
+use MailVotech\SmsBundle\Helper\DTO\SmsRecipientDTO;
+use MailVotech\SmsBundle\Model\SmsModel;
+use MailVotech\SmsBundle\Sms\TransportChain;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -96,7 +96,7 @@ final class SmsModelTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetLookupResultsWhenTypeIsClass(): void
     {
-        $entities = [['name' => 'Mautic', 'id' => 1, 'language' => 'cs'], ['name' => 'Mautic MMS', 'id' => 2, 'media' => ['test.jpg'], 'language' => 'cs']];
+        $entities = [['name' => 'MailVotech', 'id' => 1, 'language' => 'cs'], ['name' => 'MailVotech MMS', 'id' => 2, 'media' => ['test.jpg'], 'language' => 'cs']];
 
         $this->smsRepository->method('getSmsList')
             ->with('', 10, 0, true, null)
@@ -108,12 +108,12 @@ final class SmsModelTest extends \PHPUnit\Framework\TestCase
 
         $this->translator
             ->method('trans')
-            ->with('mautic.sms.form.mms')
+            ->with('mailvotech.sms.form.mms')
             ->willReturn('MMS');
 
         $textMessages = $this->smsModel->getLookupResults(SmsType::class);
-        $this->assertSame('Mautic', $textMessages['cs'][1], 'Mautic is the right text message name');
-        $this->assertSame('[MMS] Mautic MMS', $textMessages['cs'][2], 'Mautic is the right text message name');
+        $this->assertSame('MailVotech', $textMessages['cs'][1], 'MailVotech is the right text message name');
+        $this->assertSame('[MMS] MailVotech MMS', $textMessages['cs'][2], 'MailVotech is the right text message name');
     }
 
     public function testSendSmsNotPublished(): void
@@ -124,7 +124,7 @@ final class SmsModelTest extends \PHPUnit\Framework\TestCase
         $lead->setId(1);
         $results = $this->smsModel->sendSms($sms, $lead);
         $this->assertFalse((bool) $results[1]['sent']);
-        $this->assertSame('mautic.sms.campaign.failed.unpublished', $results[1]['status']);
+        $this->assertSame('mailvotech.sms.campaign.failed.unpublished', $results[1]['status']);
     }
 
     public function testSendSMSTest(): void

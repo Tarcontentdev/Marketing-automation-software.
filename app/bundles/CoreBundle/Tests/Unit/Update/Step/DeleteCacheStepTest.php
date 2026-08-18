@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Update\Step;
+namespace MailVotech\CoreBundle\Tests\Unit\Update\Step;
 
-use Mautic\CoreBundle\Helper\CacheHelper;
-use Mautic\CoreBundle\Update\Step\DeleteCacheStep;
+use MailVotech\CoreBundle\Helper\CacheHelper;
+use MailVotech\CoreBundle\Update\Step\DeleteCacheStep;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -34,7 +34,7 @@ final class DeleteCacheStepTest extends AbstractStepTestCase
 
     public function testCacheIsNukedAndProgressNoted(): void
     {
-        $stepOutput = 'mautic.core.update.clear.cache';
+        $stepOutput = 'mailvotech.core.update.clear.cache';
         $this->translator->expects($this->once())
             ->method('trans')
             ->with($stepOutput)

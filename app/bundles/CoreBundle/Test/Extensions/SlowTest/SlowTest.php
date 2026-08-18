@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test\Extensions\SlowTest;
+namespace MailVotech\CoreBundle\Test\Extensions\SlowTest;
 
-use Mautic\CoreBundle\Test\Extensions\SlowTest\Subscriber\TestFinishedSubscriber;
-use Mautic\CoreBundle\Test\Extensions\SlowTest\Subscriber\TestPreparationFailedSubscriber;
-use Mautic\CoreBundle\Test\Extensions\SlowTest\Subscriber\TestPreparationStartedSubscriber;
-use Mautic\CoreBundle\Test\Extensions\SlowTest\Subscriber\TestPreparedSubscriber;
-use Mautic\CoreBundle\Test\Extensions\SlowTest\Subscriber\TestSuiteFinishedSubscriber;
+use MailVotech\CoreBundle\Test\Extensions\SlowTest\Subscriber\TestFinishedSubscriber;
+use MailVotech\CoreBundle\Test\Extensions\SlowTest\Subscriber\TestPreparationFailedSubscriber;
+use MailVotech\CoreBundle\Test\Extensions\SlowTest\Subscriber\TestPreparationStartedSubscriber;
+use MailVotech\CoreBundle\Test\Extensions\SlowTest\Subscriber\TestPreparedSubscriber;
+use MailVotech\CoreBundle\Test\Extensions\SlowTest\Subscriber\TestSuiteFinishedSubscriber;
 use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Event\Telemetry\HRTime;
 use PHPUnit\Event\Telemetry\Info;
@@ -38,8 +38,8 @@ final class SlowTest implements Extension
 
     public function __construct()
     {
-        $this->enabled   = (bool) getenv('MAUTIC_TEST_LOG_SLOW_TESTS');
-        $this->threshold = (float) (getenv('MAUTIC_TEST_SLOW_TESTS_THRESHOLD') ?: 2);
+        $this->enabled   = (bool) getenv('MAILVOTECH_TEST_LOG_SLOW_TESTS');
+        $this->threshold = (float) (getenv('MAILVOTECH_TEST_SLOW_TESTS_THRESHOLD') ?: 2);
     }
 
     public function bootstrap(Configuration $configuration, Facade $facade, ParameterCollection $parameters): void

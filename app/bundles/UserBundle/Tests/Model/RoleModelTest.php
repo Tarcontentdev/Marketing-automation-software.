@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Model;
+namespace MailVotech\UserBundle\Tests\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Model\RoleModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Model\RoleModel;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -31,7 +31,7 @@ final class RoleModelTest extends TestCase
 
         $mockTranslator = $this->createMock(Translator::class);
         $mockTranslator->method('trans')
-            ->with('mautic.user.role.clone.prefix', ['%name%' => 'Test Role'], 'messages')
+            ->with('mailvotech.user.role.clone.prefix', ['%name%' => 'Test Role'], 'messages')
             ->willReturn('Clone of Test Role');
 
         $roleModel = $this->createRoleModel($this->createStub(CorePermissions::class), $mockTranslator);
@@ -55,7 +55,7 @@ final class RoleModelTest extends TestCase
 
         $mockTranslator = $this->createMock(Translator::class);
         $mockTranslator->method('trans')
-            ->with('mautic.user.role.clone.prefix', ['%name%' => 'Admin Role'], 'messages')
+            ->with('mailvotech.user.role.clone.prefix', ['%name%' => 'Admin Role'], 'messages')
             ->willReturn('Clone of Admin Role');
 
         $roleModel = $this->createRoleModel($this->createStub(CorePermissions::class), $mockTranslator);

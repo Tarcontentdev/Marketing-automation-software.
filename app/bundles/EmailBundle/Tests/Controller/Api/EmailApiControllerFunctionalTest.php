@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller\Api;
+namespace MailVotech\EmailBundle\Tests\Controller\Api;
 
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Test\ReflectionHelper;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\Tests\Helper\Transport\SmtpTransport;
-use Mautic\LeadBundle\DataFixtures\ORM\LoadCategoryData;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Model\RoleModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Test\ReflectionHelper;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\Tests\Helper\Transport\SmtpTransport;
+use MailVotech\LeadBundle\DataFixtures\ORM\LoadCategoryData;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Model\RoleModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,13 +27,13 @@ use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
-final class EmailApiControllerFunctionalTest extends MauticMysqlTestCase
+final class EmailApiControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     private SmtpTransport $transport;
 
     protected function setUp(): void
     {
-        $this->configParams['mailer_from_name']       = 'Mautic Admin';
+        $this->configParams['mailer_from_name']       = 'MailVotech Admin';
         $this->configParams['default_signature_text'] = 'Best regards, |FROM_NAME|';
 
         parent::setUp();
@@ -608,7 +608,7 @@ final class EmailApiControllerFunctionalTest extends MauticMysqlTestCase
         $testEmail = function (string $customToken): void {
             $message = $this->transport->sentMessage;
             $this->assertSame('Email created via API test', $message->getSubject());
-            $bodyRegExp = '#<h1>Email content created by an API test</h1>'.$customToken.'<br>Best regards, Mautic Admin<img height="1" width="1" src="[^"]+" alt="" />#';
+            $bodyRegExp = '#<h1>Email content created by an API test</h1>'.$customToken.'<br>Best regards, MailVotech Admin<img height="1" width="1" src="[^"]+" alt="" />#';
             $this->assertMatchesRegularExpression($bodyRegExp, $message->getHtmlBody());
             $this->assertSame([$message->getTo()[0]->getAddress() => $message->getTo()[0]->getName()], ['jane@api.test' => 'Jane Doe']);
             $this->assertSame([$message->getFrom()[0]->getAddress() => $message->getFrom()[0]->getName()], ['from@api.test' => 'API Test']);

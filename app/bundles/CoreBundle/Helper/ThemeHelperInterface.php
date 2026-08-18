@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\CoreBundle\Exception\BadConfigurationException;
-use Mautic\CoreBundle\Exception\FileExistsException;
-use Mautic\CoreBundle\Exception\FileNotFoundException;
-use Mautic\CoreBundle\Twig\Helper\ThemeHelper as twigThemeHelper;
+use MailVotech\CoreBundle\Exception\BadConfigurationException;
+use MailVotech\CoreBundle\Exception\FileExistsException;
+use MailVotech\CoreBundle\Exception\FileNotFoundException;
+use MailVotech\CoreBundle\Twig\Helper\ThemeHelper as twigThemeHelper;
 
 interface ThemeHelperInterface
 {
     /**
-     * Get theme names which are stock Mautic.
+     * Get theme names which are stock MailVotech.
      *
      * @return string[]
      */

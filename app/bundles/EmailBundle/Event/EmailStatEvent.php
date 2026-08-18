@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Event;
+namespace MailVotech\EmailBundle\Event;
 
-use Mautic\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\Stat;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class EmailStatEvent extends Event

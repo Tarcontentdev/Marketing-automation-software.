@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\EventCollector\Builder;
+namespace MailVotech\CampaignBundle\Tests\EventCollector\Builder;
 
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ConditionAccessor;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\DecisionAccessor;
-use Mautic\CampaignBundle\EventCollector\Builder\EventBuilder;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ConditionAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\DecisionAccessor;
+use MailVotech\CampaignBundle\EventCollector\Builder\EventBuilder;
 
 final class EventBuilderTest extends \PHPUnit\Framework\TestCase
 {

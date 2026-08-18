@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\LeadEventLogRepository;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\LeadEventLogRepository;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
 
 trait TimelineEventLogTrait
 {
@@ -74,7 +74,7 @@ trait TimelineEventLogTrait
         $properties = json_decode($log['properties'], true);
 
         if (!empty($properties['object_description'])) {
-            $customString = 'mautic.lead.timeline.'.$eventType.'_by_object';
+            $customString = 'mailvotech.lead.timeline.'.$eventType.'_by_object';
             if ($this->translator->hasId($customString)) {
                 return $this->translator->trans(
                     $customString,
@@ -84,7 +84,7 @@ trait TimelineEventLogTrait
                 );
             }
 
-            $customString = 'mautic.lead.timeline.'.$eventType.'_'.$log['action'].'_by_object';
+            $customString = 'mailvotech.lead.timeline.'.$eventType.'_'.$log['action'].'_by_object';
             if ($this->translator->hasId($customString)) {
                 return $this->translator->trans(
                     $customString,
@@ -95,18 +95,18 @@ trait TimelineEventLogTrait
             }
         }
 
-        $customString = 'mautic.lead.timeline.'.$log['bundle'].'.'.$log['object'];
+        $customString = 'mailvotech.lead.timeline.'.$log['bundle'].'.'.$log['object'];
         if ($this->translator->hasId($customString)) {
             return $this->translator->trans($customString);
         }
 
-        $customString = 'mautic.lead.timeline.'.$log['bundle'].'.'.$log['object'].'.'.$log['action'];
+        $customString = 'mailvotech.lead.timeline.'.$log['bundle'].'.'.$log['object'].'.'.$log['action'];
         if ($this->translator->hasId($customString)) {
             return $this->translator->trans($customString);
         }
 
         return $this->translator->trans(
-            'mautic.lead.timeline.'.$eventType,
+            'mailvotech.lead.timeline.'.$eventType,
             [
                 '%bundle%' => $log['bundle'],
                 '%object%' => $log['object'],

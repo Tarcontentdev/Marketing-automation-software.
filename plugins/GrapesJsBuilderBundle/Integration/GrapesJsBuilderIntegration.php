@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Integration;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Integration;
 
-use Mautic\IntegrationsBundle\Integration\BasicIntegration;
-use Mautic\IntegrationsBundle\Integration\ConfigurationTrait;
-use Mautic\IntegrationsBundle\Integration\Interfaces\BasicInterface;
+use MailVotech\IntegrationsBundle\Integration\BasicIntegration;
+use MailVotech\IntegrationsBundle\Integration\ConfigurationTrait;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\BasicInterface;
 
 class GrapesJsBuilderIntegration extends BasicIntegration implements BasicInterface
 {

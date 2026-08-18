@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\ProcessSignal;
+namespace MailVotech\CoreBundle\ProcessSignal;
 
-use Mautic\CoreBundle\ProcessSignal\Exception\InvalidStateException;
+use MailVotech\CoreBundle\ProcessSignal\Exception\InvalidStateException;
 
 final readonly class ProcessSignalState implements \Stringable
 {

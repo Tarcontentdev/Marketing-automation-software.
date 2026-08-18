@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Tests\Form\Type;
+namespace MailVotech\ApiBundle\Tests\Form\Type;
 
-use Mautic\ApiBundle\Entity\oAuth2\Client;
-use Mautic\ApiBundle\Form\Type\ClientType;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\ApiBundle\Entity\oAuth2\Client;
+use MailVotech\ApiBundle\Form\Type\ClientType;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormBuilderInterface;

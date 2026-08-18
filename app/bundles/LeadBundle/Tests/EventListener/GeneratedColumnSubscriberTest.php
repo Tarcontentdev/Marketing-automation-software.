@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Event\GeneratedColumnsEvent;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Event\LeadListFiltersChoicesEvent;
-use Mautic\LeadBundle\EventListener\GeneratedColumnSubscriber;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\CoreBundle\Event\GeneratedColumnsEvent;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Event\LeadListFiltersChoicesEvent;
+use MailVotech\LeadBundle\EventListener\GeneratedColumnSubscriber;
+use MailVotech\LeadBundle\Model\ListModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +19,7 @@ final class GeneratedColumnSubscriberTest extends TestCase
     /**
      * @var MockObject&TranslatorInterface
      */
-    private \Mautic\CoreBundle\Translation\Translator|MockObject $translator;
+    private \MailVotech\CoreBundle\Translation\Translator|MockObject $translator;
 
     private GeneratedColumnSubscriber $generatedColumnSubscriber;
 
@@ -50,7 +50,7 @@ final class GeneratedColumnSubscriberTest extends TestCase
 
         $generatedColumn = $event->getGeneratedColumns()->current();
 
-        $this->assertSame(MAUTIC_TABLE_PREFIX.'leads', $generatedColumn->getTableName());
+        $this->assertSame(MAILVOTECH_TABLE_PREFIX.'leads', $generatedColumn->getTableName());
         $this->assertSame('generated_email_domain', $generatedColumn->getColumnName());
         $this->assertSame('VARCHAR(255) AS (SUBSTRING(email, LOCATE("@", email) + 1)) COMMENT \'(DC2Type:generated)\'', $generatedColumn->getColumnDefinition());
     }
@@ -65,7 +65,7 @@ final class GeneratedColumnSubscriberTest extends TestCase
         );
 
         $this->translator->method('trans')
-            ->with('mautic.email.segment.choice.generated_email_domain')
+            ->with('mailvotech.email.segment.choice.generated_email_domain')
             ->willReturn('translated string');
 
         $this->generatedColumnSubscriber->onGenerateSegmentFilters($event);
@@ -74,17 +74,17 @@ final class GeneratedColumnSubscriberTest extends TestCase
             'label'      => 'translated string',
             'properties' => ['type' => 'text'],
             'operators'  => [
-                'mautic.lead.list.form.operator.equals'     => '=',
-                'mautic.lead.list.form.operator.notequals'  => '!=',
-                'mautic.lead.list.form.operator.isempty'    => 'empty',
-                'mautic.lead.list.form.operator.isnotempty' => '!empty',
-                'mautic.lead.list.form.operator.islike'     => 'like',
-                'mautic.lead.list.form.operator.isnotlike'  => '!like',
-                'mautic.lead.list.form.operator.regexp'     => 'regexp',
-                'mautic.lead.list.form.operator.notregexp'  => '!regexp',
-                'mautic.core.operator.starts.with'          => 'startsWith',
-                'mautic.core.operator.ends.with'            => 'endsWith',
-                'mautic.core.operator.contains'             => 'contains',
+                'mailvotech.lead.list.form.operator.equals'     => '=',
+                'mailvotech.lead.list.form.operator.notequals'  => '!=',
+                'mailvotech.lead.list.form.operator.isempty'    => 'empty',
+                'mailvotech.lead.list.form.operator.isnotempty' => '!empty',
+                'mailvotech.lead.list.form.operator.islike'     => 'like',
+                'mailvotech.lead.list.form.operator.isnotlike'  => '!like',
+                'mailvotech.lead.list.form.operator.regexp'     => 'regexp',
+                'mailvotech.lead.list.form.operator.notregexp'  => '!regexp',
+                'mailvotech.core.operator.starts.with'          => 'startsWith',
+                'mailvotech.core.operator.ends.with'            => 'endsWith',
+                'mailvotech.core.operator.contains'             => 'contains',
             ],
             'object'    => 'lead',
             'iconClass' => 'ri-at-line',

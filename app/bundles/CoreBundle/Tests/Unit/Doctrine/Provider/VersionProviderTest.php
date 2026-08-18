@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Doctrine\Provider;
+namespace MailVotech\CoreBundle\Tests\Unit\Doctrine\Provider;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Result;
-use Mautic\CoreBundle\Doctrine\Provider\VersionProvider;
+use MailVotech\CoreBundle\Doctrine\Provider\VersionProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class VersionProviderTest extends \PHPUnit\Framework\TestCase

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Functional\EventListener;
+namespace MailVotech\IntegrationsBundle\Tests\Functional\EventListener;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\LeadBundle\Entity\Lead;
 
-final class UIContactIntegrationsTabSubscriberTest extends MauticMysqlTestCase
+final class UIContactIntegrationsTabSubscriberTest extends MailVotechMysqlTestCase
 {
     public function testIntegrationMappingIsShown(): void
     {

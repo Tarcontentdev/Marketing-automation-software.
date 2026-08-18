@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ConfigBundle\Tests\Event;
+namespace MailVotech\ConfigBundle\Tests\Event;
 
-use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use Mautic\CoreBundle\Tests\CommonMocks;
+use MailVotech\ConfigBundle\Event\ConfigBuilderEvent;
+use MailVotech\CoreBundle\Tests\CommonMocks;
 
 final class ConfigBuilderEventTest extends CommonMocks
 {

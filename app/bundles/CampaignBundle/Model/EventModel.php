@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\CampaignBundle\Model;
+namespace MailVotech\CampaignBundle\Model;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Event\DeleteEvent;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Model\FormModel;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Event\DeleteEvent;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Model\FormModel;
 use Symfony\Contracts\Service\Attribute\Required;
 
 /**
@@ -130,13 +130,13 @@ class EventModel extends FormModel
         $q     = $query->prepareTimeDataQuery('campaign_lead_event_log', 'date_triggered', $filter);
 
         if (!$canViewOthers) {
-            $q->join('t', MAUTIC_TABLE_PREFIX.'campaigns', 'c', 'c.id = t.campaign_id')
+            $q->join('t', MAILVOTECH_TABLE_PREFIX.'campaigns', 'c', 'c.id = t.campaign_id')
                 ->andWhere('c.created_by = :userId')
                 ->setParameter('userId', $this->userHelper->getUser()->getId());
         }
 
         $data = $query->loadAndBuildTimeData($q);
-        $chart->setDataset($this->translator->trans('mautic.campaign.triggered.events'), $data);
+        $chart->setDataset($this->translator->trans('mailvotech.campaign.triggered.events'), $data);
 
         return $chart->render();
     }

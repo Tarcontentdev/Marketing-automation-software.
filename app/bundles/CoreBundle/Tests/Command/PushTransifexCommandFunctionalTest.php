@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Command;
+namespace MailVotech\CoreBundle\Tests\Command;
 
 use GuzzleHttp\Psr7\Response;
-use Mautic\CoreBundle\Command\PushTransifexCommand;
-use Mautic\CoreBundle\Test\Guzzle\ClientMockTrait;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Command\PushTransifexCommand;
+use MailVotech\CoreBundle\Test\Guzzle\ClientMockTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Psr\Http\Message\RequestInterface;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
-final class PushTransifexCommandFunctionalTest extends MauticMysqlTestCase
+final class PushTransifexCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     use ClientMockTrait;
 
@@ -30,7 +30,7 @@ final class PushTransifexCommandFunctionalTest extends MauticMysqlTestCase
         $handlerStack->append(
             function (RequestInterface $request): Response {
                 $this->assertSame('GET', $request->getMethod());
-                $this->assertSame('https://rest.api.transifex.com/resources?filter%5Bproject%5D=o%3Amautic%3Ap%3Amautic', $request->getUri()->__toString());
+                $this->assertSame('https://rest.api.transifex.com/resources?filter%5Bproject%5D=o%3Amailvotech%3Ap%3Amailvotech', $request->getUri()->__toString());
 
                 return new Response(SymfonyResponse::HTTP_OK, [], file_get_contents(__DIR__.'/../Fixtures/Transifex/resources.json'));
             }
@@ -45,7 +45,7 @@ final class PushTransifexCommandFunctionalTest extends MauticMysqlTestCase
                 $this->assertSame('WebhookBundle flashes', $body['data']['attributes']['name']);
                 $this->assertSame('webhookbundle-flashes', $body['data']['attributes']['slug']);
                 $this->assertSame('INI', $body['data']['relationships']['i18n_format']['data']['id']);
-                $this->assertSame('o:mautic:p:mautic', $body['data']['relationships']['project']['data']['id']);
+                $this->assertSame('o:mailvotech:p:mailvotech', $body['data']['relationships']['project']['data']['id']);
 
                 return new Response(SymfonyResponse::HTTP_CREATED, [], file_get_contents(__DIR__.'/../Fixtures/Transifex/resources-create.json'));
             }

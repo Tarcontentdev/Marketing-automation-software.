@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Security\Authenticator;
+namespace MailVotech\UserBundle\Tests\Security\Authenticator;
 
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PluginBundle\Integration\AbstractSsoServiceIntegration;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Event\AuthenticationEvent;
-use Mautic\UserBundle\Security\Authentication\AuthenticationHandler;
-use Mautic\UserBundle\Security\Authentication\Token\Permissions\TokenPermissions;
-use Mautic\UserBundle\Security\Authentication\Token\PluginToken;
-use Mautic\UserBundle\Security\Authenticator\Passport\Badge\PluginBadge;
-use Mautic\UserBundle\Security\Authenticator\PluginAuthenticator;
-use Mautic\UserBundle\UserEvents;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Integration\AbstractSsoServiceIntegration;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Event\AuthenticationEvent;
+use MailVotech\UserBundle\Security\Authentication\AuthenticationHandler;
+use MailVotech\UserBundle\Security\Authentication\Token\Permissions\TokenPermissions;
+use MailVotech\UserBundle\Security\Authentication\Token\PluginToken;
+use MailVotech\UserBundle\Security\Authenticator\Passport\Badge\PluginBadge;
+use MailVotech\UserBundle\Security\Authenticator\PluginAuthenticator;
+use MailVotech\UserBundle\UserEvents;
 use OAuth2\OAuth2;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Entity;
+namespace MailVotech\ProjectBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 final class ProjectRepository extends CommonRepository
 {

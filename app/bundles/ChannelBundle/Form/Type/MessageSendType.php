@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Form\Type;
+namespace MailVotech\ChannelBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -27,13 +27,13 @@ final class MessageSendType extends AbstractType
             'marketingMessage',
             MessageListType::class,
             [
-                'label'       => 'mautic.channel.send.selectmessages',
+                'label'       => 'mailvotech.channel.send.selectmessages',
                 'label_attr'  => ['class' => 'control-label'],
                 'multiple'    => false,
                 'required'    => true,
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.channel.choosemessage.notblank'
+                        message: 'mailvotech.channel.choosemessage.notblank'
                     ),
                 ],
             ]
@@ -41,7 +41,7 @@ final class MessageSendType extends AbstractType
 
         if (!empty($options['update_select'])) {
             $windowUrl = $this->router->generate(
-                'mautic_message_action',
+                'mailvotech_message_action',
                 [
                     'objectAction' => 'new',
                     'contentOnly'  => 1,
@@ -55,16 +55,16 @@ final class MessageSendType extends AbstractType
                 [
                     'attr' => [
                         'class'   => 'btn btn-primary btn-nospin',
-                        'onclick' => 'Mautic.loadNewWindow({windowUrl: \''.$windowUrl.'\'})',
+                        'onclick' => 'MailVotech.loadNewWindow({windowUrl: \''.$windowUrl.'\'})',
                         'icon'    => 'ri-add-line',
                     ],
-                    'label' => 'mautic.channel.create.new.message',
+                    'label' => 'mailvotech.channel.create.new.message',
                 ]
             );
 
             // create button edit email
             $windowUrlEdit = $this->router->generate(
-                'mautic_message_action',
+                'mailvotech_message_action',
                 [
                     'objectAction' => 'edit',
                     'objectId'     => 'messageId',
@@ -79,11 +79,11 @@ final class MessageSendType extends AbstractType
                 [
                     'attr' => [
                         'class'    => 'btn btn-primary btn-nospin',
-                        'onclick'  => 'Mautic.loadNewWindow({windowUrl: \''.$windowUrlEdit.'\'})',
+                        'onclick'  => 'MailVotech.loadNewWindow({windowUrl: \''.$windowUrlEdit.'\'})',
                         'disabled' => !isset($options['data']['message']),
                         'icon'     => 'ri-edit-line',
                     ],
-                    'label' => 'mautic.channel.send.edit.message',
+                    'label' => 'mailvotech.channel.send.edit.message',
                 ]
             );
         }

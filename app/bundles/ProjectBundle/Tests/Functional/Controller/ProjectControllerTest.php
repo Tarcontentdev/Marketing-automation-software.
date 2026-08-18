@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Tests\Functional\Controller;
+namespace MailVotech\ProjectBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\ProjectBundle\Entity\ProjectRepository;
-use Mautic\ProjectBundle\Model\ProjectModel;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\ProjectBundle\Entity\ProjectRepository;
+use MailVotech\ProjectBundle\Model\ProjectModel;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
-final class ProjectControllerTest extends MauticMysqlTestCase
+final class ProjectControllerTest extends MailVotechMysqlTestCase
 {
     public const USERNAME = 'johny';
 
@@ -197,7 +197,7 @@ final class ProjectControllerTest extends MauticMysqlTestCase
 
         $this->loginUser($user);
         // $this->client->setServerParameter('PHP_AUTH_USER', self::USERNAME);
-        // $this->client->setServerParameter('PHP_AUTH_PW', 'mautic');
+        // $this->client->setServerParameter('PHP_AUTH_PW', 'mailvotech');
 
         return $user;
     }
@@ -222,7 +222,7 @@ final class ProjectControllerTest extends MauticMysqlTestCase
         $user->setEmail('john.doe@email.com');
         $hasher = self::getContainer()->get(PasswordHasherFactoryInterface::class)->getPasswordHasher($user);
         $this->assertInstanceOf(PasswordHasherInterface::class, $hasher);
-        $user->setPassword($hasher->hash('mautic'));
+        $user->setPassword($hasher->hash('mailvotech'));
         $user->setRole($role);
 
         $this->em->persist($user);

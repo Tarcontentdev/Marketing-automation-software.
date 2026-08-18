@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\EventListener;
+namespace MailVotech\FormBundle\Tests\EventListener;
 
-use Mautic\FormBundle\EventListener\FormFieldSubscriber;
-use Mautic\FormBundle\FormEvents;
-use Mautic\FormBundle\Model\FieldModel;
+use MailVotech\FormBundle\EventListener\FormFieldSubscriber;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\FormBundle\Model\FieldModel;
 use PHPUnit\Framework\TestCase;
 
 final class FormFieldSubscriberTest extends TestCase

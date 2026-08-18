@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\DynamicContentBundle\Entity;
+namespace MailVotech\DynamicContentBundle\Entity;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\Serializer;
-use Mautic\ProjectBundle\Entity\ProjectRepositoryTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\Serializer;
+use MailVotech\ProjectBundle\Entity\ProjectRepositoryTrait;
 
 /**
  * @extends CommonRepository<DynamicContent>
@@ -54,7 +54,7 @@ final class DynamicContentRepository extends CommonRepository
         $unique          = $this->generateRandomParameterName();
 
         switch ($command) {
-            case $this->translator->trans('mautic.core.searchcommand.lang'):
+            case $this->translator->trans('mailvotech.core.searchcommand.lang'):
                 $langUnique      = $this->generateRandomParameterName();
                 $langValue       = $filter->string.'_%';
                 $forceParameters = [
@@ -66,8 +66,8 @@ final class DynamicContentRepository extends CommonRepository
                     $q->expr()->like('e.language', ":{$langUnique}")
                 );
                 break;
-            case $this->translator->trans('mautic.project.searchcommand.name'):
-            case $this->translator->trans('mautic.project.searchcommand.name', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.project.searchcommand.name'):
+            case $this->translator->trans('mailvotech.project.searchcommand.name', [], null, 'en_US'):
                 return $this->handleProjectFilter(
                     $this->_em->getConnection()->createQueryBuilder(),
                     'dynamic_content_id',
@@ -95,13 +95,13 @@ final class DynamicContentRepository extends CommonRepository
     public function getSearchCommands(): array
     {
         $commands = [
-            'mautic.core.searchcommand.ispublished',
-            'mautic.core.searchcommand.isunpublished',
-            'mautic.core.searchcommand.isuncategorized',
-            'mautic.core.searchcommand.ismine',
-            'mautic.core.searchcommand.category',
-            'mautic.core.searchcommand.lang',
-            'mautic.project.searchcommand.name',
+            'mailvotech.core.searchcommand.ispublished',
+            'mailvotech.core.searchcommand.isunpublished',
+            'mailvotech.core.searchcommand.isuncategorized',
+            'mailvotech.core.searchcommand.ismine',
+            'mailvotech.core.searchcommand.category',
+            'mailvotech.core.searchcommand.lang',
+            'mailvotech.project.searchcommand.name',
         ];
 
         return array_merge($commands, parent::getSearchCommands());
@@ -131,7 +131,7 @@ final class DynamicContentRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
 
-        $q->update(MAUTIC_TABLE_PREFIX.'dynamic_content')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'dynamic_content')
             ->set('sent_count', 'sent_count + '.(int) $increaseBy)
             ->where('id = '.(int) $id);
 
@@ -201,8 +201,8 @@ final class DynamicContentRepository extends CommonRepository
         $qb = $this->_em->getConnection()->createQueryBuilder();
 
         $qb->select('ce.properties')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_events', 'ce')
-            ->leftJoin('ce', MAUTIC_TABLE_PREFIX.'campaigns', 'c', 'c.id = ce.campaign_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_events', 'ce')
+            ->leftJoin('ce', MAILVOTECH_TABLE_PREFIX.'campaigns', 'c', 'c.id = ce.campaign_id')
             ->andWhere($qb->expr()->eq('ce.type', $qb->expr()->literal('dwc.decision')))
             ->andWhere($qb->expr()->like('ce.properties', ':slot'))
             ->setParameter('slot', '%'.$slot.'%')

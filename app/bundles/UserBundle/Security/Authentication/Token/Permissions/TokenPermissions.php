@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Security\Authentication\Token\Permissions;
+namespace MailVotech\UserBundle\Security\Authentication\Token\Permissions;
 
 use FOS\OAuthServerBundle\Model\TokenInterface as OAuthTokenInterface;
 use FOS\OAuthServerBundle\Security\Authenticator\Token\OAuthToken;
-use Mautic\ApiBundle\Entity\oAuth2\AccessTokenRepository;
-use Mautic\ApiBundle\Entity\oAuth2\Client;
-use Mautic\UserBundle\Entity\PermissionRepository;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\ApiBundle\Entity\oAuth2\AccessTokenRepository;
+use MailVotech\ApiBundle\Entity\oAuth2\Client;
+use MailVotech\UserBundle\Entity\PermissionRepository;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
@@ -89,7 +89,7 @@ class TokenPermissions
         $user->setFirstName($client->getName());
         $user->setLastName(sprintf('[%s]', $client->getId()));
         $user->setUsername($user->getName());
-        defined('MAUTIC_AUDITLOG_USER') || define('MAUTIC_AUDITLOG_USER', $user->getName());
+        defined('MAILVOTECH_AUDITLOG_USER') || define('MAILVOTECH_AUDITLOG_USER', $user->getName());
 
         return $user;
     }

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller;
+namespace MailVotech\EmailBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mime\Message;
 
-final class EmailSendFunctionalTest extends MauticMysqlTestCase
+final class EmailSendFunctionalTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -49,7 +49,7 @@ final class EmailSendFunctionalTest extends MauticMysqlTestCase
         self::assertResponseIsSuccessful($response->getContent());
         $this->assertSame('{"success":1,"percent":100,"progress":[2,2],"stats":{"sent":2,"failed":0,"failedRecipients":[]}}', $response->getContent());
 
-        /** @var MauticMessage[] $messages */
+        /** @var MailVotechMessage[] $messages */
         $messages = [
             self::getMailerMessagesByToAddress('contact-flood-0@doe.com')[0],
             self::getMailerMessagesByToAddress('contact-flood-1@doe.com')[0],
@@ -60,7 +60,7 @@ final class EmailSendFunctionalTest extends MauticMysqlTestCase
             preg_match('/<a href=\"([^\"]*)\">(.*)<\/a>/iU', $body, $match);
             $this->assertArrayHasKey(1, $match, $body);
             parse_str(parse_url($match[1], PHP_URL_QUERY), $queryParams);
-            $clickThrough = \Mautic\CoreBundle\Helper\Serializer::decode(base64_decode($queryParams['ct']));
+            $clickThrough = \MailVotech\CoreBundle\Helper\Serializer::decode(base64_decode($queryParams['ct']));
             $this->assertArrayHasKey($message->getTo()[0]->toString(), $leads);
             $this->assertSame($leads[$message->getTo()[0]->toString()]->getId(), (int) $clickThrough['lead']);
         }
@@ -68,7 +68,7 @@ final class EmailSendFunctionalTest extends MauticMysqlTestCase
         // Sort messages by to address as the order can differ
         usort(
             $messages,
-            static fn (MauticMessage $a, MauticMessage $b): int => $a->getTo()[0]->toString() <=> $b->getTo()[0]->toString()
+            static fn (MailVotechMessage $a, MailVotechMessage $b): int => $a->getTo()[0]->toString() <=> $b->getTo()[0]->toString()
         );
 
         $unsubscribeUrlPattern = '/https?:\/\/[^\/]+\/email\/unsubscribe\/([0-9a-z]{20})/';

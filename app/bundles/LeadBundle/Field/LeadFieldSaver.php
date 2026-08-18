@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field;
+namespace MailVotech\LeadBundle\Field;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Exception\NoListenerException;
-use Mautic\LeadBundle\Field\Dispatcher\FieldSaveDispatcher;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Exception\NoListenerException;
+use MailVotech\LeadBundle\Field\Dispatcher\FieldSaveDispatcher;
 
 class LeadFieldSaver
 {

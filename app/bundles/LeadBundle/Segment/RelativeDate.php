@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment;
+namespace MailVotech\LeadBundle\Segment;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -26,19 +26,19 @@ class RelativeDate
     private function getRelativeDateTranslationKeys(): array
     {
         return [
-            'mautic.lead.list.month_last',
-            'mautic.lead.list.month_next',
-            'mautic.lead.list.month_this',
-            'mautic.lead.list.today',
-            'mautic.lead.list.tomorrow',
-            'mautic.lead.list.yesterday',
-            'mautic.lead.list.week_last',
-            'mautic.lead.list.week_next',
-            'mautic.lead.list.week_this',
-            'mautic.lead.list.year_last',
-            'mautic.lead.list.year_next',
-            'mautic.lead.list.year_this',
-            'mautic.lead.list.anniversary',
+            'mailvotech.lead.list.month_last',
+            'mailvotech.lead.list.month_next',
+            'mailvotech.lead.list.month_this',
+            'mailvotech.lead.list.today',
+            'mailvotech.lead.list.tomorrow',
+            'mailvotech.lead.list.yesterday',
+            'mailvotech.lead.list.week_last',
+            'mailvotech.lead.list.week_next',
+            'mailvotech.lead.list.week_this',
+            'mailvotech.lead.list.year_last',
+            'mailvotech.lead.list.year_next',
+            'mailvotech.lead.list.year_this',
+            'mailvotech.lead.list.anniversary',
         ];
     }
 }

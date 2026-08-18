@@ -1,33 +1,33 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\FormBundle\Crate\FieldCrate;
-use Mautic\FormBundle\Crate\ObjectCrate;
-use Mautic\FormBundle\Event\FieldCollectEvent;
-use Mautic\FormBundle\Event\FormBuilderEvent;
-use Mautic\FormBundle\Event\ObjectCollectEvent;
-use Mautic\FormBundle\Event\SubmissionEvent;
-use Mautic\FormBundle\FormEvents;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Entity\PointsChangeLog;
-use Mautic\LeadBundle\Entity\UtmTag;
-use Mautic\LeadBundle\Form\Type\ActionAddUtmTagsType;
-use Mautic\LeadBundle\Form\Type\ActionRemoveDoNotContact;
-use Mautic\LeadBundle\Form\Type\CompanyChangeScoreActionType;
-use Mautic\LeadBundle\Form\Type\FormSubmitActionPointsChangeType;
-use Mautic\LeadBundle\Form\Type\ListActionType;
-use Mautic\LeadBundle\Form\Type\ModifyLeadTagsType;
-use Mautic\LeadBundle\Form\Type\UpdateLeadActionType;
-use Mautic\LeadBundle\Helper\CustomFieldHelper;
-use Mautic\LeadBundle\Helper\TokenHelper;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\DoNotContact;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\PointBundle\Model\PointGroupModel;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\FormBundle\Crate\FieldCrate;
+use MailVotech\FormBundle\Crate\ObjectCrate;
+use MailVotech\FormBundle\Event\FieldCollectEvent;
+use MailVotech\FormBundle\Event\FormBuilderEvent;
+use MailVotech\FormBundle\Event\ObjectCollectEvent;
+use MailVotech\FormBundle\Event\SubmissionEvent;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Entity\PointsChangeLog;
+use MailVotech\LeadBundle\Entity\UtmTag;
+use MailVotech\LeadBundle\Form\Type\ActionAddUtmTagsType;
+use MailVotech\LeadBundle\Form\Type\ActionRemoveDoNotContact;
+use MailVotech\LeadBundle\Form\Type\CompanyChangeScoreActionType;
+use MailVotech\LeadBundle\Form\Type\FormSubmitActionPointsChangeType;
+use MailVotech\LeadBundle\Form\Type\ListActionType;
+use MailVotech\LeadBundle\Form\Type\ModifyLeadTagsType;
+use MailVotech\LeadBundle\Form\Type\UpdateLeadActionType;
+use MailVotech\LeadBundle\Helper\CustomFieldHelper;
+use MailVotech\LeadBundle\Helper\TokenHelper;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\DoNotContact;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\PointBundle\Model\PointGroupModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class FormSubscriber implements EventSubscriberInterface
@@ -68,73 +68,73 @@ final readonly class FormSubscriber implements EventSubscriberInterface
     public function onFormBuilder(FormBuilderEvent $event): void
     {
         $event->addSubmitAction('lead.pointschange', [
-            'group'       => 'mautic.lead.lead.submitaction',
-            'label'       => 'mautic.lead.lead.submitaction.changepoints',
-            'description' => 'mautic.lead.lead.submitaction.changepoints_descr',
+            'group'       => 'mailvotech.lead.lead.submitaction',
+            'label'       => 'mailvotech.lead.lead.submitaction.changepoints',
+            'description' => 'mailvotech.lead.lead.submitaction.changepoints_descr',
             'formType'    => FormSubmitActionPointsChangeType::class,
-            'formTheme'   => '@MauticLead/FormTheme/FormActionChangePoints/_formaction_properties_row.html.twig',
+            'formTheme'   => '@MailVotechLead/FormTheme/FormActionChangePoints/_formaction_properties_row.html.twig',
             'eventName'   => FormEvents::ON_EXECUTE_SUBMIT_ACTION,
-            'template'    => '@MauticLead/Action/points.html.twig',
+            'template'    => '@MailVotechLead/Action/points.html.twig',
         ]);
 
         $event->addSubmitAction('lead.changelist', [
-            'group'       => 'mautic.lead.lead.submitaction',
-            'label'       => 'mautic.lead.lead.events.changelist',
-            'description' => 'mautic.lead.lead.events.changelist_descr',
+            'group'       => 'mailvotech.lead.lead.submitaction',
+            'label'       => 'mailvotech.lead.lead.events.changelist',
+            'description' => 'mailvotech.lead.lead.events.changelist_descr',
             'formType'    => ListActionType::class,
             'eventName'   => FormEvents::ON_EXECUTE_SUBMIT_ACTION,
-            'template'    => '@MauticLead/Action/segments.html.twig',
+            'template'    => '@MailVotechLead/Action/segments.html.twig',
         ]);
 
         $event->addSubmitAction('lead.changetags', [
-            'group'       => 'mautic.lead.lead.submitaction',
-            'label'       => 'mautic.lead.lead.events.changetags',
-            'description' => 'mautic.lead.lead.events.changetags_descr',
+            'group'       => 'mailvotech.lead.lead.submitaction',
+            'label'       => 'mailvotech.lead.lead.events.changetags',
+            'description' => 'mailvotech.lead.lead.events.changetags_descr',
             'formType'    => ModifyLeadTagsType::class,
             'eventName'   => FormEvents::ON_EXECUTE_SUBMIT_ACTION,
-            'template'    => '@MauticLead/Action/tags.html.twig',
+            'template'    => '@MailVotechLead/Action/tags.html.twig',
         ]);
 
         $event->addSubmitAction('lead.addutmtags', [
-            'group'       => 'mautic.lead.lead.submitaction',
-            'label'       => 'mautic.lead.lead.events.addutmtags',
-            'description' => 'mautic.lead.lead.events.addutmtags_descr',
+            'group'       => 'mailvotech.lead.lead.submitaction',
+            'label'       => 'mailvotech.lead.lead.events.addutmtags',
+            'description' => 'mailvotech.lead.lead.events.addutmtags_descr',
             'formType'    => ActionAddUtmTagsType::class,
-            'formTheme'   => '@MauticLead/FormTheme/FormActionAddUtmTags/_formaction_properties_row.html.twig',
+            'formTheme'   => '@MailVotechLead/FormTheme/FormActionAddUtmTags/_formaction_properties_row.html.twig',
             'eventName'   => FormEvents::ON_EXECUTE_SUBMIT_ACTION,
         ]);
 
         $event->addSubmitAction('lead.remove_do_not_contact', [
-            'group'       => 'mautic.lead.lead.submitaction',
-            'label'       => 'mautic.lead.lead.events.removedonotcontact',
-            'description' => 'mautic.lead.lead.events.removedonotcontact_descr',
+            'group'       => 'mailvotech.lead.lead.submitaction',
+            'label'       => 'mailvotech.lead.lead.events.removedonotcontact',
+            'description' => 'mailvotech.lead.lead.events.removedonotcontact_descr',
             'formType'    => ActionRemoveDoNotContact::class,
             'eventName'   => FormEvents::ON_EXECUTE_SUBMIT_ACTION,
         ]);
 
         $event->addSubmitAction('lead.scorecontactscompanies', [
-            'group'       => 'mautic.lead.lead.submitaction',
-            'label'       => 'mautic.lead.lead.events.changecompanyscore',
-            'description' => 'mautic.lead.lead.events.changecompanyscore_descr',
+            'group'       => 'mailvotech.lead.lead.submitaction',
+            'label'       => 'mailvotech.lead.lead.events.changecompanyscore',
+            'description' => 'mailvotech.lead.lead.events.changecompanyscore_descr',
             'formType'    => CompanyChangeScoreActionType::class,
             'eventName'   => FormEvents::ON_EXECUTE_SUBMIT_ACTION,
-            'template'    => '@MauticLead/Action/points.html.twig',
+            'template'    => '@MailVotechLead/Action/points.html.twig',
         ]);
 
         $event->addSubmitAction('lead.updatelead', [
-            'group'       => 'mautic.lead.lead.submitaction',
-            'label'       => 'mautic.lead.lead.events.updatelead',
-            'description' => 'mautic.lead.lead.events.updatelead_descr',
+            'group'       => 'mailvotech.lead.lead.submitaction',
+            'label'       => 'mailvotech.lead.lead.events.updatelead',
+            'description' => 'mailvotech.lead.lead.events.updatelead_descr',
             'formType'    => UpdateLeadActionType::class,
-            'formTheme'   => '@MauticLead/FormTheme/FormActionUpdateLead/_formaction_properties_row.html.twig',
+            'formTheme'   => '@MailVotechLead/FormTheme/FormActionUpdateLead/_formaction_properties_row.html.twig',
             'eventName'   => FormEvents::ON_EXECUTE_SUBMIT_ACTION,
         ]);
     }
 
     public function onObjectCollect(ObjectCollectEvent $event): void
     {
-        $event->appendObject(new ObjectCrate('contact', 'mautic.lead.contact'));
-        $event->appendObject(new ObjectCrate('company', 'mautic.core.company'));
+        $event->appendObject(new ObjectCrate('contact', 'mailvotech.lead.contact'));
+        $event->appendObject(new ObjectCrate('company', 'mailvotech.core.company'));
     }
 
     public function onFieldCollect(FieldCollectEvent $event): void
@@ -155,9 +155,9 @@ final readonly class FormSubscriber implements EventSubscriberInterface
 
         // Add the owner and stage fields to the form
         if ('lead' === $object) {
-            $event->appendField(new FieldCrate('ownerbyemail', 'mautic.lead.field.ownerbyemail', 'email', []));
-            $event->appendField(new FieldCrate('ownerbyid', 'mautic.lead.field.ownerbyid', 'text', []));
-            $event->appendField(new FieldCrate('stagebyname', 'mautic.lead.field.stagebyname', 'text', []));
+            $event->appendField(new FieldCrate('ownerbyemail', 'mailvotech.lead.field.ownerbyemail', 'email', []));
+            $event->appendField(new FieldCrate('ownerbyid', 'mailvotech.lead.field.ownerbyid', 'text', []));
+            $event->appendField(new FieldCrate('stagebyname', 'mailvotech.lead.field.stagebyname', 'text', []));
         }
     }
 
@@ -189,7 +189,7 @@ final readonly class FormSubscriber implements EventSubscriberInterface
         $pointGroup   = $pointGroupId ? $this->groupModel->getEntity($pointGroupId) : null;
         $points       = $properties['points'];
 
-        if ($pointGroup instanceof \Mautic\PointBundle\Entity\Group) {
+        if ($pointGroup instanceof \MailVotech\PointBundle\Entity\Group) {
             $this->groupModel->adjustPoints($contact, $pointGroup, $points, $operator);
         } else {
             $contact->adjustPoints($points, $operator);

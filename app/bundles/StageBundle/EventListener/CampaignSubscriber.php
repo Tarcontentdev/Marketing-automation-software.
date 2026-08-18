@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\StageBundle\EventListener;
+namespace MailVotech\StageBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\StageBundle\Form\Type\StageActionChangeType;
-use Mautic\StageBundle\Model\StageModel;
-use Mautic\StageBundle\StageEvents;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\StageBundle\Form\Type\StageActionChangeType;
+use MailVotech\StageBundle\Model\StageModel;
+use MailVotech\StageBundle\StageEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -34,11 +34,11 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
     public function onCampaignBuild(CampaignBuilderEvent $event): void
     {
         $action = [
-            'label'            => 'mautic.stage.campaign.event.change',
-            'description'      => 'mautic.stage.campaign.event.change_descr',
+            'label'            => 'mailvotech.stage.campaign.event.change',
+            'description'      => 'mailvotech.stage.campaign.event.change_descr',
             'batchEventName'   => StageEvents::ON_CAMPAIGN_BATCH_ACTION,
             'formType'         => StageActionChangeType::class,
-            'formTheme'        => '@MauticStage/FormTheme/Action/_stageaction_properties_row.html.twig',
+            'formTheme'        => '@MailVotechStage/FormTheme/Action/_stageaction_properties_row.html.twig',
         ];
         $event->addAction('stage.change', $action);
     }
@@ -51,7 +51,7 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
         $stage   = $this->stageModel->getEntity($stageId);
 
         if (!$stage || !$stage->isPublished()) {
-            $event->passAllWithError($this->translator->trans('mautic.stage.campaign.event.stage_missing'));
+            $event->passAllWithError($this->translator->trans('mailvotech.stage.campaign.event.stage_missing'));
 
             return;
         }

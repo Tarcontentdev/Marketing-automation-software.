@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\MonitoredEmail\Organizer;
+namespace MailVotech\EmailBundle\MonitoredEmail\Organizer;
 
-use Mautic\EmailBundle\MonitoredEmail\Accessor\ConfigAccessor;
+use MailVotech\EmailBundle\MonitoredEmail\Accessor\ConfigAccessor;
 
 final class MailboxContainer
 {

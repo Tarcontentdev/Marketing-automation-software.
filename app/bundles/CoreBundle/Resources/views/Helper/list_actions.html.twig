@@ -1,10 +1,10 @@
 {{ buttonReset(
-    constant('Mautic\\CoreBundle\\Twig\\Helper\\ButtonHelper::LOCATION_LIST_ACTIONS'),
-    constant('Mautic\\CoreBundle\\Twig\\Helper\\ButtonHelper::TYPE_DROPDOWN'),
+    constant('MailVotech\\CoreBundle\\Twig\\Helper\\ButtonHelper::LOCATION_LIST_ACTIONS'),
+    constant('MailVotech\\CoreBundle\\Twig\\Helper\\ButtonHelper::TYPE_DROPDOWN'),
     item
 ) }}
 
-{{- include('@MauticCore/Helper/action_button_helper.html.twig') -}}
+{{- include('@MailVotechCore/Helper/action_button_helper.html.twig') -}}
 {# Workaround to get variables from action_button_helper here #}
 {{ restore('action_button_helper') }}
 
@@ -20,10 +20,10 @@
     </span>
 
     <div class="ml-xs">
-        {% include '@MauticCore/Helper/button.html.twig' with {
+        {% include '@MailVotechCore/Helper/button.html.twig' with {
             buttons: [
                 {
-                    label: 'mautic.core.options',
+                    label: 'mailvotech.core.options',
                     size: 'sm',
                     variant: 'ghost',
                     icon: 'ri-more-2-line',
@@ -49,7 +49,7 @@
                     'data-toggle': editMode
                 }),
                 iconClass: 'ri-edit-line',
-                btnText: 'mautic.core.form.edit'|trans,
+                btnText: 'mailvotech.core.form.edit'|trans,
                 primary: true
             }) }}
             {% endif %}
@@ -64,7 +64,7 @@
                     'data-toggle': 'ajax'
                 }),
                 iconClass: 'ri-file-copy-line',
-                btnText: 'mautic.core.form.clone'|trans,
+                btnText: 'mailvotech.core.form.clone'|trans,
                 priority: 200
             }) }}
             {% endif %}
@@ -72,7 +72,7 @@
             {{ buttonAdd({
                 confirm: {
                     btnClass: false,
-                    btnText: 'mautic.core.form.delete'|trans,
+                    btnText: 'mailvotech.core.form.delete'|trans,
                     message: (translationBase ~ '.form.confirmdelete')|trans({'%name%': (name ~ ' (' ~ id ~ ')')}),
                     confirmAction: path(
                         actionRoute,
@@ -94,7 +94,7 @@
                     'data-toggle': 'download',
                 },
                 iconClass: 'ri-export-line',
-                btnText: 'mautic.core.form.export'|trans,
+                btnText: 'mailvotech.core.form.export'|trans,
                 priority: 200
             }) }}
             {% endif %}

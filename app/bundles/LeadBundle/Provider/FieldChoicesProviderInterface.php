@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Provider;
+namespace MailVotech\LeadBundle\Provider;
 
-use Mautic\LeadBundle\Exception\ChoicesNotFoundException;
+use MailVotech\LeadBundle\Exception\ChoicesNotFoundException;
 
 interface FieldChoicesProviderInterface
 {

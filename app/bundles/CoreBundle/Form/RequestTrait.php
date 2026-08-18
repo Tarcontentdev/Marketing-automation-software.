@@ -1,20 +1,20 @@
 <?php
 
-namespace Mautic\CoreBundle\Form;
+namespace MailVotech\CoreBundle\Form;
 
-use Mautic\CoreBundle\Form\Type\BooleanType;
-use Mautic\CoreBundle\Form\Type\CountryType;
-use Mautic\CoreBundle\Form\Type\LocaleType;
-use Mautic\CoreBundle\Form\Type\MultiselectType;
-use Mautic\CoreBundle\Form\Type\PublishDownDateType;
-use Mautic\CoreBundle\Form\Type\PublishUpDateType;
-use Mautic\CoreBundle\Form\Type\RegionType;
-use Mautic\CoreBundle\Form\Type\SelectType;
-use Mautic\CoreBundle\Form\Type\TimezoneType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Helper\ArrayHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\LeadBundle\Form\Type\HtmlType;
+use MailVotech\CoreBundle\Form\Type\BooleanType;
+use MailVotech\CoreBundle\Form\Type\CountryType;
+use MailVotech\CoreBundle\Form\Type\LocaleType;
+use MailVotech\CoreBundle\Form\Type\MultiselectType;
+use MailVotech\CoreBundle\Form\Type\PublishDownDateType;
+use MailVotech\CoreBundle\Form\Type\PublishUpDateType;
+use MailVotech\CoreBundle\Form\Type\RegionType;
+use MailVotech\CoreBundle\Form\Type\SelectType;
+use MailVotech\CoreBundle\Form\Type\TimezoneType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Helper\ArrayHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\LeadBundle\Form\Type\HtmlType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;

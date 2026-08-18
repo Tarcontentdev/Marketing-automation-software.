@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Campaign;
+namespace MailVotech\CampaignBundle\Tests\Functional\Campaign;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignMember;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\Tag;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignMember;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Tag;
 
-final class JumpToActionTest extends MauticMysqlTestCase
+final class JumpToActionTest extends MailVotechMysqlTestCase
 {
     /**
-     * @see https://github.com/mautic/mautic/pull/11568
+     * @see https://github.com/mailvotech/mailvotech/pull/11568
      */
     public function testInfiniteLoop(): void
     {
@@ -33,7 +33,7 @@ final class JumpToActionTest extends MauticMysqlTestCase
         $decision->setType('page.pagehit');
         $decision->setEventType('decision');
         $decision->setProperties([
-            'url' => 'https://mautic.org',
+            'url' => 'https://mailvotech.org',
         ]);
 
         $addTag = new Event();
@@ -145,7 +145,7 @@ final class JumpToActionTest extends MauticMysqlTestCase
         $this->em->persist($jumpTo);
         $this->em->flush();
 
-        $this->testSymfonyCommand('mautic:campaigns:trigger', ['-i' => $campaign->getId()]);
+        $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['-i' => $campaign->getId()]);
 
         $eventLogs = $this->getEventLogsForContact($contact);
 
@@ -169,7 +169,7 @@ final class JumpToActionTest extends MauticMysqlTestCase
         $this->em->detach($tag);
 
         // Executing the command for the second time should not schedule any new events:
-        $this->testSymfonyCommand('mautic:campaigns:trigger', ['-i' => $campaign->getId()]);
+        $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['-i' => $campaign->getId()]);
 
         $eventLogs = $this->getEventLogsForContact($contact);
 

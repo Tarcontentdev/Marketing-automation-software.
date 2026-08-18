@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\EventListener;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\EventListener;
 
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
-use Mautic\IntegrationsBundle\Event\InternalObjectCreateEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectFindByIdEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectFindEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectOwnerEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectRouteEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectUpdateEvent;
-use Mautic\IntegrationsBundle\EventListener\CompanyObjectSubscriber;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\DAO\DateRange;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper\CompanyObjectHelper;
-use Mautic\LeadBundle\Entity\Company as CompanyEntity;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Event\InternalObjectCreateEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectFindByIdEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectFindEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectOwnerEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectRouteEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectUpdateEvent;
+use MailVotech\IntegrationsBundle\EventListener\CompanyObjectSubscriber;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\DAO\DateRange;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper\CompanyObjectHelper;
+use MailVotech\LeadBundle\Entity\Company as CompanyEntity;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Router;
@@ -317,7 +317,7 @@ final class CompanyObjectSubscriberTest extends TestCase
         $this->router->expects($this->once())
             ->method('generate')
             ->with(
-                'mautic_company_action',
+                'mailvotech_company_action',
                 [
                     'objectAction' => 'view',
                     'objectId'     => 123,

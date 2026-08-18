@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Helper;
+namespace MailVotech\LeadBundle\Helper;
 
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Entity\Lead;
 
 class PrimaryCompanyHelper
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\EventListener;
+namespace MailVotech\CoreBundle\Form\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;

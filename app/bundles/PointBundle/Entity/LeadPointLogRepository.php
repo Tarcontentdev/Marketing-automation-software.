@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\PointBundle\Entity;
+namespace MailVotech\PointBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<LeadPointLog>
@@ -18,7 +18,7 @@ final class LeadPointLogRepository extends CommonRepository
         // First check to ensure the $toLead doesn't already exist
         $results = $this->_em->getConnection()->createQueryBuilder()
             ->select('pl.point_id')
-            ->from(MAUTIC_TABLE_PREFIX.'point_lead_action_log', 'pl')
+            ->from(MAILVOTECH_TABLE_PREFIX.'point_lead_action_log', 'pl')
             ->where('pl.lead_id = '.$toLeadId)
             ->executeQuery()
             ->fetchAllAssociative();
@@ -29,7 +29,7 @@ final class LeadPointLogRepository extends CommonRepository
         }
 
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'point_lead_action_log')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'point_lead_action_log')
             ->set('lead_id', (int) $toLeadId)
             ->where('lead_id = '.(int) $fromLeadId);
 
@@ -42,7 +42,7 @@ final class LeadPointLogRepository extends CommonRepository
 
             // Delete remaining leads as the new lead already belongs
             $this->_em->getConnection()->createQueryBuilder()
-                ->delete(MAUTIC_TABLE_PREFIX.'point_lead_action_log')
+                ->delete(MAILVOTECH_TABLE_PREFIX.'point_lead_action_log')
                 ->where('lead_id = '.(int) $fromLeadId)
                 ->executeStatement();
         } else {

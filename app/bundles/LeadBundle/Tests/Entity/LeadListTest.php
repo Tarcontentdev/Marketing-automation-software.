@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadList;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class LeadListTest extends \PHPUnit\Framework\TestCase

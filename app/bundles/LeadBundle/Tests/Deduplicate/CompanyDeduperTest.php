@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Deduplicate;
+namespace MailVotech\LeadBundle\Tests\Deduplicate;
 
-use Mautic\LeadBundle\Deduplicate\CompanyDeduper;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Exception\UniqueFieldNotFoundException;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Deduplicate\CompanyDeduper;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Exception\UniqueFieldNotFoundException;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Model\FieldModel;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class CompanyDeduperTest extends \PHPUnit\Framework\TestCase

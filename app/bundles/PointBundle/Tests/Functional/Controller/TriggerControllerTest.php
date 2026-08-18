@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Functional\Controller;
+namespace MailVotech\PointBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PointBundle\Entity\Trigger;
-use Mautic\ProjectBundle\Entity\Project;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PointBundle\Entity\Trigger;
+use MailVotech\ProjectBundle\Entity\Project;
 
-final class TriggerControllerTest extends MauticMysqlTestCase
+final class TriggerControllerTest extends MailVotechMysqlTestCase
 {
     public function testPointTriggerWithProject(): void
     {

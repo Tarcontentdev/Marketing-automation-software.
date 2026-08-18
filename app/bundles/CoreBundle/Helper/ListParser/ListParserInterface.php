@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper\ListParser;
+namespace MailVotech\CoreBundle\Helper\ListParser;
 
-use Mautic\CoreBundle\Helper\ListParser\Exception\FormatNotSupportedException;
+use MailVotech\CoreBundle\Helper\ListParser\Exception\FormatNotSupportedException;
 
 interface ListParserInterface
 {

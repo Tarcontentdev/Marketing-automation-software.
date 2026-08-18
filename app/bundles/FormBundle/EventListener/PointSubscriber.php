@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\EventListener;
+namespace MailVotech\FormBundle\EventListener;
 
-use Mautic\FormBundle\Event\SubmissionEvent;
-use Mautic\FormBundle\Form\Type\PointActionFormSubmitType;
-use Mautic\FormBundle\FormEvents;
-use Mautic\FormBundle\Helper\PointActionHelper;
-use Mautic\PointBundle\Event\PointBuilderEvent;
-use Mautic\PointBundle\Model\PointModel;
-use Mautic\PointBundle\PointEvents;
+use MailVotech\FormBundle\Event\SubmissionEvent;
+use MailVotech\FormBundle\Form\Type\PointActionFormSubmitType;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\FormBundle\Helper\PointActionHelper;
+use MailVotech\PointBundle\Event\PointBuilderEvent;
+use MailVotech\PointBundle\Model\PointModel;
+use MailVotech\PointBundle\PointEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class PointSubscriber implements EventSubscriberInterface
@@ -31,9 +31,9 @@ final readonly class PointSubscriber implements EventSubscriberInterface
     public function onPointBuild(PointBuilderEvent $event): void
     {
         $action = [
-            'group'       => 'mautic.form.point.action',
-            'label'       => 'mautic.form.point.action.submit',
-            'description' => 'mautic.form.point.action.submit_descr',
+            'group'       => 'mailvotech.form.point.action',
+            'label'       => 'mailvotech.form.point.action.submit',
+            'description' => 'mailvotech.form.point.action.submit_descr',
             'callback'    => [PointActionHelper::class, 'validateFormSubmit'],
             'formType'    => PointActionFormSubmitType::class,
         ];

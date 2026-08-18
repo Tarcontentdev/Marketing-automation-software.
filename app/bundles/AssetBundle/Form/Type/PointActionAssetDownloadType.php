@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Form\Type;
+namespace MailVotech\AssetBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,13 +20,13 @@ final class PointActionAssetDownloadType extends AbstractType
             [
                 'expanded'    => false,
                 'multiple'    => true,
-                'label'       => 'mautic.asset.point.action.assets',
+                'label'       => 'mailvotech.asset.point.action.assets',
                 'label_attr'  => ['class' => 'control-label'],
                 'placeholder' => false,
                 'required'    => false,
                 'attr'        => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.asset.point.action.assets.descr',
+                    'tooltip' => 'mailvotech.asset.point.action.assets.descr',
                 ],
             ]
         );

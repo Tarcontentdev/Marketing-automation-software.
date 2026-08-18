@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\InstallBundle\Tests\Controller;
+namespace MailVotech\InstallBundle\Tests\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\CoreBundle\Configurator\Configurator;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\InstallBundle\Controller\InstallController;
-use Mautic\InstallBundle\Install\InstallService;
+use MailVotech\CoreBundle\Configurator\Configurator;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\InstallBundle\Controller\InstallController;
+use MailVotech\InstallBundle\Install\InstallService;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,7 +82,7 @@ final class InstallControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->routerMock->expects($this->once())
             ->method('generate')
-            ->with('mautic_dashboard_index', [], UrlGeneratorInterface::ABSOLUTE_PATH)
+            ->with('mailvotech_dashboard_index', [], UrlGeneratorInterface::ABSOLUTE_PATH)
             ->willReturn('http://localhost/');
 
         $response = $this->controller->stepAction(

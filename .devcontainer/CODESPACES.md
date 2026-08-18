@@ -1,10 +1,10 @@
-# Mautic Codespaces
+# MailVotech Codespaces
 
-This is a fully functional development environment for Mautic running in your browser.
+This is a fully functional development environment for MailVotech running in your browser.
 
-## Mautic Instance Is Initializing ...
+## MailVotech Instance Is Initializing ...
 
-Please wait until `CODESPACES-READY.md` shows up. Once that file exists you will be able to click and log in to your testing Mautic instance.
+Please wait until `CODESPACES-READY.md` shows up. Once that file exists you will be able to click and log in to your testing MailVotech instance.
 
 ## Checkout a Specific Pull Request
 1. In the left hand side toolbar you can see the Github Octocat logo.
@@ -16,7 +16,7 @@ Please wait until `CODESPACES-READY.md` shows up. Once that file exists you will
 
 ## Other tools in this development environment
 
-Not only Mautic is installed and configured for you in this environment. There are other notable tools.
+Not only MailVotech is installed and configured for you in this environment. There are other notable tools.
 
 ### Mailpit
 
@@ -28,9 +28,9 @@ If there is a pull request that needs you to check a database table then you can
 
 ### CLI
 
-This environment allows you to run all the Mautic command lines which can get handy if you need to emulate a cron job.
+This environment allows you to run all the MailVotech command lines which can get handy if you need to emulate a cron job.
 
-First you should get into the Mautic container by running
+First you should get into the MailVotech container by running
 
 `ddev ssh`
 

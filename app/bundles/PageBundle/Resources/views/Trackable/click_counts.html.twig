@@ -7,26 +7,26 @@
                 {% if showConversionRate %} data-conversion-rate-table data-entity-id="{{ entity.id }}"{% endif %}>
             <thead>
             <tr>
-                <th scope="col">{{ 'mautic.trackable.click_url'|trans }}</th>
+                <th scope="col">{{ 'mailvotech.trackable.click_url'|trans }}</th>
                 {% if clickCountsSortable %}
-                    {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                    {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar' : clickCountsSorting.sessionVar|default(''),
                         'orderBy'    : clickCountsSorting.orderBy|default(''),
-                        'text'       : 'mautic.trackable.click_count',
+                        'text'       : 'mailvotech.trackable.click_count',
                         'class'      : 'text-center',
                         'target'     : clickCountsSorting.target|default('#clicks-container'),
                         'tmpl'       : clickCountsSorting.tmpl|default('click_counts'),
                         'baseUrl'    : clickCountsSorting.baseUrl|default(''),
                     }) }}
                 {% else %}
-                    <th scope="col" class="text-center">{{ 'mautic.trackable.click_count'|trans }}</th>
+                    <th scope="col" class="text-center">{{ 'mailvotech.trackable.click_count'|trans }}</th>
                 {% endif %}
-                <th scope="col" class="text-center">{{ 'mautic.trackable.click_unique_count'|trans }}</th>
+                <th scope="col" class="text-center">{{ 'mailvotech.trackable.click_unique_count'|trans }}</th>
                 {{ customContent('click_counts_headers', _context) }}
                 {% if showConversionRate %}
-                    <th scope="col">{{ 'mautic.trackable.click_conversion_rate'|trans }}</th>
+                    <th scope="col">{{ 'mailvotech.trackable.click_conversion_rate'|trans }}</th>
                 {% endif %}
-                <th scope="col">{{ 'mautic.trackable.click_track_id'|trans }}</th>
+                <th scope="col">{{ 'mailvotech.trackable.click_track_id'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -41,9 +41,9 @@
                             <td class="text-center">
                                 <span class="mt-xs label label-primary">
                         {% if channel is defined and entity is defined %}
-                            <a href="{{ path('mautic_contact_index', {'search' : 'mautic.lead.lead.searchcommand.page_source'|trans ~ ':' ~ channel ~ ' ' ~ 'mautic.lead.lead.searchcommand.page_source_id'|trans ~ ':' ~ entity.getId() ~ ' ' ~ 'mautic.lead.lead.searchcommand.page_id'|trans ~ ':' ~ link.id}) }}"
+                            <a href="{{ path('mailvotech_contact_index', {'search' : 'mailvotech.lead.lead.searchcommand.page_source'|trans ~ ':' ~ channel ~ ' ' ~ 'mailvotech.lead.lead.searchcommand.page_source_id'|trans ~ ':' ~ entity.getId() ~ ' ' ~ 'mailvotech.lead.lead.searchcommand.page_id'|trans ~ ':' ~ link.id}) }}"
                                 data-toggle="tooltip"
-                                title="{{ 'mautic.email.stat.simple.tooltip'|trans }}">
+                                title="{{ 'mailvotech.email.stat.simple.tooltip'|trans }}">
                                 {{ link.unique_hits }}
                             </a>
                         {% else %}
@@ -60,15 +60,15 @@
                 {% endfor %}
 
                 <tr>
-                    <td class="long-text">{{ 'mautic.trackable.total_clicks'|trans }}</td>
+                    <td class="long-text">{{ 'mailvotech.trackable.total_clicks'|trans }}</td>
                     <td class="text-center">{{ totalClicks }}</td>
                     <td class="text-center">
                         <span class="mt-xs label label-primary">
                         {% if channel is defined and entity is defined %}
-                            <a href="{{ path('mautic_contact_index',
-                                {'search' : 'mautic.lead.lead.searchcommand.page_source'|trans ~ ':' ~ channel ~ ' ' ~ 'mautic.lead.lead.searchcommand.page_source_id'|trans ~ ':' ~ entity.getId()}) }}"
+                            <a href="{{ path('mailvotech_contact_index',
+                                {'search' : 'mailvotech.lead.lead.searchcommand.page_source'|trans ~ ':' ~ channel ~ ' ' ~ 'mailvotech.lead.lead.searchcommand.page_source_id'|trans ~ ':' ~ entity.getId()}) }}"
                                 data-toggle="tooltip"
-                                title="{{ 'mautic.email.stat.simple.tooltip'|trans }}">
+                                title="{{ 'mailvotech.email.stat.simple.tooltip'|trans }}">
                                 {{ totalUniqueClicks }}
                             </a>
                         {% else %}
@@ -79,7 +79,7 @@
                     {% if showConversionRate %}
                         <td data-conversion-rate-total-cell>
                             <div class="spinner"><i class="ri-loader-3-line ri-spin"></i></div>
-                            <i class="ri-question-line" data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="{{ 'mautic.trackable.total_conversion_rate_tooltip'|trans }}"></i>
+                            <i class="ri-question-line" data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="{{ 'mailvotech.trackable.total_conversion_rate_tooltip'|trans }}"></i>
                         </td>
                     {% endif %}
                     <td></td>
@@ -88,6 +88,6 @@
         </table>
     </div>
 {% else %}
-    {{- include('@MauticCore/Helper/noresults.html.twig', {'header' : 'mautic.trackable.click_counts.header_none', 'message' : 'mautic.trackable.click_counts.none'}) -}}
+    {{- include('@MailVotechCore/Helper/noresults.html.twig', {'header' : 'mailvotech.trackable.click_counts.header_none', 'message' : 'mailvotech.trackable.click_counts.none'}) -}}
     <div class="clearfix"></div>
 {% endif %}

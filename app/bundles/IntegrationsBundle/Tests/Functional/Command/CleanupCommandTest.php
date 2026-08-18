@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Functional\Command;
+namespace MailVotech\IntegrationsBundle\Tests\Functional\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\IntegrationsBundle\Command\CleanupCommand;
-use Mautic\IntegrationsBundle\Entity\FieldChange;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\IntegrationsBundle\Command\CleanupCommand;
+use MailVotech\IntegrationsBundle\Entity\FieldChange;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\Console\Command\Command;
 
-final class CleanupCommandTest extends MauticMysqlTestCase
+final class CleanupCommandTest extends MailVotechMysqlTestCase
 {
     public function testOrphanFieldChangeRecordDeleted(): void
     {

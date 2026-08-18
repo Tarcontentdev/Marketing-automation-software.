@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\Entity;
+namespace MailVotech\PluginBundle\Tests\Entity;
 
-use Mautic\PluginBundle\Entity\Plugin;
+use MailVotech\PluginBundle\Entity\Plugin;
 
 final class PluginTest extends \PHPUnit\Framework\TestCase
 {

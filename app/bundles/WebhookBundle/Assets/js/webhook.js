@@ -1,4 +1,4 @@
-Mautic.sendHookTest = function() {
+MailVotech.sendHookTest = function() {
 
     var url = mQuery('#webhook_webhookUrl').val();
     var secret = mQuery('#webhook_secret').val();
@@ -25,7 +25,7 @@ Mautic.sendHookTest = function() {
     spinner.removeClass('hide');
 
     mQuery.ajax({
-        url: mauticAjaxUrl,
+        url: mailvotechAjaxUrl,
         data: data,
         type: 'POST',
         dataType: "json",
@@ -39,7 +39,7 @@ Mautic.sendHookTest = function() {
             if (response.responseJSON.html) {
                 mQuery('#tester').html(response.responseJSON.html);
             } else {
-                Mautic.processAjaxError(response, textStatus, errorThrown);
+                MailVotech.processAjaxError(response, textStatus, errorThrown);
             }
         },
         complete: function(response) {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Doctrine;
+namespace MailVotech\CoreBundle\Tests\Unit\Doctrine;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\Exception\SkipMigration;
-use Mautic\Migrations\Version20260726100000;
+use MailVotech\Migrations\Version20260726100000;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 

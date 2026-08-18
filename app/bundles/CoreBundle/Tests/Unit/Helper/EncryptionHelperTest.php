@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\EncryptionHelper;
-use Mautic\CoreBundle\Security\Cryptography\Cipher\Symmetric\OpenSSLCipher;
-use Mautic\CoreBundle\Security\Cryptography\Cipher\Symmetric\SymmetricCipherInterface;
-use Mautic\CoreBundle\Security\Exception\Cryptography\Symmetric\InvalidDecryptionException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\EncryptionHelper;
+use MailVotech\CoreBundle\Security\Cryptography\Cipher\Symmetric\OpenSSLCipher;
+use MailVotech\CoreBundle\Security\Cryptography\Cipher\Symmetric\SymmetricCipherInterface;
+use MailVotech\CoreBundle\Security\Exception\Cryptography\Symmetric\InvalidDecryptionException;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class EncryptionHelperTest extends \PHPUnit\Framework\TestCase
@@ -55,7 +55,7 @@ final class EncryptionHelperTest extends \PHPUnit\Framework\TestCase
 
         $this->coreParametersHelperMock->expects($this->once())
             ->method('get')
-            ->with('mautic.secret_key')
+            ->with('mailvotech.secret_key')
             ->willReturn($this->key);
 
         $this->mainCipherMock->expects($this->once())
@@ -89,7 +89,7 @@ final class EncryptionHelperTest extends \PHPUnit\Framework\TestCase
 
         $this->coreParametersHelperMock->expects($this->once())
             ->method('get')
-            ->with('mautic.secret_key')
+            ->with('mailvotech.secret_key')
             ->willReturn($this->key);
 
         $this->secondaryCipherMock->expects($this->once())
@@ -121,7 +121,7 @@ final class EncryptionHelperTest extends \PHPUnit\Framework\TestCase
 
         $this->coreParametersHelperMock->expects($this->once())
             ->method('get')
-            ->with('mautic.secret_key')
+            ->with('mailvotech.secret_key')
             ->willReturn($this->key);
 
         $this->mainCipherMock->expects($this->once())
@@ -149,7 +149,7 @@ final class EncryptionHelperTest extends \PHPUnit\Framework\TestCase
 
         $this->coreParametersHelperMock->expects($this->once())
             ->method('get')
-            ->with('mautic.secret_key')
+            ->with('mailvotech.secret_key')
             ->willReturn($this->key);
 
         $this->mainCipherMock->expects($this->once())
@@ -181,7 +181,7 @@ final class EncryptionHelperTest extends \PHPUnit\Framework\TestCase
 
         $this->coreParametersHelperMock->expects($this->once())
             ->method('get')
-            ->with('mautic.secret_key')
+            ->with('mailvotech.secret_key')
             ->willReturn($this->key);
 
         $this->mainCipherMock->expects($this->once())
@@ -211,7 +211,7 @@ final class EncryptionHelperTest extends \PHPUnit\Framework\TestCase
 
         $this->coreParametersHelperMock->expects($this->once())
             ->method('get')
-            ->with('mautic.secret_key')
+            ->with('mailvotech.secret_key')
             ->willReturn($this->key);
 
         $this->getEncryptionHelper();
@@ -229,7 +229,7 @@ final class EncryptionHelperTest extends \PHPUnit\Framework\TestCase
 
         $this->coreParametersHelperMock->expects($this->once())
             ->method('get')
-            ->with('mautic.secret_key')
+            ->with('mailvotech.secret_key')
             ->willReturn($this->key);
 
         $this->getEncryptionHelper();

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Helper;
+namespace MailVotech\CoreBundle\Tests\Helper;
 
-use Mautic\CampaignBundle\Controller\CampaignMapStatsController;
-use Mautic\CoreBundle\Helper\MapHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CampaignBundle\Controller\CampaignMapStatsController;
+use MailVotech\CoreBundle\Helper\MapHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class MapHelperTest extends MauticMysqlTestCase
+final class MapHelperTest extends MailVotechMysqlTestCase
 {
     /**
      * @return array<string, array<int, array<string, int|string>>>
@@ -88,7 +88,7 @@ final class MapHelperTest extends MauticMysqlTestCase
                 'ES' => 12,
                 'FI' => 8,
             ],
-            'label'      => 'mautic.lead.leads',
+            'label'      => 'mailvotech.lead.leads',
             'legendText' => 'Total: 24 (20 with country)',
             'unit'       => 'Contact',
         ], $results[0]);
@@ -98,7 +98,7 @@ final class MapHelperTest extends MauticMysqlTestCase
                 'ES' => 8,
                 'FI' => 8,
             ],
-            'label'      => 'mautic.email.read',
+            'label'      => 'mailvotech.email.read',
             'legendText' => 'Total: 20 (16 with country)',
             'unit'       => 'Read',
         ], $results[1]);
@@ -108,7 +108,7 @@ final class MapHelperTest extends MauticMysqlTestCase
                 'ES' => 4,
                 'FI' => 4,
             ],
-            'label'      => 'mautic.email.click',
+            'label'      => 'mailvotech.email.click',
             'legendText' => 'Total: 12 (8 with country)',
             'unit'       => 'Click',
         ], $results[2]);

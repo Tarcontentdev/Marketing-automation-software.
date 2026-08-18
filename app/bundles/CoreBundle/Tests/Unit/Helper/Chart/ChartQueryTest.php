@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper\Chart;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper\Chart;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumns;
-use Mautic\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumns;
+use MailVotech\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -322,7 +322,7 @@ final class ChartQueryTest extends TestCase
 
         $this->queryBuilder->expects($this->once())
             ->method('from')
-            ->with(MAUTIC_TABLE_PREFIX.'lead_event_log', 't');
+            ->with(MAILVOTECH_TABLE_PREFIX.'lead_event_log', 't');
 
         $this->queryBuilder->expects($this->once())
             ->method('groupBy')

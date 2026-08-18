@@ -85,7 +85,7 @@ final class NoGetRepositoryWithEntityInRepositoryRule implements Rule
             'Repository must not fetch the "%s" repository by entity constant. Inject the repository as a typed property instead, to make the dependency and its type explicit.',
             $firstArg->value->class->toString()
         ))
-            ->identifier('mautic.noGetRepositoryWithEntityInRepository')
+            ->identifier('mailvotech.noGetRepositoryWithEntityInRepository')
             ->nonIgnorable()
             ->build();
 

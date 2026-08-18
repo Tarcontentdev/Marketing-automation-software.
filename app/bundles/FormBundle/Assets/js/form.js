@@ -1,21 +1,21 @@
 //FormBundle
-Mautic.formOnLoad = function (container) {
+MailVotech.formOnLoad = function (container) {
 
     if (mQuery(container + ' #list-search').length) {
-        Mautic.activateSearchAutocomplete('list-search', 'form.form');
+        MailVotech.activateSearchAutocomplete('list-search', 'form.form');
     }
 
-    Mautic.toggleThemeSelectorVisibility();
-    mQuery('#mauticform_renderStyle_0, #mauticform_renderStyle_1').on('change', Mautic.toggleThemeSelectorVisibility);
+    MailVotech.toggleThemeSelectorVisibility();
+    mQuery('#mailvotechform_renderStyle_0, #mailvotechform_renderStyle_1').on('change', MailVotech.toggleThemeSelectorVisibility);
 
-    Mautic.formBuilderNewComponentInit();
-    Mautic.iniNewConditionalField();
+    MailVotech.formBuilderNewComponentInit();
+    MailVotech.iniNewConditionalField();
 
     var bodyOverflow = {};
 
-    if (mQuery('#mauticforms_fields')) {
+    if (mQuery('#mailvotechforms_fields')) {
         //make the fields sortable
-        mQuery('#mauticforms_fields').sortable({
+        mQuery('#mailvotechforms_fields').sortable({
             items: '.form-field-wrapper',
             cancel: '',
             helper: function(e, ui) {
@@ -35,7 +35,7 @@ Mautic.formOnLoad = function (container) {
             },
             scroll: true,
             axis: 'y',
-            containment: '#mauticforms_fields .drop-here',
+            containment: '#mailvotechforms_fields .drop-here',
             stop: function(e, ui) {
                 // Restore original overflow
                 mQuery('body').css(bodyOverflow);
@@ -43,18 +43,18 @@ Mautic.formOnLoad = function (container) {
 
                 mQuery.ajax({
                     type: "POST",
-                    url: mauticAjaxUrl + "?action=form:reorderFields",
-                    data: mQuery('#mauticforms_fields').sortable("serialize", {attribute: 'data-sortable-id'}) + "&formId=" + mQuery('#mauticform_sessionId').val()
+                    url: mailvotechAjaxUrl + "?action=form:reorderFields",
+                    data: mQuery('#mailvotechforms_fields').sortable("serialize", {attribute: 'data-sortable-id'}) + "&formId=" + mQuery('#mailvotechform_sessionId').val()
                 });
             }
         });
 
-        Mautic.initFormFieldButtons();
+        MailVotech.initFormFieldButtons();
     }
 
-    if (mQuery('#mauticforms_actions')) {
+    if (mQuery('#mailvotechforms_actions')) {
         //make the fields sortable
-        mQuery('#mauticforms_actions').sortable({
+        mQuery('#mailvotechforms_actions').sortable({
             items: '.panel',
             cancel: '',
             helper: function(e, ui) {
@@ -74,7 +74,7 @@ Mautic.formOnLoad = function (container) {
             },
             scroll: true,
             axis: 'y',
-            containment: '#mauticforms_actions .drop-here',
+            containment: '#mailvotechforms_actions .drop-here',
             stop: function(e, ui) {
                 // Restore original overflow
                 mQuery('body').css(bodyOverflow);
@@ -82,35 +82,35 @@ Mautic.formOnLoad = function (container) {
 
                 mQuery.ajax({
                     type: "POST",
-                    url: mauticAjaxUrl + "?action=form:reorderActions",
-                    data: mQuery('#mauticforms_actions').sortable("serialize") + "&formId=" + mQuery('#mauticform_sessionId').val()
+                    url: mailvotechAjaxUrl + "?action=form:reorderActions",
+                    data: mQuery('#mailvotechforms_actions').sortable("serialize") + "&formId=" + mQuery('#mailvotechform_sessionId').val()
                 });
             }
         });
 
-        mQuery('#mauticforms_actions .mauticform-row').on('dblclick.mauticformactions', function(event) {
+        mQuery('#mailvotechforms_actions .mailvotechform-row').on('dblclick.mailvotechformactions', function(event) {
             event.preventDefault();
             mQuery(this).find('.btn-edit').first().click();
         });
     }
 
-    Mautic.initHideItemButton('#mauticforms_fields');
-    Mautic.initHideItemButton('#mauticforms_actions');
+    MailVotech.initHideItemButton('#mailvotechforms_fields');
+    MailVotech.initHideItemButton('#mailvotechforms_actions');
 };
 
-Mautic.formBuilderNewComponentInit = function () {
+MailVotech.formBuilderNewComponentInit = function () {
     mQuery('select.form-builder-new-component:not(.initialized)').change(function (e) {
         const select = mQuery(this);
         select.addClass('initialized');
         select.find('option:selected');
-        Mautic.ajaxifyModal(select.find('option:selected'));
+        MailVotech.ajaxifyModal(select.find('option:selected'));
         // Reset the dropdown
         select.val('');
         select.chosen('destroy').chosen();
     });
 };
 
-Mautic.changeSelectOptions = function(selectEl, options) {
+MailVotech.changeSelectOptions = function(selectEl, options) {
     selectEl.empty();
     mQuery.each(options, function(key, field) {
         selectEl.append(
@@ -123,21 +123,21 @@ Mautic.changeSelectOptions = function(selectEl, options) {
     selectEl.trigger('chosen:updated');
 };
 
-Mautic.fetchFieldsOnObjectChange = function() {
+MailVotech.fetchFieldsOnObjectChange = function() {
     var fieldSelect = mQuery('select#formfield_mappedField');
     fieldSelect.attr('disable', true);
     mQuery.ajax({
-        url: mauticAjaxUrl + "?action=form:getFieldsForObject",
+        url: mailvotechAjaxUrl + "?action=form:getFieldsForObject",
         data: {
             mappedObject: mQuery('select#formfield_mappedObject').val(),
             mappedField: mQuery('input#formfield_originalMappedField').val(),
-            formId: mQuery('input#mauticform_sessionId').val()
+            formId: mQuery('input#mailvotechform_sessionId').val()
         },
         success: function (response) {
-            Mautic.changeSelectOptions(fieldSelect, response.fields);
+            MailVotech.changeSelectOptions(fieldSelect, response.fields);
         },
         error: function (response, textStatus, errorThrown) {
-            Mautic.processAjaxError(response, textStatus, errorThrown);
+            MailVotech.processAjaxError(response, textStatus, errorThrown);
         },
         complete: function () {
             fieldSelect.removeAttr('disable');
@@ -145,7 +145,7 @@ Mautic.fetchFieldsOnObjectChange = function() {
     });
 };
 
-Mautic.formResultBatchSubmit = function () {
+MailVotech.formResultBatchSubmit = function () {
     if (!mQuery('#lead_batch_ids').val()) {
         return false;
     }
@@ -153,11 +153,11 @@ Mautic.formResultBatchSubmit = function () {
     return mQuery('#lead_batch_add').val() || mQuery('#lead_batch_remove').val();
 };
 
-Mautic.updateFormFields = function () {
-    Mautic.activateLabelLoadingIndicator('campaignevent_properties_field');
+MailVotech.updateFormFields = function () {
+    MailVotech.activateLabelLoadingIndicator('campaignevent_properties_field');
 
     var formId = mQuery('#campaignevent_properties_form').val();
-    Mautic.ajaxActionRequest('form:updateFormFields', {'formId': formId}, function(response) {
+    MailVotech.ajaxActionRequest('form:updateFormFields', {'formId': formId}, function(response) {
         if (response.fields) {
             var select = mQuery('#campaignevent_properties_field');
             select.find('option').remove();
@@ -171,13 +171,13 @@ Mautic.updateFormFields = function () {
             });
             select.attr('data-field-options', JSON.stringify(fieldOptions));
             select.trigger('chosen:updated');
-            Mautic.updateFormFieldValues(select);
+            MailVotech.updateFormFieldValues(select);
         }
-        Mautic.removeLabelLoadingIndicator();
+        MailVotech.removeLabelLoadingIndicator();
     });
 };
 
-Mautic.updateFormFieldValues = function (field) {
+MailVotech.updateFormFieldValues = function (field) {
     field = mQuery(field);
     var fieldValue = field.val();
     var options = jQuery.parseJSON(field.attr('data-field-options'));
@@ -216,11 +216,11 @@ Mautic.updateFormFieldValues = function (field) {
     }
 };
 
-Mautic.formFieldOnLoad = function (container, response) {
+MailVotech.formFieldOnLoad = function (container, response) {
     //new field created so append it to the form
     if (response.fieldHtml) {
         var newHtml = response.fieldHtml;
-        var fieldId = '#mauticform_' + response.fieldId;
+        var fieldId = '#mailvotechform_' + response.fieldId;
         var fieldContainer = mQuery(fieldId).closest('.form-field-wrapper');
 
         if (mQuery(fieldId).length) {
@@ -228,12 +228,12 @@ Mautic.formFieldOnLoad = function (container, response) {
             mQuery(fieldContainer).replaceWith(newHtml);
             var newField = false;
         } else {
-            var parentContainer = mQuery('#mauticform_'+response.parent);
+            var parentContainer = mQuery('#mailvotechform_'+response.parent);
             if (parentContainer.length) {
                 (parentContainer.parents('.panel:first')).append(newHtml);
             }else {
                 //append content
-                var panel = mQuery('#mauticforms_fields .mauticform-button-wrapper').closest('.form-field-wrapper');
+                var panel = mQuery('#mailvotechforms_fields .mailvotechform-button-wrapper').closest('.form-field-wrapper');
                 panel.before(newHtml);
             }
             var newField = true;
@@ -245,7 +245,7 @@ Mautic.formFieldOnLoad = function (container, response) {
         //activate new stuff
         mQuery(fieldContainer).find("[data-toggle='ajax']").click(function (event) {
             event.preventDefault();
-            return Mautic.ajaxifyLink(this, event);
+            return MailVotech.ajaxifyLink(this, event);
         });
 
         //initialize tooltips
@@ -254,11 +254,11 @@ Mautic.formFieldOnLoad = function (container, response) {
         //initialize ajax'd modals
         mQuery(fieldContainer).find("[data-toggle='ajaxmodal']").on('click.ajaxmodal', function (event) {
             event.preventDefault();
-            Mautic.ajaxifyModal(this, event);
+            MailVotech.ajaxifyModal(this, event);
         });
 
-        Mautic.initFormFieldButtons(fieldContainer);
-        Mautic.initHideItemButton(fieldContainer);
+        MailVotech.initFormFieldButtons(fieldContainer);
+        MailVotech.initHideItemButton(fieldContainer);
 
         //show fields panel
         if (!mQuery('#fields-panel').hasClass('in')) {
@@ -273,13 +273,13 @@ Mautic.formFieldOnLoad = function (container, response) {
             mQuery('#form-field-placeholder').remove();
         }
 
-        Mautic.activateChosenSelect(mQuery('.form-builder-new-component'));
-        Mautic.formBuilderNewComponentInit();
-        Mautic.iniNewConditionalField();
+        MailVotech.activateChosenSelect(mQuery('.form-builder-new-component'));
+        MailVotech.formBuilderNewComponentInit();
+        MailVotech.iniNewConditionalField();
     }
 };
 
-Mautic.iniNewConditionalField = function(){
+MailVotech.iniNewConditionalField = function(){
     mQuery('.add-new-conditional-field').click(function (e) {
         e.preventDefault();
         mQuery(this).parent().next().show('normal');
@@ -288,36 +288,36 @@ Mautic.iniNewConditionalField = function(){
 
 }
 
-Mautic.initFormFieldButtons = function (container) {
+MailVotech.initFormFieldButtons = function (container) {
     if (typeof container == 'undefined') {
-        mQuery('#mauticforms_fields .mauticform-row').off(".mauticformfields");
-        var container = '#mauticforms_fields';
+        mQuery('#mailvotechforms_fields .mailvotechform-row').off(".mailvotechformfields");
+        var container = '#mailvotechforms_fields';
     }
 
-    mQuery(container).find('.mauticform-row').on('dblclick.mauticformfields', function(event) {
+    mQuery(container).find('.mailvotechform-row').on('dblclick.mailvotechformfields', function(event) {
         event.preventDefault();
         mQuery(this).closest('.form-field-wrapper').find('.btn-edit').first().click();
     });
 };
 
-Mautic.formActionOnLoad = function (container, response) {
+MailVotech.formActionOnLoad = function (container, response) {
     //new action created so append it to the form
     if (response.actionHtml) {
         var newHtml = response.actionHtml;
-        var actionId = '#mauticform_action_' + response.actionId;
+        var actionId = '#mailvotechform_action_' + response.actionId;
         if (mQuery(actionId).length) {
             //replace content
             mQuery(actionId).replaceWith(newHtml);
             var newField = false;
         } else {
             //append content
-            mQuery(newHtml).appendTo('#mauticforms_actions .drop-here');
+            mQuery(newHtml).appendTo('#mailvotechforms_actions .drop-here');
             var newField = true;
         }
         //activate new stuff
         mQuery(actionId + " [data-toggle='ajax']").click(function (event) {
             event.preventDefault();
-            return Mautic.ajaxifyLink(this, event);
+            return MailVotech.ajaxifyLink(this, event);
         });
         //initialize tooltips
         mQuery(actionId + " *[data-toggle='tooltip']").tooltip({html: true});
@@ -326,13 +326,13 @@ Mautic.formActionOnLoad = function (container, response) {
         mQuery(actionId + " [data-toggle='ajaxmodal']").on('click.ajaxmodal', function (event) {
             event.preventDefault();
 
-            Mautic.ajaxifyModal(this, event);
+            MailVotech.ajaxifyModal(this, event);
         });
 
-        Mautic.initHideItemButton(actionId);
+        MailVotech.initHideItemButton(actionId);
 
-        mQuery('#mauticforms_actions .mauticform-row').off(".mauticform");
-        mQuery('#mauticforms_actions .mauticform-row').on('dblclick.mauticformactions', function(event) {
+        mQuery('#mailvotechforms_actions .mailvotechform-row').off(".mailvotechform");
+        mQuery('#mailvotechforms_actions .mailvotechform-row').on('dblclick.mailvotechformactions', function(event) {
             event.preventDefault();
             mQuery(this).find('.btn-edit').first().click();
         });
@@ -352,41 +352,41 @@ Mautic.formActionOnLoad = function (container, response) {
     }
 };
 
-Mautic.initHideItemButton = function(container) {
+MailVotech.initHideItemButton = function(container) {
     mQuery(container).find('[data-hide-panel]').click(function(e) {
         e.preventDefault();
-        mQuery(this).closest('.form-field-wrapper, .mauticform-row').hide('fast');
+        mQuery(this).closest('.form-field-wrapper, .mailvotechform-row').hide('fast');
     });
 }
 
-Mautic.onPostSubmitActionChange = function(value) {
+MailVotech.onPostSubmitActionChange = function(value) {
     if (value == 'return') {
         //remove required class
-        mQuery('#mauticform_postActionProperty').prev().removeClass('required');
+        mQuery('#mailvotechform_postActionProperty').prev().removeClass('required');
     } else {
-        mQuery('#mauticform_postActionProperty').prev().addClass('required');
+        mQuery('#mailvotechform_postActionProperty').prev().addClass('required');
     }
 
-    mQuery('#mauticform_postActionProperty').next().html('');
-    mQuery('#mauticform_postActionProperty').parent().removeClass('has-error');
+    mQuery('#mailvotechform_postActionProperty').next().html('');
+    mQuery('#mailvotechform_postActionProperty').parent().removeClass('has-error');
 };
 
 /**
- * @deprecated since Mautic 7.1, to be removed in 8.0 with no replacement.
+ * @deprecated since MailVotech 7.1, to be removed in 8.0 with no replacement.
  * @param formType
  */
-Mautic.selectFormType = function(formType) {
-    mQuery('#mauticform_formType').val(formType);
+MailVotech.selectFormType = function(formType) {
+    mQuery('#mailvotechform_formType').val(formType);
 };
 
 /**
  * Toggles theme selection field visibility and manages theme selection
  */
-Mautic.toggleThemeSelectorVisibility = function () {
-    var selectField = mQuery('#mauticform_template');
-    var chosenContainer = mQuery('#mauticform_template_chosen');
+MailVotech.toggleThemeSelectorVisibility = function () {
+    var selectField = mQuery('#mailvotechform_template');
+    var chosenContainer = mQuery('#mailvotechform_template_chosen');
 
-    if (mQuery('#mauticform_renderStyle_0').prop('checked')) {
+    if (mQuery('#mailvotechform_renderStyle_0').prop('checked')) {
         selectField.val('').trigger('chosen:updated');
         chosenContainer.addClass('chosen-disabled');
     } else {

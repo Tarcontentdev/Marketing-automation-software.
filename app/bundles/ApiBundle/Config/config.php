@@ -13,29 +13,29 @@ return [
             ],
             'fos_oauth_server_authorize' => [
                 'path'       => '/oauth/v2/authorize',
-                'controller' => 'Mautic\ApiBundle\Controller\oAuth2\AuthorizeController::authorizeAction',
+                'controller' => 'MailVotech\ApiBundle\Controller\oAuth2\AuthorizeController::authorizeAction',
                 'method'     => 'GET|POST',
             ],
-            'mautic_oauth2_server_auth_login' => [
+            'mailvotech_oauth2_server_auth_login' => [
                 'path'       => '/oauth/v2/authorize_login',
-                'controller' => 'Mautic\ApiBundle\Controller\oAuth2\SecurityController::loginAction',
+                'controller' => 'MailVotech\ApiBundle\Controller\oAuth2\SecurityController::loginAction',
                 'method'     => 'GET|POST',
             ],
-            'mautic_oauth2_server_auth_login_check' => [
+            'mailvotech_oauth2_server_auth_login_check' => [
                 'path'       => '/oauth/v2/authorize_login_check',
-                'controller' => 'Mautic\ApiBundle\Controller\oAuth2\SecurityController::loginCheckAction',
+                'controller' => 'MailVotech\ApiBundle\Controller\oAuth2\SecurityController::loginCheckAction',
                 'method'     => 'GET|POST',
             ],
         ],
         'main' => [
             // Clients
-            'mautic_client_index' => [
+            'mailvotech_client_index' => [
                 'path'       => '/credentials/{page}',
-                'controller' => 'Mautic\ApiBundle\Controller\ClientController::indexAction',
+                'controller' => 'MailVotech\ApiBundle\Controller\ClientController::indexAction',
             ],
-            'mautic_client_action' => [
+            'mailvotech_client_action' => [
                 'path'       => '/credentials/{objectAction}/{objectId}',
-                'controller' => 'Mautic\ApiBundle\Controller\ClientController::executeAction',
+                'controller' => 'MailVotech\ApiBundle\Controller\ClientController::executeAction',
             ],
         ],
     ],
@@ -43,10 +43,10 @@ return [
     'menu' => [
         'admin' => [
             'items' => [
-                'mautic.api.client.menu.index' => [
-                    'route'     => 'mautic_client_index',
+                'mailvotech.api.client.menu.index' => [
+                    'route'     => 'mailvotech_client_index',
                     'access'    => 'api:clients:view',
-                    'parent'    => 'mautic.core.integrations',
+                    'parent'    => 'mailvotech.core.integrations',
                     'iconClass' => 'ri-terminal-box-line',
                     'priority'  => 17,
                     'checks'    => [

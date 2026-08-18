@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\CoreBundle\Controller;
+namespace MailVotech\CoreBundle\Controller;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\GlobalSearchEvent;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\GlobalSearchEvent;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\PageBundle\Model\PageModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Service\Attribute\Required;
 
 /**
- * Almost all other Mautic Bundle controllers extend this default controller.
+ * Almost all other MailVotech Bundle controllers extend this default controller.
  */
 final class DefaultController extends CommonController
 {
@@ -33,11 +33,11 @@ final class DefaultController extends CommonController
         $root = $this->coreParametersHelper->get('webroot');
 
         if (empty($root)) {
-            return $this->redirectToRoute('mautic_dashboard_index');
+            return $this->redirectToRoute('mailvotech_dashboard_index');
         }
         $page      = $this->pageModel->getEntity($root);
 
-        if (!$page instanceof \Mautic\PageBundle\Entity\Page) {
+        if (!$page instanceof \MailVotech\PageBundle\Entity\Page) {
             return $this->notFound();
         }
 
@@ -45,13 +45,13 @@ final class DefaultController extends CommonController
 
         $request->attributes->set('ignore_mismatch', true);
 
-        return $this->forward('Mautic\PageBundle\Controller\PublicController::indexAction', ['slug' => $slug]);
+        return $this->forward('MailVotech\PageBundle\Controller\PublicController::indexAction', ['slug' => $slug]);
     }
 
     public function globalSearchAction(Request $request): Response
     {
-        $searchStr = $request->get('global_search', $request->getSession()->get('mautic.global_search', ''));
-        $request->getSession()->set('mautic.global_search', $searchStr);
+        $searchStr = $request->get('global_search', $request->getSession()->get('mailvotech.global_search', ''));
+        $request->getSession()->set('mailvotech.global_search', $searchStr);
 
         if (!empty($searchStr)) {
             $event = new GlobalSearchEvent($searchStr, $this->translator);
@@ -61,7 +61,7 @@ final class DefaultController extends CommonController
             $results = [];
         }
 
-        return $this->render('@MauticCore/GlobalSearch/globalsearch.html.twig',
+        return $this->render('@MailVotechCore/GlobalSearch/globalsearch.html.twig',
             [
                 'results'      => $results,
                 'searchString' => $searchStr,
@@ -75,7 +75,7 @@ final class DefaultController extends CommonController
 
         return $this->delegateView(
             [
-                'contentTemplate' => '@MauticCore/Notification/notifications.html.twig',
+                'contentTemplate' => '@MailVotechCore/Notification/notifications.html.twig',
                 'viewParameters'  => [
                     'showNewIndicator' => $showNewIndicator,
                     'notifications'    => $notifications,

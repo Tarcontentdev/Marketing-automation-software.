@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\ApiPlatform;
+namespace MailVotech\LeadBundle\Tests\Functional\ApiPlatform;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Response;
 

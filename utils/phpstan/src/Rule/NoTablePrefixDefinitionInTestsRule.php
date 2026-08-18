@@ -12,7 +12,7 @@ use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 
 /**
- * A test must not define the "MAUTIC_TABLE_PREFIX" const, it is already defined by the test bootstrap.
+ * A test must not define the "MAILVOTECH_TABLE_PREFIX" const, it is already defined by the test bootstrap.
  *
  * @implements Rule<FuncCall>
  */
@@ -21,7 +21,7 @@ final class NoTablePrefixDefinitionInTestsRule implements Rule
     /**
      * @var string
      */
-    private const TABLE_PREFIX_CONSTANT = 'MAUTIC_TABLE_PREFIX';
+    private const TABLE_PREFIX_CONSTANT = 'MAILVOTECH_TABLE_PREFIX';
 
     public function getNodeType(): string
     {
@@ -65,7 +65,7 @@ final class NoTablePrefixDefinitionInTestsRule implements Rule
             'Test must not define the "%s" const, the test bootstrap defines it already. Remove the definition.',
             self::TABLE_PREFIX_CONSTANT
         ))
-            ->identifier('mautic.noTablePrefixDefinitionInTests')
+            ->identifier('mailvotech.noTablePrefixDefinitionInTests')
             ->build();
 
         return [$ruleError];

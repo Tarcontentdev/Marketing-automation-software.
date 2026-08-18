@@ -1,4 +1,4 @@
-{% extends "@MauticCore/FormTheme/form_tabbed.html.twig" %}
+{% extends "@MailVotechCore/FormTheme/form_tabbed.html.twig" %}
 {% form_theme form _self %}
 {% block channel_row %}
     {% if form.children.channel is defined %}
@@ -75,13 +75,13 @@
 {{ form_row(form.projects) }}
 {{ form_row(form.isPublished, {
     'attr': {
-        'data-none': 'mautic.core.form.unavailable_regardless_of_scheduling',
-        'data-start': 'mautic.core.form.available_on_scheduled_date',
-        'data-both': 'mautic.core.form.available_during_scheduled_period',
-        'data-end': 'mautic.core.form.available_until_scheduled_end'
+        'data-none': 'mailvotech.core.form.unavailable_regardless_of_scheduling',
+        'data-start': 'mailvotech.core.form.available_on_scheduled_date',
+        'data-both': 'mailvotech.core.form.available_during_scheduled_period',
+        'data-end': 'mailvotech.core.form.available_until_scheduled_end'
     }
 }) }}
-{{ form_row(form.publishUp, {'label': 'mautic.core.form.available.available_from'}) }}
-{{ form_row(form.publishDown, {'label': 'mautic.core.form.available.unavailable_from'}) }}
+{{ form_row(form.publishUp, {'label': 'mailvotech.core.form.available.available_from'}) }}
+{{ form_row(form.publishDown, {'label': 'mailvotech.core.form.available.unavailable_from'}) }}
 {% endblock %}
 {% block _content %}{% endblock %}

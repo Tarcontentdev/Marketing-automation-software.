@@ -13,28 +13,28 @@
     - formContent
     - availableActions
 #}
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent %}form{% endblock %}
+{% block mailvotechContent %}form{% endblock %}
 
 {% block preHeader %}
-{{ include('@MauticCore/Helper/page_actions.html.twig', {
+{{ include('@MailVotechCore/Helper/page_actions.html.twig', {
     'item': activeForm,
     'templateButtons': {
         'close': securityHasEntityAccess(permissions['form:forms:viewown'], permissions['form:forms:viewother'], activeForm.createdBy),
     },
     'routeBase': 'form',
     'langVar': 'form',
-    'targetLabel': 'mautic.form.forms'|trans
+    'targetLabel': 'mailvotech.form.forms'|trans
 }) }}
-{{ include('@MauticCore/Modules/category--inline.html.twig', {'category': activeForm.category}) }}
-{{ include('@MauticProject/Modules/projects.html.twig', {'item': activeForm}) }}
+{{ include('@MailVotechCore/Modules/category--inline.html.twig', {'category': activeForm.category}) }}
+{{ include('@MailVotechProject/Modules/projects.html.twig', {'item': activeForm}) }}
 {% endblock %}
 
 {% block headerTitle %}{{ activeForm.name }}{% endblock %}
 
 {% block actions %}
-    {{ include('@MauticCore/Helper/page_actions.html.twig', {
+    {{ include('@MailVotechCore/Helper/page_actions.html.twig', {
             'item': activeForm,
             'templateButtons': {
                 'edit': securityHasEntityAccess(permissions['form:forms:editown'], permissions['form:forms:editother'], activeForm.createdBy),
@@ -48,26 +48,26 @@
                     'attr': {
                         'data-toggle': '',
                         'target': '_blank',
-                        'href': path('mautic_form_action', {'objectAction': 'preview', 'objectId': activeForm.id}),
+                        'href': path('mailvotech_form_action', {'objectAction': 'preview', 'objectId': activeForm.id}),
                     },
                     'iconClass': 'ri-camera-3-line',
-                    'btnText': 'mautic.form.form.preview',
+                    'btnText': 'mailvotech.form.form.preview',
                     'btnClass': 'btn btn-ghost btn-nospin',
                 },
                 {
                     'attr': {
                         'data-toggle': 'ajax',
-                        'href': path('mautic_form_action', {'objectAction': 'results', 'objectId': activeForm.id}),
+                        'href': path('mailvotech_form_action', {'objectAction': 'results', 'objectId': activeForm.id}),
                     },
                     'iconClass': 'ri-database-line',
-                    'btnText': 'mautic.form.form.results',
+                    'btnText': 'mailvotech.form.form.results',
                 },
             ],
     }) }}
 {% endblock %}
 
 {% block publishStatus %}
-    {{- include('@MauticCore/Helper/publishstatus_badge.html.twig', {
+    {{- include('@MailVotechCore/Helper/publishstatus_badge.html.twig', {
         'entity': activeForm,
         'status': 'available'
     }) -}}
@@ -84,7 +84,7 @@
 
     {% if showNoIndex %}
         {% set tags = tags|merge([{
-            label: 'mautic.core.tag.search_index.disabled'|trans,
+            label: 'mailvotech.core.tag.search_index.disabled'|trans,
             icon: 'ri-eye-off-fill',
             color: 'blue',
             icon_only: true
@@ -93,7 +93,7 @@
 
     {% if showKiosk %}
         {% set tags = tags|merge([{
-            label: 'mautic.form.tag.kioskmode.label'|trans,
+            label: 'mailvotech.form.tag.kioskmode.label'|trans,
             icon: 'ri-spy-fill',
             color: 'blue',
             icon_only: true
@@ -108,26 +108,26 @@
             attributes: {
                 'data-toggle': 'tooltip',
                 'data-placement': 'top',
-                'title': 'mautic.core.language'|trans
+                'title': 'mailvotech.core.language'|trans
             }
         }]) %}
     {% endif %}
 
     {% if tags is not empty %}
-        {% include '@MauticCore/Helper/_tag.html.twig' with { tags: tags } %}
+        {% include '@MailVotechCore/Helper/_tag.html.twig' with { tags: tags } %}
     {% endif %}
 {% endblock %}
 
 {% block content %}
 {% set showActions = activeFormActions|length %}
-{% set previewUrl = url('mautic_form_action', {'objectAction': 'preview', 'objectId': activeForm.id}) %}
+{% set previewUrl = url('mailvotech_form_action', {'objectAction': 'preview', 'objectId': activeForm.id}) %}
 <!-- start: box layout -->
 <div class="box-layout">
     <!-- left section -->
     <div class="col-md-9 height-auto">
         <div>
             <!-- form detail header -->
-            {% include '@MauticCore/Helper/description--expanded.html.twig' with {'description': activeForm.description} %}
+            {% include '@MailVotechCore/Helper/description--expanded.html.twig' with {'description': activeForm.description} %}
             <!--/ form detail header -->
 
             <!-- form detail collapseable -->
@@ -136,7 +136,7 @@
                     <div class="panel shd-none mb-0">
                         <table class="table table-hover mb-0">
                             <tbody>
-                            {{ include('@MauticCore/Helper/details.html.twig', {'entity': activeForm}) }}
+                            {{ include('@MailVotechCore/Helper/details.html.twig', {'entity': activeForm}) }}
                             </tbody>
                         </table>
                     </div>
@@ -149,9 +149,9 @@
             <!-- form detail collapseable toggler -->
             <div class="hr-expand nm">
                 <span data-toggle="tooltip"
-                      title="{{ 'mautic.form.details.detail'|trans }}">
+                      title="{{ 'mailvotech.form.details.detail'|trans }}">
                     <a href="javascript:void(0)" class="arrow text-secondary collapsed" data-toggle="collapse"
-                       data-target="#form-details"><span class="caret"></span> {{ 'mautic.core.details'|trans }}</a>
+                       data-target="#form-details"><span class="caret"></span> {{ 'mailvotech.core.details'|trans }}</a>
                 </span>
             </div>
             <!--/ form detail collapseable toggler -->
@@ -160,19 +160,19 @@
             <div class="pa-md">
                 <div class="row">
                     <div class="col-sm-12">
-                        {{ include('@MauticCore/Modules/stat--icon.html.twig', {'stats': [
+                        {{ include('@MailVotechCore/Modules/stat--icon.html.twig', {'stats': [
                             {
-                                'title': 'mautic.form.stats.submission_counts.total',
+                                'title': 'mailvotech.form.stats.submission_counts.total',
                                 'value': submissionCounts['total'],
-                                'tooltip': 'mautic.form.stats.submission_counts.total.desc',
-                                'link': path('mautic_form_action', {'objectAction': 'results', 'objectId': activeForm.id}),
+                                'tooltip': 'mailvotech.form.stats.submission_counts.total.desc',
+                                'link': path('mailvotech_form_action', {'objectAction': 'results', 'objectId': activeForm.id}),
                             },
                             {
-                                'title': 'mautic.form.stats.submission_counts.unique',
+                                'title': 'mailvotech.form.stats.submission_counts.unique',
                                 'value': submissionCounts['unique'],
-                                'tooltip': 'mautic.form.stats.submission_counts.unique.desc',
+                                'tooltip': 'mailvotech.form.stats.submission_counts.unique.desc',
                                 'icon': 'ri-user-6-line',
-                                'link': path('mautic_contact_index', {'search': ('mautic.lead.lead.searchcommand.form'|trans) ~ ':' ~ activeForm.alias}),
+                                'link': path('mailvotech_contact_index', {'search': ('mailvotech.lead.lead.searchcommand.form'|trans) ~ ':' ~ activeForm.alias}),
                             }
                         ]}) }}
                         <div class="panel">
@@ -180,15 +180,15 @@
                                 <div class="col-xs-6 va-m">
                                     <h5 class="text-white dark-md fw-sb mb-xs">
                                         <span class="ri-download-line"></span>
-                                        {{ 'mautic.form.graph.line.submissions'|trans }}
+                                        {{ 'mailvotech.form.graph.line.submissions'|trans }}
                                     </h5>
                                 </div>
                                 <div class="col-xs-6 va-m">
-                                    {{ include('@MauticCore/Helper/graph_dateselect.html.twig', {'dateRangeForm': dateRangeForm, 'class': 'pull-right'}) }}
+                                    {{ include('@MailVotechCore/Helper/graph_dateselect.html.twig', {'dateRangeForm': dateRangeForm, 'class': 'pull-right'}) }}
                                 </div>
                             </div>
                             <div class="d-flex fd-column pt-0 pl-15 pb-15 pr-15 min-h-256">
-                                {{ include('@MauticCore/Helper/chart.html.twig', {'chartData': stats['submissionsInTime'], 'chartType': 'line', 'chartHeight': 300}) }}
+                                {{ include('@MailVotechCore/Helper/chart.html.twig', {'chartData': stats['submissionsInTime'], 'chartType': 'line', 'chartHeight': 300}) }}
                             </div>
                         </div>
                     </div>
@@ -202,11 +202,11 @@
             <ul class="nav nav-tabs nav-tabs-contained">
                 {% if showActions %}
                     <li class="active">
-                        <a href="#actions-container" role="tab" data-toggle="tab">{{ 'mautic.form.tab.actions'|trans }}</a>
+                        <a href="#actions-container" role="tab" data-toggle="tab">{{ 'mailvotech.form.tab.actions'|trans }}</a>
                     </li>
                 {% endif %}
                 <li class="{% if not showActions %}active{% endif %}">
-                    <a href="#fields-container" role="tab" data-toggle="tab">{{ 'mautic.form.tab.fields'|trans }}</a>
+                    <a href="#fields-container" role="tab" data-toggle="tab">{{ 'mailvotech.form.tab.fields'|trans }}</a>
                 </li>
             </ul>
             <!--/ tabs controls -->
@@ -220,7 +220,7 @@
                     {% for group, groupActions in activeFormActions %}
                         <h5 class="fw-sb mb-xs">{{ group|title }}</h5>
                         <ul class="list-group">
-                            {# @var \Mautic\FormBundle\Entity\Action $action #}
+                            {# @var \MailVotech\FormBundle\Entity\Action $action #}
                             {% for action in groupActions %}
                                 <li class="list-group-item">
                                     <div class="box-layout">
@@ -253,20 +253,20 @@
 
             <!-- #fields-container -->
             <div class="tab-pane fade {% if not showActions %}active in{% endif %} bdr-w-0" id="fields-container">
-                <h5 class="fw-sb mb-xs">{{ 'mautic.form.field'|trans }}</h5>
+                <h5 class="fw-sb mb-xs">{{ 'mailvotech.form.field'|trans }}</h5>
                 <ul class="list-group mb-xs">
-                    {# @var \Mautic\FormBundle\Entity\Field $field #}
+                    {# @var \MailVotech\FormBundle\Entity\Field $field #}
                     {% for field in activeFormFields %}
                       {% if not field.parent %}
                       <li class="list-group-item">
-                          {{ include('@MauticForm/Form/_details_fields_list.html.twig', {'field': field}) }}
+                          {{ include('@MailVotechForm/Form/_details_fields_list.html.twig', {'field': field}) }}
                       </li>
                       {% endif %}
-                      {# @var \Mautic\FormBundle\Entity\Field $field #}
+                      {# @var \MailVotech\FormBundle\Entity\Field $field #}
                       {% for fieldChild in activeFormFields %}
                           {% if fieldChild.parent == field.id %}
                               <li class="list-group-item ml-20">
-                                  {{ include('@MauticForm/Form/_details_fields_list.html.twig', {'field': fieldChild}) }}
+                                  {{ include('@MailVotechForm/Form/_details_fields_list.html.twig', {'field': fieldChild}) }}
                               </li>
                           {% endif %}
                       {% endfor %}
@@ -284,8 +284,8 @@
         <!-- form HTML -->
         <div class="pa-md">
             {% set aboveFoldContent %}
-                <h4 class="fw-b mb-lg">{{ 'mautic.form.form.header.copy'|trans }}</h4>
-                {% include '@MauticCore/Components/pictogram.html.twig' with {
+                <h4 class="fw-b mb-lg">{{ 'mailvotech.form.form.header.copy'|trans }}</h4>
+                {% include '@MailVotechCore/Components/pictogram.html.twig' with {
                     pictogram: 'embed',
                     size: 64,
                     color: 'var(--icon-interactive)'
@@ -293,13 +293,13 @@
             {% endset %}
 
             {% set belowFoldContent %}
-                <h5 class="mt-lg fw-b">{{ 'mautic.form.form.header.landingpages'|trans }}</h5>
-                <p class="mt-xs mb-lg">{{ 'mautic.form.form.help.landingpages'|trans }}</p>
-                <h5 class="mt-lg mb-sm fw-b">{{ 'mautic.form.form.header.external_cms'|trans }}</h5>
-                {% include '@MauticCore/Helper/button.html.twig' with {
+                <h5 class="mt-lg fw-b">{{ 'mailvotech.form.form.header.landingpages'|trans }}</h5>
+                <p class="mt-xs mb-lg">{{ 'mailvotech.form.form.help.landingpages'|trans }}</p>
+                <h5 class="mt-lg mb-sm fw-b">{{ 'mailvotech.form.form.header.external_cms'|trans }}</h5>
+                {% include '@MailVotechCore/Helper/button.html.twig' with {
                     buttons: [
                         {
-                            label: 'mautic.form.form.header.embedded',
+                            label: 'mailvotech.form.form.header.embedded',
                             variant: 'tertiary',
                             size: 'sm',
                             wide: true,
@@ -309,7 +309,7 @@
                             }
                         },
                         {
-                            label: 'mautic.form.form.header.selfhosted',
+                            label: 'mailvotech.form.form.header.selfhosted',
                             variant: 'tertiary',
                             size: 'sm',
                             wide: true,
@@ -323,7 +323,7 @@
                 } %}
             {% endset %}
 
-            {{ include('@MauticCore/Components/tile.html.twig', {
+            {{ include('@MailVotechCore/Components/tile.html.twig', {
                 'type': 'expandable-interactive',
                 'aboveFoldContent': aboveFoldContent,
                 'belowFoldContent': belowFoldContent
@@ -334,22 +334,22 @@
         <!-- preview URL -->
         <div class="panel shd-none bdr-rds-0 bdr-w-0 mt-sm mb-0">
             <div class="panel-heading">
-                <div class="panel-title">{{ 'mautic.form.form.preview'|trans }}</div>
+                <div class="panel-title">{{ 'mailvotech.form.form.preview'|trans }}</div>
             </div>
             <div class="panel-body pt-xs">
                 <div class="row">
                     <div class="form-group col-xs-12">
                         <div class="input-group">
                             <input type="text" class="form-control" readonly 
-                                   aria-label="{{ 'mautic.page.preview.url'|trans }}"
+                                   aria-label="{{ 'mailvotech.page.preview.url'|trans }}"
                                    value="{{ previewUrl|escape }}"
                                    onclick="this.setSelectionRange(0, this.value.length);"
                                    onfocus="this.setSelectionRange(0, this.value.length);"/>
                             <span class="input-group-btn">
-                                {% include '@MauticCore/Helper/button.html.twig' with {
+                                {% include '@MailVotechCore/Helper/button.html.twig' with {
                                     buttons: [
                                         {
-                                            label: 'mautic.core.open_link',
+                                            label: 'mailvotech.core.open_link',
                                             variant: 'ghost',
                                             size: 'md',
                                             icon_only: true,
@@ -374,34 +374,34 @@
         {# we can leverage data from audit_log table and build activity feed from it #}
         <div class="panel shd-none bdr-rds-0 bdr-w-0 mb-0">
             <!-- recent activity -->
-            {{ include('@MauticCore/Helper/recentactivity.html.twig', {'logs': logs}) }}
+            {{ include('@MailVotechCore/Helper/recentactivity.html.twig', {'logs': logs}) }}
         </div>
     </div>
     <!--/ right section -->
 
     {% set automaticCopyModalContent %}
-        <p>{{ 'mautic.form.form.help.automaticcopy'|trans }}</p>
-        <h3>{{ 'mautic.form.form.help.automaticcopy.js'|trans }}</h3>
-        {{ include('@MauticCore/Components/code-snippet.html.twig', {
+        <p>{{ 'mailvotech.form.form.help.automaticcopy'|trans }}</p>
+        <h3>{{ 'mailvotech.form.form.help.automaticcopy.js'|trans }}</h3>
+        {{ include('@MailVotechCore/Components/code-snippet.html.twig', {
             'variant': 'single',
-            'innerText': ('<script type="text/javascript" src="' ~ absolute_url(path('mautic_form_generateform', {'id': activeForm.id})) ~ '"></script>')
+            'innerText': ('<script type="text/javascript" src="' ~ absolute_url(path('mailvotech_form_generateform', {'id': activeForm.id})) ~ '"></script>')
         }) }}
-        <h3 class="pt-lg">{{ 'mautic.form.form.help.automaticcopy.iframe'|trans }}</h3>
-        {{ include('@MauticCore/Components/code-snippet.html.twig', {
+        <h3 class="pt-lg">{{ 'mailvotech.form.form.help.automaticcopy.iframe'|trans }}</h3>
+        {{ include('@MailVotechCore/Components/code-snippet.html.twig', {
             'variant': 'single',
-            'innerText': ('<iframe src="' ~ absolute_url(path('mautic_form_preview', {'id': activeForm.id})) ~ '" width="300" height="300" title="' ~ ('mautic.form.form.iframe.title'|trans) ~ '"><p>Your browser does not support iframes.</p></iframe>')
+            'innerText': ('<iframe src="' ~ absolute_url(path('mailvotech_form_preview', {'id': activeForm.id})) ~ '" width="300" height="300" title="' ~ ('mailvotech.form.form.iframe.title'|trans) ~ '"><p>Your browser does not support iframes.</p></iframe>')
         }) }}
-        <i>{{ 'mautic.form.form.help.automaticcopy.iframe.note'|trans }}</i>
+        <i>{{ 'mailvotech.form.form.help.automaticcopy.iframe.note'|trans }}</i>
     {% endset %}
 
-    {{ include('@MauticCore/Components/modal.html.twig', {
+    {{ include('@MailVotechCore/Components/modal.html.twig', {
         id: 'modal-automatic-copy',
-        modalLabel: 'mautic.form.form.header.copy',
-        modalHeading: 'mautic.form.form.header.embedded',
+        modalLabel: 'mailvotech.form.form.header.copy',
+        modalHeading: 'mailvotech.form.form.header.embedded',
         modalContent: automaticCopyModalContent,
         buttons: [
             {
-                label: 'mautic.core.close'|trans,
+                label: 'mailvotech.core.close'|trans,
                 variant: 'primary',
                 attributes: {
                     'data-dismiss': 'modal'
@@ -411,33 +411,33 @@
     }) }}
 
     {% set manualCopyModalContent %}
-        <p>{{ 'mautic.form.form.help.selfhosted'|trans }}</p>
+        <p>{{ 'mailvotech.form.form.help.selfhosted'|trans }}</p>
 
-        <h4 class="mt-sm mb-sm">{{ 'mautic.form.form.help.selfhosted.script'|trans }}</h4>
-        {{ include('@MauticCore/Components/code-snippet.html.twig', {
+        <h4 class="mt-sm mb-sm">{{ 'mailvotech.form.form.help.selfhosted.script'|trans }}</h4>
+        {{ include('@MailVotechCore/Components/code-snippet.html.twig', {
             'variant': 'multi',
             'innerText': formScript,
             'className': 'code-snippet--scrollable'
         }) }}
 
-        <h4 class="mt-sm mb-sm">{{ 'mautic.form.form.help.selfhosted.body'|trans }}</h4>
-        {{ include('@MauticCore/Components/code-snippet.html.twig', {
+        <h4 class="mt-sm mb-sm">{{ 'mailvotech.form.form.help.selfhosted.body'|trans }}</h4>
+        {{ include('@MailVotechCore/Components/code-snippet.html.twig', {
             'variant': 'multi',
             'innerText': formContent,
             'className': 'code-snippet--scrollable'
         }) }}
     {% endset %}
 
-    {{ include('@MauticCore/Components/modal.html.twig', {
+    {{ include('@MailVotechCore/Components/modal.html.twig', {
         id: 'modal-manual-copy',
         size: 'lg',
-        modalLabel: 'mautic.form.form.header.copy',
-        modalHeading: 'mautic.form.form.header.selfhosted',
+        modalLabel: 'mailvotech.form.form.header.copy',
+        modalHeading: 'mailvotech.form.form.header.selfhosted',
         modalContent: manualCopyModalContent,
         hasScrollingContent: true,
         buttons: [
             {
-                label: 'mautic.core.close'|trans,
+                label: 'mailvotech.core.close'|trans,
                 variant: 'primary',
                 attributes: {
                     'data-dismiss': 'modal'

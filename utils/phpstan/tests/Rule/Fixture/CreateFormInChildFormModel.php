@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Utils\PHPStan\Tests\Rule\Fixture;
 
-use Mautic\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Model\FormModel;
 use Symfony\Component\Form\FormInterface;
 
 /**

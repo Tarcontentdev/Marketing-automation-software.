@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\CoreBundle\Tests\Unit\Doctrine;
+namespace MailVotech\CoreBundle\Tests\Unit\Doctrine;
 
 use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
-use Mautic\CoreBundle\Doctrine\Type\ArrayType;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\ReferenceValueDAO;
+use MailVotech\CoreBundle\Doctrine\Type\ArrayType;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\ReferenceValueDAO;
 
 final class ExampleClassWithPrivateProperty
 {
@@ -34,7 +34,7 @@ final class ExampleClassWithPublicProperty
 
 final class ArrayTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public const MAUTIC_ARRAY_TYPE_NAME = 'mautic-array-type';
+    public const MAILVOTECH_ARRAY_TYPE_NAME = 'mailvotech-array-type';
 
     private Type $arrayType;
 
@@ -44,11 +44,11 @@ final class ArrayTypeTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
 
-        if (!Type::hasType(self::MAUTIC_ARRAY_TYPE_NAME)) {
-            Type::addType(self::MAUTIC_ARRAY_TYPE_NAME, ArrayType::class);
+        if (!Type::hasType(self::MAILVOTECH_ARRAY_TYPE_NAME)) {
+            Type::addType(self::MAILVOTECH_ARRAY_TYPE_NAME, ArrayType::class);
         }
 
-        $this->arrayType = Type::getType(self::MAUTIC_ARRAY_TYPE_NAME);
+        $this->arrayType = Type::getType(self::MAILVOTECH_ARRAY_TYPE_NAME);
 
         $this->platform = new MySQLPlatform();
     }
@@ -85,7 +85,7 @@ final class ArrayTypeTest extends \PHPUnit\Framework\TestCase
     {
         $result = $this->arrayType->convertToDatabaseValue([new ExampleClassWithPublicProperty()], $this->platform);
         $this->assertEquals(
-            'a:1:{i:0;O:68:"Mautic\CoreBundle\Tests\Unit\Doctrine\ExampleClassWithPublicProperty":1:{s:4:"test";s:5:"value";}}',
+            'a:1:{i:0;O:68:"MailVotech\CoreBundle\Tests\Unit\Doctrine\ExampleClassWithPublicProperty":1:{s:4:"test";s:5:"value";}}',
             $result
         );
     }

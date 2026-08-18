@@ -2,36 +2,36 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Unit\Controller;
+namespace MailVotech\WebhookBundle\Tests\Unit\Controller;
 
 use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
 use JMS\Serializer\SerializerInterface;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Event\LeadEvent;
-use Mautic\LeadBundle\EventListener\WebhookSubscriber;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\WebhookBundle\Controller\AjaxController;
-use Mautic\WebhookBundle\Entity\Event;
-use Mautic\WebhookBundle\Entity\EventRepository;
-use Mautic\WebhookBundle\Entity\LogRepository;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Entity\WebhookQueueRepository;
-use Mautic\WebhookBundle\Entity\WebhookRepository;
-use Mautic\WebhookBundle\Http\Client;
-use Mautic\WebhookBundle\Model\WebhookModel;
-use Mautic\WebhookBundle\Service\WebhookService;
-use Mautic\WebhookBundle\WebhookEvents;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Event\LeadEvent;
+use MailVotech\LeadBundle\EventListener\WebhookSubscriber;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\WebhookBundle\Controller\AjaxController;
+use MailVotech\WebhookBundle\Entity\Event;
+use MailVotech\WebhookBundle\Entity\EventRepository;
+use MailVotech\WebhookBundle\Entity\LogRepository;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Entity\WebhookQueueRepository;
+use MailVotech\WebhookBundle\Entity\WebhookRepository;
+use MailVotech\WebhookBundle\Http\Client;
+use MailVotech\WebhookBundle\Model\WebhookModel;
+use MailVotech\WebhookBundle\Service\WebhookService;
+use MailVotech\WebhookBundle\WebhookEvents;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\StreamInterface;
@@ -49,19 +49,19 @@ final class WebhookControllerTest extends TestCase
     #[DataProvider('provideNewOrUpdate')]
     public function testPayloadsAreSame(bool $isNew): void
     {
-        $eventUnderTest = $isNew ? 'mautic.lead_post_save_new' : 'mautic.lead_post_save_update';
-        $url            = 'https://mautic.com/';
+        $eventUnderTest = $isNew ? 'mailvotech.lead_post_save_new' : 'mailvotech.lead_post_save_update';
+        $url            = 'https://mailvotech.com/';
         $secret         = 'secret! sssshhhh!';
         $webhookId      = 9274365435;
         $disableLimit   = 50;
 
-        $mauticBundlesPath = realpath(__DIR__.'/../../../../');
-        $this->assertNotFalse($mauticBundlesPath);
+        $mailvotechBundlesPath = realpath(__DIR__.'/../../../../');
+        $this->assertNotFalse($mailvotechBundlesPath);
 
         if ($isNew) {
-            $leadPayloadJson = file_get_contents($mauticBundlesPath.'/LeadBundle/Assets/WebhookPayload/lead_post_save_new.json');
+            $leadPayloadJson = file_get_contents($mailvotechBundlesPath.'/LeadBundle/Assets/WebhookPayload/lead_post_save_new.json');
         } else {
-            $leadPayloadJson = file_get_contents($mauticBundlesPath.'/LeadBundle/Assets/WebhookPayload/lead_post_save_update.json');
+            $leadPayloadJson = file_get_contents($mailvotechBundlesPath.'/LeadBundle/Assets/WebhookPayload/lead_post_save_update.json');
         }
 
         $this->assertNotFalse($leadPayloadJson);
@@ -126,7 +126,7 @@ final class WebhookControllerTest extends TestCase
 
         // Send test action.
         $testResponse = $controller->sendHookTestAction($request, $client, $pathsHelper);
-        // If you encounter errors here, please check \Mautic\WebhookBundle\Controller\AjaxController::processWebhookTest
+        // If you encounter errors here, please check \MailVotech\WebhookBundle\Controller\AjaxController::processWebhookTest
         // or inside the Client mock.
         $this->assertSame(Response::HTTP_OK, $testResponse->getStatusCode());
 
@@ -194,7 +194,7 @@ final class WebhookControllerTest extends TestCase
         $webhookRepository->expects($this->once())
             ->method('saveEntity');
 
-        // If you encounter error here - debug the \Mautic\WebhookBundle\Model\WebhookModel::processWebhook
+        // If you encounter error here - debug the \MailVotech\WebhookBundle\Model\WebhookModel::processWebhook
         // in the catch part.
         $logRepository = $this->createMock(LogRepository::class);
         $logRepository->expects($this->never())
@@ -216,8 +216,8 @@ final class WebhookControllerTest extends TestCase
             ->method('hasListeners')
             ->willReturnMap([
                 [WebhookEvents::WEBHOOK_QUEUE_ON_ADD, false],
-                ['mautic.webhook_pre_save', false],
-                ['mautic.webhook_post_save', false],
+                ['mailvotech.webhook_pre_save', false],
+                ['mailvotech.webhook_post_save', false],
             ])
             ->willReturn(false);
 

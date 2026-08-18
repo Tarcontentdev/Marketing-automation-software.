@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DashboardBundle\Event;
+namespace MailVotech\DashboardBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\DashboardBundle\Entity\Widget;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\DashboardBundle\Entity\Widget;
 
 final class WidgetFormEvent extends CommonEvent
 {

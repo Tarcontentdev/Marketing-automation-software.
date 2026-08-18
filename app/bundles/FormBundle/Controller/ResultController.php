@@ -1,24 +1,24 @@
 <?php
 
-namespace Mautic\FormBundle\Controller;
+namespace MailVotech\FormBundle\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\CoreBundle\Controller\FormController as CommonFormController;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\FormBundle\Helper\FormFieldHelper;
-use Mautic\FormBundle\Helper\FormUploader;
-use Mautic\FormBundle\Model\FieldModel;
-use Mautic\FormBundle\Model\FormModel;
-use Mautic\FormBundle\Model\SubmissionModel;
-use Mautic\FormBundle\Model\SubmissionResultLoader;
-use Mautic\LeadBundle\Form\Type\BatchType;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\CoreBundle\Controller\FormController as CommonFormController;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\FormBundle\Helper\FormFieldHelper;
+use MailVotech\FormBundle\Helper\FormUploader;
+use MailVotech\FormBundle\Model\FieldModel;
+use MailVotech\FormBundle\Model\FormModel;
+use MailVotech\FormBundle\Model\SubmissionModel;
+use MailVotech\FormBundle\Model\SubmissionResultLoader;
+use MailVotech\LeadBundle\Form\Type\BatchType;
+use MailVotech\LeadBundle\Model\ListModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -50,12 +50,12 @@ final class ResultController extends CommonFormController
         $this->setStandardParameters(
             'form.submission', // model name
             'form:forms', // permission base
-            'mautic_form', // route base
-            'mautic.formresult', // session base
-            'mautic.form.result', // lang string base
-            '@MauticForm/Result', // template base
-            'mautic_form', // activeLink
-            'formresult' // mauticContent
+            'mailvotech_form', // route base
+            'mailvotech.formresult', // session base
+            'mailvotech.form.result', // lang string base
+            '@MailVotechForm/Result', // template base
+            'mailvotech_form', // activeLink
+            'formresult' // mailvotechContent
         );
 
         parent::__construct($formFactory, $fieldHelper, $doctrine, $modelFactory, $userHelper, $coreParametersHelper, $dispatcher, $translator, $flashBag, $requestStack, $security);
@@ -65,8 +65,8 @@ final class ResultController extends CommonFormController
     {
         $form           = $this->formModel->getEntity($objectId);
         $session        = $request->getSession();
-        $formPage       = $session->get('mautic.form.page', 1);
-        $returnUrl      = $this->generateUrl('mautic_form_index', ['page' => $formPage]);
+        $formPage       = $session->get('mailvotech.form.page', 1);
+        $returnUrl      = $this->generateUrl('mailvotech_form_index', ['page' => $formPage]);
         $viewOnlyFields = $this->formModel->getCustomComponents()['viewOnlyFields'];
 
         if (null === $form) {
@@ -75,15 +75,15 @@ final class ResultController extends CommonFormController
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $formPage],
-                    'contentTemplate' => 'Mautic\FormBundle\Controller\FormController::indexAction',
+                    'contentTemplate' => 'MailVotech\FormBundle\Controller\FormController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => 'mautic_form_index',
-                        'mauticContent' => 'form',
+                        'activeLink'    => 'mailvotech_form_index',
+                        'mailvotechContent' => 'form',
                     ],
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.form.error.notfound',
+                            'msg'     => 'mailvotech.form.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -103,25 +103,25 @@ final class ResultController extends CommonFormController
             $this->setListFilters($request->query->get('name'));
         }
 
-        $pageHelper        = $pageHelperFacotry->make('mautic.formresult.'.$objectId, $page);
+        $pageHelper        = $pageHelperFacotry->make('mailvotech.formresult.'.$objectId, $page);
 
         // set limits
         $limit = $pageHelper->getLimit();
         $start = $pageHelper->getStart();
 
         // Set order direction to desc if not set
-        if (!$session->get('mautic.formresult.'.$objectId.'.orderbydir')) {
-            $session->set('mautic.formresult.'.$objectId.'.orderbydir', 'DESC');
+        if (!$session->get('mailvotech.formresult.'.$objectId.'.orderbydir')) {
+            $session->set('mailvotech.formresult.'.$objectId.'.orderbydir', 'DESC');
         }
 
-        $orderBy    = $session->get('mautic.formresult.'.$objectId.'.orderby', 's.date_submitted');
-        $orderByDir = $session->get('mautic.formresult.'.$objectId.'.orderbydir', 'DESC');
-        $filters    = $session->get('mautic.formresult.'.$objectId.'.filters', []);
+        $orderBy    = $session->get('mailvotech.formresult.'.$objectId.'.orderby', 's.date_submitted');
+        $orderByDir = $session->get('mailvotech.formresult.'.$objectId.'.orderbydir', 'DESC');
+        $filters    = $session->get('mailvotech.formresult.'.$objectId.'.filters', []);
 
         if ($request->query->has('result')) {
             // Force ID
             $filters['s.id'] = ['column' => 's.id', 'expr' => 'like', 'value' => (int) $request->query->get('result'), 'strict' => false];
-            $session->set("mautic.formresult.{$objectId}.filters", $filters);
+            $session->set("mailvotech.formresult.{$objectId}.filters", $filters);
         }
 
         // get the results
@@ -147,16 +147,16 @@ final class ResultController extends CommonFormController
             // the number of entities are now less then the current page so redirect to the last page
             $lastPage = $pageHelper->countPage($count);
             $pageHelper->rememberPage($lastPage);
-            $returnUrl = $this->generateUrl('mautic_form_results', ['objectId' => $objectId, 'page' => $lastPage]);
+            $returnUrl = $this->generateUrl('mailvotech_form_results', ['objectId' => $objectId, 'page' => $lastPage]);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $lastPage],
-                    'contentTemplate' => 'Mautic\FormBundle\Controller\ResultController::indexAction',
+                    'contentTemplate' => 'MailVotech\FormBundle\Controller\ResultController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => 'mautic_form_index',
-                        'mauticContent' => 'formresult',
+                        'activeLink'    => 'mailvotech_form_index',
+                        'mailvotechContent' => 'formresult',
                     ],
                 ]
             );
@@ -183,12 +183,12 @@ final class ResultController extends CommonFormController
                     ),
                     'enableExportPermission'=> $this->security->isAdmin() || $this->security->isGranted('form:export:enable', 'MATCH_ONE'),
                 ],
-                'contentTemplate' => '@MauticForm/Result/list.html.twig',
+                'contentTemplate' => '@MailVotechForm/Result/list.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => 'mautic_form_index',
-                    'mauticContent' => 'formresult',
+                    'activeLink'    => 'mailvotech_form_index',
+                    'mailvotechContent' => 'formresult',
                     'route'         => $this->generateUrl(
-                        'mautic_form_results',
+                        'mailvotech_form_results',
                         [
                             'objectId' => $objectId,
                             'page'     => $page,
@@ -279,8 +279,8 @@ final class ResultController extends CommonFormController
     {
         $form      = $this->formModel->getEntity($objectId);
         $session   = $request->getSession();
-        $formPage  = $session->get('mautic.form.page', 1);
-        $returnUrl = $this->generateUrl('mautic_form_index', ['page' => $formPage]);
+        $formPage  = $session->get('mailvotech.form.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_form_index', ['page' => $formPage]);
 
         if (!$this->security->isAdmin() && !$this->security->isGranted('form:export:enable', 'MATCH_ONE')) {
             $this->throwAccessDenied();
@@ -292,15 +292,15 @@ final class ResultController extends CommonFormController
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $formPage],
-                    'contentTemplate' => 'Mautic\FormBundle\Controller\FormController::indexAction',
+                    'contentTemplate' => 'MailVotech\FormBundle\Controller\FormController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => 'mautic_form_index',
-                        'mauticContent' => 'form',
+                        'activeLink'    => 'mailvotech_form_index',
+                        'mailvotechContent' => 'form',
                     ],
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.form.error.notfound',
+                            'msg'     => 'mailvotech.form.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -316,9 +316,9 @@ final class ResultController extends CommonFormController
             $this->throwAccessDenied();
         }
 
-        $orderBy    = $session->get('mautic.formresult.'.$objectId.'.orderby', 's.date_submitted');
-        $orderByDir = $session->get('mautic.formresult.'.$objectId.'.orderbydir', 'DESC');
-        $filters    = $session->get('mautic.formresult.'.$objectId.'.filters', []);
+        $orderBy    = $session->get('mailvotech.formresult.'.$objectId.'.orderby', 's.date_submitted');
+        $orderByDir = $session->get('mailvotech.formresult.'.$objectId.'.orderbydir', 'DESC');
+        $filters    = $session->get('mailvotech.formresult.'.$objectId.'.filters', []);
 
         $args = [
             'limit'      => false,
@@ -339,7 +339,7 @@ final class ResultController extends CommonFormController
         $formId   = $request->get('formId', 0);
         $objectId = $request->get('objectId', 0);
         $session  = $request->getSession();
-        $page     = $session->get('mautic.formresult.'.$formId.'.page', 1);
+        $page     = $session->get('mailvotech.formresult.'.$formId.'.page', 1);
         $flashes  = [];
 
         if (Request::METHOD_POST === $request->getMethod()) {
@@ -349,7 +349,7 @@ final class ResultController extends CommonFormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.form.error.notfound',
+                    'msg'     => 'mailvotech.form.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->hasEntityAccess('form:forms:editown', 'form:forms:editother', $entity->getCreatedBy())) {
@@ -360,7 +360,7 @@ final class ResultController extends CommonFormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.core.notice.deleted',
+                    'msg'     => 'mailvotech.core.notice.deleted',
                     'msgVars' => [
                         '%name%' => '#'.$id,
                     ],
@@ -375,11 +375,11 @@ final class ResultController extends CommonFormController
 
         return $this->postActionRedirect(
             [
-                'returnUrl'       => $this->generateUrl('mautic_form_results', $viewParameters),
+                'returnUrl'       => $this->generateUrl('mailvotech_form_results', $viewParameters),
                 'viewParameters'  => $viewParameters,
-                'contentTemplate' => 'Mautic\FormBundle\Controller\ResultController::indexAction',
+                'contentTemplate' => 'MailVotech\FormBundle\Controller\ResultController::indexAction',
                 'passthroughVars' => [
-                    'mauticContent' => 'formresult',
+                    'mailvotechContent' => 'formresult',
                 ],
                 'flashes' => $flashes,
             ]
@@ -398,12 +398,12 @@ final class ResultController extends CommonFormController
 
     protected function getIndexRoute(): string
     {
-        return 'mautic_form_results';
+        return 'mailvotech_form_results';
     }
 
     protected function getActionRoute(): string
     {
-        return 'mautic_form_results_action';
+        return 'mailvotech_form_results_action';
     }
 
     /**
@@ -413,10 +413,10 @@ final class ResultController extends CommonFormController
     {
         $formId = $this->getFormIdFromRequest($parameters);
         switch ($route) {
-            case 'mautic_form_results_action':
+            case 'mailvotech_form_results_action':
                 $parameters['formId'] = $formId;
                 break;
-            case 'mautic_form_results':
+            case 'mailvotech_form_results':
                 $parameters['objectId'] = $formId;
                 break;
         }
@@ -456,22 +456,22 @@ final class ResultController extends CommonFormController
     {
         $form      = $formModel->getEntity($objectId);
         $session   = $request->getSession();
-        $formPage  = $session->get('mautic.form.page', 1);
-        $returnUrl = $this->generateUrl('mautic_form_index', ['page' => $formPage]);
+        $formPage  = $session->get('mailvotech.form.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_form_index', ['page' => $formPage]);
 
         if (null === $form) {
             return $this->postActionRedirect([
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['page' => $formPage],
-                'contentTemplate' => 'Mautic\\FormBundle\\Controller\\FormController::indexAction',
+                'contentTemplate' => 'MailVotech\\FormBundle\\Controller\\FormController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => 'mautic_form_index',
-                    'mauticContent' => 'form',
+                    'activeLink'    => 'mailvotech_form_index',
+                    'mailvotechContent' => 'form',
                 ],
                 'flashes' => [
                     [
                         'type'    => 'error',
-                        'msg'     => 'mautic.form.error.notfound',
+                        'msg'     => 'mailvotech.form.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ],
                 ],
@@ -481,9 +481,9 @@ final class ResultController extends CommonFormController
             $this->throwAccessDenied();
         }
 
-        $orderBy    = $session->get('mautic.formresult.'.$objectId.'.orderby', 's.date_submitted');
-        $orderByDir = $session->get('mautic.formresult.'.$objectId.'.orderbydir', 'DESC');
-        $filters    = $session->get('mautic.formresult.'.$objectId.'.filters', []);
+        $orderBy    = $session->get('mailvotech.formresult.'.$objectId.'.orderby', 's.date_submitted');
+        $orderByDir = $session->get('mailvotech.formresult.'.$objectId.'.orderbydir', 'DESC');
+        $filters    = $session->get('mailvotech.formresult.'.$objectId.'.filters', []);
 
         $viewOnlyFields = $formModel->getCustomComponents()['viewOnlyFields'];
 
@@ -516,7 +516,7 @@ final class ResultController extends CommonFormController
             $items[$list['name'].' ('.$list['id'].')'] = $list['id'];
         }
 
-        $route = $this->generateUrl('mautic_segment_batch_contact_set');
+        $route = $this->generateUrl('mailvotech_segment_batch_contact_set');
 
         $formView = $this->createForm(
             BatchType::class,
@@ -534,10 +534,10 @@ final class ResultController extends CommonFormController
             'viewParameters' => [
                 'form' => $formView,
             ],
-            'contentTemplate' => '@MauticLead/Batch/form.html.twig',
+            'contentTemplate' => '@MailVotechLead/Batch/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_form_index',
-                'mauticContent' => 'formresult',
+                'activeLink'    => 'mailvotech_form_index',
+                'mailvotechContent' => 'formresult',
                 'route'         => $route,
             ],
         ]);

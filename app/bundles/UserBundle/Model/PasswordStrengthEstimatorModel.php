@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Model;
+namespace MailVotech\UserBundle\Model;
 
-use Mautic\UserBundle\Event\PasswordStrengthValidateEvent;
-use Mautic\UserBundle\UserEvents;
+use MailVotech\UserBundle\Event\PasswordStrengthValidateEvent;
+use MailVotech\UserBundle\UserEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use ZxcvbnPhp\Zxcvbn as PasswordStrengthEstimator;
 
@@ -14,7 +14,7 @@ final readonly class PasswordStrengthEstimatorModel
     public const MINIMUM_PASSWORD_STRENGTH_ALLOWED = 3;
 
     private const DICTIONARY = [
-        'mautic',
+        'mailvotech',
         'user',
         'lead',
         'bundle',

@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\FormBundle\Controller;
+namespace MailVotech\FormBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController as CommonFormController;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Form\Type\ActionType;
-use Mautic\FormBundle\Model\FormModel;
+use MailVotech\CoreBundle\Controller\FormController as CommonFormController;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Form\Type\ActionType;
+use MailVotech\FormBundle\Model\FormModel;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,7 +53,7 @@ final class ActionController extends CommonFormController
         }
         $customComponents = $this->formModel->getCustomComponents();
         $form             = $this->formFactory->create(ActionType::class, $formAction, [
-            'action'   => $this->generateUrl('mautic_formaction_action', ['objectAction' => 'new']),
+            'action'   => $this->generateUrl('mailvotech_formaction_action', ['objectAction' => 'new']),
             'settings' => $customComponents['actions'][$actionType],
             'formId'   => $formId,
         ]);
@@ -70,7 +70,7 @@ final class ActionController extends CommonFormController
                     $keyId = 'new'.hash('sha1', uniqid(mt_rand()));
 
                     // save the properties to session
-                    $actions          = $session->get('mautic.form.'.$formId.'.actions.modified', []);
+                    $actions          = $session->get('mailvotech.form.'.$formId.'.actions.modified', []);
                     $formData         = $form->getData();
                     $formAction       = array_merge($formAction, $formData);
                     $formAction['id'] = $keyId;
@@ -79,7 +79,7 @@ final class ActionController extends CommonFormController
                         $formAction['name'] = $this->translator->trans($formAction['settings']['label']);
                     }
                     $actions[$keyId] = $formAction;
-                    $session->set('mautic.form.'.$formId.'.actions.modified', $actions);
+                    $session->set('mailvotech.form.'.$formId.'.actions.modified', $actions);
                 } else {
                     $success = 0;
                 }
@@ -103,7 +103,7 @@ final class ActionController extends CommonFormController
         }
 
         $passthroughVars = [
-            'mauticContent' => 'formAction',
+            'mailvotechContent' => 'formAction',
             'success'       => $success,
             'route'         => false,
         ];
@@ -115,7 +115,7 @@ final class ActionController extends CommonFormController
             $formAction = array_merge($blank, $formAction);
 
             $template = (!empty($formAction['settings']['template'])) ? $formAction['settings']['template'] :
-                '@MauticForm/Action/base_form_action.html.twig';
+                '@MailVotechForm/Action/base_form_action.html.twig';
             $passthroughVars['actionId']   = $keyId;
             $passthroughVars['actionHtml'] = $this->renderView($template, [
                 'inForm' => true,
@@ -133,7 +133,7 @@ final class ActionController extends CommonFormController
         }
 
         return $this->ajaxAction($request, [
-            'contentTemplate' => '@MauticForm/Builder/'.$viewParams['tmpl'].'.html.twig',
+            'contentTemplate' => '@MailVotechForm/Builder/'.$viewParams['tmpl'].'.html.twig',
             'viewParameters'  => $viewParams,
             'passthroughVars' => $passthroughVars,
         ]);
@@ -150,7 +150,7 @@ final class ActionController extends CommonFormController
         $method     = $request->getMethod();
         $formaction = $request->request->all()['formaction'] ?? [];
         $formId     = 'POST' === $method ? ($formaction['formId'] ?? '') : $request->query->get('formId');
-        $actions    = $session->get('mautic.form.'.$formId.'.actions.modified', []);
+        $actions    = $session->get('mailvotech.form.'.$formId.'.actions.modified', []);
         $success    = 0;
         $valid      = $cancelled      = false;
         $formAction = $actions[$objectId] ?? null;
@@ -169,7 +169,7 @@ final class ActionController extends CommonFormController
             }
 
             $form = $this->formFactory->create(ActionType::class, $formAction, [
-                'action'   => $this->generateUrl('mautic_formaction_action', ['objectAction' => 'edit', 'objectId' => $objectId]),
+                'action'   => $this->generateUrl('mailvotech_formaction_action', ['objectAction' => 'edit', 'objectId' => $objectId]),
                 'settings' => $formAction['settings'],
                 'formId'   => $formId,
             ]);
@@ -185,7 +185,7 @@ final class ActionController extends CommonFormController
 
                         // save the properties to session
                         $session  = $request->getSession();
-                        $actions  = $session->get('mautic.form.'.$formId.'.actions.modified');
+                        $actions  = $session->get('mailvotech.form.'.$formId.'.actions.modified');
                         $formData = $form->getData();
                         // overwrite with updated data
                         $formAction = array_merge($actions[$objectId], $formData);
@@ -194,23 +194,23 @@ final class ActionController extends CommonFormController
                             $formAction['name'] = $this->translator->trans($formAction['settings']['label']);
                         }
                         $actions[$objectId] = $formAction;
-                        $session->set('mautic.form.'.$formId.'.actions.modified', $actions);
+                        $session->set('mailvotech.form.'.$formId.'.actions.modified', $actions);
 
                         // generate HTML for the field
                         $keyId = $objectId;
 
                         // take note if this is a submit button or not
                         if ('button' == $actionType) {
-                            $submits = $session->get('mautic.formactions.submits', []);
+                            $submits = $session->get('mailvotech.formactions.submits', []);
                             if ('submit' == $formAction['properties']['type'] && !in_array($keyId, $submits)) {
                                 // button type updated to submit
                                 $submits[] = $keyId;
-                                $session->set('mautic.formactions.submits', $submits);
+                                $session->set('mailvotech.formactions.submits', $submits);
                             } elseif ('submit' != $formAction['properties']['type'] && in_array($keyId, $submits)) {
                                 // button type updated to something other than submit
                                 $key = array_search($keyId, $submits);
                                 unset($submits[$key]);
-                                $session->set('mautic.formactions.submits', $submits);
+                                $session->set('mailvotech.formactions.submits', $submits);
                             }
                         }
                     }
@@ -232,7 +232,7 @@ final class ActionController extends CommonFormController
             }
 
             $passthroughVars = [
-                'mauticContent' => 'formAction',
+                'mailvotechContent' => 'formAction',
                 'success'       => $success,
                 'route'         => false,
             ];
@@ -245,7 +245,7 @@ final class ActionController extends CommonFormController
                 $blank      = $entity->convertToArray();
                 $formAction = array_merge($blank, $formAction);
                 $template   = (!empty($formAction['settings']['template'])) ? $formAction['settings']['template'] :
-                    '@MauticForm/Action/base_form_action.html.twig';
+                    '@MailVotechForm/Action/base_form_action.html.twig';
                 $passthroughVars['actionHtml'] = $this->renderView($template, [
                     'inForm' => true,
                     'action' => $formAction,
@@ -262,7 +262,7 @@ final class ActionController extends CommonFormController
             }
 
             return $this->ajaxAction($request, [
-                'contentTemplate' => '@MauticForm/Builder/'.$viewParams['tmpl'].'.html.twig',
+                'contentTemplate' => '@MailVotechForm/Builder/'.$viewParams['tmpl'].'.html.twig',
                 'viewParameters'  => $viewParams,
                 'passthroughVars' => $passthroughVars,
             ]);
@@ -278,8 +278,8 @@ final class ActionController extends CommonFormController
     {
         $session = $request->getSession();
         $formId  = $request->query->get('formId');
-        $actions = $session->get('mautic.form.'.$formId.'.actions.modified', []);
-        $delete  = $session->get('mautic.form.'.$formId.'.actions.deleted', []);
+        $actions = $session->get('mailvotech.form.'.$formId.'.actions.modified', []);
+        $delete  = $session->get('mailvotech.form.'.$formId.'.actions.deleted', []);
 
         // ajax only for form fields
         if (!$request->isXmlHttpRequest()
@@ -293,22 +293,22 @@ final class ActionController extends CommonFormController
             // add the field to the delete list
             if (!in_array($objectId, $delete)) {
                 $delete[] = $objectId;
-                $session->set('mautic.form.'.$formId.'.actions.deleted', $delete);
+                $session->set('mailvotech.form.'.$formId.'.actions.deleted', $delete);
             }
 
             // take note if this is a submit button or not
             if ('button' == $formAction['type']) {
-                $submits    = $session->get('mautic.formactions.submits', []);
+                $submits    = $session->get('mailvotech.formactions.submits', []);
                 $properties = $formAction['properties'];
                 if ('submit' == $properties['type'] && in_array($objectId, $submits)) {
                     $key = array_search($objectId, $submits);
                     unset($submits[$key]);
-                    $session->set('mautic.formactions.submits', $submits);
+                    $session->set('mailvotech.formactions.submits', $submits);
                 }
             }
 
             $dataArray = [
-                'mauticContent' => 'formAction',
+                'mailvotechContent' => 'formAction',
                 'success'       => 1,
                 'route'         => false,
             ];

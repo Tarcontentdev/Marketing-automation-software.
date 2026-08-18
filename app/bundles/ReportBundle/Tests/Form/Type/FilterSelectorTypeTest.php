@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Form\Type;
+namespace MailVotech\ReportBundle\Tests\Form\Type;
 
-use Mautic\ReportBundle\Form\Type\FilterSelectorType;
+use MailVotech\ReportBundle\Form\Type\FilterSelectorType;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -74,7 +74,7 @@ final class FilterSelectorTypeTest extends \PHPUnit\Framework\TestCase
                                             ],
                                             'expanded'          => false,
                                             'multiple'          => false,
-                                            'label'             => 'mautic.report.report.label.filtercondition',
+                                            'label'             => 'mailvotech.report.report.label.filtercondition',
                                             'label_attr'        => ['class' => 'control-label filter-condition'],
                                             'placeholder'       => false,
                                             'required'          => false,
@@ -90,7 +90,7 @@ final class FilterSelectorTypeTest extends \PHPUnit\Framework\TestCase
                                             'entry_type'    => TextType::class,
                                             'allow_add'     => true,
                                             'allow_delete'  => true,
-                                            'label'         => 'mautic.report.report.label.filtervalue',
+                                            'label'         => 'mailvotech.report.report.label.filtervalue',
                                             'label_attr'    => ['class' => 'control-label'],
                                             'attr'          => ['class' => 'form-control filter-value'],
                                             'required'      => false,

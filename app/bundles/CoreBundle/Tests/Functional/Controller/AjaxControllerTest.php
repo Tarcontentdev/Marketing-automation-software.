@@ -2,35 +2,35 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Controller;
+namespace MailVotech\CoreBundle\Tests\Functional\Controller;
 
 use GuzzleHttp\Psr7\Response;
-use Mautic\ApiBundle\Entity\oAuth2\Client;
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\ChannelBundle\Entity\Channel;
-use Mautic\ChannelBundle\Entity\Message;
-use Mautic\CoreBundle\Test\Guzzle\ClientMockTrait;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\NotificationBundle\Entity\Notification;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\Point;
-use Mautic\PointBundle\Entity\Trigger;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\UserBundle\Entity\Permission;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
-use MauticPlugin\MauticFocusBundle\Entity\Focus;
+use MailVotech\ApiBundle\Entity\oAuth2\Client;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\ChannelBundle\Entity\Channel;
+use MailVotech\ChannelBundle\Entity\Message;
+use MailVotech\CoreBundle\Test\Guzzle\ClientMockTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\NotificationBundle\Entity\Notification;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\Point;
+use MailVotech\PointBundle\Entity\Trigger;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\UserBundle\Entity\Permission;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
+use MailVotechPlugin\MailVotechFocusBundle\Entity\Focus;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Http\Message\RequestInterface;
 use Symfony\Component\DomCrawler\Crawler;
@@ -40,7 +40,7 @@ use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class AjaxControllerTest extends MauticMysqlTestCase
+final class AjaxControllerTest extends MailVotechMysqlTestCase
 {
     use ClientMockTrait;
 
@@ -276,7 +276,7 @@ final class AjaxControllerTest extends MauticMysqlTestCase
     {
         $user = $this->createUser([
             'user-name'     => 'user',
-            'email'         => 'user@mautic-test.com',
+            'email'         => 'user@mailvotech-test.com',
             'first-name'    => 'user',
             'last-name'     => 'user',
             'role'          => [
@@ -313,7 +313,7 @@ final class AjaxControllerTest extends MauticMysqlTestCase
 
         $user = $this->createUser([
             'user-name'     => 'user-view-own',
-            'email'         => 'user-view-own@mautic-test.com',
+            'email'         => 'user-view-own@mailvotech-test.com',
             'first-name'    => 'user-view-own',
             'last-name'     => 'user-view-own',
             'role'          => $roleData,
@@ -414,10 +414,10 @@ final class AjaxControllerTest extends MauticMysqlTestCase
 
     public function testGlobalSearchForMoreLink(): void
     {
-        $contactOne   = self::createLead('contact-1@mautic-test.com');
-        $contactTwo   = self::createLead('contact-2@mautic-test.com');
-        $contactThree = self::createLead('contact-3@mautic-test.com');
-        $contactFour  = self::createLead('contact-4@mautic-test.com');
+        $contactOne   = self::createLead('contact-1@mailvotech-test.com');
+        $contactTwo   = self::createLead('contact-2@mailvotech-test.com');
+        $contactThree = self::createLead('contact-3@mailvotech-test.com');
+        $contactFour  = self::createLead('contact-4@mailvotech-test.com');
 
         $client1 = self::createApiClient('Client1');
         $client2 = self::createApiClient('Client2');
@@ -446,7 +446,7 @@ final class AjaxControllerTest extends MauticMysqlTestCase
 
         $translator = self::getContainer()->get(TranslatorInterface::class);
         $this->assertStringContainsString('s/contacts?search='.$searchString, (string) $content['newContent']);
-        $this->assertStringContainsString($translator->trans('mautic.core.search.more', ['%count%' => 1]), (string) $content['newContent']);
+        $this->assertStringContainsString($translator->trans('mailvotech.core.search.more', ['%count%' => 1]), (string) $content['newContent']);
 
         $crawler = new Crawler($content['newContent']);
         $this->assertCount(4, $crawler->filterXPath("//li[contains(@class, 'gsearch--results-item')]"));
@@ -460,7 +460,7 @@ final class AjaxControllerTest extends MauticMysqlTestCase
 
         $translator = self::getContainer()->get(TranslatorInterface::class);
         $this->assertStringContainsString('s/credentials?search='.$searchString, (string) $content['newContent']);
-        $this->assertStringContainsString($translator->trans('mautic.core.search.more', ['%count%' => 1]), (string) $content['newContent']);
+        $this->assertStringContainsString($translator->trans('mailvotech.core.search.more', ['%count%' => 1]), (string) $content['newContent']);
 
         $crawler = new Crawler($content['newContent']);
         $this->assertCount(4, $crawler->filterXPath("//li[contains(@class, 'gsearch--results-item')]"));
@@ -674,7 +674,7 @@ final class AjaxControllerTest extends MauticMysqlTestCase
     private static function createCompany(): Company
     {
         $company = new Company();
-        $company->setName('Mautic');
+        $company->setName('MailVotech');
 
         return $company;
     }

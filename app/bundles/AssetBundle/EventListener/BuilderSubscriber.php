@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\AssetBundle\EventListener;
+namespace MailVotech\AssetBundle\EventListener;
 
-use Mautic\AssetBundle\Helper\TokenHelper;
-use Mautic\CoreBundle\DTO\TokenFormatOptions;
-use Mautic\CoreBundle\Event\BuilderEvent;
-use Mautic\CoreBundle\Helper\BuilderTokenHelperFactory;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\PageBundle\Event\PageDisplayEvent;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\AssetBundle\Helper\TokenHelper;
+use MailVotech\CoreBundle\DTO\TokenFormatOptions;
+use MailVotech\CoreBundle\Event\BuilderEvent;
+use MailVotech\CoreBundle\Helper\BuilderTokenHelperFactory;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\PageBundle\Event\PageDisplayEvent;
+use MailVotech\PageBundle\PageEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class BuilderSubscriber implements EventSubscriberInterface
@@ -44,7 +44,7 @@ final class BuilderSubscriber implements EventSubscriberInterface
             $tokenFilter = $event->getTokenFilter();
             $tokens      = $tokenHelper->getFormattedTokens(
                 $this->assetToken,
-                TokenFormatOptions::linkWithId('mautic.asset.asset', $this->assetToken),
+                TokenFormatOptions::linkWithId('mailvotech.asset.asset', $this->assetToken),
                 'label' === $tokenFilter['target'] ? $tokenFilter['filter'] : '',
                 'title'
             );

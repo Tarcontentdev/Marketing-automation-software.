@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\SearchStringHelper;
+use MailVotech\CoreBundle\Helper\SearchStringHelper;
 
 final class SearchStringHelperTest extends \PHPUnit\Framework\TestCase
 {

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Helper;
+namespace MailVotech\CoreBundle\Tests\Functional\Helper;
 
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Assert;
 
-final class LanguageHelperTest extends MauticMysqlTestCase
+final class LanguageHelperTest extends MailVotechMysqlTestCase
 {
     public function testGettingLanguageFiles(): void
     {

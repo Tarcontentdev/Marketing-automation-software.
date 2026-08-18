@@ -1,24 +1,24 @@
 {#
-    @copyright   2014 Mautic Contributors. All rights reserved
-    @author      Mautic
-    @link        http://mautic.org
+    @copyright   2014 MailVotech Contributors. All rights reserved
+    @author      MailVotech
+    @link        http://mailvotech.org
     @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 #}
 
 {% if 'index' == tmpl %}
-    {% extends '@MauticInstall/Install/content.html.twig' %}
+    {% extends '@MailVotechInstall/Install/content.html.twig' %}
 {% endif %}
 
 {% block content %}
 <div class="panel-heading">
     <h2 class="panel-title">
-        {{ 'mautic.install.heading.user.configuration'|trans }}
+        {{ 'mailvotech.install.heading.user.configuration'|trans }}
     </h2>
 </div>
 <div class="panel-body">
     {{ form_start(form) }}
-    <div class="alert alert-mautic">
-        {% trans %}mautic.install.user.introtext{% endtrans %}
+    <div class="alert alert-mailvotech">
+        {% trans %}mailvotech.install.user.introtext{% endtrans %}
     </div>
     <div class="row">
         <div class="col-sm-6">
@@ -48,7 +48,7 @@
 
     <div class="row mt-20">
         <div class="col-sm-9">
-            {{- include('@MauticInstall/Install/navbar.html.twig', {'step' : index, 'count' : count, 'completedSteps' : completedSteps}) -}}
+            {{- include('@MailVotechInstall/Install/navbar.html.twig', {'step' : index, 'count' : count, 'completedSteps' : completedSteps}) -}}
         </div>
         <div class="col-sm-3">
             {{ form_row(form.buttons) }}

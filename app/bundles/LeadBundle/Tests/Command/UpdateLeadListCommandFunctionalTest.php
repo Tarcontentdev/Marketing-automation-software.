@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Command;
+namespace MailVotech\LeadBundle\Tests\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\LeadBundle\Command\UpdateLeadListsCommand;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\Helper\SegmentCountCacheHelper;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\LeadBundle\Command\UpdateLeadListsCommand;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Helper\SegmentCountCacheHelper;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Console\Command\Command;
 
-final class UpdateLeadListCommandFunctionalTest extends MauticMysqlTestCase
+final class UpdateLeadListCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 

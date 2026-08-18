@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DashboardBundle\Factory;
+namespace MailVotech\DashboardBundle\Factory;
 
-use Mautic\CacheBundle\Cache\CacheProviderTagAwareInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\DashboardBundle\Entity\Widget;
-use Mautic\DashboardBundle\Event\WidgetDetailEvent;
+use MailVotech\CacheBundle\Cache\CacheProviderTagAwareInterface;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\DashboardBundle\Entity\Widget;
+use MailVotech\DashboardBundle\Event\WidgetDetailEvent;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class WidgetDetailEventFactory

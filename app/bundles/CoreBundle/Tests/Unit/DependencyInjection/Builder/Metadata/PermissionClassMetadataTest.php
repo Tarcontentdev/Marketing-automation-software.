@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\DependencyInjection\Builder\Metadata;
+namespace MailVotech\CoreBundle\Tests\Unit\DependencyInjection\Builder\Metadata;
 
-use Mautic\AssetBundle\Security\Permissions\AssetPermissions;
-use Mautic\CoreBundle\DependencyInjection\Builder\BundleMetadata;
-use Mautic\CoreBundle\DependencyInjection\Builder\Metadata\PermissionClassMetadata;
-use Mautic\CoreBundle\Security\Permissions\SystemPermissions;
+use MailVotech\AssetBundle\Security\Permissions\AssetPermissions;
+use MailVotech\CoreBundle\DependencyInjection\Builder\BundleMetadata;
+use MailVotech\CoreBundle\DependencyInjection\Builder\Metadata\PermissionClassMetadata;
+use MailVotech\CoreBundle\Security\Permissions\SystemPermissions;
 use PHPUnit\Framework\TestCase;
 
 final class PermissionClassMetadataTest extends TestCase
@@ -18,11 +18,11 @@ final class PermissionClassMetadataTest extends TestCase
             'isPlugin'          => false,
             'base'              => 'Core',
             'bundle'            => 'CoreBundle',
-            'relative'          => 'app/bundles/MauticCoreBundle',
+            'relative'          => 'app/bundles/MailVotechCoreBundle',
             'directory'         => __DIR__.'/../../../../../',
-            'namespace'         => 'Mautic\\CoreBundle',
-            'symfonyBundleName' => 'MauticCoreBundle',
-            'bundleClass'       => '\\Mautic\\CoreBundle',
+            'namespace'         => 'MailVotech\\CoreBundle',
+            'symfonyBundleName' => 'MailVotechCoreBundle',
+            'bundleClass'       => '\\MailVotech\\CoreBundle',
         ];
 
         $metadata                = new BundleMetadata($metadataArray);
@@ -39,11 +39,11 @@ final class PermissionClassMetadataTest extends TestCase
             'isPlugin'          => false,
             'base'              => 'Asset',
             'bundle'            => 'AssetBundle',
-            'relative'          => 'app/bundles/MauticAssetBundle',
+            'relative'          => 'app/bundles/MailVotechAssetBundle',
             'directory'         => __DIR__.'/../../../../../../AssetBundle',
-            'namespace'         => 'Mautic\\AssetBundle',
-            'symfonyBundleName' => 'MauticAssetBundle',
-            'bundleClass'       => '\\Mautic\\AssetBundle',
+            'namespace'         => 'MailVotech\\AssetBundle',
+            'symfonyBundleName' => 'MailVotechAssetBundle',
+            'bundleClass'       => '\\MailVotech\\AssetBundle',
         ];
 
         $metadata                = new BundleMetadata($metadataArray);

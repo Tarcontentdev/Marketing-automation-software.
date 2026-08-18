@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\Helper;
+namespace MailVotech\PluginBundle\Tests\Helper;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Mautic\PluginBundle\Entity\Plugin;
-use Mautic\PluginBundle\Event\PluginInstallEvent;
-use Mautic\PluginBundle\Event\PluginUpdateEvent;
-use Mautic\PluginBundle\Helper\ReloadHelper;
-use Mautic\PluginBundle\PluginEvents;
+use MailVotech\PluginBundle\Entity\Plugin;
+use MailVotech\PluginBundle\Event\PluginInstallEvent;
+use MailVotech\PluginBundle\Event\PluginUpdateEvent;
+use MailVotech\PluginBundle\Helper\ReloadHelper;
+use MailVotech\PluginBundle\PluginEvents;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -46,8 +46,8 @@ final class ReloadHelperTest extends \PHPUnit\Framework\TestCase
         $this->helper          = new ReloadHelper($this->eventDispatcher);
 
         $this->sampleMetaData = [
-            'MauticPlugin\MauticZapierBundle' => [
-                'MauticPlugin\MauticZapierBundle\Entity\SomeTest' => $this->createStub(ClassMetadata::class),
+            'MailVotechPlugin\MailVotechZapierBundle' => [
+                'MailVotechPlugin\MailVotechZapierBundle\Entity\SomeTest' => $this->createStub(ClassMetadata::class),
             ],
         ];
 
@@ -56,25 +56,25 @@ final class ReloadHelperTest extends \PHPUnit\Framework\TestCase
                 ->willReturn([]);
 
         $this->sampleSchemas = [
-            'MauticPlugin\MauticZapierBundle' => $sampleSchema,
+            'MailVotechPlugin\MailVotechZapierBundle' => $sampleSchema,
         ];
 
         $this->sampleAllPlugins = [
-            'MauticZapierBundle' => [
+            'MailVotechZapierBundle' => [
                 'isPlugin'          => true,
-                'base'              => 'MauticZapier',
-                'bundle'            => 'MauticZapierBundle',
-                'namespace'         => 'MauticPlugin\MauticZapierBundle',
-                'symfonyBundleName' => 'MauticZapierBundle',
+                'base'              => 'MailVotechZapier',
+                'bundle'            => 'MailVotechZapierBundle',
+                'namespace'         => 'MailVotechPlugin\MailVotechZapierBundle',
+                'symfonyBundleName' => 'MailVotechZapierBundle',
                 'bundleClass'       => PluginBundleBaseStub::class,
                 'permissionClasses' => [],
-                'relative'          => 'plugins/MauticZapierBundle',
-                'directory'         => '/Users/jan/dev/mautic/plugins/MauticZapierBundle',
+                'relative'          => 'plugins/MailVotechZapierBundle',
+                'directory'         => '/Users/jan/dev/mailvotech/plugins/MailVotechZapierBundle',
                 'config'            => [
                     'name'        => 'Zapier Integration',
-                    'description' => 'Zapier lets you connect Mautic with 1100+ other apps',
+                    'description' => 'Zapier lets you connect MailVotech with 1100+ other apps',
                     'version'     => '1.0',
-                    'author'      => 'Mautic',
+                    'author'      => 'MailVotech',
                 ],
             ],
         ];
@@ -83,15 +83,15 @@ final class ReloadHelperTest extends \PHPUnit\Framework\TestCase
     public function testDisableMissingPlugins(): void
     {
         $sampleInstalledPlugins = [
-            'MauticZapierBundle'  => $this->createSampleZapierPlugin(),
-            'MauticHappierBundle' => $this->createSampleHappierPlugin(),
+            'MailVotechZapierBundle'  => $this->createSampleZapierPlugin(),
+            'MailVotechHappierBundle' => $this->createSampleHappierPlugin(),
         ];
 
         $disabledPlugins = $this->helper->disableMissingPlugins($this->sampleAllPlugins, $sampleInstalledPlugins);
 
         $this->assertCount(1, $disabledPlugins);
-        $this->assertEquals('Happier Integration', $disabledPlugins['MauticHappierBundle']->getName());
-        $this->assertTrue((bool) $disabledPlugins['MauticHappierBundle']->getIsMissing());
+        $this->assertEquals('Happier Integration', $disabledPlugins['MailVotechHappierBundle']->getName());
+        $this->assertTrue((bool) $disabledPlugins['MailVotechHappierBundle']->getIsMissing());
     }
 
     public function testEnableFoundPlugins(): void
@@ -99,23 +99,23 @@ final class ReloadHelperTest extends \PHPUnit\Framework\TestCase
         $zapierPlugin = $this->createSampleZapierPlugin();
         $zapierPlugin->setIsMissing(true);
         $sampleInstalledPlugins = [
-            'MauticZapierBundle' => $zapierPlugin,
+            'MailVotechZapierBundle' => $zapierPlugin,
         ];
 
         $enabledPlugins = $this->helper->enableFoundPlugins($this->sampleAllPlugins, $sampleInstalledPlugins);
 
         $this->assertCount(1, $enabledPlugins);
-        $this->assertEquals('Zapier Integration', $enabledPlugins['MauticZapierBundle']->getName());
-        $this->assertFalse((bool) $enabledPlugins['MauticZapierBundle']->getIsMissing());
+        $this->assertEquals('Zapier Integration', $enabledPlugins['MailVotechZapierBundle']->getName());
+        $this->assertFalse((bool) $enabledPlugins['MailVotechZapierBundle']->getIsMissing());
     }
 
     public function testUpdatePlugins(): void
     {
-        $this->sampleAllPlugins['MauticZapierBundle']['config']['version']     = '1.0.1';
-        $this->sampleAllPlugins['MauticZapierBundle']['config']['description'] = 'Updated description';
+        $this->sampleAllPlugins['MailVotechZapierBundle']['config']['version']     = '1.0.1';
+        $this->sampleAllPlugins['MailVotechZapierBundle']['config']['description'] = 'Updated description';
         $sampleInstalledPlugins                                                = [
-            'MauticZapierBundle'  => $this->createSampleZapierPlugin(),
-            'MauticHappierBundle' => $this->createSampleHappierPlugin(),
+            'MailVotechZapierBundle'  => $this->createSampleZapierPlugin(),
+            'MailVotechHappierBundle' => $this->createSampleHappierPlugin(),
         ];
         $plugin = $this->createSampleZapierPlugin();
         $plugin->setVersion('1.0.1');
@@ -123,26 +123,26 @@ final class ReloadHelperTest extends \PHPUnit\Framework\TestCase
         $event = new PluginUpdateEvent(
             $plugin,
             '1.0',
-            $this->sampleMetaData['MauticPlugin\MauticZapierBundle'],
-            $this->sampleSchemas['MauticPlugin\MauticZapierBundle']
+            $this->sampleMetaData['MailVotechPlugin\MailVotechZapierBundle'],
+            $this->sampleSchemas['MailVotechPlugin\MailVotechZapierBundle']
         );
         $this->eventDispatcher->expects($this->once())->method('dispatch')->with($event, PluginEvents::ON_PLUGIN_UPDATE);
         $updatedPlugins = $this->helper->updatePlugins($this->sampleAllPlugins, $sampleInstalledPlugins, $this->sampleMetaData, $this->sampleSchemas);
 
         $this->assertCount(1, $updatedPlugins);
-        $this->assertEquals('Zapier Integration', $updatedPlugins['MauticZapierBundle']->getName());
-        $this->assertEquals('1.0.1', $updatedPlugins['MauticZapierBundle']->getVersion());
-        $this->assertEquals('Updated description', $updatedPlugins['MauticZapierBundle']->getDescription());
+        $this->assertEquals('Zapier Integration', $updatedPlugins['MailVotechZapierBundle']->getName());
+        $this->assertEquals('1.0.1', $updatedPlugins['MailVotechZapierBundle']->getVersion());
+        $this->assertEquals('Updated description', $updatedPlugins['MailVotechZapierBundle']->getDescription());
     }
 
     public function testInstallPlugins(): void
     {
         $sampleInstalledPlugins = [
-            'MauticHappierBundle' => $this->createSampleHappierPlugin(),
+            'MailVotechHappierBundle' => $this->createSampleHappierPlugin(),
         ];
         $event = new PluginInstallEvent(
             $this->createSampleZapierPlugin(),
-            $this->sampleMetaData['MauticPlugin\MauticZapierBundle'],
+            $this->sampleMetaData['MailVotechPlugin\MailVotechZapierBundle'],
             null
         );
         $this->eventDispatcher->expects($this->once())->method('dispatch')->with($event, PluginEvents::ON_PLUGIN_INSTALL);
@@ -150,23 +150,23 @@ final class ReloadHelperTest extends \PHPUnit\Framework\TestCase
         $installedPlugins = $this->helper->installPlugins($this->sampleAllPlugins, $sampleInstalledPlugins, $this->sampleMetaData, $this->sampleSchemas);
 
         $this->assertCount(1, $installedPlugins);
-        $this->assertEquals('Zapier Integration', $installedPlugins['MauticZapierBundle']->getName());
-        $this->assertEquals('1.0', $installedPlugins['MauticZapierBundle']->getVersion());
-        $this->assertEquals('MauticZapierBundle', $installedPlugins['MauticZapierBundle']->getBundle());
-        $this->assertEquals('Mautic', $installedPlugins['MauticZapierBundle']->getAuthor());
-        $this->assertEquals('Zapier lets you connect Mautic with 1100+ other apps', $installedPlugins['MauticZapierBundle']->getDescription());
-        $this->assertFalse((bool) $installedPlugins['MauticZapierBundle']->getIsMissing());
+        $this->assertEquals('Zapier Integration', $installedPlugins['MailVotechZapierBundle']->getName());
+        $this->assertEquals('1.0', $installedPlugins['MailVotechZapierBundle']->getVersion());
+        $this->assertEquals('MailVotechZapierBundle', $installedPlugins['MailVotechZapierBundle']->getBundle());
+        $this->assertEquals('MailVotech', $installedPlugins['MailVotechZapierBundle']->getAuthor());
+        $this->assertEquals('Zapier lets you connect MailVotech with 1100+ other apps', $installedPlugins['MailVotechZapierBundle']->getDescription());
+        $this->assertFalse((bool) $installedPlugins['MailVotechZapierBundle']->getIsMissing());
     }
 
     private function createSampleZapierPlugin(): Plugin
     {
         $plugin = new Plugin();
         $plugin->setName('Zapier Integration');
-        $plugin->setDescription('Zapier lets you connect Mautic with 1100+ other apps');
+        $plugin->setDescription('Zapier lets you connect MailVotech with 1100+ other apps');
         $plugin->setIsMissing(false);
-        $plugin->setBundle('MauticZapierBundle');
+        $plugin->setBundle('MailVotechZapierBundle');
         $plugin->setVersion('1.0');
-        $plugin->setAuthor('Mautic');
+        $plugin->setAuthor('MailVotech');
 
         return $plugin;
     }
@@ -175,11 +175,11 @@ final class ReloadHelperTest extends \PHPUnit\Framework\TestCase
     {
         $plugin = new Plugin();
         $plugin->setName('Happier Integration');
-        $plugin->setDescription('Happier lets you connect Mautic with 1100+ other apps');
+        $plugin->setDescription('Happier lets you connect MailVotech with 1100+ other apps');
         $plugin->setIsMissing(false);
-        $plugin->setBundle('MauticHappierBundle');
+        $plugin->setBundle('MailVotechHappierBundle');
         $plugin->setVersion('1.0');
-        $plugin->setAuthor('Mautic');
+        $plugin->setAuthor('MailVotech');
 
         return $plugin;
     }

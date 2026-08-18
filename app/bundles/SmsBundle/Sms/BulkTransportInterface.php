@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Sms;
+namespace MailVotech\SmsBundle\Sms;
 
-use Mautic\SmsBundle\Collection\RecipientCollection;
-use Mautic\SmsBundle\Helper\DTO\SmsRecipientDTO;
+use MailVotech\SmsBundle\Collection\RecipientCollection;
+use MailVotech\SmsBundle\Helper\DTO\SmsRecipientDTO;
 
 interface BulkTransportInterface extends TransportInterface
 {

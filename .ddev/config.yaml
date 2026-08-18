@@ -8,10 +8,10 @@ database:
     version: "10.11"
 hooks:
     post-start:
-        - exec: sed -i -e 's/\r$//' ./.ddev/mautic-setup.sh
+        - exec: sed -i -e 's/\r$//' ./.ddev/mailvotech-setup.sh
         - exec: sed -i -e 's/\r$//' ./.git/hooks/*
-        - exec: chmod +x ./.ddev/mautic-setup.sh
-        - exec: yes | ./.ddev/mautic-setup.sh
+        - exec: chmod +x ./.ddev/mailvotech-setup.sh
+        - exec: yes | ./.ddev/mailvotech-setup.sh
         - composer: motd
 upload_dirs:
     - media/files

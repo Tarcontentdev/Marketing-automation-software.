@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\PluginBundle\Form\Type;
+namespace MailVotech\PluginBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\StandAloneButtonType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Form\Constraint\CanPublish;
-use Mautic\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\StandAloneButtonType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Form\Constraint\CanPublish;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -83,10 +83,10 @@ final class DetailsType extends AbstractType
                 [
                     'attr'     => [
                         'class'   => 'btn btn-success btn-lg',
-                        'onclick' => 'Mautic.initiateIntegrationAuthorization()',
+                        'onclick' => 'MailVotech.initiateIntegrationAuthorization()',
                         'icon'    => 'ri-key-2-line',
                     ],
-                    'label'    => 'mautic.integration.form.'.$label,
+                    'label'    => 'mailvotech.integration.form.'.$label,
                     'disabled' => false,
                 ]
             );
@@ -102,7 +102,7 @@ final class DetailsType extends AbstractType
 
             $choices = [];
             foreach ($features as $f) {
-                $choices['mautic.integration.form.feature.'.$f] = $f;
+                $choices['mailvotech.integration.form.feature.'.$f] = $f;
             }
 
             $builder->add(
@@ -113,7 +113,7 @@ final class DetailsType extends AbstractType
                     'expanded'    => true,
                     'label_attr'  => ['class' => 'control-label'],
                     'multiple'    => true,
-                    'label'       => 'mautic.integration.form.features',
+                    'label'       => 'mailvotech.integration.form.features',
                     'required'    => false,
                     'data'        => $data,
                     'choice_attr' => function ($val) use ($tooltips): array {
@@ -134,7 +134,7 @@ final class DetailsType extends AbstractType
             'featureSettings',
             FeatureSettingsType::class,
             [
-                'label'              => 'mautic.integration.form.feature.settings',
+                'label'              => 'mailvotech.integration.form.feature.settings',
                 'required'           => true,
                 'data'               => $integration->getFeatureSettings(),
                 'label_attr'         => ['class' => 'control-label'],

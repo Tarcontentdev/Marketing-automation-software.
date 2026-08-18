@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test;
+namespace MailVotech\CoreBundle\Test;
 
-final class FunctionalWarmupTest extends MauticMysqlTestCase
+final class FunctionalWarmupTest extends MailVotechMysqlTestCase
 {
     public function testWarmup(): void
     {

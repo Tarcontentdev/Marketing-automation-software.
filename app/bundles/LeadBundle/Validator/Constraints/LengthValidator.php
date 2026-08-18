@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Validator\Constraints;
+namespace MailVotech\LeadBundle\Validator\Constraints;
 
-use Mautic\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\LengthValidator as SymfonyLengthValidator;
 

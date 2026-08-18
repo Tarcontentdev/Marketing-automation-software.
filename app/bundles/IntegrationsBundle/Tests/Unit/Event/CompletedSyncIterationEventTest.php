@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Event;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Event;
 
-use Mautic\IntegrationsBundle\Event\CompletedSyncIterationEvent;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\OrderResultsDAO;
+use MailVotech\IntegrationsBundle\Event\CompletedSyncIterationEvent;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\OrderResultsDAO;
 use PHPUnit\Framework\TestCase;
 
 final class CompletedSyncIterationEventTest extends TestCase

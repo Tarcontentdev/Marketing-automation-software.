@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Executioner\Dispatcher;
+namespace MailVotech\CampaignBundle\Tests\Executioner\Dispatcher;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\ExecutedBatchEvent;
-use Mautic\CampaignBundle\Event\ExecutedEvent;
-use Mautic\CampaignBundle\Event\FailedEvent;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
-use Mautic\CampaignBundle\Executioner\Dispatcher\ActionDispatcher;
-use Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException;
-use Mautic\CampaignBundle\Executioner\Dispatcher\LegacyEventDispatcher;
-use Mautic\CampaignBundle\Executioner\Scheduler\EventScheduler;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\ExecutedBatchEvent;
+use MailVotech\CampaignBundle\Event\ExecutedEvent;
+use MailVotech\CampaignBundle\Event\FailedEvent;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\CampaignBundle\Executioner\Dispatcher\ActionDispatcher;
+use MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException;
+use MailVotech\CampaignBundle\Executioner\Dispatcher\LegacyEventDispatcher;
+use MailVotech\CampaignBundle\Executioner\Scheduler\EventScheduler;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

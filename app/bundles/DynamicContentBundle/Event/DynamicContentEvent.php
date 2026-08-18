@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Event;
+namespace MailVotech\DynamicContentBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
 
 final class DynamicContentEvent extends CommonEvent
 {

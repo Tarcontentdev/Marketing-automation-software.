@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Controller;
+namespace MailVotech\PageBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Entity\PageDraft;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\PageDraft;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PageDraftFunctionalTest extends MauticMysqlTestCase
+final class PageDraftFunctionalTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {

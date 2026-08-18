@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Controller;
+namespace MailVotech\CampaignBundle\Controller;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Form\Type\CampaignImportType;
-use Mautic\CoreBundle\Controller\AbstractFormController;
-use Mautic\CoreBundle\Event\EntityImportAnalyzeEvent;
-use Mautic\CoreBundle\Event\EntityImportEvent;
-use Mautic\CoreBundle\Event\EntityImportUndoEvent;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\ImportHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Form\Type\CampaignImportType;
+use MailVotech\CoreBundle\Controller\AbstractFormController;
+use MailVotech\CoreBundle\Event\EntityImportAnalyzeEvent;
+use MailVotech\CoreBundle\Event\EntityImportEvent;
+use MailVotech\CoreBundle\Event\EntityImportUndoEvent;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\ImportHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\Filesystem\Filesystem;
@@ -73,7 +73,7 @@ final class ImportController extends AbstractFormController
         }
 
         $session  = $this->requestStack->getSession();
-        $filePath = $session->get('mautic.campaign.import.file');
+        $filePath = $session->get('mailvotech.campaign.import.file');
 
         if ($filePath && file_exists($filePath)) {
             @unlink($filePath);
@@ -83,15 +83,15 @@ final class ImportController extends AbstractFormController
         $this->resetImport();
 
         $form = $this->formFactory->create(CampaignImportType::class, [], [
-            'action' => $this->generateUrl('mautic_campaign_import_action', ['objectAction' => 'upload']),
+            'action' => $this->generateUrl('mailvotech_campaign_import_action', ['objectAction' => 'upload']),
         ]);
 
         return $this->delegateView([
             'viewParameters'  => [
                 'form'          => $form->createView(),
-                'mauticContent' => 'campaignImport',
+                'mailvotechContent' => 'campaignImport',
             ],
-            'contentTemplate' => '@MauticCampaign/Import/import.html.twig',
+            'contentTemplate' => '@MailVotechCampaign/Import/import.html.twig',
         ]);
     }
 
@@ -106,7 +106,7 @@ final class ImportController extends AbstractFormController
 
         $importDir = $this->pathsHelper->getImportCampaignsPath();
         $form      = $this->formFactory->create(CampaignImportType::class, [], [
-            'action' => $this->generateUrl('mautic_campaign_import_action', ['objectAction' => 'upload']),
+            'action' => $this->generateUrl('mailvotech_campaign_import_action', ['objectAction' => 'upload']),
         ]);
 
         // Handle cancel action
@@ -121,19 +121,19 @@ final class ImportController extends AbstractFormController
         // Validate form before processing
         if (!$this->isFormValid($form)) {
             $this->logger->error('No file uploaded.');
-            $form->addError(new FormError($this->translator->trans('mautic.campaign.import.incorrectfile', [], 'validators')));
+            $form->addError(new FormError($this->translator->trans('mailvotech.campaign.import.incorrectfile', [], 'validators')));
         } else {
             // Retrieve uploaded file
             $fileData = $request->files->get('campaign_import')['campaignFile'] ?? null;
 
             if (!$fileData) {
                 $this->logger->error('No file uploaded.');
-                $form->addError(new FormError($this->translator->trans('mautic.campaign.import.nofile', [], 'validators')));
+                $form->addError(new FormError($this->translator->trans('mailvotech.campaign.import.nofile', [], 'validators')));
             } else {
                 // Set progress to 0 before import starts
-                $this->requestStack->getSession()->set('mautic.campaign.import.step', self::STEP_PROGRESS_BAR);
-                $this->requestStack->getSession()->set('mautic.campaign.import.progress', 0);
-                $this->requestStack->getSession()->remove('mautic.campaign.import.summary');
+                $this->requestStack->getSession()->set('mailvotech.campaign.import.step', self::STEP_PROGRESS_BAR);
+                $this->requestStack->getSession()->set('mailvotech.campaign.import.progress', 0);
+                $this->requestStack->getSession()->remove('mailvotech.campaign.import.summary');
                 try {
                     // Ensure the import directory exists
                     (new Filesystem())->mkdir($importDir, 0755);
@@ -149,18 +149,18 @@ final class ImportController extends AbstractFormController
                     $fileData->move($importDir, $fileName);
 
                     // Update session with the new file and progress reset
-                    $this->requestStack->getSession()->set('mautic.campaign.import.file', $fullPath);
+                    $this->requestStack->getSession()->set('mailvotech.campaign.import.file', $fullPath);
                     $this->logger->info("File successfully uploaded: {$fullPath}");
 
-                    return $this->redirectToRoute('mautic_campaign_import_action', ['objectAction' => 'progress']);
+                    return $this->redirectToRoute('mailvotech_campaign_import_action', ['objectAction' => 'progress']);
                 } catch (FileException $e) {
                     $this->logger->error('File upload failed: '.$e->getMessage());
 
                     $form->addError(new FormError(
                         $this->translator->trans(
                             str_contains($e->getMessage(), 'upload_max_filesize')
-                                ? 'mautic.lead.import.filetoolarge'
-                                : 'mautic.lead.import.filenotreadable',
+                                ? 'mailvotech.lead.import.filetoolarge'
+                                : 'mailvotech.lead.import.filenotreadable',
                             [],
                             'validators'
                         )
@@ -171,10 +171,10 @@ final class ImportController extends AbstractFormController
 
         return $this->delegateView([
             'viewParameters'  => [
-                'mauticContent' => 'campaignImport',
+                'mailvotechContent' => 'campaignImport',
                 'form'          => $form->createView(),
             ],
-            'contentTemplate' => '@MauticCampaign/Import/import.html.twig',
+            'contentTemplate' => '@MailVotechCampaign/Import/import.html.twig',
         ]);
     }
 
@@ -187,24 +187,24 @@ final class ImportController extends AbstractFormController
             $this->throwAccessDenied();
         }
 
-        $filePath = $this->requestStack->getSession()->get('mautic.campaign.import.file');
+        $filePath = $this->requestStack->getSession()->get('mailvotech.campaign.import.file');
 
         if (is_string($filePath)) {
             $this->removeImportFile($filePath);
         }
 
         $this->resetImport();
-        $this->addFlashMessage('mautic.campaign.notice.import.canceled', [], FlashBag::LEVEL_NOTICE);
+        $this->addFlashMessage('mailvotech.campaign.notice.import.canceled', [], FlashBag::LEVEL_NOTICE);
 
-        return $this->redirectToRoute('mautic_campaign_import_action', ['objectAction' => 'new']);
+        return $this->redirectToRoute('mailvotech_campaign_import_action', ['objectAction' => 'new']);
     }
 
     private function resetImport(): void
     {
-        $this->requestStack->getSession()->set('mautic.campaign.import.file', null);
-        $this->requestStack->getSession()->set('mautic.campaign.import.step', self::STEP_UPLOAD_ZIP);
-        $this->requestStack->getSession()->set('mautic.campaign.import.progress', 0);
-        $this->requestStack->getSession()->remove('mautic.campaign.import.analyzeSummary');
+        $this->requestStack->getSession()->set('mailvotech.campaign.import.file', null);
+        $this->requestStack->getSession()->set('mailvotech.campaign.import.step', self::STEP_UPLOAD_ZIP);
+        $this->requestStack->getSession()->set('mailvotech.campaign.import.progress', 0);
+        $this->requestStack->getSession()->remove('mailvotech.campaign.import.analyzeSummary');
     }
 
     private function removeImportFile(string $filepath): void
@@ -223,7 +223,7 @@ final class ImportController extends AbstractFormController
     private function getImportFileName(): string
     {
         $session  = $this->requestStack->getSession();
-        $fileName = $session->get('mautic.campaign.import.file');
+        $fileName = $session->get('mailvotech.campaign.import.file');
 
         if ($fileName && !str_contains($fileName, '/')) {
             return $fileName;
@@ -232,7 +232,7 @@ final class ImportController extends AbstractFormController
         $uniqueId = bin2hex(random_bytes(8));
         $fileName = sprintf('%s_%s.zip', (new DateTimeHelper())->toUtcString('YmdHis'), $uniqueId);
 
-        $session->set('mautic.campaign.import.file', $fileName);
+        $session->set('mailvotech.campaign.import.file', $fileName);
 
         return $fileName;
     }
@@ -240,40 +240,40 @@ final class ImportController extends AbstractFormController
     public function progressAction(ImportHelper $importHelper): Response
     {
         $session       = $this->requestStack->getSession();
-        $session->get('mautic.campaign.import.progress', 0);
-        $step          = $session->get('mautic.campaign.import.step', self::STEP_PROGRESS_BAR);
-        $fullPath      = $session->get('mautic.campaign.import.file');
+        $session->get('mailvotech.campaign.import.progress', 0);
+        $step          = $session->get('mailvotech.campaign.import.step', self::STEP_PROGRESS_BAR);
+        $fullPath      = $session->get('mailvotech.campaign.import.file');
 
         // If there's no valid file, show an error
         if (!$fullPath || !file_exists($fullPath)) {
             if (self::STEP_UPLOAD_ZIP !== $step) {
-                $this->addFlashMessage('mautic.campaign.import.nofile', [], FlashBag::LEVEL_ERROR, 'validators');
+                $this->addFlashMessage('mailvotech.campaign.import.nofile', [], FlashBag::LEVEL_ERROR, 'validators');
             }
             $this->resetImport();
 
-            return $this->redirectToRoute('mautic_campaign_import_action', ['objectAction' => 'new']);
+            return $this->redirectToRoute('mailvotech_campaign_import_action', ['objectAction' => 'new']);
         }
 
         if (self::STEP_PROGRESS_BAR === $step) {
             $analyzeSummary = $this->analyzeData($importHelper, $fullPath);
 
             if ([] === $analyzeSummary) {
-                $this->addFlashMessage('mautic.campaign.import.nofile', [], FlashBag::LEVEL_ERROR, 'validators');
+                $this->addFlashMessage('mailvotech.campaign.import.nofile', [], FlashBag::LEVEL_ERROR, 'validators');
                 $this->removeImportFile($fullPath);
                 $this->resetImport();
 
-                return $this->redirectToRoute('mautic_campaign_import_action', ['objectAction' => 'new']);
+                return $this->redirectToRoute('mailvotech_campaign_import_action', ['objectAction' => 'new']);
             }
-            $session->set('mautic.campaign.import.step', self::STEP_IMPORT_FROM_ZIP);
-            $session->set('mautic.campaign.import.analyzeSummary', $analyzeSummary);
+            $session->set('mailvotech.campaign.import.step', self::STEP_IMPORT_FROM_ZIP);
+            $session->set('mailvotech.campaign.import.analyzeSummary', $analyzeSummary);
 
             return $this->delegateView([
                 'viewParameters' => [
                     'importProgress'  => 50,
                     'analyzeSummary'  => $analyzeSummary,
-                    'mauticContent'   => 'campaignImport',
+                    'mailvotechContent'   => 'campaignImport',
                 ],
-                'contentTemplate' => '@MauticCampaign/Import/progress.html.twig',
+                'contentTemplate' => '@MailVotechCampaign/Import/progress.html.twig',
             ]);
         }
         try {
@@ -347,7 +347,7 @@ final class ImportController extends AbstractFormController
                     $campaignId      = $campaignData['ids'][0] ?? 0;
 
                     $this->addFlashMessage(
-                        'mautic.campaign.notice.import.finished',
+                        'mailvotech.campaign.notice.import.finished',
                         [
                             '%id%'   => $campaignId,
                             '%name%' => htmlspecialchars($campaignName, ENT_QUOTES, 'UTF-8'),
@@ -357,11 +357,11 @@ final class ImportController extends AbstractFormController
             }
 
             $this->removeImportFile($fullPath);
-            $session->set('mautic.campaign.import.summary', $importSummary);
+            $session->set('mailvotech.campaign.import.summary', $importSummary);
             $this->resetImport();
         } catch (\RuntimeException $e) {
             $this->logger->error($e->getMessage());
-            $this->addFlashMessage('mautic.campaign.import.nofile', [], FlashBag::LEVEL_ERROR, 'validators');
+            $this->addFlashMessage('mailvotech.campaign.import.nofile', [], FlashBag::LEVEL_ERROR, 'validators');
 
             $this->removeImportFile($fullPath);
             $importSummary = [
@@ -373,9 +373,9 @@ final class ImportController extends AbstractFormController
             'viewParameters' => [
                 'importProgress'  => 100,
                 'importSummary'   => $importSummary,
-                'mauticContent'   => 'campaignImport',
+                'mailvotechContent'   => 'campaignImport',
             ],
-            'contentTemplate' => '@MauticCampaign/Import/progress.html.twig',
+            'contentTemplate' => '@MailVotechCampaign/Import/progress.html.twig',
         ]);
     }
 
@@ -454,7 +454,7 @@ final class ImportController extends AbstractFormController
         }
 
         $session         = $this->requestStack->getSession();
-        $importSummaries = $session->get('mautic.campaign.import.summary', []);
+        $importSummaries = $session->get('mailvotech.campaign.import.summary', []);
 
         $hasUndoData = false;
 
@@ -476,9 +476,9 @@ final class ImportController extends AbstractFormController
 
         if ($hasUndoData) {
             $this->logger->info('Undo import triggered for Campaign.');
-            $this->addFlashMessage('mautic.campaign.notice.import.undo');
+            $this->addFlashMessage('mailvotech.campaign.notice.import.undo');
         } else {
-            $this->addFlashMessage('mautic.campaign.notice.import.undo_no_data');
+            $this->addFlashMessage('mailvotech.campaign.notice.import.undo_no_data');
         }
 
         return new JsonResponse(['flashes' => $this->getFlashContent()]);

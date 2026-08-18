@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Event;
+namespace MailVotech\LeadBundle\Tests\Event;
 
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Event\ChannelSubscriptionChange;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Event\ChannelSubscriptionChange;
 use PHPUnit\Framework\Attributes\TestDox;
 
 final class ChannelSubscriptionChangeTest extends \PHPUnit\Framework\TestCase

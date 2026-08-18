@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Security\Permissions;
+namespace MailVotech\PointBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class PointPermissions extends AbstractPermissions

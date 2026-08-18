@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\EventListener;
+namespace MailVotech\UserBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\UserBundle\Event\LoginEvent;
-use Mautic\UserBundle\UserEvents;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\UserBundle\Event\LoginEvent;
+use MailVotech\UserBundle\UserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class SecuritySubscriber implements EventSubscriberInterface

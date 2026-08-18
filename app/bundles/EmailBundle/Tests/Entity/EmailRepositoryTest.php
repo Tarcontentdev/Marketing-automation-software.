@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Entity;
+namespace MailVotech\EmailBundle\Tests\Entity;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Result;
-use Mautic\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\LeadBundle\Entity\DoNotContact;
+use MailVotech\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\LeadBundle\Entity\DoNotContact;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -29,8 +29,8 @@ final class EmailRepositoryTest extends TestCase
 
         $translator = $this->createMock(TranslatorInterface::class);
         $translator->method('trans')->willReturnCallback(fn (string $id): string => match ($id) {
-            'mautic.email.email.searchcommand.isexpired' => 'is:expired',
-            'mautic.email.email.searchcommand.ispending' => 'is:pending',
+            'mailvotech.email.email.searchcommand.isexpired' => 'is:expired',
+            'mailvotech.email.email.searchcommand.ispending' => 'is:pending',
             default                                      => $id,
         });
         $this->repo->autowireCommonRepository($translator);
@@ -295,7 +295,7 @@ final class EmailRepositoryTest extends TestCase
 
     private function replaceQueryPrefix(string $query): string
     {
-        return str_replace('{prefix}', MAUTIC_TABLE_PREFIX, $query);
+        return str_replace('{prefix}', MAILVOTECH_TABLE_PREFIX, $query);
     }
 
     public function testAddSearchCommandWhereClauseHandlesExpirationFilters(): void
@@ -327,7 +327,7 @@ final class EmailRepositoryTest extends TestCase
     public function testGetSearchCommandsContainsExpirationFilters(): void
     {
         $commands = $this->repo->getSearchCommands();
-        $this->assertContains('mautic.email.email.searchcommand.isexpired', $commands);
-        $this->assertContains('mautic.email.email.searchcommand.ispending', $commands);
+        $this->assertContains('mailvotech.email.email.searchcommand.isexpired', $commands);
+        $this->assertContains('mailvotech.email.email.searchcommand.ispending', $commands);
     }
 }

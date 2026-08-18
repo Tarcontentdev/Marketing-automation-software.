@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine;
+namespace MailVotech\CoreBundle\Doctrine;
 
 use Doctrine\Migrations\AbstractMigration;
 use Doctrine\Migrations\Version\MigrationFactory;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -27,7 +27,7 @@ final readonly class MigrationFactoryDecorator implements MigrationFactory
     {
         $instance = $this->migrationFactory->createVersion($migrationClassName);
 
-        if ($instance instanceof AbstractMauticMigration) {
+        if ($instance instanceof AbstractMailVotechMigration) {
             $instance->setContainer($this->container);
             $instance->setPrefix((string) $this->coreParametersHelper->get('db_table_prefix', ''));
         }

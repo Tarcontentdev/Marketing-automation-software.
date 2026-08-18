@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Controller;
+namespace MailVotech\PageBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Traits\ControllerTrait;
-use Mautic\LeadBundle\Entity\UtmTagRepository;
-use Mautic\PageBundle\DataFixtures\ORM\LoadPageCategoryData;
-use Mautic\PageBundle\DataFixtures\ORM\LoadPageData;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Traits\ControllerTrait;
+use MailVotech\LeadBundle\Entity\UtmTagRepository;
+use MailVotech\PageBundle\DataFixtures\ORM\LoadPageCategoryData;
+use MailVotech\PageBundle\DataFixtures\ORM\LoadPageData;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Model\PageModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class PageControllerTest extends MauticMysqlTestCase
+final class PageControllerTest extends MailVotechMysqlTestCase
 {
     use ControllerTrait;
 
@@ -28,7 +28,7 @@ final class PageControllerTest extends MauticMysqlTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->prefix = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $this->prefix = self::getContainer()->getParameter('mailvotech.db_table_prefix');
 
         $pageData = [
             'title'    => 'Test Page',
@@ -156,7 +156,7 @@ final class PageControllerTest extends MauticMysqlTestCase
         $timestamp  = \time();
         $page       = $this->createTestPage();
 
-        $this->client->request('GET', "/{$page->getAlias()}?utm_source=linkedin&utm_medium=social&utm_campaign=mautic&utm_content=".$timestamp);
+        $this->client->request('GET', "/{$page->getAlias()}?utm_source=linkedin&utm_medium=social&utm_campaign=mailvotech&utm_content=".$timestamp);
         $clientResponse = $this->client->getResponse();
         $this->assertEquals(Response::HTTP_OK, $clientResponse->getStatusCode(), $clientResponse->getContent());
 
@@ -166,7 +166,7 @@ final class PageControllerTest extends MauticMysqlTestCase
         foreach ($allUtmTags as $utmTag) {
             $this->assertSame('linkedin', $utmTag->getUtmSource(), 'utm_source does not match');
             $this->assertSame('social', $utmTag->getUtmMedium(), 'utm_medium does not match');
-            $this->assertSame('mautic', $utmTag->getUtmCampaign(), 'utm_campaign does not match');
+            $this->assertSame('mailvotech', $utmTag->getUtmCampaign(), 'utm_campaign does not match');
             $this->assertSame(strval($timestamp), $utmTag->getUtmContent(), 'utm_content does not match');
         }
     }

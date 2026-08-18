@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Controller;
+namespace MailVotech\CoreBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 

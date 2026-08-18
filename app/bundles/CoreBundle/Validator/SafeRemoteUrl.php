@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Validator;
+namespace MailVotech\CoreBundle\Validator;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -15,7 +15,7 @@ final class SafeRemoteUrl extends Constraint
      */
     #[HasNamedArguments]
     public function __construct(
-        public string $message = 'mautic.core.remote_url_not_allowed',
+        public string $message = 'mailvotech.core.remote_url_not_allowed',
         ?array $groups = null,
         mixed $payload = null,
     ) {

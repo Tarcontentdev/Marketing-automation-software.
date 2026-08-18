@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Entity;
+namespace MailVotech\CampaignBundle\Tests\Entity;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Entity\Result\CountResult;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\Result\CountResult;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
 
-final class CampaignRepositoryFunctionalTest extends MauticMysqlTestCase
+final class CampaignRepositoryFunctionalTest extends MailVotechMysqlTestCase
 {
     private CampaignRepository $repository;
 

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional;
+namespace MailVotech\LeadBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-final class FormSearchFunctionalTest extends MauticMysqlTestCase
+final class FormSearchFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testFormSearchReturnsContactsAssociatedWithFormSubmissions(): void
     {
@@ -28,7 +28,7 @@ final class FormSearchFunctionalTest extends MauticMysqlTestCase
 
         $leadRepository = $this->em->getRepository(Lead::class);
         $this->assertInstanceOf(LeadRepository::class, $leadRepository);
-        $this->assertContains('mautic.lead.lead.searchcommand.form', $leadRepository->getSearchCommands());
+        $this->assertContains('mailvotech.lead.lead.searchcommand.form', $leadRepository->getSearchCommands());
 
         $this->assertSearchResult('form%3Anewsletter-form', [$submittedContact], [$otherSubmittedContact, $notSubmittedContact]);
         $this->assertSearchResult('!form%3Anewsletter-form', [$otherSubmittedContact, $notSubmittedContact], [$submittedContact]);

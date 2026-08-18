@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Command\Api;
+namespace MailVotech\CampaignBundle\Tests\Command\Api;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignMember;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignMember;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
 
-final class EventLogApiControllerTest extends MauticMysqlTestCase
+final class EventLogApiControllerTest extends MailVotechMysqlTestCase
 {
     public function testBatchEditEventsPut(): void
     {

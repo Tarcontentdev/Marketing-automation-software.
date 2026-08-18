@@ -13,10 +13,10 @@ jobs:
       contents: write  # for actions/create-release to create a release
     name: Create draft release
     runs-on: ubuntu-latest
-    if: github.repository == 'mautic/mautic'
+    if: github.repository == 'mailvotech/mailvotech'
 
     outputs:
-      mautic-version: ${{ steps.get-mautic-version.outputs.version }}
+      mailvotech-version: ${{ steps.get-mailvotech-version.outputs.version }}
       is-prerelease: ${{ steps.is-prerelease.outputs.is-prerelease }}
 
     steps:
@@ -32,18 +32,18 @@ jobs:
         extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql, pdo_mysql
 
     - name: Get tag name
-      id: get-mautic-version
+      id: get-mailvotech-version
       run: echo "version=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
 
     - name: Check if tag name matches version in release_metadata.json
       run: |
         METADATA_VERSION=$(jq -r '.version' app/release_metadata.json)
 
-        if [[ "${{ steps.get-mautic-version.outputs.version }}" != "$METADATA_VERSION" ]]; then
-          echo "❌ ERROR: tag name (${{ steps.get-mautic-version.outputs.version }}) doesn't match version in app/release_metadata.json ($METADATA_VERSION). Please ensure that both versions match!"
+        if [[ "${{ steps.get-mailvotech-version.outputs.version }}" != "$METADATA_VERSION" ]]; then
+          echo "❌ ERROR: tag name (${{ steps.get-mailvotech-version.outputs.version }}) doesn't match version in app/release_metadata.json ($METADATA_VERSION). Please ensure that both versions match!"
           exit 1
         else
-          echo "✔ Tag name (${{ steps.get-mautic-version.outputs.version }}) and the version in app/release_metadata.json ($METADATA_VERSION) match. Great!"
+          echo "✔ Tag name (${{ steps.get-mailvotech-version.outputs.version }}) and the version in app/release_metadata.json ($METADATA_VERSION) match. Great!"
         fi
 
     - name: Setup Node
@@ -56,19 +56,19 @@ jobs:
         composer validate
         composer install --prefer-dist --no-progress --no-suggest
 
-    - name: Get minimum Mautic version
+    - name: Get minimum MailVotech version
       run: |
-        echo "MAUTIC_MINIMUM_VERSION=$(jq -r '.minimum_mautic_version' app/release_metadata.json)" >> $GITHUB_ENV
+        echo "MAILVOTECH_MINIMUM_VERSION=$(jq -r '.minimum_mailvotech_version' app/release_metadata.json)" >> $GITHUB_ENV
 
-    - name: "Download and extract minimum Mautic version: ${{ env.MAUTIC_MINIMUM_VERSION }}"
+    - name: "Download and extract minimum MailVotech version: ${{ env.MAILVOTECH_MINIMUM_VERSION }}"
       run: |
-        curl -sSL https://github.com/mautic/mautic/releases/download/${{ env.MAUTIC_MINIMUM_VERSION }}/${{ env.MAUTIC_MINIMUM_VERSION }}.zip -o ${{ env.MAUTIC_MINIMUM_VERSION }}.zip
-        unzip -q ${{ env.MAUTIC_MINIMUM_VERSION }}.zip -d ./build/mautic-minimum-version
+        curl -sSL https://github.com/mailvotech/mailvotech/releases/download/${{ env.MAILVOTECH_MINIMUM_VERSION }}/${{ env.MAILVOTECH_MINIMUM_VERSION }}.zip -o ${{ env.MAILVOTECH_MINIMUM_VERSION }}.zip
+        unzip -q ${{ env.MAILVOTECH_MINIMUM_VERSION }}.zip -d ./build/mailvotech-minimum-version
 
     - name: Build release files
       run: |
-        php build/package_release.php -b=${{ steps.get-mautic-version.outputs.version }}
-        echo 'MAUTIC_SHA1_CONTENTS<<EOF' >> $GITHUB_ENV
+        php build/package_release.php -b=${{ steps.get-mailvotech-version.outputs.version }}
+        echo 'MAILVOTECH_SHA1_CONTENTS<<EOF' >> $GITHUB_ENV
         cat build/packages/build-sha1-all >> $GITHUB_ENV
         echo 'EOF' >> $GITHUB_ENV
 
@@ -91,46 +91,46 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.get-mautic-version.outputs.version }}
-        release_name: Mautic Community ${{ steps.get-mautic-version.outputs.version }}
+        tag_name: ${{ steps.get-mailvotech-version.outputs.version }}
+        release_name: MailVotech Community ${{ steps.get-mailvotech-version.outputs.version }}
         draft: true
         prerelease: ${{ steps.is-prerelease.outputs.is-prerelease }}
         body: |
-          ${{ env.MAUTIC_CHANGELOG }}
+          ${{ env.MAILVOTECH_CHANGELOG }}
 
-          ${{ env.MAUTIC_SHA1_CONTENTS }}
+          ${{ env.MAILVOTECH_SHA1_CONTENTS }}
 
-    - name: Upload full package ${{ steps.get-mautic-version.outputs.version }}.zip
+    - name: Upload full package ${{ steps.get-mailvotech-version.outputs.version }}.zip
       uses: actions/upload-release-asset@e8f9f06c4b078e705bd2ea027f0926603fc9b4d5 # v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./build/packages/${{ steps.get-mautic-version.outputs.version }}.zip
-        asset_name: ${{ steps.get-mautic-version.outputs.version }}.zip
+        asset_path: ./build/packages/${{ steps.get-mailvotech-version.outputs.version }}.zip
+        asset_name: ${{ steps.get-mailvotech-version.outputs.version }}.zip
         asset_content_type: application/zip
 
-    - name: Upload update package ${{ steps.get-mautic-version.outputs.version }}-update.zip
+    - name: Upload update package ${{ steps.get-mailvotech-version.outputs.version }}-update.zip
       uses: actions/upload-release-asset@e8f9f06c4b078e705bd2ea027f0926603fc9b4d5 # v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./build/packages/${{ steps.get-mautic-version.outputs.version }}-update.zip
-        asset_name: ${{ steps.get-mautic-version.outputs.version }}-update.zip
+        asset_path: ./build/packages/${{ steps.get-mailvotech-version.outputs.version }}-update.zip
+        asset_name: ${{ steps.get-mailvotech-version.outputs.version }}-update.zip
         asset_content_type: application/zip
 
     - name: Store full package artifact
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
-        name: ${{ steps.get-mautic-version.outputs.version }}.zip
-        path: ./build/packages/${{ steps.get-mautic-version.outputs.version }}.zip
+        name: ${{ steps.get-mailvotech-version.outputs.version }}.zip
+        path: ./build/packages/${{ steps.get-mailvotech-version.outputs.version }}.zip
 
     - name: Store update package artifact
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
-        name: ${{ steps.get-mautic-version.outputs.version }}-update.zip
-        path: ./build/packages/${{ steps.get-mautic-version.outputs.version }}-update.zip
+        name: ${{ steps.get-mailvotech-version.outputs.version }}-update.zip
+        path: ./build/packages/${{ steps.get-mailvotech-version.outputs.version }}-update.zip
 
   test-fresh-install:
     name: Test a fresh installation
@@ -142,7 +142,7 @@ jobs:
         image: mysql:8.4
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: mautictest
+          MYSQL_DATABASE: mailvotechtest
         ports:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -160,24 +160,24 @@ jobs:
     - name: Download full installation package from previous step
       uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
       with:
-        name: ${{ needs.release.outputs.mautic-version }}.zip
+        name: ${{ needs.release.outputs.mailvotech-version }}.zip
 
-    - name: Install Mautic
+    - name: Install MailVotech
       env:
         DB_PORT: ${{ job.services.mysql.ports[3306] }}
       run: |
-        unzip -q ${{ needs.release.outputs.mautic-version }}.zip -d ./mautic-testing
-        mkdir -p ./mautic-testing/var/logs
-        cp ./.github/ci-files/local.php ./mautic-testing/config/local.php
-        cd ./mautic-testing
-        php bin/console mautic:install --force http://localhost
+        unzip -q ${{ needs.release.outputs.mailvotech-version }}.zip -d ./mailvotech-testing
+        mkdir -p ./mailvotech-testing/var/logs
+        cp ./.github/ci-files/local.php ./mailvotech-testing/config/local.php
+        cd ./mailvotech-testing
+        php bin/console mailvotech:install --force http://localhost
 
     - name: Store log artifacts
       if: ${{ always() }}
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: install-logs
-        path: ./mautic-testing/var/logs/*
+        path: ./mailvotech-testing/var/logs/*
 
   test-update-install:
     name: Test updating from previous version
@@ -189,7 +189,7 @@ jobs:
         image: mysql:8.4
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: mautictest
+          MYSQL_DATABASE: mailvotechtest
         ports:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -198,58 +198,58 @@ jobs:
       # We need this so we can get the local.php override file
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-    - name: Get tag name and minimum Mautic version
+    - name: Get tag name and minimum MailVotech version
       run: |
-        echo "MAUTIC_MINIMUM_VERSION=$(jq -r '.minimum_mautic_version' app/release_metadata.json)" >> $GITHUB_ENV
-        echo "MAUTIC_PHP_MINIMUM_VERSION=$(jq -r '.minimum_php_version' app/release_metadata.json)" >> $GITHUB_ENV
+        echo "MAILVOTECH_MINIMUM_VERSION=$(jq -r '.minimum_mailvotech_version' app/release_metadata.json)" >> $GITHUB_ENV
+        echo "MAILVOTECH_PHP_MINIMUM_VERSION=$(jq -r '.minimum_php_version' app/release_metadata.json)" >> $GITHUB_ENV
 
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
       with:
-        php-version: ${{ env.MAUTIC_PHP_MINIMUM_VERSION }}
+        php-version: ${{ env.MAILVOTECH_PHP_MINIMUM_VERSION }}
         extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql, pdo_mysql
 
-    - name: "Download and install minimum Mautic version: ${{ env.MAUTIC_MINIMUM_VERSION }}"
+    - name: "Download and install minimum MailVotech version: ${{ env.MAILVOTECH_MINIMUM_VERSION }}"
       env:
         DB_PORT: ${{ job.services.mysql.ports[3306] }}
       run: |
-        curl -sSL https://github.com/mautic/mautic/releases/download/${{ env.MAUTIC_MINIMUM_VERSION }}/${{ env.MAUTIC_MINIMUM_VERSION }}.zip -o ${{ env.MAUTIC_MINIMUM_VERSION }}.zip
-        unzip -q ${{ env.MAUTIC_MINIMUM_VERSION }}.zip -d ./mautic-testing
-        mkdir -p ./mautic-testing/var/logs
-        if [[ "$(jq -r '.version | .[0:1]' ./mautic-testing/app/release_metadata.json)" == "4" ]]; then
-            cp ./.github/ci-files/local.php ./mautic-testing/app/config/local.php
+        curl -sSL https://github.com/mailvotech/mailvotech/releases/download/${{ env.MAILVOTECH_MINIMUM_VERSION }}/${{ env.MAILVOTECH_MINIMUM_VERSION }}.zip -o ${{ env.MAILVOTECH_MINIMUM_VERSION }}.zip
+        unzip -q ${{ env.MAILVOTECH_MINIMUM_VERSION }}.zip -d ./mailvotech-testing
+        mkdir -p ./mailvotech-testing/var/logs
+        if [[ "$(jq -r '.version | .[0:1]' ./mailvotech-testing/app/release_metadata.json)" == "4" ]]; then
+            cp ./.github/ci-files/local.php ./mailvotech-testing/app/config/local.php
         else
-            cp ./.github/ci-files/local.php ./mautic-testing/config/local.php
+            cp ./.github/ci-files/local.php ./mailvotech-testing/config/local.php
         fi
-        cd ./mautic-testing
-        php bin/console mautic:install --force http://localhost
+        cd ./mailvotech-testing
+        php bin/console mailvotech:install --force http://localhost
     
-    - name: "Download update package artifact ${{ needs.release.outputs.mautic-version }}-update.zip"
+    - name: "Download update package artifact ${{ needs.release.outputs.mailvotech-version }}-update.zip"
       uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
       with:
-        name: ${{ needs.release.outputs.mautic-version }}-update.zip
-        path: ./mautic-testing
+        name: ${{ needs.release.outputs.mailvotech-version }}-update.zip
+        path: ./mailvotech-testing
 
-    - name: "Attempt update from ${{ env.MAUTIC_MINIMUM_VERSION }} to ${{ needs.release.outputs.mautic-version }}"
+    - name: "Attempt update from ${{ env.MAILVOTECH_MINIMUM_VERSION }} to ${{ needs.release.outputs.mailvotech-version }}"
       env:
         DB_PORT: ${{ job.services.mysql.ports[3306] }}
-      working-directory: ./mautic-testing
+      working-directory: ./mailvotech-testing
       run: |
-        php bin/console mautic:update:apply --force --update-package=${{ needs.release.outputs.mautic-version }}-update.zip
-        php bin/console mautic:update:apply --finish
+        php bin/console mailvotech:update:apply --force --update-package=${{ needs.release.outputs.mailvotech-version }}-update.zip
+        php bin/console mailvotech:update:apply --finish
 
     - name: Store log artifacts
       if: ${{ always() }}
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: update-logs
-        path: ./mautic-testing/var/logs/*
+        path: ./mailvotech-testing/var/logs/*
 
   upload-release-asset:
-    name: Upload release asset to m.mautic.org
+    name: Upload release asset to m.mailvotech.org
     needs: [release, test-fresh-install, test-update-install]
-    # We only want this job to run in Mautic's repo, not in forks. Upload only stable releases, not pre-releases.
-    if: github.repository_owner == 'mautic' && needs.release.outputs.is-prerelease == 'false'
+    # We only want this job to run in MailVotech's repo, not in forks. Upload only stable releases, not pre-releases.
+    if: github.repository_owner == 'mailvotech' && needs.release.outputs.is-prerelease == 'false'
     runs-on: ubuntu-latest
 
     steps:
@@ -262,17 +262,17 @@ jobs:
         extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql, pdo_mysql
 
     - name: Install dependencies
-      working-directory: ./.github/workflows/mautic-asset-upload
+      working-directory: ./.github/workflows/mailvotech-asset-upload
       run: composer install --prefer-dist --no-progress
 
-    # Category ID 4 is for Mautic release assets on m.mautic.org
+    # Category ID 4 is for MailVotech release assets on m.mailvotech.org
     # Creates a remote asset pointing to the GitHub release URL instead of uploading the file locally
-    - name: Create remote asset on m.mautic.org pointing to GitHub release
+    - name: Create remote asset on m.mailvotech.org pointing to GitHub release
       run: |
-        php ./.github/workflows/mautic-asset-upload/upload.php \
-        https://m.mautic.org \
-        "${{ secrets.MAUTIC_INSTANCE_USER }}" \
-        "${{ secrets.MAUTIC_INSTANCE_PASSWORD }}" \
-        "${{ needs.release.outputs.mautic-version }}" \
+        php ./.github/workflows/mailvotech-asset-upload/upload.php \
+        https://m.mailvotech.org \
+        "${{ secrets.MAILVOTECH_INSTANCE_USER }}" \
+        "${{ secrets.MAILVOTECH_INSTANCE_PASSWORD }}" \
+        "${{ needs.release.outputs.mailvotech-version }}" \
         4 \
-        "https://github.com/mautic/mautic/releases/download/${{ needs.release.outputs.mautic-version }}/${{ needs.release.outputs.mautic-version }}.zip"
+        "https://github.com/mailvotech/mailvotech/releases/download/${{ needs.release.outputs.mailvotech-version }}/${{ needs.release.outputs.mailvotech-version }}.zip"

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\EventCollector\Accessor\Event;
+namespace MailVotech\CampaignBundle\Tests\EventCollector\Accessor\Event;
 
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
 
 final class ActionAccessorTest extends \PHPUnit\Framework\TestCase
 {

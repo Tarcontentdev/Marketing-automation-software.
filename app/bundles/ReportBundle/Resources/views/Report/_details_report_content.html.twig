@@ -8,7 +8,7 @@
 {%- set groupByCount = report.groupBy|length -%}
 {%- set hideDateRangeFilter = (report.settings.hideDateRangeFilter is defined and report.settings.hideDateRangeFilter) -%}
 {%- set startCount = totalResults > limit ? (reportPage * limit) - limit + 1 : 1 -%}
-{%- set graphContent = include('@MauticReport/Report/details_data_graphs.html.twig', {'graphOrder': graphOrder, 'graphs': graphs, 'report': report}, with_context=false) -%}
+{%- set graphContent = include('@MailVotechReport/Report/details_data_graphs.html.twig', {'graphOrder': graphOrder, 'graphs': graphs, 'report': report}, with_context=false) -%}
 
 {% if showGraphsAboveTable %}{{ graphContent|raw }}{% endif %}
 
@@ -17,18 +17,18 @@
         <div class="col-xs-12">
             <div class="report-date-range-filter clearfix mb-md">
                 <div class="d-flex fd-row fw-nowrap gap-sm ai-center jc-space-between">
-                    {{ include('@MauticCore/Helper/graph_dateselect.html.twig', {'dateRangeForm': dateRangeForm, 'class': 'mt-16'}) }}
+                    {{ include('@MailVotechCore/Helper/graph_dateselect.html.twig', {'dateRangeForm': dateRangeForm, 'class': 'mt-16'}) }}
                     <div class="dropdown mt-16">
                         <a href="#" class="btn btn-ghost btn-sm btn-nospin" data-toggle="dropdown" aria-expanded="false">
-                            {{ 'mautic.core.quick_filters'|trans }}
+                            {{ 'mailvotech.core.quick_filters'|trans }}
                             <i class="ri-arrow-down-s-line"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" data-date-range-option="today">{{ 'mautic.report.date.today'|trans }}</a></li>
-                            <li><a href="#" data-date-range-option="yesterday">{{ 'mautic.report.date.yesterday'|trans }}</a></li>
-                            <li><a href="#" data-date-range-option="7">{{ 'mautic.report.date.last_7_days'|trans }}</a></li>
-                            <li><a href="#" data-date-range-option="30">{{ 'mautic.report.date.last_30_days'|trans }}</a></li>
-                            <li><a href="#" data-date-range-option="90">{{ 'mautic.report.date.last_90_days'|trans }}</a></li>
+                            <li><a href="#" data-date-range-option="today">{{ 'mailvotech.report.date.today'|trans }}</a></li>
+                            <li><a href="#" data-date-range-option="yesterday">{{ 'mailvotech.report.date.yesterday'|trans }}</a></li>
+                            <li><a href="#" data-date-range-option="7">{{ 'mailvotech.report.date.last_7_days'|trans }}</a></li>
+                            <li><a href="#" data-date-range-option="30">{{ 'mailvotech.report.date.last_30_days'|trans }}</a></li>
+                            <li><a href="#" data-date-range-option="90">{{ 'mailvotech.report.date.last_90_days'|trans }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                                         : key
                                     -%}
 
-                                    {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                                    {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                                         'sessionVar': 'report.' ~ report.id,
                                         'orderBy': orderBy,
                                         'text': columns[key].label,
@@ -66,7 +66,7 @@
                             {% if aggregatorCount %}
                                 {% for aggregator in aggregatorOrder %}
                                     {%- set columnName = columns[aggregator.column].label ?? columns[aggregator.column].alias|default('') -%}
-                                    {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                                    {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                                         'sessionVar': 'report.' ~ report.id,
                                         'text': aggregator.function ~ ' ' ~ columnName,
                                         'orderBy': '`' ~ aggregator.function ~ ' ' ~ aggregator.column ~ '`',
@@ -157,7 +157,7 @@
                             </tr>
                         {% endif %}
                         <tr class="cm-strong">
-                            <td>{{ 'mautic.report.report.groupby.totals'|trans }}</td>
+                            <td>{{ 'mailvotech.report.report.groupby.totals'|trans }}</td>
                             {% for key in columnOrder %}
                                 <td>&nbsp;</td>
                             {% endfor %}
@@ -176,11 +176,11 @@
                     </table>
                 </div>
                 <div class="panel-footer">
-                    {{ include('@MauticCore/Helper/pagination.html.twig', {
+                    {{ include('@MailVotechCore/Helper/pagination.html.twig', {
                         'totalItems': totalResults,
                         'page': reportPage,
                         'limit': limit,
-                        'baseUrl': path('mautic_report_view', {'objectId': report.id}),
+                        'baseUrl': path('mailvotech_report_view', {'objectId': report.id}),
                         'sessionVar': 'report.' ~ report.id,
                         'target': '.report-content',
                     }, with_context=false) }}

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Command;
+namespace MailVotech\LeadBundle\Command;
 
-use Mautic\CoreBundle\Helper\ExitCode;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Entity\CompanyRepository;
+use MailVotech\CoreBundle\Helper\ExitCode;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Attribute\Option;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 final readonly class UpdateCompanyNameOnLeadsCommand
 {
-    public const COMMAND_NAME = 'mautic:company:update_lead_company';
+    public const COMMAND_NAME = 'mailvotech:company:update_lead_company';
 
     public function __construct(
         private CompanyLeadRepository $companyLeadRepository,

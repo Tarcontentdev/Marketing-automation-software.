@@ -14,7 +14,7 @@ c = future major release
 
 After you open this PR, Promptless automatically creates a documentation PR and leaves a comment here with the link. Once your code PR merges, review the documentation PR, request changes if needed, and approve it promptly.
 
-See "Reviewing documentation PRs from Promptless" in the community handbook for more details: https://contribute.mautic.org/en/latest/contributing/developer.html#reviewing-documentation-prs-from-promptless -->
+See "Reviewing documentation PRs from Promptless" in the community handbook for more details: https://contribute.mailvotech.org/en/latest/contributing/developer.html#reviewing-documentation-prs-from-promptless -->
 
 | Q                                      | A
 | -------------------------------------- | ---
@@ -23,12 +23,12 @@ See "Reviewing documentation PRs from Promptless" in the community handbook for 
 | Deprecations?                          | ✔️❌
 | BC breaks? (use the c.x branch)        | ✔️❌
 | Automated tests included?              | ✔️❌ <!-- All PRs must maintain or improve code coverage -->
-| Related user documentation PR URL      | mautic/user-documentation#... <!-- required for new features -->
-| Related developer documentation PR URL | mautic/developer-documentation-new#... <!-- required for developer-facing changes -->
+| Related user documentation PR URL      | mailvotech/user-documentation#... <!-- required for new features -->
+| Related developer documentation PR URL | mailvotech/developer-documentation-new#... <!-- required for developer-facing changes -->
 | Issue(s) addressed                     | Fixes #... <!-- prefix each issue number with "Fixes #", no need to create an issue if none exists, explain below instead -->
 
 <!--
-Additionally (see https://contribute.mautic.org/contributing-to-mautic/developer/code/pull-requests#work-on-your-pull-request):
+Additionally (see https://contribute.mailvotech.org/contributing-to-mailvotech/developer/code/pull-requests#work-on-your-pull-request):
  - Always add tests and ensure they pass.
  - Bug fixes must be submitted against the lowest maintained branch where they apply
    (lowest branches are regularly merged to upper ones so they get the fixes too.)
@@ -56,7 +56,7 @@ Please write a short README for your feature/bugfix. This will help people under
 <!--
 This part is really important. If you want your PR to be merged, take the time to write very clear, annotated and step by step test instructions. Do not assume any previous knowledge - testers may not be developers. Do not write steps performed by the CI. These steps are for manual testing.
 -->
-1. Open this PR on GitHub Codespaces or pull down for testing locally (see docs on testing PRs [here](https://contribute.mautic.org/contributing-to-mautic/tester))
+1. Open this PR on GitHub Codespaces or pull down for testing locally (see docs on testing PRs [here](https://contribute.mailvotech.org/contributing-to-mailvotech/tester))
 2. 
 
 <!--

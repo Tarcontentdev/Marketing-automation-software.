@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Event;
+namespace MailVotech\FormBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\FormBundle\Entity\Field;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\FormBundle\Entity\Field;
 
 final class ValidationEvent extends CommonEvent
 {

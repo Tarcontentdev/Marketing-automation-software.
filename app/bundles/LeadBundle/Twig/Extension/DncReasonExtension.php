@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Twig\Extension;
+namespace MailVotech\LeadBundle\Twig\Extension;
 
-use Mautic\LeadBundle\Exception\UnknownDncReasonException;
-use Mautic\LeadBundle\Twig\Helper\DncReasonHelper;
+use MailVotech\LeadBundle\Exception\UnknownDncReasonException;
+use MailVotech\LeadBundle\Twig\Helper\DncReasonHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

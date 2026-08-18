@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\Message;
+namespace MailVotech\MessengerBundle\Message;
 
-use Mautic\MessengerBundle\Message\Traits\MessageRequestTrait;
+use MailVotech\MessengerBundle\Message\Traits\MessageRequestTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 final class PageHitNotification

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Helper;
+namespace MailVotech\LeadBundle\Tests\Helper;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\Helper\BotRatioHelper;
-use Mautic\LeadBundle\Deduplicate\ContactMerger;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Event\ContactIdentificationEvent;
-use Mautic\LeadBundle\Helper\ContactRequestHelper;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\Helper\BotRatioHelper;
+use MailVotech\LeadBundle\Deduplicate\ContactMerger;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Event\ContactIdentificationEvent;
+use MailVotech\LeadBundle\Helper\ContactRequestHelper;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
 use Monolog\Logger;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcher;

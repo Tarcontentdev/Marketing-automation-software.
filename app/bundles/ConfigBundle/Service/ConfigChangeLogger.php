@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\ConfigBundle\Service;
+namespace MailVotech\ConfigBundle\Service;
 
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**

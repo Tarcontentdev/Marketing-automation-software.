@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Form\Type;
+namespace MailVotech\LeadBundle\Tests\Form\Type;
 
-use Mautic\LeadBundle\Form\Type\SegmentConfigType;
+use MailVotech\LeadBundle\Form\Type\SegmentConfigType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -36,25 +36,25 @@ final class SegmentConfigTypeTest extends TestCase
     public function testThatBuildFormMethodAddsSegmentBuildAndRebuildTimeWarningOption(): void
     {
         $rebuildParameters = [
-            'label'      => 'mautic.lead.list.form.config.segment_rebuild_time_warning',
+            'label'      => 'mailvotech.lead.list.form.config.segment_rebuild_time_warning',
             'label_attr' => [
                 'class' => 'control-label',
             ],
             'attr' => [
                 'class'   => 'form-control',
-                'tooltip' => 'mautic.lead.list.form.config.segment_rebuild_time_warning.tooltip',
+                'tooltip' => 'mailvotech.lead.list.form.config.segment_rebuild_time_warning.tooltip',
             ],
             'required' => false,
         ];
 
         $buildParameters = [
-            'label'      => 'mautic.lead.list.form.config.segment_build_time_warning',
+            'label'      => 'mailvotech.lead.list.form.config.segment_build_time_warning',
             'label_attr' => [
                 'class' => 'control-label',
             ],
             'attr' => [
                 'class'   => 'form-control',
-                'tooltip' => 'mautic.lead.list.form.config.segment_build_time_warning.tooltip',
+                'tooltip' => 'mailvotech.lead.list.form.config.segment_build_time_warning.tooltip',
             ],
             'required' => false,
         ];

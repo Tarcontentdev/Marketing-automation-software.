@@ -1,21 +1,21 @@
 <?php
 
-namespace Mautic\CoreBundle\Controller;
+namespace MailVotech\CoreBundle\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\OptimisticLockInterface;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Form\Type\DateRangeType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\AbstractCommonModel;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\FormBundle\Helper\FormFieldHelper;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\OptimisticLockInterface;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Form\Type\DateRangeType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\AbstractCommonModel;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\FormBundle\Helper\FormFieldHelper;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
@@ -106,7 +106,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
      */
     protected function batchDeleteStandard(Request $request)
     {
-        $page      = $request->getSession()->get('mautic.'.$this->getSessionBase().'.page', 1);
+        $page      = $request->getSession()->get('mailvotech.'.$this->getSessionBase().'.page', 1);
         $returnUrl = $this->generateUrl($this->getIndexRoute(), ['page' => $page]);
         $flashes   = [];
 
@@ -115,7 +115,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
             'viewParameters'  => ['page' => $page],
             'contentTemplate' => $this->getControllerBase().'::'.$this->getPostActionControllerAction('batchDelete').'Action',
             'passthroughVars' => [
-                'mauticContent' => $this->getJsLoadMethodPrefix(),
+                'mailvotechContent' => $this->getJsLoadMethodPrefix(),
             ],
         ];
 
@@ -273,7 +273,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
      */
     protected function deleteStandard(Request $request, $objectId)
     {
-        $page      = $request->getSession()->get('mautic.'.$this->getSessionBase().'.page', 1);
+        $page      = $request->getSession()->get('mailvotech.'.$this->getSessionBase().'.page', 1);
         $returnUrl = $this->generateUrl($this->getIndexRoute(), ['page' => $page]);
         $flashes   = [];
         $model     = $this->getModel($this->getModelName());
@@ -284,7 +284,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
             'viewParameters'  => ['page' => $page],
             'contentTemplate' => $this->getControllerBase().'::'.$this->getPostActionControllerAction('delete').'Action',
             'passthroughVars' => [
-                'mauticContent' => $this->getJsLoadMethodPrefix(),
+                'mailvotechContent' => $this->getJsLoadMethodPrefix(),
             ],
             'entity' => $entity,
         ];
@@ -307,7 +307,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
             $identifier = $this->translator->trans($entity->getName());
             $flashes[]  = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $identifier,
                     '%id%'   => $objectId,
@@ -347,7 +347,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
 
         // set the return URL
         $returnUrl      = $this->generateUrl($this->getIndexRoute());
-        $page           = $request->getSession()->get('mautic.'.$this->getSessionBase().'.page', 1);
+        $page           = $request->getSession()->get('mailvotech.'.$this->getSessionBase().'.page', 1);
         $viewParameters = ['page' => $page];
 
         $template = $this->getControllerBase().'::'.$this->getPostActionControllerAction('edit').'Action';
@@ -357,7 +357,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
             'viewParameters'  => $viewParameters,
             'contentTemplate' => $template,
             'passthroughVars' => [
-                'mauticContent' => $this->getJsLoadMethodPrefix(),
+                'mailvotechContent' => $this->getJsLoadMethodPrefix(),
             ],
             'entity' => $entity,
         ];
@@ -409,7 +409,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
                         $this->afterEntitySave($entity, $form, 'edit', $valid);
 
                         $this->addFlashMessage(
-                            'mautic.core.notice.updated',
+                            'mailvotech.core.notice.updated',
                             [
                                 '%name%'      => $entity->getName(),
                                 '%menu_link%' => $this->getIndexRoute(),
@@ -474,7 +474,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
         $delegateArgs = [
             'viewParameters' => [
                 'permissionBase'  => $this->getPermissionBase(),
-                'mauticContent'   => $this->getJsLoadMethodPrefix(),
+                'mailvotechContent'   => $this->getJsLoadMethodPrefix(),
                 'actionRoute'     => $this->getActionRoute(),
                 'indexRoute'      => $this->getIndexRoute(),
                 'tablePrefix'     => $model->getRepository()->getTableAlias(),
@@ -486,7 +486,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
             ],
             'contentTemplate' => $this->getTemplateName('form.html.twig'),
             'passthroughVars' => [
-                'mauticContent' => $this->getJsLoadMethodPrefix(),
+                'mailvotechContent' => $this->getJsLoadMethodPrefix(),
                 'route'         => $this->generateUrl(
                     $this->getActionRoute(),
                     [
@@ -510,11 +510,11 @@ abstract class AbstractStandardFormController extends AbstractFormController
      */
     protected function getActionRoute()
     {
-        return 'mautic_'.str_replace('mautic_', '', $this->getRouteBase().'_action');
+        return 'mailvotech_'.str_replace('mailvotech_', '', $this->getRouteBase().'_action');
     }
 
     /**
-     * Get controller base if different than MauticCoreBundle:Standard.
+     * Get controller base if different than MailVotechCoreBundle:Standard.
      *
      * @return string
      */
@@ -539,8 +539,8 @@ abstract class AbstractStandardFormController extends AbstractFormController
                 if (is_object($objectId)) {
                     $entity   = $objectId;
                     $isClone  = true;
-                    $objectId = (!empty($this->sessionId)) ? $this->sessionId : 'mautic_'.sha1(uniqid(mt_rand(), true));
-                } elseif (str_contains($objectId, 'mautic_')) {
+                    $objectId = (!empty($this->sessionId)) ? $this->sessionId : 'mailvotech_'.sha1(uniqid(mt_rand(), true));
+                } elseif (str_contains($objectId, 'mailvotech_')) {
                     $isClone = true;
                     $entity  = $model->getEntity();
                 } else {
@@ -588,7 +588,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
      */
     protected function getIndexRoute()
     {
-        return 'mautic_'.str_replace('mautic_', '', $this->getRouteBase().'_index');
+        return 'mailvotech_'.str_replace('mailvotech_', '', $this->getRouteBase().'_index');
     }
 
     /**
@@ -628,7 +628,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
     }
 
     /**
-     * Get the route base for getIndexRoute() and getActionRoute() if they do not meet the mautic_*_index and mautic_*_action standards.
+     * Get the route base for getIndexRoute() and getActionRoute() if they do not meet the mailvotech_*_index and mailvotech_*_action standards.
      *
      * @return mixed
      */
@@ -680,7 +680,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
     {
         $namespaces = [
             $this->getTemplateBase(),
-            '@MauticCore/Standard',
+            '@MailVotechCore/Standard',
         ];
 
         foreach ($namespaces as $namespace) {
@@ -693,13 +693,13 @@ abstract class AbstractStandardFormController extends AbstractFormController
     }
 
     /**
-     * Get template base different than @MauticCore/Standard.
+     * Get template base different than @MailVotechCore/Standard.
      *
      * @return string
      */
     protected function getTemplateBase()
     {
-        return '@MauticCore/Standard';
+        return '@MailVotechCore/Standard';
     }
 
     /**
@@ -710,7 +710,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
     protected function getTranslatedString($string)
     {
         return $this->translator->hasId($this->getTranslationBase().'.'.$string) ? $this->getTranslationBase()
-            .'.'.$string : 'mautic.core.'.$string;
+            .'.'.$string : 'mailvotech.core.'.$string;
     }
 
     /**
@@ -720,7 +720,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
      */
     protected function getTranslationBase()
     {
-        return 'mautic.'.$this->getModelName();
+        return 'mailvotech.'.$this->getModelName();
     }
 
     /**
@@ -829,18 +829,18 @@ abstract class AbstractStandardFormController extends AbstractFormController
 
         $session = $request->getSession();
         if (empty($page)) {
-            $page = $session->get('mautic.'.$this->getSessionBase().'.page', 1);
+            $page = $session->get('mailvotech.'.$this->getSessionBase().'.page', 1);
         }
 
         // set limits
-        $limit = $session->get('mautic.'.$this->getSessionBase().'.limit', $this->coreParametersHelper->get('default_pagelimit'));
+        $limit = $session->get('mailvotech.'.$this->getSessionBase().'.limit', $this->coreParametersHelper->get('default_pagelimit'));
         $start = (1 === $page) ? 0 : (($page - 1) * $limit);
         if ($start < 0) {
             $start = 0;
         }
 
-        $search = $request->get('search', $session->get('mautic.'.$this->getSessionBase().'.filter', ''));
-        $session->set('mautic.'.$this->getSessionBase().'.filter', $search);
+        $search = $request->get('search', $session->get('mailvotech.'.$this->getSessionBase().'.filter', ''));
+        $session->set('mailvotech.'.$this->getSessionBase().'.filter', $search);
 
         $filter = ['string' => $search, 'force' => []];
 
@@ -851,8 +851,8 @@ abstract class AbstractStandardFormController extends AbstractFormController
             $filter['force'][] = ['column' => $repo->getTableAlias().'.createdBy', 'expr' => 'eq', 'value' => $this->user->getId()];
         }
 
-        $orderBy    = $session->get('mautic.'.$this->getSessionBase().'.orderby', $repo->getTableAlias().'.'.$this->getDefaultOrderColumn());
-        $orderByDir = $session->get('mautic.'.$this->getSessionBase().'.orderbydir', $this->getDefaultOrderDirection());
+        $orderBy    = $session->get('mailvotech.'.$this->getSessionBase().'.orderby', $repo->getTableAlias().'.'.$this->getDefaultOrderColumn());
+        $orderByDir = $session->get('mailvotech.'.$this->getSessionBase().'.orderbydir', $this->getDefaultOrderDirection());
 
         [$count, $items] = $this->getIndexItems($start, $limit, $filter, $orderBy, $orderByDir);
 
@@ -860,7 +860,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
             // the number of entities are now less then the current page so redirect to the last page
             $lastPage = (1 === $count) ? 1 : (((ceil($count / $limit)) ?: 1) ?: 1);
 
-            $session->set('mautic.'.$this->getSessionBase().'.page', $lastPage);
+            $session->set('mailvotech.'.$this->getSessionBase().'.page', $lastPage);
             $returnUrl = $this->generateUrl($this->getIndexRoute(), ['page' => $lastPage]);
 
             return $this->postActionRedirect(
@@ -870,7 +870,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
                         'viewParameters'  => ['page' => $lastPage],
                         'contentTemplate' => $this->getControllerBase().'::'.$this->getPostActionControllerAction('index').'Action',
                         'passthroughVars' => [
-                            'mauticContent' => $this->getJsLoadMethodPrefix(),
+                            'mailvotechContent' => $this->getJsLoadMethodPrefix(),
                         ],
                     ],
                     'index'
@@ -879,11 +879,11 @@ abstract class AbstractStandardFormController extends AbstractFormController
         }
 
         // set what page currently on so that we can return here after form submission/cancellation
-        $session->set('mautic.'.$this->getSessionBase().'.page', $page);
+        $session->set('mailvotech.'.$this->getSessionBase().'.page', $page);
 
         $viewParameters = [
             'permissionBase'  => $this->getPermissionBase(),
-            'mauticContent'   => $this->getJsLoadMethodPrefix(),
+            'mailvotechContent'   => $this->getJsLoadMethodPrefix(),
             'sessionVar'      => $this->getSessionBase(),
             'actionRoute'     => $this->getActionRoute(),
             'indexRoute'      => $this->getIndexRoute(),
@@ -905,7 +905,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
                     'viewParameters'  => $viewParameters,
                     'contentTemplate' => $this->getTemplateName('list.html.twig'),
                     'passthroughVars' => [
-                        'mauticContent' => $this->getJsLoadMethodPrefix(),
+                        'mailvotechContent' => $this->getJsLoadMethodPrefix(),
                         'route'         => $this->generateUrl($this->getIndexRoute(), ['page' => $page]),
                     ],
                 ],
@@ -933,7 +933,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
         }
 
         // set the page we came from
-        $page = $request->getSession()->get('mautic.'.$this->getSessionBase().'.page', 1);
+        $page = $request->getSession()->get('mailvotech.'.$this->getSessionBase().'.page', 1);
 
         $options = $this->getEntityFormOptions();
         $action  = $this->generateUrl($this->getActionRoute(), ['objectAction' => 'new']);
@@ -971,7 +971,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
             }
 
             $passthrough = [
-                'mauticContent' => $this->getJsLoadMethodPrefix(),
+                'mailvotechContent' => $this->getJsLoadMethodPrefix(),
             ];
 
             if ($isInPopup = isset($form['updateSelect'])) {
@@ -1008,7 +1008,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
         $delegateArgs = [
             'viewParameters' => [
                 'permissionBase'  => $this->getPermissionBase(),
-                'mauticContent'   => $this->getJsLoadMethodPrefix(),
+                'mailvotechContent'   => $this->getJsLoadMethodPrefix(),
                 'actionRoute'     => $this->getActionRoute(),
                 'indexRoute'      => $this->getIndexRoute(),
                 'tablePrefix'     => $model->getRepository()->getTableAlias(),
@@ -1020,7 +1020,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
             ],
             'contentTemplate' => $this->getTemplateName('form.html.twig'),
             'passthroughVars' => [
-                'mauticContent' => $this->getJsLoadMethodPrefix(),
+                'mailvotechContent' => $this->getJsLoadMethodPrefix(),
                 'route'         => $this->generateUrl(
                     $this->getActionRoute(),
                     [
@@ -1061,7 +1061,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
         $entity   = $model->getEntity($objectId);
 
         if (null === $entity) {
-            $page = $request->getSession()->get('mautic.'.$this->getSessionBase().'.page', 1);
+            $page = $request->getSession()->get('mailvotech.'.$this->getSessionBase().'.page', 1);
 
             return $this->postActionRedirect(
                 $this->getPostActionRedirectArguments(
@@ -1070,7 +1070,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
                         'viewParameters'  => ['page' => $page],
                         'contentTemplate' => $this->getControllerBase().'::'.$this->getPostActionControllerAction('view').'Action',
                         'passthroughVars' => [
-                            'mauticContent' => $this->getJsLoadMethodPrefix(),
+                            'mailvotechContent' => $this->getJsLoadMethodPrefix(),
                         ],
                         'flashes' => [
                             [
@@ -1132,7 +1132,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
             ],
             'contentTemplate' => $this->getTemplateName('details.html.twig'),
             'passthroughVars' => [
-                'mauticContent' => $this->getJsLoadMethodPrefix(),
+                'mailvotechContent' => $this->getJsLoadMethodPrefix(),
                 'route'         => $route,
             ],
             'objectId' => $objectId,
@@ -1185,7 +1185,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
         if ($version !== $entity->getVersion()) {
             $form->addError(
                 new FormError(
-                    $this->translator->trans('mautic.core.optimistic_lock.changed_by_someone_else_error')
+                    $this->translator->trans('mailvotech.core.optimistic_lock.changed_by_someone_else_error')
                 )
             );
 
@@ -1203,7 +1203,7 @@ abstract class AbstractStandardFormController extends AbstractFormController
             return new JsonResponse(
                 $data + [
                     'activeLink'      => $link,
-                    'mauticContent'   => $content,
+                    'mailvotechContent'   => $content,
                     'route'           => $route,
                     'validationError' => $this->getFormErrorForBuilder($form),
                     'flashes'         => $this->getFlashContent(),

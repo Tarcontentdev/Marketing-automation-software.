@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Auth\Provider\BasicAuth;
+namespace MailVotech\IntegrationsBundle\Auth\Provider\BasicAuth;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\AuthConfigInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\AuthProviderInterface;
-use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthConfigInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthProviderInterface;
+use MailVotech\IntegrationsBundle\Exception\PluginNotConfiguredException;
 
 /**
  * Factory for building HTTP clients using basic auth.

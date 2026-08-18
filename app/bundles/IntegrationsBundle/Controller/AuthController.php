@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Controller;
+namespace MailVotech\IntegrationsBundle\Controller;
 
-use Mautic\CoreBundle\Controller\CommonController;
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Exception\UnauthorizedException;
-use Mautic\IntegrationsBundle\Helper\AuthIntegrationsHelper;
+use MailVotech\CoreBundle\Controller\CommonController;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Exception\UnauthorizedException;
+use MailVotech\IntegrationsBundle\Helper\AuthIntegrationsHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

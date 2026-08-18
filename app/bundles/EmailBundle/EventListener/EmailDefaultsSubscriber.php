@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\EmailEvent;
-use Mautic\EmailBundle\Helper\EmailDefaultsHelper;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\EmailEvent;
+use MailVotech\EmailBundle\Helper\EmailDefaultsHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class EmailDefaultsSubscriber implements EventSubscriberInterface

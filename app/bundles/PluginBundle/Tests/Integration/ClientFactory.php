@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\Integration;
+namespace MailVotech\PluginBundle\Tests\Integration;
 
 use GuzzleHttp\Client;
 

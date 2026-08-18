@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit;
+namespace MailVotech\CoreBundle\Tests\Unit;
 
-use Mautic\CoreBundle\Loader\ParameterLoader;
+use MailVotech\CoreBundle\Loader\ParameterLoader;
 use PHPUnit\Framework\TestCase;
 
 final class RememberMeTest extends TestCase
@@ -24,7 +24,7 @@ final class RememberMeTest extends TestCase
 
         // Boot the kernel and get the value of the rememberme_key value.
         $k1->boot();
-        $v1 = $k1->getContainer()->getParameter('mautic.rememberme_key');
+        $v1 = $k1->getContainer()->getParameter('mailvotech.rememberme_key');
 
         // Ensure the defaultParameters are not statically cached.
         $p2             = new ParameterLoader();
@@ -39,7 +39,7 @@ final class RememberMeTest extends TestCase
 
         // Boot the kernel and get the value of the rememberme_key value.
         $k2->boot();
-        $v2 = $k2->getContainer()->getParameter('mautic.rememberme_key');
+        $v2 = $k2->getContainer()->getParameter('mailvotech.rememberme_key');
 
         $this->assertSame($v1, $v2);
     }

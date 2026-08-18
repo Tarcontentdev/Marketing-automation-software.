@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\MonitoredEmail\Processor;
+namespace MailVotech\EmailBundle\Tests\MonitoredEmail\Processor;
 
-use Mautic\EmailBundle\MonitoredEmail\Processor\Address;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Address;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 

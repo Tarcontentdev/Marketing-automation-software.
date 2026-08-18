@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\NotificationBundle\EventListener;
+namespace MailVotech\NotificationBundle\EventListener;
 
-use Mautic\ChannelBundle\ChannelEvents;
-use Mautic\ChannelBundle\Event\ChannelEvent;
-use Mautic\ChannelBundle\Model\MessageModel;
-use Mautic\NotificationBundle\Entity\Notification;
-use Mautic\NotificationBundle\Form\Type\NotificationListType;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\ReportBundle\Model\ReportModel;
+use MailVotech\ChannelBundle\ChannelEvents;
+use MailVotech\ChannelBundle\Event\ChannelEvent;
+use MailVotech\ChannelBundle\Model\MessageModel;
+use MailVotech\NotificationBundle\Entity\Notification;
+use MailVotech\NotificationBundle\Form\Type\NotificationListType;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\ReportBundle\Model\ReportModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ChannelSubscriber implements EventSubscriberInterface

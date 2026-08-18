@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\WebhookBundle\Entity\Event;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Entity\WebhookQueue;
-use Mautic\WebhookBundle\Entity\WebhookQueueRepository;
-use Mautic\WebhookBundle\Model\WebhookModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\WebhookBundle\Entity\Event;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Entity\WebhookQueue;
+use MailVotech\WebhookBundle\Entity\WebhookQueueRepository;
+use MailVotech\WebhookBundle\Model\WebhookModel;
 
-final class WebhookSubscriberFunctionalTest extends MauticMysqlTestCase
+final class WebhookSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -69,7 +69,7 @@ final class WebhookSubscriberFunctionalTest extends MauticMysqlTestCase
         $webhook = new Webhook();
         $event   = new Event();
 
-        $event->setEventType('mautic.lead_list_change');
+        $event->setEventType('mailvotech.lead_list_change');
         $event->setWebhook($webhook);
 
         $webhook->addEvent($event);

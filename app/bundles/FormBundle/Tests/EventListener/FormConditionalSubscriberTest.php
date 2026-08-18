@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\EventListener;
+namespace MailVotech\FormBundle\Tests\EventListener;
 
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Event\FormEvent;
-use Mautic\FormBundle\EventListener\FormConditionalSubscriber;
-use Mautic\FormBundle\Model\FieldModel;
-use Mautic\FormBundle\Model\FormModel;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Event\FormEvent;
+use MailVotech\FormBundle\EventListener\FormConditionalSubscriber;
+use MailVotech\FormBundle\Model\FieldModel;
+use MailVotech\FormBundle\Model\FormModel;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class FormConditionalSubscriberTest extends \PHPUnit\Framework\TestCase

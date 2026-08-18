@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Controller;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AjaxController;
-use Mautic\CoreBundle\Exception\FileUploadException;
-use MauticPlugin\GrapesJsBuilderBundle\Helper\FileManager;
+use MailVotech\CoreBundle\Controller\AjaxController;
+use MailVotech\CoreBundle\Exception\FileUploadException;
+use MailVotechPlugin\GrapesJsBuilderBundle\Helper\FileManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,7 +43,7 @@ final class FileManagerController extends AjaxController
     }
 
     /**
-     * @deprecated since Mautic 5.2, to be removed in 6.0. Use FileManagerController::getMediaAction instead
+     * @deprecated since MailVotech 5.2, to be removed in 6.0. Use FileManagerController::getMediaAction instead
      */
     public function assetsAction(FileManager $fileManager): JsonResponse
     {

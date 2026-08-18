@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CampaignBundle\EventCollector\Builder;
+namespace MailVotech\CampaignBundle\EventCollector\Builder;
 
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ConditionAccessor;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\DecisionAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ConditionAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\DecisionAccessor;
 
 final class EventBuilder
 {

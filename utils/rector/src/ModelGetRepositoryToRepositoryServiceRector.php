@@ -31,7 +31,7 @@ use Rector\Rector\AbstractRector;
 /**
  * Replaces the argument-less $model->getRepository() service locator with the concrete repository service.
  *
- * Mautic models expose getRepository() returning their custom repository, e.g.
+ * MailVotech models expose getRepository() returning their custom repository, e.g.
  * FormModel::getRepository(): FormRepository { return $this->formRepository; }. Going through the model
  * just to reach its repository hides the repository dependency and couples the caller to the whole model.
  *
@@ -56,7 +56,7 @@ final class ModelGetRepositoryToRepositoryServiceRector extends AbstractRector
      */
     private const TEST_CASE = 'PHPUnit\Framework\TestCase';
 
-    private const ABSTRACT_COMMON_MODEL = 'Mautic\CoreBundle\Model\AbstractCommonModel';
+    private const ABSTRACT_COMMON_MODEL = 'MailVotech\CoreBundle\Model\AbstractCommonModel';
 
     /**
      * Generic repository bases - a model that does not override getRepository() resolves to one of these,
@@ -64,7 +64,7 @@ final class ModelGetRepositoryToRepositoryServiceRector extends AbstractRector
      */
     private const GENERIC_REPOSITORIES = [
         'Doctrine\ORM\EntityRepository',
-        'Mautic\CoreBundle\Entity\CommonRepository',
+        'MailVotech\CoreBundle\Entity\CommonRepository',
     ];
 
     public function __construct(
@@ -203,7 +203,7 @@ final class ModelGetRepositoryToRepositoryServiceRector extends AbstractRector
 
     /**
      * A class without its own constructor that inherits one cannot gain a promoted property without
-     * declaring a full constructor override that forwards every parent argument. Mautic injects into
+     * declaring a full constructor override that forwards every parent argument. MailVotech injects into
      * such classes with an autowire method instead.
      */
     private function shouldUseAutowireMethod(Class_ $class): bool
@@ -304,7 +304,7 @@ final class ModelGetRepositoryToRepositoryServiceRector extends AbstractRector
     }
 
     /**
-     * Mautic\FormBundle\Entity\FormRepository -> formRepository.
+     * MailVotech\FormBundle\Entity\FormRepository -> formRepository.
      */
     private function resolvePropertyName(string $repositoryClass): string
     {

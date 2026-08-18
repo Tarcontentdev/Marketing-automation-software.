@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess;
+namespace MailVotech\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess;
 
-use Mautic\IntegrationsBundle\Auth\Provider\AuthConfigInterface;
-use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenFactoryInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthConfigInterface;
+use MailVotech\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenFactoryInterface;
 
 interface ConfigTokenFactoryInterface extends AuthConfigInterface
 {

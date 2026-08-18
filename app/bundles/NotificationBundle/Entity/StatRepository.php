@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\NotificationBundle\Entity;
+namespace MailVotech\NotificationBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 
 /**
  * @extends CommonRepository<Stat>
@@ -41,7 +41,7 @@ final class StatRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('s.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'push_notification_stats', 's')
+            ->from(MAILVOTECH_TABLE_PREFIX.'push_notification_stats', 's')
             ->where('s.notification_id = :notification')
             ->setParameter('notification', $notificationId);
 
@@ -74,7 +74,7 @@ final class StatRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('count(s.id) as sent_count')
-            ->from(MAUTIC_TABLE_PREFIX.'push_notification_stats', 's');
+            ->from(MAILVOTECH_TABLE_PREFIX.'push_notification_stats', 's');
 
         if ($notificationIds) {
             if (!is_array($notificationIds)) {
@@ -109,7 +109,7 @@ final class StatRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('count(s.id) as read_count')
-            ->from(MAUTIC_TABLE_PREFIX.'push_notification_stats', 's');
+            ->from(MAILVOTECH_TABLE_PREFIX.'push_notification_stats', 's');
 
         if ($notificationIds) {
             if (!is_array($notificationIds)) {
@@ -158,7 +158,7 @@ final class StatRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('s.notification_id, count(n.id) as sentcount')
-            ->from(MAUTIC_TABLE_PREFIX.'push_notification_stats', 's')
+            ->from(MAILVOTECH_TABLE_PREFIX.'push_notification_stats', 's')
             ->where(
                 $q->expr()->in('s.notification_id', ':ids')
             )
@@ -191,7 +191,7 @@ final class StatRepository extends CommonRepository
     public function updateLead($fromLeadId, $toLeadId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'push_notification_stats')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'push_notification_stats')
             ->set('notification_id', (int) $toLeadId)
             ->where('notification_id = '.(int) $fromLeadId)
             ->executeStatement();
@@ -199,7 +199,7 @@ final class StatRepository extends CommonRepository
 
     public function deleteStat($id): void
     {
-        $this->_em->getConnection()->delete(MAUTIC_TABLE_PREFIX.'push_notification_stats', ['id' => (int) $id]);
+        $this->_em->getConnection()->delete(MAILVOTECH_TABLE_PREFIX.'push_notification_stats', ['id' => (int) $id]);
     }
 
     public function getTableAlias(): string

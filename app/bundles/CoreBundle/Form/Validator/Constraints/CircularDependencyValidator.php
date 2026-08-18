@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\Validator\Constraints;
+namespace MailVotech\CoreBundle\Form\Validator\Constraints;
 
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

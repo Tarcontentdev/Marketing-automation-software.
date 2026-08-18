@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\EventListener\CampaignSubscriber;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\DoNotContact;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Provider\FilterOperatorProvider;
-use Mautic\PointBundle\Model\PointGroupModel;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\EventListener\CampaignSubscriber;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\DoNotContact;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Provider\FilterOperatorProvider;
+use MailVotech\PointBundle\Model\PointGroupModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -38,8 +38,8 @@ final class CampaignSubscriberTest extends \PHPUnit\Framework\TestCase
      */
     private array $configFrom = [
         'id'          => 111,
-        'companyname' => 'Mautic',
-        'companemail' => 'mautic@mautic.com',
+        'companyname' => 'MailVotech',
+        'companemail' => 'mailvotech@mailvotech.com',
     ];
 
     /**
@@ -47,8 +47,8 @@ final class CampaignSubscriberTest extends \PHPUnit\Framework\TestCase
      */
     private array $configTo = [
         'id'          => '112',
-        'companyname' => 'Mautic2',
-        'companemail' => 'mautic@mauticsecond.com',
+        'companyname' => 'MailVotech2',
+        'companemail' => 'mailvotech@mailvotechsecond.com',
     ];
 
     /**
@@ -492,7 +492,7 @@ final class CampaignSubscriberTest extends \PHPUnit\Framework\TestCase
         ];
         $event         = (new Event())->setProperties($properties);
         $event->setType('lead.updatelead');
-        $lead          = (new Lead())->setEmail('tester@mautic.org');
+        $lead          = (new Lead())->setEmail('tester@mailvotech.org');
 
         $leadEventLog = $this->createMock(LeadEventLog::class);
         $leadEventLog

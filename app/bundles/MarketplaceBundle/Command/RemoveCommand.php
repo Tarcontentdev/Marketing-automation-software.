@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\MarketplaceBundle\Command;
+namespace MailVotech\MarketplaceBundle\Command;
 
-use Mautic\CoreBundle\Helper\ComposerHelper;
+use MailVotech\CoreBundle\Helper\ComposerHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 final class RemoveCommand extends Command
 {
-    public const NAME = 'mautic:marketplace:remove';
+    public const NAME = 'mailvotech:marketplace:remove';
 
     public function __construct(
         private readonly ComposerHelper $composer,
@@ -27,7 +27,7 @@ final class RemoveCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument('package', InputArgument::REQUIRED, 'The Packagist package of the plugin to remove (e.g. mautic/example-plugin)');
+        $this->addArgument('package', InputArgument::REQUIRED, 'The Packagist package of the plugin to remove (e.g. mailvotech/example-plugin)');
 
         parent::configure();
     }
@@ -38,8 +38,8 @@ final class RemoveCommand extends Command
         $packageVendorAndName = $input->getArgument('package');
 
         // Just checking the package type so that the user doesn't accidentially removes a core package
-        if (!in_array($packageVendorAndName, $this->composer->getMauticPluginPackages())) {
-            $output->writeln('This package cannot be removed, it must be of type mautic-plugin');
+        if (!in_array($packageVendorAndName, $this->composer->getMailVotechPluginPackages())) {
+            $output->writeln('This package cannot be removed, it must be of type mailvotech-plugin');
 
             return Command::FAILURE;
         }

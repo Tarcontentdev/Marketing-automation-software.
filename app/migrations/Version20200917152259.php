@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Types\TextType;
 use Doctrine\Migrations\Exception\SkipMigration;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
 
-final class Version20200917152259 extends AbstractMauticMigration
+final class Version20200917152259 extends AbstractMailVotechMigration
 {
     private string $table = 'lead_fields';
 

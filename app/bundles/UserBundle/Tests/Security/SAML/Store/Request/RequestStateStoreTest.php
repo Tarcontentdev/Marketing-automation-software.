@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Security\SAML\Store\Request;
+namespace MailVotech\UserBundle\Tests\Security\SAML\Store\Request;
 
 use LightSaml\State\Request\RequestState;
-use Mautic\CacheBundle\Cache\CacheProviderInterface;
-use Mautic\UserBundle\Security\SAML\Store\Request\RequestStateStore;
+use MailVotech\CacheBundle\Cache\CacheProviderInterface;
+use MailVotech\UserBundle\Security\SAML\Store\Request\RequestStateStore;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\CacheItem;

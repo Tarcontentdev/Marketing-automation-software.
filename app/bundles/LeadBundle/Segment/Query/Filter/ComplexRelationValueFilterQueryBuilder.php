@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Query\Filter;
+namespace MailVotech\LeadBundle\Segment\Query\Filter;
 
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\OperatorOptions;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
 
 /**
  * Used to connect foreign tables using third table.
@@ -16,13 +16,13 @@ use Mautic\LeadBundle\Segment\Query\QueryBuilder;
  *  $filter->getRelationJoinTable()
  *  $filter->getRelationJoinTableField()
  *
- * @see \Mautic\LeadBundle\Segment\Decorator\CompanyDecorator
+ * @see \MailVotech\LeadBundle\Segment\Decorator\CompanyDecorator
  */
 final class ComplexRelationValueFilterQueryBuilder extends BaseFilterQueryBuilder
 {
     public static function getServiceId(): string
     {
-        return 'mautic.lead.query.builder.complex_relation.value';
+        return 'mailvotech.lead.query.builder.complex_relation.value';
     }
 
     /**
@@ -30,7 +30,7 @@ final class ComplexRelationValueFilterQueryBuilder extends BaseFilterQueryBuilde
      */
     public function applyQuery(QueryBuilder $queryBuilder, ContactSegmentFilter $filter): QueryBuilder
     {
-        $leadsTableAlias = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.'leads');
+        $leadsTableAlias = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.'leads');
         $filterOperator  = $filter->getOperator();
 
         $filterParameters = $filter->getParameterValue();
@@ -95,7 +95,7 @@ final class ComplexRelationValueFilterQueryBuilder extends BaseFilterQueryBuilde
             case 'in':
             case 'between':   // Used only for date with week combination (EQUAL [this week, next week, last week])
             case 'regexp':
-            case 'notRegexp': // Different behaviour from 'notLike' because of BC (do not use condition for NULL). Could be changed in Mautic 3.
+            case 'notRegexp': // Different behaviour from 'notLike' because of BC (do not use condition for NULL). Could be changed in MailVotech 3.
             case 'inLast':
             case 'inNext':
                 $expression = $queryBuilder->expr()->{$filterOperator}(

@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\StageBundle\Form\Type;
+namespace MailVotech\StageBundle\Form\Type;
 
-use Mautic\CategoryBundle\Form\Type\CategoryListType;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\PublishDownDateType;
-use Mautic\CoreBundle\Form\Type\PublishUpDateType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\ProjectBundle\Form\Type\ProjectType;
-use Mautic\StageBundle\Entity\Stage;
+use MailVotech\CategoryBundle\Form\Type\CategoryListType;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\PublishDownDateType;
+use MailVotech\CoreBundle\Form\Type\PublishUpDateType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\ProjectBundle\Form\Type\ProjectType;
+use MailVotech\StageBundle\Entity\Stage;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -35,24 +35,24 @@ final class StageType extends AbstractType
         $builder->addEventSubscriber(new FormExitSubscriber('stage', $options));
 
         $builder->add('description', TextareaType::class, [
-            'label'      => 'mautic.core.description',
+            'label'      => 'mailvotech.core.description',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => ['class' => 'form-control editor'],
             'required'   => false,
         ]);
         $builder->add('name', TextType::class, [
-            'label'      => 'mautic.core.name',
+            'label'      => 'mailvotech.core.name',
             'label_attr' => [
                 'class' => 'control-label',
             ], 'attr' => [
                 'class' => 'form-control',
             ], ]);
         $builder->add('weight', NumberType::class, [
-            'label'      => 'mautic.stage.action.weight',
+            'label'      => 'mailvotech.stage.action.weight',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => [
                 'class'   => 'form-control',
-                'tooltip' => 'mautic.stage.action.weight.help',
+                'tooltip' => 'mailvotech.stage.action.weight.help',
             ],
             'scale'    => 0,
             'required' => false,

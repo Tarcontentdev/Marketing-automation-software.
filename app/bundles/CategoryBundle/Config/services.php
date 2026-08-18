@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Mautic\CoreBundle\DependencyInjection\MauticCoreExtension;
+use MailVotech\CoreBundle\DependencyInjection\MailVotechCoreExtension;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return function (ContainerConfigurator $configurator): void {
@@ -15,11 +15,11 @@ return function (ContainerConfigurator $configurator): void {
     $excludes = [
     ];
 
-    $services->load('Mautic\\CategoryBundle\\', '../')
-        ->exclude('../{'.implode(',', array_merge(MauticCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
+    $services->load('MailVotech\\CategoryBundle\\', '../')
+        ->exclude('../{'.implode(',', array_merge(MailVotechCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
 
-    $services->load('Mautic\\CategoryBundle\\Entity\\', '../Entity/*Repository.php');
-    $services->alias('mautic.category.repository.category', Mautic\CategoryBundle\Entity\CategoryRepository::class);
-    $services->alias('mautic.category.model.category', Mautic\CategoryBundle\Model\CategoryModel::class);
-    $services->alias('mautic.category.model.contact.action', Mautic\CategoryBundle\Model\ContactActionModel::class);
+    $services->load('MailVotech\\CategoryBundle\\Entity\\', '../Entity/*Repository.php');
+    $services->alias('mailvotech.category.repository.category', MailVotech\CategoryBundle\Entity\CategoryRepository::class);
+    $services->alias('mailvotech.category.model.category', MailVotech\CategoryBundle\Model\CategoryModel::class);
+    $services->alias('mailvotech.category.model.contact.action', MailVotech\CategoryBundle\Model\ContactActionModel::class);
 };

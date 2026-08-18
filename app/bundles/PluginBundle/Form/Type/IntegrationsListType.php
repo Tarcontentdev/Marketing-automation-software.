@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\PluginBundle\Form\Type;
+namespace MailVotech\PluginBundle\Form\Type;
 
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -46,16 +46,16 @@ final class IntegrationsListType extends AbstractType
                 'expanded'   => false,
                 'label_attr' => ['class' => 'control-label'],
                 'multiple'   => false,
-                'label'      => 'mautic.integration.integration',
+                'label'      => 'mailvotech.integration.integration',
                 'attr'       => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.integration.integration.tooltip',
-                    'onchange' => 'Mautic.getIntegrationConfig(this);',
+                    'tooltip'  => 'mailvotech.integration.integration.tooltip',
+                    'onchange' => 'MailVotech.getIntegrationConfig(this);',
                 ],
                 'required'    => true,
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]

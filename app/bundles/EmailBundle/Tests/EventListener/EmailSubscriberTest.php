@@ -2,34 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\EmailBundle\Entity\CopyRepository;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\EmailBundle\Event\QueueEmailEvent;
-use Mautic\EmailBundle\EventListener\EmailSubscriber;
-use Mautic\EmailBundle\Helper\FromEmailHelper;
-use Mautic\EmailBundle\Helper\MailHashHelper;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\Helper\SMimeHelper;
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
-use Mautic\EmailBundle\Model\EmailDraftModel;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\EmailBundle\Model\EmailStatModel;
-use Mautic\EmailBundle\MonitoredEmail\Mailbox;
-use Mautic\EmailBundle\Tests\Helper\Transport\BatchTransport;
-use Mautic\PageBundle\Model\RedirectModel;
-use Mautic\PageBundle\Model\TrackableModel;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\EmailBundle\Entity\CopyRepository;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\Event\QueueEmailEvent;
+use MailVotech\EmailBundle\EventListener\EmailSubscriber;
+use MailVotech\EmailBundle\Helper\FromEmailHelper;
+use MailVotech\EmailBundle\Helper\MailHashHelper;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\Helper\SMimeHelper;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
+use MailVotech\EmailBundle\Model\EmailDraftModel;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\EmailBundle\Model\EmailStatModel;
+use MailVotech\EmailBundle\MonitoredEmail\Mailbox;
+use MailVotech\EmailBundle\Tests\Helper\Transport\BatchTransport;
+use MailVotech\PageBundle\Model\RedirectModel;
+use MailVotech\PageBundle\Model\TrackableModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -48,7 +48,7 @@ final class EmailSubscriberTest extends \PHPUnit\Framework\TestCase
     private MockObject $emailModel;
 
     /**
-     * @var MockObject&MauticMessage
+     * @var MockObject&MailVotechMessage
      */
     private MockObject $mockMessage;
 
@@ -58,7 +58,7 @@ final class EmailSubscriberTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
         $this->emailModel       = $this->createMock(EmailModel::class);
-        $this->mockMessage      = $this->createMock(MauticMessage::class);
+        $this->mockMessage      = $this->createMock(MailVotechMessage::class);
         $this->subscriber       = new EmailSubscriber($this->createStub(IpLookupHelper::class), $this->createStub(AuditLogModel::class), $this->emailModel, $this->createStub(TranslatorInterface::class), $this->createStub(EntityManagerInterface::class), $this->createStub(EmailDraftModel::class), $this->createStub(EmailRepository::class));
     }
 
@@ -76,7 +76,7 @@ final class EmailSubscriberTest extends \PHPUnit\Framework\TestCase
 
     public function testOnEmailResendWithNoStat(): void
     {
-        $message = new class() extends MauticMessage {
+        $message = new class() extends MailVotechMessage {
             public ?string $leadIdHash = 'some-hash';
         };
 
@@ -98,7 +98,7 @@ final class EmailSubscriberTest extends \PHPUnit\Framework\TestCase
 
     public function testOnEmailResendWithNoRetry(): void
     {
-        $message = new class() extends MauticMessage {
+        $message = new class() extends MailVotechMessage {
             public ?string $leadIdHash = 'some-hash';
         };
 
@@ -165,7 +165,7 @@ final class EmailSubscriberTest extends \PHPUnit\Framework\TestCase
 
     public function testOnEmailResendWith4Retry(): void
     {
-        $message = new class() extends MauticMessage {
+        $message = new class() extends MailVotechMessage {
             public ?string $leadIdHash = 'some-hash';
         };
 

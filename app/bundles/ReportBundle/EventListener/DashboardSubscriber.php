@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\ReportBundle\EventListener;
+namespace MailVotech\ReportBundle\EventListener;
 
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\DashboardBundle\Entity\Widget;
-use Mautic\DashboardBundle\Event\WidgetDetailEvent;
-use Mautic\DashboardBundle\EventListener\DashboardSubscriber as MainDashboardSubscriber;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Form\Type\ReportWidgetType;
-use Mautic\ReportBundle\Model\ReportModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\DashboardBundle\Entity\Widget;
+use MailVotech\DashboardBundle\Event\WidgetDetailEvent;
+use MailVotech\DashboardBundle\EventListener\DashboardSubscriber as MainDashboardSubscriber;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Form\Type\ReportWidgetType;
+use MailVotech\ReportBundle\Model\ReportModel;
 
 final class DashboardSubscriber extends MainDashboardSubscriber
 {
@@ -77,7 +77,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
                     }
                 }
             }
-            $event->setTemplate('@MauticReport/SubscribedEvents/Dashboard/widget.html.twig');
+            $event->setTemplate('@MailVotechReport/SubscribedEvents/Dashboard/widget.html.twig');
             $event->stopPropagation();
         }
     }

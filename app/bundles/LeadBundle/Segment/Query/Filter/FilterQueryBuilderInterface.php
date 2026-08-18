@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Segment\Query\Filter;
+namespace MailVotech\LeadBundle\Segment\Query\Filter;
 
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
 
 interface FilterQueryBuilderInterface
 {

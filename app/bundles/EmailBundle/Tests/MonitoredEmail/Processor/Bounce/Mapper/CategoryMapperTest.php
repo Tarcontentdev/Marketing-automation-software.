@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\MonitoredEmail\Processor\Bounce\Mapper;
+namespace MailVotech\EmailBundle\Tests\MonitoredEmail\Processor\Bounce\Mapper;
 
-use Mautic\EmailBundle\MonitoredEmail\Exception\CategoryNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\Definition\Category as Definition;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\Mapper\CategoryMapper;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\CategoryNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\Definition\Category as Definition;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\Mapper\CategoryMapper;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\DynamicContentBundle\DynamicContentEvents;
-use Mautic\DynamicContentBundle\Event\ContactFiltersEvaluateEvent;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\DynamicContentBundle\DynamicContentEvents;
+use MailVotech\DynamicContentBundle\Event\ContactFiltersEvaluateEvent;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class DynamicContentSubscriber implements EventSubscriberInterface

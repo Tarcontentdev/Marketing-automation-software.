@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\InstallBundle\DependencyInjection\Compiler;
+namespace MailVotech\InstallBundle\DependencyInjection\Compiler;
 
-use Mautic\InstallBundle\Command\InstallCommand;
+use MailVotech\InstallBundle\Command\InstallCommand;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,15 +22,15 @@ final class InstallCommandPass implements CompilerPassInterface
         $input       = new ArgvInput($args);
         $tablePrefix = $input->hasOption('db_table_prefix')
             ? $input->getOption('db_table_prefix')
-            : MAUTIC_TABLE_PREFIX;
+            : MAILVOTECH_TABLE_PREFIX;
 
         if (!$tablePrefix) {
             return;
         }
 
-        $container->setParameter('mautic.db_table_prefix', $tablePrefix);
-        $container->getDefinition('mautic.tblprefix_subscriber')->setArgument('$tablePrefix', $tablePrefix);
-        $container->getDefinition('mautic.schema.helper.column')->setArgument('$prefix', $tablePrefix);
-        $container->getDefinition('mautic.schema.helper.index')->setArgument('$prefix', $tablePrefix);
+        $container->setParameter('mailvotech.db_table_prefix', $tablePrefix);
+        $container->getDefinition('mailvotech.tblprefix_subscriber')->setArgument('$tablePrefix', $tablePrefix);
+        $container->getDefinition('mailvotech.schema.helper.column')->setArgument('$prefix', $tablePrefix);
+        $container->getDefinition('mailvotech.schema.helper.index')->setArgument('$prefix', $tablePrefix);
     }
 }

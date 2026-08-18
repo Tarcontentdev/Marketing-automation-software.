@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\UserBundle\Security\Authentication\Token;
+namespace MailVotech\UserBundle\Security\Authentication\Token;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;

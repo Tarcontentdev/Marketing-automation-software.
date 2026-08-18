@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Factory;
+namespace MailVotech\CoreBundle\Factory;
 
 use Http\Factory\Guzzle\RequestFactory;
 use Http\Factory\Guzzle\StreamFactory;
 use Http\Factory\Guzzle\UriFactory;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\Transifex\Config;
-use Mautic\Transifex\Exception\InvalidConfigurationException;
-use Mautic\Transifex\Transifex;
-use Mautic\Transifex\TransifexInterface;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\Transifex\Config;
+use MailVotech\Transifex\Exception\InvalidConfigurationException;
+use MailVotech\Transifex\Transifex;
+use MailVotech\Transifex\TransifexInterface;
 use Psr\Http\Client\ClientInterface;
 
 final class TransifexFactory
@@ -43,8 +43,8 @@ final class TransifexFactory
     {
         $config = new Config();
         $config->setApiToken($apiToken);
-        $config->setOrganization('mautic');
-        $config->setProject('mautic');
+        $config->setOrganization('mailvotech');
+        $config->setProject('mailvotech');
 
         return new Transifex($this->client, new RequestFactory(), new StreamFactory(), new UriFactory(), $config);
     }

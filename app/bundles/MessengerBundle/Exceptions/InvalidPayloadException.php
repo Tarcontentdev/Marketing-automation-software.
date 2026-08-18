@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\Exceptions;
+namespace MailVotech\MessengerBundle\Exceptions;
 
 use Symfony\Component\Messenger\Exception\UnrecoverableExceptionInterface;
 
-final class InvalidPayloadException extends MauticMessengerException implements UnrecoverableExceptionInterface
+final class InvalidPayloadException extends MailVotechMessengerException implements UnrecoverableExceptionInterface
 {
     /**
      * @param array<mixed> $payload

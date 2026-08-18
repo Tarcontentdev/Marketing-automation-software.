@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Collector;
+namespace MailVotech\FormBundle\Collector;
 
-use Mautic\FormBundle\Collection\ObjectCollection;
-use Mautic\FormBundle\Event\ObjectCollectEvent;
-use Mautic\FormBundle\FormEvents;
+use MailVotech\FormBundle\Collection\ObjectCollection;
+use MailVotech\FormBundle\Event\ObjectCollectEvent;
+use MailVotech\FormBundle\FormEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class ObjectCollector implements ObjectCollectorInterface

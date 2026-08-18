@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\AssetBundle\EventListener;
+namespace MailVotech\AssetBundle\EventListener;
 
-use Mautic\AssetBundle\Entity\DownloadRepository;
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\LeadBundle\Event\LeadChangeEvent;
-use Mautic\LeadBundle\Event\LeadMergeEvent;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\AssetBundle\Entity\DownloadRepository;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\LeadBundle\Event\LeadChangeEvent;
+use MailVotech\LeadBundle\Event\LeadMergeEvent;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -38,7 +38,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
     {
         // Set available event types
         $eventTypeKey  = 'asset.download';
-        $eventTypeName = $this->translator->trans('mautic.asset.event.download');
+        $eventTypeName = $this->translator->trans('mailvotech.asset.event.download');
         $event->addEventType($eventTypeKey, $eventTypeName);
         $event->addSerializerGroup('assetList');
 
@@ -61,9 +61,9 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                 $eventLabel = $hasAsset
                     ? [
                         'label' => $download['title'],
-                        'href'  => $this->router->generate('mautic_asset_action', ['objectAction' => 'view', 'objectId' => $download['asset_id']]),
+                        'href'  => $this->router->generate('mailvotech_asset_action', ['objectAction' => 'view', 'objectId' => $download['asset_id']]),
                     ]
-                    : (string) ($download['title'] ?? $this->translator->trans('mautic.asset.asset.deleted'));
+                    : (string) ($download['title'] ?? $this->translator->trans('mailvotech.asset.asset.deleted'));
 
                 $event->addEvent(
                     [
@@ -77,7 +77,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                         'eventType'       => $eventTypeName,
                         'timestamp'       => $download['dateDownload'],
                         'icon'            => 'ri-download-line',
-                        'contentTemplate' => '@MauticAsset/SubscribedEvents/Timeline/index.html.twig',
+                        'contentTemplate' => '@MailVotechAsset/SubscribedEvents/Timeline/index.html.twig',
                         'contactId'       => $download['lead_id'],
                     ]
                 );

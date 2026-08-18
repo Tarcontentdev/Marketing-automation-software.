@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Integration;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Integration;
 
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Helper\IntegrationsHelper;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Helper\IntegrationsHelper;
+use MailVotech\PluginBundle\Entity\Integration;
 
 class Config
 {

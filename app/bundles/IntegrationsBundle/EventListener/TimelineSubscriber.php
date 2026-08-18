@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\EventListener;
+namespace MailVotech\IntegrationsBundle\EventListener;
 
-use Mautic\LeadBundle\Entity\LeadEventLogRepository;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Entity\LeadEventLogRepository;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -28,7 +28,7 @@ final readonly class TimelineSubscriber implements EventSubscriberInterface
     public function onTimelineGenerate(LeadTimelineEvent $event): void
     {
         $eventType     = 'integration_sync_issues';
-        $eventTypeName = $this->translator->trans('mautic.integration.sync.timeline_notices');
+        $eventTypeName = $this->translator->trans('mailvotech.integration.sync.timeline_notices');
         $event->addEventType($eventType, $eventTypeName);
 
         if (!$event->isApplicable($eventType)) {
@@ -66,7 +66,7 @@ final readonly class TimelineSubscriber implements EventSubscriberInterface
             'eventId'         => $eventType.$log['id'],
             'eventType'       => $eventTypeName,
             'eventLabel'      => $this->translator->trans(
-                'mautic.integration.sync.user_notification.header',
+                'mailvotech.integration.sync.user_notification.header',
                 [
                     '%integration%' => $properties['integration'],
                     '%object%'      => $properties['object'],

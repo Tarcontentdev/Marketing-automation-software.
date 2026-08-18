@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\CampaignBundle\Executioner\RealTimeExecutioner;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\PageBundle\Event as Events;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CampaignBundle\Executioner\RealTimeExecutioner;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\PageBundle\Event as Events;
+use MailVotech\PageBundle\PageEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 

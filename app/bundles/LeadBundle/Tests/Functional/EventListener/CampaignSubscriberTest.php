@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\EventListener;
+namespace MailVotech\LeadBundle\Tests\Functional\EventListener;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDevice;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\EventListener\CampaignSubscriber;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDevice;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\EventListener\CampaignSubscriber;
+use MailVotech\LeadBundle\Model\FieldModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class CampaignSubscriberTest extends MauticMysqlTestCase
+final class CampaignSubscriberTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Model\AbTest;
+namespace MailVotech\CoreBundle\Model\AbTest;
 
 use Doctrine\Common\Collections\Collection;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\VariantEntityInterface;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\VariantEntityInterface;
 
 class VariantConverterService
 {

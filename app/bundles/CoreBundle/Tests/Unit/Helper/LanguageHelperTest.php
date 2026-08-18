@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\RequestOptions;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
 use Monolog\Logger;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -152,7 +152,7 @@ final class LanguageHelperTest extends TestCase
         @unlink($langFile);
 
         $this->assertTrue($error['error']);
-        $this->assertSame('mautic.core.language.helper.invalid.language', $error['message']);
+        $this->assertSame('mailvotech.core.language.helper.invalid.language', $error['message']);
         $this->assertSame('', $error['vars']['%language%']);
     }
 

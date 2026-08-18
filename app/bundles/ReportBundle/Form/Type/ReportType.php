@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\ReportBundle\Form\Type;
+namespace MailVotech\ReportBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Model\ReportModel;
-use Mautic\ReportBundle\Scheduler\Enum\SchedulerEnum;
-use Mautic\UserBundle\Form\Type\UserListType;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Model\ReportModel;
+use MailVotech\ReportBundle\Scheduler\Enum\SchedulerEnum;
+use MailVotech\UserBundle\Form\Type\UserListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -42,7 +42,7 @@ final class ReportType extends AbstractType
                 'name',
                 TextType::class,
                 [
-                    'label'      => 'mautic.core.name',
+                    'label'      => 'mailvotech.core.name',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => ['class' => 'form-control'],
                     'required'   => true,
@@ -53,7 +53,7 @@ final class ReportType extends AbstractType
                 'description',
                 TextareaType::class,
                 [
-                    'label'      => 'mautic.core.description',
+                    'label'      => 'mailvotech.core.description',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => ['class' => 'form-control editor'],
                     'required'   => false,
@@ -61,7 +61,7 @@ final class ReportType extends AbstractType
             );
 
             $builder->add('isPublished', YesNoButtonGroupType::class, [
-                'label' => 'mautic.core.form.available',
+                'label' => 'mailvotech.core.form.available',
             ]);
 
             $data = $options['data']->getSystem();
@@ -69,12 +69,12 @@ final class ReportType extends AbstractType
                 'system',
                 YesNoButtonGroupType::class,
                 [
-                    'label'      => 'mautic.report.report.form.issystem',
+                    'label'      => 'mailvotech.report.report.form.issystem',
                     'data'       => $data,
                     'attr'       => [
-                        'tooltip' => 'mautic.report.report.form.issystem.tooltip',
+                        'tooltip' => 'mailvotech.report.report.form.issystem.tooltip',
                     ],
-                    'no_label'   => 'mautic.lead.list.form.isglobal.no',
+                    'no_label'   => 'mailvotech.lead.list.form.isglobal.no',
                 ]
             );
 
@@ -82,7 +82,7 @@ final class ReportType extends AbstractType
                 'createdBy',
                 UserListType::class,
                 [
-                    'label'      => 'mautic.report.report.form.owner',
+                    'label'      => 'mailvotech.report.report.form.owner',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class' => 'form-control',
@@ -99,7 +99,7 @@ final class ReportType extends AbstractType
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.email.utm_tags.tooltip',
+                        'tooltip' => 'mailvotech.email.utm_tags.tooltip',
                     ],
                     'data'     => $options['data']->getSettings(),
                     'required' => false,
@@ -117,14 +117,14 @@ final class ReportType extends AbstractType
                     'choices'           => $tables,
                     'expanded'          => false,
                     'multiple'          => false,
-                    'label'             => 'mautic.report.report.form.source',
+                    'label'             => 'mailvotech.report.report.form.source',
                     'label_attr'        => ['class' => 'control-label'],
                     'placeholder'       => false,
                     'required'          => false,
                     'attr'              => [
                         'class'    => 'form-control',
-                        'tooltip'  => 'mautic.report.report.form.source.help',
-                        'onchange' => 'Mautic.updateReportSourceData(this.value)',
+                        'tooltip'  => 'mailvotech.report.report.form.source.help',
+                        'onchange' => 'MailVotech.updateReportSourceData(this.value)',
                     ],
                 ]
             );
@@ -182,7 +182,7 @@ final class ReportType extends AbstractType
                         'attr'              => [
                             'class'         => 'form-control multiselect',
                             'data-sortable' => 'true',
-                            'onchange'      => 'Mautic.checkSelectedGroupBy()',
+                            'onchange'      => 'MailVotech.checkSelectedGroupBy()',
                         ],
                     ]
                 );
@@ -259,9 +259,9 @@ final class ReportType extends AbstractType
                         ],
                         'data'    => 1,
                         'choices' => [
-                            'mautic.core.form.no'      => 0,
-                            'mautic.core.form.yes'     => 1,
-                            'mautic.core.filter.clear' => 2,
+                            'mailvotech.core.form.no'      => 0,
+                            'mailvotech.core.form.yes'     => 1,
+                            'mailvotech.core.filter.clear' => 2,
                         ],
                     ]
                 );
@@ -279,7 +279,7 @@ final class ReportType extends AbstractType
                     ChoiceType::class,
                     [
                         'choices'           => array_flip($graphList->choices),
-                        'label'             => 'mautic.report.report.form.graphs',
+                        'label'             => 'mailvotech.report.report.form.graphs',
                         'label_attr'        => ['class' => 'control-label'],
                         'required'          => false,
                         'multiple'          => true,
@@ -298,7 +298,7 @@ final class ReportType extends AbstractType
                 'isScheduled',
                 YesNoButtonGroupType::class,
                 [
-                    'label'      => 'mautic.report.schedule.isScheduled',
+                    'label'      => 'mailvotech.report.schedule.isScheduled',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'                => 'form-control',
@@ -312,13 +312,13 @@ final class ReportType extends AbstractType
                 'toAddress',
                 TextType::class,
                 [
-                    'label'      => 'mautic.report.schedule.toAddress.label',
+                    'label'      => 'mailvotech.report.schedule.toAddress.label',
                     'label_attr' => ['class' => 'control-label'],
                     'required'   => false,
                     'attr'       => [
                         'class'    => 'form-control',
                         'preaddon' => 'ri-mail-line',
-                        'tooltip'  => 'mautic.report.schedule.toAddress.tooltip',
+                        'tooltip'  => 'mailvotech.report.schedule.toAddress.tooltip',
                     ],
                 ]
             );
@@ -330,7 +330,7 @@ final class ReportType extends AbstractType
                     'choices'           => SchedulerEnum::getUnitEnumForSelect(),
                     'expanded'          => false,
                     'multiple'          => false,
-                    'label'             => 'mautic.report.schedule.every',
+                    'label'             => 'mailvotech.report.schedule.every',
                     'label_attr'        => ['class' => 'control-label'],
                     'placeholder'       => false,
                     'required'          => false,
@@ -348,7 +348,7 @@ final class ReportType extends AbstractType
                     'choices'           => SchedulerEnum::getDayEnumForSelect(),
                     'expanded'          => false,
                     'multiple'          => false,
-                    'label'             => 'mautic.report.schedule.day',
+                    'label'             => 'mailvotech.report.schedule.day',
                     'label_attr'        => ['class' => 'control-label'],
                     'placeholder'       => false,
                     'required'          => false,
@@ -366,7 +366,7 @@ final class ReportType extends AbstractType
                     'choices'           => SchedulerEnum::getMonthFrequencyForSelect(),
                     'expanded'          => false,
                     'multiple'          => false,
-                    'label'             => 'mautic.report.schedule.month_frequency',
+                    'label'             => 'mailvotech.report.schedule.month_frequency',
                     'label_attr'        => ['class' => 'control-label'],
                     'placeholder'       => false,
                     'required'          => false,
@@ -442,7 +442,7 @@ final class ReportType extends AbstractType
         $list = [];
 
         foreach ($temp as $table) {
-            $list['mautic.report.group.'.$tables[$table]['group']][$tables[$table]['display_name']] = $table;
+            $list['mailvotech.report.group.'.$tables[$table]['group']][$tables[$table]['display_name']] = $table;
         }
 
         return $list;

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\ApplicationTester;
 use Symfony\Component\HttpFoundation\Response;
 
-final class Issue9488Test extends MauticMysqlTestCase
+final class Issue9488Test extends MailVotechMysqlTestCase
 {
     private LeadRepository $contactRepository;
 
@@ -66,7 +66,7 @@ final class Issue9488Test extends MauticMysqlTestCase
         // Execute the campaign.
         $exitCode = $applicationTester->run(
             [
-                'command'       => 'mautic:campaigns:trigger',
+                'command'       => 'mailvotech:campaigns:trigger',
                 '--campaign-id' => $campaign->getId(),
             ]
         );

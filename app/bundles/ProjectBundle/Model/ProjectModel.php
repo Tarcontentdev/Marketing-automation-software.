@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Model;
+namespace MailVotech\ProjectBundle\Model;
 
-use Mautic\CoreBundle\Model\AjaxLookupModelInterface;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\ProjectBundle\Entity\ProjectRepository;
-use Mautic\ProjectBundle\Service\ProjectEntityLoaderService;
+use MailVotech\CoreBundle\Model\AjaxLookupModelInterface;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\ProjectBundle\Entity\ProjectRepository;
+use MailVotech\ProjectBundle\Service\ProjectEntityLoaderService;
 use Symfony\Contracts\Service\Attribute\Required;
 
 final class ProjectModel extends FormModel implements AjaxLookupModelInterface

@@ -1,19 +1,19 @@
 <?php
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\IconEvent;
-use Mautic\CoreBundle\Event\MenuEvent;
-use Mautic\CoreBundle\Event\RouteEvent;
-use Mautic\CoreBundle\Helper\BundleHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Menu\MenuHelper;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
-use Mautic\UserBundle\Event\LoginEvent;
-use Mautic\UserBundle\UserEvents;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\IconEvent;
+use MailVotech\CoreBundle\Event\MenuEvent;
+use MailVotech\CoreBundle\Event\RouteEvent;
+use MailVotech\CoreBundle\Helper\BundleHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Menu\MenuHelper;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
+use MailVotech\UserBundle\Event\LoginEvent;
+use MailVotech\UserBundle\UserEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -52,7 +52,7 @@ final readonly class CoreSubscriber implements EventSubscriberInterface
      */
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event): void
     {
-        if (defined('MAUTIC_INSTALLER')) {
+        if (defined('MAILVOTECH_INSTALLER')) {
             return;
         }
 
@@ -62,7 +62,7 @@ final readonly class CoreSubscriber implements EventSubscriberInterface
             $user = $event->getAuthenticationToken()->getUser();
 
             // set a session var for filemanager to know someone is logged in
-            $session->set('mautic.user', $user->getId());
+            $session->set('mailvotech.user', $user->getId());
 
             // mark the user as last logged in
             $user = $this->userHelper->getUser();
@@ -90,14 +90,14 @@ final readonly class CoreSubscriber implements EventSubscriberInterface
                 $this->dispatcher->dispatch($loginEvent, UserEvents::USER_LOGIN);
             }
         } else {
-            $session->remove('mautic.user');
+            $session->remove('mailvotech.user');
         }
     }
 
     public function onBuildMenu(MenuEvent $event): void
     {
         $name    = $event->getType();
-        $bundles = $this->bundleHelper->getMauticBundles(true);
+        $bundles = $this->bundleHelper->getMailVotechBundles(true);
         foreach ($bundles as $bundle) {
             if (!empty($bundle['config']['menu'][$name])) {
                 $menu = $bundle['config']['menu'][$name];
@@ -114,7 +114,7 @@ final readonly class CoreSubscriber implements EventSubscriberInterface
     public function onBuildRoute(RouteEvent $event): void
     {
         $type       = $event->getType();
-        $bundles    = $this->bundleHelper->getMauticBundles(true);
+        $bundles    = $this->bundleHelper->getMailVotechBundles(true);
         $collection = $event->getCollection();
 
         foreach ($bundles as $bundle) {
@@ -180,7 +180,7 @@ final readonly class CoreSubscriber implements EventSubscriberInterface
                             }
                         }
 
-                        $routeName  = 'mautic_api_'.$details['name'].'_';
+                        $routeName  = 'mailvotech_api_'.$details['name'].'_';
                         $pathBase   = $details['path'];
                         $controller = $details['controller'];
                         foreach ($standards as $standardName => $standardDetails) {
@@ -210,10 +210,10 @@ final readonly class CoreSubscriber implements EventSubscriberInterface
     public function onFetchIcons(IconEvent $event): void
     {
         $session = $this->requestStack->getCurrentRequest()->getSession();
-        $icons   = $session->get('mautic.menu.icons', []);
+        $icons   = $session->get('mailvotech.menu.icons', []);
 
         if (empty($icons)) {
-            $bundles = $this->bundleHelper->getMauticBundles(true);
+            $bundles = $this->bundleHelper->getMailVotechBundles(true);
 
             foreach ($bundles as $bundle) {
                 if (!empty($bundle['config']['menu']['main'])) {
@@ -239,7 +239,7 @@ final readonly class CoreSubscriber implements EventSubscriberInterface
             unset($bundles);
 
             $icons = $event->getIcons();
-            $session->set('mautic.menu.icons', $icons);
+            $session->set('mailvotech.menu.icons', $icons);
         } else {
             $event->setIcons($icons);
         }

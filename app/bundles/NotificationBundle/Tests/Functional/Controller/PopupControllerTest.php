@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Tests\Functional\Controller;
+namespace MailVotech\NotificationBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class PopupControllerTest extends MauticMysqlTestCase
+final class PopupControllerTest extends MailVotechMysqlTestCase
 {
     /**
      * Smoke test to ensure the '/s/notifications' route loads.

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Notification\Handler;
+namespace MailVotech\IntegrationsBundle\Sync\Notification\Handler;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\NotificationDAO;
-use Mautic\IntegrationsBundle\Sync\Notification\Helper\CompanyHelper;
-use Mautic\IntegrationsBundle\Sync\Notification\Helper\UserNotificationHelper;
-use Mautic\IntegrationsBundle\Sync\Notification\Writer;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\NotificationDAO;
+use MailVotech\IntegrationsBundle\Sync\Notification\Helper\CompanyHelper;
+use MailVotech\IntegrationsBundle\Sync\Notification\Helper\UserNotificationHelper;
+use MailVotech\IntegrationsBundle\Sync\Notification\Writer;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
 
 final readonly class CompanyNotificationHandler implements HandlerInterface
 {
@@ -21,24 +21,24 @@ final readonly class CompanyNotificationHandler implements HandlerInterface
 
     public function getIntegration(): string
     {
-        return MauticSyncDataExchange::NAME;
+        return MailVotechSyncDataExchange::NAME;
     }
 
     public function getSupportedObject(): string
     {
-        return MauticSyncDataExchange::OBJECT_COMPANY;
+        return MailVotechSyncDataExchange::OBJECT_COMPANY;
     }
 
     /**
      * @throws \Doctrine\ORM\ORMException
-     * @throws \Mautic\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException
+     * @throws \MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException
      */
     public function writeEntry(NotificationDAO $notificationDAO, string $integrationDisplayName, string $objectDisplayName): void
     {
         $this->writer->writeAuditLogEntry(
             $notificationDAO->getIntegration(),
-            $notificationDAO->getMauticObject(),
-            $notificationDAO->getMauticObjectId(),
+            $notificationDAO->getMailVotechObject(),
+            $notificationDAO->getMailVotechObjectId(),
             'sync',
             [
                 'integrationObject'   => $notificationDAO->getIntegrationObject(),
@@ -51,9 +51,9 @@ final readonly class CompanyNotificationHandler implements HandlerInterface
             $notificationDAO->getMessage(),
             $integrationDisplayName,
             $objectDisplayName,
-            $notificationDAO->getMauticObject(),
-            $notificationDAO->getMauticObjectId(),
-            (string) $this->companyHelper->getCompanyName($notificationDAO->getMauticObjectId())
+            $notificationDAO->getMailVotechObject(),
+            $notificationDAO->getMailVotechObjectId(),
+            (string) $this->companyHelper->getCompanyName($notificationDAO->getMailVotechObjectId())
         );
     }
 

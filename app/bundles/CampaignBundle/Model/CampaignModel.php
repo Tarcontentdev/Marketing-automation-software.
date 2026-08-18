@@ -1,43 +1,43 @@
 <?php
 
-namespace Mautic\CampaignBundle\Model;
+namespace MailVotech\CampaignBundle\Model;
 
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\PersistentCollection;
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CampaignBundle\Event as Events;
-use Mautic\CampaignBundle\EventCollector\EventCollector;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\CampaignBundle\Form\Type\CampaignType;
-use Mautic\CampaignBundle\Helper\ChannelExtractor;
-use Mautic\CampaignBundle\Membership\MembershipBuilder;
-use Mautic\CampaignBundle\Model\Exceptions\CampaignAlreadyUnpublishedException;
-use Mautic\CampaignBundle\Model\Exceptions\CampaignVersionMismatchedException;
-use Mautic\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel as CommonFormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\FormRepository;
-use Mautic\FormBundle\Model\FormModel;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Event as Events;
+use MailVotech\CampaignBundle\EventCollector\EventCollector;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CampaignBundle\Form\Type\CampaignType;
+use MailVotech\CampaignBundle\Helper\ChannelExtractor;
+use MailVotech\CampaignBundle\Membership\MembershipBuilder;
+use MailVotech\CampaignBundle\Model\Exceptions\CampaignAlreadyUnpublishedException;
+use MailVotech\CampaignBundle\Model\Exceptions\CampaignVersionMismatchedException;
+use MailVotech\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel as CommonFormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\FormRepository;
+use MailVotech\FormBundle\Model\FormModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -64,7 +64,7 @@ class CampaignModel extends CommonFormModel implements GlobalSearchInterface
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         CoreParametersHelper $coreParametersHelper,
         private readonly CampaignRepository $campaignRepository,
         private readonly EventRepository $eventRepository,
@@ -73,7 +73,7 @@ class CampaignModel extends CommonFormModel implements GlobalSearchInterface
         private readonly StatRepository $statRepository,
         private readonly FormRepository $formRepository,
     ) {
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function getRepository(): CampaignRepository
@@ -690,13 +690,13 @@ class CampaignModel extends CommonFormModel implements GlobalSearchInterface
         $q     = $query->prepareTimeDataQuery('campaign_leads', 'date_added', $filter);
 
         if (!$canViewOthers) {
-            $q->join('t', MAUTIC_TABLE_PREFIX.'campaigns', 'c', 'c.id = c.campaign_id')
+            $q->join('t', MAILVOTECH_TABLE_PREFIX.'campaigns', 'c', 'c.id = c.campaign_id')
                 ->andWhere('c.created_by = :userId')
                 ->setParameter('userId', $this->userHelper->getUser()->getId());
         }
 
         $data = $query->loadAndBuildTimeData($q);
-        $chart->setDataset($this->translator->trans('mautic.campaign.campaign.leads'), $data);
+        $chart->setDataset($this->translator->trans('mailvotech.campaign.campaign.leads'), $data);
 
         return $chart->render();
     }
@@ -715,7 +715,7 @@ class CampaignModel extends CommonFormModel implements GlobalSearchInterface
         $query->setGeneratedColumnProvider($this->generatedColumnsProvider);
 
         $contacts = $query->fetchTimeData('campaign_leads', 'date_added', $filter);
-        $chart->setDataset($this->translator->trans('mautic.campaign.campaign.leads'), $contacts);
+        $chart->setDataset($this->translator->trans('mailvotech.campaign.campaign.leads'), $contacts);
 
         if (isset($filter['campaign_id'])) {
             $rawEvents = $this->eventRepository->getCampaignEvents($filter['campaign_id']);
@@ -740,7 +740,7 @@ class CampaignModel extends CommonFormModel implements GlobalSearchInterface
                         // Exclude failed events
                         $failedSq = $this->em->getConnection()->createQueryBuilder();
                         $failedSq->select('null')
-                            ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_failed_log', 'fe')
+                            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_failed_log', 'fe')
                             ->where(
                                 $failedSq->expr()->eq('fe.log_id', 't.id')
                             );
@@ -754,7 +754,7 @@ class CampaignModel extends CommonFormModel implements GlobalSearchInterface
 
                     if (!empty($rawData)) {
                         $triggers = $query->completeTimeData($rawData);
-                        $chart->setDataset($this->translator->trans('mautic.campaign.'.$type), $triggers);
+                        $chart->setDataset($this->translator->trans('mailvotech.campaign.'.$type), $triggers);
                     }
                 }
                 unset($filter['event_id']);

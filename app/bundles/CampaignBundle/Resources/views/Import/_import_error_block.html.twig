@@ -17,12 +17,12 @@
 </div>
 
 <div class="justify-content-center gap-3 mt-md">
-    {{ include('@MauticCore/Helper/confirm.html.twig', {
+    {{ include('@MailVotechCore/Helper/confirm.html.twig', {
         'btnClass': 'btn btn-danger btn-nospin',
-        'message': 'mautic.campaign.campaign.import.cancelmessage'|trans,
-        'confirmText': 'mautic.campaign.campaign.import.cancelconfirm'|trans,
-        'confirmAction': path('mautic_campaign_import_action', {'objectAction' : 'cancel'}),
+        'message': 'mailvotech.campaign.campaign.import.cancelmessage'|trans,
+        'confirmText': 'mailvotech.campaign.campaign.import.cancelconfirm'|trans,
+        'confirmAction': path('mailvotech_campaign_import_action', {'objectAction' : 'cancel'}),
         'iconClass': 'ri-delete-bin-line',
-        'btnText': 'mautic.campaign.campaign.import.cancel'|trans
+        'btnText': 'mailvotech.campaign.campaign.import.cancel'|trans
     }) }}
 </div>

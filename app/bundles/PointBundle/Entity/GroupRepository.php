@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Entity;
+namespace MailVotech\PointBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<Group>

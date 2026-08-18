@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\CoreBundle\Event\EntityExportEvent;
-use Mautic\CoreBundle\Event\EntityImportAnalyzeEvent;
-use Mautic\CoreBundle\Event\EntityImportEvent;
-use Mautic\CoreBundle\Event\EntityImportUndoEvent;
-use Mautic\CoreBundle\EventListener\ImportExportTrait;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\FormRepository;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Entity\PageRepository;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\CoreBundle\Event\EntityExportEvent;
+use MailVotech\CoreBundle\Event\EntityImportAnalyzeEvent;
+use MailVotech\CoreBundle\Event\EntityImportEvent;
+use MailVotech\CoreBundle\Event\EntityImportUndoEvent;
+use MailVotech\CoreBundle\EventListener\ImportExportTrait;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\FormRepository;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\PageRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;

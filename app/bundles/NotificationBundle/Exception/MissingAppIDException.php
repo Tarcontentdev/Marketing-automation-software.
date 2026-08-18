@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Exception;
+namespace MailVotech\NotificationBundle\Exception;
 
 final class MissingAppIDException extends \Exception
 {

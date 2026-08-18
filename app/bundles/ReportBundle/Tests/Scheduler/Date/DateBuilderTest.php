@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Scheduler\Date;
+namespace MailVotech\ReportBundle\Tests\Scheduler\Date;
 
-use Mautic\ReportBundle\Scheduler\Builder\SchedulerBuilder;
-use Mautic\ReportBundle\Scheduler\Date\DateBuilder;
-use Mautic\ReportBundle\Scheduler\Entity\SchedulerEntity;
-use Mautic\ReportBundle\Scheduler\Enum\SchedulerEnum;
-use Mautic\ReportBundle\Scheduler\Exception\InvalidSchedulerException;
-use Mautic\ReportBundle\Scheduler\Exception\NoScheduleException;
-use Mautic\ReportBundle\Scheduler\Exception\NotSupportedScheduleTypeException;
-use Mautic\ReportBundle\Scheduler\Factory\SchedulerTemplateFactory;
+use MailVotech\ReportBundle\Scheduler\Builder\SchedulerBuilder;
+use MailVotech\ReportBundle\Scheduler\Date\DateBuilder;
+use MailVotech\ReportBundle\Scheduler\Entity\SchedulerEntity;
+use MailVotech\ReportBundle\Scheduler\Enum\SchedulerEnum;
+use MailVotech\ReportBundle\Scheduler\Exception\InvalidSchedulerException;
+use MailVotech\ReportBundle\Scheduler\Exception\NoScheduleException;
+use MailVotech\ReportBundle\Scheduler\Exception\NotSupportedScheduleTypeException;
+use MailVotech\ReportBundle\Scheduler\Factory\SchedulerTemplateFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class DateBuilderTest extends \PHPUnit\Framework\TestCase

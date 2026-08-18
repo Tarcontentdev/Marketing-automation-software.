@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Entity;
+namespace MailVotech\UserBundle\Tests\Entity;
 
-use Mautic\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\User;
 
 final class UserTest extends \PHPUnit\Framework\TestCase
 {

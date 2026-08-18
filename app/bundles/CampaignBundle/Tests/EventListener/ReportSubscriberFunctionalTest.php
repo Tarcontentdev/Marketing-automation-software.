@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\EventListener;
+namespace MailVotech\CampaignBundle\Tests\EventListener;
 
-use Mautic\CampaignBundle\Tests\Functional\Fixtures\FixtureHelper;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\ReportBundle\Tests\Functional\AbstractReportSubscriberTestCase;
+use MailVotech\CampaignBundle\Tests\Functional\Fixtures\FixtureHelper;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\ReportBundle\Tests\Functional\AbstractReportSubscriberTestCase;
 
 final class ReportSubscriberFunctionalTest extends AbstractReportSubscriberTestCase
 {
@@ -32,7 +32,7 @@ final class ReportSubscriberFunctionalTest extends AbstractReportSubscriberTestC
         $fixtureHelper->addContactToCampaign($leads[2], $campaign);
         $fixtureHelper->createCampaignWithScheduledEvent($campaign);
         $this->em->flush();
-        $commandResult = $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $commandResult = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
         $this->assertStringContainsString('3 total events were scheduled', $commandResult->getDisplay());
 
         $report = $this->createReport(

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
-use Mautic\CoreBundle\Event\GeneratedColumnsEvent;
-use Mautic\LeadBundle\Event\LeadListFiltersChoicesEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Segment\SegmentFilterIconTrait;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
+use MailVotech\CoreBundle\Event\GeneratedColumnsEvent;
+use MailVotech\LeadBundle\Event\LeadListFiltersChoicesEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Segment\SegmentFilterIconTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -47,7 +47,7 @@ final class GeneratedColumnSubscriber implements EventSubscriberInterface
     public function onGenerateSegmentFilters(LeadListFiltersChoicesEvent $event): void
     {
         $event->addChoice('lead', 'generated_email_domain', [
-            'label'      => $this->translator->trans('mautic.email.segment.choice.generated_email_domain'),
+            'label'      => $this->translator->trans('mailvotech.email.segment.choice.generated_email_domain'),
             'properties' => ['type' => 'text'],
             'operators'  => $this->segmentModel->getOperatorsForFieldType(
                 [

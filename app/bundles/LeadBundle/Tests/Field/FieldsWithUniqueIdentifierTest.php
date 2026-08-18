@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Field;
+namespace MailVotech\LeadBundle\Tests\Field;
 
-use Mautic\LeadBundle\Field\FieldList;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Field\FieldList;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

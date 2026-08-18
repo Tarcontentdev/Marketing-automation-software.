@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\ApiPlatform;
+namespace MailVotech\UserBundle\ApiPlatform;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**

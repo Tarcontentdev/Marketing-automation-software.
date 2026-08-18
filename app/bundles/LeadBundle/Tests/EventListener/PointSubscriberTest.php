@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\EventListener\PointSubscriber;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PointBundle\Entity\TriggerEvent;
-use Mautic\PointBundle\Entity\TriggerEvent as TriggerEventEntity;
-use Mautic\PointBundle\Event\TriggerExecutedEvent;
-use Mautic\PointBundle\PointEvents;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\StageBundle\Model\StageModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\EventListener\PointSubscriber;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PointBundle\Entity\TriggerEvent;
+use MailVotech\PointBundle\Entity\TriggerEvent as TriggerEventEntity;
+use MailVotech\PointBundle\Event\TriggerExecutedEvent;
+use MailVotech\PointBundle\PointEvents;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\StageBundle\Model\StageModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -108,7 +108,7 @@ final class PointSubscriberTest extends \PHPUnit\Framework\TestCase
 
         $this->translator->expects($this->once())
             ->method('trans')
-            ->with('mautic.lead.point.trigger')
+            ->with('mailvotech.lead.point.trigger')
             ->willReturn('Contact triggers');
 
         $this->leadModel->expects($this->once())
@@ -134,7 +134,7 @@ final class PointSubscriberTest extends \PHPUnit\Framework\TestCase
 
         $this->translator->expects($this->once())
             ->method('trans')
-            ->with('mautic.stage.event.removed.batch')
+            ->with('mailvotech.stage.event.removed.batch')
             ->willReturn('Manually Removed');
 
         $this->leadModel->expects($this->once())

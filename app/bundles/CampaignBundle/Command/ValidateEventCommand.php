@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CampaignBundle\Command;
+namespace MailVotech\CampaignBundle\Command;
 
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\CampaignBundle\Executioner\InactiveExecutioner;
-use Mautic\CoreBundle\Twig\Helper\FormatterHelper;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CampaignBundle\Executioner\InactiveExecutioner;
+use MailVotech\CoreBundle\Twig\Helper\FormatterHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
-    name: 'mautic:campaigns:validate',
+    name: 'mailvotech:campaigns:validate',
     description: 'Validate if a contact has been inactive for a decision and execute events if so.'
 )]
 final class ValidateEventCommand extends Command
@@ -58,7 +58,7 @@ final class ValidateEventCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        defined('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED', 1);
+        defined('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED', 1);
 
         $decisionId = $input->getOption('decision-id');
         $contactId  = $input->getOption('contact-id');
@@ -76,7 +76,7 @@ final class ValidateEventCommand extends Command
         if (!$contactIds && !$contactId) {
             $output->writeln(
                 "\n".
-                '<comment>'.$this->translator->trans('mautic.campaign.trigger.events_executed', ['%count%' => 0])
+                '<comment>'.$this->translator->trans('mailvotech.campaign.trigger.events_executed', ['%count%' => 0])
                 .'</comment>'
             );
 

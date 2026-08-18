@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\ChannelBundle\Model;
+namespace MailVotech\ChannelBundle\Model;
 
-use Mautic\LeadBundle\Entity\FrequencyRule;
-use Mautic\LeadBundle\Entity\FrequencyRuleRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Entity\FrequencyRule;
+use MailVotech\LeadBundle\Entity\FrequencyRuleRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
 
 final readonly class FrequencyActionModel
 {

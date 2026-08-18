@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Scheduler\Validator;
+namespace MailVotech\ReportBundle\Tests\Scheduler\Validator;
 
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Scheduler\Builder\SchedulerBuilder;
-use Mautic\ReportBundle\Scheduler\Enum\SchedulerEnum;
-use Mautic\ReportBundle\Scheduler\Exception\InvalidSchedulerException;
-use Mautic\ReportBundle\Scheduler\Exception\NotSupportedScheduleTypeException;
-use Mautic\ReportBundle\Scheduler\Validator\ScheduleIsValidValidator;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Scheduler\Builder\SchedulerBuilder;
+use MailVotech\ReportBundle\Scheduler\Enum\SchedulerEnum;
+use MailVotech\ReportBundle\Scheduler\Exception\InvalidSchedulerException;
+use MailVotech\ReportBundle\Scheduler\Exception\NotSupportedScheduleTypeException;
+use MailVotech\ReportBundle\Scheduler\Validator\ScheduleIsValidValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
@@ -173,7 +173,7 @@ final class ScheduleIsValidValidatorTest extends \PHPUnit\Framework\TestCase
 
         $executionContextInterfaceMock->expects($this->once())
             ->method('buildViolation')
-            ->with('mautic.report.schedule.notValid')
+            ->with('mailvotech.report.schedule.notValid')
             ->willReturn($constraintViolationBuilderInterfaceMock);
 
         $constraintViolationBuilderInterfaceMock->expects($this->once())
@@ -213,7 +213,7 @@ final class ScheduleIsValidValidatorTest extends \PHPUnit\Framework\TestCase
 
         $executionContextInterfaceMock->expects($this->once())
             ->method('buildViolation')
-            ->with('mautic.report.schedule.notValid')
+            ->with('mailvotech.report.schedule.notValid')
             ->willReturn($constraintViolationBuilderInterfaceMock);
 
         $constraintViolationBuilderInterfaceMock->expects($this->once())
@@ -255,7 +255,7 @@ final class ScheduleIsValidValidatorTest extends \PHPUnit\Framework\TestCase
 
         $executionContextInterfaceMock->expects($this->once())
             ->method('buildViolation')
-            ->with('mautic.report.schedule.notSupportedType')
+            ->with('mailvotech.report.schedule.notSupportedType')
             ->willReturn($constraintViolationBuilderInterfaceMock);
 
         $constraintViolationBuilderInterfaceMock->expects($this->once())

@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Model;
+namespace MailVotech\CampaignBundle\Tests\Model;
 
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Entity\Trackable;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Entity\Trackable;
 
-final class CampaignModelFunctionalTest extends MauticMysqlTestCase
+final class CampaignModelFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * @throws OptimisticLockException

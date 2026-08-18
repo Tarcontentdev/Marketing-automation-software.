@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ConfigBundle\Tests\Event;
+namespace MailVotech\ConfigBundle\Tests\Event;
 
-use Mautic\ConfigBundle\Event\ConfigEvent;
+use MailVotech\ConfigBundle\Event\ConfigEvent;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\ParameterBag;
 

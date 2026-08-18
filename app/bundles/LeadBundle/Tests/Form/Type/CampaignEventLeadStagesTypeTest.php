@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Form\Type;
+namespace MailVotech\LeadBundle\Tests\Form\Type;
 
-use Mautic\CoreBundle\Test\AbstractMauticTestCase;
-use Mautic\LeadBundle\Form\Type\CampaignEventLeadStagesType;
-use Mautic\StageBundle\Form\Type\StageListType;
+use MailVotech\CoreBundle\Test\AbstractMailVotechTestCase;
+use MailVotech\LeadBundle\Form\Type\CampaignEventLeadStagesType;
+use MailVotech\StageBundle\Form\Type\StageListType;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\FormBuilderInterface;
 
-final class CampaignEventLeadStagesTypeTest extends AbstractMauticTestCase
+final class CampaignEventLeadStagesTypeTest extends AbstractMailVotechTestCase
 {
     private CampaignEventLeadStagesType $campaignEventLeadStagesType;
 
@@ -30,7 +30,7 @@ final class CampaignEventLeadStagesTypeTest extends AbstractMauticTestCase
     public function testCampaignEventLeadStagesTypeFormIsProperlyBuilt(): void
     {
         $parameters = [
-            'label'       => 'mautic.lead.lead.field.stage',
+            'label'       => 'mailvotech.lead.lead.field.stage',
             'label_attr'  => ['class' => 'control-label'],
             'multiple'    => true,
             'required'    => false,

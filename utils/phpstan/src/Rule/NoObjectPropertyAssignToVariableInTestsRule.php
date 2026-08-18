@@ -65,7 +65,7 @@ final class NoObjectPropertyAssignToVariableInTestsRule implements Rule
             'Test must not assign the object property "$this->%s" to a variable. Use the property directly instead.',
             $node->expr->name->toString()
         ))
-            ->identifier('mautic.noObjectPropertyAssignToVariableInTests')
+            ->identifier('mailvotech.noObjectPropertyAssignToVariableInTests')
             ->build();
 
         return [$ruleError];

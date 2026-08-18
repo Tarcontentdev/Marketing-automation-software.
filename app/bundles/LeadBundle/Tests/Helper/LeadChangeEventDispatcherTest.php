@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Helper;
+namespace MailVotech\LeadBundle\Tests\Helper;
 
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Event\ChannelSubscriptionChange;
-use Mautic\LeadBundle\Event\LeadEvent;
-use Mautic\LeadBundle\Event\LeadUtmTagsEvent;
-use Mautic\LeadBundle\Event\PointsChangeEvent;
-use Mautic\LeadBundle\Helper\LeadChangeEventDispatcher;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Event\ChannelSubscriptionChange;
+use MailVotech\LeadBundle\Event\LeadEvent;
+use MailVotech\LeadBundle\Event\LeadUtmTagsEvent;
+use MailVotech\LeadBundle\Event\PointsChangeEvent;
+use MailVotech\LeadBundle\Helper\LeadChangeEventDispatcher;
+use MailVotech\LeadBundle\LeadEvents;
 use PHPUnit\Framework\Attributes\TestDox;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 

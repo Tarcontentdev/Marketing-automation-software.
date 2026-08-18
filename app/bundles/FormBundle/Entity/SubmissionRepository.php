@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\FormBundle\Entity;
+namespace MailVotech\FormBundle\Entity;
 
 use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Query\QueryBuilder as DbalQueryBuilder;
 use Doctrine\ORM\QueryBuilder;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Entity\TimelineTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Entity\TimelineTrait;
 
 /**
  * @extends CommonRepository<Submission>
@@ -59,7 +59,7 @@ class SubmissionRepository extends CommonRepository
         // Get the list of custom fields
         $fq = $this->_em->getConnection()->createQueryBuilder();
         $fq->select('f.id, f.label, f.alias, f.type')
-            ->from(MAUTIC_TABLE_PREFIX.'form_fields', 'f')
+            ->from(MAILVOTECH_TABLE_PREFIX.'form_fields', 'f')
             ->where('f.form_id = '.$form->getId())
             ->andWhere(
                 $fq->expr()->notIn('f.type', ':types'),
@@ -81,8 +81,8 @@ class SubmissionRepository extends CommonRepository
         $dq = $this->_em->getConnection()->createQueryBuilder();
         $dq->select('count(r.submission_id) as count')
             ->from($this->getResultsTableName($form->getId(), $form->getAlias()), 'r')
-            ->innerJoin('r', MAUTIC_TABLE_PREFIX.'form_submissions', 's', 'r.submission_id = s.id')
-            ->leftJoin('s', MAUTIC_TABLE_PREFIX.'ip_addresses', 'i', 's.ip_id = i.id')
+            ->innerJoin('r', MAILVOTECH_TABLE_PREFIX.'form_submissions', 's', 'r.submission_id = s.id')
+            ->leftJoin('s', MAILVOTECH_TABLE_PREFIX.'ip_addresses', 'i', 's.ip_id = i.id')
             ->where('r.form_id = '.$form->getId());
 
         $this->buildWhereClause($dq, $args);
@@ -218,9 +218,9 @@ class SubmissionRepository extends CommonRepository
 
         $dq = $this->_em->getConnection()->createQueryBuilder();
         $dq->select('count(s.id) as count')
-            ->from(MAUTIC_TABLE_PREFIX.'form_submissions', 's')
-            ->innerJoin('s', MAUTIC_TABLE_PREFIX.'pages', 'p', 's.page_id = p.id')
-            ->leftJoin('s', MAUTIC_TABLE_PREFIX.'ip_addresses', 'i', 's.ip_id = i.id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'form_submissions', 's')
+            ->innerJoin('s', MAILVOTECH_TABLE_PREFIX.'pages', 'p', 's.page_id = p.id')
+            ->leftJoin('s', MAILVOTECH_TABLE_PREFIX.'ip_addresses', 'i', 's.ip_id = i.id')
             ->where($dq->expr()->eq('s.page_id', ':page'))
             ->setParameter('page', $activePage->getId());
 
@@ -286,8 +286,8 @@ class SubmissionRepository extends CommonRepository
     {
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $query->select('fs.id, f.name, fs.form_id, fs.page_id, fs.date_submitted AS "dateSubmitted", fs.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'form_submissions', 'fs')
-            ->leftJoin('fs', MAUTIC_TABLE_PREFIX.'forms', 'f', 'f.id = fs.form_id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'form_submissions', 'fs')
+            ->leftJoin('fs', MAILVOTECH_TABLE_PREFIX.'forms', 'f', 'f.id = fs.form_id');
 
         if (!empty($options['leadId'])) {
             $query->andWhere('fs.lead_id = :leadId')
@@ -359,8 +359,8 @@ class SubmissionRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('count(distinct(s.tracking_id)) as count, s.page_id as id, p.title as name, p.variant_hits as total')
-            ->from(MAUTIC_TABLE_PREFIX.'form_submissions', 's')
-            ->join('s', MAUTIC_TABLE_PREFIX.'pages', 'p', 's.page_id = p.id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'form_submissions', 's')
+            ->join('s', MAILVOTECH_TABLE_PREFIX.'pages', 'p', 's.page_id = p.id');
 
         if (is_array($pageId)) {
             $q->where($q->expr()->in('s.page_id', ':pageIds'))
@@ -391,9 +391,9 @@ class SubmissionRepository extends CommonRepository
         // link email to page hit tracking id to form submission tracking id
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('count(distinct(s.tracking_id)) as count, e.id, e.subject as name, e.variant_sent_count as total')
-            ->from(MAUTIC_TABLE_PREFIX.'form_submissions', 's')
-            ->join('s', MAUTIC_TABLE_PREFIX.'page_hits', 'h', 's.tracking_id = h.tracking_id')
-            ->join('h', MAUTIC_TABLE_PREFIX.'emails', 'e', 'h.email_id = e.id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'form_submissions', 's')
+            ->join('s', MAILVOTECH_TABLE_PREFIX.'page_hits', 'h', 's.tracking_id = h.tracking_id')
+            ->join('h', MAILVOTECH_TABLE_PREFIX.'emails', 'e', 'h.email_id = e.id');
 
         if (is_array($emailId)) {
             $q->where($q->expr()->in('e.id', ':ids'))
@@ -419,7 +419,7 @@ class SubmissionRepository extends CommonRepository
     public function updateLead($fromLeadId, $toLeadId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'form_submissions')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'form_submissions')
             ->set('lead_id', (int) $toLeadId)
             ->where('lead_id = '.(int) $fromLeadId)
             ->executeStatement();
@@ -432,7 +432,7 @@ class SubmissionRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('s.id')
-            ->from(MAUTIC_TABLE_PREFIX.'form_submissions', 's')
+            ->from(MAILVOTECH_TABLE_PREFIX.'form_submissions', 's')
             ->where(
                 $q->expr()->and(
                     $q->expr()->eq('s.form_id', (int) $formId),
@@ -488,7 +488,7 @@ class SubmissionRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('s.id')
             ->from($this->getResultsTableName($form, $formAlias), 'r')
-            ->leftJoin('r', MAUTIC_TABLE_PREFIX.'form_submissions', 's', 's.id = r.submission_id')
+            ->leftJoin('r', MAILVOTECH_TABLE_PREFIX.'form_submissions', 's', 's.id = r.submission_id')
             ->where(
                 $q->expr()->and(
                     $q->expr()->eq('s.lead_id', ':lead'),
@@ -516,7 +516,7 @@ class SubmissionRepository extends CommonRepository
     {
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $query->select('COUNT(fs.id) AS `total`, COUNT(DISTINCT (fs.lead_id)) AS `unique`')
-            ->from(MAUTIC_TABLE_PREFIX.'form_submissions', 'fs');
+            ->from(MAILVOTECH_TABLE_PREFIX.'form_submissions', 'fs');
         $query->where($query->expr()->eq('fs.form_id', ':id'))
                 ->setParameter('id', $form->getId());
 
@@ -531,7 +531,7 @@ class SubmissionRepository extends CommonRepository
      */
     public function getResultsTableName($formId, $formAlias): string
     {
-        return MAUTIC_TABLE_PREFIX.'form_results_'.$formId.'_'.$formAlias;
+        return MAILVOTECH_TABLE_PREFIX.'form_results_'.$formId.'_'.$formAlias;
     }
 
     public function getTableAlias(): string
@@ -576,7 +576,7 @@ class SubmissionRepository extends CommonRepository
 
     public function getOrphanSubmissionRecords(string $tableName, int $maxResults): DbalQueryBuilder
     {
-        $submissionTable =  MAUTIC_TABLE_PREFIX.'form_submissions';
+        $submissionTable =  MAILVOTECH_TABLE_PREFIX.'form_submissions';
 
         return $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('fr.submission_id')

@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Entity;
+namespace MailVotech\CoreBundle\Tests\Functional\Entity;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Entity\IpAddressRepository;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Entity\IpAddressRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class CommonRepositoryUpsertTest extends MauticMysqlTestCase
+final class CommonRepositoryUpsertTest extends MailVotechMysqlTestCase
 {
     protected function beforeBeginTransaction(): void
     {
-        $this->connection->executeStatement('ALTER TABLE '.MAUTIC_TABLE_PREFIX.'ip_addresses ADD UNIQUE INDEX idx_ip_address (ip_address)');
+        $this->connection->executeStatement('ALTER TABLE '.MAILVOTECH_TABLE_PREFIX.'ip_addresses ADD UNIQUE INDEX idx_ip_address (ip_address)');
     }
 
     protected function afterRollback(): void
     {
-        $this->connection->executeStatement('ALTER TABLE '.MAUTIC_TABLE_PREFIX.'ip_addresses DROP INDEX idx_ip_address');
+        $this->connection->executeStatement('ALTER TABLE '.MAILVOTECH_TABLE_PREFIX.'ip_addresses DROP INDEX idx_ip_address');
     }
 
     public function testUpsert(): void

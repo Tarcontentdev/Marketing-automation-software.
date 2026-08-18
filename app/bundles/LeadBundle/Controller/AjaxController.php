@@ -1,39 +1,39 @@
 <?php
 
-namespace Mautic\LeadBundle\Controller;
+namespace MailVotech\LeadBundle\Controller;
 
-use Mautic\CampaignBundle\Membership\MembershipManager;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\CoreBundle\Controller\AjaxLookupControllerTrait;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\Tree\JsPlumbFormatter;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\UtmTag;
-use Mautic\LeadBundle\Event\ListTypeaheadEvent;
-use Mautic\LeadBundle\Form\Type\FieldType;
-use Mautic\LeadBundle\Form\Type\FilterPropertiesType;
-use Mautic\LeadBundle\Helper\FormFieldHelper;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\DoNotContact as DoNotContactModel;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Provider\FormAdjustmentsProviderInterface;
-use Mautic\LeadBundle\Segment\SegmentFilterIconTrait;
-use Mautic\LeadBundle\Segment\Stat\SegmentCampaignShare;
-use Mautic\LeadBundle\Services\ContactColumnsDictionary;
-use Mautic\LeadBundle\Services\SegmentDependencyTreeFactory;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\CampaignBundle\Membership\MembershipManager;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\CoreBundle\Controller\AjaxLookupControllerTrait;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\Tree\JsPlumbFormatter;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\UtmTag;
+use MailVotech\LeadBundle\Event\ListTypeaheadEvent;
+use MailVotech\LeadBundle\Form\Type\FieldType;
+use MailVotech\LeadBundle\Form\Type\FilterPropertiesType;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\DoNotContact as DoNotContactModel;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Provider\FormAdjustmentsProviderInterface;
+use MailVotech\LeadBundle\Segment\SegmentFilterIconTrait;
+use MailVotech\LeadBundle\Segment\Stat\SegmentCampaignShare;
+use MailVotech\LeadBundle\Services\ContactColumnsDictionary;
+use MailVotech\LeadBundle\Services\SegmentDependencyTreeFactory;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -96,7 +96,7 @@ final class AjaxController extends CommonAjaxController
 
         // Do not show other's contacts if do not have permission.
         if (!$corePermissions->isGranted(['lead:leads:viewother'], 'MATCH_ONE')) {
-            $filter['force'] = ' '.$this->translator->trans('mautic.core.searchcommand.ismine');
+            $filter['force'] = ' '.$this->translator->trans('mailvotech.core.searchcommand.ismine');
         }
 
         $results = $model->getLookupResults('contact', $filter);
@@ -115,7 +115,7 @@ final class AjaxController extends CommonAjaxController
 
         if ($field && $value) {
             $leads                      = $this->leadRepository->getLeadsByFieldValue($field, $value, $ignore);
-            $dataArray['existsMessage'] = $this->translator->trans('mautic.lead.exists.by.field').': ';
+            $dataArray['existsMessage'] = $this->translator->trans('mailvotech.lead.exists.by.field').': ';
 
             foreach ($leads as $lead) {
                 $fields = $this->leadRepository->getFieldValues($lead->getId());
@@ -127,10 +127,10 @@ final class AjaxController extends CommonAjaxController
                 }
 
                 if (!$name) {
-                    $name = $this->translator->trans('mautic.lead.lead.anonymous');
+                    $name = $this->translator->trans('mailvotech.lead.lead.anonymous');
                 }
 
-                $leadLink = $this->generateUrl('mautic_contact_action', ['objectAction' => 'view', 'objectId' => $lead->getId()]);
+                $leadLink = $this->generateUrl('mailvotech_contact_action', ['objectAction' => 'view', 'objectId' => $lead->getId()]);
 
                 $dataArray['items'][] = [
                     'name' => $name,
@@ -178,9 +178,9 @@ final class AjaxController extends CommonAjaxController
         }
 
         $formHtml = $this->renderView(
-            '@MauticLead/List/filterpropform.html.twig',
+            '@MailVotechLead/List/filterpropform.html.twig',
             [
-                // 'form' => $this->setFormTheme($form, '@MauticLead/List/filterpropform.html.twig', []),
+                // 'form' => $this->setFormTheme($form, '@MailVotechLead/List/filterpropform.html.twig', []),
                 'form' => $form->createView(),
             ]
         );
@@ -217,7 +217,7 @@ final class AjaxController extends CommonAjaxController
                 $socialCount       = count($socialProfiles);
                 if (empty($network) || empty($socialCount)) {
                     $dataArray['completeProfile'] = $this->renderView(
-                        '@MauticLead/Social/index.html.twig',
+                        '@MailVotechLead/Social/index.html.twig',
                         [
                             'socialProfiles'    => $socialProfiles,
                             'lead'              => $lead,
@@ -270,7 +270,7 @@ final class AjaxController extends CommonAjaxController
 
                 if (empty($socialCount)) {
                     $dataArray['completeProfile'] = $this->renderView(
-                        '@MauticLead/Social/index.html.twig',
+                        '@MailVotechLead/Social/index.html.twig',
                         [
                             'socialProfiles'    => $socialProfiles,
                             'lead'              => $lead,
@@ -322,7 +322,7 @@ final class AjaxController extends CommonAjaxController
                     $doNotContact->addDncForContact($leadId, $channel, DoNotContact::MANUAL, 'user');
                 } elseif ('add' === $action) {
                     $doNotContact->removeDncForContact($leadId, $channel);
-                    $this->addFlashMessage('mautic.lead.event.donotcontact_channel_contactable', ['%channel%' => $channel], FlashBag::LEVEL_SUCCESS);
+                    $this->addFlashMessage('mailvotech.lead.event.donotcontact_channel_contactable', ['%channel%' => $channel], FlashBag::LEVEL_SUCCESS);
                     $dataArray['flashes'] = $this->getFlashContent();
                 }
                 $dataArray['success'] = 1;
@@ -394,7 +394,7 @@ final class AjaxController extends CommonAjaxController
 
         if ($this->security->isGranted('lead:leads:create')) {
             $session               = $request->getSession();
-            $dataArray['progress'] = $session->get('mautic.lead.import.progress', [0, 0]);
+            $dataArray['progress'] = $session->get('mailvotech.lead.import.progress', [0, 0]);
             $dataArray['percent']  = ($dataArray['progress'][1]) ? ceil(($dataArray['progress'][0] / $dataArray['progress'][1]) * 100) : 100;
         }
 
@@ -419,7 +419,7 @@ final class AjaxController extends CommonAjaxController
             if ($lead) {
                 // Use lead model to trigger listeners
                 $doNotContact->removeDncForContact($lead->getId(), $channel);
-                $this->addFlashMessage('mautic.lead.event.donotcontact_channel_contactable', ['%channel%' => $channel], FlashBag::LEVEL_SUCCESS);
+                $this->addFlashMessage('mailvotech.lead.event.donotcontact_channel_contactable', ['%channel%' => $channel], FlashBag::LEVEL_SUCCESS);
                 $dataArray['flashes'] = $this->getFlashContent();
             } else {
                 $this->emailRepository->deleteDoNotEmailEntry($dncId);
@@ -459,13 +459,13 @@ final class AjaxController extends CommonAjaxController
             }
 
             $session    = $request->getSession();
-            $search     = $session->get('mautic.lead.filter', '');
+            $search     = $session->get('mailvotech.lead.filter', '');
             $filter     = ['string' => $search, 'force' => []];
-            $anonymous  = $this->translator->trans('mautic.lead.lead.searchcommand.isanonymous');
-            $mine       = $this->translator->trans('mautic.core.searchcommand.ismine');
-            $indexMode  = $session->get('mautic.lead.indexmode', 'list');
+            $anonymous  = $this->translator->trans('mailvotech.lead.lead.searchcommand.isanonymous');
+            $mine       = $this->translator->trans('mailvotech.core.searchcommand.ismine');
+            $indexMode  = $session->get('mailvotech.lead.indexmode', 'list');
 
-            $session->set('mautic.lead.indexmode', $indexMode);
+            $session->set('mailvotech.lead.indexmode', $indexMode);
 
             // (strpos($search, "$isCommand:$anonymous") === false && strpos($search, "$listCommand:") === false)) ||
             if ('list' != $indexMode) {
@@ -496,10 +496,10 @@ final class AjaxController extends CommonAjaxController
                 $maxLeadId = $this->leadRepository->getMaxLeadId();
 
                 // We need the EmailRepository to check if a lead is flagged as do not contact
-                $indexMode          = $request->get('view', $session->get('mautic.lead.indexmode', 'list'));
+                $indexMode          = $request->get('view', $session->get('mailvotech.lead.indexmode', 'list'));
                 $template           = ('list' == $indexMode) ? 'list_rows' : 'grid_cards';
                 $dataArray['leads'] = $this->render(
-                    "@MauticLead/Lead/{$template}.html.twig",
+                    "@MailVotechLead/Lead/{$template}.html.twig",
                     [
                         'items'         => $results['results'],
                         'noContactList' => $this->emailRepository->getDoNotEmailList(array_keys($results['results'])),
@@ -524,7 +524,7 @@ final class AjaxController extends CommonAjaxController
         $data    = ['success' => 1, 'body' => '', 'subject' => ''];
         $emailId = $request->query->get('template');
 
-        /** @var \Mautic\EmailBundle\Entity\Email $email */
+        /** @var \MailVotech\EmailBundle\Entity\Email $email */
         $email = $model->getEntity($emailId);
 
         if (null !== $email
@@ -612,7 +612,7 @@ final class AjaxController extends CommonAjaxController
     }
 
     /**
-     * @deprecated since Mautic 7.2, will be removed in 8.0 with no replacement.
+     * @deprecated since MailVotech 7.2, will be removed in 8.0 with no replacement.
      */
     public function addLeadUtmTagsAction(Request $request, LeadModel $leadModel): JsonResponse
     {
@@ -713,7 +713,7 @@ final class AjaxController extends CommonAjaxController
                             $options = $this->formFieldHelper->getDateChoices();
                             $options = array_merge(
                                 [
-                                    'custom' => $this->translator->trans('mautic.campaign.event.timed.choice.custom'),
+                                    'custom' => $this->translator->trans('mailvotech.campaign.event.timed.choice.custom'),
                                 ],
                                 $options
                             );
@@ -832,7 +832,7 @@ final class AjaxController extends CommonAjaxController
     {
         return [
             'html'      => $this->translator->trans(
-                $needsRebuild ? 'mautic.lead.list.building' : 'mautic.lead.list.viewleads_count',
+                $needsRebuild ? 'mailvotech.lead.list.building' : 'mailvotech.lead.list.viewleads_count',
                 ['%count%' => $leadCount]
             ),
             'className' => sprintf('label %s col-count', $needsRebuild ? 'label-info' : 'label-gray'),
@@ -862,7 +862,7 @@ final class AjaxController extends CommonAjaxController
         $form = $this->createForm(FieldType::class, $field);
 
         return $this->render(
-            '@MauticLead/Field/_field_order.html.twig',
+            '@MailVotechLead/Field/_field_order.html.twig',
             [
                 'form' => $form->createView(),
             ]

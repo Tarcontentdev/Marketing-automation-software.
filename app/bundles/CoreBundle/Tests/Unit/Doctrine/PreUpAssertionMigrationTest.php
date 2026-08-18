@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Doctrine;
+namespace MailVotech\CoreBundle\Tests\Unit\Doctrine;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\Exception\SkipMigration;
-use Mautic\CoreBundle\Doctrine\PreUpAssertionMigration;
+use MailVotech\CoreBundle\Doctrine\PreUpAssertionMigration;
 use PHPUnit\Framework\TestCase;
 
 final class PreUpAssertionMigrationTest extends TestCase

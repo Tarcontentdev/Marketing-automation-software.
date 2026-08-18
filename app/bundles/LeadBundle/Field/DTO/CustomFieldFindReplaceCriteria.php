@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field\DTO;
+namespace MailVotech\LeadBundle\Field\DTO;
 
 final readonly class CustomFieldFindReplaceCriteria
 {

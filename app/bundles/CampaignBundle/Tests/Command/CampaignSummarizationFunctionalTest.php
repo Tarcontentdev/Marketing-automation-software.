@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Command;
+namespace MailVotech\CampaignBundle\Tests\Command;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Entity\Summary;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\Summary;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\LeadBundle\Entity\Lead;
 
-final class CampaignSummarizationFunctionalTest extends MauticMysqlTestCase
+final class CampaignSummarizationFunctionalTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -77,7 +77,7 @@ final class CampaignSummarizationFunctionalTest extends MauticMysqlTestCase
         $this->em->flush();
         $this->em->clear();
 
-        $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId(), '--kickoff-only' => true]);
+        $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId(), '--kickoff-only' => true]);
     }
 
     private function createLead(): Lead

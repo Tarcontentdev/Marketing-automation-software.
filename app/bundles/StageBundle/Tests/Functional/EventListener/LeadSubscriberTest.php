@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\Tests\Functional\EventListener;
+namespace MailVotech\StageBundle\Tests\Functional\EventListener;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Event\LeadMergeEvent;
-use Mautic\StageBundle\Entity\LeadStageLog;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\StageBundle\EventListener\LeadSubscriber;
-use Mautic\StageBundle\Model\StageModel;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Event\LeadMergeEvent;
+use MailVotech\StageBundle\Entity\LeadStageLog;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\StageBundle\EventListener\LeadSubscriber;
+use MailVotech\StageBundle\Model\StageModel;
 
-final class LeadSubscriberTest extends MauticMysqlTestCase
+final class LeadSubscriberTest extends MailVotechMysqlTestCase
 {
     private StageModel $model;
 

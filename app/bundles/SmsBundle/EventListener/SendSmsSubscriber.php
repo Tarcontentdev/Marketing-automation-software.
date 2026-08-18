@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\EventListener;
+namespace MailVotech\SmsBundle\EventListener;
 
-use Mautic\ChannelBundle\Entity\MessageQueue;
-use Mautic\ChannelBundle\Model\MessageQueueModel;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\SmsBundle\Event\DncEvent;
-use Mautic\SmsBundle\Event\FilterEvent;
-use Mautic\SmsBundle\Event\QueueEvent;
-use Mautic\SmsBundle\SmsEvents;
+use MailVotech\ChannelBundle\Entity\MessageQueue;
+use MailVotech\ChannelBundle\Model\MessageQueueModel;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\SmsBundle\Event\DncEvent;
+use MailVotech\SmsBundle\Event\FilterEvent;
+use MailVotech\SmsBundle\Event\QueueEvent;
+use MailVotech\SmsBundle\SmsEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class SendSmsSubscriber implements EventSubscriberInterface

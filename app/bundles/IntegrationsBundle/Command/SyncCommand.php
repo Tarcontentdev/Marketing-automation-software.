@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Command;
+namespace MailVotech\IntegrationsBundle\Command;
 
-use Mautic\IntegrationsBundle\Exception\InvalidValueException;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
-use Mautic\IntegrationsBundle\Sync\SyncService\SyncServiceInterface;
+use MailVotech\IntegrationsBundle\Exception\InvalidValueException;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncService\SyncServiceInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,7 +20,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 final class SyncCommand extends Command
 {
-    public const NAME = 'mautic:integrations:sync';
+    public const NAME = 'mailvotech:integrations:sync';
 
     public function __construct(
         private readonly SyncServiceInterface $syncService,
@@ -49,10 +49,10 @@ final class SyncCommand extends Command
                 'Set start date/time for updated values in UTC timezone.'
             )
             ->addOption(
-                '--mautic-object-id',
+                '--mailvotech-object-id',
                 null,
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
-                'Provide specific Mautic object IDs you want to sync. If some object IDs are provided then the start/end dates have no effect. Example: --mautic-object-id=contact:12 --mautic-object-id=company:13'
+                'Provide specific MailVotech object IDs you want to sync. If some object IDs are provided then the start/end dates have no effect. Example: --mailvotech-object-id=contact:12 --mailvotech-object-id=company:13'
             )
             ->addOption(
                 '--integration-object-id',
@@ -64,19 +64,19 @@ final class SyncCommand extends Command
                 '--first-time-sync',
                 '-f',
                 InputOption::VALUE_NONE,
-                'Notate if this is a first time sync where Mautic will sync existing objects instead of just tracked changes'
+                'Notate if this is a first time sync where MailVotech will sync existing objects instead of just tracked changes'
             )
             ->addOption(
                 '--disable-push',
                 null,
                 InputOption::VALUE_NONE,
-                'Notate if the sync should execute only pushing items from Mautic to the integration'
+                'Notate if the sync should execute only pushing items from MailVotech to the integration'
             )
             ->addOption(
                 '--disable-pull',
                 null,
                 InputOption::VALUE_NONE,
-                'Notate if the sync should execute only pulling items from integration to the Mautic'
+                'Notate if the sync should execute only pulling items from integration to the MailVotech'
             )
             ->addOption(
                 '--option',
@@ -107,14 +107,14 @@ final class SyncCommand extends Command
         }
 
         try {
-            defined('MAUTIC_INTEGRATION_SYNC_IN_PROGRESS') || define('MAUTIC_INTEGRATION_SYNC_IN_PROGRESS', $inputOptions->getIntegration());
+            defined('MAILVOTECH_INTEGRATION_SYNC_IN_PROGRESS') || define('MAILVOTECH_INTEGRATION_SYNC_IN_PROGRESS', $inputOptions->getIntegration());
 
             // Tell audit log to use integration name rather than "System"
-            defined('MAUTIC_AUDITLOG_USER') || define('MAUTIC_AUDITLOG_USER', $inputOptions->getIntegration());
+            defined('MAILVOTECH_AUDITLOG_USER') || define('MAILVOTECH_AUDITLOG_USER', $inputOptions->getIntegration());
 
             $this->syncService->processIntegrationSync($inputOptions);
         } catch (\Throwable $e) {
-            if ('dev' === $input->getOption('env') || (defined('MAUTIC_ENV') && MAUTIC_ENV === 'dev')) {
+            if ('dev' === $input->getOption('env') || (defined('MAILVOTECH_ENV') && MAILVOTECH_ENV === 'dev')) {
                 throw $e;
             }
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Event;
+namespace MailVotech\PointBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PointBundle\Entity\Point;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PointBundle\Entity\Point;
 
 final class PointActionEvent extends CommonEvent
 {

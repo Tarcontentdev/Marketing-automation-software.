@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\SmsBundle\Integration\Twilio;
+namespace MailVotech\SmsBundle\Integration\Twilio;
 
 use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\SmsBundle\Sms\MMSTransportInterface;
-use Mautic\SmsBundle\Sms\TransportInterface;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\SmsBundle\Sms\MMSTransportInterface;
+use MailVotech\SmsBundle\Sms\TransportInterface;
 use Psr\Log\LoggerInterface;
 use Twilio\Exceptions\ConfigurationException;
 use Twilio\Exceptions\TwilioException;
@@ -68,7 +68,7 @@ class TwilioTransport implements TransportInterface, MMSTransportInterface
 
             return $numberParseException->getMessage();
         } catch (ConfigurationException $configurationException) {
-            $message = $configurationException->getMessage() ?: 'mautic.sms.transport.twilio.not_configured';
+            $message = $configurationException->getMessage() ?: 'mailvotech.sms.transport.twilio.not_configured';
             $this->logger->warning(
                 $message,
                 ['exception' => $configurationException]

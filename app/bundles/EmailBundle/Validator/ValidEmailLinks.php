@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Validator;
+namespace MailVotech\EmailBundle\Validator;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -15,7 +15,7 @@ final class ValidEmailLinks extends Constraint
      */
     #[HasNamedArguments]
     public function __construct(
-        public string $message = 'mautic.email.links.invalid',
+        public string $message = 'mailvotech.email.links.invalid',
         ?array $groups = null,
         mixed $payload = null,
     ) {

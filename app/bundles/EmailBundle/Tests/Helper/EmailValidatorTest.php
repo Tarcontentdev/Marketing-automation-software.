@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Helper;
+namespace MailVotech\EmailBundle\Tests\Helper;
 
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\EmailValidationEvent;
-use Mautic\EmailBundle\Exception\InvalidEmailException;
-use Mautic\EmailBundle\Helper\EmailValidator;
-use Mautic\EmailBundle\Tests\Helper\EventListener\EmailValidationSubscriber;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\EmailValidationEvent;
+use MailVotech\EmailBundle\Exception\InvalidEmailException;
+use MailVotech\EmailBundle\Helper\EmailValidator;
+use MailVotech\EmailBundle\Tests\Helper\EventListener\EmailValidationSubscriber;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

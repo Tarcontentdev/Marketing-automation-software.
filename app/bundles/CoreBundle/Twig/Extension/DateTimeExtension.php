@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Twig\Extension;
+namespace MailVotech\CoreBundle\Twig\Extension;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

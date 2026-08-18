@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Integration\Interfaces;
+namespace MailVotech\IntegrationsBundle\Integration\Interfaces;
 
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Integration\UnifiedIntegrationInterface;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Integration\UnifiedIntegrationInterface;
 
 interface IntegrationInterface extends UnifiedIntegrationInterface
 {

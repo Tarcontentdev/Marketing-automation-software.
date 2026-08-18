@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Model;
+namespace MailVotech\CampaignBundle\Model;
 
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Entity\Summary;
-use Mautic\CampaignBundle\Entity\SummaryRepository;
-use Mautic\CoreBundle\Helper\ProgressBarHelper;
-use Mautic\CoreBundle\Model\AbstractCommonModel;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Entity\Summary;
+use MailVotech\CampaignBundle\Entity\SummaryRepository;
+use MailVotech\CoreBundle\Helper\ProgressBarHelper;
+use MailVotech\CoreBundle\Model\AbstractCommonModel;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 

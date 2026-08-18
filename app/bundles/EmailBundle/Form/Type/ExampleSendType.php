@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\LookupType;
-use Mautic\CoreBundle\Form\Type\SortableListType;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\LookupType;
+use MailVotech\CoreBundle\Form\Type\SortableListType;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -32,8 +32,8 @@ final class ExampleSendType extends AbstractType
             SortableListType::class,
             [
                 'entry_type'       => EmailType::class,
-                'label'            => 'mautic.email.example_recipients',
-                'add_value_button' => 'mautic.email.add_recipient',
+                'label'            => 'mailvotech.email.example_recipients',
+                'add_value_button' => 'mailvotech.email.add_recipient',
                 'option_notblank'  => false,
             ]
         );
@@ -55,10 +55,10 @@ final class ExampleSendType extends AbstractType
                         'data-lookup-callback' => 'updateExampleContactLookupListFilter',
                         'data-chosen-lookup'   => 'lead:contactList',
                         'placeholder'          => $this->translator->trans(
-                            'mautic.lead.list.form.startTyping'
+                            'mailvotech.lead.list.form.startTyping'
                         ),
                         'data-no-record-message' => $this->translator->trans(
-                            'mautic.core.form.nomatches'
+                            'mailvotech.core.form.nomatches'
                         ),
                     ],
                     'required' => false,
@@ -76,7 +76,7 @@ final class ExampleSendType extends AbstractType
             FormButtonsType::class,
             [
                 'apply_text' => false,
-                'save_text'  => 'mautic.email.send',
+                'save_text'  => 'mailvotech.email.send',
                 'save_icon'  => 'ri-send-plane-line',
             ]
         );

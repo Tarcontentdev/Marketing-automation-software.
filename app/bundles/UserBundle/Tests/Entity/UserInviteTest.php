@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Entity;
+namespace MailVotech\UserBundle\Tests\Entity;
 
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\UserInvite;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\UserInvite;
 use PHPUnit\Framework\TestCase;
 
 final class UserInviteTest extends TestCase

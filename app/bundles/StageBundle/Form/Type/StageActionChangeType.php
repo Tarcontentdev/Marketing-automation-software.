@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\Form\Type;
+namespace MailVotech\StageBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,17 +17,17 @@ final class StageActionChangeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('stage', StageActionListType::class, [
-            'label'      => 'mautic.stage.selectstage',
+            'label'      => 'mailvotech.stage.selectstage',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => [
                 'class'   => 'form-control',
-                'tooltip' => 'mautic.stage.choose.stage_descr',
+                'tooltip' => 'mailvotech.stage.choose.stage_descr',
             ],
             'multiple'    => false,
             'required'    => true,
             'constraints' => [
                 new NotBlank(
-                    message: 'mautic.core.value.required'
+                    message: 'mailvotech.core.value.required'
                 ),
             ],
         ]);

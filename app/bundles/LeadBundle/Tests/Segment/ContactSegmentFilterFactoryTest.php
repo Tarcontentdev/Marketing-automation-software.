@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment;
+namespace MailVotech\LeadBundle\Tests\Segment;
 
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterFactory;
-use Mautic\LeadBundle\Segment\Decorator\DecoratorFactory;
-use Mautic\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
-use Mautic\LeadBundle\Segment\Query\Filter\FilterQueryBuilderInterface;
-use Mautic\LeadBundle\Segment\TableSchemaColumnsCache;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterFactory;
+use MailVotech\LeadBundle\Segment\Decorator\DecoratorFactory;
+use MailVotech\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
+use MailVotech\LeadBundle\Segment\Query\Filter\FilterQueryBuilderInterface;
+use MailVotech\LeadBundle\Segment\TableSchemaColumnsCache;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

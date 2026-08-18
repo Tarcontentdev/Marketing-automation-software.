@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Event;
+namespace MailVotech\CoreBundle\Event;
 
-use Mautic\CoreBundle\Twig\Helper\ButtonHelper;
+use MailVotech\CoreBundle\Twig\Helper\ButtonHelper;
 use Symfony\Component\HttpFoundation\Request;
 
 final class CustomButtonEvent extends AbstractCustomRequestEvent

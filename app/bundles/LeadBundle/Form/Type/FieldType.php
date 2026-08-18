@@ -1,22 +1,22 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\EntityRepository;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\SortableListType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Field\Helper\IndexHelper;
-use Mautic\LeadBundle\Field\IdentifierFields;
-use Mautic\LeadBundle\Field\SchemaDefinition;
-use Mautic\LeadBundle\Form\DataTransformer\FieldToOrderTransformer;
-use Mautic\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\SortableListType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Field\Helper\IndexHelper;
+use MailVotech\LeadBundle\Field\IdentifierFields;
+use MailVotech\LeadBundle\Field\SchemaDefinition;
+use MailVotech\LeadBundle\Form\DataTransformer\FieldToOrderTransformer;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -63,7 +63,7 @@ final class FieldType extends AbstractType
             'label',
             TextType::class,
             [
-                'label'      => 'mautic.lead.field.label',
+                'label'      => 'mailvotech.lead.field.label',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control', 'length' => 191],
             ]
@@ -76,19 +76,19 @@ final class FieldType extends AbstractType
             ChoiceType::class,
             [
                 'choices' => [
-                    'mautic.lead.field.group.core'         => 'core',
-                    'mautic.lead.field.group.social'       => 'social',
-                    'mautic.lead.field.group.personal'     => 'personal',
-                    'mautic.lead.field.group.professional' => 'professional',
+                    'mailvotech.lead.field.group.core'         => 'core',
+                    'mailvotech.lead.field.group.social'       => 'social',
+                    'mailvotech.lead.field.group.personal'     => 'personal',
+                    'mailvotech.lead.field.group.professional' => 'professional',
                 ],
                 'attr' => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.lead.field.form.group.help',
-                    'onchange' => 'Mautic.updateLeadFieldOrderChoiceList();',
+                    'tooltip'  => 'mailvotech.lead.field.form.group.help',
+                    'onchange' => 'MailVotech.updateLeadFieldOrderChoiceList();',
                 ],
                 'expanded'    => false,
                 'multiple'    => false,
-                'label'       => 'mautic.lead.field.group',
+                'label'       => 'mailvotech.lead.field.group',
                 'placeholder' => false,
                 'required'    => false,
                 'disabled'    => $disabled,
@@ -107,12 +107,12 @@ final class FieldType extends AbstractType
                 'choices'     => $this->formFieldHelper->getChoiceList(),
                 'expanded'    => false,
                 'multiple'    => false,
-                'label'       => 'mautic.lead.field.type',
+                'label'       => 'mailvotech.lead.field.type',
                 'placeholder' => false,
                 'disabled'    => ($disabled || !$new),
                 'attr'        => [
                     'class'    => 'form-control',
-                    'onchange' => 'Mautic.updateLeadFieldProperties(this.value);',
+                    'onchange' => 'MailVotech.updateLeadFieldProperties(this.value);',
                 ],
                 'data'     => $default,
                 'required' => false,
@@ -124,7 +124,7 @@ final class FieldType extends AbstractType
             SortableListType::class,
             [
                 'mapped'          => false,
-                'label'           => 'mautic.lead.field.form.properties.select',
+                'label'           => 'mailvotech.lead.field.form.properties.select',
                 'option_required' => false,
                 'with_labels'     => true,
             ]
@@ -135,7 +135,7 @@ final class FieldType extends AbstractType
             SortableListType::class,
             [
                 'mapped'          => false,
-                'label'           => 'mautic.lead.field.form.properties.select',
+                'label'           => 'mailvotech.lead.field.form.properties.select',
                 'option_required' => false,
                 'with_labels'     => false,
             ]
@@ -154,7 +154,7 @@ final class FieldType extends AbstractType
                 ChoiceType::class,
                 [
                     'choices'    => $choices,
-                    'label'      => 'mautic.core.defaultvalue',
+                    'label'      => 'mailvotech.core.defaultvalue',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => ['class' => 'form-control not-chosen'],
                     'required'   => false,
@@ -167,7 +167,7 @@ final class FieldType extends AbstractType
             'default_template_text',
             TextType::class,
             [
-                'label'      => 'mautic.core.defaultvalue',
+                'label'      => 'mailvotech.core.defaultvalue',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -179,7 +179,7 @@ final class FieldType extends AbstractType
             'default_template_textarea',
             TextareaType::class,
             [
-                'label'      => 'mautic.core.defaultvalue',
+                'label'      => 'mailvotech.core.defaultvalue',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -191,7 +191,7 @@ final class FieldType extends AbstractType
             'default_template_boolean',
             YesNoButtonGroupType::class,
             [
-                'label'       => 'mautic.core.defaultvalue',
+                'label'       => 'mailvotech.core.defaultvalue',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => ['class' => 'form-control'],
                 'required'    => false,
@@ -215,11 +215,11 @@ final class FieldType extends AbstractType
             'defaultValue',
             TextType::class,
             [
-                'label'      => 'mautic.core.defaultvalue',
+                'label'      => 'mailvotech.core.defaultvalue',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.lead.field.help.defaultvalue',
+                    'tooltip' => 'mailvotech.lead.field.help.defaultvalue',
                 ],
                 'required'    => false,
                 'disabled'    => $disableDefaultValue,
@@ -261,7 +261,7 @@ final class FieldType extends AbstractType
                         SortableListType::class,
                         [
                             'required'          => false,
-                            'label'             => 'mautic.lead.field.form.properties.select',
+                            'label'             => 'mailvotech.lead.field.form.properties.select',
                             'data'              => $propertiesList,
                             'with_labels'       => ('lookup' !== $type),
                             'option_constraint' => [],
@@ -273,7 +273,7 @@ final class FieldType extends AbstractType
                         'defaultValue',
                         ChoiceType::class,
                         [
-                            'label'       => 'mautic.core.defaultvalue',
+                            'label'       => 'mailvotech.core.defaultvalue',
                             'label_attr'  => ['class' => 'control-label is-chosen'],
                             'attr'        => ['class' => 'form-control'],
                             'required'    => false,
@@ -294,7 +294,7 @@ final class FieldType extends AbstractType
                         ChoiceType::class,
                         [
                             'choices'    => $listChoices[$type],
-                            'label'      => 'mautic.core.defaultvalue',
+                            'label'      => 'mailvotech.core.defaultvalue',
                             'label_attr' => ['class' => 'control-label'],
                             'attr'       => ['class' => 'form-control'],
                             'required'   => false,
@@ -305,13 +305,13 @@ final class FieldType extends AbstractType
                 case 'boolean':
                     if (is_array($data)) {
                         $value    = $data['defaultValue'] ?? false;
-                        $yesLabel = !empty($data['properties']['yes']) ? $data['properties']['yes'] : 'mautic.core.form.yes';
-                        $noLabel  = !empty($data['properties']['no']) ? $data['properties']['no'] : 'mautic.core.form.no';
+                        $yesLabel = !empty($data['properties']['yes']) ? $data['properties']['yes'] : 'mailvotech.core.form.yes';
+                        $noLabel  = !empty($data['properties']['no']) ? $data['properties']['no'] : 'mailvotech.core.form.no';
                     } else {
                         $value    = $data->getDefaultValue();
                         $props    = $data->getProperties();
-                        $yesLabel = !empty($props['yes']) ? $props['yes'] : 'mautic.core.form.yes';
-                        $noLabel  = !empty($props['no']) ? $props['no'] : 'mautic.core.form.no';
+                        $yesLabel = !empty($props['yes']) ? $props['yes'] : 'mailvotech.core.form.yes';
+                        $noLabel  = !empty($props['no']) ? $props['no'] : 'mailvotech.core.form.no';
                     }
 
                     if ('' !== $value && null !== $value) {
@@ -322,7 +322,7 @@ final class FieldType extends AbstractType
                         'defaultValue',
                         YesNoButtonGroupType::class,
                         [
-                            'label'       => 'mautic.core.defaultvalue',
+                            'label'       => 'mailvotech.core.defaultvalue',
                             'label_attr'  => ['class' => 'control-label'],
                             'attr'        => ['class' => 'form-control'],
                             'required'    => false,
@@ -343,7 +343,7 @@ final class FieldType extends AbstractType
                                 new Assert\Callback(
                                     function ($object, ExecutionContextInterface $context): void {
                                         if (!empty($object) && false === \DateTime::createFromFormat('Y-m-d H:i', $object)) {
-                                            $context->buildViolation('mautic.lead.datetime.invalid')->addViolation();
+                                            $context->buildViolation('mailvotech.lead.datetime.invalid')->addViolation();
                                         }
                                     }
                                 ),
@@ -358,7 +358,7 @@ final class FieldType extends AbstractType
                                             $violations = $validator->validate($object, new Assert\Date());
 
                                             if (count($violations) > 0) {
-                                                $context->buildViolation('mautic.lead.date.invalid')->addViolation();
+                                                $context->buildViolation('mailvotech.lead.date.invalid')->addViolation();
                                             }
                                         }
                                     }
@@ -377,7 +377,7 @@ final class FieldType extends AbstractType
                                             );
 
                                             if (count($violations) > 0) {
-                                                $context->buildViolation('mautic.lead.time.invalid')->addViolation();
+                                                $context->buildViolation('mailvotech.lead.time.invalid')->addViolation();
                                             }
                                         }
                                     }
@@ -390,7 +390,7 @@ final class FieldType extends AbstractType
                         'defaultValue',
                         TextType::class,
                         [
-                            'label'       => 'mautic.core.defaultvalue',
+                            'label'       => 'mailvotech.core.defaultvalue',
                             'label_attr'  => ['class' => 'control-label'],
                             'attr'        => [
                                 'class'       => 'form-control',
@@ -411,7 +411,7 @@ final class FieldType extends AbstractType
                         'defaultValue',
                         TextType::class,
                         [
-                            'label'      => 'mautic.core.defaultvalue',
+                            'label'      => 'mailvotech.core.defaultvalue',
                             'label_attr' => ['class' => 'control-label'],
                             'attr'       => [
                                 'class' => 'form-control',
@@ -434,13 +434,13 @@ final class FieldType extends AbstractType
 
         $setupOrderField = function (FormInterface $form, ?string $object = null, ?string $group = null) use ($builder, $disabled): void {
             $options = [
-                'label'         => 'mautic.core.order.field',
+                'label'         => 'mailvotech.core.order.field',
                 'class'         => LeadField::class,
                 'choice_label'  => 'label',
                 'label_attr'    => ['class' => 'control-label'],
                 'attr'          => [
                     'class'   => 'form-control',
-                    'tooltip' => $disabled ? 'mautic.core.order.field.tooltip.disabled' : 'mautic.core.order.field.tooltip',
+                    'tooltip' => $disabled ? 'mailvotech.core.order.field.tooltip.disabled' : 'mailvotech.core.order.field.tooltip',
                 ],
                 'required'        => false,
                 'auto_initialize' => false,
@@ -505,12 +505,12 @@ final class FieldType extends AbstractType
             'alias',
             TextType::class,
             [
-                'label'      => 'mautic.core.alias',
+                'label'      => 'mailvotech.core.alias',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
                     'length'  => 25,
-                    'tooltip' => 'mautic.lead.field.help.alias',
+                    'tooltip' => 'mailvotech.lead.field.help.alias',
                 ],
                 'required'   => false,
                 'disabled'   => ($disabled || !$new),
@@ -520,15 +520,15 @@ final class FieldType extends AbstractType
         $attr = [];
         if ($options['data']->getColumnIsNotCreated()) {
             $attr = [
-                'tooltip' => 'mautic.lead.field.being_created_in_background',
+                'tooltip' => 'mailvotech.lead.field.being_created_in_background',
             ];
         }
 
         if ($options['data']->getColumnIsNotRemoved()) {
             if (array_key_exists('tooltip', $attr)) {
-                $attr['tooltip'] .= ' mautic.lead.field.being_removed_in_background';
+                $attr['tooltip'] .= ' mailvotech.lead.field.being_removed_in_background';
             } else {
-                $attr['tooltip'] = 'mautic.lead.field.being_removed_in_background';
+                $attr['tooltip'] = 'mailvotech.lead.field.being_removed_in_background';
             }
         }
 
@@ -539,7 +539,7 @@ final class FieldType extends AbstractType
                 'disabled' => $options['data']->disablePublishChange(),
                 'attr'     => $attr,
                 'data'     => ('email' == $options['data']->getAlias()) ? true : $options['data']->getIsPublished(),
-                'label'    => 'mautic.core.form.available',
+                'label'    => 'mailvotech.core.form.available',
             ]
         );
 
@@ -547,7 +547,7 @@ final class FieldType extends AbstractType
             'isRequired',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.core.required',
+                'label' => 'mailvotech.core.required',
             ]
         );
 
@@ -555,7 +555,7 @@ final class FieldType extends AbstractType
             'isVisible',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.lead.field.form.isvisible',
+                'label' => 'mailvotech.lead.field.form.isvisible',
             ]
         );
 
@@ -563,9 +563,9 @@ final class FieldType extends AbstractType
             'isShortVisible',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.lead.field.form.isshortvisible',
+                'label' => 'mailvotech.lead.field.form.isshortvisible',
                 'attr'  => [
-                    'tooltip'         => 'mautic.lead.field.form.isshortvisible.tooltip',
+                    'tooltip'         => 'mailvotech.lead.field.form.isshortvisible.tooltip',
                     'data-disable-on' => '{"leadfield_object":"company"}',
                 ],
             ]
@@ -575,27 +575,27 @@ final class FieldType extends AbstractType
             'isListable',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.lead.field.form.islistable',
+                'label' => 'mailvotech.lead.field.form.islistable',
             ]
         );
 
         $constraints = [];
 
         if (false === $options['data']->isIsindex() && false === $this->indexHelper->isNewIndexAllowed()) {
-            $constraints[] = new IsFalse(message: 'mautic.lead.field.form.index_count.error');
+            $constraints[] = new IsFalse(message: 'mailvotech.lead.field.form.index_count.error');
         }
 
         $builder->add(
             'isIndex',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.lead.field.indexable',
+                'label'      => 'mailvotech.lead.field.indexable',
                 'label_attr' => ['class' => 'control-label'],
-                'yes_label'  => 'mautic.lead.field.indexable.yes',
-                'no_label'   => 'mautic.lead.field.indexable.no',
+                'yes_label'  => 'mailvotech.lead.field.indexable.yes',
+                'no_label'   => 'mailvotech.lead.field.indexable.no',
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => $this->translator->trans('mautic.lead.field.form.isIndex.tooltip', ['%indexCount%' => $this->indexHelper->getIndexCount(), '%maxCount%' => $this->indexHelper->getMaxCount()]),
+                    'tooltip' => $this->translator->trans('mailvotech.lead.field.form.isIndex.tooltip', ['%indexCount%' => $this->indexHelper->getIndexCount(), '%maxCount%' => $this->indexHelper->getMaxCount()]),
                     'readonly'=> (false === $isIndex && $this->indexHelper->getIndexCount() >= $this->indexHelper->getMaxCount()),
                 ],
                 'required'    => false,
@@ -608,10 +608,10 @@ final class FieldType extends AbstractType
             'isUniqueIdentifer',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.lead.field.form.isuniqueidentifer',
+                'label' => 'mailvotech.lead.field.form.isuniqueidentifer',
                 'attr'  => [
-                    'tooltip'         => 'mautic.lead.field.form.isuniqueidentifer.tooltip',
-                    'onchange'        => 'Mautic.displayUniqueIdentifierWarning(this);',
+                    'tooltip'         => 'mailvotech.lead.field.form.isuniqueidentifer.tooltip',
+                    'onchange'        => 'MailVotech.displayUniqueIdentifierWarning(this);',
                 ],
                 'data' => (!empty($data)),
             ]
@@ -621,9 +621,9 @@ final class FieldType extends AbstractType
             'isPubliclyUpdatable',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.lead.field.form.ispubliclyupdatable',
+                'label' => 'mailvotech.lead.field.form.ispubliclyupdatable',
                 'attr'  => [
-                    'tooltip' => 'mautic.lead.field.form.ispubliclyupdatable.tooltip',
+                    'tooltip' => 'mailvotech.lead.field.form.ispubliclyupdatable.tooltip',
                 ],
             ]
         );
@@ -633,16 +633,16 @@ final class FieldType extends AbstractType
             ChoiceType::class,
             [
                 'choices' => [
-                    'mautic.lead.contact'    => 'lead',
-                    'mautic.company.company' => 'company',
+                    'mailvotech.lead.contact'    => 'lead',
+                    'mailvotech.company.company' => 'company',
                 ],
                 'expanded'    => false,
                 'multiple'    => false,
-                'label'       => 'mautic.lead.field.object',
+                'label'       => 'mailvotech.lead.field.object',
                 'placeholder' => false,
                 'attr'        => [
                     'class'    => 'form-control',
-                    'onchange' => 'Mautic.updateLeadFieldOrderChoiceList();',
+                    'onchange' => 'MailVotech.updateLeadFieldOrderChoiceList();',
                 ],
                 'required'    => false,
                 'disabled'    => ($disabled || !$new),
@@ -708,7 +708,7 @@ final class FieldType extends AbstractType
         ];
 
         $context
-            ->buildViolation('mautic.lead.defaultValue.maxlengthexceeded', $translationParameters)
+            ->buildViolation('mailvotech.lead.defaultValue.maxlengthexceeded', $translationParameters)
             ->addViolation();
     }
 
@@ -720,7 +720,7 @@ final class FieldType extends AbstractType
             'charLengthLimit',
             NumberType::class,
             [
-                'label'       => 'mautic.lead.field.form.maximum.character.length',
+                'label'       => 'mailvotech.lead.field.form.maximum.character.length',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => [
                     'class'        => 'form-control',

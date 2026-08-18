@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\LeadBundle\Command;
+namespace MailVotech\LeadBundle\Command;
 
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalService;
-use Mautic\LeadBundle\Entity\Import;
-use Mautic\LeadBundle\Exception\ImportDelayedException;
-use Mautic\LeadBundle\Exception\ImportFailedException;
-use Mautic\LeadBundle\Helper\Progress;
-use Mautic\LeadBundle\Model\ImportModel;
-use Mautic\UserBundle\Security\UserTokenSetter;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalService;
+use MailVotech\LeadBundle\Entity\Import;
+use MailVotech\LeadBundle\Exception\ImportDelayedException;
+use MailVotech\LeadBundle\Exception\ImportFailedException;
+use MailVotech\LeadBundle\Helper\Progress;
+use MailVotech\LeadBundle\Model\ImportModel;
+use MailVotech\UserBundle\Security\UserTokenSetter;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -23,7 +23,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 #[AsCommand(
     name: ImportCommand::COMMAND_NAME,
-    description: 'Imports data to Mautic',
+    description: 'Imports data to MailVotech',
     help: <<<'TXT'
 The <info>%command.name%</info> command starts to import CSV files when some are created.
 
@@ -32,7 +32,7 @@ TXT
 )]
 class ImportCommand extends Command
 {
-    public const COMMAND_NAME = 'mautic:import';
+    public const COMMAND_NAME = 'mailvotech:import';
 
     public function __construct(
         private readonly TranslatorInterface $translator,
@@ -66,7 +66,7 @@ class ImportCommand extends Command
 
             // This specific import was not found
             if (!$import) {
-                $output->writeln('<error>'.$this->translator->trans('mautic.core.error.notfound', [], 'flashes').'</error>');
+                $output->writeln('<error>'.$this->translator->trans('mailvotech.core.error.notfound', [], 'flashes').'</error>');
 
                 return Command::FAILURE;
             }
@@ -88,7 +88,7 @@ class ImportCommand extends Command
         $this->userTokenSetter->setUser($user);
 
         $output->writeln('<info>'.$this->translator->trans(
-            'mautic.lead.import.is.starting',
+            'mailvotech.lead.import.is.starting',
             [
                 '%id%'    => $import->getId(),
                 '%lines%' => $import->getLineCount(),
@@ -99,7 +99,7 @@ class ImportCommand extends Command
             $this->importModel->beginImport($import, $progress, $limit, $start);
         } catch (ImportFailedException $e) {
             $output->writeln('<error>'.$this->translator->trans(
-                'mautic.lead.import.failed',
+                'mailvotech.lead.import.failed',
                 [
                     '%reason%' => $import->getStatusInfo(),
                 ]
@@ -110,14 +110,14 @@ class ImportCommand extends Command
             $this->notify(
                 $import,
                 $start,
-                $this->translator->trans('mautic.lead.import.failed', ['%reason%' => $import->getStatusInfo()]),
+                $this->translator->trans('mailvotech.lead.import.failed', ['%reason%' => $import->getStatusInfo()]),
                 'error'
             );
 
             return Command::FAILURE;
         } catch (ImportDelayedException $e) {
             $output->writeln('<info>'.$this->translator->trans(
-                'mautic.lead.import.delayed',
+                'mailvotech.lead.import.delayed',
                 [
                     '%reason%' => $import->getStatusInfo(),
                 ]
@@ -128,7 +128,7 @@ class ImportCommand extends Command
             $this->notify(
                 $import,
                 $start,
-                $this->translator->trans('mautic.lead.import.delayed', ['%reason%' => $import->getStatusInfo()]),
+                $this->translator->trans('mailvotech.lead.import.delayed', ['%reason%' => $import->getStatusInfo()]),
                 'warning'
             );
 
@@ -137,7 +137,7 @@ class ImportCommand extends Command
 
         // Success
         $output->writeln('<info>'.$this->translator->trans(
-            'mautic.lead.import.result',
+            'mailvotech.lead.import.result',
             [
                 '%lines%'   => $import->getProcessedRows(),
                 '%created%' => $import->getInsertedCount(),
@@ -167,7 +167,7 @@ class ImportCommand extends Command
     {
         $this->notificationModel->addNotification(
             $this->translator->trans(
-                'mautic.lead.import.result',
+                'mailvotech.lead.import.result',
                 [
                     '%lines%'   => $import->getProcessedRows(),
                     '%created%' => $import->getInsertedCount(),

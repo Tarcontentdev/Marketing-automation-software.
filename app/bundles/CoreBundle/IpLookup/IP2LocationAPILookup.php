@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\IpLookup;
+namespace MailVotech\CoreBundle\IpLookup;
 
 final class IP2LocationAPILookup extends AbstractRemoteDataLookup
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\EventListener;
+namespace MailVotech\AssetBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\AssetBundle\Entity\Download;
-use Mautic\CoreBundle\EventListener\CommonStatsSubscriber;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\AssetBundle\Entity\Download;
+use MailVotech\CoreBundle\EventListener\CommonStatsSubscriber;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
 
 final class StatsSubscriber extends CommonStatsSubscriber
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\CoreBundle\Exception\FilePathException;
+use MailVotech\CoreBundle\Exception\FilePathException;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

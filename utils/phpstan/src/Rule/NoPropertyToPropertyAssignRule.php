@@ -68,7 +68,7 @@ final class NoPropertyToPropertyAssignRule implements Rule
             $assignedPropertyName,
             $sourcePropertyName
         ))
-            ->identifier('mautic.noPropertyToPropertyAssign')
+            ->identifier('mailvotech.noPropertyToPropertyAssign')
             ->build();
 
         return [$ruleError];

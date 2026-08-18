@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Entity;
+namespace MailVotech\DynamicContentBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<DynamicContentLeadData>

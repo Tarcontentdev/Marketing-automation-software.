@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\CampaignBundle\EventListener;
+namespace MailVotech\CampaignBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Event as Events;
-use Mautic\CampaignBundle\Service\CampaignAuditService;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Event as Events;
+use MailVotech\CampaignBundle\Service\CampaignAuditService;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class CampaignSubscriber implements EventSubscriberInterface

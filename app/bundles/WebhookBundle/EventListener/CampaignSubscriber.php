@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\WebhookBundle\EventListener;
+namespace MailVotech\WebhookBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Event as Events;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\WebhookBundle\Form\Type\CampaignEventSendWebhookType;
-use Mautic\WebhookBundle\Helper\CampaignHelper;
-use Mautic\WebhookBundle\WebhookEvents;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Event as Events;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\WebhookBundle\Form\Type\CampaignEventSendWebhookType;
+use MailVotech\WebhookBundle\Helper\CampaignHelper;
+use MailVotech\WebhookBundle\WebhookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class CampaignSubscriber implements EventSubscriberInterface
@@ -43,8 +43,8 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
     public function onCampaignBuild(Events\CampaignBuilderEvent $event): void
     {
         $sendWebhookAction = [
-            'label'              => 'mautic.webhook.event.sendwebhook',
-            'description'        => 'mautic.webhook.event.sendwebhook_desc',
+            'label'              => 'mailvotech.webhook.event.sendwebhook',
+            'description'        => 'mailvotech.webhook.event.sendwebhook_desc',
             'formType'           => CampaignEventSendWebhookType::class,
             'formTypeCleanMasks' => 'clean',
             'eventName'          => WebhookEvents::ON_CAMPAIGN_TRIGGER_ACTION,

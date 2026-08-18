@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\Sms;
+namespace MailVotech\SmsBundle\Tests\Sms;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\SmsBundle\Collection\RecipientCollection;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Helper\DTO\SmsRecipientDTO;
-use Mautic\SmsBundle\Integration\Twilio\TwilioTransport;
-use Mautic\SmsBundle\Sms\BulkTransportInterface;
-use Mautic\SmsBundle\Sms\MMSTransportInterface;
-use Mautic\SmsBundle\Sms\TransportChain;
-use Mautic\SmsBundle\Sms\TransportInterface;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\SmsBundle\Collection\RecipientCollection;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Helper\DTO\SmsRecipientDTO;
+use MailVotech\SmsBundle\Integration\Twilio\TwilioTransport;
+use MailVotech\SmsBundle\Sms\BulkTransportInterface;
+use MailVotech\SmsBundle\Sms\MMSTransportInterface;
+use MailVotech\SmsBundle\Sms\TransportChain;
+use MailVotech\SmsBundle\Sms\TransportInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class TransportChainTest extends MauticMysqlTestCase
+final class TransportChainTest extends MailVotechMysqlTestCase
 {
     private TransportChain $transportChain;
 
@@ -47,7 +47,7 @@ final class TransportChainTest extends MauticMysqlTestCase
         parent::setUp();
 
         $this->transportChain = new TransportChain(
-            'mautic.test.twilio.mock',
+            'mailvotech.test.twilio.mock',
             self::getContainer()->get(IntegrationHelper::class)
         );
 
@@ -62,7 +62,7 @@ final class TransportChainTest extends MauticMysqlTestCase
     {
         $count = count($this->transportChain->getTransports());
 
-        $this->transportChain->addTransport('mautic.transport.test', self::getContainer()->get(TwilioTransport::class), 'mautic.transport.test', 'Twilio');
+        $this->transportChain->addTransport('mailvotech.transport.test', self::getContainer()->get(TwilioTransport::class), 'mailvotech.transport.test', 'Twilio');
 
         $this->assertCount($count + 1, $this->transportChain->getTransports());
     }
@@ -71,7 +71,7 @@ final class TransportChainTest extends MauticMysqlTestCase
     {
         $this->testAddTransport();
 
-        $this->transportChain->addTransport('mautic.test.twilio.mock', $this->twilioTransport, 'mautic.test.twilio.mock', 'Twilio');
+        $this->transportChain->addTransport('mailvotech.test.twilio.mock', $this->twilioTransport, 'mailvotech.test.twilio.mock', 'Twilio');
 
         $lead = new Lead();
         $lead->setMobile('+123456789');
@@ -122,7 +122,7 @@ final class TransportChainTest extends MauticMysqlTestCase
 
     private function createDataAndAssertSendMessage(TransportInterface $transport): void
     {
-        $transportChain = new class('mautic.test.bulktwilio.mock', self::getContainer()->get(IntegrationHelper::class)) extends TransportChain {
+        $transportChain = new class('mailvotech.test.bulktwilio.mock', self::getContainer()->get(IntegrationHelper::class)) extends TransportChain {
             public function getEnabledTransports(): array
             {
                 $transports = $this->getTransports();
@@ -131,7 +131,7 @@ final class TransportChainTest extends MauticMysqlTestCase
             }
         };
 
-        $transportChain->addTransport('mautic.test.bulktwilio.mock', $transport, 'mautic.test.bulktwilio.mock', 'BulkTwilio');
+        $transportChain->addTransport('mailvotech.test.bulktwilio.mock', $transport, 'mailvotech.test.bulktwilio.mock', 'BulkTwilio');
 
         $lead1 = new Lead();
         $lead1->setMobile('+123456789');

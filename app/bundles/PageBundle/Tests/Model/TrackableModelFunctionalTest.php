@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Model;
+namespace MailVotech\PageBundle\Tests\Model;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PageBundle\Model\TrackableModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PageBundle\Model\TrackableModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class TrackableModelFunctionalTest extends MauticMysqlTestCase
+final class TrackableModelFunctionalTest extends MailVotechMysqlTestCase
 {
     private TrackableModel $trackableModel;
 
@@ -59,61 +59,61 @@ final class TrackableModelFunctionalTest extends MauticMysqlTestCase
     {
         yield 'HTML5 data attribute' => [
             <<<HTML
-<a href="https://mautic.org">Mautic</a>
-<a href="https://google.com" data-mautic-disable-tracking="true">Google</a>
+<a href="https://mailvotech.org">MailVotech</a>
+<a href="https://google.com" data-mailvotech-disable-tracking="true">Google</a>
 <a href="https://another-link.com">Another Link</a>
 HTML,
-            ['https://mautic.org', 'https://another-link.com'],
-            ['<a href="https://google.com" data-mautic-disable-tracking="true">Google</a>'],
+            ['https://mailvotech.org', 'https://another-link.com'],
+            ['<a href="https://google.com" data-mailvotech-disable-tracking="true">Google</a>'],
         ];
 
         yield 'HTML5 data attribute with false value is still tracked' => [
             <<<HTML
-<a href="https://mautic.org">Mautic</a>
-<a href="https://google.com" data-mautic-disable-tracking="false">Google</a>
+<a href="https://mailvotech.org">MailVotech</a>
+<a href="https://google.com" data-mailvotech-disable-tracking="false">Google</a>
 <a href="https://another-link.com">Another Link</a>
 HTML,
-            ['https://mautic.org', 'https://google.com', 'https://another-link.com'],
+            ['https://mailvotech.org', 'https://google.com', 'https://another-link.com'],
             [],
         ];
 
         yield 'Deprecated attribute' => [
             <<<HTML
-<a href="https://mautic.org">Mautic</a>
-<a href="https://deprecated.com" mautic:disable-tracking>Deprecated</a>
+<a href="https://mailvotech.org">MailVotech</a>
+<a href="https://deprecated.com" mailvotech:disable-tracking>Deprecated</a>
 HTML,
-            ['https://mautic.org'],
-            ['<a href="https://deprecated.com" mautic:disable-tracking>Deprecated</a>'],
+            ['https://mailvotech.org'],
+            ['<a href="https://deprecated.com" mailvotech:disable-tracking>Deprecated</a>'],
         ];
 
         yield 'Both attributes on same link' => [
             <<<HTML
-<a href="https://mautic.org">Mautic</a>
-<a href="https://google.com" data-mautic-disable-tracking="true" mautic:disable-tracking>Google</a>
+<a href="https://mailvotech.org">MailVotech</a>
+<a href="https://google.com" data-mailvotech-disable-tracking="true" mailvotech:disable-tracking>Google</a>
 HTML,
-            ['https://mautic.org'],
-            ['<a href="https://google.com" data-mautic-disable-tracking="true" mautic:disable-tracking>Google</a>'],
+            ['https://mailvotech.org'],
+            ['<a href="https://google.com" data-mailvotech-disable-tracking="true" mailvotech:disable-tracking>Google</a>'],
         ];
 
         yield 'Both attributes on different links' => [
             <<<HTML
-<a href="https://mautic.org">Mautic</a>
-<a href="https://google.com" data-mautic-disable-tracking="true">Google</a>
-<a href="https://deprecated.com" mautic:disable-tracking>Deprecated</a>
+<a href="https://mailvotech.org">MailVotech</a>
+<a href="https://google.com" data-mailvotech-disable-tracking="true">Google</a>
+<a href="https://deprecated.com" mailvotech:disable-tracking>Deprecated</a>
 HTML,
-            ['https://mautic.org'],
+            ['https://mailvotech.org'],
             [
-                '<a href="https://google.com" data-mautic-disable-tracking="true">Google</a>',
-                '<a href="https://deprecated.com" mautic:disable-tracking>Deprecated</a>',
+                '<a href="https://google.com" data-mailvotech-disable-tracking="true">Google</a>',
+                '<a href="https://deprecated.com" mailvotech:disable-tracking>Deprecated</a>',
             ],
         ];
 
         yield 'No tracking disabled' => [
             <<<HTML
-<a href="https://mautic.org">Mautic</a>
+<a href="https://mailvotech.org">MailVotech</a>
 <a href="https://google.com">Google</a>
 HTML,
-            ['https://mautic.org', 'https://google.com'],
+            ['https://mailvotech.org', 'https://google.com'],
             [],
         ];
     }

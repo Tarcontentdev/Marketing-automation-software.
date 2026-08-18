@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Model;
+namespace MailVotech\CoreBundle\Model;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\DTO\GlobalSearchFilterDTO;
+use MailVotech\CoreBundle\DTO\GlobalSearchFilterDTO;
 
 interface GlobalSearchInterface
 {

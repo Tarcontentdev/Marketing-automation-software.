@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Model;
+namespace MailVotech\CoreBundle\Tests\Unit\Model;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Model\AbstractCommonModel;
-use Mautic\CoreBundle\Model\IteratorExportDataModel;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Model\AbstractCommonModel;
+use MailVotech\CoreBundle\Model\IteratorExportDataModel;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class IteratorExportDataModelTest extends \PHPUnit\Framework\TestCase

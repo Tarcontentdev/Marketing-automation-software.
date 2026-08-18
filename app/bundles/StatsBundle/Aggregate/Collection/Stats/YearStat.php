@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\StatsBundle\Aggregate\Collection\Stats;
+namespace MailVotech\StatsBundle\Aggregate\Collection\Stats;
 
 final class YearStat implements StatInterface
 {

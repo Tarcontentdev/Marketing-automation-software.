@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller;
+namespace MailVotech\EmailBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\LeadBundle\Entity\LeadList;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\LeadBundle\Entity\LeadList;
 use Symfony\Component\HttpFoundation\Request;
 
-final class EmailGraphStatsControllerFunctionalTest extends MauticMysqlTestCase
+final class EmailGraphStatsControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 

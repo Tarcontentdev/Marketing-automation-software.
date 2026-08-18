@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\EventListener;
+namespace MailVotech\FormBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\DTO\GlobalSearchFilterDTO;
-use Mautic\CoreBundle\Event as MauticEvents;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\GlobalSearch;
-use Mautic\FormBundle\Model\FormModel;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\DTO\GlobalSearchFilterDTO;
+use MailVotech\CoreBundle\Event as MailVotechEvents;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\GlobalSearch;
+use MailVotech\FormBundle\Model\FormModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class SearchSubscriber implements EventSubscriberInterface
@@ -29,25 +29,25 @@ final readonly class SearchSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onGlobalSearch(MauticEvents\GlobalSearchEvent $event): void
+    public function onGlobalSearch(MailVotechEvents\GlobalSearchEvent $event): void
     {
         $filterDTO = new GlobalSearchFilterDTO($event->getSearchString());
         $results   = $this->globalSearch->performSearch(
             $filterDTO,
             $this->formModel,
-            '@MauticForm/SubscribedEvents/Search/global.html.twig'
+            '@MailVotechForm/SubscribedEvents/Search/global.html.twig'
         );
 
         if ([] !== $results) {
-            $event->addResults('mautic.campaign.campaigns', $results);
+            $event->addResults('mailvotech.campaign.campaigns', $results);
         }
     }
 
-    public function onBuildCommandList(MauticEvents\CommandListEvent $event): void
+    public function onBuildCommandList(MailVotechEvents\CommandListEvent $event): void
     {
         if ($this->security->isGranted(['form:forms:viewown', 'form:forms:viewother'], 'MATCH_ONE')) {
             $event->addCommands(
-                'mautic.form.forms',
+                'mailvotech.form.forms',
                 $this->formModel->getCommandList()
             );
         }

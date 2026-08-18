@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Event;
+namespace MailVotech\SmsBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\LeadBundle\Entity\Lead;
 
 class SmsSendEvent extends CommonEvent
 {

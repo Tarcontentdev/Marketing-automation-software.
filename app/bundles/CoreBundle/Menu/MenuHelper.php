@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CoreBundle\Menu;
+namespace MailVotech\CoreBundle\Menu;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final class MenuHelper

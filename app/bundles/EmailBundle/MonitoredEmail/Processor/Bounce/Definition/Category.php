@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\Definition;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\Definition;
 
 final class Category
 {

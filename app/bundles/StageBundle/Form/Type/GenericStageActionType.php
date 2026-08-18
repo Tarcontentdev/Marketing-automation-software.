@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\Form\Type;
+namespace MailVotech\StageBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -17,11 +17,11 @@ final class GenericStageActionType extends AbstractType
     {
         $default = (empty($options['data']['weight'])) ? 0 : (int) $options['data']['weight'];
         $builder->add('weight', NumberType::class, [
-            'label'      => 'mautic.stage.action.weight',
+            'label'      => 'mailvotech.stage.action.weight',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => [
                 'class'   => 'form-control',
-                'tooltip' => 'mautic.stage.action.weight.help',
+                'tooltip' => 'mailvotech.stage.action.weight.help',
             ],
             'scale' => 0,
             'data'  => $default,

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Event;
+namespace MailVotech\CoreBundle\Tests\Event;
 
-use Mautic\CoreBundle\Event\BuildJsEvent;
-use Mautic\CoreBundle\Event\BuildJsScope;
+use MailVotech\CoreBundle\Event\BuildJsEvent;
+use MailVotech\CoreBundle\Event\BuildJsScope;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

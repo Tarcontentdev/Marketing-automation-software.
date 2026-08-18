@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\DataFixtures;
+namespace MailVotech\AssetBundle\Tests\DataFixtures;
 
-use Mautic\AssetBundle\DataFixtures\ORM\LoadAssetData;
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\AssetBundle\DataFixtures\ORM\LoadAssetData;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class LoadAssetDataTest extends MauticMysqlTestCase
+final class LoadAssetDataTest extends MailVotechMysqlTestCase
 {
     public function testLoadFixtures(): void
     {

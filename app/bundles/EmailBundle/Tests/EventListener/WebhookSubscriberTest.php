@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\EmailBundle\EventListener\WebhookSubscriber;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\WebhookBundle\Event\WebhookBuilderEvent;
-use Mautic\WebhookBundle\Model\WebhookModel;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\EventListener\WebhookSubscriber;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\WebhookBundle\Event\WebhookBuilderEvent;
+use MailVotech\WebhookBundle\Model\WebhookModel;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class WebhookSubscriberTest extends \PHPUnit\Framework\TestCase
@@ -40,15 +40,15 @@ final class WebhookSubscriberTest extends \PHPUnit\Framework\TestCase
                 if (1 === $matcher->numberOfInvocations()) {
                     $this->assertSame(EmailEvents::EMAIL_ON_SEND, $parameters[0]);
                     $this->assertSame([
-                        'label'       => 'mautic.email.webhook.event.send',
-                        'description' => 'mautic.email.webhook.event.send_desc',
+                        'label'       => 'mailvotech.email.webhook.event.send',
+                        'description' => 'mailvotech.email.webhook.event.send_desc',
                     ], $parameters[1]);
                 }
                 if (2 === $matcher->numberOfInvocations()) {
                     $this->assertSame(EmailEvents::EMAIL_ON_OPEN, $parameters[0]);
                     $this->assertSame([
-                        'label'       => 'mautic.email.webhook.event.open',
-                        'description' => 'mautic.email.webhook.event.open_desc',
+                        'label'       => 'mailvotech.email.webhook.event.open',
+                        'description' => 'mailvotech.email.webhook.event.open_desc',
                     ], $parameters[1]);
                 }
             });

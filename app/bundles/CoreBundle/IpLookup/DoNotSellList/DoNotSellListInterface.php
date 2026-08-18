@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\IpLookup\DoNotSellList;
+namespace MailVotech\CoreBundle\IpLookup\DoNotSellList;
 
 interface DoNotSellListInterface extends \Iterator
 {

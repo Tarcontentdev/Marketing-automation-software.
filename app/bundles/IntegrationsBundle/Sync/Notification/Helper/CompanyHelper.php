@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Notification\Helper;
+namespace MailVotech\IntegrationsBundle\Sync\Notification\Helper;
 
 use Doctrine\DBAL\Connection;
 
@@ -20,7 +20,7 @@ final readonly class CompanyHelper
     {
         return $this->connection->createQueryBuilder()
             ->select('c.companyname')
-            ->from(MAUTIC_TABLE_PREFIX.'companies', 'c')
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies', 'c')
             ->where('c.id = '.$id)
             ->executeQuery()
             ->fetchOne();

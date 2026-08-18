@@ -1,9 +1,9 @@
 {
     "subtree-splits": [
         {
-            "name": "MauticEmailMarketingBundle",
-            "directory": "plugins/MauticEmailMarketingBundle",
-            "target": "git@github.com:mautic/plugin-emailmarketing.git"
+            "name": "MailVotechEmailMarketingBundle",
+            "directory": "plugins/MailVotechEmailMarketingBundle",
+            "target": "git@github.com:mailvotech/plugin-emailmarketing.git"
         }
     ]
 }

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\EventListener;
+namespace MailVotech\CoreBundle\Tests\Functional\EventListener;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-final class EditorFontsSubscriberTest extends MauticMysqlTestCase
+final class EditorFontsSubscriberTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -34,6 +34,6 @@ final class EditorFontsSubscriberTest extends MauticMysqlTestCase
 
         self::assertResponseIsSuccessful();
 
-        $this->assertStringContainsString('var mauticEditorFonts               = [{"name":"Arial","font":"Arial, Helvetica, sans-serif","url":"https:\/\/custom-font.test\/arial.css"},{"name":"Courier New","font":"Courier New, Courier, monospace","url":"https:\/\/custom-font.test\/courier.css"}];', $response);
+        $this->assertStringContainsString('var mailvotechEditorFonts               = [{"name":"Arial","font":"Arial, Helvetica, sans-serif","url":"https:\/\/custom-font.test\/arial.css"},{"name":"Courier New","font":"Courier New, Courier, monospace","url":"https:\/\/custom-font.test\/courier.css"}];', $response);
     }
 }

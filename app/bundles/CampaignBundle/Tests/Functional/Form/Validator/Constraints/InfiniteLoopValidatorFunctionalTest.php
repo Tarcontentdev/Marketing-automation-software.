@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Form\Validator\Constraints;
+namespace MailVotech\CampaignBundle\Tests\Functional\Form\Validator\Constraints;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\LeadList;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\LeadList;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DomCrawler\Crawler;
 
-final class InfiniteLoopValidatorFunctionalTest extends MauticMysqlTestCase
+final class InfiniteLoopValidatorFunctionalTest extends MailVotechMysqlTestCase
 {
     #[DataProvider('delayDataProvider')]
     public function testSubmitCampaignActionVariousDelayOptions(string $triggerMode, int $triggerInterval, string $triggerIntervalUnit, int $success, string $expectedString): void
     {
-        $uri = '/s/campaigns/events/new?type=campaign.addremovelead&eventType=action&campaignId=mautic_89f7f52426c1dff3daa3beaea708a6b39fe7a775&anchor=leadsource&anchorEventType=source';
+        $uri = '/s/campaigns/events/new?type=campaign.addremovelead&eventType=action&campaignId=mailvotech_89f7f52426c1dff3daa3beaea708a6b39fe7a775&anchor=leadsource&anchorEventType=source';
         $this->client->xmlHttpRequest('GET', $uri);
         $response = $this->client->getResponse();
         $this->assertResponseIsSuccessful();
@@ -31,7 +31,7 @@ final class InfiniteLoopValidatorFunctionalTest extends MauticMysqlTestCase
                 'campaignevent[triggerMode]'         => $triggerMode,
                 'campaignevent[triggerInterval]'     => $triggerInterval,
                 'campaignevent[triggerIntervalUnit]' => $triggerIntervalUnit,
-                'campaignevent[campaignId]'          => 'mautic_89f7f52426c1dff3daa3beaea708a6b39fe7a775',
+                'campaignevent[campaignId]'          => 'mailvotech_89f7f52426c1dff3daa3beaea708a6b39fe7a775',
             ]
         );
 
@@ -112,7 +112,7 @@ final class InfiniteLoopValidatorFunctionalTest extends MauticMysqlTestCase
                         'type'            => 'campaign.addremovelead',
                         'eventType'       => 'action',
                         'anchorEventType' => 'source',
-                        'campaignId'      => 'mautic_5d0923689420c9d3981255dc56b6308b92db82c2',
+                        'campaignId'      => 'mailvotech_5d0923689420c9d3981255dc56b6308b92db82c2',
                         '_token'          => 'pDmdgUFBm2tj-Vu8IoAfiaVNYy8sdBNjwrGtO9Igut8',
                         'addTo'           => ['this'],
                         'removeFrom'      => [],
@@ -144,7 +144,7 @@ final class InfiniteLoopValidatorFunctionalTest extends MauticMysqlTestCase
                         'type'            => 'lead.changepoints',
                         'eventType'       => 'action',
                         'anchorEventType' => 'source',
-                        'campaignId'      => 'mautic_5d0923689420c9d3981255dc56b6308b92db82c2',
+                        'campaignId'      => 'mailvotech_5d0923689420c9d3981255dc56b6308b92db82c2',
                         '_token'          => 'pDmdgUFBm2tj-Vu8IoAfiaVNYy8sdBNjwrGtO9Igut8',
                         'points'          => 2,
                     ],

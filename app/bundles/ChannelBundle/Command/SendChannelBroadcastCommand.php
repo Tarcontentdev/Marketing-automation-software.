@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\ChannelBundle\Command;
+namespace MailVotech\ChannelBundle\Command;
 
-use Mautic\ChannelBundle\ChannelEvents;
-use Mautic\ChannelBundle\Event\ChannelBroadcastEvent;
-use Mautic\CoreBundle\Command\ModeratedCommand;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
+use MailVotech\ChannelBundle\ChannelEvents;
+use MailVotech\ChannelBundle\Event\ChannelBroadcastEvent;
+use MailVotech\CoreBundle\Command\ModeratedCommand;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -20,7 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * CLI Command to send a scheduled broadcast.
  */
 #[AsCommand(
-    name: 'mautic:broadcasts:send',
+    name: 'mailvotech:broadcasts:send',
     description: 'Process contacts pending to receive a channel broadcast.',
     help: <<<'TXT'
                 The <info>%command.name%</info> command is send a channel broadcast to pending contacts.
@@ -174,7 +174,7 @@ final class SendChannelBroadcastCommand extends ModeratedCommand
 
         $table = new Table($output);
         $table
-            ->setHeaders([$this->translator->trans('mautic.core.channel'), $this->translator->trans('mautic.core.channel.broadcast_success_count'), $this->translator->trans('mautic.core.channel.broadcast_failed_count')])
+            ->setHeaders([$this->translator->trans('mailvotech.core.channel'), $this->translator->trans('mailvotech.core.channel.broadcast_success_count'), $this->translator->trans('mailvotech.core.channel.broadcast_failed_count')])
             ->setRows($rows);
         $table->render();
 

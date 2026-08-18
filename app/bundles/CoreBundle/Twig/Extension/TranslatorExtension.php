@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Extension;
+namespace MailVotech\CoreBundle\Twig\Extension;
 
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Translation\Translator;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

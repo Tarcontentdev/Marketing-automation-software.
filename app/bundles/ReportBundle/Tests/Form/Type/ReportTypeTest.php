@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Form\Type;
+namespace MailVotech\ReportBundle\Tests\Form\Type;
 
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Form\Type\ReportType;
-use Mautic\ReportBundle\Model\ReportModel;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Form\Type\ReportType;
+use MailVotech\ReportBundle\Model\ReportModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -41,7 +41,7 @@ final class ReportTypeTest extends \PHPUnit\Framework\TestCase
             'data'       => $report,
             'table_list' => [
                 'assets' => [
-                    'display_name' => 'mautic.asset.assets',
+                    'display_name' => 'mailvotech.asset.assets',
                     'group'        => 'assets',
                     'columns'      => [
                         'a.alias' => [

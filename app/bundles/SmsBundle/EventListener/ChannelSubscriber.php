@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\EventListener;
+namespace MailVotech\SmsBundle\EventListener;
 
-use Mautic\ChannelBundle\ChannelEvents;
-use Mautic\ChannelBundle\Event\ChannelEvent;
-use Mautic\ChannelBundle\Model\MessageModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\ReportBundle\Model\ReportModel;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Form\Type\SmsListType;
-use Mautic\SmsBundle\Sms\TransportChain;
+use MailVotech\ChannelBundle\ChannelEvents;
+use MailVotech\ChannelBundle\Event\ChannelEvent;
+use MailVotech\ChannelBundle\Model\MessageModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\ReportBundle\Model\ReportModel;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Form\Type\SmsListType;
+use MailVotech\SmsBundle\Sms\TransportChain;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ChannelSubscriber implements EventSubscriberInterface

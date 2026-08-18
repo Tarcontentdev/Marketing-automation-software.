@@ -1,5 +1,5 @@
 {#
-Base Template for Mautic Form Actions
+Base Template for MailVotech Form Actions
 Extend this template in child templates and override blocks as needed.
 
 Variables
@@ -8,19 +8,19 @@ Variables
 - action
 #}
 
-<div class="mauticform-row pa-0 panel {% block panel_classes %}{% endblock %}" id="mauticform_action_{{ id }}">
+<div class="mailvotechform-row pa-0 panel {% block panel_classes %}{% endblock %}" id="mailvotechform_action_{{ id }}">
     <div class="panel-body">
         {% block content %}
             {% if inForm is defined %}
-                {{ include('@MauticForm/Builder/_actions.html.twig', {
+                {{ include('@MailVotechForm/Builder/_actions.html.twig', {
                     'id': id,
-                    'route': 'mautic_formaction_action',
+                    'route': 'mailvotech_formaction_action',
                     'actionType': 'action',
                     'formId': formId,
                 }) }}
             {% endif %}
 
-            <a data-toggle="ajaxmodal" data-target="#formComponentModal" href="{{ path('mautic_formaction_action', {'objectAction': 'edit', 'objectId': id, 'formId': formId}) }}">
+            <a data-toggle="ajaxmodal" data-target="#formComponentModal" href="{{ path('mailvotech_formaction_action', {'objectAction': 'edit', 'objectId': id, 'formId': formId}) }}">
                 <span class="action-label">{{ action.name }}</span>
             </a>
 

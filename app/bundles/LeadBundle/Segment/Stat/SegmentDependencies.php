@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Stat;
+namespace MailVotech\LeadBundle\Segment\Stat;
 
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\FormBundle\Model\ActionModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\PointBundle\Model\TriggerEventModel;
-use Mautic\ReportBundle\Model\ReportModel;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\FormBundle\Model\ActionModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\PointBundle\Model\TriggerEventModel;
+use MailVotech\ReportBundle\Model\ReportModel;
 
 final readonly class SegmentDependencies
 {
@@ -25,28 +25,28 @@ final readonly class SegmentDependencies
     {
         return [
             [
-                'label' => 'mautic.email.emails',
-                'route' => 'mautic_email_index',
+                'label' => 'mailvotech.email.emails',
+                'route' => 'mailvotech_email_index',
                 'ids'   => $this->emailModel->getEmailsIdsWithDependenciesOnSegment($segmentId),
             ], [
-                'label' => 'mautic.campaign.campaigns',
-                'route' => 'mautic_campaign_index',
+                'label' => 'mailvotech.campaign.campaigns',
+                'route' => 'mailvotech_campaign_index',
                 'ids'   => $this->campaignModel->getCampaignIdsWithDependenciesOnSegment($segmentId),
             ], [
-                'label' => 'mautic.lead.lead.lists',
-                'route' => 'mautic_segment_index',
+                'label' => 'mailvotech.lead.lead.lists',
+                'route' => 'mailvotech_segment_index',
                 'ids'   => $this->listModel->getSegmentsWithDependenciesOnSegment($segmentId, 'id'),
             ], [
-                'label' => 'mautic.report.reports',
-                'route' => 'mautic_report_index',
+                'label' => 'mailvotech.report.reports',
+                'route' => 'mailvotech_report_index',
                 'ids'   => $this->reportModel->getReportsIdsWithDependenciesOnSegment($segmentId),
             ], [
-                'label' => 'mautic.form.forms',
-                'route' => 'mautic_form_index',
+                'label' => 'mailvotech.form.forms',
+                'route' => 'mailvotech_form_index',
                 'ids'   => $this->actionModel->getFormsIdsWithDependenciesOnSegment($segmentId),
             ], [
-                'label' => 'mautic.point.trigger.header.index',
-                'route' => 'mautic_pointtrigger_index',
+                'label' => 'mailvotech.point.trigger.header.index',
+                'route' => 'mailvotech_pointtrigger_index',
                 'ids'   => $this->triggerEventModel->getReportIdsWithDependenciesOnSegment($segmentId),
             ],
         ];

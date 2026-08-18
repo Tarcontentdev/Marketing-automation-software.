@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\MessageHandler;
+namespace MailVotech\MessengerBundle\MessageHandler;
 
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\MessengerBundle\Exceptions\InvalidPayloadException;
-use Mautic\MessengerBundle\Message\PageHitNotification;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\HitRepository;
-use Mautic\PageBundle\Entity\PageRepository;
-use Mautic\PageBundle\Entity\RedirectRepository;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\MessengerBundle\Exceptions\InvalidPayloadException;
+use MailVotech\MessengerBundle\Message\PageHitNotification;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\HitRepository;
+use MailVotech\PageBundle\Entity\PageRepository;
+use MailVotech\PageBundle\Entity\RedirectRepository;
+use MailVotech\PageBundle\Model\PageModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\Handler\Acknowledger;

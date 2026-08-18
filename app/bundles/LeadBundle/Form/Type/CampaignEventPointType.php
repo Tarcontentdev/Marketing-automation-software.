@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\LeadBundle\Provider\TypeOperatorProviderInterface;
-use Mautic\LeadBundle\Segment\OperatorOptions;
-use Mautic\PointBundle\Form\Type\GroupListType;
+use MailVotech\LeadBundle\Provider\TypeOperatorProviderInterface;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
+use MailVotech\PointBundle\Form\Type\GroupListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -28,7 +28,7 @@ final class CampaignEventPointType extends AbstractType
             'operator',
             ChoiceType::class,
             [
-                'label'             => 'mautic.lead.campaign.event.point_operator',
+                'label'             => 'mailvotech.lead.campaign.event.point_operator',
                 'multiple'          => false,
                 'choices'           => $this->typeOperatorProvider->getOperatorsIncluding([
                     OperatorOptions::EQUAL_TO,
@@ -47,7 +47,7 @@ final class CampaignEventPointType extends AbstractType
             'score',
             NumberType::class,
             [
-                'label'      => 'mautic.lead.campaign.event.point_score',
+                'label'      => 'mailvotech.lead.campaign.event.point_score',
                 'attr'       => ['class' => 'form-control'],
                 'label_attr' => ['class' => 'control-label'],
                 'scale'      => 0,
@@ -56,11 +56,11 @@ final class CampaignEventPointType extends AbstractType
         );
 
         $builder->add('group', GroupListType::class, [
-            'label'            => 'mautic.lead.campaign.event.point_group',
+            'label'            => 'mailvotech.lead.campaign.event.point_group',
             'label_attr'       => ['class' => 'control-label'],
             'attr'             => [
                 'class'    => 'form-control',
-                'tooltip'  => 'mautic.lead.campaign.event.point_group.help',
+                'tooltip'  => 'mailvotech.lead.campaign.event.point_group.help',
             ],
             'required'         => false,
             'by_reference'     => false,

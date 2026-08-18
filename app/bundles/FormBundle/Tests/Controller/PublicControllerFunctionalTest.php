@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Controller;
+namespace MailVotech\FormBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\Company;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\Company;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class PublicControllerFunctionalTest extends MauticMysqlTestCase
+final class PublicControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     #[PreserveGlobalState(false)]
     #[RunInSeparateProcess]
-    public function testGenerateActionIsIndependentFromMauticTracking(): void
+    public function testGenerateActionIsIndependentFromMailVotechTracking(): void
     {
         $form = $this->createForm();
         $form->setIsPublished(true);
@@ -28,16 +28,16 @@ final class PublicControllerFunctionalTest extends MauticMysqlTestCase
         self::assertResponseIsSuccessful();
         self::assertResponseHeaderSame('Content-Type', 'text/javascript; charset=UTF-8');
         $content = (string) $this->client->getResponse()->getContent();
-        $this->assertStringContainsString('mauticform_wrapper_companylookuptest', $content);
+        $this->assertStringContainsString('mailvotechform_wrapper_companylookuptest', $content);
         $this->assertStringContainsString("/form/submit?formId={$form->getId()}", $content);
-        $this->assertStringContainsString('media/js/mautic-form.js', $content);
-        $this->assertStringContainsString('MauticSDK.onLoad()', $content);
-        $this->assertStringNotContainsString('MauticJS', $content);
+        $this->assertStringContainsString('media/js/mailvotech-form.js', $content);
+        $this->assertStringContainsString('MailVotechSDK.onLoad()', $content);
+        $this->assertStringNotContainsString('MailVotechJS', $content);
         $this->assertStringNotContainsString('mtc_id', $content);
-        $this->assertStringNotContainsString('mautic_device_id', $content);
+        $this->assertStringNotContainsString('mailvotech_device_id', $content);
         $this->assertStringNotContainsString('/mtc.js', $content);
-        $this->assertStringNotContainsString('/mautic-essential.js', $content);
-        $this->assertStringNotContainsString('/mautic-tracking.js', $content);
+        $this->assertStringNotContainsString('/mailvotech-essential.js', $content);
+        $this->assertStringNotContainsString('/mailvotech-tracking.js', $content);
     }
 
     public function testLookupActionWithNoLookupFormField(): void

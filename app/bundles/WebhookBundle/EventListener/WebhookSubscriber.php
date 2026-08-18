@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\WebhookBundle\EventListener;
+namespace MailVotech\WebhookBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\WebhookBundle\Event\WebhookEvent;
-use Mautic\WebhookBundle\Notificator\WebhookKillNotificator;
-use Mautic\WebhookBundle\WebhookEvents;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\WebhookBundle\Event\WebhookEvent;
+use MailVotech\WebhookBundle\Notificator\WebhookKillNotificator;
+use MailVotech\WebhookBundle\WebhookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class WebhookSubscriber implements EventSubscriberInterface

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Auth\Provider\BasicAuth;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Auth\Provider\BasicAuth;
 
 use GuzzleHttp\Exception\ConnectException;
-use Mautic\IntegrationsBundle\Auth\Provider\BasicAuth\CredentialsInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\BasicAuth\HttpFactory;
-use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
+use MailVotech\IntegrationsBundle\Auth\Provider\BasicAuth\CredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\BasicAuth\HttpFactory;
+use MailVotech\IntegrationsBundle\Exception\PluginNotConfiguredException;
 use PHPUnit\Framework\TestCase;
 
 final class HttpFactoryTest extends TestCase

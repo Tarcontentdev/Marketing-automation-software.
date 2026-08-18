@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CoreBundle\Controller;
+namespace MailVotech\CoreBundle\Controller;
 
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\PageBundle\Model\PageModel;
 use Symfony\Component\HttpFoundation\Request;
 
 trait VariantAjaxControllerTrait

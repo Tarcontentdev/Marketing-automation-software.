@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Helper;
+namespace MailVotech\CoreBundle\Twig\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class DateHelper
@@ -122,13 +122,13 @@ final class DateHelper
         $dt       = $this->helper->getLocalDateTime();
 
         if ($textDate) {
-            return $this->translator->trans('mautic.core.date.'.$textDate, ['%time%' => $dt->format($this->coreParametersHelper->get('date_format_timeonly'))]);
+            return $this->translator->trans('mailvotech.core.date.'.$textDate, ['%time%' => $dt->format($this->coreParametersHelper->get('date_format_timeonly'))]);
         }
         $interval = $this->helper->getDiff('now', null, true);
 
         if ($interval->invert && !$forceDateForNonText) {
             // In the past
-            return $this->translator->trans('mautic.core.date.ago', ['%days%' => $interval->days]);
+            return $this->translator->trans('mailvotech.core.date.ago', ['%days%' => $interval->days]);
         }
 
         // In the future
@@ -148,14 +148,14 @@ final class DateHelper
         foreach ($timeUnits as $key => $unit) {
             if ($range->{$key}) {
                 $formated[] = $this->translator->trans(
-                    'mautic.core.date.'.$unit,
+                    'mailvotech.core.date.'.$unit,
                     ['%count%' => $range->{$key}]
                 );
             }
         }
 
         if ([] === $formated) {
-            return $this->translator->trans('mautic.core.date.less.than.second');
+            return $this->translator->trans('mailvotech.core.date.less.than.second');
         }
 
         return implode(' ', $formated);
@@ -213,31 +213,31 @@ final class DateHelper
     {
         if ($diff->y > 0) {
             return $isFuture
-                ? $this->translator->trans('mautic.core.date.years.in', ['%count%' => $diff->y])
-                : $this->translator->trans('mautic.core.date.years.ago', ['%count%' => $diff->y]);
+                ? $this->translator->trans('mailvotech.core.date.years.in', ['%count%' => $diff->y])
+                : $this->translator->trans('mailvotech.core.date.years.ago', ['%count%' => $diff->y]);
         }
         if ($diff->m > 0) {
             return $isFuture
-                ? $this->translator->trans('mautic.core.date.months.in', ['%count%' => $diff->m])
-                : $this->translator->trans('mautic.core.date.months.ago', ['%count%' => $diff->m]);
+                ? $this->translator->trans('mailvotech.core.date.months.in', ['%count%' => $diff->m])
+                : $this->translator->trans('mailvotech.core.date.months.ago', ['%count%' => $diff->m]);
         }
         if ($diff->d > 0) {
             return $isFuture
-                ? $this->translator->trans('mautic.core.date.days.in', ['%count%' => $diff->d])
-                : $this->translator->trans('mautic.core.date.days.ago', ['%count%' => $diff->d]);
+                ? $this->translator->trans('mailvotech.core.date.days.in', ['%count%' => $diff->d])
+                : $this->translator->trans('mailvotech.core.date.days.ago', ['%count%' => $diff->d]);
         }
         if ($diff->h > 0) {
             return $isFuture
-                ? $this->translator->trans('mautic.core.date.hours.in', ['%count%' => $diff->h])
-                : $this->translator->trans('mautic.core.date.hours.ago', ['%count%' => $diff->h]);
+                ? $this->translator->trans('mailvotech.core.date.hours.in', ['%count%' => $diff->h])
+                : $this->translator->trans('mailvotech.core.date.hours.ago', ['%count%' => $diff->h]);
         }
         if ($diff->i > 0) {
             return $isFuture
-                ? $this->translator->trans('mautic.core.date.minutes.in', ['%count%' => $diff->i])
-                : $this->translator->trans('mautic.core.date.minutes.ago', ['%count%' => $diff->i]);
+                ? $this->translator->trans('mailvotech.core.date.minutes.in', ['%count%' => $diff->i])
+                : $this->translator->trans('mailvotech.core.date.minutes.ago', ['%count%' => $diff->i]);
         }
 
-        return $this->translator->trans('mautic.core.date.just.now');
+        return $this->translator->trans('mailvotech.core.date.just.now');
     }
 
     /**
@@ -255,7 +255,7 @@ final class DateHelper
         $textDate = $this->helper->getTextDate();
 
         if ($textDate) {
-            $translated = $this->translator->trans('mautic.core.date.'.$textDate, ['%time%' => '']);
+            $translated = $this->translator->trans('mailvotech.core.date.'.$textDate, ['%time%' => '']);
 
             return trim(str_replace(',', '', $translated));
         }

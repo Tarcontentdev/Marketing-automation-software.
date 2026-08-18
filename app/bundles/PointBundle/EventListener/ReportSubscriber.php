@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\EventListener;
+namespace MailVotech\PointBundle\EventListener;
 
-use Mautic\LeadBundle\Report\FieldsBuilder;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\GroupContactScore;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\ReportEvents;
+use MailVotech\LeadBundle\Report\FieldsBuilder;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\GroupContactScore;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\ReportEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ReportSubscriber implements EventSubscriberInterface
@@ -23,17 +23,17 @@ final class ReportSubscriber implements EventSubscriberInterface
     public const GROUP_COLUMNS = [
         self::GROUP_PREFIX.'.id' => [
             'alias' => 'group_id',
-            'label' => 'mautic.point.report.group_id',
+            'label' => 'mailvotech.point.report.group_id',
             'type'  => 'int',
         ],
         self::GROUP_PREFIX.'.name' => [
             'alias' => 'group_name',
-            'label' => 'mautic.point.report.group_name',
+            'label' => 'mailvotech.point.report.group_name',
             'type'  => 'string',
         ],
         self::GROUP_SCORE_PREFIX.'.score' => [
             'alias' => 'group_score',
-            'label' => 'mautic.point.report.group_score',
+            'label' => 'mailvotech.point.report.group_score',
             'type'  => 'int',
         ],
     ];
@@ -74,7 +74,7 @@ final class ReportSubscriber implements EventSubscriberInterface
                 $this->fieldsBuilder->getLeadFilter('l.', 's.')
             );
             $data = [
-                'display_name' => 'mautic.point.group.report.table',
+                'display_name' => 'mailvotech.point.group.report.table',
                 'columns'      => $columns,
                 'filters'      => $filters,
             ];
@@ -91,12 +91,12 @@ final class ReportSubscriber implements EventSubscriberInterface
         $qb = $event->getQueryBuilder();
 
         if ($event->checkContext(self::CONTEXT_GROUP_SCORE)) {
-            $qb->from(MAUTIC_TABLE_PREFIX.GroupContactScore::TABLE_NAME, self::GROUP_SCORE_PREFIX)
-                ->leftJoin(self::GROUP_SCORE_PREFIX, MAUTIC_TABLE_PREFIX.Group::TABLE_NAME, self::GROUP_PREFIX, self::GROUP_SCORE_PREFIX.'.group_id = '.self::GROUP_PREFIX.'.id')
-                ->leftJoin(self::GROUP_SCORE_PREFIX, MAUTIC_TABLE_PREFIX.'leads', 'l', self::GROUP_SCORE_PREFIX.'.contact_id = l.id');
+            $qb->from(MAILVOTECH_TABLE_PREFIX.GroupContactScore::TABLE_NAME, self::GROUP_SCORE_PREFIX)
+                ->leftJoin(self::GROUP_SCORE_PREFIX, MAILVOTECH_TABLE_PREFIX.Group::TABLE_NAME, self::GROUP_PREFIX, self::GROUP_SCORE_PREFIX.'.group_id = '.self::GROUP_PREFIX.'.id')
+                ->leftJoin(self::GROUP_SCORE_PREFIX, MAILVOTECH_TABLE_PREFIX.'leads', 'l', self::GROUP_SCORE_PREFIX.'.contact_id = l.id');
 
             if ($event->hasFilter('s.leadlist_id')) {
-                $qb->join('l', MAUTIC_TABLE_PREFIX.'lead_lists_leads', 's', 's.lead_id = l.id AND s.manually_removed = 0');
+                $qb->join('l', MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 's', 's.lead_id = l.id AND s.manually_removed = 0');
             }
         }
 

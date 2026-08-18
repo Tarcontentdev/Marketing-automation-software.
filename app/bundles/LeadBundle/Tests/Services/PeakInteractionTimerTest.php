@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Services;
+namespace MailVotech\LeadBundle\Tests\Services;
 
-use Mautic\CacheBundle\Cache\CacheProviderInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\FormBundle\Entity\SubmissionRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Services\PeakInteractionTimer;
-use Mautic\PageBundle\Entity\HitRepository;
+use MailVotech\CacheBundle\Cache\CacheProviderInterface;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Services\PeakInteractionTimer;
+use MailVotech\PageBundle\Entity\HitRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -425,7 +425,7 @@ final class PeakInteractionTimerTest extends TestCase
             'userAgent'    => 'Mozilla/5.0 (X11; Debian; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/123.0',
             'dateHit'      => $dateHitObj,
             'dateLeft'     => null,
-            'referer'      => 'https://mautic.ddev.site/email/view/64e8475bb5d01527171344',
+            'referer'      => 'https://mailvotech.ddev.site/email/view/64e8475bb5d01527171344',
             'source'       => 'email',
             'sourceId'     => '8',
             'url'          => 'https://example.com/',

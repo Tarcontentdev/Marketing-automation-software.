@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\SmsBundle\Security\Permissions;
+namespace MailVotech\SmsBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class SmsPermissions extends AbstractPermissions

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\DAO\Mapping;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\DAO\Mapping;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
 use PHPUnit\Framework\TestCase;
 
 final class MappingManualDAOTest extends TestCase
@@ -37,7 +37,7 @@ final class MappingManualDAOTest extends TestCase
             [
                 'email',    // required and bidirectional
                 'country',  // bidirectional
-                'firstname', // sync from mautic to integration
+                'firstname', // sync from mailvotech to integration
             ],
             $this->getMappingManualDAO()->getInternalObjectFieldsToSyncToIntegration(Contact::NAME)
         );
@@ -57,9 +57,9 @@ final class MappingManualDAOTest extends TestCase
             [
                 'email',    // required and bidirectional
                 'country',  // bidirectional
-                'last_name', // sync from mautic to integration
+                'last_name', // sync from mailvotech to integration
             ],
-            $this->getMappingManualDAO()->getIntegrationObjectFieldsToSyncToMautic($this->integrationObjectName)
+            $this->getMappingManualDAO()->getIntegrationObjectFieldsToSyncToMailVotech($this->integrationObjectName)
         );
     }
 
@@ -102,7 +102,7 @@ final class MappingManualDAOTest extends TestCase
         $objectMapping->addFieldMapping('email', 'email', ObjectMappingDAO::SYNC_BIDIRECTIONALLY, true);
         $objectMapping->addFieldMapping('country', 'country', ObjectMappingDAO::SYNC_BIDIRECTIONALLY);
         $objectMapping->addFieldMapping('firstname', 'first_name', ObjectMappingDAO::SYNC_TO_INTEGRATION);
-        $objectMapping->addFieldMapping('lastname', 'last_name', ObjectMappingDAO::SYNC_TO_MAUTIC);
+        $objectMapping->addFieldMapping('lastname', 'last_name', ObjectMappingDAO::SYNC_TO_MAILVOTECH);
 
         $mappingManual->addObjectMapping($objectMapping);
 

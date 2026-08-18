@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CoreBundle\Helper\ArrayHelper;
-use Mautic\LeadBundle\Form\Type\CampaignActionAddDNCType;
-use Mautic\LeadBundle\Form\Type\CampaignActionRemoveDNCType;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\DoNotContact;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CoreBundle\Helper\ArrayHelper;
+use MailVotech\LeadBundle\Form\Type\CampaignActionAddDNCType;
+use MailVotech\LeadBundle\Form\Type\CampaignActionRemoveDNCType;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\DoNotContact;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class CampaignActionDNCSubscriber implements EventSubscriberInterface
@@ -35,8 +35,8 @@ final readonly class CampaignActionDNCSubscriber implements EventSubscriberInter
         $event->addAction(
             'lead.adddnc',
             [
-                'label'          => 'mautic.lead.lead.events.add_donotcontact',
-                'description'    => 'mautic.lead.lead.events.add_donotcontact_desc',
+                'label'          => 'mailvotech.lead.lead.events.add_donotcontact',
+                'description'    => 'mailvotech.lead.lead.events.add_donotcontact_desc',
                 'batchEventName' => LeadEvents::ON_CAMPAIGN_ACTION_ADD_DONOTCONTACT,
                 'formType'       => CampaignActionAddDNCType::class,
             ]
@@ -45,8 +45,8 @@ final readonly class CampaignActionDNCSubscriber implements EventSubscriberInter
         $event->addAction(
             'lead.removednc',
             [
-                'label'          => 'mautic.lead.lead.events.remove_donotcontact',
-                'description'    => 'mautic.lead.lead.events.remove_donotcontact_desc',
+                'label'          => 'mailvotech.lead.lead.events.remove_donotcontact',
+                'description'    => 'mailvotech.lead.lead.events.remove_donotcontact_desc',
                 'batchEventName' => LeadEvents::ON_CAMPAIGN_ACTION_REMOVE_DONOTCONTACT,
                 'formType'       => CampaignActionRemoveDNCType::class,
             ]
@@ -65,7 +65,7 @@ final readonly class CampaignActionDNCSubscriber implements EventSubscriberInter
                 $this->doNotContact->addDncForContact(
                     $contactId,
                     $channel,
-                    \Mautic\LeadBundle\Entity\DoNotContact::MANUAL,
+                    \MailVotech\LeadBundle\Entity\DoNotContact::MANUAL,
                     $reason,
                     false
                 );

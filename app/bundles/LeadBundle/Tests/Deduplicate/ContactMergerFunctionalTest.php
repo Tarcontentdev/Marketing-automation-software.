@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Deduplicate;
+namespace MailVotech\LeadBundle\Tests\Deduplicate;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Deduplicate\ContactMerger;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Deduplicate\ContactMerger;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\LeadModel;
 
-final class ContactMergerFunctionalTest extends MauticMysqlTestCase
+final class ContactMergerFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testMergedContactFound(): void
     {

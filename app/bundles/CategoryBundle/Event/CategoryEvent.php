@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CategoryBundle\Event;
+namespace MailVotech\CategoryBundle\Event;
 
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\CoreBundle\Event\DependencyErrorEventInterface;
-use Mautic\CoreBundle\Event\DependencyErrorEventTrait;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\CoreBundle\Event\DependencyErrorEventInterface;
+use MailVotech\CoreBundle\Event\DependencyErrorEventTrait;
 
 final class CategoryEvent extends CommonEvent implements DependencyErrorEventInterface
 {

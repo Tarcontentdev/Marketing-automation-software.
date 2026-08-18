@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional;
+namespace MailVotech\CoreBundle\Tests\Functional;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar as GuzzleCookieJar;
 use GuzzleHttp\RequestOptions;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\DomCrawler\Field\ChoiceFormField;
 use Symfony\Component\DomCrawler\Field\FileFormField;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-final class SamlTest extends MauticMysqlTestCase
+final class SamlTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -30,7 +30,7 @@ final class SamlTest extends MauticMysqlTestCase
     /**
      * An automatic tests implementation of SAML login.
      *
-     * @see https://github.com/mautic/mautic/pull/13742#issue-2291225011
+     * @see https://github.com/mailvotech/mailvotech/pull/13742#issue-2291225011
      */
     public function testSamlLogin(): void
     {
@@ -46,7 +46,7 @@ final class SamlTest extends MauticMysqlTestCase
         $temporaryFile = tempnam(sys_get_temp_dir(), 'samlTest');
         $this->assertNotFalse($temporaryFile);
 
-        // Go to http://localhost:8080/simplesaml/saml2/idp/metadata.php?output=xhtml and copy the metadata in xml format to a temp file (e.g. mautic_saml_test_metatada.xml).
+        // Go to http://localhost:8080/simplesaml/saml2/idp/metadata.php?output=xhtml and copy the metadata in xml format to a temp file (e.g. mailvotech_saml_test_metatada.xml).
         $metadataUrl = 'http://'.$host.':'.$port.'/simplesaml/saml2/idp/metadata.php';
         $this->assertTrue(copy($metadataUrl, $temporaryFile), 'Error copying '.$metadataUrl.' to '.$temporaryFile);
 
@@ -88,7 +88,7 @@ final class SamlTest extends MauticMysqlTestCase
         $this->assertNotFalse($content);
         $this->assertStringContainsString('Configuration successfully updated', $content);
 
-        // Go in an anonymous tab to <LOCAL_MAUTIC_URL> and you should be redirected to the simplesaml page
+        // Go in an anonymous tab to <LOCAL_MAILVOTECH_URL> and you should be redirected to the simplesaml page
         $this->client->enableReboot();
 
         // Disable the default logging in via username and password.

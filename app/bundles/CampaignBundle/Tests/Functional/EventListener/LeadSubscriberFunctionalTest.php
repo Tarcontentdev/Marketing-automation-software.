@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\EventListener\LeadSubscriber;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Event\LeadMergeEvent;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\EventListener\LeadSubscriber;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Event\LeadMergeEvent;
 
-final class LeadSubscriberFunctionalTest extends MauticMysqlTestCase
+final class LeadSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testCampaignLeadMerge(): void
     {

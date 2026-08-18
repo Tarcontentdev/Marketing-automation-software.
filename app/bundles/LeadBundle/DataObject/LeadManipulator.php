@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\DataObject;
+namespace MailVotech\LeadBundle\DataObject;
 
 final class LeadManipulator
 {

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Controller;
+namespace MailVotech\PageBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Event\PageEvent;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Event\PageEvent;
+use MailVotech\PageBundle\PageEvents;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-final class AjaxControllerFunctionalTest extends MauticMysqlTestCase
+final class AjaxControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testGetBuilderTokensAction(): void
     {

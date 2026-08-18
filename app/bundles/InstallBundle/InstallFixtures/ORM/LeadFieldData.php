@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\InstallBundle\InstallFixtures\ORM;
+namespace MailVotech\InstallBundle\InstallFixtures\ORM;
 
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class LeadFieldData extends AbstractFixture implements OrderedFixtureInterface, FixtureGroupInterface
@@ -19,7 +19,7 @@ final class LeadFieldData extends AbstractFixture implements OrderedFixtureInter
 
     public static function getGroups(): array
     {
-        return ['group_install', 'group_mautic_install_data'];
+        return ['group_install', 'group_mailvotech_install_data'];
     }
 
     /**
@@ -36,7 +36,7 @@ final class LeadFieldData extends AbstractFixture implements OrderedFixtureInter
                 $type = $field['type'] ?? 'text';
 
                 $entity = new LeadField();
-                $entity->setLabel($this->translator->trans('mautic.lead.field.'.$alias, [], 'fixtures'));
+                $entity->setLabel($this->translator->trans('mailvotech.lead.field.'.$alias, [], 'fixtures'));
                 $entity->setGroup($field['group'] ?? 'core');
                 $entity->setOrder($order);
                 $entity->setAlias($alias);

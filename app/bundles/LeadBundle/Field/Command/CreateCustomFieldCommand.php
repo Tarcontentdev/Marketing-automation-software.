@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field\Command;
+namespace MailVotech\LeadBundle\Field\Command;
 
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\DBAL\Schema\SchemaException;
-use Mautic\CoreBundle\Command\ModeratedCommand;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Field\BackgroundService;
-use Mautic\LeadBundle\Field\Exception\AbortColumnCreateException;
-use Mautic\LeadBundle\Field\Exception\ColumnAlreadyCreatedException;
-use Mautic\LeadBundle\Field\Exception\CustomFieldLimitException;
-use Mautic\LeadBundle\Field\Exception\LeadFieldWasNotFoundException;
+use MailVotech\CoreBundle\Command\ModeratedCommand;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Field\BackgroundService;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnCreateException;
+use MailVotech\LeadBundle\Field\Exception\ColumnAlreadyCreatedException;
+use MailVotech\LeadBundle\Field\Exception\CustomFieldLimitException;
+use MailVotech\LeadBundle\Field\Exception\LeadFieldWasNotFoundException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -33,7 +33,7 @@ TXT
 )]
 class CreateCustomFieldCommand extends ModeratedCommand
 {
-    public const COMMAND_NAME = 'mautic:custom-field:create-column';
+    public const COMMAND_NAME = 'mailvotech:custom-field:create-column';
 
     public function __construct(
         private readonly BackgroundService $backgroundService,
@@ -89,24 +89,24 @@ class CreateCustomFieldCommand extends ModeratedCommand
         try {
             $this->backgroundService->addColumn($leadFieldId, $userId);
         } catch (LeadFieldWasNotFoundException) {
-            $output->writeln('<error>'.$this->translator->trans('mautic.lead.field.notfound').'</error>');
+            $output->writeln('<error>'.$this->translator->trans('mailvotech.lead.field.notfound').'</error>');
 
             return Command::FAILURE;
         } catch (ColumnAlreadyCreatedException) {
-            $output->writeln('<error>'.$this->translator->trans('mautic.lead.field.column_already_created').'</error>');
+            $output->writeln('<error>'.$this->translator->trans('mailvotech.lead.field.column_already_created').'</error>');
 
             return Command::SUCCESS;
         } catch (AbortColumnCreateException) {
-            $output->writeln('<error>'.$this->translator->trans('mautic.lead.field.column_creation_aborted').'</error>');
+            $output->writeln('<error>'.$this->translator->trans('mailvotech.lead.field.column_creation_aborted').'</error>');
 
             return Command::SUCCESS;
-        } catch (CustomFieldLimitException|DriverException|SchemaException|\Doctrine\DBAL\Exception|\Mautic\CoreBundle\Exception\SchemaException $e) {
+        } catch (CustomFieldLimitException|DriverException|SchemaException|\Doctrine\DBAL\Exception|\MailVotech\CoreBundle\Exception\SchemaException $e) {
             $output->writeln('<error>'.$this->translator->trans($e->getMessage()).'</error>');
 
             return Command::FAILURE;
         }
 
-        $output->writeln('<info>'.$this->translator->trans('mautic.lead.field.column_was_created', ['%id%' => $leadFieldId]).'</info>');
+        $output->writeln('<info>'.$this->translator->trans('mailvotech.lead.field.column_was_created', ['%id%' => $leadFieldId]).'</info>');
         $this->completeRun();
 
         return Command::SUCCESS;

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Model;
+namespace MailVotech\PageBundle\Tests\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Entity\Trackable;
-use Mautic\PageBundle\Entity\TrackableRepository;
-use Mautic\PageBundle\Model\RedirectModel;
-use Mautic\PageBundle\Model\TrackableModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Entity\Trackable;
+use MailVotech\PageBundle\Entity\TrackableRepository;
+use MailVotech\PageBundle\Model\RedirectModel;
+use MailVotech\PageBundle\Model\TrackableModel;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -248,7 +248,7 @@ final class TrackableModelTest extends TestCase
         [$content, $trackables] = $model->parseContentForTrackables(
             $this->generateContent($url, 'html'),
             [
-                '{contactfield=foo}' => 'mautic',
+                '{contactfield=foo}' => 'mailvotech',
             ],
             'email',
             1
@@ -271,7 +271,7 @@ final class TrackableModelTest extends TestCase
         [$content, $trackables] = $model->parseContentForTrackables(
             $this->generateContent($url, 'html'),
             [
-                '{contactfield=foo}' => 'https://mautic.org',
+                '{contactfield=foo}' => 'https://mailvotech.org',
             ],
             'email',
             1
@@ -394,14 +394,14 @@ final class TrackableModelTest extends TestCase
 
     public function testTokenWithDefaultValueInPlaintextWillCountAsOne(): void
     {
-        $url          = '{contactfield=website|https://mautic.org}';
+        $url          = '{contactfield=website|https://mailvotech.org}';
         $model        = $this->getModel();
         $inputContent = $this->generateContent($url, 'text');
 
         [$content, $trackables] = $model->parseContentForTrackables(
             $inputContent,
             [
-                '{contactfield=website}' => 'https://mautic.org/about-us',
+                '{contactfield=website}' => 'https://mailvotech.org/about-us',
             ],
             'email',
             1
@@ -417,7 +417,7 @@ final class TrackableModelTest extends TestCase
         $this->assertArrayHasKey('{trackable='.$match[1].'}', $trackables);
 
         $this->assertCount(1, $trackables);
-        $this->assertEquals('{contactfield=website|https://mautic.org}', $trackables[$trackableKey]->getRedirect()->getUrl());
+        $this->assertEquals('{contactfield=website|https://mailvotech.org}', $trackables[$trackableKey]->getRedirect()->getUrl());
     }
 
     #[TestDox('Test that a URL injected into the do not track list is not converted')]
@@ -523,7 +523,7 @@ final class TrackableModelTest extends TestCase
         $model = $this->getModel();
 
         [$content, $trackables] = $model->parseContentForTrackables(
-            '<style> .mf-modal { background-image: url(\'https://www.mautic.org/wp-content/uploads/2014/08/iTunesArtwork.png\'); } </style>',
+            '<style> .mf-modal { background-image: url(\'https://www.mailvotech.org/wp-content/uploads/2014/08/iTunesArtwork.png\'); } </style>',
             [],
             'email',
             1
@@ -688,7 +688,7 @@ TEXT;
 
         foreach ($urls as $url) {
             if ('html' === $type) {
-                $dnc = ($doNotTrack) ? ' mautic:disable-tracking' : '';
+                $dnc = ($doNotTrack) ? ' mailvotech:disable-tracking' : '';
 
                 if ($useMap) {
                     $content .= <<<CONTENT

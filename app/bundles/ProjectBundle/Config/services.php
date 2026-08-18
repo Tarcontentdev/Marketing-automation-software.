@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Mautic\CoreBundle\DependencyInjection\MauticCoreExtension;
+use MailVotech\CoreBundle\DependencyInjection\MailVotechCoreExtension;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return function (ContainerConfigurator $configurator): void {
@@ -14,11 +14,11 @@ return function (ContainerConfigurator $configurator): void {
 
     $excludes = [];
 
-    $services->load('Mautic\\ProjectBundle\\', '../')
-        ->exclude('../{'.implode(',', array_merge(MauticCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
+    $services->load('MailVotech\\ProjectBundle\\', '../')
+        ->exclude('../{'.implode(',', array_merge(MailVotechCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
 
-    $services->load('Mautic\\ProjectBundle\\Entity\\', '../Entity/*Repository.php')
+    $services->load('MailVotech\\ProjectBundle\\Entity\\', '../Entity/*Repository.php')
         ->tag(Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\ServiceRepositoryCompilerPass::REPOSITORY_SERVICE_TAG);
 
-    $services->alias('mautic.project.model.project', Mautic\ProjectBundle\Model\ProjectModel::class);
+    $services->alias('mailvotech.project.model.project', MailVotech\ProjectBundle\Model\ProjectModel::class);
 };

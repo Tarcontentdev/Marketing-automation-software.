@@ -5,31 +5,31 @@ declare(strict_types=1);
 return [
     'routes' => [
         'main' => [
-            'mautic_asset_index' => [
+            'mailvotech_asset_index' => [
                 'path'       => '/assets/{page}',
-                'controller' => 'Mautic\AssetBundle\Controller\AssetController::indexAction',
+                'controller' => 'MailVotech\AssetBundle\Controller\AssetController::indexAction',
             ],
-            'mautic_asset_remote' => [
+            'mailvotech_asset_remote' => [
                 'path'       => '/assets/remote',
-                'controller' => 'Mautic\AssetBundle\Controller\AssetController::remoteAction',
+                'controller' => 'MailVotech\AssetBundle\Controller\AssetController::remoteAction',
             ],
-            'mautic_asset_action' => [
+            'mailvotech_asset_action' => [
                 'path'       => '/assets/{objectAction}/{objectId}',
-                'controller' => 'Mautic\AssetBundle\Controller\AssetController::executeAction',
+                'controller' => 'MailVotech\AssetBundle\Controller\AssetController::executeAction',
             ],
         ],
         'api' => [
-            'mautic_api_assetsstandard' => [
+            'mailvotech_api_assetsstandard' => [
                 'standard_entity' => true,
                 'name'            => 'assets',
                 'path'            => '/assets',
-                'controller'      => Mautic\AssetBundle\Controller\Api\AssetApiController::class,
+                'controller'      => MailVotech\AssetBundle\Controller\Api\AssetApiController::class,
             ],
         ],
         'public' => [
-            'mautic_asset_download' => [
+            'mailvotech_asset_download' => [
                 'path'       => '/asset/{slug}',
-                'controller' => 'Mautic\AssetBundle\Controller\PublicController::downloadAction',
+                'controller' => 'MailVotech\AssetBundle\Controller\PublicController::downloadAction',
                 'defaults'   => [
                     'slug' => '',
                 ],
@@ -40,10 +40,10 @@ return [
     'menu' => [
         'main' => [
             'items' => [
-                'mautic.asset.assets' => [
-                    'route'    => 'mautic_asset_index',
+                'mailvotech.asset.assets' => [
+                    'route'    => 'mailvotech_asset_index',
                     'access'   => ['asset:assets:viewown', 'asset:assets:viewother'],
-                    'parent'   => 'mautic.core.components',
+                    'parent'   => 'mailvotech.core.components',
                     'priority' => 300,
                 ],
             ],
@@ -52,12 +52,12 @@ return [
 
     'categories' => [
         'asset' => [
-            'class' => Mautic\AssetBundle\Entity\Asset::class,
+            'class' => MailVotech\AssetBundle\Entity\Asset::class,
         ],
     ],
 
     'parameters' => [
-        'upload_dir'          => '%mautic.application_dir%/media/files',
+        'upload_dir'          => '%mailvotech.application_dir%/media/files',
         'max_size'            => '6',
         'allowed_extensions'  => ['csv', 'doc', 'docx', 'epub', 'gif', 'jpg', 'jpeg', 'mpg', 'mpeg', 'mp3', 'odt', 'odp', 'ods', 'pdf', 'png', 'ppt', 'pptx', 'tif', 'tiff', 'txt', 'xls', 'xlsx', 'wav'],
         'streamed_extensions' => ['gif', 'jpg', 'jpeg', 'mpg', 'mpeg', 'mp3', 'pdf', 'png', 'wav'],

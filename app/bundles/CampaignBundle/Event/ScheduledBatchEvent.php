@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Event;
+namespace MailVotech\CampaignBundle\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
 
 final class ScheduledBatchEvent extends AbstractLogCollectionEvent
 {

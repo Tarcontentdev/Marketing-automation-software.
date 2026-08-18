@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Tests;
+namespace MailVotech\ApiBundle\Tests;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\TestCase;
 
 final class EntityResultHelperTest extends TestCase

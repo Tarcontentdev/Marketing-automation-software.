@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Update\Step;
+namespace MailVotech\CoreBundle\Update\Step;
 
-use Mautic\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -38,7 +38,7 @@ final readonly class RemoveDeletedFilesStep implements StepInterface
             return;
         }
 
-        $progressBar->setMessage($this->translator->trans('mautic.core.update.remove.deleted.files'));
+        $progressBar->setMessage($this->translator->trans('mailvotech.core.update.remove.deleted.files'));
         $progressBar->advance();
 
         $deletedFiles = json_decode(file_get_contents($this->appRoot.'/deleted_files.txt'), true);
@@ -72,7 +72,7 @@ final readonly class RemoveDeletedFilesStep implements StepInterface
         @chmod($path, 0644);
 
         $this->logger->error(
-            'UPDATE ERROR: '.$this->translator->trans('mautic.core.update.error.removing.file', ['%path%' => $file])
+            'UPDATE ERROR: '.$this->translator->trans('mailvotech.core.update.error.removing.file', ['%path%' => $file])
         );
     }
 }

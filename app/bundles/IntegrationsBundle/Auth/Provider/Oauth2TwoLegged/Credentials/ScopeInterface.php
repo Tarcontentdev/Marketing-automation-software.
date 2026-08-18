@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\Credentials;
+namespace MailVotech\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\Credentials;
 
 interface ScopeInterface
 {

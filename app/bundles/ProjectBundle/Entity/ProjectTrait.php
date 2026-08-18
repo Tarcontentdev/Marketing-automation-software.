@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Entity;
+namespace MailVotech\ProjectBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
 
 trait ProjectTrait
 {

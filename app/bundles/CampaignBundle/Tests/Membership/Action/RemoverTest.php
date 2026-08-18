@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Membership\Action;
+namespace MailVotech\CampaignBundle\Tests\Membership\Action;
 
-use Mautic\CampaignBundle\Entity\Lead as CampaignMember;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CampaignBundle\Membership\Action\Remover;
-use Mautic\CampaignBundle\Membership\Exception\ContactAlreadyRemovedFromCampaignException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignMember;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Membership\Action\Remover;
+use MailVotech\CampaignBundle\Membership\Exception\ContactAlreadyRemovedFromCampaignException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class RemoverTest extends \PHPUnit\Framework\TestCase

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller;
+namespace MailVotech\LeadBundle\Tests\Controller;
 
 use Doctrine\ORM\Exception\ORMException;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class LeadControllerListingPageTest extends MauticMysqlTestCase
+final class LeadControllerListingPageTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {

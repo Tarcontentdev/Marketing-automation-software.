@@ -1,21 +1,21 @@
-The primary source of the Code of Conduct is at [mautic.org](https://www.mautic.org/code-of-conduct/) - it is reproduced here for reference.
+The primary source of the Code of Conduct is at [mailvotech.org](https://www.mailvotech.org/code-of-conduct/) - it is reproduced here for reference.
 
 ## 1. Purpose
 
-A primary goal of the Mautic community is to support you and your business in the development, use and implementation of Mautic. It’s to be inclusive and add value to the largest number of participants, with the most varied and diverse backgrounds possible. As such, we are committed to providing a friendly, safe and welcoming environment for all.
+A primary goal of the MailVotech community is to support you and your business in the development, use and implementation of MailVotech. It’s to be inclusive and add value to the largest number of participants, with the most varied and diverse backgrounds possible. As such, we are committed to providing a friendly, safe and welcoming environment for all.
 
 This code of conduct outlines our expectations for all those who participate in our community, whether in-person or online, as well as the consequences for unacceptable behavior.
 
-Your participation is contingent upon following these guidelines in all Mautic activities, including but not limited to:
+Your participation is contingent upon following these guidelines in all MailVotech activities, including but not limited to:
 
-* Using Mautic community resources.
-* Working with other Mauticians and other Mautic community participants whether virtually or co-located.
-* Representing Mautic at public events.
-* Representing Mautic in social media (official accounts, personal accounts, Facebook pages and groups).
-* Participating in Mautic sprints and training events.
-* Participating in Mautic-related forums, mailing lists, wikis, websites, chat channels, bugs, group or person-to-person meetings, and Mautic-related correspondence.
+* Using MailVotech community resources.
+* Working with other MailVotechians and other MailVotech community participants whether virtually or co-located.
+* Representing MailVotech at public events.
+* Representing MailVotech in social media (official accounts, personal accounts, Facebook pages and groups).
+* Participating in MailVotech sprints and training events.
+* Participating in MailVotech-related forums, mailing lists, wikis, websites, chat channels, bugs, group or person-to-person meetings, and MailVotech-related correspondence.
 
-We invite all those who participate in Mautic activities online to help us create safe and positive experiences for everyone, everywhere.
+We invite all those who participate in MailVotech activities online to help us create safe and positive experiences for everyone, everywhere.
 
 
 ## 2. Open Source & Culture Citizenship
@@ -40,7 +40,7 @@ The following behaviors are expected and requested of all community members:
 * Guide conversations toward issue resolution.
 * Refrain from demeaning, discriminatory, or harassing behavior and speech.
 
-Alert Mautic team members if you notice a dangerous situation, someone in distress, or violations of this Code of Conduct, even if they seem inconsequential.
+Alert MailVotech team members if you notice a dangerous situation, someone in distress, or violations of this Code of Conduct, even if they seem inconsequential.
 
 ## 5. Unacceptable Behavior
 
@@ -69,22 +69,22 @@ If a community member engages in unacceptable behavior, we may take any action d
 
 
 ## 7. Reporting Guidelines
-If you are subject to or witness unacceptable behavior, or have any other concerns, please notify us as soon as possible by emailing info@mautic.org, or contacting a Mautic team member on the specific platform.
+If you are subject to or witness unacceptable behavior, or have any other concerns, please notify us as soon as possible by emailing info@mailvotech.org, or contacting a MailVotech team member on the specific platform.
 
 Processes for dealing with breaches of the Code of Conduct can be found [here][coc-breaches].
 
 ## 8. Addressing Grievances
-Only permanent resolutions (such as bans) may be appealed. To appeal a decision, contact the Mautic team at info@mautic.org with your appeal and the team will review the situation.
+Only permanent resolutions (such as bans) may be appealed. To appeal a decision, contact the MailVotech team at info@mailvotech.org with your appeal and the team will review the situation.
 
 ## 9. Scope
 We expect all community participants (contributors, moderators and other guests) to abide by this Code of Conduct in all community venues–online and in-person–as well as in all one-on-one communications pertaining to community affairs.
 
-While this code of conduct is specifically aimed at Mautic’s official resources and community, we recognize that it is possible for actions taken outside of Mautic’s official online or in person spaces to have a deep impact on community health.
+While this code of conduct is specifically aimed at MailVotech’s official resources and community, we recognize that it is possible for actions taken outside of MailVotech’s official online or in person spaces to have a deep impact on community health.
 
-Resources or incidents which break this code of conduct for any reason in a non-Mautic community location will be considered in the same way as resources or incidents from owned channels, and subject to the same sanctions.
+Resources or incidents which break this code of conduct for any reason in a non-MailVotech community location will be considered in the same way as resources or incidents from owned channels, and subject to the same sanctions.
 
 ## 10. Contact info
-For more information, please contact info@mautic.org.
+For more information, please contact info@mailvotech.org.
 
 ## 11. License and attribution
 This Code of Conduct is directly adapted from the Stumptown Syndicate and distributed under a [Creative Commons Attribution-ShareAlike license][cc-by-sa].

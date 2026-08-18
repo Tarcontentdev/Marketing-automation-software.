@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Service;
+namespace MailVotech\CoreBundle\Service;
 
-use Mautic\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\User;
 
 interface BulkNotificationInterface
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\PageBundle\DataFixtures\ORM;
+namespace MailVotech\PageBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\CoreBundle\Helper\Serializer;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Entity\PageRepository;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Helper\Serializer;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\PageRepository;
 
 final class LoadPageData extends AbstractFixture implements OrderedFixtureInterface
 {

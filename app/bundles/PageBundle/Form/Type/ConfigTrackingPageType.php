@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Form\Type;
+namespace MailVotech\PageBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,11 +20,11 @@ final class ConfigTrackingPageType extends AbstractType
             'anonymize_ip',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.page.config.form.anonymize_ip',
+                'label' => 'mailvotech.page.config.form.anonymize_ip',
                 'data'  => isset($options['data']['anonymize_ip']) && (bool) $options['data']['anonymize_ip'],
                 'attr'  => [
-                    'tooltip'  => 'mautic.page.config.form.anonymize_ip.tooltip',
-                    'onchange' => 'Mautic.showAnonymizeWarningMessage(this)',
+                    'tooltip'  => 'mailvotech.page.config.form.anonymize_ip.tooltip',
+                    'onchange' => 'MailVotech.showAnonymizeWarningMessage(this)',
                 ],
             ]
         );
@@ -33,10 +33,10 @@ final class ConfigTrackingPageType extends AbstractType
             'track_contact_by_ip',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.page.config.form.track_contact_by_ip',
+                'label' => 'mailvotech.page.config.form.track_contact_by_ip',
                 'data'  => isset($options['data']['track_contact_by_ip']) && (bool) $options['data']['track_contact_by_ip'],
                 'attr'  => [
-                    'tooltip'        => 'mautic.page.config.form.track_contact_by_ip.tooltip',
+                    'tooltip'        => 'mailvotech.page.config.form.track_contact_by_ip.tooltip',
                     'data-enable-on' => '{"config_trackingconfig_anonymize_ip_0":"checked"}',
                 ],
             ]
@@ -46,10 +46,10 @@ final class ConfigTrackingPageType extends AbstractType
             'do_not_track_404_anonymous',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.page.config.form.do_not_track_404_anonymous',
+                'label' => 'mailvotech.page.config.form.do_not_track_404_anonymous',
                 'data'  => isset($options['data']['do_not_track_404_anonymous']) && (bool) $options['data']['do_not_track_404_anonymous'],
                 'attr'  => [
-                    'tooltip'      => 'mautic.page.config.form.do_not_track_404_anonymous.tooltip',
+                    'tooltip'      => 'mailvotech.page.config.form.do_not_track_404_anonymous.tooltip',
                 ],
             ]
         );
@@ -58,10 +58,10 @@ final class ConfigTrackingPageType extends AbstractType
             'append_segment_id_tracking_url',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.page.config.form.append_segment_id_tracking_url',
+                'label' => 'mailvotech.page.config.form.append_segment_id_tracking_url',
                 'data'  => isset($options['data']['append_segment_id_tracking_url']) && (bool) $options['data']['append_segment_id_tracking_url'],
                 'attr'  => [
-                    'tooltip' => 'mautic.page.config.form.append_segment_id_tracking_url.tooltip',
+                    'tooltip' => 'mailvotech.page.config.form.append_segment_id_tracking_url.tooltip',
                 ],
             ]
         );
@@ -70,7 +70,7 @@ final class ConfigTrackingPageType extends AbstractType
             'facebook_pixel_id',
             TextType::class,
             [
-                'label' => 'mautic.page.config.form.facebook.pixel.id',
+                'label' => 'mailvotech.page.config.form.facebook.pixel.id',
                 'attr'  => [
                     'class' => 'form-control',
                 ],
@@ -82,7 +82,7 @@ final class ConfigTrackingPageType extends AbstractType
             'facebook_pixel_trackingpage_enabled',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.page.config.form.tracking.trackingpage.enabled',
+                'label' => 'mailvotech.page.config.form.tracking.trackingpage.enabled',
                 'data'  => isset($options['data']['facebook_pixel_trackingpage_enabled']) && (bool) $options['data']['facebook_pixel_trackingpage_enabled'],
             ]
         );
@@ -91,7 +91,7 @@ final class ConfigTrackingPageType extends AbstractType
             'facebook_pixel_landingpage_enabled',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.page.config.form.tracking.landingpage.enabled',
+                'label' => 'mailvotech.page.config.form.tracking.landingpage.enabled',
                 'data'  => isset($options['data']['facebook_pixel_landingpage_enabled']) && (bool) $options['data']['facebook_pixel_landingpage_enabled'],
             ]
         );
@@ -100,7 +100,7 @@ final class ConfigTrackingPageType extends AbstractType
             'google_analytics_id',
             TextType::class,
             [
-                'label' => 'mautic.page.config.form.google.analytics.id',
+                'label' => 'mailvotech.page.config.form.google.analytics.id',
                 'attr'  => [
                     'class' => 'form-control',
                 ],
@@ -112,7 +112,7 @@ final class ConfigTrackingPageType extends AbstractType
             'google_analytics_trackingpage_enabled',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.page.config.form.tracking.trackingpage.enabled',
+                'label' => 'mailvotech.page.config.form.tracking.trackingpage.enabled',
                 'data'  => isset($options['data']['google_analytics_trackingpage_enabled']) && (bool) $options['data']['google_analytics_trackingpage_enabled'],
             ]
         );
@@ -121,7 +121,7 @@ final class ConfigTrackingPageType extends AbstractType
             'google_analytics_landingpage_enabled',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.page.config.form.tracking.landingpage.enabled',
+                'label' => 'mailvotech.page.config.form.tracking.landingpage.enabled',
                 'data'  => isset($options['data']['google_analytics_landingpage_enabled']) && (bool) $options['data']['google_analytics_landingpage_enabled'],
             ]
         );
@@ -130,10 +130,10 @@ final class ConfigTrackingPageType extends AbstractType
             'google_analytics_anonymize_ip',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.page.config.form.tracking.anonymize.ip.enabled',
+                'label' => 'mailvotech.page.config.form.tracking.anonymize.ip.enabled',
                 'data'  => isset($options['data']['google_analytics_anonymize_ip']) && (bool) $options['data']['google_analytics_anonymize_ip'],
                 'attr'  => [
-                    'tooltip' => 'mautic.page.config.form.tracking.anonymize.ip.enabled.tooltip',
+                    'tooltip' => 'mailvotech.page.config.form.tracking.anonymize.ip.enabled.tooltip',
                 ],
             ]
         );

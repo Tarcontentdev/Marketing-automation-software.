@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class CategoryChangeEvent extends Event

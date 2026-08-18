@@ -1,20 +1,20 @@
 <?php
 
-namespace Mautic\CampaignBundle\Controller\Api;
+namespace MailVotech\CampaignBundle\Controller\Api;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\ApiBundle\Controller\CommonApiController;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\ApiBundle\Serializer\Exclusion\FieldExclusionStrategy;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Model\EventModel;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Controller\LeadAccessTrait;
+use MailVotech\ApiBundle\Controller\CommonApiController;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\ApiBundle\Serializer\Exclusion\FieldExclusionStrategy;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Model\EventModel;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Controller\LeadAccessTrait;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;

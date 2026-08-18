@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Security;
+namespace MailVotech\LeadBundle\Tests\Security;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class LeadPermissionsFunctionalTest extends MauticMysqlTestCase
+final class LeadPermissionsFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testRolePageForPermissionAvailability(): void
     {

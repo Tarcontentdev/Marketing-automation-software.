@@ -2,33 +2,33 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Model;
+namespace MailVotech\EmailBundle\Tests\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
-use Mautic\EmailBundle\Entity\CopyRepository;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\EmailBundle\Exception\FailedToSendToContactException;
-use Mautic\EmailBundle\Helper\DTO\AddressDTO;
-use Mautic\EmailBundle\Helper\FromEmailHelper;
-use Mautic\EmailBundle\Helper\MailHashHelper;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\Helper\SMimeHelper;
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
-use Mautic\EmailBundle\Model\EmailStatModel;
-use Mautic\EmailBundle\Model\SendEmailToContact;
-use Mautic\EmailBundle\MonitoredEmail\Mailbox;
-use Mautic\EmailBundle\Stat\StatHelper;
-use Mautic\EmailBundle\Tests\Helper\Transport\BatchTransport;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\DoNotContact;
-use Mautic\PageBundle\Model\RedirectModel;
-use Mautic\PageBundle\Model\TrackableModel;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
+use MailVotech\EmailBundle\Entity\CopyRepository;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\Exception\FailedToSendToContactException;
+use MailVotech\EmailBundle\Helper\DTO\AddressDTO;
+use MailVotech\EmailBundle\Helper\FromEmailHelper;
+use MailVotech\EmailBundle\Helper\MailHashHelper;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\Helper\SMimeHelper;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
+use MailVotech\EmailBundle\Model\EmailStatModel;
+use MailVotech\EmailBundle\Model\SendEmailToContact;
+use MailVotech\EmailBundle\MonitoredEmail\Mailbox;
+use MailVotech\EmailBundle\Stat\StatHelper;
+use MailVotech\EmailBundle\Tests\Helper\Transport\BatchTransport;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\DoNotContact;
+use MailVotech\PageBundle\Model\RedirectModel;
+use MailVotech\PageBundle\Model\TrackableModel;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
@@ -133,7 +133,7 @@ final class SendEmailToContactTest extends \PHPUnit\Framework\TestCase
         $this->redirectModel        = $this->createStub(RedirectModel::class);
 
         $this->sMimeHelper->method('signContent')
-            ->willReturnCallback(fn (MauticMessage $message): MauticMessage => $message);
+            ->willReturnCallback(fn (MailVotechMessage $message): MailVotechMessage => $message);
 
         $this->fromEmaiHelper->method('getFrom')
             ->willReturn(new AddressDTO('someone@somewhere.com'));
@@ -227,7 +227,7 @@ final class SendEmailToContactTest extends \PHPUnit\Framework\TestCase
         /** @var Email&MockObject $emailMock */
         $emailMock = $this->createMock(Email::class);
         $emailMock->method('getId')->willReturn(1);
-        $emailMock->method('getFromAddress')->willReturn('test@mautic.com');
+        $emailMock->method('getFromAddress')->willReturn('test@mailvotech.com');
         $emailMock->method('getSubject')->willReturn('Subject');
         $emailMock->method('getCustomHtml')->willReturn('<html>{unsubscribe_url}</html>');
 
@@ -343,7 +343,7 @@ final class SendEmailToContactTest extends \PHPUnit\Framework\TestCase
 
         $emailMock = $this->createMock(Email::class);
         $emailMock->method('getId')->willReturn(1);
-        $emailMock->method('getFromAddress')->willReturn('test@mautic.com');
+        $emailMock->method('getFromAddress')->willReturn('test@mailvotech.com');
         $emailMock->method('getSubject')->willReturn('Subject');
         $emailMock->method('getCustomHtml')->willReturn('Hi {contactfield=firstname}');
 
@@ -449,7 +449,7 @@ final class SendEmailToContactTest extends \PHPUnit\Framework\TestCase
 
         $emailMock = $this->createMock(Email::class);
         $emailMock->method('getId')->willReturn(1);
-        $emailMock->method('getFromAddress')->willReturn('test@mautic.com');
+        $emailMock->method('getFromAddress')->willReturn('test@mailvotech.com');
         $emailMock->method('getSubject')->willReturn('Subject');
         $emailMock->method('getCustomHtml')->willReturn('<html>{unsubscribe_url}</html>');
 
@@ -569,7 +569,7 @@ final class SendEmailToContactTest extends \PHPUnit\Framework\TestCase
 
         $emailMock = $this->createMock(Email::class);
         $emailMock->method('getId')->willReturn(1);
-        $emailMock->method('getFromAddress')->willReturn('test@mautic.com');
+        $emailMock->method('getFromAddress')->willReturn('test@mailvotech.com');
         $emailMock->method('getSubject')->willReturn(''); // The subject must be empty for the email to fail.
         $emailMock->method('getCustomHtml')->willReturn('<html>{unsubscribe_url}</html>');
 
@@ -673,7 +673,7 @@ final class SendEmailToContactTest extends \PHPUnit\Framework\TestCase
     #[TestDox('Test that sending an email with invalid Bcc address is handled')]
     public function testThatInvalidBccFailureIsHandled(): void
     {
-        defined('MAUTIC_ENV') || define('MAUTIC_ENV', 'test');
+        defined('MAILVOTECH_ENV') || define('MAILVOTECH_ENV', 'test');
 
         /** @var MockObject&FromEmailHelper $fromEmailHelper */
         $fromEmailHelper = $this->createStub(FromEmailHelper::class);
@@ -745,7 +745,7 @@ final class SendEmailToContactTest extends \PHPUnit\Framework\TestCase
         // Set invalid BCC (should use comma as separator)
         $emailMock
             ->method('getBccAddress')
-            ->willReturn('test@mautic.com; test@mautic.com');
+            ->willReturn('test@mailvotech.com; test@mailvotech.com');
 
         $model->setEmail($emailMock);
 
@@ -753,7 +753,7 @@ final class SendEmailToContactTest extends \PHPUnit\Framework\TestCase
         $stat->setEmail($emailMock);
 
         $this->expectException(FailedToSendToContactException::class);
-        $this->expectExceptionMessage('Email "test@mautic.com; test@mautic.com" does not comply with addr-spec of RFC 2822.');
+        $this->expectExceptionMessage('Email "test@mailvotech.com; test@mailvotech.com" does not comply with addr-spec of RFC 2822.');
 
         // Send should trigger the FailedToSendToContactException
         $model->setContact($this->contacts[0])->send();

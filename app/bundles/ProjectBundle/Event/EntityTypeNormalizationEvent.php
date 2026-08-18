@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Event;
+namespace MailVotech\ProjectBundle\Event;
 
 use Symfony\Contracts\EventDispatcher\Event;
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Collection;
+namespace MailVotech\FormBundle\Collection;
 
-use Mautic\FormBundle\Crate\FieldCrate;
-use Mautic\FormBundle\Exception\FieldNotFoundException;
+use MailVotech\FormBundle\Crate\FieldCrate;
+use MailVotech\FormBundle\Exception\FieldNotFoundException;
 
 /**
  * @extends \ArrayIterator<int,FieldCrate>

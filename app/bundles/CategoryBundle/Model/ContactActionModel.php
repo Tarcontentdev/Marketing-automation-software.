@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CategoryBundle\Model;
+namespace MailVotech\CategoryBundle\Model;
 
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\LeadModel;
 
 final readonly class ContactActionModel
 {

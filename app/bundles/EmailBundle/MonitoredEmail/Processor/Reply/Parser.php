@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor\Reply;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor\Reply;
 
-use Mautic\EmailBundle\MonitoredEmail\Exception\ReplyNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\ReplyNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
 
 final readonly class Parser
 {

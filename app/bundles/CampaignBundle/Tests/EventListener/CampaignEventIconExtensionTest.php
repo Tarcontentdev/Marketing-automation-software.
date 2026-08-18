@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\EventListener;
+namespace MailVotech\CampaignBundle\Tests\EventListener;
 
-use Mautic\CampaignBundle\Twig\Extension\CampaignEventIconExtension;
+use MailVotech\CampaignBundle\Twig\Extension\CampaignEventIconExtension;
 use PHPUnit\Framework\TestCase;
 
 final class CampaignEventIconExtensionTest extends TestCase

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller;
+namespace MailVotech\LeadBundle\Tests\Controller;
 
 use Doctrine\DBAL\ArrayParameterType;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class LeadDetailFunctionalTest extends MauticMysqlTestCase
+final class LeadDetailFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testCustomFieldOrderIsRespected(): void
     {
@@ -64,7 +64,7 @@ final class LeadDetailFunctionalTest extends MauticMysqlTestCase
         // get expected core labels
         $expectedLabels = $this->connection->createQueryBuilder()
             ->select('label')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_fields')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_fields')
             ->where('object = "lead"')
             ->andWhere('field_group = "core"')
             ->andWhere('label IN (:leadFields)')
@@ -126,7 +126,7 @@ final class LeadDetailFunctionalTest extends MauticMysqlTestCase
         $this->assertCount(1, $data);
 
         $translator = self::getContainer()->get(TranslatorInterface::class);
-        $this->assertStringContainsString($translator->trans('mautic.lead.field.group.no_data'), $data->text());
+        $this->assertStringContainsString($translator->trans('mailvotech.lead.field.group.no_data'), $data->text());
     }
 
     public function testLeadDetailPageForSocialTabInDetailsCollapsible(): void

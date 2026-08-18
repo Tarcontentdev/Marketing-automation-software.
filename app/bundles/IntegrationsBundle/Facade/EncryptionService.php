@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Facade;
+namespace MailVotech\IntegrationsBundle\Facade;
 
-use Mautic\CoreBundle\Helper\EncryptionHelper;
+use MailVotech\CoreBundle\Helper\EncryptionHelper;
 
 final readonly class EncryptionService
 {

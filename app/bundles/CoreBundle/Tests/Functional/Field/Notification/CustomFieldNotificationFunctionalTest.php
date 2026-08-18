@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Field\Notification;
+namespace MailVotech\CoreBundle\Tests\Functional\Field\Notification;
 
-use Mautic\CoreBundle\Entity\Notification;
-use Mautic\CoreBundle\Entity\NotificationRepository;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Field\Notification\CustomFieldNotification;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\CoreBundle\Entity\Notification;
+use MailVotech\CoreBundle\Entity\NotificationRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Field\Notification\CustomFieldNotification;
+use MailVotech\LeadBundle\Model\FieldModel;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class CustomFieldNotificationFunctionalTest extends MauticMysqlTestCase
+final class CustomFieldNotificationFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -51,8 +51,8 @@ final class CustomFieldNotificationFunctionalTest extends MauticMysqlTestCase
         $this->assertCount(1, $notifications);
 
         $notification = array_shift($notifications);
-        $this->assertEquals($notification['header'], $this->translator->trans('mautic.lead.field.notification.cannot_be_updated_header'));
-        $this->assertEquals($notification['message'], $this->translator->trans('mautic.lead.field.notification.cannot_be_updated_message', ['%label%' => $this->leadField->getLabel()]));
+        $this->assertEquals($notification['header'], $this->translator->trans('mailvotech.lead.field.notification.cannot_be_updated_header'));
+        $this->assertEquals($notification['message'], $this->translator->trans('mailvotech.lead.field.notification.cannot_be_updated_message', ['%label%' => $this->leadField->getLabel()]));
     }
 
     private function createCustomField(): LeadField

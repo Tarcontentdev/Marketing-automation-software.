@@ -376,8 +376,8 @@ export function injectEditorInstant(selector, optionsKey, forceBr, reuseEditor) 
   };
 
   const configureEditor = (editorInstance) => {
-    const contentPolicy = options && typeof options.mauticContentPolicy === 'object'
-      ? options.mauticContentPolicy
+    const contentPolicy = options && typeof options.mailvotechContentPolicy === 'object'
+      ? options.mailvotechContentPolicy
       : {};
 
     ensurePoweredByHidden();

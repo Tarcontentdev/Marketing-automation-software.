@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Exception;
+namespace MailVotech\WebhookBundle\Exception;
 
 final class PrivateAddressException extends \Exception
 {

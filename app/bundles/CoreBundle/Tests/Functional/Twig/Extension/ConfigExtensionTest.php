@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Twig\Extension;
+namespace MailVotech\CoreBundle\Tests\Functional\Twig\Extension;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ConfigExtensionTest extends MauticMysqlTestCase
+final class ConfigExtensionTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {

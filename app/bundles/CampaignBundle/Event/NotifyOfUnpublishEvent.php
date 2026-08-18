@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CampaignBundle\Event;
+namespace MailVotech\CampaignBundle\Event;
 
-use Mautic\CampaignBundle\Entity\Event as CampaignEvent;
+use MailVotech\CampaignBundle\Entity\Event as CampaignEvent;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class NotifyOfUnpublishEvent extends Event

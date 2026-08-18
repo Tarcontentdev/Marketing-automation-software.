@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Helper;
+namespace MailVotech\IntegrationsBundle\Sync\Helper;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\RelationDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\InternalIdNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\RelationDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\InternalIdNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
 
 class RelationsHelper
 {
@@ -41,9 +41,9 @@ class RelationsHelper
     }
 
     /**
-     * @throws \Mautic\IntegrationsBundle\Sync\Exception\FieldNotFoundException
-     * @throws \Mautic\IntegrationsBundle\Sync\Exception\ObjectDeletedException
-     * @throws \Mautic\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException
+     * @throws \MailVotech\IntegrationsBundle\Sync\Exception\FieldNotFoundException
+     * @throws \MailVotech\IntegrationsBundle\Sync\Exception\ObjectDeletedException
+     * @throws \MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException
      */
     private function processRelation(MappingManualDAO $mappingManualDao, ReportDAO $syncReport, RelationDAO $relationObject): void
     {
@@ -77,18 +77,18 @@ class RelationsHelper
 
     /**
      * @throws ObjectNotFoundException
-     * @throws \Mautic\IntegrationsBundle\Sync\Exception\ObjectDeletedException
-     * @throws \Mautic\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException
+     * @throws \MailVotech\IntegrationsBundle\Sync\Exception\ObjectDeletedException
+     * @throws \MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException
      */
     private function findInternalObject(MappingManualDAO $mappingManualDao, string $relObjectName, ObjectDAO $objectDao): ObjectDAO
     {
         $internalObjectsName = $this->getInternalObjectName($mappingManualDao, $relObjectName);
 
-        return $this->mappingHelper->findMauticObject($mappingManualDao, $internalObjectsName, $objectDao);
+        return $this->mappingHelper->findMailVotechObject($mappingManualDao, $internalObjectsName, $objectDao);
     }
 
     /**
-     * @throws \Mautic\IntegrationsBundle\Sync\Exception\FieldNotFoundException
+     * @throws \MailVotech\IntegrationsBundle\Sync\Exception\FieldNotFoundException
      */
     private function addObjectInternalId(int $relObjectId, string $relInternalType, RelationDAO $relationObject, ReportDAO $syncReport): void
     {

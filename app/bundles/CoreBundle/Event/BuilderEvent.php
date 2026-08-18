@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Event;
+namespace MailVotech\CoreBundle\Event;
 
-use Mautic\CoreBundle\Helper\BuilderTokenHelper;
+use MailVotech\CoreBundle\Helper\BuilderTokenHelper;
 use Symfony\Component\Process\Exception\InvalidArgumentException;
 use Symfony\Contracts\EventDispatcher\Event;
 

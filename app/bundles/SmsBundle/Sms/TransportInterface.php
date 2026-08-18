@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Sms;
+namespace MailVotech\SmsBundle\Sms;
 
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Lead;
 
 interface TransportInterface
 {

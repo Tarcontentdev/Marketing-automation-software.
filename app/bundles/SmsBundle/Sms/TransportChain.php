@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\SmsBundle\Sms;
+namespace MailVotech\SmsBundle\Sms;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\SmsBundle\Collection\RecipientCollection;
-use Mautic\SmsBundle\Entity\Stat;
-use Mautic\SmsBundle\Exception\PrimaryTransportNotEnabledException;
-use Mautic\SmsBundle\Helper\DTO\SmsRecipientDTO;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\SmsBundle\Collection\RecipientCollection;
+use MailVotech\SmsBundle\Entity\Stat;
+use MailVotech\SmsBundle\Exception\PrimaryTransportNotEnabledException;
+use MailVotech\SmsBundle\Helper\DTO\SmsRecipientDTO;
 
 class TransportChain
 {

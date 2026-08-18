@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Model;
+namespace MailVotech\CoreBundle\Model;
 
-use Mautic\CoreBundle\Entity\TranslationEntityInterface;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Entity\TranslationEntityInterface;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

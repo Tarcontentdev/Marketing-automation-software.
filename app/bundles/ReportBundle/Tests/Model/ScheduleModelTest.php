@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Model;
+namespace MailVotech\ReportBundle\Tests\Model;
 
 use Doctrine\ORM\EntityManager;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Entity\SchedulerRepository;
-use Mautic\ReportBundle\Model\ScheduleModel;
-use Mautic\ReportBundle\Scheduler\Model\SchedulerPlanner;
-use Mautic\ReportBundle\Scheduler\Option\ExportOption;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\SchedulerRepository;
+use MailVotech\ReportBundle\Model\ScheduleModel;
+use MailVotech\ReportBundle\Scheduler\Model\SchedulerPlanner;
+use MailVotech\ReportBundle\Scheduler\Option\ExportOption;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class ScheduleModelTest extends \PHPUnit\Framework\TestCase

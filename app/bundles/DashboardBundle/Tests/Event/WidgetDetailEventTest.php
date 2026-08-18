@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DashboardBundle\Tests\Event;
+namespace MailVotech\DashboardBundle\Tests\Event;
 
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\DashboardBundle\Entity\Widget;
-use Mautic\DashboardBundle\Event\WidgetDetailEvent;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\DashboardBundle\Entity\Widget;
+use MailVotech\DashboardBundle\Event\WidgetDetailEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class WidgetDetailEventTest extends \PHPUnit\Framework\TestCase

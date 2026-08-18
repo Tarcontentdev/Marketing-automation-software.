@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\ProjectBundle\Form\Type\ProjectType;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Form\Type\UserListType;
+use MailVotech\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\ProjectBundle\Form\Type\ProjectType;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Form\Type\UserListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -44,7 +44,7 @@ final class CompanyType extends AbstractType
                 'owner',
                 UserListType::class,
                 [
-                    'label'      => 'mautic.lead.company.field.owner',
+                    'label'      => 'mailvotech.lead.company.field.owner',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class' => 'form-control',
@@ -60,7 +60,7 @@ final class CompanyType extends AbstractType
             'score',
             NumberType::class,
             [
-                'label'      => 'mautic.company.score',
+                'label'      => 'mailvotech.company.score',
                 'attr'       => ['class' => 'form-control'],
                 'label_attr' => ['class' => 'control-label'],
                 'scale'      => 0,
@@ -107,15 +107,15 @@ final class CompanyType extends AbstractType
                     'post_extra_buttons' => [
                         [
                             'name'  => 'merge',
-                            'label' => 'mautic.lead.merge',
+                            'label' => 'mailvotech.lead.merge',
                             'attr'  => [
                                 'class'       => 'btn btn-ghost btn-dnd',
                                 'icon'        => 'ri-building-2-line',
                                 'data-toggle' => 'ajaxmodal',
-                                'data-target' => '#MauticSharedModal',
-                                'data-header' => $this->translator->trans('mautic.lead.company.header.merge'),
+                                'data-target' => '#MailVotechSharedModal',
+                                'data-header' => $this->translator->trans('mailvotech.lead.company.header.merge'),
                                 'href'        => $this->router->generate(
-                                    'mautic_company_action',
+                                    'mailvotech_company_action',
                                     [
                                         'objectId'     => $options['data']->getId(),
                                         'objectAction' => 'merge',

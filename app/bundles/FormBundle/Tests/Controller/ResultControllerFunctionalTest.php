@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Controller;
+namespace MailVotech\FormBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Helper\FormUploader;
-use Mautic\FormBundle\Model\FieldModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Helper\FormUploader;
+use MailVotech\FormBundle\Model\FieldModel;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ResultControllerFunctionalTest extends MauticMysqlTestCase
+final class ResultControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -56,11 +56,11 @@ final class ResultControllerFunctionalTest extends MauticMysqlTestCase
         $fieldId  = $form['fields'][0]['id'];
 
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_apiform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_apiform]');
         $form        = $formCrawler->form();
         $file        = new UploadedFile($fileName, $fileName, 'image/png');
         $form->setValues([
-            'mauticform[file_field]' => $file,
+            'mailvotechform[file_field]' => $file,
         ]);
         $this->client->submit($form);
         $this->assertResponseIsSuccessful();
@@ -108,9 +108,9 @@ final class ResultControllerFunctionalTest extends MauticMysqlTestCase
 
         // Submit a form result (simulate a contact submission)
         $this->client->request('POST', "/form/{$formId}", [
-            'mauticform[email]'  => 'test@example.com',
-            'mauticform[formId]' => $formId,
-            'mauticform[return]' => '',
+            'mailvotechform[email]'  => 'test@example.com',
+            'mailvotechform[formId]' => $formId,
+            'mailvotechform[return]' => '',
         ]);
         $this->assertResponseIsSuccessful();
 

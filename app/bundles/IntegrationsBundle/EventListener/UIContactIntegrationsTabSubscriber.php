@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\EventListener;
+namespace MailVotech\IntegrationsBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\CustomTemplateEvent;
-use Mautic\IntegrationsBundle\Entity\ObjectMappingRepository;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\CustomTemplateEvent;
+use MailVotech\IntegrationsBundle\Entity\ObjectMappingRepository;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class UIContactIntegrationsTabSubscriber implements EventSubscriberInterface
@@ -27,7 +27,7 @@ final readonly class UIContactIntegrationsTabSubscriber implements EventSubscrib
 
     public function onTemplateRender(CustomTemplateEvent $event): void
     {
-        if ('@MauticLead/Lead/lead.html.twig' === $event->getTemplate()) {
+        if ('@MailVotechLead/Lead/lead.html.twig' === $event->getTemplate()) {
             $vars         = $event->getVars();
             $integrations = $vars['integrations'];
 

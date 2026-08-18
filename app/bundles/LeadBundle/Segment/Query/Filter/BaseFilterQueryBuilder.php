@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Query\Filter;
+namespace MailVotech\LeadBundle\Segment\Query\Filter;
 
-use Mautic\LeadBundle\Event\SegmentOperatorQueryBuilderEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
-use Mautic\LeadBundle\Segment\RandomParameterName;
+use MailVotech\LeadBundle\Event\SegmentOperatorQueryBuilderEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\RandomParameterName;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class BaseFilterQueryBuilder implements FilterQueryBuilderInterface
@@ -19,7 +19,7 @@ class BaseFilterQueryBuilder implements FilterQueryBuilderInterface
 
     public static function getServiceId(): string
     {
-        return 'mautic.lead.query.builder.basic';
+        return 'mailvotech.lead.query.builder.basic';
     }
 
     public function applyQuery(QueryBuilder $queryBuilder, ContactSegmentFilter $filter): QueryBuilder

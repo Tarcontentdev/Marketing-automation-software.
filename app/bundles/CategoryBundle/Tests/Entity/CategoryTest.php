@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CategoryBundle\Tests\Entity;
+namespace MailVotech\CategoryBundle\Tests\Entity;
 
-use Mautic\CategoryBundle\Entity\Category;
+use MailVotech\CategoryBundle\Entity\Category;
 use PHPUnit\Framework\TestCase;
 
 final class CategoryTest extends TestCase

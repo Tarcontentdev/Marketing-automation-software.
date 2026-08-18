@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Entity;
+namespace MailVotech\PageBundle\Tests\Entity;
 
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\Page;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class PageTest extends \PHPUnit\Framework\TestCase

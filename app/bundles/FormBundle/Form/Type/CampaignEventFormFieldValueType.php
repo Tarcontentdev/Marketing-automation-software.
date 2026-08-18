@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
-use Mautic\FormBundle\Model\FormModel;
+use MailVotech\FormBundle\Model\FormModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -27,19 +27,19 @@ final class CampaignEventFormFieldValueType extends AbstractType
             'form',
             FormListType::class,
             [
-                'label'       => 'mautic.form.campaign.event.forms',
+                'label'       => 'mailvotech.form.campaign.event.forms',
                 'label_attr'  => ['class' => 'control-label'],
                 'multiple'    => false,
-                'placeholder' => 'mautic.core.select',
+                'placeholder' => 'mailvotech.core.select',
                 'attr'        => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.form.campaign.event.forms_descr',
-                    'onchange' => 'Mautic.updateFormFields(this)',
+                    'tooltip'  => 'mailvotech.form.campaign.event.forms_descr',
+                    'onchange' => 'MailVotech.updateFormFields(this)',
                 ],
                 'required'    => true,
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -115,13 +115,13 @@ final class CampaignEventFormFieldValueType extends AbstractType
                 [
                     'choices'           => $fields,
                     'attr'              => [
-                        'onchange'           => 'Mautic.updateFormFieldValues(this)',
+                        'onchange'           => 'MailVotech.updateFormFieldValues(this)',
                         'data-field-options' => json_encode($options),
                     ],
                     'required'    => true,
                     'constraints' => [
                         new NotBlank(
-                            message: 'mautic.core.value.required'
+                            message: 'mailvotech.core.value.required'
                         ),
                     ],
                 ]
@@ -133,7 +133,7 @@ final class CampaignEventFormFieldValueType extends AbstractType
                     'value',
                     TextType::class,
                     [
-                        'label'      => 'mautic.form.field.form.value',
+                        'label'      => 'mailvotech.form.field.form.value',
                         'label_attr' => ['class' => 'control-label'],
                         'attr'       => [
                             'class' => 'form-control',
@@ -141,7 +141,7 @@ final class CampaignEventFormFieldValueType extends AbstractType
                         'required'    => true,
                         'constraints' => [
                             new NotBlank(
-                                message: 'mautic.core.value.required'
+                                message: 'mailvotech.core.value.required'
                             ),
                         ],
                     ]
@@ -152,7 +152,7 @@ final class CampaignEventFormFieldValueType extends AbstractType
                     ChoiceType::class,
                     [
                         'choices'    => array_flip($options[$data['field']]),
-                        'label'      => 'mautic.form.field.form.value',
+                        'label'      => 'mailvotech.form.field.form.value',
                         'label_attr' => ['class' => 'control-label'],
                         'attr'       => [
                             'class' => 'form-control not-chosen',
@@ -160,7 +160,7 @@ final class CampaignEventFormFieldValueType extends AbstractType
                         'required'    => true,
                         'constraints' => [
                             new NotBlank(
-                                message: 'mautic.core.value.required'
+                                message: 'mailvotech.core.value.required'
                             ),
                         ],
                     ]

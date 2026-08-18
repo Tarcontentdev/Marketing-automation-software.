@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\EventCollector\Accessor;
+namespace MailVotech\CampaignBundle\Tests\EventCollector\Accessor;
 
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ConditionAccessor;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\DecisionAccessor;
-use Mautic\CampaignBundle\EventCollector\Accessor\EventAccessor;
-use Mautic\EmailBundle\Form\Type\EmailClickDecisionType;
-use Mautic\LeadBundle\Form\Type\CampaignEventLeadCampaignsType;
-use Mautic\LeadBundle\Form\Type\CompanyChangeScoreActionType;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ConditionAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\DecisionAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\EventAccessor;
+use MailVotech\EmailBundle\Form\Type\EmailClickDecisionType;
+use MailVotech\LeadBundle\Form\Type\CampaignEventLeadCampaignsType;
+use MailVotech\LeadBundle\Form\Type\CompanyChangeScoreActionType;
 
 final class EventAccessorTest extends \PHPUnit\Framework\TestCase
 {
@@ -24,7 +24,7 @@ final class EventAccessorTest extends \PHPUnit\Framework\TestCase
                 'label'          => 'Add to company\'s score',
                 'description'    => 'This action will add the specified value to the company\'s existing score',
                 'formType'       => CompanyChangeScoreActionType::class,
-                'batchEventName' => 'mautic.lead.on_campaign_trigger_action',
+                'batchEventName' => 'mailvotech.lead.on_campaign_trigger_action',
             ],
         ],
         Event::TYPE_CONDITION => [
@@ -32,15 +32,15 @@ final class EventAccessorTest extends \PHPUnit\Framework\TestCase
                 'label'       => 'Contact campaigns',
                 'description' => 'Condition based on a contact campaigns.',
                 'formType'    => CampaignEventLeadCampaignsType::class,
-                'formTheme'   => 'MauticLeadBundle:FormTheme\\ContactCampaignsCondition',
-                'eventName'   => 'mautic.lead.on_campaign_trigger_condition',
+                'formTheme'   => 'MailVotechLeadBundle:FormTheme\\ContactCampaignsCondition',
+                'eventName'   => 'mailvotech.lead.on_campaign_trigger_condition',
             ],
         ],
         Event::TYPE_DECISION  => [
             'email.click' => [
                 'label'                  => 'Clicks email',
                 'description'            => 'Trigger actions when an email is clicked. Connect a Send Email action to the top of this decision.',
-                'eventName'              => 'mautic.email.on_campaign_trigger_decision',
+                'eventName'              => 'mailvotech.email.on_campaign_trigger_decision',
                 'formType'               => EmailClickDecisionType::class,
                 'connectionRestrictions' => [
                     'source' => [

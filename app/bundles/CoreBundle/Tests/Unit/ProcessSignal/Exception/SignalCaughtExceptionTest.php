@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\ProcessSignal\Exception;
+namespace MailVotech\CoreBundle\Tests\Unit\ProcessSignal\Exception;
 
-use Mautic\CoreBundle\ProcessSignal\Exception\SignalCaughtException;
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalState;
+use MailVotech\CoreBundle\ProcessSignal\Exception\SignalCaughtException;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalState;
 use PHPUnit\Framework\TestCase;
 
 final class SignalCaughtExceptionTest extends TestCase

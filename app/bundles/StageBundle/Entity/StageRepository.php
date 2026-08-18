@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\StageBundle\Entity;
+namespace MailVotech\StageBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\ProjectBundle\Entity\ProjectRepositoryTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\ProjectBundle\Entity\ProjectRepositoryTrait;
 
 /**
  * @extends CommonRepository<Stage>
@@ -69,8 +69,8 @@ class StageRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder()
             ->select('s.*')
-            ->from(MAUTIC_TABLE_PREFIX.'stage_lead_action_log', 'x')
-            ->innerJoin('x', MAUTIC_TABLE_PREFIX.'stages', 's', 'x.stage_id = s.id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'stage_lead_action_log', 'x')
+            ->innerJoin('x', MAILVOTECH_TABLE_PREFIX.'stages', 's', 'x.stage_id = s.id');
 
         // make sure the published up and down dates are good
         $q->where(
@@ -101,7 +101,7 @@ class StageRepository extends CommonRepository
     protected function addSearchCommandWhereClause($q, $filter): array
     {
         return match ($filter->command) {
-            $this->translator->trans('mautic.project.searchcommand.name'), $this->translator->trans('mautic.project.searchcommand.name', [], null, 'en_US') => $this->handleProjectFilter(
+            $this->translator->trans('mailvotech.project.searchcommand.name'), $this->translator->trans('mailvotech.project.searchcommand.name', [], null, 'en_US') => $this->handleProjectFilter(
                 $this->_em->getConnection()->createQueryBuilder(),
                 'stage_id',
                 'stage_projects_xref',
@@ -118,7 +118,7 @@ class StageRepository extends CommonRepository
      */
     public function getSearchCommands(): array
     {
-        return array_merge(['mautic.project.searchcommand.name'], $this->getStandardSearchCommands());
+        return array_merge(['mailvotech.project.searchcommand.name'], $this->getStandardSearchCommands());
     }
 
     /**

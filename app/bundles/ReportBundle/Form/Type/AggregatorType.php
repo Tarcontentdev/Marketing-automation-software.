@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\ReportBundle\Form\Type;
+namespace MailVotech\ReportBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -27,15 +27,15 @@ final class AggregatorType extends AbstractType
             ChoiceType::class,
             [
                 'choices'           => [
-                    $this->translator->trans('mautic.report.report.label.aggregators.count') => 'COUNT',
-                    $this->translator->trans('mautic.report.report.label.aggregators.avg')   => 'AVG',
-                    $this->translator->trans('mautic.report.report.label.aggregators.sum')   => 'SUM',
-                    $this->translator->trans('mautic.report.report.label.aggregators.min')   => 'MIN',
-                    $this->translator->trans('mautic.report.report.label.aggregators.max')   => 'MAX',
+                    $this->translator->trans('mailvotech.report.report.label.aggregators.count') => 'COUNT',
+                    $this->translator->trans('mailvotech.report.report.label.aggregators.avg')   => 'AVG',
+                    $this->translator->trans('mailvotech.report.report.label.aggregators.sum')   => 'SUM',
+                    $this->translator->trans('mailvotech.report.report.label.aggregators.min')   => 'MIN',
+                    $this->translator->trans('mailvotech.report.report.label.aggregators.max')   => 'MAX',
                 ],
                 'expanded'    => false,
                 'multiple'    => false,
-                'label'       => 'mautic.report.function',
+                'label'       => 'mailvotech.report.function',
                 'label_attr'  => ['class' => 'control-label'],
                 'placeholder' => false,
                 'required'    => false,
@@ -53,7 +53,7 @@ final class AggregatorType extends AbstractType
                 'choices'           => array_flip($options['columnList']),
                 'expanded'          => false,
                 'multiple'          => false,
-                'label'             => 'mautic.report.report.label.filtercolumn',
+                'label'             => 'mailvotech.report.report.label.filtercolumn',
                 'label_attr'        => ['class' => 'control-label'],
                 'placeholder'       => false,
                 'required'          => false,

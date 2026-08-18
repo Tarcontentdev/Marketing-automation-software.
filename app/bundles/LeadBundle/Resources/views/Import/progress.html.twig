@@ -10,12 +10,12 @@ Variables
 - step
 - currentRoute
 #}
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent %}leadImport{% endblock %}
+{% block mailvotechContent %}leadImport{% endblock %}
 
 {% block headerTitle %}
-{{ 'mautic.lead.import.leads'|trans({'%object%': objectName|trans}) }}
+{{ 'mailvotech.lead.import.leads'|trans({'%object%': objectName|trans}) }}
 {% endblock %}
 
 {% block content %}
@@ -23,34 +23,34 @@ Variables
 {% set objectName = objectName|trans %}
 {% set percent = progress.toPercent %}
 {% set id = complete ? 'leadImportProgressComplete' : 'leadImportProgress' %}
-{% set header = complete ? 'mautic.lead.import.success' : 'mautic.lead.import.donotleave' %}
+{% set header = complete ? 'mailvotech.lead.import.success' : 'mailvotech.lead.import.donotleave' %}
 
 <div class="row ma-lg animation--slide-in-right" id="{{ id }}">
     <div class="col-sm-offset-3 col-sm-6 text-center">
         <div class="row mb-lg">
             {% if not complete %}
             <div class="col-md-12 ai-start">
-                {% include '@MauticCore/Components/pictogram.html.twig' with {
+                {% include '@MailVotechCore/Components/pictogram.html.twig' with {
                     pictogram: 'data--processing',
                     size: 64
                 } %}
                 <h2 class="mt-lg pb-sm text-left">{{ header|trans({'object': object}) }}</h2>
                 <div class="row-no-gutters">
-                    <span class="text-secondary">{{ 'mautic.lead.import.inprogress'|trans }}</span>
+                    <span class="text-secondary">{{ 'mailvotech.lead.import.inprogress'|trans }}</span>
                 </div>
             </div>
             {% else %}
             <div class="col-md-8 ai-start">
-                {% include '@MauticCore/Components/pictogram.html.twig' with {
+                {% include '@MailVotechCore/Components/pictogram.html.twig' with {
                     pictogram: 'data--storage',
                     size: 64
                 } %}
                 <h2 class="mt-lg pb-sm text-left">{{ header|trans({'object': object}) }}</h2>
                 <div class="row-no-gutters ai-center gap-sm">
-                    {% include '@MauticCore/Helper/_tag.html.twig' with {
+                    {% include '@MailVotechCore/Helper/_tag.html.twig' with {
                         tags: [{
-                            label: import.object == 'lead' ? 'mautic.lead.leads'
-                                : import.object == 'company' ? 'mautic.company.company'
+                            label: import.object == 'lead' ? 'mailvotech.lead.leads'
+                                : import.object == 'company' ? 'mailvotech.company.company'
                                 : import.object|capitalize,
                             icon: import.object == 'lead' ? 'ri-user-6-line'
                                 : import.object == 'company' ? 'ri-building-2-line'
@@ -58,7 +58,7 @@ Variables
                             color: 'green'
                         }]
                     } %}
-                    <span class="text-secondary">{{ 'mautic.core.now'|trans }}</span>
+                    <span class="text-secondary">{{ 'mailvotech.core.now'|trans }}</span>
                 </div>
             </div>
             <div class="col-md-4 ai-end jc-center">
@@ -80,10 +80,10 @@ Variables
             </div>
             <div class="panel-body">
                 {% if complete %}
-                <h4 class="mb-md text-left fw-sb">{{ 'mautic.lead.segments.contacts.imported_database'|trans }}</h4>
+                <h4 class="mb-md text-left fw-sb">{{ 'mailvotech.lead.segments.contacts.imported_database'|trans }}</h4>
                 <div class="row-no-gutters jc-space-between ai-center mb-sm">
-                    <span class="d-flex ai-center gap-xs"><i class="ri-add-box-fill ri-lg"></i>{{'mautic.lead.import.stats.created'|trans}}</span>
-                    {% include '@MauticCore/Helper/_tag.html.twig' with {
+                    <span class="d-flex ai-center gap-xs"><i class="ri-add-box-fill ri-lg"></i>{{'mailvotech.lead.import.stats.created'|trans}}</span>
+                    {% include '@MailVotechCore/Helper/_tag.html.twig' with {
                         tags: [{
                             label: import.insertedCount,
                             color: 'warm-gray',
@@ -92,8 +92,8 @@ Variables
                     } %}
                 </div>
                 <div class="row-no-gutters jc-space-between ai-center mb-sm">
-                    <span class="d-flex ai-center gap-xs"><i class="ri-refresh-fill ri-lg"></i>{{'mautic.lead.import.stats.merged'|trans}}</span>
-                    {% include '@MauticCore/Helper/_tag.html.twig' with {
+                    <span class="d-flex ai-center gap-xs"><i class="ri-refresh-fill ri-lg"></i>{{'mailvotech.lead.import.stats.merged'|trans}}</span>
+                    {% include '@MailVotechCore/Helper/_tag.html.twig' with {
                         tags: [{
                             label: import.updatedCount,
                             color: 'warm-gray',
@@ -102,8 +102,8 @@ Variables
                     } %}
                 </div>
                 <div class="row-no-gutters jc-space-between ai-center mb-sm">
-                    <span class="d-flex ai-center gap-xs"><i class="ri-checkbox-fill ri-lg"></i>{{'mautic.lead.import.stats.ignored'|trans}}</span>
-                    {% include '@MauticCore/Helper/_tag.html.twig' with {
+                    <span class="d-flex ai-center gap-xs"><i class="ri-checkbox-fill ri-lg"></i>{{'mailvotech.lead.import.stats.ignored'|trans}}</span>
+                    {% include '@MailVotechCore/Helper/_tag.html.twig' with {
                         tags: [{
                             label: import.ignoredCount,
                             color: 'warm-gray',
@@ -132,7 +132,7 @@ Variables
                             </div>
                         {% endset %}
 
-                        {% include '@MauticCore/Components/tile.html.twig' with {
+                        {% include '@MailVotechCore/Components/tile.html.twig' with {
                             type: 'base',
                             content: tileContent
                         } %}
@@ -154,24 +154,24 @@ Variables
             {% endif %}
             <div class="d-flex gap-1 jc-space-between pa-0">
                 {% if not complete %}
-                        {% include '@MauticCore/Helper/button.html.twig' with {
+                        {% include '@MailVotechCore/Helper/button.html.twig' with {
                             buttons: [
                                 {
-                                    label: 'mautic.core.form.cancel',
+                                    label: 'mailvotech.core.form.cancel',
                                     variant: 'primary',
                                     danger: true,
                                     size: 'xl',
-                                    href: path('mautic_import_action', {'objectAction': 'cancel', 'object': object}),
+                                    href: path('mailvotech_import_action', {'objectAction': 'cancel', 'object': object}),
                                     wide: true,
                                     attributes: {
                                         'data-toggle': 'ajax'
                                     }
                                 },
                                 {
-                                    label: 'mautic.lead.import.queue.btn',
+                                    label: 'mailvotech.lead.import.queue.btn',
                                     variant: 'primary',
                                     size: 'xl',
-                                    href: path('mautic_import_action', {'objectAction': 'queue', 'object': object}),
+                                    href: path('mailvotech_import_action', {'objectAction': 'queue', 'object': object}),
                                     wide: true,
                                     attributes: {
                                         'data-toggle': 'ajax',
@@ -182,24 +182,24 @@ Variables
                         } %}
                 {% else %}
                         {% set indexRouteParams = indexRouteParams|merge({
-                            'search': 'mautic.lead.lead.searchcommand.import_id'|trans ~ ':' ~ import.id
+                            'search': 'mailvotech.lead.lead.searchcommand.import_id'|trans ~ ':' ~ import.id
                         }) %}
                         <div class="d-flex ai-start">
-                            {% include '@MauticCore/Helper/button.html.twig' with {
+                            {% include '@MailVotechCore/Helper/button.html.twig' with {
                                 buttons: [
                                     {
-                                        label: 'mautic.lead.import.import_again',
+                                        label: 'mailvotech.lead.import.import_again',
                                         variant: 'link',
-                                        href: path('mautic_import_action', {'object': 'contacts', 'objectAction': 'new'}),
+                                        href: path('mailvotech_import_action', {'object': 'contacts', 'objectAction': 'new'}),
                                         size: 'xl',
                                         attributes: {
                                             'data-toggle': 'ajax'
                                         }
                                     },
                                     {
-                                        label: 'mautic.lead.import.result.info'|trans({'%import%': import.name()}),
+                                        label: 'mailvotech.lead.import.result.info'|trans({'%import%': import.name()}),
                                         variant: 'link',
-                                        href: path('mautic_import_action', {'objectAction': 'view', 'objectId': import.id, 'object': object}),
+                                        href: path('mailvotech_import_action', {'objectAction': 'view', 'objectId': import.id, 'object': object}),
                                         size: 'xl',
                                         attributes: {
                                             'data-toggle': 'ajax'
@@ -208,10 +208,10 @@ Variables
                                 ]
                             } %}
                         </div>
-                        {% include '@MauticCore/Helper/button.html.twig' with {
+                        {% include '@MailVotechCore/Helper/button.html.twig' with {
                             buttons: [
                                 {
-                                    label: 'mautic.lead.list.view'|trans({'%objects%': objectName}),
+                                    label: 'mailvotech.lead.list.view'|trans({'%objects%': objectName}),
                                     variant: 'secondary',
                                     size: 'xl',
                                     href: path(indexRoute, indexRouteParams),

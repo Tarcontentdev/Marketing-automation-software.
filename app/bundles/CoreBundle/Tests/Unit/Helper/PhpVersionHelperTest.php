@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\PhpVersionHelper;
+use MailVotech\CoreBundle\Helper\PhpVersionHelper;
 
 final class PhpVersionHelperTest extends \PHPUnit\Framework\TestCase
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\FormBundle\EventListener;
+namespace MailVotech\FormBundle\EventListener;
 
-use Mautic\CoreBundle\Event\DetermineWinnerEvent;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\FormBundle\Entity\SubmissionRepository;
-use Mautic\FormBundle\FormEvents;
+use MailVotech\CoreBundle\Event\DetermineWinnerEvent;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
+use MailVotech\FormBundle\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -54,8 +54,8 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                 $submissions = $support = $data = [];
                 $hasResults  = [];
 
-                $submissionLabel = $this->translator->trans('mautic.form.abtest.label.submissions');
-                $hitLabel        = ('page' === $type) ? $this->translator->trans('mautic.form.abtest.label.hits') : $this->translator->trans('mautic.form.abtest.label.sentemils');
+                $submissionLabel = $this->translator->trans('mailvotech.form.abtest.label.submissions');
+                $hitLabel        = ('page' === $type) ? $this->translator->trans('mailvotech.form.abtest.label.hits') : $this->translator->trans('mailvotech.form.abtest.label.sentemils');
 
                 foreach ($counts as $stats) {
                     $submissionRate            = ($stats['total']) ? round(($stats['count'] / $stats['total']) * 100, 2) : 0;
@@ -105,7 +105,7 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                     'winners'         => $winners,
                     'support'         => $support,
                     'basedOn'         => 'form.submissions',
-                    'supportTemplate' => '@MauticPage/SubscribedEvents/AbTest/bargraph.html.twig',
+                    'supportTemplate' => '@MailVotechPage/SubscribedEvents/AbTest/bargraph.html.twig',
                 ]);
 
                 return;

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Controller\Package;
+namespace MailVotech\MarketplaceBundle\Controller\Package;
 
-use Mautic\CoreBundle\Controller\CommonController;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\MarketplaceBundle\Security\Permissions\MarketplacePermissions;
-use Mautic\MarketplaceBundle\Service\Config;
-use Mautic\MarketplaceBundle\Service\PluginCollector;
-use Mautic\MarketplaceBundle\Service\RouteProvider;
+use MailVotech\CoreBundle\Controller\CommonController;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\MarketplaceBundle\Security\Permissions\MarketplacePermissions;
+use MailVotech\MarketplaceBundle\Service\Config;
+use MailVotech\MarketplaceBundle\Service\PluginCollector;
+use MailVotech\MarketplaceBundle\Service\RouteProvider;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -49,11 +49,11 @@ final class ListController extends CommonController
 
         $session = $request->getSession();
         if (empty($page)) {
-            $page = $session->get('mautic.marketplace.package.page', 1);
+            $page = $session->get('mailvotech.marketplace.package.page', 1);
         }
 
         // set limits
-        $limit   = $session->get('mautic.marketplace.package.limit', $this->coreParametersHelper->get('default_pagelimit'));
+        $limit   = $session->get('mailvotech.marketplace.package.limit', $this->coreParametersHelper->get('default_pagelimit'));
         $route   = $this->routeProvider->buildListRoute($page);
 
         return $this->delegateView(
@@ -70,7 +70,7 @@ final class ListController extends CommonController
                 ],
                 'contentTemplate' => '@Marketplace/Package/list.html.twig',
                 'passthroughVars' => [
-                    'mauticContent' => 'package',
+                    'mailvotechContent' => 'package',
                     'route'         => $route,
                 ],
             ]

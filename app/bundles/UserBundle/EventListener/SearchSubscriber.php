@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\UserBundle\EventListener;
+namespace MailVotech\UserBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\DTO\GlobalSearchFilterDTO;
-use Mautic\CoreBundle\Event as MauticEvents;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\GlobalSearch;
-use Mautic\UserBundle\Model\RoleModel;
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\DTO\GlobalSearchFilterDTO;
+use MailVotech\CoreBundle\Event as MailVotechEvents;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\GlobalSearch;
+use MailVotech\UserBundle\Model\RoleModel;
+use MailVotech\UserBundle\Model\UserModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class SearchSubscriber implements EventSubscriberInterface
@@ -32,45 +32,45 @@ final readonly class SearchSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onGlobalSearchUser(MauticEvents\GlobalSearchEvent $event): void
+    public function onGlobalSearchUser(MailVotechEvents\GlobalSearchEvent $event): void
     {
         $filterDTO = new GlobalSearchFilterDTO($event->getSearchString());
         $results   = $this->globalSearch->performSearch(
             $filterDTO,
             $this->userModel,
-            '@MauticUser/SubscribedEvents/Search/global_user.html.twig'
+            '@MailVotechUser/SubscribedEvents/Search/global_user.html.twig'
         );
 
         if ([] !== $results) {
-            $event->addResults('mautic.user.users', $results);
+            $event->addResults('mailvotech.user.users', $results);
         }
     }
 
-    public function onGlobalSearchRoles(MauticEvents\GlobalSearchEvent $event): void
+    public function onGlobalSearchRoles(MailVotechEvents\GlobalSearchEvent $event): void
     {
         $filterDTO = new GlobalSearchFilterDTO($event->getSearchString());
         $results   = $this->globalSearch->performSearch(
             $filterDTO,
             $this->userRoleModel,
-            '@MauticUser/SubscribedEvents/Search/global_role.html.twig'
+            '@MailVotechUser/SubscribedEvents/Search/global_role.html.twig'
         );
 
         if ([] !== $results) {
-            $event->addResults('mautic.user.roles', $results);
+            $event->addResults('mailvotech.user.roles', $results);
         }
     }
 
-    public function onBuildCommandList(MauticEvents\CommandListEvent $event): void
+    public function onBuildCommandList(MailVotechEvents\CommandListEvent $event): void
     {
         if ($this->security->isGranted('user:users:view')) {
             $event->addCommands(
-                'mautic.user.users',
+                'mailvotech.user.users',
                 $this->userModel->getCommandList()
             );
         }
         if ($this->security->isGranted('user:roles:view')) {
             $event->addCommands(
-                'mautic.user.roles',
+                'mailvotech.user.roles',
                 $this->userRoleModel->getCommandList()
             );
         }

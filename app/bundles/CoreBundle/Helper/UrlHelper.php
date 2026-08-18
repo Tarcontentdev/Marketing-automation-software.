@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 use GuzzleHttp\Psr7\Query;
 

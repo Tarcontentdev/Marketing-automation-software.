@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Service;
+namespace MailVotech\CoreBundle\Service;
 
-use Mautic\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\Model\NotificationModel;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -52,7 +52,7 @@ class FlashBag
             $session->getFlashBag()->add($level, $translatedMessage);
         }
 
-        if (!defined('MAUTIC_INSTALLER') && $addNotification) {
+        if (!defined('MAILVOTECH_INSTALLER') && $addNotification) {
             $iconClass = match ($level) {
                 self::LEVEL_WARNING => 'text-warning ri-alert-line',
                 self::LEVEL_ERROR   => 'text-danger ri-error-warning-line',
@@ -61,7 +61,7 @@ class FlashBag
             };
 
             // If the user has not interacted with the browser for the last 30 seconds, consider the message unread
-            $lastActive = $this->requestStack->getCurrentRequest()->get('mauticUserLastActive', 0);
+            $lastActive = $this->requestStack->getCurrentRequest()->get('mailvotechUserLastActive', 0);
             $isRead     = $lastActive > 30 ? 0 : 1;
 
             $this->notificationModel->addNotification($message, $level, $isRead, null, $iconClass);

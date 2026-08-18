@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Extension;
+namespace MailVotech\ApiBundle\Extension;
 
 use ApiPlatform\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;

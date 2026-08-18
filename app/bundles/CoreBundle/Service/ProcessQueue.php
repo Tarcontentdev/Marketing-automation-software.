@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Service;
+namespace MailVotech\CoreBundle\Service;
 
 use Symfony\Component\Process\Process;
 

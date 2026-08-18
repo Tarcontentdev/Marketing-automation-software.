@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Exception;
+namespace MailVotech\CoreBundle\Exception;
 
 class InvalidValueException extends \Exception
 {

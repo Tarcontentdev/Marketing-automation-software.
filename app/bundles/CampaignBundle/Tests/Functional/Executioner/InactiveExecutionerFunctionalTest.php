@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Executioner;
+namespace MailVotech\CampaignBundle\Tests\Functional\Executioner;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\CampaignBundle\Executioner\InactiveExecutioner;
-use Mautic\CampaignBundle\Executioner\Result\Counter;
-use Mautic\CampaignBundle\Executioner\TestInactiveExecutioner;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CampaignBundle\Executioner\InactiveExecutioner;
+use MailVotech\CampaignBundle\Executioner\Result\Counter;
+use MailVotech\CampaignBundle\Executioner\TestInactiveExecutioner;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
  * Functional tests for decision event redirection scenarios.
  * Tests redirection FROM decision events TO other event types (actions/conditions).
  */
-final class InactiveExecutionerFunctionalTest extends MauticMysqlTestCase
+final class InactiveExecutionerFunctionalTest extends MailVotechMysqlTestCase
 {
     private InactiveExecutioner $inactiveExecutioner;
 
@@ -76,7 +76,7 @@ final class InactiveExecutionerFunctionalTest extends MauticMysqlTestCase
         $output  = new BufferedOutput();
         $limiter = new ContactLimiter(100, 0, 0, 0, [$contact->getId()]);
 
-        defined('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED', 1);
+        defined('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED', 1);
 
         $this->inactiveExecutioner->validate($originalDecision->getId(), $limiter, $output);
 
@@ -141,7 +141,7 @@ final class InactiveExecutionerFunctionalTest extends MauticMysqlTestCase
         $output  = new BufferedOutput();
         $limiter = new ContactLimiter(100, 0, 0, 0, [$contact->getId()]);
 
-        defined('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED', 1);
+        defined('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED', 1);
 
         $this->inactiveExecutioner->validate($originalDecision->getId(), $limiter, $output);
 
@@ -195,7 +195,7 @@ final class InactiveExecutionerFunctionalTest extends MauticMysqlTestCase
         $output  = new BufferedOutput();
         $limiter = new ContactLimiter(100, 0, 0, 0, [$contact->getId()]);
 
-        defined('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED', 1);
+        defined('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED', 1);
 
         $counter = $this->inactiveExecutioner->validate($originalDecision->getId(), $limiter, $output);
 
@@ -281,7 +281,7 @@ final class InactiveExecutionerFunctionalTest extends MauticMysqlTestCase
         $output  = new BufferedOutput();
         $limiter = new ContactLimiter(100, 0, 0, 0, [$contact->getId()]);
 
-        defined('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED', 1);
+        defined('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED', 1);
 
         // Validate first decision (should redirect to first redirect action)
         $this->inactiveExecutioner->validate($firstDecision->getId(), $limiter, $output);
@@ -319,7 +319,7 @@ final class InactiveExecutionerFunctionalTest extends MauticMysqlTestCase
     }
 
     /**
-     * Reproduces https://github.com/mautic/mautic/issues/16262.
+     * Reproduces https://github.com/mailvotech/mailvotech/issues/16262.
      *
      * Deleted decisions with redirect_event_id must not re-trigger the redirect target on every
      * inactive execution once contacts have been processed.
@@ -354,7 +354,7 @@ final class InactiveExecutionerFunctionalTest extends MauticMysqlTestCase
         $this->em->persist($parentEventLog);
         $this->em->flush();
 
-        defined('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED', 1);
+        defined('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED', 1);
 
         $limiter = new ContactLimiter(100, 0, 0, 0, [$contact->getId()]);
 

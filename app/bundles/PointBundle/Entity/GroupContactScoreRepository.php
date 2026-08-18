@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Entity;
+namespace MailVotech\PointBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<GroupContactScore>
@@ -15,7 +15,7 @@ class GroupContactScoreRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('lcs.contact_id')
-            ->from(MAUTIC_TABLE_PREFIX.GroupContactScore::TABLE_NAME, 'lcs');
+            ->from(MAILVOTECH_TABLE_PREFIX.GroupContactScore::TABLE_NAME, 'lcs');
 
         $expr = $q->expr()->and(
             $q->expr()->eq('lcs.contact_id', ':lead'),

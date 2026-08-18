@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\EventListener;
+namespace MailVotech\CoreBundle\Tests\Unit\EventListener;
 
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Event\StatsEvent;
-use Mautic\CoreBundle\EventListener\CommonStatsSubscriber;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Test\ReflectionHelper;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Event\StatsEvent;
+use MailVotech\CoreBundle\EventListener\CommonStatsSubscriber;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Test\ReflectionHelper;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;

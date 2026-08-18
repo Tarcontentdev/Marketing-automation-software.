@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Security\Authenticator\Passport\Badge;
+namespace MailVotech\UserBundle\Security\Authenticator\Passport\Badge;
 
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\BadgeInterface;
 

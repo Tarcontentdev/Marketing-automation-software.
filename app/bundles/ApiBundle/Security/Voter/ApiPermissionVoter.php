@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\ApiBundle\Security\Voter;
+namespace MailVotech\ApiBundle\Security\Voter;
 
-use Mautic\ApiBundle\ApiEvents;
-use Mautic\ApiBundle\Event\ApiPlatformPermissionContextEvent;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\ApiBundle\ApiEvents;
+use MailVotech\ApiBundle\Event\ApiPlatformPermissionContextEvent;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
@@ -21,7 +21,7 @@ final class ApiPermissionVoter extends Voter
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        // Support Mautic permission format like 'focus:items:viewown'
+        // Support MailVotech permission format like 'focus:items:viewown'
         return str_contains($attribute, ':');
     }
 

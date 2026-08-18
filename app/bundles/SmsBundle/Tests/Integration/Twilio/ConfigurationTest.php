@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\Integration\Twilio;
+namespace MailVotech\SmsBundle\Tests\Integration\Twilio;
 
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PluginBundle\Integration\AbstractIntegration;
-use Mautic\SmsBundle\Integration\Twilio\Configuration;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\SmsBundle\Integration\Twilio\Configuration;
 use PHPUnit\Framework\MockObject\MockObject;
 use Twilio\Exceptions\ConfigurationException;
 

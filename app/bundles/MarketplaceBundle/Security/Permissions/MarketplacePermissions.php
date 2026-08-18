@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Security\Permissions;
+namespace MailVotech\MarketplaceBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
-use Mautic\MarketplaceBundle\Service\Config;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\MarketplaceBundle\Service\Config;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class MarketplacePermissions extends AbstractPermissions

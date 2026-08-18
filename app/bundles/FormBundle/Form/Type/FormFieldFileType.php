@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\FileHelper;
-use Mautic\FormBundle\Validator\Constraint\FileExtensionConstraint;
+use MailVotech\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\FileHelper;
+use MailVotech\FormBundle\Validator\Constraint\FileExtensionConstraint;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -46,12 +46,12 @@ final class FormFieldFileType extends AbstractType
                 self::PROPERTY_ALLOWED_FILE_EXTENSIONS,
                 TextareaType::class,
                 [
-                    'label'      => 'mautic.form.field.file.allowed_extensions',
+                    'label'      => 'mailvotech.form.field.file.allowed_extensions',
                     'label_attr' => ['class' => 'control-label'],
                     'required'   => false,
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.form.field.file.tooltip.allowed_extensions',
+                        'tooltip' => 'mailvotech.form.field.file.tooltip.allowed_extensions',
                     ],
                     'data'        => $options['data'][self::PROPERTY_ALLOWED_FILE_EXTENSIONS],
                     'constraints' => [new FileExtensionConstraint()],
@@ -64,12 +64,12 @@ final class FormFieldFileType extends AbstractType
             self::PROPERTY_ALLOWED_FILE_SIZE,
             TextType::class,
             [
-                'label'      => 'mautic.form.field.file.allowed_size',
+                'label'      => 'mailvotech.form.field.file.allowed_size',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => $this->translator->trans('mautic.form.field.file.tooltip.allowed_size', ['%uploadSize%' => $maxUploadSize]),
+                    'tooltip' => $this->translator->trans('mailvotech.form.field.file.tooltip.allowed_size', ['%uploadSize%' => $maxUploadSize]),
                 ],
                 'data'        => $options['data'][self::PROPERTY_ALLOWED_FILE_SIZE],
                 'constraints' => [new LessThanOrEqual(value: $maxUploadSize)],
@@ -80,7 +80,7 @@ final class FormFieldFileType extends AbstractType
             'public',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.form.field.file.public',
+                'label' => 'mailvotech.form.field.file.public',
             ]
         );
 
@@ -88,7 +88,7 @@ final class FormFieldFileType extends AbstractType
             self::PROPERTY_PREFERED_PROFILE_IMAGE,
             YesNoButtonGroupType::class,
             [
-                'label'       => 'mautic.form.field.file.set_as_profile_image',
+                'label'       => 'mailvotech.form.field.file.set_as_profile_image',
                 'data'        => $options['data'][self::PROPERTY_PREFERED_PROFILE_IMAGE] ?? false,
             ]
         );

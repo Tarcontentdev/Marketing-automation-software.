@@ -7,7 +7,7 @@ final class FormActionSendToUserCest
 {
     public function _before(AcceptanceTester $I): void
     {
-        // Login to Mautic
+        // Login to MailVotech
         $I->login('admin', 'Maut1cR0cks!');
     }
 

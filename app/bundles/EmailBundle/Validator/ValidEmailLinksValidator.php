@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Validator;
+namespace MailVotech\EmailBundle\Validator;
 
-use Mautic\CoreBundle\Helper\UrlHelper;
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\CoreBundle\Helper\UrlHelper;
+use MailVotech\EmailBundle\Entity\Email;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -55,7 +55,7 @@ final class ValidEmailLinksValidator extends ConstraintValidator
 
             $url = html_entity_decode($link->getAttribute('href'), ENT_QUOTES | ENT_HTML5);
 
-            if ($this->isMauticToken($url) || $this->hasValidScheme($url)) {
+            if ($this->isMailVotechToken($url) || $this->hasValidScheme($url)) {
                 continue;
             }
 
@@ -86,7 +86,7 @@ final class ValidEmailLinksValidator extends ConstraintValidator
         }
     }
 
-    private function isMauticToken(string $url): bool
+    private function isMailVotechToken(string $url): bool
     {
         return 1 === preg_match('/^\{[^{}]+\}$/', $url);
     }

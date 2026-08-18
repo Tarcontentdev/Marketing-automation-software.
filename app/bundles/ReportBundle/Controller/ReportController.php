@@ -1,19 +1,19 @@
 <?php
 
-namespace Mautic\ReportBundle\Controller;
+namespace MailVotech\ReportBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\EventListener\ReportSubscriber;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\CoreBundle\Form\Type\DateRangeType;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\ReportBundle\Crate\ReportDataResult;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Form\Type\DynamicFiltersType;
-use Mautic\ReportBundle\Model\ExportResponse;
-use Mautic\ReportBundle\Model\ReportModel;
-use Mautic\ReportBundle\Scheduler\Model\FileHandler;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\EventListener\ReportSubscriber;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\CoreBundle\Form\Type\DateRangeType;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\ReportBundle\Crate\ReportDataResult;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Form\Type\DynamicFiltersType;
+use MailVotech\ReportBundle\Model\ExportResponse;
+use MailVotech\ReportBundle\Model\ReportModel;
+use MailVotech\ReportBundle\Scheduler\Model\FileHandler;
 use Symfony\Component\HttpFoundation;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,13 +56,13 @@ final class ReportController extends FormController
 
         $this->setListFilters();
 
-        $pageHelper        = $pageHelperFactory->make('mautic.report', $page);
+        $pageHelper        = $pageHelperFactory->make('mailvotech.report', $page);
 
         $limit  = $pageHelper->getLimit();
         $start  = $pageHelper->getStart();
-        $search = $request->get('search', $request->getSession()->get('mautic.report.filter', ''));
+        $search = $request->get('search', $request->getSession()->get('mailvotech.report.filter', ''));
         $filter = ['string' => $search, 'force' => []];
-        $request->getSession()->set('mautic.report.filter', $search);
+        $request->getSession()->set('mailvotech.report.filter', $search);
 
         if (!$permissions['report:reports:viewother']) {
             $filter['force'][] = ['column' => 'r.createdBy', 'expr' => 'eq', 'value' => $this->user->getId()];
@@ -72,8 +72,8 @@ final class ReportController extends FormController
             $filter['force'][] = ['column' => 'r.source', 'expr' => 'neq', 'value' => ReportSubscriber::CONTEXT_AUDIT_LOG];
         }
 
-        $orderBy    = $request->getSession()->get('mautic.report.orderby', 'r.dateModified');
-        $orderByDir = $request->getSession()->get('mautic.report.orderbydir', $this->getDefaultOrderDirection());
+        $orderBy    = $request->getSession()->get('mailvotech.report.orderby', 'r.dateModified');
+        $orderByDir = $request->getSession()->get('mailvotech.report.orderbydir', $this->getDefaultOrderDirection());
 
         $reports    = $this->reportModel->getEntities(
             [
@@ -88,17 +88,17 @@ final class ReportController extends FormController
         $count = count($reports);
         if ($count && $count < ($start + 1)) {
             $lastPage  = $pageHelper->countPage($count);
-            $returnUrl = $this->generateUrl('mautic_report_index', ['page' => $lastPage]);
+            $returnUrl = $this->generateUrl('mailvotech_report_index', ['page' => $lastPage]);
             $pageHelper->rememberPage($lastPage);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $lastPage],
-                    'contentTemplate' => 'Mautic\ReportBundle\Controller\ReportController::indexAction',
+                    'contentTemplate' => 'MailVotech\ReportBundle\Controller\ReportController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_report_index',
-                        'mauticContent' => 'report',
+                        'activeLink'    => '#mailvotech_report_index',
+                        'mailvotechContent' => 'report',
                     ],
                 ]
             );
@@ -119,11 +119,11 @@ final class ReportController extends FormController
                     'tmpl'        => $request->isXmlHttpRequest() ? $request->get('tmpl', 'index') : 'index',
                     'security'    => $this->security,
                 ],
-                'contentTemplate' => '@MauticReport/Report/list.html.twig',
+                'contentTemplate' => '@MailVotechReport/Report/list.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_report_index',
-                    'mauticContent' => 'report',
-                    'route'         => $this->generateUrl('mautic_report_index', ['page' => $page]),
+                    'activeLink'    => '#mailvotech_report_index',
+                    'mailvotechContent' => 'report',
+                    'route'         => $this->generateUrl('mailvotech_report_index', ['page' => $page]),
                 ],
             ]
         );
@@ -157,17 +157,17 @@ final class ReportController extends FormController
 
     public function deleteAction(Request $request, int $objectId): bool|Response
     {
-        $page      = $request->getSession()->get('mautic.report.page', 1);
-        $returnUrl = $this->generateUrl('mautic_report_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.report.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_report_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\ReportBundle\Controller\ReportController::indexAction',
+            'contentTemplate' => 'MailVotech\ReportBundle\Controller\ReportController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_report_index',
-                'mauticContent' => 'report',
+                'activeLink'    => '#mailvotech_report_index',
+                'mailvotechContent' => 'report',
             ],
         ];
 
@@ -190,7 +190,7 @@ final class ReportController extends FormController
             $identifier = $this->translator->trans($entity->getName());
             $flashes[]  = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $identifier,
                     '%id%'   => $objectId,
@@ -213,17 +213,17 @@ final class ReportController extends FormController
      */
     public function batchDeleteAction(Request $request): Response
     {
-        $page      = $request->getSession()->get('mautic.report.page', 1);
-        $returnUrl = $this->generateUrl('mautic_report_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.report.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_report_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\ReportBundle\Controller\ReportController::indexAction',
+            'contentTemplate' => 'MailVotech\ReportBundle\Controller\ReportController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_report_index',
-                'mauticContent' => 'report',
+                'activeLink'    => '#mailvotech_report_index',
+                'mailvotechContent' => 'report',
             ],
         ];
 
@@ -238,7 +238,7 @@ final class ReportController extends FormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.report.report.error.notfound',
+                        'msg'     => 'mailvotech.report.report.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->hasEntityAccess(
@@ -261,7 +261,7 @@ final class ReportController extends FormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.report.report.notice.batch_deleted',
+                    'msg'     => 'mailvotech.report.report.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],
@@ -289,18 +289,18 @@ final class ReportController extends FormController
     {
         $entity  = $this->reportModel->getEntity($objectId);
         $session = $request->getSession();
-        $page    = $session->get('mautic.report.page', 1);
+        $page    = $session->get('mailvotech.report.page', 1);
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_report_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_report_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\ReportBundle\Controller\ReportController::indexAction',
+            'contentTemplate' => 'MailVotech\ReportBundle\Controller\ReportController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_report_index',
-                'mauticContent' => 'report',
+                'activeLink'    => 'mailvotech_report_index',
+                'mailvotechContent' => 'report',
             ],
         ];
 
@@ -317,7 +317,7 @@ final class ReportController extends FormController
         }
 
         // Create the form
-        $action = $this->generateUrl('mautic_report_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_report_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $form   = $this->reportModel->createForm($entity, $this->formFactory, $action);
 
         // /Check for a submitted form and process it
@@ -344,12 +344,12 @@ final class ReportController extends FormController
                     $this->reportModel->saveEntity($entity, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.updated',
+                        'mailvotech.core.notice.updated',
                         [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_report_index',
+                            '%menu_link%' => 'mailvotech_report_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_report_action',
+                                'mailvotech_report_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $entity->getId(),
@@ -359,13 +359,13 @@ final class ReportController extends FormController
                     );
 
                     $returnUrl = $this->generateUrl(
-                        'mautic_report_view',
+                        'mailvotech_report_view',
                         [
                             'objectId' => $entity->getId(),
                         ]
                     );
                     $viewParams = ['objectId' => $entity->getId()];
-                    $template   = 'Mautic\ReportBundle\Controller\ReportController::viewAction';
+                    $template   = 'MailVotech\ReportBundle\Controller\ReportController::viewAction';
                 } else {
                     // reset old columns
                     $entity->setColumns($oldColumns);
@@ -375,15 +375,15 @@ final class ReportController extends FormController
                 // unlock the entity
                 $this->reportModel->unlockEntity($entity);
 
-                $returnUrl  = $this->generateUrl('mautic_report_index', ['page' => $page]);
+                $returnUrl  = $this->generateUrl('mailvotech_report_index', ['page' => $page]);
                 $viewParams = ['report' => $page];
-                $template   = 'Mautic\ReportBundle\Controller\ReportController::indexAction';
+                $template   = 'MailVotech\ReportBundle\Controller\ReportController::indexAction';
             }
 
             if ($cancelled || ($valid && $this->getFormButton($form, ['buttons', 'save'])->isClicked())) {
                 // Clear session items in case columns changed
-                $session->remove('mautic.report.'.$entity->getId().'.orderby');
-                $session->remove('mautic.report.'.$entity->getId().'.orderbydir');
+                $session->remove('mailvotech.report.'.$entity->getId().'.orderby');
+                $session->remove('mailvotech.report.'.$entity->getId().'.orderbydir');
 
                 return $this->postActionRedirect(
                     array_merge(
@@ -411,12 +411,12 @@ final class ReportController extends FormController
                     'report' => $entity,
                     'form'   => $form->createView(),
                 ],
-                'contentTemplate' => '@MauticReport/Report/form.html.twig',
+                'contentTemplate' => '@MailVotechReport/Report/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_report_index',
-                    'mauticContent' => 'report',
+                    'activeLink'    => '#mailvotech_report_index',
+                    'mailvotechContent' => 'report',
                     'route'         => $this->generateUrl(
-                        'mautic_report_action',
+                        'mailvotech_report_action',
                         [
                             'objectAction' => 'edit',
                             'objectId'     => $entity->getId(),
@@ -438,9 +438,9 @@ final class ReportController extends FormController
         }
 
         $session = $request->getSession();
-        $page    = $session->get('mautic.report.page', 1);
+        $page    = $session->get('mailvotech.report.page', 1);
 
-        $action = $this->generateUrl('mautic_report_action', ['objectAction' => 'new']);
+        $action = $this->generateUrl('mailvotech_report_action', ['objectAction' => 'new']);
         $form   = $this->reportModel->createForm($entity, $this->formFactory, $action);
 
         // /Check for a submitted form and process it
@@ -452,12 +452,12 @@ final class ReportController extends FormController
                     $this->reportModel->saveEntity($entity);
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.created',
+                        'mailvotech.core.notice.created',
                         [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_report_index',
+                            '%menu_link%' => 'mailvotech_report_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_report_action',
+                                'mailvotech_report_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $entity->getId(),
@@ -472,13 +472,13 @@ final class ReportController extends FormController
                     }
 
                     $viewParameters = ['objectId' => $entity->getId()];
-                    $returnUrl      = $this->generateUrl('mautic_report_view', $viewParameters);
-                    $template       = 'Mautic\ReportBundle\Controller\ReportController::viewAction';
+                    $returnUrl      = $this->generateUrl('mailvotech_report_view', $viewParameters);
+                    $template       = 'MailVotech\ReportBundle\Controller\ReportController::viewAction';
                 }
             } else {
                 $viewParameters = ['page' => $page];
-                $returnUrl      = $this->generateUrl('mautic_report_index', $viewParameters);
-                $template       = 'Mautic\ReportBundle\Controller\ReportController::indexAction';
+                $returnUrl      = $this->generateUrl('mailvotech_report_index', $viewParameters);
+                $template       = 'MailVotech\ReportBundle\Controller\ReportController::indexAction';
             }
 
             if ($cancelled || ($valid && $this->getFormButton($form, ['buttons', 'save'])->isClicked())) {
@@ -488,8 +488,8 @@ final class ReportController extends FormController
                         'viewParameters'  => $viewParameters,
                         'contentTemplate' => $template,
                         'passthroughVars' => [
-                            'activeLink'    => '#mautic_report_index',
-                            'mauticContent' => 'report',
+                            'activeLink'    => '#mailvotech_report_index',
+                            'mailvotechContent' => 'report',
                         ],
                     ]
                 );
@@ -502,12 +502,12 @@ final class ReportController extends FormController
                     'report' => $entity,
                     'form'   => $form->createView(),
                 ],
-                'contentTemplate' => '@MauticReport/Report/form.html.twig',
+                'contentTemplate' => '@MailVotechReport/Report/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_report_index',
-                    'mauticContent' => 'report',
+                    'activeLink'    => '#mailvotech_report_index',
+                    'mailvotechContent' => 'report',
                     'route'         => $this->generateUrl(
-                        'mautic_report_action',
+                        'mailvotech_report_action',
                         [
                             'objectAction' => 'new',
                         ]
@@ -529,21 +529,21 @@ final class ReportController extends FormController
         $security = $this->security;
 
         if (null === $entity) {
-            $page = $request->getSession()->get('mautic.report.page', 1);
+            $page = $request->getSession()->get('mailvotech.report.page', 1);
 
             return $this->postActionRedirect(
                 [
-                    'returnUrl'       => $this->generateUrl('mautic_report_index', ['page' => $page]),
+                    'returnUrl'       => $this->generateUrl('mailvotech_report_index', ['page' => $page]),
                     'viewParameters'  => ['page' => $page],
-                    'contentTemplate' => 'Mautic\ReportBundle\Controller\ReportController::indexAction',
+                    'contentTemplate' => 'MailVotech\ReportBundle\Controller\ReportController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_report_index',
-                        'mauticContent' => 'report',
+                        'activeLink'    => '#mailvotech_report_index',
+                        'mailvotechContent' => 'report',
                     ],
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.report.report.error.notfound',
+                            'msg'     => 'mailvotech.report.report.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -560,21 +560,21 @@ final class ReportController extends FormController
         $session     = $request->getSession();
 
         // Init the forms
-        $action = $this->generateUrl('mautic_report_action', ['objectAction' => 'view', 'objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_report_action', ['objectAction' => 'view', 'objectId' => $objectId]);
 
         // Get the date range filter values from the request of from the session
         $dateRangeValues = $request->query->all()['daterange'] ?? $request->request->all()['daterange'] ?? [];
 
         if (!empty($dateRangeValues['date_from'])) {
             $from = new \DateTime($dateRangeValues['date_from']);
-            $session->set('mautic.report.date.from', $from->format($mysqlFormat));
-        } elseif ($fromDate = $session->get('mautic.report.date.from')) {
+            $session->set('mailvotech.report.date.from', $from->format($mysqlFormat));
+        } elseif ($fromDate = $session->get('mailvotech.report.date.from')) {
             $dateRangeValues['date_from'] = $fromDate;
         }
         if (!empty($dateRangeValues['date_to'])) {
             $to = new \DateTime($dateRangeValues['date_to']);
-            $session->set('mautic.report.date.to', $to->format($mysqlFormat));
-        } elseif ($toDate = $session->get('mautic.report.date.to')) {
+            $session->set('mailvotech.report.date.to', $to->format($mysqlFormat));
+        } elseif ($toDate = $session->get('mailvotech.report.date.to')) {
             $dateRangeValues['date_to'] = $toDate;
         }
 
@@ -583,18 +583,18 @@ final class ReportController extends FormController
             if ($this->isFormValid($dateRangeForm)) {
                 $to                         = new \DateTime($dateRangeForm['date_to']->getData());
                 $dateRangeValues['date_to'] = $to->format($mysqlFormat);
-                $session->set('mautic.report.date.to', $dateRangeValues['date_to']);
+                $session->set('mailvotech.report.date.to', $dateRangeValues['date_to']);
 
                 $from                         = new \DateTime($dateRangeForm['date_from']->getData());
                 $dateRangeValues['date_from'] = $from->format($mysqlFormat);
-                $session->set('mautic.report.date.from', $dateRangeValues['date_from']);
+                $session->set('mailvotech.report.date.from', $dateRangeValues['date_from']);
             }
         }
 
         // Setup dynamic filters
         $filterDefinitions = $this->reportModel->getFilterList($entity->getSource());
         /** @var array $dynamicFilters */
-        $dynamicFilters = $session->get('mautic.report.'.$objectId.'.filters', []);
+        $dynamicFilters = $session->get('mailvotech.report.'.$objectId.'.filters', []);
         $filterSettings = [];
 
         if (count($dynamicFilters) > 0 && count($entity->getFilters()) > 0) {
@@ -692,7 +692,7 @@ final class ReportController extends FormController
                     'dynamicFilterForm'      => $dynamicFilterForm->createView(),
                     'enableExportPermission' => $this->security->isAdmin() || $this->security->isGranted('report:export:enable', 'MATCH_ONE'),
                     'baseUrl'                => $this->generateUrl(
-                        'mautic_report_view',
+                        'mailvotech_report_view',
                         [
                             'objectId'   => $objectId,
                             'reportPage' => $reportPage,
@@ -701,10 +701,10 @@ final class ReportController extends FormController
                 ],
                 'contentTemplate' => $reportData['contentTemplate'],
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_report_index',
-                    'mauticContent' => 'report',
+                    'activeLink'    => '#mailvotech_report_index',
+                    'mailvotechContent' => 'report',
                     'route'         => $this->generateUrl(
-                        'mautic_report_view',
+                        'mailvotech_report_view',
                         [
                             'objectId'   => $entity->getId(),
                             'reportPage' => $reportPage,
@@ -731,7 +731,7 @@ final class ReportController extends FormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.report.report.error.notfound',
+                                'msg'     => 'mailvotech.report.report.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -761,21 +761,21 @@ final class ReportController extends FormController
         $security = $this->security;
 
         if (null === $entity) {
-            $page = $request->getSession()->get('mautic.report.page', 1);
+            $page = $request->getSession()->get('mailvotech.report.page', 1);
 
             return $this->postActionRedirect(
                 [
-                    'returnUrl'       => $this->generateUrl('mautic_report_index', ['page' => $page]),
+                    'returnUrl'       => $this->generateUrl('mailvotech_report_index', ['page' => $page]),
                     'viewParameters'  => ['page' => $page],
-                    'contentTemplate' => 'Mautic\ReportBundle\Controller\ReportController::indexAction',
+                    'contentTemplate' => 'MailVotech\ReportBundle\Controller\ReportController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_report_index',
-                        'mauticContent' => 'report',
+                        'activeLink'    => '#mailvotech_report_index',
+                        'mailvotechContent' => 'report',
                     ],
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.report.report.error.notfound',
+                            'msg'     => 'mailvotech.report.report.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -789,14 +789,14 @@ final class ReportController extends FormController
         }
 
         $session  = $request->getSession();
-        $fromDate = $session->get('mautic.report.date.from', (new \DateTime('-30 days'))->format('Y-m-d'));
-        $toDate   = $session->get('mautic.report.date.to', (new \DateTime())->format('Y-m-d'));
+        $fromDate = $session->get('mailvotech.report.date.from', (new \DateTime('-30 days'))->format('Y-m-d'));
+        $toDate   = $session->get('mailvotech.report.date.to', (new \DateTime())->format('Y-m-d'));
 
         $date    = (new DateTimeHelper())->toLocalString();
         $name    = str_replace(' ', '_', $date).'_'.InputHelper::alphanum($entity->getName(), false, '-');
         $options = ['dateFrom' => new \DateTime($fromDate), 'dateTo' => new \DateTime($toDate)];
 
-        $dynamicFilters            = $session->get('mautic.report.'.$objectId.'.filters', []);
+        $dynamicFilters            = $session->get('mailvotech.report.'.$objectId.'.filters', []);
         $options['dynamicFilters'] = $dynamicFilters;
 
         if ('csv' === $format) {
@@ -858,7 +858,7 @@ final class ReportController extends FormController
     public function downloadAction(FileHandler $fileHandler, $reportId, $format = 'csv'): Response|BinaryFileResponse
     {
         if ('csv' !== $format) {
-            throw new \Exception($this->translator->trans('mautic.format.invalid', ['%format%' => $format, '%validFormats%' => 'csv']));
+            throw new \Exception($this->translator->trans('mailvotech.format.invalid', ['%format%' => $format, '%validFormats%' => 'csv']));
         }
 
         /** @var Report $report */
@@ -867,7 +867,7 @@ final class ReportController extends FormController
         $security = $this->security;
 
         if (empty($report)) {
-            return $this->notFound($this->translator->trans('mautic.report.notfound', ['%id%' => $reportId]));
+            return $this->notFound($this->translator->trans('mailvotech.report.notfound', ['%id%' => $reportId]));
         }
 
         if (!$security->hasEntityAccess('report:reports:viewown', 'report:reports:viewother', $report->getCreatedBy())) {
@@ -876,9 +876,9 @@ final class ReportController extends FormController
 
         if (!$fileHandler->compressedCsvFileForReportExists($report)) {
             if ($report->isScheduled()) {
-                $message = 'mautic.report.download.missing';
+                $message = 'mailvotech.report.download.missing';
             } else {
-                $message = 'mautic.report.download.missing.but.scheduled';
+                $message = 'mailvotech.report.download.missing.but.scheduled';
                 $report->setAsScheduledNow($this->user->getEmail());
                 $this->reportModel->saveEntity($report);
             }

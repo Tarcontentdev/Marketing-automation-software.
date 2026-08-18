@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CacheBundle\Command;
+namespace MailVotech\CacheBundle\Command;
 
-use Mautic\CacheBundle\Cache\CacheProviderInterface;
+use MailVotech\CacheBundle\Cache\CacheProviderInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,8 +14,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  * CLI Command to clear the application cache.
  */
 #[AsCommand(
-    name: 'mautic:cache:clear',
-    description: "Clears Mautic's cache"
+    name: 'mailvotech:cache:clear',
+    description: "Clears MailVotech's cache"
 )]
 final class ClearCacheCommand extends Command
 {

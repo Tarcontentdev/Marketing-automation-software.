@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper\HashHelper;
+namespace MailVotech\CoreBundle\Helper\HashHelper;
 
 /**
  * Interface HashHelperInterface.

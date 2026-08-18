@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field;
+namespace MailVotech\LeadBundle\Field;
 
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\DBAL\Schema\SchemaException as DoctrineSchemaException;
-use Mautic\CoreBundle\Doctrine\Helper\IndexSchemaHelper;
-use Mautic\CoreBundle\Exception\SchemaException;
-use Mautic\LeadBundle\Entity\LeadField;
+use MailVotech\CoreBundle\Doctrine\Helper\IndexSchemaHelper;
+use MailVotech\CoreBundle\Exception\SchemaException;
+use MailVotech\LeadBundle\Entity\LeadField;
 use Psr\Log\LoggerInterface;
 
 class CustomFieldIndex

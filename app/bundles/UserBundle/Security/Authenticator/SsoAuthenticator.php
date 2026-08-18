@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Security\Authenticator;
+namespace MailVotech\UserBundle\Security\Authenticator;
 
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Event\AuthenticationEvent;
-use Mautic\UserBundle\Security\Authentication\Token\PluginToken;
-use Mautic\UserBundle\UserEvents;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Event\AuthenticationEvent;
+use MailVotech\UserBundle\Security\Authentication\Token\PluginToken;
+use MailVotech\UserBundle\UserEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +32,7 @@ use Symfony\Component\Security\Http\SecurityRequestAttributes;
 
 /**
  * This is a modified copy of the \Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator
- * Replaces \Mautic\UserBundle\Security\Authenticator\FormAuthenticator.
+ * Replaces \MailVotech\UserBundle\Security\Authenticator\FormAuthenticator.
  */
 final class SsoAuthenticator extends AbstractAuthenticator implements InteractiveAuthenticatorInterface
 {

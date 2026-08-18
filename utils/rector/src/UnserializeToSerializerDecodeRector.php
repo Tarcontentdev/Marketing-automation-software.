@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Utils\Rector;
 
-use Mautic\CoreBundle\Helper\Serializer;
+use MailVotech\CoreBundle\Helper\Serializer;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Array_;

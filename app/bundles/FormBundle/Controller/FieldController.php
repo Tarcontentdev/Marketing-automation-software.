@@ -1,23 +1,23 @@
 <?php
 
-namespace Mautic\FormBundle\Controller;
+namespace MailVotech\FormBundle\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\CoreBundle\Controller\FormController as CommonFormController;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\FormBundle\Collector\AlreadyMappedFieldCollectorInterface;
-use Mautic\FormBundle\Collector\MappedObjectCollectorInterface;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Event\FormBuilderEvent;
-use Mautic\FormBundle\FormEvents;
-use Mautic\FormBundle\Helper\FormFieldHelper;
-use Mautic\FormBundle\Model\FieldModel;
-use Mautic\FormBundle\Model\FormModel;
+use MailVotech\CoreBundle\Controller\FormController as CommonFormController;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\FormBundle\Collector\AlreadyMappedFieldCollectorInterface;
+use MailVotech\FormBundle\Collector\MappedObjectCollectorInterface;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Event\FormBuilderEvent;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\FormBundle\Helper\FormFieldHelper;
+use MailVotech\FormBundle\Model\FieldModel;
+use MailVotech\FormBundle\Model\FormModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -103,7 +103,7 @@ final class FieldController extends CommonFormController
                     $keyId = 'new'.hash('sha1', uniqid(mt_rand()));
 
                     // save the properties to session
-                    $fields          = $session->get('mautic.form.'.$formId.'.fields.modified', []);
+                    $fields          = $session->get('mailvotech.form.'.$formId.'.fields.modified', []);
                     $formData        = $form->getData();
                     $formField       = array_merge($formField, $formData);
                     $formField['id'] = $keyId;
@@ -148,7 +148,7 @@ final class FieldController extends CommonFormController
                         $fields[$keyId] = $formField;
                     }
 
-                    $session->set('mautic.form.'.$formId.'.fields.modified', $fields);
+                    $session->set('mailvotech.form.'.$formId.'.fields.modified', $fields);
 
                     // Keep track of used lead fields
                     if (!empty($formField['mappedObject']) && !empty($formField['mappedField']) && empty($formData['parent'])) {
@@ -167,11 +167,11 @@ final class FieldController extends CommonFormController
             $closeModal                = false;
             $viewParams['tmpl']        = 'field';
             $viewParams['form']        = (isset($customParams['formTheme'])) ? $this->setFormTheme($form, $twig, $customParams['formTheme']) : $form->createView();
-            $viewParams['fieldHeader'] = (!empty($customParams)) ? $this->translator->trans($customParams['label']) : $this->translator->transConditional('mautic.core.type.'.$fieldType, 'mautic.form.field.type.'.$fieldType);
+            $viewParams['fieldHeader'] = (!empty($customParams)) ? $this->translator->trans($customParams['label']) : $this->translator->transConditional('mailvotech.core.type.'.$fieldType, 'mailvotech.form.field.type.'.$fieldType);
         }
 
         $passthroughVars = [
-            'mauticContent' => 'formField',
+            'mailvotechContent' => 'formField',
             'success'       => $success,
             'route'         => false,
         ];
@@ -184,9 +184,9 @@ final class FieldController extends CommonFormController
 
             $passthroughVars['parent']    = $formField['parent'];
             $passthroughVars['fieldId']   = $keyId;
-            $template                     = (!empty($customParams)) ? $customParams['template'] : '@MauticForm/Field/'.$fieldType.'.html.twig';
+            $template                     = (!empty($customParams)) ? $customParams['template'] : '@MailVotechForm/Field/'.$fieldType.'.html.twig';
             $passthroughVars['fieldHtml'] = $this->renderView(
-                '@MauticForm/Builder/_field_wrapper.html.twig',
+                '@MailVotechForm/Builder/_field_wrapper.html.twig',
                 [
                     'isConditional'        => !empty($formField['parent']),
                     'template'             => $template,
@@ -212,7 +212,7 @@ final class FieldController extends CommonFormController
         }
 
         return $this->ajaxAction($request, [
-            'contentTemplate' => '@MauticForm/Builder/'.$viewParams['tmpl'].'.html.twig',
+            'contentTemplate' => '@MailVotechForm/Builder/'.$viewParams['tmpl'].'.html.twig',
             'viewParameters'  => $viewParams,
             'passthroughVars' => $passthroughVars,
         ]);
@@ -229,7 +229,7 @@ final class FieldController extends CommonFormController
         $method    = $request->getMethod();
         $formfield = $request->request->all()['formfield'] ?? [];
         $formId    = 'POST' === $method ? ($formfield['formId'] ?? '') : $request->query->get('formId');
-        $fields    = $session->get('mautic.form.'.$formId.'.fields.modified', []);
+        $fields    = $session->get('mailvotech.form.'.$formId.'.fields.modified', []);
         $success   = 0;
         $valid     = $cancelled = false;
         $formField = array_key_exists($objectId, $fields) ? $fields[$objectId] : [];
@@ -258,7 +258,7 @@ final class FieldController extends CommonFormController
 
                         // save the properties to session
                         $session  = $request->getSession();
-                        $fields   = $session->get('mautic.form.'.$formId.'.fields.modified');
+                        $fields   = $session->get('mailvotech.form.'.$formId.'.fields.modified');
                         $formData = $form->getData();
 
                         // overwrite with updated data
@@ -284,7 +284,7 @@ final class FieldController extends CommonFormController
                         }
 
                         $fields[$objectId] = $formField;
-                        $session->set('mautic.form.'.$formId.'.fields.modified', $fields);
+                        $session->set('mailvotech.form.'.$formId.'.fields.modified', $fields);
 
                         // Keep track of used lead fields
                         if (!empty($formField['mappedObject']) && !empty($formField['mappedField']) && empty($formData['parent'])) {
@@ -310,17 +310,17 @@ final class FieldController extends CommonFormController
                 ) : $form->createView();
                 $viewParams['fieldHeader'] = (!empty($customParams))
                     ? $this->translator->trans($customParams['label'])
-                    : $this->translator->transConditional('mautic.core.type.'.$fieldType, 'mautic.form.field.type.'.$fieldType);
+                    : $this->translator->transConditional('mailvotech.core.type.'.$fieldType, 'mailvotech.form.field.type.'.$fieldType);
             }
 
             $passthroughVars = [
-                'mauticContent' => 'formField',
+                'mailvotechContent' => 'formField',
                 'success'       => $success,
                 'route'         => false,
             ];
 
             $passthroughVars['fieldId'] = $objectId;
-            $template                   = (!empty($customParams)) ? $customParams['template'] : '@MauticForm/Field/'.$fieldType.'.html.twig';
+            $template                   = (!empty($customParams)) ? $customParams['template'] : '@MailVotechForm/Field/'.$fieldType.'.html.twig';
 
             // prevent undefined errors
             $entity       = new Field();
@@ -328,7 +328,7 @@ final class FieldController extends CommonFormController
             $formField    = array_merge($blank, $formField);
 
             $passthroughVars['fieldHtml'] = $this->renderView(
-                '@MauticForm/Builder/_field_wrapper.html.twig',
+                '@MailVotechForm/Builder/_field_wrapper.html.twig',
                 [
                     'isConditional'        => !empty($formField['parent']),
                     'template'             => $template,
@@ -354,7 +354,7 @@ final class FieldController extends CommonFormController
             return $this->ajaxAction(
                 $request,
                 [
-                    'contentTemplate' => '@MauticForm/Builder/'.$viewParams['tmpl'].'.html.twig',
+                    'contentTemplate' => '@MailVotechForm/Builder/'.$viewParams['tmpl'].'.html.twig',
                     'viewParameters'  => $viewParams,
                     'passthroughVars' => $passthroughVars,
                 ]
@@ -373,8 +373,8 @@ final class FieldController extends CommonFormController
     {
         $session = $request->getSession();
         $formId  = $request->query->get('formId');
-        $fields  = $session->get('mautic.form.'.$formId.'.fields.modified', []);
-        $delete  = $session->get('mautic.form.'.$formId.'.fields.deleted', []);
+        $fields  = $session->get('mailvotech.form.'.$formId.'.fields.modified', []);
+        $delete  = $session->get('mailvotech.form.'.$formId.'.fields.deleted', []);
 
         // ajax only for form fields
         if (!$request->isXmlHttpRequest()
@@ -394,11 +394,11 @@ final class FieldController extends CommonFormController
             // add the field to the delete list
             if (!in_array($objectId, $delete)) {
                 $delete[] = $objectId;
-                $session->set('mautic.form.'.$formId.'.fields.deleted', $delete);
+                $session->set('mailvotech.form.'.$formId.'.fields.deleted', $delete);
             }
 
             $dataArray = [
-                'mauticContent' => 'formField',
+                'mailvotechContent' => 'formField',
                 'success'       => 1,
                 'route'         => false,
             ];
@@ -423,8 +423,8 @@ final class FieldController extends CommonFormController
             $formField,
             $this->formFactory,
             (!empty($formField['id'])) ?
-                $this->generateUrl('mautic_formfield_action', ['objectAction' => 'edit', 'objectId' => $formField['id']])
-                : $this->generateUrl('mautic_formfield_action', ['objectAction' => 'new']),
+                $this->generateUrl('mailvotech_formfield_action', ['objectAction' => 'edit', 'objectId' => $formField['id']])
+                : $this->generateUrl('mailvotech_formfield_action', ['objectAction' => 'new']),
             ['customParameters' => $customParams]
         );
         $form->get('formId')->setData($formId);

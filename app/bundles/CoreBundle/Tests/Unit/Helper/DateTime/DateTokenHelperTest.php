@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper\DateTime;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper\DateTime;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTime\DateTimeLocalization;
-use Mautic\CoreBundle\Helper\DateTime\DateTimeToken;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTime\DateTimeLocalization;
+use MailVotech\CoreBundle\Helper\DateTime\DateTimeToken;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

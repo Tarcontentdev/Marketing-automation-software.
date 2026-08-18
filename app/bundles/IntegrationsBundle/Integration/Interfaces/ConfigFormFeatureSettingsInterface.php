@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Integration\Interfaces;
+namespace MailVotech\IntegrationsBundle\Integration\Interfaces;
 
 interface ConfigFormFeatureSettingsInterface
 {

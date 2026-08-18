@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Scheduler\Entity;
+namespace MailVotech\ReportBundle\Scheduler\Entity;
 
-use Mautic\ReportBundle\Scheduler\Enum\SchedulerEnum;
-use Mautic\ReportBundle\Scheduler\SchedulerInterface;
+use MailVotech\ReportBundle\Scheduler\Enum\SchedulerEnum;
+use MailVotech\ReportBundle\Scheduler\SchedulerInterface;
 
 final class SchedulerEntity implements SchedulerInterface
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Deduplicate;
+namespace MailVotech\LeadBundle\Deduplicate;
 
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Model\FieldModel;
 
 trait DeduperTrait
 {

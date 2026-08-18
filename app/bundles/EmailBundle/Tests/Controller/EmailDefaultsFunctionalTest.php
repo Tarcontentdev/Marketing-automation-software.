@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller;
+namespace MailVotech\EmailBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -16,14 +16,14 @@ use Symfony\Component\HttpFoundation\Request;
  * These tests run with the config params set so they do not bleed into the
  * unrelated tests in EmailFunctionalTest.
  */
-final class EmailDefaultsFunctionalTest extends MauticMysqlTestCase
+final class EmailDefaultsFunctionalTest extends MailVotechMysqlTestCase
 {
     public const SAVE_AND_CLOSE = 'Save & Close';
 
     /**
      * Disabled because testNewEmailFormPreselectsConfiguredPreferenceCenterAndUtmDefaults
      * calls setUpSymfony() mid-test to reboot the kernel with the actual page ID in config.
-     * MauticMysqlTestCase forbids re-creating the client while transaction rollback cleanup
+     * MailVotechMysqlTestCase forbids re-creating the client while transaction rollback cleanup
      * is active, so we fall back to resetDatabase() for cleanup instead.
      */
     protected $useCleanupRollback = false;

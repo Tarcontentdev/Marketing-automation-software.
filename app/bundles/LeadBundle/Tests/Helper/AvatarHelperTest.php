@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Helper;
+namespace MailVotech\LeadBundle\Tests\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
-use Mautic\CoreBundle\Twig\Helper\GravatarHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Twig\Helper\AvatarHelper;
-use Mautic\LeadBundle\Twig\Helper\DefaultAvatarHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\CoreBundle\Twig\Helper\GravatarHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Twig\Helper\AvatarHelper;
+use MailVotech\LeadBundle\Twig\Helper\DefaultAvatarHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -59,7 +59,7 @@ final class AvatarHelperTest extends \PHPUnit\Framework\TestCase
         $this->leadMock->method('getSocialCache')
             ->willReturn([]);
         $this->leadMock->method('getEmail')
-            ->willReturn('mautic@acquia.com');
+            ->willReturn('mailvotech@acquia.com');
         $avatar = $this->avatarHelper->getAvatar($this->leadMock);
         $this->assertSame('https://www.gravatar.com/avatar/96f1b78c73c1ee806cf6a4168fe9bf77?s=250&d=http%3A%2F%2Flocalhost%2Fimages%2Favatar.png', $avatar, 'Gravatar image should be returned');
 

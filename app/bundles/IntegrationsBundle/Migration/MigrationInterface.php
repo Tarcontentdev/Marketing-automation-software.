@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Migration;
+namespace MailVotech\IntegrationsBundle\Migration;
 
 interface MigrationInterface
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\PluginBundle\Integration;
+namespace MailVotech\PluginBundle\Integration;
 
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Form\Type\RoleListType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Form\Type\RoleListType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -41,7 +41,7 @@ abstract class AbstractSsoServiceIntegration extends AbstractIntegration
             return $this->em->getReference(Role::class, $role);
         }
 
-        throw new AuthenticationException('mautic.integration.sso.error.no_role');
+        throw new AuthenticationException('mailvotech.integration.sso.error.no_role');
     }
 
     /**
@@ -59,7 +59,7 @@ abstract class AbstractSsoServiceIntegration extends AbstractIntegration
      */
     public function getAuthCallbackUrl()
     {
-        return $this->router->generate('mautic_sso_login_check',
+        return $this->router->generate('mailvotech_sso_login_check',
             ['integration' => $this->getName()],
             UrlGeneratorInterface::ABSOLUTE_URL // absolute
         );
@@ -97,7 +97,7 @@ abstract class AbstractSsoServiceIntegration extends AbstractIntegration
 
         $error = $this->getErrorsFromResponse($data);
         if (empty($error)) {
-            $error = $this->translator->trans('mautic.integration.error.genericerror', [], 'flashes');
+            $error = $this->translator->trans('mailvotech.integration.error.genericerror', [], 'flashes');
         }
 
         throw new AuthenticationException($error);
@@ -137,10 +137,10 @@ abstract class AbstractSsoServiceIntegration extends AbstractIntegration
             $builder->add('auto_create_user',
                 YesNoButtonGroupType::class,
                 [
-                    'label' => 'mautic.integration.sso.auto_create_user',
+                    'label' => 'mailvotech.integration.sso.auto_create_user',
                     'data'  => isset($data['auto_create_user']) && (bool) $data['auto_create_user'],
                     'attr'  => [
-                        'tooltip' => 'mautic.integration.sso.auto_create_user.tooltip',
+                        'tooltip' => 'mailvotech.integration.sso.auto_create_user.tooltip',
                     ],
                 ]
             );
@@ -149,11 +149,11 @@ abstract class AbstractSsoServiceIntegration extends AbstractIntegration
                 'new_user_role',
                 RoleListType::class,
                 [
-                    'label'      => 'mautic.integration.sso.new_user_role',
+                    'label'      => 'mailvotech.integration.sso.new_user_role',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.integration.sso.new_user_role.tooltip',
+                        'tooltip' => 'mailvotech.integration.sso.new_user_role.tooltip',
                     ],
                 ]
             );

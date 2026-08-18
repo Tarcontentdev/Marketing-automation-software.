@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Controller;
+namespace MailVotech\WebhookBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\WebhookBundle\Entity\Event;
-use Mautic\WebhookBundle\Entity\Log;
-use Mautic\WebhookBundle\Entity\Webhook;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\WebhookBundle\Entity\Event;
+use MailVotech\WebhookBundle\Entity\Log;
+use MailVotech\WebhookBundle\Entity\Webhook;
 use Symfony\Component\HttpFoundation\Request;
 
-final class WebhookControllerTest extends MauticMysqlTestCase
+final class WebhookControllerTest extends MailVotechMysqlTestCase
 {
     public function testViewWebhookDetail(): void
     {

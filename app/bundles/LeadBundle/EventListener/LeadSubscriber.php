@@ -1,32 +1,32 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
 use Doctrine\DBAL\Exception;
-use Mautic\CoreBundle\Entity\AuditLogRepository;
-use Mautic\CoreBundle\EventListener\ChannelTrait;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDeviceRepository;
-use Mautic\LeadBundle\Entity\LeadEventLogRepository;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\LeadNoteRepository;
-use Mautic\LeadBundle\Entity\ListLeadRepository;
-use Mautic\LeadBundle\Entity\PointsChangeLogRepository;
-use Mautic\LeadBundle\Entity\UtmTagRepository;
-use Mautic\LeadBundle\Event as Events;
-use Mautic\LeadBundle\Event\LeadChangeCompanyEvent;
-use Mautic\LeadBundle\Event\LeadEvent;
-use Mautic\LeadBundle\Helper\LeadChangeEventDispatcher;
-use Mautic\LeadBundle\Helper\SegmentCountCacheHelper;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\ChannelTimelineInterface;
-use Mautic\LeadBundle\Twig\Helper\DncReasonHelper;
+use MailVotech\CoreBundle\Entity\AuditLogRepository;
+use MailVotech\CoreBundle\EventListener\ChannelTrait;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDeviceRepository;
+use MailVotech\LeadBundle\Entity\LeadEventLogRepository;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\LeadNoteRepository;
+use MailVotech\LeadBundle\Entity\ListLeadRepository;
+use MailVotech\LeadBundle\Entity\PointsChangeLogRepository;
+use MailVotech\LeadBundle\Entity\UtmTagRepository;
+use MailVotech\LeadBundle\Event as Events;
+use MailVotech\LeadBundle\Event\LeadChangeCompanyEvent;
+use MailVotech\LeadBundle\Event\LeadEvent;
+use MailVotech\LeadBundle\Helper\LeadChangeEventDispatcher;
+use MailVotech\LeadBundle\Helper\SegmentCountCacheHelper;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\ChannelTimelineInterface;
+use MailVotech\LeadBundle\Twig\Helper\DncReasonHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -317,18 +317,18 @@ final class LeadSubscriber implements EventSubscriberInterface
     public function onTimelineGenerate(Events\LeadTimelineEvent $event): void
     {
         $eventTypes = [
-            'lead.utmtagsadded' => 'mautic.lead.event.utmtagsadded',
-            'lead.donotcontact' => 'mautic.lead.event.donotcontact',
-            'lead.imported'     => 'mautic.lead.event.imported',
+            'lead.utmtagsadded' => 'mailvotech.lead.event.utmtagsadded',
+            'lead.donotcontact' => 'mailvotech.lead.event.donotcontact',
+            'lead.imported'     => 'mailvotech.lead.event.imported',
         ];
 
         // Following events takes the event from the lead itself, so not applicable for API
         // where we are getting events for all leads.
         if ($event->isForTimeline()) {
-            $eventTypes['lead.create']     = 'mautic.lead.event.create';
-            $eventTypes['lead.identified'] = 'mautic.lead.event.identified';
-            $eventTypes['lead.ipadded']    = 'mautic.lead.event.ipadded';
-            $eventTypes['lead.apiadded']   = 'mautic.lead.event.apiadded';
+            $eventTypes['lead.create']     = 'mailvotech.lead.event.create';
+            $eventTypes['lead.identified'] = 'mailvotech.lead.event.identified';
+            $eventTypes['lead.ipadded']    = 'mailvotech.lead.event.ipadded';
+            $eventTypes['lead.apiadded']   = 'mailvotech.lead.event.apiadded';
         }
 
         $filters = $event->getEventFilters();
@@ -336,7 +336,7 @@ final class LeadSubscriber implements EventSubscriberInterface
         // Temporary measure as the other event types don't have tests yet
         if ($this->isTest) {
             $eventTypes = [
-                'lead.apiadded' => 'mautic.lead.event.apiadded',
+                'lead.apiadded' => 'mailvotech.lead.event.apiadded',
             ];
         }
 
@@ -408,7 +408,7 @@ final class LeadSubscriber implements EventSubscriberInterface
                         'extra'         => [
                             'ipDetails' => $ipAddresses[$row['ip_address']],
                         ],
-                        'contentTemplate' => '@MauticLead/SubscribedEvents/Timeline/ipadded.html.twig',
+                        'contentTemplate' => '@MailVotechLead/SubscribedEvents/Timeline/ipadded.html.twig',
                         'contactId'       => $row['lead_id'],
                     ]
                 );
@@ -528,13 +528,13 @@ final class LeadSubscriber implements EventSubscriberInterface
                         'event'      => $eventTypeKey,
                         'eventType'  => $eventTypeName,
                         'eventId'    => $eventTypeKey.$utmTag['id'],
-                        'eventLabel' => !empty($utmTag['utm_campaign']) ? $this->translator->trans('mautic.lead.timeline.event.utmcampaign').': '.$utmTag['utm_campaign'] : $eventTypeName,
+                        'eventLabel' => !empty($utmTag['utm_campaign']) ? $this->translator->trans('mailvotech.lead.timeline.event.utmcampaign').': '.$utmTag['utm_campaign'] : $eventTypeName,
                         'timestamp'  => $utmTag['date_added'],
                         'icon'       => $icon,
                         'extra'      => [
                             'utmtags' => $utmTag,
                         ],
-                        'contentTemplate' => '@MauticLead/SubscribedEvents/Timeline/utmadded.html.twig',
+                        'contentTemplate' => '@MailVotechLead/SubscribedEvents/Timeline/utmadded.html.twig',
                         'contactId'       => $utmTag['lead_id'],
                     ]
                 );
@@ -554,7 +554,7 @@ final class LeadSubscriber implements EventSubscriberInterface
             foreach ($rows['results'] as $row) {
                 $row['reason'] = $this->dncReasonHelper->toText((int) $row['reason']);
 
-                $template = '@MauticLead/SubscribedEvents/Timeline/donotcontact.html.twig';
+                $template = '@MailVotechLead/SubscribedEvents/Timeline/donotcontact.html.twig';
                 $icon     = 'ri-prohibited-line';
 
                 if (!empty($row['channel'])) {
@@ -631,7 +631,7 @@ final class LeadSubscriber implements EventSubscriberInterface
                 } elseif ($import['object_id']) {
                     $eventLabel = $import['object_id'];
                 }
-                $eventLabel = $this->translator->trans('mautic.lead.import.contact.action.'.$import['action'], ['%name%' => $eventLabel]);
+                $eventLabel = $this->translator->trans('mailvotech.lead.import.contact.action.'.$import['action'], ['%name%' => $eventLabel]);
                 $event->addEvent(
                     [
                         'event'      => $eventTypeKey,
@@ -640,7 +640,7 @@ final class LeadSubscriber implements EventSubscriberInterface
                         'eventLabel' => !empty($import['object_id']) ? [
                             'label' => $eventLabel,
                             'href'  => $this->router->generate(
-                                'mautic_import_action',
+                                'mailvotech_import_action',
                                 [
                                     'objectAction' => 'view',
                                     'object'       => 'contacts',
@@ -651,7 +651,7 @@ final class LeadSubscriber implements EventSubscriberInterface
                         'timestamp'       => $import['date_added'],
                         'icon'            => 'ri-download-line',
                         'extra'           => $import,
-                        'contentTemplate' => '@MauticLead/SubscribedEvents/Timeline/import.html.twig',
+                        'contentTemplate' => '@MailVotechLead/SubscribedEvents/Timeline/import.html.twig',
                         'contactId'       => $import['lead_id'],
                     ]
                 );

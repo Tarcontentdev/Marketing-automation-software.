@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Entity;
+namespace MailVotech\CoreBundle\Tests\Unit\Entity;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
@@ -10,8 +10,8 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -135,7 +135,7 @@ final class CommonRepositoryTest extends \PHPUnit\Framework\TestCase
     /**
      * Copy of.
      *
-     * @see \Mautic\LeadBundle\Tests\Segment\RandomParameterNameTest::testGenerateRandomParameterName
+     * @see \MailVotech\LeadBundle\Tests\Segment\RandomParameterNameTest::testGenerateRandomParameterName
      */
     public function testGenerateRandomParameterName(): void
     {

@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Functional;
+namespace MailVotech\EmailBundle\Tests\Functional;
 
-use Mautic\CampaignBundle\Tests\Functional\Fixtures\FixtureHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Tests\Functional\Fixtures\EmailFixturesHelper;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\PointBundle\Entity\Point;
-use Mautic\PointBundle\Entity\Trigger;
-use Mautic\PointBundle\Entity\TriggerEvent;
-use Mautic\ReportBundle\Entity\Report;
+use MailVotech\CampaignBundle\Tests\Functional\Fixtures\FixtureHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Tests\Functional\Fixtures\EmailFixturesHelper;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\PointBundle\Entity\Point;
+use MailVotech\PointBundle\Entity\Trigger;
+use MailVotech\PointBundle\Entity\TriggerEvent;
+use MailVotech\ReportBundle\Entity\Report;
 
-final class EmailDependenciesFunctionalTest extends MauticMysqlTestCase
+final class EmailDependenciesFunctionalTest extends MailVotechMysqlTestCase
 {
     private FixtureHelper $campaignFixturesHelper;
 

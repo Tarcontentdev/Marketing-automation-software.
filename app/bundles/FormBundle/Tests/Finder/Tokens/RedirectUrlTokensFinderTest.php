@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Finder\Tokens;
+namespace MailVotech\FormBundle\Tests\Finder\Tokens;
 
-use Mautic\FormBundle\Finder\Tokens\RedirectUrlTokensFinder;
+use MailVotech\FormBundle\Finder\Tokens\RedirectUrlTokensFinder;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;

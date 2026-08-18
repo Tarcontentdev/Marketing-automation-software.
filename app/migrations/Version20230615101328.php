@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Mautic\CoreBundle\Configurator\Configurator;
-use Mautic\CoreBundle\Doctrine\PreUpAssertionMigration;
-use Mautic\CoreBundle\Helper\Dsn\Dsn;
+use MailVotech\CoreBundle\Configurator\Configurator;
+use MailVotech\CoreBundle\Doctrine\PreUpAssertionMigration;
+use MailVotech\CoreBundle\Helper\Dsn\Dsn;
 
 final class Version20230615101328 extends PreUpAssertionMigration
 {

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\EventListener;
+namespace MailVotech\LeadBundle\Tests\Functional\EventListener;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\UserEntityTrait;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Event\UrlTokenReplaceEvent;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\UserEntityTrait;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Event\UrlTokenReplaceEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class OwnerSubscriberFunctionalTest extends MauticMysqlTestCase
+final class OwnerSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     use UserEntityTrait;
 
@@ -45,10 +45,10 @@ final class OwnerSubscriberFunctionalTest extends MauticMysqlTestCase
         $lead = $this->em->getRepository(Lead::class)->find($lead->getId());
         $this->assertInstanceOf(Lead::class, $lead);
 
-        $event = new UrlTokenReplaceEvent('https://example.mautic/author/{ownerfield=firstname}/', $lead);
+        $event = new UrlTokenReplaceEvent('https://example.mailvotech/author/{ownerfield=firstname}/', $lead);
         $this->dispatcher->dispatch($event);
 
-        $this->assertSame('https://example.mautic/author/Adrian/', $event->getContent());
+        $this->assertSame('https://example.mailvotech/author/Adrian/', $event->getContent());
     }
 
     public function testUrlTokenReplaceEventBlanksOwnerFieldTokenWhenOwnerIsMissing(): void
@@ -63,9 +63,9 @@ final class OwnerSubscriberFunctionalTest extends MauticMysqlTestCase
         $lead = $this->em->getRepository(Lead::class)->find($lead->getId());
         $this->assertInstanceOf(Lead::class, $lead);
 
-        $event = new UrlTokenReplaceEvent('https://example.mautic/author/{ownerfield=firstname}/', $lead);
+        $event = new UrlTokenReplaceEvent('https://example.mailvotech/author/{ownerfield=firstname}/', $lead);
         $this->dispatcher->dispatch($event);
 
-        $this->assertSame('https://example.mautic/author//', $event->getContent());
+        $this->assertSame('https://example.mailvotech/author//', $event->getContent());
     }
 }

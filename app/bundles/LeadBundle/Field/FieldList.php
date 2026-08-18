@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field;
+namespace MailVotech\LeadBundle\Field;
 
-use Mautic\CoreBundle\Cache\ResultCacheOptions;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\CoreBundle\Cache\ResultCacheOptions;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FieldList
@@ -46,7 +46,7 @@ class FieldList
 
         foreach ($fields as $f) {
             if ($byGroup) {
-                $fieldName                              = $this->translator->trans('mautic.lead.field.group.'.$f->getGroup());
+                $fieldName                              = $this->translator->trans('mailvotech.lead.field.group.'.$f->getGroup());
                 $leadFields[$fieldName][$f->getAlias()] = $f->getLabel();
             } else {
                 $leadFields[$f->getAlias()] = $f->getLabel();

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
 
-final class Version20230311195347 extends AbstractMauticMigration
+final class Version20230311195347 extends AbstractMailVotechMigration
 {
     public const BATCH_SIZE = 1000;
 
     public function up(Schema $schema): void
     {
-        $tableName  = MAUTIC_TABLE_PREFIX.'integration_entity';
+        $tableName  = MAILVOTECH_TABLE_PREFIX.'integration_entity';
         $columnName = 'integration';
         $value      = 'Pipedrive';
 

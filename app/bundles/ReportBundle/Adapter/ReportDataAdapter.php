@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Adapter;
+namespace MailVotech\ReportBundle\Adapter;
 
-use Mautic\ReportBundle\Crate\ReportDataResult;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Model\ReportExportOptions;
-use Mautic\ReportBundle\Model\ReportModel;
+use MailVotech\ReportBundle\Crate\ReportDataResult;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Model\ReportExportOptions;
+use MailVotech\ReportBundle\Model\ReportModel;
 
 class ReportDataAdapter
 {

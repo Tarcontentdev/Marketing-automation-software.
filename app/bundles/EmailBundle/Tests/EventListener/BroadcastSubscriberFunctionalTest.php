@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
-use Mautic\ChannelBundle\Event\ChannelBroadcastEvent;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\EventListener\BroadcastSubscriber;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
+use MailVotech\ChannelBundle\Event\ChannelBroadcastEvent;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\EventListener\BroadcastSubscriber;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-final class BroadcastSubscriberFunctionalTest extends MauticMysqlTestCase
+final class BroadcastSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Helper;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Helper;
 
-use Mautic\CoreBundle\Exception\FileUploadException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\FileUploader;
-use Mautic\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Exception\FileUploadException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\FileUploader;
+use MailVotech\CoreBundle\Helper\PathsHelper;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -93,7 +93,7 @@ final readonly class FileManager
     }
 
     /**
-     * @deprecated since Mautic 5.2, to be removed in 6.0. Use FileManager::getMediaFiles instead
+     * @deprecated since MailVotech 5.2, to be removed in 6.0. Use FileManager::getMediaFiles instead
      */
     public function getImages(): array
     {

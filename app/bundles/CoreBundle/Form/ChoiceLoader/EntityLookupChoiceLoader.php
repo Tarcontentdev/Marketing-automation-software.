@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\ChoiceLoader;
+namespace MailVotech\CoreBundle\Form\ChoiceLoader;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Model\AjaxLookupModelInterface;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Model\AjaxLookupModelInterface;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
@@ -137,7 +137,7 @@ final class EntityLookupChoiceLoader implements ChoiceLoaderInterface
         array_multisort($prepped_keys, SORT_NATURAL | SORT_FLAG_CASE, $prepped);
 
         if ($includeNew && $modalRoute) {
-            $prepped = array_replace([$this->translator->trans('mautic.core.createnew') => 'new'], $prepped);
+            $prepped = array_replace([$this->translator->trans('mailvotech.core.createnew') => 'new'], $prepped);
         }
 
         return $prepped;

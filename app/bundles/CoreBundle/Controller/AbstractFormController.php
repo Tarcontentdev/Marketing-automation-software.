@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Controller;
+namespace MailVotech\CoreBundle\Controller;
 
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Model\FormModel;
 use Symfony\Component\Form\ClickableInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
@@ -35,18 +35,18 @@ abstract class AbstractFormController extends CommonController
             $returnUrl  = urldecode($request->get('returnUrl'));
 
             if (!filter_var($returnUrl, FILTER_VALIDATE_URL)) {
-                $returnUrl = $this->generateUrl('mautic_dashboard_index');
+                $returnUrl = $this->generateUrl('mailvotech_dashboard_index');
             } else {
                 $currentHost = parse_url($currentUrl, PHP_URL_HOST);
                 $returnHost  = parse_url($returnUrl, PHP_URL_HOST);
 
                 if ($currentHost !== $returnHost) {
-                    $returnUrl = $this->generateUrl('mautic_dashboard_index');
+                    $returnUrl = $this->generateUrl('mailvotech_dashboard_index');
                 }
             }
 
             $this->addFlashMessage(
-                'mautic.core.action.entity.unlocked',
+                'mailvotech.core.action.entity.unlocked',
                 [
                     '%name%' => htmlspecialchars(urldecode($request->get('name')), ENT_QUOTES, 'UTF-8'),
                 ]
@@ -81,10 +81,10 @@ abstract class AbstractFormController extends CommonController
 
         if ($this->canEdit($entity)) {
             $override = $this->translator->trans(
-                'mautic.core.override.lock',
+                'mailvotech.core.override.lock',
                 [
                     '%url%' => $this->generateUrl(
-                        'mautic_core_form_action',
+                        'mailvotech_core_form_action',
                         [
                             'objectAction' => 'unlock',
                             'objectModel'  => $model,
@@ -99,12 +99,12 @@ abstract class AbstractFormController extends CommonController
 
         $flash = [
             'type'    => 'error',
-            'msg'     => 'mautic.core.error.locked',
+            'msg'     => 'mailvotech.core.error.locked',
             'msgVars' => [
                 '%name%'       => $entity->{$nameFunction}(),
                 '%user%'       => $entity->getCheckedOutByUser(),
                 '%contactUrl%' => $this->generateUrl(
-                    'mautic_user_action',
+                    'mailvotech_user_action',
                     [
                         'objectAction' => 'contact',
                         'objectId'     => $entity->getCheckedOutBy(),

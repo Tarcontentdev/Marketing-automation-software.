@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\ProcessSignal;
+namespace MailVotech\CoreBundle\Tests\Unit\ProcessSignal;
 
-use Mautic\CoreBundle\ProcessSignal\Exception\SignalCaughtException;
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalService;
+use MailVotech\CoreBundle\ProcessSignal\Exception\SignalCaughtException;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalService;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

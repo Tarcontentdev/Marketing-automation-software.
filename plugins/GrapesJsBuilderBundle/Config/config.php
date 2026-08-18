@@ -4,35 +4,35 @@ declare(strict_types=1);
 
 return [
     'name'        => 'GrapesJS Builder',
-    'description' => 'GrapesJS Builder with MJML support for Mautic',
+    'description' => 'GrapesJS Builder with MJML support for MailVotech',
     'version'     => '1.0.0',
-    'author'      => 'Mautic Community',
+    'author'      => 'MailVotech Community',
     'routes'      => [
         'main'   => [
             'grapesjsbuilder_upload' => [
                 'path'       => '/grapesjsbuilder/upload',
-                'controller' => 'MauticPlugin\GrapesJsBuilderBundle\Controller\FileManagerController::uploadAction',
+                'controller' => 'MailVotechPlugin\GrapesJsBuilderBundle\Controller\FileManagerController::uploadAction',
             ],
             'grapesjsbuilder_delete' => [
                 'path'       => '/grapesjsbuilder/delete',
-                'controller' => 'MauticPlugin\GrapesJsBuilderBundle\Controller\FileManagerController::deleteAction',
+                'controller' => 'MailVotechPlugin\GrapesJsBuilderBundle\Controller\FileManagerController::deleteAction',
             ],
-            /** @depreacated since Mautic 5.2, to be removed in 6.0. Use grapesjsbuilder_media instead */
+            /** @depreacated since MailVotech 5.2, to be removed in 6.0. Use grapesjsbuilder_media instead */
             'grapesjsbuilder_assets' => [
                 'path'       => '/grapesjsbuilder/assets',
-                'controller' => 'MauticPlugin\GrapesJsBuilderBundle\Controller\FileManagerController::assetsAction',
+                'controller' => 'MailVotechPlugin\GrapesJsBuilderBundle\Controller\FileManagerController::assetsAction',
             ],
             'grapesjsbuilder_media' => [
                 'path'       => '/grapesjsbuilder/media',
-                'controller' => 'MauticPlugin\GrapesJsBuilderBundle\Controller\FileManagerController::getMediaAction',
+                'controller' => 'MailVotechPlugin\GrapesJsBuilderBundle\Controller\FileManagerController::getMediaAction',
             ],
             'grapesjsbuilder_builder' => [
                 'path'       => '/grapesjsbuilder/{objectType}/{objectId}',
-                'controller' => 'MauticPlugin\GrapesJsBuilderBundle\Controller\GrapesJsController::builderAction',
+                'controller' => 'MailVotechPlugin\GrapesJsBuilderBundle\Controller\GrapesJsController::builderAction',
             ],
             'grapesjsbuilder_editor_state' => [
                 'path'       => '/grapesjsbuilder/{objectType}/{objectId}/editor-state',
-                'controller' => 'MauticPlugin\GrapesJsBuilderBundle\Controller\GrapesJsController::editorStateAction',
+                'controller' => 'MailVotechPlugin\GrapesJsBuilderBundle\Controller\GrapesJsController::editorStateAction',
                 'methods'    => ['GET'],
             ],
         ],

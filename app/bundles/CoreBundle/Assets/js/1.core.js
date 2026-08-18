@@ -1,4 +1,4 @@
-var MauticVars  = {};
+var MailVotechVars  = {};
 var mQuery      = jQuery.noConflict(true);
 window.jQuery   = mQuery;
 
@@ -11,12 +11,12 @@ if (!String.prototype.startsWith) {
 }
 
 //set default ajax options
-MauticVars.activeRequests = 0;
+MailVotechVars.activeRequests = 0;
 
 mQuery.ajaxSetup({
     beforeSend: function (request, settings) {
         if (settings.showLoadingBar) {
-            Mautic.startPageLoadingBar();
+            MailVotech.startPageLoadingBar();
         }
 
         if (typeof IdleTimer != 'undefined') {
@@ -24,19 +24,19 @@ mQuery.ajaxSetup({
             var userLastActive = IdleTimer.getLastActive();
             var queryGlue = (settings.url.indexOf("?") == -1) ? '?' : '&';
 
-            settings.url = settings.url + queryGlue + 'mauticUserLastActive=' + userLastActive;
+            settings.url = settings.url + queryGlue + 'mailvotechUserLastActive=' + userLastActive;
         }
 
-        if (mQuery('#mauticLastNotificationId').length) {
+        if (mQuery('#mailvotechLastNotificationId').length) {
             //append last notifications
             var queryGlue = (settings.url.indexOf("?") == -1) ? '?' : '&';
 
-            settings.url = settings.url + queryGlue + 'mauticLastNotificationId=' + mQuery('#mauticLastNotificationId').val();
+            settings.url = settings.url + queryGlue + 'mailvotechLastNotificationId=' + mQuery('#mailvotechLastNotificationId').val();
         }
 
         // Set CSRF token to each AJAX POST request
         if (settings.type == 'POST') {
-            request.setRequestHeader('X-CSRF-Token', mauticAjaxCsrf);
+            request.setRequestHeader('X-CSRF-Token', mailvotechAjaxCsrf);
         }
 
         return true;
@@ -62,11 +62,11 @@ mQuery(document).on('click', function (e) {
 });
 
 mQuery(document).ajaxComplete(function(event, xhr, settings) {
-    Mautic.stopPageLoadingBar();
+    MailVotech.stopPageLoadingBar();
     if (xhr.responseJSON && xhr.responseJSON.flashes) {
-        Mautic.setFlashes(xhr.responseJSON.flashes);
+        MailVotech.setFlashes(xhr.responseJSON.flashes);
     }
-    Mautic.attachDismissHandlers();
+    MailVotech.attachDismissHandlers();
 
     // Initialize popovers with custom configuration
     mQuery('[data-toggle="popover"]').popover({
@@ -90,18 +90,18 @@ mQuery(document).ajaxComplete(function(event, xhr, settings) {
 // Force stop the page loading bar when no more requests are being in progress
 mQuery( document ).ajaxStop(function(event) {
     // Seems to be stuck
-    MauticVars.activeRequests = 0;
-    Mautic.stopPageLoadingBar();
+    MailVotechVars.activeRequests = 0;
+    MailVotech.stopPageLoadingBar();
 });
 
 mQuery( document ).ready(function() {
-    if (typeof mauticContent !== 'undefined') {
+    if (typeof mailvotechContent !== 'undefined') {
         mQuery("html").Core({
             console: false
         });
     }
 
-    Mautic.initListGroupToggle('body');
+    MailVotech.initListGroupToggle('body');
 
     // Prevent backspace from activating browser back
     mQuery(document).on('keydown', function (e) {
@@ -118,9 +118,9 @@ mQuery( document ).ready(function() {
                     console.error('Error with keep-alive:', errorThrown);
                 });
         }
-    }, mauticSessionLifetime * 1000 / 2);
+    }, mailvotechSessionLifetime * 1000 / 2);
 
-    Mautic.attachDismissHandlers();
+    MailVotech.attachDismissHandlers();
 });
 
 if (typeof history != 'undefined') {
@@ -131,16 +131,16 @@ if (typeof history != 'undefined') {
 }
 
 //used for spinning icons to show something is in progress)
-MauticVars.iconClasses          = {};
+MailVotechVars.iconClasses          = {};
 
 //prevent multiple ajax calls from multiple clicks
-MauticVars.routeInProgress       = '';
+MailVotechVars.routeInProgress       = '';
 
 //prevent interval ajax requests from overlapping
-MauticVars.moderatedIntervals    = {};
-MauticVars.intervalsInProgress   = {};
+MailVotechVars.moderatedIntervals    = {};
+MailVotechVars.intervalsInProgress   = {};
 
-var Mautic = {
+var MailVotech = {
     loadedContent: {},
     keyboardShortcutHtml: {},
 
@@ -148,7 +148,7 @@ var Mautic = {
      * Initializes dismissed elements by injecting necessary CSS.
      */
     initializeDismissedElements: function() {
-        // Ensure MauticVars and dismissedElements exist
+        // Ensure MailVotechVars and dismissedElements exist
         this.dismissedElements = JSON.parse(localStorage.getItem('dismissedElements')) || [];
         this.dismissedStyle = null;
 
@@ -230,10 +230,10 @@ var Mautic = {
         });
 
         // Create the flash message
-        const flashMessage = Mautic.addInfoFlashMessage(
-            Mautic.translate('mautic.user.config.title.experience_and_learning.reset_confirmation')
+        const flashMessage = MailVotech.addInfoFlashMessage(
+            MailVotech.translate('mailvotech.user.config.title.experience_and_learning.reset_confirmation')
         );
-        Mautic.setFlashes(flashMessage);
+        MailVotech.setFlashes(flashMessage);
     },
 
     /**
@@ -249,7 +249,7 @@ var Mautic = {
             // Attach dismiss event handler to the close button
             dismissButton.off('click').on('click', function (e) {
                 e.preventDefault();
-                Mautic.dismissElement(elementId);
+                MailVotech.dismissElement(elementId);
             });
         });
     },
@@ -273,80 +273,80 @@ var Mautic = {
         Mousetrap.bind(sequence, func);
         var sectionName = section || 'global';
 
-        if (!Mautic.keyboardShortcutHtml.hasOwnProperty(sectionName)) {
-            Mautic.keyboardShortcutHtml[sectionName] = {};
+        if (!MailVotech.keyboardShortcutHtml.hasOwnProperty(sectionName)) {
+            MailVotech.keyboardShortcutHtml[sectionName] = {};
         }
 
-        Mautic.keyboardShortcutHtml[sectionName][sequence] = '<div class="col-xs-6"><mark>' + sequence + '</mark>: ' + description + '</div>';
+        MailVotech.keyboardShortcutHtml[sectionName][sequence] = '<div class="col-xs-6"><mark>' + sequence + '</mark>: ' + description + '</div>';
     },
 
     /**
      * Binds global keyboard shortcuts
      */
     bindGlobalKeyboardShortcuts: function () {
-        Mautic.addKeyboardShortcut('g d', 'Load the Dashboard', function (e) {
-            mQuery('#mautic_dashboard_index').click();
+        MailVotech.addKeyboardShortcut('g d', 'Load the Dashboard', function (e) {
+            mQuery('#mailvotech_dashboard_index').click();
         });
 
-        Mautic.addKeyboardShortcut('g c', 'Load Contacts', function (e) {
-            mQuery('#mautic_contact_index').click();
+        MailVotech.addKeyboardShortcut('g c', 'Load Contacts', function (e) {
+            mQuery('#mailvotech_contact_index').click();
         });
 
-        Mautic.addKeyboardShortcut('g e', 'Load Emails', function (e) {
-            mQuery('#mautic_email_index').click();
+        MailVotech.addKeyboardShortcut('g e', 'Load Emails', function (e) {
+            mQuery('#mailvotech_email_index').click();
         });
 
-        Mautic.addKeyboardShortcut('g f', 'Load Forms', function (e) {
-            mQuery('#mautic_form_index').click();
+        MailVotech.addKeyboardShortcut('g f', 'Load Forms', function (e) {
+            mQuery('#mailvotech_form_index').click();
         });
 
-        Mautic.addKeyboardShortcut('g s', 'Load Segments', function (e) {
-            mQuery('#mautic_segment_index').click();
+        MailVotech.addKeyboardShortcut('g s', 'Load Segments', function (e) {
+            mQuery('#mailvotech_segment_index').click();
         });
 
-        Mautic.addKeyboardShortcut('g p', 'Load Segments', function (e) {
-            mQuery('#mautic_page_index').click();
+        MailVotech.addKeyboardShortcut('g p', 'Load Segments', function (e) {
+            mQuery('#mailvotech_page_index').click();
         });
 
-        Mautic.addKeyboardShortcut('f m', 'Toggle Admin Menu', function (e) {
+        MailVotech.addKeyboardShortcut('f m', 'Toggle Admin Menu', function (e) {
             mQuery("#admin-menu").click();
         });
 
-        Mautic.addKeyboardShortcut('f n', 'Show Notifications', function (e) {
+        MailVotech.addKeyboardShortcut('f n', 'Show Notifications', function (e) {
             mQuery('.dropdown-notification').click();
         });
 
-        Mautic.addKeyboardShortcut('f /', 'Global Search', function (e) {
+        MailVotech.addKeyboardShortcut('f /', 'Global Search', function (e) {
             mQuery('.search-button').click();
         });
 
-        Mautic.addKeyboardShortcut('/', 'Search current list', function (e) {
+        MailVotech.addKeyboardShortcut('/', 'Search current list', function (e) {
             e.preventDefault();
             e.stopPropagation();
             mQuery('#list-search').focus();
         });
 
-        Mautic.addKeyboardShortcut('e', 'Edit current resource', function(e) {
+        MailVotech.addKeyboardShortcut('e', 'Edit current resource', function(e) {
             mQuery('#edit').click();
         });
 
-        Mautic.addKeyboardShortcut('c', 'Create current resource', function(e) {
+        MailVotech.addKeyboardShortcut('c', 'Create current resource', function(e) {
             mQuery('#new').click();
         });
 
-        Mautic.addKeyboardShortcut(['del', 'meta+backspace'], 'Delete current resource', function(e) {
+        MailVotech.addKeyboardShortcut(['del', 'meta+backspace'], 'Delete current resource', function(e) {
             mQuery('#delete').click();
         });
 
-        Mautic.addKeyboardShortcut('enter', 'Modal confirm action', function(e) {
+        MailVotech.addKeyboardShortcut('enter', 'Modal confirm action', function(e) {
             mQuery('#confirm').click();
         });
 
-        Mautic.addKeyboardShortcut('s', 'General send example button', function(e) {
+        MailVotech.addKeyboardShortcut('s', 'General send example button', function(e) {
             mQuery('#sendEmailButton').click();
         });
 
-        Mautic.addKeyboardShortcut('g i', 'Back to index (list)', function(e) {
+        MailVotech.addKeyboardShortcut('g i', 'Back to index (list)', function(e) {
             mQuery('[id*="buttons_cancel"]').click();
             mQuery('#close').click();
         });
@@ -404,11 +404,11 @@ var Mautic = {
      * @param params object
      */
     translate: function (id, params) {
-        if (!mauticLang.hasOwnProperty(id)) {
+        if (!mailvotechLang.hasOwnProperty(id)) {
             return id;
         }
 
-        var translated = mauticLang[id];
+        var translated = mailvotechLang[id];
 
         if (params) {
             for (var key in params) {
@@ -426,17 +426,17 @@ var Mautic = {
      * Stops the ajax page loading indicator
      */
     stopPageLoadingBar: function () {
-        if (MauticVars.activeRequests < 1) {
-            MauticVars.activeRequests = 0;
+        if (MailVotechVars.activeRequests < 1) {
+            MailVotechVars.activeRequests = 0;
         } else {
-            MauticVars.activeRequests--;
+            MailVotechVars.activeRequests--;
         }
 
-        if (MauticVars.loadingBarTimeout) {
-            clearTimeout(MauticVars.loadingBarTimeout);
+        if (MailVotechVars.loadingBarTimeout) {
+            clearTimeout(MailVotechVars.loadingBarTimeout);
         }
 
-        if (MauticVars.activeRequests == 0) {
+        if (MailVotechVars.activeRequests == 0) {
             mQuery('.loading-bar').removeClass('active');
         }
     },
@@ -446,7 +446,7 @@ var Mautic = {
      */
     startPageLoadingBar: function () {
         mQuery('.loading-bar').addClass('active');
-        MauticVars.activeRequests++;
+        MailVotechVars.activeRequests++;
     },
 
     /**
@@ -508,15 +508,15 @@ var Mautic = {
      */
     activateLabelLoadingIndicator: function (el) {
         var labelSpinner = mQuery("label[for='" + el + "']");
-        Mautic.labelSpinner = mQuery('<i class="ri-loader-3-line ri-spin ri-fw"></i>');
-        labelSpinner.append(Mautic.labelSpinner);
+        MailVotech.labelSpinner = mQuery('<i class="ri-loader-3-line ri-spin ri-fw"></i>');
+        labelSpinner.append(MailVotech.labelSpinner);
     },
 
     /**
      * Remove the spinner from label
      */
     removeLabelLoadingIndicator: function () {
-        mQuery(Mautic.labelSpinner).remove();
+        mQuery(MailVotech.labelSpinner).remove();
     },
 
     /**
@@ -525,9 +525,9 @@ var Mautic = {
      */
     loadNewWindow: function (options) {
         if (options.windowUrl) {
-            Mautic.startModalLoadingBar();
+            MailVotech.startModalLoadingBar();
 
-            var popupName = 'mauticpopup';
+            var popupName = 'mailvotechpopup';
             if (options.popupName) {
                 popupName = options.popupName;
             }
@@ -536,11 +536,11 @@ var Mautic = {
                 var opener = window.open(options.windowUrl, popupName, 'height=600,width=1100');
 
                 if (!opener || opener.closed || typeof opener.closed == 'undefined') {
-                    alert(mauticLang.popupBlockerMessage);
+                    alert(mailvotechLang.popupBlockerMessage);
                 } else {
                     opener.onload = function () {
-                        Mautic.stopModalLoadingBar();
-                        Mautic.stopIconSpinPostEvent();
+                        MailVotech.stopModalLoadingBar();
+                        MailVotech.stopIconSpinPostEvent();
                     };
                 }
             }, 100);
@@ -556,30 +556,30 @@ var Mautic = {
      */
     loadScript: function (url, onLoadCallback, alreadyLoadedCallback) {
         // check if the asset has been loaded
-        if (typeof Mautic.headLoadedAssets == 'undefined') {
-            Mautic.headLoadedAssets = {};
-        } else if (typeof Mautic.headLoadedAssets[url] != 'undefined') {
+        if (typeof MailVotech.headLoadedAssets == 'undefined') {
+            MailVotech.headLoadedAssets = {};
+        } else if (typeof MailVotech.headLoadedAssets[url] != 'undefined') {
             // URL has already been appended to head
 
-            if (alreadyLoadedCallback && typeof Mautic[alreadyLoadedCallback] == 'function') {
-                Mautic[alreadyLoadedCallback]();
+            if (alreadyLoadedCallback && typeof MailVotech[alreadyLoadedCallback] == 'function') {
+                MailVotech[alreadyLoadedCallback]();
             }
 
             return;
         }
 
         // Note that asset has been appended
-        Mautic.headLoadedAssets[url] = 1;
+        MailVotech.headLoadedAssets[url] = 1;
 
         mQuery.getScript(url, function (data, textStatus, jqxhr) {
             if (textStatus == 'success') {
-                if (onLoadCallback && typeof Mautic[onLoadCallback] == 'function') {
-                    Mautic[onLoadCallback]();
-                } else if (typeof Mautic[mauticContent + "OnLoad"] == 'function') {
+                if (onLoadCallback && typeof MailVotech[onLoadCallback] == 'function') {
+                    MailVotech[onLoadCallback]();
+                } else if (typeof MailVotech[mailvotechContent + "OnLoad"] == 'function') {
                     // Likely a page refresh; execute onLoad content
-                    if (typeof Mautic.loadedContent[mauticContent] == 'undefined') {
-                        Mautic.loadedContent[mauticContent] = true;
-                        Mautic[mauticContent + "OnLoad"]('#app-content', {});
+                    if (typeof MailVotech.loadedContent[mailvotechContent] == 'undefined') {
+                        MailVotech.loadedContent[mailvotechContent] = true;
+                        MailVotech[mailvotechContent + "OnLoad"]('#app-content', {});
                     }
                 }
             }
@@ -593,15 +593,15 @@ var Mautic = {
      */
     loadStylesheet: function (url) {
         // check if the asset has been loaded
-        if (typeof Mautic.headLoadedAssets == 'undefined') {
-            Mautic.headLoadedAssets = {};
-        } else if (typeof Mautic.headLoadedAssets[url] != 'undefined') {
+        if (typeof MailVotech.headLoadedAssets == 'undefined') {
+            MailVotech.headLoadedAssets = {};
+        } else if (typeof MailVotech.headLoadedAssets[url] != 'undefined') {
             // URL has already been appended to head
             return;
         }
 
         // Note that asset has been appended
-        Mautic.headLoadedAssets[url] = 1;
+        MailVotech.headLoadedAssets[url] = 1;
 
         var link = document.createElement("link");
         link.type = "text/css";
@@ -616,8 +616,8 @@ var Mautic = {
      * @param event|string
      */
     startIconSpinOnEvent: function (target) {
-        if (MauticVars.ignoreIconSpin) {
-            MauticVars.ignoreIconSpin = false;
+        if (MailVotechVars.ignoreIconSpin) {
+            MailVotechVars.ignoreIconSpin = false;
             return;
         }
 
@@ -636,10 +636,10 @@ var Mautic = {
                 var el = (hasIcon) ? target : mQuery(target).find('i[class^="ri-"]').first();
                 var identifierClass = (new Date).getTime();
 
-                if (typeof MauticVars.iconClasses === 'undefined') {
-                    MauticVars.iconClasses = {};
+                if (typeof MailVotechVars.iconClasses === 'undefined') {
+                    MailVotechVars.iconClasses = {};
                 }
-                MauticVars.iconClasses[identifierClass] = mQuery(el).attr('class');
+                MailVotechVars.iconClasses[identifierClass] = mQuery(el).attr('class');
 
                 var specialClasses = ['ri-fw', 'ri-lg', 'ri-2x', 'ri-3x', 'ri-4x', 'ri-5x', 'ri-li', 'text-white', 'text-secondary'];
                 var appendClasses = "";
@@ -659,13 +659,13 @@ var Mautic = {
      * Stops the icon spinning after an event is complete
      */
     stopIconSpinPostEvent: function (specificId) {
-        if (typeof specificId != 'undefined' && specificId in MauticVars.iconClasses) {
-            mQuery('.' + specificId).removeClass('ri-loader-3-line ri-spin ' + specificId).addClass(MauticVars.iconClasses[specificId]);
-            delete MauticVars.iconClasses[specificId];
+        if (typeof specificId != 'undefined' && specificId in MailVotechVars.iconClasses) {
+            mQuery('.' + specificId).removeClass('ri-loader-3-line ri-spin ' + specificId).addClass(MailVotechVars.iconClasses[specificId]);
+            delete MailVotechVars.iconClasses[specificId];
         } else {
-            mQuery.each(MauticVars.iconClasses, function (index, value) {
+            mQuery.each(MailVotechVars.iconClasses, function (index, value) {
                 mQuery('.' + index).removeClass('ri-loader-3-line ri-spin ' + index).addClass(value);
-                delete MauticVars.iconClasses[index];
+                delete MailVotechVars.iconClasses[index];
             });
         }
     },
@@ -676,7 +676,7 @@ var Mautic = {
      * @param url
      */
     redirectWithBackdrop: function (url) {
-        Mautic.activateBackdrop();
+        MailVotech.activateBackdrop();
         setTimeout(function () {
             window.location = url;
         }, 50);
@@ -686,9 +686,9 @@ var Mautic = {
      * Acivates a backdrop
      */
     activateBackdrop: function (hideWait) {
-        if (!mQuery('#mautic-backdrop').length) {
+        if (!mQuery('#mailvotech-backdrop').length) {
             var container = mQuery('<div />', {
-                id: 'mautic-backdrop'
+                id: 'mailvotech-backdrop'
             });
 
             mQuery('<div />', {
@@ -697,8 +697,8 @@ var Mautic = {
 
             if (typeof hideWait == 'undefined') {
                 mQuery('<div />', {
-                    "class": 'mautic-pleasewait'
-                }).html(mauticLang.pleaseWait)
+                    "class": 'mailvotech-pleasewait'
+                }).html(mailvotechLang.pleaseWait)
                     .appendTo(container);
             }
 
@@ -710,8 +710,8 @@ var Mautic = {
      * Deactivates backdrop
      */
     deactivateBackgroup: function () {
-        if (mQuery('#mautic-backdrop').length) {
-            mQuery('#mautic-backdrop').remove();
+        if (mQuery('#mailvotech-backdrop').length) {
+            mQuery('#mailvotech-backdrop').remove();
         }
     },
 
@@ -721,21 +721,21 @@ var Mautic = {
      * @param action
      */
     executeAction: function (action, callback) {
-        if (typeof Mautic.activeActions == 'undefined') {
-            Mautic.activeActions = {};
-        } else if (typeof Mautic.activeActions[action] != 'undefined') {
+        if (typeof MailVotech.activeActions == 'undefined') {
+            MailVotech.activeActions = {};
+        } else if (typeof MailVotech.activeActions[action] != 'undefined') {
             // Action is currently being executed
             return;
         }
 
-        Mautic.activeActions[action] = true;
+        MailVotech.activeActions[action] = true;
 
         //dismiss modal if activated
-        Mautic.dismissConfirmation();
+        MailVotech.dismissConfirmation();
 
         if (action.indexOf('batchExport') >= 0) {
-            delete Mautic.activeActions[action]
-            Mautic.initiateFileDownload(action);
+            delete MailVotech.activeActions[action]
+            MailVotech.initiateFileDownload(action);
             return;
         }
 
@@ -745,17 +745,17 @@ var Mautic = {
             type: "POST",
             dataType: "json",
             success: function (response) {
-                Mautic.processPageContent(response);
+                MailVotech.processPageContent(response);
 
                 if (typeof callback == 'function') {
                     callback(response);
                 }
             },
             error: function (request, textStatus, errorThrown) {
-                Mautic.processAjaxError(request, textStatus, errorThrown);
+                MailVotech.processAjaxError(request, textStatus, errorThrown);
             },
             complete: function () {
-                delete Mautic.activeActions[action]
+                delete MailVotech.activeActions[action]
             }
         });
     },
@@ -770,13 +770,13 @@ var Mautic = {
      */
     processAjaxError: function (request, textStatus, errorThrown, mainContent, target) {
         if (textStatus == 'abort') {
-            Mautic.stopPageLoadingBar();
-            Mautic.stopCanvasLoadingBar();
-            Mautic.stopIconSpinPostEvent();
+            MailVotech.stopPageLoadingBar();
+            MailVotech.stopCanvasLoadingBar();
+            MailVotech.stopIconSpinPostEvent();
             return;
         }
 
-        var inDevMode = typeof mauticEnv !== 'undefined' && mauticEnv == 'dev';
+        var inDevMode = typeof mailvotechEnv !== 'undefined' && mailvotechEnv == 'dev';
 
         if (inDevMode) {
             console.log(request);
@@ -785,8 +785,8 @@ var Mautic = {
         if (typeof request.responseJSON !== 'undefined') {
             response = request.responseJSON;
         } else if (typeof(request.responseText) !== 'undefined') {
-            const flashMessage = Mautic.addFlashMessage(Mautic.translate('mautic.core.request.error'));
-            Mautic.setFlashes(flashMessage);
+            const flashMessage = MailVotech.addFlashMessage(MailVotech.translate('mailvotech.core.request.error'));
+            MailVotech.setFlashes(flashMessage);
 
             //Symfony may have added some excess buffer if an exception was hit during a sub rendering and because
             //it uses ob_start, PHP dumps the buffer upon hitting the exception.  So let's filter that out.
@@ -815,7 +815,7 @@ var Mautic = {
                 mQuery('#app-content .content-body').html(response.newContent);
                 if (response.route && response.route.indexOf("ajax") == -1) {
                     //update URL in address bar
-                    history.pushState(null, "Mautic", response.route);
+                    history.pushState(null, "MailVotech", response.route);
                 }
             } else if (response.newContent && mQuery('.modal.in').length) {
                 //assume a modal was the recipient of the information
@@ -838,9 +838,9 @@ var Mautic = {
             }
         }
 
-        Mautic.stopPageLoadingBar();
-        Mautic.stopCanvasLoadingBar();
-        Mautic.stopIconSpinPostEvent();
+        MailVotech.stopPageLoadingBar();
+        MailVotech.stopCanvasLoadingBar();
+        MailVotech.stopIconSpinPostEvent();
     },
 
     /**
@@ -851,11 +851,11 @@ var Mautic = {
      * @param timeout
      */
     setModeratedInterval: function (key, callback, timeout, params) {
-        if (typeof MauticVars.intervalsInProgress[key] != 'undefined') {
+        if (typeof MailVotechVars.intervalsInProgress[key] != 'undefined') {
             //action is still pending so clear and reschedule
-            clearTimeout(MauticVars.moderatedIntervals[key]);
+            clearTimeout(MailVotechVars.moderatedIntervals[key]);
         } else {
-            MauticVars.intervalsInProgress[key] = true;
+            MailVotechVars.intervalsInProgress[key] = true;
 
             //perform callback
             if (typeof params == 'undefined') {
@@ -865,13 +865,13 @@ var Mautic = {
             if (typeof callback == 'function') {
                 callback(params);
             } else {
-                window["Mautic"][callback].apply('window', params);
+                window["MailVotech"][callback].apply('window', params);
             }
         }
 
         //schedule new timeout
-        MauticVars.moderatedIntervals[key] = setTimeout(function () {
-            Mautic.setModeratedInterval(key, callback, timeout, params)
+        MailVotechVars.moderatedIntervals[key] = setTimeout(function () {
+            MailVotech.setModeratedInterval(key, callback, timeout, params)
         }, timeout);
     },
 
@@ -882,7 +882,7 @@ var Mautic = {
      * @param key
      */
     moderatedIntervalCallbackIsComplete: function (key) {
-        delete MauticVars.intervalsInProgress[key];
+        delete MailVotechVars.intervalsInProgress[key];
     },
 
     /**
@@ -891,9 +891,9 @@ var Mautic = {
      * @param key
      */
     clearModeratedInterval: function (key) {
-        Mautic.moderatedIntervalCallbackIsComplete(key);
-        clearTimeout(MauticVars.moderatedIntervals[key]);
-        delete MauticVars.moderatedIntervals[key];
+        MailVotech.moderatedIntervalCallbackIsComplete(key);
+        clearTimeout(MailVotechVars.moderatedIntervals[key]);
+        delete MailVotechVars.moderatedIntervals[key];
     },
 
     /**
@@ -959,11 +959,11 @@ var Mautic = {
      */
     setNotifications: function (notifications) {
         if (notifications.lastId) {
-            mQuery('#mauticLastNotificationId').val(notifications.lastId);
+            mQuery('#mailvotechLastNotificationId').val(notifications.lastId);
         }
 
-        if (mQuery('#notifications .mautic-update')) {
-            mQuery('#notifications .mautic-update').remove();
+        if (mQuery('#notifications .mailvotech-update')) {
+            mQuery('#notifications .mailvotech-update').remove();
         }
 
         if (notifications.hasNewNotifications) {
@@ -1021,7 +1021,7 @@ var Mautic = {
         }
 
         mQuery.ajax({
-            url: mauticAjaxUrl,
+            url: mailvotechAjaxUrl,
             type: "GET",
             data: "action=clearNotification&id=" + id
         });
@@ -1038,23 +1038,23 @@ var Mautic = {
      * @param method
      */
     ajaxActionRequest: function (action, data, successClosure, showLoadingBar, queue, method = "POST") {
-        if (typeof Mautic.ajaxActionXhrQueue == 'undefined') {
-            Mautic.ajaxActionXhrQueue = {};
+        if (typeof MailVotech.ajaxActionXhrQueue == 'undefined') {
+            MailVotech.ajaxActionXhrQueue = {};
         }
-        if (typeof Mautic.ajaxActionXhr == 'undefined') {
-            Mautic.ajaxActionXhr = {};
-        } else if (typeof Mautic.ajaxActionXhr[action] != 'undefined') {
+        if (typeof MailVotech.ajaxActionXhr == 'undefined') {
+            MailVotech.ajaxActionXhr = {};
+        } else if (typeof MailVotech.ajaxActionXhr[action] != 'undefined') {
             if (queue) {
-                if (typeof Mautic.ajaxActionXhrQueue[action] == 'undefined') {
-                    Mautic.ajaxActionXhrQueue[action] = [];
+                if (typeof MailVotech.ajaxActionXhrQueue[action] == 'undefined') {
+                    MailVotech.ajaxActionXhrQueue[action] = [];
                 }
 
-                Mautic.ajaxActionXhrQueue[action].push({action: action, data: data, successClosure: successClosure, showLoadingBar: showLoadingBar, method: method});
+                MailVotech.ajaxActionXhrQueue[action].push({action: action, data: data, successClosure: successClosure, showLoadingBar: showLoadingBar, method: method});
 
                 return;
             } else {
-                Mautic.removeLabelLoadingIndicator();
-                Mautic.ajaxActionXhr[action].abort();
+                MailVotech.removeLabelLoadingIndicator();
+                MailVotech.ajaxActionXhr[action].abort();
             }
         }
 
@@ -1062,8 +1062,8 @@ var Mautic = {
             showLoadingBar = false;
         }
 
-        Mautic.ajaxActionXhr[action] = mQuery.ajax({
-            url: mauticAjaxUrl + '?action=' + action,
+        MailVotech.ajaxActionXhr[action] = mQuery.ajax({
+            url: mailvotechAjaxUrl + '?action=' + action,
             type: method,
             data: data,
             showLoadingBar: showLoadingBar,
@@ -1073,15 +1073,15 @@ var Mautic = {
                 }
             },
             error: function (request, textStatus, errorThrown) {
-                Mautic.processAjaxError(request, textStatus, errorThrown, true);
+                MailVotech.processAjaxError(request, textStatus, errorThrown, true);
             },
             complete: function () {
-                delete Mautic.ajaxActionXhr[action];
+                delete MailVotech.ajaxActionXhr[action];
 
-                if (typeof Mautic.ajaxActionXhrQueue[action] !== 'undefined' && Mautic.ajaxActionXhrQueue[action].length) {
-                    var next = Mautic.ajaxActionXhrQueue[action].shift();
+                if (typeof MailVotech.ajaxActionXhrQueue[action] !== 'undefined' && MailVotech.ajaxActionXhrQueue[action].length) {
+                    var next = MailVotech.ajaxActionXhrQueue[action].shift();
 
-                    Mautic.ajaxActionRequest(next.action, next.data, next.successClosure, next.showLoadingBar, false, next.method);
+                    MailVotech.ajaxActionRequest(next.action, next.data, next.successClosure, next.showLoadingBar, false, next.method);
                 }
             }
         });
@@ -1095,8 +1095,8 @@ var Mautic = {
     isLocalStorageSupported: function() {
         try {
             // Check if localStorage is supported
-            localStorage.setItem('mautic.test', 'mautic');
-            localStorage.removeItem('mautic.test');
+            localStorage.setItem('mailvotech.test', 'mailvotech');
+            localStorage.removeItem('mailvotech.test');
 
             return true;
         } catch (e) {
@@ -1105,4 +1105,4 @@ var Mautic = {
     }
 };
 
-Mautic.initDismiss();
+MailVotech.initDismiss();

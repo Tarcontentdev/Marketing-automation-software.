@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\PageBundle\Entity\Page;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -61,10 +61,10 @@ final class ContentPreviewSettingsType extends AbstractType
                         'data-lookup-callback' => 'updatePreviewContactLookupListFilter',
                         'data-chosen-lookup'   => 'lead:contactList',
                         'placeholder'          => $this->translator->trans(
-                            'mautic.lead.list.form.startTyping'
+                            'mailvotech.lead.list.form.startTyping'
                         ),
                         'data-no-record-message' => $this->translator->trans(
-                            'mautic.core.form.nomatches'
+                            'mailvotech.core.form.nomatches'
                         ),
                     ],
                 ]
@@ -121,9 +121,9 @@ final class ContentPreviewSettingsType extends AbstractType
             [
                 'choices' => $variantChoices,
                 'attr'    => [
-                    'onChange' => "Mautic.contentPreviewUrlGenerator.regenerateUrl({$objectId}, this)",
+                    'onChange' => "MailVotech.contentPreviewUrlGenerator.regenerateUrl({$objectId}, this)",
                 ],
-                'placeholder'  => $this->translator->trans('mautic.core.form.chooseone'),
+                'placeholder'  => $this->translator->trans('mailvotech.core.form.chooseone'),
                 'data'         => (string) $objectId,
             ]
         );

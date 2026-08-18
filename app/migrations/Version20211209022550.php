@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
-use Mautic\UserBundle\Entity\Permission;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Model\RoleModel;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
+use MailVotech\UserBundle\Entity\Permission;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Model\RoleModel;
 
-final class Version20211209022550 extends AbstractMauticMigration
+final class Version20211209022550 extends AbstractMailVotechMigration
 {
     public function postUp(Schema $schema): void
     {

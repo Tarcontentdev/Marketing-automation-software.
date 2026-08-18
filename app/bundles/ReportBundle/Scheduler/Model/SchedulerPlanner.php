@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\ReportBundle\Scheduler\Model;
+namespace MailVotech\ReportBundle\Scheduler\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Entity\Scheduler;
-use Mautic\ReportBundle\Entity\SchedulerRepository;
-use Mautic\ReportBundle\Scheduler\Date\DateBuilder;
-use Mautic\ReportBundle\Scheduler\Exception\NoScheduleException;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\Scheduler;
+use MailVotech\ReportBundle\Entity\SchedulerRepository;
+use MailVotech\ReportBundle\Scheduler\Date\DateBuilder;
+use MailVotech\ReportBundle\Scheduler\Exception\NoScheduleException;
 
 class SchedulerPlanner
 {

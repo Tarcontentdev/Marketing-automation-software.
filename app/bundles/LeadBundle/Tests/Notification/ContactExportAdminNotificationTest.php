@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Notification;
+namespace MailVotech\LeadBundle\Tests\Notification;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\LeadBundle\Entity\ContactExportScheduler;
-use Mautic\LeadBundle\Notification\ContactExportAdminNotification;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\LeadBundle\Entity\ContactExportScheduler;
+use MailVotech\LeadBundle\Notification\ContactExportAdminNotification;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -50,7 +50,7 @@ final class ContactExportAdminNotificationTest extends TestCase
         $translator->method('trans')
             ->willReturnCallback(
                 static fn (string $key, array $parameters = []): string => match ($key) {
-                    'mautic.lead.export.admin.notification' => sprintf(
+                    'mailvotech.lead.export.admin.notification' => sprintf(
                         '%s (%s) requested a %s contact export at %s.',
                         $parameters['%requesting_user_name%'],
                         $parameters['%requesting_user_email%'],
@@ -83,7 +83,7 @@ final class ContactExportAdminNotificationTest extends TestCase
 
         $this->assertCount(1, $notificationModel->notifications);
         $this->assertSame($otherAdmin, $notificationModel->notifications[0][6]);
-        $this->assertSame('mautic.lead.export.admin.notification.header', $notificationModel->notifications[0][3]);
+        $this->assertSame('mailvotech.lead.export.admin.notification.header', $notificationModel->notifications[0][3]);
         $this->assertSame('info', $notificationModel->notifications[0][1]);
         $this->assertFalse($notificationModel->notifications[0][2]);
         $this->assertInstanceOf(\DateTime::class, $notificationModel->notifications[0][5]);
@@ -113,9 +113,9 @@ final class ContactExportAdminNotificationTest extends TestCase
         $translator->method('trans')
             ->willReturnCallback(
                 static fn (string $key, array $parameters = []): string => match ($key) {
-                    'mautic.lead.export.admin.email_subject' => 'Contact export completed',
-                    'mautic.lead.export.status.completed'    => 'Completed',
-                    'mautic.lead.export.admin.email'         => sprintf(
+                    'mailvotech.lead.export.admin.email_subject' => 'Contact export completed',
+                    'mailvotech.lead.export.status.completed'    => 'Completed',
+                    'mailvotech.lead.export.admin.email'         => sprintf(
                         'Hi, Initiated by: %s <%s> Requested at: %s Completed at: %s Status: %s Export type: %s This notification is for security awareness only. The export download link is not included. {signature}',
                         $parameters['%requesting_user_name%'],
                         $parameters['%requesting_user_email%'],

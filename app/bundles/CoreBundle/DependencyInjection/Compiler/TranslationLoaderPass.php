@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\DependencyInjection\Compiler;
+namespace MailVotech\CoreBundle\DependencyInjection\Compiler;
 
-use Mautic\CoreBundle\Translation\TranslatorLoader;
+use MailVotech\CoreBundle\Translation\TranslatorLoader;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -20,7 +20,7 @@ final class TranslationLoaderPass implements CompilerPassInterface
         $translatorLoader->setClass(TranslatorLoader::class)
             ->setPublic(true);
 
-        if (MAUTIC_ENV === 'prod') {
+        if (MAILVOTECH_ENV === 'prod') {
             return;
         }
 

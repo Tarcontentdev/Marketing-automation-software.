@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Executioner;
+namespace MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Executioner;
 
-use Mautic\IntegrationsBundle\Event\InternalObjectCreateEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectUpdateEvent;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectMappingsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Helper\MappingHelper;
-use Mautic\IntegrationsBundle\Sync\Logger\DebugLogger;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
+use MailVotech\IntegrationsBundle\Event\InternalObjectCreateEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectUpdateEvent;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectMappingsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Helper\MappingHelper;
+use MailVotech\IntegrationsBundle\Sync\Logger\DebugLogger;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class OrderExecutioner
@@ -57,7 +57,7 @@ class OrderExecutioner
     {
         $updateCount = count($updateObjects);
         DebugLogger::log(
-            MauticSyncDataExchange::NAME,
+            MailVotechSyncDataExchange::NAME,
             sprintf(
                 'Updating %d %s object(s)',
                 $updateCount,
@@ -78,7 +78,7 @@ class OrderExecutioner
             );
         } catch (ObjectNotFoundException) {
             DebugLogger::log(
-                MauticSyncDataExchange::NAME,
+                MailVotechSyncDataExchange::NAME,
                 $objectName,
                 self::class.':'.__FUNCTION__
             );
@@ -109,7 +109,7 @@ class OrderExecutioner
         $createCount = count($createObjects);
 
         DebugLogger::log(
-            MauticSyncDataExchange::NAME,
+            MailVotechSyncDataExchange::NAME,
             sprintf(
                 'Creating %d %s object(s)',
                 $createCount,
@@ -129,7 +129,7 @@ class OrderExecutioner
             );
         } catch (ObjectNotFoundException) {
             DebugLogger::log(
-                MauticSyncDataExchange::NAME,
+                MailVotechSyncDataExchange::NAME,
                 $objectName,
                 self::class.':'.__FUNCTION__
             );

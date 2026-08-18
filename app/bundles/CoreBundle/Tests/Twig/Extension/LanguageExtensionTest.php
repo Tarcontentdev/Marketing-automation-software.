@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Twig\Extension;
+namespace MailVotech\CoreBundle\Tests\Twig\Extension;
 
-use Mautic\CoreBundle\Twig\Extension\LanguageExtension;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Twig\Extension\LanguageExtension;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\SecurityBundle\Security;
 

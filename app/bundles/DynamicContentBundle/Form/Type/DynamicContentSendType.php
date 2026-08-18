@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Form\Type;
+namespace MailVotech\DynamicContentBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -27,25 +27,25 @@ class DynamicContentSendType extends AbstractType
             'dynamicContent',
             DynamicContentListType::class,
             [
-                'label'      => 'mautic.dynamicContent.send.selectDynamicContents',
+                'label'      => 'mailvotech.dynamicContent.send.selectDynamicContents',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.dynamicContent.choose.dynamicContents',
-                    'onchange' => 'Mautic.disabledDynamicContentAction()',
+                    'tooltip'  => 'mailvotech.dynamicContent.choose.dynamicContents',
+                    'onchange' => 'MailVotech.disabledDynamicContentAction()',
                 ],
                 'where'       => 'e.isCampaignBased = 1', // do not show dwc with filters
                 'multiple'    => false,
                 'required'    => true,
                 'constraints' => [
-                    new NotBlank(message: 'mautic.core.value.required'),
+                    new NotBlank(message: 'mailvotech.core.value.required'),
                 ],
             ]
         );
 
         if (!empty($options['update_select'])) {
             $windowUrl = $this->router->generate(
-                'mautic_dynamicContent_action',
+                'mailvotech_dynamicContent_action',
                 [
                     'objectAction' => 'new',
                     'contentOnly'  => 1,
@@ -57,10 +57,10 @@ class DynamicContentSendType extends AbstractType
                 'newDynamicContentButton',
                 ButtonType::class,
                 [
-                    'label' => 'mautic.dynamicContent.send.new.dynamicContent',
+                    'label' => 'mailvotech.dynamicContent.send.new.dynamicContent',
                     'attr'  => [
                         'class'   => 'btn btn-primary btn-nospin',
-                        'onclick' => 'Mautic.loadNewWindow({
+                        'onclick' => 'MailVotech.loadNewWindow({
                             "windowUrl": "'.$windowUrl.'"
                         })',
                         'icon' => 'ri-add-line',
@@ -73,7 +73,7 @@ class DynamicContentSendType extends AbstractType
 
             // create button edit notification
             $windowUrlEdit = $this->router->generate(
-                'mautic_dynamicContent_action',
+                'mailvotech_dynamicContent_action',
                 [
                     'objectAction' => 'edit',
                     'objectId'     => 'dynamicContentId',
@@ -86,10 +86,10 @@ class DynamicContentSendType extends AbstractType
                 'editDynamicContentButton',
                 ButtonType::class,
                 [
-                    'label' => 'mautic.dynamicContent.send.edit.dynamicContent',
+                    'label' => 'mailvotech.dynamicContent.send.edit.dynamicContent',
                     'attr'  => [
                         'class'    => 'btn btn-primary btn-nospin',
-                        'onclick'  => 'Mautic.loadNewWindow(Mautic.standardDynamicContentUrl({"windowUrl": "'.$windowUrlEdit.'"}))',
+                        'onclick'  => 'MailVotech.loadNewWindow(MailVotech.standardDynamicContentUrl({"windowUrl": "'.$windowUrlEdit.'"}))',
                         'disabled' => !isset($dynamicContent),
                         'icon'     => 'ri-edit-line',
                     ],

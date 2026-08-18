@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Form\Type;
+namespace MailVotech\WebhookBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\SortableListType;
+use MailVotech\CoreBundle\Form\Type\SortableListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -29,13 +29,13 @@ final class CampaignEventSendWebhookType extends AbstractType
             'url',
             UrlType::class,
             [
-                'label'       => 'mautic.webhook.event.sendwebhook.url',
+                'label'       => 'mailvotech.webhook.event.sendwebhook.url',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => ['class' => 'form-control'],
                 'required'    => true,
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -54,7 +54,7 @@ final class CampaignEventSendWebhookType extends AbstractType
                 ],
                 'multiple'   => false,
                 'label_attr' => ['class' => 'control-label'],
-                'label'      => 'mautic.webhook.event.sendwebhook.method',
+                'label'      => 'mailvotech.webhook.event.sendwebhook.method',
                 'attr'       => [
                     'class' => 'form-control',
                 ],
@@ -68,7 +68,7 @@ final class CampaignEventSendWebhookType extends AbstractType
             SortableListType::class,
             [
                 'required'        => false,
-                'label'           => 'mautic.webhook.event.sendwebhook.headers',
+                'label'           => 'mailvotech.webhook.event.sendwebhook.headers',
                 'option_required' => false,
                 'with_labels'     => true,
             ]
@@ -79,7 +79,7 @@ final class CampaignEventSendWebhookType extends AbstractType
             SortableListType::class,
             [
                 'required'        => false,
-                'label'           => 'mautic.webhook.event.sendwebhook.data',
+                'label'           => 'mailvotech.webhook.event.sendwebhook.data',
                 'option_required' => false,
                 'with_labels'     => true,
             ]
@@ -89,11 +89,11 @@ final class CampaignEventSendWebhookType extends AbstractType
             'timeout',
             NumberType::class,
             [
-                'label'      => 'mautic.webhook.event.sendwebhook.timeout',
+                'label'      => 'mailvotech.webhook.event.sendwebhook.timeout',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'          => 'form-control',
-                    'postaddon_text' => $this->translator->trans('mautic.core.time.seconds'),
+                    'postaddon_text' => $this->translator->trans('mailvotech.core.time.seconds'),
                 ],
                 'data' => !empty($options['data']['timeout']) ? $options['data']['timeout'] : 10,
             ]

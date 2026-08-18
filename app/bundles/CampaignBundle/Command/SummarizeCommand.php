@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Command;
+namespace MailVotech\CampaignBundle\Command;
 
-use Mautic\CampaignBundle\Model\SummaryModel;
-use Mautic\CoreBundle\Command\ModeratedCommand;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
+use MailVotech\CampaignBundle\Model\SummaryModel;
+use MailVotech\CoreBundle\Command\ModeratedCommand;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,7 +23,7 @@ final class SummarizeCommand extends ModeratedCommand
 {
     use WriteCountTrait;
 
-    public const NAME = 'mautic:campaigns:summarize';
+    public const NAME = 'mailvotech:campaigns:summarize';
 
     public function __construct(
         private TranslatorInterface $translator,
@@ -74,7 +74,7 @@ final class SummarizeCommand extends ModeratedCommand
         $rebuild    = (bool) $input->getOption('rebuild');
 
         $output->writeln(
-            "<info>{$this->translator->trans('mautic.campaign.summarizing', ['%batch%' => $batchLimit])}</info>"
+            "<info>{$this->translator->trans('mailvotech.campaign.summarizing', ['%batch%' => $batchLimit])}</info>"
         );
 
         $this->summaryModel->summarize($output, $batchLimit, $maxHours, $rebuild);

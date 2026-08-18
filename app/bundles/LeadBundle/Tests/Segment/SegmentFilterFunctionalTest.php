@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment;
+namespace MailVotech\LeadBundle\Tests\Segment;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Segment\ContactSegmentService;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Segment\ContactSegmentService;
 
-final class SegmentFilterFunctionalTest extends MauticMysqlTestCase
+final class SegmentFilterFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * @var Lead[]
@@ -127,7 +127,7 @@ final class SegmentFilterFunctionalTest extends MauticMysqlTestCase
         /** @var ContactSegmentService $contactSegmentService */
         $contactSegmentService = self::getContainer()->get(ContactSegmentService::class);
 
-        $this->testSymfonyCommand('mautic:segments:update', [
+        $this->testSymfonyCommand('mailvotech:segments:update', [
             '-i'    => $segment->getId(),
             '--env' => 'test',
         ]);
@@ -160,9 +160,9 @@ final class SegmentFilterFunctionalTest extends MauticMysqlTestCase
     {
         yield [
             'contacts' => [
-                ['email' => 'lukas@mautic.com', 'in_segment' => true, 'city' => 'Prague'],
-                ['email' => 'lukas2@mautic.com', 'in_segment' => true, 'city' => 'Prague 11'],
-                ['email' => 'lukas3@mautic.com', 'in_segment' => false, 'city' => 'Praha'],
+                ['email' => 'lukas@mailvotech.com', 'in_segment' => true, 'city' => 'Prague'],
+                ['email' => 'lukas2@mailvotech.com', 'in_segment' => true, 'city' => 'Prague 11'],
+                ['email' => 'lukas3@mailvotech.com', 'in_segment' => false, 'city' => 'Praha'],
             ],
             'segment' => [
                 ['field' => 'city', 'operator' => 'startsWith', 'value' => 'Prague', 'glue' => 'and', 'type' => 'text'],
@@ -170,9 +170,9 @@ final class SegmentFilterFunctionalTest extends MauticMysqlTestCase
         ];
         yield [
             'contacts' => [
-                ['email' => 'lukas@mautic.com', 'in_segment' => true, 'points' => 20],
-                ['email' => 'lukas2@mautic.com', 'in_segment' => false, 'points' => 10],
-                ['email' => 'lukas3@mautic.com', 'in_segment' => true, 'points' => 25],
+                ['email' => 'lukas@mailvotech.com', 'in_segment' => true, 'points' => 20],
+                ['email' => 'lukas2@mailvotech.com', 'in_segment' => false, 'points' => 10],
+                ['email' => 'lukas3@mailvotech.com', 'in_segment' => true, 'points' => 25],
             ],
             'segment' => [
                 ['field' => 'points', 'operator' => 'gte', 'value' => 20, 'glue' => 'and', 'type' => 'text'],
@@ -181,7 +181,7 @@ final class SegmentFilterFunctionalTest extends MauticMysqlTestCase
 
         yield [
             'contacts' => [
-                ['email' => 'lukas@mautic.com',  'in_segment' => true],
+                ['email' => 'lukas@mailvotech.com',  'in_segment' => true],
             ],
             'segment' => [
                 ['field' => 'multiselect', 'object' => 'lead',  'operator' => '!in', 'value' => ['s'], 'glue' => 'and', 'type' => 'multiselect'],
@@ -196,7 +196,7 @@ final class SegmentFilterFunctionalTest extends MauticMysqlTestCase
         $field->setObject('lead');
         $field->setAlias('multiselect');
         $field->setName('Multiselect');
-        $properties = \Mautic\CoreBundle\Helper\Serializer::decode('a:1:{s:4:"list";a:3:{i:0;a:2:{s:5:"label";s:1:"f";s:5:"value";s:1:"f";}i:1;a:2:{s:5:"label";s:1:"s";s:5:"value";s:1:"s";}i:2;a:2:{s:5:"label";s:1:"t";s:5:"value";s:1:"t";}}}');
+        $properties = \MailVotech\CoreBundle\Helper\Serializer::decode('a:1:{s:4:"list";a:3:{i:0;a:2:{s:5:"label";s:1:"f";s:5:"value";s:1:"f";}i:1;a:2:{s:5:"label";s:1:"s";s:5:"value";s:1:"s";}i:2;a:2:{s:5:"label";s:1:"t";s:5:"value";s:1:"t";}}}');
         $field->setProperties($properties);
         $fieldModel = self::getContainer()->get(FieldModel::class);
         $fieldModel->saveEntity($field);

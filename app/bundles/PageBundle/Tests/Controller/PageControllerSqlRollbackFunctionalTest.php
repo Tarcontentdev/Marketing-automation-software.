@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Controller;
+namespace MailVotech\PageBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\Redirect;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PageControllerSqlRollbackFunctionalTest extends MauticMysqlTestCase
+final class PageControllerSqlRollbackFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -23,7 +23,7 @@ final class PageControllerSqlRollbackFunctionalTest extends MauticMysqlTestCase
         $this->em->persist($lead);
         $this->em->flush();
 
-        $redirectUrl  = 'https://mautic.org/';
+        $redirectUrl  = 'https://mailvotech.org/';
         $redirect     = new Redirect();
         $redirectHash = uniqid('', true);
         $redirect->setRedirectId($redirectHash);

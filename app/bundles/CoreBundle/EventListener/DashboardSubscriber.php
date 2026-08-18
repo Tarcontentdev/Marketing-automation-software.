@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
-use Mautic\CoreBundle\Event\IconEvent;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\DashboardBundle\Event\WidgetDetailEvent;
-use Mautic\DashboardBundle\EventListener\DashboardSubscriber as MainDashboardSubscriber;
+use MailVotech\CoreBundle\Event\IconEvent;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\DashboardBundle\Event\WidgetDetailEvent;
+use MailVotech\DashboardBundle\EventListener\DashboardSubscriber as MainDashboardSubscriber;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -74,14 +74,14 @@ final class DashboardSubscriber extends MainDashboardSubscriber
                     } elseif ($model instanceof FormModel && $model->getNameGetter() && method_exists($item, $model->getNameGetter())) {
                         $log['objectName'] = $item->{$model->getNameGetter()}();
 
-                        if ('lead' === $log['bundle'] && 'mautic.lead.lead.anonymous' === $log['objectName']) {
-                            $log['objectName'] = $this->translator->trans('mautic.lead.lead.anonymous');
+                        if ('lead' === $log['bundle'] && 'mailvotech.lead.lead.anonymous' === $log['objectName']) {
+                            $log['objectName'] = $this->translator->trans('mailvotech.lead.lead.anonymous');
                         }
                     } else {
                         $log['objectName'] = '';
                     }
 
-                    $routeName = 'mautic_'.$log['bundle'].'_action';
+                    $routeName = 'mailvotech_'.$log['bundle'].'_action';
                     if (null !== $item && null !== $this->router->getRouteCollection()->get($routeName)) {
                         $log['route'] = $this->router->generate(
                             $routeName,
@@ -101,7 +101,7 @@ final class DashboardSubscriber extends MainDashboardSubscriber
             $event->setTemplateData(['logs' => $logs, 'icons' => $iconEvent->getIcons()]);
         }
 
-        $event->setTemplate('@MauticDashboard/Dashboard/recentactivity.html.twig');
+        $event->setTemplate('@MailVotechDashboard/Dashboard/recentactivity.html.twig');
         $event->stopPropagation();
     }
 }

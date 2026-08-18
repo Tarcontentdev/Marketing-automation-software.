@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\Controller;
+namespace MailVotech\LeadBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Import;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\ImportModel;
-use Mautic\UserBundle\Security\UserTokenSetter;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Import;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\ImportModel;
+use MailVotech\UserBundle\Security\UserTokenSetter;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ImportUrlValidationTest extends MauticMysqlTestCase
+final class ImportUrlValidationTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -71,10 +71,10 @@ final class ImportUrlValidationTest extends MauticMysqlTestCase
             ['email', 'firstname', 'lastname', 'website_url'],
             ['ok1@a.com', 'John', 'Doe', 'https://valid.com'],
             ['bad@a.com', 'Bad', 'Guy', $invalidUrl],
-            ['ok2@a.com', 'Jane', 'Doe', 'https://mautic.org'],
+            ['ok2@a.com', 'Jane', 'Doe', 'https://mailvotech.org'],
         ];
 
-        $tmp = tempnam(sys_get_temp_dir(), 'mautic_import_test_').'.csv';
+        $tmp = tempnam(sys_get_temp_dir(), 'mailvotech_import_test_').'.csv';
         $fp  = fopen($tmp, 'wb');
 
         foreach ($rows as $row) {
@@ -158,10 +158,10 @@ final class ImportUrlValidationTest extends MauticMysqlTestCase
 
         $html = $this->client->submit($form);
 
-        $this->assertStringContainsString("Match the columns from the imported file to Mautic's contact fields", $html->text());
+        $this->assertStringContainsString("Match the columns from the imported file to MailVotech's contact fields", $html->text());
 
         // Run import command
-        return $this->testSymfonyCommand('mautic:import', [
+        return $this->testSymfonyCommand('mailvotech:import', [
             '-e'      => 'dev',
             '--id'    => $import->getId(),
             '--limit' => 10000,

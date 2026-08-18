@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\Query\Filter;
+namespace MailVotech\LeadBundle\Tests\Segment\Query\Filter;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Test\Doctrine\MockedConnectionTrait;
-use Mautic\LeadBundle\Provider\FilterOperatorProviderInterface;
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterOperator;
-use Mautic\LeadBundle\Segment\Decorator\BaseDecorator;
-use Mautic\LeadBundle\Segment\Query\Filter\ChannelClickQueryBuilder;
-use Mautic\LeadBundle\Segment\Query\Filter\FilterQueryBuilderInterface;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
-use Mautic\LeadBundle\Segment\RandomParameterName;
-use Mautic\LeadBundle\Segment\TableSchemaColumnsCache;
+use MailVotech\CoreBundle\Test\Doctrine\MockedConnectionTrait;
+use MailVotech\LeadBundle\Provider\FilterOperatorProviderInterface;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterOperator;
+use MailVotech\LeadBundle\Segment\Decorator\BaseDecorator;
+use MailVotech\LeadBundle\Segment\Query\Filter\ChannelClickQueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\Filter\FilterQueryBuilderInterface;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\RandomParameterName;
+use MailVotech\LeadBundle\Segment\TableSchemaColumnsCache;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -54,7 +54,7 @@ final class ChannelClickQueryBuilderTest extends TestCase
     public function testGetServiceId(): void
     {
         $this->assertSame(
-            'mautic.lead.query.builder.channel_click.value',
+            'mailvotech.lead.query.builder.channel_click.value',
             $this->queryBuilder::getServiceId()
         );
     }
@@ -73,10 +73,10 @@ final class ChannelClickQueryBuilderTest extends TestCase
     #[DataProvider('dataApplyQuery')]
     public function testApplyQuery(string $operator, string $parameterValue, string $expectedQuery): void
     {
-        $expectedQuery = str_replace('__PREFIX__', MAUTIC_TABLE_PREFIX, $expectedQuery);
+        $expectedQuery = str_replace('__PREFIX__', MAILVOTECH_TABLE_PREFIX, $expectedQuery);
         $queryBuilder  = new QueryBuilder($this->connectionMock);
         $queryBuilder->select('1');
-        $queryBuilder->from(MAUTIC_TABLE_PREFIX.'leads', 'l');
+        $queryBuilder->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l');
 
         $filter = $this->getContactSegmentFilter($operator, $parameterValue);
 
@@ -120,10 +120,10 @@ final class ChannelClickQueryBuilderTest extends TestCase
     #[DataProvider('dataApplyQueryWithBatchLimitersMinMaxBoth')]
     public function testApplyQueryWithBatchLimitersMinMaxBoth(array $batchLimiters, string $operator, string $parameterValue, string $expectedQuery): void
     {
-        $expectedQuery = str_replace('__PREFIX__', MAUTIC_TABLE_PREFIX, $expectedQuery);
+        $expectedQuery = str_replace('__PREFIX__', MAILVOTECH_TABLE_PREFIX, $expectedQuery);
         $queryBuilder  = new QueryBuilder($this->connectionMock);
         $queryBuilder->select('1');
-        $queryBuilder->from(MAUTIC_TABLE_PREFIX.'leads', 'l');
+        $queryBuilder->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l');
 
         $filter = $this->getContactSegmentFilter($operator, $parameterValue, $batchLimiters);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor;
 
 final class Address
 {

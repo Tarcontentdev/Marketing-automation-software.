@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Loader\EnvVars;
+namespace MailVotech\CoreBundle\Tests\Unit\Loader\EnvVars;
 
-use Mautic\CoreBundle\Loader\EnvVars\ApiEnvVars;
+use MailVotech\CoreBundle\Loader\EnvVars\ApiEnvVars;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -30,15 +30,15 @@ final class ApiEnvVarsTest extends TestCase
 
         ApiEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals(120, $this->envVars->get('MAUTIC_API_OAUTH2_ACCESS_TOKEN_LIFETIME'));
-        $this->assertEquals(172800, $this->envVars->get('MAUTIC_API_OAUTH2_REFRESH_TOKEN_LIFETIME'));
+        $this->assertEquals(120, $this->envVars->get('MAILVOTECH_API_OAUTH2_ACCESS_TOKEN_LIFETIME'));
+        $this->assertEquals(172800, $this->envVars->get('MAILVOTECH_API_OAUTH2_REFRESH_TOKEN_LIFETIME'));
     }
 
     public function testOauth2TokenLifetimesAreDefaultWhenNotSet(): void
     {
         ApiEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals(3600, $this->envVars->get('MAUTIC_API_OAUTH2_ACCESS_TOKEN_LIFETIME'));
-        $this->assertEquals(1_209_600, $this->envVars->get('MAUTIC_API_OAUTH2_REFRESH_TOKEN_LIFETIME'));
+        $this->assertEquals(3600, $this->envVars->get('MAILVOTECH_API_OAUTH2_ACCESS_TOKEN_LIFETIME'));
+        $this->assertEquals(1_209_600, $this->envVars->get('MAILVOTECH_API_OAUTH2_REFRESH_TOKEN_LIFETIME'));
     }
 }

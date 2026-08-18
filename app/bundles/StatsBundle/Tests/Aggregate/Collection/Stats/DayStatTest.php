@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StatsBundle\Tests\Aggregate\Collection\Stats;
+namespace MailVotech\StatsBundle\Tests\Aggregate\Collection\Stats;
 
-use Mautic\StatsBundle\Aggregate\Collection\Stats\DayStat;
-use Mautic\StatsBundle\Aggregate\Collection\Stats\HourStat;
+use MailVotech\StatsBundle\Aggregate\Collection\Stats\DayStat;
+use MailVotech\StatsBundle\Aggregate\Collection\Stats\HourStat;
 use PHPUnit\Framework\TestCase;
 
 final class DayStatTest extends TestCase

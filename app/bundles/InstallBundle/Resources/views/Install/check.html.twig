@@ -1,20 +1,20 @@
 {#
-    @copyright   2014 Mautic Contributors. All rights reserved
-    @author      Mautic
-    @link        http://mautic.org
+    @copyright   2014 MailVotech Contributors. All rights reserved
+    @author      MailVotech
+    @link        http://mailvotech.org
     @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 #}
 
-{#use Mautic\InstallBundle\Configurator\Step\CheckStep;#}
+{#use MailVotech\InstallBundle\Configurator\Step\CheckStep;#}
 
 {% if 'index' == tmpl %}
-    {% extends '@MauticInstall/Install/content.html.twig' %}
+    {% extends '@MailVotechInstall/Install/content.html.twig' %}
 {% endif %}
 
 {% block content %}
 <div class="panel-heading">
     <h2 class="panel-title">
-        {{ 'mautic.install.heading.check.environment'|trans }}
+        {{ 'mailvotech.install.heading.check.environment'|trans }}
     </h2>
 </div>
 {% autoescape false %}
@@ -24,21 +24,21 @@
         <div class="panel panel-danger">
             <div class="panel-heading">
                 <h3 class="panel-title" style="font-size: 1em;">
-                    {{ 'mautic.install.heading.major.problems'|trans }}
+                    {{ 'mailvotech.install.heading.major.problems'|trans }}
                 </h3>
             </div>
             <div class="panel-body alert-warning">
-                {{ 'mautic.install.sentence.major.problems'|trans ({'%majors%' : majors|length}) }}
+                {{ 'mailvotech.install.sentence.major.problems'|trans ({'%majors%' : majors|length}) }}
             </div>
             <ul class="list-group">
                 {% for message in majors %}
-                    {% if message == 'mautic.install.cache.unwritable' %}
-                        <li class="list-group-item">{{ 'mautic.install.directory.unwritable'|trans ({'%path%' : cacheDir}) }}</li>
-                    {% elseif message == 'mautic.install.config.unwritable' %}
+                    {% if message == 'mailvotech.install.cache.unwritable' %}
+                        <li class="list-group-item">{{ 'mailvotech.install.directory.unwritable'|trans ({'%path%' : cacheDir}) }}</li>
+                    {% elseif message == 'mailvotech.install.config.unwritable' %}
                         <li class="list-group-item">{{ message|trans ({'%path%' : configFile}) }}</li>
-                    {% elseif message == 'mautic.install.logs.unwritable' %}
-                        <li class="list-group-item">{{ 'mautic.install.directory.unwritable'|trans ({'%path%' : logDir}) }}</li>
-                    {% elseif message == 'mautic.install.apc.version' %}
+                    {% elseif message == 'mailvotech.install.logs.unwritable' %}
+                        <li class="list-group-item">{{ 'mailvotech.install.directory.unwritable'|trans ({'%path%' : logDir}) }}</li>
+                    {% elseif message == 'mailvotech.install.apc.version' %}
                         {% set minAPCverison = (constant('PHP_VERSION') >= '5.4.0') ? '3.1.13' : '3.0.17' %}
                         <li class="list-group-item">{{ message|trans ({'%minapc%' : minAPCverison, '%currentapc%' : 'apc'|phpversion}) }}</li>
                     {% else %}
@@ -52,8 +52,8 @@
 
     {% if not (majors|length) %}
         <div class="alert alert-success">
-            <h4><i class="ri-check-line"></i> {{ 'mautic.install.heading.ready'|trans }}</h4>
-            <p>{{ 'mautic.install.sentence.ready'|trans }}</p>
+            <h4><i class="ri-check-line"></i> {{ 'mailvotech.install.heading.ready'|trans }}</h4>
+            <p>{{ 'mailvotech.install.sentence.ready'|trans }}</p>
         </div>
     {% endif %}
 
@@ -62,23 +62,23 @@
         <div class="panel panel-warning">
             <div class="panel-heading">
                 <h3 class="panel-title" style="font-size: 1em;">
-                    <a data-toggle="collapse" style="display: block; " href="#minorDetails"><i class="ri-arrow-down-s-line"></i> {{ 'mautic.install.heading.minor.problems'|trans }}</a>
+                    <a data-toggle="collapse" style="display: block; " href="#minorDetails"><i class="ri-arrow-down-s-line"></i> {{ 'mailvotech.install.heading.minor.problems'|trans }}</a>
                 </h3>
             </div>
             <div id="minorDetails" class="panel-collapse collapse">
                 <div class="panel-body alert-warning">
-                    <p>{{ 'mautic.install.sentence.minor.problems'|trans }}</p>
+                    <p>{{ 'mailvotech.install.sentence.minor.problems'|trans }}</p>
                 </div>
                  <ul class="list-group">
                      {% for message in minors %}
-                         {% if message == 'mautic.install.pcre.version' %}
+                         {% if message == 'mailvotech.install.pcre.version' %}
                             <li class="list-group-item">{{ message|trans ({'%pcreversion%' : constant('PCRE_VERSION')}) }}</li>
-                         {% elseif message == 'mautic.install.php.version.not.supported' %}
+                         {% elseif message == 'mailvotech.install.php.version.not.supported' %}
                              <li class="list-group-item">{{ message|trans ({'%phpversion%' : constant('PHP_VERSION')}) }}</li>
-                         {% elseif message == 'mautic.install.php.version.has.only.security.support' %}
+                         {% elseif message == 'mailvotech.install.php.version.has.only.security.support' %}
                              <li class="list-group-item">{{ message|trans ({'%phpversion%' : constant('PHP_VERSION')}) }}</li>
-                         {% elseif message == 'mautic.install.memory.limit' %}
-                             <li class="list-group-item">{{ message|trans ({'%min_memory_limit%' : constant('Mautic\\InstallBundle\\Configurator\\Step\\CheckStep::RECOMMENDED_MEMORY_LIMIT')}) }}</li>
+                         {% elseif message == 'mailvotech.install.memory.limit' %}
+                             <li class="list-group-item">{{ message|trans ({'%min_memory_limit%' : constant('MailVotech\\InstallBundle\\Configurator\\Step\\CheckStep::RECOMMENDED_MEMORY_LIMIT')}) }}</li>
                          {% else %}
                              <li class="list-group-item">{{ message|trans }}</li>
                          {% endif %}

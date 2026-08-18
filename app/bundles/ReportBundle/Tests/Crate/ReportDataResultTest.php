@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Crate;
+namespace MailVotech\ReportBundle\Tests\Crate;
 
-use Mautic\CoreBundle\Twig\Helper\FormatterHelper;
-use Mautic\ReportBundle\Crate\ReportDataResult;
-use Mautic\ReportBundle\Tests\Fixtures;
+use MailVotech\CoreBundle\Twig\Helper\FormatterHelper;
+use MailVotech\ReportBundle\Crate\ReportDataResult;
+use MailVotech\ReportBundle\Tests\Fixtures;
 
 final class ReportDataResultTest extends \PHPUnit\Framework\TestCase
 {
@@ -95,7 +95,7 @@ final class ReportDataResultTest extends \PHPUnit\Framework\TestCase
         $reportDataResult          = new ReportDataResult(Fixtures::getValidReportResultWithNoGraphs());
         $reportDataResulWithGraphs = new ReportDataResult(Fixtures::getValidReportResultWithGraphs());
         $expectedGraphData         = [
-            'mautic.email.graph.line.stats' => [
+            'mailvotech.email.graph.line.stats' => [
                 'options'        => [],
                 'dynamicFilters' => [],
                 'paginate'       => true,

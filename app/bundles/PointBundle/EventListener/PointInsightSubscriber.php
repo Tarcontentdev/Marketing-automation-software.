@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\EventListener;
+namespace MailVotech\PointBundle\EventListener;
 
-use Mautic\PointBundle\Event\GroupScoreChangeEvent;
-use Mautic\PointBundle\Model\InsightModel;
-use Mautic\PointBundle\PointGroupEvents;
+use MailVotech\PointBundle\Event\GroupScoreChangeEvent;
+use MailVotech\PointBundle\Model\InsightModel;
+use MailVotech\PointBundle\PointGroupEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class PointInsightSubscriber implements EventSubscriberInterface

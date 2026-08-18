@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\EntityLookupType;
+use MailVotech\CoreBundle\Form\Type\EntityLookupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +19,7 @@ final class EmailListType extends AbstractType
         $resolver->setDefaults(
             [
                 'required'    => false,
-                'modal_route' => 'mautic_email_action',
+                'modal_route' => 'mailvotech_email_action',
                 // Email form UI too complicated for a modal so force a popup
                 'force_popup'        => true,
                 'model'              => 'email',

@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Event;
+namespace MailVotech\CoreBundle\Event;
 
-use Mautic\CoreBundle\Menu\MenuHelper;
+use MailVotech\CoreBundle\Menu\MenuHelper;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class MenuEvent extends Event

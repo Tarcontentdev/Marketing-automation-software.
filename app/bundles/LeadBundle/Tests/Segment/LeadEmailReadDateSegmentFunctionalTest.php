@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment;
+namespace MailVotech\LeadBundle\Tests\Segment;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\ApplicationTester;
 
 /**
- * @see https://github.com/mautic/mautic/issues/16166
+ * @see https://github.com/mailvotech/mailvotech/issues/16166
  */
-final class LeadEmailReadDateSegmentFunctionalTest extends MauticMysqlTestCase
+final class LeadEmailReadDateSegmentFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * @return iterable<string, array{
@@ -169,7 +169,7 @@ final class LeadEmailReadDateSegmentFunctionalTest extends MauticMysqlTestCase
         $applicationTester = new ApplicationTester($application);
 
         $exitCode = $applicationTester->run([
-            'command' => 'mautic:segments:update',
+            'command' => 'mailvotech:segments:update',
             '-i'      => $segment->getId(),
         ]);
 

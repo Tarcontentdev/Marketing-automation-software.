@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\FormBundle\Helper;
+namespace MailVotech\FormBundle\Helper;
 
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\FormBundle\Model\FormModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\FormBundle\Model\FormModel;
 
 class TokenHelper
 {

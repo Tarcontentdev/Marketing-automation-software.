@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Validator;
+namespace MailVotech\EmailBundle\Tests\Validator;
 
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Helper\EmailValidator;
-use Mautic\EmailBundle\Validator\EmailOrEmailTokenList;
-use Mautic\EmailBundle\Validator\EmailOrEmailTokenListValidator;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Validator\CustomFieldValidator;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Helper\EmailValidator;
+use MailVotech\EmailBundle\Validator\EmailOrEmailTokenList;
+use MailVotech\EmailBundle\Validator\EmailOrEmailTokenListValidator;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Validator\CustomFieldValidator;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -184,7 +184,7 @@ final class EmailOrEmailTokenListValidatorTest extends TestCase
                 self::fail('Field should not be fetched');
             },
             function ($message, array $parameters = []): void {
-                Assert::assertSame('mautic.email.email_or_token.not_valid', $message);
+                Assert::assertSame('mailvotech.email.email_or_token.not_valid', $message);
                 Assert::assertSame(
                     [
                         '%value%'   => 'somestring',
@@ -215,7 +215,7 @@ final class EmailOrEmailTokenListValidatorTest extends TestCase
                 self::fail('Field should not be fetched');
             },
             function ($message, array $parameters = []): void {
-                Assert::assertSame('mautic.email.email_or_token.not_valid', $message);
+                Assert::assertSame('mailvotech.email.email_or_token.not_valid', $message);
                 Assert::assertSame(
                     [
                         '%value%'   => 'somestring',
@@ -233,11 +233,11 @@ final class EmailOrEmailTokenListValidatorTest extends TestCase
                 self::fail('Field should not be fetched');
             },
             function ($message, array $parameters = []): void {
-                Assert::assertSame('mautic.email.email_or_token.not_valid', $message);
+                Assert::assertSame('mailvotech.email.email_or_token.not_valid', $message);
                 Assert::assertSame(
                     [
                         '%value%'   => '{contactfield=somefield | invalid-default-email-address}',
-                        '%details%' => 'mautic.email.address.invalid_format',
+                        '%details%' => 'mailvotech.email.address.invalid_format',
                     ],
                     $parameters
                 );
@@ -254,11 +254,11 @@ final class EmailOrEmailTokenListValidatorTest extends TestCase
                 return null;
             },
             function ($message, array $parameters = []): void {
-                Assert::assertSame('mautic.email.email_or_token.not_valid', $message);
+                Assert::assertSame('mailvotech.email.email_or_token.not_valid', $message);
                 Assert::assertSame(
                     [
                         '%value%'   => '{contactfield=somefield|jane@doe.com}',
-                        '%details%' => 'mautic.lead.contact.field.not.found',
+                        '%details%' => 'mailvotech.lead.contact.field.not.found',
                     ],
                     $parameters
                 );
@@ -279,11 +279,11 @@ final class EmailOrEmailTokenListValidatorTest extends TestCase
                 return $field;
             },
             function ($message, array $parameters = []): void {
-                Assert::assertSame('mautic.email.email_or_token.not_valid', $message);
+                Assert::assertSame('mailvotech.email.email_or_token.not_valid', $message);
                 Assert::assertSame(
                     [
                         '%value%'   => '{contactfield=somefield}',
-                        '%details%' => 'mautic.lead.contact.wrong.field.type',
+                        '%details%' => 'mailvotech.lead.contact.wrong.field.type',
                     ],
                     $parameters
                 );
@@ -322,7 +322,7 @@ final class EmailOrEmailTokenListValidatorTest extends TestCase
                 return $field;
             },
             function ($message, array $parameters = []): void {
-                Assert::assertSame('mautic.email.email_or_token.not_valid', $message);
+                Assert::assertSame('mailvotech.email.email_or_token.not_valid', $message);
                 Assert::assertSame(
                     [
                         '%value%'   => 'jone@doe.email {contactfield=somefield}',

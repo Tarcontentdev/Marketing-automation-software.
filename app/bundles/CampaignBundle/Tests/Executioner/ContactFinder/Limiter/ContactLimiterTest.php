@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Executioner\ContactFinder\Limiter;
+namespace MailVotech\CampaignBundle\Tests\Executioner\ContactFinder\Limiter;
 
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\CampaignBundle\Executioner\Exception\NoContactsFoundException;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CampaignBundle\Executioner\Exception\NoContactsFoundException;
 
 final class ContactLimiterTest extends \PHPUnit\Framework\TestCase
 {

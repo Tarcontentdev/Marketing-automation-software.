@@ -51,7 +51,7 @@ final class AbstractClassNameMustBeAbstractRule implements Rule
             'Class "%s" has "Abstract" in its name but is not declared abstract. Add the "abstract" keyword or rename the class.',
             $shortClassName
         ))
-            ->identifier('mautic.abstractClassName')
+            ->identifier('mailvotech.abstractClassName')
             ->build();
 
         return [$ruleError];

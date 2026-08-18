@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Validator;
+namespace MailVotech\EmailBundle\Validator;
 
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Form\Validator\Constraints\LeadListAccess;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Form\Validator\Constraints\LeadListAccess;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -37,7 +37,7 @@ final class EmailListsValidator extends ConstraintValidator
             [
                 new LeadListAccess(),
                 new NotBlank(
-                    message: 'mautic.lead.lists.required'
+                    message: 'mailvotech.lead.lists.required'
                 ),
             ]
         );
@@ -62,7 +62,7 @@ final class EmailListsValidator extends ConstraintValidator
         $isConflicting    = (bool) array_intersect($listsIds, $excludedListsIds);
 
         if ($isConflicting) {
-            $this->context->buildViolation('mautic.lead.excluded_lists.conflicting')
+            $this->context->buildViolation('mailvotech.lead.excluded_lists.conflicting')
                 ->atPath('excludedLists')
                 ->addViolation();
         }

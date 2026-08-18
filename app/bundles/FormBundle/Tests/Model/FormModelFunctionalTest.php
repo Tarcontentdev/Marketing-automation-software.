@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Model;
+namespace MailVotech\FormBundle\Tests\Model;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Model\FormModel;
-use Mautic\FormBundle\Tests\Helper\ConditionalFieldOrderTestData;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Model\FormModel;
+use MailVotech\FormBundle\Tests\Helper\ConditionalFieldOrderTestData;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class FormModelFunctionalTest extends MauticMysqlTestCase
+final class FormModelFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -33,7 +33,7 @@ final class FormModelFunctionalTest extends MauticMysqlTestCase
 
         // Parent session key must contain 'new' so FormConditionalSubscriber resolves it to a persisted field ID.
         $sessionFields = ConditionalFieldOrderTestData::createSessionFields([
-            'parentKey'            => 'new_mautic_parent',
+            'parentKey'            => 'new_mailvotech_parent',
             'withConditions'       => true,
             'withSelectProperties' => true,
         ]);
@@ -55,7 +55,7 @@ final class FormModelFunctionalTest extends MauticMysqlTestCase
 
         $resaveSessionFields = [];
         foreach ($reloaded->getFields() as $field) {
-            $sessionId = 'mautic_re_'.$field->getId();
+            $sessionId = 'mailvotech_re_'.$field->getId();
             $field->setSessionId($sessionId);
             $fieldData = $field->convertToArray();
             unset($fieldData['form']);
@@ -101,9 +101,9 @@ final class FormModelFunctionalTest extends MauticMysqlTestCase
         $this->assertSame('testform@test.com', $inputValue);
         $inputValue = $crawler->filter('input[type=text]')->attr('value');
         $this->assertSame('test', $inputValue);
-        $inputValue = $crawler->filter('textarea[name^=mauticform]')->html();
+        $inputValue = $crawler->filter('textarea[name^=mailvotechform]')->html();
         $this->assertSame('test-test', $inputValue);
-        $inputValue = $crawler->filter('textarea[name^=mauticform]')->html();
+        $inputValue = $crawler->filter('textarea[name^=mailvotechform]')->html();
         $this->assertSame('test-test', $inputValue);
         $inputValue = $crawler->filter('input[value^=val1]')->attr('checked');
         $this->assertNotNull($inputValue, $crawler->html());
@@ -238,9 +238,9 @@ final class FormModelFunctionalTest extends MauticMysqlTestCase
 
         $this->client->request('GET', "/form/{$formId}");
         $formCrawler = $this->client->getCrawler();
-        $checkboxA   = $formCrawler->filter('[id*="mauticform_checkboxgrp_checkbox_"][id$="_a0"]')->attr('checked');
-        $checkboxB   = $formCrawler->filter('[id*="mauticform_checkboxgrp_checkbox_"][id$="_b1"]')->attr('checked');
-        $checkboxC   = $formCrawler->filter('[id*="mauticform_checkboxgrp_checkbox_"][id$="_c2"]')->attr('checked');
+        $checkboxA   = $formCrawler->filter('[id*="mailvotechform_checkboxgrp_checkbox_"][id$="_a0"]')->attr('checked');
+        $checkboxB   = $formCrawler->filter('[id*="mailvotechform_checkboxgrp_checkbox_"][id$="_b1"]')->attr('checked');
+        $checkboxC   = $formCrawler->filter('[id*="mailvotechform_checkboxgrp_checkbox_"][id$="_c2"]')->attr('checked');
 
         $this->assertNotNull($checkboxA, 'Checkbox A should be preselected.');
         $this->assertNotNull($checkboxB, 'Checkbox B should be preselected.');

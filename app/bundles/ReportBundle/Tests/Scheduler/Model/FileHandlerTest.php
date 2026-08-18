@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Scheduler\Model;
+namespace MailVotech\ReportBundle\Tests\Scheduler\Model;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\FilePathResolver;
-use Mautic\CoreBundle\Helper\FileProperties;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Exception\FileTooBigException;
-use Mautic\ReportBundle\Scheduler\Model\FileHandler;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\FilePathResolver;
+use MailVotech\CoreBundle\Helper\FileProperties;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Exception\FileTooBigException;
+use MailVotech\ReportBundle\Scheduler\Model\FileHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class FileHandlerTest extends \PHPUnit\Framework\TestCase

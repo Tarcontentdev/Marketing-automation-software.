@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Validator\Constraints;
+namespace MailVotech\DynamicContentBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -18,7 +18,7 @@ final class SlotNameType extends Constraint
      */
     #[HasNamedArguments]
     public function __construct(
-        public string $message = 'mautic.dynamicContent.slot_name_type',
+        public string $message = 'mailvotech.dynamicContent.slot_name_type',
         ?array $groups = null,
         mixed $payload = null,
     ) {

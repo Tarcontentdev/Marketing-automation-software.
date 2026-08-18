@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Tests\Functional;
+namespace MailVotech\ApiBundle\Tests\Functional;
 
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\HttpOperation;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Resource\Factory\ResourceMetadataCollectionFactoryInterface;
 use ApiPlatform\Metadata\Resource\Factory\ResourceNameCollectionFactoryInterface;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
 /**
  * Contract test: every ownership-scoped item operation in every API v2 resource
@@ -20,7 +20,7 @@ use Mautic\CoreBundle\Test\MauticMysqlTestCase;
  * grant access to any user holding the `own` permission bit — regardless of
  * whether they actually own that specific entity.
  */
-final class OwnershipScopedSecurityMetadataTest extends MauticMysqlTestCase
+final class OwnershipScopedSecurityMetadataTest extends MailVotechMysqlTestCase
 {
     public function testAllOwnershipScopedItemOperationsPassObjectToSecurityExpression(): void
     {

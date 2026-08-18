@@ -5,62 +5,62 @@ declare(strict_types=1);
 return [
     'routes' => [
         'main' => [
-            'mautic_core_ajax' => [
+            'mailvotech_core_ajax' => [
                 'path'       => '/ajax',
-                'controller' => 'Mautic\CoreBundle\Controller\AjaxController::delegateAjaxAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\AjaxController::delegateAjaxAction',
             ],
-            'mautic_core_form_action' => [
+            'mailvotech_core_form_action' => [
                 'path'       => '/action/{objectAction}/{objectModel}/{objectId}',
-                'controller' => 'Mautic\CoreBundle\Controller\FormController::executeAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\FormController::executeAction',
                 'defaults'   => [
                     'objectModel' => '',
                 ],
             ],
-            'mautic_core_file_action' => [
+            'mailvotech_core_file_action' => [
                 'path'       => '/file/{objectAction}/{objectId}',
-                'controller' => 'Mautic\CoreBundle\Controller\FileController::executeAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\FileController::executeAction',
             ],
-            'mautic_themes_index' => [
+            'mailvotech_themes_index' => [
                 'path'       => '/themes',
-                'controller' => 'Mautic\CoreBundle\Controller\ThemeController::indexAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\ThemeController::indexAction',
             ],
-            'mautic_themes_action' => [
+            'mailvotech_themes_action' => [
                 'path'       => '/themes/{objectAction}/{objectId}',
-                'controller' => 'Mautic\CoreBundle\Controller\ThemeController::executeAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\ThemeController::executeAction',
             ],
-            'mautic_core_keep_alive' => [
+            'mailvotech_core_keep_alive' => [
                 'path'       => '/keep-alive',
-                'controller' => 'Mautic\CoreBundle\Controller\KeepAliveController::keepAliveAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\KeepAliveController::keepAliveAction',
             ],
         ],
         'public' => [
-            'mautic_js' => [
+            'mailvotech_js' => [
                 'path'       => '/mtc.js',
-                'controller' => 'Mautic\CoreBundle\Controller\JsController::indexAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\JsController::indexAction',
             ],
-            'mautic_essential_js' => [
-                'path'       => '/mautic-essential.js',
-                'controller' => 'Mautic\CoreBundle\Controller\JsController::essentialAction',
+            'mailvotech_essential_js' => [
+                'path'       => '/mailvotech-essential.js',
+                'controller' => 'MailVotech\CoreBundle\Controller\JsController::essentialAction',
             ],
-            'mautic_tracking_js' => [
-                'path'       => '/mautic-tracking.js',
-                'controller' => 'Mautic\CoreBundle\Controller\JsController::trackingAction',
+            'mailvotech_tracking_js' => [
+                'path'       => '/mailvotech-tracking.js',
+                'controller' => 'MailVotech\CoreBundle\Controller\JsController::trackingAction',
             ],
-            'mautic_base_index' => [
+            'mailvotech_base_index' => [
                 'path'       => '/',
-                'controller' => 'Mautic\CoreBundle\Controller\DefaultController::indexAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\DefaultController::indexAction',
             ],
-            'mautic_secure_root' => [
+            'mailvotech_secure_root' => [
                 'path'       => '/s',
-                'controller' => 'Mautic\CoreBundle\Controller\DefaultController::redirectSecureRootAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\DefaultController::redirectSecureRootAction',
             ],
-            'mautic_secure_root_slash' => [
+            'mailvotech_secure_root_slash' => [
                 'path'       => '/s/',
-                'controller' => 'Mautic\CoreBundle\Controller\DefaultController::redirectSecureRootAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\DefaultController::redirectSecureRootAction',
             ],
-            'mautic_remove_trailing_slash' => [
+            'mailvotech_remove_trailing_slash' => [
                 'path'         => '/{url}',
-                'controller'   => 'Mautic\CoreBundle\Controller\CommonController::removeTrailingSlashAction',
+                'controller'   => 'MailVotech\CoreBundle\Controller\CommonController::removeTrailingSlashAction',
                 'method'       => 'GET',
                 'requirements' => [
                     'url' => '.*/$',
@@ -68,41 +68,41 @@ return [
             ],
         ],
         'api' => [
-            'mautic_core_api_file_list' => [
+            'mailvotech_core_api_file_list' => [
                 'path'       => '/files/{dir}',
-                'controller' => 'Mautic\CoreBundle\Controller\Api\FileApiController::listAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\Api\FileApiController::listAction',
             ],
-            'mautic_core_api_file_create' => [
+            'mailvotech_core_api_file_create' => [
                 'path'       => '/files/{dir}/new',
-                'controller' => 'Mautic\CoreBundle\Controller\Api\FileApiController::createAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\Api\FileApiController::createAction',
                 'method'     => 'POST',
             ],
-            'mautic_core_api_file_delete' => [
+            'mailvotech_core_api_file_delete' => [
                 'path'       => '/files/{dir}/{file}/delete',
-                'controller' => 'Mautic\CoreBundle\Controller\Api\FileApiController::deleteAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\Api\FileApiController::deleteAction',
                 'method'     => 'DELETE',
             ],
-            'mautic_core_api_theme_list' => [
+            'mailvotech_core_api_theme_list' => [
                 'path'       => '/themes',
-                'controller' => 'Mautic\CoreBundle\Controller\Api\ThemeApiController::listAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\Api\ThemeApiController::listAction',
             ],
-            'mautic_core_api_theme_get' => [
+            'mailvotech_core_api_theme_get' => [
                 'path'       => '/themes/{theme}',
-                'controller' => 'Mautic\CoreBundle\Controller\Api\ThemeApiController::getAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\Api\ThemeApiController::getAction',
             ],
-            'mautic_core_api_theme_create' => [
+            'mailvotech_core_api_theme_create' => [
                 'path'       => '/themes/new',
-                'controller' => 'Mautic\CoreBundle\Controller\Api\ThemeApiController::newAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\Api\ThemeApiController::newAction',
                 'method'     => 'POST',
             ],
-            'mautic_core_api_theme_delete' => [
+            'mailvotech_core_api_theme_delete' => [
                 'path'       => '/themes/{theme}/delete',
-                'controller' => 'Mautic\CoreBundle\Controller\Api\ThemeApiController::deleteAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\Api\ThemeApiController::deleteAction',
                 'method'     => 'DELETE',
             ],
-            'mautic_core_api_stats' => [
+            'mailvotech_core_api_stats' => [
                 'path'       => '/stats/{table}',
-                'controller' => 'Mautic\CoreBundle\Controller\Api\StatsApiController::listAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\Api\StatsApiController::listAction',
                 'defaults'   => [
                     'table' => '',
                 ],
@@ -111,17 +111,17 @@ return [
     ],
     'menu' => [
         'main' => [
-            'mautic.core.components' => [
-                'id'        => 'mautic_components_root',
+            'mailvotech.core.components' => [
+                'id'        => 'mailvotech_components_root',
                 'iconClass' => 'ri-archive-2-fill',
                 'priority'  => 60,
             ],
-            'mautic.core.channels' => [
-                'id'        => 'mautic_channels_root',
+            'mailvotech.core.channels' => [
+                'id'        => 'mailvotech_channels_root',
                 'iconClass' => 'ri-remote-control-fill',
                 'priority'  => 40,
             ],
-            'mautic.contribute.menu.index' => [
+            'mailvotech.contribute.menu.index' => [
                 'uri'            => 'https://mau.tc/support',
                 'iconClass'      => 'ri-hand-coin-fill',
                 'priority'       => 0,
@@ -131,26 +131,26 @@ return [
                 ],
                 'checks' => [
                     'parameters' => [
-                        'support_mautic_enabled' => true,
+                        'support_mailvotech_enabled' => true,
                     ],
                 ],
             ],
         ],
         'admin' => [
-            'mautic.core.general' => [
-                'id'        => 'mautic_general_root',
+            'mailvotech.core.general' => [
+                'id'        => 'mailvotech_general_root',
                 'priority'  => 15,
             ],
-            'mautic.theme.menu.index' => [
-                'route'     => 'mautic_themes_index',
+            'mailvotech.theme.menu.index' => [
+                'route'     => 'mailvotech_themes_index',
                 'iconClass' => 'ri-pantone-line',
-                'id'        => 'mautic_themes_index',
+                'id'        => 'mailvotech_themes_index',
                 'access'    => 'core:themes:view',
-                'parent'    => 'mautic.core.general',
+                'parent'    => 'mailvotech.core.general',
                 'priority'  => 18,
             ],
-            'mautic.core.integrations' => [
-                'id'        => 'mautic_integrations_root',
+            'mailvotech.core.integrations' => [
+                'id'        => 'mailvotech_integrations_root',
                 'priority'  => 15,
             ],
         ],
@@ -171,25 +171,25 @@ return [
     ],
     'services' => [
         'menus' => [
-            'mautic.menu.main' => [
+            'mailvotech.menu.main' => [
                 'alias' => 'main',
             ],
-            'mautic.menu.admin' => [
+            'mailvotech.menu.admin' => [
                 'alias'   => 'admin',
                 'options' => [
-                    'template' => '@MauticCore/Menu/admin.html.twig',
+                    'template' => '@MailVotechCore/Menu/admin.html.twig',
                 ],
             ],
-            'mautic.menu.extra' => [
+            'mailvotech.menu.extra' => [
                 'alias'   => 'extra',
                 'options' => [
-                    'template' => '@MauticCore/Menu/extra.html.twig',
+                    'template' => '@MailVotechCore/Menu/extra.html.twig',
                 ],
             ],
-            'mautic.menu.profile' => [
+            'mailvotech.menu.profile' => [
                 'alias'   => 'profile',
                 'options' => [
-                    'template' => '@MauticCore/Menu/profile_inline.html.twig',
+                    'template' => '@MailVotechCore/Menu/profile_inline.html.twig',
                 ],
             ],
         ],
@@ -198,51 +198,51 @@ return [
     'ip_lookup_services' => [
         'extreme-ip' => [
             'display_name' => 'Extreme-IP',
-            'class'        => Mautic\CoreBundle\IpLookup\ExtremeIpLookup::class,
+            'class'        => MailVotech\CoreBundle\IpLookup\ExtremeIpLookup::class,
         ],
         'freegeoip' => [
             'display_name' => 'Ipstack.com',
-            'class'        => Mautic\CoreBundle\IpLookup\IpstackLookup::class,
+            'class'        => MailVotech\CoreBundle\IpLookup\IpstackLookup::class,
         ],
         'geobytes' => [
             'display_name' => 'Geobytes',
-            'class'        => Mautic\CoreBundle\IpLookup\GeobytesLookup::class,
+            'class'        => MailVotech\CoreBundle\IpLookup\GeobytesLookup::class,
         ],
         'geoips' => [
             'display_name' => 'GeoIPs',
-            'class'        => Mautic\CoreBundle\IpLookup\GeoipsLookup::class,
+            'class'        => MailVotech\CoreBundle\IpLookup\GeoipsLookup::class,
         ],
         'ipinfodb' => [
             'display_name' => 'IPInfoDB',
-            'class'        => Mautic\CoreBundle\IpLookup\IpinfodbLookup::class,
+            'class'        => MailVotech\CoreBundle\IpLookup\IpinfodbLookup::class,
         ],
         'maxmind_country' => [
             'display_name' => 'MaxMind - Country Geolocation',
-            'class'        => Mautic\CoreBundle\IpLookup\MaxmindCountryLookup::class,
+            'class'        => MailVotech\CoreBundle\IpLookup\MaxmindCountryLookup::class,
         ],
         'maxmind_omni' => [
             'display_name' => 'MaxMind - Insights (formerly Omni]',
-            'class'        => Mautic\CoreBundle\IpLookup\MaxmindOmniLookup::class,
+            'class'        => MailVotech\CoreBundle\IpLookup\MaxmindOmniLookup::class,
         ],
         'maxmind_precision' => [
             'display_name' => 'MaxMind - GeoIP2 Precision',
-            'class'        => Mautic\CoreBundle\IpLookup\MaxmindPrecisionLookup::class,
+            'class'        => MailVotech\CoreBundle\IpLookup\MaxmindPrecisionLookup::class,
         ],
         'maxmind_download' => [
             'display_name' => 'MaxMind - GeoLite2 City Download',
-            'class'        => Mautic\CoreBundle\IpLookup\MaxmindDownloadLookup::class,
+            'class'        => MailVotech\CoreBundle\IpLookup\MaxmindDownloadLookup::class,
         ],
         'telize' => [
             'display_name' => 'Telize',
-            'class'        => Mautic\CoreBundle\IpLookup\TelizeLookup::class,
+            'class'        => MailVotech\CoreBundle\IpLookup\TelizeLookup::class,
         ],
         'ip2loctionlocal' => [
             'display_name' => 'IP2Location Local Bin File',
-            'class'        => Mautic\CoreBundle\IpLookup\IP2LocationBinLookup::class,
+            'class'        => MailVotech\CoreBundle\IpLookup\IP2LocationBinLookup::class,
         ],
         'ip2loctionapi' => [
             'display_name' => 'IP2Location Web Service',
-            'class'        => Mautic\CoreBundle\IpLookup\IP2LocationAPILookup::class,
+            'class'        => MailVotech\CoreBundle\IpLookup\IP2LocationAPILookup::class,
         ],
     ],
 
@@ -253,7 +253,7 @@ return [
         'cache_path'                      => '%kernel.project_dir%/var/cache',
         'log_path'                        => '%kernel.project_dir%/var/logs',
         'max_log_files'                   => 7,
-        'log_file_name'                   => 'mautic_%kernel.environment%.php',
+        'log_file_name'                   => 'mailvotech_%kernel.environment%.php',
         'image_path'                      => 'media/images',
         'media_path'                      => 'media',
         'tmp_path'                        => '%kernel.project_dir%/var/tmp',
@@ -277,7 +277,7 @@ return [
         'trusted_proxies'                 => [],
         'validate_remote_domains'         => false, // whether to validate remote domains in remote URLs
         'allowed_remote_domains'          => [],
-        'rememberme_key'                  => '%mautic.secret_key%',
+        'rememberme_key'                  => '%mailvotech.secret_key%',
         'rememberme_lifetime'             => 7_776_000, // 90 days in seconds
         'rememberme_path'                 => '/',
         'rememberme_domain'               => '',
@@ -709,14 +709,14 @@ return [
         'debug'                               => false,
         'anonymize_ip_address_in_background'  => false,
         'rss_notification_url'                => '',
-        'motd_url'                            => 'https://mautic.github.io/motd/motd.json',
-        'motd_cache_path'                     => '%mautic.cache_path%/motd.json',
+        'motd_url'                            => 'https://mailvotech.github.io/motd/motd.json',
+        'motd_cache_path'                     => '%mailvotech.cache_path%/motd.json',
         'motd_cache_ttl'                      => 3600,
-        'translations_list_url'               => 'https://language-packs.mautic.com/manifest.json',
-        'translations_fetch_url'              => 'https://language-packs.mautic.com/',
-        'stats_update_url'                    => 'https://updates.mautic.org/stats/send', // set to empty in config file to disable
-        'install_source'                      => 'Mautic',
-        'system_update_url'                   => 'https://api.github.com/repos/mautic/mautic/releases',
+        'translations_list_url'               => 'https://language-packs.mailvotech.com/manifest.json',
+        'translations_fetch_url'              => 'https://language-packs.mailvotech.com/',
+        'stats_update_url'                    => 'https://updates.mailvotech.org/stats/send', // set to empty in config file to disable
+        'install_source'                      => 'MailVotech',
+        'system_update_url'                   => 'https://api.github.com/repos/mailvotech/mailvotech/releases',
         'editor_fonts'                        => [
             [
                 'name' => 'Arial',
@@ -805,8 +805,8 @@ return [
         ],
         'composer_updates'                                        => false,
         'redis_primary_only'                                      => false,
-        Mautic\CoreBundle\Shortener\Shortener::SHORTENER_SERVICE  => null,
-        'gdpr_user_purge_threshold'                               => 1095, // Minimum no. of days a user has to be inactive to get picked up by `mautic:maintenance:cleanup --gdpr`
-        'support_mautic_enabled'                                  => true,
+        MailVotech\CoreBundle\Shortener\Shortener::SHORTENER_SERVICE  => null,
+        'gdpr_user_purge_threshold'                               => 1095, // Minimum no. of days a user has to be inactive to get picked up by `mailvotech:maintenance:cleanup --gdpr`
+        'support_mailvotech_enabled'                                  => true,
     ],
 ];

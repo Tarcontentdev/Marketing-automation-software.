@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Api;
+namespace MailVotech\CampaignBundle\Tests\Functional\Api;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\LeadList;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\LeadList;
 
-final class CampaignApiEventDeleteTest extends MauticMysqlTestCase
+final class CampaignApiEventDeleteTest extends MailVotechMysqlTestCase
 {
     public function testEventAndSourceDeleteViaPutReproducesApiBug(): void
     {

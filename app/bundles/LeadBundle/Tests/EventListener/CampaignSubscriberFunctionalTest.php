@@ -2,36 +2,36 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\DataObject\LeadManipulator;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\ListLead;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Segment\OperatorOptions;
-use Mautic\LeadBundle\Tests\Traits\LeadFieldTestTrait;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\GroupContactScore;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\DataObject\LeadManipulator;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\ListLead;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Tests\Traits\LeadFieldTestTrait;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\GroupContactScore;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\ApplicationTester;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
+final class CampaignSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     use LeadFieldTestTrait;
 
@@ -144,9 +144,9 @@ final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
         $this->em->clear();
 
         // Execute the campaign.
-        $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
 
-        $prefix = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix = self::getContainer()->getParameter('mailvotech.db_table_prefix');
 
         foreach ($listLeads as $contactId) {
             $points = $this->connection->fetchOne("SELECT points FROM {$prefix}leads WHERE id = :id", ['id' => $contactId]);
@@ -202,11 +202,11 @@ final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
         $this->em->clear();
 
         // Execute the campaign.
-        $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
 
         $this->em->clear();
 
-        $prefix = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix = self::getContainer()->getParameter('mailvotech.db_table_prefix');
 
         foreach ($contacts as $contact) {
             $points = $this->connection->fetchOne("SELECT points FROM {$prefix}leads WHERE id = :id", ['id' => $contact->getId()]);
@@ -231,7 +231,7 @@ final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
         // Execute the campaign.
         $exitCode = $applicationTester->run(
             [
-                'command'       => 'mautic:campaigns:trigger',
+                'command'       => 'mailvotech:campaigns:trigger',
                 '--campaign-id' => $campaign->getId(),
             ]
         );
@@ -287,7 +287,7 @@ final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
         // Execute the campaign.
         $exitCode = $applicationTester->run(
             [
-                'command'       => 'mautic:campaigns:trigger',
+                'command'       => 'mailvotech:campaigns:trigger',
                 '--campaign-id' => $campaign->getId(),
             ]
         );
@@ -336,7 +336,7 @@ final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
         // Execute the campaign.
         $exitCode = $applicationTester->run(
             [
-                'command'       => 'mautic:campaigns:trigger',
+                'command'       => 'mailvotech:campaigns:trigger',
                 '--campaign-id' => $campaign->getId(),
             ]
         );
@@ -384,7 +384,7 @@ final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
 
         $this->em->clear();
 
-        $exitCode = $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $exitCode = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
 
         $this->assertSame(0, $exitCode->getStatusCode());
 
@@ -487,7 +487,7 @@ final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
 
         $this->em->clear();
 
-        $exitCode = $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $exitCode = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
         $this->assertSame(0, $exitCode->getStatusCode());
 
         $lead1 = $this->contactRepository->getEntity($contactId1);
@@ -730,7 +730,7 @@ final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
                 'type'                       => 'lead.stages',
                 'eventType'                  => 'condition',
                 'anchorEventType'            => 'source',
-                'campaignId'                 => 'mautic_28ac4b8a4758b8597e8d189fa97b245996e338bb',
+                'campaignId'                 => 'mailvotech_28ac4b8a4758b8597e8d189fa97b245996e338bb',
                 '_token'                     => 'HgysZwvH_n0uAp47CcAcsGddRnRk65t-3crOnuLx28Y',
                 'buttons'                    => ['save' => ''],
                 'stages'                     => [0 => '1'],
@@ -766,7 +766,7 @@ final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
                 'type'                       => 'stage.change',
                 'eventType'                  => 'action',
                 'anchorEventType'            => 'action',
-                'campaignId'                 => 'mautic_28ac4b8a4758b8597e8d189fa97b245996e338bb',
+                'campaignId'                 => 'mailvotech_28ac4b8a4758b8597e8d189fa97b245996e338bb',
                 '_token'                     => 'HgysZwvH_n0uAp47CcAcsGddRnRk65t-3crOnuLx28Y',
                 'buttons'                    => ['save' => ''],
                 'stage'                      => 2,
@@ -890,7 +890,7 @@ final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
                 'type'                       => 'lead.points',
                 'eventType'                  => 'condition',
                 'anchorEventType'            => 'source',
-                'campaignId'                 => 'mautic_28ac4b8a4758b8597e8d189fa97b245996e338bb',
+                'campaignId'                 => 'mailvotech_28ac4b8a4758b8597e8d189fa97b245996e338bb',
                 '_token'                     => 'HgysZwvH_n0uAp47CcAcsGddRnRk65t-3crOnuLx28Y',
                 'buttons'                    => ['save' => ''],
                 'operator'                   => 'gte',
@@ -933,7 +933,7 @@ final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
                 'type'                       => 'lead.changepoints',
                 'eventType'                  => 'action',
                 'anchorEventType'            => 'condition',
-                'campaignId'                 => 'mautic_28ac4b8a4758b8597e8d189fa97b245996e338bb',
+                'campaignId'                 => 'mailvotech_28ac4b8a4758b8597e8d189fa97b245996e338bb',
                 '_token'                     => 'HgysZwvH_n0uAp47CcAcsGddRnRk65t-3crOnuLx28Y',
                 'buttons'                    => ['save' => ''],
                 'points'                     => 1,
@@ -1055,7 +1055,7 @@ final class CampaignSubscriberFunctionalTest extends MauticMysqlTestCase
 
         $event           = new CampaignExecutionEvent($args, false, $log);
         $eventDispatcher = self::getContainer()->get(EventDispatcherInterface::class);
-        $eventDispatcher->dispatch($event, 'mautic.lead.on_campaign_trigger_action');
+        $eventDispatcher->dispatch($event, 'mailvotech.lead.on_campaign_trigger_action');
 
         $leadManipulator = $lead->getManipulator();
         $this->assertInstanceOf(LeadManipulator::class, $leadManipulator);

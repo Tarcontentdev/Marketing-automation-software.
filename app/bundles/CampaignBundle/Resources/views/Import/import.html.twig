@@ -3,16 +3,16 @@
     - form
 #}
 
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent %}campaignImport{% endblock %}
+{% block mailvotechContent %}campaignImport{% endblock %}
 
 {% block headerTitle %}
-    {{ 'mautic.campaign.campaign.import.title'|trans }}
+    {{ 'mailvotech.campaign.campaign.import.title'|trans }}
 {% endblock %}
 
 {% block actions %}
-    {{- include('@MauticCore/Helper/page_actions.html.twig', {
+    {{- include('@MailVotechCore/Helper/page_actions.html.twig', {
             'routeBase': 'campaign',
             'templateButtons': {'close': true},
             'routeVars': {
@@ -29,7 +29,7 @@
             <div class="ml-lg mr-lg mt-md pa-lg">               
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <div class="panel-title">{{ 'mautic.campaign.campaign.import.instructions'|trans({'%size%': 100}) }}</div>
+                        <div class="panel-title">{{ 'mailvotech.campaign.campaign.import.instructions'|trans({'%size%': 100}) }}</div>
                     </div>
 
                     <div class="panel-body">

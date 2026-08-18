@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Command;
+namespace MailVotech\CoreBundle\Tests\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
 
-final class CleanupMaintenanceCommandTest extends MauticMysqlTestCase
+final class CleanupMaintenanceCommandTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -20,7 +20,7 @@ final class CleanupMaintenanceCommandTest extends MauticMysqlTestCase
         $inactiveLead  = $this->createLead('-1 year');
         $contactId     = $inactiveLead->getId();
 
-        $this->testSymfonyCommand('mautic:maintenance:cleanup', ['--days-old' => 180, '--no-interaction' => true]);
+        $this->testSymfonyCommand('mailvotech:maintenance:cleanup', ['--days-old' => 180, '--no-interaction' => true]);
 
         $this->assertNull(
             self::getContainer()->get(LeadModel::class)->getEntity($contactId),
@@ -28,7 +28,7 @@ final class CleanupMaintenanceCommandTest extends MauticMysqlTestCase
         );
 
         // get last row sql query from audit_log table
-        $sql    = 'SELECT * FROM '.MAUTIC_TABLE_PREFIX.'audit_log ORDER BY id DESC LIMIT 1';
+        $sql    = 'SELECT * FROM '.MAILVOTECH_TABLE_PREFIX.'audit_log ORDER BY id DESC LIMIT 1';
         $stmt   = $this->em->getConnection()->prepare($sql);
         $result = $stmt->executeQuery()->fetchAssociative();
         $this->assertEquals('core', $result['bundle']);
@@ -39,7 +39,7 @@ final class CleanupMaintenanceCommandTest extends MauticMysqlTestCase
         $activeLead = $this->createLead('-170 days');
         $contactId  = $activeLead->getId();
 
-        $this->testSymfonyCommand('mautic:maintenance:cleanup', ['--days-old' => 180, '--no-interaction' => true]);
+        $this->testSymfonyCommand('mailvotech:maintenance:cleanup', ['--days-old' => 180, '--no-interaction' => true]);
 
         $this->assertNotNull(
             self::getContainer()->get(LeadModel::class)->getEntity($contactId),
@@ -57,7 +57,7 @@ final class CleanupMaintenanceCommandTest extends MauticMysqlTestCase
         $NotPurgeableContact  = $this->createLead($lastActive, $identified);
         $contactId            = $NotPurgeableContact->getId();
 
-        $this->testSymfonyCommand('mautic:maintenance:cleanup', ['--gdpr' => 1, '--no-interaction' => true]);
+        $this->testSymfonyCommand('mailvotech:maintenance:cleanup', ['--gdpr' => 1, '--no-interaction' => true]);
         $this->assertNotNull(
             $this->getContainer()->get(LeadModel::class)->getEntity($contactId),
             'Keep an identified contact that is still considered active.'
@@ -67,7 +67,7 @@ final class CleanupMaintenanceCommandTest extends MauticMysqlTestCase
         $purgeableContact = $this->createLead($lastActive, $identified);
         $contactId        = $purgeableContact->getId();
 
-        $this->testSymfonyCommand('mautic:maintenance:cleanup', ['--gdpr' => 1, '--no-interaction' => true]);
+        $this->testSymfonyCommand('mailvotech:maintenance:cleanup', ['--gdpr' => 1, '--no-interaction' => true]);
         $this->assertNull(
             $this->getContainer()->get(LeadModel::class)->getEntity($contactId),
             'Purge an identified contact that is considered inactive'
@@ -78,7 +78,7 @@ final class CleanupMaintenanceCommandTest extends MauticMysqlTestCase
         $NotPurgeableContact  = $this->createLead($lastActive, $identified);
         $contactId            = $NotPurgeableContact->getId();
 
-        $this->testSymfonyCommand('mautic:maintenance:cleanup', ['--gdpr' => 1, '--no-interaction' => true]);
+        $this->testSymfonyCommand('mailvotech:maintenance:cleanup', ['--gdpr' => 1, '--no-interaction' => true]);
         $this->assertNotNull(
             $this->getContainer()->get(LeadModel::class)->getEntity($contactId),
             'Keep an identified contact that is still considered active because of custom "gdpr_user_purge_threshold".'

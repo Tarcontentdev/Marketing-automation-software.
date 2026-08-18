@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Tests;
+namespace MailVotech\NotificationBundle\Tests;
 
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Handler\MockHandler;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\NotificationBundle\Entity\Notification;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\NotificationBundle\Entity\Notification;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 trait NotificationTrait

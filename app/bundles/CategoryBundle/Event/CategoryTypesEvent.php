@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CategoryBundle\Event;
+namespace MailVotech\CategoryBundle\Event;
 
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Event\CommonEvent;
 
 final class CategoryTypesEvent extends CommonEvent
 {
@@ -24,7 +24,7 @@ final class CategoryTypesEvent extends CommonEvent
             asort($this->types);
 
             $this->types = array_merge(
-                ['global' => 'mautic.category.global'],
+                ['global' => 'mailvotech.category.global'],
                 $this->types
             );
         }
@@ -45,7 +45,7 @@ final class CategoryTypesEvent extends CommonEvent
         }
 
         if (null === $label) {
-            $label = 'mautic.'.$type.'.'.$type;
+            $label = 'mailvotech.'.$type.'.'.$type;
         }
 
         $this->types[$type] = $label;

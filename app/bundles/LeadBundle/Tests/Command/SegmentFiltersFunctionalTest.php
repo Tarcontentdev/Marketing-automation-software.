@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Command;
+namespace MailVotech\LeadBundle\Tests\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\ListLead;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\ListLead;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class SegmentFiltersFunctionalTest extends MauticMysqlTestCase
+final class SegmentFiltersFunctionalTest extends MailVotechMysqlTestCase
 {
     private const FIELD_NAME = 'car';
 
@@ -60,7 +60,7 @@ final class SegmentFiltersFunctionalTest extends MauticMysqlTestCase
         }
 
         // update the segment
-        $this->testSymfonyCommand('mautic:segments:update', ['-i' => $segmentId]);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['-i' => $segmentId]);
 
         // get the lead list leads stored in db after the segment update
         $leadListLeads = $this->em->getRepository(ListLead::class)->findBy(['list' => $segment]);

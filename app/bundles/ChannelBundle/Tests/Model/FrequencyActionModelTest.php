@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Tests\Model;
+namespace MailVotech\ChannelBundle\Tests\Model;
 
 use Doctrine\Common\Collections\AbstractLazyCollection;
-use Mautic\ChannelBundle\Model\FrequencyActionModel;
-use Mautic\LeadBundle\Entity\FrequencyRule;
-use Mautic\LeadBundle\Entity\FrequencyRuleRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\ChannelBundle\Model\FrequencyActionModel;
+use MailVotech\LeadBundle\Entity\FrequencyRule;
+use MailVotech\LeadBundle\Entity\FrequencyRuleRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class FrequencyActionModelTest extends \PHPUnit\Framework\TestCase

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Notification\Helper;
+namespace MailVotech\IntegrationsBundle\Sync\Notification\Helper;
 
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class UserNotificationBuilder
@@ -22,9 +22,9 @@ final readonly class UserNotificationBuilder
      *
      * @throws ObjectNotSupportedException
      */
-    public function getUserIds(string $mauticObject, int $id): array
+    public function getUserIds(string $mailvotechObject, int $id): array
     {
-        $owners = $this->ownerProvider->getOwnersForObjectIds($mauticObject, [$id]);
+        $owners = $this->ownerProvider->getOwnersForObjectIds($mailvotechObject, [$id]);
 
         if (!empty($owners[0]['owner_id'])) {
             return [(int) $owners[0]['owner_id']];
@@ -33,15 +33,15 @@ final readonly class UserNotificationBuilder
         return $this->userHelper->getAdminUsers();
     }
 
-    public function buildLink(string $mauticObject, int $id, string $linkText): string
+    public function buildLink(string $mailvotechObject, int $id, string $linkText): string
     {
-        return $this->routeHelper->getLink($mauticObject, $id, $linkText);
+        return $this->routeHelper->getLink($mailvotechObject, $id, $linkText);
     }
 
     public function formatHeader(string $integrationDisplayName, string $objectDisplayName): string
     {
         return $this->translator->trans(
-            'mautic.integration.sync.user_notification.header',
+            'mailvotech.integration.sync.user_notification.header',
             [
                 '%integration%' => $integrationDisplayName,
                 '%object%'      => $objectDisplayName,
@@ -52,7 +52,7 @@ final readonly class UserNotificationBuilder
     public function formatMessage(string $message, string $link): string
     {
         return $this->translator->trans(
-            'mautic.integration.sync.user_notification.sync_error',
+            'mailvotech.integration.sync.user_notification.sync_error',
             [
                 '%name%'    => $link,
                 '%message%' => $message,

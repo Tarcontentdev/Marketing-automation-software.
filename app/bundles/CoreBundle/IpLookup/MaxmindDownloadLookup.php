@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\IpLookup;
+namespace MailVotech\CoreBundle\IpLookup;
 
 use GeoIp2\Database\Reader;
 

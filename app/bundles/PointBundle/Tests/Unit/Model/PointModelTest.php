@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Unit\Model;
+namespace MailVotech\PointBundle\Tests\Unit\Model;
 
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Helper\PointActionHelper;
-use Mautic\PointBundle\Entity\Point;
-use Mautic\PointBundle\Entity\PointRepository;
-use Mautic\PointBundle\Event\PointActionEvent;
-use Mautic\PointBundle\Event\PointBuilderEvent;
-use Mautic\PointBundle\Model\PointGroupModel;
-use Mautic\PointBundle\Model\PointModel;
-use Mautic\PointBundle\PointEvents;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Helper\PointActionHelper;
+use MailVotech\PointBundle\Entity\Point;
+use MailVotech\PointBundle\Entity\PointRepository;
+use MailVotech\PointBundle\Event\PointActionEvent;
+use MailVotech\PointBundle\Event\PointBuilderEvent;
+use MailVotech\PointBundle\Model\PointGroupModel;
+use MailVotech\PointBundle\Model\PointModel;
+use MailVotech\PointBundle\PointEvents;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;

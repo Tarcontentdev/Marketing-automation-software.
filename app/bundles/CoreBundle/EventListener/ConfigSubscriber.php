@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
-use Mautic\ConfigBundle\ConfigEvents;
-use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use Mautic\ConfigBundle\Event\ConfigEvent;
-use Mautic\CoreBundle\Form\Type\ConfigType;
-use Mautic\CoreBundle\Helper\LanguageHelper;
+use MailVotech\ConfigBundle\ConfigEvents;
+use MailVotech\ConfigBundle\Event\ConfigBuilderEvent;
+use MailVotech\ConfigBundle\Event\ConfigEvent;
+use MailVotech\CoreBundle\Form\Type\ConfigType;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ConfigSubscriber implements EventSubscriberInterface
@@ -26,14 +26,14 @@ final readonly class ConfigSubscriber implements EventSubscriberInterface
 
     public function onConfigGenerate(ConfigBuilderEvent $event): void
     {
-        $coreParams = $event->getParametersFromConfig('MauticCoreBundle');
+        $coreParams = $event->getParametersFromConfig('MailVotechCoreBundle');
         unset($coreParams['theme']);
         unset($coreParams['theme_import_allowed_extensions']);
         $event->addForm([
             'bundle'     => 'CoreBundle',
             'formType'   => ConfigType::class,
             'formAlias'  => 'coreconfig',
-            'formTheme'  => '@MauticCore/FormTheme/Config/config_layout.html.twig',
+            'formTheme'  => '@MailVotechCore/FormTheme/Config/config_layout.html.twig',
             'parameters' => $coreParams,
         ]);
     }
@@ -52,7 +52,7 @@ final readonly class ConfigSubscriber implements EventSubscriberInterface
             // If there is an error, fall back to 'en_US' as it is our system default
             if ($fetchLanguage['error']) {
                 $values['coreconfig']['locale'] = 'en_US';
-                $message                        = 'mautic.core.could.not.set.language';
+                $message                        = 'mailvotech.core.could.not.set.language';
                 $messageVars                    = [];
 
                 if (isset($fetchLanguage['message'])) {

@@ -1,24 +1,24 @@
 <?php
 
-namespace Mautic\LeadBundle\Controller;
+namespace MailVotech\LeadBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\CoreBundle\Form\Type\FindReplaceType;
-use Mautic\CoreBundle\Helper\ExportHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Entity\CustomFieldEntityInterface;
-use Mautic\LeadBundle\Field\CustomFieldFindReplace;
-use Mautic\LeadBundle\Field\DTO\CustomFieldFindReplaceCriteria;
-use Mautic\LeadBundle\Form\Type\CompanyMergeType;
-use Mautic\LeadBundle\Form\Type\OwnerType;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Services\CompanyColumnsDictionary;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\CoreBundle\Form\Type\FindReplaceType;
+use MailVotech\CoreBundle\Helper\ExportHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Entity\CustomFieldEntityInterface;
+use MailVotech\LeadBundle\Field\CustomFieldFindReplace;
+use MailVotech\LeadBundle\Field\DTO\CustomFieldFindReplaceCriteria;
+use MailVotech\LeadBundle\Form\Type\CompanyMergeType;
+use MailVotech\LeadBundle\Form\Type\OwnerType;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Services\CompanyColumnsDictionary;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +30,7 @@ final class CompanyController extends FormController
 
     private CompanyRepository $companyRepository;
 
-    private \Mautic\UserBundle\Entity\UserRepository $userRepository;
+    private \MailVotech\UserBundle\Entity\UserRepository $userRepository;
 
     private FieldModel $fieldModel;
 
@@ -44,7 +44,7 @@ final class CompanyController extends FormController
         CompanyModel $companyModel,
         FieldModel $fieldModel,
         CompanyRepository $companyRepository,
-        \Mautic\UserBundle\Entity\UserRepository $userRepository,
+        \MailVotech\UserBundle\Entity\UserRepository $userRepository,
     ): void {
         $this->leadModel = $leadModel;
         $this->companyModel = $companyModel;
@@ -74,7 +74,7 @@ final class CompanyController extends FormController
                 }
             }
             $this->companyModel->saveEntities($companies);
-            $this->addFlashMessage('mautic.company.batch_companies_affected', ['%count%' => $count]);
+            $this->addFlashMessage('mailvotech.company.batch_companies_affected', ['%count%' => $count]);
 
             return new JsonResponse(['closeModal' => true, 'flashes' => $this->getFlashContent()]);
         }
@@ -84,12 +84,12 @@ final class CompanyController extends FormController
         foreach ($users as $user) {
             $items[$user['firstName'].' '.$user['lastName'].' ('.$user['id'].')'] = $user['id'];
         }
-        $route = $this->generateUrl('mautic_company_action', ['objectAction' => 'batchOwners']);
+        $route = $this->generateUrl('mailvotech_company_action', ['objectAction' => 'batchOwners']);
 
         return $this->delegateView([
             'viewParameters' => ['form' => $this->createForm(OwnerType::class, [], ['items' => $items, 'action' => $route])->createView()],
-            'contentTemplate' => '@MauticLead/Batch/form.html.twig',
-            'passthroughVars' => ['activeLink' => '#mautic_company_index', 'mauticContent' => 'companyBatch', 'route' => $route],
+            'contentTemplate' => '@MailVotechLead/Batch/form.html.twig',
+            'passthroughVars' => ['activeLink' => '#mailvotech_company_index', 'mailvotechContent' => 'companyBatch', 'route' => $route],
         ]);
     }
 
@@ -115,14 +115,14 @@ final class CompanyController extends FormController
 
         $this->setListFilters();
 
-        $pageHelper = $pageHelperFactory->make('mautic.company', $page);
+        $pageHelper = $pageHelperFactory->make('mailvotech.company', $page);
 
         $limit      = $pageHelper->getLimit();
         $start      = $pageHelper->getStart();
-        $search     = $request->get('search', $request->getSession()->get('mautic.company.filter', ''));
+        $search     = $request->get('search', $request->getSession()->get('mailvotech.company.filter', ''));
         $filter     = ['string' => $search, 'force' => []];
-        $orderBy    = $request->getSession()->get('mautic.company.orderby', 'comp.companyname');
-        $orderByDir = $request->getSession()->get('mautic.company.orderbydir', 'ASC');
+        $orderBy    = $request->getSession()->get('mailvotech.company.orderby', 'comp.companyname');
+        $orderByDir = $request->getSession()->get('mailvotech.company.orderbydir', 'ASC');
 
         $companies = $this->companyModel->getEntities(
             [
@@ -135,24 +135,24 @@ final class CompanyController extends FormController
             ]
         );
 
-        $request->getSession()->set('mautic.company.filter', $search);
+        $request->getSession()->set('mailvotech.company.filter', $search);
 
         $count     = $companies['count'];
         $companies = $companies['results'];
 
         if ($count && $count < ($start + 1)) {
             $lastPage  = $pageHelper->countPage($count);
-            $returnUrl = $this->generateUrl('mautic_company_index', ['page' => $lastPage]);
+            $returnUrl = $this->generateUrl('mailvotech_company_index', ['page' => $lastPage]);
             $pageHelper->rememberPage($lastPage);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $lastPage],
-                    'contentTemplate' => 'Mautic\LeadBundle\Controller\CompanyController::indexAction',
+                    'contentTemplate' => 'MailVotech\LeadBundle\Controller\CompanyController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_company_index',
-                        'mauticContent' => 'company',
+                        'activeLink'    => '#mailvotech_company_index',
+                        'mailvotechContent' => 'company',
                     ],
                 ]
             );
@@ -177,11 +177,11 @@ final class CompanyController extends FormController
                     'tmpl'        => $tmpl,
                     'totalItems'  => $count,
                 ],
-                'contentTemplate' => '@MauticLead/Company/list.html.twig',
+                'contentTemplate' => '@MailVotechLead/Company/list.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_company_index',
-                    'mauticContent' => 'company',
-                    'route'         => $this->generateUrl('mautic_company_index', ['page' => $page]),
+                    'activeLink'    => '#mailvotech_company_index',
+                    'mailvotechContent' => 'company',
+                    'route'         => $this->generateUrl('mailvotech_company_index', ['page' => $page]),
                 ],
             ]
         );
@@ -230,7 +230,7 @@ final class CompanyController extends FormController
                     'permissions' => $permissions,
                     'security'    => $this->security,
                 ],
-                'contentTemplate' => '@MauticLead/Company/list_rows_contacts.html.twig',
+                'contentTemplate' => '@MailVotechLead/Company/list_rows_contacts.html.twig',
             ]
         );
     }
@@ -252,9 +252,9 @@ final class CompanyController extends FormController
         }
 
         // set the page we came from
-        $page         = $request->getSession()->get('mautic.company.page', 1);
+        $page         = $request->getSession()->get('mailvotech.company.page', 1);
         $method       = $request->getMethod();
-        $action       = $this->generateUrl('mautic_company_action', ['objectAction' => 'new']);
+        $action       = $this->generateUrl('mailvotech_company_action', ['objectAction' => 'new']);
         $company      = $request->request->all()['company'] ?? [];
         $updateSelect = InputHelper::clean(
             'POST' === $method
@@ -265,8 +265,8 @@ final class CompanyController extends FormController
         $form   = $this->companyModel->createForm($entity, $this->formFactory, $action, ['fields' => $fields, 'update_select' => $updateSelect]);
 
         $viewParameters = ['page' => $page];
-        $returnUrl      = $this->generateUrl('mautic_company_index', $viewParameters);
-        $template       = 'Mautic\LeadBundle\Controller\CompanyController::indexAction';
+        $returnUrl      = $this->generateUrl('mailvotech_company_index', $viewParameters);
+        $template       = 'MailVotech\LeadBundle\Controller\CompanyController::indexAction';
 
         // /Check for a submitted form and process it
         if ('POST' === $request->getMethod()) {
@@ -285,12 +285,12 @@ final class CompanyController extends FormController
                     $this->companyModel->saveEntity($entity);
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.created',
+                        'mailvotech.core.notice.created',
                         [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_company_index',
+                            '%menu_link%' => 'mailvotech_company_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_company_action',
+                                'mailvotech_company_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $entity->getId(),
@@ -301,8 +301,8 @@ final class CompanyController extends FormController
 
                     if ($this->getFormButton($form, ['buttons', 'save'])->isClicked()) {
                         $viewParameters = ['objectAction' => 'view', 'objectId' => $entity->getId()];
-                        $returnUrl      = $this->generateUrl('mautic_company_action', $viewParameters);
-                        $template       = 'Mautic\LeadBundle\Controller\CompanyController::viewAction';
+                        $returnUrl      = $this->generateUrl('mailvotech_company_action', $viewParameters);
+                        $template       = 'MailVotech\LeadBundle\Controller\CompanyController::viewAction';
                     } else {
                         // return edit view so that all the session stuff is loaded
                         return $this->editAction($request, $entity->getId(), true);
@@ -311,8 +311,8 @@ final class CompanyController extends FormController
             }
 
             $passthrough = [
-                'activeLink'    => '#mautic_company_index',
-                'mauticContent' => 'company',
+                'activeLink'    => '#mailvotech_company_index',
+                'mailvotechContent' => 'company',
             ];
 
             // Check to see if this is a popup
@@ -343,7 +343,7 @@ final class CompanyController extends FormController
         $fields = $this->companyModel->organizeFieldsByGroup($fields);
         $groups = array_keys($fields);
         sort($groups);
-        $template = '@MauticLead/Company/form_'.($request->get('modal', false) ? 'embedded' : 'standalone').'.html.twig';
+        $template = '@MailVotechLead/Company/form_'.($request->get('modal', false) ? 'embedded' : 'standalone').'.html.twig';
 
         return $this->delegateView(
             [
@@ -356,11 +356,11 @@ final class CompanyController extends FormController
                 ],
                 'contentTemplate' => $template,
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_company_index',
-                    'mauticContent' => 'company',
+                    'activeLink'    => '#mailvotech_company_index',
+                    'mailvotechContent' => 'company',
                     'updateSelect'  => ('POST' === $request->getMethod()) ? $updateSelect : null,
                     'route'         => $this->generateUrl(
-                        'mautic_company_action',
+                        'mailvotech_company_action',
                         [
                             'objectAction' => (!empty($valid) ? 'edit' : 'new'), // valid means a new form was applied
                             'objectId'     => $entity->getId(),
@@ -382,20 +382,20 @@ final class CompanyController extends FormController
         $entity = $this->companyModel->getEntity($objectId);
 
         // set the page we came from
-        $page = $request->getSession()->get('mautic.company.page', 1);
+        $page = $request->getSession()->get('mailvotech.company.page', 1);
 
         $viewParameters = ['page' => $page];
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_company_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_company_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => $viewParameters,
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\CompanyController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\CompanyController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_company_index',
-                'mauticContent' => 'company',
+                'activeLink'    => '#mailvotech_company_index',
+                'mailvotechContent' => 'company',
             ],
         ];
 
@@ -408,7 +408,7 @@ final class CompanyController extends FormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.company.error.notfound',
+                                'msg'     => 'mailvotech.company.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -426,7 +426,7 @@ final class CompanyController extends FormController
             return $this->isLocked($postActionVars, $entity, 'lead.company');
         }
 
-        $action       = $this->generateUrl('mautic_company_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action       = $this->generateUrl('mailvotech_company_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $method       = $request->getMethod();
         $company      = $request->request->all()['company'] ?? [];
         $updateSelect = 'POST' === $method
@@ -458,12 +458,12 @@ final class CompanyController extends FormController
                     $this->companyModel->saveEntity($entity, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.updated',
+                        'mailvotech.core.notice.updated',
                         [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_company_index',
+                            '%menu_link%' => 'mailvotech_company_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_company_action',
+                                'mailvotech_company_action',
                                 [
                                     'objectAction' => 'view',
                                     'objectId'     => $entity->getId(),
@@ -474,8 +474,8 @@ final class CompanyController extends FormController
 
                     if ($this->getFormButton($form, ['buttons', 'save'])->isClicked()) {
                         $viewParameters = ['objectAction' => 'view', 'objectId' => $objectId];
-                        $returnUrl      = $this->generateUrl('mautic_company_action', $viewParameters);
-                        $template       = 'Mautic\LeadBundle\Controller\CompanyController::viewAction';
+                        $returnUrl      = $this->generateUrl('mailvotech_company_action', $viewParameters);
+                        $template       = 'MailVotech\LeadBundle\Controller\CompanyController::viewAction';
                     }
                 }
             } else {
@@ -483,13 +483,13 @@ final class CompanyController extends FormController
                 $this->companyModel->unlockEntity($entity);
 
                 $viewParameters = ['objectAction' => 'view', 'objectId' => $objectId];
-                $returnUrl      = $this->generateUrl('mautic_company_action', $viewParameters);
-                $template       = 'Mautic\LeadBundle\Controller\CompanyController::viewAction';
+                $returnUrl      = $this->generateUrl('mailvotech_company_action', $viewParameters);
+                $template       = 'MailVotech\LeadBundle\Controller\CompanyController::viewAction';
             }
 
             $passthrough = [
-                'activeLink'    => '#mautic_company_index',
-                'mauticContent' => 'company',
+                'activeLink'    => '#mailvotech_company_index',
+                'mailvotechContent' => 'company',
             ];
 
             // Check to see if this is a popup
@@ -528,7 +528,7 @@ final class CompanyController extends FormController
         $fields = $this->companyModel->organizeFieldsByGroup($fields);
         $groups = array_keys($fields);
         sort($groups);
-        $template = '@MauticLead/Company/form_'.($request->get('modal', false) ? 'embedded' : 'standalone').'.html.twig';
+        $template = '@MailVotechLead/Company/form_'.($request->get('modal', false) ? 'embedded' : 'standalone').'.html.twig';
 
         return $this->delegateView(
             [
@@ -541,11 +541,11 @@ final class CompanyController extends FormController
                 ],
                 'contentTemplate' => $template,
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_company_index',
-                    'mauticContent' => 'company',
+                    'activeLink'    => '#mailvotech_company_index',
+                    'mailvotechContent' => 'company',
                     'updateSelect'  => InputHelper::clean($request->query->get('updateSelect')),
                     'route'         => $this->generateUrl(
-                        'mautic_company_action',
+                        'mailvotech_company_action',
                         [
                             'objectAction' => 'edit',
                             'objectId'     => $entity->getId(),
@@ -564,14 +564,14 @@ final class CompanyController extends FormController
         $company = $this->companyModel->getEntity($objectId);
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_company_index');
+        $returnUrl = $this->generateUrl('mailvotech_company_index');
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\CompanyController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\CompanyController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_company_index',
-                'mauticContent' => 'company',
+                'activeLink'    => '#mailvotech_company_index',
+                'mailvotechContent' => 'company',
             ],
         ];
 
@@ -583,7 +583,7 @@ final class CompanyController extends FormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.company.error.notfound',
+                                'msg'     => 'mailvotech.company.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -628,12 +628,12 @@ final class CompanyController extends FormController
                     'permissions'       => $permissions,
                     'security'          => $this->security,
                 ],
-                'contentTemplate' => '@MauticLead/Company/company.html.twig',
+                'contentTemplate' => '@MailVotechLead/Company/company.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_company_index',
-                    'mauticContent' => 'company',
+                    'activeLink'    => '#mailvotech_company_index',
+                    'mailvotechContent' => 'company',
                     'route'         => $this->generateUrl(
-                        'mautic_company_action',
+                        'mailvotech_company_action',
                         [
                             'objectAction' => 'view',
                             'objectId'     => $objectId,
@@ -652,7 +652,7 @@ final class CompanyController extends FormController
         return $this->ajaxAction(
             $this->requestStack->getCurrentRequest(),
             [
-                'contentTemplate' => '@MauticCore/Helper/chart.html.twig',
+                'contentTemplate' => '@MailVotechCore/Helper/chart.html.twig',
                 'viewParameters'  => [
                     'chartData'   => $engagementData,
                     'chartType'   => 'line',
@@ -674,15 +674,15 @@ final class CompanyController extends FormController
         $this->setListFilters();
         $session = $request->getSession();
         // set limits
-        $limit = $session->get('mautic.company.'.$companyId.'.contacts.limit', $this->coreParametersHelper->get('default_pagelimit'));
+        $limit = $session->get('mailvotech.company.'.$companyId.'.contacts.limit', $this->coreParametersHelper->get('default_pagelimit'));
         $start = (1 === $page) ? 0 : (($page - 1) * $limit);
         if ($start < 0) {
             $start = 0;
         }
 
         // do some default sorting
-        $orderBy    = $session->get('mautic.company.'.$companyId.'.contacts.orderby', 'l.last_active');
-        $orderByDir = $session->get('mautic.company.'.$companyId.'.contacts.orderbydir', 'DESC');
+        $orderBy    = $session->get('mailvotech.company.'.$companyId.'.contacts.orderby', 'l.last_active');
+        $orderByDir = $session->get('mailvotech.company.'.$companyId.'.contacts.orderbydir', 'DESC');
 
         // filter by company contacts
         $filter = [
@@ -741,17 +741,17 @@ final class CompanyController extends FormController
      */
     public function deleteAction(Request $request, $objectId): Response
     {
-        $page      = $request->getSession()->get('mautic.company.page', 1);
-        $returnUrl = $this->generateUrl('mautic_company_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.company.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_company_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\CompanyController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\CompanyController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_company_index',
-                'mauticContent' => 'company',
+                'activeLink'    => '#mailvotech_company_index',
+                'mailvotechContent' => 'company',
             ],
         ];
 
@@ -761,7 +761,7 @@ final class CompanyController extends FormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.company.error.notfound',
+                    'msg'     => 'mailvotech.company.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->isGranted('lead:leads:deleteother')) {
@@ -774,7 +774,7 @@ final class CompanyController extends FormController
 
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $entity->getName(),
                     '%id%'   => $objectId,
@@ -797,17 +797,17 @@ final class CompanyController extends FormController
      */
     public function batchDeleteAction(Request $request): Response
     {
-        $page      = $request->getSession()->get('mautic.company.page', 1);
-        $returnUrl = $this->generateUrl('mautic_company_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.company.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_company_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\CompanyController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\CompanyController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_company_index',
-                'mauticContent' => 'company',
+                'activeLink'    => '#mailvotech_company_index',
+                'mailvotechContent' => 'company',
             ],
         ];
 
@@ -822,7 +822,7 @@ final class CompanyController extends FormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.company.error.notfound',
+                        'msg'     => 'mailvotech.company.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->isGranted('lead:leads:deleteother')) {
@@ -839,7 +839,7 @@ final class CompanyController extends FormController
                 $entities = $this->companyModel->deleteEntities($deleteIds);
                 $deleted  = count($entities);
                 $this->addFlashMessage(
-                    'mautic.company.notice.batch_deleted',
+                    'mailvotech.company.notice.batch_deleted',
                     [
                         '%count%'     => $deleted,
                     ]
@@ -904,7 +904,7 @@ final class CompanyController extends FormController
         }
 
         $this->addFlashMessage(
-            'mautic.company.batch_companies_affected',
+            'mailvotech.company.batch_companies_affected',
             [
                 '%count%' => count($updated),
             ]
@@ -986,7 +986,7 @@ final class CompanyController extends FormController
     private function createCompanyFindReplaceFormResponse(Request $request, CustomFieldFindReplace $findReplace): Response
     {
         $route = $this->generateUrl(
-            'mautic_company_action',
+            'mailvotech_company_action',
             [
                 'objectAction' => 'batchFindReplace',
             ]
@@ -999,13 +999,13 @@ final class CompanyController extends FormController
                         'action'        => $route,
                         'all_items'     => $request->query->getBoolean('all'),
                         'field_choices' => $findReplace->getFieldChoices('company'),
-                        'field_label'   => 'mautic.company.batch.find_replace.field',
+                        'field_label'   => 'mailvotech.company.batch.find_replace.field',
                     ])->createView(),
                 ],
-                'contentTemplate' => '@MauticLead/Batch/form.html.twig',
+                'contentTemplate' => '@MailVotechLead/Batch/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_company_index',
-                    'mauticContent' => 'companyBatch',
+                    'activeLink'    => '#mailvotech_company_index',
+                    'mailvotechContent' => 'companyBatch',
                     'route'         => $route,
                 ],
             ]
@@ -1018,7 +1018,7 @@ final class CompanyController extends FormController
     private function getCurrentCompanyListFilter(Request $request): array
     {
         return [
-            'string' => $request->getSession()->get('mautic.company.filter', ''),
+            'string' => $request->getSession()->get('mailvotech.company.filter', ''),
             'force'  => [],
         ];
     }
@@ -1044,20 +1044,20 @@ final class CompanyController extends FormController
             $this->throwAccessDenied();
         }
         $secondaryCompany = $this->companyModel->getEntity($objectId);
-        $page             = $request->getSession()->get('mautic.lead.page', 1);
+        $page             = $request->getSession()->get('mailvotech.lead.page', 1);
         $primaryCompany   = null;
         $viewParameters   = [];
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_company_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_company_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\CompanyController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\CompanyController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_company_index',
-                'mauticContent' => 'company',
+                'activeLink'    => '#mailvotech_company_index',
+                'mailvotechContent' => 'company',
             ],
         ];
 
@@ -1069,7 +1069,7 @@ final class CompanyController extends FormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.company.error.notfound',
+                                'msg'     => 'mailvotech.company.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -1078,7 +1078,7 @@ final class CompanyController extends FormController
             );
         }
 
-        $action = $this->generateUrl('mautic_company_action', ['objectAction' => 'merge', 'objectId' => $secondaryCompany->getId()]);
+        $action = $this->generateUrl('mailvotech_company_action', ['objectAction' => 'merge', 'objectId' => $secondaryCompany->getId()]);
 
         $form = $this->formFactory->create(
             CompanyMergeType::class,
@@ -1106,7 +1106,7 @@ final class CompanyController extends FormController
                                     'flashes' => [
                                         [
                                             'type'    => 'error',
-                                            'msg'     => 'mautic.company.error.notfound',
+                                            'msg'     => 'mailvotech.company.error.notfound',
                                             'msgVars' => ['%id%' => $primaryMergeId],
                                         ],
                                     ],
@@ -1130,7 +1130,7 @@ final class CompanyController extends FormController
 
                 if ($valid) {
                     $this->addFlashMessage(
-                        'mautic.company.notice.merged',
+                        'mailvotech.company.notice.merged',
                         [
                             '%primary%'   => $primaryCompany->getName(),
                             '%secondary%' => $secondaryCompany->getName(),
@@ -1150,9 +1150,9 @@ final class CompanyController extends FormController
 
             return $this->postActionRedirect(
                 [
-                    'returnUrl'       => $this->generateUrl('mautic_company_action', $viewParameters),
+                    'returnUrl'       => $this->generateUrl('mailvotech_company_action', $viewParameters),
                     'viewParameters'  => $viewParameters,
-                    'contentTemplate' => 'Mautic\LeadBundle\Controller\CompanyController::viewAction',
+                    'contentTemplate' => 'MailVotech\LeadBundle\Controller\CompanyController::viewAction',
                     'passthroughVars' => [
                         'closeModal' => 1,
                     ],
@@ -1169,14 +1169,14 @@ final class CompanyController extends FormController
                     'action'       => $action,
                     'form'         => $form->createView(),
                     'currentRoute' => $this->generateUrl(
-                        'mautic_company_action',
+                        'mailvotech_company_action',
                         [
                             'objectAction' => 'merge',
                             'objectId'     => $secondaryCompany->getId(),
                         ]
                     ),
                 ],
-                'contentTemplate' => '@MauticLead/Company/merge.html.twig',
+                'contentTemplate' => '@MailVotechLead/Company/merge.html.twig',
                 'passthroughVars' => [
                     'route'  => false,
                     'target' => ('update' == $tmpl) ? '.company-merge-options' : null,

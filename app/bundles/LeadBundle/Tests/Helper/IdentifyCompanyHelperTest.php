@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Helper;
+namespace MailVotech\LeadBundle\Tests\Helper;
 
-use Mautic\LeadBundle\Helper\IdentifyCompanyHelper;
-use Mautic\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Helper\IdentifyCompanyHelper;
+use MailVotech\LeadBundle\Model\CompanyModel;
 
 final class IdentifyCompanyHelperTest extends \PHPUnit\Framework\TestCase
 {
     public function testFindCompanyByName(): void
     {
         $company = [
-            'company' => 'Mautic',
+            'company' => 'MailVotech',
         ];
 
         $expected = [
-            'companyname'    => 'Mautic',
+            'companyname'    => 'MailVotech',
         ];
 
         $model = $this->createMock(CompanyModel::class);
@@ -40,13 +40,13 @@ final class IdentifyCompanyHelperTest extends \PHPUnit\Framework\TestCase
     public function testFindCompanyByNameWithValidEmail(): void
     {
         $company = [
-            'company'      => 'Mautic',
-            'companyemail' => 'hello@mautic.org',
+            'company'      => 'MailVotech',
+            'companyemail' => 'hello@mailvotech.org',
         ];
 
         $expected = [
-            'companyname'    => 'Mautic',
-            'companyemail'   => 'hello@mautic.org',
+            'companyname'    => 'MailVotech',
+            'companyemail'   => 'hello@mailvotech.org',
         ];
 
         $model = $this->createMock(CompanyModel::class);
@@ -70,15 +70,15 @@ final class IdentifyCompanyHelperTest extends \PHPUnit\Framework\TestCase
     public function testFindCompanyByNameWithValidEmailAndCustomWebsite(): void
     {
         $company = [
-            'company'        => 'Mautic',
-            'companyemail'   => 'hello@mautic.org',
-            'companywebsite' => 'https://mautic.org',
+            'company'        => 'MailVotech',
+            'companyemail'   => 'hello@mailvotech.org',
+            'companywebsite' => 'https://mailvotech.org',
         ];
 
         $expected = [
-            'companyname'    => 'Mautic',
-            'companywebsite' => 'https://mautic.org',
-            'companyemail'   => 'hello@mautic.org',
+            'companyname'    => 'MailVotech',
+            'companywebsite' => 'https://mailvotech.org',
+            'companyemail'   => 'hello@mailvotech.org',
         ];
 
         $model = $this->createMock(CompanyModel::class);

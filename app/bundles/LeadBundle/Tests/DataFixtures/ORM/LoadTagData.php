@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\DataFixtures\ORM;
+namespace MailVotech\LeadBundle\Tests\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Tag;
 
 final class LoadTagData extends AbstractFixture implements OrderedFixtureInterface
 {

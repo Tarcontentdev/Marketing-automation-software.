@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Entity;
+namespace MailVotech\PageBundle\Tests\Entity;
 
-use Mautic\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Hit;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class HitTest extends \PHPUnit\Framework\TestCase

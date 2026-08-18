@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\DTO;
+namespace MailVotech\CoreBundle\DTO;
 
 final readonly class TokenFormatOptions
 {
@@ -24,7 +24,7 @@ final readonly class TokenFormatOptions
     /**
      * Creates format options for link tokens with ID like "a:Page: my-alias (123)".
      *
-     * @param string $translationKey The translation key for the prefix (e.g., 'mautic.page.page')
+     * @param string $translationKey The translation key for the prefix (e.g., 'mailvotech.page.page')
      * @param string $tokenIdPattern Regex pattern to extract ID from token (e.g., 'pagelink=(\d+)')
      */
     public static function linkWithId(string $translationKey, string $tokenIdPattern): self

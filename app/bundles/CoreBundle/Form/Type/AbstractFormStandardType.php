@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
-use Mautic\CategoryBundle\Form\Type\CategoryListType;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CategoryBundle\Form\Type\CategoryListType;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
@@ -52,7 +52,7 @@ abstract class AbstractFormStandardType extends AbstractType
                 'name',
                 TextType::class,
                 [
-                    'label'      => 'mautic.core.name',
+                    'label'      => 'mailvotech.core.name',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => ['class' => 'form-control'],
                 ]
@@ -64,7 +64,7 @@ abstract class AbstractFormStandardType extends AbstractType
                 'description',
                 TextareaType::class,
                 [
-                    'label'      => 'mautic.core.description',
+                    'label'      => 'mailvotech.core.description',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => ['class' => 'form-control editor'],
                     'required'   => false,
@@ -111,7 +111,7 @@ abstract class AbstractFormStandardType extends AbstractType
                 'isPublished',
                 YesNoButtonGroupType::class,
                 [
-                    'label' => 'mautic.core.form.available',
+                    'label' => 'mailvotech.core.form.available',
                     'data'  => $data,
                     'attr'  => [
                         'readonly' => $readonly,
@@ -137,7 +137,7 @@ abstract class AbstractFormStandardType extends AbstractType
                 'language',
                 LocaleType::class,
                 [
-                    'label'      => 'mautic.core.language',
+                    'label'      => 'mailvotech.core.language',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class' => 'form-control',

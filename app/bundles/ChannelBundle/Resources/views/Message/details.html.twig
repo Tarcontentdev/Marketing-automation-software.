@@ -1,4 +1,4 @@
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
 {% block mauicContent %}message
 {% endblock %}
@@ -8,21 +8,21 @@
 {% endblock %}
 
 {% block preHeader %}
-{{- include('@MauticCore/Helper/page_actions.html.twig',
+{{- include('@MailVotechCore/Helper/page_actions.html.twig',
     {
         'item'            : item,
         'templateButtons' : {
             'close' : securityHasEntityAccess(permissions['channel:messages:viewown'], permissions['channel:messages:viewother'], item.getCreatedBy()),
         },
         'routeBase'       : 'message',
-        'targetLabel'     : 'mautic.channel.messages'|trans
+        'targetLabel'     : 'mailvotech.channel.messages'|trans
     }
 ) -}}
-{{ include('@MauticCore/Modules/category--inline.html.twig', {'category': item.category}) }}
+{{ include('@MailVotechCore/Modules/category--inline.html.twig', {'category': item.category}) }}
 {% endblock %}
 
 {% block actions %}
-    {{- include('@MauticCore/Helper/page_actions.html.twig', {
+    {{- include('@MailVotechCore/Helper/page_actions.html.twig', {
         'item': item,
         'templateButtons': {
             'edit': securityHasEntityAccess(permissions['channel:messages:editown'], permissions['channel:messages:editother'], item.getCreatedBy()),
@@ -34,7 +34,7 @@
 {% endblock %}
 
 {% block publishStatus %}
-    {{- include('@MauticCore/Helper/publishstatus_badge.html.twig', {'entity' : item}) -}}
+    {{- include('@MailVotechCore/Helper/publishstatus_badge.html.twig', {'entity' : item}) -}}
 {% endblock %}
 
 {% block content %}
@@ -44,7 +44,7 @@
         <div class="col-md-9 height-auto">
             <div>
                 <!-- form detail header -->
-                {% include '@MauticCore/Helper/description--expanded.html.twig' with {'description': item.description} %}
+                {% include '@MailVotechCore/Helper/description--expanded.html.twig' with {'description': item.description} %}
                 <!--/ form detail header -->
                 <!-- form detail collapseable -->
                 <div class="collapse pr-md pl-md" id="focus-details">
@@ -52,7 +52,7 @@
                         <div class="panel shd-none mb-0">
                             <table class="table table-hover mb-0">
                                 <tbody>
-                                {{- include('@MauticCore/Helper/details.html.twig', {'entity' : item}) -}}
+                                {{- include('@MailVotechCore/Helper/details.html.twig', {'entity' : item}) -}}
                                 </tbody>
                             </table>
                         </div>
@@ -65,8 +65,8 @@
             <div>
                 <!-- form detail collapseable toggler -->
                 <div class="hr-expand nm">
-                        <span data-toggle="tooltip" title="{% trans %}mautic.core.details{% endtrans %}">
-                            <a href="javascript:void(0)" class="arrow text-secondary collapsed" data-toggle="collapse" data-target="#focus-details"><span class="caret"></span> {% trans %}mautic.core.details{% endtrans %}</a>
+                        <span data-toggle="tooltip" title="{% trans %}mailvotech.core.details{% endtrans %}">
+                            <a href="javascript:void(0)" class="arrow text-secondary collapsed" data-toggle="collapse" data-target="#focus-details"><span class="caret"></span> {% trans %}mailvotech.core.details{% endtrans %}</a>
                         </span>
                 </div>
                 <!-- stats -->
@@ -78,15 +78,15 @@
                                     <div class="col-md-6 va-m">
                                         <h5 class="text-white dark-md fw-sb mb-xs">
                                             <div><i class="ri-line-chart-fill pull-left"></i>
-                                                <span class="pull-left"> {% trans %}mautic.messages.processed.messages{% endtrans %}</span></div>
+                                                <span class="pull-left"> {% trans %}mailvotech.messages.processed.messages{% endtrans %}</span></div>
                                         </h5>
                                     </div>
                                     <div class="col-md-9 va-m">
-                                        {{- include('@MauticCore/Helper/graph_dateselect.html.twig', {'dateRangeForm' : dateRangeForm, 'class' : 'pull-right'}) -}}
+                                        {{- include('@MailVotechCore/Helper/graph_dateselect.html.twig', {'dateRangeForm' : dateRangeForm, 'class' : 'pull-right'}) -}}
                                     </div>
                                 </div>
                                 <div class="d-flex fd-column pt-0 pl-15 pb-15 pr-15 min-h-256">
-                                    {{- include('@MauticCore/Helper/chart.html.twig', {'chartData' : eventCounts, 'chartType' : 'line', 'chartHeight' : 300}) -}}
+                                    {{- include('@MailVotechCore/Helper/chart.html.twig', {'chartData' : eventCounts, 'chartType' : 'line', 'chartHeight' : 300}) -}}
                                 </div>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                     {% for channel, contacts in messagedLeads %}
                     <li class="{{ active }}">
                         <a href="#contacts-{{ channel }}" role="tab" data-toggle="tab">
-                            {{ ('all' is not same as(channel)) ? channels[channel]['label'] : 'mautic.lead.leads'|trans() }}
+                            {{ ('all' is not same as(channel)) ? channels[channel]['label'] : 'mailvotech.lead.leads'|trans() }}
                         </a>
                     </li>
                     {% set active = '' %}
@@ -115,7 +115,7 @@
             {% set active = ' active in' %}
                 {% for channel, contacts in messagedLeads %}
                 <div class="tab-pane bdr-w-0 page-list{{ active }}" id="contacts-{{ channel }}">
-                    {% set message = ('all' is same as(channel)) ? 'mautic.channel.message.all_contacts' : 'mautic.channel.message.channel_contacts' %}
+                    {% set message = ('all' is same as(channel)) ? 'mailvotech.channel.message.all_contacts' : 'mailvotech.channel.message.channel_contacts' %}
                     <div class="alert alert-info"><strong>{{ message|trans }}</strong></div>
                     <div class="message-{{ channel }}">
                         {{ contacts|raw }}
@@ -128,7 +128,7 @@
         <!-- right section -->
         <div class="col-md-3 bdr-l height-auto">
             <!-- recent activity -->
-            {{- include('@MauticCore/Helper/recentactivity.html.twig', {'logs' : logs}) -}}
+            {{- include('@MailVotechCore/Helper/recentactivity.html.twig', {'logs' : logs}) -}}
             {% block rightFormContent %}
             {% endblock %}
         </div>

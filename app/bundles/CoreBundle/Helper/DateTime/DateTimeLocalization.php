@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper\DateTime;
+namespace MailVotech\CoreBundle\Helper\DateTime;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -56,7 +56,7 @@ class DateTimeLocalization
         $values = array_merge($months, $days);
         $keys   = $values;
         array_walk($keys, function (string &$key): void {
-            $key = $this->translator->trans('mautic.core.date.'.strtolower($key));
+            $key = $this->translator->trans('mailvotech.core.date.'.strtolower($key));
         });
 
         return array_combine($keys, $values);

@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Stat;
+namespace MailVotech\LeadBundle\Segment\Stat;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CoreBundle\Helper\CacheStorageHelper;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CoreBundle\Helper\CacheStorageHelper;
 
 final readonly class SegmentCampaignShare
 {
@@ -39,7 +39,7 @@ final readonly class SegmentCampaignShare
     {
         $q = $this->entityManager->getConnection()->createQueryBuilder();
         $q->select('c.id, c.name, null as share')
-            ->from(MAUTIC_TABLE_PREFIX.'campaigns', 'c')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaigns', 'c')
             ->where($this->campaignRepository->getPublishedByDateDbalExpression($q))
             ->orderBy('c.id', 'DESC');
 

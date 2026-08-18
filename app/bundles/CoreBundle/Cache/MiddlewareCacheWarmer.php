@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Cache;
+namespace MailVotech\CoreBundle\Cache;
 
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 
@@ -81,7 +81,7 @@ final class MiddlewareCacheWarmer implements CacheWarmerInterface
 
     private function addMiddlewares(array $middlewares, ?string $env = null): void
     {
-        $prefix = 'Mautic\\Middleware\\';
+        $prefix = 'MailVotech\\Middleware\\';
 
         if ($env) {
             $prefix .= ucfirst($env).'\\';

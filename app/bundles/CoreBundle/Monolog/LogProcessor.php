@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Monolog;
+namespace MailVotech\CoreBundle\Monolog;
 
 use Monolog\LogRecord;
 

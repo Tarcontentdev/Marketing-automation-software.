@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\Middleware\ConfigAwareTrait;
+use MailVotech\Middleware\ConfigAwareTrait;
 
 final class ParamsLoaderHelper
 {

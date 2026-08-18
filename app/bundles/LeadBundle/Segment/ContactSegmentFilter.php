@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment;
+namespace MailVotech\LeadBundle\Segment;
 
 use Doctrine\DBAL\Schema\Column;
-use Mautic\LeadBundle\Segment\Decorator\ContactDecoratorForeignInterface;
-use Mautic\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
-use Mautic\LeadBundle\Segment\DoNotContact\DoNotContactParts;
-use Mautic\LeadBundle\Segment\Exception\FieldNotFoundException;
-use Mautic\LeadBundle\Segment\Exception\TableNotFoundException;
-use Mautic\LeadBundle\Segment\IntegrationCampaign\IntegrationCampaignParts;
-use Mautic\LeadBundle\Segment\Query\Filter\FilterQueryBuilderInterface;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\Decorator\ContactDecoratorForeignInterface;
+use MailVotech\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
+use MailVotech\LeadBundle\Segment\DoNotContact\DoNotContactParts;
+use MailVotech\LeadBundle\Segment\Exception\FieldNotFoundException;
+use MailVotech\LeadBundle\Segment\Exception\TableNotFoundException;
+use MailVotech\LeadBundle\Segment\IntegrationCampaign\IntegrationCampaignParts;
+use MailVotech\LeadBundle\Segment\Query\Filter\FilterQueryBuilderInterface;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
 
 /**
  * Used for accessing $filter as an object and to keep logic in an object.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\AssetBundle\Controller;
+namespace MailVotech\AssetBundle\Controller;
 
 use Oneup\UploaderBundle\Controller\DropzoneController;
 use Oneup\UploaderBundle\Uploader\Response\EmptyResponse;
@@ -27,12 +27,12 @@ final class UploadController extends DropzoneController
                     $this->errorHandler->addException($response, $e);
                 } catch (\Exception $e) {
                     error_log($e);
-                    $error = new UploadException($this->translator->trans('mautic.asset.error.file.failed'));
+                    $error = new UploadException($this->translator->trans('mailvotech.asset.error.file.failed'));
                     $this->errorHandler->addException($response, $error);
                 }
             }
         } else {
-            $error = new UploadException($this->translator->trans('mautic.asset.error.file.failed'));
+            $error = new UploadException($this->translator->trans('mailvotech.asset.error.file.failed'));
             $this->errorHandler->addException($response, $error);
         }
 

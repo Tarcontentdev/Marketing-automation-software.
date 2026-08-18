@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\FormBundle\Entity;
+namespace MailVotech\FormBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -13,15 +13,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\UuidInterface;
-use Mautic\CoreBundle\Entity\UuidTrait;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\FormBundle\Validator\Constraint\IsPostActionRedirectUrl;
-use Mautic\ProjectBundle\Entity\ProjectTrait;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\UuidInterface;
+use MailVotech\CoreBundle\Entity\UuidTrait;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\FormBundle\Validator\Constraint\IsPostActionRedirectUrl;
+use MailVotech\ProjectBundle\Entity\ProjectTrait;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -166,7 +166,7 @@ class Form extends FormEntity implements UuidInterface
     /**
      * @var string|null
      *
-     * @deprecated since Mautic 7.1, will be removed in 8.0. Form types are no longer used.
+     * @deprecated since MailVotech 7.1, will be removed in 8.0. Form types are no longer used.
      */
     #[Groups(['form:read', 'form:write', 'download:read', 'campaign:read', 'email:read'])]
     private $formType = 'standalone';
@@ -310,17 +310,17 @@ class Form extends FormEntity implements UuidInterface
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addPropertyConstraint('name', new Assert\NotBlank(message: 'mautic.core.name.required', groups: ['form']));
+        $metadata->addPropertyConstraint('name', new Assert\NotBlank(message: 'mailvotech.core.name.required', groups: ['form']));
 
-        $metadata->addPropertyConstraint('postActionProperty', new Assert\NotBlank(message: 'mautic.form.form.postactionproperty_message.notblank', groups: ['messageRequired']));
+        $metadata->addPropertyConstraint('postActionProperty', new Assert\NotBlank(message: 'mailvotech.form.form.postactionproperty_message.notblank', groups: ['messageRequired']));
 
-        $metadata->addPropertyConstraint('postActionProperty', new Assert\NotBlank(message: 'mautic.form.form.postactionproperty_redirect.notblank', groups: ['urlRequired']));
+        $metadata->addPropertyConstraint('postActionProperty', new Assert\NotBlank(message: 'mailvotech.form.form.postactionproperty_redirect.notblank', groups: ['urlRequired']));
 
         $metadata->addPropertyConstraint('postActionProperty', new IsPostActionRedirectUrl(groups: ['urlRequired']));
 
-        $metadata->addPropertyConstraint('postActionProperty', new Assert\NotBlank(message: 'mautic.form.form.postactionproperty_hideform.notblank', groups: ['hideformRequired']));
+        $metadata->addPropertyConstraint('postActionProperty', new Assert\NotBlank(message: 'mailvotech.form.form.postactionproperty_hideform.notblank', groups: ['hideformRequired']));
 
-        $metadata->addPropertyConstraint('progressiveProfilingLimit', new Assert\GreaterThan(value: 0, message: 'mautic.form.form.progressive_profiling_limit.error', groups: ['progressiveProfilingLimit']));
+        $metadata->addPropertyConstraint('progressiveProfilingLimit', new Assert\GreaterThan(value: 0, message: 'mailvotech.form.form.progressive_profiling_limit.error', groups: ['progressiveProfilingLimit']));
     }
 
     public static function determineValidationGroups(\Symfony\Component\Form\Form $form): array
@@ -775,25 +775,25 @@ class Form extends FormEntity implements UuidInterface
     }
 
     /**
-     * @deprecated since Mautic 7.1, will be removed in 8.0. Form types are no longer used.
+     * @deprecated since MailVotech 7.1, will be removed in 8.0. Form types are no longer used.
      *
      * @return string|null
      */
     public function getFormType()
     {
-        trigger_deprecation('mautic/mautic', '7.1', 'Form::getFormType() is deprecated and will be removed in 8.0.');
+        trigger_deprecation('mailvotech/mailvotech', '7.1', 'Form::getFormType() is deprecated and will be removed in 8.0.');
 
         return $this->formType;
     }
 
     /**
-     * @deprecated since Mautic 7.1, will be removed in 8.0. Form types are no longer used.
+     * @deprecated since MailVotech 7.1, will be removed in 8.0. Form types are no longer used.
      *
      * @param mixed $formType
      */
     public function setFormType($formType): static
     {
-        trigger_deprecation('mautic/mautic', '7.1', 'Form::setFormType() is deprecated and will be removed in 8.0.');
+        trigger_deprecation('mailvotech/mailvotech', '7.1', 'Form::setFormType() is deprecated and will be removed in 8.0.');
         $this->formType = $formType;
 
         return $this;
@@ -850,11 +850,11 @@ class Form extends FormEntity implements UuidInterface
     }
 
     /**
-     * @deprecated since Mautic 7.1, will be removed in 8.0. All forms can now be used in campaigns.
+     * @deprecated since MailVotech 7.1, will be removed in 8.0. All forms can now be used in campaigns.
      */
     public function isStandalone(): bool
     {
-        trigger_deprecation('mautic/mautic', '7.1', 'Form::isStandalone() is deprecated and will be removed in 8.0.');
+        trigger_deprecation('mailvotech/mailvotech', '7.1', 'Form::isStandalone() is deprecated and will be removed in 8.0.');
 
         return 'campaign' != $this->formType;
     }

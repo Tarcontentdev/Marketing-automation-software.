@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\EventListener;
+namespace MailVotech\UserBundle\Tests\EventListener;
 
-use Mautic\UserBundle\EventListener\SAMLSubscriber;
+use MailVotech\UserBundle\EventListener\SAMLSubscriber;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;

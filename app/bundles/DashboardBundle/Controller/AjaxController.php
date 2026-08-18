@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\DashboardBundle\Controller;
+namespace MailVotech\DashboardBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\DashboardBundle\Entity\Widget;
-use Mautic\DashboardBundle\Entity\WidgetRepository;
-use Mautic\DashboardBundle\Form\Type\WidgetType;
-use Mautic\DashboardBundle\Model\DashboardModel;
-use Mautic\PageBundle\Entity\HitRepository;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\DashboardBundle\Entity\Widget;
+use MailVotech\DashboardBundle\Entity\WidgetRepository;
+use MailVotech\DashboardBundle\Form\Type\WidgetType;
+use MailVotech\DashboardBundle\Model\DashboardModel;
+use MailVotech\PageBundle\Entity\HitRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -60,7 +60,7 @@ final class AjaxController extends CommonAjaxController
         $widget   = new Widget();
 
         $form     = $this->createForm(WidgetType::class, $widget);
-        $formHtml = $this->render('@MauticDashboard/Widget/form.html.twig',
+        $formHtml = $this->render('@MailVotechDashboard/Widget/form.html.twig',
             ['form' => $form->submit($data)->createView()]
         )->getContent();
 

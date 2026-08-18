@@ -1,0 +1,171 @@
+{% set isIndex = tmpl == 'index' ? true : false %}
+{% set tmpl = 'list' %}
+
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
+{% block headerTitle %}{% trans %}mailvotech.tagmanager.tag.header.index{%  endtrans %}{% endblock %}
+{% block mailvotechContent %}tags{% endblock %}
+
+
+{% if nameGetter is not defined %}
+    {% set nameGetter = 'getTag' %}
+{% endif %}
+
+{% set listCommand = 'mailvotech.tagmanager.tag.searchcommand.list'|trans %}
+
+{% block content %}
+    <div id="page-list-wrapper" class="{% if items|length > 0 or searchValue is not empty %}panel {% endif %}panel-default">
+        {{- include('@MailVotechCore/Helper/list_toolbar.html.twig', {
+            'searchValue': searchValue,
+            'action': currentRoute,
+            'page_actions': {
+                'templateButtons': {
+                    'new': security.isGranted('tagManager:tagManager:create')
+                },
+                'routeBase': 'tagmanager',
+                'langVar': 'tag.list'
+            },
+            'bulk_actions': {
+                'langVar': 'tagmanager.tag',
+                'routeBase': 'tagmanager',
+                'templateButtons': {
+                    'delete': permissions['tagManager:tagManager:delete'],
+                },
+            },
+        }) -}}
+        <div class="page-list">
+            {% if items is defined and items is not empty %}
+                <div class="table-responsive">
+                    <table class="table table-hover" id="tagsTable">
+                        <thead>
+                        <tr>
+                            {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
+                                'checkall': 'true',
+                                'target': '#tagsTable',
+                            }) }}
+                            {{ include(
+                                '@MailVotechCore/Helper/tableheader.html.twig',
+                                {
+                                    'sessionVar': 'tags',
+                                    'orderBy'   : 'lt.tag',
+                                    'text'      : 'mailvotech.core.name',
+                                    'class'     : 'col-tag-name',
+                                }
+                            ) }}
+
+                            {{ include(
+                                '@MailVotechCore/Helper/tableheader.html.twig',
+                                {
+                                    'sessionVar' : 'tags',
+                                    'text'       : 'mailvotech.lead.list.thead.leadcount',
+                                    'class'      : 'visible-md visible-lg col-tag-leadcount',
+                                }
+                            ) }}
+
+                            {{ include(
+                                '@MailVotechCore/Helper/tableheader.html.twig',
+                                {
+                                    'sessionVar' : 'tags',
+                                    'orderBy'    : 'lt.id',
+                                    'text'       : 'mailvotech.core.id',
+                                    'class'      : 'visible-md visible-lg col-tag-id',
+                                }
+                            ) }}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in items %}
+                            <tr>
+                                <td>
+                                    {{- include('@MailVotechCore/Helper/list_actions.html.twig', {
+                                        item: item,
+                                        templateButtons: {
+                                            edit: permissions['tagManager:tagManager:edit'],
+                                            delete: permissions['tagManager:tagManager:delete'],
+                                        },
+                                        routeBase: 'tagmanager',
+                                        langVar: 'tagmanager.tag',
+                                        nameGetter: nameGetter,
+                                        custom: {
+                                            0: {
+                                                attr : {
+                                                    'data-toggle': 'ajax',
+                                                    href: '',
+                                                },
+                                                icon: 'ri-team-line',
+                                                label: 'mailvotech.lead.list.view_contacts'
+                                            }
+                                        }
+                                    }) -}}
+                                </td>
+                                <td>
+                                    <div>
+                                        {% if permissions['tagManager:tagManager:edit'] %}
+                                            <a href="{{ path('mailvotech_tagmanager_action', {
+                                                objectAction: 'view',
+                                                objectId: item.getId()
+                                            }) }}" data-toggle="ajax">
+                                                {{ item.getTag() }}
+                                            </a>
+                                        {% else %}
+                                            {{ item.getTag() }}
+                                        {% endif %}
+                                        {{ customContent('tag.name', _context) }}
+                                    </div>
+                                    {% set description = item.getDescription() %}
+                                    {% if description %}
+                                        {{ include('@MailVotechCore/Helper/description--inline.html.twig', {
+                                            'description': description
+                                        }) }}
+                                    {% endif %}
+                                </td>
+                                <td class="visible-md visible-lg">
+                                    <a size="sm" class="label label-gray" href="{{-  path('mailvotech_contact_index', {
+                                        'search' : "#{'mailvotech.tagmanager.lead.searchcommand.list'|trans}:\"#{item.getTag()}\"",
+                                    }) -}}" data-toggle="ajax" {{- 0 == tagsCount[item.getId()] ? 'disabled=disabled' : '' -}}>
+                                    {{- 'mailvotech.lead.list.viewleads_count'|trans({'%count%': tagsCount[item.getId()]}) -}}
+                                    </a>
+                                </td>
+                                <td class="visible-md visible-lg">{{ item.getId() }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="panel-footer">
+                        {{- include('@MailVotechCore/Helper/pagination.html.twig', {
+                            'totalItems' : items|length,
+                            'page'       : page,
+                            'limit'      : limit,
+                            'baseUrl'    : path('mailvotech_tagmanager_index'),
+                            'sessionVar' : 'tagmanager',
+                        }) -}}
+                    </div>
+                </div>
+            {% else %}
+                {% if searchValue is not empty %}
+                    {{- include('@MailVotechCore/Helper/noresults.html.twig') -}}
+                {% else %}
+                    <div class="mt-80 col-md-offset-2 col-lg-offset-3 col-md-8 col-lg-5 height-auto">
+                        {% set childContainer %}
+                            <div class="mt-32 mb-md">
+                                {% include '@MailVotechCore/Components/pictogram.html.twig' with {
+                                    'pictogram': 'tags',
+                                    'size': '80'
+                                } %}
+                            </div>
+                        {% endset %}
+            
+                        {{ include('@MailVotechCore/Components/content-block.html.twig', {
+                            heading: 'mailvotech.tagmanager.contentblock.heading',
+                            subheading: 'mailvotech.tagmanager.contentblock.subheading',
+                            copy: 'mailvotech.tagmanager.contentblock.copy',
+                            childContainer: childContainer,
+                        }) }}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    {{ include('@MailVotechCore/Modules/protip.html.twig', {
+        tip: random(['mailvotech.protip.tags.segmentation', 'mailvotech.protip.tags.multivalue', 'mailvotech.protip.tags.creation'])
+    }) }}
+{% endblock %}

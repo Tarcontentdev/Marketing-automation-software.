@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Tests\Functional\Serializer;
+namespace MailVotech\ApiBundle\Tests\Functional\Serializer;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\ProjectBundle\Entity\Project;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\ProjectBundle\Entity\Project;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Functional test to verify that PUT operations update existing entities
  * instead of creating new ones. This tests the PutProcessor fix end-to-end.
  */
-final class PutOperationTest extends MauticMysqlTestCase
+final class PutOperationTest extends MailVotechMysqlTestCase
 {
     /**
      * Test that API Platform GET endpoints work correctly.

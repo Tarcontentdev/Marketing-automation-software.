@@ -1,0 +1,118 @@
+{#
+  Variables
+    - form
+    - pages
+    - lastPage
+    - style
+    - focusId
+    - preview
+    - contactFields
+    - companyFields
+    - viewOnlyFields
+    - displayManager
+#}
+{% set formName = '_' ~ inputAlphanum(inputTransliterate(form.name))|lower ~ '_focus' %}
+{% set jsFormName = formName|trim('_', 'left') %}
+{% set fields = form.fields %}
+{% set required = [] %}
+
+<!-- START FOCUS FORM -->
+{{ include('@MailVotechForm/Builder/_script.html.twig', {'form': form, 'formName': formName}, with_context=false) }}
+<script>
+    var MailVotechFocusHandler = function (messageType, message) {
+        var wrapper = document.getElementById('mailvotechform_wrapper{{ formName }}');
+        var innerForm = wrapper.getElementsByClassName('mailvotechform-innerform');
+        innerForm[0].style.display = "none";
+
+        {% if 'page' == style %}
+        document.getElementById('mailvotechform{{ formName }}_' + messageType).style.fontSize = "2em";
+        {% elseif 'bar' == style %}
+        document.getElementById('mailvotechform{{ formName }}_' + messageType).style.fontSize = "1.1em";
+        {% endif %}
+
+        var headline = document.getElementsByClassName('mf-headline');
+        if (headline.length) {
+            headline[0].style.display = "none";
+        }
+
+        var tagline = document.getElementsByClassName('mf-tagline');
+        if (tagline.length) {
+            tagline[0].style.display = "none";
+        }
+
+        if (message) {
+            document.getElementById('mailvotechform{{ formName }}_' + messageType).innerHTML = message;
+        }
+
+        if (messageType == 'error') {
+            setTimeout(function () {
+                if (headline.length) {
+                    {% if 'bar' == style %}
+                    headline[0].style.display = "inline-block";
+                    {% else %}
+                    headline[0].style.display = "block";
+                    {% endif %}
+                }
+                if (tagline.length) {
+                    tagline[0].style.display = "inherit";
+                }
+
+                innerForm[0].style.display = "inherit";
+                document.getElementById('mailvotechform{{ formName }}_' + messageType).innerHTML = '';
+            }, 1500);
+        }
+    };
+    if (typeof MailVotechFormCallback == 'undefined') {
+        var MailVotechFormCallback = {};
+    }
+    MailVotechFormCallback["{{ jsFormName }}"] = {
+        onMessageSet: function (data) {
+            if (data.message) {
+                MailVotechFocusHandler(data.type);
+            }
+        },
+        onErrorMark: function (data) {
+            if (data.validationMessage) {
+                MailVotechFocusHandler('error', data.validationMessage);
+
+                return true;
+            }
+        },
+        onResponse: function (data) {
+            if (data.download) {
+                document.getElementById('mailvotechiframe{{ formName }}').src = data.download;
+
+                if (data.redirect) {
+                    setTimeout(function () {
+                        window.top.location = data.redirect;
+                    }, 2000);
+                }
+
+                return true;
+            } else if (data.redirect) {
+                window.top.location = data.redirect;
+
+                return true;
+            }
+
+            return false;
+        }
+    }
+</script>
+{% set formExtra %}
+  <input type="hidden" name="mailvotechform[focusId]" id="mailvotechform{{ formName }}_focus_id" value="{{ focusId }}"/>
+{% endset %}
+
+{{ include('@MailVotechForm/Builder/form.html.twig', {
+        'form': form,
+        'formPages': pages,
+        'lastFormPage': lastPage,
+        'formExtra': formExtra,
+        'action': preview ? '#' : null,
+        'suffix': '_focus',
+        'contactFields': contactFields,
+        'companyFields': companyFields,
+        'viewOnlyFields': viewOnlyFields,
+        'displayManager': displayManager,
+}, with_context=false) }}
+<!-- END FOCUS FORM -->

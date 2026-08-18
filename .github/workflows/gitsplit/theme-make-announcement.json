@@ -3,7 +3,7 @@
         {
             "name": "theme-make-announcement",
             "directory": "themes/_make-announcement",
-            "target": "git@github.com:mautic/theme-make-announcement.git"
+            "target": "git@github.com:mailvotech/theme-make-announcement.git"
         }
     ]
 }

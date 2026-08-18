@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -17,7 +17,7 @@ final class FormFieldHTMLType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('text', TextareaType::class, [
-            'label'      => 'mautic.form.field.type.freehtml',
+            'label'      => 'mailvotech.form.field.type.freehtml',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => ['class' => 'form-control', 'style' => 'min-height:150px'],
             'required'   => true,

@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\AssetBundle\Form\Type;
+namespace MailVotech\AssetBundle\Form\Type;
 
-use Mautic\AssetBundle\Entity\AssetRepository;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\AssetBundle\Entity\AssetRepository;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;

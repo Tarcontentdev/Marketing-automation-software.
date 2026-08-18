@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\EventListener;
+namespace MailVotech\PointBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Event\EntityExportEvent;
-use Mautic\CoreBundle\Event\EntityImportAnalyzeEvent;
-use Mautic\CoreBundle\Event\EntityImportEvent;
-use Mautic\CoreBundle\Event\EntityImportUndoEvent;
-use Mautic\CoreBundle\EventListener\ImportExportTrait;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\GroupRepository;
-use Mautic\PointBundle\Model\PointGroupModel;
+use MailVotech\CoreBundle\Event\EntityExportEvent;
+use MailVotech\CoreBundle\Event\EntityImportAnalyzeEvent;
+use MailVotech\CoreBundle\Event\EntityImportEvent;
+use MailVotech\CoreBundle\Event\EntityImportUndoEvent;
+use MailVotech\CoreBundle\EventListener\ImportExportTrait;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\GroupRepository;
+use MailVotech\PointBundle\Model\PointGroupModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 

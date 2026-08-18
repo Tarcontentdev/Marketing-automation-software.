@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Integration;
+namespace MailVotech\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Integration;
 
-use Mautic\IntegrationsBundle\Integration\BasicIntegration;
-use Mautic\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\SyncInterface;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
-use Mautic\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Sync\SyncDataExchange\ExampleSyncDataExchange;
+use MailVotech\IntegrationsBundle\Integration\BasicIntegration;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\SyncInterface;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
+use MailVotech\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Sync\SyncDataExchange\ExampleSyncDataExchange;
 
 final class ExampleIntegration extends BasicIntegration implements IntegrationInterface, SyncInterface
 {
@@ -52,31 +52,31 @@ final class ExampleIntegration extends BasicIntegration implements IntegrationIn
 
     public function getMappingManual(): MappingManualDAO
     {
-        // Generate mapping manual that will be passed to the sync service. This instructs the sync service how to map Mautic fields to integration fields
+        // Generate mapping manual that will be passed to the sync service. This instructs the sync service how to map MailVotech fields to integration fields
         $mappingManual = new MappingManualDAO(self::NAME);
 
         // Each object like lead, contact, user, company, account, etc, will need it's own ObjectMappingDAO
-        // In this example, Mautic's Contact object is mapped to the Example's Lead object
+        // In this example, MailVotech's Contact object is mapped to the Example's Lead object
         $leadObjectMapping = new ObjectMappingDAO(
             Contact::NAME,
             ExampleSyncDataExchange::OBJECT_LEAD
         );
         $mappingManual->addObjectMapping($leadObjectMapping);
 
-        // Get field mapping as configured in Mautic's integration config
+        // Get field mapping as configured in MailVotech's integration config
         $mappedFields = $this->getConfiguredFieldMapping();
 
-        foreach ($mappedFields as $integrationField => $mauticField) {
+        foreach ($mappedFields as $integrationField => $mailvotechField) {
             // In this case, we're just adding each field to each of the objects
             // Of course, other integrations may need more logic
 
-            // Sync bidirectionally by default but also can use ObjectMappingDAO::SYNC_TO_MAUTIC or ObjectMappingDAO::SYNC_TO_INTEGRATION
+            // Sync bidirectionally by default but also can use ObjectMappingDAO::SYNC_TO_MAILVOTECH or ObjectMappingDAO::SYNC_TO_INTEGRATION
 
-            if ('email' === $mauticField) {
+            if ('email' === $mailvotechField) {
                 // Set email as a required field so that it maps a value regardless if changed
-                $leadObjectMapping->addFieldMapping($mauticField, $integrationField, ObjectMappingDAO::SYNC_BIDIRECTIONALLY, true);
+                $leadObjectMapping->addFieldMapping($mailvotechField, $integrationField, ObjectMappingDAO::SYNC_BIDIRECTIONALLY, true);
             } else {
-                $leadObjectMapping->addFieldMapping($mauticField, $integrationField);
+                $leadObjectMapping->addFieldMapping($mailvotechField, $integrationField);
             }
         }
 

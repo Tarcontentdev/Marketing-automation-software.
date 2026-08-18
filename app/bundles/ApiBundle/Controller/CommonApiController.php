@@ -1,21 +1,21 @@
 <?php
 
-namespace Mautic\ApiBundle\Controller;
+namespace MailVotech\ApiBundle\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\ApiBundle\ApiEvents;
-use Mautic\ApiBundle\Event\ApiEntityEvent;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\ApiBundle\Model\ApiLockAwareInterface;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Exception\DeleteEntityDependencyException;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\ApiBundle\ApiEvents;
+use MailVotech\ApiBundle\Event\ApiEntityEvent;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\ApiBundle\Model\ApiLockAwareInterface;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Exception\DeleteEntityDependencyException;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -96,19 +96,19 @@ class CommonApiController extends FetchCommonApiController
 
         foreach ($entities as $key => $entity) {
             if (null === $entity || !$entity->getId()) {
-                $this->setBatchError($key, 'mautic.core.error.notfound', Response::HTTP_NOT_FOUND, $errors, $entities, $entity);
+                $this->setBatchError($key, 'mailvotech.core.error.notfound', Response::HTTP_NOT_FOUND, $errors, $entities, $entity);
                 continue;
             }
 
             if (!$this->checkEntityAccess($entity, 'delete')) {
-                $this->setBatchError($key, 'mautic.core.error.accessdenied', Response::HTTP_FORBIDDEN, $errors, $entities, $entity);
+                $this->setBatchError($key, 'mailvotech.core.error.accessdenied', Response::HTTP_FORBIDDEN, $errors, $entities, $entity);
                 continue;
             }
 
             try {
                 $this->model->deleteEntity($entity);
             } catch (DeleteEntityDependencyException $e) {
-                $msg = $this->translator->trans('mautic.api.dependent.entity.delete.error',
+                $msg = $this->translator->trans('mailvotech.api.dependent.entity.delete.error',
                     ['%id%'   => $entity->getId()], 'validators');
                 $this->setBatchError($key, $msg, $e->getCode(), $errors, $entities, $entity);
                 $errors[$key]['details'] = $e->getErrors();
@@ -149,7 +149,7 @@ class CommonApiController extends FetchCommonApiController
         try {
             $this->model->deleteEntity($entity);
         } catch (DeleteEntityDependencyException $e) {
-            $msg = $this->translator->trans('mautic.api.dependent.entity.delete.error',
+            $msg = $this->translator->trans('mailvotech.api.dependent.entity.delete.error',
                 ['%id%'   => $entity->getId()], 'validators');
 
             return $this->returnError($msg, $e->getCode(), $e->getErrors());
@@ -187,7 +187,7 @@ class CommonApiController extends FetchCommonApiController
             if (null === $entity || !$entity->getId()) {
                 if ('PATCH' === $method) {
                     // PATCH requires that an entity exists
-                    $this->setBatchError($key, 'mautic.core.error.notfound', Response::HTTP_NOT_FOUND, $errors, $entities, $entity);
+                    $this->setBatchError($key, 'mailvotech.core.error.notfound', Response::HTTP_NOT_FOUND, $errors, $entities, $entity);
                     $statusCodes[$key] = Response::HTTP_NOT_FOUND;
                     continue;
                 }
@@ -195,7 +195,7 @@ class CommonApiController extends FetchCommonApiController
                 // PUT can create a new entity if it doesn't exist
                 $entity = $this->model->getEntity();
                 if (!$this->checkEntityAccess($entity, 'create')) {
-                    $this->setBatchError($key, 'mautic.core.error.accessdenied', Response::HTTP_FORBIDDEN, $errors, $entities, $entity);
+                    $this->setBatchError($key, 'mailvotech.core.error.accessdenied', Response::HTTP_FORBIDDEN, $errors, $entities, $entity);
                     $statusCodes[$key] = Response::HTTP_FORBIDDEN;
                     continue;
                 }
@@ -204,7 +204,7 @@ class CommonApiController extends FetchCommonApiController
             }
 
             if (!$this->checkEntityAccess($entity, 'edit')) {
-                $this->setBatchError($key, 'mautic.core.error.accessdenied', Response::HTTP_FORBIDDEN, $errors, $entities, $entity);
+                $this->setBatchError($key, 'mailvotech.core.error.accessdenied', Response::HTTP_FORBIDDEN, $errors, $entities, $entity);
                 $statusCodes[$key] = Response::HTTP_FORBIDDEN;
                 continue;
             }
@@ -299,7 +299,7 @@ class CommonApiController extends FetchCommonApiController
                 $entityExists = true;
                 $method       = 'PATCH';
                 if (!$this->checkEntityAccess($entity, 'edit')) {
-                    $this->setBatchError($key, 'mautic.core.error.accessdenied', Response::HTTP_FORBIDDEN, $errors, $entities, $entity);
+                    $this->setBatchError($key, 'mailvotech.core.error.accessdenied', Response::HTTP_FORBIDDEN, $errors, $entities, $entity);
                     $statusCodes[$key] = Response::HTTP_FORBIDDEN;
                     continue;
                 }
@@ -503,7 +503,7 @@ class CommonApiController extends FetchCommonApiController
 
             return $this->returnError(
                 $this->translator->trans(
-                    'mautic.api.error.entity.locked',
+                    'mailvotech.api.error.entity.locked',
                     [
                         '%name%' => $name,
                         '%user%' => $entity->getCheckedOutByUser(),
@@ -577,8 +577,8 @@ class CommonApiController extends FetchCommonApiController
             $headers = [];
             // return the newly created entities location if applicable
             if (in_array($statusCode, [Response::HTTP_CREATED, Response::HTTP_ACCEPTED])) {
-                $route = (null !== $this->router->getRouteCollection()->get('mautic_api_'.$this->entityNameMulti.'_getone'))
-                    ? 'mautic_api_'.$this->entityNameMulti.'_getone' : 'mautic_api_get'.$this->entityNameOne;
+                $route = (null !== $this->router->getRouteCollection()->get('mailvotech_api_'.$this->entityNameMulti.'_getone'))
+                    ? 'mailvotech_api_'.$this->entityNameMulti.'_getone' : 'mailvotech_api_get'.$this->entityNameOne;
                 $headers['Location'] = $this->generateUrl(
                     $route,
                     array_merge(['id' => $entity->getId()], $this->routeParams),
@@ -608,7 +608,7 @@ class CommonApiController extends FetchCommonApiController
             $msg            = $this->getFormErrorMessage($formErrors);
 
             if (!$msg) {
-                $msg = $this->translator->trans('mautic.core.error.badrequest', [], 'flashes');
+                $msg = $this->translator->trans('mailvotech.core.error.badrequest', [], 'flashes');
             }
 
             $responseCode = in_array(Response::HTTP_UNPROCESSABLE_ENTITY, $formErrorCodes) ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_BAD_REQUEST;

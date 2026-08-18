@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Sync\Order;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order;
 
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
-use Mautic\IntegrationsBundle\Exception\UnexpectedValueException;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\RemappedObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Exception\UnexpectedValueException;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\RemappedObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
 
 class OrderDAO
 {
@@ -121,7 +121,7 @@ class OrderDAO
     }
 
     /**
-     * Create a new mapping between the Mautic and Integration objects.
+     * Create a new mapping between the MailVotech and Integration objects.
      *
      * @param string     $integrationObjectName
      * @param string|int $integrationObjectId
@@ -182,7 +182,7 @@ class OrderDAO
     }
 
     /**
-     * Mark an object as deleted in the integration so Mautic doesn't continue to attempt to sync it.
+     * Mark an object as deleted in the integration so MailVotech doesn't continue to attempt to sync it.
      */
     public function deleteObject(ObjectChangeDAO $objectChangeDAO): void
     {
@@ -190,7 +190,7 @@ class OrderDAO
     }
 
     /**
-     * If there is a temporary issue with syncing the object, tell the sync engine to not wipe out the tracked changes on Mautic's object fields
+     * If there is a temporary issue with syncing the object, tell the sync engine to not wipe out the tracked changes on MailVotech's object fields
      * so that they are attempted again for the next sync.
      */
     public function retrySyncLater(ObjectChangeDAO $objectChangeDAO): void

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\EventListener;
+namespace MailVotech\FormBundle\EventListener;
 
-use Mautic\FormBundle\Event\FormFieldEvent;
-use Mautic\FormBundle\FormEvents;
-use Mautic\FormBundle\Model\FieldModel;
+use MailVotech\FormBundle\Event\FormFieldEvent;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\FormBundle\Model\FieldModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class FormFieldSubscriber implements EventSubscriberInterface

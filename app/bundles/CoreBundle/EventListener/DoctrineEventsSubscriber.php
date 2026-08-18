@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
@@ -9,7 +9,7 @@ use Doctrine\ORM\Id\SequenceGenerator;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Tools\Event\GenerateSchemaEventArgs;
 use Doctrine\ORM\Tools\ToolEvents;
-use Mautic\CoreBundle\Entity\DeprecatedInterface;
+use MailVotech\CoreBundle\Entity\DeprecatedInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 #[AsDoctrineListener(Events::loadClassMetadata)]
@@ -22,7 +22,7 @@ final class DoctrineEventsSubscriber
      * @param string $tablePrefix
      */
     public function __construct(
-        #[Autowire(param: 'mautic.db_table_prefix')]
+        #[Autowire(param: 'mailvotech.db_table_prefix')]
         private $tablePrefix,
     ) {
     }
@@ -30,11 +30,11 @@ final class DoctrineEventsSubscriber
     public function loadClassMetadata(LoadClassMetadataEventArgs $args): void
     {
         // in the installer
-        if (!defined('MAUTIC_TABLE_PREFIX') && empty($this->tablePrefix)) {
+        if (!defined('MAILVOTECH_TABLE_PREFIX') && empty($this->tablePrefix)) {
             return;
         }
         if (empty($this->tablePrefix)) {
-            $this->tablePrefix = MAUTIC_TABLE_PREFIX;
+            $this->tablePrefix = MAILVOTECH_TABLE_PREFIX;
         }
 
         /** @var ClassMetadataInfo $classMetadata */
@@ -45,7 +45,7 @@ final class DoctrineEventsSubscriber
             return;
         }
 
-        if (str_contains($classMetadata->namespace, 'Mautic')) {
+        if (str_contains($classMetadata->namespace, 'MailVotech')) {
             // if in the installer, use the prefix set by it rather than what is cached
 
             // Prefix indexes

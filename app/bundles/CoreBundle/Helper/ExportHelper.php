@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\CoreBundle\Event\JobExtendTimeEvent;
-use Mautic\CoreBundle\Exception\FilePathException;
-use Mautic\CoreBundle\Model\IteratorExportDataModel;
-use Mautic\CoreBundle\ProcessSignal\Exception\SignalCaughtException;
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalService;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Event\JobExtendTimeEvent;
+use MailVotech\CoreBundle\Exception\FilePathException;
+use MailVotech\CoreBundle\Model\IteratorExportDataModel;
+use MailVotech\CoreBundle\ProcessSignal\Exception\SignalCaughtException;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalService;
+use MailVotech\LeadBundle\Entity\Lead;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Csv;
@@ -72,7 +72,7 @@ class ExportHelper
             return $this->exportAsCsv($data, $filename);
         }
 
-        throw new \InvalidArgumentException($this->translator->trans('mautic.error.invalid.specific.export.type', ['%type%' => $type, '%expected_type%' => self::EXPORT_TYPE_EXCEL]));
+        throw new \InvalidArgumentException($this->translator->trans('mailvotech.error.invalid.specific.export.type', ['%type%' => $type, '%expected_type%' => self::EXPORT_TYPE_EXCEL]));
     }
 
     public function exportDataIntoFile(IteratorExportDataModel $data, string $type, string $fileName): string
@@ -85,7 +85,7 @@ class ExportHelper
             return $this->exportAsCsvIntoFile($data, $fileName);
         }
 
-        throw new \InvalidArgumentException($this->translator->trans('mautic.error.invalid.specific.export.type', ['%type%' => $type, '%expected_type%' => self::EXPORT_TYPE_CSV]));
+        throw new \InvalidArgumentException($this->translator->trans('mailvotech.error.invalid.specific.export.type', ['%type%' => $type, '%expected_type%' => self::EXPORT_TYPE_CSV]));
     }
 
     public function zipFile(string $filePath, string $fileName): string

@@ -3,8 +3,8 @@
     - dnc (bool)
     - form
 #}
-{% if dnc and constant('\\Mautic\\LeadBundle\\Entity\\DoNotContact::BOUNCED') == dnc.reason %}
-    <div class="alert alert-warning">{{ 'mautic.lead.do.not.contact_bounced'|trans }}: {{ dnc.comments }}</div>
+{% if dnc and constant('\\MailVotech\\LeadBundle\\Entity\\DoNotContact::BOUNCED') == dnc.reason %}
+    <div class="alert alert-warning">{{ 'mailvotech.lead.do.not.contact_bounced'|trans }}: {{ dnc.comments }}</div>
 {% else %}
     {{ form_start(form) }}
     {{ form_row(form['fromname']) }}

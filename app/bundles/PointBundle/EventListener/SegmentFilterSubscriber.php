@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\EventListener;
+namespace MailVotech\PointBundle\EventListener;
 
-use Mautic\LeadBundle\Event\LeadListFiltersChoicesEvent;
-use Mautic\LeadBundle\Event\SegmentDictionaryGenerationEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Provider\TypeOperatorProviderInterface;
-use Mautic\LeadBundle\Segment\Query\Filter\ForeignValueFilterQueryBuilder;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\GroupRepository;
+use MailVotech\LeadBundle\Event\LeadListFiltersChoicesEvent;
+use MailVotech\LeadBundle\Event\SegmentDictionaryGenerationEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Provider\TypeOperatorProviderInterface;
+use MailVotech\LeadBundle\Segment\Query\Filter\ForeignValueFilterQueryBuilder;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\GroupRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -37,7 +37,7 @@ final readonly class SegmentFilterSubscriber implements EventSubscriberInterface
 
     public function onGenerateSegmentFiltersAddPointGroups(LeadListFiltersChoicesEvent $event): void
     {
-        // Only show for segments and not dynamic content addressed by https://github.com/mautic/mautic/pull/9260
+        // Only show for segments and not dynamic content addressed by https://github.com/mailvotech/mailvotech/pull/9260
         if (!$event->isForSegmentation()) {
             return;
         }
@@ -48,7 +48,7 @@ final readonly class SegmentFilterSubscriber implements EventSubscriberInterface
         /** @var Group $group */
         foreach ($groups as $group) {
             $choices['group_points_'.$group->getId()] = [
-                'label'      => $this->translator->trans('mautic.lead.lead.event.grouppoints', ['%group%' => $group->getName()]),
+                'label'      => $this->translator->trans('mailvotech.lead.lead.event.grouppoints', ['%group%' => $group->getName()]),
                 'properties' => ['type' => 'number'],
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('default'),
                 'object'     => 'lead',

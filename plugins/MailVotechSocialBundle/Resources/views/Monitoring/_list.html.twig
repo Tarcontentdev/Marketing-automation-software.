@@ -1,0 +1,82 @@
+{% if items|length > 0 %}
+    <div class="table-responsive">
+        <table class="table table-hover monitoring-list" id="monitoringTable">
+            <thead>
+            <tr>
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
+                    'checkall': 'true',
+                    'target': '#monitoringTable',
+                }) }}
+
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
+                        'sessionVar': 'social.monitoring',
+                        'orderBy': 'e.title',
+                        'text': 'mailvotech.core.title',
+                        'class': 'col-monitoring-title',
+                        'default': true,
+                }) }}
+
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
+                        'sessionVar': 'social.monitoring',
+                        'orderBy': 'e.id',
+                        'text': 'mailvotech.core.id',
+                        'class': 'visible-md visible-lg col-asset-id',
+                }) }}
+            </tr>
+            </thead>
+            <tbody>
+                {% for k, item in items %}
+                    <tr>
+                        <td>
+                            {{ include('@MailVotechCore/Helper/list_actions.html.twig', {
+                                    'item': item,
+                                    'templateButtons': {
+                                        'edit': securityIsGranted('mailvotechSocial:monitoring:edit'),
+                                        'delete': securityIsGranted('mailvotechSocial:monitoring:delete'),
+                                    },
+                                    'routeBase': 'social',
+                                    'langVar': 'mailvotech.social.monitoring',
+                                    'nameGetter': 'getTitle',
+                            }) }}
+                        </td>
+                        <td>
+                            <div>
+                                {{ include('@MailVotechCore/Helper/publishstatus_icon.html.twig', {
+                                        'item': item,
+                                        'model': 'social.monitoring',
+                                }) }}
+                                <a href="{{ path('mailvotech_social_action', {'objectAction': 'view', 'objectId': item.id}) }}" data-toggle="ajax">
+                                    {{ item.title }}
+                                </a>
+                                {{ customContent('monitoring.name', _context) }}
+                            </div>
+
+                            {{ include('@MailVotechCore/Helper/description--inline.html.twig', {
+                                'description': item.description
+                            }) }}
+                        </td>
+                        <td class="visible-md visible-lg">{{ item.id }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        {{ include('@MailVotechCore/Helper/pagination.html.twig', {
+                'totalItems': items|length,
+                'page': page,
+                'limit': limit,
+                'menuLinkId': 'mailvotech_campaign_index',
+                'baseUrl': path('mailvotech_social_index'),
+                'sessionVar': 'social.monitoring',
+                'routeBase': 'social',
+        }) }}
+    </div>
+{% else %}
+    {{ include('@MailVotechCore/Helper/noresults.html.twig', {'tip': 'mailvotech.mailvotech.social.monitoring.noresults.tip'}) }}
+{% endif %}
+
+{{ include('@MailVotechCore/Helper/modal.html.twig', {
+        'id': 'MonitoringPreviewModal',
+        'header': false,
+}) }}

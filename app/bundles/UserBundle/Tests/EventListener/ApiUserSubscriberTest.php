@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\EventListener;
+namespace MailVotech\UserBundle\Tests\EventListener;
 
 use FOS\OAuthServerBundle\Model\AccessToken;
 use FOS\OAuthServerBundle\Security\Authenticator\Passport\Badge\AccessTokenBadge;
 use FOS\OAuthServerBundle\Security\Authenticator\Token\OAuthToken;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\EventListener\ApiUserSubscriber;
-use Mautic\UserBundle\Security\Authentication\Token\Permissions\TokenPermissions;
-use Mautic\UserBundle\Security\Provider\UserProvider;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\EventListener\ApiUserSubscriber;
+use MailVotech\UserBundle\Security\Authentication\Token\Permissions\TokenPermissions;
+use MailVotech\UserBundle\Security\Provider\UserProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;

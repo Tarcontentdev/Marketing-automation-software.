@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\Message;
+namespace MailVotech\MessengerBundle\Message;
 
 final class TestEmail
 {

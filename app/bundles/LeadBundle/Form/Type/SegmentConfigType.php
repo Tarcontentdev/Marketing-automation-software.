@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -23,11 +23,11 @@ final class SegmentConfigType extends AbstractType
             'segment_rebuild_time_warning',
             NumberType::class,
             [
-                'label'      => 'mautic.lead.list.form.config.segment_rebuild_time_warning',
+                'label'      => 'mailvotech.lead.list.form.config.segment_rebuild_time_warning',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.lead.list.form.config.segment_rebuild_time_warning.tooltip',
+                    'tooltip' => 'mailvotech.lead.list.form.config.segment_rebuild_time_warning.tooltip',
                 ],
                 'required' => false,
             ]
@@ -37,11 +37,11 @@ final class SegmentConfigType extends AbstractType
             'segment_build_time_warning',
             NumberType::class,
             [
-                'label'      => 'mautic.lead.list.form.config.segment_build_time_warning',
+                'label'      => 'mailvotech.lead.list.form.config.segment_build_time_warning',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.lead.list.form.config.segment_build_time_warning.tooltip',
+                    'tooltip' => 'mailvotech.lead.list.form.config.segment_build_time_warning.tooltip',
                 ],
                 'required' => false,
             ]

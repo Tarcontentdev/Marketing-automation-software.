@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Update\Step;
+namespace MailVotech\CoreBundle\Update\Step;
 
-use Mautic\CoreBundle\Exception\UpdateFailedException;
-use Mautic\CoreBundle\Helper\Update\PreUpdateChecks\PreUpdateCheckError;
-use Mautic\CoreBundle\Helper\UpdateHelper;
+use MailVotech\CoreBundle\Exception\UpdateFailedException;
+use MailVotech\CoreBundle\Helper\Update\PreUpdateChecks\PreUpdateCheckError;
+use MailVotech\CoreBundle\Helper\UpdateHelper;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -46,7 +46,7 @@ final readonly class PreUpdateChecksStep implements StepInterface
         $results = $this->updateHelper->runPreUpdateChecks();
         $errors  = [];
 
-        $progressBar->setMessage($this->translator->trans('mautic.core.command.update.step.checks'));
+        $progressBar->setMessage($this->translator->trans('mailvotech.core.command.update.step.checks'));
         $progressBar->advance();
 
         foreach ($results as $result) {
@@ -62,7 +62,7 @@ final readonly class PreUpdateChecksStep implements StepInterface
                 $errorString .= "- {$error}\n";
             }
 
-            throw new UpdateFailedException($this->translator->trans('mautic.core.update.check.error')."\n".$errorString);
+            throw new UpdateFailedException($this->translator->trans('mailvotech.core.update.check.error')."\n".$errorString);
         }
     }
 }

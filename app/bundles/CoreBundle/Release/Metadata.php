@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Release;
+namespace MailVotech\CoreBundle\Release;
 
 final readonly class Metadata implements \JsonSerializable
 {
@@ -26,11 +26,11 @@ final readonly class Metadata implements \JsonSerializable
      * We use this property to show a warning message on the dashboard
      * if the user has a PHP version that is lower than the given version.
      * Users are warned that their PHP version won't be supported by future
-     * Mautic versions anymore.
+     * MailVotech versions anymore.
      */
     private string $showPHPVersionWarningIfUnder;
 
-    private string $minSupportedMauticVersion;
+    private string $minSupportedMailVotechVersion;
 
     private string $announcementUrl;
 
@@ -45,7 +45,7 @@ final readonly class Metadata implements \JsonSerializable
         $this->minSupportedPHPVersion       = $metadata['minimum_php_version'];
         $this->maxSupportedPHPVersion       = $metadata['maximum_php_version'];
         $this->showPHPVersionWarningIfUnder = $metadata['show_php_version_warning_if_under'] ?? '';
-        $this->minSupportedMauticVersion    = $metadata['minimum_mautic_version'];
+        $this->minSupportedMailVotechVersion    = $metadata['minimum_mailvotech_version'];
         $this->announcementUrl              = $metadata['announcement_url'];
         $this->minSupportedMySqlVersion     = $metadata['minimum_mysql_version'] ?? '';
         $this->minSupportedMariaDbVersion   = $metadata['minimum_mariadb_version'] ?? '';
@@ -101,16 +101,16 @@ final readonly class Metadata implements \JsonSerializable
      * We use this property to show a warning message on the dashboard
      * if the user has a PHP version that is lower than the given version.
      * Users are warned that their PHP version won't be supported by future
-     * Mautic versions anymore.
+     * MailVotech versions anymore.
      */
     public function getShowPHPVersionWarningIfUnder(): string
     {
         return $this->showPHPVersionWarningIfUnder;
     }
 
-    public function getMinSupportedMauticVersion(): string
+    public function getMinSupportedMailVotechVersion(): string
     {
-        return $this->minSupportedMauticVersion;
+        return $this->minSupportedMailVotechVersion;
     }
 
     public function getAnnouncementUrl(): string
@@ -139,7 +139,7 @@ final readonly class Metadata implements \JsonSerializable
             'minimum_php_version'               => $this->minSupportedPHPVersion,
             'maximum_php_version'               => $this->maxSupportedPHPVersion,
             'show_php_version_warning_if_under' => $this->showPHPVersionWarningIfUnder,
-            'minimum_mautic_version'            => $this->minSupportedMauticVersion,
+            'minimum_mailvotech_version'            => $this->minSupportedMailVotechVersion,
             'announcement_url'                  => $this->announcementUrl,
             'minimum_mysql_version'             => $this->minSupportedMySqlVersion,
             'minimum_mariadb_version'           => $this->minSupportedMariaDbVersion,

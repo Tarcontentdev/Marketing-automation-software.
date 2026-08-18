@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\DataFixtures\ORM;
+namespace MailVotech\CampaignBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Campaign;
 
 final class CampaignData extends AbstractFixture implements OrderedFixtureInterface
 {

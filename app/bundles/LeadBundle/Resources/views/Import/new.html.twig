@@ -8,17 +8,17 @@
     - modalView
     - template
 #}
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent %}leadImport{% endblock %}
+{% block mailvotechContent %}leadImport{% endblock %}
 
 {% block headerTitle %}
-  {{ 'mautic.lead.import.leads'|trans({'%object%': objectName|trans}) }}
+  {{ 'mailvotech.lead.import.leads'|trans({'%object%': objectName|trans}) }}
 {% endblock %}
 
 {% block actions %}
-  {% if step is defined and constant('Mautic\\LeadBundle\\Controller\\ImportController::STEP_UPLOAD_CSV') == step %}
-    {{- include('@MauticCore/Helper/page_actions.html.twig', {
+  {% if step is defined and constant('MailVotech\\LeadBundle\\Controller\\ImportController::STEP_UPLOAD_CSV') == step %}
+    {{- include('@MailVotechCore/Helper/page_actions.html.twig', {
             'routeBase': 'import',
             'langVar': 'lead.import',
             'templateButtons': {'close': true},
@@ -32,9 +32,9 @@
 {% endblock %}
 
 {% block content %}
-  {% if step is defined and constant('Mautic\\LeadBundle\\Controller\\ImportController::STEP_UPLOAD_CSV') == step %}
-    {{ include('@MauticLead/Import/_upload_form.html.twig') }}
+  {% if step is defined and constant('MailVotech\\LeadBundle\\Controller\\ImportController::STEP_UPLOAD_CSV') == step %}
+    {{ include('@MailVotechLead/Import/_upload_form.html.twig') }}
   {% else %}
-    {{ include('@MauticLead/Import/_mapping_form.html.twig') }}
+    {{ include('@MailVotechLead/Import/_mapping_form.html.twig') }}
   {% endif %}
 {% endblock %}

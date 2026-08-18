@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\EventListener;
+namespace MailVotech\CoreBundle\Tests\Functional\EventListener;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-final class ConfigSubscriberTest extends MauticMysqlTestCase
+final class ConfigSubscriberTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -127,7 +127,7 @@ final class ConfigSubscriberTest extends MauticMysqlTestCase
         $crawler = $this->setImagePathRequest('media/files/');
         $this->assertStringNotContainsString('The image path is invalid.', $crawler->text());
 
-        $newFolder = $this->getContainer()->getParameter('mautic.image_path').'/../../media/newFolder';
+        $newFolder = $this->getContainer()->getParameter('mailvotech.image_path').'/../../media/newFolder';
 
         $crawler = $this->setImagePathRequest('media/newFolder');
 
@@ -156,7 +156,7 @@ final class ConfigSubscriberTest extends MauticMysqlTestCase
         $form          = $buttonCrawler->form();
         $form->setValues(
             [
-                'config[coreconfig][site_url]'                       => 'https://mautic-community.local', // required
+                'config[coreconfig][site_url]'                       => 'https://mailvotech-community.local', // required
                 'config[leadconfig][contact_columns]'                => ['name', 'email', 'id'],
                 'config[companyconfig][company_columns]'             => ['companyname', 'companyemail', 'companywebsite', 'score', 'leadcount', 'id'],
                 'config[coreconfig][image_path]'                     => $value,

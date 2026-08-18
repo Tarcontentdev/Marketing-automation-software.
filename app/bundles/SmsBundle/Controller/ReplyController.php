@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\SmsBundle\Controller;
+namespace MailVotech\SmsBundle\Controller;
 
-use Mautic\SmsBundle\Callback\HandlerContainer;
-use Mautic\SmsBundle\Exception\CallbackHandlerNotFound;
-use Mautic\SmsBundle\Helper\ReplyHelper;
+use MailVotech\SmsBundle\Callback\HandlerContainer;
+use MailVotech\SmsBundle\Exception\CallbackHandlerNotFound;
+use MailVotech\SmsBundle\Helper\ReplyHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +23,7 @@ final class ReplyController extends AbstractController
      */
     public function callbackAction(Request $request, $transport): Response
     {
-        define('MAUTIC_NON_TRACKABLE_REQUEST', 1);
+        define('MAILVOTECH_NON_TRACKABLE_REQUEST', 1);
 
         try {
             $handler = $this->callbackHandler->getHandler($transport);

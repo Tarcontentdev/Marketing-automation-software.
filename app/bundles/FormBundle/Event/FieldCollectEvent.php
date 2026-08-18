@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Event;
+namespace MailVotech\FormBundle\Event;
 
-use Mautic\FormBundle\Collection\FieldCollection;
-use Mautic\FormBundle\Crate\FieldCrate;
+use MailVotech\FormBundle\Collection\FieldCollection;
+use MailVotech\FormBundle\Crate\FieldCrate;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class FieldCollectEvent extends Event

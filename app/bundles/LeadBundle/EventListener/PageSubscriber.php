@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Helper\PrimaryCompanyHelper;
-use Mautic\LeadBundle\Helper\TokenHelper;
-use Mautic\PageBundle\Event\UrlTokenReplaceEvent;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Helper\PrimaryCompanyHelper;
+use MailVotech\LeadBundle\Helper\TokenHelper;
+use MailVotech\PageBundle\Event\UrlTokenReplaceEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class PageSubscriber implements EventSubscriberInterface

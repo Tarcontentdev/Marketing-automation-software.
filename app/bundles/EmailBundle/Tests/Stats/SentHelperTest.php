@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Stats;
+namespace MailVotech\EmailBundle\Tests\Stats;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Result;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumns;
-use Mautic\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\EmailBundle\Stats\FetchOptions\EmailStatOptions;
-use Mautic\EmailBundle\Stats\Helper\SentHelper;
-use Mautic\StatsBundle\Aggregate\Collection\StatCollection;
-use Mautic\StatsBundle\Aggregate\Collector;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumns;
+use MailVotech\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\EmailBundle\Stats\FetchOptions\EmailStatOptions;
+use MailVotech\EmailBundle\Stats\Helper\SentHelper;
+use MailVotech\StatsBundle\Aggregate\Collection\StatCollection;
+use MailVotech\StatsBundle\Aggregate\Collector;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;

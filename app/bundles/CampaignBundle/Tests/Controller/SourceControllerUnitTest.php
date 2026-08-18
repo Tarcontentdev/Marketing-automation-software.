@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Controller;
+namespace MailVotech\CampaignBundle\Tests\Controller;
 
-use Mautic\CampaignBundle\Controller\SourceController;
-use Mautic\CampaignBundle\Form\Type\CampaignLeadSourceType;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Test\ReflectionHelper;
+use MailVotech\CampaignBundle\Controller\SourceController;
+use MailVotech\CampaignBundle\Form\Type\CampaignLeadSourceType;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Test\ReflectionHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormFactoryInterface;

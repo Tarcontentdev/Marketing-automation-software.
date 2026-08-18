@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\DependencyInjection\Compiler;
+namespace MailVotech\IntegrationsBundle\DependencyInjection\Compiler;
 
 use GuzzleHttp\Handler\MockHandler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -13,8 +13,8 @@ final class TestPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        $definition = $container->getDefinition('mautic.integrations.auth_provider.oauth2threelegged');
-        $definition->setFactory('\Mautic\IntegrationsBundle\Tests\Functional\Auth\Provider\Oauth2ThreeLegged\HttpFactory::factory');
+        $definition = $container->getDefinition('mailvotech.integrations.auth_provider.oauth2threelegged');
+        $definition->setFactory('\MailVotech\IntegrationsBundle\Tests\Functional\Auth\Provider\Oauth2ThreeLegged\HttpFactory::factory');
         $definition->addArgument(new Reference(MockHandler::class));
     }
 }

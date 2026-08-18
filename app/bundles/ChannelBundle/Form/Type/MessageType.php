@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\ChannelBundle\Form\Type;
+namespace MailVotech\ChannelBundle\Form\Type;
 
-use Mautic\ChannelBundle\Entity\Channel;
-use Mautic\ChannelBundle\Entity\Message;
-use Mautic\ChannelBundle\Model\MessageModel;
-use Mautic\CoreBundle\Form\Type\AbstractFormStandardType;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\ProjectBundle\Form\Type\ProjectType;
+use MailVotech\ChannelBundle\Entity\Channel;
+use MailVotech\ChannelBundle\Entity\Message;
+use MailVotech\ChannelBundle\Model\MessageModel;
+use MailVotech\CoreBundle\Form\Type\AbstractFormStandardType;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\ProjectBundle\Form\Type\ProjectType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

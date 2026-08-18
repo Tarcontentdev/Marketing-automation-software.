@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\EventListener;
+namespace MailVotech\LeadBundle\Tests\Functional\EventListener;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
-use Mautic\LeadBundle\Event\LeadMergeEvent;
-use Mautic\LeadBundle\EventListener\LeadSubscriber;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
+use MailVotech\LeadBundle\Event\LeadMergeEvent;
+use MailVotech\LeadBundle\EventListener\LeadSubscriber;
 
-final class LeadSubscriberFunctionalTest extends MauticMysqlTestCase
+final class LeadSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testUpdateLead(): void
     {
@@ -47,7 +47,7 @@ final class LeadSubscriberFunctionalTest extends MauticMysqlTestCase
 
         $this->em->clear();
 
-        $prefix = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix = self::getContainer()->getParameter('mailvotech.db_table_prefix');
         $count  = $this->connection->fetchNumeric("SELECT count(lead_id) FROM {$prefix}lead_lists_leads WHERE leadlist_id = :id", ['id' => $segmentC->getId()]);
 
         $this->assertNotEmpty($count);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -40,7 +40,7 @@ final class RouterSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * This forces generated routes to be the same as what is configured as Mautic's site_url
+     * This forces generated routes to be the same as what is configured as MailVotech's site_url
      * in order to prevent mismatches between cached URLs generated during web requests and URLs generated
      * via CLI/cron jobs.
      */

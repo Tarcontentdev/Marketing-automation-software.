@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional;
+namespace MailVotech\LeadBundle\Tests\Functional;
 
 use Symfony\Component\DomCrawler\Crawler;
 

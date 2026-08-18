@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\EventListener;
+namespace MailVotech\PluginBundle\EventListener;
 
-use Mautic\PluginBundle\Form\Type\IntegrationsListType;
-use Mautic\PluginBundle\Helper\EventHelper;
-use Mautic\PointBundle\Event\TriggerBuilderEvent;
-use Mautic\PointBundle\PointEvents;
+use MailVotech\PluginBundle\Form\Type\IntegrationsListType;
+use MailVotech\PluginBundle\Helper\EventHelper;
+use MailVotech\PointBundle\Event\TriggerBuilderEvent;
+use MailVotech\PointBundle\PointEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class PointSubscriber implements EventSubscriberInterface
@@ -22,10 +22,10 @@ final class PointSubscriber implements EventSubscriberInterface
     public function onTriggerBuild(TriggerBuilderEvent $event): void
     {
         $action = [
-            'group'     => 'mautic.plugin.point.action',
-            'label'     => 'mautic.plugin.actions.push_lead',
+            'group'     => 'mailvotech.plugin.point.action',
+            'label'     => 'mailvotech.plugin.actions.push_lead',
             'formType'  => IntegrationsListType::class,
-            // 'formTheme' => 'MauticPluginBundle:FormTheme:Integration',
+            // 'formTheme' => 'MailVotechPluginBundle:FormTheme:Integration',
             'callback'  => [EventHelper::class, 'pushLead'],
         ];
 

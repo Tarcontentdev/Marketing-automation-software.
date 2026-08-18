@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\PointBundle\Entity;
+namespace MailVotech\PointBundle\Entity;
 
 use Doctrine\Common\Collections\Order;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\ProjectBundle\Entity\ProjectRepositoryTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\ProjectBundle\Entity\ProjectRepositoryTrait;
 
 /**
  * @extends CommonRepository<Trigger>
@@ -60,7 +60,7 @@ class TriggerRepository extends CommonRepository
     protected function addSearchCommandWhereClause($q, $filter): array
     {
         return match ($filter->command) {
-            $this->translator->trans('mautic.project.searchcommand.name'), $this->translator->trans('mautic.project.searchcommand.name', [], null, 'en_US') => $this->handleProjectFilter(
+            $this->translator->trans('mailvotech.project.searchcommand.name'), $this->translator->trans('mailvotech.project.searchcommand.name', [], null, 'en_US') => $this->handleProjectFilter(
                 $this->_em->getConnection()->createQueryBuilder(),
                 'point_trigger_id',
                 'point_trigger_projects_xref',
@@ -78,6 +78,6 @@ class TriggerRepository extends CommonRepository
      */
     public function getSearchCommands(): array
     {
-        return array_merge(['mautic.project.searchcommand.name'], $this->getStandardSearchCommands());
+        return array_merge(['mailvotech.project.searchcommand.name'], $this->getStandardSearchCommands());
     }
 }

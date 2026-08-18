@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\Helper;
+namespace MailVotech\PluginBundle\Tests\Helper;
 
-use Mautic\PluginBundle\Helper\oAuthHelper;
+use MailVotech\PluginBundle\Helper\oAuthHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

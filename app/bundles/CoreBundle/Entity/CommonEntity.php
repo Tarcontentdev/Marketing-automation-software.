@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CoreBundle\Entity;
+namespace MailVotech\CoreBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
 
 class CommonEntity implements \Stringable
 {

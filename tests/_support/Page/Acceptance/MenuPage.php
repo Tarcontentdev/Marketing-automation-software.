@@ -11,6 +11,6 @@ final class MenuPage
     public static $URL              = '/s/dashboard';
     public static $POINTS           = 'Points';
     public static $MANAGE_GROUPS    = 'Manage Groups';
-    public static $MANAGE_GROUPS_ID = '#mautic_point.group_index';
-    public static $ACTIVE_NAV_GROUP = '#mautic_points_root_child > li:nth-child(3)';
+    public static $MANAGE_GROUPS_ID = '#mailvotech_point.group_index';
+    public static $ACTIVE_NAV_GROUP = '#mailvotech_points_root_child > li:nth-child(3)';
 }

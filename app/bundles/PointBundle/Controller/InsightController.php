@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Controller;
+namespace MailVotech\PointBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AbstractStandardFormController;
+use MailVotech\CoreBundle\Controller\AbstractStandardFormController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,7 +12,7 @@ final class InsightController extends AbstractStandardFormController
 {
     protected function getTemplateBase(): string
     {
-        return '@MauticPoint/Insight';
+        return '@MailVotechPoint/Insight';
     }
 
     protected function getModelName(): string

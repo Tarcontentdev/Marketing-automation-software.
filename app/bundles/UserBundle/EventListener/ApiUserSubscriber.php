@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\EventListener;
+namespace MailVotech\UserBundle\EventListener;
 
 use FOS\OAuthServerBundle\Security\Authenticator\Passport\Badge\AccessTokenBadge;
 use FOS\OAuthServerBundle\Security\Authenticator\Token\OAuthToken;
-use Mautic\UserBundle\Security\Authentication\Token\Permissions\TokenPermissions;
+use MailVotech\UserBundle\Security\Authentication\Token\Permissions\TokenPermissions;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -72,7 +72,7 @@ final readonly class ApiUserSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Transfers User instance from \Mautic\UserBundle\Security\Authentication\Token\Permissions\TokenPermissions::setActivePermissionsOnAuthToken
+     * Transfers User instance from \MailVotech\UserBundle\Security\Authentication\Token\Permissions\TokenPermissions::setActivePermissionsOnAuthToken
      * to the token, to be authorized later.
      */
     public function onTokenCreated(AuthenticationTokenCreatedEvent $event): void

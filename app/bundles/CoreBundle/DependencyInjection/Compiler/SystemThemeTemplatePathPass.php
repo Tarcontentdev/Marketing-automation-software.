@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\DependencyInjection\Compiler;
+namespace MailVotech\CoreBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\Config\Resource\FileExistenceResource;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -24,7 +24,7 @@ final class SystemThemeTemplatePathPass implements CompilerPassInterface
             $twigFilesystemLoaderDefinition = $container->getDefinition('twig.loader.native_filesystem');
 
             // Get the application directory from parameters
-            $applicationDir = $container->getParameter('mautic.application_dir');
+            $applicationDir = $container->getParameter('mailvotech.application_dir');
 
             // Define the system theme directory
             $systemThemeDir = $applicationDir.DIRECTORY_SEPARATOR.'themes/system';
@@ -76,7 +76,7 @@ final class SystemThemeTemplatePathPass implements CompilerPassInterface
     private function getBundleTemplatePaths(ContainerBuilder $container): array
     {
         $bundleHierarchy = [];
-        $applicationDir  = $container->getParameterBag()->get('mautic.application_dir');
+        $applicationDir  = $container->getParameterBag()->get('mailvotech.application_dir');
         $systemThemeDir  = $applicationDir.DIRECTORY_SEPARATOR.'themes/system';
         foreach ($container->getParameter('kernel.bundles_metadata') as $name => $bundle) {
             // Default override bundle path.

@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Model;
+namespace MailVotech\LeadBundle\Model;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CompanyReportData
@@ -49,16 +49,16 @@ class CompanyReportData
         return [
             'comp.id' => [
                 'alias' => 'comp_id',
-                'label' => 'mautic.lead.report.company.company_id',
+                'label' => 'mailvotech.lead.report.company.company_id',
                 'type'  => 'int',
-                'link'  => 'mautic_company_action',
+                'link'  => 'mailvotech_company_action',
             ],
             'companies_lead.is_primary' => [
-                'label' => 'mautic.lead.report.company.is_primary',
+                'label' => 'mailvotech.lead.report.company.is_primary',
                 'type'  => 'bool',
             ],
             'companies_lead.date_added' => [
-                'label' => 'mautic.lead.report.company.date_added',
+                'label' => 'mailvotech.lead.report.company.date_added',
                 'type'  => 'datetime',
             ],
         ];
@@ -82,7 +82,7 @@ class CompanyReportData
                 default    => 'string',
             };
             $columns[$prefix.$f->getAlias()] = [
-                'label' => $this->translator->trans('mautic.report.field.company.label', ['%field%' => $f->getLabel()]),
+                'label' => $this->translator->trans('mailvotech.report.field.company.label', ['%field%' => $f->getLabel()]),
                 'type'  => $type,
             ];
         }

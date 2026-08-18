@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Service;
+namespace MailVotech\CoreBundle\Service;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\DTO\GlobalSearchFilterDTO;
-use Mautic\CoreBundle\Event\GlobalSearchEvent;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CoreBundle\DTO\GlobalSearchFilterDTO;
+use MailVotech\CoreBundle\Event\GlobalSearchEvent;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
 use Twig\Environment;
 
 class GlobalSearch

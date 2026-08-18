@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\EmailBundle\Helper;
+namespace MailVotech\EmailBundle\Helper;
 
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\EmailValidationEvent;
-use Mautic\EmailBundle\Exception\InvalidEmailException;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\EmailValidationEvent;
+use MailVotech\EmailBundle\Exception\InvalidEmailException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -33,15 +33,15 @@ class EmailValidator
         }
 
         if (!$this->isValidFormat($address)) {
-            throw new InvalidEmailException($address, $this->translator->trans('mautic.email.address.invalid_format', ['%email%' => $address ?: '?']));
+            throw new InvalidEmailException($address, $this->translator->trans('mailvotech.email.address.invalid_format', ['%email%' => $address ?: '?']));
         }
 
         if ($this->hasValidCharacters($address)) {
-            throw new InvalidEmailException($address, $this->translator->trans('mautic.email.address.invalid_characters', ['%email%' => $address]));
+            throw new InvalidEmailException($address, $this->translator->trans('mailvotech.email.address.invalid_characters', ['%email%' => $address]));
         }
 
         if ($doDnsCheck && !$this->hasValidDomain($address)) {
-            throw new InvalidEmailException($address, $this->translator->trans('mautic.email.address.invalid_domain', ['%email%' => $address]));
+            throw new InvalidEmailException($address, $this->translator->trans('mailvotech.email.address.invalid_domain', ['%email%' => $address]));
         }
 
         $this->doPluginValidation($address);

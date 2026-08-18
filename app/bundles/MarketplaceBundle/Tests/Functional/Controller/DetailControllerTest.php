@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Tests\Functional\Controller;
+namespace MailVotech\MarketplaceBundle\Tests\Functional\Controller;
 
 use GuzzleHttp\Psr7\Response;
-use Mautic\CoreBundle\Test\Guzzle\ClientMockTrait;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\MarketplaceBundle\Service\Allowlist;
+use MailVotech\CoreBundle\Test\Guzzle\ClientMockTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\MarketplaceBundle\Service\Allowlist;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
-final class DetailControllerTest extends MauticMysqlTestCase
+final class DetailControllerTest extends MailVotechMysqlTestCase
 {
     use ClientMockTrait;
 
@@ -45,19 +45,19 @@ final class DetailControllerTest extends MauticMysqlTestCase
     {
         // Package that do not exist in the allowlist.
         yield [
-            'mautic/unicorn',
+            'mailvotech/unicorn',
             SymfonyResponse::HTTP_NOT_FOUND,
-            'mautic/unicorn',
-            'Package &#039;mautic/unicorn&#039; not found in allowlist.',
+            'mailvotech/unicorn',
+            'Package &#039;mailvotech/unicorn&#039; not found in allowlist.',
         ];
 
         // Package that exists in the allowlist with display name.
         yield [
-            'koco/mautic-recaptcha-bundle',
+            'koco/mailvotech-recaptcha-bundle',
             SymfonyResponse::HTTP_OK,
             'KocoCaptcha',
-            'This plugin brings reCAPTCHA integration to mautic.',
-            '<a href="https://github.com/KonstantinCodes/mautic-recaptcha/releases/tag/3.0.1" id="latest-version" target="_blank" rel="noopener noreferrer">',
+            'This plugin brings reCAPTCHA integration to mailvotech.',
+            '<a href="https://github.com/KonstantinCodes/mailvotech-recaptcha/releases/tag/3.0.1" id="latest-version" target="_blank" rel="noopener noreferrer">',
         ];
     }
 }

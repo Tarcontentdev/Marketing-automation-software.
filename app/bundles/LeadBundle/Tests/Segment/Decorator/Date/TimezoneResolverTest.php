@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\Decorator\Date;
+namespace MailVotech\LeadBundle\Tests\Segment\Decorator\Date;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\LeadBundle\Segment\Decorator\Date\TimezoneResolver;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\LeadBundle\Segment\Decorator\Date\TimezoneResolver;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;

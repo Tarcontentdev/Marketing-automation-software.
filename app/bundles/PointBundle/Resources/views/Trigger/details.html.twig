@@ -1,11 +1,11 @@
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent 'pointTrigger' %}
+{% block mailvotechContent 'pointTrigger' %}
 
 {% block headerTitle entity.name %}
 
 {% block actions %}
-{{ include('@MauticCore/Helper/page_actions.html.twig', {
+{{ include('@MailVotechCore/Helper/page_actions.html.twig', {
     'item': entity,
     'templateButtons': {
         'edit': permissions['point:triggers:edit'],

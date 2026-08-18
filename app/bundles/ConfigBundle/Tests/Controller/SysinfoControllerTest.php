@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ConfigBundle\Tests\Controller;
+namespace MailVotech\ConfigBundle\Tests\Controller;
 
-use Mautic\ConfigBundle\Model\SysinfoModel;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\ConfigBundle\Model\SysinfoModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-final class SysinfoControllerTest extends MauticMysqlTestCase
+final class SysinfoControllerTest extends MailVotechMysqlTestCase
 {
     public function testDbInfoIsShown(): void
     {

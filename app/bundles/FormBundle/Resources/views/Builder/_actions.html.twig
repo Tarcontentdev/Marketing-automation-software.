@@ -5,14 +5,14 @@
     - formId
     - disallowDelete (optional)
 #}
-{% set route = route|default('mautic_formfield_action') %}
+{% set route = route|default('mailvotech_formfield_action') %}
 
 <div class="form-buttons btn-group" role="group" aria-label="Field options">
-  {% include '@MauticCore/Helper/button.html.twig' with {
+  {% include '@MailVotechCore/Helper/button.html.twig' with {
       buttons: [
           {
               variant: 'ghost',
-              label: 'mautic.core.form.edit',
+              label: 'mailvotech.core.form.edit',
               icon_only: true,
               icon: 'ri-edit-line text-interactive',
               size: 'sm',
@@ -27,10 +27,10 @@
   } %}
 
   {% if disallowDelete is not defined or (disallowDelete is defined and false == disallowDelete) %}
-    {% include '@MauticCore/Helper/button.html.twig' with {
+    {% include '@MailVotechCore/Helper/button.html.twig' with {
         buttons: [
             {
-                label: 'mautic.form.builder.formfield.remove_row',
+                label: 'mailvotech.form.builder.formfield.remove_row',
                 variant: 'ghost',
                 danger: 'true',
                 icon_only: 'true',

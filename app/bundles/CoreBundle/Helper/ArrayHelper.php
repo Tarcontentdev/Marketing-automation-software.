@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 /**
  * Helper functions for simpler operations with arrays.

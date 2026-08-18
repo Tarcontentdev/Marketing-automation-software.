@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CacheBundle\Cache\Adapter;
+namespace MailVotech\CacheBundle\Cache\Adapter;
 
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\TagAwareAdapter;

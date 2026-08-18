@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\LeadBundle\Entity\UtmTag;
+use MailVotech\LeadBundle\Entity\UtmTag;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class UtmTagTest extends \PHPUnit\Framework\TestCase

@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Auth\Provider\Oauth2ThreeLegged;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Auth\Provider\Oauth2ThreeLegged;
 
 use GuzzleHttp\ClientInterface;
 use kamermans\OAuth2\OAuth2Middleware;
 use kamermans\OAuth2\Persistence\TokenPersistenceInterface as KamermansTokenPersistenceInterface;
 use kamermans\OAuth2\Signer\AccessToken\SignerInterface as AccessTokenSigner;
 use kamermans\OAuth2\Signer\ClientCredentials\SignerInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\Credentials\CodeInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\Credentials\CredentialsInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\Credentials\RedirectUriInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\Credentials\ScopeInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\HttpFactory;
-use Mautic\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigCredentialsSignerInterface;
-use Mautic\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigTokenPersistenceInterface;
-use Mautic\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigTokenSignerInterface;
-use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
+use MailVotech\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\Credentials\CodeInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\Credentials\CredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\Credentials\RedirectUriInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\Credentials\ScopeInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\HttpFactory;
+use MailVotech\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigCredentialsSignerInterface;
+use MailVotech\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigTokenPersistenceInterface;
+use MailVotech\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigTokenSignerInterface;
+use MailVotech\IntegrationsBundle\Exception\PluginNotConfiguredException;
 use PHPUnit\Framework\TestCase;
 
 final class HttpFactoryTest extends TestCase
@@ -125,7 +125,7 @@ final class HttpFactoryTest extends TestCase
 
             public function getBaseUri(): string
             {
-                return 'https://mautic.com';
+                return 'https://mailvotech.com';
             }
         };
 
@@ -135,7 +135,7 @@ final class HttpFactoryTest extends TestCase
          * https://github.com/guzzle/guzzle/issues/3114#issuecomment-1627228395.
          */
         /** @phpstan-ignore-next-line */
-        $this->assertSame('https://mautic.com', (string) $client->getConfig('base_uri'));
+        $this->assertSame('https://mailvotech.com', (string) $client->getConfig('base_uri'));
     }
 
     public function testMissingClientIdThrowsException(): void

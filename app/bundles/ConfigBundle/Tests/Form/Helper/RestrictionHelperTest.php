@@ -2,33 +2,33 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ConfigBundle\Tests\Form\Helper;
+namespace MailVotech\ConfigBundle\Tests\Form\Helper;
 
-use Mautic\ConfigBundle\Form\DataTransformer\DsnTransformer;
-use Mautic\ConfigBundle\Form\DataTransformer\DsnTransformerFactory;
-use Mautic\ConfigBundle\Form\Helper\RestrictionHelper;
-use Mautic\ConfigBundle\Form\Type\ConfigType;
-use Mautic\ConfigBundle\Form\Type\DsnType;
-use Mautic\ConfigBundle\Form\Type\EscapeTransformer;
-use Mautic\CoreBundle\Form\Type\ButtonGroupType;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\StandAloneButtonType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\EventListener\ProcessBounceSubscriber;
-use Mautic\EmailBundle\EventListener\ProcessUnsubscribeSubscriber;
-use Mautic\EmailBundle\Form\Type\ConfigMonitoredEmailType;
-use Mautic\EmailBundle\Form\Type\ConfigMonitoredMailboxesType;
-use Mautic\EmailBundle\Form\Type\ConfigType as EmailConfigType;
-use Mautic\EmailBundle\MonitoredEmail\Mailbox;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce;
-use Mautic\EmailBundle\MonitoredEmail\Processor\FeedbackLoop;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Unsubscribe;
-use Mautic\PageBundle\Entity\PageRepository;
-use Mautic\PageBundle\Form\Type\PreferenceCenterListType;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\ConfigBundle\Form\DataTransformer\DsnTransformer;
+use MailVotech\ConfigBundle\Form\DataTransformer\DsnTransformerFactory;
+use MailVotech\ConfigBundle\Form\Helper\RestrictionHelper;
+use MailVotech\ConfigBundle\Form\Type\ConfigType;
+use MailVotech\ConfigBundle\Form\Type\DsnType;
+use MailVotech\ConfigBundle\Form\Type\EscapeTransformer;
+use MailVotech\CoreBundle\Form\Type\ButtonGroupType;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\StandAloneButtonType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\EventListener\ProcessBounceSubscriber;
+use MailVotech\EmailBundle\EventListener\ProcessUnsubscribeSubscriber;
+use MailVotech\EmailBundle\Form\Type\ConfigMonitoredEmailType;
+use MailVotech\EmailBundle\Form\Type\ConfigMonitoredMailboxesType;
+use MailVotech\EmailBundle\Form\Type\ConfigType as EmailConfigType;
+use MailVotech\EmailBundle\MonitoredEmail\Mailbox;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\FeedbackLoop;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Unsubscribe;
+use MailVotech\PageBundle\Entity\PageRepository;
+use MailVotech\PageBundle\Form\Type\PreferenceCenterListType;
+use MailVotech\PageBundle\Model\PageModel;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -74,9 +74,9 @@ final class RestrictionHelperTest extends TypeTestCase
             'bundle'     => 'EmailBundle',
             'formAlias'  => 'emailconfig',
             'formType'   => EmailConfigType::class,
-            'formTheme'  => 'MauticEmailBundle:FormTheme\\Config',
+            'formTheme'  => 'MailVotechEmailBundle:FormTheme\\Config',
             'parameters' => [
-                'mailer_from_name'                      => 'Mautic',
+                'mailer_from_name'                      => 'MailVotech',
                 'mailer_from_email'                     => 'email@yoursite.com',
                 'mailer_return_path'                    => null,
                 'mailer_transport'                      => 'mail',
@@ -197,9 +197,9 @@ final class RestrictionHelperTest extends TypeTestCase
         $this->assertEquals(
             [
                 'class'        => 'form-control',
-                'tooltip'      => 'mautic.email.config.monitored_email_address.tooltip',
+                'tooltip'      => 'mailvotech.email.config.monitored_email_address.tooltip',
                 'data-show-on' => '{"config_emailconfig_monitored_email_EmailBundle_unsubscribes_override_settings_1": "checked"}',
-                'placeholder'  => 'mautic.config.restricted',
+                'placeholder'  => 'mailvotech.config.restricted',
                 'readonly'     => true,
             ],
             $address->getConfig()->getOption('attr')

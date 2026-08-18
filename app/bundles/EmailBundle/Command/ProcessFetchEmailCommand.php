@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\EmailBundle\Command;
+namespace MailVotech\EmailBundle\Command;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\EmailBundle\MonitoredEmail\Fetcher;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\EmailBundle\MonitoredEmail\Fetcher;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,13 +14,13 @@ use Symfony\Component\Console\Output\OutputInterface;
  * CLI command to check for messages.
  */
 #[AsCommand(
-    name: 'mautic:email:fetch',
+    name: 'mailvotech:email:fetch',
     description: 'Fetch and process monitored email.',
     aliases: [
-        'mautic:emails:fetch',
+        'mailvotech:emails:fetch',
     ],
     help: <<<'TXT'
-                The <info>%command.name%</info> command is used to fetch and process messages such as bounces and unsubscribe requests. Configure the Monitored Email settings in Mautic's Configuration.
+                The <info>%command.name%</info> command is used to fetch and process messages such as bounces and unsubscribe requests. Configure the Monitored Email settings in MailVotech's Configuration.
 
 <info>php %command.full_name%</info>
 TXT

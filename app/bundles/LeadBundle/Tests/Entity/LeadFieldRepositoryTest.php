@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -10,9 +10,9 @@ use Doctrine\DBAL\Result;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder as OrmQueryBuilder;
-use Mautic\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -80,7 +80,7 @@ final class LeadFieldRepositoryTest extends TestCase
 
         $builderAlias->expects($this->once())
             ->method('from')
-            ->with(MAUTIC_TABLE_PREFIX.'lead_fields', 'f')
+            ->with(MAILVOTECH_TABLE_PREFIX.'lead_fields', 'f')
             ->willReturnSelf();
 
         $builderAlias->expects($this->once())
@@ -136,7 +136,7 @@ final class LeadFieldRepositoryTest extends TestCase
 
         $builderCompare->expects($this->once())
             ->method('from')
-            ->with(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            ->with(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->willReturnSelf();
 
         $builderCompare->expects($this->once())
@@ -238,13 +238,13 @@ final class LeadFieldRepositoryTest extends TestCase
             ->method('leftJoin')->willReturnCallback(function (...$parameters) use ($matcher): void {
                 if (1 === $matcher->numberOfInvocations()) {
                     $this->assertSame('l', $parameters[0]);
-                    $this->assertSame(MAUTIC_TABLE_PREFIX.'companies_leads', $parameters[1]);
+                    $this->assertSame(MAILVOTECH_TABLE_PREFIX.'companies_leads', $parameters[1]);
                     $this->assertSame('companies_lead', $parameters[2]);
                     $this->assertSame('l.id = companies_lead.lead_id', $parameters[3]);
                 }
                 if (2 === $matcher->numberOfInvocations()) {
                     $this->assertSame('companies_lead', $parameters[0]);
-                    $this->assertSame(MAUTIC_TABLE_PREFIX.'companies', $parameters[1]);
+                    $this->assertSame(MAILVOTECH_TABLE_PREFIX.'companies', $parameters[1]);
                     $this->assertSame('company', $parameters[2]);
                     $this->assertSame('companies_lead.company_id = company.id', $parameters[3]);
                 }
@@ -257,7 +257,7 @@ final class LeadFieldRepositoryTest extends TestCase
 
         $mocks['builderCompare']->expects($this->once())
             ->method('from')
-            ->with(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            ->with(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->willReturnSelf();
 
         $mocks['builderCompare']->expects($this->once())
@@ -448,7 +448,7 @@ final class LeadFieldRepositoryTest extends TestCase
 
         $mocks['builderCompare']->expects($this->once())
             ->method('from')
-            ->with(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            ->with(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->willReturnSelf();
 
         $mocks['builderCompare']->expects($this->once())

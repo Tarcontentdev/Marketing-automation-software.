@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\EventListener;
+namespace MailVotech\CampaignBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\CustomButtonEvent;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Twig\Helper\ButtonHelper;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\CustomButtonEvent;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Twig\Helper\ButtonHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -30,7 +30,7 @@ final readonly class ButtonSubscriber implements EventSubscriberInterface
 
     public function injectViewButtons(CustomButtonEvent $event): void
     {
-        if (!str_contains($event->getRoute(), 'mautic_campaign_index')) {
+        if (!str_contains($event->getRoute(), 'mailvotech_campaign_index')) {
             return;
         }
 
@@ -38,7 +38,7 @@ final readonly class ButtonSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $exportRoute = $this->router->generate('mautic_campaign_action', ['objectAction' => 'batchExport']);
+        $exportRoute = $this->router->generate('mailvotech_campaign_action', ['objectAction' => 'batchExport']);
 
         $event->addButton(
             [
@@ -47,15 +47,15 @@ final readonly class ButtonSubscriber implements EventSubscriberInterface
                     'href'                  => $exportRoute.'?filetype=zip',
                     'data-precheck'         => 'batchActionPrecheck',
                     'data-message'          => $this->translator->trans(
-                        'mautic.core.export.items',
+                        'mailvotech.core.export.items',
                         ['%items%' => 'campaigns']
                     ),
-                    'data-confirm-text'     => $this->translator->trans('mautic.core.export.zip'),
+                    'data-confirm-text'     => $this->translator->trans('mailvotech.core.export.zip'),
                     'data-confirm-callback' => 'executeBatchAction',
-                    'data-cancel-text'      => $this->translator->trans('mautic.core.form.cancel'),
+                    'data-cancel-text'      => $this->translator->trans('mailvotech.core.form.cancel'),
                     'data-cancel-callback'  => 'dismissConfirmation',
                 ],
-                'btnText'   => $this->translator->trans('mautic.core.export.zip'),
+                'btnText'   => $this->translator->trans('mailvotech.core.export.zip'),
                 'iconClass' => 'ri-file-zip-line',
             ],
             ButtonHelper::LOCATION_TOOLBAR_BULK_ACTIONS
@@ -66,7 +66,7 @@ final readonly class ButtonSubscriber implements EventSubscriberInterface
                     'href'        => $exportRoute.'?filetype=zip',
                     'data-toggle' => null,
                 ],
-                'btnText'   => $this->translator->trans('mautic.core.export.zip'),
+                'btnText'   => $this->translator->trans('mailvotech.core.export.zip'),
                 'iconClass' => 'ri-file-zip-line',
             ],
             ButtonHelper::LOCATION_PAGE_ACTIONS

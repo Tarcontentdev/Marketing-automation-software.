@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Event;
+namespace MailVotech\CampaignBundle\Event;
 
-use Mautic\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
@@ -15,7 +15,7 @@ class CampaignScheduledEvent extends Event
     use EventArrayTrait;
 
     /**
-     * @var \Mautic\LeadBundle\Entity\Lead
+     * @var \MailVotech\LeadBundle\Entity\Lead
      */
     protected $lead;
 
@@ -57,7 +57,7 @@ class CampaignScheduledEvent extends Event
     }
 
     /**
-     * @return \Mautic\LeadBundle\Entity\Lead
+     * @return \MailVotech\LeadBundle\Entity\Lead
      */
     public function getLead()
     {
@@ -69,7 +69,7 @@ class CampaignScheduledEvent extends Event
      */
     public function getEvent()
     {
-        return ($this->event instanceof \Mautic\CampaignBundle\Entity\Event) ? $this->getEventArray($this->event) : $this->event;
+        return ($this->event instanceof \MailVotech\CampaignBundle\Entity\Event) ? $this->getEventArray($this->event) : $this->event;
     }
 
     /**

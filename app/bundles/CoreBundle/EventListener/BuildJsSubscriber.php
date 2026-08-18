@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\BuildJsEvent;
-use Mautic\CoreBundle\Event\BuildJsScope;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\BuildJsEvent;
+use MailVotech\CoreBundle\Event\BuildJsScope;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class BuildJsSubscriber implements EventSubscriberInterface
@@ -14,12 +14,12 @@ final class BuildJsSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            CoreEvents::BUILD_MAUTIC_JS => ['onBuildJs', 1000],
+            CoreEvents::BUILD_MAILVOTECH_JS => ['onBuildJs', 1000],
         ];
     }
 
     /**
-     * Adds the MauticJS definition and core
+     * Adds the MailVotechJS definition and core
      * JS functions for use in Bundles. This
      * must retain top priority of 1000.
      */
@@ -39,9 +39,9 @@ final class BuildJsSubscriber implements EventSubscriberInterface
     window.CustomEvent = CustomEvent;
 })();
 
-var MauticJS = MauticJS || {};
+var MailVotechJS = MailVotechJS || {};
 
-MauticJS.serialize = function(obj) {
+MailVotechJS.serialize = function(obj) {
     if ('string' == typeof obj) {
         return obj;
     }
@@ -51,11 +51,11 @@ MauticJS.serialize = function(obj) {
     }).join('&');
 };
 
-MauticJS.documentReady = function(f) {
-    /in/.test(document.readyState) ? setTimeout(function(){MauticJS.documentReady(f)}, 9) : f();
+MailVotechJS.documentReady = function(f) {
+    /in/.test(document.readyState) ? setTimeout(function(){MailVotechJS.documentReady(f)}, 9) : f();
 };
 
-MauticJS.iterateCollection = function(collection) {
+MailVotechJS.iterateCollection = function(collection) {
     return function(f) {
         for (var i = 0; collection[i]; i++) {
             f(collection[i], i);
@@ -63,7 +63,7 @@ MauticJS.iterateCollection = function(collection) {
     };
 };
 
-MauticJS.log = function() {
+MailVotechJS.log = function() {
     var log = {};
     log.history = log.history || [];
 
@@ -74,11 +74,11 @@ MauticJS.log = function() {
     }
 };
 
-MauticJS.setCookie = function(name, value) {
+MailVotechJS.setCookie = function(name, value) {
     document.cookie = name+"="+value+"; path=/; secure";
 };
 
-MauticJS.createCORSRequest = function(method, url) {
+MailVotechJS.createCORSRequest = function(method, url) {
     var xhr = new XMLHttpRequest();
     
     method = method.toUpperCase();
@@ -92,33 +92,33 @@ MauticJS.createCORSRequest = function(method, url) {
     
     return xhr;
 };
-MauticJS.CORSRequestsAllowed = true;
-MauticJS.requestWithCredentials = false;
-MauticJS.appendTrackedContact = function(data) {
+MailVotechJS.CORSRequestsAllowed = true;
+MailVotechJS.requestWithCredentials = false;
+MailVotechJS.appendTrackedContact = function(data) {
     return data;
 };
-MauticJS.makeCORSRequest = function(method, url, data, callbackSuccess, callbackError) {
+MailVotechJS.makeCORSRequest = function(method, url, data, callbackSuccess, callbackError) {
     // Tracking overrides this hook to append stored contact data.
-    data = MauticJS.appendTrackedContact(data);
+    data = MailVotechJS.appendTrackedContact(data);
     
-    var query = MauticJS.serialize(data);
+    var query = MailVotechJS.serialize(data);
     if (method.toUpperCase() === 'GET') {
         url = url + '?' + query;
         var query = '';
     }
     
-    var xhr = MauticJS.createCORSRequest(method, url);
+    var xhr = MailVotechJS.createCORSRequest(method, url);
     var response;
     
     callbackSuccess = callbackSuccess || function(response, xhr) { };
     callbackError = callbackError || function(response, xhr) { };
 
     if (!xhr) {
-        MauticJS.log('MauticJS.debug: Could not create an XMLHttpRequest instance.');
+        MailVotechJS.log('MailVotechJS.debug: Could not create an XMLHttpRequest instance.');
         return false;
     }
 
-    if (!MauticJS.CORSRequestsAllowed) {
+    if (!MailVotechJS.CORSRequestsAllowed) {
         callbackError({}, xhr);
         
         return false;
@@ -126,7 +126,7 @@ MauticJS.makeCORSRequest = function(method, url, data, callbackSuccess, callback
     
     xhr.onreadystatechange = function (e) {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-            response = MauticJS.parseTextToJSON(xhr.responseText);
+            response = MailVotechJS.parseTextToJSON(xhr.responseText);
             if (xhr.status === 200) {
                 callbackSuccess(response, xhr);
             } else {
@@ -134,7 +134,7 @@ MauticJS.makeCORSRequest = function(method, url, data, callbackSuccess, callback
                
                 if (xhr.status === XMLHttpRequest.UNSENT) {
                     // Don't bother with further attempts
-                    MauticJS.CORSRequestsAllowed = false;
+                    MailVotechJS.CORSRequestsAllowed = false;
                 }
             }
         }
@@ -146,12 +146,12 @@ MauticJS.makeCORSRequest = function(method, url, data, callbackSuccess, callback
         }
     
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        xhr.withCredentials = MauticJS.requestWithCredentials;
+        xhr.withCredentials = MailVotechJS.requestWithCredentials;
     }
     xhr.send(query);
 };
 
-MauticJS.parseTextToJSON = function(maybeJSON) {
+MailVotechJS.parseTextToJSON = function(maybeJSON) {
     var response;
 
     try {
@@ -164,7 +164,7 @@ MauticJS.parseTextToJSON = function(maybeJSON) {
     return response;
 };
 
-MauticJS.insertScript = function (scriptUrl) {
+MailVotechJS.insertScript = function (scriptUrl) {
     var scriptsInHead = document.getElementsByTagName('head')[0].getElementsByTagName('script');
     var lastScript    = scriptsInHead[scriptsInHead.length - 1];
     var scriptTag     = document.createElement('script');
@@ -178,7 +178,7 @@ MauticJS.insertScript = function (scriptUrl) {
     }
 };
 
-MauticJS.insertStyle = function (styleUrl) {
+MailVotechJS.insertStyle = function (styleUrl) {
     var linksInHead = document.getElementsByTagName('head')[0].getElementsByTagName('link');
     var lastLink    = linksInHead[linksInHead.length - 1];
     var linkTag     = document.createElement('link');
@@ -193,7 +193,7 @@ MauticJS.insertStyle = function (styleUrl) {
     }
 };
 
-MauticJS.guid = function () {
+MailVotechJS.guid = function () {
     function s4() {
         return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
@@ -201,7 +201,7 @@ MauticJS.guid = function () {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 };
 
-MauticJS.dispatchEvent = function(name, detail) {
+MailVotechJS.dispatchEvent = function(name, detail) {
     var event = new CustomEvent(name, {detail: detail});
     document.dispatchEvent(event);
 };
@@ -212,69 +212,69 @@ function s4() {
     .substring(1);
 }
 
-MauticJS.preEventDeliveryQueue = [];
-MauticJS.beforeFirstDeliveryMade = false;
-MauticJS.beforeFirstEventDelivery = function(f) {
-    MauticJS.preEventDeliveryQueue.push(f);
+MailVotechJS.preEventDeliveryQueue = [];
+MailVotechJS.beforeFirstDeliveryMade = false;
+MailVotechJS.beforeFirstEventDelivery = function(f) {
+    MailVotechJS.preEventDeliveryQueue.push(f);
 };
 
-MauticJS.ensureEventContext = function(event, context0, context1) {
+MailVotechJS.ensureEventContext = function(event, context0, context1) {
     return (typeof(event.detail) !== 'undefined'
         && event.detail[0] === context0
         && event.detail[1] === context1);
 };
 
-MauticJS.trackingEnabled = false;
+MailVotechJS.trackingEnabled = false;
 // The aggregate build appends its tracking contribution after this readiness signal.
-MauticJS.runtimeReady = true;
+MailVotechJS.runtimeReady = true;
 JS_WRAP;
-        $event->appendJsForScope($js, BuildJsScope::RUNTIME, 'Mautic Core Runtime');
+        $event->appendJsForScope($js, BuildJsScope::RUNTIME, 'MailVotech Core Runtime');
 
         $js = <<<'JS_WRAP'
 (function(window) {
-var MauticJS = window.MauticJS;
-if (!MauticJS || MauticJS.runtimeReady !== true) {
+var MailVotechJS = window.MailVotechJS;
+if (!MailVotechJS || MailVotechJS.runtimeReady !== true) {
     if (window.console) {
-        console.warn('Mautic tracking requires the Mautic essential runtime.');
+        console.warn('MailVotech tracking requires the MailVotech essential runtime.');
     }
     return;
 }
 
-MauticJS.trackingEnabled = true;
-MauticJS.requestWithCredentials = true;
-MauticJS.mtcSet = false;
-MauticJS.appendTrackedContact = function(data) {
+MailVotechJS.trackingEnabled = true;
+MailVotechJS.requestWithCredentials = true;
+MailVotechJS.mtcSet = false;
+MailVotechJS.appendTrackedContact = function(data) {
     if (window.localStorage) {
         if (mtcId  = localStorage.getItem('mtc_id')) {
-            data['mautic_device_id'] = localStorage.getItem('mautic_device_id');
+            data['mailvotech_device_id'] = localStorage.getItem('mailvotech_device_id');
         }              
     }
     
     return data;
 };
 
-MauticJS.getTrackedContact = function () {
-    if (MauticJS.mtcSet) {
+MailVotechJS.getTrackedContact = function () {
+    if (MailVotechJS.mtcSet) {
         // Already set
         return;
     }
     
-    MauticJS.makeCORSRequest('GET', MauticJS.contactIdUrl, {}, function(response, xhr) {
-        MauticJS.setTrackedContact(response);
+    MailVotechJS.makeCORSRequest('GET', MailVotechJS.contactIdUrl, {}, function(response, xhr) {
+        MailVotechJS.setTrackedContact(response);
     });
 };
 
-MauticJS.setTrackedContact = function(response) {
+MailVotechJS.setTrackedContact = function(response) {
     if (response.id) {
-        MauticJS.setCookie('mtc_id', response.id);
-        MauticJS.setCookie('mautic_device_id', response.device_id);
-        MauticJS.mtcSet = true;
+        MailVotechJS.setCookie('mtc_id', response.id);
+        MailVotechJS.setCookie('mailvotech_device_id', response.device_id);
+        MailVotechJS.mtcSet = true;
             
-        // Set the id in local storage in case cookies are only allowed for sites visited and Mautic is on a different domain
+        // Set the id in local storage in case cookies are only allowed for sites visited and MailVotech is on a different domain
         // than the current page
         try {
             localStorage.setItem('mtc_id', response.id);
-            localStorage.setItem('mautic_device_id', response.device_id);
+            localStorage.setItem('mailvotech_device_id', response.device_id);
         } catch (e) {
             console.warn('Browser does not allow storing in local storage');
         }
@@ -282,18 +282,18 @@ MauticJS.setTrackedContact = function(response) {
 };
 
 // Register events that should happen after the first event is delivered
-MauticJS.postEventDeliveryQueue = [];
-MauticJS.firstDeliveryMade      = false;
-MauticJS.onFirstEventDelivery = function(f) {
-    MauticJS.postEventDeliveryQueue.push(f);
+MailVotechJS.postEventDeliveryQueue = [];
+MailVotechJS.firstDeliveryMade      = false;
+MailVotechJS.onFirstEventDelivery = function(f) {
+    MailVotechJS.postEventDeliveryQueue.push(f);
 };
-document.addEventListener('mauticPageEventDelivered', function(e) {
+document.addEventListener('mailvotechPageEventDelivered', function(e) {
     var detail   = e.detail;
     var isImage = detail.image;
-    if (isImage && !MauticJS.mtcSet) {
-        MauticJS.getTrackedContact();
+    if (isImage && !MailVotechJS.mtcSet) {
+        MailVotechJS.getTrackedContact();
     } else if (detail.response && detail.response.id) {
-        MauticJS.setTrackedContact(detail.response);
+        MailVotechJS.setTrackedContact(detail.response);
     }
     
     if (!isImage && typeof detail.event[3] === 'object' && typeof detail.event[3].onload === 'function') {
@@ -301,13 +301,13 @@ document.addEventListener('mauticPageEventDelivered', function(e) {
        detail.event[3].onload(detail)       
     }
     
-    if (!MauticJS.firstDeliveryMade) {
-        MauticJS.firstDeliveryMade = true;
-        for (var i = 0; i < MauticJS.postEventDeliveryQueue.length; i++) {
-            if (typeof MauticJS.postEventDeliveryQueue[i] === 'function') {
-                MauticJS.postEventDeliveryQueue[i](detail);
+    if (!MailVotechJS.firstDeliveryMade) {
+        MailVotechJS.firstDeliveryMade = true;
+        for (var i = 0; i < MailVotechJS.postEventDeliveryQueue.length; i++) {
+            if (typeof MailVotechJS.postEventDeliveryQueue[i] === 'function') {
+                MailVotechJS.postEventDeliveryQueue[i](detail);
             }
-            delete MauticJS.postEventDeliveryQueue[i];
+            delete MailVotechJS.postEventDeliveryQueue[i];
         }
     }
 });
@@ -315,15 +315,15 @@ document.addEventListener('mauticPageEventDelivered', function(e) {
 /**
 * Check if a DOM tracking pixel is present
 */
-MauticJS.checkForTrackingPixel = function() {
+MailVotechJS.checkForTrackingPixel = function() {
     if (document.readyState !== 'complete') {
         // Periodically call self until the DOM is completely loaded
-        setTimeout(function(){MauticJS.checkForTrackingPixel()}, 9)
+        setTimeout(function(){MailVotechJS.checkForTrackingPixel()}, 9)
     } else {
         // Only fetch once a tracking pixel has been loaded
         var maxChecks  = 3000; // Keep it from indefinitely checking in case the pixel was never embedded
         var checkPixel = setInterval(function() {
-            if (maxChecks > 0 && !MauticJS.isPixelLoaded(true)) {
+            if (maxChecks > 0 && !MailVotechJS.isPixelLoaded(true)) {
                 // Try again
                 maxChecks--;
                 return;
@@ -334,32 +334,32 @@ MauticJS.checkForTrackingPixel = function() {
             if (maxChecks > 0) {
                 // DOM image was found 
                 var params = {}, hash;
-                var hashes = MauticJS.trackingPixel.src.slice(MauticJS.trackingPixel.src.indexOf('?') + 1).split('&');
+                var hashes = MailVotechJS.trackingPixel.src.slice(MailVotechJS.trackingPixel.src.indexOf('?') + 1).split('&');
 
                 for(var i = 0; i < hashes.length; i++) {
                     hash = hashes[i].split('=');
                     params[hash[0]] = hash[1];
                 }
 
-                MauticJS.dispatchEvent('mauticPageEventDelivered', {'event': ['send', 'pageview', params], 'params': params, 'image': true});
+                MailVotechJS.dispatchEvent('mailvotechPageEventDelivered', {'event': ['send', 'pageview', params], 'params': params, 'image': true});
             }
         }, 1);
     }
 }
-MauticJS.checkForTrackingPixel();
+MailVotechJS.checkForTrackingPixel();
 
-MauticJS.isPixelLoaded = function(domOnly) {
+MailVotechJS.isPixelLoaded = function(domOnly) {
     if (typeof domOnly == 'undefined') {
         domOnly = false;
     }
     
-    if (typeof MauticJS.trackingPixel === 'undefined') {
+    if (typeof MailVotechJS.trackingPixel === 'undefined') {
         // Check the DOM for the tracking pixel
-        MauticJS.trackingPixel = null;
+        MailVotechJS.trackingPixel = null;
         var imgs = Array.prototype.slice.apply(document.getElementsByTagName('img'));
         for (var i = 0; i < imgs.length; i++) {
             if (imgs[i].src.indexOf('mtracking.gif') !== -1) {
-                MauticJS.trackingPixel = imgs[i];
+                MailVotechJS.trackingPixel = imgs[i];
                 break;
             }
         }
@@ -367,7 +367,7 @@ MauticJS.isPixelLoaded = function(domOnly) {
         return false;
     }
 
-    if (MauticJS.trackingPixel && MauticJS.trackingPixel.complete && MauticJS.trackingPixel.naturalWidth !== 0) {
+    if (MailVotechJS.trackingPixel && MailVotechJS.trackingPixel.complete && MailVotechJS.trackingPixel.naturalWidth !== 0) {
         // All the browsers should be covered by this - image is loaded
         return true;
     }
@@ -375,35 +375,35 @@ MauticJS.isPixelLoaded = function(domOnly) {
     return false;
 };
 
-if (typeof window[window.MauticTrackingObject] !== 'undefined') {
-    MauticJS.input = window[window.MauticTrackingObject];
-    if (typeof MauticJS.input.q === 'undefined') {
+if (typeof window[window.MailVotechTrackingObject] !== 'undefined') {
+    MailVotechJS.input = window[window.MailVotechTrackingObject];
+    if (typeof MailVotechJS.input.q === 'undefined') {
         // In case mt() is not executed right away
-        MauticJS.input.q = [];
+        MailVotechJS.input.q = [];
     }
-    MauticJS.inputQueue = MauticJS.input.q;
+    MailVotechJS.inputQueue = MailVotechJS.input.q;
 
     // Dispatch the queue event when an event is added to the queue
-    if (!MauticJS.inputQueue.hasOwnProperty('push')) {
-        Object.defineProperty(MauticJS.inputQueue, 'push', {
+    if (!MailVotechJS.inputQueue.hasOwnProperty('push')) {
+        Object.defineProperty(MailVotechJS.inputQueue, 'push', {
             configurable: false,
             enumerable: false,
             writable: false,
             value: function () {
                 for (var i = 0, n = this.length, l = arguments.length; i < l; i++, n++) {
-                    MauticJS.dispatchEvent('eventAddedToMauticQueue', arguments[i]);
+                    MailVotechJS.dispatchEvent('eventAddedToMailVotechQueue', arguments[i]);
                 }
                 return n;
             }
         });
     }
 
-    MauticJS.getInput = function(task, type) {
+    MailVotechJS.getInput = function(task, type) {
         var matches = [];
-        if (typeof MauticJS.inputQueue !== 'undefined' && MauticJS.inputQueue.length) {
-            for (var i in MauticJS.inputQueue) {
-                if (MauticJS.inputQueue[i][0] === task && MauticJS.inputQueue[i][1] === type) {
-                    matches.push(MauticJS.inputQueue[i]);
+        if (typeof MailVotechJS.inputQueue !== 'undefined' && MailVotechJS.inputQueue.length) {
+            for (var i in MailVotechJS.inputQueue) {
+                if (MailVotechJS.inputQueue[i][0] === task && MailVotechJS.inputQueue[i][1] === type) {
+                    matches.push(MailVotechJS.inputQueue[i]);
                 }
             }
         }
@@ -413,6 +413,6 @@ if (typeof window[window.MauticTrackingObject] !== 'undefined') {
 }
 })(window);
 JS_WRAP;
-        $event->appendJsForScope($js, BuildJsScope::TRACKING, 'Mautic Core Tracking');
+        $event->appendJsForScope($js, BuildJsScope::TRACKING, 'MailVotech Core Tracking');
     }
 }

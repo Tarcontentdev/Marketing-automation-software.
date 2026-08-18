@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Integration\Twilio;
+namespace MailVotech\SmsBundle\Integration\Twilio;
 
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Twilio\Exceptions\ConfigurationException;
 
 class Configuration

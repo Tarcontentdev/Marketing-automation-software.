@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\CoreBundle\Model\AbstractCommonModel;
+use MailVotech\CoreBundle\Model\AbstractCommonModel;
 
 final class DataExporterHelper
 {

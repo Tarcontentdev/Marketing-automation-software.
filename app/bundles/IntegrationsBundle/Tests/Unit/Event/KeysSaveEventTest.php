@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Event;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Event;
 
-use Mautic\IntegrationsBundle\Event\KeysSaveEvent;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\IntegrationsBundle\Event\KeysSaveEvent;
+use MailVotech\PluginBundle\Entity\Integration;
 use PHPUnit\Framework\TestCase;
 
 final class KeysSaveEventTest extends TestCase

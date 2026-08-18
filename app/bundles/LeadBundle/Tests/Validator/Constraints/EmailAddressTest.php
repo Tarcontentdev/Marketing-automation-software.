@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Validator\Constraints;
+namespace MailVotech\LeadBundle\Tests\Validator\Constraints;
 
-use Mautic\LeadBundle\Form\Validator\Constraints\EmailAddress;
-use Mautic\LeadBundle\Form\Validator\Constraints\EmailAddressValidator;
+use MailVotech\LeadBundle\Form\Validator\Constraints\EmailAddress;
+use MailVotech\LeadBundle\Form\Validator\Constraints\EmailAddressValidator;
 
 final class EmailAddressTest extends \PHPUnit\Framework\TestCase
 {

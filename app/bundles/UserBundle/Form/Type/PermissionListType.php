@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Form\Type;
+namespace MailVotech\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -24,7 +24,7 @@ final class PermissionListType extends AbstractType
             'label_attr'        => ['class' => 'control-label'],
             'attr'              => fn (Options $options): array => [
                 'data-permission' => $options['bundle'].':'.$options['level'],
-                'onchange'        => 'Mautic.onPermissionChange(this, \''.$options['bundle'].'\')',
+                'onchange'        => 'MailVotech.onPermissionChange(this, \''.$options['bundle'].'\')',
             ],
             'choices_as_values' => false,
         ]);

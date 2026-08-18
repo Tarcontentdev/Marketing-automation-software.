@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Model;
+namespace MailVotech\CampaignBundle\Tests\Functional\Model;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Model\EventModel;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Model\EventModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class EventModelFunctionalTest extends MauticMysqlTestCase
+final class EventModelFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 

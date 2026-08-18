@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Shortener;
+namespace MailVotech\CoreBundle\Shortener;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 class Shortener
@@ -21,7 +21,7 @@ class Shortener
      */
     public function __construct(
         private readonly CoreParametersHelper $coreParametersHelper,
-        #[AutowireIterator('mautic.shortener.service')]
+        #[AutowireIterator('mailvotech.shortener.service')]
         iterable $shortenerServices = [],
     ) {
         foreach ($shortenerServices as $shortenerService) {

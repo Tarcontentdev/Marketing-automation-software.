@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\Functional;
+namespace MailVotech\SmsBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Entity\Stat;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Entity\Stat;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 
-final class SmsTranslationFunctionalTest extends MauticMysqlTestCase
+final class SmsTranslationFunctionalTest extends MailVotechMysqlTestCase
 {
     #[DataProvider('smsTimelineStatusProvider')]
     public function testSmsTimelineStatusIsTranslated(string $action, bool $isFailed, string $expectedString): void

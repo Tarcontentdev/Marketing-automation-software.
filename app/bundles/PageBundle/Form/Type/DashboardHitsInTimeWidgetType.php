@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Form\Type;
+namespace MailVotech\PageBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -16,11 +16,11 @@ final class DashboardHitsInTimeWidgetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('flag', ChoiceType::class, [
-            'label'   => 'mautic.page.visit.flag.filter',
+            'label'   => 'mailvotech.page.visit.flag.filter',
             'choices' => [
-                'mautic.page.show.total.visits'            => '',
-                'mautic.page.show.unique.visits'           => 'unique',
-                'mautic.page.show.unique.and.total.visits' => 'total_and_unique',
+                'mailvotech.page.show.total.visits'            => '',
+                'mailvotech.page.show.unique.visits'           => 'unique',
+                'mailvotech.page.show.unique.and.total.visits' => 'total_and_unique',
             ],
             'label_attr'        => ['class' => 'control-label'],
             'attr'              => ['class' => 'form-control'],

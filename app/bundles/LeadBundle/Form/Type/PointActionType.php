@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\PointBundle\Form\Type\GroupListType;
+use MailVotech\PointBundle\Form\Type\GroupListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,23 +21,23 @@ final class PointActionType extends AbstractType
             'points',
             NumberType::class,
             [
-                'label'       => 'mautic.lead.lead.event.points',
+                'label'       => 'mailvotech.lead.lead.event.points',
                 'attr'        => ['class' => 'form-control'],
                 'label_attr'  => ['class' => 'control-label'],
                 'scale'       => 0,
                 'data'        => $options['data']['points'] ?? 0,
                 'constraints' => [
-                    new NotEqualTo(value: '0', message: 'mautic.core.value.required'),
+                    new NotEqualTo(value: '0', message: 'mailvotech.core.value.required'),
                 ],
             ]
         );
 
         $builder->add('group', GroupListType::class, [
-            'label'            => 'mautic.lead.campaign.event.point_group',
+            'label'            => 'mailvotech.lead.campaign.event.point_group',
             'label_attr'       => ['class' => 'control-label'],
             'attr'             => [
                 'class'    => 'form-control',
-                'tooltip'  => 'mautic.lead.campaign.event.point_group.help',
+                'tooltip'  => 'mailvotech.lead.campaign.event.point_group.help',
             ],
             'required'         => false,
             'by_reference'     => false,

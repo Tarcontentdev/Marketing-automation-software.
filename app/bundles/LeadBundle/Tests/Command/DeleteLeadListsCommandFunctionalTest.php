@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Command;
+namespace MailVotech\LeadBundle\Tests\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Command\DeleteLeadListsCommand;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Command\DeleteLeadListsCommand;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Model\ListModel;
 
-final class DeleteLeadListsCommandFunctionalTest extends MauticMysqlTestCase
+final class DeleteLeadListsCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -28,7 +28,7 @@ final class DeleteLeadListsCommandFunctionalTest extends MauticMysqlTestCase
         $segmentId = $segment->getId();
 
         // Run segments update command.
-        $this->testSymfonyCommand('mautic:segments:update', ['-i' => $segmentId]);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['-i' => $segmentId]);
 
         /** @var ListModel $listModel */
         $listModel = $this->getContainer()->get(ListModel::class);
@@ -63,7 +63,7 @@ final class DeleteLeadListsCommandFunctionalTest extends MauticMysqlTestCase
         $segmentCId = $segmentC->getId();
 
         // Run segments update command.
-        $this->testSymfonyCommand('mautic:segments:update');
+        $this->testSymfonyCommand('mailvotech:segments:update');
 
         /** @var ListModel $listModel */
         $listModel = $this->getContainer()->get(ListModel::class);

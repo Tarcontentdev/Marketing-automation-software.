@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Exception;
+namespace MailVotech\LeadBundle\Exception;
 
 final class ImportRowFailedException extends \Exception
 {

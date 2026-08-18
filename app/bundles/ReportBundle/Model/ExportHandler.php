@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\ReportBundle\Model;
+namespace MailVotech\ReportBundle\Model;
 
-use Mautic\CoreBundle\Exception\FilePathException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\FilePathResolver;
-use Mautic\ReportBundle\Exception\FileIOException;
+use MailVotech\CoreBundle\Exception\FilePathException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\FilePathResolver;
+use MailVotech\ReportBundle\Exception\FileIOException;
 
 class ExportHandler
 {

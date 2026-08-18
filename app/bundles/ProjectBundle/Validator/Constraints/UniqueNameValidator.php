@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Validator\Constraints;
+namespace MailVotech\ProjectBundle\Validator\Constraints;
 
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\ProjectBundle\Entity\ProjectRepository;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\ProjectBundle\Entity\ProjectRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

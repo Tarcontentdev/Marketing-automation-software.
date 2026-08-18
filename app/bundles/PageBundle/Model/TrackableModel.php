@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\PageBundle\Model;
+namespace MailVotech\PageBundle\Model;
 
 use GuzzleHttp\Psr7\Uri;
-use Mautic\CoreBundle\Helper\UrlHelper;
-use Mautic\CoreBundle\Model\AbstractCommonModel;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Helper\TokenHelper;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Entity\Trackable;
-use Mautic\PageBundle\Entity\TrackableRepository;
-use Mautic\PageBundle\Event\UntrackableUrlsEvent;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CoreBundle\Helper\UrlHelper;
+use MailVotech\CoreBundle\Model\AbstractCommonModel;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Helper\TokenHelper;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Entity\Trackable;
+use MailVotech\PageBundle\Entity\TrackableRepository;
+use MailVotech\PageBundle\Event\UntrackableUrlsEvent;
+use MailVotech\PageBundle\PageEvents;
 use Symfony\Contracts\Service\Attribute\Required;
 
 /**
@@ -623,7 +623,7 @@ class TrackableModel extends AbstractCommonModel
 
     /**
      * Build a URL string from parse_url-style parts using Guzzle PSR-7.
-     * Decodes curly braces that Guzzle encodes to preserve Mautic tokens.
+     * Decodes curly braces that Guzzle encodes to preserve MailVotech tokens.
      *
      * @param array<string, mixed> $parts
      */
@@ -631,7 +631,7 @@ class TrackableModel extends AbstractCommonModel
     {
         $uri = (string) Uri::fromParts($parts);
 
-        // Decode curly braces that Guzzle encoded to preserve Mautic tokens like {contactfield=bar}
+        // Decode curly braces that Guzzle encoded to preserve MailVotech tokens like {contactfield=bar}
         return str_replace(['%7B', '%7D'], ['{', '}'], $uri);
     }
 
@@ -672,9 +672,9 @@ class TrackableModel extends AbstractCommonModel
             // 'first_pass'  => [
             //     // Remove internal attributes
             //     // Editor may convert to HTML4
-            //     'mautic:disable-tracking=""' => '',
+            //     'mailvotech:disable-tracking=""' => '',
             //     // HTML5
-            //     'mautic:disable-tracking'    => '',
+            //     'mailvotech:disable-tracking'    => '',
             // ],
             'first_pass'  => [],
             'second_pass' => [],
@@ -737,14 +737,14 @@ class TrackableModel extends AbstractCommonModel
             $url = $link->getAttribute('href');
 
             // Check for a do not track
-            // @deprecated since 7.x — Will be removed in 8.0. Use data-mautic-disable-tracking.
-            if ($link->hasAttribute('mautic:disable-tracking')) {
+            // @deprecated since 7.x — Will be removed in 8.0. Use data-mailvotech-disable-tracking.
+            if ($link->hasAttribute('mailvotech:disable-tracking')) {
                 $this->doNotTrack[$url] = $url;
                 continue;
             }
 
             // Check for a do not track in proper HTML format
-            if ($link->hasAttribute('data-mautic-disable-tracking') && 'true' === $link->getAttribute('data-mautic-disable-tracking')) {
+            if ($link->hasAttribute('data-mailvotech-disable-tracking') && 'true' === $link->getAttribute('data-mailvotech-disable-tracking')) {
                 $this->doNotTrack[$url] = $url;
                 continue;
             }

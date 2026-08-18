@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Form\Type;
+namespace MailVotech\FormBundle\Tests\Form\Type;
 
-use Mautic\FormBundle\Form\Type\FormFieldRatingType;
+use MailVotech\FormBundle\Form\Type\FormFieldRatingType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -55,11 +55,11 @@ final class FormFieldRatingTypeTest extends TypeTestCase
 
         $starCount = $form->get('star_count');
         $this->assertInstanceOf(IntegerType::class, $starCount->getConfig()->getType()->getInnerType());
-        $this->assertSame('mautic.form.field.form.rating_star_count', $starCount->getConfig()->getOption('label'));
+        $this->assertSame('mailvotech.form.field.form.rating_star_count', $starCount->getConfig()->getOption('label'));
         $this->assertSame(['class' => 'control-label'], $starCount->getConfig()->getOption('label_attr'));
         $this->assertSame([
             'class'   => 'form-control',
-            'tooltip' => 'mautic.form.field.help.rating_star_count',
+            'tooltip' => 'mailvotech.form.field.help.rating_star_count',
             'min'     => 1,
             'max'     => 10,
         ], $starCount->getConfig()->getOption('attr'));
@@ -68,9 +68,9 @@ final class FormFieldRatingTypeTest extends TypeTestCase
 
         $symbol = $form->get('symbol');
         $this->assertInstanceOf(ChoiceType::class, $symbol->getConfig()->getType()->getInnerType());
-        $this->assertSame('mautic.form.field.form.rating_symbol', $symbol->getConfig()->getOption('label'));
+        $this->assertSame('mailvotech.form.field.form.rating_symbol', $symbol->getConfig()->getOption('label'));
         $this->assertSame(
-            ['class' => 'form-control', 'tooltip' => 'mautic.form.field.help.rating_symbol'],
+            ['class' => 'form-control', 'tooltip' => 'mailvotech.form.field.help.rating_symbol'],
             $symbol->getConfig()->getOption('attr')
         );
         $this->assertSame('★', $symbol->getData());
@@ -79,16 +79,16 @@ final class FormFieldRatingTypeTest extends TypeTestCase
         $choices = $symbol->createView()->vars['choices'];
         $this->assertCount(8, $choices);
         $this->assertSame('★', $choices[0]->value);
-        $this->assertSame('mautic.form.field.form.rating_symbol.star_filled_label', $choices[0]->label);
+        $this->assertSame('mailvotech.form.field.form.rating_symbol.star_filled_label', $choices[0]->label);
         $this->assertSame('◆', $choices[7]->value);
-        $this->assertSame('mautic.form.field.form.rating_symbol.diamond_filled_label', $choices[7]->label);
+        $this->assertSame('mailvotech.form.field.form.rating_symbol.diamond_filled_label', $choices[7]->label);
 
         $starColor = $form->get('star_color');
         $this->assertInstanceOf(TextType::class, $starColor->getConfig()->getType()->getInnerType());
-        $this->assertSame('mautic.form.field.form.rating_star_color', $starColor->getConfig()->getOption('label'));
+        $this->assertSame('mailvotech.form.field.form.rating_star_color', $starColor->getConfig()->getOption('label'));
         $this->assertSame([
             'class'        => 'form-control minicolors-input',
-            'tooltip'      => 'mautic.form.field.help.rating_star_color',
+            'tooltip'      => 'mailvotech.form.field.help.rating_star_color',
             'data-toggle'  => 'color',
             'autocomplete' => 'false',
             'size'         => '7',
@@ -98,10 +98,10 @@ final class FormFieldRatingTypeTest extends TypeTestCase
 
         $baseColor = $form->get('base_color');
         $this->assertInstanceOf(TextType::class, $baseColor->getConfig()->getType()->getInnerType());
-        $this->assertSame('mautic.form.field.form.rating_base_color', $baseColor->getConfig()->getOption('label'));
+        $this->assertSame('mailvotech.form.field.form.rating_base_color', $baseColor->getConfig()->getOption('label'));
         $this->assertSame([
             'class'        => 'form-control minicolors-input',
-            'tooltip'      => 'mautic.form.field.help.rating_base_color',
+            'tooltip'      => 'mailvotech.form.field.help.rating_base_color',
             'data-toggle'  => 'color',
             'autocomplete' => 'false',
             'size'         => '7',

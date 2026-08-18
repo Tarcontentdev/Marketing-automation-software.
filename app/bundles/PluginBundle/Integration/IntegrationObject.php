@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Integration;
+namespace MailVotech\PluginBundle\Integration;
 
 final class IntegrationObject
 {

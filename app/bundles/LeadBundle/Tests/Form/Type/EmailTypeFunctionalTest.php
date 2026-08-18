@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Form\Type;
+namespace MailVotech\LeadBundle\Tests\Form\Type;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Copy;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Copy;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
-final class EmailTypeFunctionalTest extends MauticMysqlTestCase
+final class EmailTypeFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -38,8 +38,8 @@ final class EmailTypeFunctionalTest extends MauticMysqlTestCase
         // Send email to contact
         $form->setValues([
             'lead_quickemail[fromname]' => 'Admin',
-            'lead_quickemail[from]'     => 'admin@mautic.com',
-            'lead_quickemail[subject]'  => 'Test Jap Mautic',
+            'lead_quickemail[from]'     => 'admin@mailvotech.com',
+            'lead_quickemail[subject]'  => 'Test Jap MailVotech',
             'lead_quickemail[body]'     => '<p style="font-family: メイリオ">Test</p>',
             'lead_quickemail[list]'     => 0,
         ]);
@@ -47,7 +47,7 @@ final class EmailTypeFunctionalTest extends MauticMysqlTestCase
         $this->assertResponseIsSuccessful();
 
         // Check the email has correct text
-        $copy = $this->em->getRepository(Copy::class)->findOneBy(['subject' => 'Test Jap Mautic']);
+        $copy = $this->em->getRepository(Copy::class)->findOneBy(['subject' => 'Test Jap MailVotech']);
         $this->assertInstanceOf(Copy::class, $copy);
         $this->assertStringContainsString('<p style="font-family: メイリオ">Test</p>', (string) $copy->getBody());
     }

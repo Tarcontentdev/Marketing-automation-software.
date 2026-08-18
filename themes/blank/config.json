@@ -1,7 +1,7 @@
 {
   "name": "Blank",
-  "author": "Mautic team",
-  "authorUrl": "https://mautic.org",
+  "author": "MailVotech team",
+  "authorUrl": "https://mailvotech.org",
   "builder": [
     "legacy",
     "grapesjsbuilder"

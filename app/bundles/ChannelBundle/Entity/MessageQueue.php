@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Entity;
+namespace MailVotech\ChannelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\LeadBundle\Entity\Lead;
 
 class MessageQueue
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Predis\Replication;
+namespace MailVotech\CoreBundle\Predis\Replication;
 
 final readonly class StrategyConfig
 {

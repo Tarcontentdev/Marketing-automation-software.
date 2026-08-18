@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ExportHelper;
-use Mautic\CoreBundle\Helper\FilePathResolver;
-use Mautic\CoreBundle\Model\IteratorExportDataModel;
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalService;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\StageBundle\Entity\Stage;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ExportHelper;
+use MailVotech\CoreBundle\Helper\FilePathResolver;
+use MailVotech\CoreBundle\Model\IteratorExportDataModel;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalService;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\StageBundle\Entity\Stage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -33,14 +33,14 @@ final class ExportHelperTest extends TestCase
         [
             'id'        => 1,
             'firstname' => 'Mautibot',
-            'lastname'  => 'Mautic',
-            'email'     => 'mautibot@mautic.org',
+            'lastname'  => 'MailVotech',
+            'email'     => 'mautibot@mailvotech.org',
         ],
         [
             'id'        => 2,
             'firstname' => 'Demo',
-            'lastname'  => 'Mautic',
-            'email'     => 'demo@mautic.org',
+            'lastname'  => 'MailVotech',
+            'email'     => 'demo@mailvotech.org',
         ],
     ];
 
@@ -188,8 +188,8 @@ final class ExportHelperTest extends TestCase
         $lines = explode(PHP_EOL, $this->removeBomUtf8($content));
 
         $this->assertSame('"id","firstname","lastname","email"', $lines[0]);
-        $this->assertSame('"1","Mautibot","Mautic","mautibot@mautic.org"', $lines[1]);
-        $this->assertSame('"2","Demo","Mautic","demo@mautic.org"', $lines[2]);
+        $this->assertSame('"1","Mautibot","MailVotech","mautibot@mailvotech.org"', $lines[1]);
+        $this->assertSame('"2","Demo","MailVotech","demo@mailvotech.org"', $lines[2]);
     }
 
     /**
@@ -260,7 +260,7 @@ final class ExportHelperTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->translatorInterfaceMock->expects($this->once())->method('trans')
             ->with(
-                'mautic.error.invalid.specific.export.type', [
+                'mailvotech.error.invalid.specific.export.type', [
                     '%type%'          => 'xls',
                     '%expected_type%' => ExportHelper::EXPORT_TYPE_EXCEL,
                 ]
@@ -308,7 +308,7 @@ final class ExportHelperTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->translatorInterfaceMock->expects($this->once())->method('trans')->with(
-            'mautic.error.invalid.specific.export.type', [
+            'mailvotech.error.invalid.specific.export.type', [
                 '%type%'          => ExportHelper::EXPORT_TYPE_EXCEL,
                 '%expected_type%' => ExportHelper::EXPORT_TYPE_CSV,
             ]

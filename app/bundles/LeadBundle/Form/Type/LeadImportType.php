@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Validator\Constraints\FileEncoding as EncodingValidation;
+use MailVotech\CoreBundle\Form\Validator\Constraints\FileEncoding as EncodingValidation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,19 +22,19 @@ final class LeadImportType extends AbstractType
             'file',
             FileType::class,
             [
-                'label' => 'mautic.lead.import.file',
+                'label' => 'mailvotech.lead.import.file',
                 'attr'  => [
                     'accept' => '.csv',
                     'class'  => 'form-control',
                 ],
                 'constraints' => [
-                    new File(mimeTypes: ['text/*', 'application/octet-stream', 'application/csv'], mimeTypesMessage: 'mautic.core.invalid_file_type'),
+                    new File(mimeTypes: ['text/*', 'application/octet-stream', 'application/csv'], mimeTypesMessage: 'mailvotech.core.invalid_file_type'),
                     new EncodingValidation(
-                        encodingFormatMessage: 'mautic.core.invalid_file_encoding',
+                        encodingFormatMessage: 'mailvotech.core.invalid_file_encoding',
                         encodingFormat: ['UTF-8'],
                     ),
                     new NotBlank(
-                        message: 'mautic.import.file.required'
+                        message: 'mailvotech.import.file.required'
                     ),
                 ],
                 'error_bubbling' => true,
@@ -43,7 +43,7 @@ final class LeadImportType extends AbstractType
 
         $constraints = [
             new NotBlank(
-                message: 'mautic.core.value.required'
+                message: 'mailvotech.core.value.required'
             ),
         ];
 
@@ -52,11 +52,11 @@ final class LeadImportType extends AbstractType
             'delimiter',
             TextType::class,
             [
-                'label'      => 'mautic.lead.import.delimiter',
+                'label'      => 'mailvotech.lead.import.delimiter',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.lead.import.delimiter.help',
+                    'tooltip' => 'mailvotech.lead.import.delimiter.help',
                 ],
                 'data'        => $default,
                 'constraints' => $constraints,
@@ -68,11 +68,11 @@ final class LeadImportType extends AbstractType
             'enclosure',
             TextType::class,
             [
-                'label'      => 'mautic.lead.import.enclosure',
+                'label'      => 'mailvotech.lead.import.enclosure',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.lead.import.enclosure.help',
+                    'tooltip' => 'mailvotech.lead.import.enclosure.help',
                 ],
                 'data'        => $default,
                 'constraints' => $constraints,
@@ -84,11 +84,11 @@ final class LeadImportType extends AbstractType
             'escape',
             TextType::class,
             [
-                'label'      => 'mautic.lead.import.escape',
+                'label'      => 'mailvotech.lead.import.escape',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.lead.import.escape.help',
+                    'tooltip' => 'mailvotech.lead.import.escape.help',
                 ],
                 'data'        => $default,
                 'constraints' => $constraints,
@@ -100,11 +100,11 @@ final class LeadImportType extends AbstractType
             'batchlimit',
             TextType::class,
             [
-                'label'      => 'mautic.lead.import.batchlimit',
+                'label'      => 'mailvotech.lead.import.batchlimit',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.lead.import.batchlimit_tooltip',
+                    'tooltip' => 'mailvotech.lead.import.batchlimit_tooltip',
                 ],
                 'data'        => $default,
                 'constraints' => $constraints,
@@ -120,7 +120,7 @@ final class LeadImportType extends AbstractType
                     'icon'    => 'ri-import-line',
                     'onclick' => "mQuery(this).prop('disabled', true); mQuery('form[name=\'lead_import\']').submit();",
                 ],
-                'label' => 'mautic.lead.import.upload',
+                'label' => 'mailvotech.lead.import.upload',
             ]
         );
 

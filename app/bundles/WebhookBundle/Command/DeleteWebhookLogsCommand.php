@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Command;
+namespace MailVotech\WebhookBundle\Command;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\WebhookBundle\Model\WebhookModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\WebhookBundle\Model\WebhookModel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,9 +20,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 final class DeleteWebhookLogsCommand extends Command
 {
-    public const COMMAND_NAME = 'mautic:webhooks:delete_logs';
+    public const COMMAND_NAME = 'mailvotech:webhooks:delete_logs';
 
-    private readonly \Mautic\WebhookBundle\Entity\LogRepository $logRepository;
+    private readonly \MailVotech\WebhookBundle\Entity\LogRepository $logRepository;
 
     public function __construct(
         WebhookModel $webhookModel,

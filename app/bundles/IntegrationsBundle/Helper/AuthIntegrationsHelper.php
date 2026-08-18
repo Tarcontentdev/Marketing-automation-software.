@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Helper;
+namespace MailVotech\IntegrationsBundle\Helper;
 
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Integration\Interfaces\AuthenticationInterface;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\AuthenticationInterface;
+use MailVotech\PluginBundle\Entity\Integration;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 final class AuthIntegrationsHelper
@@ -21,7 +21,7 @@ final class AuthIntegrationsHelper
      */
     public function __construct(
         private readonly IntegrationsHelper $integrationsHelper,
-        #[AutowireIterator('mautic.authentication_integration')]
+        #[AutowireIterator('mailvotech.authentication_integration')]
         iterable $integrations = [],
     ) {
         foreach ($integrations as $integration) {
@@ -40,7 +40,7 @@ final class AuthIntegrationsHelper
     public function getIntegration(string $integration): AuthenticationInterface
     {
         if (!isset($this->integrations[$integration])) {
-            throw new IntegrationNotFoundException("{$integration} either doesn't exist or has not been tagged with mautic.authentication_integration");
+            throw new IntegrationNotFoundException("{$integration} either doesn't exist or has not been tagged with mailvotech.authentication_integration");
         }
 
         // Ensure the configuration is hydrated

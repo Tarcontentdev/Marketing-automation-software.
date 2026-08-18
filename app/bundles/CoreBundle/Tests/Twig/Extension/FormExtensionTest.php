@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Twig\Extension;
+namespace MailVotech\CoreBundle\Tests\Twig\Extension;
 
-use Mautic\CoreBundle\Twig\Extension\FormExtension;
+use MailVotech\CoreBundle\Twig\Extension\FormExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormRendererInterface;
 use Symfony\Component\Form\FormView;

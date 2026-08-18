@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Functional\Model;
+namespace MailVotech\PageBundle\Tests\Functional\Model;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PageBundle\Entity\HitRepository;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PageBundle\Entity\HitRepository;
+use MailVotech\PageBundle\Entity\Page;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PageHitCookieTest extends MauticMysqlTestCase
+final class PageHitCookieTest extends MailVotechMysqlTestCase
 {
     private HitRepository $hitRepository;
 
@@ -44,8 +44,8 @@ final class PageHitCookieTest extends MauticMysqlTestCase
 
         // Verify the cookie was set
         $cookieJar   = $this->client->getCookieJar();
-        $cookie      = $cookieJar->get('mautic_referer_id');
-        $this->assertInstanceOf(Cookie::class, $cookie, 'Cookie mautic_referer_id should be set');
+        $cookie      = $cookieJar->get('mailvotech_referer_id');
+        $this->assertInstanceOf(Cookie::class, $cookie, 'Cookie mailvotech_referer_id should be set');
 
         $cookieValue = $cookie->getValue();
         $this->assertNotSame('', $cookieValue, 'Cookie value should not be empty');
@@ -75,7 +75,7 @@ final class PageHitCookieTest extends MauticMysqlTestCase
         $this->assertNull($secondHit->getDateLeft(), 'Second hit should not have date_left set yet');
 
         // Verify cookie was updated with second hit ID
-        $cookie      = $cookieJar->get('mautic_referer_id');
+        $cookie      = $cookieJar->get('mailvotech_referer_id');
         $cookieValue = $cookie?->getValue();
         $this->assertNotNull($cookieValue, 'Cookie value should not be null after second hit');
         $this->assertEquals((int) $cookieValue, $secondHit->getId(), 'Cookie should contain the second hit ID');
@@ -95,7 +95,7 @@ final class PageHitCookieTest extends MauticMysqlTestCase
         $this->assertNull($thirdHit->getDateLeft(), 'Third hit should not have date_left set yet');
 
         // Verify cookie was updated with third hit ID
-        $cookie      = $cookieJar->get('mautic_referer_id');
+        $cookie      = $cookieJar->get('mailvotech_referer_id');
         $cookieValue = $cookie?->getValue();
         $this->assertNotNull($cookieValue, 'Cookie value should not be null after third hit');
         $this->assertEquals((int) $cookieValue, $thirdHit->getId(), 'Cookie should contain the third hit ID');

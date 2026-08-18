@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\IpLookup;
+namespace MailVotech\CoreBundle\IpLookup;
 
 use GuzzleHttp\Client;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Psr\Log\LoggerInterface;
 
 abstract class AbstractLookup

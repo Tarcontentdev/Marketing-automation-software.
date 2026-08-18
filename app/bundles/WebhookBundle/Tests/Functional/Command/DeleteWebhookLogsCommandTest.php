@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Functional\Command;
+namespace MailVotech\WebhookBundle\Tests\Functional\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\WebhookBundle\Command\DeleteWebhookLogsCommand;
-use Mautic\WebhookBundle\Entity\Event;
-use Mautic\WebhookBundle\Entity\Log;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Model\WebhookModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\WebhookBundle\Command\DeleteWebhookLogsCommand;
+use MailVotech\WebhookBundle\Entity\Event;
+use MailVotech\WebhookBundle\Entity\Log;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Model\WebhookModel;
 
-final class DeleteWebhookLogsCommandTest extends MauticMysqlTestCase
+final class DeleteWebhookLogsCommandTest extends MailVotechMysqlTestCase
 {
     private WebhookModel $webhookModel;
 

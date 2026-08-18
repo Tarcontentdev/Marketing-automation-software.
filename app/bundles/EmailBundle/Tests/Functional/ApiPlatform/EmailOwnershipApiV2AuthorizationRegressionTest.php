@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Functional\ApiPlatform;
+namespace MailVotech\EmailBundle\Tests\Functional\ApiPlatform;
 
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\LeadBundle\Tests\Functional\ApiPlatform\OwnershipScopedApiAuthorizationTestBase;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\LeadBundle\Tests\Functional\ApiPlatform\OwnershipScopedApiAuthorizationTestBase;
+use MailVotech\UserBundle\Entity\User;
 
 final class EmailOwnershipApiV2AuthorizationRegressionTest extends OwnershipScopedApiAuthorizationTestBase
 {

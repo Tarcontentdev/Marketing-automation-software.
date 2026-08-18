@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
 
-final class Version20240704164714 extends AbstractMauticMigration
+final class Version20240704164714 extends AbstractMailVotechMigration
 {
     protected const TABLE_NAME = 'lead_fields';
 

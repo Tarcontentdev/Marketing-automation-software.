@@ -2,8 +2,8 @@
 
 namespace Utils\Rector\Tests\GetRepositoryToRepositoryServiceRector\Fixture;
 
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Model\PageModel;
 use Utils\Rector\Tests\GetRepositoryToRepositoryServiceRector\Source\AbstractParentWithConstructor;
 
 final class ReuseExistingAutowireMethod extends AbstractParentWithConstructor
@@ -28,17 +28,17 @@ final class ReuseExistingAutowireMethod extends AbstractParentWithConstructor
 
 namespace Utils\Rector\Tests\GetRepositoryToRepositoryServiceRector\Fixture;
 
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Model\PageModel;
 use Utils\Rector\Tests\GetRepositoryToRepositoryServiceRector\Source\AbstractParentWithConstructor;
 
 final class ReuseExistingAutowireMethod extends AbstractParentWithConstructor
 {
-    private \Mautic\PageBundle\Entity\HitRepository $hitRepository;
+    private \MailVotech\PageBundle\Entity\HitRepository $hitRepository;
     private PageModel $pageModel;
 
     #[\Symfony\Contracts\Service\Attribute\Required]
-    public function autowireReuseExistingAutowireMethod(PageModel $pageModel, \Mautic\PageBundle\Entity\HitRepository $hitRepository): void
+    public function autowireReuseExistingAutowireMethod(PageModel $pageModel, \MailVotech\PageBundle\Entity\HitRepository $hitRepository): void
     {
         $this->pageModel = $pageModel;
         $this->hitRepository = $hitRepository;

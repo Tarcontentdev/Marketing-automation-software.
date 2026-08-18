@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\NotificationBundle\Entity;
+namespace MailVotech\NotificationBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -11,15 +11,15 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\TranslationEntityInterface;
-use Mautic\CoreBundle\Entity\TranslationEntityTrait;
-use Mautic\CoreBundle\Entity\UuidInterface;
-use Mautic\CoreBundle\Entity\UuidTrait;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Form\Validator\Constraints\LeadListAccess;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\TranslationEntityInterface;
+use MailVotech\CoreBundle\Entity\TranslationEntityTrait;
+use MailVotech\CoreBundle\Entity\UuidInterface;
+use MailVotech\CoreBundle\Entity\UuidTrait;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Form\Validator\Constraints\LeadListAccess;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -123,7 +123,7 @@ class Notification extends FormEntity implements UuidInterface, TranslationEntit
     private $sentCount = 0;
 
     /**
-     * @var \Mautic\CategoryBundle\Entity\Category|null
+     * @var \MailVotech\CategoryBundle\Entity\Category|null
      */
     #[Groups(['notification:read', 'notification:write'])]
     private $category;
@@ -253,21 +253,21 @@ class Notification extends FormEntity implements UuidInterface, TranslationEntit
         $metadata->addPropertyConstraint(
             'name',
             new NotBlank(
-                message: 'mautic.core.name.required'
+                message: 'mailvotech.core.name.required'
             )
         );
 
         $metadata->addPropertyConstraint(
             'heading',
             new NotBlank(
-                message: 'mautic.core.heading.required'
+                message: 'mailvotech.core.heading.required'
             )
         );
 
         $metadata->addPropertyConstraint(
             'message',
             new NotBlank(
-                message: 'mautic.core.message.required'
+                message: 'mailvotech.core.message.required'
             )
         );
 
@@ -281,11 +281,11 @@ class Notification extends FormEntity implements UuidInterface, TranslationEntit
                         [
                             new LeadListAccess(
                                 [
-                                    'message' => 'mautic.lead.lists.required',
+                                    'message' => 'mailvotech.lead.lists.required',
                                 ]
                             ),
                             new NotBlank(
-                                message: 'mautic.lead.lists.required'
+                                message: 'mailvotech.lead.lists.required'
                             ),
                         ]
                     );
@@ -392,7 +392,7 @@ class Notification extends FormEntity implements UuidInterface, TranslationEntit
     }
 
     /**
-     * @return \Mautic\CategoryBundle\Entity\Category|null
+     * @return \MailVotech\CategoryBundle\Entity\Category|null
      */
     public function getCategory()
     {

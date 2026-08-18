@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\EmailBundle\Event;
+namespace MailVotech\EmailBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
 use Symfony\Component\HttpFoundation\Request;
 
 final class EmailOpenEvent extends CommonEvent

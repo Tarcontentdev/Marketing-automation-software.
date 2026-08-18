@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\EventListener;
+namespace MailVotech\CoreBundle\Tests\Functional\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
-use Mautic\CoreBundle\Event\GeneratedColumnsEvent;
-use Mautic\CoreBundle\Helper\ExitCode;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
+use MailVotech\CoreBundle\Event\GeneratedColumnsEvent;
+use MailVotech\CoreBundle\Helper\ExitCode;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-final class MigrationCommandSubscriberTest extends MauticMysqlTestCase
+final class MigrationCommandSubscriberTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -27,7 +27,7 @@ final class MigrationCommandSubscriberTest extends MauticMysqlTestCase
     {
         parent::setUp();
 
-        $this->tablePrefix     = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $this->tablePrefix     = self::getContainer()->getParameter('mailvotech.db_table_prefix');
         $this->eventDispatcher = self::getContainer()->get(EventDispatcherInterface::class);
     }
 
@@ -119,7 +119,7 @@ ADD INDEX `{$this->tablePrefix}generated_name_three`(generated_name_three)
 
     private function executeMigrationCommand(): string
     {
-        // intentionally not using AbstractMauticTestCase::testSymfonyCommand() as it does not dispatch 'console.terminate' event
+        // intentionally not using AbstractMailVotechTestCase::testSymfonyCommand() as it does not dispatch 'console.terminate' event
         $params      = ['command' => 'doctrine:migration:migrate', '--no-interaction' => true];
         $application = new Application(self::getContainer()->get(KernelInterface::class));
         $application->setAutoExit(false);

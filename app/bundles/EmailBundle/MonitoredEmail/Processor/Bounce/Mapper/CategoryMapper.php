@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\Mapper;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\Mapper;
 
-use Mautic\EmailBundle\MonitoredEmail\Exception\CategoryNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\Definition\Category;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\Definition\Type;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\Mapper\Category as CategoryObject;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\CategoryNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\Definition\Category;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\Definition\Type;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\Mapper\Category as CategoryObject;
 
 final class CategoryMapper
 {

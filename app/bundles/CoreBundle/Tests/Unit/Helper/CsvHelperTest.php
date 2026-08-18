@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Helper\CsvHelper;
 
 final class CsvHelperTest extends \PHPUnit\Framework\TestCase
 {

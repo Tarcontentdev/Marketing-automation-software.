@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Event;
+namespace MailVotech\SmsBundle\Event;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ReplyEvent extends \Symfony\Contracts\EventDispatcher\Event

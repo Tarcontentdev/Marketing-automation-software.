@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
 use JMS\Serializer\EventDispatcher\Events;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
-use Mautic\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadField;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final readonly class SerializerSubscriber implements EventSubscriberInterface

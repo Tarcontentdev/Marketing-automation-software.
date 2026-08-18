@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\EventListener;
+namespace MailVotech\UserBundle\Tests\EventListener;
 
-use Mautic\UserBundle\Event\AuthenticationEvent;
-use Mautic\UserBundle\EventListener\PasswordSubscriber;
-use Mautic\UserBundle\Exception\WeakPasswordException;
-use Mautic\UserBundle\Model\PasswordStrengthEstimatorModel;
-use Mautic\UserBundle\Security\Authentication\Token\PluginToken;
-use Mautic\UserBundle\Security\Authenticator\Passport\Badge\PasswordStrengthBadge;
+use MailVotech\UserBundle\Event\AuthenticationEvent;
+use MailVotech\UserBundle\EventListener\PasswordSubscriber;
+use MailVotech\UserBundle\Exception\WeakPasswordException;
+use MailVotech\UserBundle\Model\PasswordStrengthEstimatorModel;
+use MailVotech\UserBundle\Security\Authentication\Token\PluginToken;
+use MailVotech\UserBundle\Security\Authenticator\Passport\Badge\PasswordStrengthBadge;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
-use Mautic\EmailBundle\EventListener\MatchFilterForLeadTrait;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\EmailBundle\EventListener\MatchFilterForLeadTrait;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -40,8 +40,8 @@ final class MatchFilterForLeadTraitTest extends TestCase
         $this->matchFilterForLeadTrait = new MatchFilterForLeadTraitTestable();
 
         // Set required environment variable for FormFieldHelper
-        if (!isset($_ENV['MAUTIC_UPLOAD_DIR'])) {
-            $_ENV['MAUTIC_UPLOAD_DIR'] = '/tmp';
+        if (!isset($_ENV['MAILVOTECH_UPLOAD_DIR'])) {
+            $_ENV['MAILVOTECH_UPLOAD_DIR'] = '/tmp';
         }
     }
 

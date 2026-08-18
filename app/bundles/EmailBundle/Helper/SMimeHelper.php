@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Helper;
+namespace MailVotech\EmailBundle\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\EncryptionHelper;
-use Mautic\CoreBundle\Helper\Filesystem;
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\EncryptionHelper;
+use MailVotech\CoreBundle\Helper\Filesystem;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Mime\Address;
@@ -65,7 +65,7 @@ class SMimeHelper
      * Signs the message with S/MIME if enabled and certificates are available.
      * Returns the signed message, or the original message if signing is not applicable.
      */
-    public function signContent(MauticMessage $message): Message
+    public function signContent(MailVotechMessage $message): Message
     {
         if (!$this->sMimeSigningEnabled()) {
             return $message;
@@ -133,7 +133,7 @@ class SMimeHelper
                 $decryptedContent = $this->encryptionHelper->decrypt($encryptedContent);
 
                 // Create a temporary file with a unique hash
-                $tempKeyPath = sys_get_temp_dir().'/mautic_smime_'.md5($fromEmail.uniqid('', true)).'.pem';
+                $tempKeyPath = sys_get_temp_dir().'/mailvotech_smime_'.md5($fromEmail.uniqid('', true)).'.pem';
                 file_put_contents($tempKeyPath, $decryptedContent);
                 chmod($tempKeyPath, 0600); // Secure the temporary file
 

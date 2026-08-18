@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Auth\Provider\ApiKey;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Auth\Provider\ApiKey;
 
 use GuzzleHttp\Exception\ConnectException;
-use Mautic\IntegrationsBundle\Auth\Provider\ApiKey\Credentials\HeaderCredentialsInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\ApiKey\Credentials\ParameterCredentialsInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\ApiKey\HttpFactory;
-use Mautic\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
-use Mautic\IntegrationsBundle\Exception\InvalidCredentialsException;
-use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
+use MailVotech\IntegrationsBundle\Auth\Provider\ApiKey\Credentials\HeaderCredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\ApiKey\Credentials\ParameterCredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\ApiKey\HttpFactory;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
+use MailVotech\IntegrationsBundle\Exception\InvalidCredentialsException;
+use MailVotech\IntegrationsBundle\Exception\PluginNotConfiguredException;
 use PHPUnit\Framework\TestCase;
 
 final class HttpFactoryTest extends TestCase

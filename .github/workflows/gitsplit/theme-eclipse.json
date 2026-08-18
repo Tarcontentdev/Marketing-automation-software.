@@ -3,7 +3,7 @@
         {
             "name": "theme-eclipse",
             "directory": "themes/eclipse",
-            "target": "git@github.com:mautic/theme-eclipse.git"
+            "target": "git@github.com:mailvotech/theme-eclipse.git"
         }
     ]
 }

@@ -3,7 +3,7 @@
         {
             "name": "theme-fresh-left",
             "directory": "themes/fresh-left",
-            "target": "git@github.com:mautic/theme-fresh-left.git"
+            "target": "git@github.com:mailvotech/theme-fresh-left.git"
         }
     ]
 }

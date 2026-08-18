@@ -43,7 +43,7 @@ final class NoNullableServiceInConstructorRule implements Rule
     /**
      * @var string[]
      */
-    private const SKIPPED_EXACT_CLASSES = ['Mautic\\CoreBundle\\IpLookup\\AbstractLookup'];
+    private const SKIPPED_EXACT_CLASSES = ['MailVotech\\CoreBundle\\IpLookup\\AbstractLookup'];
 
     public function __construct(
         private readonly ReflectionProvider $reflectionProvider,
@@ -117,7 +117,7 @@ final class NoNullableServiceInConstructorRule implements Rule
                 $parameterName,
                 $serviceType
             ))
-                ->identifier('mautic.noNullableServiceInConstructor')
+                ->identifier('mailvotech.noNullableServiceInConstructor')
                 ->line($param->getStartLine())
                 ->build();
         }

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Entity;
+namespace MailVotech\PageBundle\Tests\Entity;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Model\PageModel;
 
-final class PageRepositoryFunctionalTest extends MauticMysqlTestCase
+final class PageRepositoryFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testResetVariants(): void
     {

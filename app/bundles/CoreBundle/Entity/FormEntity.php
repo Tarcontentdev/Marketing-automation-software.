@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\CoreBundle\Entity;
+namespace MailVotech\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 class FormEntity extends CommonEntity

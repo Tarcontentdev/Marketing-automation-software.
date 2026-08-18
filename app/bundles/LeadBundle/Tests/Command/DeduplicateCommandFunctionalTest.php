@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Command;
+namespace MailVotech\LeadBundle\Tests\Command;
 
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Command\DeduplicateCommand;
-use Mautic\LeadBundle\Deduplicate\ContactDeduper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Command\DeduplicateCommand;
+use MailVotech\LeadBundle\Deduplicate\ContactDeduper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
 
-final class DeduplicateCommandFunctionalTest extends MauticMysqlTestCase
+final class DeduplicateCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 

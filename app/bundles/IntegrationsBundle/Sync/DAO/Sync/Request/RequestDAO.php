@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Sync\Request;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Sync\Request;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
 
 final class RequestDAO
 {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Entity;
+namespace MailVotech\PointBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\CommonEntity;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\CommonEntity;
+use MailVotech\LeadBundle\Entity\Lead;
 
 class GroupContactScore extends CommonEntity
 {

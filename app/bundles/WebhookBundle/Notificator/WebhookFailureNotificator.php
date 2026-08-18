@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Notificator;
+namespace MailVotech\WebhookBundle\Notificator;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\WebhookBundle\Entity\Webhook;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\WebhookBundle\Entity\Webhook;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class WebhookFailureNotificator
@@ -21,7 +21,7 @@ final readonly class WebhookFailureNotificator
      */
     public function send(Webhook $webhook, string $reason): void
     {
-        $subject = $this->translator->trans('mautic.webhook.failing', [
+        $subject = $this->translator->trans('mailvotech.webhook.failing', [
             '%webhook%' => $webhook->getName(),
         ]);
         $reason  = $this->translator->trans($reason);
@@ -32,6 +32,6 @@ final readonly class WebhookFailureNotificator
             'signature_from_name' => $this->sender->getFromNameForSignature(),
         ];
 
-        $this->sender->send($webhook, $subject, '@MauticWebhook/Notifications/webhook-failing.html.twig', $details);
+        $this->sender->send($webhook, $subject, '@MailVotechWebhook/Notifications/webhook-failing.html.twig', $details);
     }
 }

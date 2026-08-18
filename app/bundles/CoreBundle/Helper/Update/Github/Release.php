@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper\Update\Github;
+namespace MailVotech\CoreBundle\Helper\Update\Github;
 
-use Mautic\CoreBundle\Helper\Update\Exception\UpdatePackageNotFoundException;
-use Mautic\CoreBundle\Release\Metadata;
+use MailVotech\CoreBundle\Helper\Update\Exception\UpdatePackageNotFoundException;
+use MailVotech\CoreBundle\Release\Metadata;
 
 final class Release
 {

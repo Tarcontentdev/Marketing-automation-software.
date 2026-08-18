@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\StageBundle\Event;
+namespace MailVotech\StageBundle\Event;
 
 use Symfony\Component\Process\Exception\InvalidArgumentException;
 use Symfony\Contracts\EventDispatcher\Event;
@@ -29,7 +29,7 @@ final class StageBuilderEvent extends Event
      *                       'callback'        => (optional) callback function that will be passed when the action is triggered; return true to
      *                       change the configured stages or false to ignore the action
      *                       The callback function can receive the following arguments by name (via ReflectionMethod::invokeArgs())
-     *                       Mautic\LeadBundle\Entity\Lead $lead
+     *                       MailVotech\LeadBundle\Entity\Lead $lead
      *                       $eventDetails - variable sent from firing function to call back function
      *                       array $action = array(
      *                       'id' => int

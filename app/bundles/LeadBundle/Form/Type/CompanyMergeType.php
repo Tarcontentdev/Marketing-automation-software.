@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,14 +20,14 @@ final class CompanyMergeType extends AbstractType
             CompanyListType::class,
             [
                 'multiple'            => false,
-                'label'               => 'mautic.company.to.merge.into',
+                'label'               => 'mailvotech.company.to.merge.into',
                 'required'            => true,
                 'modal_route'         => false,
                 'main_entity'         => $options['main_entity'],
                 'model_lookup_method' => $options['model_lookup_method'],
                 'constraints'         => [
                     new NotBlank(
-                        message: 'mautic.company.choosecompany.notblank'
+                        message: 'mailvotech.company.choosecompany.notblank'
                     ),
                 ],
             ]
@@ -37,7 +37,7 @@ final class CompanyMergeType extends AbstractType
             FormButtonsType::class,
             [
                 'apply_text' => false,
-                'save_text'  => 'mautic.lead.merge',
+                'save_text'  => 'mailvotech.lead.merge',
                 'save_icon'  => 'ri-building-2-line',
             ]
         );

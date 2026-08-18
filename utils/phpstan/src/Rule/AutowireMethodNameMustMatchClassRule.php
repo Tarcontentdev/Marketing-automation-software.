@@ -20,7 +20,7 @@ use PHPStan\Rules\RuleErrorBuilder;
  * Controllers extend each other deeply, which is where the collisions happen, so only they are checked.
  *
  * Every bundle declares its own AjaxController extending a shared parent, so the short name alone repeats across
- * bundles. Those get the bundle name in the middle instead: Mautic\CoreBundle\Controller\AjaxController must name
+ * bundles. Those get the bundle name in the middle instead: MailVotech\CoreBundle\Controller\AjaxController must name
  * its method "autowireCoreAjaxController".
  *
  * @implements Rule<ClassMethod>
@@ -87,7 +87,7 @@ final class AutowireMethodNameMustMatchClassRule implements Rule
             $currentMethodName,
             $expectedMethodName
         ))
-            ->identifier('mautic.autowireMethodName')
+            ->identifier('mailvotech.autowireMethodName')
             ->build();
 
         return [$ruleError];
@@ -170,7 +170,7 @@ final class AutowireMethodNameMustMatchClassRule implements Rule
     }
 
     /**
-     * "Mautic\CoreBundle\Controller\AjaxController" resolves to "Core".
+     * "MailVotech\CoreBundle\Controller\AjaxController" resolves to "Core".
      */
     private function resolveBundleName(string $className): ?string
     {

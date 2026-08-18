@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Fixtures;
+namespace MailVotech\CampaignBundle\Tests\Functional\Fixtures;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\LeadBundle\Entity\Lead;
 
 final readonly class FixtureHelper
 {
@@ -184,7 +184,7 @@ final readonly class FixtureHelper
                 'type'            => 'email.send',
                 'eventType'       => 'action',
                 'anchorEventType' => 'source',
-                'campaignId'      => 'mautic_ce6c7dddf8444e579d741c0125f18b33a5d49b45',
+                'campaignId'      => 'mailvotech_ce6c7dddf8444e579d741c0125f18b33a5d49b45',
                 '_token'          => 'HgysZwvH_n0uAp47CcAcsGddRnRk65t-3crOnuLx28Y',
                 'buttons'         => [
                     'save' => '',

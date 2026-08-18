@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Form\Type;
+namespace MailVotech\WebhookBundle\Tests\Form\Type;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Assert;
 
-final class ConfigTypeFunctionalTest extends MauticMysqlTestCase
+final class ConfigTypeFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testSendEmailDetailsToggleIsOnByDefault(): void
     {

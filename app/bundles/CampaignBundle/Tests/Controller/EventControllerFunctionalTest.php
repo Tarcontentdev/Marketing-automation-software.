@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Controller;
+namespace MailVotech\CampaignBundle\Tests\Controller;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
-final class EventControllerFunctionalTest extends MauticMysqlTestCase
+final class EventControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     #[DataProvider('fieldAndValueProvider')]
     public function testCreateContactConditionOnStateField(string $field, string $value): void
     {
         // Fetch the campaign condition form.
-        $uri = '/s/campaigns/events/new?type=lead.field_value&eventType=condition&campaignId=mautic_89f7f52426c1dff3daa3beaea708a6b39fe7a775&anchor=leadsource&anchorEventType=source';
+        $uri = '/s/campaigns/events/new?type=lead.field_value&eventType=condition&campaignId=mailvotech_89f7f52426c1dff3daa3beaea708a6b39fe7a775&anchor=leadsource&anchorEventType=source';
         $this->client->xmlHttpRequest('GET', $uri);
         $response = $this->client->getResponse();
         $this->assertResponseIsSuccessful();
@@ -36,7 +36,7 @@ final class EventControllerFunctionalTest extends MauticMysqlTestCase
                 'campaignevent[type]'                 => 'lead.field_value',
                 'campaignevent[eventType]'            => 'condition',
                 'campaignevent[anchorEventType]'      => 'source',
-                'campaignevent[campaignId]'           => 'mautic_89f7f52426c1dff3daa3beaea708a6b39fe7a775',
+                'campaignevent[campaignId]'           => 'mailvotech_89f7f52426c1dff3daa3beaea708a6b39fe7a775',
             ]
         );
 
@@ -64,7 +64,7 @@ final class EventControllerFunctionalTest extends MauticMysqlTestCase
 
         $this->assertSame($expectedEventData, $actualEventData);
         $this->assertSame('condition', $responseData['eventType']);
-        $this->assertSame('campaignEvent', $responseData['mauticContent']);
+        $this->assertSame('campaignEvent', $responseData['mailvotechContent']);
         $this->assertSame(1, $responseData['closeModal']);
         $this->assertTrue($responseData['formSubmitted'], $response->getContent());
     }
@@ -82,7 +82,7 @@ final class EventControllerFunctionalTest extends MauticMysqlTestCase
 
     public function testActionAtSpecificTimeWorkflow(): void
     {
-        $uri = '/s/campaigns/events/new?type=lead.changepoints&eventType=action&campaignId=mautic_89f7f52426c1dff3daa3beaea708a6b39fe7a775&anchor=no&anchorEventType=condition';
+        $uri = '/s/campaigns/events/new?type=lead.changepoints&eventType=action&campaignId=mailvotech_89f7f52426c1dff3daa3beaea708a6b39fe7a775&anchor=no&anchorEventType=condition';
         $this->client->xmlHttpRequest('GET', $uri);
         $response = $this->client->getResponse();
         $this->assertResponseIsSuccessful();
@@ -109,7 +109,7 @@ final class EventControllerFunctionalTest extends MauticMysqlTestCase
                 'campaignevent[type]'                       => 'lead.changepoints',
                 'campaignevent[eventType]'                  => 'action',
                 'campaignevent[anchorEventType]'            => 'condition',
-                'campaignevent[campaignId]'                 => 'mautic_89f7f52426c1dff3daa3beaea708a6b39fe7a775',
+                'campaignevent[campaignId]'                 => 'mailvotech_89f7f52426c1dff3daa3beaea708a6b39fe7a775',
             ]
         );
 
@@ -124,7 +124,7 @@ final class EventControllerFunctionalTest extends MauticMysqlTestCase
         $this->assertNotEmpty($responseData['event']['id']);
         $this->assertEquals($responseData['eventId'], $responseData['event']['id']);
         $this->assertSame('action', $responseData['eventType']);
-        $this->assertSame('campaignEvent', $responseData['mauticContent']);
+        $this->assertSame('campaignEvent', $responseData['mailvotechContent']);
         $this->assertSame('by September 27, 2023 9:37 pm UTC', $responseData['label']);
         $this->assertSame(1, $responseData['closeModal']);
         $this->assertArrayHasKey('eventHtml', $responseData);
@@ -133,7 +133,7 @@ final class EventControllerFunctionalTest extends MauticMysqlTestCase
         $modifiedEvents = $responseData['modifiedEvents'] ?? [];
 
         // GET EDIT FORM
-        $uri = "/s/campaigns/events/edit/{$eventId}?campaignId=mautic_89f7f52426c1dff3daa3beaea708a6b39fe7a775&anchor=no&anchorEventType=condition";
+        $uri = "/s/campaigns/events/edit/{$eventId}?campaignId=mailvotech_89f7f52426c1dff3daa3beaea708a6b39fe7a775&anchor=no&anchorEventType=condition";
         $this->client->xmlHttpRequest('GET', $uri, ['modifiedEvents' => json_encode($modifiedEvents)]);
         $response = $this->client->getResponse();
         $this->assertResponseIsSuccessful();
@@ -160,7 +160,7 @@ final class EventControllerFunctionalTest extends MauticMysqlTestCase
                 'campaignevent[type]'                       => 'lead.changepoints',
                 'campaignevent[eventType]'                  => 'action',
                 'campaignevent[anchorEventType]'            => 'condition',
-                'campaignevent[campaignId]'                 => 'mautic_89f7f52426c1dff3daa3beaea708a6b39fe7a775',
+                'campaignevent[campaignId]'                 => 'mailvotech_89f7f52426c1dff3daa3beaea708a6b39fe7a775',
             ]
         );
 
@@ -176,7 +176,7 @@ final class EventControllerFunctionalTest extends MauticMysqlTestCase
         $this->assertEquals($eventId, $responseData['event']['id']);
         $this->assertSame('2 contact points after 1 day', $responseData['event']['name']);
         $this->assertSame('action', $responseData['eventType']);
-        $this->assertSame('campaignEvent', $responseData['mauticContent']);
+        $this->assertSame('campaignEvent', $responseData['mailvotechContent']);
         $this->assertSame('within 1 day', $responseData['label']);
         $this->assertSame(1, $responseData['closeModal']);
         $this->assertArrayHasKey('updateHtml', $responseData);
@@ -185,7 +185,7 @@ final class EventControllerFunctionalTest extends MauticMysqlTestCase
 
     public function testCloneWorkflow(): void
     {
-        $uri = '/s/campaigns/events/new?type=lead.changepoints&eventType=action&campaignId=mautic_89f7f52426c1dff3daa3beaea708a6b39fe7a775&anchor=no&anchorEventType=condition';
+        $uri = '/s/campaigns/events/new?type=lead.changepoints&eventType=action&campaignId=mailvotech_89f7f52426c1dff3daa3beaea708a6b39fe7a775&anchor=no&anchorEventType=condition';
         $this->client->xmlHttpRequest('GET', $uri);
         $response = $this->client->getResponse();
         $this->assertResponseIsSuccessful();
@@ -212,7 +212,7 @@ final class EventControllerFunctionalTest extends MauticMysqlTestCase
                 'campaignevent[type]'                       => 'lead.changepoints',
                 'campaignevent[eventType]'                  => 'action',
                 'campaignevent[anchorEventType]'            => 'condition',
-                'campaignevent[campaignId]'                 => 'mautic_89f7f52426c1dff3daa3beaea708a6b39fe7a775',
+                'campaignevent[campaignId]'                 => 'mailvotech_89f7f52426c1dff3daa3beaea708a6b39fe7a775',
             ]
         );
 
@@ -225,25 +225,25 @@ final class EventControllerFunctionalTest extends MauticMysqlTestCase
         $eventId = $responseData['event']['id'];
 
         // CLONE EVENT
-        $uri = "/s/campaigns/events/clone/{$eventId}?campaignId=mautic_89f7f52426c1dff3daa3beaea708a6b39fe7a775";
+        $uri = "/s/campaigns/events/clone/{$eventId}?campaignId=mailvotech_89f7f52426c1dff3daa3beaea708a6b39fe7a775";
         $this->client->xmlHttpRequest('POST', $uri);
         $response = $this->client->getResponse();
         $this->assertResponseIsSuccessful();
         $responseData = json_decode($response->getContent(), true);
         $this->assertSame(1, $responseData['success'], print_r(json_decode($response->getContent(), true), true));
-        $this->assertSame('campaignEventClone', $responseData['mauticContent']);
+        $this->assertSame('campaignEventClone', $responseData['mailvotechContent']);
         $this->assertSame('Adjust contact points', $responseData['eventName']);
         $this->assertSame('New campaign', $responseData['campaignName']);
 
         // INSERT EVENT
-        $uri = "/s/campaigns/events/insert/{$eventId}?campaignId=mautic_89f7f52426c1dff3daa3beaea708a6b39fe7a775";
+        $uri = "/s/campaigns/events/insert/{$eventId}?campaignId=mailvotech_89f7f52426c1dff3daa3beaea708a6b39fe7a775";
         $this->client->xmlHttpRequest('POST', $uri);
         $response = $this->client->getResponse();
         $this->assertResponseIsSuccessful();
         $responseData = json_decode($response->getContent(), true);
         $this->assertSame(1, $responseData['success'], print_r(json_decode($response->getContent(), true), true));
         $this->assertSame('action', $responseData['eventType']);
-        $this->assertSame('campaignEvent', $responseData['mauticContent']);
+        $this->assertSame('campaignEvent', $responseData['mailvotechContent']);
         $this->assertTrue($responseData['clearCloneStorage']);
         $this->assertNotEquals($eventId, $responseData['eventId']);
         $this->assertNotEmpty($responseData['eventHtml']);
@@ -254,7 +254,7 @@ final class EventControllerFunctionalTest extends MauticMysqlTestCase
     public function testEmailSendTypeDefaultSetting(): void
     {
         // Fetch the campaign action form.
-        $uri = '/s/campaigns/events/new?type=email.send&eventType=action&campaignId=mautic_89f7f52426c1dff3daa3beaea708a6b39fe7a775&anchor=leadsource&anchorEventType=source';
+        $uri = '/s/campaigns/events/new?type=email.send&eventType=action&campaignId=mailvotech_89f7f52426c1dff3daa3beaea708a6b39fe7a775&anchor=leadsource&anchorEventType=source';
         $this->client->xmlHttpRequest('GET', $uri);
         $response = $this->client->getResponse();
         $this->assertResponseIsSuccessful();

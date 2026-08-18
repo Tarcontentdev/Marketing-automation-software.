@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\CoreBundle\Helper\ListParser\ArrayListParser;
-use Mautic\CoreBundle\Helper\ListParser\BarListParser;
-use Mautic\CoreBundle\Helper\ListParser\Exception\FormatNotSupportedException;
-use Mautic\CoreBundle\Helper\ListParser\JsonListParser;
-use Mautic\CoreBundle\Helper\ListParser\ListParserInterface;
-use Mautic\CoreBundle\Helper\ListParser\ValueListParser;
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Helper\ListParser\ArrayListParser;
+use MailVotech\CoreBundle\Helper\ListParser\BarListParser;
+use MailVotech\CoreBundle\Helper\ListParser\Exception\FormatNotSupportedException;
+use MailVotech\CoreBundle\Helper\ListParser\JsonListParser;
+use MailVotech\CoreBundle\Helper\ListParser\ListParserInterface;
+use MailVotech\CoreBundle\Helper\ListParser\ValueListParser;
+use MailVotech\CoreBundle\Translation\Translator;
 use Symfony\Contracts\Service\Attribute\Required;
 
 abstract class AbstractFormFieldHelper
@@ -56,7 +56,7 @@ abstract class AbstractFormFieldHelper
     }
 
     /**
-     * @deprecated since Mautic 7.2. Translator is now autowired by Symfony container, no need to pass it manually.
+     * @deprecated since MailVotech 7.2. Translator is now autowired by Symfony container, no need to pass it manually.
      */
     public function setTranslator(Translator $translator): void
     {
@@ -80,7 +80,7 @@ abstract class AbstractFormFieldHelper
         $choices = [];
 
         foreach ($this->getTypes() as $v => $type) {
-            $choices[$this->translator->transConditional("mautic.core.type.{$v}", "{$this->translationKeyPrefix}{$v}")] = $v;
+            $choices[$this->translator->transConditional("mailvotech.core.type.{$v}", "{$this->translationKeyPrefix}{$v}")] = $v;
         }
 
         foreach ($customFields as $v => $f) {

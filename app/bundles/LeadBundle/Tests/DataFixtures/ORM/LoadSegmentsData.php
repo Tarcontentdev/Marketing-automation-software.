@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\LeadBundle\Tests\DataFixtures\ORM;
+namespace MailVotech\LeadBundle\Tests\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
 
 final class LoadSegmentsData extends AbstractFixture implements OrderedFixtureInterface
 {

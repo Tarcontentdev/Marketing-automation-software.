@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Entity;
+namespace MailVotech\PageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
 
 class Trackable
 {

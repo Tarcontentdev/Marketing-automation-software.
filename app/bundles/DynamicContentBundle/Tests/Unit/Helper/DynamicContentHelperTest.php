@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Tests\Unit\Helper;
+namespace MailVotech\DynamicContentBundle\Tests\Unit\Helper;
 
-use Mautic\CampaignBundle\Executioner\RealTimeExecutioner;
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\DynamicContentBundle\DynamicContentEvents;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\DynamicContentBundle\Event\ContactFiltersEvaluateEvent;
-use Mautic\DynamicContentBundle\Helper\DynamicContentHelper;
-use Mautic\DynamicContentBundle\Model\DynamicContentModel;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CampaignBundle\Executioner\RealTimeExecutioner;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\DynamicContentBundle\DynamicContentEvents;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\DynamicContentBundle\Event\ContactFiltersEvaluateEvent;
+use MailVotech\DynamicContentBundle\Helper\DynamicContentHelper;
+use MailVotech\DynamicContentBundle\Model\DynamicContentModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -108,7 +108,7 @@ final class DynamicContentHelperTest extends \PHPUnit\Framework\TestCase
         $slot = new DynamicContent();
         $slot->setName($slotName);
         $slot->setIsCampaignBased(false);
-        // Setting filter that is not known to Mautic, but is for a plugin.
+        // Setting filter that is not known to MailVotech, but is for a plugin.
         $slot->setFilters([['field' => 'unicorn', 'type' => 'text', 'operator' => '=', 'filter' => 'magic']]);
         $slot->setContent('<p>test</p>');
 
@@ -161,7 +161,7 @@ final class DynamicContentHelperTest extends \PHPUnit\Framework\TestCase
         $slot = new DynamicContent();
         $slot->setName($slotName);
         $slot->setIsCampaignBased(false);
-        // Setting filter that is not known to Mautic, nor any plugin.
+        // Setting filter that is not known to MailVotech, nor any plugin.
         $slot->setFilters([['field' => 'unicorn', 'type' => 'text', 'operator' => '=', 'filter' => 'magic']]);
         $slot->setContent('<p>test</p>');
 

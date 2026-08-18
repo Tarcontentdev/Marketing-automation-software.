@@ -1,0 +1,117 @@
+{% extends '@MailVotechCore/Default/content.html.twig' %}
+
+{% block mailvotechContent %}tagmanager{% endblock %}
+{% block headerTitle %} {{ tag.getTag() }} {% endblock %}
+
+{% set customButtons = {} %}
+
+{% block preHeader %}
+{{- include('@MailVotechCore/Helper/page_actions.html.twig',
+    {
+        item            : tag,
+        templateButtons : {
+            close : security.isGranted('tagManager:tagManager:edit'),
+        },
+        routeBase       : 'tagmanager',
+        targetLabel     : 'mailvotech.lead.tags'|trans
+    }
+) -}}
+{% endblock %}
+
+{% block actions %}
+    {% set buttons = [] %}
+    {% if security.isGranted('tagManager:tagManager:edit') and security.isGranted('tagManager:tagManager:delete') %}
+        {% set buttons = buttons|merge([{
+            'attr': {
+                'data-toggle': 'ajaxmodal',
+                'data-target': '#MailVotechSharedModal',
+                'data-header': 'mailvotech.tagmanager.tag.header.merge'|trans({'%name%': tag.tag}),
+                'href': path('mailvotech_tagmanager_action', {'objectId': tag.id, 'objectAction': 'merge'})
+            },
+            'btnText': 'mailvotech.lead.merge'|trans,
+            'iconClass': 'ri-exchange-2-line'
+        }]) %}
+    {% endif %}
+    {{- include('@MailVotechCore/Helper/page_actions.html.twig', {
+        item            : tag,
+        nameGetter      : 'getTag',
+        customButtons   : buttons,
+        templateButtons : {
+            edit   : security.isGranted('tagManager:tagManager:edit'),
+            delete : security.isGranted('tagManager:tagManager:delete'),
+        },
+        routeBase       : 'tagmanager'
+    }) -}}
+{% endblock %}
+
+
+{% block content %}
+    <!-- start: box layout -->
+    <div class="box-layout">
+        <!-- left section -->
+        <div class="col-md-9 height-auto">
+            <div>
+                <!-- page detail header -->
+                <!-- sms detail collapseable toggler -->
+                {% include '@MailVotechCore/Helper/description--expanded.html.twig' with {'description': tag.description} %}
+                <div class="collapse pr-md pl-md" id="sms-details">
+                    <div class="pr-md pl-md pb-md">
+                        <div class="panel shd-none mb-0">
+                            <table class="table table-hover mb-0">
+                                <tbody>
+                                <tr>
+                                    <td width="20%"><span class="fw-b textTitle">{% trans %}mailvotech.core.id{% endtrans %}</span></td>
+                                    <td>{{ tag.getId() }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ sms detail collapseable toggler -->
+            <div>
+                <div class="hr-expand nm">
+                <span data-toggle="tooltip" title="Detail">
+                    <a href="javascript:void(0)" class="arrow text-secondary collapsed" data-toggle="collapse"
+                       data-target="#sms-details">
+                        <span class="caret"></span>{% trans %}mailvotech.core.details{% endtrans %}
+                    </a>
+                </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- right section -->
+        <div class="col-md-3 bdr-l height-auto">
+            {{ include('@MailVotechCore/Helper/usage.html.twig', {
+                'title': 'mailvotech.tagmanager.tag.usages'|trans,
+                'stats': usageStats,
+                'noUsages': 'mailvotech.tagmanager.tag.no_usages'|trans,
+            }) }}
+
+            <div class="mt-lg mb-lg">
+                {% if security.isGranted('lead:leads:viewown') %}
+                {% include '@MailVotechCore/Components/contained-list.html.twig' with {
+                    title: 'mailvotech.core.useful_links',
+                    items: [
+                        {
+                            label: 'mailvotech.lead.segments.contacts.tag'|trans,
+                            link: path('mailvotech_contact_index', {
+                                'search': ('mailvotech.lead.lead.searchcommand.tag'|trans) ~ ':' ~ ('"' ~ tag.tag ~ '"')
+                            }),
+                            icon: 'ri-user-6-line'
+                        }
+                    ],
+                    variant: 'interactive'
+                } %}
+                {% endif %}
+            </div>
+        </div>
+        <!--/ right section -->
+
+        <input name="entityId" id="entityId" type="hidden" value="{{ tag.getId()|escape }}" />
+    </div>
+    <!--/ end: box layout -->
+
+{% endblock %}

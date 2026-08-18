@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Extension;
+namespace MailVotech\CoreBundle\Twig\Extension;
 
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -155,7 +155,7 @@ final class AssetExtension extends AbstractExtension
     }
 
     /**
-     * @see Mautic\CoreBundle\Twig\Helper\AssetsHelper::getCountryFlag
+     * @see MailVotech\CoreBundle\Twig\Helper\AssetsHelper::getCountryFlag
      */
     public function getCountryFlag(string $country, bool $urlOnly = true, string $class = ''): string
     {

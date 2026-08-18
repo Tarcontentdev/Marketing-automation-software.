@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\ReportBundle\Model;
+namespace MailVotech\ReportBundle\Model;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\CoreBundle\Twig\Helper\FormatterHelper;
-use Mautic\ReportBundle\Crate\ReportDataResult;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Twig\Helper\FormatterHelper;
+use MailVotech\ReportBundle\Crate\ReportDataResult;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CsvExporter
@@ -64,7 +64,7 @@ class CsvExporter
         $key = array_key_first($totals);
 
         if (empty($totals[$key])) {
-            $totals[$key] = $this->translator->trans('mautic.report.report.groupby.totals');
+            $totals[$key] = $this->translator->trans('mailvotech.report.report.groupby.totals');
         }
 
         $this->putRow($handle, $totals);

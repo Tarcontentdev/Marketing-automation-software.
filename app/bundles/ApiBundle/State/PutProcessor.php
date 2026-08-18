@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\State;
+namespace MailVotech\ApiBundle\State;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\Metadata\Put;

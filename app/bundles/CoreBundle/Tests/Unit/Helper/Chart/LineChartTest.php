@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper\Chart;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper\Chart;
 
-use Mautic\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 

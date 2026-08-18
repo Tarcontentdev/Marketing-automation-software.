@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\LeadBundle\Model;
+namespace MailVotech\LeadBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;
-use Mautic\CacheBundle\Cache\CacheProvider;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Model\MauticModelInterface;
-use Mautic\LeadBundle\Entity\DoNotContact as DNC;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CacheBundle\Cache\CacheProvider;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Model\MailVotechModelInterface;
+use MailVotech\LeadBundle\Entity\DoNotContact as DNC;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\Lead;
 
-class DoNotContact implements MauticModelInterface
+class DoNotContact implements MailVotechModelInterface
 {
     public function __construct(
         protected LeadModel $leadModel,

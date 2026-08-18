@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Segment\DoNotContact;
+namespace MailVotech\LeadBundle\Segment\DoNotContact;
 
-use Mautic\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\DoNotContact;
 
 final class DoNotContactParts
 {

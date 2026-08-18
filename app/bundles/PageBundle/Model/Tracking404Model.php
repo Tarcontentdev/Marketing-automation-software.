@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Model;
+namespace MailVotech\PageBundle\Model;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Entity\Redirect;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
 
 class Tracking404Model

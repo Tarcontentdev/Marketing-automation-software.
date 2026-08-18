@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\DependencyInjection\Builder;
+namespace MailVotech\CoreBundle\DependencyInjection\Builder;
 
 class BundleMetadata
 {

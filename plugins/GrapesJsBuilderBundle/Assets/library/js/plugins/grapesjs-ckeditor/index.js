@@ -242,7 +242,7 @@ class Ck5ForGrapesJs {
 
   get themeConfigUrl() {
     const alias = this.resolveThemeAlias();
-    if (!alias || alias === 'mautic_code_mode') {
+    if (!alias || alias === 'mailvotech_code_mode') {
       return null;
     }
 

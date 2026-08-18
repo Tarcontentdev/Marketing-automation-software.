@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\LeadBundle\Model;
+namespace MailVotech\LeadBundle\Model;
 
-use Mautic\LeadBundle\Entity\CustomFieldEntityInterface;
+use MailVotech\LeadBundle\Entity\CustomFieldEntityInterface;
 
 trait DefaultValueTrait
 {

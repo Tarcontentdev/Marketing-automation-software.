@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Controller;
+namespace MailVotech\CampaignBundle\Tests\Controller;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\ProjectBundle\Entity\Project;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\ProjectBundle\Entity\Project;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CampaignControllerTest extends MauticMysqlTestCase
+final class CampaignControllerTest extends MailVotechMysqlTestCase
 {
     /**
      * Index should return status code 200.
@@ -43,7 +43,7 @@ final class CampaignControllerTest extends MauticMysqlTestCase
     /**
      * Test cancelling new campaign does not give a 500 error.
      *
-     * @see https://github.com/mautic/mautic/issues/11181
+     * @see https://github.com/mailvotech/mailvotech/issues/11181
      */
     public function testNewActionCampaignCancel(): void
     {

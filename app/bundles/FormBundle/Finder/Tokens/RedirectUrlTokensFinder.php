@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Finder\Tokens;
+namespace MailVotech\FormBundle\Finder\Tokens;
 
-use Mautic\FormBundle\DTO\TokenDto;
-use Mautic\FormBundle\Enum\Token\RedirectUrlToken;
+use MailVotech\FormBundle\DTO\TokenDto;
+use MailVotech\FormBundle\Enum\Token\RedirectUrlToken;
 
 final readonly class RedirectUrlTokensFinder
 {

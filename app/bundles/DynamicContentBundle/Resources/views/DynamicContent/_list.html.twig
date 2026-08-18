@@ -1,7 +1,7 @@
 {#
   Variables
     - searchValue
-    - items (\Mautic\DynamicContentBundle\Entity\DynamicContent[])
+    - items (\MailVotech\DynamicContentBundle\Entity\DynamicContent[])
     - categories
     - page
     - limit
@@ -14,37 +14,37 @@
         <table class="table table-hover dwctable-list" id="dwcTable">
             <thead>
             <tr>
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'checkall': 'true',
                     'target': '#dwcTable',
                 }) }}
 
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'dynamicContent',
                         'orderBy': 'e.name',
-                        'text': 'mautic.core.name',
+                        'text': 'mailvotech.core.name',
                         'class': 'col-dwc-name',
                         'default': true,
                 }) }}
 
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'dynamicContent',
                         'orderBy': 'e.slotName',
-                        'text': 'mautic.dynamicContent.label.slot_name',
+                        'text': 'mailvotech.dynamicContent.label.slot_name',
                         'class': 'col-dwc-slotname visible-md visible-lg',
                 }) }}
 
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'dynamicContent',
                         'orderBy': 'c.title',
-                        'text': 'mautic.core.category',
+                        'text': 'mailvotech.core.category',
                         'class': 'col-dwc-category visible-md visible-lg',
                 }) }}
 
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'dynamicContent',
                         'orderBy': 'e.id',
-                        'text': 'mautic.core.id',
+                        'text': 'mailvotech.core.id',
                         'class': 'col-dwc-id visible-md visible-lg',
                 }) }}
             </tr>
@@ -53,7 +53,7 @@
             {% for item in items %}
                 <tr>
                     <td>
-                        {{ include('@MauticCore/Helper/list_actions.html.twig', {
+                        {{ include('@MailVotechCore/Helper/list_actions.html.twig', {
                                 'item': item,
                                 'templateButtons': {
                                     'edit': securityHasEntityAccess(permissions['dynamiccontent:dynamiccontents:editown'], permissions['dynamiccontent:dynamiccontents:editother'], item.createdBy),
@@ -65,19 +65,19 @@
                         }) }}
                     </td>
                     <td>
-                        {{ include('@MauticCore/Helper/publishstatus_icon.html.twig', {'item': item, 'model': 'dynamicContent'}) }}
-                        <a href="{{ url('mautic_dynamicContent_action', {'objectAction': 'view', 'objectId': item.id}) }}" data-toggle="ajax">
+                        {{ include('@MailVotechCore/Helper/publishstatus_icon.html.twig', {'item': item, 'model': 'dynamicContent'}) }}
+                        <a href="{{ url('mailvotech_dynamicContent_action', {'objectAction': 'view', 'objectId': item.id}) }}" data-toggle="ajax">
                             {{ item.name }}
                             {% if item.isVariant or item.isTranslation or item.isCampaignBased %}
                                 <span>
                                   {% if item.isVariant %}
-                                    <span data-toggle="tooltip" title="{{ 'mautic.core.icon_tooltip.ab_test'|trans }}"><i class="ri-fw ri-organization-chart"></i></span>
+                                    <span data-toggle="tooltip" title="{{ 'mailvotech.core.icon_tooltip.ab_test'|trans }}"><i class="ri-fw ri-organization-chart"></i></span>
                                     {% endif %}
                                   {% if item.isTranslation %}
-                                    <span data-toggle="tooltip" title="{{ 'mautic.core.icon_tooltip.translation'|trans }}"><i class="ri-fw ri-translate"></i></span>
+                                    <span data-toggle="tooltip" title="{{ 'mailvotech.core.icon_tooltip.translation'|trans }}"><i class="ri-fw ri-translate"></i></span>
                                 {% endif %}
                                     {% if item.isCampaignBased %}
-                                    <span data-toggle="tooltip" title="{{ 'mautic.dwc.form.is.campaign.tooltip'|trans }}"><i class="ri-fw ri-megaphone-line"></i></span>
+                                    <span data-toggle="tooltip" title="{{ 'mailvotech.dwc.form.is.campaign.tooltip'|trans }}"><i class="ri-fw ri-megaphone-line"></i></span>
                                   {% endif %}
                                  </span>
                             {% endif %}
@@ -86,7 +86,7 @@
                     </td>
                     <td class="visible-md visible-lg">{{ item.slotName }}</td>
                     <td class="visible-md visible-lg">
-                        {{ include('@MauticCore/Modules/category--expanded.html.twig', {'category': item.category}) }}
+                        {{ include('@MailVotechCore/Modules/category--expanded.html.twig', {'category': item.category}) }}
                     </td>
                     <td class="visible-md visible-lg">{{ item.id }}</td>
                 </tr>
@@ -94,16 +94,16 @@
             </tbody>
         </table>
         <div class="panel-footer">
-            {{ include('@MauticCore/Helper/pagination.html.twig', {
+            {{ include('@MailVotechCore/Helper/pagination.html.twig', {
                     'totalItems': items|length,
                     'page': page,
                     'limit': limit,
-                    'menuLinkId': 'mautic_dynamicContent_index',
-                    'baseUrl': url('mautic_dynamicContent_index'),
+                    'menuLinkId': 'mailvotech_dynamicContent_index',
+                    'baseUrl': url('mailvotech_dynamicContent_index'),
                     'sessionVar': 'dynamicContent',
             }) }}
         </div>
     </div>
 {% else %}
-    {{ include('@MauticCore/Helper/noresults.html.twig') }}
+    {{ include('@MailVotechCore/Helper/noresults.html.twig') }}
 {% endif %}

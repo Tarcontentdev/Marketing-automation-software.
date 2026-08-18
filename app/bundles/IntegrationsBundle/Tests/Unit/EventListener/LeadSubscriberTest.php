@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\EventListener;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\EventListener;
 
-use Mautic\IntegrationsBundle\Entity\FieldChangeRepository;
-use Mautic\IntegrationsBundle\Entity\ObjectMappingRepository;
-use Mautic\IntegrationsBundle\EventListener\LeadSubscriber;
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Helper\SyncIntegrationsHelper;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\EncodedValueDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\IntegrationsBundle\Sync\VariableExpresser\VariableExpresserHelperInterface;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Event\CompanyEvent;
-use Mautic\LeadBundle\Event\LeadEvent;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\IntegrationsBundle\Entity\FieldChangeRepository;
+use MailVotech\IntegrationsBundle\Entity\ObjectMappingRepository;
+use MailVotech\IntegrationsBundle\EventListener\LeadSubscriber;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Helper\SyncIntegrationsHelper;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\EncodedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\IntegrationsBundle\Sync\VariableExpresser\VariableExpresserHelperInterface;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Event\CompanyEvent;
+use MailVotech\LeadBundle\Event\LeadEvent;
+use MailVotech\LeadBundle\LeadEvents;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -257,7 +257,7 @@ final class LeadSubscriberTest extends TestCase
 
         $this->objectMappingRepository->expects($this->once())
             ->method('deleteEntitiesForObject')
-            ->with($deletedId, MauticSyncDataExchange::OBJECT_CONTACT);
+            ->with($deletedId, MailVotechSyncDataExchange::OBJECT_CONTACT);
 
         $this->subscriber->onLeadPostDelete(new LeadEvent($lead));
     }
@@ -281,7 +281,7 @@ final class LeadSubscriberTest extends TestCase
     {
         $this->syncIntegrationsHelper->expects($this->once())
             ->method('hasObjectSyncEnabled')
-            ->with(MauticSyncDataExchange::OBJECT_COMPANY)
+            ->with(MailVotechSyncDataExchange::OBJECT_COMPANY)
             ->willReturn(false);
 
         $this->companyEvent->expects($this->never())
@@ -302,7 +302,7 @@ final class LeadSubscriberTest extends TestCase
 
         $this->syncIntegrationsHelper->expects($this->once())
             ->method('hasObjectSyncEnabled')
-            ->with(MauticSyncDataExchange::OBJECT_COMPANY)
+            ->with(MailVotechSyncDataExchange::OBJECT_COMPANY)
             ->willReturn(true);
 
         $this->subscriber->onCompanyPostSave($this->companyEvent);
@@ -335,7 +335,7 @@ final class LeadSubscriberTest extends TestCase
 
         $this->syncIntegrationsHelper->expects($this->once())
             ->method('hasObjectSyncEnabled')
-            ->with(MauticSyncDataExchange::OBJECT_COMPANY)
+            ->with(MailVotechSyncDataExchange::OBJECT_COMPANY)
             ->willReturn(true);
 
         $this->handleRecordFieldChanges($fieldChanges['fields'], $objectId, Company::class);
@@ -371,7 +371,7 @@ final class LeadSubscriberTest extends TestCase
 
         $this->syncIntegrationsHelper->expects($this->once())
             ->method('hasObjectSyncEnabled')
-            ->with(MauticSyncDataExchange::OBJECT_COMPANY)
+            ->with(MailVotechSyncDataExchange::OBJECT_COMPANY)
             ->willReturn(true);
 
         $fieldChanges['fields']['owner_id'] = $fieldChanges['owner'];
@@ -402,7 +402,7 @@ final class LeadSubscriberTest extends TestCase
 
         $this->objectMappingRepository->expects($this->once())
             ->method('deleteEntitiesForObject')
-            ->with($deletedId, MauticSyncDataExchange::OBJECT_COMPANY);
+            ->with($deletedId, MailVotechSyncDataExchange::OBJECT_COMPANY);
 
         $this->subscriber->onCompanyPostDelete($this->companyEvent);
     }

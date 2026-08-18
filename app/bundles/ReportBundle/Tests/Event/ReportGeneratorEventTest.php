@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Event;
+namespace MailVotech\ReportBundle\Tests\Event;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -67,7 +67,7 @@ final class ReportGeneratorEventTest extends TestCase
             ->method('leftJoin')
             ->with(
                 'e',
-                MAUTIC_TABLE_PREFIX.'categories',
+                MAILVOTECH_TABLE_PREFIX.'categories',
                 ReportGeneratorEvent::CATEGORY_PREFIX,
                 ReportGeneratorEvent::CATEGORY_PREFIX.'.id = e.category_id'
             );
@@ -99,7 +99,7 @@ final class ReportGeneratorEventTest extends TestCase
             ->method('leftJoin')
             ->with(
                 'e',
-                MAUTIC_TABLE_PREFIX.'leads',
+                MAILVOTECH_TABLE_PREFIX.'leads',
                 ReportGeneratorEvent::CONTACT_PREFIX,
                 ReportGeneratorEvent::CONTACT_PREFIX.'.id = e.lead_id'
             );
@@ -119,7 +119,7 @@ final class ReportGeneratorEventTest extends TestCase
             ->method('leftJoin')
             ->with(
                 'e',
-                MAUTIC_TABLE_PREFIX.'leads',
+                MAILVOTECH_TABLE_PREFIX.'leads',
                 ReportGeneratorEvent::CONTACT_PREFIX,
                 ReportGeneratorEvent::CONTACT_PREFIX.'.id = e.lead_id'
             );
@@ -151,7 +151,7 @@ final class ReportGeneratorEventTest extends TestCase
             ->method('leftJoin')
             ->with(
                 'e',
-                MAUTIC_TABLE_PREFIX.'ip_addresses',
+                MAILVOTECH_TABLE_PREFIX.'ip_addresses',
                 ReportGeneratorEvent::IP_ADDRESS_PREFIX,
                 ReportGeneratorEvent::IP_ADDRESS_PREFIX.'.id = e.ip_id'
             );
@@ -253,13 +253,13 @@ final class ReportGeneratorEventTest extends TestCase
             ->method('leftJoin')->willReturnCallback(function (...$parameters) use ($matcher): void {
                 if (1 === $matcher->numberOfInvocations()) {
                     $this->assertSame('l', $parameters[0]);
-                    $this->assertSame(MAUTIC_TABLE_PREFIX.'companies_leads', $parameters[1]);
+                    $this->assertSame(MAILVOTECH_TABLE_PREFIX.'companies_leads', $parameters[1]);
                     $this->assertSame('companies_lead', $parameters[2]);
                     $this->assertSame(ReportGeneratorEvent::CONTACT_PREFIX.'.id =companies_lead.lead_id', $parameters[3]);
                 }
                 if (2 === $matcher->numberOfInvocations()) {
                     $this->assertSame('companies_lead', $parameters[0]);
-                    $this->assertSame(MAUTIC_TABLE_PREFIX.'companies', $parameters[1]);
+                    $this->assertSame(MAILVOTECH_TABLE_PREFIX.'companies', $parameters[1]);
                     $this->assertSame(ReportGeneratorEvent::COMPANY_PREFIX, $parameters[2]);
                     $this->assertSame('companies_lead.company_id = '.ReportGeneratorEvent::COMPANY_PREFIX.'.id', $parameters[3]);
                 }
@@ -277,7 +277,7 @@ final class ReportGeneratorEventTest extends TestCase
       ->method('getQueryParts')
       ->willReturn([
           'join' => [
-              'l' => [['joinTable' => MAUTIC_TABLE_PREFIX.'companies_leads', 'joinAlias' => ReportGeneratorEvent::COMPANY_LEAD_PREFIX]],
+              'l' => [['joinTable' => MAILVOTECH_TABLE_PREFIX.'companies_leads', 'joinAlias' => ReportGeneratorEvent::COMPANY_LEAD_PREFIX]],
           ],
       ]);
         $this->queryBuilder->expects($this->never())

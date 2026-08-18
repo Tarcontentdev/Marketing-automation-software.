@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\FormBundle\Helper;
+namespace MailVotech\FormBundle\Helper;
 
 final class PointActionHelper
 {

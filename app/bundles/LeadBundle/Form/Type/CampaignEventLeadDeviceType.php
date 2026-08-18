@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use DeviceDetector\Parser\Device\AbstractDeviceParser as DeviceParser;
 use DeviceDetector\Parser\OperatingSystem;
@@ -19,7 +19,7 @@ final class CampaignEventLeadDeviceType extends AbstractType
             'device_type',
             ChoiceType::class,
             [
-                'label'             => 'mautic.lead.campaign.event.device_type',
+                'label'             => 'mailvotech.lead.campaign.event.device_type',
                 'label_attr'        => ['class' => 'control-label'],
                 'multiple'          => true,
                 'choices'           => array_combine(DeviceParser::getAvailableDeviceTypeNames(), DeviceParser::getAvailableDeviceTypeNames()),
@@ -32,7 +32,7 @@ final class CampaignEventLeadDeviceType extends AbstractType
             'device_brand',
             ChoiceType::class,
             [
-                'label'             => 'mautic.lead.campaign.event.device_brand',
+                'label'             => 'mailvotech.lead.campaign.event.device_brand',
                 'label_attr'        => ['class' => 'control-label'],
                 'multiple'          => true,
                 'choices'           => array_flip(DeviceParser::$deviceBrands),
@@ -45,7 +45,7 @@ final class CampaignEventLeadDeviceType extends AbstractType
             'device_os',
             ChoiceType::class,
             [
-                'label'             => 'mautic.lead.campaign.event.device_os',
+                'label'             => 'mailvotech.lead.campaign.event.device_os',
                 'label_attr'        => ['class' => 'control-label'],
                 'multiple'          => true,
                 'choices'           => array_combine(array_keys(OperatingSystem::getAvailableOperatingSystemFamilies()), array_keys(OperatingSystem::getAvailableOperatingSystemFamilies())),

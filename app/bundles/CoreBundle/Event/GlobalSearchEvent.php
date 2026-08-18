@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Event;
+namespace MailVotech\CoreBundle\Event;
 
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Translation\Translator;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class GlobalSearchEvent extends Event

@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\CampaignBundle\Executioner\Helper;
+namespace MailVotech\CampaignBundle\Executioner\Helper;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Executioner\ContactFinder\InactiveContactFinder;
-use Mautic\CampaignBundle\Executioner\Exception\DecisionNotApplicableException;
-use Mautic\CampaignBundle\Executioner\Scheduler\EventScheduler;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\InactiveContactFinder;
+use MailVotech\CampaignBundle\Executioner\Exception\DecisionNotApplicableException;
+use MailVotech\CampaignBundle\Executioner\Scheduler\EventScheduler;
 use Psr\Log\LoggerInterface;
 
 class InactiveHelper
@@ -43,7 +43,7 @@ class InactiveHelper
     }
 
     /**
-     * @throws \Mautic\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException
+     * @throws \MailVotech\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException
      */
     public function removeContactsThatAreNotApplicable(
         \DateTime $now,
@@ -116,7 +116,7 @@ class InactiveHelper
     }
 
     /**
-     * @throws \Mautic\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException
+     * @throws \MailVotech\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException
      */
     public function getEarliestInactiveDate(ArrayCollection $negativeChildren, \DateTimeInterface $lastActiveDate): ?\DateTimeInterface
     {

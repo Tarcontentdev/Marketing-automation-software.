@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Functional\Sync\Notification;
+namespace MailVotech\IntegrationsBundle\Tests\Functional\Sync\Notification;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\IntegrationsBundle\Helper\SyncIntegrationsHelper;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\NotificationDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\Notification\Notifier;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Integration\ExampleIntegration;
-use Mautic\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Sync\SyncDataExchange\ExampleSyncDataExchange;
-use Mautic\LeadBundle\DataFixtures\ORM\LoadLeadData;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\IntegrationsBundle\Helper\SyncIntegrationsHelper;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\NotificationDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\Notification\Notifier;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Integration\ExampleIntegration;
+use MailVotech\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Sync\SyncDataExchange\ExampleSyncDataExchange;
+use MailVotech\LeadBundle\DataFixtures\ORM\LoadLeadData;
+use MailVotech\LeadBundle\Entity\Lead;
 
-final class NotifierTest extends MauticMysqlTestCase
+final class NotifierTest extends MailVotechMysqlTestCase
 {
     public function testNotifications(): void
     {
@@ -48,19 +48,19 @@ final class NotifierTest extends MauticMysqlTestCase
                 ExampleIntegration::NAME,
                 'Bar',
                 2,
-                MauticSyncDataExchange::OBJECT_COMPANY,
+                MailVotechSyncDataExchange::OBJECT_COMPANY,
                 (int) $leads[1]->getId()
             ),
             'This is the message'
         );
 
-        $notifier->noteMauticSyncIssue([$contactNotification, $companyNotification]);
+        $notifier->noteMailVotechSyncIssue([$contactNotification, $companyNotification]);
         $notifier->finalizeNotifications();
 
         // Check audit log
         $qb = $this->connection->createQueryBuilder();
         $qb->select('1')
-            ->from(MAUTIC_TABLE_PREFIX.'audit_log')
+            ->from(MAILVOTECH_TABLE_PREFIX.'audit_log')
             ->where(
                 $qb->expr()->eq('bundle', $qb->expr()->literal(ExampleIntegration::NAME))
             );
@@ -70,7 +70,7 @@ final class NotifierTest extends MauticMysqlTestCase
         // Contact event log
         $qb = $this->connection->createQueryBuilder();
         $qb->select('1')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_event_log')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_event_log')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->eq('bundle', $qb->expr()->literal('integrations')),
@@ -82,7 +82,7 @@ final class NotifierTest extends MauticMysqlTestCase
         // User notifications
         $qb = $this->connection->createQueryBuilder();
         $qb->select('1')
-            ->from(MAUTIC_TABLE_PREFIX.'notifications')
+            ->from(MAILVOTECH_TABLE_PREFIX.'notifications')
             ->where(
                 $qb->expr()->eq('icon_class', $qb->expr()->literal('ri-refresh-line'))
             );

@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\CoreBundle\Doctrine\Helper;
+namespace MailVotech\CoreBundle\Doctrine\Helper;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Index;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Types\TextType;
-use Mautic\CoreBundle\Exception\SchemaException;
-use Mautic\LeadBundle\Entity\LeadField;
+use MailVotech\CoreBundle\Exception\SchemaException;
+use MailVotech\LeadBundle\Entity\LeadField;
 
 class IndexSchemaHelper
 {

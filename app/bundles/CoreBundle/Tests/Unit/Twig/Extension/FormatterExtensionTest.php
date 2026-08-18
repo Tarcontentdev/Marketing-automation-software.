@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Twig\Extension;
+namespace MailVotech\CoreBundle\Tests\Unit\Twig\Extension;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Twig\Extension\FormatterExtension;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
-use Mautic\CoreBundle\Twig\Helper\FormatterHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Twig\Extension\FormatterExtension;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\CoreBundle\Twig\Helper\FormatterHelper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

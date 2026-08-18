@@ -10,8 +10,8 @@ final class FormStep extends \AcceptanceTester
     {
         $I = $this;
         // Fill Basic form info
-        $I->fillField('mauticform[name]', FormPage::$FORM_NAME);
-        $I->fillField('mauticform[postActionProperty]', FormPage::$FORM_POST_ACTION_PROPERTY);
+        $I->fillField('mailvotechform[name]', FormPage::$FORM_NAME);
+        $I->fillField('mailvotechform[postActionProperty]', FormPage::$FORM_POST_ACTION_PROPERTY);
     }
 
     public function createFormField(

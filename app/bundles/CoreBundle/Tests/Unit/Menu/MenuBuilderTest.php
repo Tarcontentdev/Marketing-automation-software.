@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Menu;
+namespace MailVotech\CoreBundle\Tests\Unit\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\Matcher\MatcherInterface;
 use Knp\Menu\MenuFactory;
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\MenuEvent;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Menu\MenuBuilder;
-use Mautic\CoreBundle\Menu\MenuHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\MenuEvent;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Menu\MenuBuilder;
+use MailVotech\CoreBundle\Menu\MenuHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
@@ -55,8 +55,8 @@ final class MenuBuilderTest extends TestCase
                 $this->assertSame(CoreEvents::BUILD_MENU, $eventName);
 
                 $event->addMenuItems([
-                    'mautic.contribute.menu.index' => [
-                        'uri'       => 'https://mautic.org',
+                    'mailvotech.contribute.menu.index' => [
+                        'uri'       => 'https://mailvotech.org',
                         'priority'  => 0,
                         'iconClass' => 'ri-hand-coin-fill',
                     ],
@@ -70,9 +70,9 @@ final class MenuBuilderTest extends TestCase
         $menu = $builder->__call($menuName, []);
 
         $this->assertInstanceOf(ItemInterface::class, $menu);
-        $menuItem = $menu->getChild('mautic.contribute.menu.index');
+        $menuItem = $menu->getChild('mailvotech.contribute.menu.index');
 
         $this->assertInstanceOf(ItemInterface::class, $menuItem);
-        $this->assertSame('https://mautic.org', $menuItem->getUri());
+        $this->assertSame('https://mailvotech.org', $menuItem->getUri());
     }
 }

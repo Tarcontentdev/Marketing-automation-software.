@@ -1,15 +1,15 @@
 {%- set isIndex = 'index' == tmpl -%}
 {%- set tmpl = 'list' -%}
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
 
-{% block mauticContent 'report' %}
+{% block mailvotechContent 'report' %}
 
-{% block headerTitle 'mautic.report.reports'|trans %}
+{% block headerTitle 'mailvotech.report.reports'|trans %}
 
 {% block content %}
   {% if isIndex %}
   <div id="page-list-wrapper" class="panel panel-default">
-    {{ include('@MauticCore/Helper/list_toolbar.html.twig', {
+    {{ include('@MailVotechCore/Helper/list_toolbar.html.twig', {
       'searchValue': searchValue,
       'action': currentRoute,
       'page_actions': {
@@ -28,34 +28,34 @@
       },
       'quickFilters': [
           {
-              'search': 'mautic.core.searchcommand.ispublished',
-              'label': 'mautic.core.form.available',
-              'tooltip': 'mautic.core.searchcommand.ispublished.description',
+              'search': 'mailvotech.core.searchcommand.ispublished',
+              'label': 'mailvotech.core.form.available',
+              'tooltip': 'mailvotech.core.searchcommand.ispublished.description',
               'icon': 'ri-check-line'
           },
           {
-              'search': 'mautic.core.searchcommand.isunpublished',
-              'label': 'mautic.core.form.unavailable',
-              'tooltip': 'mautic.core.searchcommand.isunpublished.description',
+              'search': 'mailvotech.core.searchcommand.isunpublished',
+              'label': 'mailvotech.core.form.unavailable',
+              'tooltip': 'mailvotech.core.searchcommand.isunpublished.description',
               'icon': 'ri-close-line'
           },
           {
-              'search': 'mautic.core.searchcommand.ismine',
-              'label': 'mautic.core.searchcommand.ismine.label',
-              'tooltip': 'mautic.core.searchcommand.ismine.description',
+              'search': 'mailvotech.core.searchcommand.ismine',
+              'label': 'mailvotech.core.searchcommand.ismine.label',
+              'tooltip': 'mailvotech.core.searchcommand.ismine.description',
               'icon': 'ri-user-line'
           }
       ]
   }) }}
       <div class="page-list">
-        {{- include('@MauticReport/Report/_list.html.twig') -}}
+        {{- include('@MailVotechReport/Report/_list.html.twig') -}}
       </div>
   </div>
 
-  {{ include('@MauticCore/Modules/protip.html.twig', {
-    tip: random(['mautic.protip.reports.dnc'])
+  {{ include('@MailVotechCore/Modules/protip.html.twig', {
+    tip: random(['mailvotech.protip.reports.dnc'])
 }) }}
   {% else %}
-    {{- include('@MauticReport/Report/_list.html.twig') -}}
+    {{- include('@MailVotechReport/Report/_list.html.twig') -}}
   {% endif %}
 {% endblock %}

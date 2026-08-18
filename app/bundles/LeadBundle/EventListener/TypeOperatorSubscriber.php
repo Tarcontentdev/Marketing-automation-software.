@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
 use DeviceDetector\Parser\Device\AbstractDeviceParser as DeviceParser;
 use DeviceDetector\Parser\OperatingSystem;
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CategoryBundle\Model\CategoryModel;
-use Mautic\CoreBundle\Form\Type\AlertType;
-use Mautic\CoreBundle\Form\Type\DateSpanType;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\LeadBundle\Entity\OperatorListTrait;
-use Mautic\LeadBundle\Event\FormAdjustmentEvent;
-use Mautic\LeadBundle\Event\ListFieldChoicesEvent;
-use Mautic\LeadBundle\Event\TypeOperatorsEvent;
-use Mautic\LeadBundle\Form\Type\GlobalCategoryType;
-use Mautic\LeadBundle\Form\Validator\Constraints\DbRegex;
-use Mautic\LeadBundle\Helper\FormFieldHelper;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Segment\OperatorOptions;
-use Mautic\StageBundle\Entity\StageRepository;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CategoryBundle\Model\CategoryModel;
+use MailVotech\CoreBundle\Form\Type\AlertType;
+use MailVotech\CoreBundle\Form\Type\DateSpanType;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\LeadBundle\Entity\OperatorListTrait;
+use MailVotech\LeadBundle\Event\FormAdjustmentEvent;
+use MailVotech\LeadBundle\Event\ListFieldChoicesEvent;
+use MailVotech\LeadBundle\Event\TypeOperatorsEvent;
+use MailVotech\LeadBundle\Form\Type\GlobalCategoryType;
+use MailVotech\LeadBundle\Form\Validator\Constraints\DbRegex;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
+use MailVotech\StageBundle\Entity\StageRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -99,8 +99,8 @@ final class TypeOperatorSubscriber implements EventSubscriberInterface
         $event->setChoicesForFieldType(
             'boolean',
             [
-                $this->translator->trans('mautic.core.form.no')  => 0,
-                $this->translator->trans('mautic.core.form.yes') => 1,
+                $this->translator->trans('mailvotech.core.form.no')  => 0,
+                $this->translator->trans('mailvotech.core.form.yes') => 1,
             ]
         );
 
@@ -141,13 +141,13 @@ final class TypeOperatorSubscriber implements EventSubscriberInterface
                 'multiple'                  => true,
                 'choice_translation_domain' => false,
                 'disabled'                  => $event->filterShouldBeDisabled(),
-                'constraints'               => $event->filterShouldBeDisabled() ? [] : [new NotBlank(message: 'mautic.core.value.required')],
+                'constraints'               => $event->filterShouldBeDisabled() ? [] : [new NotBlank(message: 'mailvotech.core.value.required')],
                 'attr'                      => [
                     'class'                => 'form-control',
-                    'data-placeholder'     => $this->translator->trans('mautic.lead.tags.select_or_create'),
-                    'data-no-results-text' => $this->translator->trans('mautic.lead.tags.enter_to_create'),
+                    'data-placeholder'     => $this->translator->trans('mailvotech.lead.tags.select_or_create'),
+                    'data-no-results-text' => $this->translator->trans('mailvotech.lead.tags.enter_to_create'),
                     'data-allow-add'       => true,
-                    'onchange'             => 'Mautic.createLeadTag(this)',
+                    'onchange'             => 'MailVotech.createLeadTag(this)',
                 ],
             ]
         );
@@ -170,10 +170,10 @@ final class TypeOperatorSubscriber implements EventSubscriberInterface
             'data-field-callback' => $properties['callback'] ?? 'activateSegmentFilterTypeahead',
             'data-target'         => $event->getFieldAlias(),
             'placeholder'         => $this->translator->trans(
-                'mautic.lead.list.form.startTyping'
+                'mailvotech.lead.list.form.startTyping'
             ),
             'data-no-record-message'=> $this->translator->trans(
-                'mautic.core.form.nomatches'
+                'mailvotech.core.form.nomatches'
             ),
         ];
 
@@ -192,7 +192,7 @@ final class TypeOperatorSubscriber implements EventSubscriberInterface
                 'attr'        => $displayAttr,
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -210,7 +210,7 @@ final class TypeOperatorSubscriber implements EventSubscriberInterface
                 'disabled'    => $event->filterShouldBeDisabled(),
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -239,7 +239,7 @@ final class TypeOperatorSubscriber implements EventSubscriberInterface
                     'data-options' => $event->getFieldChoices(),
                     'data-target'  => $event->getFieldAlias(),
                     'data-action'  => 'lead:fieldList',
-                    'placeholder'  => $this->translator->trans('mautic.lead.list.form.filtervalue'),
+                    'placeholder'  => $this->translator->trans('mailvotech.lead.list.form.filtervalue'),
                 ],
             ]
         );
@@ -266,7 +266,7 @@ final class TypeOperatorSubscriber implements EventSubscriberInterface
                 'disabled'    => $event->filterShouldBeDisabled(),
                 'constraints' => $event->filterShouldBeRequired() ? [
                     new NotBlank(
-                        message: $this->translator->trans('mautic.core.value.required')
+                        message: $this->translator->trans('mailvotech.core.value.required')
                     ),
                 ] : [],
             ]
@@ -312,7 +312,7 @@ final class TypeOperatorSubscriber implements EventSubscriberInterface
                     'multiple'                  => $multiple,
                     'choice_translation_domain' => false,
                     'disabled'                  => $event->filterShouldBeDisabled(),
-                    'constraints'               => $event->filterShouldBeDisabled() ? [] : [new NotBlank(message: 'mautic.core.value.required')],
+                    'constraints'               => $event->filterShouldBeDisabled() ? [] : [new NotBlank(message: 'mailvotech.core.value.required')],
                 ]
             );
             $event->stopPropagation();
@@ -368,24 +368,24 @@ final class TypeOperatorSubscriber implements EventSubscriberInterface
         switch ($event->getOperator()) {
             case OperatorOptions::REGEXP:
             case OperatorOptions::NOT_REGEXP:
-                $alertText = $this->translator->trans('mautic.lead_list.filter.alert.regexp');
+                $alertText = $this->translator->trans('mailvotech.lead_list.filter.alert.regexp');
                 break;
             case OperatorOptions::ENDS_WITH:
-                $alertText = $this->translator->trans('mautic.lead_list.filter.alert.endwith');
+                $alertText = $this->translator->trans('mailvotech.lead_list.filter.alert.endwith');
                 break;
             case OperatorOptions::CONTAINS:
-                $alertText = $this->translator->trans('mautic.lead_list.filter.alert.contain');
+                $alertText = $this->translator->trans('mailvotech.lead_list.filter.alert.contain');
                 break;
             case OperatorOptions::LIKE:
             case OperatorOptions::NOT_LIKE:
-                $alertText = $this->translator->trans('mautic.lead_list.filter.alert.like');
+                $alertText = $this->translator->trans('mailvotech.lead_list.filter.alert.like');
                 break;
             default:
                 return;
         }
 
         if (self::EMAIL_ALIAS === $event->getFieldAlias()) {
-            $alertText .= ' '.$this->translator->trans('mautic.lead_list.filter.alert.email');
+            $alertText .= ' '.$this->translator->trans('mailvotech.lead_list.filter.alert.email');
         }
 
         $event->getForm()->add('alert', AlertType::class, [

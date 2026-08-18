@@ -3,7 +3,7 @@
         {
             "name": "theme-formscape",
             "directory": "themes/formscape",
-            "target": "git@github.com:mautic/theme-formscape.git"
+            "target": "git@github.com:mailvotech/theme-formscape.git"
         }
     ]
 }

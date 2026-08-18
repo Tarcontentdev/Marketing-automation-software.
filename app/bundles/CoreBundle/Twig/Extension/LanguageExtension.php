@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Twig\Extension;
+namespace MailVotech\CoreBundle\Twig\Extension;
 
-use Mautic\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Intl\Languages;
 use Twig\Extension\AbstractExtension;

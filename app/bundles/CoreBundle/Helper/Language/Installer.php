@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper\Language;
+namespace MailVotech\CoreBundle\Helper\Language;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;

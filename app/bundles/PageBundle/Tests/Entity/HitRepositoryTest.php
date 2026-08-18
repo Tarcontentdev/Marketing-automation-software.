@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Entity;
+namespace MailVotech\PageBundle\Tests\Entity;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\HitRepository;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\HitRepository;
+use MailVotech\PageBundle\Entity\Page;
 
-final class HitRepositoryTest extends MauticMysqlTestCase
+final class HitRepositoryTest extends MailVotechMysqlTestCase
 {
     private HitRepository $hitRepository;
 

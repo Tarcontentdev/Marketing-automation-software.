@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\ParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\InputHelper;
 use Symfony\Contracts\Service\Attribute\Required;
 
 /**
@@ -40,7 +40,7 @@ class LeadFieldRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder()
             ->select('l.alias')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_fields', 'l');
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_fields', 'l');
 
         if (!empty($exludingId)) {
             $q->where('l.id != :id')
@@ -84,7 +84,7 @@ class LeadFieldRepository extends CommonRepository
         if (!isset($this->fields)) {
             $fq = $this->getEntityManager()->getConnection()->createQueryBuilder();
             $fq->select('f.id, f.label, f.alias, f.type, f.field_group as "group", f.object, f.is_fixed, f.properties, f.default_value')
-                ->from(MAUTIC_TABLE_PREFIX.'lead_fields', 'f')
+                ->from(MAILVOTECH_TABLE_PREFIX.'lead_fields', 'f')
                 ->where('f.is_published = :published')
                 ->setParameter('published', true, 'boolean')
                 ->addOrderBy('f.field_order', 'asc');
@@ -175,7 +175,7 @@ class LeadFieldRepository extends CommonRepository
         $qb = $this->_em->getConnection()->createQueryBuilder();
 
         return $qb->select('f.alias, f.is_unique_identifer as is_unique, f.type, f.object')
-                ->from(MAUTIC_TABLE_PREFIX.'lead_fields', 'f')
+                ->from(MAILVOTECH_TABLE_PREFIX.'lead_fields', 'f')
                 ->where($qb->expr()->eq('object', ':object'))
                 ->setParameter('object', $object)
                 ->orderBy('f.field_order', 'ASC')
@@ -203,8 +203,8 @@ class LeadFieldRepository extends CommonRepository
      */
     private function addCompanyLeftJoin($q): void
     {
-        $q->leftJoin('l', MAUTIC_TABLE_PREFIX.'companies_leads', 'companies_lead', 'l.id = companies_lead.lead_id');
-        $q->leftJoin('companies_lead', MAUTIC_TABLE_PREFIX.'companies', 'company', 'companies_lead.company_id = company.id');
+        $q->leftJoin('l', MAILVOTECH_TABLE_PREFIX.'companies_leads', 'companies_lead', 'l.id = companies_lead.lead_id');
+        $q->leftJoin('companies_lead', MAILVOTECH_TABLE_PREFIX.'companies', 'company', 'companies_lead.company_id = company.id');
     }
 
     /**
@@ -221,7 +221,7 @@ class LeadFieldRepository extends CommonRepository
             $this->addCompanyLeftJoin($q);
             $columnAlias = 'company.';
         } elseif (in_array($field, ['utm_campaign', 'utm_content', 'utm_medium', 'utm_source', 'utm_term'])) {
-            $q->join('l', MAUTIC_TABLE_PREFIX.'lead_utmtags', 'u', 'l.id = u.lead_id');
+            $q->join('l', MAILVOTECH_TABLE_PREFIX.'lead_utmtags', 'u', 'l.id = u.lead_id');
             $columnAlias = 'u.';
         }
 
@@ -242,12 +242,12 @@ class LeadFieldRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('l.id')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l');
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l');
 
         if ('tags' === $field) {
             // Special reserved tags field
-            $q->join('l', MAUTIC_TABLE_PREFIX.'lead_tags_xref', 'x', 'l.id = x.lead_id')
-                ->join('x', MAUTIC_TABLE_PREFIX.'lead_tags', 't', 'x.tag_id = t.id')
+            $q->join('l', MAILVOTECH_TABLE_PREFIX.'lead_tags_xref', 'x', 'l.id = x.lead_id')
+                ->join('x', MAILVOTECH_TABLE_PREFIX.'lead_tags', 't', 'x.tag_id = t.id')
                 ->where(
                     $q->expr()->and(
                         $q->expr()->eq('l.id', ':lead'),
@@ -387,7 +387,7 @@ class LeadFieldRepository extends CommonRepository
         $q        = $this->_em->getConnection()->createQueryBuilder();
         $property = $this->getPropertyByField($field, $q);
         $q->select('l.id')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->where(
                 $q->expr()->and(
                     $q->expr()->eq('l.id', ':lead'),
@@ -415,7 +415,7 @@ class LeadFieldRepository extends CommonRepository
         $q        = $this->_em->getConnection()->createQueryBuilder();
         $property = $this->getPropertyByField($field, $q);
         $q->select('l.id')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->where(
                 $q->expr()->and(
                     $q->expr()->eq('l.id', ':lead'),
@@ -442,7 +442,7 @@ class LeadFieldRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('l.id')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->where(
                 $q->expr()->and(
                     $q->expr()->eq('l.id', ':lead'),
@@ -483,13 +483,13 @@ class LeadFieldRepository extends CommonRepository
     public function getSearchCommands(): array
     {
         $commands = [
-            'mautic.core.searchcommand.ispublished',
-            'mautic.core.searchcommand.isunpublished',
-            'mautic.core.searchcommand.ismine',
-            'mautic.lead.field.searchcommand.isindexed',
-            'mautic.lead.field.searchcommand.isunique',
-            'mautic.lead.field.searchcommand.type',
-            'mautic.lead.field.searchcommand.group',
+            'mailvotech.core.searchcommand.ispublished',
+            'mailvotech.core.searchcommand.isunpublished',
+            'mailvotech.core.searchcommand.ismine',
+            'mailvotech.lead.field.searchcommand.isindexed',
+            'mailvotech.lead.field.searchcommand.isunique',
+            'mailvotech.lead.field.searchcommand.type',
+            'mailvotech.lead.field.searchcommand.group',
         ];
 
         return array_merge($commands, parent::getSearchCommands());
@@ -528,24 +528,24 @@ class LeadFieldRepository extends CommonRepository
         $prefix          = $this->getTableAlias();
 
         switch ($command) {
-            case $this->translator->trans('mautic.lead.field.searchcommand.isindexed'):
+            case $this->translator->trans('mailvotech.lead.field.searchcommand.isindexed'):
                 $expr            = $q->expr()->eq($prefix.'.isIndex', ":{$unique}");
                 $forceParameters = [$unique => true];
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.lead.field.searchcommand.isunique'):
+            case $this->translator->trans('mailvotech.lead.field.searchcommand.isunique'):
                 $expr            = $q->expr()->eq($prefix.'.isUniqueIdentifer', ":{$unique}");
                 $forceParameters = [$unique => true];
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.lead.field.searchcommand.type'):
+            case $this->translator->trans('mailvotech.lead.field.searchcommand.type'):
                 $forceParameters = [
                     $unique     => $filter->string,
                 ];
                 $expr            = $q->expr()->like($prefix.'.type', ":{$unique}");
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.lead.field.searchcommand.group'):
+            case $this->translator->trans('mailvotech.lead.field.searchcommand.group'):
                 $forceParameters = [
                     $unique     => $filter->string,
                 ];

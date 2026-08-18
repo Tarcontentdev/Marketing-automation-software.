@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\AssetBundle\EventListener;
+namespace MailVotech\AssetBundle\EventListener;
 
-use Mautic\AssetBundle\AssetEvents;
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Event\AssetLoadEvent;
-use Mautic\AssetBundle\Form\Type\CampaignEventAssetDownloadType;
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\CampaignBundle\Executioner\RealTimeExecutioner;
+use MailVotech\AssetBundle\AssetEvents;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Event\AssetLoadEvent;
+use MailVotech\AssetBundle\Form\Type\CampaignEventAssetDownloadType;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\CampaignBundle\Executioner\RealTimeExecutioner;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class CampaignSubscriber implements EventSubscriberInterface
@@ -31,8 +31,8 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
     public function onCampaignBuild(CampaignBuilderEvent $event): void
     {
         $trigger = [
-            'label'          => 'mautic.asset.campaign.event.download',
-            'description'    => 'mautic.asset.campaign.event.download_descr',
+            'label'          => 'mailvotech.asset.campaign.event.download',
+            'description'    => 'mailvotech.asset.campaign.event.download_descr',
             'eventName'      => AssetEvents::ON_CAMPAIGN_TRIGGER_DECISION,
             'formType'       => CampaignEventAssetDownloadType::class,
             'channel'        => 'asset',

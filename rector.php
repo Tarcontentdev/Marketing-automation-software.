@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 use Rector\Config\RectorConfig;
 use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromReturnNewRector;
 use Utils\Rector\UnserializeToSerializerDecodeRector;
@@ -25,18 +25,18 @@ return RectorConfig::configure()
     ->withCache(__DIR__.'/var/cache/rector')
     ->withTypeGuardedClasses([
         // common controllers
-        Mautic\CoreBundle\Controller\AbstractStandardFormController::class,
-        Mautic\CoreBundle\Controller\CommonController::class,
-        Mautic\CoreBundle\Controller\AbstractFormController::class,
-        Mautic\ApiBundle\Controller\CommonApiController::class,
-        Mautic\ApiBundle\Controller\FetchCommonApiController::class,
-        Mautic\PluginBundle\Integration\AbstractIntegration::class,
-        Mautic\LeadBundle\Controller\Api\CustomFieldsApiControllerTrait::class,
+        MailVotech\CoreBundle\Controller\AbstractStandardFormController::class,
+        MailVotech\CoreBundle\Controller\CommonController::class,
+        MailVotech\CoreBundle\Controller\AbstractFormController::class,
+        MailVotech\ApiBundle\Controller\CommonApiController::class,
+        MailVotech\ApiBundle\Controller\FetchCommonApiController::class,
+        MailVotech\PluginBundle\Integration\AbstractIntegration::class,
+        MailVotech\LeadBundle\Controller\Api\CustomFieldsApiControllerTrait::class,
         // other objects
         CommonRepository::class,
-        Mautic\CoreBundle\Security\Permissions\AbstractPermissions::class,
-        MauticPlugin\MauticCrmBundle\Integration\CrmAbstractIntegration::class,
-        Mautic\PluginBundle\Integration\AbstractIntegration::class,
+        MailVotech\CoreBundle\Security\Permissions\AbstractPermissions::class,
+        MailVotechPlugin\MailVotechCrmBundle\Integration\CrmAbstractIntegration::class,
+        MailVotech\PluginBundle\Integration\AbstractIntegration::class,
     ])
     ->withRules([
         Rector\TypeDeclaration\Rector\StmtsAwareInterface\SafeDeclareStrictTypesRector::class,

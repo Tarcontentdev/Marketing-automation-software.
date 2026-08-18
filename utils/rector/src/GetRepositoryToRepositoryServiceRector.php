@@ -48,7 +48,7 @@ use Rector\Rector\AbstractRector;
  *      with "private readonly HitRepository $hitRepository" added to the constructor.
  *
  * The entity -> repository mapping is read from the entity's own loadMetadata(), which is
- * where Mautic declares it via $builder->setCustomRepositoryClass(...). Entities that do
+ * where MailVotech declares it via $builder->setCustomRepositoryClass(...). Entities that do
  * not declare a custom repository class are skipped - there is no concrete service to
  * depend on, so the generic EntityRepository is already correct.
  */
@@ -230,7 +230,7 @@ final class GetRepositoryToRepositoryServiceRector extends AbstractRector
 
     /**
      * A class without its own constructor that inherits one cannot gain a promoted property without
-     * declaring a full constructor override that forwards every parent argument. Mautic injects into
+     * declaring a full constructor override that forwards every parent argument. MailVotech injects into
      * such classes with an autowire method instead.
      */
     private function shouldUseAutowireMethod(Class_ $class): bool
@@ -331,7 +331,7 @@ final class GetRepositoryToRepositoryServiceRector extends AbstractRector
     }
 
     /**
-     * Mautic\PageBundle\Entity\HitRepository -> hitRepository.
+     * MailVotech\PageBundle\Entity\HitRepository -> hitRepository.
      */
     private function resolvePropertyName(string $repositoryClass): string
     {

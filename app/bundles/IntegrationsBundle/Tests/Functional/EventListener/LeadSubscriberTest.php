@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Functional\EventListener;
+namespace MailVotech\IntegrationsBundle\Tests\Functional\EventListener;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\IntegrationsBundle\Entity\FieldChangeRepository;
-use Mautic\IntegrationsBundle\Helper\SyncIntegrationsHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Event\LeadEvent;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\IntegrationsBundle\Entity\FieldChangeRepository;
+use MailVotech\IntegrationsBundle\Helper\SyncIntegrationsHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Event\LeadEvent;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-final class LeadSubscriberTest extends MauticMysqlTestCase
+final class LeadSubscriberTest extends MailVotechMysqlTestCase
 {
     private EventDispatcherInterface $dispatcher;
 

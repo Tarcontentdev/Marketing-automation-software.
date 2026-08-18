@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Controller;
+namespace MailVotech\CoreBundle\Controller;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;

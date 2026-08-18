@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Form\Type;
+namespace MailVotech\LeadBundle\Tests\Form\Type;
 
-use Mautic\CoreBundle\Test\AbstractMauticTestCase;
-use Mautic\LeadBundle\Form\Type\ContactChannelsType;
+use MailVotech\CoreBundle\Test\AbstractMailVotechTestCase;
+use MailVotech\LeadBundle\Form\Type\ContactChannelsType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 
-final class ContactChannelsTypeTest extends AbstractMauticTestCase
+final class ContactChannelsTypeTest extends AbstractMailVotechTestCase
 {
     protected function setUp(): void
     {

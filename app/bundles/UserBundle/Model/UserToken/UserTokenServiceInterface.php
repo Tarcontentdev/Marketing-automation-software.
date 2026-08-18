@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Model\UserToken;
+namespace MailVotech\UserBundle\Model\UserToken;
 
-use Mautic\UserBundle\Entity\UserToken;
+use MailVotech\UserBundle\Entity\UserToken;
 
 /**
  * Interface UserTokenServiceInterface.

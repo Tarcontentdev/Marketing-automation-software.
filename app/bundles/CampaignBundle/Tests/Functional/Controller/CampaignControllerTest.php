@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Controller;
+namespace MailVotech\CampaignBundle\Tests\Functional\Controller;
 
 use Doctrine\ORM\Exception\NotSupported;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\Mapping\MappingException;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CoreBundle\Helper\ExportHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\CoreBundle\Tests\Functional\UserEntityTrait;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CoreBundle\Helper\ExportHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\CoreBundle\Tests\Functional\UserEntityTrait;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CampaignControllerTest extends MauticMysqlTestCase
+final class CampaignControllerTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
     use UserEntityTrait;
@@ -91,7 +91,7 @@ final class CampaignControllerTest extends MauticMysqlTestCase
         // create users
         $nonAdminUser = $this->createUserWithPermission([
             'user-name'  => 'non-admin',
-            'email'      => 'non-admin@mautic-test.com',
+            'email'      => 'non-admin@mailvotech-test.com',
             'first-name' => 'non-admin',
             'last-name'  => 'non-admin',
             'role'       => [
@@ -129,7 +129,7 @@ final class CampaignControllerTest extends MauticMysqlTestCase
         $this->em->flush();
         $this->em->clear();
 
-        $this->testSymfonyCommand('mautic:campaigns:update', ['--campaign-id' => $this->campaign->getId(), '-vv']);
+        $this->testSymfonyCommand('mailvotech:campaigns:update', ['--campaign-id' => $this->campaign->getId(), '-vv']);
 
         return $nonAdminUser;
     }

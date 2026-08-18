@@ -5,25 +5,25 @@ declare(strict_types=1);
 return [
     'routes' => [
         'public' => [
-            'mautic_installer_home' => [
+            'mailvotech_installer_home' => [
                 'path'       => '/installer',
-                'controller' => 'Mautic\InstallBundle\Controller\InstallController::stepAction',
+                'controller' => 'MailVotech\InstallBundle\Controller\InstallController::stepAction',
             ],
-            'mautic_installer_remove_slash' => [
+            'mailvotech_installer_remove_slash' => [
                 'path'       => '/installer/',
-                'controller' => 'Mautic\CoreBundle\Controller\CommonController::removeTrailingSlashAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\CommonController::removeTrailingSlashAction',
             ],
-            'mautic_installer_step' => [
+            'mailvotech_installer_step' => [
                 'path'       => '/installer/step/{index}',
-                'controller' => 'Mautic\InstallBundle\Controller\InstallController::stepAction',
+                'controller' => 'MailVotech\InstallBundle\Controller\InstallController::stepAction',
             ],
-            'mautic_installer_final' => [
+            'mailvotech_installer_final' => [
                 'path'       => '/installer/final',
-                'controller' => 'Mautic\InstallBundle\Controller\InstallController::finalAction',
+                'controller' => 'MailVotech\InstallBundle\Controller\InstallController::finalAction',
             ],
-            'mautic_installer_catchcall' => [
+            'mailvotech_installer_catchcall' => [
                 'path'         => '/installer/{noerror}',
-                'controller'   => 'Mautic\InstallBundle\Controller\InstallController::stepAction',
+                'controller'   => 'MailVotech\InstallBundle\Controller\InstallController::stepAction',
                 'requirements' => [
                     'noerror' => '^(?).+',
                 ],

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\DAO;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\DAO;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\RelationsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\RelationDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\RelationsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\RelationDAO;
 use PHPUnit\Framework\TestCase;
 
 final class RelationsDAOTest extends TestCase

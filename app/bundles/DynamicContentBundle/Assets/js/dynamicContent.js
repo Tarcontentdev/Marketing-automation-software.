@@ -1,13 +1,13 @@
-Mautic.toggleDwcFilters = function () {
+MailVotech.toggleDwcFilters = function () {
     mQuery("#dwcFiltersTab, #slotNameDiv").toggleClass("hide");
     if (mQuery("#dwcFiltersTab").hasClass('hide')) {
         mQuery('.nav-tabs a[href="#details"]').click();
     } else {
-        Mautic.dynamicContentOnLoad();
+        MailVotech.dynamicContentOnLoad();
     }
 };
 
-Mautic.dwcGenerator = (function() {
+MailVotech.dwcGenerator = (function() {
     // Selectors
     const copyBtnSelector = '#generator-copy-dynamic-content-slot';
     const pluginTabSelector = '#dwc--generator-plugins';
@@ -18,7 +18,7 @@ Mautic.dwcGenerator = (function() {
     const switchHtmlTagBtnSelector = '#generator-switch-html-tag';
 
     // State variables
-    let isPluginBracketMode = true; // True means {mautic ...}, false means [mautic ...]
+    let isPluginBracketMode = true; // True means {mailvotech ...}, false means [mailvotech ...]
     let isUsingDiv = true; // True means using <div> for HTML snippet, false means using <span>
 
     // Determine the active tab (plugin or HTML)
@@ -36,7 +36,7 @@ Mautic.dwcGenerator = (function() {
         if (input && inputValue !== null) input.value = inputValue;
     };
 
-    // Toggle between {mautic ...} and [mautic ...] in the plugin tab
+    // Toggle between {mailvotech ...} and [mailvotech ...] in the plugin tab
     const switchCodeWrapper = () => {
         const pluginTab = document.querySelector(pluginTabSelector);
         if (!pluginTab) return;
@@ -49,17 +49,17 @@ Mautic.dwcGenerator = (function() {
         let code = pre.innerHTML;
 
         if (isPluginBracketMode) {
-            // Convert {mautic ...} to [mautic ...]
+            // Convert {mailvotech ...} to [mailvotech ...]
             code = code
-                .replace(/\{mautic/g, '[mautic')
+                .replace(/\{mailvotech/g, '[mailvotech')
                 .replace(/slot=".*?"\}/g, match => match.replace('}', ']')) // Replace } with ] in the first part
-                .replace(/\{\/mautic\}/g, '[/mautic]');
+                .replace(/\{\/mailvotech\}/g, '[/mailvotech]');
         } else {
-            // Convert [mautic ...] to {mautic ...}
+            // Convert [mailvotech ...] to {mailvotech ...}
             code = code
-                .replace(/\[mautic/g, '{mautic')
+                .replace(/\[mailvotech/g, '{mailvotech')
                 .replace(/slot=".*?"\]/g, match => match.replace(']', '}')) // Replace ] with } in the first part
-                .replace(/\[\/mautic\]/g, '{/mautic}');
+                .replace(/\[\/mailvotech\]/g, '{/mailvotech}');
         }
 
         pre.innerHTML = code;
@@ -106,8 +106,8 @@ Mautic.dwcGenerator = (function() {
             const slotMatch = container.textContent.match(/slot="([^"]+)"/);
             const slotName = slotMatch ? slotMatch[1] : '';
             const wrapper = isPluginBracketMode
-                ? { open: `{mautic type="content" slot="${slotName}"}`, close: '{/mautic}' }
-                : { open: `[mautic type="content" slot="${slotName}"]`, close: '[/mautic]' };
+                ? { open: `{mailvotech type="content" slot="${slotName}"}`, close: '{/mailvotech}' }
+                : { open: `[mailvotech type="content" slot="${slotName}"]`, close: '[/mailvotech]' };
 
             code = `${wrapper.open}${userValue}${wrapper.close}`.trim();
         } else {
@@ -118,8 +118,8 @@ Mautic.dwcGenerator = (function() {
         }
 
         navigator.clipboard.writeText(code).then(() => {
-            const flashMessage = Mautic.addInfoFlashMessage(Mautic.translate('mautic.core.copied'));
-            Mautic.setFlashes(flashMessage);
+            const flashMessage = MailVotech.addInfoFlashMessage(MailVotech.translate('mailvotech.core.copied'));
+            MailVotech.setFlashes(flashMessage);
         });
     };
 
@@ -138,11 +138,11 @@ Mautic.dwcGenerator = (function() {
     return { init };
 })();
 
-Mautic.toggleContentEditor = function () {
+MailVotech.toggleContentEditor = function () {
     const typeField = mQuery('#dwc_type').val();
     const contentField = mQuery('#dwc_content');
     if (typeField === 'html') {
-        Mautic.ConvertFieldToCkeditor(contentField, MauticVars.maxButtons);
+        MailVotech.ConvertFieldToCkeditor(contentField, MailVotechVars.maxButtons);
     } else if (typeField === 'text') {
         if (ckEditors.size > 0) {
             ckEditors.forEach(function(value, key, map){
@@ -153,36 +153,36 @@ Mautic.toggleContentEditor = function () {
     }
 };
 
-Mautic.dynamicContentOnLoad = function (container, response) {
+MailVotech.dynamicContentOnLoad = function (container, response) {
     if (typeof container !== 'object') {
         if (mQuery(container + ' #list-search').length) {
-            Mautic.activateSearchAutocomplete('list-search', 'dynamicContent');
+            MailVotech.activateSearchAutocomplete('list-search', 'dynamicContent');
         }
     }
 
-    var availableFilters = mQuery('div.dwc-filter').find('select[data-mautic="available_filters"]');
-    Mautic.activateChosenSelect(availableFilters, false);
+    var availableFilters = mQuery('div.dwc-filter').find('select[data-mailvotech="available_filters"]');
+    MailVotech.activateChosenSelect(availableFilters, false);
 
-    Mautic.dynamicFiltersOnLoad('div.dwc-filter');
-    Mautic.dwcGenerator.init();
+    MailVotech.dynamicFiltersOnLoad('div.dwc-filter');
+    MailVotech.dwcGenerator.init();
 };
 
-Mautic.dynamicFiltersOnLoad = function(container, response) {
+MailVotech.dynamicFiltersOnLoad = function(container, response) {
 
     mQuery('#campaign-share-tab').hover(function () {
-        if (Mautic.shareTableLoaded != true) {
-            Mautic.loadAjaxColumn('campaign-share-stat', 'lead:getCampaignShareStats', 'afterStatsLoad');
-            Mautic.shareTableLoaded = true;
+        if (MailVotech.shareTableLoaded != true) {
+            MailVotech.loadAjaxColumn('campaign-share-stat', 'lead:getCampaignShareStats', 'afterStatsLoad');
+            MailVotech.shareTableLoaded = true;
         }
     })
 
-    Mautic.afterStatsLoad = function () {
-        Mautic.sortTableByColumn('#campaign-share-table', '.campaign-share-stat', true)
+    MailVotech.afterStatsLoad = function () {
+        MailVotech.sortTableByColumn('#campaign-share-table', '.campaign-share-stat', true)
     }
 
 
     if (mQuery(container + ' #list-search').length) {
-        Mautic.activateSearchAutocomplete('list-search', 'lead.list');
+        MailVotech.activateSearchAutocomplete('list-search', 'lead.list');
     }
 
     var prefix = 'leadlist';
@@ -194,7 +194,7 @@ Mautic.dynamicFiltersOnLoad = function(container, response) {
     if (mQuery('#' + prefix + '_filters').length) {
         mQuery('#available_filters').on('change', function() {
             if (mQuery(this).val()) {
-                Mautic.addDwcFilter(mQuery(this).val(),mQuery('option:selected',this).data('field-object'));
+                MailVotech.addDwcFilter(mQuery(this).val(),mQuery('option:selected',this).data('field-object'));
                 mQuery(this).val('');
                 mQuery(this).trigger('chosen:updated');
             }
@@ -207,7 +207,7 @@ Mautic.dynamicFiltersOnLoad = function(container, response) {
                     'fast',
                     function () {
                         mQuery(this).remove();
-                        Mautic.reorderSegmentFilters();
+                        MailVotech.reorderSegmentFilters();
                     }
                 );
 
@@ -248,7 +248,7 @@ Mautic.dynamicFiltersOnLoad = function(container, response) {
                 // First in the list should be an "and"
                 ui.item.find('select.glue-select').first().val('and');
 
-                Mautic.reorderSegmentFilters();
+                MailVotech.reorderSegmentFilters();
             }
         });
 
@@ -264,12 +264,12 @@ Mautic.dynamicFiltersOnLoad = function(container, response) {
             segmentContactForm.delay(200).submit();
         }).on('submit', function(e) {
             e.preventDefault();
-            Mautic.refreshSegmentContacts(segmentContactForm);
+            MailVotech.refreshSegmentContacts(segmentContactForm);
         });
     }
 };
 
-Mautic.addDwcFilter = function (elId, elObj) {
+MailVotech.addDwcFilter = function (elId, elObj) {
     var filterId = '#available_' + elObj + '_' + elId;
     var filterOption = mQuery(filterId);
     var label = filterOption.text();
@@ -330,7 +330,7 @@ Mautic.addDwcFilter = function (elId, elObj) {
             'fast',
             function () {
                 mQuery(this).remove();
-                Mautic.reorderSegmentFilters();
+                MailVotech.reorderSegmentFilters();
             }
         );
     });
@@ -364,12 +364,12 @@ Mautic.addDwcFilter = function (elId, elObj) {
         }
     } else if (fieldType == 'lookup') {
         var fieldCallback = filterOption.data("field-callback");
-        if (fieldCallback && typeof Mautic[fieldCallback] == 'function') {
+        if (fieldCallback && typeof MailVotech[fieldCallback] == 'function') {
             var fieldOptions = filterOption.data("field-list");
-            Mautic[fieldCallback](filterIdBase + 'filter', elId, fieldOptions);
+            MailVotech[fieldCallback](filterIdBase + 'filter', elId, fieldOptions);
         } else {
             filter.attr('data-target', alias);
-            Mautic.activateLookupTypeahead(filter.parent());
+            MailVotech.activateLookupTypeahead(filter.parent());
         }
     } else if (fieldType == 'datetime') {
         filter.datetimepicker({
@@ -417,9 +417,9 @@ Mautic.addDwcFilter = function (elId, elObj) {
         oldDisplay.replaceWith(newDisplay);
 
         var fieldCallback = filterOption.data("field-callback");
-        if (fieldCallback && typeof Mautic[fieldCallback] == 'function') {
+        if (fieldCallback && typeof MailVotech[fieldCallback] == 'function') {
             var fieldOptions = filterOption.data("field-list");
-            Mautic[fieldCallback](filterIdBase + 'display', elId, fieldOptions);
+            MailVotech[fieldCallback](filterIdBase + 'display', elId, fieldOptions);
         }
     } else {
         filter.attr('type', fieldType);
@@ -433,13 +433,13 @@ Mautic.addDwcFilter = function (elId, elObj) {
     });
 
     // Convert based on first option in list
-    Mautic.convertDwcFilterInput('#' + filterIdBase + 'operator');
+    MailVotech.convertDwcFilterInput('#' + filterIdBase + 'operator');
 
     // Reposition if applicable
-    Mautic.updateFilterPositioning(mQuery('#' + filterIdBase + 'glue'));
+    MailVotech.updateFilterPositioning(mQuery('#' + filterIdBase + 'glue'));
 };
 
-Mautic.convertDwcFilterInput = function(el) {
+MailVotech.convertDwcFilterInput = function(el) {
     var prefix = 'leadlist';
 
     var parent = mQuery(el).parents('.dynamic-content-filter, .dwc-filter');
@@ -483,7 +483,7 @@ Mautic.convertDwcFilterInput = function(el) {
             newName =  mQuery(filterId).attr('name') + '[]';
             mQuery(filterId).attr('name', newName);
 
-            placeholder = mauticLang['chosenChooseMore'];
+            placeholder = mailvotechLang['chosenChooseMore'];
         } else if (!multiple && isMultiple) {
             mQuery(filterId).removeAttr('multiple');
 
@@ -494,7 +494,7 @@ Mautic.convertDwcFilterInput = function(el) {
 
             mQuery(filterId).attr('name', newName);
 
-            placeholder = mauticLang['chosenChooseOne'];
+            placeholder = mailvotechLang['chosenChooseOne'];
         }
 
         if (multiple) {
@@ -509,15 +509,15 @@ Mautic.convertDwcFilterInput = function(el) {
         }
 
         // Destroy the chosen and recreate
-        Mautic.destroyChosen(mQuery(filterId));
+        MailVotech.destroyChosen(mQuery(filterId));
 
         mQuery(filterId).attr('data-placeholder', placeholder);
 
-        Mautic.activateChosenSelect(mQuery(filterId));
+        MailVotech.activateChosenSelect(mQuery(filterId));
     }
 };
 
-Mautic.standardDynamicContentUrl = function(options) {
+MailVotech.standardDynamicContentUrl = function(options) {
     if (!options) {
         return;
     }
@@ -535,7 +535,7 @@ Mautic.standardDynamicContentUrl = function(options) {
     return options;
 };
 
-Mautic.disabledDynamicContentAction = function(opener) {
+MailVotech.disabledDynamicContentAction = function(opener) {
     if (typeof opener == 'undefined') {
         opener = window;
     }

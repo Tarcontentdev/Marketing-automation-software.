@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Command;
+namespace MailVotech\CampaignBundle\Tests\Command;
 
 use Doctrine\DBAL\Connection;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\InstallBundle\InstallFixtures\ORM\LeadFieldData;
-use Mautic\LeadBundle\DataFixtures\ORM\LoadLeadData;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\InstallBundle\InstallFixtures\ORM\LeadFieldData;
+use MailVotech\LeadBundle\DataFixtures\ORM\LoadLeadData;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
 
-abstract class AbstractCampaignCommand extends MauticMysqlTestCase
+abstract class AbstractCampaignCommand extends MailVotechMysqlTestCase
 {
     public const SEND_EMAIL_SECONDS = 3;
 
@@ -54,7 +54,7 @@ abstract class AbstractCampaignCommand extends MauticMysqlTestCase
         parent::setUp();
 
         $this->db     = $this->em->getConnection();
-        $this->prefix = static::getContainer()->getParameter('mautic.db_table_prefix');
+        $this->prefix = static::getContainer()->getParameter('mailvotech.db_table_prefix');
 
         // Populate contacts
         $this->installDatabaseFixtures([LeadFieldData::class, LoadLeadData::class]);
@@ -63,7 +63,7 @@ abstract class AbstractCampaignCommand extends MauticMysqlTestCase
         $sql = file_get_contents(__DIR__.'/campaign_schema.sql');
 
         // Update table prefix
-        $sql = str_replace('#__', static::getContainer()->getParameter('mautic.db_table_prefix'), $sql);
+        $sql = str_replace('#__', static::getContainer()->getParameter('mailvotech.db_table_prefix'), $sql);
 
         // Schedule event
         date_default_timezone_set('UTC');

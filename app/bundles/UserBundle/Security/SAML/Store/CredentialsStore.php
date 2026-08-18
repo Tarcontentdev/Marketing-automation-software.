@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\UserBundle\Security\SAML\Store;
+namespace MailVotech\UserBundle\Security\SAML\Store;
 
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Credential\X509Credential;
 use LightSaml\Store\Credential\CredentialStoreInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 final class CredentialsStore implements CredentialStoreInterface
@@ -62,7 +62,7 @@ final class CredentialsStore implements CredentialStoreInterface
         $keyPassword = '';
 
         if (!file_exists($cache_dir.'/saml_default.key') || !file_exists($cache_dir.'/saml_default.crt')) {
-            $dn = ['commonName' => 'Mautic dummy cert'];
+            $dn = ['commonName' => 'MailVotech dummy cert'];
 
             // Generate a new private (and public) key pair
             $privkey = openssl_pkey_new([

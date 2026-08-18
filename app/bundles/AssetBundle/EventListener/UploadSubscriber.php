@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\AssetBundle\EventListener;
+namespace MailVotech\AssetBundle\EventListener;
 
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CoreBundle\Exception\FileInvalidException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Validator\FileUploadValidator;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CoreBundle\Exception\FileInvalidException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Validator\FileUploadValidator;
 use Oneup\UploaderBundle\Event\PostUploadEvent;
 use Oneup\UploaderBundle\Event\ValidationEvent;
 use Oneup\UploaderBundle\Uploader\Exception\ValidationException;

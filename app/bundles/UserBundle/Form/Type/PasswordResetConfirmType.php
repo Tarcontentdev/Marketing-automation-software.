@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\UserBundle\Form\Type;
+namespace MailVotech\UserBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\UserBundle\Form\Validator\Constraints\NotWeak;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\UserBundle\Form\Validator\Constraints\NotWeak;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -25,16 +25,16 @@ final class PasswordResetConfirmType extends AbstractType
             'identifier',
             TextType::class,
             [
-                'label'      => 'mautic.user.auth.form.loginusername',
+                'label'      => 'mailvotech.user.auth.form.loginusername',
                 'label_attr' => ['class' => 'sr-only'],
                 'attr'       => [
                     'class'       => 'form-control',
                     'preaddon'    => 'ri-user-6-fill',
-                    'placeholder' => 'mautic.user.auth.form.loginusername',
+                    'placeholder' => 'mailvotech.user.auth.form.loginusername',
                 ],
                 'required'    => true,
                 'constraints' => [
-                    new Assert\NotBlank(message: 'mautic.user.user.passwordreset.notblank'),
+                    new Assert\NotBlank(message: 'mailvotech.user.user.passwordreset.notblank'),
                 ],
             ]
         );
@@ -45,42 +45,42 @@ final class PasswordResetConfirmType extends AbstractType
             [
                 'first_name'    => 'password',
                 'first_options' => [
-                    'label'      => 'mautic.core.password',
+                    'label'      => 'mailvotech.core.password',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'        => 'form-control',
-                        'placeholder'  => 'mautic.user.user.passwordreset.password.placeholder',
-                        'tooltip'      => 'mautic.user.user.form.help.passwordrequirements',
+                        'placeholder'  => 'mailvotech.user.user.passwordreset.password.placeholder',
+                        'tooltip'      => 'mailvotech.user.user.form.help.passwordrequirements',
                         'preaddon'     => 'ri-lock-fill',
                         'autocomplete' => 'off',
                     ],
                     'required'       => true,
                     'error_bubbling' => false,
                     'constraints'    => [
-                        new Assert\NotBlank(message: 'mautic.user.user.passwordreset.notblank'),
-                        new Assert\Length(min: 6, minMessage: 'mautic.user.user.password.minlength'),
-                        new NotWeak(message: 'mautic.user.user.password.weak'),
+                        new Assert\NotBlank(message: 'mailvotech.user.user.passwordreset.notblank'),
+                        new Assert\Length(min: 6, minMessage: 'mailvotech.user.user.password.minlength'),
+                        new NotWeak(message: 'mailvotech.user.user.password.weak'),
                     ],
                 ],
                 'second_name'    => 'confirm',
                 'second_options' => [
-                    'label'      => 'mautic.user.user.form.passwordconfirm',
+                    'label'      => 'mailvotech.user.user.form.passwordconfirm',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'        => 'form-control',
-                        'placeholder'  => 'mautic.user.user.passwordreset.confirm.placeholder',
-                        'tooltip'      => 'mautic.user.user.form.help.passwordrequirements',
+                        'placeholder'  => 'mailvotech.user.user.passwordreset.confirm.placeholder',
+                        'tooltip'      => 'mailvotech.user.user.form.help.passwordrequirements',
                         'preaddon'     => 'ri-lock-fill',
                         'autocomplete' => 'off',
                     ],
                     'required'       => true,
                     'error_bubbling' => false,
                     'constraints'    => [
-                        new Assert\NotBlank(message: 'mautic.user.user.passwordreset.notblank'),
+                        new Assert\NotBlank(message: 'mailvotech.user.user.passwordreset.notblank'),
                     ],
                 ],
                 'type'            => PasswordType::class,
-                'invalid_message' => 'mautic.user.user.password.mismatch',
+                'invalid_message' => 'mailvotech.user.user.password.mismatch',
                 'required'        => true,
                 'error_bubbling'  => false,
             ]
@@ -93,7 +93,7 @@ final class PasswordResetConfirmType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-lg btn-primary btn-block',
                 ],
-                'label' => 'mautic.user.user.passwordreset.reset',
+                'label' => 'mailvotech.user.user.passwordreset.reset',
             ]
         );
 

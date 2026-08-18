@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\EventListener;
+namespace MailVotech\MarketplaceBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\MenuEvent;
-use Mautic\MarketplaceBundle\Security\Permissions\MarketplacePermissions;
-use Mautic\MarketplaceBundle\Service\Config;
-use Mautic\MarketplaceBundle\Service\RouteProvider;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\MenuEvent;
+use MailVotech\MarketplaceBundle\Security\Permissions\MarketplacePermissions;
+use MailVotech\MarketplaceBundle\Service\Config;
+use MailVotech\MarketplaceBundle\Service\RouteProvider;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class MenuSubscriber implements EventSubscriberInterface
@@ -39,7 +39,7 @@ final readonly class MenuSubscriber implements EventSubscriberInterface
                         'id'        => 'marketplace',
                         'route'     => RouteProvider::ROUTE_LIST,
                         'access'    => MarketplacePermissions::CAN_VIEW_PACKAGES,
-                        'parent'    => 'mautic.core.integrations',
+                        'parent'    => 'mailvotech.core.integrations',
                         'iconClass' => 'ri-shopping-bag-2-line',
                         'priority'  => 16,
                     ],

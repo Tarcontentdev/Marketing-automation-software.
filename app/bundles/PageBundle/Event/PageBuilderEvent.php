@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Event;
+namespace MailVotech\PageBundle\Event;
 
-use Mautic\CoreBundle\Event\BuilderEvent;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\CoreBundle\Event\BuilderEvent;
+use MailVotech\PageBundle\Entity\Page;
 
 final class PageBuilderEvent extends BuilderEvent
 {

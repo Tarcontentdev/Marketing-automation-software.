@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Executioner;
+namespace MailVotech\CampaignBundle\Executioner;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
 use Symfony\Component\Console\Output\OutputInterface;
 
 interface ExecutionerInterface

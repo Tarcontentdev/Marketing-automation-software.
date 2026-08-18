@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Tests\Unit\EventSubscriber;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Tests\Unit\EventSubscriber;
 
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Event\PageEvent;
-use MauticPlugin\GrapesJsBuilderBundle\EventSubscriber\PageSubscriber;
-use MauticPlugin\GrapesJsBuilderBundle\Integration\Config;
-use MauticPlugin\GrapesJsBuilderBundle\Model\GrapesJsBuilderModel;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Event\PageEvent;
+use MailVotechPlugin\GrapesJsBuilderBundle\EventSubscriber\PageSubscriber;
+use MailVotechPlugin\GrapesJsBuilderBundle\Integration\Config;
+use MailVotechPlugin\GrapesJsBuilderBundle\Model\GrapesJsBuilderModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

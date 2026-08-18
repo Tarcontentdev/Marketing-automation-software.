@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\MonitoredEmail\Processor;
+namespace MailVotech\EmailBundle\Tests\MonitoredEmail\Processor;
 
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Model\EmailStatModel;
-use Mautic\EmailBundle\MonitoredEmail\Message;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce;
-use Mautic\EmailBundle\MonitoredEmail\Search\ContactFinder;
-use Mautic\EmailBundle\MonitoredEmail\Search\Result;
-use Mautic\EmailBundle\Tests\MonitoredEmail\Transport\TestTransport;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\DoNotContact;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Model\EmailStatModel;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce;
+use MailVotech\EmailBundle\MonitoredEmail\Search\ContactFinder;
+use MailVotech\EmailBundle\MonitoredEmail\Search\Result;
+use MailVotech\EmailBundle\Tests\MonitoredEmail\Transport\TestTransport;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\DoNotContact;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Monolog\Logger;
 use PHPUnit\Framework\Attributes\TestDox;
 use Symfony\Component\Mailer\Transport\NullTransport;

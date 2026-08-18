@@ -1,6 +1,6 @@
-Mautic.modalContentXhr = {};
-Mautic.activeModal = '';
-Mautic.backgroundedModal = '';
+MailVotech.modalContentXhr = {};
+MailVotech.activeModal = '';
+MailVotech.backgroundedModal = '';
 
 /**
  * Load a modal with ajax content
@@ -10,7 +10,7 @@ Mautic.backgroundedModal = '';
  *
  * @returns {boolean}
  */
-Mautic.ajaxifyModal = function (el, event) {
+MailVotech.ajaxifyModal = function (el, event) {
     let element = mQuery(el);
 
     if (element.hasClass('disabled')) {
@@ -42,23 +42,23 @@ Mautic.ajaxifyModal = function (el, event) {
     /*
      * If we have an onLoadCallback, proxy it through this function so that
      * we can pass the element to the callback. The callback must exist on
-     * the window.Mautic object.
+     * the window.MailVotech object.
      */
     let modalOpenCallbackReal = null;
-    if (modalOpenCallback && window["Mautic"].hasOwnProperty(modalOpenCallback)) {
+    if (modalOpenCallback && window["MailVotech"].hasOwnProperty(modalOpenCallback)) {
         modalOpenCallbackReal = function() {
-            Mautic[modalOpenCallback](el);
+            MailVotech[modalOpenCallback](el);
         };
     }
 
     let modalCloseCallbackReal = null;
-    if (modalCloseCallback && window["Mautic"].hasOwnProperty(modalOpenCallback)) {
+    if (modalCloseCallback && window["MailVotech"].hasOwnProperty(modalOpenCallback)) {
         modalCloseCallbackReal = function() {
-            Mautic[modalCloseCallback](el);
+            MailVotech[modalCloseCallback](el);
         };
     }
 
-    Mautic.loadAjaxModal(target, route, method, header, footer, preventDismissal, modalOpenCallbackReal, modalCloseCallbackReal, formData);
+    MailVotech.loadAjaxModal(target, route, method, header, footer, preventDismissal, modalOpenCallbackReal, modalCloseCallbackReal, formData);
 };
 
 /**
@@ -73,7 +73,7 @@ Mautic.ajaxifyModal = function (el, event) {
  * @param modalCloseCallback
  * @param formData
  */
-Mautic.loadAjaxModal = function (target, route, method, header, footer, preventDismissal, modalOpenCallback, modalCloseCallback, formData = {}) {
+MailVotech.loadAjaxModal = function (target, route, method, header, footer, preventDismissal, modalOpenCallback, modalCloseCallback, formData = {}) {
     let element = mQuery(target);
 
     if (element.find('.loading-placeholder').length) {
@@ -107,17 +107,17 @@ Mautic.loadAjaxModal = function (target, route, method, header, footer, preventD
 
     //clean slate upon close
     element.one('hidden.bs.modal', function () {
-        if (typeof Mautic.modalContentXhr[target] != 'undefined') {
-            Mautic.modalContentXhr[target].abort();
-            delete Mautic.modalContentXhr[target];
+        if (typeof MailVotech.modalContentXhr[target] != 'undefined') {
+            MailVotech.modalContentXhr[target].abort();
+            delete MailVotech.modalContentXhr[target];
         }
 
         mQuery('body').removeClass('noscroll');
 
         let response = {};
-        if (Mautic.modalMauticContent) {
-            response.mauticContent = Mautic.modalMauticContent;
-            delete Mautic.modalMauticContent;
+        if (MailVotech.modalMailVotechContent) {
+            response.mailvotechContent = MailVotech.modalMailVotechContent;
+            delete MailVotech.modalMailVotechContent;
         }
 
         if (modalCloseCallback) {
@@ -125,9 +125,9 @@ Mautic.loadAjaxModal = function (target, route, method, header, footer, preventD
         }
 
         //unload
-        Mautic.onPageUnload(target, response);
+        MailVotech.onPageUnload(target, response);
 
-        Mautic.resetModal(target);
+        MailVotech.resetModal(target);
     });
 
     // Check if dismissal is allowed
@@ -153,32 +153,32 @@ Mautic.loadAjaxModal = function (target, route, method, header, footer, preventD
         }
     }
 
-    Mautic.showModal(target);
+    MailVotech.showModal(target);
 
-    if (typeof Mautic.modalContentXhr == 'undefined') {
-        Mautic.modalContentXhr = {};
-    } else if (typeof Mautic.modalContentXhr[target] != 'undefined') {
-        Mautic.modalContentXhr[target].abort();
+    if (typeof MailVotech.modalContentXhr == 'undefined') {
+        MailVotech.modalContentXhr = {};
+    } else if (typeof MailVotech.modalContentXhr[target] != 'undefined') {
+        MailVotech.modalContentXhr[target].abort();
     }
 
-    Mautic.modalContentXhr[target] = mQuery.ajax({
+    MailVotech.modalContentXhr[target] = mQuery.ajax({
         url: route,
         type: method,
         dataType: "json",
         data: formData,
         success: function (response) {
             if (response) {
-                Mautic.processModalContent(response, target);
+                MailVotech.processModalContent(response, target);
             }
-            Mautic.stopIconSpinPostEvent();
+            MailVotech.stopIconSpinPostEvent();
         },
         error: function (request, textStatus, errorThrown) {
-            Mautic.processAjaxError(request, textStatus, errorThrown, null, target);
-            Mautic.stopIconSpinPostEvent();
+            MailVotech.processAjaxError(request, textStatus, errorThrown, null, target);
+            MailVotech.stopIconSpinPostEvent();
         },
         complete: function () {
-            Mautic.stopModalLoadingBar(target);
-            delete Mautic.modalContentXhr[target];
+            MailVotech.stopModalLoadingBar(target);
+            delete MailVotech.modalContentXhr[target];
         }
     });
 };
@@ -187,7 +187,7 @@ Mautic.loadAjaxModal = function (target, route, method, header, footer, preventD
  * Clears content from a shared modal
  * @param target
  */
-Mautic.resetModal = function (target) {
+MailVotech.resetModal = function (target) {
     if (mQuery(target).hasClass('in')) {
         return;
     }
@@ -214,8 +214,8 @@ Mautic.resetModal = function (target) {
  * @param response
  * @param target
  */
-Mautic.processModalContent = function (response, target) {
-    Mautic.stopIconSpinPostEvent();
+MailVotech.processModalContent = function (response, target) {
+    MailVotech.stopIconSpinPostEvent();
 
     if (response.error) {
         if (response.errors) {
@@ -234,15 +234,15 @@ Mautic.processModalContent = function (response, target) {
         mQuery('body').removeClass('modal-open');
         mQuery('.modal-backdrop').remove();
         //assume the content is to refresh main app
-        Mautic.processPageContent(response);
+        MailVotech.processPageContent(response);
     } else {
 
         if (response.notifications) {
-            Mautic.setNotifications(response.notifications);
+            MailVotech.setNotifications(response.notifications);
         }
 
         if (response.callback) {
-            window["Mautic"][response.callback].apply('window', [response]);
+            window["MailVotech"][response.callback].apply('window', [response]);
             return;
         }
 
@@ -250,7 +250,7 @@ Mautic.processModalContent = function (response, target) {
             mQuery(response.target).html(response.newContent);
 
             //activate content specific stuff
-            Mautic.onPageLoad(response.target, response, true);
+            MailVotech.onPageLoad(response.target, response, true);
         } else if (response.newContent) {
             //load the content
             if (mQuery(target + ' .loading-placeholder').length) {
@@ -263,18 +263,18 @@ Mautic.processModalContent = function (response, target) {
         }
 
         //activate content specific stuff
-        Mautic.onPageLoad(target, response, true);
-        Mautic.modalMauticContent = false;
+        MailVotech.onPageLoad(target, response, true);
+        MailVotech.modalMailVotechContent = false;
         if (response.closeModal) {
             mQuery('body').removeClass('noscroll');
             mQuery(target).modal('hide');
 
             if (!response.updateModalContent) {
-                Mautic.onPageUnload(target, response);
+                MailVotech.onPageUnload(target, response);
             }
         } else {
             // Note for the hidden event
-            Mautic.modalMauticContent = response.mauticContent ? response.mauticContent : false;
+            MailVotech.modalMailVotechContent = response.mailvotechContent ? response.mailvotechContent : false;
         }
     }
 };
@@ -282,7 +282,7 @@ Mautic.processModalContent = function (response, target) {
 /**
  * Display confirmation modal
  */
-Mautic.showConfirmation = function (el, customMessage) {
+MailVotech.showConfirmation = function (el, customMessage) {
     var precheck = mQuery(el).data('precheck');
 
     if (precheck) {
@@ -290,8 +290,8 @@ Mautic.showConfirmation = function (el, customMessage) {
             if (!precheck()) {
                 return;
             }
-        } else if (typeof Mautic[precheck] == 'function') {
-            if (!Mautic[precheck]()) {
+        } else if (typeof MailVotech[precheck] == 'function') {
+            if (!MailVotech[precheck]()) {
                 return;
             }
         }
@@ -318,8 +318,8 @@ Mautic.showConfirmation = function (el, customMessage) {
         .css("marginRight", "5px")
         .css("marginLeft", "5px")
         .click(function () {
-            if (typeof Mautic[confirmCallback] === "function") {
-                window["Mautic"][confirmCallback].apply('window', [confirmAction, el]);
+            if (typeof MailVotech[confirmCallback] === "function") {
+                window["MailVotech"][confirmCallback].apply('window', [confirmAction, el]);
             }
         })
         .html(confirmText);
@@ -327,10 +327,10 @@ Mautic.showConfirmation = function (el, customMessage) {
         var cancelButton = mQuery('<button type="button" />')
             .addClass("btn btn-primary")
             .click(function () {
-                if (cancelCallback && typeof Mautic[cancelCallback] === "function") {
-                    window["Mautic"][cancelCallback].apply('window', [el]);
+                if (cancelCallback && typeof MailVotech[cancelCallback] === "function") {
+                    window["MailVotech"][cancelCallback].apply('window', [el]);
                 } else {
-                    Mautic.dismissConfirmation();
+                    MailVotech.dismissConfirmation();
                 }
             })
             .html(cancelText);
@@ -360,7 +360,7 @@ Mautic.showConfirmation = function (el, customMessage) {
 /**
  * Dismiss confirmation modal
  */
-Mautic.dismissConfirmation = function () {
+MailVotech.dismissConfirmation = function () {
     if (mQuery('.confirmation-modal').length) {
         mQuery('.confirmation-modal').modal('hide');
     }
@@ -372,10 +372,10 @@ Mautic.dismissConfirmation = function () {
  * @param el
  * @param url
  */
-Mautic.closeModalAndRedirect = function(el, url) {
-    Mautic.startModalLoadingBar(el);
+MailVotech.closeModalAndRedirect = function(el, url) {
+    MailVotech.startModalLoadingBar(el);
 
-    Mautic.loadContent(url);
+    MailVotech.loadContent(url);
 
     mQuery('body').removeClass('noscroll');
 };
@@ -387,7 +387,7 @@ Mautic.closeModalAndRedirect = function(el, url) {
  * @param url
  * @param header
  */
-Mautic.loadAjaxModalBySelectValue = function (el, value, route, header) {
+MailVotech.loadAjaxModalBySelectValue = function (el, value, route, header) {
     var selectVal = mQuery(el).val();
     var hasValue = (selectVal == value);
     if (!hasValue && mQuery.isArray(selectVal)) {
@@ -398,7 +398,7 @@ Mautic.loadAjaxModalBySelectValue = function (el, value, route, header) {
         route = route + (route.indexOf('?') > -1 ? '&' : '?') + 'modal=1&contentOnly=1&updateSelect=' + mQuery(el).attr('id');
         mQuery(el).find('option[value="' + value + '"]').prop('selected', false);
         mQuery(el).trigger("chosen:updated");
-        Mautic.loadAjaxModal('#MauticSharedModal', route, 'get', header);
+        MailVotech.loadAjaxModal('#MailVotechSharedModal', route, 'get', header);
     }
 };
 
@@ -407,7 +407,7 @@ Mautic.loadAjaxModalBySelectValue = function (el, value, route, header) {
  *
  * @param target
  */
-Mautic.showModal = function(target) {
+MailVotech.showModal = function(target) {
     if (mQuery('.modal.in').length) {
         // another modal is activated so let's stack
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\ChannelBundle\ChannelEvents;
-use Mautic\ChannelBundle\Entity\MessageQueue;
-use Mautic\ChannelBundle\Event\MessageQueueBatchProcessEvent;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\Model\EmailModel;
+use MailVotech\ChannelBundle\ChannelEvents;
+use MailVotech\ChannelBundle\Entity\MessageQueue;
+use MailVotech\ChannelBundle\Event\MessageQueueBatchProcessEvent;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\Model\EmailModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class MessageQueueSubscriber implements EventSubscriberInterface

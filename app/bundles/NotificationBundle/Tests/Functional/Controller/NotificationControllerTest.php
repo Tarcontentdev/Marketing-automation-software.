@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Tests\Functional\Controller;
+namespace MailVotech\NotificationBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\NotificationBundle\Tests\NotificationTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\NotificationBundle\Tests\NotificationTrait;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class NotificationControllerTest extends MauticMysqlTestCase
+final class NotificationControllerTest extends MailVotechMysqlTestCase
 {
     use NotificationTrait;
 

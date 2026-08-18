@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\Notification\Handler;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\Notification\Handler;
 
-use Mautic\IntegrationsBundle\Sync\Exception\HandlerNotSupportedException;
-use Mautic\IntegrationsBundle\Sync\Notification\Handler\HandlerContainer;
-use Mautic\IntegrationsBundle\Sync\Notification\Handler\HandlerInterface;
+use MailVotech\IntegrationsBundle\Sync\Exception\HandlerNotSupportedException;
+use MailVotech\IntegrationsBundle\Sync\Notification\Handler\HandlerContainer;
+use MailVotech\IntegrationsBundle\Sync\Notification\Handler\HandlerInterface;
 use PHPUnit\Framework\TestCase;
 
 final class HandlerContainerTest extends TestCase

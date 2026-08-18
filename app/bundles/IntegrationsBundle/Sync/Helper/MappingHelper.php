@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Helper;
+namespace MailVotech\IntegrationsBundle\Sync\Helper;
 
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
-use Mautic\IntegrationsBundle\Entity\ObjectMappingRepository;
-use Mautic\IntegrationsBundle\Event\InternalObjectFindEvent;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\RemappedObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectDeletedException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Entity\ObjectMappingRepository;
+use MailVotech\IntegrationsBundle\Event\InternalObjectFindEvent;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\RemappedObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectDeletedException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class MappingHelper
@@ -37,7 +37,7 @@ class MappingHelper
      * @throws ObjectNotFoundException
      * @throws ObjectNotSupportedException
      */
-    public function findMauticObject(MappingManualDAO $mappingManualDAO, string $internalObjectName, ObjectDAO $integrationObjectDAO): ObjectDAO
+    public function findMailVotechObject(MappingManualDAO $mappingManualDAO, string $internalObjectName, ObjectDAO $integrationObjectDAO): ObjectDAO
     {
         // Check if this contact is already tracked
         if ($internalObject = $this->objectMappingRepository->getInternalObject(
@@ -57,7 +57,7 @@ class MappingHelper
             );
         }
 
-        // We don't know who this is so search Mautic
+        // We don't know who this is so search MailVotech
         $uniqueIdentifierFields = $this->fieldsWithUniqueIdentifier->getFieldsWithUniqueIdentifier(['object' => $internalObjectName]);
         $identifiers            = [];
 
@@ -81,7 +81,7 @@ class MappingHelper
             );
         } catch (ObjectNotFoundException) {
             // Throw this exception for BC.
-            throw new ObjectNotSupportedException(MauticSyncDataExchange::NAME, $internalObjectName);
+            throw new ObjectNotSupportedException(MailVotechSyncDataExchange::NAME, $internalObjectName);
         }
 
         $event->setFieldValues($identifiers);
@@ -115,17 +115,17 @@ class MappingHelper
     }
 
     /**
-     * Returns corresponding Mautic entity class name for the given Mautic object.
+     * Returns corresponding MailVotech entity class name for the given MailVotech object.
      *
      * @throws ObjectNotSupportedException
      */
-    public function getMauticEntityClassName(string $internalObject): string
+    public function getMailVotechEntityClassName(string $internalObject): string
     {
         try {
             return $this->objectProvider->getObjectByName($internalObject)->getEntityName();
         } catch (ObjectNotFoundException) {
             // Throw this exception instead to keep BC.
-            throw new ObjectNotSupportedException(MauticSyncDataExchange::NAME, $internalObject);
+            throw new ObjectNotSupportedException(MailVotechSyncDataExchange::NAME, $internalObject);
         }
     }
 

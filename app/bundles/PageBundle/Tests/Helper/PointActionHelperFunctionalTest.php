@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Helper;
+namespace MailVotech\PageBundle\Tests\Helper;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Helper\PointActionHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Helper\PointActionHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class PointActionHelperFunctionalTest extends MauticMysqlTestCase
+final class PointActionHelperFunctionalTest extends MailVotechMysqlTestCase
 {
     private PointActionHelper $pointActionHelper;
 

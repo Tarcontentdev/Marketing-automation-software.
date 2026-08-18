@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\EventListener;
+namespace MailVotech\CampaignBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Event\CampaignEvent;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Event\EntityExportEvent;
-use Mautic\CoreBundle\Event\EntityImportAnalyzeEvent;
-use Mautic\CoreBundle\Event\EntityImportEvent;
-use Mautic\CoreBundle\Event\EntityImportUndoEvent;
-use Mautic\CoreBundle\EventListener\ImportExportTrait;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Event\CampaignEvent;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Event\EntityExportEvent;
+use MailVotech\CoreBundle\Event\EntityImportAnalyzeEvent;
+use MailVotech\CoreBundle\Event\EntityImportEvent;
+use MailVotech\CoreBundle\Event\EntityImportUndoEvent;
+use MailVotech\CoreBundle\EventListener\ImportExportTrait;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\UserBundle\Model\UserModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -486,7 +486,7 @@ final class CampaignImportExportSubscriber implements EventSubscriberInterface
     private function insertCampaignFormXref(int $campaignId, int $formId): void
     {
         $connection = $this->entityManager->getConnection();
-        $tableName  = MAUTIC_TABLE_PREFIX.'campaign_form_xref';
+        $tableName  = MAILVOTECH_TABLE_PREFIX.'campaign_form_xref';
 
         $exists = $connection->fetchOne(
             "SELECT 1 FROM {$tableName} WHERE campaign_id = :campaignId AND form_id = :formId",
@@ -505,7 +505,7 @@ final class CampaignImportExportSubscriber implements EventSubscriberInterface
     private function insertCampaignSegmentXref(int $campaignId, int $segmentId): void
     {
         $connection = $this->entityManager->getConnection();
-        $tableName  = MAUTIC_TABLE_PREFIX.'campaign_leadlist_xref';
+        $tableName  = MAILVOTECH_TABLE_PREFIX.'campaign_leadlist_xref';
 
         $exists = $connection->fetchOne(
             "SELECT 1 FROM {$tableName} WHERE campaign_id = :campaignId AND leadlist_id = :leadlistId",

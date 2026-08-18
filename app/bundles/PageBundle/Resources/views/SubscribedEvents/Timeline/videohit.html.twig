@@ -1,7 +1,7 @@
-{% set viewTime = 'mautic.core.unknown'|trans %}
-{% set duration = 'mautic.core.unknown'|trans %}
-{% set percentage = 'mautic.core.unknown'|trans %}
-{% set unknown = 'mautic.core.unknown'|trans %}
+{% set viewTime = 'mailvotech.core.unknown'|trans %}
+{% set duration = 'mailvotech.core.unknown'|trans %}
+{% set percentage = 'mailvotech.core.unknown'|trans %}
+{% set unknown = 'mailvotech.core.unknown'|trans %}
 {% set icon = event.icon|default('') %}
 
 {% if event.extra.hit.time_watched is defined %}
@@ -37,12 +37,12 @@
 {% endif %}
 
 <dl class="dl-horizontal">
-    <dt>{{ 'mautic.page.time.on.video'|trans }}:</dt>
-    <dd class="ellipsis">{{ 'mautic.page.time.on.video.value'|trans({'%time_watched%': viewTime, '%duration%': duration, '%percentage%': percentage}) }}</dd>
-    <dt>{{ 'mautic.page.referrer'|trans }}:</dt>
-    <dd class="ellipsis">{% if event.extra.hit.referer is defined and event.extra.hit.referer is not empty %}{{ assetMakeLinks(event['extra']['hit']['referer']) }}{% else %}{{ 'mautic.core.unknown'|trans }}{% endif %}</dd>
-    <dt>{{ 'mautic.video.url'|trans }}:</dt>
-    <dd class="ellipsis">{% if event.hit.url is defined and event.hit.url is not empty %}{{ assetMakeLinks(event['extra']['hit']['url']) }}{% else %}{{ 'mautic.core.unknown'|trans }}{% endif %}</dd>
+    <dt>{{ 'mailvotech.page.time.on.video'|trans }}:</dt>
+    <dd class="ellipsis">{{ 'mailvotech.page.time.on.video.value'|trans({'%time_watched%': viewTime, '%duration%': duration, '%percentage%': percentage}) }}</dd>
+    <dt>{{ 'mailvotech.page.referrer'|trans }}:</dt>
+    <dd class="ellipsis">{% if event.extra.hit.referer is defined and event.extra.hit.referer is not empty %}{{ assetMakeLinks(event['extra']['hit']['referer']) }}{% else %}{{ 'mailvotech.core.unknown'|trans }}{% endif %}</dd>
+    <dt>{{ 'mailvotech.video.url'|trans }}:</dt>
+    <dd class="ellipsis">{% if event.hit.url is defined and event.hit.url is not empty %}{{ assetMakeLinks(event['extra']['hit']['url']) }}{% else %}{{ 'mailvotech.core.unknown'|trans }}{% endif %}</dd>
 </dl>
 <div class="small">
     {{ inputClean(event.extra.hit.user_agent) }}

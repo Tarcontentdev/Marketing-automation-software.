@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
-use Mautic\CoreBundle\Helper\ThemeHelperInterface;
+use MailVotech\CoreBundle\Helper\ThemeHelperInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\Options;
@@ -25,14 +25,14 @@ final class ThemeListType extends AbstractType
                 'choices'           => function (Options $options): array {
                     $themes = $this->themeHelper->getInstalledThemes($options['feature']);
                     if ($options['include_code_mode']) {
-                        $themes['mautic_code_mode'] = 'Code Mode';
+                        $themes['mailvotech_code_mode'] = 'Code Mode';
                     }
 
                     return array_flip($themes);
                 },
                 'expanded'          => false,
                 'multiple'          => false,
-                'label'             => 'mautic.core.form.theme',
+                'label'             => 'mailvotech.core.form.theme',
                 'label_attr'        => ['class' => 'control-label'],
                 'placeholder'       => false,
                 'required'          => false,

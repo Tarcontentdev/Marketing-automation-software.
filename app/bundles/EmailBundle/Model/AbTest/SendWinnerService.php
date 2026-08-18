@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Model\AbTest;
+namespace MailVotech\EmailBundle\Model\AbTest;
 
-use Mautic\CoreBundle\Exception\RecordNotFoundException;
-use Mautic\CoreBundle\Model\AbTest\AbTestResultService;
-use Mautic\CoreBundle\Model\AbTest\AbTestSettingsService;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Exception\NotReadyToSendWinnerException;
-use Mautic\EmailBundle\Model\EmailModel;
+use MailVotech\CoreBundle\Exception\RecordNotFoundException;
+use MailVotech\CoreBundle\Model\AbTest\AbTestResultService;
+use MailVotech\CoreBundle\Model\AbTest\AbTestSettingsService;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Exception\NotReadyToSendWinnerException;
+use MailVotech\EmailBundle\Model\EmailModel;
 
 /**
  * Service for sending a winner variant email to remaining contacts.

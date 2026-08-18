@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\SyncDataExchange\Internal\Executioner;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\SyncDataExchange\Internal\Executioner;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\Notification\BulkNotification;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Executioner\FieldValidator;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\Notification\BulkNotification;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Executioner\FieldValidator;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Controller;
+namespace MailVotech\ProjectBundle\Controller;
 
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\ORM\EntityNotFoundException;
-use Mautic\CoreBundle\Controller\AbstractFormController;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\ProjectBundle\Form\Type\ProjectAddEntityType;
-use Mautic\ProjectBundle\Form\Type\ProjectEntityType;
-use Mautic\ProjectBundle\Model\ProjectModel;
-use Mautic\ProjectBundle\Security\Permissions\ProjectPermissions;
-use Mautic\ProjectBundle\Service\ProjectEntityLoaderService;
+use MailVotech\CoreBundle\Controller\AbstractFormController;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\ProjectBundle\Form\Type\ProjectAddEntityType;
+use MailVotech\ProjectBundle\Form\Type\ProjectEntityType;
+use MailVotech\ProjectBundle\Model\ProjectModel;
+use MailVotech\ProjectBundle\Security\Permissions\ProjectPermissions;
+use MailVotech\ProjectBundle\Service\ProjectEntityLoaderService;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,15 +21,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ProjectController extends AbstractFormController
 {
-    public const ROUTE_INDEX     = 'mautic_project_index';
+    public const ROUTE_INDEX     = 'mailvotech_project_index';
 
-    private const ROUTE_ACTION   = 'mautic_project_action';
+    private const ROUTE_ACTION   = 'mailvotech_project_action';
 
     private const LINK_ID_INDEX  = '#'.self::ROUTE_INDEX;
 
-    private const TEMPLATE_INDEX = 'Mautic\ProjectBundle\Controller\ProjectController::indexAction';
+    private const TEMPLATE_INDEX = 'MailVotech\ProjectBundle\Controller\ProjectController::indexAction';
 
-    private const TEMPLATE_FORM  = '@MauticProject/Project/form.html.twig';
+    private const TEMPLATE_FORM  = '@MailVotechProject/Project/form.html.twig';
 
     public function indexAction(Request $request, ProjectModel $projectModel, CorePermissions $corePermissions, ProjectEntityLoaderService $entityLoader, int $page = 1): Response
     {
@@ -48,17 +48,17 @@ final class ProjectController extends AbstractFormController
 
         $this->setListFilters();
 
-        $limit = $session->get('mautic.project.limit', $this->coreParametersHelper->get('default_pagelimit'));
+        $limit = $session->get('mailvotech.project.limit', $this->coreParametersHelper->get('default_pagelimit'));
         $start = (1 === $page) ? 0 : (($page - 1) * $limit);
         if ($start < 0) {
             $start = 0;
         }
 
-        $search = $request->get('search', $session->get('mautic.projects.filter', ''));
-        $session->set('mautic.projects.filter', $search);
+        $search = $request->get('search', $session->get('mailvotech.projects.filter', ''));
+        $session->set('mailvotech.projects.filter', $search);
 
-        $orderBy    = $session->get('mautic.projects.orderby', 'p.dateModified');
-        $orderByDir = $session->get('mautic.projects.orderbydir', 'DESC');
+        $orderBy    = $session->get('mailvotech.projects.orderby', 'p.dateModified');
+        $orderByDir = $session->get('mailvotech.projects.orderbydir', 'DESC');
         $filter     = '';
 
         if ($search) {
@@ -96,7 +96,7 @@ final class ProjectController extends AbstractFormController
             } else {
                 $lastPage = (ceil($count / $limit)) ?: 1;
             }
-            $session->set('mautic.projects.page', $lastPage);
+            $session->set('mailvotech.projects.page', $lastPage);
             $returnUrl = $this->generateUrl(self::ROUTE_INDEX, ['page' => $lastPage]);
 
             return $this->postActionRedirect([
@@ -108,12 +108,12 @@ final class ProjectController extends AbstractFormController
                 'contentTemplate' => self::TEMPLATE_INDEX,
                 'passthroughVars' => [
                     'activeLink'    => self::LINK_ID_INDEX,
-                    'mauticContent' => 'project',
+                    'mailvotechContent' => 'project',
                 ],
             ]);
         }
 
-        $session->set('mautic.project.page', $page);
+        $session->set('mailvotech.project.page', $page);
 
         return $this->delegateView([
             'viewParameters'  => [
@@ -126,11 +126,11 @@ final class ProjectController extends AbstractFormController
                 'currentUser'   => $this->user,
                 'searchValue'   => $search,
             ],
-            'contentTemplate' => '@MauticProject/Project/list.html.twig',
+            'contentTemplate' => '@MailVotechProject/Project/list.html.twig',
             'passthroughVars' => [
                 'activeLink'    => self::LINK_ID_INDEX,
                 'route'         => $this->generateUrl(self::ROUTE_INDEX, ['page' => $page]),
-                'mauticContent' => 'projects',
+                'mailvotechContent' => 'projects',
             ],
         ]);
     }
@@ -142,7 +142,7 @@ final class ProjectController extends AbstractFormController
         }
 
         $project   = new Project();
-        $page      = $request->getSession()->get('mautic.project.page', 1);
+        $page      = $request->getSession()->get('mailvotech.project.page', 1);
         $returnUrl = $this->generateUrl(self::ROUTE_INDEX, ['page' => $page]);
         $action    = $this->generateUrl(self::ROUTE_ACTION, ['objectAction' => 'new']);
 
@@ -153,7 +153,7 @@ final class ProjectController extends AbstractFormController
             $cancelled = $this->isFormCancelled($form);
             if (!$cancelled && $valid) {
                 $projectModel->saveEntity($project);
-                $this->addFlashMessage('mautic.core.notice.created', [
+                $this->addFlashMessage('mailvotech.core.notice.created', [
                     '%name%'      => $project->getName(),
                     '%menu_link%' => self::ROUTE_INDEX,
                     '%url%'       => $this->generateUrl(self::ROUTE_ACTION, [
@@ -170,7 +170,7 @@ final class ProjectController extends AbstractFormController
                     'contentTemplate' => self::TEMPLATE_INDEX,
                     'passthroughVars' => [
                         'activeLink'    => self::LINK_ID_INDEX,
-                        'mauticContent' => 'project',
+                        'mailvotechContent' => 'project',
                     ],
                 ]);
             }
@@ -189,7 +189,7 @@ final class ProjectController extends AbstractFormController
             'passthroughVars' => [
                 'activeLink'    => self::LINK_ID_INDEX,
                 'route'         => $this->generateUrl(self::ROUTE_ACTION, ['objectAction' => 'new']),
-                'mauticContent' => 'project',
+                'mailvotechContent' => 'project',
             ],
         ]);
     }
@@ -221,7 +221,7 @@ final class ProjectController extends AbstractFormController
                 if ($this->isFormValid($form)) {
                     $projectModel->saveEntity($project, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
 
-                    $this->addFlashMessage('mautic.core.notice.updated', [
+                    $this->addFlashMessage('mailvotech.core.notice.updated', [
                         '%name%'      => $project->getName(),
                         '%menu_link%' => self::ROUTE_INDEX,
                         '%url%'       => $this->generateUrl(self::ROUTE_ACTION, [
@@ -274,7 +274,7 @@ final class ProjectController extends AbstractFormController
                 'passthroughVars' => [
                     'activeLink'    => self::LINK_ID_INDEX,
                     'route'         => $action,
-                    'mauticContent' => 'project',
+                    'mailvotechContent' => 'project',
                 ],
             ]);
         } catch (EntityNotFoundException) {
@@ -283,7 +283,7 @@ final class ProjectController extends AbstractFormController
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.project.error.notfound',
+                            'msg'     => 'mailvotech.project.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -300,9 +300,9 @@ final class ProjectController extends AbstractFormController
         if ($objectId) {
             $returnUrl       = $this->generateUrl(self::ROUTE_ACTION, ['objectAction' => 'view', 'objectId' => $objectId]);
             $viewParameters  = ['objectAction' => 'view', 'objectId' => $objectId];
-            $contentTemplate = 'Mautic\ProjectBundle\Controller\ProjectController::viewAction';
+            $contentTemplate = 'MailVotech\ProjectBundle\Controller\ProjectController::viewAction';
         } else {
-            $page            = $request->getSession()->get('mautic.project.page', 1);
+            $page            = $request->getSession()->get('mailvotech.project.page', 1);
             $returnUrl       = $this->generateUrl(self::ROUTE_INDEX, ['page' => $page]);
             $viewParameters  = ['page' => $page];
             $contentTemplate = self::TEMPLATE_INDEX;
@@ -314,7 +314,7 @@ final class ProjectController extends AbstractFormController
             'contentTemplate' => $contentTemplate,
             'passthroughVars' => [
                 'activeLink'    => self::LINK_ID_INDEX,
-                'mauticContent' => 'project',
+                'mailvotechContent' => 'project',
             ],
         ];
     }
@@ -324,7 +324,7 @@ final class ProjectController extends AbstractFormController
         /** @var ?Project $project */
         $project = $projectModel->getEntity($objectId);
 
-        $page = $request->getSession()->get('mautic.project.page', 1);
+        $page = $request->getSession()->get('mailvotech.project.page', 1);
         if (null === $project) {
             $returnUrl = $this->generateUrl(self::ROUTE_INDEX, ['page' => $page]);
 
@@ -334,12 +334,12 @@ final class ProjectController extends AbstractFormController
                 'contentTemplate' => self::TEMPLATE_INDEX,
                 'passthroughVars' => [
                     'activeLink'    => self::LINK_ID_INDEX,
-                    'mauticContent' => 'project',
+                    'mailvotechContent' => 'project',
                 ],
                 'flashes' => [
                     [
                         'type'    => 'error',
-                        'msg'     => 'mautic.project.error.notfound',
+                        'msg'     => 'mailvotech.project.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ],
                 ],
@@ -360,17 +360,17 @@ final class ProjectController extends AbstractFormController
                 'projectEntities' => $projectEntities,
                 'entityTypes'     => $entityTypes,
             ],
-            'contentTemplate' => '@MauticProject/Project/details.html.twig',
+            'contentTemplate' => '@MailVotechProject/Project/details.html.twig',
             'passthroughVars' => [
                 'activeLink'    => self::LINK_ID_INDEX,
-                'mauticContent' => 'project',
+                'mailvotechContent' => 'project',
             ],
         ]);
     }
 
     public function deleteAction(string $objectId, Request $request, ProjectModel $projectModel, CorePermissions $corePermissions): Response
     {
-        $page      = $request->getSession()->get('mautic.project.page', 1);
+        $page      = $request->getSession()->get('mailvotech.project.page', 1);
         $returnUrl = $this->generateUrl(self::ROUTE_INDEX, ['page' => $page]);
         $flashes   = [];
 
@@ -380,7 +380,7 @@ final class ProjectController extends AbstractFormController
             'contentTemplate' => self::TEMPLATE_INDEX,
             'passthroughVars' => [
                 'activeLink'    => self::LINK_ID_INDEX,
-                'mauticContent' => 'project',
+                'mailvotechContent' => 'project',
             ],
         ];
 
@@ -391,7 +391,7 @@ final class ProjectController extends AbstractFormController
             if (null === $project) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.project.error.notfound',
+                    'msg'     => 'mailvotech.project.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$corePermissions->isGranted(ProjectPermissions::CAN_DELETE)) {
@@ -402,7 +402,7 @@ final class ProjectController extends AbstractFormController
 
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $project->getName(),
                     '%id%'   => $objectId,
@@ -415,7 +415,7 @@ final class ProjectController extends AbstractFormController
 
     public function batchDeleteAction(Request $request, ProjectModel $projectModel, CorePermissions $corePermissions): Response
     {
-        $page      = $request->getSession()->get('mautic.project.page', 1);
+        $page      = $request->getSession()->get('mailvotech.project.page', 1);
         $returnUrl = $this->generateUrl(self::ROUTE_INDEX, ['page' => $page]);
         $flashes   = [];
 
@@ -425,7 +425,7 @@ final class ProjectController extends AbstractFormController
             'contentTemplate' => self::TEMPLATE_INDEX,
             'passthroughVars' => [
                 'activeLink'    => self::LINK_ID_INDEX,
-                'mauticContent' => 'project',
+                'mailvotechContent' => 'project',
             ],
         ];
 
@@ -440,7 +440,7 @@ final class ProjectController extends AbstractFormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.project.error.notfound',
+                        'msg'     => 'mailvotech.project.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$corePermissions->isGranted(ProjectPermissions::CAN_DELETE)) {
@@ -457,7 +457,7 @@ final class ProjectController extends AbstractFormController
                 } catch (ForeignKeyConstraintViolationException) {
                     $flashes[] = [
                         'type' => 'notice',
-                        'msg'  => 'mautic.project.error.cannotbedeleted',
+                        'msg'  => 'mailvotech.project.error.cannotbedeleted',
                     ];
 
                     return $this->postActionRedirect(
@@ -467,7 +467,7 @@ final class ProjectController extends AbstractFormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.project.notice.batch_deleted',
+                    'msg'     => 'mailvotech.project.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],
@@ -500,7 +500,7 @@ final class ProjectController extends AbstractFormController
                 'project'     => $project,
                 'entityTypes' => $entityTypes,
             ],
-            'contentTemplate' => '@MauticProject/Project/select_entity_type_modal.html.twig',
+            'contentTemplate' => '@MailVotechProject/Project/select_entity_type_modal.html.twig',
         ]);
     }
 
@@ -530,7 +530,7 @@ final class ProjectController extends AbstractFormController
             return $this->postActionRedirect([
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['objectAction' => 'view', 'objectId' => $projectId],
-                'contentTemplate' => 'Mautic\ProjectBundle\Controller\ProjectController::viewAction',
+                'contentTemplate' => 'MailVotech\ProjectBundle\Controller\ProjectController::viewAction',
                 'passthroughVars' => [
                     'closeModal' => 1,
                     'route'      => false,
@@ -538,7 +538,7 @@ final class ProjectController extends AbstractFormController
                 'flashes' => [
                     [
                         'type'    => 'error',
-                        'msg'     => 'mautic.project.error.invalid_entity_type',
+                        'msg'     => 'mailvotech.project.error.invalid_entity_type',
                         'msgVars' => ['%type%' => $entityType],
                     ],
                 ],
@@ -546,7 +546,7 @@ final class ProjectController extends AbstractFormController
         }
 
         // Generate the form action URL
-        $action = $this->generateUrl('mautic_project_action', [
+        $action = $this->generateUrl('mailvotech_project_action', [
             'objectAction' => 'addEntity',
             'objectId'     => $project->getId(),
             'entityType'   => $entityType,
@@ -569,7 +569,7 @@ final class ProjectController extends AbstractFormController
             $postActionVars = [
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['objectAction' => 'view', 'objectId' => $projectId],
-                'contentTemplate' => 'Mautic\ProjectBundle\Controller\ProjectController::viewAction',
+                'contentTemplate' => 'MailVotech\ProjectBundle\Controller\ProjectController::viewAction',
                 'passthroughVars' => [
                     'closeModal' => 1,
                     'route'      => false,
@@ -595,7 +595,7 @@ final class ProjectController extends AbstractFormController
             if (!isset($entityTypes[$entityType])) {
                 $flashes[] = [
                     'type' => 'error',
-                    'msg'  => 'mautic.core.error.badrequest',
+                    'msg'  => 'mailvotech.core.error.badrequest',
                 ];
 
                 return $this->postActionRedirect(array_merge($postActionVars, ['flashes' => $flashes]));
@@ -624,7 +624,7 @@ final class ProjectController extends AbstractFormController
                 $this->doctrine->getManager()->flush();
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.project.notice.entities_added',
+                    'msg'     => 'mailvotech.project.notice.entities_added',
                     'msgVars' => [
                         '%count%'   => $addedCount,
                         '%project%' => $project->getName(),
@@ -633,7 +633,7 @@ final class ProjectController extends AbstractFormController
             } else {
                 $flashes[] = [
                     'type' => 'notice',
-                    'msg'  => 'mautic.project.notice.no_entities_added',
+                    'msg'  => 'mailvotech.project.notice.no_entities_added',
                 ];
             }
 
@@ -646,7 +646,7 @@ final class ProjectController extends AbstractFormController
                 'project'    => $project,
                 'entityType' => $entityType,
             ],
-            'contentTemplate' => '@MauticProject/Project/add_entity_modal.html.twig',
+            'contentTemplate' => '@MailVotechProject/Project/add_entity_modal.html.twig',
         ]);
     }
 
@@ -669,10 +669,10 @@ final class ProjectController extends AbstractFormController
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['objectAction' => 'view', 'objectId' => $projectId],
-            'contentTemplate' => 'Mautic\ProjectBundle\Controller\ProjectController::viewAction',
+            'contentTemplate' => 'MailVotech\ProjectBundle\Controller\ProjectController::viewAction',
             'passthroughVars' => [
                 'activeLink'    => self::LINK_ID_INDEX,
-                'mauticContent' => 'project',
+                'mailvotechContent' => 'project',
             ],
         ];
 
@@ -682,7 +682,7 @@ final class ProjectController extends AbstractFormController
             if (!$project instanceof Project) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.project.error.notfound',
+                    'msg'     => 'mailvotech.project.error.notfound',
                     'msgVars' => ['%id%' => $projectId],
                 ];
 
@@ -694,7 +694,7 @@ final class ProjectController extends AbstractFormController
             if (!isset($entityTypes[$entityType])) {
                 $flashes[] = [
                     'type' => 'error',
-                    'msg'  => 'mautic.core.error.badrequest',
+                    'msg'  => 'mailvotech.core.error.badrequest',
                 ];
 
                 return $this->postActionRedirect(array_merge($postActionVars, ['flashes' => $flashes]));
@@ -706,7 +706,7 @@ final class ProjectController extends AbstractFormController
             if (!$entity) {
                 $flashes[] = [
                     'type' => 'error',
-                    'msg'  => 'mautic.core.error.notfound',
+                    'msg'  => 'mailvotech.core.error.notfound',
                 ];
 
                 return $this->postActionRedirect(array_merge($postActionVars, ['flashes' => $flashes]));
@@ -721,7 +721,7 @@ final class ProjectController extends AbstractFormController
 
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.project.notice.item_removed',
+                'msg'     => 'mailvotech.project.notice.item_removed',
                 'msgVars' => [
                     '%name%'    => $entityName,
                     '%project%' => $project->getName(),

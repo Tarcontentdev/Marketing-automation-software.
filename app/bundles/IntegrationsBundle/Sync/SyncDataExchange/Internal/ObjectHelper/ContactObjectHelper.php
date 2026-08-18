@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper;
+namespace MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\Logger\DebugLogger;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\LeadBundle\DataObject\LeadManipulator;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Exception\ImportFailedException;
-use Mautic\LeadBundle\Field\FieldList;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\Model\DoNotContact as DoNotContactModel;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\Logger\DebugLogger;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\LeadBundle\DataObject\LeadManipulator;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Exception\ImportFailedException;
+use MailVotech\LeadBundle\Field\FieldList;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Model\DoNotContact as DoNotContactModel;
+use MailVotech\LeadBundle\Model\LeadModel;
 
 class ContactObjectHelper implements ObjectHelperInterface
 {
@@ -79,7 +79,7 @@ class ContactObjectHelper implements ObjectHelperInterface
             $this->processPseudoFields($contact, $pseudoFields, $object->getIntegration());
 
             DebugLogger::log(
-                MauticSyncDataExchange::NAME,
+                MailVotechSyncDataExchange::NAME,
                 sprintf(
                     'Created lead ID %d',
                     $contact->getId()
@@ -118,7 +118,7 @@ class ContactObjectHelper implements ObjectHelperInterface
         /** @var Lead[] $contacts */
         $contacts = $this->model->getEntities(['ids' => $ids]);
         DebugLogger::log(
-            MauticSyncDataExchange::NAME,
+            MailVotechSyncDataExchange::NAME,
             sprintf(
                 'Found %d leads to update with ids %s',
                 count($contacts),
@@ -156,7 +156,7 @@ class ContactObjectHelper implements ObjectHelperInterface
             $this->repository->detachEntity($contact);
 
             DebugLogger::log(
-                MauticSyncDataExchange::NAME,
+                MailVotechSyncDataExchange::NAME,
                 sprintf(
                     'Updated lead ID %d',
                     $contact->getId()
@@ -186,7 +186,7 @@ class ContactObjectHelper implements ObjectHelperInterface
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->isNotNull('l.date_identified'),
@@ -220,7 +220,7 @@ class ContactObjectHelper implements ObjectHelperInterface
 
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->where(
                 $qb->expr()->in('id', ':ids')
             )
@@ -233,10 +233,10 @@ class ContactObjectHelper implements ObjectHelperInterface
     {
         $q = $this->connection->createQueryBuilder()
             ->select('l.id')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l');
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l');
 
         foreach ($fields as $col => $val) {
-            // Use andWhere because Mautic treats conflicting unique identifiers as different objects
+            // Use andWhere because MailVotech treats conflicting unique identifiers as different objects
             $q->{$this->repository->getUniqueIdentifiersWherePart()}("l.{$col} = :".$col)
                 ->setParameter($col, $val);
         }
@@ -249,7 +249,7 @@ class ContactObjectHelper implements ObjectHelperInterface
         $q = $this->connection->createQueryBuilder();
 
         $q->select('dnc.reason')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_donotcontact', 'dnc')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_donotcontact', 'dnc')
             ->where(
                 $q->expr()->and(
                     $q->expr()->eq('dnc.lead_id', ':contactId'),
@@ -277,7 +277,7 @@ class ContactObjectHelper implements ObjectHelperInterface
 
         $qb = $this->connection->createQueryBuilder();
         $qb->select('c.owner_id, c.id');
-        $qb->from(MAUTIC_TABLE_PREFIX.'leads', 'c');
+        $qb->from(MAILVOTECH_TABLE_PREFIX.'leads', 'c');
         $qb->where('c.owner_id IS NOT NULL');
         $qb->andWhere('c.id IN (:objectIds)');
         $qb->setParameter('objectIds', $objectIds, ArrayParameterType::INTEGER);
@@ -314,7 +314,7 @@ class ContactObjectHelper implements ObjectHelperInterface
     private function getUniqueIdentifierFields(): array
     {
         if (null === $this->uniqueIdentifierFields) {
-            $uniqueIdentifierFields       = $this->fieldsWithUniqueIdentifier->getFieldsWithUniqueIdentifier(['object' => MauticSyncDataExchange::OBJECT_CONTACT]);
+            $uniqueIdentifierFields       = $this->fieldsWithUniqueIdentifier->getFieldsWithUniqueIdentifier(['object' => MailVotechSyncDataExchange::OBJECT_CONTACT]);
             $this->uniqueIdentifierFields = array_keys($uniqueIdentifierFields);
         }
 
@@ -327,8 +327,8 @@ class ContactObjectHelper implements ObjectHelperInterface
     private function processPseudoFields(Lead $contact, array $fields, string $integration): void
     {
         foreach ($fields as $name => $field) {
-            if (str_starts_with($name, 'mautic_internal_dnc_')) {
-                $channel   = str_replace('mautic_internal_dnc_', '', $name);
+            if (str_starts_with($name, 'mailvotech_internal_dnc_')) {
+                $channel   = str_replace('mailvotech_internal_dnc_', '', $name);
 
                 $dncReason = $this->getDoNotContactReason($field->getValue()->getNormalizedValue());
 

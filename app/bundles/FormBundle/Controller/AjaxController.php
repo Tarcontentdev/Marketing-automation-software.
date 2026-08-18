@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\FormBundle\Controller;
+namespace MailVotech\FormBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\FormBundle\Collector\AlreadyMappedFieldCollectorInterface;
-use Mautic\FormBundle\Collector\FieldCollectorInterface;
-use Mautic\FormBundle\Crate\FieldCrate;
-use Mautic\FormBundle\Model\FormModel;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\FormBundle\Collector\AlreadyMappedFieldCollectorInterface;
+use MailVotech\FormBundle\Collector\FieldCollectorInterface;
+use MailVotech\FormBundle\Crate\FieldCrate;
+use MailVotech\FormBundle\Model\FormModel;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -38,9 +38,9 @@ final class AjaxController extends CommonAjaxController
         }
         $dataArray   = ['success' => 0];
         $sessionId   = InputHelper::clean($request->request->get('formId'));
-        $sessionName = 'mautic.form.'.$sessionId.'.'.$name.'.modified';
+        $sessionName = 'mailvotech.form.'.$sessionId.'.'.$name.'.modified';
         $session     = $request->getSession();
-        $orderName   = ('fields' === $name) ? 'mauticform' : 'mauticform_action';
+        $orderName   = ('fields' === $name) ? 'mailvotechform' : 'mailvotechform_action';
         $order       = InputHelper::clean($request->request->all()[$orderName]);
         $components  = $session->get($sessionName);
 
@@ -86,7 +86,7 @@ final class AjaxController extends CommonAjaxController
         $formId     = (int) $request->request->get('formId');
         $dataArray  = ['success' => 0];
         $entity     = $this->formModel->getEntity($formId);
-        $formFields = $entity instanceof \Mautic\FormBundle\Entity\Form ? $entity->getFields() : [];
+        $formFields = $entity instanceof \MailVotech\FormBundle\Entity\Form ? $entity->getFields() : [];
         $fields     = [];
 
         foreach ($formFields as $field) {
@@ -137,7 +137,7 @@ final class AjaxController extends CommonAjaxController
      */
     public function submitAction(Request $request): JsonResponse
     {
-        $response     = $this->forwardWithPost('Mautic\FormBundle\Controller\PublicController::submitAction', $request->request->all(), [], ['ajax' => true]);
+        $response     = $this->forwardWithPost('MailVotech\FormBundle\Controller\PublicController::submitAction', $request->request->all(), [], ['ajax' => true]);
         $responseData = json_decode($response->getContent(), true);
         $success      = (!in_array($response->getStatusCode(), [404, 500]) && empty($responseData['errorMessage'])
             && empty($responseData['validationErrors']));

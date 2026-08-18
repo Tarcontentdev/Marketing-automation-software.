@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Event;
+namespace MailVotech\LeadBundle\Tests\Event;
 
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 

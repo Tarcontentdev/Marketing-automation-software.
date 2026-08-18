@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Security;
+namespace MailVotech\UserBundle\Security;
 
 interface UserTokenSetterInterface
 {

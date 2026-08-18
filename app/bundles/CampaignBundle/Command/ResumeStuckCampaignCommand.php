@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Command;
+namespace MailVotech\CampaignBundle\Command;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Event\MaxAllowedRecordsReachedInSingleProcessEvent;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\CampaignBundle\Executioner\EventExecutioner;
-use Mautic\CampaignBundle\Executioner\Exception\NoContactsFoundException;
-use Mautic\CampaignBundle\Executioner\Result\Counter;
-use Mautic\CampaignBundle\Model\EventModel;
-use Mautic\CoreBundle\Event\JobExtendTimeEvent;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ExitCode;
-use Mautic\CoreBundle\ProcessSignal\Exception\SignalCaughtException;
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalService;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Event\MaxAllowedRecordsReachedInSingleProcessEvent;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CampaignBundle\Executioner\EventExecutioner;
+use MailVotech\CampaignBundle\Executioner\Exception\NoContactsFoundException;
+use MailVotech\CampaignBundle\Executioner\Result\Counter;
+use MailVotech\CampaignBundle\Model\EventModel;
+use MailVotech\CoreBundle\Event\JobExtendTimeEvent;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ExitCode;
+use MailVotech\CoreBundle\ProcessSignal\Exception\SignalCaughtException;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalService;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -37,7 +37,7 @@ final class ResumeStuckCampaignCommand extends Command
 {
     use WriteCountTrait;
 
-    public const COMMAND_NAME                      = 'mautic:campaigns:resume-stuck';
+    public const COMMAND_NAME                      = 'mailvotech:campaigns:resume-stuck';
 
     private const MAX_ALLOWED_RECORDS_EACH_PROCESS = 500;
 

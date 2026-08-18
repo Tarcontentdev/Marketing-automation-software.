@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller;
+namespace MailVotech\EmailBundle\Tests\Controller;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\ORMException;
-use Mautic\CoreBundle\Entity\AuditLog;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\CoreBundle\Entity\AuditLog;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\PageBundle\Entity\Page;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\DomCrawler\Field\ChoiceFormField;
 use Symfony\Component\HttpFoundation\Request;
 
-final class EmailFunctionalTest extends MauticMysqlTestCase
+final class EmailFunctionalTest extends MailVotechMysqlTestCase
 {
     public const SAVE_AND_CLOSE = 'Save & Close';
 

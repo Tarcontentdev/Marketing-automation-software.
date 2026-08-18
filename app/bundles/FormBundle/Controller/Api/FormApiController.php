@@ -1,23 +1,23 @@
 <?php
 
-namespace Mautic\FormBundle\Controller\Api;
+namespace MailVotech\FormBundle\Controller\Api;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\ApiBundle\Controller\CommonApiController;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\CoreBundle\Entity\CommonEntity;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\FormRepository;
-use Mautic\FormBundle\Model\ActionModel;
-use Mautic\FormBundle\Model\FieldModel;
-use Mautic\FormBundle\Model\FormModel;
+use MailVotech\ApiBundle\Controller\CommonApiController;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\CoreBundle\Entity\CommonEntity;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\FormRepository;
+use MailVotech\FormBundle\Model\ActionModel;
+use MailVotech\FormBundle\Model\FieldModel;
+use MailVotech\FormBundle\Model\FormModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -175,9 +175,9 @@ final class FormApiController extends CommonApiController
 
                 if (null === $fieldEntity) {
                     $msg = $this->translator->trans(
-                        'mautic.core.error.entity.not.found',
+                        'mailvotech.core.error.entity.not.found',
                         [
-                            '%entity%' => $this->translator->trans('mautic.form.field'),
+                            '%entity%' => $this->translator->trans('mailvotech.form.field'),
                             '%id%'     => $fieldParams['id'],
                         ],
                         'flashes'
@@ -204,7 +204,7 @@ final class FormApiController extends CommonApiController
 
                 // Check that the alias is not already in use by another field
                 if (in_array($fieldEntityArray['alias'], $requestUsedAliases)) {
-                    $msg = $this->translator->trans('mautic.form.field.alias.unique', ['%alias%' => $fieldEntityArray['alias']], 'validators');
+                    $msg = $this->translator->trans('mailvotech.form.field.alias.unique', ['%alias%' => $fieldEntityArray['alias']], 'validators');
 
                     return $this->returnError($msg, Response::HTTP_BAD_REQUEST);
                 }

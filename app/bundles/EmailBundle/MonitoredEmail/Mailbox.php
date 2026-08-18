@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail;
+namespace MailVotech\EmailBundle\MonitoredEmail;
 
 use IMAP\Connection;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\EmailBundle\Exception\MailboxException;
-use Mautic\EmailBundle\MonitoredEmail\Exception\NotConfiguredException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\EmailBundle\Exception\MailboxException;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\NotConfiguredException;
 
 class Mailbox
 {
@@ -449,7 +449,7 @@ class Mailbox
     public function getListingFolders()
     {
         if (!$this->isConfigured()) {
-            throw new NotConfiguredException('mautic.email.config.monitored_email.not_configured');
+            throw new NotConfiguredException('mailvotech.email.config.monitored_email.not_configured');
         }
 
         if (!isset($this->folders[$this->imapFullPath])) {

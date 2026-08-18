@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\CoreBundle\Doctrine\Mapping;
+namespace MailVotech\CoreBundle\Doctrine\Mapping;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder as OrmClassMetadataBuilder;
 use Doctrine\ORM\Mapping\Builder\FieldBuilder;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\LeadBundle\Entity\Lead;
 
 /**
  * Override Doctrine's builder classes to add support to orphanRemoval until the fix is incorporated into Doctrine release
@@ -26,7 +26,7 @@ final class ClassMetadataBuilder extends OrmClassMetadataBuilder
     {
         parent::__construct($cm);
 
-        // Default all Mautic entities to explicit
+        // Default all MailVotech entities to explicit
         $this->setChangeTrackingPolicyDeferredExplicit();
     }
 

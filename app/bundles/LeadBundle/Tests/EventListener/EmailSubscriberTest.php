@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\CoreBundle\Helper\BuilderTokenHelperFactory;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\EventListener\EmailSubscriber;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\CoreBundle\Helper\BuilderTokenHelperFactory;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\EventListener\EmailSubscriber;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;

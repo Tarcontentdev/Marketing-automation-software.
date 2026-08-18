@@ -1,7 +1,7 @@
-{% form_theme form '@MauticEmail/FormTheme/Email/layout.html.twig' %}
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% form_theme form '@MailVotechEmail/FormTheme/Email/layout.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent 'email' %}
+{% block mailvotechContent 'email' %}
 
 {% set dynamicContentPrototype = form.dynamicContent.vars.prototype %}
 {% set filterBlockPrototype = form.dynamicContent.children[0].filters.vars.prototype|default(null) %}
@@ -19,7 +19,7 @@
     'stages'    : 'stage-template',
     'locales'   : 'locale-template',
 } %}
-{% set isCodeMode = (email.getTemplate() is same as 'mautic_code_mode') %}
+{% set isCodeMode = (email.getTemplate() is same as 'mailvotech_code_mode') %}
 {% set previewUrl = previewUrl|default('') %}
 {% set draftPreviewUrl = draftPreviewUrl|default('') %}
 {% set advancedTabHasErrors =
@@ -35,17 +35,17 @@
 %}
 {% block headerTitle %}
   {% if email.id is not empty %}
-    {{ 'mautic.email.header.edit'|trans({'%name%': email.name}) }}
+    {{ 'mailvotech.email.header.edit'|trans({'%name%': email.name}) }}
   {% else %}
-    {{ 'mautic.email.header.new'|trans }}
+    {{ 'mailvotech.email.header.new'|trans }}
   {% endif %}
 
     {% if isVariant %}
-        <i title="{{ 'mautic.email.icon_tooltip.abtest.part'|trans }}" class="ri-fw ri-organization-chart"></i>
+        <i title="{{ 'mailvotech.email.icon_tooltip.abtest.part'|trans }}" class="ri-fw ri-organization-chart"></i>
     {% endif %}
 
     {% if email.variantParent %}
-    <div><span class="small">{{ 'mautic.core.variant_of'|trans({'%name%': email.name, '%parent%' : variantParent.name}) }}</span></div>
+    <div><span class="small">{{ 'mailvotech.core.variant_of'|trans({'%name%': email.name, '%parent%' : variantParent.name}) }}</span></div>
     {% endif %}
 {% endblock %}
 
@@ -59,20 +59,20 @@
                     <!-- tabs controls -->
                     <ul class="nav nav-tabs nav-tabs-contained">
                         <li class="active">
-                            <a href="#email-container" role="tab" data-toggle="tab">{{ 'mautic.core.form.theme'|trans }}</a>
+                            <a href="#email-container" role="tab" data-toggle="tab">{{ 'mailvotech.core.form.theme'|trans }}</a>
                         </li>
                         <li>
                             <a href="#advanced-container" role="tab" data-toggle="tab">
                                 {% if advancedTabHasErrors %}
                                 <span class="text-danger">
-                                    <i class="ri-alert-line" aria-hidden="true"></i> {{ 'mautic.core.advanced'|trans }}
+                                    <i class="ri-alert-line" aria-hidden="true"></i> {{ 'mailvotech.core.advanced'|trans }}
                                 </span>{% else %}
-                                {{ 'mautic.core.advanced'|trans }}
+                                {{ 'mailvotech.core.advanced'|trans }}
                                 {% endif %}
                             </a>
                         </li>
                         <li id="dynamic-content-tab" {{ (isCodeMode) ? '' : 'class="hidden"' }}>
-                            <a href="#dynamic-content-container" role="tab" data-toggle="tab">{{ 'mautic.core.dynamicContent'|trans }}</a>
+                            <a href="#dynamic-content-container" role="tab" data-toggle="tab">{{ 'mailvotech.core.dynamicContent'|trans }}</a>
                         </li>
                         {{ customContent('email.tabs', _context) }}
                     </ul>
@@ -83,7 +83,7 @@
                             <div class="row">
                                 <div class="col-md-12">{{ form_row(form.template) }}</div>
                             </div>
-                            {{- include('@MauticCore/Helper/theme_select.html.twig', {
+                            {{- include('@MailVotechCore/Helper/theme_select.html.twig', {
                                 'type'   : 'email',
                                 'themes' : themes,
                                 'active' : form.template.vars.value,
@@ -139,7 +139,7 @@
                                     <div class="text-right pr-10">
                                         <i class="ri-loader-3-line ri-spin ml-2 plaintext-spinner hide"></i>
                                         <a class="small"
-                                           onclick="Mautic.autoGeneratePlaintext();">{{ 'mautic.email.plaintext.generate'|trans }}</a>
+                                           onclick="MailVotech.autoGeneratePlaintext();">{{ 'mailvotech.email.plaintext.generate'|trans }}</a>
                                     </div>
                                     <div class="clearfix"></div>
                                     {{ form_widget(form.plainText) }}
@@ -153,10 +153,10 @@
                                         <div class="col-xs-3 dynamicContentFilterContainer">
                                           <ul class="nav nav-tabs nav-tabs-contained tabs-left" id="dynamicContentTabs">
                                             <li>
-                                                {% include '@MauticCore/Helper/button.html.twig' with {
+                                                {% include '@MailVotechCore/Helper/button.html.twig' with {
                                                     buttons: [
                                                         {
-                                                            label: 'mautic.core.form.new',
+                                                            label: 'mailvotech.core.form.new',
                                                             variant: 'primary',
                                                             icon: 'ri-add-line',
                                                             attributes: {
@@ -171,7 +171,7 @@
                                             </li>
                                             {% for dynamicContent in form.dynamicContent %}
                                               {% set name = dynamicContent.tokenName.vars.value %}
-                                              {% set linkText = name is defined ? name : 'mautic.core.dynamicContent'|trans ~ ' ' ~ loop.index %}
+                                              {% set linkText = name is defined ? name : 'mailvotech.core.dynamicContent'|trans ~ ' ' ~ loop.index %}
                                               <li class="{% if loop.first %}active{% endif %}">
                                                 <a role="tab" data-toggle="tab" href="#{{ dynamicContent.vars.id }}">{{ linkText }}</a>
                                               </li>
@@ -217,10 +217,10 @@
                     {% if email.isEnableAbTest() %}<div class="hide">{% endif %}
                     {{ form_row(form.isPublished, {
                         'attr': {
-                            'data-none': 'mautic.core.form.sending_paused',
-                            'data-start': 'mautic.core.form.sending_on_scheduled_start',
-                            'data-both': 'mautic.core.form.sending_during_scheduled_period',
-                            'data-end': 'mautic.core.form.available_until_scheduled_end'
+                            'data-none': 'mailvotech.core.form.sending_paused',
+                            'data-start': 'mailvotech.core.form.sending_on_scheduled_start',
+                            'data-both': 'mailvotech.core.form.sending_during_scheduled_period',
+                            'data-end': 'mailvotech.core.form.available_until_scheduled_end'
                         }
                     }) }}
                     <div id="scheduleOptions">
@@ -229,7 +229,7 @@
                             {{ form_row(form.publishDown) }}
                         {% else %}
                             <div class="alert alert-info" id="scheduleOptionsNotice" style="display: none;">
-                                {{ 'mautic.email.send.schedule.options_notice'|trans }}
+                                {{ 'mailvotech.email.send.schedule.options_notice'|trans }}
                             </div>
                         {% endif %}
                     </div>
@@ -244,7 +244,7 @@
 
                 {% if email.isEnableAbTest() or not isExisting %}
                     <div id="ab-test" class="hide">
-                        <h5>{{ 'mautic.core.ab_test.form.abtest_settings'|trans }}</h5>
+                        <h5>{{ 'mailvotech.core.ab_test.form.abtest_settings'|trans }}</h5>
                         <br/>
                         {% if not isExisting and not isVariant %}
                             {{ form_row(form.variantSettings.enableAbTest) }}
@@ -260,7 +260,7 @@
                 {% endif %}
 
 
-                {% include '@MauticCore/FormTheme/Fields/_utm_tags_fields.html.twig' %}
+                {% include '@MailVotechCore/FormTheme/Fields/_utm_tags_fields.html.twig' %}
 
             </div>
             <div class="hide">
@@ -280,7 +280,7 @@
 
     <div class="hide" id="templates">
         {% for dataKey, template in templates %}
-            {% set attr = ('tags' == dataKey) ? ' data-placeholder="' ~ mautic.lead.tags.select_or_create|trans ~ '" data-no-results-text="' ~ mautic.lead.tags.enter_to_create|trans ~ '" data-allow-add="true" onchange="Mautic.createLeadTag(this)"' : '' %}
+            {% set attr = ('tags' == dataKey) ? ' data-placeholder="' ~ mailvotech.lead.tags.select_or_create|trans ~ '" data-no-results-text="' ~ mailvotech.lead.tags.enter_to_create|trans ~ '" data-allow-add="true" onchange="MailVotech.createLeadTag(this)"' : '' %}
             <select class="form-control not-chosen {{ template }}"
                     name="emailform[dynamicContent][__dynamicContentIndex__][filters][__dynamicContentFilterIndex__][filters][__name__][filter]"
                     id="emailform_dynamicContent___dynamicContentIndex___filters___dynamicContentFilterIndex___filters___name___filter"{{ attr }}>
@@ -302,7 +302,7 @@
             </select>
         {% endfor %}
     </div>
-    {{- include('@MauticCore/Helper/builder.html.twig', {
+    {{- include('@MailVotechCore/Helper/builder.html.twig', {
         'type'            : 'email',
         'isCodeMode'      : isCodeMode,
         'objectId'        : email.sessionId,
@@ -310,8 +310,8 @@
         'draftPreviewUrl' : draftPreviewUrl,
     }, with_context=false) -}}
 
-    {% set typeTwoDifferences = ['mautic.email.type.segment.differences.1st', 'mautic.email.type.segment.differences.2nd', 'mautic.email.type.segment.differences.3rd', 'mautic.email.type.segment.differences.4th'] %}
-    {% set typeOneDifferences = ['mautic.email.type.template.differences.1st', 'mautic.email.type.template.differences.2nd', 'mautic.email.type.template.differences.3rd', 'mautic.email.type.template.differences.4th'] %}
+    {% set typeTwoDifferences = ['mailvotech.email.type.segment.differences.1st', 'mailvotech.email.type.segment.differences.2nd', 'mailvotech.email.type.segment.differences.3rd', 'mailvotech.email.type.segment.differences.4th'] %}
+    {% set typeOneDifferences = ['mailvotech.email.type.template.differences.1st', 'mailvotech.email.type.template.differences.2nd', 'mailvotech.email.type.template.differences.3rd', 'mailvotech.email.type.template.differences.4th'] %}
 
     {% set type = email.emailType %}
     {% if (
@@ -325,25 +325,25 @@
             or (forceTypeSelection is defined and forceTypeSelection is not empty)
           )
     %}
-        {{- include('@MauticCore/Helper/form_selecttype.html.twig', {
+        {{- include('@MailVotechCore/Helper/form_selecttype.html.twig', {
             'item'       : email,
-            'mauticLang' : {
-                'newListEmail'     : 'mautic.email.type.list.header',
-                'newTemplateEmail' : 'mautic.email.type.template.header',
+            'mailvotechLang' : {
+                'newListEmail'     : 'mailvotech.email.type.list.header',
+                'newTemplateEmail' : 'mailvotech.email.type.template.header',
             },
             'typePrefix'         : 'email',
-            'cancelUrl'          : 'mautic_email_index',
-            'header'             : 'mautic.email.type.header',
-            'typeOneHeader'      : 'mautic.email.type.template.header',
+            'cancelUrl'          : 'mailvotech_email_index',
+            'header'             : 'mailvotech.email.type.header',
+            'typeOneHeader'      : 'mailvotech.email.type.template.header',
             'typeOnePictogram': 'process--automation',
-            'typeOneTag': 'mautic.email.type.template.tag',
+            'typeOneTag': 'mailvotech.email.type.template.tag',
             'typeOneDifferences' : typeOneDifferences,
-            'typeOneOnClick'     : "Mautic.selectEmailType('template');",
-            'typeTwoHeader'      : 'mautic.email.type.list.header',
+            'typeOneOnClick'     : "MailVotech.selectEmailType('template');",
+            'typeTwoHeader'      : 'mailvotech.email.type.list.header',
             'typeTwoPictogram': 'chart--pie',
-            'typeTwoTag': 'mautic.email.type.list.tag',
+            'typeTwoTag': 'mailvotech.email.type.list.tag',
             'typeTwoDifferences' : typeTwoDifferences,
-            'typeTwoOnClick'     : "Mautic.selectEmailType('list');",
+            'typeTwoOnClick'     : "MailVotech.selectEmailType('list');",
         }) -}}
     {% endif %}
 {% endblock %}

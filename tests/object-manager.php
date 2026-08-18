@@ -1,10 +1,10 @@
 <?php
 
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\ErrorHandler\ErrorHandler;
+use MailVotech\CoreBundle\ErrorHandler\ErrorHandler;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-define('MAUTIC_ROOT_DIR', __DIR__);
+define('MAILVOTECH_ROOT_DIR', __DIR__);
 
 // Fix for hosts that do not have date.timezone set; it will be reset based on user settings.
 date_default_timezone_set('UTC');

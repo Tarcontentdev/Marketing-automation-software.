@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\DoNotContact;
+namespace MailVotech\LeadBundle\Tests\Segment\DoNotContact;
 
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Segment\DoNotContact\DoNotContactParts;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Segment\DoNotContact\DoNotContactParts;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class DoNotContactPartsTest extends \PHPUnit\Framework\TestCase

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Controller\Api;
+namespace MailVotech\PointBundle\Tests\Controller\Api;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\PointsChangeLog;
-use Mautic\PointBundle\Entity\Group;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\PointsChangeLog;
+use MailVotech\PointBundle\Entity\Group;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class PointGroupsApiControllerTest extends MauticMysqlTestCase
+final class PointGroupsApiControllerTest extends MailVotechMysqlTestCase
 {
     public function testPointGroupCRUDActions(): void
     {
@@ -83,7 +83,7 @@ final class PointGroupsApiControllerTest extends MauticMysqlTestCase
         $this->assertArrayHasKey('errors', $responseData);
         $this->assertCount(1, $responseData['errors']);
         $this->assertSame(Response::HTTP_NOT_FOUND, $responseData['errors'][0]['code']);
-        $this->assertSame($translator->trans('mautic.core.error.notfound', [], 'flashes'), $responseData['errors'][0]['message']);
+        $this->assertSame($translator->trans('mailvotech.core.error.notfound', [], 'flashes'), $responseData['errors'][0]['message']);
     }
 
     public function testContactGroupPointsActions(): void
@@ -144,7 +144,7 @@ final class PointGroupsApiControllerTest extends MauticMysqlTestCase
         $this->assertArrayHasKey('errors', $responseData);
         $this->assertCount(1, $responseData['errors']);
         $this->assertSame(Response::HTTP_NOT_FOUND, $responseData['errors'][0]['code']);
-        $this->assertSame($translator->trans('mautic.lead.event.api.point.group.not.found'), $responseData['errors'][0]['message']);
+        $this->assertSame($translator->trans('mailvotech.lead.event.api.point.group.not.found'), $responseData['errors'][0]['message']);
 
         // Try to GET the group points for a contact that should not exist
         $this->client->request('GET', '/api/contacts/0/points/groups/0');
@@ -154,7 +154,7 @@ final class PointGroupsApiControllerTest extends MauticMysqlTestCase
         $this->assertArrayHasKey('errors', $responseData);
         $this->assertCount(1, $responseData['errors']);
         $this->assertSame(Response::HTTP_NOT_FOUND, $responseData['errors'][0]['code']);
-        $this->assertSame($translator->trans('mautic.lead.event.api.lead.not.found'), $responseData['errors'][0]['message']);
+        $this->assertSame($translator->trans('mailvotech.lead.event.api.lead.not.found'), $responseData['errors'][0]['message']);
     }
 
     private function adjustPointsAndAssert(Lead $contact, Group $pointGroup, string $operator, int $value, int $expectedScore): void

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Event;
+namespace MailVotech\FormBundle\Event;
 
-use Mautic\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Field;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class FormFieldEvent extends Event

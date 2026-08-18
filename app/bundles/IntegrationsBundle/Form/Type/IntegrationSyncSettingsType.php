@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Form\Type;
+namespace MailVotech\IntegrationsBundle\Form\Type;
 
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,7 +37,7 @@ final class IntegrationSyncSettingsType extends AbstractType
                 'choices'     => array_flip($objects),
                 'expanded'    => true,
                 'multiple'    => true,
-                'label'       => 'mautic.integration.sync_objects',
+                'label'       => 'mailvotech.integration.sync_objects',
                 'label_attr'  => ['class' => 'control-label'],
                 'placeholder' => [],
                 'required'    => false,
@@ -50,7 +50,7 @@ final class IntegrationSyncSettingsType extends AbstractType
             'updateBlanks',
             YesNoButtonGroupType::class,
             [
-                'label'       => 'mautic.integration.sync.update_blanks',
+                'label'       => 'mailvotech.integration.sync.update_blanks',
                 'label_attr'  => ['class' => 'control-label'],
                 'placeholder' => false,
                 'required'    => false,

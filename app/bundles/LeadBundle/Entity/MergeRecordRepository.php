@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<MergeRecord>
@@ -33,7 +33,7 @@ class MergeRecordRepository extends CommonRepository
     public function moveMergeRecord($fromId, $toId): void
     {
         $this->getEntityManager()->getConnection()->createQueryBuilder()
-            ->update(MAUTIC_TABLE_PREFIX.'contact_merge_records')
+            ->update(MAILVOTECH_TABLE_PREFIX.'contact_merge_records')
             ->set('contact_id', (int) $toId)
             ->where('contact_id = '.(int) $fromId)
             ->executeQuery();

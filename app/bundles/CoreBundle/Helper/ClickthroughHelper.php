@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\CoreBundle\Exception\InvalidDecodedStringException;
+use MailVotech\CoreBundle\Exception\InvalidDecodedStringException;
 
 final class ClickthroughHelper
 {

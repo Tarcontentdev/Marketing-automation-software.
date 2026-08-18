@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller;
+namespace MailVotech\EmailBundle\Tests\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Controller\EmailController;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Event\ManualWinnerEvent;
-use Mautic\EmailBundle\Form\Type\ExampleSendType;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\FormBundle\Helper\FormFieldHelper;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Helper\FakeContactHelper;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Controller\EmailController;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Event\ManualWinnerEvent;
+use MailVotech\EmailBundle\Form\Type\ExampleSendType;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\FormBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Helper\FakeContactHelper;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
@@ -226,7 +226,7 @@ final class EmailControllerTest extends TestCase
 
         $this->routerMock->expects($this->once())
             ->method('generate')
-            ->with('mautic_email_action', [
+            ->with('mailvotech_email_action', [
                 'objectAction' => 'sendExample',
                 'objectId'     => 1,
             ], 1)

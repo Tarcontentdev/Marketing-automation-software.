@@ -1,13 +1,13 @@
 {% set isIndex = 'index' == tmpl ? true : false %}
 {% set tmpl = 'list' %}
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
-{% block mauticContent %}group{% endblock %}
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
+{% block mailvotechContent %}group{% endblock %}
 
-{% block headerTitle %}{{ 'mautic.point.group.header.index'|trans }}{% endblock %}
+{% block headerTitle %}{{ 'mailvotech.point.group.header.index'|trans }}{% endblock %}
 
 {% block content %}
     <div id="page-list-wrapper" class="{% if items|length > 0 or searchValue is not empty %}panel {% endif %}panel-default">
-        {{- include('@MauticCore/Helper/list_toolbar.html.twig', {
+        {{- include('@MailVotechCore/Helper/list_toolbar.html.twig', {
             'searchValue': searchValue,
             'action': currentRoute,
             'page_actions': {
@@ -31,27 +31,27 @@
                     <table class="table table-hover" id="groupTable">
                         <thead>
                         <tr>
-                            {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                            {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                                 'checkall': 'true',
                                 'target': '#groupTable',
                             }) }}
                             {{ include(
-                                '@MauticCore/Helper/tableheader.html.twig',
+                                '@MailVotechCore/Helper/tableheader.html.twig',
                                 {
                                     'sessionVar': 'point.group',
                                     'orderBy'   : 'pl.name',
-                                    'text'      : 'mautic.core.name',
+                                    'text'      : 'mailvotech.core.name',
                                     'class'     : 'col-group-name',
                                     'default'   : true,
                                 }
                             ) }}
 
                             {{ include(
-                                '@MauticCore/Helper/tableheader.html.twig',
+                                '@MailVotechCore/Helper/tableheader.html.twig',
                                 {
                                     'sessionVar' : 'point.group',
                                     'orderBy'    : 'pl.id',
-                                    'text'       : 'mautic.core.id',
+                                    'text'       : 'mailvotech.core.id',
                                     'class'      : 'visible-md visible-lg col-group-id',
                                 }
                             ) }}
@@ -61,7 +61,7 @@
                         {% for item in items %}
                             <tr>
                                 <td>
-                                    {{- include('@MauticCore/Helper/list_actions.html.twig', {
+                                    {{- include('@MailVotechCore/Helper/list_actions.html.twig', {
                                         item: item,
                                         templateButtons: {
                                             edit: permissions['point:groups:edit'],
@@ -74,14 +74,14 @@
                                 <td>
                                     <div>
                                         {{- include(
-                                            '@MauticCore/Helper/publishstatus_icon.html.twig',
+                                            '@MailVotechCore/Helper/publishstatus_icon.html.twig',
                                             {
                                                 'item': item, 'model': 'point.group'
                                             }
                                         )}}
 
                                         {% if permissions['point:groups:edit'] %}
-                                            <a href="{{ path('mautic_point.group_action', {
+                                            <a href="{{ path('mailvotech_point.group_action', {
                                                 objectAction: 'edit',
                                                 objectId: item.getId()
                                             }) }}" data-toggle="ajax">
@@ -92,7 +92,7 @@
                                         {% endif %}
                                     </div>
                                     {% set description = item.getDescription() %}
-                                    {{ include('@MauticCore/Helper/description--inline.html.twig', {
+                                    {{ include('@MailVotechCore/Helper/description--inline.html.twig', {
                                         'description': item.description
                                     }) }}
                                 </td>
@@ -102,33 +102,33 @@
                         </tbody>
                     </table>
                     <div class="panel-footer">
-                        {{- include('@MauticCore/Helper/pagination.html.twig', {
+                        {{- include('@MailVotechCore/Helper/pagination.html.twig', {
                             'totalItems' : items|length,
                             'page'       : page,
                             'limit'      : limit,
-                            'baseUrl'    : path('mautic_point.group_index'),
+                            'baseUrl'    : path('mailvotech_point.group_index'),
                             'sessionVar' : 'point.group',
                         }) -}}
                     </div>
                 </div>
             {% else %}
                 {% if searchValue is not empty %}
-                    {{ include('@MauticCore/Helper/noresults.html.twig') }}
+                    {{ include('@MailVotechCore/Helper/noresults.html.twig') }}
                 {% else %}
                     <div class="mt-80 col-md-offset-2 col-lg-offset-3 col-md-8 col-lg-5 height-auto">
                         {% set childContainer %}
                             <div class="mb-md">
-                                {% include '@MauticCore/Components/pictogram.html.twig' with {
+                                {% include '@MailVotechCore/Components/pictogram.html.twig' with {
                                     'pictogram': 'filter-and-group-data',
                                     'size': '80'
                                 } %}
                             </div>
                         {% endset %}
                 
-                        {{ include('@MauticCore/Components/content-block.html.twig', {
-                            heading: 'mautic.point.group.onboarding.heading',
-                            subheading: 'mautic.point.group.onboarding.subheading',
-                            copy: 'mautic.point.group.onboarding.copy',
+                        {{ include('@MailVotechCore/Components/content-block.html.twig', {
+                            heading: 'mailvotech.point.group.onboarding.heading',
+                            subheading: 'mailvotech.point.group.onboarding.subheading',
+                            copy: 'mailvotech.point.group.onboarding.copy',
                             childContainer: childContainer,
                         }) }}
                     </div>

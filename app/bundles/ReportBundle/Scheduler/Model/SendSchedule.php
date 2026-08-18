@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\ReportBundle\Scheduler\Model;
+namespace MailVotech\ReportBundle\Scheduler\Model;
 
-use Mautic\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\ReportBundle\Entity\Scheduler;
-use Mautic\ReportBundle\Event\PermanentReportFileCreatedEvent;
-use Mautic\ReportBundle\Exception\FileTooBigException;
-use Mautic\ReportBundle\ReportEvents;
+use MailVotech\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\ReportBundle\Entity\Scheduler;
+use MailVotech\ReportBundle\Event\PermanentReportFileCreatedEvent;
+use MailVotech\ReportBundle\Exception\FileTooBigException;
+use MailVotech\ReportBundle\ReportEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class SendSchedule
@@ -58,6 +58,6 @@ class SendSchedule
         $this->mailer->parsePlainText($message);
         $this->mailer->send(true);
 
-        // Attachment file removal will be done in \Mautic\MessengerBundle\MessageHandler\RemoveReportAttachmentHandler
+        // Attachment file removal will be done in \MailVotech\MessengerBundle\MessageHandler\RemoveReportAttachmentHandler
     }
 }

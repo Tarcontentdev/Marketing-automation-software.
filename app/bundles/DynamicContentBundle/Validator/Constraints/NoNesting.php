@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Validator\Constraints;
+namespace MailVotech\DynamicContentBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -18,7 +18,7 @@ final class NoNesting extends Constraint
      */
     #[HasNamedArguments]
     public function __construct(
-        public string $message = 'mautic.dynamicContent.no_nesting',
+        public string $message = 'mailvotech.dynamicContent.no_nesting',
         ?array $groups = null,
         mixed $payload = null,
     ) {

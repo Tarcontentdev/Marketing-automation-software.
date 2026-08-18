@@ -1,0 +1,37 @@
+{%- set isIndex = 'index' == tmpl -%}
+{%- set tmpl = 'list' -%}
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
+
+{% block mailvotechContent 'tweet' %}
+
+{% block headerTitle 'mailvotech.social.tweets'|trans %}
+
+{% block content %}
+  {% if isIndex %}
+    <div id="page-list-wrapper" class="panel panel-default">
+      {{ include('@MailVotechCore/Helper/list_toolbar.html.twig', {
+        'searchValue': searchValue,
+        'action': currentRoute,
+        'page_actions': {
+            'templateButtons': {
+                'new': securityIsGranted('mailvotechSocial:tweets:create'),
+            },
+            'routeBase': 'mailvotech_tweet',
+            'langVar': 'tweet',
+        },
+        'bulk_actions': {
+          'langVar': 'mailvotech.social.tweets',
+          'routeBase': 'mailvotech_tweet',
+          'templateButtons': {
+              'delete': securityIsGranted('mailvotechSocial:tweets:delete'),
+          },
+      },
+    }) }}
+      <div class="page-list">
+        {{- include('@MailVotechSocial/Tweet/_list.html.twig') -}}
+      </div>
+    </div>
+  {% else %}
+    {{- include('@MailVotechSocial/Tweet/_list.html.twig') -}}
+  {% endif %}
+{% endblock %}

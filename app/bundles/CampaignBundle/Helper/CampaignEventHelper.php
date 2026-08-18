@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CampaignBundle\Helper;
+namespace MailVotech\CampaignBundle\Helper;
 
-use Mautic\CampaignBundle\Event\CampaignLeadChangeEvent;
+use MailVotech\CampaignBundle\Event\CampaignLeadChangeEvent;
 
 final class CampaignEventHelper
 {

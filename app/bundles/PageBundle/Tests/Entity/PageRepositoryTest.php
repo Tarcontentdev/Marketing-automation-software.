@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Entity;
+namespace MailVotech\PageBundle\Tests\Entity;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Entity\PageRepository;
+use MailVotech\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\PageRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -23,8 +23,8 @@ final class PageRepositoryTest extends TestCase
 
         $translator = $this->createMock(TranslatorInterface::class);
         $translator->method('trans')->willReturnCallback(fn (string $id): string => match ($id) {
-            'mautic.page.searchcommand.isexpired' => 'is:expired',
-            'mautic.page.searchcommand.ispending' => 'is:pending',
+            'mailvotech.page.searchcommand.isexpired' => 'is:expired',
+            'mailvotech.page.searchcommand.ispending' => 'is:pending',
             default                               => $id,
         });
         $repository->autowireCommonRepository($translator);
@@ -60,7 +60,7 @@ final class PageRepositoryTest extends TestCase
     {
         $repository = $this->getRepository();
         $commands   = $repository->getSearchCommands();
-        $this->assertContains('mautic.page.searchcommand.isexpired', $commands);
-        $this->assertContains('mautic.page.searchcommand.ispending', $commands);
+        $this->assertContains('mailvotech.page.searchcommand.isexpired', $commands);
+        $this->assertContains('mailvotech.page.searchcommand.ispending', $commands);
     }
 }

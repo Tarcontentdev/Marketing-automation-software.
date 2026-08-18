@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Update;
+namespace MailVotech\CoreBundle\Update;
 
-use Mautic\CoreBundle\Update\Step\StepInterface;
+use MailVotech\CoreBundle\Update\Step\StepInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 final class StepProvider
@@ -21,7 +21,7 @@ final class StepProvider
      * @param iterable<StepInterface> $steps
      */
     public function __construct(
-        #[AutowireIterator('mautic.update_step')]
+        #[AutowireIterator('mailvotech.update_step')]
         iterable $steps = [],
     ) {
         foreach ($steps as $step) {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Enum;
+namespace MailVotech\UserBundle\Enum;
 
 final class UserTokenAuthorizator
 {

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Functional\Sync\Notification;
+namespace MailVotech\IntegrationsBundle\Tests\Functional\Sync\Notification;
 
-use Mautic\CoreBundle\Entity\Notification;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\IntegrationsBundle\Sync\Notification\BulkNotification;
+use MailVotech\CoreBundle\Entity\Notification;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\IntegrationsBundle\Sync\Notification\BulkNotification;
 
-final class BulkNotificationTest extends MauticMysqlTestCase
+final class BulkNotificationTest extends MailVotechMysqlTestCase
 {
     private BulkNotification $bulkNotification;
 

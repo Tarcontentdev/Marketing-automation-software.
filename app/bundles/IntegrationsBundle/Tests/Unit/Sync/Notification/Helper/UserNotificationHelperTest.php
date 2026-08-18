@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\Notification\Helper;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\Notification\Helper;
 
-use Mautic\IntegrationsBundle\Sync\Notification\Helper\OwnerProvider;
-use Mautic\IntegrationsBundle\Sync\Notification\Helper\RouteHelper;
-use Mautic\IntegrationsBundle\Sync\Notification\Helper\UserHelper;
-use Mautic\IntegrationsBundle\Sync\Notification\Helper\UserNotificationBuilder;
-use Mautic\IntegrationsBundle\Sync\Notification\Helper\UserNotificationHelper;
-use Mautic\IntegrationsBundle\Sync\Notification\Writer;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\Notification\Helper\OwnerProvider;
+use MailVotech\IntegrationsBundle\Sync\Notification\Helper\RouteHelper;
+use MailVotech\IntegrationsBundle\Sync\Notification\Helper\UserHelper;
+use MailVotech\IntegrationsBundle\Sync\Notification\Helper\UserNotificationBuilder;
+use MailVotech\IntegrationsBundle\Sync\Notification\Helper\UserNotificationHelper;
+use MailVotech\IntegrationsBundle\Sync\Notification\Writer;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -74,10 +74,10 @@ final class UserNotificationHelperTest extends TestCase
         $this->translator->expects($matcher)
             ->method('trans')->willReturnCallback(function (...$parameters) use ($matcher): string {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.integration.sync.user_notification.header', $parameters[0]);
+                    $this->assertSame('mailvotech.integration.sync.user_notification.header', $parameters[0]);
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.integration.sync.user_notification.sync_error', $parameters[0]);
+                    $this->assertSame('mailvotech.integration.sync.user_notification.sync_error', $parameters[0]);
                 }
 
                 return 'test';
@@ -107,10 +107,10 @@ final class UserNotificationHelperTest extends TestCase
         $this->translator->expects($matcher)
             ->method('trans')->willReturnCallback(function (...$parameters) use ($matcher): string {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.integration.sync.user_notification.header', $parameters[0]);
+                    $this->assertSame('mailvotech.integration.sync.user_notification.header', $parameters[0]);
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.integration.sync.user_notification.sync_error', $parameters[0]);
+                    $this->assertSame('mailvotech.integration.sync.user_notification.sync_error', $parameters[0]);
                 }
 
                 return 'test';

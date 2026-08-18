@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Form\Validator\Constraints;
+namespace MailVotech\SmsBundle\Form\Validator\Constraints;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -15,7 +15,7 @@ final class MediaMaxAllowedSize extends Constraint
      */
     #[HasNamedArguments]
     public function __construct(
-        public string $message = 'mautic.sms.form.max.size.media.error',
+        public string $message = 'mailvotech.sms.form.max.size.media.error',
         ?array $groups = null,
         mixed $payload = null,
     ) {

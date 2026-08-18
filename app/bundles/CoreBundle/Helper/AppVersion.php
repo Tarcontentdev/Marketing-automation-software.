@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 class AppVersion
 {
@@ -11,6 +11,6 @@ class AppVersion
      */
     public function getVersion()
     {
-        return MAUTIC_VERSION;
+        return MAILVOTECH_VERSION;
     }
 }

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Extension;
+namespace MailVotech\CoreBundle\Twig\Extension;
 
-use Mautic\CoreBundle\Helper\Chart\BarChart;
+use MailVotech\CoreBundle\Helper\Chart\BarChart;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test\Extensions\DbPrefix\Subscriber;
+namespace MailVotech\CoreBundle\Test\Extensions\DbPrefix\Subscriber;
 
-use Mautic\CoreBundle\Test\Extensions\DbPrefix\DbPrefix;
+use MailVotech\CoreBundle\Test\Extensions\DbPrefix\DbPrefix;
 
 abstract class Subscriber
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Sync;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Sync;
 
 use DateTimeInterface;
-use Mautic\IntegrationsBundle\Exception\InvalidValueException;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Exception\InvalidValueException;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
 
 class InputOptionsDAO
 {
@@ -23,7 +23,7 @@ class InputOptionsDAO
 
     private readonly bool $disableActivityPush;
 
-    private readonly ?ObjectIdsDAO $mauticObjectIds;
+    private readonly ?ObjectIdsDAO $mailvotechObjectIds;
 
     private readonly ?ObjectIdsDAO $integrationObjectIds;
 
@@ -41,7 +41,7 @@ class InputOptionsDAO
      *      'disable-push' => false,
      *      'disable-pull' => false,
      *      'disable-activity-push' => false,
-     *      'mautic-object-id' => ['contact:12', 'contact:13'] or a ObjectIdsDAO object,
+     *      'mailvotech-object-id' => ['contact:12', 'contact:13'] or a ObjectIdsDAO object,
      *      'integration-object-id' => ['Lead:hfskjdhf', 'Lead:hfskjdhr'] or a ObjectIdsDAO object,
      *      'start-datetime' => '2019-09-12T12:01:20' or a DateTimeInterface object, Expecting UTC timezone
      *      'end-datetime' => '2019-09-12T12:01:20' or a DateTimeInterface object, Expecting UTC timezone
@@ -62,7 +62,7 @@ class InputOptionsDAO
         $this->disableActivityPush  = (bool) ($input['disable-activity-push'] ?? false);
         $this->startDateTime        = $this->validateDateTime($input, 'start-datetime');
         $this->endDateTime          = $this->validateDateTime($input, 'end-datetime');
-        $this->mauticObjectIds      = $this->validateObjectIds($input, 'mautic-object-id');
+        $this->mailvotechObjectIds      = $this->validateObjectIds($input, 'mailvotech-object-id');
         $this->integrationObjectIds = $this->validateObjectIds($input, 'integration-object-id');
         $this->options              = $this->validateOptions($input);
     }
@@ -92,9 +92,9 @@ class InputOptionsDAO
         return !$this->disablePush;
     }
 
-    public function getMauticObjectIds(): ?ObjectIdsDAO
+    public function getMailVotechObjectIds(): ?ObjectIdsDAO
     {
-        return $this->mauticObjectIds;
+        return $this->mailvotechObjectIds;
     }
 
     public function getIntegrationObjectIds(): ?ObjectIdsDAO
@@ -155,24 +155,24 @@ class InputOptionsDAO
     }
 
     /**
-     * This method exists only because Mautic leads were renamed to contacts. Users will be able
+     * This method exists only because MailVotech leads were renamed to contacts. Users will be able
      * to use the "contact" keywoard and developers "lead" as the integration bundle use "lead" everywhere.
      */
     private function fixNaming(array $input): array
     {
-        if (empty($input['mautic-object-id'])) {
+        if (empty($input['mailvotech-object-id'])) {
             return $input;
         }
 
-        if (!is_array($input['mautic-object-id'])) {
+        if (!is_array($input['mailvotech-object-id'])) {
             return $input;
         }
 
-        foreach ($input['mautic-object-id'] as $key => $mauticObjectId) {
-            $input['mautic-object-id'][$key] = preg_replace(
+        foreach ($input['mailvotech-object-id'] as $key => $mailvotechObjectId) {
+            $input['mailvotech-object-id'][$key] = preg_replace(
                 '/^contact:/',
                 Contact::NAME.':',
-                "{$mauticObjectId}"
+                "{$mailvotechObjectId}"
             );
         }
 

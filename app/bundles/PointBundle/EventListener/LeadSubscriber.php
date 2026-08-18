@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\PointBundle\EventListener;
+namespace MailVotech\PointBundle\EventListener;
 
-use Mautic\LeadBundle\Entity\PointsChangeLogRepository;
-use Mautic\LeadBundle\Event\LeadEvent;
-use Mautic\LeadBundle\Event\LeadMergeEvent;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\Event\PointsChangeEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\PointBundle\Entity\LeadPointLogRepository;
-use Mautic\PointBundle\Entity\LeadTriggerLogRepository;
-use Mautic\PointBundle\Model\TriggerModel;
+use MailVotech\LeadBundle\Entity\PointsChangeLogRepository;
+use MailVotech\LeadBundle\Event\LeadEvent;
+use MailVotech\LeadBundle\Event\LeadMergeEvent;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\Event\PointsChangeEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\PointBundle\Entity\LeadPointLogRepository;
+use MailVotech\PointBundle\Entity\LeadTriggerLogRepository;
+use MailVotech\PointBundle\Model\TriggerModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -60,7 +60,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
     {
         // Set available event types
         $eventTypeKey  = 'point.gained';
-        $eventTypeName = $this->translator->trans('mautic.point.event.gained');
+        $eventTypeName = $this->translator->trans('mailvotech.point.event.gained');
         $event->addEventType($eventTypeKey, $eventTypeName);
         $event->addSerializerGroup('pointList');
 

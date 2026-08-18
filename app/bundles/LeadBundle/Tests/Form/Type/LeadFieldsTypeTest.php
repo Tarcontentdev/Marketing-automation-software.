@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Form\Type;
+namespace MailVotech\LeadBundle\Tests\Form\Type;
 
-use Mautic\LeadBundle\Form\Type\LeadFieldsType;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Form\Type\LeadFieldsType;
+use MailVotech\LeadBundle\Model\FieldModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -59,17 +59,17 @@ final class LeadFieldsTypeTest extends \PHPUnit\Framework\TestCase
                         [
                             'Core' => [
                                 'Contact field 1 label'  => 'contact_field_1',
-                                'mautic.lead.field.tags' => 'tags',
+                                'mailvotech.lead.field.tags' => 'tags',
                             ],
                             'Company' => [
                                 'Company field 1 label' => 'company_field_1',
                             ],
                             'UTM' => [
-                                'mautic.lead.field.utmcampaign' => 'utm_campaign',
-                                'mautic.lead.field.utmcontent'  => 'utm_content',
-                                'mautic.lead.field.utmmedium'   => 'utm_medium',
-                                'mautic.lead.field.umtsource'   => 'utm_source',
-                                'mautic.lead.field.utmterm'     => 'utm_term',
+                                'mailvotech.lead.field.utmcampaign' => 'utm_campaign',
+                                'mailvotech.lead.field.utmcontent'  => 'utm_content',
+                                'mailvotech.lead.field.utmmedium'   => 'utm_medium',
+                                'mailvotech.lead.field.umtsource'   => 'utm_source',
+                                'mailvotech.lead.field.utmterm'     => 'utm_term',
                             ],
                         ],
                         $choices

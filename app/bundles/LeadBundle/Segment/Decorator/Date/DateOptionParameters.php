@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Decorator\Date;
+namespace MailVotech\LeadBundle\Segment\Decorator\Date;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\Decorator\ParseDateFilterValueTrait;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\Decorator\ParseDateFilterValueTrait;
 
 final class DateOptionParameters
 {
@@ -86,7 +86,7 @@ final class DateOptionParameters
             return $filterVal;
         }
 
-        return str_replace('mautic.lead.list.', '', $key);
+        return str_replace('mailvotech.lead.list.', '', $key);
     }
 
     private function setDateTimeHelper(TimezoneResolver $timezoneResolver): void

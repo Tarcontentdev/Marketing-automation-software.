@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\MonitoredEmail\Processor\Bounce;
+namespace MailVotech\EmailBundle\Tests\MonitoredEmail\Processor\Bounce;
 
-use Mautic\EmailBundle\MonitoredEmail\Exception\BounceNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\Definition\Category;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\Definition\Type;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\DsnParser;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\BounceNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\Definition\Category;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\Definition\Type;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\DsnParser;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;

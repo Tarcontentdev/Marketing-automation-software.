@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\PageBundle\Entity;
+namespace MailVotech\PageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDevice;
-use Mautic\PageBundle\Validator\PageHit;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDevice;
+use MailVotech\PageBundle\Validator\PageHit;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Hit

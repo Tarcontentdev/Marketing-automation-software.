@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\CampaignBundle\Service;
+namespace MailVotech\CampaignBundle\Service;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\EmailBundle\Entity\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class CampaignAuditService
@@ -31,11 +31,11 @@ class CampaignAuditService
     private function setEmailWarningFlashMessage(Email $email): void
     {
         $this->flashBag->add(
-            'mautic.core.notice.campaign.unpublished.email',
+            'mailvotech.core.notice.campaign.unpublished.email',
             [
                 '%name%'      => $email->getName(),
-                '%menu_link%' => 'mautic_email_index',
-                '%url%'       => $this->urlGenerator->generate('mautic_email_action', [
+                '%menu_link%' => 'mailvotech_email_index',
+                '%url%'       => $this->urlGenerator->generate('mailvotech_email_action', [
                     'objectAction' => 'edit',
                     'objectId'     => $email->getId(),
                 ]),

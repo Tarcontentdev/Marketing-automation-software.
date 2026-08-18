@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Model;
+namespace MailVotech\EmailBundle\Model;
 
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\Event\EmailStatEvent;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\Event\EmailStatEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EmailStatModel

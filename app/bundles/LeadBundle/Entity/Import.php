@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Helper\Chart\PieChart;
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Helper\Chart\PieChart;
+use MailVotech\CoreBundle\Translation\Translator;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -160,11 +160,11 @@ class Import extends FormEntity
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addPropertyConstraint('dir', new Assert\NotBlank(
-            message: 'mautic.lead.import.dir.notblank'
+            message: 'mailvotech.lead.import.dir.notblank'
         ));
 
         $metadata->addPropertyConstraint('file', new Assert\NotBlank(
-            message: 'mautic.lead.import.file.notblank'
+            message: 'mailvotech.lead.import.file.notblank'
         ));
     }
 
@@ -783,9 +783,9 @@ class Import extends FormEntity
     public function getRowStatusesPieChart(Translator $translator): array
     {
         $chart = new PieChart();
-        $chart->setDataset($translator->trans('mautic.lead.import.inserted.count'), $this->insertedCount);
-        $chart->setDataset($translator->trans('mautic.lead.import.updated.count'), $this->updatedCount);
-        $chart->setDataset($translator->trans('mautic.lead.import.ignored.count'), $this->ignoredCount);
+        $chart->setDataset($translator->trans('mailvotech.lead.import.inserted.count'), $this->insertedCount);
+        $chart->setDataset($translator->trans('mailvotech.lead.import.updated.count'), $this->updatedCount);
+        $chart->setDataset($translator->trans('mailvotech.lead.import.ignored.count'), $this->ignoredCount);
 
         return $chart->render();
     }

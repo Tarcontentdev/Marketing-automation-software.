@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\NotificationBundle\EventListener;
+namespace MailVotech\NotificationBundle\EventListener;
 
 use Doctrine\DBAL\Connection;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\NotificationBundle\Entity\StatRepository;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\Event\ReportGraphEvent;
-use Mautic\ReportBundle\ReportEvents;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\NotificationBundle\Entity\StatRepository;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\Event\ReportGraphEvent;
+use MailVotech\ReportBundle\ReportEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ReportSubscriber implements EventSubscriberInterface
@@ -47,43 +47,43 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
         $channelUrlTrackables = 'cut.';
         $columns              = [
             $prefix.'heading' => [
-                'label' => 'mautic.notification.mobile_notification.heading',
+                'label' => 'mailvotech.notification.mobile_notification.heading',
                 'type'  => 'string',
             ],
             $prefix.'lang' => [
-                'label' => 'mautic.core.language',
+                'label' => 'mailvotech.core.language',
                 'type'  => 'string',
             ],
             $prefix.'read_count' => [
-                'label' => 'mautic.mobile_notification.report.read_count',
+                'label' => 'mailvotech.mobile_notification.report.read_count',
                 'type'  => 'int',
             ],
             'read_ratio' => [
                 'alias'   => 'read_ratio',
-                'label'   => 'mautic.mobile_notification.report.read_ratio',
+                'label'   => 'mailvotech.mobile_notification.report.read_ratio',
                 'type'    => 'string',
                 'formula' => 'ROUND(('.$prefix.'read_count/'.$prefix.'sent_count)*100)',
                 'suffix'  => '%',
             ],
             $prefix.'sent_count' => [
-                'label' => 'mautic.mobile_notification.report.sent_count',
+                'label' => 'mailvotech.mobile_notification.report.sent_count',
                 'type'  => 'int',
             ],
             'hits' => [
                 'alias'   => 'hits',
-                'label'   => 'mautic.mobile_notification.report.hits_count',
+                'label'   => 'mailvotech.mobile_notification.report.hits_count',
                 'type'    => 'string',
                 'formula' => $channelUrlTrackables.'hits',
             ],
             'unique_hits' => [
                 'alias'   => 'unique_hits',
-                'label'   => 'mautic.mobile_notification.report.unique_hits_count',
+                'label'   => 'mailvotech.mobile_notification.report.unique_hits_count',
                 'type'    => 'string',
                 'formula' => $channelUrlTrackables.'unique_hits',
             ],
             'hits_ratio' => [
                 'alias'   => 'hits_ratio',
-                'label'   => 'mautic.mobile_notification.report.hits_ratio',
+                'label'   => 'mailvotech.mobile_notification.report.hits_ratio',
                 'type'    => 'string',
                 'formula' => 'ROUND('.$channelUrlTrackables.'hits/('.$prefix.'sent_count * '.$channelUrlTrackables
                     .'trackable_count)*100)',
@@ -91,7 +91,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             ],
             'unique_ratio' => [
                 'alias'   => 'unique_ratio',
-                'label'   => 'mautic.mobile_notification.report.unique_ratio',
+                'label'   => 'mailvotech.mobile_notification.report.unique_ratio',
                 'type'    => 'string',
                 'formula' => 'ROUND('.$channelUrlTrackables.'unique_hits/('.$prefix.'sent_count * '.$channelUrlTrackables
                     .'trackable_count)*100)',
@@ -101,11 +101,11 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
         $columns = array_merge(
             $columns,
-            $event->getStandardColumns($prefix, [], 'mautic_mobile_notification_action'),
+            $event->getStandardColumns($prefix, [], 'mailvotech_mobile_notification_action'),
             $event->getCategoryColumns()
         );
         $data = [
-            'display_name' => 'mautic.notification.mobile_notifications',
+            'display_name' => 'mailvotech.notification.mobile_notifications',
             'columns'      => $columns,
         ];
 
@@ -121,21 +121,21 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             $statPrefix  = 'pns.';
             $statColumns = [
                 $statPrefix.'date_sent' => [
-                    'label'          => 'mautic.mobile_notifications.report.stat.date_sent',
+                    'label'          => 'mailvotech.mobile_notifications.report.stat.date_sent',
                     'type'           => 'datetime',
                     'groupByFormula' => 'DATE('.$statPrefix.'date_sent)',
                 ],
                 $statPrefix.'date_read' => [
-                    'label'          => 'mautic.mobile_notifications.report.stat.date_read',
+                    'label'          => 'mailvotech.mobile_notifications.report.stat.date_read',
                     'type'           => 'datetime',
                     'groupByFormula' => 'DATE('.$statPrefix.'date_read)',
                 ],
                 $statPrefix.'source' => [
-                    'label' => 'mautic.report.field.source',
+                    'label' => 'mailvotech.report.field.source',
                     'type'  => 'string',
                 ],
                 $statPrefix.'source_id' => [
-                    'label' => 'mautic.report.field.source_id',
+                    'label' => 'mailvotech.report.field.source_id',
                     'type'  => 'int',
                 ],
             ];
@@ -151,7 +151,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             );
 
             $data = [
-                'display_name' => 'mautic.mobile_notification.stats.report.table',
+                'display_name' => 'mailvotech.mobile_notification.stats.report.table',
                 'columns'      => $mobileStatsColumns,
             ];
             $context = self::MOBILE_NOTIFICATIONS_STATS;
@@ -160,10 +160,10 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             $event->addTable($context, $data, self::MOBILE_NOTIFICATIONS);
 
             // Register Graphs
-            $event->addGraph($context, 'line', 'mautic.mobile_notification.graph.line.stats');
-            $event->addGraph($context, 'table', 'mautic.mobile_notification.table.most.mobile_notifications.sent');
-            $event->addGraph($context, 'table', 'mautic.mobile_notification.table.most.mobile_notifications.read');
-            $event->addGraph($context, 'table', 'mautic.mobile_notification.table.most.mobile_notifications.read.percent');
+            $event->addGraph($context, 'line', 'mailvotech.mobile_notification.graph.line.stats');
+            $event->addGraph($context, 'table', 'mailvotech.mobile_notification.table.most.mobile_notifications.sent');
+            $event->addGraph($context, 'table', 'mailvotech.mobile_notification.table.most.mobile_notifications.read');
+            $event->addGraph($context, 'table', 'mailvotech.mobile_notification.table.most.mobile_notifications.read.percent');
         }
     }
 
@@ -187,7 +187,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
         switch ($event->getContext()) {
             case self::MOBILE_NOTIFICATIONS:
-                $qb->from(MAUTIC_TABLE_PREFIX.'push_notifications', 'pn');
+                $qb->from(MAILVOTECH_TABLE_PREFIX.'push_notifications', 'pn');
                 $event->addCategoryLeftJoin($qb, 'pn');
 
                 if ($event->usesColumn($clickColumns)) {
@@ -196,15 +196,15 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                         'SUM(cut2.unique_hits) AS unique_hits',
                         'cut2.channel_id'
                     )
-                        ->from(MAUTIC_TABLE_PREFIX.'channel_url_trackables', 'cut2')
+                        ->from(MAILVOTECH_TABLE_PREFIX.'channel_url_trackables', 'cut2')
                         ->where('cut2.channel = \'notification\'')
                         ->groupBy('cut2.channel_id');
                     $qb->leftJoin('pn', sprintf('(%s)', $qbcut->getSQL()), 'cut', 'pn.id = cut.channel_id');
                 }
                 break;
             case self::MOBILE_NOTIFICATIONS_STATS:
-                $qb->from(MAUTIC_TABLE_PREFIX.'push_notification_stats', 'pns')
-                    ->leftJoin('pns', MAUTIC_TABLE_PREFIX.'push_notifications', 'pn', 'pn.id = pns.notification_id');
+                $qb->from(MAILVOTECH_TABLE_PREFIX.'push_notification_stats', 'pns')
+                    ->leftJoin('pns', MAILVOTECH_TABLE_PREFIX.'push_notifications', 'pn', 'pn.id = pns.notification_id');
 
                 $event->addCategoryLeftJoin($qb, 'pn')
                     ->addLeadLeftJoin($qb, 'pns')
@@ -213,10 +213,10 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
                 if ($event->usesColumn($clickColumns)) {
                     $qbcut->select('COUNT(ph.id) AS hits', 'COUNT(DISTINCT(ph.redirect_id)) AS unique_hits', 'cut2.channel_id', 'ph.lead_id')
-                        ->from(MAUTIC_TABLE_PREFIX.'channel_url_trackables', 'cut2')
+                        ->from(MAILVOTECH_TABLE_PREFIX.'channel_url_trackables', 'cut2')
                         ->join(
                             'cut2',
-                            MAUTIC_TABLE_PREFIX.'page_hits',
+                            MAILVOTECH_TABLE_PREFIX.'page_hits',
                             'ph',
                             'cut2.redirect_id = ph.redirect_id AND cut2.channel_id = ph.source_id'
                         )
@@ -257,7 +257,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             $chartQuery->applyDateFilters($queryBuilder, 'date_sent', 'pns');
 
             switch ($g) {
-                case 'mautic.mobile_notification.graph.line.stats':
+                case 'mailvotech.mobile_notification.graph.line.stats':
                     $chart     = new LineChart(null, $options['dateFrom'], $options['dateTo']);
                     $sendQuery = clone $queryBuilder;
                     $readQuery = clone $origQuery;
@@ -269,15 +269,15 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
                     $sends = $chartQuery->loadAndBuildTimeData($sendQuery);
                     $reads = $chartQuery->loadAndBuildTimeData($readQuery);
-                    $chart->setDataset($options['translator']->trans('mautic.mobile_notification.sent.mobile_notifications'), $sends);
-                    $chart->setDataset($options['translator']->trans('mautic.mobile_notification.read.mobile_notifications'), $reads);
+                    $chart->setDataset($options['translator']->trans('mailvotech.mobile_notification.sent.mobile_notifications'), $sends);
+                    $chart->setDataset($options['translator']->trans('mailvotech.mobile_notification.read.mobile_notifications'), $reads);
                     $data         = $chart->render();
                     $data['name'] = $g;
 
                     $event->setGraph($g, $data);
                     break;
 
-                case 'mautic.mobile_notification.table.most.mobile_notifications.sent':
+                case 'mailvotech.mobile_notification.table.most.mobile_notifications.sent':
                     $queryBuilder->select('pn.id, pn.heading as title, count(pns.id) as sent')
                         ->groupBy('pn.id, pn.heading')
                         ->orderBy('sent', 'DESC');
@@ -288,11 +288,11 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-send-plane-line';
-                    $graphData['link']      = 'mautic_mobile_notification_action';
+                    $graphData['link']      = 'mailvotech_mobile_notification_action';
                     $event->setGraph($g, $graphData);
                     break;
 
-                case 'mautic.mobile_notification.table.most.mobile_notifications.read':
+                case 'mailvotech.mobile_notification.table.most.mobile_notifications.read':
                     $queryBuilder->select('pn.id, pn.heading as title, count(CASE WHEN pns.date_read THEN 1 ELSE null END) as "read"')
                         ->groupBy('pn.id, pn.heading')
                         ->orderBy('"read"', 'DESC');
@@ -303,11 +303,11 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-eye-line';
-                    $graphData['link']      = 'mautic_mobile_notification_action';
+                    $graphData['link']      = 'mailvotech_mobile_notification_action';
                     $event->setGraph($g, $graphData);
                     break;
 
-                case 'mautic.mobile_notification.table.most.mobile_notifications.read.percent':
+                case 'mailvotech.mobile_notification.table.most.mobile_notifications.read.percent':
                     $queryBuilder->select('pn.id, pn.heading as title, round(pn.read_count / pn.sent_count * 100) as ratio')
                         ->groupBy('pn.id, pn.heading')
                         ->orderBy('ratio', 'DESC');
@@ -318,7 +318,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-speed-up-line';
-                    $graphData['link']      = 'mautic_mobile_notification_action';
+                    $graphData['link']      = 'mailvotech_mobile_notification_action';
                     $event->setGraph($g, $graphData);
                     break;
             }

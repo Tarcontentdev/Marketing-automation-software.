@@ -1,35 +1,35 @@
 <?php
 
-namespace Mautic\PageBundle\Controller;
+namespace MailVotech\PageBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AbstractFormController;
-use Mautic\CoreBundle\Exception\FileNotFoundException;
-use Mautic\CoreBundle\Exception\InvalidDecodedStringException;
-use Mautic\CoreBundle\Helper\ClickthroughHelper;
-use Mautic\CoreBundle\Helper\CookieHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
-use Mautic\CoreBundle\Helper\TrackingPixelHelper;
-use Mautic\CoreBundle\Helper\UrlHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Twig\Helper\AnalyticsHelper;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Helper\ContactRequestHelper;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Event\PageDisplayEvent;
-use Mautic\PageBundle\Event\TrackingEvent;
-use Mautic\PageBundle\Event\UrlTokenReplaceEvent;
-use Mautic\PageBundle\Helper\PageConfig;
-use Mautic\PageBundle\Helper\TrackingHelper;
-use Mautic\PageBundle\Model\PageModel;
-use Mautic\PageBundle\Model\RedirectModel;
-use Mautic\PageBundle\Model\Tracking404Model;
-use Mautic\PageBundle\Model\VideoModel;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CoreBundle\Controller\AbstractFormController;
+use MailVotech\CoreBundle\Exception\FileNotFoundException;
+use MailVotech\CoreBundle\Exception\InvalidDecodedStringException;
+use MailVotech\CoreBundle\Helper\ClickthroughHelper;
+use MailVotech\CoreBundle\Helper\CookieHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
+use MailVotech\CoreBundle\Helper\TrackingPixelHelper;
+use MailVotech\CoreBundle\Helper\UrlHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Twig\Helper\AnalyticsHelper;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Helper\ContactRequestHelper;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Event\PageDisplayEvent;
+use MailVotech\PageBundle\Event\TrackingEvent;
+use MailVotech\PageBundle\Event\UrlTokenReplaceEvent;
+use MailVotech\PageBundle\Helper\PageConfig;
+use MailVotech\PageBundle\Helper\TrackingHelper;
+use MailVotech\PageBundle\Model\PageModel;
+use MailVotech\PageBundle\Model\RedirectModel;
+use MailVotech\PageBundle\Model\Tracking404Model;
+use MailVotech\PageBundle\Model\VideoModel;
+use MailVotech\PageBundle\PageEvents;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -156,7 +156,7 @@ final class PublicController extends AbstractFormController
 
                     if (count($variants)) {
                         // check to see if this user has already been displayed a specific variant
-                        $variantCookie = $request->cookies->get('mautic_page_'.$entity->getId());
+                        $variantCookie = $request->cookies->get('mailvotech_page_'.$entity->getId());
 
                         if (!empty($variantCookie)) {
                             if (isset($variants[$variantCookie])) {
@@ -210,7 +210,7 @@ final class PublicController extends AbstractFormController
 
                             // set the cookie - 14 days
                             $cookieHelper->setCookie(
-                                'mautic_page_'.$entity->getId(),
+                                'mailvotech_page_'.$entity->getId(),
                                 $useId,
                                 3600 * 24 * 14
                             );
@@ -247,7 +247,7 @@ final class PublicController extends AbstractFormController
 
             $BCcontent = $entity->getContent();
             $content   = $entity->getCustomHtml();
-            // This condition remains so the Mautic v1 themes would display the content
+            // This condition remains so the MailVotech v1 themes would display the content
             if (empty($content) && !empty($BCcontent)) {
                 /**
                  * @deprecated  BC support to be removed in 3.0
@@ -282,10 +282,10 @@ final class PublicController extends AbstractFormController
             }
 
             $assetsHelper->addScript(
-                $router->generate('mautic_js', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                $router->generate('mailvotech_js', [], UrlGeneratorInterface::ABSOLUTE_URL),
                 'onPageDisplay_headClose',
                 true,
-                'mautic_js'
+                'mailvotech_js'
             );
 
             $event = new PageDisplayEvent((string) $content, $entity);
@@ -463,7 +463,7 @@ final class PublicController extends AbstractFormController
 
             $url = ($redirect) ? $redirect->getUrl() : 'n/a';
 
-            throw $this->createNotFoundException($this->translator->trans('mautic.core.url.error.404', ['%url%' => $url]));
+            throw $this->createNotFoundException($this->translator->trans('mailvotech.core.url.error.404', ['%url%' => $url]));
         }
 
         // Ensure the URL does not have encoded ampersands
@@ -520,7 +520,7 @@ final class PublicController extends AbstractFormController
                 }
             }
 
-            if (str_contains($url, $this->generateUrl('mautic_asset_download'))) {
+            if (str_contains($url, $this->generateUrl('mailvotech_asset_download'))) {
                 if (str_contains($url, '?')) {
                     $url .= '&ct='.$ct;
                 } else {
@@ -532,7 +532,7 @@ final class PublicController extends AbstractFormController
         $url = UrlHelper::sanitizeAbsoluteUrl($url);
 
         if (!UrlHelper::isValidUrl($url)) {
-            throw $this->createNotFoundException($this->translator->trans('mautic.core.url.error.404', ['%url%' => $url]));
+            throw $this->createNotFoundException($this->translator->trans('mailvotech.core.url.error.404', ['%url%' => $url]));
         }
 
         $response =  $this->redirect($url);

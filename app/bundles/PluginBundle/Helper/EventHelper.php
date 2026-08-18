@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Helper;
+namespace MailVotech\PluginBundle\Helper;
 
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\PluginBundle\EventListener\PushToIntegrationTrait;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\PluginBundle\EventListener\PushToIntegrationTrait;
 
 final class EventHelper
 {

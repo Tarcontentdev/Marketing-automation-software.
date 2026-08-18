@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\EventListener;
+namespace MailVotech\AssetBundle\EventListener;
 
-use Mautic\AssetBundle\AssetEvents;
-use Mautic\PageBundle\Event\PageBuilderEvent;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\AssetBundle\AssetEvents;
+use MailVotech\PageBundle\Event\PageBuilderEvent;
+use MailVotech\PageBundle\PageEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class PageSubscriber implements EventSubscriberInterface
@@ -26,8 +26,8 @@ final class PageSubscriber implements EventSubscriberInterface
         if ($event->abTestWinnerCriteriaRequested()) {
             // add AB Test Winner Criteria
             $assetDownloads = [
-                'group'    => 'mautic.asset.abtest.criteria',
-                'label'    => 'mautic.asset.abtest.criteria.downloads',
+                'group'    => 'mailvotech.asset.abtest.criteria',
+                'label'    => 'mailvotech.asset.abtest.criteria.downloads',
                 'event'    => AssetEvents::ON_DETERMINE_DOWNLOAD_RATE_WINNER,
             ];
             $event->addAbTestWinnerCriteria('asset.downloads', $assetDownloads);

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Helper;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Helper;
 
-use Mautic\IntegrationsBundle\Helper\FieldFilterHelper;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
-use Mautic\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
+use MailVotech\IntegrationsBundle\Helper\FieldFilterHelper;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
+use MailVotech\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

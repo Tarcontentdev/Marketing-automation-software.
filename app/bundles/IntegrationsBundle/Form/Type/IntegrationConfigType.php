@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Form\Type;
+namespace MailVotech\IntegrationsBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Helper\ConfigIntegrationsHelper;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormAuthInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormFeaturesInterface;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Helper\ConfigIntegrationsHelper;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormAuthInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormFeaturesInterface;
+use MailVotech\PluginBundle\Entity\Integration;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,7 +38,7 @@ final class IntegrationConfigType extends AbstractType
             'isPublished',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.integration.enabled',
+                'label'      => 'mailvotech.integration.enabled',
                 'label_attr' => ['class' => 'control-label'],
             ]
         );
@@ -62,7 +62,7 @@ final class IntegrationConfigType extends AbstractType
                 'supportedFeatures',
                 ChoiceType::class,
                 [
-                    'label'      => 'mautic.integration.features',
+                    'label'      => 'mailvotech.integration.features',
                     'label_attr' => ['class' => 'control-label'],
                     'choices'    => array_flip($integrationObject->getSupportedFeatures()),
                     'expanded'   => true,

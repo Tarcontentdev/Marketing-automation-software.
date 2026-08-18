@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\EventListener;
+namespace MailVotech\CoreBundle\Tests\Unit\EventListener;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\ORM\Tools\Event\GenerateSchemaEventArgs;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumns;
-use Mautic\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
-use Mautic\CoreBundle\EventListener\DoctrineGeneratedColumnsListener;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumns;
+use MailVotech\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
+use MailVotech\CoreBundle\EventListener\DoctrineGeneratedColumnsListener;
 use Psr\Log\LoggerInterface;
 
 final class DoctrineGeneratedColumnsListenerTest extends \PHPUnit\Framework\TestCase
@@ -55,7 +55,7 @@ final class DoctrineGeneratedColumnsListenerTest extends \PHPUnit\Framework\Test
     {
         $this->schema->expects($this->once())
             ->method('hasTable')
-            ->with(MAUTIC_TABLE_PREFIX.'page_hits')
+            ->with(MAILVOTECH_TABLE_PREFIX.'page_hits')
             ->willReturn(false);
 
         $this->schema->expects($this->never())
@@ -68,12 +68,12 @@ final class DoctrineGeneratedColumnsListenerTest extends \PHPUnit\Framework\Test
     {
         $this->schema->expects($this->once())
             ->method('hasTable')
-            ->with(MAUTIC_TABLE_PREFIX.'page_hits')
+            ->with(MAILVOTECH_TABLE_PREFIX.'page_hits')
             ->willReturn(true);
 
         $this->schema->expects($this->once())
             ->method('getTable')
-            ->with(MAUTIC_TABLE_PREFIX.'page_hits')
+            ->with(MAILVOTECH_TABLE_PREFIX.'page_hits')
             ->willReturn($this->table);
 
         $this->table->expects($this->once())
@@ -91,12 +91,12 @@ final class DoctrineGeneratedColumnsListenerTest extends \PHPUnit\Framework\Test
     {
         $this->schema->expects($this->once())
             ->method('hasTable')
-            ->with(MAUTIC_TABLE_PREFIX.'page_hits')
+            ->with(MAILVOTECH_TABLE_PREFIX.'page_hits')
             ->willReturn(true);
 
         $this->schema->expects($this->once())
             ->method('getTable')
-            ->with(MAUTIC_TABLE_PREFIX.'page_hits')
+            ->with(MAILVOTECH_TABLE_PREFIX.'page_hits')
             ->willReturn($this->table);
 
         $this->table->expects($this->once())
@@ -110,7 +110,7 @@ final class DoctrineGeneratedColumnsListenerTest extends \PHPUnit\Framework\Test
 
         $this->table->expects($this->once())
             ->method('addIndex')
-            ->with(['generated_hit_date'], MAUTIC_TABLE_PREFIX.'generated_hit_date');
+            ->with(['generated_hit_date'], MAILVOTECH_TABLE_PREFIX.'generated_hit_date');
 
         $this->listener->postGenerateSchema($this->event);
     }

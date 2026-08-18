@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
-use Mautic\CoreBundle\Entity\UuidInterface;
+use MailVotech\CoreBundle\Entity\UuidInterface;
 use Ramsey\Uuid\Uuid;
 
 #[AsDoctrineListener(Events::prePersist)]

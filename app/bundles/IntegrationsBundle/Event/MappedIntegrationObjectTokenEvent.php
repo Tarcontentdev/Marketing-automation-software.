@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Event;
+namespace MailVotech\IntegrationsBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\CoreBundle\Event\CommonEvent;
 
 /**
  * This event is dispatched to allow plugins to provide tokens which create links

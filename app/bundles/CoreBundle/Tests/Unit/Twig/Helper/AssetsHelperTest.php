@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Twig\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Twig\Helper;
 
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Packages;
@@ -62,43 +62,43 @@ final class AssetsHelperTest extends TestCase
     public function testGetUrlWithRelativePath(): void
     {
         $this->pathsHelper->method('getSystemPath')
-            ->willReturn('http://some.mautic');
+            ->willReturn('http://some.mailvotech');
 
         $this->assetHelper->setPathsHelper($this->pathsHelper);
 
-        $this->assertSame('http://some.mautic/some/path', $this->assetHelper->getUrl('some/path'));
+        $this->assertSame('http://some.mailvotech/some/path', $this->assetHelper->getUrl('some/path'));
 
         $version = $this->setVersion($this->assetHelper);
 
-        $this->assertSame('http://some.mautic/some/path?v'.$version, $this->assetHelper->getUrl('some/path'));
+        $this->assertSame('http://some.mailvotech/some/path?v'.$version, $this->assetHelper->getUrl('some/path'));
     }
 
-    public function testGetUrlWithRelativePathWhenMauticInSubFolder(): void
+    public function testGetUrlWithRelativePathWhenMailVotechInSubFolder(): void
     {
         $this->pathsHelper->method('getSystemPath')
-            ->willReturn('http://some.mautic/m');
+            ->willReturn('http://some.mailvotech/m');
 
         $this->assetHelper->setPathsHelper($this->pathsHelper);
 
-        $this->assertSame('http://some.mautic/m/some/path', $this->assetHelper->getUrl('some/path'));
+        $this->assertSame('http://some.mailvotech/m/some/path', $this->assetHelper->getUrl('some/path'));
 
         $version = $this->setVersion($this->assetHelper);
 
-        $this->assertSame('http://some.mautic/m/some/path?v'.$version, $this->assetHelper->getUrl('some/path'));
+        $this->assertSame('http://some.mailvotech/m/some/path?v'.$version, $this->assetHelper->getUrl('some/path'));
     }
 
     public function testGetUrlWithRelativePathWithDevIndex(): void
     {
         $this->pathsHelper->method('getSystemPath')
-            ->willReturn('http://some.mautic/');
+            ->willReturn('http://some.mailvotech/');
 
         $this->assetHelper->setPathsHelper($this->pathsHelper);
 
-        $this->assertSame('http://some.mautic/some/path', $this->assetHelper->getUrl('some/path'));
+        $this->assertSame('http://some.mailvotech/some/path', $this->assetHelper->getUrl('some/path'));
 
         $version = $this->setVersion($this->assetHelper);
 
-        $this->assertSame('http://some.mautic/some/path?v'.$version, $this->assetHelper->getUrl('some/path'));
+        $this->assertSame('http://some.mailvotech/some/path?v'.$version, $this->assetHelper->getUrl('some/path'));
     }
 
     public function testGetUrlWithVersionAndExistingQueryPart(): void
@@ -117,7 +117,7 @@ final class AssetsHelperTest extends TestCase
 
     public function testGetCKEditorScripts(): void
     {
-        $secretKey   = 'mautic';
+        $secretKey   = 'mailvotech';
         $version     = 1;
         $this->assetHelper->setVersion($secretKey, $version);
         $version = substr(hash('sha1', $secretKey.$version), 0, 8);

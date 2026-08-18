@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\ToBcBccFieldsTrait;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\EmailBundle\Form\Type\EmailListType;
+use MailVotech\CoreBundle\Form\ToBcBccFieldsTrait;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\EmailBundle\Form\Type\EmailListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -32,13 +32,13 @@ final class SubmitActionEmailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $data = $options['data']['subject'] ?? $this->translator->trans(
-            'mautic.form.action.sendemail.subject.default'
+            'mailvotech.form.action.sendemail.subject.default'
         );
         $builder->add(
             'subject',
             TextType::class,
             [
-                'label'      => 'mautic.form.action.sendemail.subject',
+                'label'      => 'mailvotech.form.action.sendemail.subject',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -61,7 +61,7 @@ final class SubmitActionEmailType extends AbstractType
             'message',
             TextareaType::class,
             [
-                'label'      => 'mautic.form.action.sendemail.message',
+                'label'      => 'mailvotech.form.action.sendemail.message',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control editor editor-basic', 'allow-full-html' => true],
                 'required'   => false,
@@ -82,7 +82,7 @@ final class SubmitActionEmailType extends AbstractType
             'copy_lead',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.form.action.sendemail.copytolead',
+                'label' => 'mailvotech.form.action.sendemail.copytolead',
                 'data'  => $default,
             ]
         );
@@ -92,10 +92,10 @@ final class SubmitActionEmailType extends AbstractType
             'set_replyto',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.form.action.sendemail.setreplyto',
+                'label' => 'mailvotech.form.action.sendemail.setreplyto',
                 'data'  => $default,
                 'attr'  => [
-                    'tooltip' => 'mautic.form.action.sendemail.setreplyto_tooltip',
+                    'tooltip' => 'mailvotech.form.action.sendemail.setreplyto_tooltip',
                 ],
             ]
         );
@@ -105,7 +105,7 @@ final class SubmitActionEmailType extends AbstractType
             'email_to_owner',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.form.action.sendemail.emailtoowner',
+                'label' => 'mailvotech.form.action.sendemail.emailtoowner',
                 'data'  => $default,
             ]
         );
@@ -114,12 +114,12 @@ final class SubmitActionEmailType extends AbstractType
             'templates',
             EmailListType::class,
             [
-                'label'      => 'mautic.lead.email.template',
+                'label'      => 'mailvotech.lead.email.template',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
                 'attr'       => [
                     'class'    => 'form-control',
-                    'onchange' => 'Mautic.getLeadEmailContent(this)',
+                    'onchange' => 'MailVotech.getLeadEmailContent(this)',
                 ],
                 'multiple'   => false,
             ]

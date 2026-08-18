@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Helper;
+namespace MailVotech\EmailBundle\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Helper\DTO\AddressDTO;
-use Mautic\EmailBundle\Helper\Exception\OwnerNotFoundException;
-use Mautic\EmailBundle\Helper\Exception\TokenNotFoundOrEmptyException;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Helper\DTO\AddressDTO;
+use MailVotech\EmailBundle\Helper\Exception\OwnerNotFoundException;
+use MailVotech\EmailBundle\Helper\Exception\TokenNotFoundOrEmptyException;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 
 class FromEmailHelper
 {

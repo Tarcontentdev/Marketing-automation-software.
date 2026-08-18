@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\EventListener;
+namespace MailVotech\CampaignBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Event\NotifyOfFailureEvent;
-use Mautic\CampaignBundle\Executioner\Helper\NotificationHelper;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Event\NotifyOfFailureEvent;
+use MailVotech\CampaignBundle\Executioner\Helper\NotificationHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class NotifyOfFailureSubscriber implements EventSubscriberInterface

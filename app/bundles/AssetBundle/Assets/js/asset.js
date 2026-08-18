@@ -1,24 +1,24 @@
 //AssetBundle
-Mautic.assetOnLoad = function (container) {
-    if (typeof mauticAssetUploadEndpoint !== 'undefined' && typeof Mautic.assetDropzone == 'undefined' && mQuery('div#dropzone').length) {
-        Mautic.initializeDropzone();
+MailVotech.assetOnLoad = function (container) {
+    if (typeof mailvotechAssetUploadEndpoint !== 'undefined' && typeof MailVotech.assetDropzone == 'undefined' && mQuery('div#dropzone').length) {
+        MailVotech.initializeDropzone();
     }
 };
 
-Mautic.assetOnUnload = function(id) {
+MailVotech.assetOnUnload = function(id) {
     if (id === '#app-content') {
-        delete Mautic.assetDropzone;
+        delete MailVotech.assetDropzone;
     }
 };
 
-Mautic.updateRemoteBrowser = function(provider, path) {
+MailVotech.updateRemoteBrowser = function(provider, path) {
     path = typeof path !== 'undefined' ? path : '';
 
     var spinner = mQuery('<i class="ri-loader-3-line ri-spin ri-fw"></i>');
     spinner.appendTo('#tab' + provider + ' a');
 
     mQuery.ajax({
-        url: mauticAjaxUrl,
+        url: mailvotechAjaxUrl,
         type: "POST",
         data: "action=asset:fetchRemoteFiles&provider=" + provider + "&path=" + path,
         dataType: "json",
@@ -28,12 +28,12 @@ Mautic.updateRemoteBrowser = function(provider, path) {
 
                 mQuery('.remote-file-search').quicksearch('#remoteFileBrowser .remote-file-list a');
             } else {
-                const flashMessage = Mautic.addErrorFlashMessage(response.message);
-                Mautic.setFlashes(flashMessage);
+                const flashMessage = MailVotech.addErrorFlashMessage(response.message);
+                MailVotech.setFlashes(flashMessage);
             }
         },
         error: function (request, textStatus, errorThrown) {
-            Mautic.processAjaxError(request, textStatus, errorThrown);
+            MailVotech.processAjaxError(request, textStatus, errorThrown);
         },
         complete: function() {
             spinner.remove();
@@ -41,12 +41,12 @@ Mautic.updateRemoteBrowser = function(provider, path) {
     })
 };
 
-Mautic.selectRemoteFile = function(url) {
+MailVotech.selectRemoteFile = function(url) {
     mQuery('#asset_remotePath').val(url);
     mQuery('#RemoteFileModal').modal('hide');
 };
 
-Mautic.changeAssetStorageLocation = function() {
+MailVotech.changeAssetStorageLocation = function() {
     if (mQuery('#asset_storageLocation_0').prop('checked')) {
         mQuery('#storage-local').removeClass('hide');
         mQuery('#storage-remote').addClass('hide');
@@ -58,9 +58,9 @@ Mautic.changeAssetStorageLocation = function() {
     }
 };
 
-Mautic.initializeDropzone = function() {
+MailVotech.initializeDropzone = function() {
     var options = {
-        url: mauticAssetUploadEndpoint,
+        url: mailvotechAssetUploadEndpoint,
         uploadMultiple: false,
         filesizeBase: 1024,
         init: function() {
@@ -72,27 +72,27 @@ Mautic.initializeDropzone = function() {
         }
     };
 
-    if (typeof mauticAssetUploadMaxSize !== 'undefined') {
-        options.maxFilesize = mauticAssetUploadMaxSize;
+    if (typeof mailvotechAssetUploadMaxSize !== 'undefined') {
+        options.maxFilesize = mailvotechAssetUploadMaxSize;
     }
 
-    if (typeof mauticAssetUploadMaxSizeError !== 'undefined') {
-        options.dictFileTooBig = mauticAssetUploadMaxSizeError;
+    if (typeof mailvotechAssetUploadMaxSizeError !== 'undefined') {
+        options.dictFileTooBig = mailvotechAssetUploadMaxSizeError;
     }
 
-    if (typeof mauticAssetUploadExtensions !== 'undefined') {
-        options.acceptedFiles = mauticAssetUploadExtensions;
+    if (typeof mailvotechAssetUploadExtensions !== 'undefined') {
+        options.acceptedFiles = mailvotechAssetUploadExtensions;
     }
 
-    if (typeof mauticAssetUploadExtensionError !== 'undefined') {
-        options.dictInvalidFileType = mauticAssetUploadExtensionError;
+    if (typeof mailvotechAssetUploadExtensionError !== 'undefined') {
+        options.dictInvalidFileType = mailvotechAssetUploadExtensionError;
     }
 
-    Mautic.assetDropzone = new Dropzone("div#dropzone", options);
+    MailVotech.assetDropzone = new Dropzone("div#dropzone", options);
     var preview = mQuery('.preview div.text-center');
 
-    Mautic.assetDropzone.on("sending", function (file, request, formData) {
-        request.setRequestHeader('X-CSRF-Token', mauticAjaxCsrf);
+    MailVotech.assetDropzone.on("sending", function (file, request, formData) {
+        request.setRequestHeader('X-CSRF-Token', mailvotechAjaxCsrf);
         formData.append('tempId', mQuery('#asset_tempId').val());
     }).on("addedfile", function (file) {
         preview.fadeOut('fast');

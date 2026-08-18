@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Functional\Services\SyncDataExchange\Internal\ObjectHelper;
+namespace MailVotech\IntegrationsBundle\Tests\Functional\Services\SyncDataExchange\Internal\ObjectHelper;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO as OrderFieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company as SyncObjectCompany;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper\CompanyObjectHelper;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO as OrderFieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company as SyncObjectCompany;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper\CompanyObjectHelper;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\UserBundle\Model\UserModel;
 
-final class CompanyObjectHelperTest extends MauticMysqlTestCase
+final class CompanyObjectHelperTest extends MailVotechMysqlTestCase
 {
     public function testUpdateEmpty(): void
     {
@@ -65,7 +65,7 @@ final class CompanyObjectHelperTest extends MauticMysqlTestCase
 
     private function buildObjectChangeDAO(Company $company, string $name, string $value): ObjectChangeDAO
     {
-        $objectChangeDAO = new ObjectChangeDAO('Test', MauticSyncDataExchange::OBJECT_COMPANY, $company->getId(), SyncObjectCompany::NAME, $company->getId(), new \DateTime());
+        $objectChangeDAO = new ObjectChangeDAO('Test', MailVotechSyncDataExchange::OBJECT_COMPANY, $company->getId(), SyncObjectCompany::NAME, $company->getId(), new \DateTime());
         $objectChangeDAO->addField(new OrderFieldDAO($name, new NormalizedValueDAO(NormalizedValueDAO::PHONE_TYPE, $value)));
 
         return $objectChangeDAO;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Collector;
+namespace MailVotech\FormBundle\Collector;
 
-use Mautic\CacheBundle\Cache\CacheProviderTagAwareInterface;
+use MailVotech\CacheBundle\Cache\CacheProviderTagAwareInterface;
 
 /**
  * We need to store mapped fields in the form field builder so we could remove the used ones from the select box.
@@ -69,11 +69,11 @@ final readonly class AlreadyMappedFieldCollector implements AlreadyMappedFieldCo
 
     private function buildCacheKey(string $formId, string $object): string
     {
-        return sprintf('mautic.form.%s.object.%s.fields.mapped', $formId, $object);
+        return sprintf('mailvotech.form.%s.object.%s.fields.mapped', $formId, $object);
     }
 
     private function buildCacheTag(string $formId): string
     {
-        return sprintf('mautic.form.%s.fields.mapped', $formId);
+        return sprintf('mailvotech.form.%s.fields.mapped', $formId);
     }
 }

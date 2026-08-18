@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Tests\Functional\Controller;
+namespace MailVotech\NotificationBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class MobileNotificationControllerTest extends MauticMysqlTestCase
+final class MobileNotificationControllerTest extends MailVotechMysqlTestCase
 {
     /**
      * Smoke test to ensure the '/s/mobile_notifications' route loads.

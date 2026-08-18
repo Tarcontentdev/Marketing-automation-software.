@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Extension;
+namespace MailVotech\CoreBundle\Twig\Extension;
 
-use Mautic\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

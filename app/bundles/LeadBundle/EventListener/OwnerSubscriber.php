@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\EmailBuilderEvent;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\PageBundle\Event\UrlTokenReplaceEvent;
-use Mautic\SmsBundle\Event\TokensBuildEvent;
-use Mautic\SmsBundle\SmsEvents;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\EmailBuilderEvent;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\PageBundle\Event\UrlTokenReplaceEvent;
+use MailVotech\SmsBundle\Event\TokensBuildEvent;
+use MailVotech\SmsBundle\SmsEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -146,8 +146,8 @@ final class OwnerSubscriber implements EventSubscriberInterface
     {
         return sprintf(
             '%s: %s',
-            $this->translator->trans('mautic.lead.list.filter.owner'),
-            $this->translator->trans('mautic.core.'.$field)
+            $this->translator->trans('mailvotech.lead.list.filter.owner'),
+            $this->translator->trans('mailvotech.core.'.$field)
         );
     }
 

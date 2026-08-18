@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Extension;
+namespace MailVotech\CoreBundle\Twig\Extension;
 
-use Mautic\CoreBundle\Twig\Helper\ButtonHelper;
+use MailVotech\CoreBundle\Twig\Helper\ButtonHelper;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -144,7 +144,7 @@ final class ButtonExtension extends AbstractExtension
                         [
                             'confirm' => [
                                 'message' => $this->translator->trans(
-                                    'mautic.'.$langVar.'.form.confirmdelete',
+                                    'mailvotech.'.$langVar.'.form.confirmdelete',
                                     ['%name%' => $item->{$nameGetter}().' ('.$item->getId().')']
                                 ),
                                 'confirmAction' => $this->router->generate(
@@ -176,7 +176,7 @@ final class ButtonExtension extends AbstractExtension
                             $mergeAttr
                         ),
                         'iconClass' => 'ri-'.$icon,
-                        'btnText'   => $this->translator->trans('mautic.core.form.'.$action),
+                        'btnText'   => $this->translator->trans('mailvotech.core.form.'.$action),
                         'priority'  => $priority,
                         'primary'   => $primary,
                         'tooltip'   => $tooltip,

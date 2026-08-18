@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\IpLookup\DoNotSellList\MaxMindDoNotSellList;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\CoreBundle\IpLookup\DoNotSellList\MaxMindDoNotSellList;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -14,14 +14,14 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * CLI Command to purge data from Mautic that appears on the
+ * CLI Command to purge data from MailVotech that appears on the
  * MaxMind Do Not Sell list.
  */
 #[AsCommand(
-    name: 'mautic:max-mind:purge',
+    name: 'mailvotech:max-mind:purge',
     description: 'Purge data connected to MaxMind Do Not Sell list.',
     help: <<<'TXT'
-The <info>%command.name%</info> command will purge all data from Mautic which is related to any IP found on the MaxMind Do Not Sell List.
+The <info>%command.name%</info> command will purge all data from MailVotech which is related to any IP found on the MaxMind Do Not Sell List.
 
 <info>php %command.full_name% --dry-run</info>
 
@@ -104,8 +104,8 @@ final class MaxMindDoNotSellPurgeCommand extends Command
         $in  = "'".implode("','", $ips)."'";
         $sql =
             'SELECT x.lead_id AS id, ip.ip_address AS ip_address '.
-             'FROM '.MAUTIC_TABLE_PREFIX.'lead_ips_xref x '.
-             'JOIN '.MAUTIC_TABLE_PREFIX.'ip_addresses ip ON x.ip_id = ip.id '.
+             'FROM '.MAILVOTECH_TABLE_PREFIX.'lead_ips_xref x '.
+             'JOIN '.MAILVOTECH_TABLE_PREFIX.'ip_addresses ip ON x.ip_id = ip.id '.
              'WHERE ip.ip_address IN ('.$in.')';
 
         $conn   = $this->em->getConnection();

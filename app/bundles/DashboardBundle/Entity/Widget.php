@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\DashboardBundle\Entity;
+namespace MailVotech\DashboardBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Helper\InputHelper;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -100,7 +100,7 @@ class Widget extends FormEntity
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addPropertyConstraint('type', new NotBlank(message: 'mautic.core.type.required'));
+        $metadata->addPropertyConstraint('type', new NotBlank(message: 'mailvotech.core.type.required'));
     }
 
     /**

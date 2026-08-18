@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Controller;
+namespace MailVotech\PointBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PointBundle\Entity\PointInsight;
-use Mautic\PointBundle\Model\InsightModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PointBundle\Entity\PointInsight;
+use MailVotech\PointBundle\Model\InsightModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class InsightControllerTest extends MauticMysqlTestCase
+final class InsightControllerTest extends MailVotechMysqlTestCase
 {
     public function testInsightIndexActionWithoutPage(): void
     {

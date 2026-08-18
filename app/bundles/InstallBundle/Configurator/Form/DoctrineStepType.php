@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\InstallBundle\Configurator\Form;
+namespace MailVotech\InstallBundle\Configurator\Form;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\InstallBundle\Configurator\Step\DoctrineStep;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\InstallBundle\Configurator\Step\DoctrineStep;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -32,7 +32,7 @@ final class DoctrineStepType extends AbstractType
                 'choices'           => array_flip(DoctrineStep::getDrivers()),
                 'expanded'          => false,
                 'multiple'          => false,
-                'label'             => 'mautic.install.form.database.driver',
+                'label'             => 'mailvotech.install.form.database.driver',
                 'label_attr'        => ['class' => 'control-label'],
                 'placeholder'       => false,
                 'required'          => true,
@@ -41,7 +41,7 @@ final class DoctrineStepType extends AbstractType
                 ],
                 'constraints'       => [
                     new Choice(
-                        callback: '\Mautic\InstallBundle\Configurator\Step\DoctrineStep::getDriverKeys'
+                        callback: '\MailVotech\InstallBundle\Configurator\Step\DoctrineStep::getDriverKeys'
                     ),
                 ],
             ]
@@ -51,7 +51,7 @@ final class DoctrineStepType extends AbstractType
             'host',
             TextType::class,
             [
-                'label'      => 'mautic.install.form.database.host',
+                'label'      => 'mailvotech.install.form.database.host',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => true,
@@ -62,7 +62,7 @@ final class DoctrineStepType extends AbstractType
             'port',
             TextType::class,
             [
-                'label'      => 'mautic.install.form.database.port',
+                'label'      => 'mailvotech.install.form.database.port',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -73,7 +73,7 @@ final class DoctrineStepType extends AbstractType
             'name',
             TextType::class,
             [
-                'label'      => 'mautic.install.form.database.name',
+                'label'      => 'mailvotech.install.form.database.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => true,
@@ -84,7 +84,7 @@ final class DoctrineStepType extends AbstractType
             'table_prefix',
             TextType::class,
             [
-                'label'      => 'mautic.install.form.database.table.prefix',
+                'label'      => 'mailvotech.install.form.database.table.prefix',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -95,7 +95,7 @@ final class DoctrineStepType extends AbstractType
             'user',
             TextType::class,
             [
-                'label'      => 'mautic.install.form.database.user',
+                'label'      => 'mailvotech.install.form.database.user',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => true,
@@ -106,7 +106,7 @@ final class DoctrineStepType extends AbstractType
             'password',
             PasswordType::class,
             [
-                'label'      => 'mautic.install.form.database.password',
+                'label'      => 'mailvotech.install.form.database.password',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
@@ -120,10 +120,10 @@ final class DoctrineStepType extends AbstractType
             'backup_tables',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.install.form.existing_tables',
+                'label' => 'mailvotech.install.form.existing_tables',
                 'attr'  => [
-                    'tooltip'  => 'mautic.install.form.existing_tables_descr',
-                    'onchange' => 'MauticInstaller.toggleBackupPrefix();',
+                    'tooltip'  => 'mailvotech.install.form.existing_tables_descr',
+                    'onchange' => 'MailVotechInstaller.toggleBackupPrefix();',
                 ],
             ]
         );
@@ -132,7 +132,7 @@ final class DoctrineStepType extends AbstractType
             'backup_prefix',
             TextType::class,
             [
-                'label'      => 'mautic.install.form.backup_prefix',
+                'label'      => 'mailvotech.install.form.backup_prefix',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -148,12 +148,12 @@ final class DoctrineStepType extends AbstractType
                 'pre_extra_buttons' => [
                     [
                         'name'  => 'next',
-                        'label' => 'mautic.install.next.step',
+                        'label' => 'mailvotech.install.next.step',
                         'type'  => 'submit',
                         'attr'  => [
                             'class'   => 'btn btn-success pull-right btn-next',
                             'icon'    => 'ri-arrow-right-circle-line',
-                            'onclick' => 'MauticInstaller.showWaitMessage(event);',
+                            'onclick' => 'MailVotechInstaller.showWaitMessage(event);',
                         ],
                     ],
                 ],

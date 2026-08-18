@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\ChannelBundle\Helper;
+namespace MailVotech\ChannelBundle\Helper;
 
-use Mautic\ChannelBundle\ChannelEvents;
-use Mautic\ChannelBundle\Event\ChannelEvent;
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\ChannelBundle\ChannelEvents;
+use MailVotech\ChannelBundle\Event\ChannelEvent;
+use MailVotech\CoreBundle\Translation\Translator;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ChannelListHelper
@@ -85,8 +85,8 @@ class ChannelListHelper
     public function getChannelLabel($channel): string
     {
         return match (true) {
-            $this->translator->hasId('mautic.channel.'.$channel)      => $this->translator->trans('mautic.channel.'.$channel),
-            $this->translator->hasId('mautic.'.$channel.'.'.$channel) => $this->translator->trans('mautic.'.$channel.'.'.$channel),
+            $this->translator->hasId('mailvotech.channel.'.$channel)      => $this->translator->trans('mailvotech.channel.'.$channel),
+            $this->translator->hasId('mailvotech.'.$channel.'.'.$channel) => $this->translator->trans('mailvotech.'.$channel.'.'.$channel),
             default                                                   => ucfirst($channel),
         };
     }

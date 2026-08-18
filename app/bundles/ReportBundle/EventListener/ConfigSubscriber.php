@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\EventListener;
+namespace MailVotech\ReportBundle\EventListener;
 
-use Mautic\ConfigBundle\ConfigEvents;
-use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use Mautic\ReportBundle\Form\Type\ConfigType;
+use MailVotech\ConfigBundle\ConfigEvents;
+use MailVotech\ConfigBundle\Event\ConfigBuilderEvent;
+use MailVotech\ReportBundle\Form\Type\ConfigType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ConfigSubscriber implements EventSubscriberInterface
@@ -24,8 +24,8 @@ final class ConfigSubscriber implements EventSubscriberInterface
             'bundle'     => 'ReportBundle',
             'formAlias'  => 'reportconfig',
             'formType'   => ConfigType::class,
-            'formTheme'  => '@MauticReport/FormTheme/Config/_config_reportconfig_widget.html.twig',
-            'parameters' => $event->getParametersFromConfig('MauticReportBundle'),
+            'formTheme'  => '@MailVotechReport/FormTheme/Config/_config_reportconfig_widget.html.twig',
+            'parameters' => $event->getParametersFromConfig('MailVotechReportBundle'),
         ]);
     }
 }

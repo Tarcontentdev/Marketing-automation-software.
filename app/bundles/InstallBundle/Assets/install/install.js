@@ -1,5 +1,5 @@
-var MauticLang = {};
-var MauticInstaller = {
+var MailVotechLang = {};
+var MailVotechInstaller = {
     showWaitMessage: function(event) {
         event.preventDefault();
 

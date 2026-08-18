@@ -15,42 +15,42 @@
         <table class="table table-hover notification-list">
             <thead>
             <tr>
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'checkall': 'true',
                 }) }}
 
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'notification',
                         'orderBy': 'e.name',
-                        'text': 'mautic.core.name',
+                        'text': 'mailvotech.core.name',
                         'class': 'col-notification-name',
                         'default': true,
                 }) }}
 
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'notification',
                         'orderBy': 'c.title',
-                        'text': 'mautic.core.category',
+                        'text': 'mailvotech.core.category',
                         'class': 'visible-md visible-lg col-notification-category',
                 }) }}
 
-                <th class="visible-sm visible-md visible-lg col-notification-stats">{{ 'mautic.core.stats'|trans }}</th>
+                <th class="visible-sm visible-md visible-lg col-notification-stats">{{ 'mailvotech.core.stats'|trans }}</th>
 
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'notification',
                         'orderBy': 'e.id',
-                        'text': 'mautic.core.id',
+                        'text': 'mailvotech.core.id',
                         'class': 'visible-md visible-lg col-notification-id',
                 }) }}
             </tr>
             </thead>
             <tbody>
-            {# @var \Mautic\NotificationBundle\Entity\Notification $item #}
+            {# @var \MailVotech\NotificationBundle\Entity\Notification $item #}
             {% for item in items %}
                 {% set type = item.notificationType %}
                 <tr>
                     <td>
-                        {{ include('@MauticCore/Helper/list_actions.html.twig', {
+                        {{ include('@MailVotechCore/Helper/list_actions.html.twig', {
                                 'item': item,
                                 'templateButtons': {
                                     'edit': securityHasEntityAccess(permissions['notification:notifications:editown'], permissions['notification:notifications:editother'], item.createdBy),
@@ -61,12 +61,12 @@
                                     {
                                         'attr': {
                                             'data-toggle': 'ajaxmodal',
-                                            'data-target': '#MauticSharedModal',
-                                            'data-header': 'mautic.notification.notification.header.preview'|trans,
+                                            'data-target': '#MailVotechSharedModal',
+                                            'data-header': 'mailvotech.notification.notification.header.preview'|trans,
                                             'data-footer': 'false',
-                                            'href': path('mautic_notification_action', {'objectId': item.id, 'objectAction': 'preview'}),
+                                            'href': path('mailvotech_notification_action', {'objectId': item.id, 'objectAction': 'preview'}),
                                         },
-                                        'btnText': 'mautic.notification.preview'|trans,
+                                        'btnText': 'mailvotech.notification.preview'|trans,
                                         'iconClass': 'ri-share-forward-box-fill',
                                     },
                                 ],
@@ -75,28 +75,28 @@
                     <td>
                         <div>
                             {% if 'template' == type %}
-                                {{ include('@MauticCore/Helper/publishstatus_icon.html.twig', {'item': item, 'model': 'notification'}) }}
+                                {{ include('@MailVotechCore/Helper/publishstatus_icon.html.twig', {'item': item, 'model': 'notification'}) }}
                             {% else %}
                                 <i class="ri-fw ri-lg ri-toggle-fill text-secondary disabled"></i>
                             {% endif %}
-                            <a href="{{ path('mautic_notification_action', {'objectAction': 'view', 'objectId': item.id}) }}" data-toggle="ajax">
+                            <a href="{{ path('mailvotech_notification_action', {'objectAction': 'view', 'objectId': item.id}) }}" data-toggle="ajax">
                                 {{ item.name }}
                                 {% if 'list' == type %}
-                                    <span data-toggle="tooltip" title="{{ 'mautic.notification.icon_tooltip.list_notification'|trans }}"><i class="ri-fw ri-list-check"></i></span>
+                                    <span data-toggle="tooltip" title="{{ 'mailvotech.notification.icon_tooltip.list_notification'|trans }}"><i class="ri-fw ri-list-check"></i></span>
                                 {% endif %}
                             </a>
                             {{ customContent('notification.name', _context) }}
                         </div>
                     </td>
                     <td class="visible-md visible-lg">
-                        {{ include('@MauticCore/Modules/category--expanded.html.twig', {'category': item.category}) }}
+                        {{ include('@MailVotechCore/Modules/category--expanded.html.twig', {'category': item.category}) }}
                     </td>
                     <td class="visible-sm visible-md visible-lg col-stats">
                         <span class="mt-xs label label-green"
                               data-toggle="tooltip"
-                              title="{{ 'mautic.channel.stat.leadcount.tooltip'|trans }}">
-                            <a href="{{ path('mautic_contact_index', {'search': 'mautic.lead.lead.searchcommand.web_sent'|trans ~ ':' ~ item.id}) }}">
-                              {{- 'mautic.notification.stat.sentcount'|trans({'%count%': item.getSentCount(true)}) -}}
+                              title="{{ 'mailvotech.channel.stat.leadcount.tooltip'|trans }}">
+                            <a href="{{ path('mailvotech_contact_index', {'search': 'mailvotech.lead.lead.searchcommand.web_sent'|trans ~ ':' ~ item.id}) }}">
+                              {{- 'mailvotech.notification.stat.sentcount'|trans({'%count%': item.getSentCount(true)}) -}}
                             </a>
                         </span>
                     </td>
@@ -107,14 +107,14 @@
         </table>
     </div>
     <div class="panel-footer">
-        {{ include('@MauticCore/Helper/pagination.html.twig', {
+        {{ include('@MailVotechCore/Helper/pagination.html.twig', {
                 'totalItems': totalItems,
                 'page': page,
                 'limit': limit,
-                'baseUrl': path('mautic_notification_index'),
+                'baseUrl': path('mailvotech_notification_index'),
                 'sessionVar': 'notification',
         }) }}
     </div>
 {% else %}
-    {{ include('@MauticCore/Helper/noresults.html.twig') }}
+    {{ include('@MailVotechCore/Helper/noresults.html.twig') }}
 {% endif %}

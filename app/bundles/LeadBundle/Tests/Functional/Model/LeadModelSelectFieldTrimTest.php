@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\Model;
+namespace MailVotech\LeadBundle\Tests\Functional\Model;
 
-use Mautic\CampaignBundle\Entity\Event as CampaignEvent;
-use Mautic\CampaignBundle\Model\EventModel;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\LeadBundle\Entity\LeadField;
+use MailVotech\CampaignBundle\Entity\Event as CampaignEvent;
+use MailVotech\CampaignBundle\Model\EventModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\LeadBundle\Entity\LeadField;
 
-final class LeadModelSelectFieldTrimTest extends MauticMysqlTestCase
+final class LeadModelSelectFieldTrimTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 

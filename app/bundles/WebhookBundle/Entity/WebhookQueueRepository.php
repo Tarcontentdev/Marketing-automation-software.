@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Entity;
+namespace MailVotech\WebhookBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 
 /**
  * @extends CommonRepository<WebhookQueue>
@@ -26,7 +26,7 @@ class WebhookQueueRepository extends CommonRepository
         }
 
         $qb = $this->_em->getConnection()->createQueryBuilder();
-        $qb->delete(MAUTIC_TABLE_PREFIX.'webhook_queue')
+        $qb->delete(MAILVOTECH_TABLE_PREFIX.'webhook_queue')
             ->where(
                 $qb->expr()->in('id', ':ids')
             )
@@ -44,7 +44,7 @@ class WebhookQueueRepository extends CommonRepository
         }
 
         $qb = $this->_em->getConnection()->createQueryBuilder();
-        $qb->update(MAUTIC_TABLE_PREFIX.'webhook_queue')
+        $qb->update(MAILVOTECH_TABLE_PREFIX.'webhook_queue')
             ->where(
                 $qb->expr()->in('id', ':ids')
             )
@@ -62,7 +62,7 @@ class WebhookQueueRepository extends CommonRepository
     {
         $qb     = $this->_em->getConnection()->createQueryBuilder();
         $result = $qb->select($this->getTableAlias().'.id')
-            ->from(MAUTIC_TABLE_PREFIX.'webhook_queue', $this->getTableAlias())
+            ->from(MAILVOTECH_TABLE_PREFIX.'webhook_queue', $this->getTableAlias())
             ->where($this->getTableAlias().'.webhook_id = :id')
             ->setParameter('id', $id)
             ->setMaxResults(1)

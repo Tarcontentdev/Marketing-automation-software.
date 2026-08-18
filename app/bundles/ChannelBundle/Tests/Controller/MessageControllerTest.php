@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Tests\Controller;
+namespace MailVotech\ChannelBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-final class MessageControllerTest extends MauticMysqlTestCase
+final class MessageControllerTest extends MailVotechMysqlTestCase
 {
     public function testMMUiWorkflow(): void
     {

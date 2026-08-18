@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\EventListener;
+namespace MailVotech\CampaignBundle\Tests\EventListener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Event\CampaignEvent;
-use Mautic\CampaignBundle\Event\ExecutedEvent;
-use Mautic\CampaignBundle\Event\FailedEvent;
-use Mautic\CampaignBundle\Event\NotifyOfFailureEvent;
-use Mautic\CampaignBundle\Event\NotifyOfUnpublishEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
-use Mautic\CampaignBundle\EventListener\CampaignEventSubscriber;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Event\CampaignEvent;
+use MailVotech\CampaignBundle\Event\ExecutedEvent;
+use MailVotech\CampaignBundle\Event\FailedEvent;
+use MailVotech\CampaignBundle\Event\NotifyOfFailureEvent;
+use MailVotech\CampaignBundle\Event\NotifyOfUnpublishEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
+use MailVotech\CampaignBundle\EventListener\CampaignEventSubscriber;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

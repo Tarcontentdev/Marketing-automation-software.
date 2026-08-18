@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\DependencyInjection;
+namespace MailVotech\CoreBundle\Tests\Functional\DependencyInjection;
 
 final class ControllerSmokeTest extends AbstractContainerSmokeTestCase
 {
@@ -13,7 +13,7 @@ final class ControllerSmokeTest extends AbstractContainerSmokeTestCase
 
     public function testAllControllersCanBeCreated(): void
     {
-        // not all Mautic controllers extend the Symfony one, so match the class name
+        // not all MailVotech controllers extend the Symfony one, so match the class name
         $controllers = array_filter(
             $this->createAllServices(),
             fn (object $service): bool => str_ends_with($service::class, 'Controller') && $this->isLocalService($service)

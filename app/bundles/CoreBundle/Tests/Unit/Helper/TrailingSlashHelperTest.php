@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\TrailingSlashHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\TrailingSlashHelper;
 use Symfony\Component\HttpFoundation\Request;
 
 final class TrailingSlashHelperTest extends \PHPUnit\Framework\TestCase
@@ -50,7 +50,7 @@ final class TrailingSlashHelperTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('https://test.com/google.com', $this->getHelper()->getSafeRedirectUrl($request));
     }
 
-    public function testMauticUrlWithTrailingSlashIsGeneratedCorrectly(): void
+    public function testMailVotechUrlWithTrailingSlashIsGeneratedCorrectly(): void
     {
         $server = [
             'HTTP_HOST'       => 'test.com',

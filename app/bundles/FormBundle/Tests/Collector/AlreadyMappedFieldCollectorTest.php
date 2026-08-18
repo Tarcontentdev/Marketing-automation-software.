@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Collector;
+namespace MailVotech\FormBundle\Tests\Collector;
 
-use Mautic\CacheBundle\Cache\CacheProviderTagAwareInterface;
-use Mautic\FormBundle\Collector\AlreadyMappedFieldCollector;
+use MailVotech\CacheBundle\Cache\CacheProviderTagAwareInterface;
+use MailVotech\FormBundle\Collector\AlreadyMappedFieldCollector;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Cache\CacheItem;
 
@@ -42,7 +42,7 @@ final class AlreadyMappedFieldCollectorTest extends \PHPUnit\Framework\TestCase
         $object    = 'contact';
 
         $this->cacheProvider->method('getItem')
-            ->with('mautic.form.3.object.contact.fields.mapped')
+            ->with('mailvotech.form.3.object.contact.fields.mapped')
             ->willReturn($cacheItem);
 
         $this->cacheProvider->expects($this->exactly(4))
@@ -83,7 +83,7 @@ final class AlreadyMappedFieldCollectorTest extends \PHPUnit\Framework\TestCase
 
         $this->cacheProvider->expects($this->once())
             ->method('invalidateTags')
-            ->with(['mautic.form.3.fields.mapped']);
+            ->with(['mailvotech.form.3.fields.mapped']);
 
         $this->collector->removeAllForForm($formId);
     }

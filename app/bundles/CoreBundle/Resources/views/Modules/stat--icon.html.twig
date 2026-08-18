@@ -22,7 +22,7 @@
         {% endset %}
 
         {% if stat.link is defined and stat.value != 0 %}
-            {% include '@MauticCore/Components/tile.html.twig' with {
+            {% include '@MailVotechCore/Components/tile.html.twig' with {
                 type: 'clickable',
                 content: tileContent,
                 href: stat.link,
@@ -30,7 +30,7 @@
                 attributes: {'data-toggle': 'ajax'}
             } %}
         {% else %}
-            {% include '@MauticCore/Components/tile.html.twig' with {
+            {% include '@MailVotechCore/Components/tile.html.twig' with {
                 content: tileContent
             } %}
         {% endif %}

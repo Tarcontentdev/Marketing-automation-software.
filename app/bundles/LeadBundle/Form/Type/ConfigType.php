@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -25,10 +25,10 @@ final class ConfigType extends AbstractType
             'contact_allow_multiple_companies',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.core.config.allow_multiple_companies',
+                'label' => 'mailvotech.core.config.allow_multiple_companies',
                 'attr'  => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.allow_multiple_companies.tooltip',
+                    'tooltip' => 'mailvotech.core.config.allow_multiple_companies.tooltip',
                 ],
                 'data' => (bool) ($options['data']['contact_allow_multiple_companies'] ?? true),
             ]
@@ -39,14 +39,14 @@ final class ConfigType extends AbstractType
             ChoiceType::class,
             [
                 'choices'           => [
-                    'mautic.core.config.contact_unique_identifiers_operator.or'    => CompositeExpression::TYPE_OR,
-                    'mautic.core.config.contact_unique_identifiers_operator.and'   => CompositeExpression::TYPE_AND,
+                    'mailvotech.core.config.contact_unique_identifiers_operator.or'    => CompositeExpression::TYPE_OR,
+                    'mailvotech.core.config.contact_unique_identifiers_operator.and'   => CompositeExpression::TYPE_AND,
                 ],
-                'label'             => 'mautic.core.config.unique_identifiers_operator',
+                'label'             => 'mailvotech.core.config.unique_identifiers_operator',
                 'required'          => false,
                 'attr'              => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.unique_identifiers_operator.tooltip',
+                    'tooltip' => 'mailvotech.core.config.unique_identifiers_operator.tooltip',
                 ],
                 'placeholder'       => false,
             ]
@@ -56,21 +56,21 @@ final class ConfigType extends AbstractType
             'background_import_if_more_rows_than',
             NumberType::class,
             [
-                'label'      => 'mautic.lead.background.import.if.more.rows.than',
+                'label'      => 'mailvotech.lead.background.import.if.more.rows.than',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.lead.background.import.if.more.rows.than.tooltip',
+                    'tooltip' => 'mailvotech.lead.background.import.if.more.rows.than.tooltip',
                 ],
             ]
         );
 
         $builder->add('contact_export_limit', NumberType::class, [
-            'label'      => 'mautic.lead.export.limit.rows',
+            'label'      => 'mailvotech.lead.export.limit.rows',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => [
                 'class'   => 'form-control',
-                'tooltip' => 'mautic.lead.export.limit.rows.tooltip',
+                'tooltip' => 'mailvotech.lead.export.limit.rows.tooltip',
             ],
             'required'    => false,
             'data'        => $options['data']['contact_export_limit'] ?? 0,
@@ -90,7 +90,7 @@ final class ConfigType extends AbstractType
                 'contact_columns',
                 ContactColumnsType::class,
                 [
-                    'label'       => 'mautic.config.tab.columns',
+                    'label'       => 'mailvotech.config.tab.columns',
                     'label_attr'  => ['class' => 'control-label'],
                     'attr'        => [
                         'class'         => 'form-control multiselect',
@@ -102,7 +102,7 @@ final class ConfigType extends AbstractType
                     'expanded'    => false,
                     'constraints' => [
                         new NotBlank(
-                            message: 'mautic.core.value.required'
+                            message: 'mailvotech.core.value.required'
                         ),
                     ],
                     'data'=> array_flip($orderColumns),
@@ -133,10 +133,10 @@ final class ConfigType extends AbstractType
             'contact_export_in_background',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.lead.background.export.csv',
+                'label' => 'mailvotech.lead.background.export.csv',
                 'data'  => $options['data']['contact_export_in_background'] ?? false,
                 'attr'  => [
-                    'tooltip' => 'mautic.lead.background.export.csv.tooltip',
+                    'tooltip' => 'mailvotech.lead.background.export.csv.tooltip',
                 ],
             ]
         );
@@ -145,10 +145,10 @@ final class ConfigType extends AbstractType
             'contact_export_notify_admins',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.lead.export.notify.admins',
+                'label' => 'mailvotech.lead.export.notify.admins',
                 'data'  => $options['data']['contact_export_notify_admins'] ?? true,
                 'attr'  => [
-                    'tooltip' => 'mautic.lead.export.notify.admins.tooltip',
+                    'tooltip' => 'mailvotech.lead.export.notify.admins.tooltip',
                 ],
             ]
         );

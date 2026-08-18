@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Mautic\CoreBundle\DependencyInjection\MauticCoreExtension;
+use MailVotech\CoreBundle\DependencyInjection\MailVotechCoreExtension;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return function (ContainerConfigurator $configurator): void {
@@ -14,25 +14,25 @@ return function (ContainerConfigurator $configurator): void {
 
     $excludes = [];
 
-    $services->load('Mautic\\MarketplaceBundle\\', '../')
-        ->exclude('../{'.implode(',', array_merge(MauticCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
+    $services->load('MailVotech\\MarketplaceBundle\\', '../')
+        ->exclude('../{'.implode(',', array_merge(MailVotechCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
 
-    $services->set('marketplace.permissions', Mautic\MarketplaceBundle\Security\Permissions\MarketplacePermissions::class)->tag('mautic.permissions');
+    $services->set('marketplace.permissions', MailVotech\MarketplaceBundle\Security\Permissions\MarketplacePermissions::class)->tag('mailvotech.permissions');
 
-    $services->alias(Mautic\MarketplaceBundle\Security\Permissions\MarketplacePermissions::class, 'marketplace.permissions');
+    $services->alias(MailVotech\MarketplaceBundle\Security\Permissions\MarketplacePermissions::class, 'marketplace.permissions');
 
-    $services->set(Mautic\MarketplaceBundle\Api\Connection::class)
-        ->arg('$httpClient', \Symfony\Component\DependencyInjection\Loader\Configurator\service('mautic.http.client'));
+    $services->set(MailVotech\MarketplaceBundle\Api\Connection::class)
+        ->arg('$httpClient', \Symfony\Component\DependencyInjection\Loader\Configurator\service('mailvotech.http.client'));
 
-    $services->set('marketplace.service.plugin_collector', Mautic\MarketplaceBundle\Service\PluginCollector::class);
-    $services->alias(Mautic\MarketplaceBundle\Service\PluginCollector::class, 'marketplace.service.plugin_collector');
-    $services->set('marketplace.service.route_provider', Mautic\MarketplaceBundle\Service\RouteProvider::class);
-    $services->alias(Mautic\MarketplaceBundle\Service\RouteProvider::class, 'marketplace.service.route_provider');
-    $services->set('marketplace.service.config', Mautic\MarketplaceBundle\Service\Config::class);
-    $services->alias(Mautic\MarketplaceBundle\Service\Config::class, 'marketplace.service.config');
+    $services->set('marketplace.service.plugin_collector', MailVotech\MarketplaceBundle\Service\PluginCollector::class);
+    $services->alias(MailVotech\MarketplaceBundle\Service\PluginCollector::class, 'marketplace.service.plugin_collector');
+    $services->set('marketplace.service.route_provider', MailVotech\MarketplaceBundle\Service\RouteProvider::class);
+    $services->alias(MailVotech\MarketplaceBundle\Service\RouteProvider::class, 'marketplace.service.route_provider');
+    $services->set('marketplace.service.config', MailVotech\MarketplaceBundle\Service\Config::class);
+    $services->alias(MailVotech\MarketplaceBundle\Service\Config::class, 'marketplace.service.config');
 
-    $services->set(Mautic\MarketplaceBundle\Service\Allowlist::class)
-        ->arg('$httpClient', \Symfony\Component\DependencyInjection\Loader\Configurator\service('mautic.http.client'));
+    $services->set(MailVotech\MarketplaceBundle\Service\Allowlist::class)
+        ->arg('$httpClient', \Symfony\Component\DependencyInjection\Loader\Configurator\service('mailvotech.http.client'));
 
-    $services->alias('marketplace.model.package', Mautic\MarketplaceBundle\Model\PackageModel::class);
+    $services->alias('marketplace.model.package', MailVotech\MarketplaceBundle\Model\PackageModel::class);
 };

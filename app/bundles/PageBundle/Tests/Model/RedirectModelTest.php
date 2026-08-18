@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Model;
+namespace MailVotech\PageBundle\Tests\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Shortener\Shortener;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Entity\RedirectRepository;
-use Mautic\PageBundle\Event\RedirectGenerationEvent;
-use Mautic\PageBundle\Model\RedirectModel;
-use Mautic\PageBundle\PageEvents;
-use Mautic\PageBundle\Tests\PageTestAbstract;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Shortener\Shortener;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Entity\RedirectRepository;
+use MailVotech\PageBundle\Event\RedirectGenerationEvent;
+use MailVotech\PageBundle\Model\RedirectModel;
+use MailVotech\PageBundle\PageEvents;
+use MailVotech\PageBundle\Tests\PageTestAbstract;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -48,7 +48,7 @@ final class RedirectModelTest extends PageTestAbstract
 
         $dispatcher = new EventDispatcher();
 
-        $url          = 'https://mautic.org';
+        $url          = 'https://mailvotech.org';
         $clickthrough = ['foo' => 'bar'];
 
         $router = $this->createMock(Router::class);
@@ -76,7 +76,7 @@ final class RedirectModelTest extends PageTestAbstract
 
         // URL should just have foo = bar in the CT
         $url = $model->generateRedirectUrl($redirect, $clickthrough);
-        $this->assertEquals('https://mautic.org?ct=YToxOntzOjM6ImZvbyI7czozOiJiYXIiO30%3D', $url);
+        $this->assertEquals('https://mailvotech.org?ct=YToxOntzOjM6ImZvbyI7czozOiJiYXIiO30%3D', $url);
 
         // Add the listener to append something else to the CT
         $dispatcher->addListener(
@@ -86,6 +86,6 @@ final class RedirectModelTest extends PageTestAbstract
             }
         );
         $url = $model->generateRedirectUrl($redirect, $clickthrough);
-        $this->assertEquals('https://mautic.org?ct=YToyOntzOjM6ImZvbyI7czozOiJiYXIiO3M6MzoiYmFyIjtzOjM6ImZvbyI7fQ%3D%3D', $url);
+        $this->assertEquals('https://mailvotech.org?ct=YToyOntzOjM6ImZvbyI7czozOiJiYXIiO3M6MzoiYmFyIjtzOjM6ImZvbyI7fQ%3D%3D', $url);
     }
 }

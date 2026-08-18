@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Command;
+namespace MailVotech\CoreBundle\Tests\Functional\Command;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CoreBundle\Command\EntityExportCommand;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CoreBundle\Command\EntityExportCommand;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class EntityExportCommandTest extends MauticMysqlTestCase
+final class EntityExportCommandTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {

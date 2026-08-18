@@ -13,7 +13,7 @@
         <li class="list-group-item">
             <i class="ri-lg ri-fw {{ switch }} {{ bgClass }}"
                id="companyLeadsToggle{{ company.id }}"
-               onclick="Mautic.toggleCompanyLead('companyLeadsToggle{{ company.id }}', {{ leadId }}, {{ company.id }});"></i>
+               onclick="MailVotech.toggleCompanyLead('companyLeadsToggle{{ company.id }}', {{ leadId }}, {{ company.id }});"></i>
             <span>{{ company.companyname|purify }}</span>
         </li>
     {% endfor %}

@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\EventListener;
+namespace MailVotech\FormBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\FormBundle\Event\SubmissionEvent;
-use Mautic\FormBundle\EventListener\FormSubscriber;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\FormBundle\Event\SubmissionEvent;
+use MailVotech\FormBundle\EventListener\FormSubscriber;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -497,7 +497,7 @@ New line',
     private function getFormRepostAction(): Action
     {
         $onSubmitActionConfig = [
-            'post_url'             => 'https://mautic.org',
+            'post_url'             => 'https://mailvotech.org',
             'failure_email'        => '',
             'authorization_header' => '',
         ];

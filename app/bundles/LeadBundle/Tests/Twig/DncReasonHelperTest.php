@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Twig;
+namespace MailVotech\LeadBundle\Tests\Twig;
 
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Exception\UnknownDncReasonException;
-use Mautic\LeadBundle\Twig\Helper\DncReasonHelper;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Exception\UnknownDncReasonException;
+use MailVotech\LeadBundle\Twig\Helper\DncReasonHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class DncReasonHelperTest extends \PHPUnit\Framework\TestCase
@@ -15,20 +15,20 @@ final class DncReasonHelperTest extends \PHPUnit\Framework\TestCase
      * @var array<int, string>
      */
     private array $reasonTo = [
-        DoNotContact::IS_CONTACTABLE => 'mautic.lead.event.donotcontact_contactable',
-        DoNotContact::UNSUBSCRIBED   => 'mautic.lead.event.donotcontact_unsubscribed',
-        DoNotContact::BOUNCED        => 'mautic.lead.event.donotcontact_bounced',
-        DoNotContact::MANUAL         => 'mautic.lead.event.donotcontact_manual',
+        DoNotContact::IS_CONTACTABLE => 'mailvotech.lead.event.donotcontact_contactable',
+        DoNotContact::UNSUBSCRIBED   => 'mailvotech.lead.event.donotcontact_unsubscribed',
+        DoNotContact::BOUNCED        => 'mailvotech.lead.event.donotcontact_bounced',
+        DoNotContact::MANUAL         => 'mailvotech.lead.event.donotcontact_manual',
     ];
 
     /**
      * @var array<string, string>
      */
     private array $translations = [
-        'mautic.lead.event.donotcontact_contactable'  => 'a',
-        'mautic.lead.event.donotcontact_unsubscribed' => 'b',
-        'mautic.lead.event.donotcontact_bounced'      => 'c',
-        'mautic.lead.event.donotcontact_manual'       => 'd',
+        'mailvotech.lead.event.donotcontact_contactable'  => 'a',
+        'mailvotech.lead.event.donotcontact_unsubscribed' => 'b',
+        'mailvotech.lead.event.donotcontact_bounced'      => 'c',
+        'mailvotech.lead.event.donotcontact_manual'       => 'd',
     ];
 
     public function testToText(): void

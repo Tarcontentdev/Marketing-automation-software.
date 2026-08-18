@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 class BundleHelper
 {
@@ -25,13 +25,13 @@ class BundleHelper
      *
      * @return mixed[]
      */
-    public function getMauticBundles($includePlugins = true): array
+    public function getMailVotechBundles($includePlugins = true): array
     {
         return $includePlugins ? $this->allBundles : $this->coreBundles;
     }
 
     /**
-     * Get's an array of details for enabled Mautic plugins.
+     * Get's an array of details for enabled MailVotech plugins.
      */
     public function getPluginBundles(): array
     {
@@ -51,7 +51,7 @@ class BundleHelper
     public function getBundleConfig($bundleName, $configKey = '', $includePlugins = false)
     {
         // get the configs
-        $configFiles = $this->getMauticBundles($includePlugins);
+        $configFiles = $this->getMailVotechBundles($includePlugins);
 
         // if no bundle name specified we throw
         if (!$bundleName) {

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Entity;
+namespace MailVotech\CoreBundle\Tests\Functional\Entity;
 
-use Mautic\CoreBundle\Entity\AuditLog;
-use Mautic\CoreBundle\Entity\AuditLogRepository;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Entity\AuditLog;
+use MailVotech\CoreBundle\Entity\AuditLogRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class AuditLogRepositoryTest extends MauticMysqlTestCase
+final class AuditLogRepositoryTest extends MailVotechMysqlTestCase
 {
     /**
      * @param mixed[] $filters

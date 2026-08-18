@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\FormBundle\Event\SubmissionEvent;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\EventListener\FormSubscriber;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\DoNotContact;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\PointBundle\Model\PointGroupModel;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\FormBundle\Event\SubmissionEvent;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\EventListener\FormSubscriber;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\DoNotContact;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\PointBundle\Model\PointGroupModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 

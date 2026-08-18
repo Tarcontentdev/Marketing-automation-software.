@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Security\Permissions;
+namespace MailVotech\CoreBundle\Tests\Unit\Security\Permissions;
 
-use Mautic\ApiBundle\Security\Permissions\ApiPermissions;
-use Mautic\AssetBundle\Security\Permissions\AssetPermissions;
-use Mautic\CampaignBundle\Security\Permissions\CampaignPermissions;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use MauticPlugin\MauticFocusBundle\Security\Permissions\FocusPermissions;
+use MailVotech\ApiBundle\Security\Permissions\ApiPermissions;
+use MailVotech\AssetBundle\Security\Permissions\AssetPermissions;
+use MailVotech\CampaignBundle\Security\Permissions\CampaignPermissions;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotechPlugin\MailVotechFocusBundle\Security\Permissions\FocusPermissions;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

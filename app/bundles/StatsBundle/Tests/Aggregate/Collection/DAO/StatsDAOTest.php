@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StatsBundle\Tests\Aggregate\Collection\DAO;
+namespace MailVotech\StatsBundle\Tests\Aggregate\Collection\DAO;
 
-use Mautic\StatsBundle\Aggregate\Collection\DAO\StatsDAO;
+use MailVotech\StatsBundle\Aggregate\Collection\DAO\StatsDAO;
 use PHPUnit\Framework\TestCase;
 
 final class StatsDAOTest extends TestCase

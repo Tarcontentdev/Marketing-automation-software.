@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests;
+namespace MailVotech\FormBundle\Tests;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,11 +66,11 @@ trait FormTestHelperTrait
     protected function submitForm(array $form): void
     {
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$form['id']}");
-        $formCrawler = $crawler->filter('form[id=mauticform_submissiontestform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_submissiontestform]');
         $this->assertCount(1, $formCrawler);
         $form = $formCrawler->form();
         $form->setValues([
-            'mauticform[name]' => 'Name',
+            'mailvotechform[name]' => 'Name',
         ]);
         $this->client->submit($form);
 

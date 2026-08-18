@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\CampaignBundle\Executioner\Helper;
+namespace MailVotech\CampaignBundle\Executioner\Helper;
 
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Model\UserModel;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -35,10 +35,10 @@ class NotificationHelper
             'error',
             false,
             $this->translator->trans(
-                'mautic.campaign.event.failed',
+                'mailvotech.campaign.event.failed',
                 [
                     '%contact%' => '<a href="'.$this->router->generate(
-                        'mautic_contact_action',
+                        'mailvotech_contact_action',
                         ['objectAction' => 'view', 'objectId' => $contact->getId()]
                     ).'" data-toggle="ajax">'.$contact->getPrimaryIdentifier().'</a>',
                 ]
@@ -67,10 +67,10 @@ class NotificationHelper
             'error',
             false,
             $this->translator->trans(
-                'mautic.campaign.event.failed.campaign.unpublished',
+                'mailvotech.campaign.event.failed.campaign.unpublished',
                 [
                     '%campaign%' => '<a href="'.$this->router->generate(
-                        'mautic_campaign_action',
+                        'mailvotech_campaign_action',
                         [
                             'objectAction' => 'view',
                             'objectId'     => $campaign->getId(),
@@ -86,17 +86,17 @@ class NotificationHelper
         );
 
         $subject = $this->translator->trans(
-            'mautic.campaign.event.campaign_unpublished',
+            'mailvotech.campaign.event.campaign_unpublished',
             [
                 '%title%' => $campaign->getName(),
             ]
         );
 
         $content = $this->translator->trans(
-            'mautic.campaign.event.failed.campaign.unpublished',
+            'mailvotech.campaign.event.failed.campaign.unpublished',
             [
                 '%campaign%' => '<a href="'.$this->router->generate(
-                    'mautic_campaign_action',
+                    'mailvotech_campaign_action',
                     [
                         'objectAction' => 'view',
                         'objectId'     => $campaign->getId(),

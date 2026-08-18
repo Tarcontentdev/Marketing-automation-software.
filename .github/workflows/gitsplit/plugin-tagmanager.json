@@ -1,9 +1,9 @@
 {
     "subtree-splits": [
         {
-            "name": "MauticTagManagerBundle",
-            "directory": "plugins/MauticTagManagerBundle",
-            "target": "git@github.com:mautic/plugin-tagmanager.git"
+            "name": "MailVotechTagManagerBundle",
+            "directory": "plugins/MailVotechTagManagerBundle",
+            "target": "git@github.com:mailvotech/plugin-tagmanager.git"
         }
     ]
 }

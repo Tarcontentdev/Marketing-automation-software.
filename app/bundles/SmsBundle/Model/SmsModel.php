@@ -1,39 +1,39 @@
 <?php
 
-namespace Mautic\SmsBundle\Model;
+namespace MailVotech\SmsBundle\Model;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\CoreBundle\Helper\CacheStorageHelper;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\AjaxLookupModelInterface;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\CoreBundle\Model\TranslationModelTrait;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PageBundle\Model\TrackableModel;
-use Mautic\SmsBundle\Collection\RecipientCollection;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Entity\SmsRepository;
-use Mautic\SmsBundle\Entity\Stat;
-use Mautic\SmsBundle\Entity\StatRepository;
-use Mautic\SmsBundle\Event\DncEvent;
-use Mautic\SmsBundle\Event\FilterEvent;
-use Mautic\SmsBundle\Event\QueueEvent;
-use Mautic\SmsBundle\Event\SmsEvent;
-use Mautic\SmsBundle\Event\SmsSendEvent;
-use Mautic\SmsBundle\Exception\PrimaryTransportNotEnabledException;
-use Mautic\SmsBundle\Form\Type\SmsType;
-use Mautic\SmsBundle\Helper\DTO\SmsRecipientDTO;
-use Mautic\SmsBundle\Sms\TransportChain;
-use Mautic\SmsBundle\SmsEvents;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\CoreBundle\Helper\CacheStorageHelper;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\AjaxLookupModelInterface;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CoreBundle\Model\TranslationModelTrait;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PageBundle\Model\TrackableModel;
+use MailVotech\SmsBundle\Collection\RecipientCollection;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Entity\SmsRepository;
+use MailVotech\SmsBundle\Entity\Stat;
+use MailVotech\SmsBundle\Entity\StatRepository;
+use MailVotech\SmsBundle\Event\DncEvent;
+use MailVotech\SmsBundle\Event\FilterEvent;
+use MailVotech\SmsBundle\Event\QueueEvent;
+use MailVotech\SmsBundle\Event\SmsEvent;
+use MailVotech\SmsBundle\Event\SmsSendEvent;
+use MailVotech\SmsBundle\Exception\PrimaryTransportNotEnabledException;
+use MailVotech\SmsBundle\Form\Type\SmsType;
+use MailVotech\SmsBundle\Helper\DTO\SmsRecipientDTO;
+use MailVotech\SmsBundle\Sms\TransportChain;
+use MailVotech\SmsBundle\SmsEvents;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -63,13 +63,13 @@ class SmsModel extends FormModel implements AjaxLookupModelInterface, GlobalSear
         UrlGeneratorInterface $router,
         TranslatorInterface $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         CoreParametersHelper $coreParametersHelper,
         private readonly SmsRepository $smsRepository,
         private readonly StatRepository $statRepository,
         private readonly DoNotContactRepository $doNotContactRepository,
     ) {
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function getRepository(): SmsRepository
@@ -221,7 +221,7 @@ class SmsModel extends FormModel implements AjaxLookupModelInterface, GlobalSear
             foreach ($contacts as $contactId => $contact) {
                 $results[$contactId] = [
                     'sent'   => false,
-                    'status' => 'mautic.sms.campaign.failed.unpublished',
+                    'status' => 'mailvotech.sms.campaign.failed.unpublished',
                 ];
             }
 
@@ -234,7 +234,7 @@ class SmsModel extends FormModel implements AjaxLookupModelInterface, GlobalSear
         foreach ($dncEvent->getRemovedContacts() as $contactId) {
             $results[$contactId] = [
                 'sent'   => false,
-                'status' => 'mautic.sms.campaign.failed.not_contactable',
+                'status' => 'mailvotech.sms.campaign.failed.not_contactable',
             ];
         }
 
@@ -251,7 +251,7 @@ class SmsModel extends FormModel implements AjaxLookupModelInterface, GlobalSear
         foreach ($queueEvent->getQueuedContacts() as $contactId) {
             $results[$contactId] = [
                 'sent'   => false,
-                'status' => 'mautic.sms.timeline.status.scheduled',
+                'status' => 'mailvotech.sms.timeline.status.scheduled',
             ];
         }
 
@@ -268,7 +268,7 @@ class SmsModel extends FormModel implements AjaxLookupModelInterface, GlobalSear
         foreach ($filterEvent->getRemovedContacts() as $contactId) {
             $results[$contactId] = [
                 'sent'   => false,
-                'status' => 'mautic.sms.campaign.failed.missing_number',
+                'status' => 'mailvotech.sms.campaign.failed.missing_number',
             ];
         }
 
@@ -339,8 +339,8 @@ class SmsModel extends FormModel implements AjaxLookupModelInterface, GlobalSear
 
             $defaultSendResult = [
                 'sent'    => false,
-                'type'    => 'mautic.sms.sms',
-                'status'  => 'mautic.sms.timeline.status.delivered',
+                'type'    => 'mailvotech.sms.sms',
+                'status'  => 'mailvotech.sms.timeline.status.delivered',
                 'id'      => $recipientCollection->getSms()->getId(),
                 'name'    => $recipientCollection->getSms()->getName(),
             ];
@@ -353,7 +353,7 @@ class SmsModel extends FormModel implements AjaxLookupModelInterface, GlobalSear
                     unset($stats[$recipient->getKey()]);
                 } else {
                     $defaultSendResult['sent']          = true;
-                    $defaultSendResult['status']        = 'mautic.sms.timeline.status.delivered';
+                    $defaultSendResult['status']        = 'mailvotech.sms.timeline.status.delivered';
                     $sentCount[$translatedSms->getId()] = ($sentCount[$translatedSms->getId()] ?? 0) + 1;
                 }
 
@@ -453,7 +453,7 @@ class SmsModel extends FormModel implements AjaxLookupModelInterface, GlobalSear
      */
     public function limitQueryToCreator(QueryBuilder &$q): void
     {
-        $q->join('t', MAUTIC_TABLE_PREFIX.'sms_messages', 's', 's.id = t.sms_id')
+        $q->join('t', MAILVOTECH_TABLE_PREFIX.'sms_messages', 's', 's.id = t.sms_id')
             ->andWhere('s.created_by = :userId')
             ->setParameter('userId', $this->userHelper->getUser()->getId());
     }
@@ -486,7 +486,7 @@ class SmsModel extends FormModel implements AjaxLookupModelInterface, GlobalSear
             }
 
             $data = $query->loadAndBuildTimeData($q);
-            $chart->setDataset($this->translator->trans('mautic.sms.show.total.sent'), $data);
+            $chart->setDataset($this->translator->trans('mailvotech.sms.show.total.sent'), $data);
         }
 
         if (!$flag || 'failed' === $flag) {
@@ -497,7 +497,7 @@ class SmsModel extends FormModel implements AjaxLookupModelInterface, GlobalSear
             }
 
             $data = $query->loadAndBuildTimeData($q);
-            $chart->setDataset($this->translator->trans('mautic.sms.show.failed'), $data);
+            $chart->setDataset($this->translator->trans('mailvotech.sms.show.failed'), $data);
         }
 
         return $chart->render();
@@ -556,7 +556,7 @@ class SmsModel extends FormModel implements AjaxLookupModelInterface, GlobalSear
                 );
 
                 foreach ($entities as $entity) {
-                    $mms                                         = !empty($entity['media']) ? '['.$this->translator->trans('mautic.sms.form.mms').'] ' : '';
+                    $mms                                         = !empty($entity['media']) ? '['.$this->translator->trans('mailvotech.sms.form.mms').'] ' : '';
                     $results[$entity['language']][$entity['id']] = $mms.$entity['name'];
                 }
 

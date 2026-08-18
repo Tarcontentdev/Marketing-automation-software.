@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Command;
+namespace MailVotech\LeadBundle\Command;
 
-use Mautic\CoreBundle\Helper\ExitCode;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Helper\SegmentCountCacheHelper;
+use MailVotech\CoreBundle\Helper\ExitCode;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Helper\SegmentCountCacheHelper;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

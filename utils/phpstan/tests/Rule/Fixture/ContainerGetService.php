@@ -17,12 +17,12 @@ class ContainerGetService
 
     public function viaProperty(): void
     {
-        $this->container->get('mautic.helper.something');
+        $this->container->get('mailvotech.helper.something');
     }
 
     public function viaLocalContainer(ContainerInterface $container): void
     {
-        $container->get('mautic.helper.something');
+        $container->get('mailvotech.helper.something');
     }
 
     public function viaClassConstant(): void

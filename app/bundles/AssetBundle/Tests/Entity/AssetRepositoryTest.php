@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\Entity;
+namespace MailVotech\AssetBundle\Tests\Entity;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Entity\AssetRepository;
-use Mautic\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Entity\AssetRepository;
+use MailVotech\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -23,8 +23,8 @@ final class AssetRepositoryTest extends TestCase
 
         $translator = $this->createMock(TranslatorInterface::class);
         $translator->method('trans')->willReturnCallback(fn (string $id): string => match ($id) {
-            'mautic.asset.asset.searchcommand.isexpired' => 'is:expired',
-            'mautic.asset.asset.searchcommand.ispending' => 'is:pending',
+            'mailvotech.asset.asset.searchcommand.isexpired' => 'is:expired',
+            'mailvotech.asset.asset.searchcommand.ispending' => 'is:pending',
             default                                      => $id,
         });
         $repository->autowireCommonRepository($translator);
@@ -60,7 +60,7 @@ final class AssetRepositoryTest extends TestCase
     {
         $repository = $this->getRepository();
         $commands   = $repository->getSearchCommands();
-        $this->assertContains('mautic.asset.asset.searchcommand.isexpired', $commands);
-        $this->assertContains('mautic.asset.asset.searchcommand.ispending', $commands);
+        $this->assertContains('mailvotech.asset.asset.searchcommand.isexpired', $commands);
+        $this->assertContains('mailvotech.asset.asset.searchcommand.ispending', $commands);
     }
 }

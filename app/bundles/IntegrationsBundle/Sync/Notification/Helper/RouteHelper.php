@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Notification\Helper;
+namespace MailVotech\IntegrationsBundle\Sync\Notification\Helper;
 
-use Mautic\IntegrationsBundle\Event\InternalObjectRouteEvent;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
+use MailVotech\IntegrationsBundle\Event\InternalObjectRouteEvent;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RouteHelper
@@ -29,7 +29,7 @@ class RouteHelper
             $event = new InternalObjectRouteEvent($this->objectProvider->getObjectByName($object), $id);
         } catch (ObjectNotFoundException) {
             // Throw this exception instead to keep BC.
-            throw new ObjectNotSupportedException(MauticSyncDataExchange::NAME, $object);
+            throw new ObjectNotSupportedException(MailVotechSyncDataExchange::NAME, $object);
         }
 
         $this->dispatcher->dispatch($event, IntegrationEvents::INTEGRATION_BUILD_INTERNAL_OBJECT_ROUTE);

@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Twig\Helper;
+namespace MailVotech\CoreBundle\Twig\Helper;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\CustomContentEvent;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\CustomContentEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 
@@ -25,8 +25,8 @@ final readonly class ContentHelper
      */
     public function getCustomContent($context = null, array $vars = [], $viewName = null): string
     {
-        if (null === $viewName && isset($vars['mauticTemplate'])) {
-            $viewName = $vars['mauticTemplate'];
+        if (null === $viewName && isset($vars['mailvotechTemplate'])) {
+            $viewName = $vars['mailvotechTemplate'];
         }
 
         /** @var CustomContentEvent $event */

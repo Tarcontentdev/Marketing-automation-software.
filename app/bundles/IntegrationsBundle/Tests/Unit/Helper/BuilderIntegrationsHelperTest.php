@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Helper;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Helper;
 
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Helper\BuilderIntegrationsHelper;
-use Mautic\IntegrationsBundle\Helper\IntegrationsHelper;
-use Mautic\IntegrationsBundle\Integration\Interfaces\BuilderInterface;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Helper\BuilderIntegrationsHelper;
+use MailVotech\IntegrationsBundle\Helper\IntegrationsHelper;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\BuilderInterface;
+use MailVotech\PluginBundle\Entity\Integration;
 use PHPUnit\Framework\TestCase;
 
 final class BuilderIntegrationsHelperTest extends TestCase

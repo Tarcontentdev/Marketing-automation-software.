@@ -1,25 +1,25 @@
 <?php
 
-namespace Mautic\PageBundle\Controller;
+namespace MailVotech\PageBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Controller\FormErrorMessagesTrait;
-use Mautic\CoreBundle\Event\DetermineWinnerEvent;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\CoreBundle\Form\Type\ContentPreviewSettingsType;
-use Mautic\CoreBundle\Form\Type\DateRangeType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
-use Mautic\FormBundle\Model\SubmissionModel;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Event\PageEditSubmitEvent;
-use Mautic\PageBundle\Exception\InvalidRenderedHtmlException;
-use Mautic\PageBundle\Helper\PageConfig;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Controller\FormErrorMessagesTrait;
+use MailVotech\CoreBundle\Event\DetermineWinnerEvent;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\CoreBundle\Form\Type\ContentPreviewSettingsType;
+use MailVotech\CoreBundle\Form\Type\DateRangeType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\FormBundle\Model\SubmissionModel;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Event\PageEditSubmitEvent;
+use MailVotech\PageBundle\Exception\InvalidRenderedHtmlException;
+use MailVotech\PageBundle\Helper\PageConfig;
+use MailVotech\PageBundle\Model\PageModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -62,14 +62,14 @@ final class PageController extends FormController
 
         $this->setListFilters();
 
-        $pageHelper = $pageHelperFactory->make('mautic.page', $page);
+        $pageHelper = $pageHelperFactory->make('mailvotech.page', $page);
 
         $limit  = $pageHelper->getLimit();
         $start  = $pageHelper->getStart();
-        $search = $request->get('search', $request->getSession()->get('mautic.page.filter', ''));
+        $search = $request->get('search', $request->getSession()->get('mailvotech.page.filter', ''));
         $filter = ['string' => $search, 'force' => []];
 
-        $request->getSession()->set('mautic.page.filter', $search);
+        $request->getSession()->set('mailvotech.page.filter', $search);
 
         if (!$permissions['page:pages:viewother']) {
             $filter['force'][] = ['column' => 'p.createdBy', 'expr' => 'eq', 'value' => $this->user->getId()];
@@ -108,13 +108,13 @@ final class PageController extends FormController
         // do not list variants in the main list
         $filter['force'][] = ['column' => 'p.variantParent', 'expr' => 'isNull'];
 
-        $langSearchCommand = $this->translator->trans('mautic.core.searchcommand.lang');
+        $langSearchCommand = $this->translator->trans('mailvotech.core.searchcommand.lang');
         if (!str_contains($search, "{$langSearchCommand}:")) {
             $filter['force'][] = ['column' => 'p.translationParent', 'expr' => 'isNull'];
         }
 
-        $orderBy    = $request->getSession()->get('mautic.page.orderby', 'p.dateModified');
-        $orderByDir = $request->getSession()->get('mautic.page.orderbydir', $this->getDefaultOrderDirection());
+        $orderBy    = $request->getSession()->get('mailvotech.page.orderby', 'p.dateModified');
+        $orderByDir = $request->getSession()->get('mailvotech.page.orderbydir', $this->getDefaultOrderDirection());
         $pages      = $model->getEntities(
             [
                 'start'           => $start,
@@ -129,16 +129,16 @@ final class PageController extends FormController
         $count = count($pages);
         if ($count && $count < ($start + 1)) {
             $lastPage  = $pageHelper->countPage($count);
-            $returnUrl = $this->generateUrl('mautic_page_index', ['page' => $lastPage]);
+            $returnUrl = $this->generateUrl('mailvotech_page_index', ['page' => $lastPage]);
             $pageHelper->rememberPage($lastPage);
 
             return $this->postActionRedirect([
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['page' => $lastPage],
-                'contentTemplate' => 'Mautic\PageBundle\Controller\PageController::indexAction',
+                'contentTemplate' => 'MailVotech\PageBundle\Controller\PageController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_page_index',
-                    'mauticContent' => 'page',
+                    'activeLink'    => '#mailvotech_page_index',
+                    'mailvotechContent' => 'page',
                 ],
             ]);
         }
@@ -158,11 +158,11 @@ final class PageController extends FormController
                 'security'    => $this->security,
                 'pageConfig'  => $pageConfig,
             ],
-            'contentTemplate' => '@MauticPage/Page/list.html.twig',
+            'contentTemplate' => '@MailVotechPage/Page/list.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_page_index',
-                'mauticContent' => 'page',
-                'route'         => $this->generateUrl('mautic_page_index', ['page' => $page]),
+                'activeLink'    => '#mailvotech_page_index',
+                'mailvotechContent' => 'page',
+                'route'         => $this->generateUrl('mailvotech_page_index', ['page' => $page]),
             ],
         ]);
     }
@@ -177,24 +177,24 @@ final class PageController extends FormController
         // set some permissions
         $activePage = $model->getEntity($objectId);
         // set the page we came from
-        $page = $request->getSession()->get('mautic.page.page', 1);
+        $page = $request->getSession()->get('mailvotech.page.page', 1);
 
         if (null === $activePage) {
             // set the return URL
-            $returnUrl = $this->generateUrl('mautic_page_index', ['page' => $page]);
+            $returnUrl = $this->generateUrl('mailvotech_page_index', ['page' => $page]);
 
             return $this->postActionRedirect([
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['page' => $page],
-                'contentTemplate' => 'Mautic\PageBundle\Controller\PageController::indexAction',
+                'contentTemplate' => 'MailVotech\PageBundle\Controller\PageController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_page_index',
-                    'mauticContent' => 'page',
+                    'activeLink'    => '#mailvotech_page_index',
+                    'mailvotechContent' => 'page',
                 ],
                 'flashes' => [
                     [
                         'type'    => 'error',
-                        'msg'     => 'mautic.page.error.notfound',
+                        'msg'     => 'mailvotech.page.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ],
                 ],
@@ -270,7 +270,7 @@ final class PageController extends FormController
 
         // Init the date range filter form
         $dateRangeValues = $request->query->all()['daterange'] ?? $request->request->all()['daterange'] ?? [];
-        $action          = $this->generateUrl('mautic_page_action', ['objectAction' => 'view', 'objectId' => $objectId]);
+        $action          = $this->generateUrl('mailvotech_page_action', ['objectAction' => 'view', 'objectId' => $objectId]);
         $dateRangeForm   = $this->formFactory->create(DateRangeType::class, $dateRangeValues, ['action' => $action]);
 
         $logs = $auditLogModel->getLogForObject('page', $activePage->getId(), $activePage->getDateAdded());
@@ -288,7 +288,7 @@ final class PageController extends FormController
         $draftPreviewUrl                           = null;
         if ($pageConfig->isDraftEnabled() && $activePage->hasDraft()) {
             $draftPreviewUrl = $this->generateUrl(
-                'mautic_page_preview',
+                'mailvotech_page_preview',
                 [
                     'id'         => $activePage->getId(),
                     'objectType' => 'draft',
@@ -311,7 +311,7 @@ final class PageController extends FormController
         ];
 
         return $this->delegateView([
-            'returnUrl' => $this->generateUrl('mautic_page_action', [
+            'returnUrl' => $this->generateUrl('mailvotech_page_action', [
                 'objectAction' => 'view',
                 'objectId'     => $activePage->getId(), ]
             ),
@@ -343,7 +343,7 @@ final class PageController extends FormController
                 'security'        => $this->security,
                 'pageUrl'         => $model->generateUrl($activePage),
                 'draftPreviewUrl' => $draftPreviewUrl,
-                'previewUrl'      => $this->generateUrl('mautic_page_preview', ['id' => $objectId], UrlGeneratorInterface::ABSOLUTE_URL),
+                'previewUrl'      => $this->generateUrl('mailvotech_page_preview', ['id' => $objectId], UrlGeneratorInterface::ABSOLUTE_URL),
                 'logs'            => $logs,
                 'dateRangeForm'   => $dateRangeForm->createView(), 'previewSettingsForm' => $this->createForm(
                     ContentPreviewSettingsType::class,
@@ -356,10 +356,10 @@ final class PageController extends FormController
                     ]
                 )->createView(),
             ],
-            'contentTemplate' => '@MauticPage/Page/details.html.twig',
+            'contentTemplate' => '@MailVotechPage/Page/details.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_page_index',
-                'mauticContent' => 'page',
+                'activeLink'    => '#mailvotech_page_index',
+                'mailvotechContent' => 'page',
             ],
         ]);
     }
@@ -382,8 +382,8 @@ final class PageController extends FormController
         }
 
         // set the page we came from
-        $page   = $session->get('mautic.page.page', 1);
-        $action = $this->generateUrl('mautic_page_action', ['objectAction' => 'new']);
+        $page   = $session->get('mailvotech.page.page', 1);
+        $action = $this->generateUrl('mailvotech_page_action', ['objectAction' => 'new']);
 
         // create the form
         $form = $model->createForm($entity, $this->formFactory, $action);
@@ -401,10 +401,10 @@ final class PageController extends FormController
                         // form is valid so process the data
                         $model->saveEntity($entity);
 
-                        $this->addFlashMessage('mautic.core.notice.created', [
+                        $this->addFlashMessage('mailvotech.core.notice.created', [
                             '%name%'      => $entity->getTitle(),
-                            '%menu_link%' => 'mautic_page_index',
-                            '%url%'       => $this->generateUrl('mautic_page_action', [
+                            '%menu_link%' => 'mailvotech_page_index',
+                            '%url%'       => $this->generateUrl('mailvotech_page_action', [
                                 'objectAction' => 'edit',
                                 'objectId'     => $entity->getId(),
                             ]),
@@ -415,8 +415,8 @@ final class PageController extends FormController
                                 'objectAction' => 'view',
                                 'objectId'     => $entity->getId(),
                             ];
-                            $returnUrl = $this->generateUrl('mautic_page_action', $viewParameters);
-                            $template  = 'Mautic\PageBundle\Controller\PageController::viewAction';
+                            $returnUrl = $this->generateUrl('mailvotech_page_action', $viewParameters);
+                            $template  = 'MailVotech\PageBundle\Controller\PageController::viewAction';
                         } else {
                             // return edit view so that all the session stuff is loaded
                             return $this->editAction($request, $pageConfig, $model, $themeHelper, $entity->getId(), true);
@@ -428,10 +428,10 @@ final class PageController extends FormController
                 }
             } else {
                 $viewParameters = ['page' => $page];
-                $returnUrl      = $this->generateUrl('mautic_page_index', $viewParameters);
-                $template       = 'Mautic\PageBundle\Controller\PageController::indexAction';
+                $returnUrl      = $this->generateUrl('mailvotech_page_index', $viewParameters);
+                $template       = 'MailVotech\PageBundle\Controller\PageController::indexAction';
                 // clear any modified content
-                $session->remove('mautic.pagebuilder.'.$entity->getSessionId().'.content');
+                $session->remove('mailvotech.pagebuilder.'.$entity->getSessionId().'.content');
             }
 
             if ($cancelled || ($valid && $this->isButtonClicked($form, 'save'))) {
@@ -440,8 +440,8 @@ final class PageController extends FormController
                     'viewParameters'  => $viewParameters,
                     'contentTemplate' => $template,
                     'passthroughVars' => [
-                        'activeLink'    => 'mautic_page_index',
-                        'mauticContent' => 'page',
+                        'activeLink'    => 'mailvotech_page_index',
+                        'mailvotechContent' => 'page',
                     ],
                 ]);
             }
@@ -465,11 +465,11 @@ final class PageController extends FormController
                 'themes'        => $themeHelper->getInstalledThemes('page', true),
                 'permissions'   => $permissions,
             ],
-            'contentTemplate' => '@MauticPage/Page/form.html.twig',
+            'contentTemplate' => '@MailVotechPage/Page/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_page_index',
-                'mauticContent' => 'page',
-                'route'         => $this->generateUrl('mautic_page_action', [
+                'activeLink'    => '#mailvotech_page_index',
+                'mailvotechContent' => 'page',
+                'route'         => $this->generateUrl('mailvotech_page_action', [
                     'objectAction' => 'new',
                 ]),
                 'validationError' => $this->getFormErrorForBuilder($form),
@@ -490,18 +490,18 @@ final class PageController extends FormController
     ): Response {
         $entity     = $model->getEntity($objectId);
         $session    = $request->getSession();
-        $page       = $request->getSession()->get('mautic.page.page', 1);
+        $page       = $request->getSession()->get('mailvotech.page.page', 1);
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_page_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_page_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\PageBundle\Controller\PageController::indexAction',
+            'contentTemplate' => 'MailVotech\PageBundle\Controller\PageController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_page_index',
-                'mauticContent' => 'page',
+                'activeLink'    => 'mailvotech_page_index',
+                'mailvotechContent' => 'page',
             ],
         ];
 
@@ -512,7 +512,7 @@ final class PageController extends FormController
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.page.error.notfound',
+                            'msg'     => 'mailvotech.page.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -532,7 +532,7 @@ final class PageController extends FormController
         }
 
         // Create the form
-        $action = $this->generateUrl('mautic_page_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_page_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $form   = $model->createForm($entity, $this->formFactory, $action);
         $this->setOptimisticLockVersion($entity, $form);
         $existingPage = clone $entity;
@@ -561,10 +561,10 @@ final class PageController extends FormController
                             ));
                         }
 
-                        $this->addFlashMessage('mautic.core.notice.updated', [
+                        $this->addFlashMessage('mailvotech.core.notice.updated', [
                             '%name%'      => $entity->getTitle(),
-                            '%menu_link%' => 'mautic_page_index',
-                            '%url%'       => $this->generateUrl('mautic_page_action', [
+                            '%menu_link%' => 'mailvotech_page_index',
+                            '%url%'       => $this->generateUrl('mailvotech_page_action', [
                                 'objectAction' => 'edit',
                                 'objectId'     => $entity->getId(),
                             ]),
@@ -576,7 +576,7 @@ final class PageController extends FormController
                 }
             } else {
                 // clear any modified content
-                $session->remove('mautic.pagebuilder.'.$objectId.'.content');
+                $session->remove('mailvotech.pagebuilder.'.$objectId.'.content');
                 // unlock the entity
                 $model->unlockEntity($entity);
             }
@@ -589,9 +589,9 @@ final class PageController extends FormController
 
                 return $this->postActionRedirect(
                     array_merge($postActionVars, [
-                        'returnUrl'       => $this->generateUrl('mautic_page_action', $viewParameters),
+                        'returnUrl'       => $this->generateUrl('mailvotech_page_action', $viewParameters),
                         'viewParameters'  => $viewParameters,
-                        'contentTemplate' => 'Mautic\PageBundle\Controller\PageController::viewAction',
+                        'contentTemplate' => 'MailVotech\PageBundle\Controller\PageController::viewAction',
                     ])
                 );
             }
@@ -605,7 +605,7 @@ final class PageController extends FormController
             $model->lockEntity($entity);
 
             // clear any modified content
-            $session->remove('mautic.pagebuilder.'.$objectId.'.content');
+            $session->remove('mailvotech.pagebuilder.'.$objectId.'.content');
 
             // set the lookup values
             $parent = $entity->getTranslationParent();
@@ -625,21 +625,21 @@ final class PageController extends FormController
         $draftPreviewUrl = null;
         if ($draftEnabled && $entity->hasDraft()) {
             $draftPreviewUrl = $this->generateUrl(
-                'mautic_page_preview',
+                'mailvotech_page_preview',
                 ['id'             => $entity->getId(),
                     'objectType'  => 'draft',
                 ],
             );
         }
 
-        $route = $this->generateUrl('mautic_page_action', [
+        $route = $this->generateUrl('mailvotech_page_action', [
             'objectAction' => 'edit',
             'objectId'     => $entity->getId(),
         ]);
         $error = $this->getFormErrorForBuilder($form);
         $data  = ['version' => $error ? $form['version']->getData() : $entity->getVersion()];
 
-        if ($optimizedResponse = $this->returnOptimizedResponse($request, $form, '#mautic_page_index', 'page', $route, $data)) {
+        if ($optimizedResponse = $this->returnOptimizedResponse($request, $form, '#mailvotech_page_index', 'page', $route, $data)) {
             return $optimizedResponse;
         }
 
@@ -650,7 +650,7 @@ final class PageController extends FormController
                 'tokens'          => $model->getBuilderComponents($entity, 'tokens'),
                 'activePage'      => $entity,
                 'themes'          => $themeHelper->getInstalledThemes('page', true),
-                'previewUrl'      => $this->generateUrl('mautic_page_preview', ['id' => $objectId]),
+                'previewUrl'      => $this->generateUrl('mailvotech_page_preview', ['id' => $objectId]),
                 'draftPreviewUrl' => $draftPreviewUrl,
                 'permissions'     => $this->security->isGranted(
                     [
@@ -661,11 +661,11 @@ final class PageController extends FormController
                 ),
                 'security'      => $this->security,
             ],
-            'contentTemplate' => '@MauticPage/Page/form.html.twig',
+            'contentTemplate' => '@MailVotechPage/Page/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_page_index',
-                'mauticContent' => 'page',
-                'route'         => $this->generateUrl('mautic_page_action', [
+                'activeLink'    => '#mailvotech_page_index',
+                'mailvotechContent' => 'page',
+                'route'         => $this->generateUrl('mailvotech_page_action', [
                     'objectAction' => 'edit',
                     'objectId'     => $entity->getId(),
                 ]),
@@ -701,7 +701,7 @@ final class PageController extends FormController
             $entity->setIsPublished(false);
 
             $session     = $request->getSession();
-            $contentName = 'mautic.pagebuilder.'.$entity->getSessionId().'.content';
+            $contentName = 'mailvotech.pagebuilder.'.$entity->getSessionId().'.content';
 
             $session->set($contentName, $entity->getCustomHtml());
         }
@@ -714,17 +714,17 @@ final class PageController extends FormController
      */
     public function deleteAction(Request $request, PageModel $model, $objectId): Response
     {
-        $page      = $request->getSession()->get('mautic.page.page', 1);
-        $returnUrl = $this->generateUrl('mautic_page_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.page.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_page_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\PageBundle\Controller\PageController::indexAction',
+            'contentTemplate' => 'MailVotech\PageBundle\Controller\PageController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_page_index',
-                'mauticContent' => 'page',
+                'activeLink'    => 'mailvotech_page_index',
+                'mailvotechContent' => 'page',
             ],
         ];
 
@@ -734,7 +734,7 @@ final class PageController extends FormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.page.error.notfound',
+                    'msg'     => 'mailvotech.page.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->hasEntityAccess(
@@ -751,7 +751,7 @@ final class PageController extends FormController
 
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $entity->getTitle(),
                     '%id%'   => $objectId,
@@ -771,17 +771,17 @@ final class PageController extends FormController
      */
     public function batchDeleteAction(Request $request): Response
     {
-        $page      = $request->getSession()->get('mautic.page.page', 1);
-        $returnUrl = $this->generateUrl('mautic_page_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.page.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_page_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\PageBundle\Controller\PageController::indexAction',
+            'contentTemplate' => 'MailVotech\PageBundle\Controller\PageController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_page_index',
-                'mauticContent' => 'page',
+                'activeLink'    => 'mailvotech_page_index',
+                'mailvotechContent' => 'page',
             ],
         ];
 
@@ -796,7 +796,7 @@ final class PageController extends FormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.page.error.notfound',
+                        'msg'     => 'mailvotech.page.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->hasEntityAccess(
@@ -816,7 +816,7 @@ final class PageController extends FormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.page.notice.batch_deleted',
+                    'msg'     => 'mailvotech.page.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],
@@ -917,17 +917,17 @@ final class PageController extends FormController
     public function winnerAction(Request $request, PageModel $model, $objectId): Response
     {
         // todo - add confirmation to button click
-        $page      = $request->getSession()->get('mautic.page.page', 1);
-        $returnUrl = $this->generateUrl('mautic_page_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.page.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_page_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\PageBundle\Controller\PageController::indexAction',
+            'contentTemplate' => 'MailVotech\PageBundle\Controller\PageController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_page_index',
-                'mauticContent' => 'page',
+                'activeLink'    => 'mailvotech_page_index',
+                'mailvotechContent' => 'page',
             ],
         ];
 
@@ -937,7 +937,7 @@ final class PageController extends FormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.page.error.notfound',
+                    'msg'     => 'mailvotech.page.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->hasEntityAccess(
@@ -954,7 +954,7 @@ final class PageController extends FormController
 
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.page.notice.activated',
+                'msg'     => 'mailvotech.page.notice.activated',
                 'msgVars' => [
                     '%name%' => $entity->getTitle(),
                     '%id%'   => $objectId,
@@ -965,8 +965,8 @@ final class PageController extends FormController
                 'objectAction' => 'view',
                 'objectId'     => $objectId,
             ];
-            $postActionVars['returnUrl']       = $this->generateUrl('mautic_page_action', $postActionVars['viewParameters']);
-            $postActionVars['contentTemplate'] = 'Mautic\PageBundle\Controller\PageController::viewAction';
+            $postActionVars['returnUrl']       = $this->generateUrl('mailvotech_page_action', $postActionVars['viewParameters']);
+            $postActionVars['contentTemplate'] = 'MailVotech\PageBundle\Controller\PageController::viewAction';
         } // else don't do anything
 
         return $this->postActionRedirect(
@@ -986,8 +986,8 @@ final class PageController extends FormController
     {
         $activePage   = $pageModel->getEntity($objectId);
         $session      = $request->getSession();
-        $pageListPage = $session->get('mautic.page.page', 1);
-        $returnUrl    = $this->generateUrl('mautic_page_index', ['page' => $pageListPage]);
+        $pageListPage = $session->get('mailvotech.page.page', 1);
+        $returnUrl    = $this->generateUrl('mailvotech_page_index', ['page' => $pageListPage]);
 
         if (null === $activePage) {
             // redirect back to page list
@@ -995,15 +995,15 @@ final class PageController extends FormController
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $pageListPage],
-                    'contentTemplate' => 'Mautic\PageBundle\Controller\PageController::indexAction',
+                    'contentTemplate' => 'MailVotech\PageBundle\Controller\PageController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => 'mautic_page_index',
-                        'mauticContent' => 'page',
+                        'activeLink'    => 'mailvotech_page_index',
+                        'mailvotechContent' => 'page',
                     ],
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.page.error.notfound',
+                            'msg'     => 'mailvotech.page.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -1024,24 +1024,24 @@ final class PageController extends FormController
         }
 
         // set limits
-        $limit = $session->get('mautic.pageresult.'.$objectId.'.limit', $this->coreParametersHelper->get('default_pagelimit'));
+        $limit = $session->get('mailvotech.pageresult.'.$objectId.'.limit', $this->coreParametersHelper->get('default_pagelimit'));
 
         $page  = $page ?: 0;
         $start = ($page <= 1) ? 0 : (($page - 1) * $limit);
 
         // Set order direction to desc if not set
-        if (!$session->get('mautic.pageresult.'.$objectId.'.orderbydir')) {
-            $session->set('mautic.pageresult.'.$objectId.'.orderbydir', 'DESC');
+        if (!$session->get('mailvotech.pageresult.'.$objectId.'.orderbydir')) {
+            $session->set('mailvotech.pageresult.'.$objectId.'.orderbydir', 'DESC');
         }
 
-        $orderBy    = $session->get('mautic.pageresult.'.$objectId.'.orderby', 's.date_submitted');
-        $orderByDir = $session->get('mautic.pageresult.'.$objectId.'.orderbydir', 'DESC');
-        $filters    = $session->get('mautic.pageresult.'.$objectId.'.filters', []);
+        $orderBy    = $session->get('mailvotech.pageresult.'.$objectId.'.orderby', 's.date_submitted');
+        $orderByDir = $session->get('mailvotech.pageresult.'.$objectId.'.orderbydir', 'DESC');
+        $filters    = $session->get('mailvotech.pageresult.'.$objectId.'.filters', []);
 
         if ($request->query->has('result')) {
             // Force ID
             $filters['s.id'] = ['column' => 's.id', 'expr' => 'like', 'value' => (int) $request->query->get('result'), 'strict' => false];
-            $session->set("mautic.pageresult.{$objectId}.filters", $filters);
+            $session->set("mailvotech.pageresult.{$objectId}.filters", $filters);
         }
         // get the results
         $entities = $submissionModel->getEntitiesByPage(
@@ -1064,24 +1064,24 @@ final class PageController extends FormController
         if ($count && $count < ($start + 1)) {
             // the number of entities are now less then the current page so redirect to the last page
             $lastPage = (1 === $count) ? 1 : (((ceil($count / $limit)) ?: 1) ?: 1);
-            $session->set('mautic.pageresult.page', $lastPage);
-            $returnUrl = $this->generateUrl('mautic_page_results', ['objectId' => $objectId, 'page' => $lastPage]);
+            $session->set('mailvotech.pageresult.page', $lastPage);
+            $returnUrl = $this->generateUrl('mailvotech_page_results', ['objectId' => $objectId, 'page' => $lastPage]);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $lastPage],
-                    'contentTemplate' => 'Mautic\PageBundle\Controller\PageController::resultsAction',
+                    'contentTemplate' => 'MailVotech\PageBundle\Controller\PageController::resultsAction',
                     'passthroughVars' => [
-                        'activeLink'    => 'mautic_page_index',
-                        'mauticContent' => 'pageresult',
+                        'activeLink'    => 'mailvotech_page_index',
+                        'mailvotechContent' => 'pageresult',
                     ],
                 ]
             );
         }
 
         // set what page currently on so that we can return here if need be
-        $session->set('mautic.pageresult.page', $page);
+        $session->set('mailvotech.pageresult.page', $page);
 
         $tmpl = $request->isXmlHttpRequest() ? $request->get('tmpl', 'index') : 'index';
 
@@ -1096,12 +1096,12 @@ final class PageController extends FormController
                     'limit'      => $limit,
                     'tmpl'       => $tmpl,
                 ],
-                'contentTemplate' => '@MauticPage/Result/list.html.twig',
+                'contentTemplate' => '@MailVotechPage/Result/list.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => 'mautic_page_index',
-                    'mauticContent' => 'pageresult',
+                    'activeLink'    => 'mailvotech_page_index',
+                    'mailvotechContent' => 'pageresult',
                     'route'         => $this->generateUrl(
-                        'mautic_page_results',
+                        'mailvotech_page_results',
                         [
                             'objectId' => $objectId,
                             'page'     => $page,
@@ -1124,8 +1124,8 @@ final class PageController extends FormController
     {
         $activePage   = $pageModel->getEntity($objectId);
         $session      = $request->getSession();
-        $pageListPage = $session->get('mautic.page.page', 1);
-        $returnUrl    = $this->generateUrl('mautic_page_index', ['page' => $pageListPage]);
+        $pageListPage = $session->get('mailvotech.page.page', 1);
+        $returnUrl    = $this->generateUrl('mailvotech_page_index', ['page' => $pageListPage]);
 
         if (null === $activePage) {
             // redirect back to page list
@@ -1133,15 +1133,15 @@ final class PageController extends FormController
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $pageListPage],
-                    'contentTemplate' => 'Mautic\PageBundle\Controller\PageController::indexAction',
+                    'contentTemplate' => 'MailVotech\PageBundle\Controller\PageController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => 'mautic_page_index',
-                        'mauticContent' => 'page',
+                        'activeLink'    => 'mailvotech_page_index',
+                        'mailvotechContent' => 'page',
                     ],
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.page.error.notfound',
+                            'msg'     => 'mailvotech.page.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -1157,9 +1157,9 @@ final class PageController extends FormController
             $this->throwAccessDenied();
         }
 
-        $orderBy    = $session->get('mautic.pageresult.'.$objectId.'.orderby', 's.date_submitted');
-        $orderByDir = $session->get('mautic.pageresult.'.$objectId.'.orderbydir', 'DESC');
-        $filters    = $session->get('mautic.pageresult.'.$objectId.'.filters', []);
+        $orderBy    = $session->get('mailvotech.pageresult.'.$objectId.'.orderby', 's.date_submitted');
+        $orderByDir = $session->get('mailvotech.pageresult.'.$objectId.'.orderbydir', 'DESC');
+        $filters    = $session->get('mailvotech.pageresult.'.$objectId.'.filters', []);
 
         $args = [
             'limit'      => false,

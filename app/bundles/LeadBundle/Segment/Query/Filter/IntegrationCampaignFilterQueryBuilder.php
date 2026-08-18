@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Query\Filter;
+namespace MailVotech\LeadBundle\Segment\Query\Filter;
 
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
-use Mautic\LeadBundle\Segment\Query\QueryException;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\QueryException;
 
 final class IntegrationCampaignFilterQueryBuilder extends BaseFilterQueryBuilder
 {
     public static function getServiceId(): string
     {
-        return 'mautic.lead.query.builder.special.integration';
+        return 'mailvotech.lead.query.builder.special.integration';
     }
 
     /**
@@ -18,7 +18,7 @@ final class IntegrationCampaignFilterQueryBuilder extends BaseFilterQueryBuilder
      */
     public function applyQuery(QueryBuilder $queryBuilder, ContactSegmentFilter $filter): QueryBuilder
     {
-        $leadsTableAlias          = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.'leads');
+        $leadsTableAlias          = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.'leads');
         $integrationCampaignParts = $filter->getIntegrationCampaignParts();
 
         $integrationNameParameter    = $this->generateRandomParameterName();
@@ -28,7 +28,7 @@ final class IntegrationCampaignFilterQueryBuilder extends BaseFilterQueryBuilder
 
         $queryBuilder->leftJoin(
             $leadsTableAlias,
-            MAUTIC_TABLE_PREFIX.'integration_entity',
+            MAILVOTECH_TABLE_PREFIX.'integration_entity',
             $tableAlias,
             $tableAlias.'.integration_entity = "CampaignMember" AND '.
             $tableAlias.".internal_entity = 'lead' AND ".

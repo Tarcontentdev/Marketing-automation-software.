@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Controller;
+namespace MailVotech\LeadBundle\Controller;
 
 use Doctrine\ORM\EntityNotFoundException;
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Controller\QuickFilterSearchTrait;
-use Mautic\CoreBundle\Exception\DeleteEntitiesDependencyException;
-use Mautic\CoreBundle\Exception\DeleteEntityDependencyException;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\CoreBundle\Form\Type\DateRangeType;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Security\Permissions\LeadPermissions;
-use Mautic\LeadBundle\Segment\Stat\SegmentCampaignShare;
-use Mautic\LeadBundle\Segment\Stat\SegmentDependencies;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Controller\QuickFilterSearchTrait;
+use MailVotech\CoreBundle\Exception\DeleteEntitiesDependencyException;
+use MailVotech\CoreBundle\Exception\DeleteEntityDependencyException;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\CoreBundle\Form\Type\DateRangeType;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Security\Permissions\LeadPermissions;
+use MailVotech\LeadBundle\Segment\Stat\SegmentCampaignShare;
+use MailVotech\LeadBundle\Segment\Stat\SegmentDependencies;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -47,7 +47,7 @@ final class ListController extends FormController
         $this->leadListRepository = $leadListRepository;
     }
 
-    public const ROUTE_SEGMENT_CONTACTS = 'mautic_segment_contacts';
+    public const ROUTE_SEGMENT_CONTACTS = 'mailvotech_segment_contacts';
 
     public const SEGMENT_CONTACT_FIELDS = ['id', 'company', 'city', 'state', 'country'];
 
@@ -86,18 +86,18 @@ final class ListController extends FormController
         $this->setListFilters();
 
         // set limits
-        $limit = $session->get('mautic.lead.list.limit', $this->coreParametersHelper->get('default_pagelimit'));
+        $limit = $session->get('mailvotech.lead.list.limit', $this->coreParametersHelper->get('default_pagelimit'));
         $start = (1 === $page) ? 0 : (($page - 1) * $limit);
         if ($start < 0) {
             $start = 0;
         }
 
-        $search = $request->get('search', $session->get('mautic.segment.filter', ''));
-        $session->set('mautic.segment.filter', $search);
+        $search = $request->get('search', $session->get('mailvotech.segment.filter', ''));
+        $session->set('mailvotech.segment.filter', $search);
 
         // do some default filtering
-        $orderBy    = $session->get('mautic.lead.list.orderby', 'l.dateModified');
-        $orderByDir = $session->get('mautic.lead.list.orderbydir', $this->getDefaultOrderDirection());
+        $orderBy    = $session->get('mailvotech.lead.list.orderby', 'l.dateModified');
+        $orderByDir = $session->get('mailvotech.lead.list.orderbydir', $this->getDefaultOrderDirection());
 
         $filter = [
             'string' => $search,
@@ -126,8 +126,8 @@ final class ListController extends FormController
             } else {
                 $lastPage = (ceil($count / $limit)) ?: 1;
             }
-            $session->set('mautic.segment.page', $lastPage);
-            $returnUrl = $this->generateUrl('mautic_segment_index', ['page' => $lastPage]);
+            $session->set('mailvotech.segment.page', $lastPage);
+            $returnUrl = $this->generateUrl('mailvotech_segment_index', ['page' => $lastPage]);
 
             return $this->postActionRedirect([
                 'returnUrl'      => $returnUrl,
@@ -135,16 +135,16 @@ final class ListController extends FormController
                     'page' => $lastPage,
                     'tmpl' => $tmpl,
                 ],
-                'contentTemplate' => 'Mautic\LeadBundle\Controller\ListController::indexAction',
+                'contentTemplate' => 'MailVotech\LeadBundle\Controller\ListController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_segment_index',
-                    'mauticContent' => 'leadlist',
+                    'activeLink'    => '#mailvotech_segment_index',
+                    'mailvotechContent' => 'leadlist',
                 ],
             ]);
         }
 
         // set what page currently on so that we can return here after form submission/cancellation
-        $session->set('mautic.segment.page', $page);
+        $session->set('mailvotech.segment.page', $page);
 
         $listIds    = array_keys($items->getIterator()->getArrayCopy());
         $leadCounts = ([] !== $listIds) ? $this->listModel->getSegmentContactCountFromCache($listIds) : [];
@@ -166,11 +166,11 @@ final class ListController extends FormController
         return $this->delegateView(
             $this->getViewArguments([
                 'viewParameters'  => $parameters,
-                'contentTemplate' => '@MauticLead/List/list.html.twig',
+                'contentTemplate' => '@MailVotechLead/List/list.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_segment_index',
-                    'route'         => $this->generateUrl('mautic_segment_index', ['page' => $page]),
-                    'mauticContent' => 'leadlist',
+                    'activeLink'    => '#mailvotech_segment_index',
+                    'route'         => $this->generateUrl('mailvotech_segment_index', ['page' => $page]),
+                    'mailvotechContent' => 'leadlist',
                 ],
             ],
                 'index'
@@ -198,7 +198,7 @@ final class ListController extends FormController
             $listModel,
             $auditLogModel,
             [],
-            $this->generateUrl('mautic_segment_action', ['objectAction' => 'new']),
+            $this->generateUrl('mailvotech_segment_action', ['objectAction' => 'new']),
             false
         );
     }
@@ -227,7 +227,7 @@ final class ListController extends FormController
                 $listModel,
                 $auditLogModel,
                 $postActionVars,
-                $this->generateUrl('mautic_segment_action', ['objectAction' => 'clone', 'objectId' => $objectId]),
+                $this->generateUrl('mailvotech_segment_action', ['objectAction' => 'clone', 'objectId' => $objectId]),
                 (bool) $ignorePost
             );
         } catch (EntityNotFoundException) {
@@ -236,7 +236,7 @@ final class ListController extends FormController
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.lead.list.error.notfound',
+                            'msg'     => 'mailvotech.lead.list.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -270,7 +270,7 @@ final class ListController extends FormController
                 $listModel,
                 $auditLogModel,
                 $postActionVars,
-                $this->generateUrl('mautic_segment_action', ['objectAction' => 'edit', 'objectId' => $objectId]),
+                $this->generateUrl('mailvotech_segment_action', ['objectAction' => 'edit', 'objectId' => $objectId]),
                 $ignorePost
             );
         } catch (EntityNotFoundException) {
@@ -279,7 +279,7 @@ final class ListController extends FormController
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.lead.list.error.notfound',
+                            'msg'     => 'mailvotech.lead.list.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -320,9 +320,9 @@ final class ListController extends FormController
     private function createSegmentNewResponse(Request $request, LeadList $segment, SegmentDependencies $segmentDependencies, SegmentCampaignShare $segmentCampaignShare, ListModel $segmentModel, AuditLogModel $auditLogModel, array $postActionVars, string $action, bool $ignorePost): Response
     {
         // set the page we came from
-        $page = $request->getSession()->get('mautic.segment.page', 1);
+        $page = $request->getSession()->get('mailvotech.segment.page', 1);
         // set the return URL for post actions
-        $returnUrl = $this->generateUrl('mautic_segment_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_segment_index', ['page' => $page]);
 
         // get the user form factory
         $form = $segmentModel->createForm($segment, $this->formFactory, $action);
@@ -335,10 +335,10 @@ final class ListController extends FormController
                     // form is valid so process the data
                     $segmentModel->saveEntity($segment);
 
-                    $this->addFlashMessage('mautic.core.notice.created', [
+                    $this->addFlashMessage('mailvotech.core.notice.created', [
                         '%name%'      => $segment->getName().' ('.$segment->getAlias().')',
-                        '%menu_link%' => 'mautic_segment_index',
-                        '%url%'       => $this->generateUrl('mautic_segment_action', [
+                        '%menu_link%' => 'mailvotech_segment_index',
+                        '%url%'       => $this->generateUrl('mailvotech_segment_action', [
                             'objectAction' => 'edit',
                             'objectId'     => $segment->getId(),
                         ]),
@@ -350,10 +350,10 @@ final class ListController extends FormController
                 return $this->postActionRedirect(array_merge($postActionVars, [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $page],
-                    'contentTemplate' => 'Mautic\LeadBundle\Controller\ListController::indexAction',
+                    'contentTemplate' => 'MailVotech\LeadBundle\Controller\ListController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_segment_index',
-                        'mauticContent' => 'leadlist',
+                        'activeLink'    => '#mailvotech_segment_index',
+                        'mailvotechContent' => 'leadlist',
                     ],
                 ]));
             }
@@ -366,11 +366,11 @@ final class ListController extends FormController
             'viewParameters' => [
                 'form' => $form->createView(),
             ],
-            'contentTemplate' => '@MauticLead/List/form.html.twig',
+            'contentTemplate' => '@MailVotechLead/List/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_segment_index',
+                'activeLink'    => '#mailvotech_segment_index',
                 'route'         => $action,
-                'mauticContent' => 'leadlist',
+                'mailvotechContent' => 'leadlist',
             ],
         ]);
     }
@@ -397,20 +397,20 @@ final class ListController extends FormController
                     // form is valid so process the data
                     $segmentModel->saveEntity($segment, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
 
-                    $this->addFlashMessage('mautic.core.notice.updated', [
+                    $this->addFlashMessage('mailvotech.core.notice.updated', [
                         '%name%'      => $segment->getName().' ('.$segment->getAlias().')',
-                        '%menu_link%' => 'mautic_segment_index',
-                        '%url%'       => $this->generateUrl('mautic_segment_action', [
+                        '%menu_link%' => 'mailvotech_segment_index',
+                        '%url%'       => $this->generateUrl('mailvotech_segment_action', [
                             'objectAction' => 'edit',
                             'objectId'     => $segment->getId(),
                         ]),
                     ]);
 
                     if ($this->isButtonClicked($form, 'apply')) {
-                        $contentTemplate                     = '@MauticLead/List/form.html.twig';
+                        $contentTemplate                     = '@MailVotechLead/List/form.html.twig';
                         $postActionVars['contentTemplate']   = $contentTemplate;
                         $postActionVars['forwardController'] = false;
-                        $postActionVars['returnUrl']         = $this->generateUrl('mautic_segment_action', [
+                        $postActionVars['returnUrl']         = $this->generateUrl('mailvotech_segment_action', [
                             'objectAction' => 'edit',
                             'objectId'     => $segment->getId(),
                         ]);
@@ -446,11 +446,11 @@ final class ListController extends FormController
                 'form'          => $form->createView(),
                 'currentListId' => $segment->getId(),
             ],
-            'contentTemplate' => '@MauticLead/List/form.html.twig',
+            'contentTemplate' => '@MailVotechLead/List/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_segment_index',
+                'activeLink'    => '#mailvotech_segment_index',
                 'route'         => $action,
-                'mauticContent' => 'leadlist',
+                'mailvotechContent' => 'leadlist',
             ],
         ]);
     }
@@ -464,15 +464,15 @@ final class ListController extends FormController
     {
         // set the return URL
         if ($objectId) {
-            $returnUrl       = $this->generateUrl('mautic_segment_action', ['objectAction' => 'view', 'objectId'=> $objectId]);
+            $returnUrl       = $this->generateUrl('mailvotech_segment_action', ['objectAction' => 'view', 'objectId'=> $objectId]);
             $viewParameters  = ['objectAction' => 'view', 'objectId'=> $objectId];
-            $contentTemplate = 'Mautic\LeadBundle\Controller\ListController::viewAction';
+            $contentTemplate = 'MailVotech\LeadBundle\Controller\ListController::viewAction';
         } else {
             // set the page we came from
-            $page            = $request->getSession()->get('mautic.segment.page', 1);
-            $returnUrl       = $this->generateUrl('mautic_segment_index', ['page' => $page]);
+            $page            = $request->getSession()->get('mailvotech.segment.page', 1);
+            $returnUrl       = $this->generateUrl('mailvotech_segment_index', ['page' => $page]);
             $viewParameters  = ['page' => $page];
-            $contentTemplate = 'Mautic\LeadBundle\Controller\ListController::indexAction';
+            $contentTemplate = 'MailVotech\LeadBundle\Controller\ListController::indexAction';
         }
 
         return [
@@ -480,8 +480,8 @@ final class ListController extends FormController
             'viewParameters'  => $viewParameters,
             'contentTemplate' => $contentTemplate,
             'passthroughVars' => [
-                'activeLink'    => '#mautic_segment_index',
-                'mauticContent' => 'leadlist',
+                'activeLink'    => '#mailvotech_segment_index',
+                'mailvotechContent' => 'leadlist',
             ],
         ];
     }
@@ -491,18 +491,18 @@ final class ListController extends FormController
      */
     public function deleteAction(Request $request, $objectId): Response
     {
-        $page      = $request->getSession()->get('mautic.segment.page', 1);
-        $returnUrl = $this->generateUrl('mautic_segment_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.segment.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_segment_index', ['page' => $page]);
 
         $flashes = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\ListController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\ListController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_segment_index',
-                'mauticContent' => 'lead',
+                'activeLink'    => '#mailvotech_segment_index',
+                'mailvotechContent' => 'lead',
             ],
         ];
 
@@ -512,7 +512,7 @@ final class ListController extends FormController
             if (null === $list) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.lead.list.error.notfound',
+                    'msg'     => 'mailvotech.lead.list.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->hasEntityAccess(
@@ -527,7 +527,7 @@ final class ListController extends FormController
                     $this->listModel->deleteEntity($list);
                     $flashes[] = [
                         'type'    => 'notice',
-                        'msg'     => 'mautic.core.notice.deleted',
+                        'msg'     => 'mailvotech.core.notice.deleted',
                         'msgVars' => [
                             '%name%' => $list->getName(),
                             '%id%'   => $objectId,
@@ -556,17 +556,17 @@ final class ListController extends FormController
      */
     public function batchDeleteAction(Request $request, ListModel $model): Response
     {
-        $page      = $request->getSession()->get('mautic.segment.page', 1);
-        $returnUrl = $this->generateUrl('mautic_segment_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.segment.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_segment_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\ListController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\ListController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_segment_index',
-                'mauticContent' => 'lead',
+                'activeLink'    => '#mailvotech_segment_index',
+                'mailvotechContent' => 'lead',
             ],
         ];
 
@@ -581,7 +581,7 @@ final class ListController extends FormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.lead.list.error.notfound',
+                        'msg'     => 'mailvotech.lead.list.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->hasEntityAccess(
@@ -604,7 +604,7 @@ final class ListController extends FormController
                     if ($e->getUnableToDeleteEntities()) {
                         $flashes[] = [
                             'type'    => 'error',
-                            'msg'     => 'mautic.lead.list.error.cannot.delete.batch',
+                            'msg'     => 'mailvotech.lead.list.error.cannot.delete.batch',
                             'msgVars' => [
                                 '%segments%' => implode(', ', array_map(fn (LeadList $entity) => $entity->getName(), $e->getUnableToDeleteEntities())),
                             ],
@@ -615,7 +615,7 @@ final class ListController extends FormController
                 if ([] !== $deletedEntities) {
                     $flashes[] = [
                         'type'    => 'notice',
-                        'msg'     => 'mautic.lead.list.notice.batch_deleted',
+                        'msg'     => 'mailvotech.lead.list.notice.batch_deleted',
                         'msgVars' => [
                             '%count%' => count($deletedEntities),
                         ],
@@ -646,17 +646,17 @@ final class ListController extends FormController
      */
     protected function changeList(Request $request, $listId, $action)
     {
-        $page      = $request->getSession()->get('mautic.lead.page', 1);
-        $returnUrl = $this->generateUrl('mautic_contact_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.lead.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_contact_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\LeadController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\LeadController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_contact_index',
-                'mauticContent' => 'lead',
+                'activeLink'    => '#mailvotech_contact_index',
+                'mailvotechContent' => 'lead',
             ],
         ];
 
@@ -669,7 +669,7 @@ final class ListController extends FormController
             if (null === $lead) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.lead.lead.error.notfound',
+                    'msg'     => 'mailvotech.lead.lead.error.notfound',
                     'msgVars' => ['%id%' => $leadId],
                 ];
             } elseif (!$this->security->hasEntityAccess(
@@ -679,7 +679,7 @@ final class ListController extends FormController
             } elseif (null === $list) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.lead.list.error.notfound',
+                    'msg'     => 'mailvotech.lead.list.error.notfound',
                     'msgVars' => ['%id%' => $listId],
                 ];
             } elseif (!$list->isGlobal() && !$this->security->hasEntityAccess(
@@ -695,13 +695,13 @@ final class ListController extends FormController
                 $identifier = $this->translator->trans($lead->getPrimaryIdentifier());
                 $flashes[]  = [
                     'type' => 'notice',
-                    'msg'  => ('remove' == $action) ? 'mautic.lead.lead.notice.removedfromlists' :
-                        'mautic.lead.lead.notice.addedtolists',
+                    'msg'  => ('remove' == $action) ? 'mailvotech.lead.lead.notice.removedfromlists' :
+                        'mailvotech.lead.lead.notice.addedtolists',
                     'msgVars' => [
                         '%name%' => $identifier,
                         '%id%'   => $leadId,
                         '%list%' => $list->getName(),
-                        '%url%'  => $this->generateUrl('mautic_contact_action', [
+                        '%url%'  => $this->generateUrl('mailvotech_contact_action', [
                             'objectAction' => 'edit',
                             'objectId'     => $leadId,
                         ]),
@@ -725,33 +725,33 @@ final class ListController extends FormController
         /** @var LeadList $list */
         $list = $listModel->getEntity($objectId);
         // set the page we came from
-        $page = $request->getSession()->get('mautic.segment.page', 1);
+        $page = $request->getSession()->get('mailvotech.segment.page', 1);
 
         if ('POST' === $request->getMethod() && $request->request->has('includeEvents')) {
             $filters = [
                 'includeEvents' => InputHelper::clean($request->request->all()['includeEvents'] ?? []),
             ];
-            $request->getSession()->set('mautic.segment.filters', $filters);
+            $request->getSession()->set('mailvotech.segment.filters', $filters);
         } else {
             $filters = [];
         }
 
         if (null === $list) {
             // set the return URL
-            $returnUrl = $this->generateUrl('mautic_segment_index', ['page' => $page]);
+            $returnUrl = $this->generateUrl('mailvotech_segment_index', ['page' => $page]);
 
             return $this->postActionRedirect([
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['page' => $page],
-                'contentTemplate' => 'Mautic\LeadBundle\Controller\ListController::indexAction',
+                'contentTemplate' => 'MailVotech\LeadBundle\Controller\ListController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_segment_index',
-                    'mauticContent' => 'list',
+                    'activeLink'    => '#mailvotech_segment_index',
+                    'mailvotechContent' => 'list',
                 ],
                 'flashes' => [
                     [
                         'type'    => 'error',
-                        'msg'     => 'mautic.lead.list.error.notfound',
+                        'msg'     => 'mailvotech.lead.list.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ],
                 ],
@@ -767,7 +767,7 @@ final class ListController extends FormController
         }
 
         $dateRangeValues              = $request->query->all()['daterange'] ?? $request->request->all()['daterange'] ?? [];
-        $action                       = $this->generateUrl('mautic_segment_action', ['objectAction' => 'view', 'objectId' => $objectId]);
+        $action                       = $this->generateUrl('mailvotech_segment_action', ['objectAction' => 'view', 'objectId' => $objectId]);
         $dateRangeForm                = $this->formFactory->create(DateRangeType::class, $dateRangeValues, ['action' => $action]);
         $segmentContactsLineChartData = $listModel->getSegmentContactsLineChartData(
             null,
@@ -789,7 +789,7 @@ final class ListController extends FormController
         $logs = $auditLogModel->getLogForObject('segment', $list->getId(), $list->getDateAdded());
 
         return $this->delegateView([
-            'returnUrl'      => $this->generateUrl('mautic_segment_action', ['objectAction' => 'view', 'objectId' => $list->getId()]),
+            'returnUrl'      => $this->generateUrl('mailvotech_segment_action', ['objectAction' => 'view', 'objectId' => $list->getId()]),
             'viewParameters' => [
                 'logs'               => $logs,
                 'usageStats'         => $segmentDependencies->getChannelsIds($list->getId()),
@@ -804,16 +804,16 @@ final class ListController extends FormController
                 'events'             => [
                     'filters' => $filters,
                     'types'   => [
-                        'manually_added'   => $this->translator->trans('mautic.segment.contact.manually.added'),
-                        'manually_removed' => $this->translator->trans('mautic.segment.contact.manually.removed'),
-                        'filter_added'     => $this->translator->trans('mautic.segment.contact.filter.added'),
+                        'manually_added'   => $this->translator->trans('mailvotech.segment.contact.manually.added'),
+                        'manually_removed' => $this->translator->trans('mailvotech.segment.contact.manually.removed'),
+                        'filter_added'     => $this->translator->trans('mailvotech.segment.contact.filter.added'),
                     ],
                 ],
             ],
-            'contentTemplate' => '@MauticLead/List/details.html.twig',
+            'contentTemplate' => '@MailVotechLead/List/details.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_segment_index',
-                'mauticContent' => 'list',
+                'activeLink'    => '#mailvotech_segment_index',
+                'mailvotechContent' => 'list',
             ],
         ]);
     }
@@ -840,16 +840,16 @@ final class ListController extends FormController
     {
         $request        = $this->getCurrentRequest();
         $session        = $request->getSession();
-        $currentFilters = $session->get('mautic.lead.list.list_filters', []);
+        $currentFilters = $session->get('mailvotech.lead.list.list_filters', []);
         $updatedFilters = $request->get('filters', false);
 
         $sourceLists = $this->listModel->getSourceLists();
         $listFilters = [
             'filters' => [
-                'placeholder' => $this->translator->trans('mautic.lead.list.filter.placeholder'),
+                'placeholder' => $this->translator->trans('mailvotech.lead.list.filter.placeholder'),
                 'multiple'    => true,
                 'groups'      => [
-                    'mautic.lead.list.source.segment.category' => [
+                    'mailvotech.lead.list.source.segment.category' => [
                         'options' => $sourceLists['categories'],
                         'prefix'  => 'category',
                     ],
@@ -876,13 +876,13 @@ final class ListController extends FormController
                 $currentFilters = [];
             }
         }
-        $session->set('mautic.lead.list.list_filters', $currentFilters);
+        $session->set('mailvotech.lead.list.list_filters', $currentFilters);
 
         $joinCategories = false;
         if (!empty($currentFilters)) {
             $catAliases = $searchFilterTerms = [];
             foreach ($currentFilters as $type => $typeFilters) {
-                $listFilters['filters']['groups']['mautic.lead.list.source.segment.'.$type]['values'] = $typeFilters;
+                $listFilters['filters']['groups']['mailvotech.lead.list.source.segment.'.$type]['values'] = $typeFilters;
 
                 foreach ($typeFilters as $fltr) {
                     if ('category' == $type) {
@@ -893,7 +893,7 @@ final class ListController extends FormController
             }
 
             $filter['string'] = $this->stripQuickFilterTokensFromSearch((string) ($filter['string'] ?? ''), $searchFilterTerms);
-            $session->set('mautic.lead.list.filter', $filter['string']);
+            $session->set('mailvotech.lead.list.filter', $filter['string']);
 
             if ([] !== $catAliases) {
                 $joinCategories    = true;
@@ -932,7 +932,7 @@ final class ListController extends FormController
     public function contactsAction(Request $request, PageHelperFactoryInterface $pageHelperFactory, $objectId, $page = 1): Response
     {
         $session = $request->getSession();
-        $session->set('mautic.segment.contact.page', $page);
+        $session->set('mailvotech.segment.contact.page', $page);
 
         $manuallyRemoved = 0;
         $listFilters     = ['manually_removed' => $manuallyRemoved];
@@ -940,7 +940,7 @@ final class ListController extends FormController
             $filters = [
                 'includeEvents' => InputHelper::clean($request->query->all()['includeEvents'] ?? $request->request->all()['includeEvents'] ?? []),
             ];
-            $request->getSession()->set('mautic.segment.filters', $filters);
+            $request->getSession()->set('mailvotech.segment.filters', $filters);
         } else {
             $filters = [];
         }

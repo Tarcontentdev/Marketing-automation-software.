@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Service;
+namespace MailVotech\CoreBundle\Service;
 
-use Mautic\CoreBundle\Entity\OptimisticLockInterface;
+use MailVotech\CoreBundle\Entity\OptimisticLockInterface;
 
 interface OptimisticLockServiceInterface
 {

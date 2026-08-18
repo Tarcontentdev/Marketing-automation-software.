@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Helper;
+namespace MailVotech\IntegrationsBundle\Sync\Helper;
 
 use Doctrine\DBAL\Connection;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
 
 class SyncDateHelper
 {
@@ -50,7 +50,7 @@ class SyncDateHelper
             return $this->lastObjectSyncDates[$key];
         }
 
-        if (MauticSyncDataExchange::NAME !== $integration && $lastSync = $this->getLastSyncDateForObject($integration, $object)) {
+        if (MailVotechSyncDataExchange::NAME !== $integration && $lastSync = $this->getLastSyncDateForObject($integration, $object)) {
             // Use the latest sync date recorded
             $this->lastObjectSyncDates[$key] = $lastSync;
         } else {
@@ -84,7 +84,7 @@ class SyncDateHelper
 
         $result = $qb
             ->select('max(m.last_sync_date)')
-            ->from(MAUTIC_TABLE_PREFIX.'sync_object_mapping', 'm')
+            ->from(MAILVOTECH_TABLE_PREFIX.'sync_object_mapping', 'm')
             ->where(
                 $qb->expr()->eq('m.integration', ':integration'),
                 $qb->expr()->eq('m.integration_object_name', ':object')

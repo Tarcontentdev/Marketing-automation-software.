@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\ApiBundle\Controller\oAuth2;
+namespace MailVotech\ApiBundle\Controller\oAuth2;
 
-use Mautic\CoreBundle\Controller\CommonController;
+use MailVotech\CoreBundle\Controller\CommonController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception;
@@ -23,7 +23,7 @@ final class SecurityController extends CommonController
         }
         if (!empty($error)) {
             if ($error instanceof Exception\BadCredentialsException) {
-                $msg = 'mautic.user.auth.error.invalidlogin';
+                $msg = 'mailvotech.user.auth.error.invalidlogin';
             } else {
                 $msg = $error->getMessage();
             }
@@ -37,10 +37,10 @@ final class SecurityController extends CommonController
         }
 
         return $this->render(
-            '@MauticApi/Security/login.html.twig',
+            '@MailVotechApi/Security/login.html.twig',
             [
                 'last_username' => $session->get(SecurityRequestAttributes::LAST_USERNAME),
-                'route'         => 'mautic_oauth2_server_auth_login_check',
+                'route'         => 'mailvotech_oauth2_server_auth_login_check',
             ]
         );
     }

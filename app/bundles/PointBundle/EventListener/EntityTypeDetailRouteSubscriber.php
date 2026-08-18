@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\EventListener;
+namespace MailVotech\PointBundle\EventListener;
 
-use Mautic\ProjectBundle\DTO\DetailRoute;
-use Mautic\ProjectBundle\Event\EntityTypeDetailRouteEvent;
+use MailVotech\ProjectBundle\DTO\DetailRoute;
+use MailVotech\ProjectBundle\Event\EntityTypeDetailRouteEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class EntityTypeDetailRouteSubscriber implements EventSubscriberInterface
@@ -21,7 +21,7 @@ final class EntityTypeDetailRouteSubscriber implements EventSubscriberInterface
     {
         // Point entity uses edit
         $event->addRoute('point', new DetailRoute(
-            'mautic_point_action',
+            'mailvotech_point_action',
             'objectId',
             ['objectAction' => 'edit']
         ));

@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\SyncProcess;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\SyncProcess;
 
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
-use Mautic\IntegrationsBundle\Event\CompletedSyncIterationEvent;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\RemappedObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectMappingsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
-use Mautic\IntegrationsBundle\Sync\Helper\MappingHelper;
-use Mautic\IntegrationsBundle\Sync\Helper\RelationsHelper;
-use Mautic\IntegrationsBundle\Sync\Helper\SyncDateHelper;
-use Mautic\IntegrationsBundle\Sync\Notification\Notifier;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Integration\IntegrationSyncProcess;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\MauticSyncProcess;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\SyncProcess;
-use Mautic\IntegrationsBundle\Sync\SyncService\SyncServiceInterface;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Event\CompletedSyncIterationEvent;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\RemappedObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectMappingsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
+use MailVotech\IntegrationsBundle\Sync\Helper\MappingHelper;
+use MailVotech\IntegrationsBundle\Sync\Helper\RelationsHelper;
+use MailVotech\IntegrationsBundle\Sync\Helper\SyncDateHelper;
+use MailVotech\IntegrationsBundle\Sync\Notification\Notifier;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Integration\IntegrationSyncProcess;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\MailVotechSyncProcess;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\SyncProcess;
+use MailVotech\IntegrationsBundle\Sync\SyncService\SyncServiceInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -32,7 +32,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 final class SyncProcessTest extends TestCase
 {
     /**
-     * @var MockObject&MauticSyncDataExchange
+     * @var MockObject&MailVotechSyncDataExchange
      */
     private MockObject $internalSyncDataExchange;
 
@@ -47,9 +47,9 @@ final class SyncProcessTest extends TestCase
     private MockObject $integrationSyncProcess;
 
     /**
-     * @var MockObject&MauticSyncProcess
+     * @var MockObject&MailVotechSyncProcess
      */
-    private MockObject $mauticSyncProcess;
+    private MockObject $mailvotechSyncProcess;
 
     /**
      * @var MockObject&EventDispatcherInterface
@@ -67,9 +67,9 @@ final class SyncProcessTest extends TestCase
     {
         $this->syncDateHelper              = $this->createMock(SyncDateHelper::class);
         $this->integrationSyncProcess      = $this->createMock(IntegrationSyncProcess::class);
-        $this->mauticSyncProcess           = $this->createMock(MauticSyncProcess::class);
+        $this->mailvotechSyncProcess           = $this->createMock(MailVotechSyncProcess::class);
         $this->eventDispatcher             = $this->createMock(EventDispatcherInterface::class);
-        $this->internalSyncDataExchange    = $this->createMock(MauticSyncDataExchange::class);
+        $this->internalSyncDataExchange    = $this->createMock(MailVotechSyncDataExchange::class);
         $this->inputOptionsDAO             = $this->createMock(InputOptionsDAO::class);
 
         $this->syncProcess = new SyncProcess(
@@ -77,7 +77,7 @@ final class SyncProcessTest extends TestCase
             $this->createStub(MappingHelper::class),
             $this->createStub(RelationsHelper::class),
             $this->integrationSyncProcess,
-            $this->mauticSyncProcess,
+            $this->mailvotechSyncProcess,
             $this->eventDispatcher,
             $this->createStub(Notifier::class),
             $this->createStub(MappingManualDAO::class),
@@ -101,7 +101,7 @@ final class SyncProcessTest extends TestCase
         $this->syncDateHelper->expects($this->once())
             ->method('setInternalSyncStartDateTime');
 
-        // Integration to Mautic
+        // Integration to MailVotech
 
         // fetch the report from the integration
         $integrationSyncReport = $this->createMock(ReportDAO::class);
@@ -126,7 +126,7 @@ final class SyncProcessTest extends TestCase
         $integrationSyncOrder->expects($this->once())
             ->method('shouldSync')
             ->willReturn(true);
-        $this->mauticSyncProcess->expects($this->once())
+        $this->mailvotechSyncProcess->expects($this->once())
             ->method('getSyncOrder')
             ->with($integrationSyncReport)
             ->willReturn($integrationSyncOrder);
@@ -161,7 +161,7 @@ final class SyncProcessTest extends TestCase
                         $this->assertCount(1, $orderResult->getRemappedObjects('bar'));
                     };
                     $callback($parameters[0]);
-                    $this->assertSame(IntegrationEvents::INTEGRATION_BATCH_SYNC_COMPLETED_INTEGRATION_TO_MAUTIC, $parameters[1]);
+                    $this->assertSame(IntegrationEvents::INTEGRATION_BATCH_SYNC_COMPLETED_INTEGRATION_TO_MAILVOTECH, $parameters[1]);
                 }
                 if (2 === $matcher->numberOfInvocations()) {
                     $callback = function (CompletedSyncIterationEvent $event): void {
@@ -170,21 +170,21 @@ final class SyncProcessTest extends TestCase
                         $this->assertCount(1, $orderResult->getUpdatedObjectMappings('foo'));
                     };
                     $callback($parameters[0]);
-                    $this->assertSame(IntegrationEvents::INTEGRATION_BATCH_SYNC_COMPLETED_MAUTIC_TO_INTEGRATION, $parameters[1]);
+                    $this->assertSame(IntegrationEvents::INTEGRATION_BATCH_SYNC_COMPLETED_MAILVOTECH_TO_INTEGRATION, $parameters[1]);
                 }
 
                 return $parameters[0];
             });
 
-        // Mautic to integration
+        // MailVotech to integration
 
-        // fetch the report from Mautic
+        // fetch the report from MailVotech
         $internalSyncReport = $this->createMock(ReportDAO::class);
         $internalSyncReport->expects($this->exactly(2))
             ->method('shouldSync')
             ->willReturnOnConsecutiveCalls(true, false);
         $matcher = $this->exactly(2);
-        $this->mauticSyncProcess->expects($matcher)
+        $this->mailvotechSyncProcess->expects($matcher)
             ->method('getSyncReport')->willReturnCallback(function (...$parameters) use ($matcher, $internalSyncReport): MockObject {
                 if (1 === $matcher->numberOfInvocations()) {
                     $this->assertSame(1, $parameters[0]);
@@ -215,10 +215,10 @@ final class SyncProcessTest extends TestCase
             ->willReturn([$updatedObjectMapping, $updatedObjectMapping2]);
         $internalSyncOrder->expects($this->exactly(2))
             ->method('getDeletedObjects')
-            ->willReturn([]); // currently not supported for Mautic to integration
+            ->willReturn([]); // currently not supported for MailVotech to integration
         $internalSyncOrder->expects($this->exactly(2))
             ->method('getRemappedObjects')
-            ->willReturn([]); // currently not supported for Mautic to integration
+            ->willReturn([]); // currently not supported for MailVotech to integration
         $internalSyncOrder->expects($this->once())
             ->method('getNotifications')
             ->willReturn([]);

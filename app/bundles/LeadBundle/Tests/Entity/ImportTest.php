@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\LeadBundle\Entity\Import;
-use Mautic\LeadBundle\Tests\StandardImportTestHelper;
+use MailVotech\LeadBundle\Entity\Import;
+use MailVotech\LeadBundle\Tests\StandardImportTestHelper;
 
 final class ImportTest extends StandardImportTestHelper
 {

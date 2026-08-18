@@ -2,83 +2,83 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Model;
+namespace MailVotech\LeadBundle\Model;
 
 use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Illuminate\Support\Collection;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CategoryBundle\Model\CategoryModel;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\CoreBundle\Cache\ResultCacheOptions;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Form\RequestTrait;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Helper\Chart\PieChart;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\Helper\EmailValidator;
-use Mautic\LeadBundle\DataObject\LeadManipulator;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyLead;
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Entity\DoNotContact as DNC;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\FrequencyRule;
-use Mautic\LeadBundle\Entity\FrequencyRuleRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadCategory;
-use Mautic\LeadBundle\Entity\LeadCategoryRepository;
-use Mautic\LeadBundle\Entity\LeadDeviceRepository;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\LeadBundle\Entity\LeadEventLogRepository;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\MergeRecordRepository;
-use Mautic\LeadBundle\Entity\OperatorListTrait;
-use Mautic\LeadBundle\Entity\PointsChangeLog;
-use Mautic\LeadBundle\Entity\PointsChangeLogRepository;
-use Mautic\LeadBundle\Entity\StagesChangeLog;
-use Mautic\LeadBundle\Entity\StagesChangeLogRepository;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\Entity\TagRepository;
-use Mautic\LeadBundle\Entity\UtmTag;
-use Mautic\LeadBundle\Entity\UtmTagRepository;
-use Mautic\LeadBundle\Event\CategoryChangeEvent;
-use Mautic\LeadBundle\Event\DoNotContactAddEvent;
-use Mautic\LeadBundle\Event\DoNotContactRemoveEvent;
-use Mautic\LeadBundle\Event\LeadEvent;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\Event\SaveBatchLeadsEvent;
-use Mautic\LeadBundle\Exception\ImportFailedException;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\Form\Type\LeadType;
-use Mautic\LeadBundle\Helper\CustomFieldValueHelper;
-use Mautic\LeadBundle\Helper\IdentifyCompanyHelper;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\LeadBundle\Tracker\DeviceTracker;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PointBundle\Entity\GroupContactScoreRepository;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\StageBundle\Entity\StageRepository;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
-use Mautic\UserBundle\Security\Provider\UserProvider;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CategoryBundle\Model\CategoryModel;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\CoreBundle\Cache\ResultCacheOptions;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Form\RequestTrait;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Helper\Chart\PieChart;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\Helper\EmailValidator;
+use MailVotech\LeadBundle\DataObject\LeadManipulator;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyLead;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Entity\DoNotContact as DNC;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\FrequencyRule;
+use MailVotech\LeadBundle\Entity\FrequencyRuleRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadCategory;
+use MailVotech\LeadBundle\Entity\LeadCategoryRepository;
+use MailVotech\LeadBundle\Entity\LeadDeviceRepository;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Entity\LeadEventLogRepository;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\MergeRecordRepository;
+use MailVotech\LeadBundle\Entity\OperatorListTrait;
+use MailVotech\LeadBundle\Entity\PointsChangeLog;
+use MailVotech\LeadBundle\Entity\PointsChangeLogRepository;
+use MailVotech\LeadBundle\Entity\StagesChangeLog;
+use MailVotech\LeadBundle\Entity\StagesChangeLogRepository;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Entity\TagRepository;
+use MailVotech\LeadBundle\Entity\UtmTag;
+use MailVotech\LeadBundle\Entity\UtmTagRepository;
+use MailVotech\LeadBundle\Event\CategoryChangeEvent;
+use MailVotech\LeadBundle\Event\DoNotContactAddEvent;
+use MailVotech\LeadBundle\Event\DoNotContactRemoveEvent;
+use MailVotech\LeadBundle\Event\LeadEvent;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\Event\SaveBatchLeadsEvent;
+use MailVotech\LeadBundle\Exception\ImportFailedException;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Form\Type\LeadType;
+use MailVotech\LeadBundle\Helper\CustomFieldValueHelper;
+use MailVotech\LeadBundle\Helper\IdentifyCompanyHelper;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\LeadBundle\Tracker\DeviceTracker;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PointBundle\Entity\GroupContactScoreRepository;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\StageBundle\Entity\StageRepository;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
+use MailVotech\UserBundle\Security\Provider\UserProvider;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -147,7 +147,7 @@ class LeadModel extends FormModel
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         private readonly LeadRepository $leadRepository,
         private readonly TagRepository $tagRepository,
         private readonly PointsChangeLogRepository $pointsChangeLogRepository,
@@ -167,7 +167,7 @@ class LeadModel extends FormModel
         private readonly StatRepository $statRepository,
         private readonly CompanyRepository $companyRepository,
     ) {
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function getRepository(): LeadRepository
@@ -587,10 +587,10 @@ class LeadModel extends FormModel
                     $lead->stageChangeLogEntry(
                         $newStage,
                         $newStage->getId().':'.$newStage->getName(),
-                        $this->translator->trans('mautic.stage.event.changed')
+                        $this->translator->trans('mailvotech.stage.event.changed')
                     );
                 } else {
-                    throw new ImportFailedException($this->translator->trans('mautic.lead.import.stage.not.exists', ['%id%' => $newLeadStageIdOrName]));
+                    throw new ImportFailedException($this->translator->trans('mailvotech.lead.import.stage.not.exists', ['%id%' => $newLeadStageIdOrName]));
                 }
             }
         }
@@ -982,7 +982,7 @@ class LeadModel extends FormModel
     {
         $origin = is_string($manuallyAdded)
             ? $manuallyAdded
-            : $this->translator->trans('mautic.stage.event.added.batch');
+            : $this->translator->trans('mailvotech.stage.event.added.batch');
 
         if (!$lead instanceof Lead) {
             $leadId = (is_array($lead) && isset($lead['id'])) ? $lead['id'] : $lead;
@@ -1012,11 +1012,11 @@ class LeadModel extends FormModel
 
         if (null !== $currentStage) {
             if ($currentStage->getId() === $stage->getId()) {
-                throw new \UnexpectedValueException($this->translator->trans('mautic.stage.campaign.event.already_in_stage'));
+                throw new \UnexpectedValueException($this->translator->trans('mailvotech.stage.campaign.event.already_in_stage'));
             }
 
             if ($currentStage->getWeight() > $stage->getWeight()) {
-                throw new \UnexpectedValueException($this->translator->trans('mautic.stage.campaign.event.stage_invalid'));
+                throw new \UnexpectedValueException($this->translator->trans('mailvotech.stage.campaign.event.stage_invalid'));
             }
         }
 
@@ -1046,7 +1046,7 @@ class LeadModel extends FormModel
     {
         $origin = is_string($manuallyRemoved)
             ? $manuallyRemoved
-            : $this->translator->trans('mautic.stage.event.removed.batch');
+            : $this->translator->trans('mailvotech.stage.event.removed.batch');
 
         if (!$lead instanceof Lead) {
             $leadId = (is_array($lead) && isset($lead['id'])) ? $lead['id'] : $lead;
@@ -1357,7 +1357,7 @@ class LeadModel extends FormModel
         }
 
         if (!$granted) {
-            throw new \Exception($this->translator->trans('mautic.lead.import.error.unauthorized', ['%username%' => $this->userHelper->getUser()->getUserIdentifier()]));
+            throw new \Exception($this->translator->trans('mailvotech.lead.import.error.unauthorized', ['%username%' => $this->userHelper->getUser()->getUserIdentifier()]));
         }
 
         if (!empty($fields['dateAdded']) && !empty($data[$fields['dateAdded']])) {
@@ -1422,8 +1422,8 @@ class LeadModel extends FormModel
             $log->setDelta($data[$fields['points']]);
             $log->setLead($lead);
             $log->setType('lead');
-            $log->setEventName($this->translator->trans('mautic.lead.import.event.name'));
-            $log->setActionName($this->translator->trans('mautic.lead.import.action.name', [
+            $log->setEventName($this->translator->trans('mailvotech.lead.import.event.name'));
+            $log->setActionName($this->translator->trans('mailvotech.lead.import.action.name', [
                 '%name%' => $this->userHelper->getUser()->getUserIdentifier(),
             ]));
             $log->setIpAddress($this->ipLookupHelper->getIpAddress());
@@ -1456,7 +1456,7 @@ class LeadModel extends FormModel
             $log->setLead($lead);
             $log->setActionName(
                 $this->translator->trans(
-                    'mautic.stage.import.action.name',
+                    'mailvotech.stage.import.action.name',
                     [
                         '%name%' => $this->userHelper->getUser()->getUserIdentifier(),
                     ]
@@ -1471,7 +1471,7 @@ class LeadModel extends FormModel
         if (!empty($fields['doNotEmail']) && isset($data[$fields['doNotEmail']]) && (!empty($fields['email']) && !empty($data[$fields['email']]))) {
             $doNotEmail = filter_var($data[$fields['doNotEmail']], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
             if (null !== $doNotEmail) {
-                $reason = $this->translator->trans('mautic.lead.import.by.user', [
+                $reason = $this->translator->trans('mailvotech.lead.import.by.user', [
                     '%user%' => $this->userHelper->getUser()->getUserIdentifier(),
                 ]);
 
@@ -1926,9 +1926,9 @@ class LeadModel extends FormModel
     {
         $flag        = null;
         $topLists    = null;
-        $allLeadsT   = $this->translator->trans('mautic.lead.all.leads');
-        $identifiedT = $this->translator->trans('mautic.lead.identified');
-        $anonymousT  = $this->translator->trans('mautic.lead.lead.anonymous');
+        $allLeadsT   = $this->translator->trans('mailvotech.lead.all.leads');
+        $identifiedT = $this->translator->trans('mailvotech.lead.identified');
+        $anonymousT  = $this->translator->trans('mailvotech.lead.lead.anonymous');
 
         if (isset($filter['flag'])) {
             $flag = $filter['flag'];
@@ -2014,8 +2014,8 @@ class LeadModel extends FormModel
 
         $identified = $query->count('leads', 'date_identified', 'date_added', $filters);
         $all        = $query->count('leads', 'id', 'date_added', $filters);
-        $chart->setDataset($this->translator->trans('mautic.lead.identified'), $identified);
-        $chart->setDataset($this->translator->trans('mautic.lead.lead.anonymous'), $all - $identified);
+        $chart->setDataset($this->translator->trans('mailvotech.lead.identified'), $identified);
+        $chart->setDataset($this->translator->trans('mailvotech.lead.lead.anonymous'), $all - $identified);
 
         return $chart->render();
     }
@@ -2037,7 +2037,7 @@ class LeadModel extends FormModel
 
         $q = $this->em->getConnection()->createQueryBuilder();
         $q->select('COUNT(t.id) as quantity, t.country')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 't')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 't')
             ->groupBy('t.country')
             ->where($q->expr()->isNotNull('t.country'));
 
@@ -2075,7 +2075,7 @@ class LeadModel extends FormModel
 
         $query = $this->em->getConnection()->createQueryBuilder();
         $query->select(implode(', ', $columns))
-            ->from(MAUTIC_TABLE_PREFIX.'leads');
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads');
 
         return $query->executeQuery()->fetchAssociative();
     }
@@ -2092,8 +2092,8 @@ class LeadModel extends FormModel
     {
         $q = $this->em->getConnection()->createQueryBuilder();
         $q->select('COUNT(t.id) AS leads, t.owner_id, u.first_name, u.last_name')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 't')
-            ->join('t', MAUTIC_TABLE_PREFIX.'users', 'u', 'u.id = t.owner_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 't')
+            ->join('t', MAILVOTECH_TABLE_PREFIX.'users', 'u', 'u.id = t.owner_id')
             ->where($q->expr()->isNotNull('t.owner_id'))
             ->orderBy('leads', 'DESC')
             ->groupBy('t.owner_id, u.first_name, u.last_name')
@@ -2118,7 +2118,7 @@ class LeadModel extends FormModel
     {
         $q = $this->em->getConnection()->createQueryBuilder();
         $q->select('COUNT(t.id) AS leads, t.created_by, t.created_by_user')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 't')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 't')
             ->where($q->expr()->isNotNull('t.created_by'))
             ->andWhere($q->expr()->isNotNull('t.created_by_user'))
             ->orderBy('leads', 'DESC')
@@ -2146,7 +2146,7 @@ class LeadModel extends FormModel
 
         $q = $this->em->getConnection()->createQueryBuilder();
         $q->select('t.id, t.firstname, t.lastname, t.email, t.date_added, t.date_modified')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 't')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 't')
             ->setMaxResults($limit);
 
         $chartQuery = new ChartQuery($this->em->getConnection(), $dateFrom, $dateTo);
@@ -2411,7 +2411,7 @@ class LeadModel extends FormModel
         $lead->addIpAddress($ip);
         $lead->setNewlyCreated(true);
 
-        if ($persist && !defined('MAUTIC_NON_TRACKABLE_REQUEST')) {
+        if ($persist && !defined('MAILVOTECH_NON_TRACKABLE_REQUEST')) {
             // Set to prevent loops
             $this->contactTracker->setTrackedContact($lead);
 
@@ -2430,7 +2430,7 @@ class LeadModel extends FormModel
     }
 
     /**
-     * @deprecated 2.12.0 to be removed in 3.0; use Mautic\LeadBundle\Model\DoNotContact instead
+     * @deprecated 2.12.0 to be removed in 3.0; use MailVotech\LeadBundle\Model\DoNotContact instead
      *
      * @param string $channel
      *
@@ -2526,7 +2526,7 @@ class LeadModel extends FormModel
                 }
                 $allowedValues = is_array($field['properties'])
                     ? $field['properties']
-                    : \Mautic\CoreBundle\Helper\Serializer::decode($field['properties']);
+                    : \MailVotech\CoreBundle\Helper\Serializer::decode($field['properties']);
 
                 $flattenedAllowedValues = array_map(fn (array $item): string => html_entity_decode($item['value'], ENT_QUOTES), $allowedValues['list']);
 

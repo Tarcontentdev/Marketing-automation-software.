@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\PointBundle\Form\Type\GroupListType;
+use MailVotech\PointBundle\Form\Type\GroupListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -21,14 +21,14 @@ final class FormSubmitActionPointsChangeType extends AbstractType
             'operator',
             ChoiceType::class,
             [
-                'label'             => 'mautic.lead.lead.submitaction.operator',
+                'label'             => 'mailvotech.lead.lead.submitaction.operator',
                 'attr'              => ['class' => 'form-control'],
                 'label_attr'        => ['class' => 'control-label'],
                 'choices'           => [
-                    'mautic.lead.lead.submitaction.operator_plus'   => 'plus',
-                    'mautic.lead.lead.submitaction.operator_minus'  => 'minus',
-                    'mautic.lead.lead.submitaction.operator_times'  => 'times',
-                    'mautic.lead.lead.submitaction.operator_divide' => 'divide',
+                    'mailvotech.lead.lead.submitaction.operator_plus'   => 'plus',
+                    'mailvotech.lead.lead.submitaction.operator_minus'  => 'minus',
+                    'mailvotech.lead.lead.submitaction.operator_times'  => 'times',
+                    'mailvotech.lead.lead.submitaction.operator_divide' => 'divide',
                 ],
             ]
         );
@@ -38,7 +38,7 @@ final class FormSubmitActionPointsChangeType extends AbstractType
             'points',
             NumberType::class,
             [
-                'label'      => 'mautic.lead.lead.submitaction.points',
+                'label'      => 'mailvotech.lead.lead.submitaction.points',
                 'attr'       => ['class' => 'form-control'],
                 'label_attr' => ['class' => 'control-label'],
                 'scale'      => 0,
@@ -47,11 +47,11 @@ final class FormSubmitActionPointsChangeType extends AbstractType
         );
 
         $builder->add('group', GroupListType::class, [
-            'label'            => 'mautic.lead.campaign.event.point_group',
+            'label'            => 'mailvotech.lead.campaign.event.point_group',
             'label_attr'       => ['class' => 'control-label'],
             'attr'             => [
                 'class'    => 'form-control',
-                'tooltip'  => 'mautic.lead.campaign.event.point_group.help',
+                'tooltip'  => 'mailvotech.lead.campaign.event.point_group.help',
             ],
             'required'         => false,
             'by_reference'     => false,

@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\SyncDataExchange\Internal\ReportBuilder;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\SyncDataExchange\Internal\ReportBuilder;
 
-use Mautic\IntegrationsBundle\Entity\FieldChangeRepository;
-use Mautic\IntegrationsBundle\Event\InternalObjectFindEvent;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\ObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\RequestDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\EncodedValueDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Helper\FieldHelper;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company as InternalCompany;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ReportBuilder\FieldBuilder;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ReportBuilder\PartialObjectReportBuilder;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\IntegrationsBundle\Entity\FieldChangeRepository;
+use MailVotech\IntegrationsBundle\Event\InternalObjectFindEvent;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Request\ObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Request\RequestDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\EncodedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Helper\FieldHelper;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company as InternalCompany;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ReportBuilder\FieldBuilder;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ReportBuilder\PartialObjectReportBuilder;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -174,7 +174,7 @@ final class PartialObjectReportBuilderTest extends TestCase
         $requestDAO    = new RequestDAO(self::INTEGRATION_NAME, 1, new InputOptionsDAO(['integration' => self::INTEGRATION_NAME]));
         $fromDateTime  = new \DateTimeImmutable('2018-10-08 00:00:00');
         $toDateTime    = new \DateTimeImmutable('2018-10-08 00:01:00');
-        $requestObject = new ObjectDAO(MauticSyncDataExchange::OBJECT_COMPANY, $fromDateTime, $toDateTime);
+        $requestObject = new ObjectDAO(MailVotechSyncDataExchange::OBJECT_COMPANY, $fromDateTime, $toDateTime);
         $requestObject->addField('email');
         $requestObject->addField('companyname');
         $requestDAO->addObject($requestObject);
@@ -314,7 +314,7 @@ final class PartialObjectReportBuilderTest extends TestCase
         $requestDAO    = new RequestDAO(self::INTEGRATION_NAME, 1, new InputOptionsDAO(['integration' => self::INTEGRATION_NAME]));
         $fromDateTime  = new \DateTimeImmutable('2018-10-08 00:00:00');
         $toDateTime    = new \DateTimeImmutable('2018-10-08 00:01:00');
-        $requestObject = new ObjectDAO(MauticSyncDataExchange::OBJECT_COMPANY, $fromDateTime, $toDateTime);
+        $requestObject = new ObjectDAO(MailVotechSyncDataExchange::OBJECT_COMPANY, $fromDateTime, $toDateTime);
         $requestObject->addField('email');
         $requestObject->addField('companyname');
         $requestDAO->addObject($requestObject);

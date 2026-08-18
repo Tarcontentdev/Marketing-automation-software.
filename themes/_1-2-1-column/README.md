@@ -1,5 +1,5 @@
-# 1-2-1 Column theme for Mautic
+# 1-2-1 Column theme for MailVotech
 
-## This theme is managed centrally in https://github.com/mautic/mautic/ and this is a read-only mirror repository.
+## This theme is managed centrally in https://github.com/mailvotech/mailvotech/ and this is a read-only mirror repository.
 
-**📣 Please make PRs and issues against Mautic Core, not here!**
+**📣 Please make PRs and issues against MailVotech Core, not here!**

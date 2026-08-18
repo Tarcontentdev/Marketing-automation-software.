@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\DTO;
+namespace MailVotech\MarketplaceBundle\DTO;
 
-use Mautic\MarketplaceBundle\Exception\RecordNotFoundException;
+use MailVotech\MarketplaceBundle\Exception\RecordNotFoundException;
 
 final class Allowlist
 {

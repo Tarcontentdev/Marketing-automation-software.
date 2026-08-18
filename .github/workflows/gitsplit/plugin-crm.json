@@ -1,9 +1,9 @@
 {
     "subtree-splits": [
         {
-            "name": "MauticCrmBundle",
-            "directory": "plugins/MauticCrmBundle",
-            "target": "git@github.com:mautic/plugin-crm.git"
+            "name": "MailVotechCrmBundle",
+            "directory": "plugins/MailVotechCrmBundle",
+            "target": "git@github.com:mailvotech/plugin-crm.git"
         }
     ]
 }

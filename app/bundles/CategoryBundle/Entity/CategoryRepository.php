@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CategoryBundle\Entity;
+namespace MailVotech\CategoryBundle\Entity;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<Category>
@@ -97,13 +97,13 @@ class CategoryRepository extends CommonRepository
         [$expr, $parameters]     = parent::addSearchCommandWhereClause($q, $filter);
 
         switch ($command) {
-            case $this->translator->trans('mautic.core.searchcommand.ispublished'):
-            case $this->translator->trans('mautic.core.searchcommand.ispublished', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ispublished'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ispublished', [], null, 'en_US'):
                 $expr                = $q->expr()->eq('c.isPublished', ":{$unique}");
                 $parameters[$unique] = true;
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.isunpublished'):
-            case $this->translator->trans('mautic.core.searchcommand.isunpublished', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.isunpublished'):
+            case $this->translator->trans('mailvotech.core.searchcommand.isunpublished', [], null, 'en_US'):
                 $expr                = $q->expr()->eq('c.isPublished', ":{$unique}");
                 $parameters[$unique] = false;
                 break;
@@ -125,8 +125,8 @@ class CategoryRepository extends CommonRepository
     public function getSearchCommands(): array
     {
         $commands = [
-            'mautic.core.searchcommand.ispublished',
-            'mautic.core.searchcommand.isunpublished',
+            'mailvotech.core.searchcommand.ispublished',
+            'mailvotech.core.searchcommand.isunpublished',
         ];
 
         return array_merge($commands, parent::getSearchCommands());

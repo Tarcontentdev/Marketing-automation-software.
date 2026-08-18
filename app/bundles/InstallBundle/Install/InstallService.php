@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mautic\InstallBundle\Install;
+namespace MailVotech\InstallBundle\Install;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Configurator\Configurator;
-use Mautic\CoreBundle\Configurator\Step\StepInterface;
-use Mautic\CoreBundle\Doctrine\Loader\FixturesLoaderInterface;
-use Mautic\CoreBundle\Helper\CacheHelper;
-use Mautic\CoreBundle\Helper\EncryptionHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Loader\ParameterLoader;
-use Mautic\CoreBundle\Release\ThisRelease;
-use Mautic\InstallBundle\Configurator\Step\DoctrineStep;
-use Mautic\InstallBundle\Exception\AlreadyInstalledException;
-use Mautic\InstallBundle\Exception\DatabaseVersionTooOldException;
-use Mautic\InstallBundle\Helper\SchemaHelper;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\CoreBundle\Configurator\Configurator;
+use MailVotech\CoreBundle\Configurator\Step\StepInterface;
+use MailVotech\CoreBundle\Doctrine\Loader\FixturesLoaderInterface;
+use MailVotech\CoreBundle\Helper\CacheHelper;
+use MailVotech\CoreBundle\Helper\EncryptionHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Loader\ParameterLoader;
+use MailVotech\CoreBundle\Release\ThisRelease;
+use MailVotech\InstallBundle\Configurator\Step\DoctrineStep;
+use MailVotech\InstallBundle\Exception\AlreadyInstalledException;
+use MailVotech\InstallBundle\Exception\DatabaseVersionTooOldException;
+use MailVotech\InstallBundle\Helper\SchemaHelper;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -183,7 +183,7 @@ class InstallService
         } catch (\RuntimeException) {
             $messages = [
                 'error' => $this->translator->trans(
-                    'mautic.installer.error.writing.configuration',
+                    'mailvotech.installer.error.writing.configuration',
                     [],
                     'flashes'
                 ),
@@ -213,7 +213,7 @@ class InstallService
         foreach ($required as $r) {
             if (!isset($dbParams[$r]) || empty($dbParams[$r])) {
                 $messages[$r] = $this->translator->trans(
-                    'mautic.core.value.required',
+                    'mailvotech.core.value.required',
                     [],
                     'validators'
                 );
@@ -222,7 +222,7 @@ class InstallService
 
         if (!isset($dbParams['port']) || (int) $dbParams['port'] <= 0) {
             $messages['port'] = $this->translator->trans(
-                'mautic.install.database.port.invalid',
+                'mailvotech.install.database.port.invalid',
                 [],
                 'validators'
             );
@@ -230,7 +230,7 @@ class InstallService
 
         if (!empty($dbParams['driver']) && !in_array($dbParams['driver'], DoctrineStep::getDriverKeys())) {
             $messages['driver'] = $this->translator->trans(
-                'mautic.install.database.driver.invalid',
+                'mailvotech.install.database.driver.invalid',
                 ['%drivers%' => implode(', ', DoctrineStep::getDriverKeys())],
                 'validators'
             );
@@ -265,7 +265,7 @@ class InstallService
             }
 
             $messages['error'] = $this->translator->trans(
-                'mautic.installer.error.creating.database',
+                'mailvotech.installer.error.creating.database',
                 ['%name%' => $dbParams['name']],
                 'flashes'
             );
@@ -273,7 +273,7 @@ class InstallService
             $metadata = ThisRelease::getMetadata();
 
             $messages['error'] = $this->translator->trans(
-                'mautic.installer.error.database.version',
+                'mailvotech.installer.error.database.version',
                 [
                     '%currentversion%'    => $e->getCurrentVersion(),
                     '%mysqlminversion%'   => $metadata->getMinSupportedMySqlVersion(),
@@ -283,7 +283,7 @@ class InstallService
             );
         } catch (\Exception $exception) {
             $messages['error'] = $this->translator->trans(
-                'mautic.installer.error.connecting.database',
+                'mailvotech.installer.error.connecting.database',
                 ['%exception%' => $exception->getMessage()],
                 'flashes'
             );
@@ -304,14 +304,14 @@ class InstallService
         try {
             if (!$schemaHelper->installSchema()) {
                 $messages['error'] = $this->translator->trans(
-                    'mautic.installer.error.no.metadata',
+                    'mailvotech.installer.error.no.metadata',
                     [],
                     'flashes'
                 );
             }
         } catch (\Exception $exception) {
             $messages['error'] = $this->translator->trans(
-                'mautic.installer.error.installing.data',
+                'mailvotech.installer.error.installing.data',
                 ['%exception%' => $exception->getMessage()],
                 'flashes'
             );
@@ -331,7 +331,7 @@ class InstallService
             $this->installDatabaseFixtures();
         } catch (\Exception $exception) {
             $messages['error'] = $this->translator->trans(
-                'mautic.installer.error.adding.fixtures',
+                'mailvotech.installer.error.adding.fixtures',
                 ['%exception%' => $exception->getMessage()],
                 'flashes'
             );
@@ -395,7 +395,7 @@ class InstallService
         foreach ($required as $r) {
             if (!isset($data[$r])) {
                 $messages[$r] = $this->translator->trans(
-                    'mautic.core.value.required',
+                    'mailvotech.core.value.required',
                     [],
                     'validators'
                 );
@@ -409,10 +409,10 @@ class InstallService
         $validations = [];
 
         $emailConstraint          = new Assert\Email();
-        $emailConstraint->message = $this->translator->trans('mautic.core.email.required', [], 'validators');
+        $emailConstraint->message = $this->translator->trans('mailvotech.core.email.required', [], 'validators');
 
         $passwordConstraint             = new Assert\Length(min: 6);
-        $passwordConstraint->minMessage = $this->translator->trans('mautic.install.password.minlength', [], 'validators');
+        $passwordConstraint->minMessage = $this->translator->trans('mailvotech.install.password.minlength', [], 'validators');
 
         $validations[] = $this->validator->validate($data['email'], $emailConstraint);
         $validations[] = $this->validator->validate($data['password'], $passwordConstraint);
@@ -439,7 +439,7 @@ class InstallService
             $adminRole = $this->entityManager->getReference(Role::class, 1);
         } catch (\Exception $exception) {
             $messages['error'] = $this->translator->trans(
-                'mautic.installer.error.getting.role',
+                'mailvotech.installer.error.getting.role',
                 ['%exception%' => $exception->getMessage()],
                 'flashes'
             );
@@ -453,7 +453,7 @@ class InstallService
                 $this->entityManager->flush();
             } catch (\Exception $exception) {
                 $messages['error'] = $this->translator->trans(
-                    'mautic.installer.error.creating.user',
+                    'mailvotech.installer.error.creating.user',
                     ['%exception%' => $exception->getMessage()],
                     'flashes'
                 );

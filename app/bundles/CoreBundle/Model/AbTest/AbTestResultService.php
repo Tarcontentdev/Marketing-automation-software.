@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Model\AbTest;
+namespace MailVotech\CoreBundle\Model\AbTest;
 
-use Mautic\CoreBundle\Entity\VariantEntityInterface;
-use Mautic\CoreBundle\Event\DetermineWinnerEvent;
+use MailVotech\CoreBundle\Entity\VariantEntityInterface;
+use MailVotech\CoreBundle\Event\DetermineWinnerEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final readonly class AbTestResultService

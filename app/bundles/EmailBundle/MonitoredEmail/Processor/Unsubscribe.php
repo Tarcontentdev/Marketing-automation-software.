@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor;
 
-use Mautic\EmailBundle\Mailer\Transport\UnsubscriptionProcessorInterface;
-use Mautic\EmailBundle\MonitoredEmail\Exception\UnsubscriptionNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Unsubscription\Parser;
-use Mautic\EmailBundle\MonitoredEmail\Search\ContactFinder;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Model\DoNotContact as DoNotContactModel;
+use MailVotech\EmailBundle\Mailer\Transport\UnsubscriptionProcessorInterface;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\UnsubscriptionNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Unsubscription\Parser;
+use MailVotech\EmailBundle\MonitoredEmail\Search\ContactFinder;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Model\DoNotContact as DoNotContactModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Mailer\Transport\TransportInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -67,7 +67,7 @@ class Unsubscribe implements ProcessorInterface
             $channel = ['email' => $email->getId()];
         }
 
-        $comments = $this->translator->trans('mautic.email.bounce.reason.unsubscribed');
+        $comments = $this->translator->trans('mailvotech.email.bounce.reason.unsubscribed');
         foreach ($contacts as $contact) {
             $this->doNotContact->addDncForContact($contact->getId(), $channel, DoNotContact::UNSUBSCRIBED, $comments);
         }

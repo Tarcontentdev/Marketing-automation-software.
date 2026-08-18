@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\Validator\Constraints;
+namespace MailVotech\CoreBundle\Form\Validator\Constraints;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -14,7 +14,7 @@ final class FileEncoding extends Constraint
      */
     #[HasNamedArguments]
     public function __construct(
-        public string $encodingFormatMessage = 'mautic.core.invalid_file_encoding',
+        public string $encodingFormatMessage = 'mailvotech.core.invalid_file_encoding',
         public string|array $encodingFormat = '[UTF-8]',
         ?array $groups = null,
         mixed $payload = null,

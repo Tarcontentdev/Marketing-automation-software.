@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\PageBundle\Helper;
+namespace MailVotech\PageBundle\Helper;
 
-use Mautic\CacheBundle\Cache\CacheProvider;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\Serializer;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Tracker\ContactTracker;
+use MailVotech\CacheBundle\Cache\CacheProvider;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\Serializer;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\RequestStack;
 

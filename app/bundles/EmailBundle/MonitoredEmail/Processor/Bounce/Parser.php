@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor\Bounce;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce;
 
-use Mautic\EmailBundle\MonitoredEmail\Exception\BounceNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\BounceNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
 
 final readonly class Parser
 {

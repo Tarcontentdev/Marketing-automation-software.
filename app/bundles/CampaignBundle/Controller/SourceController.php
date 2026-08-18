@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CampaignBundle\Controller;
+namespace MailVotech\CampaignBundle\Controller;
 
-use Mautic\CampaignBundle\Form\Type\CampaignLeadSourceType;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Controller\FormController as CommonFormController;
+use MailVotech\CampaignBundle\Form\Type\CampaignLeadSourceType;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Controller\FormController as CommonFormController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,7 +72,7 @@ class SourceController extends CommonFormController
             CampaignLeadSourceType::class,
             $source,
             [
-                'action'         => $this->generateUrl('mautic_campaignsource_action', ['objectAction' => 'new', 'objectId' => $objectId]),
+                'action'         => $this->generateUrl('mailvotech_campaignsource_action', ['objectAction' => 'new', 'objectId' => $objectId]),
                 'source_choices' => $sourceList,
             ]
         );
@@ -91,7 +91,7 @@ class SourceController extends CommonFormController
         }
 
         $passthroughVars = [
-            'mauticContent' => 'campaignSource',
+            'mailvotechContent' => 'campaignSource',
             'success'       => $success,
             'route'         => false,
         ];
@@ -103,7 +103,7 @@ class SourceController extends CommonFormController
         if ($cancelled || $valid) {
             if ($valid) {
                 $passthroughVars['sourceHtml'] = $this->renderView(
-                    '@MauticCampaign/Source/_index.html.twig',
+                    '@MailVotechCampaign/Source/_index.html.twig',
                     [
                         'sourceType' => $sourceType,
                         'campaignId' => $objectId,
@@ -126,7 +126,7 @@ class SourceController extends CommonFormController
         return $this->ajaxAction(
             $request,
             [
-                'contentTemplate' => '@MauticCampaign/Source/form.html.twig',
+                'contentTemplate' => '@MailVotechCampaign/Source/form.html.twig',
                 'viewParameters'  => $viewParams,
                 'passthroughVars' => $passthroughVars,
             ]
@@ -173,7 +173,7 @@ class SourceController extends CommonFormController
             CampaignLeadSourceType::class,
             $source,
             [
-                'action'         => $this->generateUrl('mautic_campaignsource_action', ['objectAction' => 'edit', 'objectId' => $objectId]),
+                'action'         => $this->generateUrl('mailvotech_campaignsource_action', ['objectAction' => 'edit', 'objectId' => $objectId]),
                 'source_choices' => $sourceList,
             ]
         );
@@ -193,7 +193,7 @@ class SourceController extends CommonFormController
         }
 
         $passthroughVars = [
-            'mauticContent' => 'campaignSource',
+            'mailvotechContent' => 'campaignSource',
             'success'       => $success,
             'route'         => false,
         ];
@@ -205,7 +205,7 @@ class SourceController extends CommonFormController
         if ($cancelled || $valid) {
             if ($valid) {
                 $passthroughVars['updateHtml'] = $this->renderView(
-                    '@MauticCampaign/Source/_index.html.twig',
+                    '@MailVotechCampaign/Source/_index.html.twig',
                     [
                         'sourceType' => $sourceType,
                         'campaignId' => $objectId,
@@ -229,7 +229,7 @@ class SourceController extends CommonFormController
         return $this->ajaxAction(
             $request,
             [
-                'contentTemplate' => '@MauticCampaign/Source/form.html.twig',
+                'contentTemplate' => '@MailVotechCampaign/Source/form.html.twig',
                 'viewParameters'  => $viewParams,
                 'passthroughVars' => $passthroughVars,
             ]
@@ -265,7 +265,7 @@ class SourceController extends CommonFormController
             }
 
             $dataArray = [
-                'mauticContent'     => 'campaignSource',
+                'mailvotechContent'     => 'campaignSource',
                 'success'           => 1,
                 'route'             => false,
                 'sourceType'        => $sourceType,

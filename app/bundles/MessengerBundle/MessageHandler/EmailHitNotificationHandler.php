@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\MessageHandler;
+namespace MailVotech\MessengerBundle\MessageHandler;
 
 use Doctrine\DBAL\Exception\RetryableException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\MessengerBundle\Message\EmailHitNotification;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\MessengerBundle\Message\EmailHitNotification;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\Exception\RecoverableMessageHandlingException;
 use Symfony\Component\Messenger\Handler\Acknowledger;

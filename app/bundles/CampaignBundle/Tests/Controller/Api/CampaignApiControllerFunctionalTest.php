@@ -2,34 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Controller\Api;
+namespace MailVotech\CampaignBundle\Tests\Controller\Api;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Tests\Functional\Fixtures\FixtureHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\UserEntityTrait;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Tests\Functional\Fixtures\FixtureHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\UserEntityTrait;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CampaignApiControllerFunctionalTest extends MauticMysqlTestCase
+final class CampaignApiControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     use UserEntityTrait;
 
     protected function setUp(): void
     {
-        $this->configParams['mailer_from_name']  = 'Mautic Admin';
+        $this->configParams['mailer_from_name']  = 'MailVotech Admin';
         $this->configParams['mailer_from_email'] = 'admin@email.com';
         $this->useCleanupRollback                = false;
 
@@ -241,12 +241,12 @@ final class CampaignApiControllerFunctionalTest extends MauticMysqlTestCase
         $this->assertEquals($payload['events'][0]['name'], $response['campaign']['events'][0]['name']);
         $this->assertEquals($segment->getId(), $response['campaign']['lists'][0]['id']);
 
-        $commandTester = $this->testSymfonyCommand('mautic:campaigns:update', ['-i' => $campaignId]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:campaigns:update', ['-i' => $campaignId]);
         $commandTester->assertCommandIsSuccessful();
         $this->assertStringContainsString('2 total contact(s) to be added', $commandTester->getDisplay());
         $this->assertStringContainsString('100%', $commandTester->getDisplay());
 
-        $commandTester = $this->testSymfonyCommand('mautic:campaigns:trigger', ['-i' => $campaignId]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['-i' => $campaignId]);
         $commandTester->assertCommandIsSuccessful();
         // 2 events were executed for each of the 2 contacts (= 4). The third event is waiting for the decision interval.
         $this->assertStringContainsString('4 total events were executed', $commandTester->getDisplay());
@@ -254,7 +254,7 @@ final class CampaignApiControllerFunctionalTest extends MauticMysqlTestCase
         $this->assertQueuedEmailCount(2);
 
         $email1 = $this->getMailerMessagesByToAddress('contact@one.email')[0];
-        $this->assertInstanceOf(MauticMessage::class, $email1);
+        $this->assertInstanceOf(MailVotechMessage::class, $email1);
 
         // The email is has mailer is owner ON but this contact doesn't have any owner. So it uses default FROM and Reply-To.
         $this->assertSame('Ahoy contact@one.email', $email1->getSubject());
@@ -271,7 +271,7 @@ final class CampaignApiControllerFunctionalTest extends MauticMysqlTestCase
         $this->assertSame($this->configParams['mailer_from_email'], $email1->getReplyTo()[0]->getAddress());
 
         $email2 = $this->getMailerMessagesByToAddress('contact@two.email')[0];
-        $this->assertInstanceOf(MauticMessage::class, $email2);
+        $this->assertInstanceOf(MailVotechMessage::class, $email2);
 
         // This contact does have an owner so it uses FROM and Rply-to from the owner.
         $this->assertSame('Ahoy contact@two.email', $email2->getSubject());
@@ -375,7 +375,7 @@ final class CampaignApiControllerFunctionalTest extends MauticMysqlTestCase
         // Create a user without export permissions
         $nonAdminUser = $this->createUserWithPermission([
             'user-name'  => 'non-admin',
-            'email'      => 'non-admin@mautic-test.com',
+            'email'      => 'non-admin@mailvotech-test.com',
             'first-name' => 'non-admin',
             'last-name'  => 'non-admin',
             'role'       => [
@@ -441,9 +441,9 @@ final class CampaignApiControllerFunctionalTest extends MauticMysqlTestCase
         $systemTempDir = sys_get_temp_dir();
         // Create temporary zip file
         $zip     = new \ZipArchive();
-        $zipPath = tempnam($systemTempDir, 'mautic_zip_test').'.zip';
+        $zipPath = tempnam($systemTempDir, 'mailvotech_zip_test').'.zip';
 
-        $asset = tempnam($systemTempDir, 'mautic_import_asset');
+        $asset = tempnam($systemTempDir, 'mailvotech_import_asset');
         file_put_contents($asset, 'The test file');
 
         if (true === $zip->open($zipPath, \ZipArchive::CREATE)) {
@@ -482,7 +482,7 @@ final class CampaignApiControllerFunctionalTest extends MauticMysqlTestCase
     {
         $userWithoutPermission = $this->createUserWithPermission([
             'user-name'  => 'no-import-user',
-            'email'      => 'no-import@mautic-test.com',
+            'email'      => 'no-import@mailvotech-test.com',
             'first-name' => 'NoImport',
             'last-name'  => 'User',
             'role'       => [
@@ -549,7 +549,7 @@ final class CampaignApiControllerFunctionalTest extends MauticMysqlTestCase
 
     private function createTemporaryFile(string $extension): string
     {
-        $filePath = tempnam(sys_get_temp_dir(), 'mautic_test_').'.'.$extension;
+        $filePath = tempnam(sys_get_temp_dir(), 'mailvotech_test_').'.'.$extension;
         file_put_contents($filePath, 'test content');
 
         return $filePath;
@@ -605,7 +605,7 @@ final class CampaignApiControllerFunctionalTest extends MauticMysqlTestCase
         $this->loginUser($user);
 
         // Create a temporary ZIP file with valid structure but malformed JSON
-        $zipPath = tempnam(sys_get_temp_dir(), 'mautic_test_').'.zip';
+        $zipPath = tempnam(sys_get_temp_dir(), 'mailvotech_test_').'.zip';
         $zip     = new \ZipArchive();
         if (true === $zip->open($zipPath, \ZipArchive::CREATE)) {
             // Add a valid JSON file with malformed content

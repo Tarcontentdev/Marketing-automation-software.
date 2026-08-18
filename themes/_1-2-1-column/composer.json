@@ -1,10 +1,14 @@
 {
-  "name": "mautic/theme-1-2-1-column",
-  "description": "1:2:1 Column",
-  "type": "mautic-theme",
-  "keywords": ["mautic","theme"],
-  "minimum-stability": "dev",
-  "require": {
-    "mautic/core-lib": "^7.0"
-  }
+    "name": "mailvotech/theme-1-2-1-column",
+    "description": "1:2:1 Column",
+    "type": "mailvotech-theme",
+    "keywords": [
+        "mailvotech",
+        "theme"
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "mailvotech/core-lib": "^7.0",
+        "mailvotech/composer-installer": "^1.0"
+    }
 }

@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Model;
+namespace MailVotech\UserBundle\Tests\Model;
 
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\UserBundle\Entity\PermissionRepository;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\RoleRepository;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserInvite;
-use Mautic\UserBundle\Entity\UserInviteRepository;
-use Mautic\UserBundle\Entity\UserInviteRepositoryInterface;
-use Mautic\UserBundle\Entity\UserRepository;
-use Mautic\UserBundle\Entity\UserToken;
-use Mautic\UserBundle\Exception\PasswordResetTokenCreationFailedException;
-use Mautic\UserBundle\Model\UserModel;
-use Mautic\UserBundle\Model\UserToken\UserTokenServiceInterface;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\UserBundle\Entity\PermissionRepository;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\RoleRepository;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserInvite;
+use MailVotech\UserBundle\Entity\UserInviteRepository;
+use MailVotech\UserBundle\Entity\UserInviteRepositoryInterface;
+use MailVotech\UserBundle\Entity\UserRepository;
+use MailVotech\UserBundle\Entity\UserToken;
+use MailVotech\UserBundle\Exception\PasswordResetTokenCreationFailedException;
+use MailVotech\UserBundle\Model\UserModel;
+use MailVotech\UserBundle\Model\UserToken\UserTokenServiceInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -139,7 +139,7 @@ final class UserModelTest extends TestCase
 
         $this->router->expects($this->once())
             ->method('generate')
-            ->with('mautic_user_passwordresetconfirm', ['token' => null], UrlGeneratorInterface::ABSOLUTE_URL);
+            ->with('mailvotech_user_passwordresetconfirm', ['token' => null], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $this->translator
             ->method('trans')
@@ -161,8 +161,8 @@ final class UserModelTest extends TestCase
         $this->translator->expects($this->exactly(2))
             ->method('trans')
             ->willReturnMap([
-                ['mautic.user.password.reset.token.creation.database.error', [], 'messages', null, 'Database error during password reset token creation'],
-                ['mautic.user.password.reset.token.creation.failed', [], null, null, 'Failed to create password reset token'],
+                ['mailvotech.user.password.reset.token.creation.database.error', [], 'messages', null, 'Database error during password reset token creation'],
+                ['mailvotech.user.password.reset.token.creation.failed', [], null, null, 'Failed to create password reset token'],
             ]);
 
         $this->logger->expects($this->once())
@@ -229,7 +229,7 @@ final class UserModelTest extends TestCase
     public function testCreateInviteStoresInviteAndSendsTemplatedEmail(): void
     {
         $email     = 'invitee@example.com';
-        $link      = 'https://mautic.example/invite/token';
+        $link      = 'https://mailvotech.example/invite/token';
         $role      = new Role();
 
         $this->userInviteRepository->expects($this->once())
@@ -249,19 +249,19 @@ final class UserModelTest extends TestCase
 
         $this->router->expects($this->once())
             ->method('generate')
-            ->with('mautic_user_invite_register', $this->isArray(), UrlGeneratorInterface::ABSOLUTE_URL)
+            ->with('mailvotech_user_invite_register', $this->isArray(), UrlGeneratorInterface::ABSOLUTE_URL)
             ->willReturn($link);
 
         $this->translator->expects($this->exactly(2))
             ->method('trans')
             ->willReturnMap([
-                ['mautic.user.invite.subject', [], null, null, 'Invite subject'],
-                ['mautic.user.invite.email.body', ['%invite_link%' => $link], null, null, 'Invite body '.$link],
+                ['mailvotech.user.invite.subject', [], null, null, 'Invite subject'],
+                ['mailvotech.user.invite.email.body', ['%invite_link%' => $link], null, null, 'Invite body '.$link],
             ]);
 
         $this->twig->expects($this->once())
             ->method('render')
-            ->with('@MauticUser/Email/invite.html.twig', ['inviteLink' => $link])
+            ->with('@MailVotechUser/Email/invite.html.twig', ['inviteLink' => $link])
             ->willReturn('<p>Invite html</p>');
 
         $this->mailHelper->expects($this->once())

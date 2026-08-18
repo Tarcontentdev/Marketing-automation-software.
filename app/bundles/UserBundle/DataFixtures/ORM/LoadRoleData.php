@@ -1,19 +1,19 @@
 <?php
 
-namespace Mautic\UserBundle\DataFixtures\ORM;
+namespace MailVotech\UserBundle\DataFixtures\ORM;
 
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Model\RoleModel;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Model\RoleModel;
 
 final class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface, FixtureGroupInterface
 {
     public static function getGroups(): array
     {
-        return ['group_mautic_install_data'];
+        return ['group_mailvotech_install_data'];
     }
 
     public function __construct(

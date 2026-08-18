@@ -3,7 +3,7 @@
         {
             "name": "theme-reachout",
             "directory": "themes/reachout",
-            "target": "git@github.com:mautic/theme-reachout.git"
+            "target": "git@github.com:mailvotech/theme-reachout.git"
         }
     ]
 }

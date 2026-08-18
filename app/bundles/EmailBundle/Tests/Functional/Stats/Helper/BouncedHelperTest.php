@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Functional\Stats\Helper;
+namespace MailVotech\EmailBundle\Tests\Functional\Stats\Helper;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Stats\FetchOptions\EmailStatOptions;
-use Mautic\EmailBundle\Stats\Helper\BouncedHelper;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\StatsBundle\Aggregate\Collection\StatCollection;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Stats\FetchOptions\EmailStatOptions;
+use MailVotech\EmailBundle\Stats\Helper\BouncedHelper;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\StatsBundle\Aggregate\Collection\StatCollection;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Tests email bounce statistics generation with various filters and permissions.
  */
-final class BouncedHelperTest extends MauticMysqlTestCase
+final class BouncedHelperTest extends MailVotechMysqlTestCase
 {
     private BouncedHelper $bouncedHelper;
 

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\DependencyInjection;
+namespace MailVotech\CoreBundle\Tests\Functional\DependencyInjection;
 
-use Mautic\EmailBundle\Stats\StatHelperContainer;
+use MailVotech\EmailBundle\Stats\StatHelperContainer;
 use PHPUnit\Framework\TestCase;
 
 /**
- * The StatHelperPass collects every "mautic.email_stat_helper" tagged service into the StatHelperContainer.
+ * The StatHelperPass collects every "mailvotech.email_stat_helper" tagged service into the StatHelperContainer.
  */
 final class StatHelperPassTest extends TestCase
 {

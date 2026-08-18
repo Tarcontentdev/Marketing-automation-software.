@@ -5,77 +5,77 @@ declare(strict_types=1);
 return [
     'routes' => [
         'main' => [
-            'mautic_notification_index' => [
+            'mailvotech_notification_index' => [
                 'path'       => '/notifications/{page}',
-                'controller' => 'Mautic\NotificationBundle\Controller\NotificationController::indexAction',
+                'controller' => 'MailVotech\NotificationBundle\Controller\NotificationController::indexAction',
             ],
-            'mautic_notification_action' => [
+            'mailvotech_notification_action' => [
                 'path'       => '/notifications/{objectAction}/{objectId}',
-                'controller' => 'Mautic\NotificationBundle\Controller\NotificationController::executeAction',
+                'controller' => 'MailVotech\NotificationBundle\Controller\NotificationController::executeAction',
             ],
-            'mautic_notification_contacts' => [
+            'mailvotech_notification_contacts' => [
                 'path'       => '/notifications/view/{objectId}/contact/{page}',
-                'controller' => 'Mautic\NotificationBundle\Controller\NotificationController::contactsAction',
+                'controller' => 'MailVotech\NotificationBundle\Controller\NotificationController::contactsAction',
             ],
-            'mautic_mobile_notification_index' => [
+            'mailvotech_mobile_notification_index' => [
                 'path'       => '/mobile_notifications/{page}',
-                'controller' => 'Mautic\NotificationBundle\Controller\MobileNotificationController::indexAction',
+                'controller' => 'MailVotech\NotificationBundle\Controller\MobileNotificationController::indexAction',
             ],
-            'mautic_mobile_notification_action' => [
+            'mailvotech_mobile_notification_action' => [
                 'path'       => '/mobile_notifications/{objectAction}/{objectId}',
-                'controller' => 'Mautic\NotificationBundle\Controller\MobileNotificationController::executeAction',
+                'controller' => 'MailVotech\NotificationBundle\Controller\MobileNotificationController::executeAction',
             ],
-            'mautic_mobile_notification_contacts' => [
+            'mailvotech_mobile_notification_contacts' => [
                 'path'       => '/mobile_notifications/view/{objectId}/contact/{page}',
-                'controller' => 'Mautic\NotificationBundle\Controller\MobileNotificationController::contactsAction',
+                'controller' => 'MailVotech\NotificationBundle\Controller\MobileNotificationController::contactsAction',
             ],
         ],
         'public' => [
-            'mautic_receive_notification' => [
+            'mailvotech_receive_notification' => [
                 'path'       => '/notification/receive',
-                'controller' => 'Mautic\NotificationBundle\Controller\Api\NotificationApiController::receiveAction',
+                'controller' => 'MailVotech\NotificationBundle\Controller\Api\NotificationApiController::receiveAction',
             ],
-            'mautic_subscribe_notification' => [
+            'mailvotech_subscribe_notification' => [
                 'path'       => '/notification/subscribe',
-                'controller' => 'Mautic\NotificationBundle\Controller\Api\NotificationApiController::subscribeAction',
+                'controller' => 'MailVotech\NotificationBundle\Controller\Api\NotificationApiController::subscribeAction',
             ],
-            'mautic_notification_popup' => [
+            'mailvotech_notification_popup' => [
                 'path'       => '/notification',
-                'controller' => 'Mautic\NotificationBundle\Controller\PopupController::indexAction',
+                'controller' => 'MailVotech\NotificationBundle\Controller\PopupController::indexAction',
             ],
 
             // JS / Manifest URL's
-            'mautic_onesignal_worker' => [
+            'mailvotech_onesignal_worker' => [
                 'path'       => '/OneSignalSDKWorker.js',
-                'controller' => 'Mautic\NotificationBundle\Controller\JsController::workerAction',
+                'controller' => 'MailVotech\NotificationBundle\Controller\JsController::workerAction',
             ],
-            'mautic_onesignal_updater' => [
+            'mailvotech_onesignal_updater' => [
                 'path'       => '/OneSignalSDKUpdaterWorker.js',
-                'controller' => 'Mautic\NotificationBundle\Controller\JsController::updaterAction',
+                'controller' => 'MailVotech\NotificationBundle\Controller\JsController::updaterAction',
             ],
-            'mautic_onesignal_manifest' => [
+            'mailvotech_onesignal_manifest' => [
                 'path'       => '/manifest.json',
-                'controller' => 'Mautic\NotificationBundle\Controller\JsController::manifestAction',
+                'controller' => 'MailVotech\NotificationBundle\Controller\JsController::manifestAction',
             ],
-            'mautic_app_notification' => [
+            'mailvotech_app_notification' => [
                 'path'       => '/notification/appcallback',
-                'controller' => 'Mautic\NotificationBundle\Controller\AppCallbackController::indexAction',
+                'controller' => 'MailVotech\NotificationBundle\Controller\AppCallbackController::indexAction',
             ],
         ],
         'api' => [
-            'mautic_api_notificationsstandard' => [
+            'mailvotech_api_notificationsstandard' => [
                 'standard_entity' => true,
                 'name'            => 'notifications',
                 'path'            => '/notifications',
-                'controller'      => Mautic\NotificationBundle\Controller\Api\NotificationApiController::class,
+                'controller'      => MailVotech\NotificationBundle\Controller\Api\NotificationApiController::class,
             ],
         ],
     ],
     'menu' => [
         'main' => [
             'items' => [
-                'mautic.notification.notifications' => [
-                    'route'  => 'mautic_notification_index',
+                'mailvotech.notification.notifications' => [
+                    'route'  => 'mailvotech_notification_index',
                     'access' => ['notification:notifications:viewown', 'notification:notifications:viewother'],
                     'checks' => [
                         'integration' => [
@@ -84,11 +84,11 @@ return [
                             ],
                         ],
                     ],
-                    'parent'   => 'mautic.core.channels',
+                    'parent'   => 'mailvotech.core.channels',
                     'priority' => 80,
                 ],
-                'mautic.notification.mobile_notifications' => [
-                    'route'  => 'mautic_mobile_notification_index',
+                'mailvotech.notification.mobile_notifications' => [
+                    'route'  => 'mailvotech_mobile_notification_index',
                     'access' => ['notification:mobile_notifications:viewown', 'notification:mobile_notifications:viewother'],
                     'checks' => [
                         'integration' => [
@@ -100,7 +100,7 @@ return [
                             ],
                         ],
                     ],
-                    'parent'   => 'mautic.core.channels',
+                    'parent'   => 'mailvotech.core.channels',
                     'priority' => 65,
                 ],
             ],

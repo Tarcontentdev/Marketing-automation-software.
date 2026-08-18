@@ -9,10 +9,10 @@
 {% set class = class|default('table') %}
 {% set shortenLinkText = shortenLinkText|default(30) %}
 {% set showHeaders = [
-    'mautic.dashboard.label.url',
-    'mautic.dashboard.label.unique.hit.count',
-    'mautic.dashboard.label.total.hit.count',
-    'mautic.dashboard.label.email.name',
+    'mailvotech.dashboard.label.url',
+    'mailvotech.dashboard.label.unique.hit.count',
+    'mailvotech.dashboard.label.total.hit.count',
+    'mailvotech.dashboard.label.email.name',
 ] %}
 {% set showValues = [
     'url',
@@ -41,7 +41,7 @@
                             {% if key in showValues %}
                             <td>
                                 {% if 'email_name' == key %}
-                                    <a href="{{ path('mautic_email_action', {'objectAction': 'view', 'objectId': row.email_id}) }}"
+                                    <a href="{{ path('mailvotech_email_action', {'objectAction': 'view', 'objectId': row.email_id}) }}"
                                         title="{{ item|e }}"
                                         data-toggle="ajax">
                                         {{ item|slice(0, shortenLinkText) }}

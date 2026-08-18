@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Unit\EventListener;
+namespace MailVotech\PageBundle\Tests\Unit\EventListener;
 
-use Mautic\CoreBundle\Event\BuildJsEvent;
-use Mautic\CoreBundle\Event\BuildJsScope;
-use Mautic\PageBundle\EventListener\BuildJsSubscriber;
-use Mautic\PageBundle\Helper\TrackingHelper;
+use MailVotech\CoreBundle\Event\BuildJsEvent;
+use MailVotech\CoreBundle\Event\BuildJsScope;
+use MailVotech\PageBundle\EventListener\BuildJsSubscriber;
+use MailVotech\PageBundle\Helper\TrackingHelper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -44,9 +44,9 @@ final class BuildJsSubscriberTest extends TestCase
         $router = $this->createStub(RouterInterface::class);
         $router->method('generate')->willReturnCallback(
             static fn (string $route): string => match ($route) {
-                'mautic_page_tracker'            => 'https://mautic.example/mtracking.gif',
-                'mautic_page_tracker_cors'       => 'https://mautic.example/mtc/event',
-                'mautic_page_tracker_getcontact' => 'https://mautic.example/mtc/contact',
+                'mailvotech_page_tracker'            => 'https://mailvotech.example/mtracking.gif',
+                'mailvotech_page_tracker_cors'       => 'https://mailvotech.example/mtc/event',
+                'mailvotech_page_tracker_getcontact' => 'https://mailvotech.example/mtc/contact',
                 default                          => throw new \UnexpectedValueException($route),
             },
         );
@@ -58,15 +58,15 @@ final class BuildJsSubscriberTest extends TestCase
         $subscriber->onBuildJs($event);
 
         $js = $event->getJs();
-        $this->assertStringContainsString('window.MauticJS.runtimeReady === true', $js);
+        $this->assertStringContainsString('window.MailVotechJS.runtimeReady === true', $js);
         $this->assertStringContainsString('m.runtimeReady !== true', $js);
         $this->assertStringContainsString('https://www.googletagmanager.com/gtag/js?id=G-TEST', $js);
         $this->assertStringContainsString('window.gtag', $js);
         $this->assertStringContainsString('dataLayer.push(arguments)', $js);
         $this->assertStringContainsString('https://connect.facebook.net/en_US/fbevents.js', $js);
         $this->assertStringContainsString("typeof events.focus_item !== 'undefined'", $js);
-        $this->assertStringContainsString("MauticJS.insertScript(e[i]['js']);", $js);
+        $this->assertStringContainsString("MailVotechJS.insertScript(e[i]['js']);", $js);
         $this->assertStringContainsString('m.deliverPageEvent = function', $js);
-        $this->assertStringNotContainsString('MauticJS.serialize = function', $js);
+        $this->assertStringNotContainsString('MailVotechJS.serialize = function', $js);
     }
 }

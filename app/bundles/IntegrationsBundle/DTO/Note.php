@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\DTO;
+namespace MailVotech\IntegrationsBundle\DTO;
 
 final readonly class Note
 {

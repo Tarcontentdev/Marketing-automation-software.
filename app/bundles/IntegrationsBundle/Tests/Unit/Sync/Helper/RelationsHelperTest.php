@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\Helper;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\Helper;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\RelationsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\RelationDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\ReferenceValueDAO;
-use Mautic\IntegrationsBundle\Sync\Helper\MappingHelper;
-use Mautic\IntegrationsBundle\Sync\Helper\RelationsHelper;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\RelationsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\RelationDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\ReferenceValueDAO;
+use MailVotech\IntegrationsBundle\Sync\Helper\MappingHelper;
+use MailVotech\IntegrationsBundle\Sync\Helper\RelationsHelper;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
 use PHPUnit\Framework\TestCase;
 
 final class RelationsHelperTest extends TestCase
@@ -72,7 +72,7 @@ final class RelationsHelperTest extends TestCase
         $internalObject = new ObjectDAO('company', null);
 
         $this->mappingHelper->expects($this->once())
-            ->method('findMauticObject')
+            ->method('findMailVotechObject')
             ->willReturn($internalObject);
 
         $this->relationsHelper->processRelations($this->mappingManual, $this->syncReport);
@@ -123,10 +123,10 @@ final class RelationsHelperTest extends TestCase
             ->method('getMappedInternalObjectsNames')
             ->willReturn(['company']);
 
-        $internalObject = new ObjectDAO(MauticSyncDataExchange::OBJECT_COMPANY, $internalRelObjectId);
+        $internalObject = new ObjectDAO(MailVotechSyncDataExchange::OBJECT_COMPANY, $internalRelObjectId);
 
         $this->mappingHelper->expects($this->once())
-            ->method('findMauticObject')
+            ->method('findMailVotechObject')
             ->willReturn($internalObject);
 
         $this->relationsHelper->processRelations($this->mappingManual, $this->syncReport);
@@ -135,6 +135,6 @@ final class RelationsHelperTest extends TestCase
 
         $this->assertCount(0, $objectsToSynchronize);
         $this->assertEquals($internalRelObjectId, $objectDao->getField($relFieldName)->getValue()->getNormalizedValue()->getValue());
-        $this->assertEquals(MauticSyncDataExchange::OBJECT_COMPANY, $objectDao->getField($relFieldName)->getValue()->getNormalizedValue()->getType());
+        $this->assertEquals(MailVotechSyncDataExchange::OBJECT_COMPANY, $objectDao->getField($relFieldName)->getValue()->getNormalizedValue()->getType());
     }
 }

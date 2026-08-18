@@ -3,7 +3,7 @@
         {
             "name": "theme-neopolitan",
             "directory": "themes/neopolitan",
-            "target": "git@github.com:mautic/theme-neopolitan.git"
+            "target": "git@github.com:mailvotech/theme-neopolitan.git"
         }
     ]
 }

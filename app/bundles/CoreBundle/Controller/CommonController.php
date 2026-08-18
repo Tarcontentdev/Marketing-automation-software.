@@ -1,24 +1,24 @@
 <?php
 
-namespace Mautic\CoreBundle\Controller;
+namespace MailVotech\CoreBundle\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\CustomTemplateEvent;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DataExporterHelper;
-use Mautic\CoreBundle\Helper\ExportHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\TrailingSlashHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\AbstractCommonModel;
-use Mautic\CoreBundle\Model\MauticModelInterface;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\CustomTemplateEvent;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DataExporterHelper;
+use MailVotech\CoreBundle\Helper\ExportHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\TrailingSlashHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\AbstractCommonModel;
+use MailVotech\CoreBundle\Model\MailVotechModelInterface;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\PageBundle\Model\PageModel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,11 +35,11 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 use Twig\Environment;
 
-class CommonController extends AbstractController implements MauticController
+class CommonController extends AbstractController implements MailVotechController
 {
     use FormThemeTrait;
 
-    protected ?\Mautic\UserBundle\Entity\User $user;
+    protected ?\MailVotech\UserBundle\Entity\User $user;
 
     private PageModel $pageModel;
 
@@ -117,58 +117,58 @@ class CommonController extends AbstractController implements MauticController
      *
      * @param string $modelNameKey
      *
-     * @return ($modelNameKey is 'asset' ? \Mautic\AssetBundle\Model\AssetModel
-     * : ($modelNameKey is 'campaign' ? \Mautic\CampaignBundle\Model\CampaignModel
-     * : ($modelNameKey is 'campaign.event' ? \Mautic\CampaignBundle\Model\EventModel
-     * : ($modelNameKey is 'campaign.event_log' ? \Mautic\CampaignBundle\Model\EventLogModel
-     * : ($modelNameKey is 'category' ? \Mautic\CategoryBundle\Model\CategoryModel
-     * : ($modelNameKey is 'channel.message' ? \Mautic\ChannelBundle\Model\MessageModel
-     * : ($modelNameKey is 'channel.queue' ? \Mautic\ChannelBundle\Model\MessageQueueModel
-     * : ($modelNameKey is 'core.auditlog' ? \Mautic\CoreBundle\Model\AuditLogModel
-     * : ($modelNameKey is 'core.notification' ? \Mautic\CoreBundle\Model\NotificationModel
-     * : ($modelNameKey is 'dashboard' ? \Mautic\DashboardBundle\Model\DashboardModel
-     * : ($modelNameKey is 'dynamicContent' ? \Mautic\DynamicContentBundle\Model\DynamicContentModel
-     * : ($modelNameKey is 'email' ? \Mautic\EmailBundle\Model\EmailModel
-     * : ($modelNameKey is 'focus' ? \MauticPlugin\MauticFocusBundle\Model\FocusModel
-     * : ($modelNameKey is 'form' ? \Mautic\FormBundle\Model\FormModel
-     * : ($modelNameKey is 'form.action' ? \Mautic\FormBundle\Model\ActionModel
-     * : ($modelNameKey is 'form.field' ? \Mautic\FormBundle\Model\FieldModel
-     * : ($modelNameKey is 'form.form' ? \Mautic\FormBundle\Model\FormModel
-     * : ($modelNameKey is 'form.submission' ? \Mautic\FormBundle\Model\SubmissionModel
-     * : ($modelNameKey is 'form.submission_result_loader' ? \Mautic\FormBundle\Model\SubmissionResultLoader
-     * : ($modelNameKey is 'lead' ? \Mautic\LeadBundle\Model\LeadModel
-     * : ($modelNameKey is 'lead.company' ? \Mautic\LeadBundle\Model\CompanyModel
-     * : ($modelNameKey is 'lead.device' ? \Mautic\LeadBundle\Model\DeviceModel
-     * : ($modelNameKey is 'lead.export_scheduler' ? \Mautic\LeadBundle\Model\ContactExportSchedulerModel
-     * : ($modelNameKey is 'lead.field' ? \Mautic\LeadBundle\Model\FieldModel
-     * : ($modelNameKey is 'lead.lead' ? \Mautic\LeadBundle\Model\LeadModel
-     * : ($modelNameKey is 'lead.list' ? \Mautic\LeadBundle\Model\ListModel
-     * : ($modelNameKey is 'lead.note' ? \Mautic\LeadBundle\Model\NoteModel
-     * : ($modelNameKey is 'lead.tag' ? \Mautic\LeadBundle\Model\TagModel
-     * : ($modelNameKey is 'notification' ? \Mautic\CoreBundle\Model\NotificationModel
-     * : ($modelNameKey is 'page' ? \Mautic\PageBundle\Model\PageModel
-     * : ($modelNameKey is 'page.page' ? \Mautic\PageBundle\Model\PageModel
-     * : ($modelNameKey is 'page.trackable' ? \Mautic\PageBundle\Model\TrackableModel
-     * : ($modelNameKey is 'plugin' ? \Mautic\PluginBundle\Model\PluginModel
-     * : ($modelNameKey is 'point' ? \Mautic\PointBundle\Model\PointModel
-     * : ($modelNameKey is 'point.insight' ? \Mautic\PointBundle\Model\InsightModel
-     * : ($modelNameKey is 'point.trigger' ? \Mautic\PointBundle\Model\TriggerModel
-     * : ($modelNameKey is 'point.triggerevent' ? \Mautic\PointBundle\Model\TriggerEventModel
-     * : ($modelNameKey is 'report' ? \Mautic\ReportBundle\Model\ReportModel
-     * : ($modelNameKey is 'sms' ? \Mautic\SmsBundle\Model\SmsModel
-     * : ($modelNameKey is 'social.monitoring' ? \MauticPlugin\MauticSocialBundle\Model\MonitoringModel
-     * : ($modelNameKey is 'social.postcount' ? \MauticPlugin\MauticSocialBundle\Model\PostCountModel
-     * : ($modelNameKey is 'social.tweet' ? \MauticPlugin\MauticSocialBundle\Model\TweetModel
-     * : ($modelNameKey is 'stage' ? \Mautic\StageBundle\Model\StageModel
-     * : ($modelNameKey is 'stage.stage' ? \Mautic\StageBundle\Model\StageModel
-     * : ($modelNameKey is 'tagmanager.tag' ? \MauticPlugin\MauticTagManagerBundle\Model\TagModel
-     * : ($modelNameKey is 'user' ? \Mautic\UserBundle\Model\UserModel
-     * : ($modelNameKey is 'user.role' ? \Mautic\UserBundle\Model\RoleModel
-     * : ($modelNameKey is 'user.user' ? \Mautic\UserBundle\Model\UserModel
-     * : ($modelNameKey is 'webhook' ? \Mautic\WebhookBundle\Model\WebhookModel
-     *     : \Mautic\CoreBundle\Model\AbstractCommonModel<object>)))))))))))))))))))))))))))))))))))))))))))))))))
+     * @return ($modelNameKey is 'asset' ? \MailVotech\AssetBundle\Model\AssetModel
+     * : ($modelNameKey is 'campaign' ? \MailVotech\CampaignBundle\Model\CampaignModel
+     * : ($modelNameKey is 'campaign.event' ? \MailVotech\CampaignBundle\Model\EventModel
+     * : ($modelNameKey is 'campaign.event_log' ? \MailVotech\CampaignBundle\Model\EventLogModel
+     * : ($modelNameKey is 'category' ? \MailVotech\CategoryBundle\Model\CategoryModel
+     * : ($modelNameKey is 'channel.message' ? \MailVotech\ChannelBundle\Model\MessageModel
+     * : ($modelNameKey is 'channel.queue' ? \MailVotech\ChannelBundle\Model\MessageQueueModel
+     * : ($modelNameKey is 'core.auditlog' ? \MailVotech\CoreBundle\Model\AuditLogModel
+     * : ($modelNameKey is 'core.notification' ? \MailVotech\CoreBundle\Model\NotificationModel
+     * : ($modelNameKey is 'dashboard' ? \MailVotech\DashboardBundle\Model\DashboardModel
+     * : ($modelNameKey is 'dynamicContent' ? \MailVotech\DynamicContentBundle\Model\DynamicContentModel
+     * : ($modelNameKey is 'email' ? \MailVotech\EmailBundle\Model\EmailModel
+     * : ($modelNameKey is 'focus' ? \MailVotechPlugin\MailVotechFocusBundle\Model\FocusModel
+     * : ($modelNameKey is 'form' ? \MailVotech\FormBundle\Model\FormModel
+     * : ($modelNameKey is 'form.action' ? \MailVotech\FormBundle\Model\ActionModel
+     * : ($modelNameKey is 'form.field' ? \MailVotech\FormBundle\Model\FieldModel
+     * : ($modelNameKey is 'form.form' ? \MailVotech\FormBundle\Model\FormModel
+     * : ($modelNameKey is 'form.submission' ? \MailVotech\FormBundle\Model\SubmissionModel
+     * : ($modelNameKey is 'form.submission_result_loader' ? \MailVotech\FormBundle\Model\SubmissionResultLoader
+     * : ($modelNameKey is 'lead' ? \MailVotech\LeadBundle\Model\LeadModel
+     * : ($modelNameKey is 'lead.company' ? \MailVotech\LeadBundle\Model\CompanyModel
+     * : ($modelNameKey is 'lead.device' ? \MailVotech\LeadBundle\Model\DeviceModel
+     * : ($modelNameKey is 'lead.export_scheduler' ? \MailVotech\LeadBundle\Model\ContactExportSchedulerModel
+     * : ($modelNameKey is 'lead.field' ? \MailVotech\LeadBundle\Model\FieldModel
+     * : ($modelNameKey is 'lead.lead' ? \MailVotech\LeadBundle\Model\LeadModel
+     * : ($modelNameKey is 'lead.list' ? \MailVotech\LeadBundle\Model\ListModel
+     * : ($modelNameKey is 'lead.note' ? \MailVotech\LeadBundle\Model\NoteModel
+     * : ($modelNameKey is 'lead.tag' ? \MailVotech\LeadBundle\Model\TagModel
+     * : ($modelNameKey is 'notification' ? \MailVotech\CoreBundle\Model\NotificationModel
+     * : ($modelNameKey is 'page' ? \MailVotech\PageBundle\Model\PageModel
+     * : ($modelNameKey is 'page.page' ? \MailVotech\PageBundle\Model\PageModel
+     * : ($modelNameKey is 'page.trackable' ? \MailVotech\PageBundle\Model\TrackableModel
+     * : ($modelNameKey is 'plugin' ? \MailVotech\PluginBundle\Model\PluginModel
+     * : ($modelNameKey is 'point' ? \MailVotech\PointBundle\Model\PointModel
+     * : ($modelNameKey is 'point.insight' ? \MailVotech\PointBundle\Model\InsightModel
+     * : ($modelNameKey is 'point.trigger' ? \MailVotech\PointBundle\Model\TriggerModel
+     * : ($modelNameKey is 'point.triggerevent' ? \MailVotech\PointBundle\Model\TriggerEventModel
+     * : ($modelNameKey is 'report' ? \MailVotech\ReportBundle\Model\ReportModel
+     * : ($modelNameKey is 'sms' ? \MailVotech\SmsBundle\Model\SmsModel
+     * : ($modelNameKey is 'social.monitoring' ? \MailVotechPlugin\MailVotechSocialBundle\Model\MonitoringModel
+     * : ($modelNameKey is 'social.postcount' ? \MailVotechPlugin\MailVotechSocialBundle\Model\PostCountModel
+     * : ($modelNameKey is 'social.tweet' ? \MailVotechPlugin\MailVotechSocialBundle\Model\TweetModel
+     * : ($modelNameKey is 'stage' ? \MailVotech\StageBundle\Model\StageModel
+     * : ($modelNameKey is 'stage.stage' ? \MailVotech\StageBundle\Model\StageModel
+     * : ($modelNameKey is 'tagmanager.tag' ? \MailVotechPlugin\MailVotechTagManagerBundle\Model\TagModel
+     * : ($modelNameKey is 'user' ? \MailVotech\UserBundle\Model\UserModel
+     * : ($modelNameKey is 'user.role' ? \MailVotech\UserBundle\Model\RoleModel
+     * : ($modelNameKey is 'user.user' ? \MailVotech\UserBundle\Model\UserModel
+     * : ($modelNameKey is 'webhook' ? \MailVotech\WebhookBundle\Model\WebhookModel
+     *     : \MailVotech\CoreBundle\Model\AbstractCommonModel<object>)))))))))))))))))))))))))))))))))))))))))))))))))
      */
-    protected function getModel($modelNameKey): MauticModelInterface
+    protected function getModel($modelNameKey): MailVotechModelInterface
     {
         return $this->modelFactory->getModel($modelNameKey);
     }
@@ -222,13 +222,13 @@ class CommonController extends AbstractController implements MauticController
         $bundle  = $bundle ? strtolower(InputHelper::alphanum($bundle)) : '';
 
         // Used for error handling
-        defined('MAUTIC_DELEGATE_VIEW') || define('MAUTIC_DELEGATE_VIEW', 1);
+        defined('MAILVOTECH_DELEGATE_VIEW') || define('MAILVOTECH_DELEGATE_VIEW', 1);
 
         if (!is_array($args)) {
             $args = [
                 'contentTemplate' => $args,
                 'passthroughVars' => [
-                    'mauticContent' => $bundle,
+                    'mailvotechContent' => $bundle,
                 ],
             ];
         }
@@ -241,13 +241,13 @@ class CommonController extends AbstractController implements MauticController
             $args['passthroughVars']['inBuilder'] = (bool) $inBuilder;
         }
 
-        if (!isset($args['viewParameters']['mauticContent'])) {
-            if (isset($args['passthroughVars']['mauticContent'])) {
-                $mauticContent = $args['passthroughVars']['mauticContent'];
+        if (!isset($args['viewParameters']['mailvotechContent'])) {
+            if (isset($args['passthroughVars']['mailvotechContent'])) {
+                $mailvotechContent = $args['passthroughVars']['mailvotechContent'];
             } else {
-                $mauticContent = $bundle;
+                $mailvotechContent = $bundle;
             }
-            $args['viewParameters']['mauticContent'] = $mauticContent;
+            $args['viewParameters']['mailvotechContent'] = $mailvotechContent;
         }
 
         if ($request->isXmlHttpRequest() && !$request->get('ignoreAjax', false)) {
@@ -270,9 +270,9 @@ class CommonController extends AbstractController implements MauticController
             $parameters = $event->getVars();
         }
 
-        $parameters['mauticTemplate'] = $template;
+        $parameters['mailvotechTemplate'] = $template;
 
-        $parameters['mauticTemplateVars'] = $parameters;
+        $parameters['mailvotechTemplateVars'] = $parameters;
 
         return $this->render($template, $parameters, $response);
     }
@@ -305,7 +305,7 @@ class CommonController extends AbstractController implements MauticController
      */
     public function redirectSecureRootAction(): RedirectResponse
     {
-        return $this->redirectToRoute('mautic_dashboard_index', [], 301);
+        return $this->redirectToRoute('mailvotech_dashboard_index', [], 301);
     }
 
     /**
@@ -317,7 +317,7 @@ class CommonController extends AbstractController implements MauticController
     {
         $request = $this->getCurrentRequest();
 
-        $returnUrl = array_key_exists('returnUrl', $args) ? $args['returnUrl'] : $this->generateUrl('mautic_dashboard_index');
+        $returnUrl = array_key_exists('returnUrl', $args) ? $args['returnUrl'] : $this->generateUrl('mailvotech_dashboard_index');
         $flashes   = array_key_exists('flashes', $args) ? $args['flashes'] : [];
 
         // forward the controller by default
@@ -355,7 +355,7 @@ class CommonController extends AbstractController implements MauticController
      */
     public function ajaxAction(Request $request, $args = []): Response
     {
-        defined('MAUTIC_AJAX_VIEW') || define('MAUTIC_AJAX_VIEW', 1);
+        defined('MAILVOTECH_AJAX_VIEW') || define('MAILVOTECH_AJAX_VIEW', 1);
 
         $parameters      = array_key_exists('viewParameters', $args) ? $args['viewParameters'] : [];
         $contentTemplate = array_key_exists('contentTemplate', $args) ? $args['contentTemplate'] : '';
@@ -423,13 +423,13 @@ class CommonController extends AbstractController implements MauticController
                     $newContent = $newContentResponse->getContent();
                 }
             } else {
-                $parameters['mauticTemplate']     = $contentTemplate;
-                $parameters['mauticTemplateVars'] = $parameters;
+                $parameters['mailvotechTemplate']     = $contentTemplate;
+                $parameters['mailvotechTemplateVars'] = $parameters;
 
-                $GLOBALS['MAUTIC_AJAX_DIRECT_RENDER'] = 1; // for error handling
+                $GLOBALS['MAILVOTECH_AJAX_DIRECT_RENDER'] = 1; // for error handling
                 $newContent                           = $this->eventAwareRenderView($contentTemplate, $parameters, $request);
 
-                unset($GLOBALS['MAUTIC_AJAX_DIRECT_RENDER']);
+                unset($GLOBALS['MAILVOTECH_AJAX_DIRECT_RENDER']);
             }
         }
 
@@ -442,7 +442,7 @@ class CommonController extends AbstractController implements MauticController
         // render flashes
         $passthrough['flashes'] = $this->getFlashContent();
 
-        if (!defined('MAUTIC_INSTALLER')) {
+        if (!defined('MAILVOTECH_INSTALLER')) {
             // Prevent error in case installer is loaded via dev environment
             $passthrough['notifications'] = $this->getNotificationContent();
         }
@@ -482,7 +482,7 @@ class CommonController extends AbstractController implements MauticController
         $query      = ['ignoreAjax' => true, 'subrequest' => true];
 
         return $this->forwardWithPost(
-            'Mautic\CoreBundle\Controller\ExceptionController::showAction',
+            'MailVotech\CoreBundle\Controller\ExceptionController::showAction',
             $request->request->all(),
             $parameters,
             array_merge($query, $request->query->all())
@@ -521,7 +521,7 @@ class CommonController extends AbstractController implements MauticController
     /**
      * @throws AccessDeniedHttpException
      */
-    public function throwAccessDenied(string $msg = 'mautic.core.url.error.401'): never
+    public function throwAccessDenied(string $msg = 'mailvotech.core.url.error.401'): never
     {
         throw new AccessDeniedHttpException($this->translator->trans($msg, ['%url%' => $this->getCurrentRequest()->getRequestUri()]));
     }
@@ -533,7 +533,7 @@ class CommonController extends AbstractController implements MauticController
     {
         return [
             'type' => 'error',
-            'msg'  => $this->translator->trans('mautic.core.error.accessdenied', [], 'flashes'),
+            'msg'  => $this->translator->trans('mailvotech.core.error.accessdenied', [], 'flashes'),
         ];
     }
 
@@ -549,7 +549,7 @@ class CommonController extends AbstractController implements MauticController
      *
      * @throws AccessDeniedHttpException
      */
-    public function accessDenied($batch = false, $msg = 'mautic.core.url.error.401'): array
+    public function accessDenied($batch = false, $msg = 'mailvotech.core.url.error.401'): array
     {
         if ($this->security->isAnonymous() || !$batch) {
             $this->throwAccessDenied($msg);
@@ -565,16 +565,16 @@ class CommonController extends AbstractController implements MauticController
      *
      * @return Response
      */
-    public function notFound($msg = 'mautic.core.url.error.404')
+    public function notFound($msg = 'mailvotech.core.url.error.404')
     {
         $request = $this->getCurrentRequest();
         $page404 = $this->coreParametersHelper->get('404_page');
         if (!empty($page404)) {
             $page = $this->pageModel->getEntity($page404);
-            if ($page instanceof \Mautic\PageBundle\Entity\Page && $page->getIsPublished() && !empty($page->getCustomHtml())) {
+            if ($page instanceof \MailVotech\PageBundle\Entity\Page && $page->getIsPublished() && !empty($page->getCustomHtml())) {
                 $slug     = $this->pageModel->generateSlug($page);
                 $response = $this->forward(
-                    'Mautic\PageBundle\Controller\PublicController::indexAction',
+                    'MailVotech\PageBundle\Controller\PublicController::indexAction',
                     [
                         'slug'            => $slug,
                         'ignore_mismatch' => true,
@@ -601,7 +601,7 @@ class CommonController extends AbstractController implements MauticController
      *
      * @param string $msg
      */
-    public function modalAccessDenied($msg = 'mautic.core.error.accessdenied'): JsonResponse
+    public function modalAccessDenied($msg = 'mailvotech.core.error.accessdenied'): JsonResponse
     {
         return new JsonResponse([
             'error' => $this->translator->trans($msg, [], 'flashes'),
@@ -622,7 +622,7 @@ class CommonController extends AbstractController implements MauticController
         if (empty($name)) {
             $name = InputHelper::clean($request->query->get('name'));
         }
-        $name = 'mautic.'.$name;
+        $name = 'mailvotech.'.$name;
 
         if (false === $request->query->has('orderby') && false === $session->has("{$name}.orderbydir")) {
             $session->set("{$name}.orderbydir", $this->getDefaultOrderDirection());
@@ -668,7 +668,7 @@ class CommonController extends AbstractController implements MauticController
      */
     protected function getFlashContent(): string
     {
-        return $this->renderView('@MauticCore/Notification/flash_messages.html.twig');
+        return $this->renderView('@MailVotechCore/Notification/flash_messages.html.twig');
     }
 
     /**
@@ -680,14 +680,14 @@ class CommonController extends AbstractController implements MauticController
             $request = $this->getCurrentRequest();
         }
 
-        $afterId = $request->get('mauticLastNotificationId');
+        $afterId = $request->get('mailvotechLastNotificationId');
 
         [$notifications, $showNewIndicator, $updateMessage] = $this->notificationModel->getNotificationContent($afterId, false, 200);
 
         $lastNotification = reset($notifications);
 
         return [
-            'content' => ($notifications || $updateMessage) ? $this->renderView('@MauticCore/Notification/notification_messages.html.twig', [
+            'content' => ($notifications || $updateMessage) ? $this->renderView('@MailVotechCore/Notification/notification_messages.html.twig', [
                 'notifications' => $notifications,
                 'updateMessage' => $updateMessage,
             ]) : '',
@@ -715,14 +715,14 @@ class CommonController extends AbstractController implements MauticController
     public function exportResultsAs($toExport, $type, $filename, ExportHelper $exportHelper): StreamedResponse
     {
         if (!in_array($type, $exportHelper->getSupportedExportTypes())) {
-            throw new BadRequestHttpException($this->translator->trans('mautic.error.invalid.export.type', ['%type%' => $type]));
+            throw new BadRequestHttpException($this->translator->trans('mailvotech.error.invalid.export.type', ['%type%' => $type]));
         }
 
         $dateFormat = $this->coreParametersHelper->get('date_format_dateonly');
         $dateFormat = str_replace('--', '-', preg_replace('/[^a-zA-Z]/', '-', $dateFormat));
         $filename   = strtolower($filename.'_'.(new \DateTime())->format($dateFormat).'.'.$type);
         if (empty($toExport)) {
-            $toExport[] = [$this->translator->trans('mautic.core.noresults.header')];
+            $toExport[] = [$this->translator->trans('mailvotech.core.noresults.header')];
         }
 
         return $exportHelper->exportDataAs($toExport, $type, $filename);

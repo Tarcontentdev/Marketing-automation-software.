@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Functional\Model;
+namespace MailVotech\PageBundle\Tests\Functional\Model;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\HitRepository;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Model\RedirectModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\HitRepository;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Model\RedirectModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PageModelTest extends MauticMysqlTestCase
+final class PageModelTest extends MailVotechMysqlTestCase
 {
     private HitRepository $pageHitRepository;
 
@@ -43,7 +43,7 @@ final class PageModelTest extends MauticMysqlTestCase
         $this->configParams['do_not_track_ips']                = [self::DO_NOT_TRACK_IP];
         $this->configParams['bot_helper_blocked_ip_addresses'] = [self::BOT_BLOCKED_IP];
         $this->configParams['bot_helper_blocked_user_agents']  = self::BOT_BLOCKED_USER_AGENTS;
-        $this->configParams['site_url']                        = 'https://mautic-cloud.local';
+        $this->configParams['site_url']                        = 'https://mailvotech-cloud.local';
         parent::setUp();
         $this->pageHitRepository = self::getContainer()->get(HitRepository::class);
         $this->logoutUser();
@@ -60,7 +60,7 @@ final class PageModelTest extends MauticMysqlTestCase
             'resolution'       => '2560x1440',
             'platform'         => 'MacOs',
             'do_not_track'     => 'false',
-            'mautic_device_id' => 'some_device_id',
+            'mailvotech_device_id' => 'some_device_id',
         ];
         $this->client->request(Request::METHOD_POST, '/mtc/event', $requestParameters);
         /** @var Hit $pageHit */
@@ -128,7 +128,7 @@ final class PageModelTest extends MauticMysqlTestCase
             'resolution'       => '2560x1440',
             'platform'         => 'MacOs',
             'do_not_track'     => 'false',
-            'mautic_device_id' => 'some_device_id',
+            'mailvotech_device_id' => 'some_device_id',
             'ct'               => base64_encode(serialize($clickThrough)),
         ];
 
@@ -196,7 +196,7 @@ final class PageModelTest extends MauticMysqlTestCase
         $page->setTitle('Page A');
         $page->setAlias('page_a');
         $page->setCustomHtml('Page A');
-        $page->setRedirectUrl('http://mautic-cloud.local/page_a');
+        $page->setRedirectUrl('http://mailvotech-cloud.local/page_a');
         $this->em->persist($page);
 
         $this->em->flush();
@@ -210,7 +210,7 @@ final class PageModelTest extends MauticMysqlTestCase
             'channel' => [
                 'email' => $emailId,
             ],
-            'mtc_redirect_destination' => 'http://mautic-cloud.local/page_a',
+            'mtc_redirect_destination' => 'http://mailvotech-cloud.local/page_a',
         ];
 
         // Create Email Stat
@@ -225,7 +225,7 @@ final class PageModelTest extends MauticMysqlTestCase
         $redirectId = 'abc';
         $redirect   = new Redirect();
         $redirect->setRedirectId($redirectId);
-        $redirect->setUrl('http://mautic-cloud.local/page_a');
+        $redirect->setUrl('http://mailvotech-cloud.local/page_a');
         $this->em->persist($redirect);
         $this->em->flush();
 

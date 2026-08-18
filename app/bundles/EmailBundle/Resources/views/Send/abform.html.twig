@@ -1,10 +1,10 @@
-{% extends '@MauticCore/Default/content.html.twig' %}
-{% set mauticContent = 'emailSend' %}
-{% set header = 'mautic.email.send.list'|trans({'%name%': email.getName()}) %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
+{% set mailvotechContent = 'emailSend' %}
+{% set header = 'mailvotech.email.send.list'|trans({'%name%': email.getName()}) %}
 
 {% block headerTitle %}
-    {{ 'mautic.email.send.list'|trans({'%name%': email.getName()})|purify }}
-    <i title="{{ 'mautic.email.icon_tooltip.abtest.part'|trans }}" class="ri-fw ri-organization-chart"></i>
+    {{ 'mailvotech.email.send.list'|trans({'%name%': email.getName()})|purify }}
+    <i title="{{ 'mailvotech.email.icon_tooltip.abtest.part'|trans }}" class="ri-fw ri-organization-chart"></i>
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="panel-title text-center">
-                        <p>{{ 'mautic.email.absend.instructions'|trans }}</p>
+                        <p>{{ 'mailvotech.email.absend.instructions'|trans }}</p>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -23,20 +23,20 @@
                         <div class="well mt-lg">
                             <div class="input-group">
                                 <span class="input-group-btn text-center">
-                                    {{- include('@MauticCore/Helper/confirm.html.twig', {
-                                        'message'         : 'mautic.email.form.confirmsend'|trans({'%name%' : email.getName()}),
-                                        'confirmText'     : 'mautic.email.send'|trans,
+                                    {{- include('@MailVotechCore/Helper/confirm.html.twig', {
+                                        'message'         : 'mailvotech.email.form.confirmsend'|trans({'%name%' : email.getName()}),
+                                        'confirmText'     : 'mailvotech.email.send'|trans,
                                         'confirmCallback' : 'submitAbSendForm',
                                         'iconClass'       : 'ri-send-plane-line',
-                                        'btnText'         : 'mautic.email.send'|trans,
+                                        'btnText'         : 'mailvotech.email.send'|trans,
                                         'btnClass'        : 'btn btn-primary btn-send' ~ ((pending) ? '' : ' disabled')
                                     }) -}}
                                 </span>
                             </div>
                             <div class="text-center">
-                                <span class="label label-primary mt-lg">{{ 'mautic.email.send.pending'|trans({'%count%': pending}) }}</span>
+                                <span class="label label-primary mt-lg">{{ 'mailvotech.email.send.pending'|trans({'%count%': pending}) }}</span>
                                 <div class="mt-sm">
-                                    <a class="text-danger mt-md" href="{{ path('mautic_email_action', {'objectAction': 'view', 'objectId': email.getId()}) }}" data-toggle="ajax">{{ 'mautic.core.form.cancel'|trans }}</a>
+                                    <a class="text-danger mt-md" href="{{ path('mailvotech_email_action', {'objectAction': 'view', 'objectId': email.getId()}) }}" data-toggle="ajax">{{ 'mailvotech.core.form.cancel'|trans }}</a>
                                 </div>
                             </div>
                         </div>

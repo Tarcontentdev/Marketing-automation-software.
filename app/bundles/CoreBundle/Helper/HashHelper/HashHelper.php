@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper\HashHelper;
+namespace MailVotech\CoreBundle\Helper\HashHelper;
 
 final class HashHelper implements HashHelperInterface
 {

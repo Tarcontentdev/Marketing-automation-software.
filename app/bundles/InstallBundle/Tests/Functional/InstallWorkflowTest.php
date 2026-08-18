@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\InstallBundle\Tests\Functional;
+namespace MailVotech\InstallBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Helper\FileHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\InstallBundle\Configurator\Step\CheckStep;
-use Mautic\LeadBundle\Entity\LeadField;
+use MailVotech\CoreBundle\Helper\FileHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\InstallBundle\Configurator\Step\CheckStep;
+use MailVotech\LeadBundle\Entity\LeadField;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -17,11 +17,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * This test must run in a separate process because it sets the global constant
- * MAUTIC_INSTALLER which breaks other tests.
+ * MAILVOTECH_INSTALLER which breaks other tests.
  */
 #[PreserveGlobalState(false)]
 #[RunTestsInSeparateProcesses]
-final class InstallWorkflowTest extends MauticMysqlTestCase
+final class InstallWorkflowTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -90,8 +90,8 @@ final class InstallWorkflowTest extends MauticMysqlTestCase
         $form['install_user_step[username]']->setValue('admin');
         $form['install_user_step[password]']->setValue('maut!cR000cks');
         $form['install_user_step[firstname]']->setValue('admin');
-        $form['install_user_step[lastname]']->setValue('mautic');
-        $form['install_user_step[email]']->setValue('mautic@example.com');
+        $form['install_user_step[lastname]']->setValue('mailvotech');
+        $form['install_user_step[email]']->setValue('mailvotech@example.com');
 
         $crawler = $this->client->submit($form);
         $this->assertResponseIsSuccessful();
@@ -99,7 +99,7 @@ final class InstallWorkflowTest extends MauticMysqlTestCase
         $this->assertCount(1, $heading, $this->client->getResponse()->getContent());
 
         $successText = $heading->text();
-        $this->assertStringContainsString('Mautic is installed', $successText);
+        $this->assertStringContainsString('MailVotech is installed', $successText);
 
         // Assert that the fixtures were loaded
         $fieldRepository = $this->em->getRepository(LeadField::class);
@@ -112,7 +112,7 @@ final class InstallWorkflowTest extends MauticMysqlTestCase
     public function testInstallRequirementsAndRecommendations(): void
     {
         $limit                 = FileHelper::convertPHPSizeToBytes(CheckStep::RECOMMENDED_MEMORY_LIMIT);
-        $expectedMemoryMessage = self::getContainer()->get(TranslatorInterface::class)->trans('mautic.install.memory.limit', ['%min_memory_limit%' => CheckStep::RECOMMENDED_MEMORY_LIMIT]);
+        $expectedMemoryMessage = self::getContainer()->get(TranslatorInterface::class)->trans('mailvotech.install.memory.limit', ['%min_memory_limit%' => CheckStep::RECOMMENDED_MEMORY_LIMIT]);
 
         // set the memory limit lower than the recommended value.
         ini_set('memory_limit', (string) ($limit - 1));

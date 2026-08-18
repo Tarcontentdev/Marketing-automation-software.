@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\DataTransformer;
+namespace MailVotech\CoreBundle\Form\DataTransformer;
 
-use Mautic\CoreBundle\Helper\AbstractFormFieldHelper;
+use MailVotech\CoreBundle\Helper\AbstractFormFieldHelper;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**

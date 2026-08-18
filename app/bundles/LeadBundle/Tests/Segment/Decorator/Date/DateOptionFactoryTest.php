@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\Decorator\Date;
+namespace MailVotech\LeadBundle\Tests\Segment\Decorator\Date;
 
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\Decorator\Date\DateOptionFactory;
-use Mautic\LeadBundle\Segment\Decorator\Date\Day\DateDayToday;
-use Mautic\LeadBundle\Segment\Decorator\Date\Day\DateDayTomorrow;
-use Mautic\LeadBundle\Segment\Decorator\Date\Day\DateDayYesterday;
-use Mautic\LeadBundle\Segment\Decorator\Date\Month\DateMonthLast;
-use Mautic\LeadBundle\Segment\Decorator\Date\Month\DateMonthNext;
-use Mautic\LeadBundle\Segment\Decorator\Date\Month\DateMonthThis;
-use Mautic\LeadBundle\Segment\Decorator\Date\Other\DateAnniversary;
-use Mautic\LeadBundle\Segment\Decorator\Date\Other\DateDefault;
-use Mautic\LeadBundle\Segment\Decorator\Date\Other\DateRelativeInterval;
-use Mautic\LeadBundle\Segment\Decorator\Date\TimezoneResolver;
-use Mautic\LeadBundle\Segment\Decorator\Date\Week\DateWeekLast;
-use Mautic\LeadBundle\Segment\Decorator\Date\Week\DateWeekNext;
-use Mautic\LeadBundle\Segment\Decorator\Date\Week\DateWeekThis;
-use Mautic\LeadBundle\Segment\Decorator\Date\Year\DateYearLast;
-use Mautic\LeadBundle\Segment\Decorator\Date\Year\DateYearNext;
-use Mautic\LeadBundle\Segment\Decorator\Date\Year\DateYearThis;
-use Mautic\LeadBundle\Segment\Decorator\DateDecorator;
-use Mautic\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
-use Mautic\LeadBundle\Segment\RelativeDate;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\Decorator\Date\DateOptionFactory;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Day\DateDayToday;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Day\DateDayTomorrow;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Day\DateDayYesterday;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Month\DateMonthLast;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Month\DateMonthNext;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Month\DateMonthThis;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Other\DateAnniversary;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Other\DateDefault;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Other\DateRelativeInterval;
+use MailVotech\LeadBundle\Segment\Decorator\Date\TimezoneResolver;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Week\DateWeekLast;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Week\DateWeekNext;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Week\DateWeekThis;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Year\DateYearLast;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Year\DateYearNext;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Year\DateYearThis;
+use MailVotech\LeadBundle\Segment\Decorator\DateDecorator;
+use MailVotech\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
+use MailVotech\LeadBundle\Segment\RelativeDate;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 
@@ -243,20 +243,20 @@ final class DateOptionFactoryTest extends \PHPUnit\Framework\TestCase
         $relativeDate->method('getRelativeDateStrings')
             ->willReturn(
                 [
-                    'mautic.lead.list.month_last'  => 'last month',
-                    'mautic.lead.list.month_next'  => 'next month',
-                    'mautic.lead.list.month_this'  => 'this month',
-                    'mautic.lead.list.today'       => 'today',
-                    'mautic.lead.list.tomorrow'    => 'tomorrow',
-                    'mautic.lead.list.yesterday'   => 'yesterday',
-                    'mautic.lead.list.week_last'   => 'last week',
-                    'mautic.lead.list.week_next'   => 'next week',
-                    'mautic.lead.list.week_this'   => 'this week',
-                    'mautic.lead.list.year_last'   => 'last year',
-                    'mautic.lead.list.year_next'   => 'next year',
-                    'mautic.lead.list.year_this'   => 'this year',
-                    'mautic.lead.list.birthday'    => 'birthday',
-                    'mautic.lead.list.anniversary' => 'anniversary',
+                    'mailvotech.lead.list.month_last'  => 'last month',
+                    'mailvotech.lead.list.month_next'  => 'next month',
+                    'mailvotech.lead.list.month_this'  => 'this month',
+                    'mailvotech.lead.list.today'       => 'today',
+                    'mailvotech.lead.list.tomorrow'    => 'tomorrow',
+                    'mailvotech.lead.list.yesterday'   => 'yesterday',
+                    'mailvotech.lead.list.week_last'   => 'last week',
+                    'mailvotech.lead.list.week_next'   => 'next week',
+                    'mailvotech.lead.list.week_this'   => 'this week',
+                    'mailvotech.lead.list.year_last'   => 'last year',
+                    'mailvotech.lead.list.year_next'   => 'next year',
+                    'mailvotech.lead.list.year_this'   => 'this year',
+                    'mailvotech.lead.list.birthday'    => 'birthday',
+                    'mailvotech.lead.list.anniversary' => 'anniversary',
                 ]
             );
 

@@ -1,13 +1,17 @@
 {
-  "name": "mautic/theme-sunday",
-  "description": "Mautic Sunday Theme",
-  "type": "mautic-theme",
-  "keywords": ["mautic","theme"],
-  "extra": {
-    "install-directory-name": "sunday"
-  },
-  "minimum-stability": "dev",
-  "require": {
-    "mautic/core-lib": "^7.0"
-  }
+    "name": "mailvotech/theme-sunday",
+    "description": "MailVotech Sunday Theme",
+    "type": "mailvotech-theme",
+    "keywords": [
+        "mailvotech",
+        "theme"
+    ],
+    "extra": {
+        "install-directory-name": "sunday"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "mailvotech/core-lib": "^7.0",
+        "mailvotech/composer-installer": "^1.0"
+    }
 }

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Twig\Extension;
+namespace MailVotech\CoreBundle\Tests\Unit\Twig\Extension;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Twig\Extension\DateExtension;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Twig\Extension\DateExtension;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\TwigFunction;
@@ -20,8 +20,8 @@ final class DateExtensionTest extends TestCase
         $translator = $this->createMock(TranslatorInterface::class);
         $translator->method('trans')
             ->willReturnCallback(function (string $id, array $parameters = []): string {
-                if (str_starts_with($id, 'mautic.core.date.')) {
-                    $unit = str_replace('mautic.core.date.', '', $id);
+                if (str_starts_with($id, 'mailvotech.core.date.')) {
+                    $unit = str_replace('mailvotech.core.date.', '', $id);
 
                     return $parameters['%count%'].' '.$unit.($parameters['%count%'] > 1 ? 's' : '');
                 }

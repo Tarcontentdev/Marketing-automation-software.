@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Controller;
+namespace MailVotech\CoreBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
  */
 #[PreserveGlobalState(false)]
 #[RunTestsInSeparateProcesses]
-final class JsControllerTest extends MauticMysqlTestCase
+final class JsControllerTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -50,7 +50,7 @@ final class JsControllerTest extends MauticMysqlTestCase
 
     public function testEssentialEndpointContainsAnonymousRuntimeOnly(): void
     {
-        $this->client->request('GET', '/mautic-essential.js');
+        $this->client->request('GET', '/mailvotech-essential.js');
 
         self::assertResponseIsSuccessful();
         $content = (string) $this->client->getResponse()->getContent();
@@ -60,7 +60,7 @@ final class JsControllerTest extends MauticMysqlTestCase
         $this->assertStringContainsString('replaceDynamicContent', $content);
         $this->assertStringContainsString('enhanceDynamicContent', $content);
         $this->assertStringNotContainsString('mtc_id', $content);
-        $this->assertStringNotContainsString('mautic_device_id', $content);
+        $this->assertStringNotContainsString('mailvotech_device_id', $content);
         $this->assertStringNotContainsString('getTrackedContact', $content);
         $this->assertStringNotContainsString('setTrackedContact(response)', $content);
         $this->assertStringNotContainsString('deliverPageEvent', $content);
@@ -73,7 +73,7 @@ final class JsControllerTest extends MauticMysqlTestCase
 
     public function testTrackingEndpointContainsIdentityWithoutRuntime(): void
     {
-        $this->client->request('GET', '/mautic-tracking.js');
+        $this->client->request('GET', '/mailvotech-tracking.js');
 
         self::assertResponseIsSuccessful();
         $content = (string) $this->client->getResponse()->getContent();
@@ -100,7 +100,7 @@ final class JsControllerTest extends MauticMysqlTestCase
         self::assertResponseHeaderSame('Content-Type', 'application/javascript');
 
         $content = (string) $this->client->getResponse()->getContent();
-        $this->assertStringContainsString('@package     MauticJS', $content);
+        $this->assertStringContainsString('@package     MailVotechJS', $content);
 
         $trackingMarker = 'https://www.googletagmanager.com/gtag/js?id=G-F3825DS9CD';
         if ($containsTracking) {
@@ -116,7 +116,7 @@ final class JsControllerTest extends MauticMysqlTestCase
     public static function scriptEndpointProvider(): iterable
     {
         yield 'legacy aggregate' => ['/mtc.js', true];
-        yield 'essential' => ['/mautic-essential.js', false];
-        yield 'tracking' => ['/mautic-tracking.js', true];
+        yield 'essential' => ['/mailvotech-essential.js', false];
+        yield 'tracking' => ['/mailvotech-tracking.js', true];
     }
 }

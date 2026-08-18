@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Integration;
+namespace MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Integration;
 
-use Mautic\IntegrationsBundle\Exception\InvalidValueException;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\FieldMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO as ReportObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Logger\DebugLogger;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Helper\ValueHelper;
+use MailVotech\IntegrationsBundle\Exception\InvalidValueException;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\FieldMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO as ReportObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Logger\DebugLogger;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Helper\ValueHelper;
 
 class ObjectChangeGenerator
 {
@@ -48,7 +48,7 @@ class ObjectChangeGenerator
             DebugLogger::log(
                 $mappingManual->getIntegration(),
                 sprintf(
-                    "Mautic to integration; found a match between the integration %s:%s object and Mautic's %s:%s object",
+                    "MailVotech to integration; found a match between the integration %s:%s object and MailVotech's %s:%s object",
                     $integrationObject->getObject(),
                     (string) $integrationObject->getObjectId(),
                     $internalObject->getObject(),
@@ -60,7 +60,7 @@ class ObjectChangeGenerator
             DebugLogger::log(
                 $mappingManual->getIntegration(),
                 sprintf(
-                    'Mautic to integration: no match found for %s:%s',
+                    'MailVotech to integration: no match found for %s:%s',
                     $internalObject->getObject(),
                     (string) $internalObject->getObjectId()
                 ),
@@ -91,12 +91,12 @@ class ObjectChangeGenerator
         ReportObjectDAO $integrationObject,
         ObjectChangeDAO $objectChange,
     ): void {
-        // Skip adding fields for the push process that should sync to Mautic only.
-        if (ObjectMappingDAO::SYNC_TO_MAUTIC === $fieldMappingDAO->getSyncDirection()) {
+        // Skip adding fields for the push process that should sync to MailVotech only.
+        if (ObjectMappingDAO::SYNC_TO_MAILVOTECH === $fieldMappingDAO->getSyncDirection()) {
             DebugLogger::log(
                 $mappingManual->getIntegration(),
                 sprintf(
-                    "Mautic to integration; the %s object's field %s was skipped because it's configured to sync to Mautic",
+                    "MailVotech to integration; the %s object's field %s was skipped because it's configured to sync to MailVotech",
                     $integrationObject->getObject(),
                     $fieldMappingDAO->getIntegrationField()
                 ),
@@ -139,7 +139,7 @@ class ObjectChangeGenerator
         DebugLogger::log(
             $mappingManual->getIntegration(),
             sprintf(
-                "Mautic to integration; syncing %s object's %s field %s with a value of %s",
+                "MailVotech to integration; syncing %s object's %s field %s with a value of %s",
                 $integrationObject->getObject(),
                 $fieldState,
                 $fieldMappingDAO->getIntegrationField(),

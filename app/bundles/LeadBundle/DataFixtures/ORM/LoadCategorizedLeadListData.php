@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\LeadBundle\DataFixtures\ORM;
+namespace MailVotech\LeadBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\CategoryBundle\Entity\CategoryRepository;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
+use MailVotech\CategoryBundle\Entity\CategoryRepository;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
 
 final class LoadCategorizedLeadListData extends AbstractFixture implements OrderedFixtureInterface
 {

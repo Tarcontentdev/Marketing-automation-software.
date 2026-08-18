@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\LeadBundle\Twig\Helper;
+namespace MailVotech\LeadBundle\Twig\Helper;
 
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
 
 final readonly class DefaultAvatarHelper
 {

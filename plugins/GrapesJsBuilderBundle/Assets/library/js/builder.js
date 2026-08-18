@@ -15,7 +15,7 @@ function launchBuilderGrapesjs(formName) {
     return;
   }
 
-  Mautic.showChangeThemeWarning = true;
+  MailVotech.showChangeThemeWarning = true;
 
   // Prepare HTML
   mQuery('html').css('font-size', '100%');
@@ -51,9 +51,9 @@ function launchBuilderGrapesjs(formName) {
  */
 function useBuilderForCodeMode() {
   const theme = mQuery('.theme-selected').find('[data-theme]').attr('data-theme');
-  const isCodeMode = theme === 'mautic_code_mode';
+  const isCodeMode = theme === 'mailvotech_code_mode';
   if (isCodeMode) {
-    if (confirm(Mautic.translate('grapesjsbuilder.builder.warning.code_mode')) === false) {
+    if (confirm(MailVotech.translate('grapesjsbuilder.builder.warning.code_mode')) === false) {
       return false;
     }
   }
@@ -122,7 +122,7 @@ function switchBuilderButton(theme) {
   const builderButton = mQuery('.btn-builder');
   const mEmailBuilderButton = mQuery('#emailform_buttons_builder_toolbar_mobile');
   const mPageBuilderButton = mQuery('#page_buttons_builder_toolbar_mobile');
-  const isCodeMode = theme === 'mautic_code_mode';
+  const isCodeMode = theme === 'mailvotech_code_mode';
 
   builderButton.attr('disabled', isCodeMode);
 
@@ -149,7 +149,7 @@ function switchBuilderButton(theme) {
 function switchCustomHtml(theme) {
   const customHtmlRow = mQuery('#custom-html-row');
   const isPageMode = mQuery('[name="page"]').length !== 0;
-  const isCodeMode = theme === 'mautic_code_mode';
+  const isCodeMode = theme === 'mailvotech_code_mode';
   const advancedTab = isPageMode ? mQuery('#advanced-tab') : null;
 
   if (isCodeMode === true) {
@@ -162,7 +162,7 @@ function switchCustomHtml(theme) {
 }
 
 /**
- * Initialize original Mautic theme selection with grapejs specific modifications
+ * Initialize original MailVotech theme selection with grapejs specific modifications
  */
 function initSelectThemeGrapesjs(parentInitSelectTheme) {
   function childInitSelectTheme(themeField) {
@@ -172,7 +172,7 @@ function initSelectThemeGrapesjs(parentInitSelectTheme) {
     switchBuilderButton(themeField.val());
     switchCustomHtml(themeField.val());
 
-    // Replace Mautic URL by plugin URL
+    // Replace MailVotech URL by plugin URL
     if (builderUrl.length) {
       if (builderUrl.val().indexOf('pages') !== -1) {
         url = builderUrl.val().replace('s/pages/builder', 's/grapesjsbuilder/page');
@@ -183,7 +183,7 @@ function initSelectThemeGrapesjs(parentInitSelectTheme) {
       builderUrl.val(url);
     }
 
-    // Launch original Mautic.initSelectTheme function
+    // Launch original MailVotech.initSelectTheme function
     parentInitSelectTheme(themeField);
 
     mQuery('[data-theme]').click((event) => {
@@ -197,6 +197,6 @@ function initSelectThemeGrapesjs(parentInitSelectTheme) {
   return childInitSelectTheme;
 }
 
-Mautic.launchBuilder = launchBuilderGrapesjs;
-Mautic.initSelectTheme = initSelectThemeGrapesjs(Mautic.initSelectTheme);
-Mautic.setThemeHtml = setThemeHtml;
+MailVotech.launchBuilder = launchBuilderGrapesjs;
+MailVotech.initSelectTheme = initSelectThemeGrapesjs(MailVotech.initSelectTheme);
+MailVotech.setThemeHtml = setThemeHtml;

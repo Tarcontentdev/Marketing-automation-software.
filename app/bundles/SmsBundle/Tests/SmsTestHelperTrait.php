@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests;
+namespace MailVotech\SmsBundle\Tests;
 
-use Mautic\SmsBundle\Integration\TwilioIntegration;
-use Mautic\SmsBundle\Sms\TransportChain;
+use MailVotech\SmsBundle\Integration\TwilioIntegration;
+use MailVotech\SmsBundle\Sms\TransportChain;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +14,7 @@ trait SmsTestHelperTrait
 {
     private function configureTwilioWithArrayTransport(): ArrayTransport
     {
-        $this->testSymfonyCommand('mautic:plugins:install');
+        $this->testSymfonyCommand('mailvotech:plugins:install');
         $messagingServiceSid = 'messaging_sid';
 
         $integration = $this->getContainer()->get(TwilioIntegration::class);
@@ -43,7 +43,7 @@ trait SmsTestHelperTrait
 
         // Replaces Twilio transport with ArrayTransport
         $transport = new ArrayTransport();
-        $transportChain->addTransport('mautic.sms.twilio.transport', $transport, 'Array SMS Transport', 'Twilio');
+        $transportChain->addTransport('mailvotech.sms.twilio.transport', $transport, 'Array SMS Transport', 'Twilio');
 
         return $transport;
     }

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Extension;
+namespace MailVotech\CoreBundle\Twig\Extension;
 
-use Mautic\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\AppVersion;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -18,7 +18,7 @@ final class VersionExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('mauticAppVersion', $this->getVersion(...)),
+            new TwigFunction('mailvotechAppVersion', $this->getVersion(...)),
         ];
     }
 

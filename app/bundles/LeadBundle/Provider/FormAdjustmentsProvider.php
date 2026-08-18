@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Provider;
+namespace MailVotech\LeadBundle\Provider;
 
-use Mautic\LeadBundle\Event\FormAdjustmentEvent;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Event\FormAdjustmentEvent;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 

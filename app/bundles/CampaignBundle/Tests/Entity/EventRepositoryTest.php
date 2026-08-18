@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Entity;
+namespace MailVotech\CampaignBundle\Tests\Entity;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\Expr;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
 use PHPUnit\Framework\TestCase;
 
 final class EventRepositoryTest extends TestCase
@@ -43,7 +43,7 @@ final class EventRepositoryTest extends TestCase
 
         $queryBuilderMock->expects($this->once())
             ->method('update')
-            ->with(MAUTIC_TABLE_PREFIX.'campaign_events')
+            ->with(MAILVOTECH_TABLE_PREFIX.'campaign_events')
             ->willReturn($queryBuilderMock);
 
         $queryBuilderMock->expects($this->once())

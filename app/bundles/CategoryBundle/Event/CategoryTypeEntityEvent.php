@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CategoryBundle\Event;
+namespace MailVotech\CategoryBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\CoreBundle\Event\CommonEvent;
 
 final class CategoryTypeEntityEvent extends CommonEvent
 {
@@ -34,7 +34,7 @@ final class CategoryTypeEntityEvent extends CommonEvent
     {
         if (!empty($data)) {
             if (!isset($data['label'])) {
-                $data['label'] = 'mautic.'.$type.'.'.$type;
+                $data['label'] = 'mailvotech.'.$type.'.'.$type;
             }
             $this->types[$type] = $data;
         }

@@ -3,9 +3,9 @@
     - lead
     - events
 #}
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent %}lead{% endblock %}
+{% block mailvotechContent %}lead{% endblock %}
 
 {% set isAnonymous = lead.isAnonymous %}
 {% set leadName = lead.isAnonymous ? lead.primaryIdentifier|trans : lead.primaryIdentifier %}
@@ -25,7 +25,7 @@
 {% endblock %}
 
 {% block preHeader %}
-{{- include('@MauticCore/Helper/page_actions.html.twig',
+{{- include('@MailVotechCore/Helper/page_actions.html.twig',
     {
         'item'            : lead,
         'routeBase'       : 'contact',
@@ -38,7 +38,7 @@
                 lead.permissionUser
             ),
         },
-        'targetLabel'     : returnUrl is not empty ? 'mautic.form.form.results'|trans : 'mautic.lead.leads'|trans,
+        'targetLabel'     : returnUrl is not empty ? 'mailvotech.form.form.results'|trans : 'mailvotech.lead.leads'|trans,
         'closeUrl'        : returnUrl|default(null),
     }
 ) -}}
@@ -54,16 +54,16 @@
             'attr': {
                 'id': 'sendEmailButton',
                 'data-toggle': 'ajaxmodal',
-                'data-target': '#MauticSharedModal',
-                'data-header': 'mautic.lead.email.send_email.header'|trans({'%email%': emailAdress}),
-                'href': path('mautic_contact_action', {'objectId': lead.id, 'objectAction': 'email'}),
+                'data-target': '#MailVotechSharedModal',
+                'data-header': 'mailvotech.lead.email.send_email.header'|trans({'%email%': emailAdress}),
+                'href': path('mailvotech_contact_action', {'objectId': lead.id, 'objectAction': 'email'}),
             },
-            'btnText': 'mautic.lead.email.send_email'|trans,
+            'btnText': 'mailvotech.lead.email.send_email'|trans,
             'iconClass': 'ri-mail-send-line',
             'primary': true,
         } %}
         {% if emailAdress is empty %}
-            {% set sendButton = sendButton|merge({'tooltip' : 'mautic.lead.email.send_email.disabled'}) %}
+            {% set sendButton = sendButton|merge({'tooltip' : 'mailvotech.lead.email.send_email.disabled'}) %}
             {% set sendButton = sendButton|merge({'attr' : {'disabled' : true}}) %}
         {% endif %}
         {% set buttons = buttons|merge([sendButton]) %}
@@ -73,11 +73,11 @@
         {% set buttons = buttons|merge([{
             'attr': {
                 'data-toggle': 'ajaxmodal',
-                'data-target': '#MauticSharedModal',
-                'data-header': 'mautic.lead.lead.header.contact.frequency'|trans({'%name%': lead.primaryIdentifier|e}),
-                'href': path('mautic_contact_action', {'objectId': lead.id, 'objectAction': 'contactFrequency'}),
+                'data-target': '#MailVotechSharedModal',
+                'data-header': 'mailvotech.lead.lead.header.contact.frequency'|trans({'%name%': lead.primaryIdentifier|e}),
+                'href': path('mailvotech_contact_action', {'objectId': lead.id, 'objectAction': 'contactFrequency'}),
             },
-            'btnText': 'mautic.lead.contact.frequency'|trans,
+            'btnText': 'mailvotech.lead.contact.frequency'|trans,
             'iconClass': 'ri-settings-5-line',
         }]) %}
 
@@ -85,11 +85,11 @@
             {% set buttons = buttons|merge([{
                 'attr': {
                     'data-toggle': 'ajaxmodal',
-                    'data-target': '#MauticSharedModal',
-                    'data-header': 'mautic.lead.groups.panel.title'|trans,
-                    'href': path('mautic_contact_action', {'objectId': lead.id, 'objectAction': 'contactGroupPoints'}),
+                    'data-target': '#MailVotechSharedModal',
+                    'data-header': 'mailvotech.lead.groups.panel.title'|trans,
+                    'href': path('mailvotech_contact_action', {'objectId': lead.id, 'objectAction': 'contactGroupPoints'}),
                 },
-                'btnText': 'mautic.lead.groups.panel.title'|trans,
+                'btnText': 'mailvotech.lead.groups.panel.title'|trans,
                 'iconClass': 'ri-coins-line',
             }]) %}
         {% endif %}
@@ -99,12 +99,12 @@
         {% set buttons = buttons|merge([{
             'attr': {
                 'data-toggle': 'ajaxmodal',
-                'data-target': '#MauticSharedModal',
-                'data-header': 'mautic.lead.lead.header.campaigns'|trans({'%name%': lead.primaryIdentifier|e}),
+                'data-target': '#MailVotechSharedModal',
+                'data-header': 'mailvotech.lead.lead.header.campaigns'|trans({'%name%': lead.primaryIdentifier|e}),
                 'data-footer': 'false',
-                'href': path('mautic_contact_action', {'objectId': lead.id, 'objectAction': 'campaign'}),
+                'href': path('mailvotech_contact_action', {'objectId': lead.id, 'objectAction': 'campaign'}),
             },
-            'btnText': 'mautic.campaign.campaigns'|trans,
+            'btnText': 'mailvotech.campaign.campaigns'|trans,
             'iconClass': 'ri-megaphone-line',
         }]) %}
     {% endif %}
@@ -113,11 +113,11 @@
         {% set buttons = buttons|merge([{
             'attr': {
                 'data-toggle': 'ajaxmodal',
-                'data-target': '#MauticSharedModal',
-                'data-header': 'mautic.lead.lead.header.merge'|trans({'%name%': lead.primaryIdentifier|e}),
-                'href': path('mautic_contact_action', {'objectId': lead.id, 'objectAction': 'merge'}),
+                'data-target': '#MailVotechSharedModal',
+                'data-header': 'mailvotech.lead.lead.header.merge'|trans({'%name%': lead.primaryIdentifier|e}),
+                'href': path('mailvotech_contact_action', {'objectId': lead.id, 'objectAction': 'merge'}),
             },
-            'btnText': 'mautic.lead.merge'|trans,
+            'btnText': 'mailvotech.lead.merge'|trans,
             'iconClass': 'ri-exchange-2-line',
         }]) %}
     {% endif %}
@@ -126,14 +126,14 @@
         {% set buttons = buttons|merge([{
             'attr': {
                 'data-toggle': 'download',
-                'href': path('mautic_contact_export_action', {'contactId': lead.id}),
+                'href': path('mailvotech_contact_export_action', {'contactId': lead.id}),
             },
-            'btnText': 'mautic.core.export'|trans,
+            'btnText': 'mailvotech.core.export'|trans,
             'iconClass': 'ri-export-line',
         }]) %}
     {% endif %}
 
-    {{ include('@MauticCore/Helper/page_actions.html.twig', {
+    {{ include('@MailVotechCore/Helper/page_actions.html.twig', {
             'item': lead,
             'routeBase': 'contact',
             'langVar': 'lead.lead',
@@ -164,16 +164,16 @@
                         {% if fields[g] is not empty %}
                             <li class="{% if loop.first %}active{% endif %}">
                                 <a href="#{{ g }}" class="group" data-toggle="tab">
-                                    {{ ('mautic.lead.field.group.'~g)|trans }}
+                                    {{ ('mailvotech.lead.field.group.'~g)|trans }}
                                 </a>
                             </li>
                         {% endif %}
                     {% endfor %}
                         <li>
-                            <a href="#devices" class="group" data-toggle="tab">{{ 'mautic.lead.devices'|trans }}</a>
+                            <a href="#devices" class="group" data-toggle="tab">{{ 'mailvotech.lead.devices'|trans }}</a>
                         </li>
                     <li>
-                        <a href="#lead-stats" class="group" data-toggle="tab">{{ 'mautic.lead.stats'|trans }}</a>
+                        <a href="#lead-stats" class="group" data-toggle="tab">{{ 'mailvotech.lead.stats'|trans }}</a>
                     </li>
                 </ul>
 
@@ -186,7 +186,7 @@
                                     <table class="table table-hover mb-0">
                                         <tbody>
                                         {% if 'core' == group %}
-                                          {{ include('@MauticCore/Helper/details.html.twig', {'entity': lead}) }}
+                                          {{ include('@MailVotechCore/Helper/details.html.twig', {'entity': lead}) }}
                                         {% endif %}
                                         {% set no_result = true %}
                                         {% for field in fields[group] %}
@@ -221,7 +221,7 @@
                                         {% endfor %}
 
                                         {% if no_result %}
-                                            <tr><td colspan="2">{{ 'mautic.lead.field.group.no_data'|trans }}</td></tr>
+                                            <tr><td colspan="2">{{ 'mailvotech.lead.field.group.no_data'|trans }}</td></tr>
                                         {% endif %}
 
                                         </tbody>
@@ -232,12 +232,12 @@
                     {% endfor %}
                         <div class="tab-pane fade bdr-w-0" id="devices">
                             {% if devices %}
-                                {{ include('@MauticLead/Lead/_devices.html.twig', {'devices': devices}) }}
+                                {{ include('@MailVotechLead/Lead/_devices.html.twig', {'devices': devices}) }}
                             {% else %}
-                                {{ include('@MauticCore/Helper/no_information.html.twig', {'tip': 'mautic.contact.noinformation.devices'}) }}
+                                {{ include('@MailVotechCore/Helper/no_information.html.twig', {'tip': 'mailvotech.contact.noinformation.devices'}) }}
                             {% endif %}
                         </div>
-                    <div class="tab-pane fade bdr-w-0" id="lead-stats" data-target-url="{{ path('mautic_contact_stats', {'objectId': lead.id}) }}">
+                    <div class="tab-pane fade bdr-w-0" id="lead-stats" data-target-url="{{ path('mailvotech_contact_stats', {'objectId': lead.id}) }}">
                         <div class="spinner"><i class="ri-loader-3-line ri-spin"></i></div>
                     </div>
                 </div>
@@ -248,10 +248,10 @@
         <div>
             <!-- lead detail collapseable toggler -->
             <div class="hr-expand nm">
-                <span data-toggle="tooltip" title="{{ 'mautic.core.details'|trans }}">
+                <span data-toggle="tooltip" title="{{ 'mailvotech.core.details'|trans }}">
                     <a href="javascript:void(0)" class="arrow text-secondary collapsed" data-toggle="collapse" data-target="#lead-details">
                        <span class="caret"></span>
-                       {{ 'mautic.core.details'|trans }}
+                       {{ 'mailvotech.core.details'|trans }}
                     </a>
                 </span>
             </div>
@@ -264,14 +264,14 @@
                             <div class="panel">
                                 <div class="panel-body box-layout">
                                     <div class="col-xs-8 va-m">
-                                        <h5 class="text-white dark-md fw-sb mb-xs">{{ 'mautic.lead.field.header.engagements'|trans }}</h5>
+                                        <h5 class="text-white dark-md fw-sb mb-xs">{{ 'mailvotech.lead.field.header.engagements'|trans }}</h5>
                                     </div>
                                     <div class="col-xs-4 va-t text-right">
                                         <h3 class="text-white dark-sm"><span class="ri-eye-line"></span></h3>
                                     </div>
                                 </div>
                                 <div class="d-flex fd-column pt-0 pl-15 pb-15 pr-15 min-h-256">
-                                    {{ include('@MauticCore/Helper/chart.html.twig', {'chartData': engagementData, 'chartType': 'line', 'chartHeight': 250}) }}
+                                    {{ include('@MailVotechCore/Helper/chart.html.twig', {'chartData': engagementData, 'chartType': 'line', 'chartHeight': 250}) }}
                                 </div>
                             </div>
                         </div>
@@ -288,7 +288,7 @@
                         <span size="sm" class="label label-primary mr-sm" id="TimelineCount">
                             {{ events.total }}
                         </span>
-                        {{ 'mautic.lead.lead.tab.history'|trans }}
+                        {{ 'mailvotech.lead.lead.tab.history'|trans }}
                     </a>
                 </li>
                 <li class="">
@@ -296,7 +296,7 @@
                         <span size="sm" class="label label-primary mr-sm" id="NoteCount">
                             {{ noteCount }}
                         </span>
-                        {{ 'mautic.lead.lead.tab.notes'|trans }}
+                        {{ 'mailvotech.lead.lead.tab.notes'|trans }}
                     </a>
                 </li>
                 {% if not isAnonymous %}
@@ -305,7 +305,7 @@
                         <span size="sm" class="label label-primary mr-sm" id="SocialCount">
                             {{ socialProfiles|length }}
                         </span>
-                            {{ 'mautic.lead.lead.tab.social'|trans }}
+                            {{ 'mailvotech.lead.lead.tab.social'|trans }}
                         </a>
                     </li>
                 {% endif %}
@@ -314,7 +314,7 @@
                     <span size="sm" class="label label-primary mr-sm" id="IntegrationCount">
                         {{ integrations|length }}
                     </span>
-                        {{ 'mautic.lead.lead.tab.integration'|trans }}
+                        {{ 'mailvotech.lead.lead.tab.integration'|trans }}
                     </a>
                 </li>
                 <li class="">
@@ -322,7 +322,7 @@
                     <span size="sm" class="label label-primary mr-sm" id="AuditLogCount">
                         {{ auditlog.total }}
                     </span>
-                        {{ 'mautic.lead.lead.tab.auditlog'|trans }}
+                        {{ 'mailvotech.lead.lead.tab.auditlog'|trans }}
                     </a>
                 </li>
                     <li class="">
@@ -330,7 +330,7 @@
                         <span size="sm" class="label label-primary mr-sm" id="PlaceCount">
                             {{ places|length }}
                         </span>
-                            {{ 'mautic.lead.lead.tab.places'|trans }}
+                            {{ 'mailvotech.lead.lead.tab.places'|trans }}
                         </a>
                     </li>
                 {{ customContent('tabs', _context) }}
@@ -341,20 +341,20 @@
             <div class="tab-content pa-md">
                 <!-- #history-container -->
                 <div class="tab-pane fade in active bdr-w-0" id="timeline-container">
-                    {{ include('@MauticLead/Timeline/list.html.twig', {'events': events, 'lead': lead}) }}
+                    {{ include('@MailVotechLead/Timeline/list.html.twig', {'events': events, 'lead': lead}) }}
                 </div>
                 <!--/ #history-container -->
 
                 <!-- #notes-container -->
                 <div class="tab-pane fade bdr-w-0" id="notes-container">
-                    {{ render(controller('Mautic\\LeadBundle\\Controller\\NoteController::indexAction', {'leadId': lead.id, 'ignoreAjax': 1})) }}
+                    {{ render(controller('MailVotech\\LeadBundle\\Controller\\NoteController::indexAction', {'leadId': lead.id, 'ignoreAjax': 1})) }}
                 </div>
                 <!--/ #notes-container -->
 
                 <!-- #social-container -->
                 {% if not isAnonymous %}
                     <div class="tab-pane fade bdr-w-0" id="social-container">
-                        {{ include('@MauticLead/Social/index.html.twig', {
+                        {{ include('@MailVotechLead/Social/index.html.twig', {
                             'lead': lead,
                             'socialProfiles': socialProfiles,
                             'socialProfileUrls': socialProfileUrls,
@@ -365,7 +365,7 @@
 
                 <!-- #integration-container -->
                 <div class="tab-pane fade bdr-w-0" id="integration-container">
-                    {{ include('@MauticLead/Integration/index.html.twig', {
+                    {{ include('@MailVotechLead/Integration/index.html.twig', {
                         'lead': lead,
                         'integrations': integrations,
                     }) }}
@@ -374,7 +374,7 @@
 
                 <!-- #auditlog-container -->
                 <div class="tab-pane fade bdr-w-0" id="auditlog-container">
-                    {{ include('@MauticLead/Auditlog/_list.html.twig', {
+                    {{ include('@MailVotechLead/Auditlog/_list.html.twig', {
                         'lead': lead,
                         'events': auditlog,
                     }) }}
@@ -388,11 +388,11 @@
                 <!-- #place-container -->
                     <div class="tab-pane fade bdr-w-0" id="place-container">
                         {% if not places and not configGetParameter('ip_lookup_auth') %}
-                            {{ include('@MauticCore/Helper/no_information.html.twig', {
-                                'tip': 'mautic.contact.noinformation.places'
+                            {{ include('@MailVotechCore/Helper/no_information.html.twig', {
+                                'tip': 'mailvotech.contact.noinformation.places'
                             }) }}
                         {% endif %}
-                        {{ include('@MauticLead/Lead/_map.html.twig', {'places': places}) }}
+                        {{ include('@MailVotechLead/Lead/_map.html.twig', {'places': places}) }}
                     </div>
                 <!--/ #place-container -->
             </div>
@@ -423,7 +423,7 @@
             {% endif %}
             <div class="mt-sm points-panel text-center">
                 <h1 style="{% if lead.color is not empty %}font-color:{{ lead.color }} !important;{% endif %}">
-                    {{ 'mautic.lead.points.count'|trans({'%count%': lead.points}) }}
+                    {{ 'mailvotech.lead.points.count'|trans({'%count%': lead.points}) }}
                 </h1>
                 <hr/>
                 {% if lead.stage %}
@@ -434,7 +434,7 @@
             {% if lead.groupScores is not empty %}
                 <div class="panel-heading">
                     <div class="panel-title">
-                        {{ 'mautic.lead.groups.panel.title'|trans }}
+                        {{ 'mailvotech.lead.groups.panel.title'|trans }}
                     </div>
                 </div>
 
@@ -445,7 +445,7 @@
                                 {{ groupScore.group.name }}
                             </h6>
                             <p class="text-secondary col-md-6">
-                                {{ 'mautic.lead.points.count'|trans({'%count%': groupScore.score}) }}
+                                {{ 'mailvotech.lead.points.count'|trans({'%count%': groupScore.score}) }}
                             </p>
                         </div>
                     {% endfor %}
@@ -453,24 +453,24 @@
             {% endif %}
 
             {% if doNotContact %}
-                {{ include('@MauticLead/Lead/_dnc_large.html.twig', {'doNotContact': doNotContact}) }}
+                {{ include('@MailVotechLead/Lead/_dnc_large.html.twig', {'doNotContact': doNotContact}) }}
             {% endif %}
             {% if doNotContactSms %}
-                {{ include('@MauticLead/Lead/_dnc_large.html.twig', {'doNotContact': doNotContactSms}) }}
+                {{ include('@MailVotechLead/Lead/_dnc_large.html.twig', {'doNotContact': doNotContactSms}) }}
             {% endif %}
             <div class="panel-heading">
                 <div class="panel-title">
-                    {{ 'mautic.lead.field.header.contact'|trans }}
+                    {{ 'mailvotech.lead.field.header.contact'|trans }}
                 </div>
             </div>
             <div class="panel-body pt-sm">
             {% if lead.owner %}
-                <h6 class="fw-sb">{{ 'mautic.lead.lead.field.owner'|trans }}</h6>
+                <h6 class="fw-sb">{{ 'mailvotech.lead.lead.field.owner'|trans }}</h6>
                 <p class="text-secondary">{{ lead.owner.name|purify }}</p>
             {% endif %}
 
                 <h6 class="fw-sb">
-                    {{ 'mautic.lead.field.address'|trans }}
+                    {{ 'mailvotech.lead.field.address'|trans }}
                 </h6>
                 <address class="text-secondary">
                     {% if fields.core.address1 is defined %}{{ fields.core.address1.value|purify }}<br>{% endif %}
@@ -480,16 +480,16 @@
                     <br>
                 </address>
 
-                <h6 class="fw-sb">{{ 'mautic.core.type.email'|trans }}</h6>
+                <h6 class="fw-sb">{{ 'mailvotech.core.type.email'|trans }}</h6>
                 <p class="text-secondary">{{ fields.core.email.value|purify }}</p>
 
                 {% if fields.core.phone is defined %}
-                    <h6 class="fw-sb">{{ 'mautic.lead.field.type.tel.home'|trans }}</h6>
+                    <h6 class="fw-sb">{{ 'mailvotech.lead.field.type.tel.home'|trans }}</h6>
                     <p class="text-secondary">{{ fields.core.phone.value|purify }}</p>
                 {% endif %}
 
                 {% if fields.core.mobile is defined %}
-                    <h6 class="fw-sb">{{ 'mautic.lead.field.type.tel.mobile'|trans }}</h6>
+                    <h6 class="fw-sb">{{ 'mailvotech.lead.field.type.tel.mobile'|trans }}</h6>
                     <p class="text-secondary mb-0">{{ fields.core.mobile.value|purify }}</p>
                 {% endif %}
             </div>
@@ -500,7 +500,7 @@
 
         <div class="panel shd-none bdr-rds-0 bdr-w-0">
                 <div class="panel-heading">
-                    <div class="panel-title">{{ 'mautic.lead.lead.upcoming.events'|trans }}</div>
+                    <div class="panel-title">{{ 'mailvotech.lead.lead.upcoming.events'|trans }}</div>
                 </div>
                 {% if upcomingEvents %}
                     <div class="panel-body pt-sm">
@@ -511,9 +511,9 @@
                             {% if metadata.errors is defined and metadata.errors is not empty %}
                                 {% set errors = metadata.errors is iterable ? metadata.errors|join('<br/>') : metadata.errors %}
                             {% endif %}
-                            {% set campaignUrl = path('mautic_campaign_action', {'objectAction': 'view', 'objectId': event.campaign_id}) %}
+                            {% set campaignUrl = path('mailvotech_campaign_action', {'objectAction': 'view', 'objectId': event.campaign_id}) %}
                             {% set eventLabelText %}
-                                {{ 'mautic.lead.lead.upcoming.event.triggered.at'|trans({
+                                {{ 'mailvotech.lead.lead.upcoming.event.triggered.at'|trans({
                                     '%event%': event.event_name,
                                     '%link%': '<a href="'~campaignUrl~'" data-toggle="ajax">'~event.campaign_name~'</a>',
                                 })|purify }}
@@ -528,16 +528,16 @@
                             } %}
                             {% if errors is not empty %}
                                 {% set timelineEvent = timelineEvent|merge({
-                                    'contentTemplate': '@MauticCore/Modules/timeline_details.html.twig',
+                                    'contentTemplate': '@MailVotechCore/Modules/timeline_details.html.twig',
                                     'errors': errors
                                 }) %}
                             {% endif %}
                             {% set timelineEvents = timelineEvents|merge([timelineEvent]) %}
                         {% endfor %}
-                        {{ include('@MauticCore/Modules/timeline.html.twig', {'events': timelineEvents}) }}
+                        {{ include('@MailVotechCore/Modules/timeline.html.twig', {'events': timelineEvents}) }}
                     </div>
                 {% else %}
-                    {{ include('@MauticCore/Helper/no_information.html.twig', {'tip': 'mautic.contact.noinformation.upcoming'}) }}
+                    {{ include('@MailVotechCore/Helper/no_information.html.twig', {'tip': 'mailvotech.contact.noinformation.upcoming'}) }}
                 {% endif %}
             </div>
 
@@ -549,7 +549,7 @@
             
             {% set tagHeader %}
                 <div class="d-flex jc-space-between">
-                    <span class="fw-b ellipsis mb-md">{{ 'mautic.lead.tags'|trans }}</span>
+                    <span class="fw-b ellipsis mb-md">{{ 'mailvotech.lead.tags'|trans }}</span>
                     <i class="ri-hashtag" aria-hidden="true"></i>
                 </div>
             {% endset %}
@@ -566,13 +566,13 @@
                             {% endfor %}
                         {% else %}
                             <p class="text-helper">
-                                {{ 'mautic.lead.tags.no_results'|trans }}
+                                {{ 'mailvotech.lead.tags.no_results'|trans }}
                             </p>
                         {% endif %}
                     </div>
                 {% endset %}
                 
-                {% include '@MauticCore/Components/tile.html.twig' with {
+                {% include '@MailVotechCore/Components/tile.html.twig' with {
                     'type': 'base',
                     'content': tagContent
                 } %}
@@ -600,7 +600,7 @@
                     </div>
                 {% endset %}
                 
-                {% include '@MauticCore/Components/tile.html.twig' with {
+                {% include '@MailVotechCore/Components/tile.html.twig' with {
                     'type': 'expandable-interactive',
                     'aboveFoldContent': aboveContent,
                     'belowFoldContent': belowContent
@@ -615,42 +615,42 @@
                 {% for key, company in companies %}
                     {% set companiesList = companiesList|merge([{
                         'label': company.companyname|purify,
-                        'link': path('mautic_company_action', {'objectAction': 'view', 'objectId': company.id}),
+                        'link': path('mailvotech_company_action', {'objectAction': 'view', 'objectId': company.id}),
                         'icon': (company.is_primary == 1 ? 'ri-user-star-fill' : ''),
                         'button': {
-                            'onclick': 'Mautic.setAsPrimaryCompany(' ~ company.id ~ ', ' ~ lead.id ~ ');',
+                            'onclick': 'MailVotech.setAsPrimaryCompany(' ~ company.id ~ ', ' ~ lead.id ~ ');',
                             'icon': 'ri-check-line',
                             'size': 'lg',
-                            'label': 'mautic.lead.company.set.primary'|trans
+                            'label': 'mailvotech.lead.company.set.primary'|trans
                         }
                     }]) %}
                 {% endfor %}
 
                 {% set tileContent %}
                 <div class="ma-neg-local">
-                    {{ include('@MauticCore/Components/contained-list.html.twig', {
-                        'title': 'mautic.lead.lead.companies'|trans,
+                    {{ include('@MailVotechCore/Components/contained-list.html.twig', {
+                        'title': 'mailvotech.lead.lead.companies'|trans,
                         'items': companiesList,
                         'variant': 'interactive-actions'
                     }) }}
                 </div>
                 {% endset %}
 
-                {{ include('@MauticCore/Components/tile.html.twig', {
+                {{ include('@MailVotechCore/Components/tile.html.twig', {
                     'type': 'base',
                     'content': tileContent
                 }) }}
             {% else %}
                 {% set content %}
                 <div class="d-flex jc-space-between">
-                    <span class="fw-b ellipsis mb-md">{{ 'mautic.lead.lead.companies'|trans }}</span>
+                    <span class="fw-b ellipsis mb-md">{{ 'mailvotech.lead.lead.companies'|trans }}</span>
                     <i class="ri-building-line" aria-hidden="true"></i>
                 </div>
-                <p class="text-helper">{{ 'mautic.lead.lead.companies.no_results'|trans }}</p>
+                <p class="text-helper">{{ 'mailvotech.lead.lead.companies.no_results'|trans }}</p>
                 <div class="clearfix"></div>
                 {% endset %}
                 
-                {% include '@MauticCore/Components/tile.html.twig' with {'type': 'base', 'content': content} %}
+                {% include '@MailVotechCore/Components/tile.html.twig' with {'type': 'base', 'content': content} %}
             {% endif %}
         </div>
         <div class="pa-sm">
@@ -661,7 +661,7 @@
                 {% if segments|length <= 8 %}
                     {% set content %}
                         <div class="d-flex jc-space-between">
-                            <span class="fw-b ellipsis mb-md">{{ 'mautic.lead.lead.lists'|trans }}</span>
+                            <span class="fw-b ellipsis mb-md">{{ 'mailvotech.lead.lead.lists'|trans }}</span>
                             <i class="ri-pie-chart-line" aria-hidden="true"></i>
                         </div>
                         <div class="d-flex fw-wrap gap-xs">
@@ -669,21 +669,21 @@
                                 {% set tag = {
                                     'label': list.name|purify,
                                     'attributes': {
-                                        'href': path('mautic_segment_action', {'objectAction': 'view', 'objectId': list.id}),
+                                        'href': path('mailvotech_segment_action', {'objectAction': 'view', 'objectId': list.id}),
                                         'data-toggle': 'ajax'
                                     },
                                     'color': cycle(classes, key)
                                 } %}
-                                {% include '@MauticCore/Helper/_tag.html.twig' with {'tags': [tag]} %}
+                                {% include '@MailVotechCore/Helper/_tag.html.twig' with {'tags': [tag]} %}
                             {% endfor %}
                         </div>
                     {% endset %}
                     
-                    {% include '@MauticCore/Components/tile.html.twig' with {'type': 'base', 'content': content} %}
+                    {% include '@MailVotechCore/Components/tile.html.twig' with {'type': 'base', 'content': content} %}
                 {% else %}
                     {% set aboveContent %}
                         <div class="d-flex jc-space-between">
-                            <span class="fw-b ellipsis mb-md">{{ 'mautic.lead.lead.lists'|trans }}</span>
+                            <span class="fw-b ellipsis mb-md">{{ 'mailvotech.lead.lead.lists'|trans }}</span>
                             <i class="ri-pie-chart-line" aria-hidden="true"></i>
                         </div>
                         <div class="d-flex fw-wrap gap-xs">
@@ -691,12 +691,12 @@
                                 {% set tag = {
                                     'label': list.name|purify,
                                     'attributes': {
-                                        'href': path('mautic_segment_action', {'objectAction': 'view', 'objectId': list.id}),
+                                        'href': path('mailvotech_segment_action', {'objectAction': 'view', 'objectId': list.id}),
                                     'data-toggle': 'ajax'
                                 },
                                 'color': cycle(classes, key)
                             } %}
-                            {% include '@MauticCore/Helper/_tag.html.twig' with {'tags': [tag]} %}
+                            {% include '@MailVotechCore/Helper/_tag.html.twig' with {'tags': [tag]} %}
                         {% endfor %}
                         </div>
                     {% endset %}
@@ -707,17 +707,17 @@
                             {% set tag = {
                                 'label': list.name|purify,
                                 'attributes': {
-                                    'href': path('mautic_segment_action', {'objectAction': 'view', 'objectId': list.id}),
+                                    'href': path('mailvotech_segment_action', {'objectAction': 'view', 'objectId': list.id}),
                                     'data-toggle': 'ajax'
                                 },
                                 'color': cycle(classes, key + 8)
                             } %}
-                            {% include '@MauticCore/Helper/_tag.html.twig' with {'tags': [tag]} %}
+                            {% include '@MailVotechCore/Helper/_tag.html.twig' with {'tags': [tag]} %}
                         {% endfor %}
                         </div>
                     {% endset %}
                     
-                    {% include '@MauticCore/Components/tile.html.twig' with {
+                    {% include '@MailVotechCore/Components/tile.html.twig' with {
                         'type': 'expandable-interactive',
                         'aboveFoldContent': aboveContent,
                         'belowFoldContent': belowContent
@@ -726,14 +726,14 @@
             {% else %}
                 {% set content %}
                 <div class="d-flex jc-space-between">
-                    <span class="fw-b ellipsis mb-md">{{ 'mautic.lead.lead.lists'|trans }}</span>
+                    <span class="fw-b ellipsis mb-md">{{ 'mailvotech.lead.lead.lists'|trans }}</span>
                     <i class="ri-pie-chart-line" aria-hidden="true"></i>
                 </div>
-                <p class="text-helper">{{ 'mautic.lead.lead.lists.no_results'|trans }}</p>
+                <p class="text-helper">{{ 'mailvotech.lead.lead.lists.no_results'|trans }}</p>
                 <div class="clearfix"></div>
                 {% endset %}
                 
-                {% include '@MauticCore/Components/tile.html.twig' with {'type': 'base', 'content': content} %}
+                {% include '@MailVotechCore/Components/tile.html.twig' with {'type': 'base', 'content': content} %}
             {% endif %}
         </div>
 
@@ -747,10 +747,10 @@
 
 {% macro render_tag(tag, leadId) %}
     <div id="tagLabel{{ tag.id }}">
-        {% include '@MauticCore/Helper/_tag.html.twig' with {'tags': [{
+        {% include '@MailVotechCore/Helper/_tag.html.twig' with {'tags': [{
             'label': tag.tag|purify,
             'attributes': {
-                'href': path('mautic_tagmanager_action', {
+                'href': path('mailvotech_tagmanager_action', {
                     'objectAction': 'view',
                     'objectId': tag.id
                 }),
@@ -759,7 +759,7 @@
             'color': 'blue',
             'type': 'dismissible',
             'dismissible_onclick':
-            'Mautic.removeTagFromLead(this, ' ~ leadId ~ ', ' ~ tag.id ~ ', event);'
+            'MailVotech.removeTagFromLead(this, ' ~ leadId ~ ', ' ~ tag.id ~ ', event);'
         }]} %}
     </div>
 {% endmacro %}

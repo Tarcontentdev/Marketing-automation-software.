@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\CoreBundle\Exception\BadConfigurationException;
-use Mautic\CoreBundle\Exception\FileExistsException;
-use Mautic\CoreBundle\Exception\FileNotFoundException;
-use Mautic\CoreBundle\Twig\Helper\ThemeHelper as twigThemeHelper;
-use Mautic\CoreBundle\Twig\Sandbox\ThemeSandboxPolicy;
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Helper\BuilderIntegrationsHelper;
+use MailVotech\CoreBundle\Exception\BadConfigurationException;
+use MailVotech\CoreBundle\Exception\FileExistsException;
+use MailVotech\CoreBundle\Exception\FileNotFoundException;
+use MailVotech\CoreBundle\Twig\Helper\ThemeHelper as twigThemeHelper;
+use MailVotech\CoreBundle\Twig\Sandbox\ThemeSandboxPolicy;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Helper\BuilderIntegrationsHelper;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -324,13 +324,13 @@ class ThemeHelper implements ThemeHelperInterface
         }
 
         if (false === class_exists('ZipArchive')) {
-            throw new \Exception('mautic.core.ziparchive.not.installed');
+            throw new \Exception('mailvotech.core.ziparchive.not.installed');
         }
 
         $themeName = basename($zipFile, '.zip');
 
         if (in_array($themeName, $this->defaultThemes)) {
-            throw new \Exception($this->translator->trans('mautic.core.theme.default.cannot.overwrite', ['%name%' => $themeName], 'validators'));
+            throw new \Exception($this->translator->trans('mailvotech.core.theme.default.cannot.overwrite', ['%name%' => $themeName], 'validators'));
         }
 
         $themePath = $this->pathsHelper->getSystemPath('themes', true).'/'.$themeName;
@@ -382,12 +382,12 @@ class ThemeHelper implements ThemeHelperInterface
         }
 
         if ($missingFiles = array_diff($requiredFiles, $foundRequiredFiles)) {
-            throw new FileNotFoundException($this->translator->trans('mautic.core.theme.missing.files', ['%files%' => implode(', ', $missingFiles)], 'validators'));
+            throw new FileNotFoundException($this->translator->trans('mailvotech.core.theme.missing.files', ['%files%' => implode(', ', $missingFiles)], 'validators'));
         }
 
         // Extract the archive file now
         if (!$zipper->extractTo($themePath, $allowedFiles)) {
-            throw new \Exception('mautic.core.update.error_extracting_package');
+            throw new \Exception('mailvotech.core.update.error_extracting_package');
         }
         $zipper->close();
         unlink($zipFile);
@@ -403,7 +403,7 @@ class ThemeHelper implements ThemeHelperInterface
      * that shares the same loader and extensions but applies a denylist
      * policy via ThemeSandboxPolicy — blocking only dangerous functions
      * and filters (map, reduce, filter, configGetParameter, etc.) while
-     * allowing all legitimate Mautic and plugin Twig functions.
+     * allowing all legitimate MailVotech and plugin Twig functions.
      *
      * @param string  $template Twig logical name (e.g. @themes/mytheme/html/page.html.twig)
      * @param mixed[] $params   Variables passed to the template
@@ -467,11 +467,11 @@ class ThemeHelper implements ThemeHelperInterface
     public function getExtractError(int $archive): string
     {
         return match ($archive) {
-            \ZipArchive::ER_EXISTS => 'mautic.core.update.archive_file_exists',
-            \ZipArchive::ER_INCONS, \ZipArchive::ER_INVAL, \ZipArchive::ER_MEMORY => 'mautic.core.update.archive_zip_corrupt',
-            \ZipArchive::ER_NOENT => 'mautic.core.update.archive_no_such_file',
-            \ZipArchive::ER_NOZIP => 'mautic.core.update.archive_not_valid_zip',
-            default               => 'mautic.core.update.archive_could_not_open',
+            \ZipArchive::ER_EXISTS => 'mailvotech.core.update.archive_file_exists',
+            \ZipArchive::ER_INCONS, \ZipArchive::ER_INVAL, \ZipArchive::ER_MEMORY => 'mailvotech.core.update.archive_zip_corrupt',
+            \ZipArchive::ER_NOENT => 'mailvotech.core.update.archive_no_such_file',
+            \ZipArchive::ER_NOZIP => 'mailvotech.core.update.archive_not_valid_zip',
+            default               => 'mailvotech.core.update.archive_could_not_open',
         };
     }
 
@@ -628,7 +628,7 @@ class ThemeHelper implements ThemeHelperInterface
 
     public function getCurrentTheme(string $template, string $specificFeature): string
     {
-        if ('mautic_code_mode' !== $template && !in_array($template, array_keys($this->getInstalledThemes($specificFeature)))) {
+        if ('mailvotech_code_mode' !== $template && !in_array($template, array_keys($this->getInstalledThemes($specificFeature)))) {
             return $this->coreParametersHelper->get('theme_email_default');
         }
 

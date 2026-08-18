@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Event;
+namespace MailVotech\ChannelBundle\Event;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\EventDispatcher\Event;

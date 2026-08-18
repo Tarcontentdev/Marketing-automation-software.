@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test;
+namespace MailVotech\CoreBundle\Test;
 
 final class ReflectionHelper
 {

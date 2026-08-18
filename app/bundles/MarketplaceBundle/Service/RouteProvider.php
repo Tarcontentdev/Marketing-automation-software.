@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Service;
+namespace MailVotech\MarketplaceBundle\Service;
 
 use Symfony\Component\Routing\RouterInterface;
 
 final readonly class RouteProvider
 {
-    public const ROUTE_LIST = 'mautic_marketplace_list';
+    public const ROUTE_LIST = 'mailvotech_marketplace_list';
 
-    public const ROUTE_DETAIL = 'mautic_marketplace_detail';
+    public const ROUTE_DETAIL = 'mailvotech_marketplace_detail';
 
-    public const ROUTE_INSTALL = 'mautic_marketplace_install';
+    public const ROUTE_INSTALL = 'mailvotech_marketplace_install';
 
-    public const ROUTE_REMOVE = 'mautic_marketplace_remove';
+    public const ROUTE_REMOVE = 'mailvotech_marketplace_remove';
 
-    public const ROUTE_CLEAR_CACHE = 'mautic_marketplace_clear_cache';
+    public const ROUTE_CLEAR_CACHE = 'mailvotech_marketplace_clear_cache';
 
     public function __construct(
         private RouterInterface $router,

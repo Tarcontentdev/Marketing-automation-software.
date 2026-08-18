@@ -1,18 +1,18 @@
 <?php
 
-namespace Mautic\DashboardBundle\Controller;
+namespace MailVotech\DashboardBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AbstractFormController;
-use Mautic\CoreBundle\Form\Type\DateRangeType;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\PhpVersionHelper;
-use Mautic\CoreBundle\Release\ThisRelease;
-use Mautic\DashboardBundle\Dashboard\Widget as WidgetService;
-use Mautic\DashboardBundle\Entity\Widget;
-use Mautic\DashboardBundle\Form\Type\UploadType;
-use Mautic\DashboardBundle\Model\DashboardModel;
+use MailVotech\CoreBundle\Controller\AbstractFormController;
+use MailVotech\CoreBundle\Form\Type\DateRangeType;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\PhpVersionHelper;
+use MailVotech\CoreBundle\Release\ThisRelease;
+use MailVotech\DashboardBundle\Dashboard\Widget as WidgetService;
+use MailVotech\DashboardBundle\Entity\Widget;
+use MailVotech\DashboardBundle\Form\Type\UploadType;
+use MailVotech\DashboardBundle\Model\DashboardModel;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -49,19 +49,19 @@ final class DashboardController extends AbstractFormController
             return $this->applyDashboardFileAction($request, $pathsHelper, $urlGenerator, 'global.default');
         }
 
-        $action          = $this->generateUrl('mautic_dashboard_index');
+        $action          = $this->generateUrl('mailvotech_dashboard_index');
         $dateRangeFilter = $request->query->all()['daterange'] ?? $request->request->all()['daterange'] ?? [];
 
         // Set new date range to the session
         if ($request->isMethod(Request::METHOD_POST)) {
             if (!empty($dateRangeFilter['date_from'])) {
                 $from = new \DateTime($dateRangeFilter['date_from']);
-                $request->getSession()->set('mautic.daterange.form.from', $from->format(DateTimeHelper::FORMAT_DB_DATE_ONLY));
+                $request->getSession()->set('mailvotech.daterange.form.from', $from->format(DateTimeHelper::FORMAT_DB_DATE_ONLY));
             }
 
             if (!empty($dateRangeFilter['date_to'])) {
                 $to = new \DateTime($dateRangeFilter['date_to']);
-                $request->getSession()->set('mautic.daterange.form.to', $to->format(DateTimeHelper::FORMAT_DB_DATE_ONLY.' 23:59:59'));
+                $request->getSession()->set('mailvotech.daterange.form.to', $to->format(DateTimeHelper::FORMAT_DB_DATE_ONLY.' 23:59:59'));
             }
 
             $this->dashboardModel->clearDashboardCache();
@@ -93,11 +93,11 @@ final class DashboardController extends AbstractFormController
                     'version'    => PhpVersionHelper::getCurrentSemver(),
                 ],
             ],
-            'contentTemplate' => '@MauticDashboard/Dashboard/index.html.twig',
+            'contentTemplate' => '@MailVotechDashboard/Dashboard/index.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_dashboard_index',
-                'mauticContent' => 'dashboard',
-                'route'         => $this->generateUrl('mautic_dashboard_index'),
+                'activeLink'    => '#mailvotech_dashboard_index',
+                'mailvotechContent' => 'dashboard',
+                'route'         => $this->generateUrl('mailvotech_dashboard_index'),
             ],
         ]);
     }
@@ -116,7 +116,7 @@ final class DashboardController extends AbstractFormController
         }
 
         $content = $twig->render(
-            '@MauticDashboard/Dashboard/widget.html.twig',
+            '@MailVotechDashboard/Dashboard/widget.html.twig',
             ['widget' => $widget]
         );
 
@@ -136,7 +136,7 @@ final class DashboardController extends AbstractFormController
     {
         // retrieve the entity
         $widget = new Widget();
-        $action = $this->generateUrl('mautic_dashboard_action', ['objectAction' => 'new']);
+        $action = $this->generateUrl('mailvotech_dashboard_action', ['objectAction' => 'new']);
 
         // get the user form factory
         $form       = $this->dashboardModel->createForm($widget, $formFactory, $action);
@@ -161,7 +161,7 @@ final class DashboardController extends AbstractFormController
             // just close the modal
             $passthroughVars = [
                 'closeModal'    => 1,
-                'mauticContent' => 'widget',
+                'mailvotechContent' => 'widget',
             ];
 
             $filter = $this->dashboardModel->getDefaultFilter();
@@ -169,13 +169,13 @@ final class DashboardController extends AbstractFormController
 
             if ($valid && !$cancelled) {
                 $passthroughVars['upWidgetCount'] = 1;
-                $passthroughVars['widgetHtml']    = $this->renderView('@MauticDashboard/Widget/detail.html.twig', [
+                $passthroughVars['widgetHtml']    = $this->renderView('@MailVotechDashboard/Widget/detail.html.twig', [
                     'widget' => $widget,
                 ]);
                 $passthroughVars['widgetId']     = $widget->getId();
                 $passthroughVars['widgetWidth']  = $widget->getWidth();
                 $passthroughVars['widgetHeight'] = $widget->getHeight();
-                $this->addFlashMessage('mautic.dashboard.widget.created');
+                $this->addFlashMessage('mailvotech.dashboard.widget.created');
             }
             $passthroughVars['flashes'] = $this->getFlashContent();
 
@@ -186,7 +186,7 @@ final class DashboardController extends AbstractFormController
             'viewParameters' => [
                 'form' => $form->createView(),
             ],
-            'contentTemplate' => '@MauticDashboard/Widget/form.html.twig',
+            'contentTemplate' => '@MailVotechDashboard/Widget/form.html.twig',
         ]);
     }
 
@@ -196,7 +196,7 @@ final class DashboardController extends AbstractFormController
     public function editAction(Request $request, FormFactoryInterface $formFactory, $objectId): JsonResponse|Response
     {
         $widget = $this->dashboardModel->getEntity($objectId);
-        $action = $this->generateUrl('mautic_dashboard_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_dashboard_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
 
         // get the user form factory
         $form       = $this->dashboardModel->createForm($widget, $formFactory, $action);
@@ -220,7 +220,7 @@ final class DashboardController extends AbstractFormController
             // just close the modal
             $passthroughVars = [
                 'closeModal'    => 1,
-                'mauticContent' => 'widget',
+                'mailvotechContent' => 'widget',
             ];
 
             $filter = $this->dashboardModel->getDefaultFilter();
@@ -228,7 +228,7 @@ final class DashboardController extends AbstractFormController
 
             if ($valid && !$cancelled) {
                 $passthroughVars['upWidgetCount'] = 1;
-                $passthroughVars['widgetHtml']    = $this->renderView('@MauticDashboard/Widget/detail.html.twig', [
+                $passthroughVars['widgetHtml']    = $this->renderView('@MailVotechDashboard/Widget/detail.html.twig', [
                     'widget' => $widget,
                 ]);
                 $passthroughVars['widgetId']     = $widget->getId();
@@ -243,7 +243,7 @@ final class DashboardController extends AbstractFormController
             'viewParameters' => [
                 'form' => $form->createView(),
             ],
-            'contentTemplate' => '@MauticDashboard/Widget/form.html.twig',
+            'contentTemplate' => '@MailVotechDashboard/Widget/form.html.twig',
         ]);
     }
 
@@ -267,7 +267,7 @@ final class DashboardController extends AbstractFormController
             $name      = $entity->getName();
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $name,
                     '%id%'   => $objectId,
@@ -277,7 +277,7 @@ final class DashboardController extends AbstractFormController
         } else {
             $flashes[] = [
                 'type'    => 'error',
-                'msg'     => 'mautic.api.client.error.notfound',
+                'msg'     => 'mailvotech.api.client.error.notfound',
                 'msgVars' => ['%id%' => $objectId],
             ];
         }
@@ -304,10 +304,10 @@ final class DashboardController extends AbstractFormController
         try {
             $this->dashboardModel->saveSnapshot($name);
             $type = 'notice';
-            $msg  = $this->translator->trans('mautic.dashboard.notice.save', [
+            $msg  = $this->translator->trans('mailvotech.dashboard.notice.save', [
                 '%name%'    => $name,
                 '%viewUrl%' => $this->generateUrl(
-                    'mautic_dashboard_action',
+                    'mailvotech_dashboard_action',
                     [
                         'objectAction' => 'import',
                     ]
@@ -315,7 +315,7 @@ final class DashboardController extends AbstractFormController
             ], 'flashes');
         } catch (IOException $e) {
             $type = 'error';
-            $msg  = $this->translator->trans('mautic.dashboard.error.save', [
+            $msg  = $this->translator->trans('mailvotech.dashboard.error.save', [
                 '%msg%' => $e->getMessage(),
             ], 'flashes');
         }
@@ -368,7 +368,7 @@ final class DashboardController extends AbstractFormController
             unlink($path);
         }
 
-        return $this->redirectToRoute('mautic_dashboard_action', ['objectAction' => 'import']);
+        return $this->redirectToRoute('mailvotech_dashboard_action', ['objectAction' => 'import']);
     }
 
     /**
@@ -390,9 +390,9 @@ final class DashboardController extends AbstractFormController
         $path = $dir.'/'.$name.'.json';
 
         if (!file_exists($path) || !is_readable($path)) {
-            $this->addFlashMessage('mautic.dashboard.upload.filenotfound', [], 'error', 'validators');
+            $this->addFlashMessage('mailvotech.dashboard.upload.filenotfound', [], 'error', 'validators');
 
-            return $this->redirectToRoute('mautic_dashboard_action', ['objectAction' => 'import']);
+            return $this->redirectToRoute('mailvotech_dashboard_action', ['objectAction' => 'import']);
         }
 
         $widgets = json_decode(file_get_contents($path), true);
@@ -418,7 +418,7 @@ final class DashboardController extends AbstractFormController
             }
         }
 
-        return $this->redirect($urlGenerator->generate('mautic_dashboard_index'));
+        return $this->redirect($urlGenerator->generate('mailvotech_dashboard_index'));
     }
 
     public function importAction(Request $request, FormFactoryInterface $formFactory, PathsHelper $pathsHelper): Response
@@ -430,7 +430,7 @@ final class DashboardController extends AbstractFormController
             'global' => $pathsHelper->getSystemPath('dashboard.global'),
         ];
 
-        $action = $this->generateUrl('mautic_dashboard_action', ['objectAction' => 'import']);
+        $action = $this->generateUrl('mailvotech_dashboard_action', ['objectAction' => 'import']);
         $form   = $formFactory->create(UploadType::class, [], ['action' => $action]);
 
         if ($request->isMethod(Request::METHOD_POST)) {
@@ -444,14 +444,14 @@ final class DashboardController extends AbstractFormController
                         } else {
                             $form->addError(
                                 new FormError(
-                                    $this->translator->trans('mautic.core.not.allowed.file.extension', ['%extension%' => $extension], 'validators')
+                                    $this->translator->trans('mailvotech.core.not.allowed.file.extension', ['%extension%' => $extension], 'validators')
                                 )
                             );
                         }
                     } else {
                         $form->addError(
                             new FormError(
-                                $this->translator->trans('mautic.dashboard.upload.filenotfound', [], 'validators')
+                                $this->translator->trans('mailvotech.dashboard.upload.filenotfound', [], 'validators')
                             )
                         );
                     }
@@ -520,12 +520,12 @@ final class DashboardController extends AbstractFormController
                     'widgets'    => $widgets,
                     'preview'    => $preview,
                 ],
-                'contentTemplate' => '@MauticDashboard/Dashboard/import.html.twig',
+                'contentTemplate' => '@MailVotechDashboard/Dashboard/import.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_dashboard_index',
-                    'mauticContent' => 'dashboardImport',
+                    'activeLink'    => '#mailvotech_dashboard_index',
+                    'mailvotechContent' => 'dashboardImport',
                     'route'         => $this->generateUrl(
-                        'mautic_dashboard_action',
+                        'mailvotech_dashboard_action',
                         [
                             'objectAction' => 'import',
                         ]

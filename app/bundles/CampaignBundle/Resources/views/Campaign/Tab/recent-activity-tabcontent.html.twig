@@ -5,22 +5,22 @@
             <tr>
                 <th class="timeline-icon np"></th>
                 <th class="table-expand np">
-                    <a class="table-expand-button" data-activate-details="all" data-toggle="tooltip" title="{{ 'mautic.lead.timeline.toggle_details'|trans }}">
+                    <a class="table-expand-button" data-activate-details="all" data-toggle="tooltip" title="{{ 'mailvotech.lead.timeline.toggle_details'|trans }}">
                         <span class="ri-arrow-down-s-line"></span>
                     </a>
                 </th>
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
-                    'text': 'mautic.campaign.timeline.user_name',
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
+                    'text': 'mailvotech.campaign.timeline.user_name',
                     'class': 'timeline-name',
                     'target': '#recent-activity-container',
                 }) }}
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
-                    'text': 'mautic.audit_log.report.action',
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
+                    'text': 'mailvotech.audit_log.report.action',
                     'class': 'visible-md visible-lg timeline-type',
                     'target': '#recent-activity-container',
                 }) }}
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
-                    'text': 'mautic.lead.timeline.event_timestamp',
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
+                    'text': 'mailvotech.lead.timeline.event_timestamp',
                     'class': 'visible-md visible-lg timeline-timestamp',
                     'target': '#recent-activity-container',
                 }) }}
@@ -43,20 +43,20 @@
                            data-activate-details="{{ counter }}"
                            class="table-expand-button"
                            data-toggle="tooltip"
-                           title="{{ 'mautic.lead.timeline.toggle_details'|trans }}">
+                           title="{{ 'mailvotech.lead.timeline.toggle_details'|trans }}">
                             <span class="ri-arrow-down-s-line"></span>
                         </a>
                         {% endif %}
                     </td>
                     <td class="timeline-name">{{ log.userName }}</td>
-                    <td class="timeline-type">{{ ('mautic.campaign.event.'~log.action)|trans }}
+                    <td class="timeline-type">{{ ('mailvotech.campaign.event.'~log.action)|trans }}
                     </td>
                     <td class="timeline-timestamp">{{ dateToText(log.dateAdded, 'local', 'Y-m-d H:i:s', true) }}</td>
                 </tr>
                 {% if log.action != 'create' %}
                 <tr class="timeline-row {{ rowStripe }} timeline-details hide" id="auditlog-details-{{ counter }}">
                     <td colspan="5">
-                        {{- include('@MauticCampaign/Campaign/Tab/_details.html.twig', {'details': log.details|default({})}) -}}
+                        {{- include('@MailVotechCampaign/Campaign/Tab/_details.html.twig', {'details': log.details|default({})}) -}}
                     </td>
                 </tr>
                 {% endif %}

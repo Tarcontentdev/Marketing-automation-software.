@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Twig\Helper;
+namespace MailVotech\LeadBundle\Twig\Helper;
 
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Exception\UnknownDncReasonException;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Exception\UnknownDncReasonException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -26,10 +26,10 @@ final readonly class DncReasonHelper
     public function toText(int $reasonId): string
     {
         $reasonKey = match ($reasonId) {
-            DoNotContact::IS_CONTACTABLE => 'mautic.lead.event.donotcontact_contactable',
-            DoNotContact::UNSUBSCRIBED   => 'mautic.lead.event.donotcontact_unsubscribed',
-            DoNotContact::BOUNCED        => 'mautic.lead.event.donotcontact_bounced',
-            DoNotContact::MANUAL         => 'mautic.lead.event.donotcontact_manual',
+            DoNotContact::IS_CONTACTABLE => 'mailvotech.lead.event.donotcontact_contactable',
+            DoNotContact::UNSUBSCRIBED   => 'mailvotech.lead.event.donotcontact_unsubscribed',
+            DoNotContact::BOUNCED        => 'mailvotech.lead.event.donotcontact_bounced',
+            DoNotContact::MANUAL         => 'mailvotech.lead.event.donotcontact_manual',
             default                      => throw new UnknownDncReasonException(sprintf("Unknown DNC reason ID '%c'", $reasonId)),
         };
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Service;
+namespace MailVotech\CoreBundle\Service;
 
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\UserBundle\Entity\User;
 
 final class BulkNotification implements BulkNotificationInterface
 {

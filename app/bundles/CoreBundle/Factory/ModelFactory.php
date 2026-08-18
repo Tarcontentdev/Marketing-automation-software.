@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Factory;
+namespace MailVotech\CoreBundle\Factory;
 
-use Mautic\CoreBundle\Model\MauticModelInterface;
+use MailVotech\CoreBundle\Model\MailVotechModelInterface;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
 /**
@@ -16,58 +16,58 @@ class ModelFactory
     }
 
     /**
-     * @return ($modelNameKey is 'asset' ? \Mautic\AssetBundle\Model\AssetModel
-     *  : ($modelNameKey is 'campaign' ? \Mautic\CampaignBundle\Model\CampaignModel
-     *  : ($modelNameKey is 'campaign.event' ? \Mautic\CampaignBundle\Model\EventModel
-     *  : ($modelNameKey is 'campaign.event_log' ? \Mautic\CampaignBundle\Model\EventLogModel
-     *  : ($modelNameKey is 'category' ? \Mautic\CategoryBundle\Model\CategoryModel
-     *  : ($modelNameKey is 'channel.message' ? \Mautic\ChannelBundle\Model\MessageModel
-     *  : ($modelNameKey is 'channel.queue' ? \Mautic\ChannelBundle\Model\MessageQueueModel
-     *  : ($modelNameKey is 'core.auditlog' ? \Mautic\CoreBundle\Model\AuditLogModel
-     *  : ($modelNameKey is 'core.notification' ? \Mautic\CoreBundle\Model\NotificationModel
-     *  : ($modelNameKey is 'dashboard' ? \Mautic\DashboardBundle\Model\DashboardModel
-     *  : ($modelNameKey is 'dynamicContent' ? \Mautic\DynamicContentBundle\Model\DynamicContentModel
-     *  : ($modelNameKey is 'email' ? \Mautic\EmailBundle\Model\EmailModel
-     *  : ($modelNameKey is 'focus' ? \MauticPlugin\MauticFocusBundle\Model\FocusModel
-     *  : ($modelNameKey is 'form' ? \Mautic\FormBundle\Model\FormModel
-     *  : ($modelNameKey is 'form.action' ? \Mautic\FormBundle\Model\ActionModel
-     *  : ($modelNameKey is 'form.field' ? \Mautic\FormBundle\Model\FieldModel
-     *  : ($modelNameKey is 'form.form' ? \Mautic\FormBundle\Model\FormModel
-     *  : ($modelNameKey is 'form.submission' ? \Mautic\FormBundle\Model\SubmissionModel
-     *  : ($modelNameKey is 'form.submission_result_loader' ? \Mautic\FormBundle\Model\SubmissionResultLoader
-     *  : ($modelNameKey is 'lead' ? \Mautic\LeadBundle\Model\LeadModel
-     *  : ($modelNameKey is 'lead.company' ? \Mautic\LeadBundle\Model\CompanyModel
-     *  : ($modelNameKey is 'lead.device' ? \Mautic\LeadBundle\Model\DeviceModel
-     *  : ($modelNameKey is 'lead.export_scheduler' ? \Mautic\LeadBundle\Model\ContactExportSchedulerModel
-     *  : ($modelNameKey is 'lead.field' ? \Mautic\LeadBundle\Model\FieldModel
-     *  : ($modelNameKey is 'lead.lead' ? \Mautic\LeadBundle\Model\LeadModel
-     *  : ($modelNameKey is 'lead.list' ? \Mautic\LeadBundle\Model\ListModel
-     *  : ($modelNameKey is 'lead.note' ? \Mautic\LeadBundle\Model\NoteModel
-     *  : ($modelNameKey is 'lead.tag' ? \Mautic\LeadBundle\Model\TagModel
-     *  : ($modelNameKey is 'notification' ? \Mautic\CoreBundle\Model\NotificationModel
-     *  : ($modelNameKey is 'page' ? \Mautic\PageBundle\Model\PageModel
-     *  : ($modelNameKey is 'page.page' ? \Mautic\PageBundle\Model\PageModel
-     *  : ($modelNameKey is 'page.trackable' ? \Mautic\PageBundle\Model\TrackableModel
-     *  : ($modelNameKey is 'plugin' ? \Mautic\PluginBundle\Model\PluginModel
-     *  : ($modelNameKey is 'point' ? \Mautic\PointBundle\Model\PointModel
-     *  : ($modelNameKey is 'point.insight' ? \Mautic\PointBundle\Model\InsightModel
-     *  : ($modelNameKey is 'point.trigger' ? \Mautic\PointBundle\Model\TriggerModel
-     *  : ($modelNameKey is 'point.triggerevent' ? \Mautic\PointBundle\Model\TriggerEventModel
-     *  : ($modelNameKey is 'report' ? \Mautic\ReportBundle\Model\ReportModel
-     *  : ($modelNameKey is 'sms' ? \Mautic\SmsBundle\Model\SmsModel
-     *  : ($modelNameKey is 'social.monitoring' ? \MauticPlugin\MauticSocialBundle\Model\MonitoringModel
-     *  : ($modelNameKey is 'social.postcount' ? \MauticPlugin\MauticSocialBundle\Model\PostCountModel
-     *  : ($modelNameKey is 'social.tweet' ? \MauticPlugin\MauticSocialBundle\Model\TweetModel
-     *  : ($modelNameKey is 'stage' ? \Mautic\StageBundle\Model\StageModel
-     *  : ($modelNameKey is 'stage.stage' ? \Mautic\StageBundle\Model\StageModel
-     *  : ($modelNameKey is 'tagmanager.tag' ? \MauticPlugin\MauticTagManagerBundle\Model\TagModel
-     *  : ($modelNameKey is 'user' ? \Mautic\UserBundle\Model\UserModel
-     *  : ($modelNameKey is 'user.role' ? \Mautic\UserBundle\Model\RoleModel
-     *  : ($modelNameKey is 'user.user' ? \Mautic\UserBundle\Model\UserModel
-     *  : ($modelNameKey is 'webhook' ? \Mautic\WebhookBundle\Model\WebhookModel
-     *      : \Mautic\CoreBundle\Model\AbstractCommonModel<object>)))))))))))))))))))))))))))))))))))))))))))))))))
+     * @return ($modelNameKey is 'asset' ? \MailVotech\AssetBundle\Model\AssetModel
+     *  : ($modelNameKey is 'campaign' ? \MailVotech\CampaignBundle\Model\CampaignModel
+     *  : ($modelNameKey is 'campaign.event' ? \MailVotech\CampaignBundle\Model\EventModel
+     *  : ($modelNameKey is 'campaign.event_log' ? \MailVotech\CampaignBundle\Model\EventLogModel
+     *  : ($modelNameKey is 'category' ? \MailVotech\CategoryBundle\Model\CategoryModel
+     *  : ($modelNameKey is 'channel.message' ? \MailVotech\ChannelBundle\Model\MessageModel
+     *  : ($modelNameKey is 'channel.queue' ? \MailVotech\ChannelBundle\Model\MessageQueueModel
+     *  : ($modelNameKey is 'core.auditlog' ? \MailVotech\CoreBundle\Model\AuditLogModel
+     *  : ($modelNameKey is 'core.notification' ? \MailVotech\CoreBundle\Model\NotificationModel
+     *  : ($modelNameKey is 'dashboard' ? \MailVotech\DashboardBundle\Model\DashboardModel
+     *  : ($modelNameKey is 'dynamicContent' ? \MailVotech\DynamicContentBundle\Model\DynamicContentModel
+     *  : ($modelNameKey is 'email' ? \MailVotech\EmailBundle\Model\EmailModel
+     *  : ($modelNameKey is 'focus' ? \MailVotechPlugin\MailVotechFocusBundle\Model\FocusModel
+     *  : ($modelNameKey is 'form' ? \MailVotech\FormBundle\Model\FormModel
+     *  : ($modelNameKey is 'form.action' ? \MailVotech\FormBundle\Model\ActionModel
+     *  : ($modelNameKey is 'form.field' ? \MailVotech\FormBundle\Model\FieldModel
+     *  : ($modelNameKey is 'form.form' ? \MailVotech\FormBundle\Model\FormModel
+     *  : ($modelNameKey is 'form.submission' ? \MailVotech\FormBundle\Model\SubmissionModel
+     *  : ($modelNameKey is 'form.submission_result_loader' ? \MailVotech\FormBundle\Model\SubmissionResultLoader
+     *  : ($modelNameKey is 'lead' ? \MailVotech\LeadBundle\Model\LeadModel
+     *  : ($modelNameKey is 'lead.company' ? \MailVotech\LeadBundle\Model\CompanyModel
+     *  : ($modelNameKey is 'lead.device' ? \MailVotech\LeadBundle\Model\DeviceModel
+     *  : ($modelNameKey is 'lead.export_scheduler' ? \MailVotech\LeadBundle\Model\ContactExportSchedulerModel
+     *  : ($modelNameKey is 'lead.field' ? \MailVotech\LeadBundle\Model\FieldModel
+     *  : ($modelNameKey is 'lead.lead' ? \MailVotech\LeadBundle\Model\LeadModel
+     *  : ($modelNameKey is 'lead.list' ? \MailVotech\LeadBundle\Model\ListModel
+     *  : ($modelNameKey is 'lead.note' ? \MailVotech\LeadBundle\Model\NoteModel
+     *  : ($modelNameKey is 'lead.tag' ? \MailVotech\LeadBundle\Model\TagModel
+     *  : ($modelNameKey is 'notification' ? \MailVotech\CoreBundle\Model\NotificationModel
+     *  : ($modelNameKey is 'page' ? \MailVotech\PageBundle\Model\PageModel
+     *  : ($modelNameKey is 'page.page' ? \MailVotech\PageBundle\Model\PageModel
+     *  : ($modelNameKey is 'page.trackable' ? \MailVotech\PageBundle\Model\TrackableModel
+     *  : ($modelNameKey is 'plugin' ? \MailVotech\PluginBundle\Model\PluginModel
+     *  : ($modelNameKey is 'point' ? \MailVotech\PointBundle\Model\PointModel
+     *  : ($modelNameKey is 'point.insight' ? \MailVotech\PointBundle\Model\InsightModel
+     *  : ($modelNameKey is 'point.trigger' ? \MailVotech\PointBundle\Model\TriggerModel
+     *  : ($modelNameKey is 'point.triggerevent' ? \MailVotech\PointBundle\Model\TriggerEventModel
+     *  : ($modelNameKey is 'report' ? \MailVotech\ReportBundle\Model\ReportModel
+     *  : ($modelNameKey is 'sms' ? \MailVotech\SmsBundle\Model\SmsModel
+     *  : ($modelNameKey is 'social.monitoring' ? \MailVotechPlugin\MailVotechSocialBundle\Model\MonitoringModel
+     *  : ($modelNameKey is 'social.postcount' ? \MailVotechPlugin\MailVotechSocialBundle\Model\PostCountModel
+     *  : ($modelNameKey is 'social.tweet' ? \MailVotechPlugin\MailVotechSocialBundle\Model\TweetModel
+     *  : ($modelNameKey is 'stage' ? \MailVotech\StageBundle\Model\StageModel
+     *  : ($modelNameKey is 'stage.stage' ? \MailVotech\StageBundle\Model\StageModel
+     *  : ($modelNameKey is 'tagmanager.tag' ? \MailVotechPlugin\MailVotechTagManagerBundle\Model\TagModel
+     *  : ($modelNameKey is 'user' ? \MailVotech\UserBundle\Model\UserModel
+     *  : ($modelNameKey is 'user.role' ? \MailVotech\UserBundle\Model\RoleModel
+     *  : ($modelNameKey is 'user.user' ? \MailVotech\UserBundle\Model\UserModel
+     *  : ($modelNameKey is 'webhook' ? \MailVotech\WebhookBundle\Model\WebhookModel
+     *      : \MailVotech\CoreBundle\Model\AbstractCommonModel<object>)))))))))))))))))))))))))))))))))))))))))))))))))
      */
-    public function getModel(string $modelNameKey): MauticModelInterface
+    public function getModel(string $modelNameKey): MailVotechModelInterface
     {
         if (class_exists($modelNameKey) && $this->container->has($modelNameKey)) {
             return $this->container->get($modelNameKey);
@@ -87,7 +87,7 @@ class ModelFactory
         [$bundle, $name] = $parts;
 
         // The container is now case sensitive
-        $containerKey = sprintf('mautic.%s.model.%s', $bundle, $name);
+        $containerKey = sprintf('mailvotech.%s.model.%s', $bundle, $name);
 
         if ($this->container->has($containerKey)) {
             return $this->container->get($containerKey);

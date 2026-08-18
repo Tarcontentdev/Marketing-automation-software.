@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Security;
+namespace MailVotech\UserBundle\Security;
 
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\UserBundle\Model\UserModel;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final readonly class UserTokenSetter implements UserTokenSetterInterface

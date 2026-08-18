@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\LeadBundle\Report\FieldsBuilder;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\ReportEvents;
+use MailVotech\LeadBundle\Report\FieldsBuilder;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\ReportEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class SegmentLogReportSubscriber implements EventSubscriberInterface
@@ -42,21 +42,21 @@ final readonly class SegmentLogReportSubscriber implements EventSubscriberInterf
 
         $segmentColumns = [
             'log_added.object_id' => [
-                'label' => 'mautic.lead.report.segment.id',
+                'label' => 'mailvotech.lead.report.segment.id',
                 'type'  => 'int',
             ],
             'log_added.date_added' => [
-                'label' => 'mautic.lead.report.segment.date_added',
+                'label' => 'mailvotech.lead.report.segment.date_added',
                 'type'  => 'datetime',
             ],
             'log_removed.date_added' => [
-                'label' => 'mautic.lead.report.segment.date_removed',
+                'label' => 'mailvotech.lead.report.segment.date_removed',
                 'type'  => 'datetime',
             ],
         ];
 
         $data = [
-            'display_name' => 'mautic.lead.report.segment.log',
+            'display_name' => 'mailvotech.lead.report.segment.log',
             'columns'      => array_merge($columns, $segmentColumns),
             'filters'      => array_merge($segmentColumns, $filters),
         ];
@@ -75,9 +75,9 @@ final readonly class SegmentLogReportSubscriber implements EventSubscriberInterf
         }
 
         $qb = $event->getQueryBuilder();
-        $qb->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
-            ->leftJoin('l', MAUTIC_TABLE_PREFIX.'lead_event_log', 'log_added', $this->generateLeftJoinCondition('log_added', 'added'))
-            ->leftJoin('l', MAUTIC_TABLE_PREFIX.'lead_event_log', 'log_removed', $this->generateLeftJoinCondition('log_removed', 'removed').' AND log_removed.object_id = log_added.object_id ');
+        $qb->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
+            ->leftJoin('l', MAILVOTECH_TABLE_PREFIX.'lead_event_log', 'log_added', $this->generateLeftJoinCondition('log_added', 'added'))
+            ->leftJoin('l', MAILVOTECH_TABLE_PREFIX.'lead_event_log', 'log_removed', $this->generateLeftJoinCondition('log_removed', 'removed').' AND log_removed.object_id = log_added.object_id ');
 
         $qb->andWhere(
             $qb->expr()->or(
@@ -97,7 +97,7 @@ final readonly class SegmentLogReportSubscriber implements EventSubscriberInterf
         }
 
         if ($event->hasColumn(['u.first_name', 'u.last_name']) || $event->hasFilter(['u.first_name', 'u.last_name'])) {
-            $qb->leftJoin('l', MAUTIC_TABLE_PREFIX.'users', 'u', 'u.id = l.owner_id');
+            $qb->leftJoin('l', MAILVOTECH_TABLE_PREFIX.'users', 'u', 'u.id = l.owner_id');
         }
         if ($event->hasColumn('i.ip_address') || $event->hasFilter('i.ip_address')) {
             $event->addLeadIpAddressLeftJoin($qb);

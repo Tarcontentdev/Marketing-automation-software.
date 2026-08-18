@@ -12,18 +12,18 @@
 #}
 {% set isIndex = 'index' == tmpl ? true : false %}
 {% set tmpl = 'list' %}
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
 
-{% block mauticContent %}page{% endblock %}
+{% block mailvotechContent %}page{% endblock %}
 
-{% block headerTitle %}{{ 'mautic.page.pages'|trans }}{% endblock %}
+{% block headerTitle %}{{ 'mailvotech.page.pages'|trans }}{% endblock %}
 
 {% block content %}
   {% if isIndex %}
     <div id="page-list-wrapper" class="{% if items|length > 0 or searchValue is not empty %}panel {% endif %}panel-default">
-        {{ include('@MauticCore/Helper/list_toolbar.html.twig', {
+        {{ include('@MailVotechCore/Helper/list_toolbar.html.twig', {
             'searchValue': searchValue,
-            'searchHelp': 'mautic.page.help.searchcommands',
+            'searchHelp': 'mailvotech.page.help.searchcommands',
             'action': currentRoute,
             'page_actions': {
                 'templateButtons': {
@@ -39,45 +39,45 @@
             },
             'quickFilters': [
                 {
-                    'search': 'mautic.core.searchcommand.ispublished',
-                    'label': 'mautic.core.form.active',
-                    'tooltip': 'mautic.core.searchcommand.ispublished.description',
+                    'search': 'mailvotech.core.searchcommand.ispublished',
+                    'label': 'mailvotech.core.form.active',
+                    'tooltip': 'mailvotech.core.searchcommand.ispublished.description',
                     'icon': 'ri-check-line'
                 },
                 {
-                    'search': 'mautic.core.searchcommand.isunpublished',
-                    'label': 'mautic.core.form.inactive',
-                    'tooltip': 'mautic.core.searchcommand.isunpublished.description',
+                    'search': 'mailvotech.core.searchcommand.isunpublished',
+                    'label': 'mailvotech.core.form.inactive',
+                    'tooltip': 'mailvotech.core.searchcommand.isunpublished.description',
                     'icon': 'ri-close-line'
                 },
                 {
-                    'search': 'mautic.core.searchcommand.isuncategorized',
-                    'label': 'mautic.core.form.uncategorized',
-                    'tooltip': 'mautic.core.searchcommand.isuncategorized.description',
+                    'search': 'mailvotech.core.searchcommand.isuncategorized',
+                    'label': 'mailvotech.core.form.uncategorized',
+                    'tooltip': 'mailvotech.core.searchcommand.isuncategorized.description',
                     'icon': 'ri-folder-unknow-line'
                 },
                 {
-                    'search': 'mautic.core.searchcommand.ismine',
-                    'label': 'mautic.core.searchcommand.ismine.label',
-                    'tooltip': 'mautic.core.searchcommand.ismine.description',
+                    'search': 'mailvotech.core.searchcommand.ismine',
+                    'label': 'mailvotech.core.searchcommand.ismine.label',
+                    'tooltip': 'mailvotech.core.searchcommand.ismine.description',
                     'icon': 'ri-user-line'
                 },
                 {
-                    'search': 'mautic.page.searchcommand.isexpired',
-                    'label': 'mautic.core.form.expired',
-                    'tooltip': 'mautic.page.searchcommand.isexpired.description',
+                    'search': 'mailvotech.page.searchcommand.isexpired',
+                    'label': 'mailvotech.core.form.expired',
+                    'tooltip': 'mailvotech.page.searchcommand.isexpired.description',
                     'icon': 'ri-time-line'
                 },
                 {
-                    'search': 'mautic.page.searchcommand.ispending',
-                    'label': 'mautic.core.form.pending',
-                    'tooltip': 'mautic.page.searchcommand.ispending.description',
+                    'search': 'mailvotech.page.searchcommand.ispending',
+                    'label': 'mailvotech.core.form.pending',
+                    'tooltip': 'mailvotech.page.searchcommand.ispending.description',
                     'icon': 'ri-timer-line'
                 },
                 {
-                    'search': 'mautic.page.searchcommand.isprefcenter',
-                    'label': 'mautic.page.searchcommand.isprefcenter.label',
-                    'tooltip': 'mautic.page.searchcommand.isprefcenter.description',
+                    'search': 'mailvotech.page.searchcommand.isprefcenter',
+                    'label': 'mailvotech.page.searchcommand.isprefcenter.label',
+                    'tooltip': 'mailvotech.page.searchcommand.isprefcenter.description',
                     'icon': 'ri-settings-4-line'
                 }
             ]
@@ -85,14 +85,14 @@
         <div class="page-list">
   {% endif %}
 
-  {{ include('@MauticPage/Page/_list.html.twig') }}
+  {{ include('@MailVotechPage/Page/_list.html.twig') }}
 
   {% if isIndex %}
         </div>
     </div>
 
-    {{ include('@MauticCore/Modules/protip.html.twig', {
-      tip: random(['mautic.protip.pages.mobile', 'mautic.protip.pages.forms'])
+    {{ include('@MailVotechCore/Modules/protip.html.twig', {
+      tip: random(['mailvotech.protip.pages.mobile', 'mailvotech.protip.pages.forms'])
   }) }}
   {% endif %}
 {% endblock %}

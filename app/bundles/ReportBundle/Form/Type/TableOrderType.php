@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\ReportBundle\Form\Type;
+namespace MailVotech\ReportBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -30,7 +30,7 @@ final class TableOrderType extends AbstractType
                 'choices'           => array_flip($options['columnList']),
                 'expanded'          => false,
                 'multiple'          => false,
-                'label'             => 'mautic.report.report.label.filtercolumn',
+                'label'             => 'mailvotech.report.report.label.filtercolumn',
                 'label_attr'        => ['class' => 'control-label'],
                 'placeholder'       => false,
                 'required'          => false,
@@ -46,12 +46,12 @@ final class TableOrderType extends AbstractType
             ChoiceType::class,
             [
                 'choices'           => [
-                    $this->translator->trans('mautic.report.report.label.tableorder_dir.asc')  => 'ASC',
-                    $this->translator->trans('mautic.report.report.label.tableorder_dir.desc') => 'DESC',
+                    $this->translator->trans('mailvotech.report.report.label.tableorder_dir.asc')  => 'ASC',
+                    $this->translator->trans('mailvotech.report.report.label.tableorder_dir.desc') => 'DESC',
                 ],
                 'expanded'    => false,
                 'multiple'    => false,
-                'label'       => 'mautic.core.order',
+                'label'       => 'mailvotech.core.order',
                 'label_attr'  => ['class' => 'control-label'],
                 'placeholder' => false,
                 'required'    => false,

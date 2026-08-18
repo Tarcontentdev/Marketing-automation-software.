@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Tests\Unit\Controller;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Tests\Unit\Controller;
 
-use Mautic\CoreBundle\Model\AbstractCommonModel;
-use Mautic\CoreBundle\Model\MauticModelInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\EmailBundle\Entity\Email;
-use MauticPlugin\GrapesJsBuilderBundle\Controller\GrapesJsController;
+use MailVotech\CoreBundle\Model\AbstractCommonModel;
+use MailVotech\CoreBundle\Model\MailVotechModelInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotechPlugin\GrapesJsBuilderBundle\Controller\GrapesJsController;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -102,7 +102,7 @@ final class GrapesJsControllerTest extends TestCase
             /**
              * @return AbstractCommonModel<object>
              */
-            protected function getModel($modelNameKey): MauticModelInterface
+            protected function getModel($modelNameKey): MailVotechModelInterface
             {
                 return new class($this->testEntity) extends AbstractCommonModel {
                     public function __construct(

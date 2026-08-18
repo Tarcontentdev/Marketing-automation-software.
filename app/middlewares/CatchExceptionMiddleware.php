@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\Middleware;
+namespace MailVotech\Middleware;
 
-use Mautic\CoreBundle\ErrorHandler\ErrorHandler;
+use MailVotech\CoreBundle\ErrorHandler\ErrorHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;

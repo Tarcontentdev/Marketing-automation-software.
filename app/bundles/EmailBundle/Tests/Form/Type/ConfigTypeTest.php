@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Form\Type;
+namespace MailVotech\EmailBundle\Tests\Form\Type;
 
-use Mautic\ConfigBundle\Form\DataTransformer\DsnTransformer;
-use Mautic\ConfigBundle\Form\DataTransformer\DsnTransformerFactory;
-use Mautic\ConfigBundle\Form\Type\DsnType;
-use Mautic\ConfigBundle\Form\Type\EscapeTransformer;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\EmailBundle\Form\Type\ConfigMonitoredEmailType;
-use Mautic\EmailBundle\Form\Type\ConfigMonitoredMailboxesType;
-use Mautic\EmailBundle\Form\Type\ConfigType;
-use Mautic\EmailBundle\Helper\EmailValidator;
-use Mautic\EmailBundle\Mailer\Transport\TransportFactory;
-use Mautic\EmailBundle\MonitoredEmail\Mailbox;
-use Mautic\EmailBundle\Validator\DsnValidator;
-use Mautic\EmailBundle\Validator\EmailOrEmailTokenListValidator;
-use Mautic\LeadBundle\Validator\CustomFieldValidator;
-use Mautic\PageBundle\Entity\PageRepository;
-use Mautic\PageBundle\Form\Type\PreferenceCenterListType;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\ConfigBundle\Form\DataTransformer\DsnTransformer;
+use MailVotech\ConfigBundle\Form\DataTransformer\DsnTransformerFactory;
+use MailVotech\ConfigBundle\Form\Type\DsnType;
+use MailVotech\ConfigBundle\Form\Type\EscapeTransformer;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\EmailBundle\Form\Type\ConfigMonitoredEmailType;
+use MailVotech\EmailBundle\Form\Type\ConfigMonitoredMailboxesType;
+use MailVotech\EmailBundle\Form\Type\ConfigType;
+use MailVotech\EmailBundle\Helper\EmailValidator;
+use MailVotech\EmailBundle\Mailer\Transport\TransportFactory;
+use MailVotech\EmailBundle\MonitoredEmail\Mailbox;
+use MailVotech\EmailBundle\Validator\DsnValidator;
+use MailVotech\EmailBundle\Validator\EmailOrEmailTokenListValidator;
+use MailVotech\LeadBundle\Validator\CustomFieldValidator;
+use MailVotech\PageBundle\Entity\PageRepository;
+use MailVotech\PageBundle\Form\Type\PreferenceCenterListType;
+use MailVotech\PageBundle\Model\PageModel;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;

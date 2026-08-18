@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Campaign;
+namespace MailVotech\CampaignBundle\Tests\Functional\Campaign;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\ListLead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\ListLead;
 use PHPUnit\Framework\Assert;
 
 /**
- * @see https://github.com/mautic/mautic/issues/16026
+ * @see https://github.com/mailvotech/mailvotech/issues/16026
  */
-final class CampaignRestartFromSegmentTest extends MauticMysqlTestCase
+final class CampaignRestartFromSegmentTest extends MailVotechMysqlTestCase
 {
     use CampaignEntitiesTrait;
 
@@ -53,8 +53,8 @@ final class CampaignRestartFromSegmentTest extends MauticMysqlTestCase
         $this->em->clear();
 
         // Act (first run): rebuild campaign membership, then trigger campaign events
-        $this->testSymfonyCommand('mautic:campaigns:update', ['--campaign-id' => $campaign->getId()]);
-        $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $this->testSymfonyCommand('mailvotech:campaigns:update', ['--campaign-id' => $campaign->getId()]);
+        $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
 
         // Assert: contact is in the campaign at rotation 1
         $this->em->clear();
@@ -78,14 +78,14 @@ final class CampaignRestartFromSegmentTest extends MauticMysqlTestCase
         // Use DBAL directly to avoid ORM caching complications with composite-PK entities.
         $connection = $this->em->getConnection();
         $affected   = $connection->executeStatement(
-            'UPDATE '.MAUTIC_TABLE_PREFIX.'lead_lists_leads SET manually_removed = 1 WHERE lead_id = ? AND leadlist_id = ?',
+            'UPDATE '.MAILVOTECH_TABLE_PREFIX.'lead_lists_leads SET manually_removed = 1 WHERE lead_id = ? AND leadlist_id = ?',
             [$contact->getId(), $segment->getId()]
         );
         $this->assertSame(1, $affected, 'Expected exactly one ListLead row to be updated.');
         $this->em->clear();
 
         // Rebuild: contact is now orphaned in the campaign (in campaign_leads but no longer in segment)
-        $this->testSymfonyCommand('mautic:campaigns:update', ['--campaign-id' => $campaign->getId()]);
+        $this->testSymfonyCommand('mailvotech:campaigns:update', ['--campaign-id' => $campaign->getId()]);
 
         $this->em->clear();
 
@@ -100,13 +100,13 @@ final class CampaignRestartFromSegmentTest extends MauticMysqlTestCase
 
         // Simulate contact returning to the segment (e.g. tag is re-applied)
         $connection->executeStatement(
-            'UPDATE '.MAUTIC_TABLE_PREFIX.'lead_lists_leads SET manually_removed = 0 WHERE lead_id = ? AND leadlist_id = ?',
+            'UPDATE '.MAILVOTECH_TABLE_PREFIX.'lead_lists_leads SET manually_removed = 0 WHERE lead_id = ? AND leadlist_id = ?',
             [$contact->getId(), $segment->getId()]
         );
         $this->em->clear();
 
         // Act (second run): rebuild campaign membership — BUG: contact is not re-added
-        $this->testSymfonyCommand('mautic:campaigns:update', ['--campaign-id' => $campaign->getId()]);
+        $this->testSymfonyCommand('mailvotech:campaigns:update', ['--campaign-id' => $campaign->getId()]);
 
         $this->em->clear();
 
@@ -120,7 +120,7 @@ final class CampaignRestartFromSegmentTest extends MauticMysqlTestCase
         $this->assertSame(2, $campaignLead->getRotation(), 'Rotation should be incremented to 2 for the second run.');
 
         // Trigger campaign events for the second rotation
-        $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
 
         $this->em->clear();
 

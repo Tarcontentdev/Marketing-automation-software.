@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Validator;
+namespace MailVotech\CampaignBundle\Tests\Functional\Validator;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Tests\Functional\Controller\CampaignControllerTrait;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\LeadList;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Tests\Functional\Controller\CampaignControllerTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\LeadList;
 
-final class OrphanEventsValidationFunctionalTest extends MauticMysqlTestCase
+final class OrphanEventsValidationFunctionalTest extends MailVotechMysqlTestCase
 {
     use CampaignControllerTrait;
 

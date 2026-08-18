@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Segment\Decorator;
+namespace MailVotech\LeadBundle\Segment\Decorator;
 
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
 
 class DateDecorator extends CustomMappedDecorator
 {

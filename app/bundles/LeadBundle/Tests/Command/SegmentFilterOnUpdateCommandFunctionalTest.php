@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Command;
+namespace MailVotech\LeadBundle\Tests\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\ListLead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\ListLead;
 
-final class SegmentFilterOnUpdateCommandFunctionalTest extends MauticMysqlTestCase
+final class SegmentFilterOnUpdateCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testSegmentFilterOnUpdateCommand(): void
     {
@@ -19,13 +19,13 @@ final class SegmentFilterOnUpdateCommandFunctionalTest extends MauticMysqlTestCa
         $segmentAId = $segmentA->getId();
 
         // Run segments update command.
-        $this->testSymfonyCommand('mautic:segments:update', ['-i' => $segmentAId]);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['-i' => $segmentAId]);
         $this->assertCount(5, $this->em->getRepository(ListLead::class)->findBy(['list' => $segmentAId]));
 
         $segmentB   = $this->saveSegmentB($segmentAId);
         $segmentBId = $segmentB->getId();
         // Run segments update command.
-        $this->testSymfonyCommand('mautic:segments:update', ['-i' => $segmentBId]);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['-i' => $segmentBId]);
         $this->assertCount(3, $this->em->getRepository(ListLead::class)->findBy(['list' => $segmentBId]));
     }
 

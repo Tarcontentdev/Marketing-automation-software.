@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Update\Step;
+namespace MailVotech\CoreBundle\Tests\Unit\Update\Step;
 
-use Mautic\CoreBundle\Exception\UpdateFailedException;
-use Mautic\CoreBundle\Helper\Update\PreUpdateChecks\PreUpdateCheckError;
-use Mautic\CoreBundle\Helper\Update\PreUpdateChecks\PreUpdateCheckResult;
-use Mautic\CoreBundle\Helper\UpdateHelper;
-use Mautic\CoreBundle\Update\Step\PreUpdateChecksStep;
+use MailVotech\CoreBundle\Exception\UpdateFailedException;
+use MailVotech\CoreBundle\Helper\Update\PreUpdateChecks\PreUpdateCheckError;
+use MailVotech\CoreBundle\Helper\Update\PreUpdateChecks\PreUpdateCheckResult;
+use MailVotech\CoreBundle\Helper\UpdateHelper;
+use MailVotech\CoreBundle\Update\Step\PreUpdateChecksStep;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

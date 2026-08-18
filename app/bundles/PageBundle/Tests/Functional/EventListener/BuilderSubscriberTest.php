@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Functional\EventListener;
+namespace MailVotech\PageBundle\Tests\Functional\EventListener;
 
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Helper\MailHashHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList as Segment;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Helper\MailHashHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList as Segment;
+use MailVotech\PageBundle\Entity\Page;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[PreserveGlobalState(false)]
 #[RunTestsInSeparateProcesses]
-final class BuilderSubscriberTest extends MauticMysqlTestCase
+final class BuilderSubscriberTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -83,7 +83,7 @@ final class BuilderSubscriberTest extends MauticMysqlTestCase
         $mailHashHelper = self::getContainer()->get(MailHashHelper::class);
         $this->assertInstanceOf(MailHashHelper::class, $mailHashHelper);
 
-        $unsubscribeUrl = $this->router->generate('mautic_email_unsubscribe', [
+        $unsubscribeUrl = $this->router->generate('mailvotech_email_unsubscribe', [
             'idHash'     => $emailStat->getTrackingHash(),
             'urlEmail'   => $lead->getEmail(),
             'secretHash' => $mailHashHelper->getEmailHash($lead->getEmail()),

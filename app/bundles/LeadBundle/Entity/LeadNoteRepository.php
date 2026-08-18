@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<LeadNote>
@@ -92,26 +92,26 @@ class LeadNoteRepository extends CommonRepository
         [$expr, $parameters]     = parent::addSearchCommandWhereClause($q, $filter);
 
         switch ($command) {
-            case $this->translator->trans('mautic.lead.note.searchcommand.type'):
-            case $this->translator->trans('mautic.lead.note.searchcommand.type', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.note.searchcommand.type'):
+            case $this->translator->trans('mailvotech.lead.note.searchcommand.type', [], null, 'en_US'):
                 switch ($string) {
-                    case $this->translator->trans('mautic.lead.note.searchcommand.general'):
-                    case $this->translator->trans('mautic.lead.note.searchcommand.general', [], null, 'en_US'):
+                    case $this->translator->trans('mailvotech.lead.note.searchcommand.general'):
+                    case $this->translator->trans('mailvotech.lead.note.searchcommand.general', [], null, 'en_US'):
                         $filter->string  = 'general';
                         $returnParameter = true;
                         break;
-                    case $this->translator->trans('mautic.lead.note.searchcommand.call'):
-                    case $this->translator->trans('mautic.lead.note.searchcommand.call', [], null, 'en_US'):
+                    case $this->translator->trans('mailvotech.lead.note.searchcommand.call'):
+                    case $this->translator->trans('mailvotech.lead.note.searchcommand.call', [], null, 'en_US'):
                         $filter->string  = 'call';
                         $returnParameter = true;
                         break;
-                    case $this->translator->trans('mautic.lead.note.searchcommand.email'):
-                    case $this->translator->trans('mautic.lead.note.searchcommand.email', [], null, 'en_US'):
+                    case $this->translator->trans('mailvotech.lead.note.searchcommand.email'):
+                    case $this->translator->trans('mailvotech.lead.note.searchcommand.email', [], null, 'en_US'):
                         $filter->string  = 'email';
                         $returnParameter = true;
                         break;
-                    case $this->translator->trans('mautic.lead.note.searchcommand.meeting'):
-                    case $this->translator->trans('mautic.lead.note.searchcommand.meeting', [], null, 'en_US'):
+                    case $this->translator->trans('mailvotech.lead.note.searchcommand.meeting'):
+                    case $this->translator->trans('mailvotech.lead.note.searchcommand.meeting', [], null, 'en_US'):
                         $filter->string  = 'meeting';
                         $returnParameter = true;
                         break;
@@ -142,11 +142,11 @@ class LeadNoteRepository extends CommonRepository
     public function getSearchCommands(): array
     {
         $commands = [
-            'mautic.lead.note.searchcommand.type' => [
-                'mautic.lead.note.searchcommand.general',
-                'mautic.lead.note.searchcommand.call',
-                'mautic.lead.note.searchcommand.email',
-                'mautic.lead.note.searchcommand.meeting',
+            'mailvotech.lead.note.searchcommand.type' => [
+                'mailvotech.lead.note.searchcommand.general',
+                'mailvotech.lead.note.searchcommand.call',
+                'mailvotech.lead.note.searchcommand.email',
+                'mailvotech.lead.note.searchcommand.meeting',
             ],
         ];
 
@@ -159,7 +159,7 @@ class LeadNoteRepository extends CommonRepository
     public function updateLead($fromLeadId, $toLeadId): void
     {
         $this->_em->getConnection()->createQueryBuilder()
-            ->update(MAUTIC_TABLE_PREFIX.'lead_notes')
+            ->update(MAILVOTECH_TABLE_PREFIX.'lead_notes')
             ->set('lead_id', (int) $toLeadId)
             ->where('lead_id = '.(int) $fromLeadId)
             ->executeStatement();

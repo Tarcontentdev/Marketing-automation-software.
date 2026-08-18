@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\UserBundle\Form\Type;
+namespace MailVotech\UserBundle\Form\Type;
 
 use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\EntityRepository;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Model\UserModel;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -46,7 +46,7 @@ final class UserType extends AbstractType
             'username',
             TextType::class,
             [
-                'label'      => 'mautic.core.username',
+                'label'      => 'mailvotech.core.username',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'        => 'form-control',
@@ -60,7 +60,7 @@ final class UserType extends AbstractType
             'firstName',
             TextType::class,
             [
-                'label'      => 'mautic.core.firstname',
+                'label'      => 'mailvotech.core.firstname',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
             ]
@@ -70,7 +70,7 @@ final class UserType extends AbstractType
             'lastName',
             TextType::class,
             [
-                'label'      => 'mautic.core.lastname',
+                'label'      => 'mailvotech.core.lastname',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
             ]
@@ -81,7 +81,7 @@ final class UserType extends AbstractType
             'position',
             TextType::class,
             [
-                'label'      => 'mautic.core.position',
+                'label'      => 'mailvotech.core.position',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'        => 'form-control',
@@ -95,7 +95,7 @@ final class UserType extends AbstractType
             'email',
             EmailType::class,
             [
-                'label'      => 'mautic.core.type.email',
+                'label'      => 'mailvotech.core.type.email',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
@@ -106,7 +106,7 @@ final class UserType extends AbstractType
 
         $existing    = (!empty($options['data']) && $options['data']->getId());
         $placeholder = ($existing) ?
-            $this->translator->trans('mautic.user.user.form.passwordplaceholder') : '';
+            $this->translator->trans('mailvotech.user.user.form.passwordplaceholder') : '';
         $required = !$existing;
         $builder->add(
             'plainPassword',
@@ -114,12 +114,12 @@ final class UserType extends AbstractType
             [
                 'first_name'    => 'password',
                 'first_options' => [
-                    'label'      => 'mautic.core.password',
+                    'label'      => 'mailvotech.core.password',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'        => 'form-control',
                         'placeholder'  => $placeholder,
-                        'tooltip'      => 'mautic.user.user.form.help.passwordrequirements',
+                        'tooltip'      => 'mailvotech.user.user.form.help.passwordrequirements',
                         'preaddon'     => 'ri-lock-fill',
                         'autocomplete' => 'off',
                     ],
@@ -128,12 +128,12 @@ final class UserType extends AbstractType
                 ],
                 'second_name'    => 'confirm',
                 'second_options' => [
-                    'label'      => 'mautic.user.user.form.passwordconfirm',
+                    'label'      => 'mailvotech.user.user.form.passwordconfirm',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'        => 'form-control',
                         'placeholder'  => $placeholder,
-                        'tooltip'      => 'mautic.user.user.form.help.passwordrequirements',
+                        'tooltip'      => 'mailvotech.user.user.form.help.passwordrequirements',
                         'preaddon'     => 'ri-lock-fill',
                         'autocomplete' => 'off',
                     ],
@@ -141,7 +141,7 @@ final class UserType extends AbstractType
                     'error_bubbling' => false,
                 ],
                 'type'            => PasswordType::class,
-                'invalid_message' => 'mautic.user.user.password.mismatch',
+                'invalid_message' => 'mailvotech.user.user.password.mismatch',
                 'required'        => $required,
                 'error_bubbling'  => false,
             ]
@@ -151,13 +151,13 @@ final class UserType extends AbstractType
             'timezone',
             TimezoneType::class,
             [
-                'label'      => 'mautic.core.timezone',
+                'label'      => 'mailvotech.core.timezone',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
                 ],
                 'multiple'    => false,
-                'placeholder' => 'mautic.user.user.form.defaulttimezone',
+                'placeholder' => 'mailvotech.user.user.form.defaulttimezone',
             ]
         );
 
@@ -166,13 +166,13 @@ final class UserType extends AbstractType
             ChoiceType::class,
             [
                 'choices'           => $this->getSupportedLanguageChoices(),
-                'label'             => 'mautic.core.language',
+                'label'             => 'mailvotech.core.language',
                 'label_attr'        => ['class' => 'control-label'],
                 'attr'              => [
                     'class' => 'form-control',
                 ],
                 'multiple'    => false,
-                'placeholder' => 'mautic.user.user.form.defaultlocale',
+                'placeholder' => 'mailvotech.user.user.form.defaultlocale',
             ]
         );
 
@@ -186,7 +186,7 @@ final class UserType extends AbstractType
 
         $defaultSignature = '';
         if (isset($options['data']) && null === $options['data']->getSignature()) {
-            $defaultSignature = $this->translator->trans('mautic.email.default.signature', ['%from_name%' => '|FROM_NAME|']);
+            $defaultSignature = $this->translator->trans('mailvotech.email.default.signature', ['%from_name%' => '|FROM_NAME|']);
         } elseif (isset($options['data'])) {
             $defaultSignature = $options['data']->getSignature();
         }
@@ -195,14 +195,14 @@ final class UserType extends AbstractType
             'signature',
             TextareaType::class,
             [
-                'label'      => 'mautic.email.token.signature',
+                'label'      => 'mailvotech.email.token.signature',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
                 'attr'       => [
                     'class' => 'form-control',
                 ],
                 'data' => $defaultSignature,
-                'help' => 'mautic.user.config.signature.helper',
+                'help' => 'mailvotech.user.config.signature.helper',
             ]
         );
 
@@ -212,7 +212,7 @@ final class UserType extends AbstractType
                     'role',
                     EntityType::class,
                     [
-                        'label'      => 'mautic.user.role',
+                        'label'      => 'mailvotech.user.role',
                         'label_attr' => ['class' => 'control-label'],
                         'attr'       => [
                             'class' => 'form-control',
@@ -234,7 +234,7 @@ final class UserType extends AbstractType
                 'buttons',
                 FormButtonsType::class,
                 [
-                    'save_text'  => 'mautic.core.form.apply',
+                    'save_text'  => 'mailvotech.core.form.apply',
                     'apply_text' => false,
                 ]
             );

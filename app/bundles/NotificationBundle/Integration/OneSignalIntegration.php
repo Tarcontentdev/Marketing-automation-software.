@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\NotificationBundle\Integration;
+namespace MailVotech\NotificationBundle\Integration;
 
-use Mautic\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Form;
@@ -35,8 +35,8 @@ final class OneSignalIntegration extends AbstractIntegration
     public function getSupportedFeatureTooltips(): array
     {
         return [
-            'landing_page_enabled'  => 'mautic.integration.form.features.landing_page_enabled.tooltip',
-            'tracking_page_enabled' => 'mautic.integration.form.features.tracking_page_enabled.tooltip',
+            'landing_page_enabled'  => 'mailvotech.integration.form.features.landing_page_enabled.tooltip',
+            'tracking_page_enabled' => 'mailvotech.integration.form.features.tracking_page_enabled.tooltip',
         ];
     }
 
@@ -46,10 +46,10 @@ final class OneSignalIntegration extends AbstractIntegration
     public function getRequiredKeyFields(): array
     {
         return [
-            'app_id'        => 'mautic.notification.config.form.notification.app_id',
-            'safari_web_id' => 'mautic.notification.config.form.notification.safari_web_id',
-            'rest_api_key'  => 'mautic.notification.config.form.notification.rest_api_key',
-            'gcm_sender_id' => 'mautic.notification.config.form.notification.gcm_sender_id',
+            'app_id'        => 'mailvotech.notification.config.form.notification.app_id',
+            'safari_web_id' => 'mailvotech.notification.config.form.notification.safari_web_id',
+            'rest_api_key'  => 'mailvotech.notification.config.form.notification.rest_api_key',
+            'gcm_sender_id' => 'mailvotech.notification.config.form.notification.gcm_sender_id',
         ];
     }
 
@@ -70,7 +70,7 @@ final class OneSignalIntegration extends AbstractIntegration
                 'subdomain_name',
                 TextType::class,
                 [
-                    'label'    => 'mautic.notification.form.subdomain_name.label',
+                    'label'    => 'mailvotech.notification.form.subdomain_name.label',
                     'required' => false,
                     'attr'     => [
                         'class' => 'form-control',
@@ -83,16 +83,16 @@ final class OneSignalIntegration extends AbstractIntegration
                 ChoiceType::class,
                 [
                     'choices' => [
-                        'mautic.integration.form.platforms.ios'     => 'ios',
-                        'mautic.integration.form.platforms.android' => 'android',
+                        'mailvotech.integration.form.platforms.ios'     => 'ios',
+                        'mailvotech.integration.form.platforms.android' => 'android',
                     ],
                     'attr'              => [
-                        'tooltip'      => 'mautic.integration.form.platforms.tooltip',
+                        'tooltip'      => 'mailvotech.integration.form.platforms.tooltip',
                         'data-show-on' => '{"integration_details_supportedFeatures_0":"checked"}',
                     ],
                     'expanded'    => true,
                     'multiple'    => true,
-                    'label'       => 'mautic.integration.form.platforms',
+                    'label'       => 'mailvotech.integration.form.platforms',
                     'placeholder' => false,
                     'required'    => false,
                 ]

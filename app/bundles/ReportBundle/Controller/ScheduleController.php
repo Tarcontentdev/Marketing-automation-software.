@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\ReportBundle\Controller;
+namespace MailVotech\ReportBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\ReportBundle\Model\ReportModel;
-use Mautic\ReportBundle\Scheduler\Date\DateBuilder;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\ReportBundle\Model\ReportModel;
+use MailVotech\ReportBundle\Scheduler\Date\DateBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -25,7 +25,7 @@ final class ScheduleController extends CommonAjaxController
         $dates = $dateBuilder->getPreviewDays($isScheduled, $scheduleUnit, $scheduleDay, $scheduleMonthFrequency);
 
         $html = $this->render(
-            '@MauticReport/Schedule/index.html.twig',
+            '@MailVotechReport/Schedule/index.html.twig',
             [
                 'dates' => $dates,
             ]
@@ -45,25 +45,25 @@ final class ScheduleController extends CommonAjaxController
      */
     public function nowAction($reportId): JsonResponse
     {
-        /** @var \Mautic\ReportBundle\Entity\Report $report */
+        /** @var \MailVotech\ReportBundle\Entity\Report $report */
         $report = $this->reportModel->getEntity($reportId);
 
         $security = $this->security;
 
         if (empty($report)) {
-            $this->addFlashMessage('mautic.report.notfound', ['%id%' => $reportId], FlashBag::LEVEL_ERROR, 'messages');
+            $this->addFlashMessage('mailvotech.report.notfound', ['%id%' => $reportId], FlashBag::LEVEL_ERROR, 'messages');
 
             return $this->flushFlash();
         }
 
         if (!$security->hasEntityAccess('report:reports:viewown', 'report:reports:viewother', $report->getCreatedBy())) {
-            $this->addFlashMessage('mautic.core.error.accessdenied', [], FlashBag::LEVEL_ERROR);
+            $this->addFlashMessage('mailvotech.core.error.accessdenied', [], FlashBag::LEVEL_ERROR);
 
             return $this->flushFlash();
         }
 
         if ($report->isScheduled()) {
-            $this->addFlashMessage('mautic.report.scheduled.already', ['%id%' => $reportId], FlashBag::LEVEL_ERROR);
+            $this->addFlashMessage('mailvotech.report.scheduled.already', ['%id%' => $reportId], FlashBag::LEVEL_ERROR);
 
             return $this->flushFlash();
         }
@@ -72,7 +72,7 @@ final class ScheduleController extends CommonAjaxController
         $this->reportModel->saveEntity($report);
 
         $this->addFlashMessage(
-            'mautic.report.scheduled.to.now',
+            'mailvotech.report.scheduled.to.now',
             ['%id%' => $reportId, '%email%' => $this->user->getEmail()]
         );
 

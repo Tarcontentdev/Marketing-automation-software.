@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Fixtures\Model;
+namespace MailVotech\LeadBundle\Tests\Fixtures\Model;
 
-use Mautic\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
 
-class LeadModelStub extends \Mautic\LeadBundle\Model\LeadModel
+class LeadModelStub extends \MailVotech\LeadBundle\Model\LeadModel
 {
     public function setUserHelper(UserHelper $userHelper): void
     {

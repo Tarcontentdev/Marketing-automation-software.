@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
-use Mautic\CoreBundle\Event\EntityImportEvent;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ImportHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Event\EntityImportEvent;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ImportHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 #[AsCommand(
-    name: 'mautic:entity:import',
+    name: 'mailvotech:entity:import',
     description: 'Import entity data from a ZIP file.'
 )]
 final class EntityImportCommand extends ModeratedCommand

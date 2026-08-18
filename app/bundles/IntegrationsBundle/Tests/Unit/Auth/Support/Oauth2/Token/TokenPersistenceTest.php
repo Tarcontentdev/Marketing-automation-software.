@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Auth\Support\Oauth2\Token;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Auth\Support\Oauth2\Token;
 
 use kamermans\OAuth2\Token\RawToken;
 use kamermans\OAuth2\Token\RawTokenFactory;
 use kamermans\OAuth2\Token\TokenInterface;
-use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\IntegrationToken;
-use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenPersistence;
-use Mautic\IntegrationsBundle\Exception\IntegrationNotSetException;
-use Mautic\IntegrationsBundle\Helper\IntegrationsHelper;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\IntegrationsBundle\Auth\Support\Oauth2\Token\IntegrationToken;
+use MailVotech\IntegrationsBundle\Auth\Support\Oauth2\Token\TokenPersistence;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotSetException;
+use MailVotech\IntegrationsBundle\Helper\IntegrationsHelper;
+use MailVotech\PluginBundle\Entity\Integration;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
-use Mautic\CoreBundle\Event\AbstractCustomRequestEvent;
+use MailVotech\CoreBundle\Event\AbstractCustomRequestEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -93,12 +93,12 @@ final class LeadListFiltersChoicesEvent extends AbstractCustomRequestEvent
         $route = (string) $this->getRoute();
 
         // segment form
-        if ('mautic_segment_action' === $route) {
+        if ('mailvotech_segment_action' === $route) {
             return true;
         }
 
         // segment API
-        if (str_starts_with($route, 'mautic_api_lists')) {
+        if (str_starts_with($route, 'mailvotech_api_lists')) {
             return true;
         }
 

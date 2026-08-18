@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Functional\Entity;
+namespace MailVotech\IntegrationsBundle\Tests\Functional\Entity;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
-use Mautic\IntegrationsBundle\Entity\ObjectMappingRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Entity\ObjectMappingRepository;
 
-final class ObjectMappingRepositoryTest extends MauticMysqlTestCase
+final class ObjectMappingRepositoryTest extends MailVotechMysqlTestCase
 {
     private const INTEGRATION             = 'integration';
 

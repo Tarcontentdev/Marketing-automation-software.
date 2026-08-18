@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\Query\ResultSetMapping;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\ProjectBundle\Entity\ProjectRepositoryTrait;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\ProjectBundle\Entity\ProjectRepositoryTrait;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -16,7 +16,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 class LeadListRepository extends CommonRepository
 {
-    use OperatorListTrait; // @deprecated to be removed in Mautic 3. Not used inside this class.
+    use OperatorListTrait; // @deprecated to be removed in MailVotech 3. Not used inside this class.
 
     use ExpressionHelperTrait;
     use RegexTrait;
@@ -217,7 +217,7 @@ class LeadListRepository extends CommonRepository
 
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $qb->select('ll.leadlist_id')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'll')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'll')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->in('ll.leadlist_id', ':ids'),
@@ -291,12 +291,12 @@ class LeadListRepository extends CommonRepository
 
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $q->select('count(l.lead_id) as thecount, l.leadlist_id')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'l');
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'l');
 
         $countListIds = count($listIds);
 
         if (1 === $countListIds) {
-            $q          = $this->forceUseIndex($q, MAUTIC_TABLE_PREFIX.'manually_removed');
+            $q          = $this->forceUseIndex($q, MAILVOTECH_TABLE_PREFIX.'manually_removed');
             $expression = $q->expr()->eq('l.leadlist_id', $listIds[0]);
         } else {
             $expression = $q->expr()->in('l.leadlist_id', ':listIds');
@@ -402,7 +402,7 @@ class LeadListRepository extends CommonRepository
         $subQb->expr()->and(...$subExpr);
 
         $subQb->select('null')
-            ->from(MAUTIC_TABLE_PREFIX.$table, $alias)
+            ->from(MAILVOTECH_TABLE_PREFIX.$table, $alias)
             ->where($subExpr);
 
         return $subQb;
@@ -438,24 +438,24 @@ class LeadListRepository extends CommonRepository
         $returnParameter = false; // returning a parameter that is not used will lead to a Doctrine error
 
         switch ($command) {
-            case $this->translator->trans('mautic.lead.list.searchcommand.isglobal'):
-            case $this->translator->trans('mautic.lead.list.searchcommand.isglobal', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.list.searchcommand.isglobal'):
+            case $this->translator->trans('mailvotech.lead.list.searchcommand.isglobal', [], null, 'en_US'):
                 $expr            = $q->expr()->eq('l.isGlobal', ":{$unique}");
                 $forceParameters = [$unique => true];
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.name'):
-            case $this->translator->trans('mautic.core.searchcommand.name', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.name'):
+            case $this->translator->trans('mailvotech.core.searchcommand.name', [], null, 'en_US'):
                 $expr            = $q->expr()->like('l.name', ':'.$unique);
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.lead.list.searchcommand.filters_field'):
-            case $this->translator->trans('mautic.lead.list.searchcommand.filters_field', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.list.searchcommand.filters_field'):
+            case $this->translator->trans('mailvotech.lead.list.searchcommand.filters_field', [], null, 'en_US'):
                 $pattern         = sprintf('%%s:5:"field";s:%d:"%s"%%', strlen($filter->string), $filter->string);
                 $expr            = $q->expr()->like('l.filters', ':'.$unique);
                 $forceParameters = [$unique => $pattern];
                 break;
-            case $this->translator->trans('mautic.project.searchcommand.name'):
-            case $this->translator->trans('mautic.project.searchcommand.name', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.project.searchcommand.name'):
+            case $this->translator->trans('mailvotech.project.searchcommand.name', [], null, 'en_US'):
                 return $this->handleProjectFilter(
                     $this->_em->getConnection()->createQueryBuilder(),
                     'leadlist_id',
@@ -485,14 +485,14 @@ class LeadListRepository extends CommonRepository
     public function getSearchCommands(): array
     {
         $commands = [
-            'mautic.lead.list.searchcommand.isglobal',
-            'mautic.core.searchcommand.ispublished',
-            'mautic.core.searchcommand.isunpublished',
-            'mautic.core.searchcommand.name',
-            'mautic.core.searchcommand.ismine',
-            'mautic.core.searchcommand.category',
-            'mautic.lead.list.searchcommand.filters_field',
-            'mautic.project.searchcommand.name',
+            'mailvotech.lead.list.searchcommand.isglobal',
+            'mailvotech.core.searchcommand.ispublished',
+            'mailvotech.core.searchcommand.isunpublished',
+            'mailvotech.core.searchcommand.name',
+            'mailvotech.core.searchcommand.ismine',
+            'mailvotech.core.searchcommand.category',
+            'mailvotech.lead.list.searchcommand.filters_field',
+            'mailvotech.project.searchcommand.name',
         ];
 
         return array_merge($commands, parent::getSearchCommands());
@@ -513,19 +513,19 @@ class LeadListRepository extends CommonRepository
     public static function getRelativeDateTranslationKeys(): array
     {
         return [
-            'mautic.lead.list.month_last',
-            'mautic.lead.list.month_next',
-            'mautic.lead.list.month_this',
-            'mautic.lead.list.today',
-            'mautic.lead.list.tomorrow',
-            'mautic.lead.list.yesterday',
-            'mautic.lead.list.week_last',
-            'mautic.lead.list.week_next',
-            'mautic.lead.list.week_this',
-            'mautic.lead.list.year_last',
-            'mautic.lead.list.year_next',
-            'mautic.lead.list.year_this',
-            'mautic.lead.list.anniversary',
+            'mailvotech.lead.list.month_last',
+            'mailvotech.lead.list.month_next',
+            'mailvotech.lead.list.month_this',
+            'mailvotech.lead.list.today',
+            'mailvotech.lead.list.tomorrow',
+            'mailvotech.lead.list.yesterday',
+            'mailvotech.lead.list.week_last',
+            'mailvotech.lead.list.week_next',
+            'mailvotech.lead.list.week_this',
+            'mailvotech.lead.list.year_last',
+            'mailvotech.lead.list.year_next',
+            'mailvotech.lead.list.year_this',
+            'mailvotech.lead.list.anniversary',
         ];
     }
 
@@ -546,7 +546,7 @@ class LeadListRepository extends CommonRepository
 
     public function leadListExists(int $id): bool
     {
-        $tableName = MAUTIC_TABLE_PREFIX.'lead_lists';
+        $tableName = MAILVOTECH_TABLE_PREFIX.'lead_lists';
         $result    = (int) $this->getEntityManager()->getConnection()
             ->executeQuery("SELECT EXISTS(SELECT 1 FROM {$tableName} WHERE id = {$id})")
             ->fetchOne();
@@ -564,8 +564,8 @@ class LeadListRepository extends CommonRepository
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('clx.campaign_id, c.name')
             ->distinct()
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_leadlist_xref', 'clx')
-            ->join('clx', MAUTIC_TABLE_PREFIX.'campaigns', 'c', 'c.id = clx.campaign_id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_leadlist_xref', 'clx')
+            ->join('clx', MAILVOTECH_TABLE_PREFIX.'campaigns', 'c', 'c.id = clx.campaign_id');
         $q->where(
             $q->expr()->eq('clx.leadlist_id', $segmentId)
         );
@@ -582,7 +582,7 @@ class LeadListRepository extends CommonRepository
 
     public function isContactInAnySegment(int $contactId): bool
     {
-        $tableName = MAUTIC_TABLE_PREFIX.'lead_lists_leads';
+        $tableName = MAILVOTECH_TABLE_PREFIX.'lead_lists_leads';
 
         $sql = <<<SQL
             SELECT leadlist_id 
@@ -665,7 +665,7 @@ SQL;
      */
     private function fetchContactToSegmentIdsRelationships(int $contactId, array $expectedSegmentIds): array
     {
-        $tableName = MAUTIC_TABLE_PREFIX.'lead_lists_leads';
+        $tableName = MAILVOTECH_TABLE_PREFIX.'lead_lists_leads';
 
         $sql = <<<SQL
             SELECT leadlist_id 
@@ -692,7 +692,7 @@ SQL;
         $dateTime = (new \DateTimeImmutable())->format(DateTimeHelper::FORMAT_DB);
 
         $this->getEntityManager()->getConnection()->update(
-            MAUTIC_TABLE_PREFIX.LeadList::TABLE_NAME,
+            MAILVOTECH_TABLE_PREFIX.LeadList::TABLE_NAME,
             ['deleted'   => $dateTime, 'is_published' => 0],
             ['id'        => $leadListId]
         );
@@ -711,7 +711,7 @@ SQL;
             ll.name as title, 
             ll.id as item_id,
             ll.is_published as is_published
-            FROM '.MAUTIC_TABLE_PREFIX.'lead_lists ll', $rsm);
+            FROM '.MAILVOTECH_TABLE_PREFIX.'lead_lists ll', $rsm);
 
         return $query->getResult();
     }
@@ -726,7 +726,7 @@ SQL;
 
         $query = $this->getEntityManager()->createNativeQuery('SELECT 
             leadlist_id as item_id
-        FROM '.MAUTIC_TABLE_PREFIX.'campaign_leadlist_xref
+        FROM '.MAILVOTECH_TABLE_PREFIX.'campaign_leadlist_xref
             GROUP BY leadlist_id', $rsm);
 
         return $query->getResult();
@@ -742,7 +742,7 @@ SQL;
 
         $query = $this->getEntityManager()->createNativeQuery('SELECT 
             leadlist_id as item_id
-        FROM '.MAUTIC_TABLE_PREFIX.'email_list_xref 
+        FROM '.MAILVOTECH_TABLE_PREFIX.'email_list_xref 
             GROUP BY leadlist_id', $rsm);
 
         $included = $query->getResult();
@@ -752,7 +752,7 @@ SQL;
 
         $query = $this->getEntityManager()->createNativeQuery('SELECT 
             leadlist_id as item_id
-        FROM '.MAUTIC_TABLE_PREFIX.'email_list_excluded 
+        FROM '.MAILVOTECH_TABLE_PREFIX.'email_list_excluded 
             GROUP BY leadlist_id', $rsm);
 
         $excluded = $query->getResult();
@@ -770,12 +770,12 @@ SQL;
 
         $query = $this->getEntityManager()->createNativeQuery('SELECT 
             properties 
-        FROM '.MAUTIC_TABLE_PREFIX.'campaign_events ce 
+        FROM '.MAILVOTECH_TABLE_PREFIX.'campaign_events ce 
         WHERE ce.type = \'lead.changelist\'', $rsm);
 
         $segmentIds = [];
         foreach ($query->getResult() as $property) {
-            $property       = \Mautic\CoreBundle\Helper\Serializer::decode($property['properties']);
+            $property       = \MailVotech\CoreBundle\Helper\Serializer::decode($property['properties']);
             $segmentIds     = array_merge($property['addToLists'], $property['removeFromLists'], $segmentIds);
         }
 
@@ -792,13 +792,13 @@ SQL;
 
         $query = $this->getEntityManager()->createNativeQuery('SELECT 
             filters 
-        FROM '.MAUTIC_TABLE_PREFIX.'lead_lists', $rsm);
+        FROM '.MAILVOTECH_TABLE_PREFIX.'lead_lists', $rsm);
 
         $childSegmentIds = [];
 
         foreach ($query->getResult() as $rowFilters) {
             $segmentMembershipFilters = array_filter(
-                \Mautic\CoreBundle\Helper\Serializer::decode($rowFilters['filters']),
+                \MailVotech\CoreBundle\Helper\Serializer::decode($rowFilters['filters']),
                 fn (array $filter): bool => 'leadlist' === $filter['type']
             );
 
@@ -824,7 +824,7 @@ SQL;
 
         $query = $this->getEntityManager()->createNativeQuery('SELECT 
             leadlist_id as item_id
-        FROM '.MAUTIC_TABLE_PREFIX.'lead_lists_leads
+        FROM '.MAILVOTECH_TABLE_PREFIX.'lead_lists_leads
             GROUP BY leadlist_id', $rsm);
 
         return $query->getResult();
@@ -840,7 +840,7 @@ SQL;
 
         $query = $this->getEntityManager()->createNativeQuery('SELECT 
             leadlist_id as item_id
-        FROM '.MAUTIC_TABLE_PREFIX.'push_notification_list_xref
+        FROM '.MAILVOTECH_TABLE_PREFIX.'push_notification_list_xref
             GROUP BY leadlist_id', $rsm);
 
         return $query->getResult();
@@ -856,7 +856,7 @@ SQL;
 
         $query = $this->getEntityManager()->createNativeQuery('SELECT 
             leadlist_id as item_id
-        FROM '.MAUTIC_TABLE_PREFIX.'sms_message_list_xref
+        FROM '.MAILVOTECH_TABLE_PREFIX.'sms_message_list_xref
             GROUP BY leadlist_id', $rsm);
 
         return $query->getResult();
@@ -872,12 +872,12 @@ SQL;
 
         $query = $this->getEntityManager()->createNativeQuery('SELECT 
             properties 
-        FROM '.MAUTIC_TABLE_PREFIX.'form_actions fa 
+        FROM '.MAILVOTECH_TABLE_PREFIX.'form_actions fa 
         WHERE fa.type = \'lead.changelist\'', $rsm);
 
         $segmentIds = [];
         foreach ($query->getResult() as $property) {
-            $property       = \Mautic\CoreBundle\Helper\Serializer::decode($property['properties']);
+            $property       = \MailVotech\CoreBundle\Helper\Serializer::decode($property['properties']);
             $segmentIds     = array_merge($property['addToLists'], $property['removeFromLists'], $segmentIds);
         }
 
@@ -915,8 +915,8 @@ SQL;
             ->getConnection()
             ->createQueryBuilder()
             ->select('ll.leadlist_id')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'll')
-            ->innerJoin('ll', MAUTIC_TABLE_PREFIX.'lead_lists', 'l', 'll.leadlist_id = l.id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'll')
+            ->innerJoin('ll', MAILVOTECH_TABLE_PREFIX.'lead_lists', 'l', 'll.leadlist_id = l.id')
             ->where('ll.lead_id = :contactId')
             ->andWhere('ll.manually_removed = 0')
             ->andWhere('l.is_published = 1')

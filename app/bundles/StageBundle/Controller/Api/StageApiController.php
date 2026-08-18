@@ -1,19 +1,19 @@
 <?php
 
-namespace Mautic\StageBundle\Controller\Api;
+namespace MailVotech\StageBundle\Controller\Api;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\ApiBundle\Controller\CommonApiController;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Controller\LeadAccessTrait;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\StageBundle\Model\StageModel;
+use MailVotech\ApiBundle\Controller\CommonApiController;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Controller\LeadAccessTrait;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\StageBundle\Model\StageModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -80,7 +80,7 @@ final class StageApiController extends CommonApiController
         $this->leadModel->addToStage(
             $contact,
             $stage,
-            'API: '.$this->translator->trans('mautic.stage.event.added.batch')
+            'API: '.$this->translator->trans('mailvotech.stage.event.added.batch')
         );
         $this->leadModel->saveEntity($contact);
 
@@ -116,7 +116,7 @@ final class StageApiController extends CommonApiController
         $this->leadModel->removeFromStage(
             $contact,
             $stage,
-            'API: '.$this->translator->trans('mautic.stage.event.removed.batch')
+            'API: '.$this->translator->trans('mailvotech.stage.event.removed.batch')
         );
 
         return $this->handleView($this->view(['success' => 1], Response::HTTP_OK));

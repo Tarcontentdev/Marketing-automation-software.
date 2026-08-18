@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CacheBundle\EventListener;
+namespace MailVotech\CacheBundle\EventListener;
 
-use Mautic\CacheBundle\Cache\CacheProvider;
+use MailVotech\CacheBundle\Cache\CacheProvider;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface;
@@ -34,7 +34,7 @@ final readonly class CacheClearSubscriber implements CacheClearerInterface
 
         try {
             if (!$this->cacheProvider->clear()) {
-                $this->logger->emergency('Failed to clear Mautic cache.', ['adapter' => $adapter]);
+                $this->logger->emergency('Failed to clear MailVotech cache.', ['adapter' => $adapter]);
                 throw new \Exception('Failed to clear '.$adapter);
             }
         } catch (\PDOException) {

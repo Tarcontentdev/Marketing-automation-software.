@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\EmailBundle\Model;
+namespace MailVotech\EmailBundle\Model;
 
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Exception\FailedToSendToContactException;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\Mailer\Exception\BatchQueueMaxException;
-use Mautic\EmailBundle\Stat\Exception\StatNotFoundException;
-use Mautic\EmailBundle\Stat\Reference;
-use Mautic\EmailBundle\Stat\StatHelper;
-use Mautic\LeadBundle\Entity\DoNotContact as DNC;
-use Mautic\LeadBundle\Model\DoNotContact;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Exception\FailedToSendToContactException;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\Mailer\Exception\BatchQueueMaxException;
+use MailVotech\EmailBundle\Stat\Exception\StatNotFoundException;
+use MailVotech\EmailBundle\Stat\Reference;
+use MailVotech\EmailBundle\Stat\StatHelper;
+use MailVotech\LeadBundle\Entity\DoNotContact as DNC;
+use MailVotech\LeadBundle\Model\DoNotContact;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SendEmailToContact
@@ -276,7 +276,7 @@ class SendEmailToContact
                     $contactId,
                     ['email' => $this->emailEntityId],
                     DNC::BOUNCED,
-                    $this->translator->trans('mautic.email.bounce.reason.bad_email'),
+                    $this->translator->trans('mailvotech.email.bounce.reason.bad_email'),
                     true,
                     false
                 );

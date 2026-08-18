@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\LeadBundle\Tracker\Service\DeviceTrackingService;
+namespace MailVotech\LeadBundle\Tracker\Service\DeviceTrackingService;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\CookieHelper;
-use Mautic\CoreBundle\Helper\RandomHelper\RandomHelperInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\LeadBundle\Entity\LeadDevice;
-use Mautic\LeadBundle\Entity\LeadDeviceRepository;
+use MailVotech\CoreBundle\Helper\CookieHelper;
+use MailVotech\CoreBundle\Helper\RandomHelper\RandomHelperInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\LeadBundle\Entity\LeadDevice;
+use MailVotech\LeadBundle\Entity\LeadDeviceRepository;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -36,7 +36,7 @@ final class DeviceTrackingService implements DeviceTrackingServiceInterface
     public function getTrackedDevice()
     {
         if (!$this->security->isAnonymous()) {
-            // Do not track Mautic users
+            // Do not track MailVotech users
             return null;
         }
 
@@ -86,7 +86,7 @@ final class DeviceTrackingService implements DeviceTrackingServiceInterface
 
     public function clearTrackingCookies(): void
     {
-        $this->cookieHelper->deleteCookie('mautic_device_id');
+        $this->cookieHelper->deleteCookie('mailvotech_device_id');
         $this->cookieHelper->deleteCookie('mtc_id');
     }
 
@@ -108,9 +108,9 @@ final class DeviceTrackingService implements DeviceTrackingServiceInterface
             return $this->trackedDevice->getTrackingId();
         }
 
-        $deviceTrackingId = $this->cookieHelper->getCookie('mautic_device_id');
+        $deviceTrackingId = $this->cookieHelper->getCookie('mailvotech_device_id');
         if (null === $deviceTrackingId) {
-            $deviceTrackingId = $request->get('mautic_device_id');
+            $deviceTrackingId = $request->get('mailvotech_device_id');
         }
 
         return $deviceTrackingId;
@@ -129,7 +129,7 @@ final class DeviceTrackingService implements DeviceTrackingServiceInterface
     private function createTrackingCookies(LeadDevice $device): void
     {
         // Device cookie
-        $this->cookieHelper->setCookie('mautic_device_id', $device->getTrackingId(), 31_536_000, sameSite: Cookie::SAMESITE_NONE);
+        $this->cookieHelper->setCookie('mailvotech_device_id', $device->getTrackingId(), 31_536_000, sameSite: Cookie::SAMESITE_NONE);
 
         // Mainly for landing pages so that JS has the same access as 3rd party tracking code
         $this->cookieHelper->setCookie('mtc_id', $device->getLead()->getId(), null, sameSite: Cookie::SAMESITE_NONE);

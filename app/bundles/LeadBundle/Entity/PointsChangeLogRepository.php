@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\PointBundle\Entity\Group;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\PointBundle\Entity\Group;
 
 /**
  * @extends CommonRepository<PointsChangeLog>
@@ -23,9 +23,9 @@ class PointsChangeLogRepository extends CommonRepository
     public function getLeadTimelineEvents($leadId = null, array $options = [])
     {
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder()
-            ->from(MAUTIC_TABLE_PREFIX.'lead_points_change_log', 'lp')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_points_change_log', 'lp')
             ->select('lp.event_name as eventName, lp.action_name as actionName, lp.date_added as dateAdded, lp.type, lp.delta, lp.id, lp.lead_id, pl.name as groupName')
-            ->leftJoin('lp', MAUTIC_TABLE_PREFIX.Group::TABLE_NAME, 'pl', 'lp.group_id = pl.id');
+            ->leftJoin('lp', MAILVOTECH_TABLE_PREFIX.Group::TABLE_NAME, 'pl', 'lp.group_id = pl.id');
 
         if ($leadId) {
             $query->where('lp.lead_id = '.(int) $leadId);
@@ -80,7 +80,7 @@ class PointsChangeLogRepository extends CommonRepository
     public function updateLead($fromLeadId, $toLeadId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'lead_points_change_log')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'lead_points_change_log')
             ->set('lead_id', (int) $toLeadId)
             ->where('lead_id = '.(int) $fromLeadId)
             ->executeStatement();

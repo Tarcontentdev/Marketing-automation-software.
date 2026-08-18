@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Report;
+namespace MailVotech\LeadBundle\Report;
 
-use Mautic\LeadBundle\Entity\DoNotContact as DNC;
-use Mautic\LeadBundle\Helper\DncFormatterHelper;
-use Mautic\LeadBundle\Model\DoNotContact;
+use MailVotech\LeadBundle\Entity\DoNotContact as DNC;
+use MailVotech\LeadBundle\Helper\DncFormatterHelper;
+use MailVotech\LeadBundle\Model\DoNotContact;
 
 class DncReportService
 {
@@ -32,9 +32,9 @@ class DncReportService
         return [
             'dnc_preferences' => [
                 'alias'   => 'dnc_preferences',
-                'label'   => 'mautic.lead.report.dnc_preferences',
+                'label'   => 'mailvotech.lead.report.dnc_preferences',
                 'type'    => 'string',
-                'formula' => '(SELECT GROUP_CONCAT(CONCAT(dnc.reason, \':\', dnc.channel) ORDER BY dnc.date_added DESC SEPARATOR \',\') FROM '.MAUTIC_TABLE_PREFIX.'lead_donotcontact dnc WHERE dnc.lead_id = l.id)',
+                'formula' => '(SELECT GROUP_CONCAT(CONCAT(dnc.reason, \':\', dnc.channel) ORDER BY dnc.date_added DESC SEPARATOR \',\') FROM '.MAILVOTECH_TABLE_PREFIX.'lead_donotcontact dnc WHERE dnc.lead_id = l.id)',
             ],
         ];
     }
@@ -61,14 +61,14 @@ class DncReportService
 
         return [
             'dnc_preferences' => [
-                'label'     => 'mautic.lead.report.dnc_preferences',
+                'label'     => 'mailvotech.lead.report.dnc_preferences',
                 'type'      => 'multiselect',
                 'list'      => $listOptions,
                 'operators' => [
-                    'in'       => 'mautic.core.operator.in',
-                    'notIn'    => 'mautic.core.operator.notin',
-                    'empty'    => 'mautic.core.operator.isempty',
-                    'notEmpty' => 'mautic.core.operator.isnotempty',
+                    'in'       => 'mailvotech.core.operator.in',
+                    'notIn'    => 'mailvotech.core.operator.notin',
+                    'empty'    => 'mailvotech.core.operator.isempty',
+                    'notEmpty' => 'mailvotech.core.operator.isnotempty',
                 ],
             ],
         ];

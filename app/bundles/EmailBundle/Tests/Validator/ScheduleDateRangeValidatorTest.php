@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Validator;
+namespace MailVotech\EmailBundle\Tests\Validator;
 
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Validator\ScheduleDateRange;
-use Mautic\EmailBundle\Validator\ScheduleDateRangeValidator;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Validator\ScheduleDateRange;
+use MailVotech\EmailBundle\Validator\ScheduleDateRangeValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
@@ -96,7 +96,7 @@ final class ScheduleDateRangeValidatorTest extends TestCase
 
         $this->context->expects($this->once())
             ->method('buildViolation')
-            ->with('mautic.form.date_time_range.invalid_range')
+            ->with('mailvotech.form.date_time_range.invalid_range')
             ->willReturn($violationBuilder);
 
         $this->validator->validate($email, new ScheduleDateRange());
@@ -119,7 +119,7 @@ final class ScheduleDateRangeValidatorTest extends TestCase
 
         $this->context->expects($this->once())
             ->method('buildViolation')
-            ->with('mautic.form.date_time_range.invalid_range')
+            ->with('mailvotech.form.date_time_range.invalid_range')
             ->willReturn($violationBuilder);
 
         $this->validator->validate($email, new ScheduleDateRange());
@@ -157,7 +157,7 @@ final class ScheduleDateRangeValidatorTest extends TestCase
 
         $this->context->expects($this->once())
             ->method('buildViolation')
-            ->with('mautic.form.date_time_range.invalid_range')
+            ->with('mailvotech.form.date_time_range.invalid_range')
             ->willReturn($violationBuilder);
 
         $this->validator->validate($formData, new ScheduleDateRange());

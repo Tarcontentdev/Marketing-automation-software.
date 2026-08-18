@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\InstallBundle\Command;
+namespace MailVotech\InstallBundle\Command;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\InstallBundle\Configurator\Step\CheckStep;
-use Mautic\InstallBundle\Configurator\Step\DoctrineStep;
-use Mautic\InstallBundle\Install\InstallService;
+use MailVotech\InstallBundle\Configurator\Step\CheckStep;
+use MailVotech\InstallBundle\Configurator\Step\DoctrineStep;
+use MailVotech\InstallBundle\Install\InstallService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -18,18 +18,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 /**
- * CLI Command to install Mautic.
+ * CLI Command to install MailVotech.
  */
 #[AsCommand(
     name: InstallCommand::COMMAND,
-    description: 'Installs Mautic',
+    description: 'Installs MailVotech',
     help: <<<'TXT'
 This command allows you to trigger the install process. It will try to get configuration values both from the local config file and command line options/arguments, where the latter takes precedence.
 TXT
 )]
 final class InstallCommand extends Command
 {
-    public const COMMAND = 'mautic:install';
+    public const COMMAND = 'mailvotech:install';
 
     public function __construct(
         private readonly InstallService $installer,
@@ -151,22 +151,22 @@ final class InstallCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // Check Mautic is not already installed
+        // Check MailVotech is not already installed
         if ($this->installer->checkIfInstalled()) {
-            $output->writeln('Mautic already installed');
+            $output->writeln('MailVotech already installed');
 
             return Command::SUCCESS;
         }
 
         $output->writeln([
-            'Mautic Install',
+            'MailVotech Install',
             '==============',
             '',
         ]);
 
         if (!defined('IS_PHPUNIT')) {
             // Prevents querying of database tables that do not exist during the installation process
-            define('MAUTIC_INSTALLER', 1);
+            define('MAILVOTECH_INSTALLER', 1);
         }
 
         // Build objects to pass to the install service from local.php or command line options
@@ -193,7 +193,7 @@ final class InstallCommand extends Command
         ];
         $adminParam = [
             'firstname' => 'Admin',
-            'lastname'  => 'Mautic',
+            'lastname'  => 'MailVotech',
             'username'  => 'admin',
         ];
         $allParams = $this->installer->localConfigParameters();

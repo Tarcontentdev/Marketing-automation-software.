@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Controller;
+namespace MailVotech\CampaignBundle\Tests\Functional\Controller;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class CampaignAuditLogTest extends MauticMysqlTestCase
+final class CampaignAuditLogTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 
@@ -110,12 +110,12 @@ final class CampaignAuditLogTest extends MauticMysqlTestCase
         $this->assertInstanceOf(TranslatorInterface::class, $translator);
 
         $this->assertStringContainsString(
-            $translator->trans('mautic.campaign.changelog.event_updated'),
+            $translator->trans('mailvotech.campaign.changelog.event_updated'),
             (string) $this->client->getResponse()->getContent()
         );
 
         $this->assertStringContainsString(
-            $translator->trans('mautic.campaign.changelog.event_updated_details', ['%event_id%' => $eventId]),
+            $translator->trans('mailvotech.campaign.changelog.event_updated_details', ['%event_id%' => $eventId]),
             (string) $this->client->getResponse()->getContent()
         );
     }

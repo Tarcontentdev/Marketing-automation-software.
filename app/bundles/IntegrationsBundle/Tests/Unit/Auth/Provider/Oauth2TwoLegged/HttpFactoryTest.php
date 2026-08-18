@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Auth\Provider\Oauth2TwoLegged;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Auth\Provider\Oauth2TwoLegged;
 
 use GuzzleHttp\ClientInterface;
 use kamermans\OAuth2\GrantType\ClientCredentials;
@@ -11,18 +11,18 @@ use kamermans\OAuth2\OAuth2Middleware;
 use kamermans\OAuth2\Persistence\TokenPersistenceInterface as KamermansTokenPersistenceInterface;
 use kamermans\OAuth2\Signer\AccessToken\SignerInterface as AccessTokenSigner;
 use kamermans\OAuth2\Signer\ClientCredentials\SignerInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\Credentials\CredentialsInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\Credentials\ClientCredentialsGrantInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\Credentials\PasswordCredentialsGrantInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\Credentials\ScopeInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\Credentials\StateInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
-use Mautic\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigCredentialsSignerInterface;
-use Mautic\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigTokenPersistenceInterface;
-use Mautic\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigTokenSignerInterface;
-use Mautic\IntegrationsBundle\Exception\InvalidCredentialsException;
-use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\Credentials\CredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\Credentials\ClientCredentialsGrantInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\Credentials\PasswordCredentialsGrantInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\Credentials\ScopeInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\Credentials\StateInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\Oauth2TwoLegged\HttpFactory;
+use MailVotech\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigCredentialsSignerInterface;
+use MailVotech\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigTokenPersistenceInterface;
+use MailVotech\IntegrationsBundle\Auth\Support\Oauth2\ConfigAccess\ConfigTokenSignerInterface;
+use MailVotech\IntegrationsBundle\Exception\InvalidCredentialsException;
+use MailVotech\IntegrationsBundle\Exception\PluginNotConfiguredException;
 use PHPUnit\Framework\TestCase;
 
 final class HttpFactoryTest extends TestCase
@@ -330,7 +330,7 @@ final class HttpFactoryTest extends TestCase
             ->method('getCredentialsSigner')
             ->willReturn($signerInterface);
 
-        $client              = (new \Mautic\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\HttpFactory())->getClient($credentials, $clientCredentialSigner);
+        $client              = (new \MailVotech\IntegrationsBundle\Auth\Provider\Oauth2ThreeLegged\HttpFactory())->getClient($credentials, $clientCredentialSigner);
         $middleware          = $this->extractMiddleware($client);
         $reflectedMiddleware = new \ReflectionClass($middleware);
         $this->assertSame($signerInterface, $this->getProperty($reflectedMiddleware, $middleware, 'clientCredentialsSigner'));

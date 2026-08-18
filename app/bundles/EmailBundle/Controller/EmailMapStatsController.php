@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Controller;
+namespace MailVotech\EmailBundle\Controller;
 
 use Doctrine\DBAL\Exception;
-use Mautic\CoreBundle\Helper\MapHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Model\EmailModel;
+use MailVotech\CoreBundle\Helper\MapHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Model\EmailModel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -17,11 +17,11 @@ final class EmailMapStatsController extends AbstractController
 {
     public const MAP_OPTIONS = [
         'read_count' => [
-            'label' => 'mautic.email.stat.read',
+            'label' => 'mailvotech.email.stat.read',
             'unit'  => 'Read',
         ],
         'clicked_through_count'=> [
-            'label' => 'mautic.email.clicked',
+            'label' => 'mailvotech.email.clicked',
             'unit'  => 'Click',
         ],
     ];
@@ -46,7 +46,7 @@ final class EmailMapStatsController extends AbstractController
         // get translation parent
         $translationParent = $entity->getTranslationParent();
 
-        $includeVariants = (($entity->isVariant() && !$parent instanceof \Mautic\CoreBundle\Entity\VariantEntityInterface) || ($entity->isTranslation() && !$translationParent instanceof \Mautic\CoreBundle\Entity\TranslationEntityInterface));
+        $includeVariants = (($entity->isVariant() && !$parent instanceof \MailVotech\CoreBundle\Entity\VariantEntityInterface) || ($entity->isTranslation() && !$translationParent instanceof \MailVotech\CoreBundle\Entity\TranslationEntityInterface));
 
         return $this->model->getCountryStats(
             $entity,
@@ -75,7 +75,7 @@ final class EmailMapStatsController extends AbstractController
 
     public function getMapOptionsTitle(): string
     {
-        return 'mautic.email.stats.options.title';
+        return 'mailvotech.email.stats.options.title';
     }
 
     /**
@@ -97,7 +97,7 @@ final class EmailMapStatsController extends AbstractController
         $mapData        = MapHelper::buildMapData($statsCountries, $this->getMapOptions(), self::LEGEND_TEXT);
 
         return $this->render(
-            '@MauticCore/Helper/map.html.twig',
+            '@MailVotechCore/Helper/map.html.twig',
             [
                 'data'           => $mapData[0]['data'],
                 'height'         => 315,

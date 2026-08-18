@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Session\Storage\Handler;
+namespace MailVotech\CoreBundle\Session\Storage\Handler;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PRedisConnectionHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PRedisConnectionHelper;
 use Predis\Client;
 use Predis\Response\ErrorInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler;
 
 /**
- * @deprecated since Mautic 5.0, to be removed in 6.0 with no replacement.
+ * @deprecated since MailVotech 5.0, to be removed in 6.0 with no replacement.
  */
 final class RedisSentinelSessionHandler extends AbstractSessionHandler
 {

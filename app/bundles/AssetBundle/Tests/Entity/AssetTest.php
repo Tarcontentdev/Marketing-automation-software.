@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\Entity;
+namespace MailVotech\AssetBundle\Tests\Entity;
 
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\CoreBundle\Test\ReflectionHelper;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\CoreBundle\Test\ReflectionHelper;
 use PHPUnit\Framework\TestCase;
 
 final class AssetTest extends TestCase

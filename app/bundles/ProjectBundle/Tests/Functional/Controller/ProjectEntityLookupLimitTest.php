@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Tests\Functional\Controller;
+namespace MailVotech\ProjectBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Model\EmailModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Model\EmailModel;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ProjectEntityLookupLimitTest extends MauticMysqlTestCase
+final class ProjectEntityLookupLimitTest extends MailVotechMysqlTestCase
 {
     private const LOOKUP_CHOICE_LIST_URL = '/s/ajax?action=project:getLookupChoiceList';
 

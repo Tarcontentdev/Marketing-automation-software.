@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Mailer\Exception;
+namespace MailVotech\EmailBundle\Mailer\Exception;
 
 final class BatchQueueMaxException extends \Exception
 {

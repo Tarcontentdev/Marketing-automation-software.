@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Field;
+namespace MailVotech\LeadBundle\Tests\Field;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Event\LeadFieldEvent;
-use Mautic\LeadBundle\Field\Dispatcher\FieldSaveDispatcher;
-use Mautic\LeadBundle\Field\LeadFieldSaver;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Event\LeadFieldEvent;
+use MailVotech\LeadBundle\Field\Dispatcher\FieldSaveDispatcher;
+use MailVotech\LeadBundle\Field\LeadFieldSaver;
 
 final class LeadFieldSaverTest extends \PHPUnit\Framework\TestCase
 {

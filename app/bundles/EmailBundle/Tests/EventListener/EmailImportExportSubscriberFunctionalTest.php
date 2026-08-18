@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Event\EntityExportEvent;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\CoreBundle\Event\EntityExportEvent;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class EmailImportExportSubscriberFunctionalTest extends MauticMysqlTestCase
+final class EmailImportExportSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     private EventDispatcherInterface $dispatcher;
 
@@ -139,7 +139,7 @@ final class EmailImportExportSubscriberFunctionalTest extends MauticMysqlTestCas
 
         // Force variant_settings to null in database to simulate legacy data
         $this->connection->executeStatement(
-            'UPDATE '.MAUTIC_TABLE_PREFIX.'emails SET variant_settings = NULL WHERE id = ?',
+            'UPDATE '.MAILVOTECH_TABLE_PREFIX.'emails SET variant_settings = NULL WHERE id = ?',
             [$variantEmail->getId()]
         );
 

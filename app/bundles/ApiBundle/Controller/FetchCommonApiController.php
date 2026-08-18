@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\ApiBundle\Controller;
+namespace MailVotech\ApiBundle\Controller;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -8,28 +8,28 @@ use Doctrine\Persistence\ManagerRegistry;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
 use JMS\Serializer\Exclusion\ExclusionStrategyInterface;
-use Mautic\ApiBundle\ApiEvents;
-use Mautic\ApiBundle\Event\ApiInitializeEvent;
-use Mautic\ApiBundle\Event\ApiSerializationContextEvent;
-use Mautic\ApiBundle\Helper\BatchIdToEntityHelper;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\ApiBundle\Serializer\Exclusion\ParentChildrenExclusionStrategy;
-use Mautic\ApiBundle\Serializer\Exclusion\PublishDetailsExclusionStrategy;
-use Mautic\CoreBundle\Controller\FormErrorMessagesTrait;
-use Mautic\CoreBundle\Controller\MauticController;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Form\RequestTrait;
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\AbstractCommonModel;
-use Mautic\CoreBundle\Model\MauticModelInterface;
-use Mautic\CoreBundle\Security\Exception\PermissionException;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\ApiBundle\ApiEvents;
+use MailVotech\ApiBundle\Event\ApiInitializeEvent;
+use MailVotech\ApiBundle\Event\ApiSerializationContextEvent;
+use MailVotech\ApiBundle\Helper\BatchIdToEntityHelper;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\ApiBundle\Serializer\Exclusion\ParentChildrenExclusionStrategy;
+use MailVotech\ApiBundle\Serializer\Exclusion\PublishDetailsExclusionStrategy;
+use MailVotech\CoreBundle\Controller\FormErrorMessagesTrait;
+use MailVotech\CoreBundle\Controller\MailVotechController;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Form\RequestTrait;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\AbstractCommonModel;
+use MailVotech\CoreBundle\Model\MailVotechModelInterface;
+use MailVotech\CoreBundle\Security\Exception\PermissionException;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,7 +39,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @template E of object
  */
-class FetchCommonApiController extends AbstractFOSRestController implements MauticController
+class FetchCommonApiController extends AbstractFOSRestController implements MailVotechController
 {
     use RequestTrait;
     use FormErrorMessagesTrait;
@@ -366,7 +366,7 @@ class FetchCommonApiController extends AbstractFOSRestController implements Maut
      */
     public function postActionRedirect(array $args = [])
     {
-        return $this->notFound('mautic.contact.error.notfound');
+        return $this->notFound('mailvotech.contact.error.notfound');
     }
 
     /**
@@ -376,7 +376,7 @@ class FetchCommonApiController extends AbstractFOSRestController implements Maut
      *
      * @return Response
      */
-    protected function accessDenied($msg = 'mautic.core.error.accessdenied')
+    protected function accessDenied($msg = 'mailvotech.core.error.accessdenied')
     {
         return $this->returnError($msg, Response::HTTP_FORBIDDEN);
     }
@@ -393,7 +393,7 @@ class FetchCommonApiController extends AbstractFOSRestController implements Maut
      *
      * @return Response
      */
-    protected function badRequest($msg = 'mautic.core.error.badrequest')
+    protected function badRequest($msg = 'mailvotech.core.error.badrequest')
     {
         return $this->returnError($msg, Response::HTTP_BAD_REQUEST);
     }
@@ -433,7 +433,7 @@ class FetchCommonApiController extends AbstractFOSRestController implements Maut
      * @param mixed[]                   $errors
      * @param bool                      $prepareForSerialization
      * @param string                    $requestIdColumn
-     * @param MauticModelInterface|null $model
+     * @param MailVotechModelInterface|null $model
      * @param bool                      $returnWithOriginalKeys
      *
      * @return mixed[]
@@ -552,7 +552,7 @@ class FetchCommonApiController extends AbstractFOSRestController implements Maut
      *
      * @return Response
      */
-    protected function notFound(string $msg = 'mautic.core.error.notfound')
+    protected function notFound(string $msg = 'mailvotech.core.error.notfound')
     {
         return $this->returnError($msg, Response::HTTP_NOT_FOUND);
     }
@@ -729,7 +729,7 @@ class FetchCommonApiController extends AbstractFOSRestController implements Maut
     {
         $batchLimit = (int) $this->coreParametersHelper->get('api_batch_max_limit', 200);
         if (count($parameters) > $batchLimit) {
-            return $this->returnError($this->translator->trans('mautic.api.call.batch_exception', ['%limit%' => $batchLimit]));
+            return $this->returnError($this->translator->trans('mailvotech.api.call.batch_exception', ['%limit%' => $batchLimit]));
         }
 
         return true;
@@ -746,7 +746,7 @@ class FetchCommonApiController extends AbstractFOSRestController implements Maut
             $data = iterator_to_array($data->getIterator(), true);
         }
 
-        $headers['Mautic-Version'] = $this->appVersion->getVersion();
+        $headers['MailVotech-Version'] = $this->appVersion->getVersion();
 
         return parent::view($data, $statusCode, $headers);
     }

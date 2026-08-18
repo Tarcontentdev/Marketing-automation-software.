@@ -3,7 +3,7 @@
         {
             "name": "theme-aurora",
             "directory": "themes/aurora",
-            "target": "git@github.com:mautic/theme-aurora.git"
+            "target": "git@github.com:mailvotech/theme-aurora.git"
         }
     ]
 }

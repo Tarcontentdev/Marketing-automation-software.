@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Form\Type;
+namespace MailVotech\SmsBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,11 +19,11 @@ final class CampaignReplyType extends AbstractType
             'pattern',
             TextType::class,
             [
-                'label'      => 'mautic.sms.reply_pattern',
+                'label'      => 'mailvotech.sms.reply_pattern',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.sms.reply_pattern.tooltip',
+                    'tooltip'  => 'mailvotech.sms.reply_pattern.tooltip',
                 ],
                 'required'    => false,
             ]

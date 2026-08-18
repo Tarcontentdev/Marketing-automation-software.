@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Controller;
+namespace MailVotech\FormBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Model\FormModel;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Tracker\ContactTracker;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Model\FormModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
-final class AutoFillTopLevelFieldVisibilityFunctionalTest extends MauticMysqlTestCase
+final class AutoFillTopLevelFieldVisibilityFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -57,8 +57,8 @@ final class AutoFillTopLevelFieldVisibilityFunctionalTest extends MauticMysqlTes
         try {
             $html = $formModel->generateHtml($form, false);
 
-            $this->assertMatchesRegularExpression('/<input[^>]*(name="mauticform\[firstname\]"[^>]*type="text"|type="text"[^>]*name="mauticform\[firstname\]")[^>]*>/', $html, $html);
-            $this->assertDoesNotMatchRegularExpression('/<input[^>]*(name="mauticform\[firstname\]"[^>]*type="hidden"|type="hidden"[^>]*name="mauticform\[firstname\]")[^>]*>/', $html, $html);
+            $this->assertMatchesRegularExpression('/<input[^>]*(name="mailvotechform\[firstname\]"[^>]*type="text"|type="text"[^>]*name="mailvotechform\[firstname\]")[^>]*>/', $html, $html);
+            $this->assertDoesNotMatchRegularExpression('/<input[^>]*(name="mailvotechform\[firstname\]"[^>]*type="hidden"|type="hidden"[^>]*name="mailvotechform\[firstname\]")[^>]*>/', $html, $html);
         } finally {
             $contactTracker->setSystemContact();
             $contactTracker->setUseSystemContact(false);

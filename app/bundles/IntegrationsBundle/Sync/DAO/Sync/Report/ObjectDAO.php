@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Sync\Report;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report;
 
-use Mautic\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
 
 final class ObjectDAO
 {

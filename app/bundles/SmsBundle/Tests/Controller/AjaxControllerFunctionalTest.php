@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\Controller;
+namespace MailVotech\SmsBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-final class AjaxControllerFunctionalTest extends MauticMysqlTestCase
+final class AjaxControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testGetBuilderTokensAction(): void
     {

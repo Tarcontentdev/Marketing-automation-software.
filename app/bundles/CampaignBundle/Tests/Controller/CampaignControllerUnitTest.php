@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Controller;
+namespace MailVotech\CampaignBundle\Tests\Controller;
 
-use Mautic\CampaignBundle\Controller\CampaignController;
+use MailVotech\CampaignBundle\Controller\CampaignController;
 use PHPUnit\Framework\TestCase;
 
 final class CampaignControllerUnitTest extends TestCase

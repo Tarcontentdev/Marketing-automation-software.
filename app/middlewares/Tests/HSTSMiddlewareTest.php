@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Middleware\Tests;
+namespace MailVotech\Middleware\Tests;
 
-use Mautic\CoreBundle\Test\AbstractMauticTestCase;
-use Mautic\Middleware\HSTSMiddleware;
+use MailVotech\CoreBundle\Test\AbstractMailVotechTestCase;
+use MailVotech\Middleware\HSTSMiddleware;
 use PHPUnit\Framework\ExpectationFailedException as PHPUnitException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class HSTSMiddlewareTest extends AbstractMauticTestCase
+final class HSTSMiddlewareTest extends AbstractMailVotechTestCase
 {
     public const HSTS_KEY = 'strict-transport-security';
 

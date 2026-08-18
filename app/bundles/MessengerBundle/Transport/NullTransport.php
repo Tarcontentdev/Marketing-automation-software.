@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\Transport;
+namespace MailVotech\MessengerBundle\Transport;
 
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Transport\TransportInterface;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Sync\Order;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
 
 final class FieldDAO
 {

@@ -1,9 +1,9 @@
 {
     "subtree-splits": [
         {
-            "name": "MauticFullContactBundle",
-            "directory": "plugins/MauticFullContactBundle",
-            "target": "git@github.com:mautic/plugin-fullcontact.git"
+            "name": "MailVotechFullContactBundle",
+            "directory": "plugins/MailVotechFullContactBundle",
+            "target": "git@github.com:mailvotech/plugin-fullcontact.git"
         }
     ]
 }

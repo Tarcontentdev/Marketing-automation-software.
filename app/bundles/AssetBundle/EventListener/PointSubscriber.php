@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\EventListener;
+namespace MailVotech\AssetBundle\EventListener;
 
-use Mautic\AssetBundle\AssetEvents;
-use Mautic\AssetBundle\Event\AssetLoadEvent;
-use Mautic\AssetBundle\Form\Type\PointActionAssetDownloadType;
-use Mautic\AssetBundle\Helper\PointActionHelper;
-use Mautic\PointBundle\Event\PointBuilderEvent;
-use Mautic\PointBundle\Model\PointModel;
-use Mautic\PointBundle\PointEvents;
+use MailVotech\AssetBundle\AssetEvents;
+use MailVotech\AssetBundle\Event\AssetLoadEvent;
+use MailVotech\AssetBundle\Form\Type\PointActionAssetDownloadType;
+use MailVotech\AssetBundle\Helper\PointActionHelper;
+use MailVotech\PointBundle\Event\PointBuilderEvent;
+use MailVotech\PointBundle\Model\PointModel;
+use MailVotech\PointBundle\PointEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class PointSubscriber implements EventSubscriberInterface
@@ -31,9 +31,9 @@ final readonly class PointSubscriber implements EventSubscriberInterface
     public function onPointBuild(PointBuilderEvent $event): void
     {
         $action = [
-            'group'       => 'mautic.asset.actions',
-            'label'       => 'mautic.asset.point.action.download',
-            'description' => 'mautic.asset.point.action.download_descr',
+            'group'       => 'mailvotech.asset.actions',
+            'label'       => 'mailvotech.asset.point.action.download',
+            'description' => 'mailvotech.asset.point.action.download_descr',
             'callback'    => [PointActionHelper::class, 'validateAssetDownload'],
             'formType'    => PointActionAssetDownloadType::class,
         ];

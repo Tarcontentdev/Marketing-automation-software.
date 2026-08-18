@@ -11,17 +11,17 @@
 {% endfor %}
 {% if objects|length > 0 %}
     {% if 'create' == event.eventType %}
-        {{ include('@MauticLead/Auditlog/_table.html.twig', { 'objects': objects }) }}
+        {{ include('@MailVotechLead/Auditlog/_table.html.twig', { 'objects': objects }) }}
     {% elseif 'delete' == event.eventType %}
-        {{ 'mautic.lead.audit.deleted'|trans }}
-        {{ include('@MauticLead/Auditlog/_single_value_table.html.twig', { 'objects': objects }) }}
+        {{ 'mailvotech.lead.audit.deleted'|trans }}
+        {{ include('@MailVotechLead/Auditlog/_single_value_table.html.twig', { 'objects': objects }) }}
     {% elseif 'update' == event.eventType %}
-        {{ include('@MauticLead/Auditlog/_table.html.twig', { 'objects': objects }) }}
+        {{ include('@MailVotechLead/Auditlog/_table.html.twig', { 'objects': objects }) }}
     {% elseif 'identified' == event.eventType %}
-        {{ 'mautic.lead.audit.identified'|trans }}
+        {{ 'mailvotech.lead.audit.identified'|trans }}
     {% elseif 'ipadded' == event.eventType %}
-        {{ 'mautic.lead.audit.accessed'|trans }} {{ event.details|first|join(',') }}
+        {{ 'mailvotech.lead.audit.accessed'|trans }} {{ event.details|first|join(',') }}
     {% elseif 'merged' == event.eventType %}
-        {{ 'mautic.lead.audit.merged'|trans }}
+        {{ 'mailvotech.lead.audit.merged'|trans }}
     {% endif %}
 {% endif %}

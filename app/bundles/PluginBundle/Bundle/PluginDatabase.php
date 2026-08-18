@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Bundle;
+namespace MailVotech\PluginBundle\Bundle;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Tools\SchemaTool;
-use Mautic\IntegrationsBundle\Migration\Engine;
-use Mautic\PluginBundle\Entity\Plugin;
+use MailVotech\IntegrationsBundle\Migration\Engine;
+use MailVotech\PluginBundle\Entity\Plugin;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 final readonly class PluginDatabase
 {
-    private string $mauticDbPrefix;
+    private string $mailvotechDbPrefix;
 
     public function __construct(
         private EntityManagerInterface $em,
         private Connection $connection,
-        #[Autowire(env: 'MAUTIC_TABLE_PREFIX')]
-        ?string $mauticDbPrefix,
+        #[Autowire(env: 'MAILVOTECH_TABLE_PREFIX')]
+        ?string $mailvotechDbPrefix,
     ) {
-        $this->mauticDbPrefix = $mauticDbPrefix ?? '';
+        $this->mailvotechDbPrefix = $mailvotechDbPrefix ?? '';
     }
 
     /**
@@ -71,7 +71,7 @@ final readonly class PluginDatabase
     {
         $migrationEngine = new Engine(
             $this->em,
-            $this->mauticDbPrefix,
+            $this->mailvotechDbPrefix,
             __DIR__.'/../../../../plugins/'.$plugin->getBundle(),
             $plugin->getBundle()
         );

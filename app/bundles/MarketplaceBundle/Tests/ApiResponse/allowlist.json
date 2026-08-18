@@ -1,15 +1,15 @@
 {
     "allowlist": [
         {
-            "package": "koco\/mautic-recaptcha-bundle",
+            "package": "koco\/mailvotech-recaptcha-bundle",
             "display_name": "KocoCaptcha",
-            "minimum_mautic_version": "4.1.0",
-            "maximum_mautic_version": null
+            "minimum_mailvotech_version": "4.1.0",
+            "maximum_mailvotech_version": null
         },
         {
-            "package": "maatoo\/mautic-referrals-bundle",
-            "minimum_mautic_version": "4.1.0",
-            "maximum_mautic_version": null
+            "package": "maatoo\/mailvotech-referrals-bundle",
+            "minimum_mailvotech_version": "4.1.0",
+            "maximum_mailvotech_version": null
         }
     ]
 }

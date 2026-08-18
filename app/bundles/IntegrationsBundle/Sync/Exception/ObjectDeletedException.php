@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Exception;
+namespace MailVotech\IntegrationsBundle\Sync\Exception;
 
 final class ObjectDeletedException extends \Exception
 {

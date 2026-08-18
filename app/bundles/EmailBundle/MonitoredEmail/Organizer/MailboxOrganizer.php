@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail\Organizer;
+namespace MailVotech\EmailBundle\MonitoredEmail\Organizer;
 
-use Mautic\EmailBundle\Event\ParseEmailEvent;
-use Mautic\EmailBundle\MonitoredEmail\Accessor\ConfigAccessor;
-use Mautic\EmailBundle\MonitoredEmail\Mailbox;
+use MailVotech\EmailBundle\Event\ParseEmailEvent;
+use MailVotech\EmailBundle\MonitoredEmail\Accessor\ConfigAccessor;
+use MailVotech\EmailBundle\MonitoredEmail\Mailbox;
 
 final class MailboxOrganizer
 {

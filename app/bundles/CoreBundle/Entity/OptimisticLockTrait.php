@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Entity;
+namespace MailVotech\CoreBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
 
 /**
  * This trait provides default implementation of OptimisticLockInterface.

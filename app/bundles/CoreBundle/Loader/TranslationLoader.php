@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Loader;
+namespace MailVotech\CoreBundle\Loader;
 
-use Mautic\CoreBundle\Helper\BundleHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\BundleHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Translation\Loader\ArrayLoader;
@@ -20,7 +20,7 @@ final class TranslationLoader extends ArrayLoader implements LoaderInterface
 
     public function load(mixed $resource, string $locale, string $domain = 'messages'): MessageCatalogue
     {
-        $bundles   = $this->bundleHelper->getMauticBundles(true);
+        $bundles   = $this->bundleHelper->getMailVotechBundles(true);
         $catalogue = new MessageCatalogue($locale);
 
         // Bundle translations
@@ -84,7 +84,7 @@ final class TranslationLoader extends ArrayLoader implements LoaderInterface
         $messages = parse_ini_string($content, true);
         if (false === $messages) {
             // The translation file is corrupt
-            if ('dev' === MAUTIC_ENV) {
+            if ('dev' === MAILVOTECH_ENV) {
                 throw new \Exception($iniFile.' is corrupted');
             }
 

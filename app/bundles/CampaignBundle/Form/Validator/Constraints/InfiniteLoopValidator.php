@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Form\Validator\Constraints;
+namespace MailVotech\CampaignBundle\Form\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -32,13 +32,13 @@ final class InfiniteLoopValidator extends ConstraintValidator
         }
 
         if ('immediate' === $triggerMode) {
-            $context->buildViolation('mautic.campaign.infiniteloop.immediate')->addViolation();
+            $context->buildViolation('mailvotech.campaign.infiniteloop.immediate')->addViolation();
 
             return;
         }
 
         if ('interval' === $triggerMode && 'i' === $triggerIntervalUnit && $triggerInterval < 30) {
-            $context->buildViolation('mautic.campaign.infiniteloop.interval')
+            $context->buildViolation('mailvotech.campaign.infiniteloop.interval')
                 ->setParameter('%count%', (string) $triggerInterval)
                 ->addViolation();
         }

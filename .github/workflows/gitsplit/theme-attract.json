@@ -3,7 +3,7 @@
         {
             "name": "theme-attract",
             "directory": "themes/attract",
-            "target": "git@github.com:mautic/theme-attract.git"
+            "target": "git@github.com:mailvotech/theme-attract.git"
         }
     ]
 }

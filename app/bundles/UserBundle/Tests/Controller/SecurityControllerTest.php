@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Controller;
+namespace MailVotech\UserBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class SecurityControllerTest extends MauticMysqlTestCase
+final class SecurityControllerTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -28,7 +28,7 @@ final class SecurityControllerTest extends MauticMysqlTestCase
 
         $this->assertResponseIsSuccessful();
 
-        $validationError = self::getContainer()->get(TranslatorInterface::class)->trans('mautic.user.security.saml.clearsession', [], 'flashes');
+        $validationError = self::getContainer()->get(TranslatorInterface::class)->trans('mailvotech.user.security.saml.clearsession', [], 'flashes');
         $this->assertStringContainsString($validationError, (string) $clientResponse->getContent());
     }
 
@@ -39,10 +39,10 @@ final class SecurityControllerTest extends MauticMysqlTestCase
         $clientResponse = $this->client->getResponse();
         $this->assertResponseIsSuccessful();
 
-        $validationError = self::getContainer()->get(TranslatorInterface::class)->trans('mautic.user.security.saml.clearsession', [], 'flashes');
+        $validationError = self::getContainer()->get(TranslatorInterface::class)->trans('mailvotech.user.security.saml.clearsession', [], 'flashes');
         $this->assertStringNotContainsString($validationError, (string) $clientResponse->getContent());
 
-        $loginText = self::getContainer()->get(TranslatorInterface::class)->trans('mautic.user.auth.form.loginbtn', [], 'messages');
+        $loginText = self::getContainer()->get(TranslatorInterface::class)->trans('mailvotech.user.auth.form.loginbtn', [], 'messages');
         $this->assertStringContainsString($loginText, (string) $clientResponse->getContent());
     }
 }

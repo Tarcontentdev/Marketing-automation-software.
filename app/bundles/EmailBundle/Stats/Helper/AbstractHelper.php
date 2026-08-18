@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\EmailBundle\Stats\Helper;
+namespace MailVotech\EmailBundle\Stats\Helper;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\DateRangeUnitTrait;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\EmailBundle\Stats\FetchOptions\EmailStatOptions;
-use Mautic\StatsBundle\Aggregate\Collection\StatCollection;
-use Mautic\StatsBundle\Aggregate\Collector;
+use MailVotech\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\DateRangeUnitTrait;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\EmailBundle\Stats\FetchOptions\EmailStatOptions;
+use MailVotech\StatsBundle\Aggregate\Collection\StatCollection;
+use MailVotech\StatsBundle\Aggregate\Collector;
 
 abstract class AbstractHelper implements StatHelperInterface
 {
@@ -73,7 +73,7 @@ abstract class AbstractHelper implements StatHelperInterface
      */
     protected function limitQueryToCreator(QueryBuilder $q, $emailIdColumn = 't.email_id')
     {
-        $q->join('t', MAUTIC_TABLE_PREFIX.'emails', 'e', 'e.id = '.$emailIdColumn)
+        $q->join('t', MAILVOTECH_TABLE_PREFIX.'emails', 'e', 'e.id = '.$emailIdColumn)
             ->andWhere('e.created_by = :userId')
             ->setParameter('userId', $this->userHelper->getUser()->getId());
     }

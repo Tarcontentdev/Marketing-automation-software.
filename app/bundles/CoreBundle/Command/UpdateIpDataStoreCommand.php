@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
-use Mautic\CoreBundle\IpLookup\AbstractLocalDataLookup;
-use Mautic\CoreBundle\IpLookup\AbstractLookup;
+use MailVotech\CoreBundle\IpLookup\AbstractLocalDataLookup;
+use MailVotech\CoreBundle\IpLookup\AbstractLookup;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,7 +16,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * CLI Command to fetch updated Maxmind database.
  */
 #[AsCommand(
-    name: 'mautic:iplookup:download',
+    name: 'mailvotech:iplookup:download',
     description: 'Fetch remote datastores for IP lookup services that leverage local lookups',
     help: <<<'TXT'
                 The <info>%command.name%</info> command is used to update local IP lookup data if applicable.
@@ -37,14 +37,14 @@ final class UpdateIpDataStoreCommand extends Command
     {
         if ($this->ipService instanceof AbstractLocalDataLookup) {
             if ($this->ipService->downloadRemoteDataStore()) {
-                $output->writeln('<info>'.$this->translator->trans('mautic.core.success').'</info>');
+                $output->writeln('<info>'.$this->translator->trans('mailvotech.core.success').'</info>');
             } else {
                 $remoteUrl = $this->ipService->getRemoteDateStoreDownloadUrl();
                 $localPath = $this->ipService->getLocalDataStoreFilepath();
 
                 if ($remoteUrl && $localPath) {
                     $output->writeln('<error>'.$this->translator->trans(
-                        'mautic.core.ip_lookup.remote_fetch_error',
+                        'mailvotech.core.ip_lookup.remote_fetch_error',
                         [
                             '%remoteUrl%' => AbstractLocalDataLookup::cleanUrl($remoteUrl),
                             '%localPath%' => $localPath,
@@ -52,7 +52,7 @@ final class UpdateIpDataStoreCommand extends Command
                     ).'</error>');
                 } else {
                     $output->writeln('<error>'.$this->translator->trans(
-                        'mautic.core.ip_lookup.remote_fetch_error_generic'
+                        'mailvotech.core.ip_lookup.remote_fetch_error_generic'
                     ).'</error>');
                 }
             }

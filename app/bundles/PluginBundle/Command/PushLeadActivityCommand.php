@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\PluginBundle\Command;
+namespace MailVotech\PluginBundle\Command;
 
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,10 +11,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
-    name: 'mautic:integration:pushleadactivity',
+    name: 'mailvotech:integration:pushleadactivity',
     description: 'Push lead activity to integration.',
     aliases: [
-        'mautic:integration:pushactivity',
+        'mailvotech:integration:pushactivity',
     ]
 )]
 final class PushLeadActivityCommand extends Command
@@ -75,14 +75,14 @@ final class PushLeadActivityCommand extends Command
             $integrationObject = $this->integrationHelper->getIntegrationObject($integration);
 
             if (null !== $integrationObject && method_exists($integrationObject, 'pushLeadActivity')) {
-                $output->writeln('<info>'.$this->translator->trans('mautic.plugin.command.push.leads.activity', ['%integration%' => $integration]).'</info>');
+                $output->writeln('<info>'.$this->translator->trans('mailvotech.plugin.command.push.leads.activity', ['%integration%' => $integration]).'</info>');
 
                 $params['start'] = $startDate;
                 $params['end']   = $endDate;
 
                 $processed = intval($integrationObject->pushLeadActivity($params));
 
-                $output->writeln('<comment>'.$this->translator->trans('mautic.plugin.command.push.leads.events_executed', ['%events%' => $processed]).'</comment>'."\n");
+                $output->writeln('<comment>'.$this->translator->trans('mailvotech.plugin.command.push.leads.events_executed', ['%events%' => $processed]).'</comment>'."\n");
             }
         }
 

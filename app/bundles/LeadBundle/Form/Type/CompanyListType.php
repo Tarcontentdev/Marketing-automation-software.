@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\EntityLookupType;
-use Mautic\LeadBundle\Entity\CompanyRepository;
+use MailVotech\CoreBundle\Form\Type\EntityLookupType;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 use Symfony\Component\Form\FormInterface;
@@ -27,10 +27,10 @@ final class CompanyListType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'label'               => 'mautic.lead.lead.companies',
+                'label'               => 'mailvotech.lead.lead.companies',
                 'entity_label_column' => 'companyname',
-                'modal_route'         => 'mautic_company_action',
-                'modal_header'        => 'mautic.company.new.company',
+                'modal_route'         => 'mailvotech_company_action',
+                'modal_header'        => 'mailvotech.company.new.company',
                 'model'               => 'lead.company',
                 'ajax_lookup_action'  => 'lead:getLookupChoiceList',
                 'model_lookup_method' => 'getLookupResults',

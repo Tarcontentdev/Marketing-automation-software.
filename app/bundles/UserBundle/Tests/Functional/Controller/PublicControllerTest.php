@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Functional\Controller;
+namespace MailVotech\UserBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserInvite;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserInvite;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PublicControllerTest extends MauticMysqlTestCase
+final class PublicControllerTest extends MailVotechMysqlTestCase
 {
     private const PASSWORD_RESET_URI = '/passwordreset';
 
@@ -27,14 +27,14 @@ final class PublicControllerTest extends MauticMysqlTestCase
      */
     public function testXssFilterOnPasswordReset(): void
     {
-        $this->client->request(Request::METHOD_GET, self::PASSWORD_RESET_URI.'?bundle=%27-alert("XSS%20TEST%20Mautic")-%27');
+        $this->client->request(Request::METHOD_GET, self::PASSWORD_RESET_URI.'?bundle=%27-alert("XSS%20TEST%20MailVotech")-%27');
         $clientResponse = $this->client->getResponse();
         $this->assertResponseIsSuccessful();
         $responseData = $clientResponse->getContent();
         // Tests that actual string is not present.
-        $this->assertStringNotContainsString('-alert("xss test mautic")-', (string) $responseData, 'XSS injection attempt is filtered.');
+        $this->assertStringNotContainsString('-alert("xss test mailvotech")-', (string) $responseData, 'XSS injection attempt is filtered.');
         // Tests that sanitized string is passed.
-        $this->assertStringContainsString('alertxsstestmautic', (string) $responseData, 'XSS sanitized string is present.');
+        $this->assertStringContainsString('alertxsstestmailvotech', (string) $responseData, 'XSS sanitized string is present.');
     }
 
     public function testPasswordResetPage(): void

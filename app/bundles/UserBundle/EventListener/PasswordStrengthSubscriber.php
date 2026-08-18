@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\EventListener;
+namespace MailVotech\UserBundle\EventListener;
 
-use Mautic\UserBundle\Security\Authenticator\Passport\Badge\PasswordStrengthBadge;
+use MailVotech\UserBundle\Security\Authenticator\Passport\Badge\PasswordStrengthBadge;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Event\CheckPassportEvent;

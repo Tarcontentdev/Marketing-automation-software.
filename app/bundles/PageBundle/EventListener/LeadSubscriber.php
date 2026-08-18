@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\PageBundle\EventListener;
+namespace MailVotech\PageBundle\EventListener;
 
-use Mautic\CoreBundle\EventListener\ChannelTrait;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\LeadBundle\Event\LeadChangeEvent;
-use Mautic\LeadBundle\Event\LeadMergeEvent;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\ChannelTimelineInterface;
-use Mautic\PageBundle\Model\PageModel;
-use Mautic\PageBundle\Model\VideoModel;
+use MailVotech\CoreBundle\EventListener\ChannelTrait;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\LeadBundle\Event\LeadChangeEvent;
+use MailVotech\LeadBundle\Event\LeadMergeEvent;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\ChannelTimelineInterface;
+use MailVotech\PageBundle\Model\PageModel;
+use MailVotech\PageBundle\Model\VideoModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -51,7 +51,7 @@ final class LeadSubscriber implements EventSubscriberInterface
     {
         // Set available event types
         $eventTypeKey  = 'page.hit';
-        $eventTypeName = $this->translator->trans('mautic.page.event.hit');
+        $eventTypeName = $this->translator->trans('mailvotech.page.event.hit');
         $event->addEventType($eventTypeKey, $eventTypeName);
         $event->addSerializerGroup(['pageList', 'hitDetails']);
 
@@ -70,7 +70,7 @@ final class LeadSubscriber implements EventSubscriberInterface
         if (!$event->isEngagementCount()) {
             // Add the hits to the event array
             foreach ($hits['results'] as $hit) {
-                $template = '@MauticPage/SubscribedEvents/Timeline/index.html.twig';
+                $template = '@MailVotechPage/SubscribedEvents/Timeline/index.html.twig';
                 $icon     = 'ri-link';
 
                 if (!empty($hit['source'])) {
@@ -102,7 +102,7 @@ final class LeadSubscriber implements EventSubscriberInterface
                     $page       = $this->pageModel->getEntity($hit['page_id']);
                     $eventLabel = [
                         'label' => $page->getTitle(),
-                        'href'  => $this->router->generate('mautic_page_action', ['objectAction' => 'view', 'objectId' => $hit['page_id']]),
+                        'href'  => $this->router->generate('mailvotech_page_action', ['objectAction' => 'view', 'objectId' => $hit['page_id']]),
                     ];
                 } else {
                     $eventLabel = [
@@ -141,7 +141,7 @@ final class LeadSubscriber implements EventSubscriberInterface
     {
         // Set available event types
         $eventTypeKey  = 'page.videohit';
-        $eventTypeName = $this->translator->trans('mautic.page.event.videohit');
+        $eventTypeName = $this->translator->trans('mailvotech.page.event.videohit');
         $event->addEventType($eventTypeKey, $eventTypeName);
         $event->addSerializerGroup(['pageList', 'hitDetails']);
 
@@ -159,7 +159,7 @@ final class LeadSubscriber implements EventSubscriberInterface
         if (!$event->isEngagementCount()) {
             // Add the hits to the event array
             foreach ($hits['results'] as $hit) {
-                $template   = '@MauticPage/SubscribedEvents/Timeline/videohit.html.twig';
+                $template   = '@MailVotechPage/SubscribedEvents/Timeline/videohit.html.twig';
                 $eventLabel = $eventTypeName;
 
                 $event->addEvent(

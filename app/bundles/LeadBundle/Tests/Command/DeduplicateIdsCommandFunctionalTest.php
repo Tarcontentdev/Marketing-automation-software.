@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Command;
+namespace MailVotech\LeadBundle\Tests\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Command\DeduplicateIdsCommand;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Command\DeduplicateIdsCommand;
+use MailVotech\LeadBundle\Entity\Lead;
 
-final class DeduplicateIdsCommandFunctionalTest extends MauticMysqlTestCase
+final class DeduplicateIdsCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testDeduplicateCommandWithContactIdsParam(): void
     {

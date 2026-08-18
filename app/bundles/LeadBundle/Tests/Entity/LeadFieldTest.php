@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadField;
 
 final class LeadFieldTest extends \PHPUnit\Framework\TestCase
 {

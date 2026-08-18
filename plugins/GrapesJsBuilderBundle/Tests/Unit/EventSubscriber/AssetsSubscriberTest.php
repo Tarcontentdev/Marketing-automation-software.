@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Tests\Unit\EventSubscriber;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Tests\Unit\EventSubscriber;
 
-use Mautic\CoreBundle\Event\CustomAssetsEvent;
-use Mautic\InstallBundle\Install\InstallService;
-use MauticPlugin\GrapesJsBuilderBundle\EventSubscriber\AssetsSubscriber;
-use MauticPlugin\GrapesJsBuilderBundle\Integration\Config;
+use MailVotech\CoreBundle\Event\CustomAssetsEvent;
+use MailVotech\InstallBundle\Install\InstallService;
+use MailVotechPlugin\GrapesJsBuilderBundle\EventSubscriber\AssetsSubscriber;
+use MailVotechPlugin\GrapesJsBuilderBundle\Integration\Config;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;

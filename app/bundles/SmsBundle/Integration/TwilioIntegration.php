@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\SmsBundle\Integration;
+namespace MailVotech\SmsBundle\Integration;
 
-use Mautic\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -34,8 +34,8 @@ final class TwilioIntegration extends AbstractIntegration
     public function getRequiredKeyFields(): array
     {
         return [
-            'username' => 'mautic.sms.config.form.sms.username',
-            'password' => 'mautic.sms.config.form.sms.password',
+            'username' => 'mailvotech.sms.config.form.sms.username',
+            'password' => 'mailvotech.sms.config.form.sms.password',
         ];
     }
 
@@ -56,19 +56,19 @@ final class TwilioIntegration extends AbstractIntegration
                 'messaging_service_sid',
                 TextType::class,
                 [
-                    'label'      => 'mautic.sms.config.form.sms.messaging_service_sid',
+                    'label'      => 'mailvotech.sms.config.form.sms.messaging_service_sid',
                     'label_attr' => ['class' => 'control-label'],
                     'required'   => false,
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.sms.config.form.sms.messaging_service_sid.tooltip',
+                        'tooltip' => 'mailvotech.sms.config.form.sms.messaging_service_sid.tooltip',
                     ],
                 ]
             );
             $builder->add('frequency_number', NumberType::class,
                 [
                     'scale'      => 0,
-                    'label'      => 'mautic.sms.list.frequency.number',
+                    'label'      => 'mailvotech.sms.list.frequency.number',
                     'label_attr' => ['class' => 'control-label'],
                     'required'   => false,
                     'attr'       => [
@@ -82,7 +82,7 @@ final class TwilioIntegration extends AbstractIntegration
                         'week'  => 'WEEK',
                         'month' => 'MONTH',
                     ],
-                    'label'             => 'mautic.lead.list.frequency.times',
+                    'label'             => 'mailvotech.lead.list.frequency.times',
                     'label_attr'        => ['class' => 'control-label'],
                     'required'          => false,
                     'multiple'          => false,

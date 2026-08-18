@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -26,12 +26,12 @@ final class CoreParametersHelperTest extends TestCase
     {
         $this->container->method('hasParameter')
             ->willReturnCallback(
-                fn (string $key): bool => 'mautic.cache_path' === $key
+                fn (string $key): bool => 'mailvotech.cache_path' === $key
             );
 
         $this->container->expects($this->once())
             ->method('getParameter')
-            ->with('mautic.cache_path')
+            ->with('mailvotech.cache_path')
             ->willReturn('/path/to/cache');
 
         $all = $this->getHelper()->all();

@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller;
+namespace MailVotech\LeadBundle\Tests\Controller;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\RoleRepository;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
-use MauticPlugin\MauticTagManagerBundle\Entity\Tag;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\RoleRepository;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
+use MailVotechPlugin\MailVotechTagManagerBundle\Entity\Tag;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
-final class AjaxControllerFunctionalTest extends MauticMysqlTestCase
+final class AjaxControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     protected function beforeBeginTransaction(): void
     {
@@ -108,7 +108,7 @@ final class AjaxControllerFunctionalTest extends MauticMysqlTestCase
 
         $hasher = self::getContainer()->get(PasswordHasherFactoryInterface::class)->getPasswordHasher($user);
 
-        $user->setPassword($hasher->hash('mautic'));
+        $user->setPassword($hasher->hash('mailvotech'));
         $userRepository->saveEntity($user);
 
         $this->loginUser($user);
@@ -597,7 +597,7 @@ final class AjaxControllerFunctionalTest extends MauticMysqlTestCase
         $this->logoutUser();
 
         // Check suggestions for a non admin user.
-        $this->client->loginUser($nonAdminUser, 'mautic');
+        $this->client->loginUser($nonAdminUser, 'mailvotech');
         $this->client->setServerParameter('PHP_AUTH_USER', 'non-admin-user');
         // Set the new password, because new authenticator system checks for it.
         $this->client->setServerParameter('PHP_AUTH_PW', $passwordNonAdmin);
@@ -856,7 +856,7 @@ final class AjaxControllerFunctionalTest extends MauticMysqlTestCase
     {
         return $this->connection->createQueryBuilder()
             ->select('cl.lead_id, cl.manually_added, cl.manually_removed')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_leads', 'cl')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_leads', 'cl')
             ->where("cl.campaign_id = {$campaignId}")
             ->executeQuery()
             ->fetchAllAssociative();

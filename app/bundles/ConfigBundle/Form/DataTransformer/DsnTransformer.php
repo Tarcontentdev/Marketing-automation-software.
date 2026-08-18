@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ConfigBundle\Form\DataTransformer;
+namespace MailVotech\ConfigBundle\Form\DataTransformer;
 
-use Mautic\ConfigBundle\Form\Type\EscapeTransformer;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\Dsn\Dsn;
+use MailVotech\ConfigBundle\Form\Type\EscapeTransformer;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\Dsn\Dsn;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Helper;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Helper;
 
-use Mautic\IntegrationsBundle\Exception\InvalidFormOptionException;
-use Mautic\IntegrationsBundle\Helper\FieldMergerHelper;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
-use Mautic\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Exception\InvalidFormOptionException;
+use MailVotech\IntegrationsBundle\Helper\FieldMergerHelper;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
+use MailVotech\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -23,7 +23,7 @@ final class FieldMergerHelperTest extends TestCase
 
         $updatedFieldMappings = [
             'field1' => [
-                'mappedField'   => 'mautic_test_field',
+                'mappedField'   => 'mailvotech_test_field',
                 'syncDirection' => 'bidirectional',
             ],
         ];
@@ -68,8 +68,8 @@ final class FieldMergerHelperTest extends TestCase
 
         $updatedFieldMappings = [
             'field1' => [
-                'mappedField'   => 'mautic_test_field',
-                'syncDirection' => 'mautic',
+                'mappedField'   => 'mailvotech_test_field',
+                'syncDirection' => 'mailvotech',
             ],
         ];
 
@@ -83,7 +83,7 @@ final class FieldMergerHelperTest extends TestCase
             ->method('isToIntegrationSyncEnabled')
             ->willReturn(true);
         $field1->expects($this->once())
-            ->method('isToMauticSyncEnabled')
+            ->method('isToMailVotechSyncEnabled')
             ->willReturn(true);
 
         $fieldMergerHelper->mergeSyncFieldMapping('Lead', $updatedFieldMappings);
@@ -106,7 +106,7 @@ final class FieldMergerHelperTest extends TestCase
 
         $updatedFieldMappings = [
             'field4' => [
-                'mappedField' => 'mautic_test_field',
+                'mappedField' => 'mailvotech_test_field',
             ],
         ];
 
@@ -120,7 +120,7 @@ final class FieldMergerHelperTest extends TestCase
             ->method('isToIntegrationSyncEnabled')
             ->willReturn(false);
         $field4->expects($this->once())
-            ->method('isToMauticSyncEnabled')
+            ->method('isToMailVotechSyncEnabled')
             ->willReturn(true);
 
         $fieldMergerHelper->mergeSyncFieldMapping('Lead', $updatedFieldMappings);
@@ -131,7 +131,7 @@ final class FieldMergerHelperTest extends TestCase
         $this->assertArrayHasKey('field3', $mergedFieldMappings['Lead']);
         $this->assertArrayHasKey('field4', $mergedFieldMappings['Lead']);
         $this->assertEquals($updatedFieldMappings['field4']['mappedField'], $mergedFieldMappings['Lead']['field4']['mappedField']);
-        $this->assertEquals(ObjectMappingDAO::SYNC_TO_MAUTIC, $mergedFieldMappings['Lead']['field4']['syncDirection']);
+        $this->assertEquals(ObjectMappingDAO::SYNC_TO_MAILVOTECH, $mergedFieldMappings['Lead']['field4']['syncDirection']);
         $this->assertArrayHasKey('field5', $mergedFieldMappings['Lead']);
     }
 
@@ -157,7 +157,7 @@ final class FieldMergerHelperTest extends TestCase
             ->method('isToIntegrationSyncEnabled')
             ->willReturn(true);
         $field4->expects($this->once())
-            ->method('isToMauticSyncEnabled')
+            ->method('isToMailVotechSyncEnabled')
             ->willReturn(true);
 
         $fieldMergerHelper->mergeSyncFieldMapping('Lead', $updatedFieldMappings);
@@ -212,13 +212,13 @@ final class FieldMergerHelperTest extends TestCase
             ->method('isToIntegrationSyncEnabled')
             ->willReturn(true);
         $field4->expects($this->once())
-            ->method('isToMauticSyncEnabled')
+            ->method('isToMailVotechSyncEnabled')
             ->willReturn(true);
         $fieldMergerHelper = new FieldMergerHelper($integrationObject, $fields);
 
         $updatedFieldMappings = [
             'field4' => [
-                'mappedField' => 'mautic_test_field',
+                'mappedField' => 'mailvotech_test_field',
             ],
         ];
 
@@ -229,7 +229,7 @@ final class FieldMergerHelperTest extends TestCase
         $this->assertArrayHasKey('field2', $mergedFieldMappings['Lead']);
         $this->assertArrayHasKey('field3', $mergedFieldMappings['Lead']);
         $this->assertArrayHasKey('field4', $mergedFieldMappings['Lead']);
-        $this->assertEquals(ObjectMappingDAO::SYNC_TO_MAUTIC, $mergedFieldMappings['Lead']['field4']['syncDirection']);
+        $this->assertEquals(ObjectMappingDAO::SYNC_TO_MAILVOTECH, $mergedFieldMappings['Lead']['field4']['syncDirection']);
         $this->assertArrayHasKey('field5', $mergedFieldMappings['Lead']);
     }
 
@@ -249,13 +249,13 @@ final class FieldMergerHelperTest extends TestCase
             ->method('isToIntegrationSyncEnabled')
             ->willReturn(true);
         $field1->expects($this->once())
-            ->method('isToMauticSyncEnabled')
+            ->method('isToMailVotechSyncEnabled')
             ->willReturn(true);
         $fieldMergerHelper = new FieldMergerHelper($integrationObject, $fields);
 
         $updatedFieldMappings = [
             'field1' => [
-                'mappedField' => 'mautic_test_field',
+                'mappedField' => 'mailvotech_test_field',
             ],
         ];
 
@@ -286,14 +286,14 @@ final class FieldMergerHelperTest extends TestCase
             ->method('isToIntegrationSyncEnabled')
             ->willReturn(true);
         $field1->expects($this->once())
-            ->method('isToMauticSyncEnabled')
+            ->method('isToMailVotechSyncEnabled')
             ->willReturn(true);
 
         $fieldMergerHelper = new FieldMergerHelper($integrationObject, $fields);
 
         $updatedFieldMappings = [
             'field1' => [
-                'mappedField' => 'mautic_test_field',
+                'mappedField' => 'mailvotech_test_field',
             ],
         ];
 
@@ -308,7 +308,7 @@ final class FieldMergerHelperTest extends TestCase
         $this->assertArrayHasKey('field5', $mergedFieldMappings['Lead']);
     }
 
-    public function testDefaultSyncDirectionSetWithMauticDirectionalSupported(): void
+    public function testDefaultSyncDirectionSetWithMailVotechDirectionalSupported(): void
     {
         $fields = $this->getCurrentFieldMappings();
         unset($fields['Lead']['field1']);
@@ -324,14 +324,14 @@ final class FieldMergerHelperTest extends TestCase
             ->method('isToIntegrationSyncEnabled')
             ->willReturn(false);
         $field1->expects($this->once())
-            ->method('isToMauticSyncEnabled')
+            ->method('isToMailVotechSyncEnabled')
             ->willReturn(true);
 
         $fieldMergerHelper = new FieldMergerHelper($integrationObject, $fields);
 
         $updatedFieldMappings = [
             'field1' => [
-                'mappedField' => 'mautic_test_field',
+                'mappedField' => 'mailvotech_test_field',
             ],
         ];
 
@@ -339,7 +339,7 @@ final class FieldMergerHelperTest extends TestCase
         $mergedFieldMappings = $fieldMergerHelper->getFieldMappings();
 
         $this->assertArrayHasKey('field1', $mergedFieldMappings['Lead']);
-        $this->assertEquals(ObjectMappingDAO::SYNC_TO_MAUTIC, $mergedFieldMappings['Lead']['field1']['syncDirection']);
+        $this->assertEquals(ObjectMappingDAO::SYNC_TO_MAILVOTECH, $mergedFieldMappings['Lead']['field1']['syncDirection']);
         $this->assertArrayHasKey('field2', $mergedFieldMappings['Lead']);
         $this->assertArrayHasKey('field3', $mergedFieldMappings['Lead']);
         $this->assertArrayHasKey('field4', $mergedFieldMappings['Lead']);
@@ -361,14 +361,14 @@ final class FieldMergerHelperTest extends TestCase
             ->method('isToIntegrationSyncEnabled')
             ->willReturn(false);
         $field1->expects($this->once())
-            ->method('isToMauticSyncEnabled')
+            ->method('isToMailVotechSyncEnabled')
             ->willReturn(true);
 
         $fieldMergerHelper = new FieldMergerHelper($integrationObject, $fields);
 
         $updatedFieldMappings = [
             'field1' => [
-                'mappedField' => 'mautic_test_field',
+                'mappedField' => 'mailvotech_test_field',
             ],
         ];
 
@@ -376,7 +376,7 @@ final class FieldMergerHelperTest extends TestCase
         $mergedFieldMappings = $fieldMergerHelper->getFieldMappings();
 
         $this->assertArrayHasKey('field1', $mergedFieldMappings['Lead']);
-        $this->assertEquals(ObjectMappingDAO::SYNC_TO_MAUTIC, $mergedFieldMappings['Lead']['field1']['syncDirection']);
+        $this->assertEquals(ObjectMappingDAO::SYNC_TO_MAILVOTECH, $mergedFieldMappings['Lead']['field1']['syncDirection']);
         $this->assertArrayHasKey('field2', $mergedFieldMappings['Lead']);
         $this->assertArrayHasKey('field3', $mergedFieldMappings['Lead']);
         $this->assertArrayHasKey('field4', $mergedFieldMappings['Lead']);
@@ -401,13 +401,13 @@ final class FieldMergerHelperTest extends TestCase
             ->method('isToIntegrationSyncEnabled')
             ->willReturn(false);
         $field1->expects($this->once())
-            ->method('isToMauticSyncEnabled')
+            ->method('isToMailVotechSyncEnabled')
             ->willReturn(false);
         $fieldMergerHelper = new FieldMergerHelper($integrationObject, $fields);
 
         $updatedFieldMappings = [
             'field1' => [
-                'mappedField' => 'mautic_test_field',
+                'mappedField' => 'mailvotech_test_field',
             ],
         ];
 
@@ -459,23 +459,23 @@ final class FieldMergerHelperTest extends TestCase
         return [
             'Lead' => [
                 'field1' => [
-                    'mappedField'   => 'mautic_field1',
+                    'mappedField'   => 'mailvotech_field1',
                     'syncDirection' => ObjectMappingDAO::SYNC_BIDIRECTIONALLY,
                 ],
                 'field2' => [
-                    'mappedField'   => 'mautic_field2',
+                    'mappedField'   => 'mailvotech_field2',
                     'syncDirection' => ObjectMappingDAO::SYNC_BIDIRECTIONALLY,
                 ],
                 'field3' => [
-                    'mappedField'   => 'mautic_field3',
+                    'mappedField'   => 'mailvotech_field3',
                     'syncDirection' => ObjectMappingDAO::SYNC_BIDIRECTIONALLY,
                 ],
                 'field4' => [
-                    'mappedField'   => 'mautic_field4',
-                    'syncDirection' => ObjectMappingDAO::SYNC_TO_MAUTIC,
+                    'mappedField'   => 'mailvotech_field4',
+                    'syncDirection' => ObjectMappingDAO::SYNC_TO_MAILVOTECH,
                 ],
                 'field5' => [
-                    'mappedField'   => 'mautic_field5',
+                    'mappedField'   => 'mailvotech_field5',
                     'syncDirection' => ObjectMappingDAO::SYNC_TO_INTEGRATION,
                 ],
             ],

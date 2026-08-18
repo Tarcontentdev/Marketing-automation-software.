@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Doctrine\Mapping;
+namespace MailVotech\CoreBundle\Tests\Unit\Doctrine\Mapping;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class ClassMetadataBuilderTest extends \PHPUnit\Framework\TestCase

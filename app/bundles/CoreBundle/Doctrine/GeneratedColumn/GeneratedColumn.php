@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine\GeneratedColumn;
+namespace MailVotech\CoreBundle\Doctrine\GeneratedColumn;
 
 final class GeneratedColumn implements GeneratedColumnInterface
 {
@@ -27,7 +27,7 @@ final class GeneratedColumn implements GeneratedColumnInterface
         private readonly string $as,
     ) {
         $this->indexColumns[] = $columnName;
-        $this->tablePrefix    = (string) MAUTIC_TABLE_PREFIX;
+        $this->tablePrefix    = (string) MAILVOTECH_TABLE_PREFIX;
         $this->columnName     = $columnName;
     }
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PageHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PageHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -22,7 +22,7 @@ final class PageHelperTest extends \PHPUnit\Framework\TestCase
         parent::setUp();
         $this->session              = $this->createMock(SessionInterface::class);
         $requestStack               = $this->createMock(RequestStack::class);
-        $this->pageHelper           = new PageHelper($requestStack, $this->createStub(CoreParametersHelper::class), 'mautic.test', 0);
+        $this->pageHelper           = new PageHelper($requestStack, $this->createStub(CoreParametersHelper::class), 'mailvotech.test', 0);
 
         $requestStack->method('getSession')->willReturn($this->session);
     }
@@ -32,7 +32,7 @@ final class PageHelperTest extends \PHPUnit\Framework\TestCase
     {
         $this->session->expects($this->once())
             ->method('get')
-            ->with('mautic.test.limit')
+            ->with('mailvotech.test.limit')
             ->willReturn($limit);
 
         $this->assertSame($page, $this->pageHelper->countPage($count));
@@ -59,7 +59,7 @@ final class PageHelperTest extends \PHPUnit\Framework\TestCase
     {
         $this->session->expects($this->once())
             ->method('get')
-            ->with('mautic.test.limit')
+            ->with('mailvotech.test.limit')
             ->willReturn($limit);
 
         $this->assertSame($start, $this->pageHelper->countPage($page));

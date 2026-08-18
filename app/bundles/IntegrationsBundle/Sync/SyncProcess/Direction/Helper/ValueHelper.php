@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Helper;
+namespace MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Helper;
 
-use Mautic\IntegrationsBundle\Exception\InvalidValueException;
-use Mautic\IntegrationsBundle\Exception\RequiredValueException;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Exception\InvalidValueException;
+use MailVotech\IntegrationsBundle\Exception\RequiredValueException;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
 
 class ValueHelper
 {
@@ -27,7 +27,7 @@ class ValueHelper
         $this->fieldState         = $fieldState;
         $this->syncDirection      = $syncDirection;
 
-        $newValue = $this->getValue(ObjectMappingDAO::SYNC_TO_MAUTIC);
+        $newValue = $this->getValue(ObjectMappingDAO::SYNC_TO_MAILVOTECH);
 
         return new NormalizedValueDAO($normalizedValueDAO->getType(), $normalizedValueDAO->getNormalizedValue(), $newValue);
     }
@@ -35,7 +35,7 @@ class ValueHelper
     /**
      * @throws InvalidValueException
      */
-    public function getValueForMautic(NormalizedValueDAO $normalizedValueDAO, string $fieldState, string $syncDirection): NormalizedValueDAO
+    public function getValueForMailVotech(NormalizedValueDAO $normalizedValueDAO, string $fieldState, string $syncDirection): NormalizedValueDAO
     {
         $this->normalizedValueDAO = $normalizedValueDAO;
         $this->fieldState         = $fieldState;

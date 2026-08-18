@@ -5,12 +5,12 @@
 #}
 {% set isIndex = 'index' == tmpl ? true : false %}
 {% set tmpl = 'list' %}
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
 
-{% block mauticContent %}pageresult{% endblock %}
+{% block mailvotechContent %}pageresult{% endblock %}
 
 {% block headerTitle %}
-  {{ 'mautic.page.result.header.index'|trans({
+  {{ 'mailvotech.page.result.header.index'|trans({
         '%name%': activePage.getName(),
   }) }}
 {% endblock %}
@@ -22,9 +22,9 @@
                   'target': '_new',
                   'data-toggle': '',
                   'class': 'btn btn-ghost btn-nospin',
-                  'href': path('mautic_page_export', {'objectId': activePage.id, 'format': 'html'}),
+                  'href': path('mailvotech_page_export', {'objectId': activePage.id, 'format': 'html'}),
               },
-              'btnText': 'mautic.form.result.export.html'|trans,
+              'btnText': 'mailvotech.form.result.export.html'|trans,
               'iconClass': 'ri-file-code-line',
               'primary': true,
           },
@@ -32,9 +32,9 @@
               'attr': {
                   'data-toggle': '',
                   'class': 'btn btn-ghost btn-nospin',
-                  'href': path('mautic_page_export', {'objectId': activePage.id, 'format': 'csv'}),
+                  'href': path('mailvotech_page_export', {'objectId': activePage.id, 'format': 'csv'}),
               },
-              'btnText': 'mautic.form.result.export.csv'|trans,
+              'btnText': 'mailvotech.form.result.export.csv'|trans,
               'iconClass': 'ri-file-text-line',
               'primary': true,
           }
@@ -45,9 +45,9 @@
           'attr': {
               'data-toggle': '',
               'class': 'btn btn-ghost btn-nospin',
-              'href': path('mautic_page_export', {'objectId': activePage.id, 'format': 'xlsx'}),
+              'href': path('mailvotech_page_export', {'objectId': activePage.id, 'format': 'xlsx'}),
           },
-          'btnText': 'mautic.form.result.export.xlsx'|trans,
+          'btnText': 'mailvotech.form.result.export.xlsx'|trans,
           'iconClass': 'ri-file-excel-2-fill',
           'primary': true,
     }]) %}
@@ -56,14 +56,14 @@
   {% set buttons = buttons|merge([{
         'attr': {
             'class': 'btn btn-ghost',
-            'href': path('mautic_page_action', {'objectAction': 'view', 'objectId': activePage.id}),
+            'href': path('mailvotech_page_action', {'objectAction': 'view', 'objectId': activePage.id}),
             'data-toggle': 'ajax',
         },
         'iconClass': 'ri-close-line',
-        'btnText': 'mautic.core.form.close'|trans,
+        'btnText': 'mailvotech.core.form.close'|trans,
   }]) %}
 
-  {{ include('@MauticCore/Helper/page_actions.html.twig', {'customButtons': buttons}) }}
+  {{ include('@MailVotechCore/Helper/page_actions.html.twig', {'customButtons': buttons}) }}
 {% endblock %}
 
 {% block content %}
@@ -71,7 +71,7 @@
     <div class="page-list">
   {% endif %}
 
-  {{ include('@MauticPage/Result/_list.html.twig') }}
+  {{ include('@MailVotechPage/Result/_list.html.twig') }}
 
   {% if isIndex %}
     </div>

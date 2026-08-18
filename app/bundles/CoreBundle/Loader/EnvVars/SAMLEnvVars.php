@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Loader\EnvVars;
+namespace MailVotech\CoreBundle\Loader\EnvVars;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -15,15 +15,15 @@ final class SAMLEnvVars implements EnvVarsInterface
             $scheme       = !empty($parts['scheme']) ? $parts['scheme'] : 'http';
             $samlEntityId = $scheme.'://'.$parts['host'];
         } else {
-            $samlEntityId = 'mautic';
+            $samlEntityId = 'mailvotech';
         }
 
-        $envVars->set('MAUTIC_SAML_ENTITY_ID', $samlEntityId);
+        $envVars->set('MAILVOTECH_SAML_ENTITY_ID', $samlEntityId);
 
         $samlEnabled = (bool) $config->get('saml_idp_metadata');
-        $envVars->set('MAUTIC_SAML_ENABLED', $samlEnabled);
+        $envVars->set('MAILVOTECH_SAML_ENABLED', $samlEnabled);
 
-        $envVars->set('MAUTIC_SAML_LOGIN_PATH', '/s/saml/login');
-        $envVars->set('MAUTIC_SAML_LOGIN_CHECK_PATH', '/s/saml/login_check');
+        $envVars->set('MAILVOTECH_SAML_LOGIN_PATH', '/s/saml/login');
+        $envVars->set('MAILVOTECH_SAML_LOGIN_CHECK_PATH', '/s/saml/login_check');
     }
 }

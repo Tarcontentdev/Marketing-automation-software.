@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\DependencyInjection;
+namespace MailVotech\CoreBundle\Tests\Functional\DependencyInjection;
 
-use Mautic\AssetBundle\Controller\UploadController;
-use Mautic\CacheBundle\Cache\Adapter\MemcachedTagAwareAdapter;
-use Mautic\CacheBundle\Cache\Adapter\RedisAdapter;
-use Mautic\CacheBundle\Cache\Adapter\RedisTagAwareAdapter;
-use Mautic\CampaignBundle\Enum\RepublishBehavior;
-use Mautic\CategoryBundle\Controller\Api\CategoryApiController;
-use Mautic\CoreBundle\Form\Type\DynamicContentFilterEntryType;
-use Mautic\CoreBundle\Helper\BuilderTokenHelper;
-use Mautic\DynamicContentBundle\Form\Type\DynamicContentType;
-use Mautic\FormBundle\Enum\Token\RedirectUrlToken;
-use Mautic\LeadBundle\Controller\Api\FieldApiController;
-use Mautic\LeadBundle\EventListener\SearchSubscriber;
-use Mautic\LeadBundle\Form\Validator\Constraints\UniqueUserAlias;
-use Mautic\LeadBundle\Validator\Constraints\Length;
+use MailVotech\AssetBundle\Controller\UploadController;
+use MailVotech\CacheBundle\Cache\Adapter\MemcachedTagAwareAdapter;
+use MailVotech\CacheBundle\Cache\Adapter\RedisAdapter;
+use MailVotech\CacheBundle\Cache\Adapter\RedisTagAwareAdapter;
+use MailVotech\CampaignBundle\Enum\RepublishBehavior;
+use MailVotech\CategoryBundle\Controller\Api\CategoryApiController;
+use MailVotech\CoreBundle\Form\Type\DynamicContentFilterEntryType;
+use MailVotech\CoreBundle\Helper\BuilderTokenHelper;
+use MailVotech\DynamicContentBundle\Form\Type\DynamicContentType;
+use MailVotech\FormBundle\Enum\Token\RedirectUrlToken;
+use MailVotech\LeadBundle\Controller\Api\FieldApiController;
+use MailVotech\LeadBundle\EventListener\SearchSubscriber;
+use MailVotech\LeadBundle\Form\Validator\Constraints\UniqueUserAlias;
+use MailVotech\LeadBundle\Validator\Constraints\Length;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\Container;
@@ -35,20 +35,20 @@ abstract class AbstractContainerSmokeTestCase extends TestCase
         DynamicContentFilterEntryType::class,
         DynamicContentType::class,
         SearchSubscriber::class,
-        \MauticPlugin\MauticClearbitBundle\EventListener\LeadSubscriber::class,
-        \MauticPlugin\MauticClearbitBundle\Helper\LookupHelper::class,
-        \MauticPlugin\MauticFullContactBundle\EventListener\LeadSubscriber::class,
-        \MauticPlugin\MauticFullContactBundle\Helper\LookupHelper::class,
-        'mautic.plugin.clearbit.lookup_helper',
-        'mautic.plugin.fullcontact.lookup_helper',
+        \MailVotechPlugin\MailVotechClearbitBundle\EventListener\LeadSubscriber::class,
+        \MailVotechPlugin\MailVotechClearbitBundle\Helper\LookupHelper::class,
+        \MailVotechPlugin\MailVotechFullContactBundle\EventListener\LeadSubscriber::class,
+        \MailVotechPlugin\MailVotechFullContactBundle\Helper\LookupHelper::class,
+        'mailvotech.plugin.clearbit.lookup_helper',
+        'mailvotech.plugin.fullcontact.lookup_helper',
 
         // requires a running Redis/Memcached server or an optional package
         MemcachedTagAwareAdapter::class,
         RedisAdapter::class,
         RedisTagAwareAdapter::class,
-        'mautic.cache.adapter.memcached',
-        'mautic.cache.adapter.redis',
-        'mautic.cache.adapter.redis_tag_aware',
+        'mailvotech.cache.adapter.memcached',
+        'mailvotech.cache.adapter.redis',
+        'mailvotech.cache.adapter.redis_tag_aware',
         'doctrine.uuid_generator',
 
         // not a service at all, an enum or a validation constraint
@@ -59,12 +59,12 @@ abstract class AbstractContainerSmokeTestCase extends TestCase
 
         // broken wiring: missing class, wrong argument count or wrong argument type
         UploadController::class,
-        'Mautic\CampaignBundle\Service\Campaign',
+        'MailVotech\CampaignBundle\Service\Campaign',
         CategoryApiController::class,
         BuilderTokenHelper::class,
         FieldApiController::class,
         'fos_oauth_server.controller.authorize',
-        'mautic.helper.token_builder',
+        'mailvotech.helper.token_builder',
     ];
 
     /**
@@ -136,10 +136,10 @@ abstract class AbstractContainerSmokeTestCase extends TestCase
     }
 
     /**
-     * Vendor services are out of scope, only the Mautic ones are.
+     * Vendor services are out of scope, only the MailVotech ones are.
      */
     protected function isLocalService(object $service): bool
     {
-        return str_starts_with($service::class, 'Mautic\\') || str_starts_with($service::class, 'MauticPlugin\\');
+        return str_starts_with($service::class, 'MailVotech\\') || str_starts_with($service::class, 'MailVotechPlugin\\');
     }
 }

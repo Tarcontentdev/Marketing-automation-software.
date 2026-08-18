@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\FormBundle\Model;
+namespace MailVotech\FormBundle\Model;
 
-use Mautic\CoreBundle\Model\FormModel as CommonFormModel;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Entity\ActionRepository;
-use Mautic\FormBundle\Form\Type\ActionType;
+use MailVotech\CoreBundle\Model\FormModel as CommonFormModel;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Entity\ActionRepository;
+use MailVotech\FormBundle\Form\Type\ActionType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Service\Attribute\Required;

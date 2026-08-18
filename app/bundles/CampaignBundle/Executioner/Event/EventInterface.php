@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Executioner\Event;
+namespace MailVotech\CampaignBundle\Executioner\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
-use Mautic\CampaignBundle\Executioner\Result\EvaluatedContacts;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
+use MailVotech\CampaignBundle\Executioner\Result\EvaluatedContacts;
 
 interface EventInterface
 {

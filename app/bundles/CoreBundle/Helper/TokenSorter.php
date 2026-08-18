@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -62,8 +62,8 @@ final readonly class TokenSorter
     public function __construct(TranslatorInterface $translator)
     {
         $this->labelPrefixCategories = [
-            $translator->trans('mautic.page.token.thispage').': ' => self::CATEGORY_THIS_PAGE,
-            $translator->trans('mautic.email.email').': '         => self::CATEGORY_EMAIL,
+            $translator->trans('mailvotech.page.token.thispage').': ' => self::CATEGORY_THIS_PAGE,
+            $translator->trans('mailvotech.email.email').': '         => self::CATEGORY_EMAIL,
         ];
     }
 

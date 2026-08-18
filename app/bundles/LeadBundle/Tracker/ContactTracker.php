@@ -1,20 +1,20 @@
 <?php
 
-namespace Mautic\LeadBundle\Tracker;
+namespace MailVotech\LeadBundle\Tracker;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Event\LeadChangeEvent;
-use Mautic\LeadBundle\Event\LeadEvent;
-use Mautic\LeadBundle\Event\LeadGetCurrentEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\DefaultValueTrait;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Tracker\Service\ContactTrackingService\ContactTrackingServiceInterface;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Event\LeadChangeEvent;
+use MailVotech\LeadBundle\Event\LeadEvent;
+use MailVotech\LeadBundle\Event\LeadGetCurrentEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\DefaultValueTrait;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Tracker\Service\ContactTrackingService\ContactTrackingServiceInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -179,7 +179,7 @@ class ContactTracker
         }
 
         if ($this->isUserSession()) {
-            $this->logger->debug('CONTACT: In a Mautic user session');
+            $this->logger->debug('CONTACT: In a MailVotech user session');
         }
 
         return null;
@@ -276,7 +276,7 @@ class ContactTracker
             $lead->addIpAddress($ip);
         }
 
-        if ($persist && !defined('MAUTIC_NON_TRACKABLE_REQUEST')) {
+        if ($persist && !defined('MAILVOTECH_NON_TRACKABLE_REQUEST')) {
             // Dispatch events for new lead to write create log, ip address change, etc
             $event = new LeadEvent($lead, true);
             $this->dispatcher->dispatch($event, LeadEvents::LEAD_PRE_SAVE);
@@ -309,7 +309,7 @@ class ContactTracker
             return $this->useSystemContact;
         }
 
-        return $this->isUserSession() || $this->systemContact || defined('IN_MAUTIC_CONSOLE') || null === $this->getRequest();
+        return $this->isUserSession() || $this->systemContact || defined('IN_MAILVOTECH_CONSOLE') || null === $this->getRequest();
     }
 
     private function isUserSession(): bool

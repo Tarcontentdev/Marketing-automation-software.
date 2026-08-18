@@ -32,10 +32,10 @@ jobs:
             This issue has been automatically marked as stale because it has not had recent activity.
             It will be closed if no further activity occurs. If you would like to keep it open please
             let us know by replying and confirming that this is still relevant to the latest version of
-            Mautic and we will try to get to it as soon as we can. Thank you for your contributions.
+            MailVotech and we will try to get to it as soon as we can. Thank you for your contributions.
           close-issue-message: >
             This issue has been automatically closed because it has not had recent activity.
-            If it persists in the latest version of Mautic, please create a new issue and link back to this
+            If it persists in the latest version of MailVotech, please create a new issue and link back to this
             one for reference. Thank you for your contributions.
 
           # Pull Requests

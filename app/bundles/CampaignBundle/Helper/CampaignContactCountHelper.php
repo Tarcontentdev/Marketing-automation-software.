@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Helper;
+namespace MailVotech\CampaignBundle\Helper;
 
-use Mautic\CacheBundle\Cache\CacheProviderInterface;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CacheBundle\Cache\CacheProviderInterface;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 
 final readonly class CampaignContactCountHelper
 {

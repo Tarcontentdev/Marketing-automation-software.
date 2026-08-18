@@ -1,6 +1,6 @@
 <div class="panel shd-none bdr-rds-0 bdr-w-0 mb-0">
     <div class="panel-heading">
-        <div class="panel-title">{% trans %}mautic.core.recent.activity{% endtrans %}</div>
+        <div class="panel-title">{% trans %}mailvotech.core.recent.activity{% endtrans %}</div>
     </div>
     <div class="panel-body pt-xs">
         {% if logs is defined and logs is not empty %}
@@ -15,10 +15,10 @@
                 {% endif %}
                 </div>
                 <div class="media-body">
-                    {{ ('mautic.core.' ~ log.action ~ '.by.past.tense')|trans }}
+                    {{ ('mailvotech.core.' ~ log.action ~ '.by.past.tense')|trans }}
                     {% if log.userId is defined and log.userId is not empty %}
                         <a
-                            href="{{ path('mautic_user_action', {objectAction: 'edit', objectId: log.userId}) }}"
+                            href="{{ path('mailvotech_user_action', {objectAction: 'edit', objectId: log.userId}) }}"
                             data-toggle="ajax"
                         >{{ log.userName }}</a>
                     {% else %}

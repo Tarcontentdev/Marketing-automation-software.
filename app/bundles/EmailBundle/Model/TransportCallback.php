@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\EmailBundle\Model;
+namespace MailVotech\EmailBundle\Model;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\MonitoredEmail\Search\ContactFinder;
-use Mautic\LeadBundle\Entity\DoNotContact as DNC;
-use Mautic\LeadBundle\Model\DoNotContact;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\MonitoredEmail\Search\ContactFinder;
+use MailVotech\LeadBundle\Entity\DoNotContact as DNC;
+use MailVotech\LeadBundle\Model\DoNotContact;
 
 final readonly class TransportCallback
 {

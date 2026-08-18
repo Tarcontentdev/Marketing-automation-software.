@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Command;
+namespace MailVotech\CampaignBundle\Command;
 
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CampaignBundle\Model\EventModel;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CampaignBundle\Model\EventModel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -20,7 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 final class CampaignDeleteEventLogsCommand extends Command
 {
-    public const COMMAND_NAME = 'mautic:campaign:delete-event-logs';
+    public const COMMAND_NAME = 'mailvotech:campaign:delete-event-logs';
 
     public function __construct(
         private readonly LeadEventLogRepository $leadEventLogRepository,

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller;
+namespace MailVotech\LeadBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class LeadCompanyControllerTest extends MauticMysqlTestCase
+final class LeadCompanyControllerTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {

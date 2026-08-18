@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\WebhookBundle\Security\Permissions;
+namespace MailVotech\WebhookBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class WebhookPermissions extends AbstractPermissions

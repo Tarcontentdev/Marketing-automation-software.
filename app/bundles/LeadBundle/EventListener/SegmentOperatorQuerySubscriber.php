@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
 use Doctrine\ORM\Query\Expr;
-use Mautic\LeadBundle\Event\SegmentOperatorQueryBuilderEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Event\SegmentOperatorQueryBuilderEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class SegmentOperatorQuerySubscriber implements EventSubscriberInterface
@@ -182,7 +182,7 @@ final class SegmentOperatorQuerySubscriber implements EventSubscriberInterface
             'in',
             'between', // Used only for date with week combination (EQUAL [this week, next week, last week])
             'regexp',
-            'notRegexp', // Different behaviour from 'notLike' because of BC (do not use condition for NULL). Could be changed in Mautic 3.
+            'notRegexp', // Different behaviour from 'notLike' because of BC (do not use condition for NULL). Could be changed in MailVotech 3.
             'inLast',
             'inNext',
             OperatorOptions::INCLUDING_ALL, // For non-multiselect fields (e.g. select/country), treat as in

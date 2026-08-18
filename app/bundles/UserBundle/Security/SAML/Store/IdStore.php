@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\UserBundle\Security\SAML\Store;
+namespace MailVotech\UserBundle\Security\SAML\Store;
 
 use Doctrine\ORM\EntityManagerInterface;
 use LightSaml\Provider\TimeProvider\TimeProviderInterface;
 use LightSaml\Store\Id\IdStoreInterface;
-use Mautic\UserBundle\Entity\IdEntry;
+use MailVotech\UserBundle\Entity\IdEntry;
 
 final readonly class IdStore implements IdStoreInterface
 {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
-use Mautic\EmailBundle\EventListener\EmailToUserSubscriber;
-use Mautic\EmailBundle\Exception\EmailCouldNotBeSentException;
-use Mautic\EmailBundle\Model\SendEmailToUser;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PointBundle\Entity\TriggerEvent;
-use Mautic\PointBundle\Event\TriggerExecutedEvent;
+use MailVotech\EmailBundle\EventListener\EmailToUserSubscriber;
+use MailVotech\EmailBundle\Exception\EmailCouldNotBeSentException;
+use MailVotech\EmailBundle\Model\SendEmailToUser;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PointBundle\Entity\TriggerEvent;
+use MailVotech\PointBundle\Event\TriggerExecutedEvent;
 
 final class EmailToUserSubscriberTest extends \PHPUnit\Framework\TestCase
 {

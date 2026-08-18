@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Command;
+namespace MailVotech\CoreBundle\Tests\Functional\Command;
 
-use Mautic\CoreBundle\Command\AnonymizeIpCommand;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Command\AnonymizeIpCommand;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class AnonymizeIpCommandTest extends MauticMysqlTestCase
+final class AnonymizeIpCommandTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {

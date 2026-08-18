@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\MarketplaceBundle\Command;
+namespace MailVotech\MarketplaceBundle\Command;
 
-use Mautic\MarketplaceBundle\DTO\PackageBase;
-use Mautic\MarketplaceBundle\Service\PluginCollector;
+use MailVotech\MarketplaceBundle\DTO\PackageBase;
+use MailVotech\MarketplaceBundle\Service\PluginCollector;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -19,7 +19,7 @@ use Symfony\Component\Stopwatch\Stopwatch;
 )]
 final class ListCommand extends Command
 {
-    public const NAME = 'mautic:marketplace:list';
+    public const NAME = 'mailvotech:marketplace:list';
 
     public function __construct(
         private readonly PluginCollector $pluginCollector,

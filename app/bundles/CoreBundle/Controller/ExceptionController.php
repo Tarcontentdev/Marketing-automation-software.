@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Controller;
+namespace MailVotech\CoreBundle\Controller;
 
-use Mautic\ApiBundle\Helper\RequestHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
+use MailVotech\ApiBundle\Helper\RequestHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ final class ExceptionController extends CommonController
         $exception      = FlattenException::createFromThrowable($exception, $exception->getCode(), $request->headers->all());
         $class          = $exception->getClass();
         $currentContent = $this->getAndCleanOutputBuffering((int) $request->headers->get('X-Php-Ob-Level', -1));
-        $layout         = 'prod' == MAUTIC_ENV ? 'Error' : 'Exception';
+        $layout         = 'prod' == MAILVOTECH_ENV ? 'Error' : 'Exception';
         $code           = $exception->getStatusCode();
 
         // All valid status codes are within the range of 100 to 599, inclusive
@@ -31,10 +31,10 @@ final class ExceptionController extends CommonController
         if (
             (str_contains($request->getUri(), '/oauth') && !str_contains($request->getUri(), 'authorize'))
             || RequestHelper::isApiRequest($request)
-            || (!defined('MAUTIC_AJAX_VIEW') && str_contains($request->server->get('HTTP_ACCEPT', ''), 'application/json'))
+            || (!defined('MAILVOTECH_AJAX_VIEW') && str_contains($request->server->get('HTTP_ACCEPT', ''), 'application/json'))
         ) {
             $allowRealMessage =
-                'dev' === MAUTIC_ENV
+                'dev' === MAILVOTECH_ENV
                 || str_contains($class, 'UnexpectedValueException')
                 || str_contains($class, 'NotFoundHttpException')
                 || str_contains($class, 'AccessDeniedHttpException');
@@ -42,7 +42,7 @@ final class ExceptionController extends CommonController
             $message   = $allowRealMessage
                 ? $exception->getMessage()
                 : $this->translator->trans(
-                    'mautic.core.error.generic',
+                    'mailvotech.core.error.generic',
                     ['%code%' => $code]
                 );
             $dataArray = [
@@ -55,7 +55,7 @@ final class ExceptionController extends CommonController
                 ],
             ];
 
-            if ('dev' == MAUTIC_ENV) {
+            if ('dev' == MAILVOTECH_ENV) {
                 $dataArray['trace'] = $exception->getTrace();
             }
 
@@ -69,16 +69,16 @@ final class ExceptionController extends CommonController
         }
 
         $anonymous    = $this->security->isAnonymous();
-        $baseTemplate = '@MauticCore/Default/slim.html.twig';
+        $baseTemplate = '@MailVotechCore/Default/slim.html.twig';
         if ($anonymous) {
             if ($templatePage = $themeHelper->getTheme()->getErrorPageTemplate((string) $code)) {
                 $baseTemplate = $templatePage;
             }
         }
 
-        $template   = "@MauticCore/{$layout}/{$code}.html.twig";
+        $template   = "@MailVotechCore/{$layout}/{$code}.html.twig";
         if (!$this->twig->getLoader()->exists($template)) {
-            $template = "@MauticCore/{$layout}/base.html.twig";
+            $template = "@MailVotechCore/{$layout}/base.html.twig";
         }
 
         $statusText = Response::$statusTexts[$code] ?? '';
@@ -102,8 +102,8 @@ final class ExceptionController extends CommonController
                     'error' => [
                         'code'      => $code,
                         'text'      => $statusText,
-                        'exception' => ('dev' == MAUTIC_ENV) ? $exception->getMessage() : '',
-                        'trace'     => ('dev' == MAUTIC_ENV) ? $exception->getTrace() : '',
+                        'exception' => ('dev' == MAILVOTECH_ENV) ? $exception->getMessage() : '',
+                        'trace'     => ('dev' == MAILVOTECH_ENV) ? $exception->getTrace() : '',
                     ],
                     'route' => $urlParts['path'] ?? $url,
                 ],

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper\TestResources;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper\TestResources;
 
 final class WakeupCall
 {

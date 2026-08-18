@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\CampaignBundle\Entity;
+namespace MailVotech\CampaignBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\Types\Types;
-use Mautic\CampaignBundle\DTO\EventLogStatsDto;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\LeadBundle\Entity\TimelineTrait;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\CampaignBundle\DTO\EventLogStatsDto;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\LeadBundle\Entity\TimelineTrait;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
 
 /**
  * @extends CommonRepository<LeadEventLog>
@@ -91,13 +91,13 @@ class LeadEventLogRepository extends CommonRepository
                     e.redirect_event_id,
                     ll.metadata')
                         ->add('from', [
-                            'table' => MAUTIC_TABLE_PREFIX.'campaign_lead_event_log',
+                            'table' => MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log',
                             'alias' => 'll',
-                            'hint'  => 'USE INDEX ('.MAUTIC_TABLE_PREFIX.'campaign_date_triggered)',
+                            'hint'  => 'USE INDEX ('.MAILVOTECH_TABLE_PREFIX.'campaign_date_triggered)',
                         ], true)
-                        ->join('ll', MAUTIC_TABLE_PREFIX.'campaign_events', 'e', 'll.event_id = e.id')
-                        ->join('ll', MAUTIC_TABLE_PREFIX.'campaigns', 'c', 'll.campaign_id = c.id')
-                        ->leftJoin('ll', MAUTIC_TABLE_PREFIX.'campaign_lead_event_failed_log', 'fl', 'fl.log_id = ll.id')
+                        ->join('ll', MAILVOTECH_TABLE_PREFIX.'campaign_events', 'e', 'll.event_id = e.id')
+                        ->join('ll', MAILVOTECH_TABLE_PREFIX.'campaigns', 'c', 'll.campaign_id = c.id')
+                        ->leftJoin('ll', MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_failed_log', 'fl', 'fl.log_id = ll.id')
                         ->andWhere('e.event_type != :eventType')
                         ->setParameter('eventType', 'decision');
 
@@ -166,18 +166,18 @@ class LeadEventLogRepository extends CommonRepository
                     ll.metadata,
                     CONCAT(CONCAT(l.firstname, \' \'), l.lastname) AS lead_name')
             ->add('from', [
-                'table' => MAUTIC_TABLE_PREFIX.'campaign_lead_event_log',
+                'table' => MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log',
                 'alias' => 'll',
-                'hint'  => 'USE INDEX ('.MAUTIC_TABLE_PREFIX.'idx_scheduled_events)',
+                'hint'  => 'USE INDEX ('.MAILVOTECH_TABLE_PREFIX.'idx_scheduled_events)',
             ], true)
-            ->join('ll', MAUTIC_TABLE_PREFIX.'campaign_events', 'e', $joinCondition)
-            ->leftJoin('ll', MAUTIC_TABLE_PREFIX.'campaigns', 'c', 'c.id = e.campaign_id')
-            ->leftJoin('ll', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = ll.lead_id')
+            ->join('ll', MAILVOTECH_TABLE_PREFIX.'campaign_events', 'e', $joinCondition)
+            ->leftJoin('ll', MAILVOTECH_TABLE_PREFIX.'campaigns', 'c', 'c.id = e.campaign_id')
+            ->leftJoin('ll', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = ll.lead_id')
             ->where($query->expr()->eq('ll.is_scheduled', 1))
             ->andWhere('ll.trigger_date > NOW()');
 
         if (isset($options['lead'])) {
-            /** @var \Mautic\CoreBundle\Entity\IpAddress $ip */
+            /** @var \MailVotech\CoreBundle\Entity\IpAddress $ip */
             foreach ($options['lead']->getIpAddresses() as $ip) {
                 $leadIps[] = $ip->getId();
             }
@@ -235,10 +235,10 @@ class LeadEventLogRepository extends CommonRepository
         $join = $all ? 'leftJoin' : 'innerJoin';
 
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'o');
+        $q->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'o');
         $q->{$join}(
             'o',
-            MAUTIC_TABLE_PREFIX.'campaign_leads',
+            MAILVOTECH_TABLE_PREFIX.'campaign_leads',
             'l',
             'l.campaign_id = '.(int) $campaignId.' and o.lead_id = l.lead_id'
         );
@@ -276,7 +276,7 @@ class LeadEventLogRepository extends CommonRepository
         // Exclude failed events
         $failedSq = $this->getReplicaConnection()->createQueryBuilder();
         $failedSq->select('null')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_failed_log', 'fe')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_failed_log', 'fe')
             ->where(
                 $failedSq->expr()->eq('fe.log_id', 'o.id')
             );
@@ -340,7 +340,7 @@ class LeadEventLogRepository extends CommonRepository
         // First check to ensure the $toLead doesn't already exist
         $results = $this->_em->getConnection()->createQueryBuilder()
             ->select('cl.event_id')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'cl')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'cl')
             ->where('cl.lead_id = '.$toLeadId)
             ->executeQuery()
             ->fetchAllAssociative();
@@ -350,7 +350,7 @@ class LeadEventLogRepository extends CommonRepository
         }
 
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log')
             ->set('lead_id', (int) $toLeadId)
             ->where('lead_id = '.(int) $fromLeadId);
 
@@ -363,7 +363,7 @@ class LeadEventLogRepository extends CommonRepository
 
             // Delete remaining leads as the new lead already belongs
             $this->_em->getConnection()->createQueryBuilder()
-                ->delete(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log')
+                ->delete(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log')
                 ->where('lead_id = '.(int) $fromLeadId)
                 ->executeStatement();
         } else {
@@ -378,8 +378,8 @@ class LeadEventLogRepository extends CommonRepository
         // Load points for selected period
         $query = $this->getReplicaConnection()->createQueryBuilder();
         $query->select('ll.id, ll.date_triggered')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'll')
-            ->join('ll', MAUTIC_TABLE_PREFIX.'campaign_events', 'e', 'e.id = ll.event_id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'll')
+            ->join('ll', MAILVOTECH_TABLE_PREFIX.'campaign_events', 'e', 'e.id = ll.event_id');
 
         if (isset($options['channel'])) {
             $query->andWhere('e.channel = '.$query->expr()->literal($options['channel']));
@@ -498,8 +498,8 @@ class LeadEventLogRepository extends CommonRepository
         $this->updateQueryFromContactLimiter('l', $q, $limiter, true);
 
         $results = $q->select('COUNT(*) as event_count, l.event_id')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'l')
-            ->join('l', MAUTIC_TABLE_PREFIX.'campaigns', 'c', 'l.campaign_id = c.id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'l')
+            ->join('l', MAILVOTECH_TABLE_PREFIX.'campaigns', 'c', 'l.campaign_id = c.id')
             ->where($expr)
             ->setParameter('campaignId', (int) $campaignId)
             ->setParameter('now', $now->format('Y-m-d H:i:s'))
@@ -521,7 +521,7 @@ class LeadEventLogRepository extends CommonRepository
     {
         $qb = $this->getReplicaConnection()->createQueryBuilder();
         $qb->select('log.lead_id, log.date_triggered, log.is_scheduled')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'log')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'log')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->eq('log.event_id', $eventId),
@@ -547,7 +547,7 @@ class LeadEventLogRepository extends CommonRepository
     {
         $qb = $this->getReplicaConnection()->createQueryBuilder();
         $qb->select('log.date_triggered')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'log')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'log')
             ->orderBy('log.date_triggered', 'ASC')
             ->setMaxResults(1);
 
@@ -565,7 +565,7 @@ class LeadEventLogRepository extends CommonRepository
     {
         $qb = $this->getReplicaConnection()->createQueryBuilder();
         $qb->select('log.rotation')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'log')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'log')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->eq('log.lead_id', ':contactId'),
@@ -595,7 +595,7 @@ class LeadEventLogRepository extends CommonRepository
         $rotation   = $campaignMember->getRotation();
         $dateAdded  = (new \DateTime('now', new \DateTimeZone('UTC')))->format('Y-m-d H:i:s');
         // Insert entries into the failed log so it's known why they were never executed
-        $prefix = MAUTIC_TABLE_PREFIX;
+        $prefix = MAILVOTECH_TABLE_PREFIX;
         $sql    = <<<SQL
 REPLACE INTO {$prefix}campaign_lead_event_failed_log( `log_id`, `date_added`, `reason`)
 SELECT id, :dateAdded as date_added, :message as reason from {$prefix}campaign_lead_event_log
@@ -613,7 +613,7 @@ SQL;
 
         // Now unschedule them
         $qb = $connection->createQueryBuilder();
-        $qb->update(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log')
+        $qb->update(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log')
             ->set('is_scheduled', 0)
             ->where(
                 $qb->expr()->and(
@@ -661,7 +661,7 @@ SQL;
     {
         $conn           = $this->getEntityManager()->getConnection();
         $tableName      = $this->getTableName();
-        $leadsTableName = MAUTIC_TABLE_PREFIX.'leads';
+        $leadsTableName = MAILVOTECH_TABLE_PREFIX.'leads';
         $tempTableName  = 'to_delete';
         $conn->executeQuery(sprintf('DROP TEMPORARY TABLE IF EXISTS %s', $tempTableName));
         $conn->executeQuery(sprintf('CREATE TEMPORARY TABLE %s select id AS lead_id from %s where date_identified is null;', $tempTableName, $leadsTableName));
@@ -706,7 +706,7 @@ SQL;
             'MAX(log.date_triggered) as last_execution_date',
             'MAX(log.rotation) as max_rotations',
         )
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'log')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'log')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->eq('log.event_id', ':eventId')

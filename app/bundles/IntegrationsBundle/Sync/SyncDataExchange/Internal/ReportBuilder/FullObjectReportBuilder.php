@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ReportBuilder;
+namespace MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ReportBuilder;
 
-use Mautic\IntegrationsBundle\Event\InternalCompanyEvent;
-use Mautic\IntegrationsBundle\Event\InternalContactEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectFindByIdEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectFindEvent;
-use Mautic\IntegrationsBundle\Exception\InvalidValueException;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\DAO\DateRange;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO as ReportObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\ObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\RequestDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Logger\DebugLogger;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\IntegrationsBundle\Event\InternalCompanyEvent;
+use MailVotech\IntegrationsBundle\Event\InternalContactEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectFindByIdEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectFindEvent;
+use MailVotech\IntegrationsBundle\Exception\InvalidValueException;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\DAO\DateRange;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO as ReportObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Request\ObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Request\RequestDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Logger\DebugLogger;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class FullObjectReportBuilder
@@ -59,8 +59,8 @@ class FullObjectReportBuilder
                     $this->objectProvider->getObjectByName($requestedObjectDAO->getObject())
                 );
 
-                if ($requestDAO->getInputOptionsDAO()->getMauticObjectIds()) {
-                    $idChunks = array_chunk($requestDAO->getInputOptionsDAO()->getMauticObjectIds()->getObjectIdsFor($requestedObjectDAO->getObject()), $limit);
+                if ($requestDAO->getInputOptionsDAO()->getMailVotechObjectIds()) {
+                    $idChunks = array_chunk($requestDAO->getInputOptionsDAO()->getMailVotechObjectIds()->getObjectIdsFor($requestedObjectDAO->getObject()), $limit);
                     $idChunk  = $idChunks[$requestDAO->getSyncIteration() - 1] ?? [];
                     $event->setIds($idChunk);
                 } else {
@@ -84,7 +84,7 @@ class FullObjectReportBuilder
                 $this->processObjects($requestedObjectDAO, $syncReport, $foundObjects);
             } catch (ObjectNotFoundException $exception) {
                 DebugLogger::log(
-                    MauticSyncDataExchange::NAME,
+                    MailVotechSyncDataExchange::NAME,
                     $exception->getMessage(),
                     self::class.':'.__FUNCTION__
                 );
@@ -138,7 +138,7 @@ class FullObjectReportBuilder
                 } catch (FieldNotFoundException $exception) {
                     // Field is not supported so keep going
                     DebugLogger::log(
-                        MauticSyncDataExchange::NAME,
+                        MailVotechSyncDataExchange::NAME,
                         $exception->getMessage(),
                         self::class.':'.__FUNCTION__
                     );

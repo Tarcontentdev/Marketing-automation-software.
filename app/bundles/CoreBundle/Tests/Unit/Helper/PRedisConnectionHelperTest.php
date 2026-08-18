@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\PRedisConnectionHelper;
-use Mautic\CoreBundle\Predis\Command\Unlink;
-use Mautic\CoreBundle\Predis\Replication\MasterOnlyStrategy;
+use MailVotech\CoreBundle\Helper\PRedisConnectionHelper;
+use MailVotech\CoreBundle\Predis\Command\Unlink;
+use MailVotech\CoreBundle\Predis\Replication\MasterOnlyStrategy;
 use PHPUnit\Framework\TestCase;
 use Predis\Cluster\ClusterStrategy;
 use Predis\Command\Processor\KeyPrefixProcessor;

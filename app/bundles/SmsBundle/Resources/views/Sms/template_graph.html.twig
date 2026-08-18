@@ -6,12 +6,12 @@
                     <div class="col-xs-4 va-m">
                         <h5 class="text-white dark-md fw-sb mb-xs">
                             <span class="ri-mail-line"></span>
-                            {{ 'mautic.sms.stats'|trans }}
+                            {{ 'mailvotech.sms.stats'|trans }}
                         </h5>
                     </div>
                     <div class="col-xs-6 va-m" id="legend"></div>
                     <div class="col-xs-2 va-m">
-                        {{- include('@MauticCore/Helper/graph_dateselect.htm.twig', {'mescallbacksage' : 'updateSmsStatsChart'}) -}}
+                        {{- include('@MailVotechCore/Helper/graph_dateselect.htm.twig', {'mescallbacksage' : 'updateSmsStatsChart'}) -}}
                     </div>
                 </div>
                 <div class="pt-0 pl-15 pb-10 pr-15">

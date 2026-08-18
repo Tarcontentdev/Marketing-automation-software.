@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\DynamicContentBundle\Entity;
+namespace MailVotech\DynamicContentBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Entity\TimelineTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Entity\TimelineTrait;
 
 /**
  * @extends CommonRepository<Stat>
@@ -18,7 +18,7 @@ final class StatRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('s.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'dynamic_content_stats', 's')
+            ->from(MAILVOTECH_TABLE_PREFIX.'dynamic_content_stats', 's')
             ->where('s.dynamic_content_id = :dynamic_content')
             ->setParameter('dynamic_content', $dynamicContentId);
 
@@ -46,7 +46,7 @@ final class StatRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('count(s.id) as sent_count')
-            ->from(MAUTIC_TABLE_PREFIX.'dynamic_content_stats', 's');
+            ->from(MAILVOTECH_TABLE_PREFIX.'dynamic_content_stats', 's');
 
         if ($dynamicContentIds) {
             if (!is_array($dynamicContentIds)) {
@@ -72,7 +72,7 @@ final class StatRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('s.dynamic_content_id, count(s.id) as sent_count')
-            ->from(MAUTIC_TABLE_PREFIX.'dynamic_content_stats', 's')
+            ->from(MAILVOTECH_TABLE_PREFIX.'dynamic_content_stats', 's')
             ->andWhere(
                 $q->expr()->in('s.dynamic_content_id', ':dynamicContentIds')
             )
@@ -114,8 +114,8 @@ final class StatRepository extends CommonRepository
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $query->select('dc.id AS dynamic_content_id, s.id, s.date_sent as dateSent, dc.name, s.sent_details as sentDetails, s.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'dynamic_content_stats', 's')
-            ->leftJoin('s', MAUTIC_TABLE_PREFIX.'dynamic_content', 'dc', 'dc.id = s.dynamic_content_id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'dynamic_content_stats', 's')
+            ->leftJoin('s', MAILVOTECH_TABLE_PREFIX.'dynamic_content', 'dc', 'dc.id = s.dynamic_content_id');
 
         if ($leadId) {
             $query->where('s.lead_id = :leadId')
@@ -136,7 +136,7 @@ final class StatRepository extends CommonRepository
     public function updateLead($fromLeadId, $toLeadId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'dynamic_content_stats')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'dynamic_content_stats')
             ->set('lead_id', (int) $toLeadId)
             ->where('lead_id = '.(int) $fromLeadId)
             ->executeStatement();
@@ -144,7 +144,7 @@ final class StatRepository extends CommonRepository
 
     public function deleteStat($id): void
     {
-        $this->_em->getConnection()->delete(MAUTIC_TABLE_PREFIX.'dynamic_content_stats', ['id' => (int) $id]);
+        $this->_em->getConnection()->delete(MAILVOTECH_TABLE_PREFIX.'dynamic_content_stats', ['id' => (int) $id]);
     }
 
     public function getTableAlias(): string

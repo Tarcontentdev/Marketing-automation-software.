@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper\RandomHelper;
+namespace MailVotech\CoreBundle\Helper\RandomHelper;
 
 /**
  * Interface RandomHelperIdentifier.

@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Event;
+namespace MailVotech\CoreBundle\Event;
 
-use Mautic\CoreBundle\Exception\BadConfigurationException;
+use MailVotech\CoreBundle\Exception\BadConfigurationException;
 
 trait ComponentValidationTrait
 {

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Command;
+namespace MailVotech\LeadBundle\Tests\Command;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ExitCode;
-use Mautic\CoreBundle\ProcessSignal\Exception\SignalCaughtException;
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalService;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
-use Mautic\CoreBundle\Twig\Helper\FormatterHelper;
-use Mautic\LeadBundle\Command\ContactScheduledExportCommand;
-use Mautic\LeadBundle\Entity\ContactExportScheduler;
-use Mautic\LeadBundle\Entity\ContactExportSchedulerRepository;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ExitCode;
+use MailVotech\CoreBundle\ProcessSignal\Exception\SignalCaughtException;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalService;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\CoreBundle\Twig\Helper\FormatterHelper;
+use MailVotech\LeadBundle\Command\ContactScheduledExportCommand;
+use MailVotech\LeadBundle\Entity\ContactExportScheduler;
+use MailVotech\LeadBundle\Entity\ContactExportSchedulerRepository;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper\Update\PreUpdateChecks;
+namespace MailVotech\CoreBundle\Helper\Update\PreUpdateChecks;
 
 final class CheckPhpVersion extends AbstractPreUpdateCheck
 {
@@ -15,7 +15,7 @@ final class CheckPhpVersion extends AbstractPreUpdateCheck
             || version_compare(PHP_VERSION, $metadata->getMaxSupportedPHPVersion(), 'gt')
         ) {
             return new PreUpdateCheckResult(false, $this, [
-                new PreUpdateCheckError('mautic.core.update.check.phpversion', [
+                new PreUpdateCheckError('mailvotech.core.update.check.phpversion', [
                     '%currentversion%' => PHP_VERSION,
                     '%lowestversion%'  => $metadata->getMinSupportedPHPVersion(),
                     '%highestversion%' => $metadata->getMaxSupportedPHPVersion(),

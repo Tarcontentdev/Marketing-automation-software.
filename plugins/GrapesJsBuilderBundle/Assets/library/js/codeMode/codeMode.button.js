@@ -4,7 +4,7 @@ export default class CodeModeButton {
   editor;
 
   /**
-   * Add close button with save for Mautic
+   * Add close button with save for MailVotech
    */
   constructor(editor) {
     if (!editor) {
@@ -19,7 +19,7 @@ export default class CodeModeButton {
         id: 'code-edit',
         className: 'ri-edit-line',
         attributes: {
-          title: Mautic.translate('grapesjsbuilder.sourceEditModalTitle'),
+          title: MailVotech.translate('grapesjsbuilder.sourceEditModalTitle'),
         },
         command: CodeModeCommand.name,
       },

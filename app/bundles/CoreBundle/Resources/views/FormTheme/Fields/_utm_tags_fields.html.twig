@@ -5,11 +5,11 @@
     {% endfor %}
 {% endset %}
 <div class="row">
-{% include '@MauticCore/Helper/accordion.html.twig' with {
+{% include '@MailVotechCore/Helper/accordion.html.twig' with {
     'items': [
         {
             'id': 'UTM',
-            'title': 'mautic.email.utm_tags',
+            'title': 'mailvotech.email.utm_tags',
             'content': utmTagsContent,
         }
     ]

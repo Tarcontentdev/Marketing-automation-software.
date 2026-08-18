@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -31,14 +31,14 @@ final class AddToCompanyActionType extends AbstractType
                 'modal_route' => false,
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.company.choosecompany.notblank'
+                        message: 'mailvotech.company.choosecompany.notblank'
                     ),
                 ],
             ]
         );
 
         $windowUrl = $this->router->generate(
-            'mautic_company_action',
+            'mailvotech_company_action',
             [
                 'objectAction' => 'new',
                 'contentOnly'  => 1,
@@ -52,10 +52,10 @@ final class AddToCompanyActionType extends AbstractType
             [
                 'attr' => [
                     'class'   => 'btn btn-primary btn-nospin',
-                    'onclick' => 'Mautic.loadNewWindow({"windowUrl": "'.$windowUrl.'"})',
+                    'onclick' => 'MailVotech.loadNewWindow({"windowUrl": "'.$windowUrl.'"})',
                     'icon'    => 'ri-add-line',
                 ],
-                'label' => 'mautic.company.new.company',
+                'label' => 'mailvotech.company.new.company',
             ]
         );
     }

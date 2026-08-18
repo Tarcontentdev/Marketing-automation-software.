@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Update\Step;
+namespace MailVotech\CoreBundle\Tests\Unit\Update\Step;
 
 use Doctrine\Migrations\Tools\Console\Command\DoctrineCommand as MigrateCommand;
-use Mautic\CoreBundle\Exception\UpdateFailedException;
-use Mautic\CoreBundle\Update\Step\UpdateSchemaStep;
+use MailVotech\CoreBundle\Exception\UpdateFailedException;
+use MailVotech\CoreBundle\Update\Step\UpdateSchemaStep;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Event\ConsoleEvent;

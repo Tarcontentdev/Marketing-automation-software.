@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper\Chart;
+namespace MailVotech\CoreBundle\Helper\Chart;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
-use Mautic\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
+use MailVotech\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 
 /**
  * Methods to get the chart data as native queries to get better performance and work with date/time native SQL queries.
@@ -93,7 +93,7 @@ class ChartQuery extends AbstractChart
 
                 // Special case: Lead list filter
                 if ('leadlist_id' === $column) {
-                    $query->join('t', MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'lll', 'lll.lead_id = '.$value['list_column_name']);
+                    $query->join('t', MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'lll', 'lll.lead_id = '.$value['list_column_name']);
                     $query->andWhere('lll.leadlist_id = :'.$valId);
                     $query->setParameter($valId, $value['value']);
                 } elseif (isset($value['expression']) && method_exists($query->expr(), $value['expression'])) {
@@ -557,7 +557,7 @@ class ChartQuery extends AbstractChart
      */
     protected function prepareTable($table)
     {
-        if (MAUTIC_TABLE_PREFIX && str_starts_with($table, MAUTIC_TABLE_PREFIX)) {
+        if (MAILVOTECH_TABLE_PREFIX && str_starts_with($table, MAILVOTECH_TABLE_PREFIX)) {
             return $table;
         }
 
@@ -565,7 +565,7 @@ class ChartQuery extends AbstractChart
             return $table;
         }
 
-        return MAUTIC_TABLE_PREFIX.$table;
+        return MAILVOTECH_TABLE_PREFIX.$table;
     }
 
     /**

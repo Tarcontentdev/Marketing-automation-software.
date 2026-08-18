@@ -17,9 +17,9 @@ $gitSourceLocation = (isset($args['b'])) ? ' ' : ' tags/';
 require_once dirname(__DIR__).'/vendor/autoload.php';
 require_once dirname(__DIR__).'/app/AppKernel.php';
 
-$releaseMetadata = Mautic\CoreBundle\Release\ThisRelease::getMetadata();
+$releaseMetadata = MailVotech\CoreBundle\Release\ThisRelease::getMetadata();
 $appVersion      = $releaseMetadata->getVersion();
-$minimalVersion  = $releaseMetadata->getMinSupportedMauticVersion();
+$minimalVersion  = $releaseMetadata->getMinSupportedMailVotechVersion();
 
 // Use branch if applicable otherwise a version tag
 $gitSource = (!empty($args['b'])) ? $args['b'] : $appVersion;
@@ -63,7 +63,7 @@ if (!isset($args['repackage'])) {
     }
 
     // Compile prod assets
-    system('cd '.__DIR__.'/packaging && npm ci && npx patch-package && php bin/console mautic:assets:generate -e prod', $result);
+    system('cd '.__DIR__.'/packaging && npm ci && npx patch-package && php bin/console mailvotech:assets:generate -e prod', $result);
     if (0 !== $result) {
         exit;
     }
@@ -179,7 +179,7 @@ if (!isset($args['repackage'])) {
     sort($deletedFiles);
 
     // Paths to vendor directories
-    $oldVendorPath = __DIR__.'/mautic-minimum-version/vendor';
+    $oldVendorPath = __DIR__.'/mailvotech-minimum-version/vendor';
     $newVendorPath = __DIR__.'/packaging/vendor';
 
     // Verify both vendor directories exist
@@ -257,11 +257,11 @@ chdir(__DIR__.'/packaging');
 
 system("rm -f ../packages/{$appVersion}.zip ../packages/{$appVersion}-update.zip");
 
-echo "Packaging Mautic Full Installation\n";
+echo "Packaging MailVotech Full Installation\n";
 system('zip -qr ../packages/'.$appVersion.'.zip . -x@../exclude_files.txt -x@../exclude_files_full.txt');
 system('zip -qr ../packages/'.$appVersion.'.zip ./config/.gitkeep');
 
-echo "Packaging Mautic Update Package\n";
+echo "Packaging MailVotech Update Package\n";
 system('zip -qr ../packages/'.$appVersion.'-update.zip -x@../exclude_files.txt -@ < modified_files.txt');
 system('zip -qr ../packages/'.$appVersion.'-update.zip ./config/.gitkeep');
 

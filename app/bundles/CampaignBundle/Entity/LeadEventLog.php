@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\CampaignBundle\Entity;
+namespace MailVotech\CampaignBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Entity\OptimisticLockInterface;
-use Mautic\CoreBundle\Entity\OptimisticLockTrait;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Entity\Lead as LeadEntity;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Entity\OptimisticLockInterface;
+use MailVotech\CoreBundle\Entity\OptimisticLockTrait;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Entity\Lead as LeadEntity;
 
 class LeadEventLog implements ChannelInterface, OptimisticLockInterface
 {

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
 use Doctrine\ORM\Query\Expr\Func;
-use Mautic\LeadBundle\Event\SegmentOperatorQueryBuilderEvent;
-use Mautic\LeadBundle\EventListener\SegmentOperatorQuerySubscriber;
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\OperatorOptions;
-use Mautic\LeadBundle\Segment\Query\Expression\ExpressionBuilder;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Event\SegmentOperatorQueryBuilderEvent;
+use MailVotech\LeadBundle\EventListener\SegmentOperatorQuerySubscriber;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Segment\Query\Expression\ExpressionBuilder;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

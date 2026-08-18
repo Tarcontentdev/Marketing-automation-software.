@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
 use Symfony\Component\Form\AbstractType;
@@ -22,14 +22,14 @@ final class ConfigCompanyType extends AbstractType
             ChoiceType::class,
             [
                 'choices'           => [
-                    'mautic.core.config.contact_unique_identifiers_operator.or'    => CompositeExpression::TYPE_OR,
-                    'mautic.core.config.contact_unique_identifiers_operator.and'   => CompositeExpression::TYPE_AND,
+                    'mailvotech.core.config.contact_unique_identifiers_operator.or'    => CompositeExpression::TYPE_OR,
+                    'mailvotech.core.config.contact_unique_identifiers_operator.and'   => CompositeExpression::TYPE_AND,
                 ],
-                'label'             => 'mautic.core.config.unique_identifiers_operator',
+                'label'             => 'mailvotech.core.config.unique_identifiers_operator',
                 'required'          => false,
                 'attr'              => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.config.unique_identifiers_operator.tooltip',
+                    'tooltip' => 'mailvotech.core.config.unique_identifiers_operator.tooltip',
                 ],
                 'placeholder'       => false,
             ]
@@ -50,7 +50,7 @@ final class ConfigCompanyType extends AbstractType
                 'company_columns',
                 CompanyColumnsType::class,
                 [
-                    'label'       => 'mautic.config.tab.columns',
+                    'label'       => 'mailvotech.config.tab.columns',
                     'label_attr'  => ['class' => 'control-label'],
                     'attr'        => [
                         'class'         => 'form-control multiselect',
@@ -62,7 +62,7 @@ final class ConfigCompanyType extends AbstractType
                     'expanded'    => false,
                     'constraints' => [
                         new NotBlank(
-                            message: 'mautic.core.value.required'
+                            message: 'mailvotech.core.value.required'
                         ),
                     ],
                     'data' => array_flip($orderColumns),

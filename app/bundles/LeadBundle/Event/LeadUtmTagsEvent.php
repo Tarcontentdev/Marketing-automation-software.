@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\LeadBundle\Entity\Lead;
 
 final class LeadUtmTagsEvent extends CommonEvent
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\ErrorHandler {
-    use Mautic\CoreBundle\Exception\DatabaseConnectionException;
-    use Mautic\CoreBundle\Exception\ErrorHandlerException;
-    use Mautic\CoreBundle\Exception\MessageOnlyErrorHandlerException;
+namespace MailVotech\CoreBundle\ErrorHandler {
+    use MailVotech\CoreBundle\Exception\DatabaseConnectionException;
+    use MailVotech\CoreBundle\Exception\ErrorHandlerException;
+    use MailVotech\CoreBundle\Exception\MessageOnlyErrorHandlerException;
     use Psr\Log\LoggerInterface;
     use Psr\Log\LogLevel;
     use Symfony\Component\ErrorHandler\Debug;
@@ -170,7 +170,7 @@ namespace Mautic\CoreBundle\ErrorHandler {
 
             http_response_code(500);
 
-            if (!empty($GLOBALS['MAUTIC_AJAX_DIRECT_RENDER'])) {
+            if (!empty($GLOBALS['MAILVOTECH_AJAX_DIRECT_RENDER'])) {
                 header('Content-Type: application/json');
                 $content = json_encode(['newContent' => $content]);
             }
@@ -181,7 +181,7 @@ namespace Mautic\CoreBundle\ErrorHandler {
         }
 
         /**
-         * Log fatal error to Mautic's logs and throw exception for the parent generic error page to catch.
+         * Log fatal error to MailVotech's logs and throw exception for the parent generic error page to catch.
          *
          * @throws \Exception
          */
@@ -424,7 +424,7 @@ namespace Mautic\CoreBundle\ErrorHandler {
             $isAjax = (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 'XMLHttpRequest' == $_SERVER['HTTP_X_REQUESTED_WITH'])
                 || (isset($_SERVER['HTTP_ACCEPT']) && 'application/json' === $_SERVER['HTTP_ACCEPT']);
 
-            if (!$inTemplate && !defined('MAUTIC_RENDERING_TEMPLATE') && $isAjax) {
+            if (!$inTemplate && !defined('MAILVOTECH_RENDERING_TEMPLATE') && $isAjax) {
                 $dataArray = [];
                 if (!$this->displayErrors && empty($error['showExceptionMessage'])) {
                     $error['message'] = 'The site is currently offline due to encountering an error. If the problem persists, please contact the system administrator. System administrators, check server logs for errors.';
@@ -473,7 +473,7 @@ namespace Mautic\CoreBundle\ErrorHandler {
                 }
             }
 
-            defined('MAUTIC_OFFLINE') || define('MAUTIC_OFFLINE', 1);
+            defined('MAILVOTECH_OFFLINE') || define('MAILVOTECH_OFFLINE', 1);
 
             try {
                 // Get the URLs base path
@@ -504,7 +504,7 @@ namespace Mautic\CoreBundle\ErrorHandler {
                     self::$root.'/app/bundles/CoreBundle/Resources/views/Exception',
                 ]);
                 $twig               = new \Twig\Environment($loader);
-                // This is the same filter Located at Mautic\CoreBundle\Twig\Extension\ExceptionExtension;
+                // This is the same filter Located at MailVotech\CoreBundle\Twig\Extension\ExceptionExtension;
                 $twig->addFunction(new \Twig\TwigFunction('getRootPath', fn (): string|false => realpath(__DIR__.'/../../../../')));
 
                 if ($loader->exists('custom_offline.html.twig')) {
@@ -538,12 +538,12 @@ namespace Mautic\CoreBundle\ErrorHandler {
 }
 
 namespace {
-    use Mautic\CoreBundle\ErrorHandler\ErrorHandler;
+    use MailVotech\CoreBundle\ErrorHandler\ErrorHandler;
 
     if (!function_exists('debugIt')) {
         function debug_it($log, ...$context): void
         {
-            if ('dev' === MAUTIC_ENV) {
+            if ('dev' === MAILVOTECH_ENV) {
                 // Only allowing dev mode just in case uses accidentally left in code
                 if (1 === count($context) && true === $context[0]) {
                     ErrorHandler::logDebugEntry($log, $context, true);

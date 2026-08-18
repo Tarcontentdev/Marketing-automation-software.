@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\CacheStorageHelper;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\MonitoredEmailEvent;
-use Mautic\EmailBundle\Event\ParseEmailEvent;
-use Mautic\EmailBundle\MonitoredEmail\Mailbox;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Reply;
+use MailVotech\CoreBundle\Helper\CacheStorageHelper;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\MonitoredEmailEvent;
+use MailVotech\EmailBundle\Event\ParseEmailEvent;
+use MailVotech\EmailBundle\MonitoredEmail\Mailbox;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Reply;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ProcessReplySubscriber implements EventSubscriberInterface
@@ -35,7 +35,7 @@ final readonly class ProcessReplySubscriber implements EventSubscriberInterface
 
     public function onEmailConfig(MonitoredEmailEvent $event): void
     {
-        $event->addFolder(self::BUNDLE, self::FOLDER_KEY, 'mautic.email.config.monitored_email.reply_folder');
+        $event->addFolder(self::BUNDLE, self::FOLDER_KEY, 'mailvotech.email.config.monitored_email.reply_folder');
     }
 
     public function onEmailPreFetch(ParseEmailEvent $event): void

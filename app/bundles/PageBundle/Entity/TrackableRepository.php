@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\PageBundle\Entity;
+namespace MailVotech\PageBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
 
 /**
  * @extends CommonRepository<Trackable>
@@ -22,8 +22,8 @@ class TrackableRepository extends CommonRepository
         $tableAlias = $this->getTableAlias();
 
         return $q->select('r.redirect_id, r.url, r.id, '.$tableAlias.'.hits, '.$tableAlias.'.unique_hits')
-            ->from(MAUTIC_TABLE_PREFIX.'page_redirects', 'r')
-            ->innerJoin('r', MAUTIC_TABLE_PREFIX.'channel_url_trackables', $tableAlias,
+            ->from(MAILVOTECH_TABLE_PREFIX.'page_redirects', 'r')
+            ->innerJoin('r', MAILVOTECH_TABLE_PREFIX.'channel_url_trackables', $tableAlias,
                 $q->expr()->and(
                     $q->expr()->eq('r.id', 't.redirect_id'),
                     $q->expr()->eq('t.channel', ':channel'),
@@ -94,7 +94,7 @@ class TrackableRepository extends CommonRepository
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
-        $q->update(MAUTIC_TABLE_PREFIX.'channel_url_trackables')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'channel_url_trackables')
             ->set('hits', 'hits + '.(int) $increaseBy)
             ->where(
                 $q->expr()->and(
@@ -124,8 +124,8 @@ class TrackableRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder()
             ->select('count('.$countColumn.') as click_count')
-            ->from(MAUTIC_TABLE_PREFIX.'channel_url_trackables', 'cut')
-            ->innerJoin('cut', MAUTIC_TABLE_PREFIX.'page_hits', 'ph', 'ph.redirect_id = cut.redirect_id AND ph.source = cut.channel AND ph.source_id = cut.channel_id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'channel_url_trackables', 'cut')
+            ->innerJoin('cut', MAILVOTECH_TABLE_PREFIX.'page_hits', 'ph', 'ph.redirect_id = cut.redirect_id AND ph.source = cut.channel AND ph.source_id = cut.channel_id');
 
         $q->where(
             'cut.channel = :channel'
@@ -143,7 +143,7 @@ class TrackableRepository extends CommonRepository
 
         if ($listId) {
             if (!$combined) {
-                $q->innerJoin('ph', MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'cs', 'cs.lead_id = ph.lead_id');
+                $q->innerJoin('ph', MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'cs', 'cs.lead_id = ph.lead_id');
 
                 if (true === $listId) {
                     $q->addSelect('cs.leadlist_id')
@@ -163,7 +163,7 @@ class TrackableRepository extends CommonRepository
             } else {
                 $subQ = $this->getEntityManager()->getConnection()->createQueryBuilder();
                 $subQ->select('distinct(list.lead_id)')
-                    ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'list')
+                    ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'list')
                     ->andWhere(
                         $q->expr()->in('list.leadlist_id', ':listIds')
                     )

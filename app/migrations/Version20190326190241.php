@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\Exception\SkipMigration;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190326190241 extends AbstractMauticMigration
+final class Version20190326190241 extends AbstractMailVotechMigration
 {
     /**
      * @throws SkipMigration

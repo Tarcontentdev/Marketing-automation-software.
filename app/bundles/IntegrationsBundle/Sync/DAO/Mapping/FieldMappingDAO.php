@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Mapping;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Mapping;
 
 final class FieldMappingDAO
 {

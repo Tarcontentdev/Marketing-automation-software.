@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\LeadBundle\Entity\Import;
-use Mautic\LeadBundle\Entity\LeadEventLog;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\LeadBundle\Entity\Import;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
 
 final class ImportProcessEvent extends CommonEvent
 {

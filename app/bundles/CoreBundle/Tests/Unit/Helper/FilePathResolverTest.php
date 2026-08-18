@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Exception\FilePathException;
-use Mautic\CoreBundle\Helper\FilePathResolver;
-use Mautic\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Exception\FilePathException;
+use MailVotech\CoreBundle\Helper\FilePathResolver;
+use MailVotech\CoreBundle\Helper\InputHelper;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\MockObject\MockObject;

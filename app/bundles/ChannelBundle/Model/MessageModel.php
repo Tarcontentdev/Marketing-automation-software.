@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\ChannelBundle\Model;
+namespace MailVotech\ChannelBundle\Model;
 
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\ChannelBundle\ChannelEvents;
-use Mautic\ChannelBundle\Entity\Message;
-use Mautic\ChannelBundle\Entity\MessageRepository;
-use Mautic\ChannelBundle\Event\MessageEvent;
-use Mautic\ChannelBundle\Form\Type\MessageType;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\CoreBundle\Model\AjaxLookupModelInterface;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\ChannelBundle\ChannelEvents;
+use MailVotech\ChannelBundle\Entity\Message;
+use MailVotech\ChannelBundle\Entity\MessageRepository;
+use MailVotech\ChannelBundle\Event\MessageEvent;
+use MailVotech\ChannelBundle\Form\Type\MessageType;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\CoreBundle\Model\AjaxLookupModelInterface;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -115,9 +115,9 @@ class MessageModel extends FormModel implements AjaxLookupModelInterface, Global
                 }
 
                 $labelKeys = [
-                    'mautic.channel.'.$channel,
-                    'mautic.'.$channel,
-                    'mautic.'.$channel.'.'.$channel,
+                    'mailvotech.channel.'.$channel,
+                    'mailvotech.'.$channel,
+                    'mailvotech.'.$channel.'.'.$channel,
                 ];
 
                 $label = ucfirst($channel);

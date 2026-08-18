@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class LeadTimelineEvent extends Event
@@ -152,7 +152,7 @@ final class LeadTimelineEvent extends Event
 
                 // Ensure a full URL
                 if ($this->siteDomain && isset($data['eventLabel']) && is_array($data['eventLabel']) && isset($data['eventLabel']['href'])) {
-                    // If this does not have a http, then assume a Mautic URL
+                    // If this does not have a http, then assume a MailVotech URL
                     if (!str_contains($data['eventLabel']['href'], '://')) {
                         $data['eventLabel']['href'] = $this->siteDomain.$data['eventLabel']['href'];
                     }

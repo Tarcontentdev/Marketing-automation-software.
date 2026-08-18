@@ -3,10 +3,10 @@
     {% set cards = [] %}
 
     {% set cards = cards|merge([{
-        heading: 'mautic.core.translation.create',
-        copy: (not showVariants and not showTranslations) ? 'mautic.core.translation.create.description' : null,
+        heading: 'mailvotech.core.translation.create',
+        copy: (not showVariants and not showTranslations) ? 'mailvotech.core.translation.create.description' : null,
         pictogram: 'language--translation',
-        href: path('mautic_' ~ routeBase ~ '_action', {'objectAction': 'clone', 'objectId': entity.id}),
+        href: path('mailvotech_' ~ routeBase ~ '_action', {'objectAction': 'clone', 'objectId': entity.id}),
         attributes: {
             'data-toggle': 'ajax'
         }
@@ -17,7 +17,7 @@
     {% endif %}
     
     {% set childContainer %}
-    {% include '@MauticCore/Components/card-group.html.twig' with {
+    {% include '@MailVotechCore/Components/card-group.html.twig' with {
         type: (not showVariants and not showTranslations) ? 'pictogram' : 'link',
         gridMode: 'narrow',
         cardsPerRow: 3, 
@@ -25,8 +25,8 @@
     } %}
     {% endset %}
     
-    {% include '@MauticCore/Components/content-block.html.twig' with {
-        subheading: 'mautic.core.suggested_actions',
+    {% include '@MailVotechCore/Components/content-block.html.twig' with {
+        subheading: 'mailvotech.core.suggested_actions',
         childContainer: childContainer
     } %}
 </div>

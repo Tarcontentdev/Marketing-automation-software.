@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller\Api;
+namespace MailVotech\LeadBundle\Tests\Controller\Api;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadNote;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadNote;
 use Symfony\Component\HttpFoundation\Response;
 
-final class NoteApiControllerFunctionalTest extends MauticMysqlTestCase
+final class NoteApiControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     use ApiTestUserTrait;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\EventListener;
+namespace MailVotech\UserBundle\Tests\EventListener;
 
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Context\Profile\ProfileContext;
@@ -10,8 +10,8 @@ use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Protocol\Response as LightSamlResponse;
 use LightSaml\Model\Protocol\Status;
 use LightSaml\Model\Protocol\StatusCode;
-use Mautic\CoreBundle\EventListener\ExceptionListener;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\EventListener\ExceptionListener;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Router;
 
-final class LightSAMLExceptionListenerTest extends MauticMysqlTestCase
+final class LightSAMLExceptionListenerTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -61,7 +61,7 @@ final class LightSAMLExceptionListenerTest extends MauticMysqlTestCase
             $exception
         );
 
-        $subscriber = new ExceptionListener($this->router, 'MauticCoreBundle:Exception:show', $this->createStub(LoggerInterface::class));
+        $subscriber = new ExceptionListener($this->router, 'MailVotechCoreBundle:Exception:show', $this->createStub(LoggerInterface::class));
 
         $subscriber->onKernelException($event);
     }

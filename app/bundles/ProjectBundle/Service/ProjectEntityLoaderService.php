@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Service;
+namespace MailVotech\ProjectBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\ProjectBundle\DTO\EntityTypeConfig;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\ProjectBundle\Event\EntityTypeDetailRouteEvent;
-use Mautic\ProjectBundle\Event\EntityTypeModelMappingEvent;
-use Mautic\ProjectBundle\Event\EntityTypeNormalizationEvent;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\ProjectBundle\DTO\EntityTypeConfig;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\ProjectBundle\Event\EntityTypeDetailRouteEvent;
+use MailVotech\ProjectBundle\Event\EntityTypeModelMappingEvent;
+use MailVotech\ProjectBundle\Event\EntityTypeNormalizationEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -277,8 +277,8 @@ final class ProjectEntityLoaderService
     {
         // Try possible translation keys in order
         $keys = [
-            "mautic.project.{$entityType}",
-            "mautic.{$entityType}.{$entityType}",
+            "mailvotech.project.{$entityType}",
+            "mailvotech.{$entityType}.{$entityType}",
         ];
 
         foreach ($keys as $key) {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\EventListener;
+namespace MailVotech\PluginBundle\EventListener;
 
-use Mautic\PluginBundle\Bundle\PluginDatabase;
-use Mautic\PluginBundle\Event\PluginInstallEvent;
-use Mautic\PluginBundle\Event\PluginUpdateEvent;
-use Mautic\PluginBundle\PluginEvents;
+use MailVotech\PluginBundle\Bundle\PluginDatabase;
+use MailVotech\PluginBundle\Event\PluginInstallEvent;
+use MailVotech\PluginBundle\Event\PluginUpdateEvent;
+use MailVotech\PluginBundle\PluginEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class PluginSubscriber implements EventSubscriberInterface

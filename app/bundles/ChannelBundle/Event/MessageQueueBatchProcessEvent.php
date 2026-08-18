@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Event;
+namespace MailVotech\ChannelBundle\Event;
 
-use Mautic\ChannelBundle\Entity\MessageQueue;
+use MailVotech\ChannelBundle\Entity\MessageQueue;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class MessageQueueBatchProcessEvent extends Event

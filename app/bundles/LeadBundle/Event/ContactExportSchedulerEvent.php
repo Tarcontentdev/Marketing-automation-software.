@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
-use Mautic\LeadBundle\Entity\ContactExportScheduler;
+use MailVotech\LeadBundle\Entity\ContactExportScheduler;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class ContactExportSchedulerEvent extends Event

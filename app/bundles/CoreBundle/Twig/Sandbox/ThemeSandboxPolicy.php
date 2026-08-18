@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Sandbox;
+namespace MailVotech\CoreBundle\Twig\Sandbox;
 
 use Twig\Sandbox\SecurityError;
 use Twig\Sandbox\SecurityNotAllowedFilterError;
@@ -14,7 +14,7 @@ use Twig\Sandbox\SecurityPolicyInterface;
  *
  * Blocks only dangerous functions and filters that could lead to
  * RCE or data leakage (GHSA-9fx4-7cmj-47vg), while allowing all
- * legitimate Mautic and plugin Twig functions.
+ * legitimate MailVotech and plugin Twig functions.
  */
 final class ThemeSandboxPolicy implements SecurityPolicyInterface
 {

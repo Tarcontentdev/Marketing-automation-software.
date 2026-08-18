@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Tests\Functional\Controller;
+namespace MailVotech\ApiBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Security\UserTokenSetter;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Security\UserTokenSetter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class CommonApiControllerTest extends MauticMysqlTestCase
+final class CommonApiControllerTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 
@@ -49,7 +49,7 @@ final class CommonApiControllerTest extends MauticMysqlTestCase
         $dateFormat = $coreParametersHelper->get('date_format_dateonly');
         $timeFormat = $coreParametersHelper->get('date_format_timeonly');
 
-        $expectedMessage = $translator->trans('mautic.api.error.entity.locked', [
+        $expectedMessage = $translator->trans('mailvotech.api.error.entity.locked', [
             '%name%' => $email->getName(),
             '%user%' => $email->getCheckedOutByUser(),
             '%date%' => $email->getCheckedOut()->format($dateFormat),
@@ -122,7 +122,7 @@ final class CommonApiControllerTest extends MauticMysqlTestCase
         $dateFormat = $coreParametersHelper->get('date_format_dateonly');
         $timeFormat = $coreParametersHelper->get('date_format_timeonly');
 
-        $expectedMessage = $translator->trans('mautic.api.error.entity.locked', [
+        $expectedMessage = $translator->trans('mailvotech.api.error.entity.locked', [
             '%name%' => $email->getName(),
             '%user%' => $email->getCheckedOutByUser(),
             '%date%' => $email->getCheckedOut()->format($dateFormat),

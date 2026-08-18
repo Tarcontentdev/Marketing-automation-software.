@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\RequestOptions;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\PreUpdateCheckHelper;
-use Mautic\CoreBundle\Helper\Update\Exception\LatestVersionSupportedException;
-use Mautic\CoreBundle\Helper\Update\Github\ReleaseParser;
-use Mautic\CoreBundle\Helper\Update\PreUpdateChecks\AbstractPreUpdateCheck;
-use Mautic\CoreBundle\Helper\Update\PreUpdateChecks\PreUpdateCheckError;
-use Mautic\CoreBundle\Helper\Update\PreUpdateChecks\PreUpdateCheckResult;
-use Mautic\CoreBundle\Helper\UpdateHelper;
-use Mautic\CoreBundle\Release\Metadata;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\PreUpdateCheckHelper;
+use MailVotech\CoreBundle\Helper\Update\Exception\LatestVersionSupportedException;
+use MailVotech\CoreBundle\Helper\Update\Github\ReleaseParser;
+use MailVotech\CoreBundle\Helper\Update\PreUpdateChecks\AbstractPreUpdateCheck;
+use MailVotech\CoreBundle\Helper\Update\PreUpdateChecks\PreUpdateCheckError;
+use MailVotech\CoreBundle\Helper\Update\PreUpdateChecks\PreUpdateCheckResult;
+use MailVotech\CoreBundle\Helper\UpdateHelper;
+use MailVotech\CoreBundle\Release\Metadata;
 use Monolog\Logger;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -139,17 +139,17 @@ final class UpdateHelperTest extends TestCase
         $result = $this->helper->fetchPackage('update.zip');
         $this->assertArrayHasKey('error', $result);
         $this->assertTrue($result['error']);
-        $this->assertEquals('mautic.core.updater.error.fetching.package', $result['message']);
+        $this->assertEquals('mailvotech.core.updater.error.fetching.package', $result['message']);
     }
 
     public function testCacheIsRefreshedIfStabilityMismatches(): void
     {
         $cache = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => '10.0.1',
-            'announcement' => 'https://mautic.org',
-            'package'      => 'https://mautic.org/10.0.1/upgrade.zip',
+            'announcement' => 'https://mailvotech.org',
+            'package'      => 'https://mailvotech.org/10.0.1/upgrade.zip',
             'stability'    => 'stable',
             'checkedTime'  => time() - 100,
         ];
@@ -182,10 +182,10 @@ final class UpdateHelperTest extends TestCase
     {
         $cache = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => '10.0.1',
-            'announcement' => 'https://mautic.org',
-            'package'      => 'https://mautic.org/10.0.1/upgrade.zip',
+            'announcement' => 'https://mailvotech.org',
+            'package'      => 'https://mailvotech.org/10.0.1/upgrade.zip',
             'stability'    => 'stable',
             'checkedTime'  => time() - 10800,
         ];
@@ -218,10 +218,10 @@ final class UpdateHelperTest extends TestCase
     {
         $cache = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => '10.0.1',
-            'announcement' => 'https://mautic.org',
-            'package'      => 'https://mautic.org/10.0.1/upgrade.zip',
+            'announcement' => 'https://mailvotech.org',
+            'package'      => 'https://mailvotech.org/10.0.1/upgrade.zip',
             'stability'    => 'stable',
             'checkedTime'  => time(),
         ];
@@ -254,16 +254,16 @@ final class UpdateHelperTest extends TestCase
     {
         $cache = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => '10.0.1',
-            'announcement' => 'https://mautic.org',
-            'package'      => 'https://mautic.org/10.0.1/upgrade.zip',
+            'announcement' => 'https://mailvotech.org',
+            'package'      => 'https://mailvotech.org/10.0.1/upgrade.zip',
             'stability'    => 'stable',
             'checkedTime'  => time() - 10800,
         ];
         file_put_contents(__DIR__.'/resource/update/tmp/lastUpdateCheck.txt', json_encode($cache));
 
-        $statsUrl = 'https://mautic.org/stats';
+        $statsUrl = 'https://mailvotech.org/stats';
         $matcher  = $this->exactly(6);
         $this->coreParametersHelper->expects($matcher)
             ->method('get')->willReturnCallback(function (...$parameters) use ($matcher, $statsUrl) {
@@ -289,9 +289,9 @@ final class UpdateHelperTest extends TestCase
                 }
                 if (5 === $matcher->numberOfInvocations()) {
                     $this->assertSame('install_source', $parameters[0]);
-                    $this->assertSame('Mautic', $parameters[1]);
+                    $this->assertSame('MailVotech', $parameters[1]);
 
-                    return 'Mautic';
+                    return 'MailVotech';
                 }
                 if (6 === $matcher->numberOfInvocations()) {
                     $this->assertSame('system_update_url', $parameters[0]);
@@ -325,10 +325,10 @@ final class UpdateHelperTest extends TestCase
     {
         $cache = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => '10.0.1',
-            'announcement' => 'https://mautic.org',
-            'package'      => 'https://mautic.org/10.0.1/upgrade.zip',
+            'announcement' => 'https://mailvotech.org',
+            'package'      => 'https://mailvotech.org/10.0.1/upgrade.zip',
             'stability'    => 'stable',
             'checkedTime'  => time() - 10800,
         ];
@@ -365,16 +365,16 @@ final class UpdateHelperTest extends TestCase
     {
         $cache = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => '10.0.1',
-            'announcement' => 'https://mautic.org',
-            'package'      => 'https://mautic.org/10.0.1/upgrade.zip',
+            'announcement' => 'https://mailvotech.org',
+            'package'      => 'https://mailvotech.org/10.0.1/upgrade.zip',
             'stability'    => 'stable',
             'checkedTime'  => time() - 10800,
         ];
         file_put_contents(__DIR__.'/resource/update/tmp/lastUpdateCheck.txt', json_encode($cache));
 
-        $statsUrl = 'https://mautic.org/stats';
+        $statsUrl = 'https://mailvotech.org/stats';
         $matcher  = $this->exactly(6);
         $this->coreParametersHelper->expects($matcher)
             ->method('get')->willReturnCallback(function (...$parameters) use ($matcher, $statsUrl) {
@@ -400,9 +400,9 @@ final class UpdateHelperTest extends TestCase
                 }
                 if (5 === $matcher->numberOfInvocations()) {
                     $this->assertSame('install_source', $parameters[0]);
-                    $this->assertSame('Mautic', $parameters[1]);
+                    $this->assertSame('MailVotech', $parameters[1]);
 
-                    return 'Mautic';
+                    return 'MailVotech';
                 }
                 if (6 === $matcher->numberOfInvocations()) {
                     $this->assertSame('system_update_url', $parameters[0]);
@@ -434,16 +434,16 @@ final class UpdateHelperTest extends TestCase
 
         $cache = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => '10.0.1',
-            'announcement' => 'https://mautic.org',
-            'package'      => 'https://mautic.org/10.0.1/upgrade.zip',
+            'announcement' => 'https://mailvotech.org',
+            'package'      => 'https://mailvotech.org/10.0.1/upgrade.zip',
             'stability'    => 'stable',
             'checkedTime'  => time() - 10800,
         ];
         file_put_contents(__DIR__.'/resource/update/tmp/lastUpdateCheck.txt', json_encode($cache));
 
-        $statsUrl = 'https://mautic.org/stats';
+        $statsUrl = 'https://mailvotech.org/stats';
         $matcher  = $this->exactly(6);
         $this->coreParametersHelper->expects($matcher)
             ->method('get')->willReturnCallback(function (...$parameters) use ($matcher, $statsUrl) {
@@ -469,9 +469,9 @@ final class UpdateHelperTest extends TestCase
                 }
                 if (5 === $matcher->numberOfInvocations()) {
                     $this->assertSame('install_source', $parameters[0]);
-                    $this->assertSame('Mautic', $parameters[1]);
+                    $this->assertSame('MailVotech', $parameters[1]);
 
-                    return 'Mautic';
+                    return 'MailVotech';
                 }
                 if (6 === $matcher->numberOfInvocations()) {
                     $this->assertSame('system_update_url', $parameters[0]);
@@ -501,16 +501,16 @@ final class UpdateHelperTest extends TestCase
     {
         $cache = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => '10.0.1',
-            'announcement' => 'https://mautic.org',
-            'package'      => 'https://mautic.org/10.0.1/upgrade.zip',
+            'announcement' => 'https://mailvotech.org',
+            'package'      => 'https://mailvotech.org/10.0.1/upgrade.zip',
             'stability'    => 'stable',
             'checkedTime'  => time() - 10800,
         ];
         file_put_contents(__DIR__.'/resource/update/tmp/lastUpdateCheck.txt', json_encode($cache));
 
-        $statsUrl = 'https://mautic.org/stats';
+        $statsUrl = 'https://mailvotech.org/stats';
         $matcher  = $this->exactly(6);
         $this->coreParametersHelper->expects($matcher)
             ->method('get')->willReturnCallback(function (...$parameters) use ($matcher, $statsUrl) {
@@ -536,9 +536,9 @@ final class UpdateHelperTest extends TestCase
                 }
                 if (5 === $matcher->numberOfInvocations()) {
                     $this->assertSame('install_source', $parameters[0]);
-                    $this->assertSame('Mautic', $parameters[1]);
+                    $this->assertSame('MailVotech', $parameters[1]);
 
-                    return 'Mautic';
+                    return 'MailVotech';
                 }
                 if (6 === $matcher->numberOfInvocations()) {
                     $this->assertSame('system_update_url', $parameters[0]);
@@ -568,16 +568,16 @@ final class UpdateHelperTest extends TestCase
     {
         $cache = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => '10.0.1',
-            'announcement' => 'https://mautic.org',
-            'package'      => 'https://mautic.org/10.0.1/upgrade.zip',
+            'announcement' => 'https://mailvotech.org',
+            'package'      => 'https://mailvotech.org/10.0.1/upgrade.zip',
             'stability'    => 'stable',
             'checkedTime'  => time() - 10800,
         ];
         file_put_contents(__DIR__.'/resource/update/tmp/lastUpdateCheck.txt', json_encode($cache));
 
-        $updateUrl = 'https://mautic.org/update';
+        $updateUrl = 'https://mailvotech.org/update';
         $matcher   = $this->exactly(3);
         $this->coreParametersHelper->expects($matcher)
             ->method('get')->willReturnCallback(function (...$parameters) use ($matcher, $updateUrl) {
@@ -617,23 +617,23 @@ final class UpdateHelperTest extends TestCase
 
         $data = $this->helper->fetchData();
         $this->assertFalse($data['error']);
-        $this->assertEquals('mautic.core.updater.running.latest.version', $data['message']);
+        $this->assertEquals('mailvotech.core.updater.running.latest.version', $data['message']);
     }
 
     public function testErrorIfLatestVersionCouldNotBeDetermined(): void
     {
         $cache = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => '10.0.1',
-            'announcement' => 'https://mautic.org',
-            'package'      => 'https://mautic.org/10.0.1/upgrade.zip',
+            'announcement' => 'https://mailvotech.org',
+            'package'      => 'https://mailvotech.org/10.0.1/upgrade.zip',
             'stability'    => 'stable',
             'checkedTime'  => time() - 10800,
         ];
         file_put_contents(__DIR__.'/resource/update/tmp/lastUpdateCheck.txt', json_encode($cache));
 
-        $updateUrl = 'https://mautic.org/update';
+        $updateUrl = 'https://mailvotech.org/update';
         $matcher   = $this->exactly(3);
         $this->coreParametersHelper->expects($matcher)
             ->method('get')->willReturnCallback(function (...$parameters) use ($matcher, $updateUrl) {
@@ -671,7 +671,7 @@ final class UpdateHelperTest extends TestCase
 
         $data = $this->helper->fetchData();
         $this->assertTrue($data['error']);
-        $this->assertEquals('mautic.core.updater.error.fetching.updates', $data['message']);
+        $this->assertEquals('mailvotech.core.updater.error.fetching.updates', $data['message']);
     }
 
     public function testErrorIfGuzzleException(): void
@@ -680,16 +680,16 @@ final class UpdateHelperTest extends TestCase
 
         $cache = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => '10.0.1',
-            'announcement' => 'https://mautic.org',
-            'package'      => 'https://mautic.org/10.0.1/upgrade.zip',
+            'announcement' => 'https://mailvotech.org',
+            'package'      => 'https://mailvotech.org/10.0.1/upgrade.zip',
             'stability'    => 'stable',
             'checkedTime'  => time() - 10800,
         ];
         file_put_contents(__DIR__.'/resource/update/tmp/lastUpdateCheck.txt', json_encode($cache));
 
-        $updateUrl = 'https://mautic.org/update';
+        $updateUrl = 'https://mailvotech.org/update';
         $matcher   = $this->exactly(3);
         $this->coreParametersHelper->expects($matcher)
             ->method('get')->willReturnCallback(function (...$parameters) use ($matcher, $updateUrl) {
@@ -723,23 +723,23 @@ final class UpdateHelperTest extends TestCase
 
         $data = $this->helper->fetchData();
         $this->assertTrue($data['error']);
-        $this->assertEquals('mautic.core.updater.error.fetching.updates', $data['message']);
+        $this->assertEquals('mailvotech.core.updater.error.fetching.updates', $data['message']);
     }
 
     public function testErrorForAnyException(): void
     {
         $cache = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => '10.0.1',
-            'announcement' => 'https://mautic.org',
-            'package'      => 'https://mautic.org/10.0.1/upgrade.zip',
+            'announcement' => 'https://mailvotech.org',
+            'package'      => 'https://mailvotech.org/10.0.1/upgrade.zip',
             'stability'    => 'stable',
             'checkedTime'  => time() - 10800,
         ];
         file_put_contents(__DIR__.'/resource/update/tmp/lastUpdateCheck.txt', json_encode($cache));
 
-        $updateUrl = 'https://mautic.org/update';
+        $updateUrl = 'https://mailvotech.org/update';
         $matcher   = $this->exactly(3);
         $this->coreParametersHelper->expects($matcher)
             ->method('get')->willReturnCallback(function (...$parameters) use ($matcher, $updateUrl) {
@@ -776,17 +776,17 @@ final class UpdateHelperTest extends TestCase
 
         $data = $this->helper->fetchData();
         $this->assertTrue($data['error']);
-        $this->assertEquals('mautic.core.updater.error.fetching.updates', $data['message']);
+        $this->assertEquals('mailvotech.core.updater.error.fetching.updates', $data['message']);
     }
 
     public function testNoErrorIfInAppUpdatesAreDisabled(): void
     {
         $cache = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => '10.0.1',
-            'announcement' => 'https://mautic.org',
-            'package'      => 'https://mautic.org/10.0.1/upgrade.zip',
+            'announcement' => 'https://mailvotech.org',
+            'package'      => 'https://mailvotech.org/10.0.1/upgrade.zip',
             'stability'    => 'stable',
             'checkedTime'  => time() - 10800,
         ];
@@ -820,7 +820,7 @@ final class UpdateHelperTest extends TestCase
 
         $data = $this->helper->fetchData();
         $this->assertFalse($data['error']);
-        $this->assertEquals('mautic.core.updater.running.latest.version', $data['message']);
+        $this->assertEquals('mailvotech.core.updater.running.latest.version', $data['message']);
     }
 
     public function testFailingPreUpdateChecks(): void
@@ -901,7 +901,7 @@ final class UpdateHelperTest extends TestCase
             'minimum_php_version'               => '7.4.0',
             'maximum_php_version'               => '8.0.99',
             'show_php_version_warning_if_under' => '7.4.0',
-            'minimum_mautic_version'            => '3.2.0',
+            'minimum_mailvotech_version'            => '3.2.0',
             'announcement_url'                  => '',
             'minimum_mysql_version'             => '5.7.14',
             'minimum_mariadb_version'           => '10.3.5',
@@ -909,10 +909,10 @@ final class UpdateHelperTest extends TestCase
 
         $cache = [
             'error'        => false,
-            'message'      => 'mautic.core.updater.update.available',
+            'message'      => 'mailvotech.core.updater.update.available',
             'version'      => '10.0.1',
-            'announcement' => 'https://mautic.org',
-            'package'      => 'https://mautic.org/10.0.1/upgrade.zip',
+            'announcement' => 'https://mailvotech.org',
+            'package'      => 'https://mailvotech.org/10.0.1/upgrade.zip',
             'stability'    => 'stable',
             'checkedTime'  => time(), // We actually want to use this cached data
             'metadata'     => new Metadata($releaseMetadata),

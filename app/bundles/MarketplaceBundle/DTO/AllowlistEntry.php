@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\DTO;
+namespace MailVotech\MarketplaceBundle\DTO;
 
 final class AllowlistEntry
 {
@@ -16,13 +16,13 @@ final class AllowlistEntry
          */
         public string $displayName,
         /**
-         * Minimum Mautic version in semver format (e.g. 4.1.2).
+         * Minimum MailVotech version in semver format (e.g. 4.1.2).
          */
-        public ?string $minimumMauticVersion,
+        public ?string $minimumMailVotechVersion,
         /**
-         * Maximum Mautic version in semver format (e.g. 4.1.2).
+         * Maximum MailVotech version in semver format (e.g. 4.1.2).
          */
-        public ?string $maximumMauticVersion,
+        public ?string $maximumMailVotechVersion,
     ) {
     }
 
@@ -34,8 +34,8 @@ final class AllowlistEntry
         return new self(
             $array['package'],
             $array['display_name'] ?? '',
-            $array['minimum_mautic_version'],
-            $array['maximum_mautic_version']
+            $array['minimum_mailvotech_version'],
+            $array['maximum_mailvotech_version']
         );
     }
 
@@ -47,8 +47,8 @@ final class AllowlistEntry
         return [
             'package'                => $this->package,
             'display_name'           => $this->displayName,
-            'minimum_mautic_version' => $this->minimumMauticVersion,
-            'maximum_mautic_version' => $this->maximumMauticVersion,
+            'minimum_mailvotech_version' => $this->minimumMailVotechVersion,
+            'maximum_mailvotech_version' => $this->maximumMailVotechVersion,
         ];
     }
 }

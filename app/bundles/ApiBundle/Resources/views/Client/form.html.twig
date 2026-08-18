@@ -1,10 +1,10 @@
-{% extends '@MauticCore/Default/content.html.twig' %}
-{% block mauticContent %}client{% endblock %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
+{% block mailvotechContent %}client{% endblock %}
 {% set id = form.vars.data.getId() %}
 {% if id is empty %}
-    {% set header = 'mautic.api.client.header.edit'|trans({'%name%' : form.vars.data.getName()}) %}
+    {% set header = 'mailvotech.api.client.header.edit'|trans({'%name%' : form.vars.data.getName()}) %}
 {% else %}
-    {% set header = 'mautic.api.client.header.new'|trans %}
+    {% set header = 'mailvotech.api.client.header.new'|trans %}
 {% endif %}
 {% block headerTitle %}{{ header }}{% endblock %}
 {% block content %}
@@ -13,7 +13,7 @@
         <div class="col-xs-12">
             {{ form(form) }}
         </div>
-        {{ include('@MauticWebhook/Modules/webhooks_card.html.twig', ignore_missing=true) }}
+        {{ include('@MailVotechWebhook/Modules/webhooks_card.html.twig', ignore_missing=true) }}
     </div>
 </div>
 {% endblock %}

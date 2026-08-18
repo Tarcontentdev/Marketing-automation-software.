@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Entity;
+namespace MailVotech\ProjectBundle\Entity;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 
@@ -14,10 +14,10 @@ trait ProjectRepositoryTrait
     private function handleProjectFilter(QueryBuilder $queryBuilder, string $idColumn, string $xrefTable, string $parentTableAlias, string $projectName, bool $negation): array
     {
         $queryBuilder->select($idColumn);
-        $queryBuilder->from(MAUTIC_TABLE_PREFIX.$xrefTable, 'projectxref');
+        $queryBuilder->from(MAILVOTECH_TABLE_PREFIX.$xrefTable, 'projectxref');
         $queryBuilder->innerJoin(
             'projectxref',
-            MAUTIC_TABLE_PREFIX.'projects',
+            MAILVOTECH_TABLE_PREFIX.'projects',
             'project',
             'project.id = projectxref.project_id'
         );

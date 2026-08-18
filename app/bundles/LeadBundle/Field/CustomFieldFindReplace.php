@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field;
+namespace MailVotech\LeadBundle\Field;
 
-use Mautic\CoreBundle\Helper\ArrayHelper;
-use Mautic\LeadBundle\Entity\CustomFieldEntityInterface;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Field\DTO\CustomFieldFindReplaceCriteria;
-use Mautic\LeadBundle\Helper\CustomFieldHelper;
+use MailVotech\CoreBundle\Helper\ArrayHelper;
+use MailVotech\LeadBundle\Entity\CustomFieldEntityInterface;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Field\DTO\CustomFieldFindReplaceCriteria;
+use MailVotech\LeadBundle\Helper\CustomFieldHelper;
 
 final readonly class CustomFieldFindReplace
 {

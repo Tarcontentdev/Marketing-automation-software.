@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Model;
+namespace MailVotech\CampaignBundle\Tests\Model;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Tests\CampaignTestAbstract;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\LeadList;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Tests\CampaignTestAbstract;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\LeadList;
 
 final class CampaignModelTest extends CampaignTestAbstract
 {

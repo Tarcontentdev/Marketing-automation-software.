@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Entity;
+namespace MailVotech\UserBundle\Tests\Entity;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\RoleRepository;
-use Mautic\UserBundle\Tests\Traits\CreateEntityTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\RoleRepository;
+use MailVotech\UserBundle\Tests\Traits\CreateEntityTrait;
 
-final class RoleRepositoryFunctionalTest extends MauticMysqlTestCase
+final class RoleRepositoryFunctionalTest extends MailVotechMysqlTestCase
 {
     use CreateEntityTrait;
 

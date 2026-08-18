@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\EventListener;
+namespace MailVotech\PageBundle\EventListener;
 
 use GuzzleHttp\Psr7\Query;
 use GuzzleHttp\Psr7\Uri;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\PageBundle\Event\UrlTokenReplaceEvent;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\PageBundle\Event\UrlTokenReplaceEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

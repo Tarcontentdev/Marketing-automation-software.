@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\UserBundle\Security\Authentication;
+namespace MailVotech\UserBundle\Security\Authentication;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +33,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
 
             return $response;
         }
-        $redirectUrl = $request->getSession()->get('_security.main.target_path', $this->router->generate('mautic_dashboard_index'));
+        $redirectUrl = $request->getSession()->get('_security.main.target_path', $this->router->generate('mailvotech_dashboard_index'));
 
         return new RedirectResponse($redirectUrl);
     }

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Executioner\Helper;
+namespace MailVotech\CampaignBundle\Executioner\Helper;
 
 use Doctrine\Common\Collections\Collection;
-use Mautic\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Event;
 use Psr\Log\LoggerInterface;
 
 /**

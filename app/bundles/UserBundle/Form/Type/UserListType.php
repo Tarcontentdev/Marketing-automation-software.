@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\UserBundle\Form\Type;
+namespace MailVotech\UserBundle\Form\Type;
 
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\UserBundle\Entity\UserRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,7 +30,7 @@ final class UserListType extends AbstractType
                 'expanded'          => false,
                 'multiple'          => true,
                 'required'          => false,
-                'placeholder'       => 'mautic.core.form.chooseone',
+                'placeholder'       => 'mailvotech.core.form.chooseone',
             ]
         );
     }

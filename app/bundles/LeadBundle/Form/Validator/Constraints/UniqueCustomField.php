@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Validator\Constraints;
+namespace MailVotech\LeadBundle\Form\Validator\Constraints;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -16,7 +16,7 @@ final class UniqueCustomField extends Constraint
     #[HasNamedArguments]
     public function __construct(
         public string $object,
-        public string $message = 'mautic.lead.field.unique.is_used',
+        public string $message = 'mailvotech.lead.field.unique.is_used',
         ?array $groups = null,
         mixed $payload = null,
     ) {

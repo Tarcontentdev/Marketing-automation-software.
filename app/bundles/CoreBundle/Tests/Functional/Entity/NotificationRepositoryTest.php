@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Entity;
+namespace MailVotech\CoreBundle\Tests\Functional\Entity;
 
-use Mautic\CoreBundle\Entity\Notification;
-use Mautic\CoreBundle\Entity\NotificationRepository;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\Notification;
+use MailVotech\CoreBundle\Entity\NotificationRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\User;
 
-final class NotificationRepositoryTest extends MauticMysqlTestCase
+final class NotificationRepositoryTest extends MailVotechMysqlTestCase
 {
     public function testIsDuplicate(): void
     {

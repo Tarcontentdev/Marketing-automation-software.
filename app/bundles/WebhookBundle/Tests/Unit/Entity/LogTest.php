@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Unit\Entity;
+namespace MailVotech\WebhookBundle\Tests\Unit\Entity;
 
-use Mautic\WebhookBundle\Entity\Log;
+use MailVotech\WebhookBundle\Entity\Log;
 
 final class LogTest extends \PHPUnit\Framework\TestCase
 {
@@ -12,13 +12,13 @@ final class LogTest extends \PHPUnit\Framework\TestCase
     {
         $log = new Log();
         $log->setNote("\x6d\x61\x75\x74\x69\x63");
-        $this->assertSame('mautic', $log->getNote());
+        $this->assertSame('mailvotech', $log->getNote());
 
         $log->setNote("\x57\xfc\x72\x74\x74\x65\x6d\x62\x65\x72\x67");  // original string is W�rttemberg, in this '�' is invaliad char so it should be removed
         $this->assertSame('Wrttemberg', $log->getNote());
 
-        $log->setNote('mautic');
-        $this->assertSame('mautic', $log->getNote());
+        $log->setNote('mailvotech');
+        $this->assertSame('mailvotech', $log->getNote());
 
         $log->setNote('ěščřžýá');
         $this->assertSame('ěščřžýá', $log->getNote());

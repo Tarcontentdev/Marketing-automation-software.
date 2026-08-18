@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Form\Type;
+namespace MailVotech\CoreBundle\Tests\Unit\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\DynamicContentFilterEntryFiltersType;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\CoreBundle\Form\Type\DynamicContentFilterEntryFiltersType;
+use MailVotech\LeadBundle\Model\ListModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -37,12 +37,12 @@ final class DynamicContentFilterEntryFiltersTypeTest extends TestCase
                     $this->assertSame([
                         'label'   => false,
                         'choices' => [
-                            'mautic.lead.list.form.glue.and' => 'and',
-                            'mautic.lead.list.form.glue.or'  => 'or',
+                            'mailvotech.lead.list.form.glue.and' => 'and',
+                            'mailvotech.lead.list.form.glue.or'  => 'or',
                         ],
                         'attr' => [
                             'class'    => 'form-control not-chosen glue-select',
-                            'onchange' => 'Mautic.updateFilterPositioning(this)',
+                            'onchange' => 'MailVotech.updateFilterPositioning(this)',
                         ],
                     ], $parameters[2]);
                 }

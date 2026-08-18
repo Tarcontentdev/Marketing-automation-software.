@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Model;
+namespace MailVotech\ReportBundle\Tests\Model;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\ReportBundle\Crate\ReportDataResult;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Entity\Scheduler;
-use Mautic\ReportBundle\Model\CsvExporter;
-use Mautic\ReportBundle\Model\ExportHandler;
-use Mautic\ReportBundle\Model\ReportExportOptions;
-use Mautic\ReportBundle\Model\ReportFileWriter;
-use Mautic\ReportBundle\Tests\Fixtures;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\ReportBundle\Crate\ReportDataResult;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\Scheduler;
+use MailVotech\ReportBundle\Model\CsvExporter;
+use MailVotech\ReportBundle\Model\ExportHandler;
+use MailVotech\ReportBundle\Model\ReportExportOptions;
+use MailVotech\ReportBundle\Model\ReportFileWriter;
+use MailVotech\ReportBundle\Tests\Fixtures;
 
 final class ReportFileWriterTest extends \PHPUnit\Framework\TestCase
 {

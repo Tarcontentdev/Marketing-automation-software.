@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\Import;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\Event\ImportInitEvent;
-use Mautic\LeadBundle\Event\ImportMappingEvent;
-use Mautic\LeadBundle\Event\ImportProcessEvent;
-use Mautic\LeadBundle\Event\ImportValidateEvent;
-use Mautic\LeadBundle\EventListener\ImportContactSubscriber;
-use Mautic\LeadBundle\Field\FieldList;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\Import;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Event\ImportInitEvent;
+use MailVotech\LeadBundle\Event\ImportMappingEvent;
+use MailVotech\LeadBundle\Event\ImportProcessEvent;
+use MailVotech\LeadBundle\Event\ImportValidateEvent;
+use MailVotech\LeadBundle\EventListener\ImportContactSubscriber;
+use MailVotech\LeadBundle\Field\FieldList;
+use MailVotech\LeadBundle\Model\LeadModel;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -62,7 +62,7 @@ final class ImportContactSubscriberTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @see https://github.com/mautic/mautic/issues/11080
+     * @see https://github.com/mailvotech/mailvotech/issues/11080
      */
     public function testHandleFieldWithIntValues(): void
     {
@@ -163,9 +163,9 @@ final class ImportContactSubscriberTest extends \PHPUnit\Framework\TestCase
         $subscriber->onImportInit($event);
         $this->assertTrue($event->objectSupported);
         $this->assertSame('lead', $event->objectSingular);
-        $this->assertSame('mautic.lead.leads', $event->objectName);
-        $this->assertSame('#mautic_contact_index', $event->activeLink);
-        $this->assertSame('mautic_contact_index', $event->indexRoute);
+        $this->assertSame('mailvotech.lead.leads', $event->objectName);
+        $this->assertSame('#mailvotech_contact_index', $event->activeLink);
+        $this->assertSame('mailvotech_contact_index', $event->indexRoute);
     }
 
     public function testOnFieldMappingForUnknownObject(): void
@@ -207,25 +207,25 @@ final class ImportContactSubscriberTest extends \PHPUnit\Framework\TestCase
         $subscriber->onFieldMapping($event);
         $this->assertTrue($event->objectSupported);
         $this->assertSame([
-            'mautic.lead.contact' => [
-                'id' => 'mautic.lead.import.label.id',
+            'mailvotech.lead.contact' => [
+                'id' => 'mailvotech.lead.import.label.id',
                 'some fields',
             ],
-            'mautic.lead.company' => [
+            'mailvotech.lead.company' => [
                 'some fields',
             ],
-            'mautic.lead.special_fields' => [
-                'dateAdded'      => 'mautic.lead.import.label.dateAdded',
-                'createdByUser'  => 'mautic.lead.import.label.createdByUser',
-                'dateModified'   => 'mautic.lead.import.label.dateModified',
-                'modifiedByUser' => 'mautic.lead.import.label.modifiedByUser',
-                'lastActive'     => 'mautic.lead.import.label.lastActive',
-                'dateIdentified' => 'mautic.lead.import.label.dateIdentified',
-                'ip'             => 'mautic.lead.import.label.ip',
-                'stage'          => 'mautic.lead.import.label.stage',
-                'doNotEmail'     => 'mautic.lead.import.label.doNotEmail',
-                'ownerusername'  => 'mautic.lead.import.label.ownerusername',
-                'tags'           => 'mautic.lead.import.label.tags',
+            'mailvotech.lead.special_fields' => [
+                'dateAdded'      => 'mailvotech.lead.import.label.dateAdded',
+                'createdByUser'  => 'mailvotech.lead.import.label.createdByUser',
+                'dateModified'   => 'mailvotech.lead.import.label.dateModified',
+                'modifiedByUser' => 'mailvotech.lead.import.label.modifiedByUser',
+                'lastActive'     => 'mailvotech.lead.import.label.lastActive',
+                'dateIdentified' => 'mailvotech.lead.import.label.dateIdentified',
+                'ip'             => 'mailvotech.lead.import.label.ip',
+                'stage'          => 'mailvotech.lead.import.label.stage',
+                'doNotEmail'     => 'mailvotech.lead.import.label.doNotEmail',
+                'ownerusername'  => 'mailvotech.lead.import.label.ownerusername',
+                'tags'           => 'mailvotech.lead.import.label.tags',
             ],
         ], $event->fields);
     }

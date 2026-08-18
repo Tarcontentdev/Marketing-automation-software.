@@ -6,13 +6,13 @@ return [
     'routes'   => [],
     'services' => [
         'menus' => [
-            'mautic.menu.main' => [
+            'mailvotech.menu.main' => [
                 'alias' => 'main',
             ],
         ],
         'others' => [
-            'mautic.some.helper' => [
-                'class' => 'Mautic\CoreBundle\Helper\SomeHelper',
+            'mailvotech.some.helper' => [
+                'class' => 'MailVotech\CoreBundle\Helper\SomeHelper',
             ],
         ],
     ],

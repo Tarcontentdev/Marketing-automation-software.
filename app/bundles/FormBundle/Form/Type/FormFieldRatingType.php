@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -29,11 +29,11 @@ final class FormFieldRatingType extends AbstractType
             'star_count',
             IntegerType::class,
             [
-                'label'      => 'mautic.form.field.form.rating_star_count',
+                'label'      => 'mailvotech.form.field.form.rating_star_count',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.form.field.help.rating_star_count',
+                    'tooltip' => 'mailvotech.form.field.help.rating_star_count',
                     'min'     => 1,
                     'max'     => 10,
                 ],
@@ -46,21 +46,21 @@ final class FormFieldRatingType extends AbstractType
             'symbol',
             ChoiceType::class,
             [
-                'label'      => 'mautic.form.field.form.rating_symbol',
+                'label'      => 'mailvotech.form.field.form.rating_symbol',
                 'label_attr' => ['class' => 'control-label'],
                 'choices'    => [
-                    $this->translator->trans('mautic.form.field.form.rating_symbol.star_filled_label')     => '★',
-                    $this->translator->trans('mautic.form.field.form.rating_symbol.star_filled_alt_label') => '✪',
-                    $this->translator->trans('mautic.form.field.form.rating_symbol.asterisk_label')        => '⍟',
-                    $this->translator->trans('mautic.form.field.form.rating_symbol.square_label')          => '🞵',
-                    $this->translator->trans('mautic.form.field.form.rating_symbol.sparkle_label')         => '✦',
-                    $this->translator->trans('mautic.form.field.form.rating_symbol.heart_label')           => '♡',
-                    $this->translator->trans('mautic.form.field.form.rating_symbol.circle_filled_label')   => '●',
-                    $this->translator->trans('mautic.form.field.form.rating_symbol.diamond_filled_label')  => '◆',
+                    $this->translator->trans('mailvotech.form.field.form.rating_symbol.star_filled_label')     => '★',
+                    $this->translator->trans('mailvotech.form.field.form.rating_symbol.star_filled_alt_label') => '✪',
+                    $this->translator->trans('mailvotech.form.field.form.rating_symbol.asterisk_label')        => '⍟',
+                    $this->translator->trans('mailvotech.form.field.form.rating_symbol.square_label')          => '🞵',
+                    $this->translator->trans('mailvotech.form.field.form.rating_symbol.sparkle_label')         => '✦',
+                    $this->translator->trans('mailvotech.form.field.form.rating_symbol.heart_label')           => '♡',
+                    $this->translator->trans('mailvotech.form.field.form.rating_symbol.circle_filled_label')   => '●',
+                    $this->translator->trans('mailvotech.form.field.form.rating_symbol.diamond_filled_label')  => '◆',
                 ],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.form.field.help.rating_symbol',
+                    'tooltip' => 'mailvotech.form.field.help.rating_symbol',
                 ],
                 'data'     => $options['data']['symbol'] ?? '★',
                 'required' => false,
@@ -71,11 +71,11 @@ final class FormFieldRatingType extends AbstractType
             'star_color',
             TextType::class,
             [
-                'label'      => 'mautic.form.field.form.rating_star_color',
+                'label'      => 'mailvotech.form.field.form.rating_star_color',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'        => 'form-control minicolors-input',
-                    'tooltip'      => 'mautic.form.field.help.rating_star_color',
+                    'tooltip'      => 'mailvotech.form.field.help.rating_star_color',
                     'data-toggle'  => 'color',
                     'autocomplete' => 'false',
                     'size'         => '7',
@@ -89,11 +89,11 @@ final class FormFieldRatingType extends AbstractType
             'base_color',
             TextType::class,
             [
-                'label'      => 'mautic.form.field.form.rating_base_color',
+                'label'      => 'mailvotech.form.field.form.rating_base_color',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'        => 'form-control minicolors-input',
-                    'tooltip'      => 'mautic.form.field.help.rating_base_color',
+                    'tooltip'      => 'mailvotech.form.field.help.rating_base_color',
                     'data-toggle'  => 'color',
                     'autocomplete' => 'false',
                     'size'         => '7',

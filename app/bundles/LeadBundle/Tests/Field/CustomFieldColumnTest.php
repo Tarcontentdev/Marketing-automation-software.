@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Field;
+namespace MailVotech\LeadBundle\Tests\Field;
 
 use Doctrine\DBAL\Exception\DriverException;
-use Mautic\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Field\CustomFieldColumn;
-use Mautic\LeadBundle\Field\CustomFieldIndex;
-use Mautic\LeadBundle\Field\Dispatcher\FieldColumnDispatcher;
-use Mautic\LeadBundle\Field\Exception\AbortColumnCreateException;
-use Mautic\LeadBundle\Field\Exception\AbortColumnUpdateException;
-use Mautic\LeadBundle\Field\Exception\CustomFieldLimitException;
-use Mautic\LeadBundle\Field\LeadFieldSaver;
-use Mautic\LeadBundle\Field\SchemaDefinition;
+use MailVotech\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Field\CustomFieldColumn;
+use MailVotech\LeadBundle\Field\CustomFieldIndex;
+use MailVotech\LeadBundle\Field\Dispatcher\FieldColumnDispatcher;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnCreateException;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnUpdateException;
+use MailVotech\LeadBundle\Field\Exception\CustomFieldLimitException;
+use MailVotech\LeadBundle\Field\LeadFieldSaver;
+use MailVotech\LeadBundle\Field\SchemaDefinition;
 use Monolog\Logger;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -149,7 +149,7 @@ final class CustomFieldColumnTest extends \PHPUnit\Framework\TestCase
             ->willThrowException($driverException);
 
         $this->expectException(CustomFieldLimitException::class);
-        $this->expectExceptionMessage('mautic.lead.field.max_column_error');
+        $this->expectExceptionMessage('mailvotech.lead.field.max_column_error');
 
         $this->customFieldColumn->processCreateLeadColumn($leadField);
     }

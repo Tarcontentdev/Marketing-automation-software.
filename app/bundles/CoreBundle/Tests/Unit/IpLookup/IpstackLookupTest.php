@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\IpLookup;
+namespace MailVotech\CoreBundle\Tests\Unit\IpLookup;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
-use Mautic\CoreBundle\IpLookup\IpstackLookup;
+use MailVotech\CoreBundle\IpLookup\IpstackLookup;
 
 final class IpstackLookupTest extends \PHPUnit\Framework\TestCase
 {

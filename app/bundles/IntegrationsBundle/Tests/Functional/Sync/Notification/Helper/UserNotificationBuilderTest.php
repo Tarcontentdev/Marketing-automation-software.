@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Functional\Sync\Notification\Helper;
+namespace MailVotech\IntegrationsBundle\Tests\Functional\Sync\Notification\Helper;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\IntegrationsBundle\Sync\Notification\Helper\UserNotificationBuilder;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\IntegrationsBundle\Sync\Notification\Helper\UserNotificationBuilder;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\UserBundle\Entity\User;
 
-final class UserNotificationBuilderTest extends MauticMysqlTestCase
+final class UserNotificationBuilderTest extends MailVotechMysqlTestCase
 {
     private UserNotificationBuilder $notificationBuilder;
 

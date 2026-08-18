@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Event;
+namespace MailVotech\IntegrationsBundle\Event;
 
-use Mautic\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Company;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class InternalCompanyEvent extends Event

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DashboardBundle\Tests\Entity;
+namespace MailVotech\DashboardBundle\Tests\Entity;
 
-use Mautic\DashboardBundle\Entity\Widget;
+use MailVotech\DashboardBundle\Entity\Widget;
 
 final class WidgetTest extends \PHPUnit\Framework\TestCase
 {

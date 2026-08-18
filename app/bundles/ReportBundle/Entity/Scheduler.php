@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Entity;
+namespace MailVotech\ReportBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
 
 class Scheduler
 {

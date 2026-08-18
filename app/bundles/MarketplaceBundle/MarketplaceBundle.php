@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle;
+namespace MailVotech\MarketplaceBundle;
 
-use Mautic\PluginBundle\Bundle\PluginBundleBase;
+use MailVotech\PluginBundle\Bundle\PluginBundleBase;
 
 final class MarketplaceBundle extends PluginBundleBase
 {

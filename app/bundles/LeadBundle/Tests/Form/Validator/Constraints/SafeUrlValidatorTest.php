@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Form\Validator\Constraints;
+namespace MailVotech\LeadBundle\Tests\Form\Validator\Constraints;
 
-use Mautic\LeadBundle\Validator\Constraints\SafeUrl;
-use Mautic\LeadBundle\Validator\Constraints\SafeUrlValidator;
+use MailVotech\LeadBundle\Validator\Constraints\SafeUrl;
+use MailVotech\LeadBundle\Validator\Constraints\SafeUrlValidator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;

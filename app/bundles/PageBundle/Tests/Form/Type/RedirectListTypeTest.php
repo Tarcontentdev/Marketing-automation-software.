@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Form\Type;
+namespace MailVotech\PageBundle\Tests\Form\Type;
 
-use Mautic\PageBundle\Form\Type\RedirectListType;
+use MailVotech\PageBundle\Form\Type\RedirectListType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,11 +26,11 @@ final class RedirectListTypeTest extends TestCase
     public function testConfigureOptionsChoicesDefined(): void
     {
         $choices = [
-            'mautic.page.form.redirecttype.permanent'     => 301,
-            'mautic.page.form.redirecttype.temporary'     => 302,
-            'mautic.page.form.redirecttype.303_temporary' => 303,
-            'mautic.page.form.redirecttype.307_temporary' => 307,
-            'mautic.page.form.redirecttype.308_permanent' => 308,
+            'mailvotech.page.form.redirecttype.permanent'     => 301,
+            'mailvotech.page.form.redirecttype.temporary'     => 302,
+            'mailvotech.page.form.redirecttype.303_temporary' => 303,
+            'mailvotech.page.form.redirecttype.307_temporary' => 307,
+            'mailvotech.page.form.redirecttype.308_permanent' => 308,
         ];
 
         $resolver = new OptionsResolver();
@@ -40,7 +40,7 @@ final class RedirectListTypeTest extends TestCase
             'choices'    => $choices,
             'expanded'   => false,
             'multiple'   => false,
-            'label'      => 'mautic.page.form.redirecttype',
+            'label'      => 'mailvotech.page.form.redirecttype',
             'label_attr' => [
                 'class' => 'control-label',
             ],

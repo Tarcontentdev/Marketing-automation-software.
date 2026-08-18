@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Helper;
+namespace MailVotech\FormBundle\Tests\Helper;
 
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Helper\FormFieldHelper;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Helper\FormFieldHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -22,7 +22,7 @@ final class FormFieldHelperTest extends \PHPUnit\Framework\TestCase
     #[DataProvider('fieldProvider')]
     public function testPopulateField(Field $field, mixed $value, string &$formHtml, mixed $expectedValue, string $message): void
     {
-        $this->fixture->populateField($field, $value, 'mautic', $formHtml);
+        $this->fixture->populateField($field, $value, 'mailvotech', $formHtml);
 
         $this->assertEquals($expectedValue, $formHtml, $message);
     }
@@ -35,71 +35,71 @@ final class FormFieldHelperTest extends \PHPUnit\Framework\TestCase
         yield [
             self::getField('First Name', 'text'),
             '%22%2F%3E%3Cscript%3Ealert%280%29%3C%2Fscript%3E',
-            '<input value="" id="mauticform_input_mautic_firstname" />',
-            '<input id="mauticform_input_mautic_firstname" value="&quot;/&gt;alert(0)" />',
+            '<input value="" id="mailvotechform_input_mailvotech_firstname" />',
+            '<input id="mailvotechform_input_mailvotech_firstname" value="&quot;/&gt;alert(0)" />',
             'Tags should be stripped from textet field values submitted via GET to prevent XSS.',
         ];
         yield [
             self::getField('First Name', 'text'),
             '%22%20onfocus=%22alert(123)',
-            '<input value="" id="mauticform_input_mautic_firstname" />',
-            '<input id="mauticform_input_mautic_firstname" value="&quot; onfocus=&quot;alert(123)" />',
+            '<input value="" id="mailvotechform_input_mailvotech_firstname" />',
+            '<input id="mailvotechform_input_mailvotech_firstname" value="&quot; onfocus=&quot;alert(123)" />',
             'Inline JS values should not be allowed via GET to prevent XSS.',
         ];
         yield [
             self::getField('Phone', 'tel'),
             '+41 123 456 7890',
-            '<input value="" id="mauticform_input_mautic_phone" />',
-            '<input id="mauticform_input_mautic_phone" value="+41 123 456 7890" />',
+            '<input value="" id="mailvotechform_input_mailvotech_phone" />',
+            '<input id="mailvotechform_input_mailvotech_phone" value="+41 123 456 7890" />',
             'Phone number are populated properly',
         ];
         yield [
             self::getField('Description', 'textarea'),
             '%22%2F%3E%3Cscript%3Ealert%280%29%3C%2Fscript%3E',
-            '<textarea id="mauticform_input_mautic_description"></textarea>',
-            '<textarea id="mauticform_input_mautic_description">&quot;/&gt;alert(0)</textarea>',
+            '<textarea id="mailvotechform_input_mailvotech_description"></textarea>',
+            '<textarea id="mailvotechform_input_mailvotech_description">&quot;/&gt;alert(0)</textarea>',
             'Tags should be stripped from textarea field values submitted via GET to prevent XSS.',
         ];
         yield [
             self::getField('Description', 'textarea'),
             '%22%20onfocus=%22alert(123)',
-            '<textarea id="mauticform_input_mautic_description"></textarea>',
-            '<textarea id="mauticform_input_mautic_description">&quot; onfocus=&quot;alert(123)</textarea>',
+            '<textarea id="mailvotechform_input_mailvotech_description"></textarea>',
+            '<textarea id="mailvotechform_input_mailvotech_description">&quot; onfocus=&quot;alert(123)</textarea>',
             'Tags should be stripped from textarea field values submitted via GET to prevent XSS.',
         ];
         yield [
             self::getField('Checkbox Single', 'checkboxgrp'),
             'myvalue',
-            '<input id="mauticform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Single').'1" value="myvalue"/><input id="mauticform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Single').'2" value="notmyvalue"/>',
-            '<input id="mauticform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Single').'1" value="myvalue" checked /><input id="mauticform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Single').'2" value="notmyvalue"/>',
+            '<input id="mailvotechform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Single').'1" value="myvalue"/><input id="mailvotechform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Single').'2" value="notmyvalue"/>',
+            '<input id="mailvotechform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Single').'1" value="myvalue" checked /><input id="mailvotechform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Single').'2" value="notmyvalue"/>',
             'Single value checkbox groups should have their values set appropriately via GET.',
         ];
         yield [
             self::getField('Checkbox Multi', 'checkboxgrp'),
             'myvalue%7Calsomyvalue',
-            '<input id="mauticform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Multi').'1" value="myvalue"/><input id="mauticform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Multi').'2" value="alsomyvalue"/><input id="mauticform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Multi').'3" value="notmyvalue"/>',
-            '<input id="mauticform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Multi').'1" value="myvalue" checked /><input id="mauticform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Multi').'2" value="alsomyvalue" checked /><input id="mauticform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Multi').'3" value="notmyvalue"/>',
+            '<input id="mailvotechform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Multi').'1" value="myvalue"/><input id="mailvotechform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Multi').'2" value="alsomyvalue"/><input id="mailvotechform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Multi').'3" value="notmyvalue"/>',
+            '<input id="mailvotechform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Multi').'1" value="myvalue" checked /><input id="mailvotechform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Multi').'2" value="alsomyvalue" checked /><input id="mailvotechform_checkboxgrp_checkbox_'.self::getAliasFromName('Checkbox Multi').'3" value="notmyvalue"/>',
             'Multi-value checkbox groups should have their values set appropriately via GET.',
         ];
         yield [
             self::getField('Radio Single', 'radiogrp'),
             'myvalue',
-            '<input id="mauticform_radiogrp_radio_'.self::getAliasFromName('Radio Single').'1" value="myvalue"/><input id="mauticform_radiogrp_radio_'.self::getAliasFromName('Radio Single').'1" value="notmyvalue"/>',
-            '<input id="mauticform_radiogrp_radio_'.self::getAliasFromName('Radio Single').'1" value="myvalue" checked /><input id="mauticform_radiogrp_radio_'.self::getAliasFromName('Radio Single').'1" value="notmyvalue"/>',
+            '<input id="mailvotechform_radiogrp_radio_'.self::getAliasFromName('Radio Single').'1" value="myvalue"/><input id="mailvotechform_radiogrp_radio_'.self::getAliasFromName('Radio Single').'1" value="notmyvalue"/>',
+            '<input id="mailvotechform_radiogrp_radio_'.self::getAliasFromName('Radio Single').'1" value="myvalue" checked /><input id="mailvotechform_radiogrp_radio_'.self::getAliasFromName('Radio Single').'1" value="notmyvalue"/>',
             'Single value radio groups should have their values set appropriately via GET.',
         ];
         yield [
             self::getField('Select', 'select'),
             'myvalue',
-            '<select id="mauticform_input_mautic_select"><option value="myvalue">My Value</option></select>',
-            '<select id="mauticform_input_mautic_select"><option value="myvalue" selected="selected">My Value</option></select>',
+            '<select id="mailvotechform_input_mailvotech_select"><option value="myvalue">My Value</option></select>',
+            '<select id="mailvotechform_input_mailvotech_select"><option value="myvalue" selected="selected">My Value</option></select>',
             'Select lists should have their values set appropriately via GET.',
         ];
         yield [
             self::getField('Rating', 'rating'),
             '3',
-            '<input id="mauticform_radiogrp_radio_'.self::getAliasFromName('Rating').'1" value="1"/><input id="mauticform_radiogrp_radio_'.self::getAliasFromName('Rating').'2" value="2"/><input id="mauticform_radiogrp_radio_'.self::getAliasFromName('Rating').'3" value="3"/>',
-            '<input id="mauticform_radiogrp_radio_'.self::getAliasFromName('Rating').'1" value="1"/><input id="mauticform_radiogrp_radio_'.self::getAliasFromName('Rating').'2" value="2"/><input id="mauticform_radiogrp_radio_'.self::getAliasFromName('Rating').'3" value="3" checked />',
+            '<input id="mailvotechform_radiogrp_radio_'.self::getAliasFromName('Rating').'1" value="1"/><input id="mailvotechform_radiogrp_radio_'.self::getAliasFromName('Rating').'2" value="2"/><input id="mailvotechform_radiogrp_radio_'.self::getAliasFromName('Rating').'3" value="3"/>',
+            '<input id="mailvotechform_radiogrp_radio_'.self::getAliasFromName('Rating').'1" value="1"/><input id="mailvotechform_radiogrp_radio_'.self::getAliasFromName('Rating').'2" value="2"/><input id="mailvotechform_radiogrp_radio_'.self::getAliasFromName('Rating').'3" value="3" checked />',
             'Rating fields should have their values set appropriately via GET.',
         ];
     }
@@ -124,7 +124,7 @@ final class FormFieldHelperTest extends \PHPUnit\Framework\TestCase
         $field = self::getField('Rating', 'rating');
         $field->setProperties(['star_count' => 6]);
 
-        $this->assertSame($this->getRatingList($field), \Mautic\CoreBundle\Helper\AbstractFormFieldHelper::parseList($this->getRatingList($field)));
+        $this->assertSame($this->getRatingList($field), \MailVotech\CoreBundle\Helper\AbstractFormFieldHelper::parseList($this->getRatingList($field)));
     }
 
     public function testRatingTemplateUsesDescendingRadioValues(): void
@@ -152,10 +152,10 @@ final class FormFieldHelperTest extends \PHPUnit\Framework\TestCase
     #[DataProvider('selectAutoFillProvider')]
     public function testPopulateFieldSelectAutoFill(string $type, string $value, string $options, string $expectedOptions, string $message): void
     {
-        $open = '<select name="mauticform['.$type.']" id="mauticform_input_mautic_'.$type.'" class="form-control">';
+        $open = '<select name="mailvotechform['.$type.']" id="mailvotechform_input_mailvotech_'.$type.'" class="form-control">';
         $html = $open.$options.'</select>';
 
-        $this->fixture->populateField(self::getField(ucfirst($type), $type), $value, 'mautic', $html);
+        $this->fixture->populateField(self::getField(ucfirst($type), $type), $value, 'mailvotech', $html);
 
         $this->assertSame($open.$expectedOptions.'</select>', $html, $message);
     }

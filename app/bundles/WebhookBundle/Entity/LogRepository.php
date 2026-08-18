@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\WebhookBundle\Entity;
+namespace MailVotech\WebhookBundle\Entity;
 
 use Doctrine\DBAL\ParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<Log>
@@ -19,7 +19,7 @@ class LogRepository extends CommonRepository
     {
         $qb = $this->_em->getConnection()->createQueryBuilder();
         $qb->select('webhook_id')
-            ->from(MAUTIC_TABLE_PREFIX.'webhook_logs', $this->getTableAlias())
+            ->from(MAILVOTECH_TABLE_PREFIX.'webhook_logs', $this->getTableAlias())
             ->groupBy('webhook_id')
             ->having('count(id) > :logMaxLimit')
             ->setParameter('logMaxLimit', $logMaxLimit);
@@ -77,7 +77,7 @@ class LogRepository extends CommonRepository
         // Generate query to select last X = $limit rows
         $selectqb = $this->_em->getConnection()->createQueryBuilder();
         $selectqb->select('*')
-            ->from(MAUTIC_TABLE_PREFIX.'webhook_logs', $this->getTableAlias())
+            ->from(MAILVOTECH_TABLE_PREFIX.'webhook_logs', $this->getTableAlias())
             ->where($this->getTableAlias().'.webhook_id = :webhookId')
             ->setFirstResult(0)
             ->setMaxResults($limit)

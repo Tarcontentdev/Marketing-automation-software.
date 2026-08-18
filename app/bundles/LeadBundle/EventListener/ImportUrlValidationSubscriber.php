@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CoreBundle\Cache\ResultCacheOptions;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Event\ImportProcessEvent;
-use Mautic\LeadBundle\Exception\ImportRowFailedException;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\CoreBundle\Cache\ResultCacheOptions;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Event\ImportProcessEvent;
+use MailVotech\LeadBundle\Exception\ImportRowFailedException;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\FieldModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ImportUrlValidationSubscriber implements EventSubscriberInterface

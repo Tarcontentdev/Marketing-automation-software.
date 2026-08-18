@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Collection;
+namespace MailVotech\FormBundle\Collection;
 
 /**
  * @extends \ArrayIterator<string,FieldCollection>

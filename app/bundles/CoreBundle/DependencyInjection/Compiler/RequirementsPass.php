@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\DependencyInjection\Compiler;
+namespace MailVotech\CoreBundle\DependencyInjection\Compiler;
 
-use Mautic\CoreBundle\Exception\MessageOnlyErrorHandlerException;
+use MailVotech\CoreBundle\Exception\MessageOnlyErrorHandlerException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -10,14 +10,14 @@ final class RequirementsPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        if (defined('MAUTIC_INSTALLER')) {
+        if (defined('MAILVOTECH_INSTALLER')) {
             // The installer itself does the PDO check, so no need to validate here during installation.
             return;
         }
 
         if (!class_exists('PDO') || !in_array('mysql', \PDO::getAvailableDrivers(), true)) {
             // We need to check this on boot, as later in the process is too late to show a message that makes the issue clear.
-            throw new MessageOnlyErrorHandlerException('Mautic requires the PHP pdo_mysql extension to work. Please ensure this extension is installed and enabled');
+            throw new MessageOnlyErrorHandlerException('MailVotech requires the PHP pdo_mysql extension to work. Please ensure this extension is installed and enabled');
         }
     }
 }

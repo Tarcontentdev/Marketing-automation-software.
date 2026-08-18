@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Controller\Api;
+namespace MailVotech\PointBundle\Tests\Controller\Api;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\PointBundle\Entity\PointInsight;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\PointBundle\Entity\PointInsight;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class PointInsightApiControllerTest extends MauticMysqlTestCase
+final class PointInsightApiControllerTest extends MailVotechMysqlTestCase
 {
     private const UPDATED_NAME = 'Updated Point Insight';
 
@@ -83,6 +83,6 @@ final class PointInsightApiControllerTest extends MauticMysqlTestCase
         $this->assertArrayHasKey('errors', $responseData);
         $this->assertCount(1, $responseData['errors']);
         $this->assertSame(Response::HTTP_NOT_FOUND, $responseData['errors'][0]['code']);
-        $this->assertSame($translator->trans('mautic.core.error.notfound', [], 'flashes'), $responseData['errors'][0]['message']);
+        $this->assertSame($translator->trans('mailvotech.core.error.notfound', [], 'flashes'), $responseData['errors'][0]['message']);
     }
 }

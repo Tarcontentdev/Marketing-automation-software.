@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -26,7 +26,7 @@ final class SubmitActionRepostType extends AbstractType
             'post_url',
             UrlType::class,
             [
-                'label'      => 'mautic.form.action.repost.post_url',
+                'label'      => 'mailvotech.form.action.repost.post_url',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
@@ -34,10 +34,10 @@ final class SubmitActionRepostType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                     new Url(
-                        message: 'mautic.core.valid_url_required'
+                        message: 'mailvotech.core.valid_url_required'
                     ),
                 ],
             ]
@@ -47,11 +47,11 @@ final class SubmitActionRepostType extends AbstractType
             'authorization_header',
             TextType::class,
             [
-                'label'      => 'mautic.form.action.repost.authorization_header',
+                'label'      => 'mailvotech.form.action.repost.authorization_header',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.form.action.repost.authorization_header.tooltip',
+                    'tooltip'  => 'mailvotech.form.action.repost.authorization_header.tooltip',
                     'preaddon' => 'ri-lock-fill',
                 ],
                 'required' => false,
@@ -62,16 +62,16 @@ final class SubmitActionRepostType extends AbstractType
             'failure_email',
             EmailType::class,
             [
-                'label'      => 'mautic.form.action.repost.failure_email',
+                'label'      => 'mailvotech.form.action.repost.failure_email',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.form.action.repost.failure_email.tooltip',
+                    'tooltip'  => 'mailvotech.form.action.repost.failure_email.tooltip',
                     'preaddon' => 'ri-mail-line',
                 ],
                 'required'    => false,
                 'constraints' => new Email(
-                    message: 'mautic.core.email.required'
+                    message: 'mailvotech.core.email.required'
                 ),
             ]
         );

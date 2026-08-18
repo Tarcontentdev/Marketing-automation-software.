@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\SyncDataExchange\Helper;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\SyncDataExchange\Helper;
 
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\IntegrationsBundle\Event\MauticSyncFieldsLoadEvent;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Helper\FieldHelper;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
-use Mautic\IntegrationsBundle\Sync\VariableExpresser\VariableExpresserHelperInterface;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\IntegrationsBundle\Event\MailVotechSyncFieldsLoadEvent;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Helper\FieldHelper;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
+use MailVotech\IntegrationsBundle\Sync\VariableExpresser\VariableExpresserHelperInterface;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Model\FieldModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -31,9 +31,9 @@ final class FieldHelperTest extends TestCase
     private MockObject $fieldsWithUniqueIdentifier;
 
     /**
-     * @var MockObject&MauticSyncFieldsLoadEvent
+     * @var MockObject&MailVotechSyncFieldsLoadEvent
      */
-    private MockObject $mauticSyncFieldsLoadEvent;
+    private MockObject $mailvotechSyncFieldsLoadEvent;
 
     /**
      * @var MockObject&ObjectProvider
@@ -50,10 +50,10 @@ final class FieldHelperTest extends TestCase
         $channelListHelper->method('getFeatureChannels')
             ->willReturn(['Email' => 'email']);
 
-        $this->mauticSyncFieldsLoadEvent = $this->createMock(MauticSyncFieldsLoadEvent::class);
+        $this->mailvotechSyncFieldsLoadEvent = $this->createMock(MailVotechSyncFieldsLoadEvent::class);
         $eventDispatcher                 = $this->createMock(EventDispatcherInterface::class);
         $eventDispatcher->method('dispatch')
-            ->willReturn($this->mauticSyncFieldsLoadEvent);
+            ->willReturn($this->mailvotechSyncFieldsLoadEvent);
 
         $this->fieldsWithUniqueIdentifier = $this->createMock(FieldsWithUniqueIdentifier::class);
 
@@ -73,9 +73,9 @@ final class FieldHelperTest extends TestCase
         $objectName = Contact::NAME;
         $syncFields = ['email' => 'Email'];
 
-        $this->mauticSyncFieldsLoadEvent->method('getObjectName')
+        $this->mailvotechSyncFieldsLoadEvent->method('getObjectName')
             ->willReturn($objectName);
-        $this->mauticSyncFieldsLoadEvent->method('getFields')
+        $this->mailvotechSyncFieldsLoadEvent->method('getFields')
             ->willReturn($syncFields);
 
         $this->fieldModel->method('getFieldList')
@@ -86,9 +86,9 @@ final class FieldHelperTest extends TestCase
         $this->assertSame(
             [
                 'email',
-                'mautic_internal_contact_timeline',
-                'mautic_internal_dnc_email',
-                'mautic_internal_id',
+                'mailvotech_internal_contact_timeline',
+                'mailvotech_internal_dnc_email',
+                'mailvotech_internal_id',
             ],
             array_keys($fields)
         );
@@ -99,9 +99,9 @@ final class FieldHelperTest extends TestCase
         $objectName = Contact::NAME;
         $syncFields = ['email' => 'Email'];
 
-        $this->mauticSyncFieldsLoadEvent->method('getObjectName')
+        $this->mailvotechSyncFieldsLoadEvent->method('getObjectName')
             ->willReturn($objectName);
-        $this->mauticSyncFieldsLoadEvent->method('getFields')
+        $this->mailvotechSyncFieldsLoadEvent->method('getFields')
             ->willReturn($syncFields);
 
         $this->fieldModel->method('getFieldList')
@@ -112,9 +112,9 @@ final class FieldHelperTest extends TestCase
         $this->assertSame(
             [
                 'email',
-                'mautic_internal_contact_timeline',
-                'mautic_internal_dnc_email',
-                'mautic_internal_id',
+                'mailvotech_internal_contact_timeline',
+                'mailvotech_internal_dnc_email',
+                'mailvotech_internal_id',
             ],
             array_keys($fields)
         );

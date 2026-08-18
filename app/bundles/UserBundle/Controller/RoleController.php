@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\UserBundle\Controller;
+namespace MailVotech\UserBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\UserBundle\Entity;
-use Mautic\UserBundle\Entity\PermissionRepository;
-use Mautic\UserBundle\Entity\UserRepository;
-use Mautic\UserBundle\Model\RoleModel;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\UserBundle\Entity;
+use MailVotech\UserBundle\Entity\PermissionRepository;
+use MailVotech\UserBundle\Entity\UserRepository;
+use MailVotech\UserBundle\Model\RoleModel;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +28,7 @@ final class RoleController extends FormController
 
     private const FLASH_URL       = '%url%';
 
-    private const TEMPLATE_FORM = '@MauticUser/Role/form.html.twig';
+    private const TEMPLATE_FORM = '@MailVotechUser/Role/form.html.twig';
 
     private RoleModel $roleModel;
 
@@ -64,13 +64,13 @@ final class RoleController extends FormController
 
         $this->setListFilters();
 
-        $pageHelper = $pageHelperFactory->make('mautic.role', $page);
+        $pageHelper = $pageHelperFactory->make('mailvotech.role', $page);
 
         $limit      = $pageHelper->getLimit();
         $start      = $pageHelper->getStart();
-        $orderBy    = $request->getSession()->get('mautic.role.orderby', 'r.name');
-        $orderByDir = $request->getSession()->get('mautic.role.orderbydir', 'ASC');
-        $filter     = $request->get('search', $request->getSession()->get('mautic.role.filter', ''));
+        $orderBy    = $request->getSession()->get('mailvotech.role.orderby', 'r.name');
+        $orderByDir = $request->getSession()->get('mailvotech.role.orderbydir', 'ASC');
+        $filter     = $request->get('search', $request->getSession()->get('mailvotech.role.filter', ''));
         $tmpl       = $request->isXmlHttpRequest() ? $request->get('tmpl', 'index') : 'index';
         $items = $this->roleModel->getEntities(
             [
@@ -82,12 +82,12 @@ final class RoleController extends FormController
             ]
         );
 
-        $request->getSession()->set('mautic.role.filter', $filter);
+        $request->getSession()->set('mailvotech.role.filter', $filter);
 
         $count = count($items);
         if ($count && $count < ($start + 1)) {
             $lastPage  = $pageHelper->countPage($count);
-            $returnUrl = $this->generateUrl('mautic_role_index', ['page' => $lastPage]);
+            $returnUrl = $this->generateUrl('mailvotech_role_index', ['page' => $lastPage]);
             $pageHelper->rememberPage($lastPage);
 
             return $this->postActionRedirect([
@@ -96,10 +96,10 @@ final class RoleController extends FormController
                     'page' => $lastPage,
                     'tmpl' => $tmpl,
                 ],
-                'contentTemplate' => 'Mautic\UserBundle\Controller\RoleController::indexAction',
+                'contentTemplate' => 'MailVotech\UserBundle\Controller\RoleController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_role_index',
-                    'mauticContent' => 'role',
+                    'activeLink'    => '#mailvotech_role_index',
+                    'mailvotechContent' => 'role',
                 ],
             ]);
         }
@@ -119,10 +119,10 @@ final class RoleController extends FormController
                     'delete' => $this->security->isGranted(self::PERMISSION_DELETE),
                 ],
             ],
-            'contentTemplate' => '@MauticUser/Role/list.html.twig',
+            'contentTemplate' => '@MailVotechUser/Role/list.html.twig',
             'passthroughVars' => [
-                'route'         => $this->generateUrl('mautic_role_index', ['page' => $page]),
-                'mauticContent' => 'role',
+                'route'         => $this->generateUrl('mailvotech_role_index', ['page' => $page]),
+                'mailvotechContent' => 'role',
             ],
         ]);
     }
@@ -140,11 +140,11 @@ final class RoleController extends FormController
         $entity = new Entity\Role();
 
         // set the return URL for post actions
-        $returnUrl = $this->generateUrl('mautic_role_index');
+        $returnUrl = $this->generateUrl('mailvotech_role_index');
 
         // set the page we came from
-        $page   = $request->getSession()->get('mautic.role.page', 1);
-        $action = $this->generateUrl('mautic_role_action', ['objectAction' => 'new']);
+        $page   = $request->getSession()->get('mailvotech.role.page', 1);
+        $action = $this->generateUrl('mailvotech_role_action', ['objectAction' => 'new']);
 
         // get the user form factory
         $permissionsConfig = $this->getPermissionsConfig($entity);
@@ -163,10 +163,10 @@ final class RoleController extends FormController
                     // form is valid so process the data
                     $this->roleModel->saveEntity($entity);
 
-                    $this->addFlashMessage('mautic.core.notice.created', [
+                    $this->addFlashMessage('mailvotech.core.notice.created', [
                         '%name%'              => $entity->getName(),
-                        self::FLASH_MENU_LINK => 'mautic_role_index',
-                        self::FLASH_URL       => $this->generateUrl('mautic_role_action', [
+                        self::FLASH_MENU_LINK => 'mailvotech_role_index',
+                        self::FLASH_URL       => $this->generateUrl('mailvotech_role_action', [
                             'objectAction' => 'edit',
                             'objectId'     => $entity->getId(),
                         ]),
@@ -178,10 +178,10 @@ final class RoleController extends FormController
                 return $this->postActionRedirect([
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $page],
-                    'contentTemplate' => 'Mautic\UserBundle\Controller\RoleController::indexAction',
+                    'contentTemplate' => 'MailVotech\UserBundle\Controller\RoleController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_role_index',
-                        'mauticContent' => 'role',
+                        'activeLink'    => '#mailvotech_role_index',
+                        'mailvotechContent' => 'role',
                     ],
                 ]);
             }
@@ -197,9 +197,9 @@ final class RoleController extends FormController
             ],
             'contentTemplate' => self::TEMPLATE_FORM,
             'passthroughVars' => [
-                'activeLink'     => '#mautic_role_new',
-                'route'          => $this->generateUrl('mautic_role_action', ['objectAction' => 'new']),
-                'mauticContent'  => 'role',
+                'activeLink'     => '#mailvotech_role_new',
+                'route'          => $this->generateUrl('mailvotech_role_action', ['objectAction' => 'new']),
+                'mailvotechContent'  => 'role',
                 'permissionList' => $permissionsConfig['list'],
             ],
         ]);
@@ -229,16 +229,16 @@ final class RoleController extends FormController
      */
     private function getRoleClonePostActionVars(Request $request): array
     {
-        $page      = $request->getSession()->get('mautic.role.page', 1);
-        $returnUrl = $this->generateUrl('mautic_role_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.role.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_role_index', ['page' => $page]);
 
         return [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\\UserBundle\\Controller\\RoleController::indexAction',
+            'contentTemplate' => 'MailVotech\\UserBundle\\Controller\\RoleController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_role_index',
-                'mauticContent' => 'role',
+                'activeLink'    => '#mailvotech_role_index',
+                'mailvotechContent' => 'role',
             ],
         ];
     }
@@ -253,7 +253,7 @@ final class RoleController extends FormController
                 'flashes' => [
                     [
                         'type'    => 'error',
-                        'msg'     => 'mautic.user.role.error.notfound',
+                        'msg'     => 'mailvotech.user.role.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ],
                 ],
@@ -268,7 +268,7 @@ final class RoleController extends FormController
     {
         $entity            = $model->cloneEntity($source);
         $permissionsConfig = $this->getPermissionsConfig($source);
-        $action            = $this->generateUrl('mautic_role_action', ['objectAction' => 'clone', 'objectId' => $objectId]);
+        $action            = $this->generateUrl('mailvotech_role_action', ['objectAction' => 'clone', 'objectId' => $objectId]);
         $form              = $model->createForm($entity, $this->formFactory, $action, ['permissionsConfig' => $permissionsConfig['config']]);
         if (!$request->isMethod('POST')) {
             return $this->renderRoleCloneForm($form, $permissionsConfig, $action);
@@ -297,10 +297,10 @@ final class RoleController extends FormController
 
             $model->saveEntity($entity);
 
-            $this->addFlashMessage('mautic.core.notice.created', [
+            $this->addFlashMessage('mailvotech.core.notice.created', [
                 '%name%'              => $entity->getName(),
-                self::FLASH_MENU_LINK => 'mautic_role_index',
-                self::FLASH_URL       => $this->generateUrl('mautic_role_action', [
+                self::FLASH_MENU_LINK => 'mailvotech_role_index',
+                self::FLASH_URL       => $this->generateUrl('mailvotech_role_action', [
                     'objectAction' => 'edit',
                     'objectId'     => $entity->getId(),
                 ]),
@@ -330,9 +330,9 @@ final class RoleController extends FormController
             ],
             'contentTemplate' => self::TEMPLATE_FORM,
             'passthroughVars' => [
-                'activeLink'     => '#mautic_role_new',
+                'activeLink'     => '#mailvotech_role_new',
                 'route'          => $action,
-                'mauticContent'  => 'role',
+                'mailvotechContent'  => 'role',
                 'permissionList' => $permissionsConfig['list'],
             ],
         ]);
@@ -352,18 +352,18 @@ final class RoleController extends FormController
         $entity = $this->roleModel->getEntity($objectId);
 
         // set the page we came from
-        $page = $request->getSession()->get('mautic.role.page', 1);
+        $page = $request->getSession()->get('mailvotech.role.page', 1);
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_role_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_role_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\UserBundle\Controller\RoleController::indexAction',
+            'contentTemplate' => 'MailVotech\UserBundle\Controller\RoleController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_role_index',
-                'mauticContent' => 'role',
+                'activeLink'    => '#mailvotech_role_index',
+                'mailvotechContent' => 'role',
             ],
         ];
 
@@ -374,7 +374,7 @@ final class RoleController extends FormController
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.user.role.error.notfound',
+                            'msg'     => 'mailvotech.user.role.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -387,7 +387,7 @@ final class RoleController extends FormController
         }
 
         $permissionsConfig = $this->getPermissionsConfig($entity);
-        $action            = $this->generateUrl('mautic_role_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action            = $this->generateUrl('mailvotech_role_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $form              = $this->roleModel->createForm($entity, $this->formFactory, $action, ['permissionsConfig' => $permissionsConfig['config']]);
 
         // /Check for a submitted form and process it
@@ -404,10 +404,10 @@ final class RoleController extends FormController
                     // form is valid so process the data
                     $this->roleModel->saveEntity($entity, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
 
-                    $this->addFlashMessage('mautic.core.notice.updated', [
+                    $this->addFlashMessage('mailvotech.core.notice.updated', [
                         '%name%'              => $entity->getName(),
-                        self::FLASH_MENU_LINK => 'mautic_role_index',
-                        self::FLASH_URL       => $this->generateUrl('mautic_role_action', [
+                        self::FLASH_MENU_LINK => 'mailvotech_role_index',
+                        self::FLASH_URL       => $this->generateUrl('mailvotech_role_action', [
                             'objectAction' => 'edit',
                             'objectId'     => $entity->getId(),
                         ]),
@@ -436,9 +436,9 @@ final class RoleController extends FormController
             ],
             'contentTemplate' => self::TEMPLATE_FORM,
             'passthroughVars' => [
-                'activeLink'     => '#mautic_role_index',
+                'activeLink'     => '#mailvotech_role_index',
                 'route'          => $action,
-                'mauticContent'  => 'role',
+                'mailvotechContent'  => 'role',
                 'permissionList' => $permissionsConfig['list'],
             ],
         ]);
@@ -454,7 +454,7 @@ final class RoleController extends FormController
 
         $permissions     = [];
         $permissionsList = [];
-        /** @var \Mautic\CoreBundle\Security\Permissions\AbstractPermissions $object */
+        /** @var \MailVotech\CoreBundle\Security\Permissions\AbstractPermissions $object */
         foreach ($permissionObjects as $object) {
             if (!is_object($object)) {
                 continue;
@@ -462,7 +462,7 @@ final class RoleController extends FormController
 
             if ($object->isEnabled()) {
                 $bundle = $object->getName();
-                $label  = $this->translator->trans("mautic.{$bundle}.permissions.header");
+                $label  = $this->translator->trans("mailvotech.{$bundle}.permissions.header");
 
                 // convert the permission bits from the db into readable names
                 $data = $object->convertBitsToPermissionNames($permissionsArray);
@@ -503,18 +503,18 @@ final class RoleController extends FormController
             $this->throwAccessDenied();
         }
 
-        $page           = $request->getSession()->get('mautic.role.page', 1);
-        $returnUrl      = $this->generateUrl('mautic_role_index', ['page' => $page]);
+        $page           = $request->getSession()->get('mailvotech.role.page', 1);
+        $returnUrl      = $this->generateUrl('mailvotech_role_index', ['page' => $page]);
         $success        = 0;
         $flashes        = [];
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\UserBundle\Controller\RoleController::indexAction',
+            'contentTemplate' => 'MailVotech\UserBundle\Controller\RoleController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_role_index',
+                'activeLink'    => '#mailvotech_role_index',
                 'success'       => $success,
-                'mauticContent' => 'role',
+                'mailvotechContent' => 'role',
             ],
         ];
 
@@ -525,7 +525,7 @@ final class RoleController extends FormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.user.role.error.notfound',
+                        'msg'     => 'mailvotech.user.role.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif ($this->roleModel->isLocked($entity)) {
@@ -535,7 +535,7 @@ final class RoleController extends FormController
                     $name      = $entity->getName();
                     $flashes[] = [
                         'type'    => 'notice',
-                        'msg'     => 'mautic.core.notice.deleted',
+                        'msg'     => 'mailvotech.core.notice.deleted',
                         'msgVars' => [
                             '%name%' => $name,
                             '%id%'   => $objectId,
@@ -562,17 +562,17 @@ final class RoleController extends FormController
      */
     public function batchDeleteAction(Request $request, RoleModel $model): Response
     {
-        $page      = $request->getSession()->get('mautic.role.page', 1);
-        $returnUrl = $this->generateUrl('mautic_role_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.role.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_role_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\UserBundle\Controller\RoleController::indexAction',
+            'contentTemplate' => 'MailVotech\UserBundle\Controller\RoleController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_role_index',
-                'mauticContent' => 'role',
+                'activeLink'    => '#mailvotech_role_index',
+                'mailvotechContent' => 'role',
             ],
         ];
 
@@ -590,13 +590,13 @@ final class RoleController extends FormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.user.role.error.notfound',
+                        'msg'     => 'mailvotech.user.role.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (count($users)) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.user.role.error.deletenotallowed',
+                        'msg'     => 'mailvotech.user.role.error.deletenotallowed',
                         'msgVars' => ['%name%' => $entity->getName()],
                     ];
                 } elseif (!$this->security->isGranted(self::PERMISSION_DELETE)) {
@@ -614,7 +614,7 @@ final class RoleController extends FormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.user.role.notice.batch_deleted',
+                    'msg'     => 'mailvotech.user.role.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Security\Permissions;
+namespace MailVotech\CoreBundle\Security\Permissions;
 
 use Symfony\Component\Form\FormBuilderInterface;
 

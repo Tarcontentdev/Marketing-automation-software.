@@ -1,18 +1,18 @@
 <?php
 
-namespace Mautic\CampaignBundle\Executioner\Event;
+namespace MailVotech\CampaignBundle\Executioner\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\DecisionAccessor;
-use Mautic\CampaignBundle\Executioner\Dispatcher\DecisionDispatcher;
-use Mautic\CampaignBundle\Executioner\Exception\CannotProcessEventException;
-use Mautic\CampaignBundle\Executioner\Exception\DecisionNotApplicableException;
-use Mautic\CampaignBundle\Executioner\Logger\EventLogger;
-use Mautic\CampaignBundle\Executioner\Result\EvaluatedContacts;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\DecisionAccessor;
+use MailVotech\CampaignBundle\Executioner\Dispatcher\DecisionDispatcher;
+use MailVotech\CampaignBundle\Executioner\Exception\CannotProcessEventException;
+use MailVotech\CampaignBundle\Executioner\Exception\DecisionNotApplicableException;
+use MailVotech\CampaignBundle\Executioner\Logger\EventLogger;
+use MailVotech\CampaignBundle\Executioner\Result\EvaluatedContacts;
+use MailVotech\LeadBundle\Entity\Lead;
 
 class DecisionExecutioner implements EventInterface
 {

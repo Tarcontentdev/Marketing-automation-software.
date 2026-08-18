@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Helper;
+namespace MailVotech\PageBundle\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 
 final readonly class PageConfig implements PageConfigInterface
 {

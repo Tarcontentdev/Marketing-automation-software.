@@ -1,24 +1,24 @@
 <?php
 
-namespace Mautic\DashboardBundle\Model;
+namespace MailVotech\DashboardBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CacheBundle\Cache\CacheProviderTagAwareInterface;
-use Mautic\CoreBundle\Helper\CacheStorageHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\Filesystem;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\DashboardBundle\DashboardEvents;
-use Mautic\DashboardBundle\Entity\Widget;
-use Mautic\DashboardBundle\Entity\WidgetRepository;
-use Mautic\DashboardBundle\Event\WidgetDetailEvent;
-use Mautic\DashboardBundle\Factory\WidgetDetailEventFactory;
-use Mautic\DashboardBundle\Form\Type\WidgetType;
+use MailVotech\CacheBundle\Cache\CacheProviderTagAwareInterface;
+use MailVotech\CoreBundle\Helper\CacheStorageHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\Filesystem;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\DashboardBundle\DashboardEvents;
+use MailVotech\DashboardBundle\Entity\Widget;
+use MailVotech\DashboardBundle\Entity\WidgetRepository;
+use MailVotech\DashboardBundle\Event\WidgetDetailEvent;
+use MailVotech\DashboardBundle\Factory\WidgetDetailEventFactory;
+use MailVotech\DashboardBundle\Form\Type\WidgetType;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Exception\IOException;
@@ -45,11 +45,11 @@ class DashboardModel extends FormModel
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         private readonly CacheProviderTagAwareInterface $cacheProvider,
         private readonly WidgetRepository $widgetRepository,
     ) {
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function getRepository(): WidgetRepository
@@ -137,7 +137,7 @@ class DashboardModel extends FormModel
     public function generateDescription(): string
     {
         return $this->translator->trans(
-            'mautic.dashboard.generated_by',
+            'mailvotech.dashboard.generated_by',
             [
                 '%name%' => $this->userHelper->getUser()->getName(),
                 '%date%' => (new \DateTime())->format('Y-m-d H:i:s'),
@@ -248,7 +248,7 @@ class DashboardModel extends FormModel
                 'Dashboard widget "{type}" failed to load: {message}',
                 ['type' => $widget->getType(), 'message' => $e->getMessage(), 'exception' => $e]
             );
-            $widget->setErrorMessage('mautic.dashboard.widget.load.failed');
+            $widget->setErrorMessage('mailvotech.dashboard.widget.load.failed');
         }
     }
 
@@ -299,7 +299,7 @@ class DashboardModel extends FormModel
     {
         // Set widget name from widget type if empty
         if (!$entity->getName()) {
-            $entity->setName($this->translator->trans('mautic.widget.'.$entity->getType()));
+            $entity->setName($this->translator->trans('mailvotech.widget.'.$entity->getType()));
         }
 
         $entity->setDateModified(new \DateTime());
@@ -318,8 +318,8 @@ class DashboardModel extends FormModel
 
         $session  = $this->requestStack->getSession();
         $today    = new \DateTime();
-        $dateFrom = new \DateTime($session->get('mautic.daterange.form.from', $dateRangeStart->format('Y-m-d 00:00:00')));
-        $dateTo   = new \DateTime($session->get('mautic.daterange.form.to', $today->format('Y-m-d 23:59:59')));
+        $dateFrom = new \DateTime($session->get('mailvotech.daterange.form.from', $dateRangeStart->format('Y-m-d 00:00:00')));
+        $dateTo   = new \DateTime($session->get('mailvotech.daterange.form.to', $today->format('Y-m-d 23:59:59')));
 
         return [
             'dateFrom' => $dateFrom,

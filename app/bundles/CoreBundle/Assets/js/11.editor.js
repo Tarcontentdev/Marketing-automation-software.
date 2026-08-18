@@ -1,11 +1,11 @@
-Mautic.builderTokensForCkEditor = {};
-Mautic.builderTokens = {};
-Mautic.dynamicContentTokens = {};
-Mautic.builderTokensRequestInProgress = false;
-Mautic.imageManagerLoadURL = mauticBaseUrl + 's/file/list';
-Mautic.imageUploadURL = mauticBaseUrl + 's/file/upload';
-Mautic.imageManagerDeleteURL = mauticBaseUrl + 's/file/delete';
-Mautic.elfinderURL = mauticBaseUrl + 'elfinder';
+MailVotech.builderTokensForCkEditor = {};
+MailVotech.builderTokens = {};
+MailVotech.dynamicContentTokens = {};
+MailVotech.builderTokensRequestInProgress = false;
+MailVotech.imageManagerLoadURL = mailvotechBaseUrl + 's/file/list';
+MailVotech.imageUploadURL = mailvotechBaseUrl + 's/file/upload';
+MailVotech.imageManagerDeleteURL = mailvotechBaseUrl + 's/file/delete';
+MailVotech.elfinderURL = mailvotechBaseUrl + 'elfinder';
 
 /**
  * Initialize AtWho dropdown.
@@ -13,18 +13,18 @@ Mautic.elfinderURL = mauticBaseUrl + 'elfinder';
  * @param element jQuery element
  * @param method  method to get the tokens from
  */
-Mautic.initAtWho = function(element, method) {
+MailVotech.initAtWho = function(element, method) {
     // Avoid to request the tokens if not necessary
-    if (Mautic.builderTokensRequestInProgress) {
+    if (MailVotech.builderTokensRequestInProgress) {
         // Wait till previous request finish
         var intervalID = setInterval(function(){
-            if (!Mautic.builderTokensRequestInProgress) {
+            if (!MailVotech.builderTokensRequestInProgress) {
                 clearInterval(intervalID);
-                Mautic.configureAtWho(element, method);
+                MailVotech.configureAtWho(element, method);
             }
         }, 500);
     } else {
-        Mautic.configureAtWho(element, method);
+        MailVotech.configureAtWho(element, method);
     }
 };
 
@@ -34,12 +34,12 @@ Mautic.initAtWho = function(element, method) {
  * @param element jQuery element
  * @param method  method to get the tokens from
  */
-Mautic.configureAtWho = function(element, method) {
-    Mautic.getTokens(method, function(tokens) {
+MailVotech.configureAtWho = function(element, method) {
+    MailVotech.getTokens(method, function(tokens) {
         element.atwho('destroy');
 
         // Add the dynamic content tokens
-        mQuery.extend(tokens, Mautic.dynamicContentTokens);
+        mQuery.extend(tokens, MailVotech.dynamicContentTokens);
 
         element.atwho({
             at: '{',
@@ -60,38 +60,38 @@ Mautic.configureAtWho = function(element, method) {
  * @param method to fetch the tokens from
  * @param callback(tokens) to call when finished
  */
-Mautic.getTokens = function(method, callback) {
+MailVotech.getTokens = function(method, callback) {
     // Check if the builderTokens var holding the tokens was already loaded
-    if (!mQuery.isEmptyObject(Mautic.builderTokens)) {
-        return callback(Mautic.builderTokens);
+    if (!mQuery.isEmptyObject(MailVotech.builderTokens)) {
+        return callback(MailVotech.builderTokens);
     }
 
-    Mautic.builderTokensRequestInProgress = true;
+    MailVotech.builderTokensRequestInProgress = true;
 
     // OK, let's fetch the tokens.
     mQuery.ajax({
-        url: mauticAjaxUrl,
+        url: mailvotechAjaxUrl,
         data: 'action=' + method,
         success: function (response) {
             if (typeof response.tokens === 'object') {
 
                 // store the tokens to the session storage
-                Mautic.builderTokens = response.tokens;
+                MailVotech.builderTokens = response.tokens;
 
                 // return the callback with tokens
                 callback(response.tokens);
             }
         },
         error: function (request, textStatus, errorThrown) {
-            Mautic.processAjaxError(request, textStatus, errorThrown);
+            MailVotech.processAjaxError(request, textStatus, errorThrown);
         },
         complete: function() {
-            Mautic.builderTokensRequestInProgress = false;
+            MailVotech.builderTokensRequestInProgress = false;
         }
     });
 };
 
-Mautic.insertHtmlInEditor = function (obj, html) {
+MailVotech.insertHtmlInEditor = function (obj, html) {
     const ckEditor = ckEditors.get(obj[0]);
     const viewFragment = ckEditor.data.processor.toView(html);
     const modelFragment = ckEditor.data.toModel(viewFragment);
@@ -102,7 +102,7 @@ Mautic.insertHtmlInEditor = function (obj, html) {
     });
 };
 
-Mautic.MentionLinks =  function (editor) {
+MailVotech.MentionLinks =  function (editor) {
 
     editor.conversion.for( 'upcast' ).elementToAttribute( {
         view: {
@@ -142,7 +142,7 @@ Mautic.MentionLinks =  function (editor) {
  *
  * @deprecated: will be removed in M6
  */
-Mautic.customItemRenderer = function (item) {
+MailVotech.customItemRenderer = function (item) {
     let tokenId = item.id;
     let tokenName = item.name;
     const itemElement = document.createElement( 'span' );
@@ -163,10 +163,10 @@ Mautic.customItemRenderer = function (item) {
 /*
  * @deprecated: will be removed in M6
  */
-Mautic.getFeedItems = function (queryText) {
+MailVotech.getFeedItems = function (queryText) {
     return new Promise( resolve => {
         setTimeout( () => {
-            const itemsToDisplay = Mautic.builderTokensForCkEditor
+            const itemsToDisplay = MailVotech.builderTokensForCkEditor
                 .filter( isItemMatching )
                 .slice( 0, 5 );
             resolve( itemsToDisplay );
@@ -182,33 +182,33 @@ Mautic.getFeedItems = function (queryText) {
     }
 }
 
-Mautic.getTokensForPlugIn = function(method) {
+MailVotech.getTokensForPlugIn = function(method) {
     method = typeof method != 'undefined' ? method : 'page:getBuilderTokens';
     // OK, let's fetch the tokens.
     mQuery.ajax({
-        url: mauticAjaxUrl,
+        url: mailvotechAjaxUrl,
         data: 'action=' + method,
         async: false,
         success: function (response) {
             if (typeof response.tokens === 'object') {
-                Mautic.builderTokens = response.tokens;
-                mQuery.extend(Mautic.builderTokens, Mautic.dynamicContentTokens);
-                Mautic.builderTokensForCkEditor = mQuery.map(Mautic.builderTokens, function(value, i) {
+                MailVotech.builderTokens = response.tokens;
+                mQuery.extend(MailVotech.builderTokens, MailVotech.dynamicContentTokens);
+                MailVotech.builderTokensForCkEditor = mQuery.map(MailVotech.builderTokens, function(value, i) {
                     return {'id':i, 'name':value};
                 });
             }
         },
         error: function (request, textStatus, errorThrown) {
-            Mautic.processAjaxError(request, textStatus, errorThrown);
+            MailVotech.processAjaxError(request, textStatus, errorThrown);
         },
         complete: function() {
-            Mautic.builderTokensRequestInProgress = false;
+            MailVotech.builderTokensRequestInProgress = false;
         }
     });
-    return Mautic.builderTokensForCkEditor;
+    return MailVotech.builderTokensForCkEditor;
 };
 
-Mautic.getCKEditorFonts = function(fonts) {
+MailVotech.getCKEditorFonts = function(fonts) {
     fonts = Array.isArray(fonts) ? fonts : [];
     const CKEditorFonts = [];
 
@@ -221,17 +221,17 @@ Mautic.getCKEditorFonts = function(fonts) {
     return CKEditorFonts;
 }
 
-Mautic.ConvertFieldToCkeditor  = function(textarea, ckEditorToolbarOptions) {
+MailVotech.ConvertFieldToCkeditor  = function(textarea, ckEditorToolbarOptions) {
     if (ckEditors.has( textarea[0] ))
     {
         ckEditors.get( textarea[0] ).destroy();
         ckEditors.delete( textarea[0] )
     }
     const tokenCallback = textarea.attr('data-token-callback');
-    Mautic.InitCkEditor(textarea, Mautic.GetCkEditorConfigOptions(ckEditorToolbarOptions, tokenCallback, textarea));
+    MailVotech.InitCkEditor(textarea, MailVotech.GetCkEditorConfigOptions(ckEditorToolbarOptions, tokenCallback, textarea));
 }
 
-Mautic.GetCkEditorConfigOptions  = function(ckEditorToolbarOptions, tokenCallback, textarea = null) {
+MailVotech.GetCkEditorConfigOptions  = function(ckEditorToolbarOptions, tokenCallback, textarea = null) {
     const defaultOptions = ['undo', 'redo', '|', 'bold', 'italic', 'underline', 'heading', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor', 'alignment', 'numberedList', 'bulletedList', 'blockQuote', 'removeFormat', 'link', 'ckfinder', 'mediaEmbed', 'insertTable', 'sourceEditing'];
     const ckEditorToolbar = typeof ckEditorToolbarOptions != "undefined" && ckEditorToolbarOptions.length > 0 ? ckEditorToolbarOptions : defaultOptions;
     const ckEditorColors = [
@@ -258,7 +258,7 @@ Mautic.GetCkEditorConfigOptions  = function(ckEditorToolbarOptions, tokenCallbac
             shouldNotGroupWhenFull: true
         },
         fontFamily: {
-            options: Mautic.getCKEditorFonts(mauticEditorFonts),
+            options: MailVotech.getCKEditorFonts(mailvotechEditorFonts),
             shouldNotGroupWhenFull: true
         },
         fontSize: {
@@ -331,7 +331,7 @@ Mautic.GetCkEditorConfigOptions  = function(ckEditorToolbarOptions, tokenCallbac
     {
         mQuery.extend(ckEditorOption, {
             ckfinder: {
-                uploadUrl: Mautic.imageUploadURL+'?editor=ckeditor'
+                uploadUrl: MailVotech.imageUploadURL+'?editor=ckeditor'
             },
             image: {
                 toolbar: [
@@ -367,17 +367,17 @@ Mautic.GetCkEditorConfigOptions  = function(ckEditorToolbarOptions, tokenCallbac
 
     if (ckEditorToolbar.indexOf('TokenPlugin') > -1)
     {
-        const tokens = Mautic.getTokensForPlugIn(tokenCallback);
+        const tokens = MailVotech.getTokensForPlugIn(tokenCallback);
         mQuery.extend(ckEditorOption, {
-            extraPlugins: [Mautic.MentionLinks],
+            extraPlugins: [MailVotech.MentionLinks],
             dynamicTokenLabel: 'Insert token',
             dynamicToken: tokens,
             mention: {
                 feeds: [
                     {
                         marker: '{',
-                        feed: Mautic.getFeedItems,
-                        itemRenderer: Mautic.customItemRenderer
+                        feed: MailVotech.getFeedItems,
+                        itemRenderer: MailVotech.customItemRenderer
                     }
                 ]
             }
@@ -386,14 +386,14 @@ Mautic.GetCkEditorConfigOptions  = function(ckEditorToolbarOptions, tokenCallbac
     return ckEditorOption;
 }
 
-Mautic.InitCkEditor  = function(textarea, options) {
+MailVotech.InitCkEditor  = function(textarea, options) {
     ClassicEditor
         .create( textarea[0], options)
         .then( editor => {
             ckEditors.set( textarea[0], editor);
             if (textarea.hasClass('editor-advanced') || textarea.hasClass('editor-basic-fullpage')) {
                 editor.editing.view.document.on('change:isFocused', (evt, data, isFocused) => {
-                    Mautic.showChangeThemeWarning = isFocused;
+                    MailVotech.showChangeThemeWarning = isFocused;
                 });
             }
 
@@ -409,7 +409,7 @@ Mautic.InitCkEditor  = function(textarea, options) {
                     sOptions += ",height=" + height ;
                     sOptions += ",left=" + iLeft ;
                     sOptions += ",top=" + iTop ;
-                    const elPopup = window.open( Mautic.elfinderURL+ '?editor=ckeditor', "BrowseWindow", sOptions ) ;
+                    const elPopup = window.open( MailVotech.elfinderURL+ '?editor=ckeditor', "BrowseWindow", sOptions ) ;
                     elPopup.addEventListener('load', function(){
                         elPopup.editor = editor;
                     });

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Stats;
+namespace MailVotech\EmailBundle\Stats;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 
 final readonly class EmailPeriodMetrics
 {
@@ -94,9 +94,9 @@ final readonly class EmailPeriodMetrics
                 'WEEKDAY(TIMESTAMPADD(SECOND, :timezoneOffset, ph.date_hit)) AS hit_day',
                 'COUNT(DISTINCT ph.id) AS hit_count'
             )
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats', 'es')
-            ->join('es', MAUTIC_TABLE_PREFIX.'page_hits', 'ph', 'es.lead_id = ph.lead_id')
-            ->join('es', MAUTIC_TABLE_PREFIX.'channel_url_trackables', 'cut', 'cut.channel_id = es.email_id AND cut.redirect_id = ph.redirect_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 'es')
+            ->join('es', MAILVOTECH_TABLE_PREFIX.'page_hits', 'ph', 'es.lead_id = ph.lead_id')
+            ->join('es', MAILVOTECH_TABLE_PREFIX.'channel_url_trackables', 'cut', 'cut.channel_id = es.email_id AND cut.redirect_id = ph.redirect_id')
             ->where('ph.date_hit BETWEEN :dateFrom AND :dateTo')
             ->andWhere('ph.source = :email_source')
             ->andWhere('cut.channel = :email_source')
@@ -123,9 +123,9 @@ final readonly class EmailPeriodMetrics
                 'TIME_FORMAT(TIMESTAMPADD(SECOND, :timezoneOffset, ph.date_hit), :format) AS hit_hour',
                 'COUNT(DISTINCT ph.id) AS hit_count'
             )
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats', 'es')
-            ->join('es', MAUTIC_TABLE_PREFIX.'page_hits', 'ph', 'es.lead_id = ph.lead_id')
-            ->join('es', MAUTIC_TABLE_PREFIX.'channel_url_trackables', 'cut', 'cut.channel_id = es.email_id AND cut.redirect_id = ph.redirect_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 'es')
+            ->join('es', MAILVOTECH_TABLE_PREFIX.'page_hits', 'ph', 'es.lead_id = ph.lead_id')
+            ->join('es', MAILVOTECH_TABLE_PREFIX.'channel_url_trackables', 'cut', 'cut.channel_id = es.email_id AND cut.redirect_id = ph.redirect_id')
             ->where('ph.date_hit BETWEEN :dateFrom AND :dateTo')
             ->andWhere('ph.source = :email_source')
             ->andWhere('cut.channel = :email_source')
@@ -153,7 +153,7 @@ final readonly class EmailPeriodMetrics
                 "WEEKDAY(TIMESTAMPADD(SECOND, :timezoneOffset, {$dateColumn})) AS {$groupByAlias}",
                 "COUNT(id) AS {$countAlias}"
             )
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats', 'es')
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 'es')
             ->where("es.{$dateColumn} IS NOT NULL")
             ->andWhere("es.{$dateColumn} BETWEEN :dateFrom AND :dateTo")
             ->andWhere('es.source = :campaign_event_source')
@@ -169,7 +169,7 @@ final readonly class EmailPeriodMetrics
                 "TIME_FORMAT(TIMESTAMPADD(SECOND, :timezoneOffset, {$dateColumn}), :format) AS {$groupByAlias}",
                 "COUNT(id) AS {$countAlias}"
             )
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats', 'es')
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 'es')
             ->where("es.{$dateColumn} IS NOT NULL")
             ->andWhere("es.{$dateColumn} BETWEEN :dateFrom AND :dateTo")
             ->andWhere('es.source = :campaign_event_source')

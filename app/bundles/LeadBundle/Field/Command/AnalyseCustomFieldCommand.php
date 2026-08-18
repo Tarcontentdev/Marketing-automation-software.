@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field\Command;
+namespace MailVotech\LeadBundle\Field\Command;
 
-use Mautic\LeadBundle\Field\SchemaDefinition;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Field\SchemaDefinition;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
-    name: 'mautic:fields:analyse',
+    name: 'mailvotech:fields:analyse',
     description: 'Analyse actual usage of custom columns in leads table.'
 )]
 final class AnalyseCustomFieldCommand extends Command
@@ -61,12 +61,12 @@ final class AnalyseCustomFieldCommand extends Command
         $analysisDetails = array_merge_recursive($fieldDetails, $fieldLengths);
 
         $headers = [
-            $this->translator->trans('mautic.lead.field.analyse.header.name'),
-            $this->translator->trans('mautic.lead.field.analyse.header.alias'),
-            $this->translator->trans('mautic.lead.field.analyse.header.length'),
-            $this->translator->trans('mautic.lead.field.analyse.header.max_length'),
-            $this->translator->trans('mautic.lead.field.analyse.header.suggested_length'),
-            $this->translator->trans('mautic.lead.field.analyse.header.indexed'),
+            $this->translator->trans('mailvotech.lead.field.analyse.header.name'),
+            $this->translator->trans('mailvotech.lead.field.analyse.header.alias'),
+            $this->translator->trans('mailvotech.lead.field.analyse.header.length'),
+            $this->translator->trans('mailvotech.lead.field.analyse.header.max_length'),
+            $this->translator->trans('mailvotech.lead.field.analyse.header.suggested_length'),
+            $this->translator->trans('mailvotech.lead.field.analyse.header.indexed'),
         ];
 
         $rows = [];
@@ -82,7 +82,7 @@ final class AnalyseCustomFieldCommand extends Command
                 $columnLength,
                 $maxLength,
                 $suggestedMaxSize,
-                $analysisDetail['is_index'] ? $this->translator->trans('mautic.core.yes') : $this->translator->trans('mautic.core.no'),
+                $analysisDetail['is_index'] ? $this->translator->trans('mailvotech.core.yes') : $this->translator->trans('mailvotech.core.no'),
             ];
         }
 

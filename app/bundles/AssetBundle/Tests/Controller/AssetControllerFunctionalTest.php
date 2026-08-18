@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\Controller;
+namespace MailVotech\AssetBundle\Tests\Controller;
 
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Tests\Asset\AbstractAssetTestCase;
-use Mautic\CoreBundle\Tests\Traits\ControllerTrait;
-use Mautic\PageBundle\Tests\Controller\PageControllerTest;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\UserBundle\Entity\Permission;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Model\RoleModel;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Tests\Asset\AbstractAssetTestCase;
+use MailVotech\CoreBundle\Tests\Traits\ControllerTrait;
+use MailVotech\PageBundle\Tests\Controller\PageControllerTest;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\UserBundle\Entity\Permission;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Model\RoleModel;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -329,7 +329,7 @@ final class AssetControllerFunctionalTest extends AbstractAssetTestCase
         $container = $this->getContainer();
 
         // Get CSRF token
-        $csrfToken = $container->get(CsrfTokenManagerInterface::class)->getToken('mautic_ajax_post')->getValue();
+        $csrfToken = $container->get(CsrfTokenManagerInterface::class)->getToken('mailvotech_ajax_post')->getValue();
 
         // Create a temporary file
         $tempFile = tempnam(sys_get_temp_dir(), 'test_');
@@ -369,7 +369,7 @@ final class AssetControllerFunctionalTest extends AbstractAssetTestCase
         $this->assertArrayHasKey('tmpFileName', $responseData);
 
         // Assert file was created in the correct directory
-        $expectedDir      = $container->getParameter('mautic.upload_dir').implode('/', ['', 'tmp', $tmpDir]);
+        $expectedDir      = $container->getParameter('mailvotech.upload_dir').implode('/', ['', 'tmp', $tmpDir]);
         $expectedFilePath = implode('/', [$expectedDir, $responseData['tmpFileName']]);
         $this->assertFileExists($expectedFilePath);
 

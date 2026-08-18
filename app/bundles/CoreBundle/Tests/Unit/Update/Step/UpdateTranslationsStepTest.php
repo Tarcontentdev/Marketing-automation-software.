@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Update\Step;
+namespace MailVotech\CoreBundle\Tests\Unit\Update\Step;
 
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\CoreBundle\Update\Step\UpdateTranslationsStep;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\CoreBundle\Update\Step\UpdateTranslationsStep;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -132,7 +132,7 @@ final class UpdateTranslationsStepTest extends AbstractStepTestCase
 
         $this->logger->expects($this->once())
             ->method('error')
-            ->with('UPDATE ERROR: mautic.core.update.error_updating_language');
+            ->with('UPDATE ERROR: mailvotech.core.update.error_updating_language');
 
         $this->step->execute($this->progressBar, $this->input, $this->output);
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Error\LightSamlContextException;
@@ -27,7 +27,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 final class ExceptionListener extends ErrorListener
 {
     /**
-     * Mautic handles the exception well before the Symfony error listener does, so onKernelException runs
+     * MailVotech handles the exception well before the Symfony error listener does, so onKernelException runs
      * at a high priority instead of the -128 the parent asks for.
      *
      * @return array<string, mixed>
@@ -77,7 +77,7 @@ final class ExceptionListener extends ErrorListener
                     if ($session) {
                         $session->clear();
                     }
-                    $event->setResponse(new RedirectResponse($this->router->generate('mautic_saml_login_retry')));
+                    $event->setResponse(new RedirectResponse($this->router->generate('mailvotech_saml_login_retry')));
 
                     return;
                 }

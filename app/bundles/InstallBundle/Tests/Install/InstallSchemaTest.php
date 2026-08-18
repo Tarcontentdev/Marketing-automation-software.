@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\InstallBundle\Tests\Install;
+namespace MailVotech\InstallBundle\Tests\Install;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Schema\Table;
-use Mautic\CoreBundle\Test\EnvLoader;
-use Mautic\InstallBundle\Helper\SchemaHelper;
+use MailVotech\CoreBundle\Test\EnvLoader;
+use MailVotech\InstallBundle\Helper\SchemaHelper;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -44,7 +44,7 @@ final class InstallSchemaTest extends TestCase
             'dbname'        => $_ENV['DB_NAME'], // Doctrine needs 'dbname', not 'name'
             'user'          => $_ENV['DB_USER'],
             'password'      => $_ENV['DB_PASSWD'],
-            'table_prefix'  => MAUTIC_TABLE_PREFIX,
+            'table_prefix'  => MAILVOTECH_TABLE_PREFIX,
             'backup_prefix' => 'bak_',
         ];
 
@@ -92,9 +92,9 @@ final class InstallSchemaTest extends TestCase
         $property->setValue($schemaHelper, $connection->getDatabasePlatform());
 
         $tables       = [$this->indexTableName];
-        $mauticTables = [$this->indexTableName => $this->dbParams['backup_prefix'].$this->indexTableName];
+        $mailvotechTables = [$this->indexTableName => $this->dbParams['backup_prefix'].$this->indexTableName];
 
-        $sql = $method->invokeArgs($schemaHelper, [$tables, $mauticTables, $this->dbParams['backup_prefix']]);
+        $sql = $method->invokeArgs($schemaHelper, [$tables, $mailvotechTables, $this->dbParams['backup_prefix']]);
 
         $exceptions = [];
         if (!empty($sql)) {

@@ -1,20 +1,20 @@
 <?php
 
-namespace Mautic\CampaignBundle\Executioner\Logger;
+namespace MailVotech\CampaignBundle\Executioner\Logger;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
-use Mautic\CampaignBundle\Helper\ChannelExtractor;
-use Mautic\CampaignBundle\Model\SummaryModel;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Tracker\ContactTracker;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
+use MailVotech\CampaignBundle\Helper\ChannelExtractor;
+use MailVotech\CampaignBundle\Model\SummaryModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
 
 class EventLogger
 {
@@ -68,7 +68,7 @@ class EventLogger
     {
         $log = new LeadEventLog();
 
-        if (!defined('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED')) {
+        if (!defined('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED')) {
             $log->setIpAddress($this->ipLookupHelper->getIpAddress());
         }
 
@@ -85,7 +85,7 @@ class EventLogger
         }
 
         $log->setDateTriggered(new \DateTime());
-        $log->setSystemTriggered(defined('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED'));
+        $log->setSystemTriggered(defined('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED'));
 
         if (isset($this->contactRotations[$campaign->getId()][$contact->getId()]) && ($this->lastUsedCampaignIdToFetchRotation === $event->getCampaign()->getId())) {
             $log->setRotation($this->contactRotations[$campaign->getId()][$contact->getId()]['rotation']);

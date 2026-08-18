@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Tests\EventListener;
+namespace MailVotech\ApiBundle\Tests\EventListener;
 
-use Mautic\ApiBundle\EventListener\ConfigSubscriber;
-use Mautic\ConfigBundle\Event\ConfigEvent;
-use Mautic\CoreBundle\Tests\CommonMocks;
+use MailVotech\ApiBundle\EventListener\ConfigSubscriber;
+use MailVotech\ConfigBundle\Event\ConfigEvent;
+use MailVotech\CoreBundle\Tests\CommonMocks;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 final class ConfigSubscriberTest extends CommonMocks

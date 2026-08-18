@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\FormBundle\Validator\Constraint;
+namespace MailVotech\FormBundle\Validator\Constraint;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 

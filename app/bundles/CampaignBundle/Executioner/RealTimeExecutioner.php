@@ -1,23 +1,23 @@
 <?php
 
-namespace Mautic\CampaignBundle\Executioner;
+namespace MailVotech\CampaignBundle\Executioner;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\DecisionAccessor;
-use Mautic\CampaignBundle\EventCollector\EventCollector;
-use Mautic\CampaignBundle\Executioner\Event\DecisionExecutioner as Executioner;
-use Mautic\CampaignBundle\Executioner\Exception\CampaignNotExecutableException;
-use Mautic\CampaignBundle\Executioner\Exception\DecisionNotApplicableException;
-use Mautic\CampaignBundle\Executioner\Helper\DecisionHelper;
-use Mautic\CampaignBundle\Executioner\Helper\EventRedirectionHelper;
-use Mautic\CampaignBundle\Executioner\Result\Responses;
-use Mautic\CampaignBundle\Executioner\Scheduler\EventScheduler;
-use Mautic\CampaignBundle\Helper\ChannelExtractor;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\DecisionAccessor;
+use MailVotech\CampaignBundle\EventCollector\EventCollector;
+use MailVotech\CampaignBundle\Executioner\Event\DecisionExecutioner as Executioner;
+use MailVotech\CampaignBundle\Executioner\Exception\CampaignNotExecutableException;
+use MailVotech\CampaignBundle\Executioner\Exception\DecisionNotApplicableException;
+use MailVotech\CampaignBundle\Executioner\Helper\DecisionHelper;
+use MailVotech\CampaignBundle\Executioner\Helper\EventRedirectionHelper;
+use MailVotech\CampaignBundle\Executioner\Result\Responses;
+use MailVotech\CampaignBundle\Executioner\Scheduler\EventScheduler;
+use MailVotech\CampaignBundle\Helper\ChannelExtractor;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
 use Psr\Log\LoggerInterface;
 
 class RealTimeExecutioner
@@ -63,7 +63,7 @@ class RealTimeExecutioner
         $this->logger->debug('CAMPAIGN: Campaign triggered for event type '.$type.'('.$channel.' / '.$channelId.')');
 
         // Kept for BC support although not sure we need this
-        defined('MAUTIC_CAMPAIGN_NOT_SYSTEM_TRIGGERED') || define('MAUTIC_CAMPAIGN_NOT_SYSTEM_TRIGGERED', 1);
+        defined('MAILVOTECH_CAMPAIGN_NOT_SYSTEM_TRIGGERED') || define('MAILVOTECH_CAMPAIGN_NOT_SYSTEM_TRIGGERED', 1);
 
         try {
             $this->fetchCurrentContact();

@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Mautic\CoreBundle\DTO\TokenFormatOptions;
-use Mautic\CoreBundle\DTO\TokenLabelFormat;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\DTO\TokenFormatOptions;
+use MailVotech\CoreBundle\DTO\TokenLabelFormat;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class BuilderTokenHelper

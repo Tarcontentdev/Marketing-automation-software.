@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Twig\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Twig\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Twig\Helper\ConfigHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Twig\Helper\ConfigHelper;
 use PHPUnit\Framework\Assert;
 
 final class ConfigHelperTest extends \PHPUnit\Framework\TestCase

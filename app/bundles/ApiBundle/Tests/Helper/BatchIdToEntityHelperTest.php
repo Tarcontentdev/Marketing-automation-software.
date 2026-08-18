@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Tests\Helper;
+namespace MailVotech\ApiBundle\Tests\Helper;
 
-use Mautic\ApiBundle\Helper\BatchIdToEntityHelper;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\ApiBundle\Helper\BatchIdToEntityHelper;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\TestCase;
 
 final class BatchIdToEntityHelperTest extends TestCase
@@ -42,7 +42,7 @@ final class BatchIdToEntityHelperTest extends TestCase
         $helper = new BatchIdToEntityHelper($parameters);
         $this->assertSame([], $helper->getIds());
         $this->assertTrue($helper->hasErrors());
-        $this->assertSame(['mautic.api.call.id_missing'], $helper->getErrors());
+        $this->assertSame(['mailvotech.api.call.id_missing'], $helper->getErrors());
     }
 
     public function testIdsAreExtractedFromSimpleArray(): void
@@ -86,7 +86,7 @@ final class BatchIdToEntityHelperTest extends TestCase
         $this->assertSame([1, 3], $helper->getIds());
 
         $this->assertTrue($helper->hasErrors());
-        $this->assertSame([1 => 'mautic.api.call.id_missing'], $helper->getErrors());
+        $this->assertSame([1 => 'mailvotech.api.call.id_missing'], $helper->getErrors());
     }
 
     public function testOriginalKeyOrderingForIdKeyArray(): void

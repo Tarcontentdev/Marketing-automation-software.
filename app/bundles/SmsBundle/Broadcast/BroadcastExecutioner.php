@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\SmsBundle\Broadcast;
+namespace MailVotech\SmsBundle\Broadcast;
 
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\ChannelBundle\Event\ChannelBroadcastEvent;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Entity\SmsRepository;
-use Mautic\SmsBundle\Model\SmsModel;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\ChannelBundle\Event\ChannelBroadcastEvent;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Entity\SmsRepository;
+use MailVotech\SmsBundle\Model\SmsModel;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class BroadcastExecutioner
@@ -37,7 +37,7 @@ final class BroadcastExecutioner
             } catch (\Exception) {
             }
             $event->setResults(
-                sprintf('%s: %s', $this->translator->trans('mautic.sms.sms'), $sms->getName()),
+                sprintf('%s: %s', $this->translator->trans('mailvotech.sms.sms'), $sms->getName()),
                 $this->result->getSentCount(),
                 $this->result->getFailedCount()
             );
@@ -45,7 +45,7 @@ final class BroadcastExecutioner
     }
 
     /**
-     * @throws \Mautic\CampaignBundle\Executioner\Exception\NoContactsFoundException
+     * @throws \MailVotech\CampaignBundle\Executioner\Exception\NoContactsFoundException
      */
     private function send(Sms $sms): void
     {

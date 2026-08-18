@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\Middleware;
+namespace MailVotech\Middleware;
 
-use Mautic\CoreBundle\Loader\ParameterLoader;
+use MailVotech\CoreBundle\Loader\ParameterLoader;
 
 trait ConfigAwareTrait
 {

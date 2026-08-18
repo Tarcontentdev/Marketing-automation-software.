@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\IpLookup;
+namespace MailVotech\CoreBundle\IpLookup;
 
 use GuzzleHttp\RequestOptions;
-use Mautic\CoreBundle\Form\Type\IpLookupDownloadDataStoreButtonType;
+use MailVotech\CoreBundle\Form\Type\IpLookupDownloadDataStoreButtonType;
 use Psr\Http\Client\ClientExceptionInterface;
 
 abstract class AbstractLocalDataLookup extends AbstractLookup implements IpLookupFormInterface
@@ -47,7 +47,7 @@ abstract class AbstractLocalDataLookup extends AbstractLookup implements IpLooku
     }
 
     /**
-     * Used by the mautic:iplookup:update_data command and form fetch button (if applicable) to update local IP data stores.
+     * Used by the mailvotech:iplookup:update_data command and form fetch button (if applicable) to update local IP data stores.
      *
      * @return bool
      */

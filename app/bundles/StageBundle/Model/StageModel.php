@@ -1,21 +1,21 @@
 <?php
 
-namespace Mautic\StageBundle\Model;
+namespace MailVotech\StageBundle\Model;
 
 use Doctrine\DBAL\ParameterType;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Model\FormModel as CommonFormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\LeadBundle\Entity\StagesChangeLogRepository;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\StageBundle\Entity\LeadStageLogRepository;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\StageBundle\Entity\StageRepository;
-use Mautic\StageBundle\Event\StageBuilderEvent;
-use Mautic\StageBundle\Event\StageEvent;
-use Mautic\StageBundle\Form\Type\StageType;
-use Mautic\StageBundle\StageEvents;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Model\FormModel as CommonFormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\LeadBundle\Entity\StagesChangeLogRepository;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\StageBundle\Entity\LeadStageLogRepository;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\StageBundle\Entity\StageRepository;
+use MailVotech\StageBundle\Event\StageBuilderEvent;
+use MailVotech\StageBundle\Event\StageEvent;
+use MailVotech\StageBundle\Form\Type\StageType;
+use MailVotech\StageBundle\StageEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -159,13 +159,13 @@ class StageModel extends CommonFormModel implements GlobalSearchInterface
         $q     = $query->prepareTimeDataQuery('lead_stages_change_log', 'date_added', $filter);
 
         if (!$canViewOthers) {
-            $q->join('t', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = t.lead_id')
+            $q->join('t', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = t.lead_id')
                 ->andWhere('l.owner_id = :userId')
                 ->setParameter('userId', $this->userHelper->getUser()->getId());
         }
 
         $data = $query->loadAndBuildTimeData($q);
-        $chart->setDataset($this->translator->trans('mautic.stage.changes'), $data);
+        $chart->setDataset($this->translator->trans('mailvotech.stage.changes'), $data);
 
         return $chart->render();
     }
@@ -183,7 +183,7 @@ class StageModel extends CommonFormModel implements GlobalSearchInterface
 
         $this->em->wrapInTransaction(function () use ($primaryStageId, $secondaryStage, $secondaryStageId): void {
             $this->em->getConnection()->createQueryBuilder()
-                ->update(MAUTIC_TABLE_PREFIX.'leads')
+                ->update(MAILVOTECH_TABLE_PREFIX.'leads')
                 ->set('stage_id', ':primaryStageId')
                 ->where('stage_id = :secondaryStageId')
                 ->setParameter('primaryStageId', $primaryStageId, ParameterType::INTEGER)

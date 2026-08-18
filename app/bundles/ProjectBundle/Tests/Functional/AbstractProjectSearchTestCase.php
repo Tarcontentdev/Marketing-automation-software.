@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Tests\Functional;
+namespace MailVotech\ProjectBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\ProjectBundle\Entity\Project;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\ProjectBundle\Entity\Project;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * This class should simplify writing functional tests for project search functionality on various entities.
  */
-abstract class AbstractProjectSearchTestCase extends MauticMysqlTestCase
+abstract class AbstractProjectSearchTestCase extends MailVotechMysqlTestCase
 {
     /**
      * @param string[] $expectedEntities

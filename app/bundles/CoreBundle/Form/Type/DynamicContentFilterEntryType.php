@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Helper\BuilderIntegrationsHelper;
-use Mautic\LeadBundle\Helper\FormFieldHelper;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\StageBundle\Entity\StageRepository;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Helper\BuilderIntegrationsHelper;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\StageBundle\Entity\StageRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -65,8 +65,8 @@ final class DynamicContentFilterEntryType extends AbstractType
         $extraClasses = '';
 
         try {
-            $mauticBuilder = $this->builderIntegrationsHelper->getBuilder('email');
-            $mauticBuilder->getName();
+            $mailvotechBuilder = $this->builderIntegrationsHelper->getBuilder('email');
+            $mailvotechBuilder->getName();
         } catch (IntegrationNotFoundException) {
             // Assume legacy builder
             $extraClasses = ' legacy-builder';
@@ -76,7 +76,7 @@ final class DynamicContentFilterEntryType extends AbstractType
             'content',
             TextareaType::class,
             [
-                'label' => 'mautic.core.dynamicContent.alt_content',
+                'label' => 'mailvotech.core.dynamicContent.alt_content',
                 'attr'  => [
                     'class' => 'form-control editor editor-dynamic-content'.$extraClasses,
                 ],

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\ChannelBundle\ChannelEvents;
-use Mautic\ChannelBundle\Event\ChannelEvent;
-use Mautic\ChannelBundle\Model\MessageModel;
-use Mautic\EmailBundle\Form\Type\EmailListType;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\ReportBundle\Model\ReportModel;
+use MailVotech\ChannelBundle\ChannelEvents;
+use MailVotech\ChannelBundle\Event\ChannelEvent;
+use MailVotech\ChannelBundle\Model\MessageModel;
+use MailVotech\EmailBundle\Form\Type\EmailListType;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\ReportBundle\Model\ReportModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 const CHANNEL_COLUMN_CATEGORY_ID     = 'category_id';

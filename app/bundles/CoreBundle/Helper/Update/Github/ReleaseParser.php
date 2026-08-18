@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper\Update\Github;
+namespace MailVotech\CoreBundle\Helper\Update\Github;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Mautic\CoreBundle\Helper\Update\Exception\LatestVersionSupportedException;
-use Mautic\CoreBundle\Helper\Update\Exception\MetadataNotFoundException;
-use Mautic\CoreBundle\Helper\Update\Exception\UpdatePackageNotFoundException;
-use Mautic\CoreBundle\Release\Metadata;
+use MailVotech\CoreBundle\Helper\Update\Exception\LatestVersionSupportedException;
+use MailVotech\CoreBundle\Helper\Update\Exception\MetadataNotFoundException;
+use MailVotech\CoreBundle\Helper\Update\Exception\UpdatePackageNotFoundException;
+use MailVotech\CoreBundle\Release\Metadata;
 
 class ReleaseParser
 {
@@ -20,7 +20,7 @@ class ReleaseParser
      * @throws LatestVersionSupportedException
      * @throws UpdatePackageNotFoundException
      */
-    public function getLatestSupportedRelease(array $releases, string $mauticVersion, string $allowedStability): Release
+    public function getLatestSupportedRelease(array $releases, string $mailvotechVersion, string $allowedStability): Release
     {
         foreach ($releases as $release) {
             try {
@@ -33,17 +33,17 @@ class ReleaseParser
                 ('stable' === $allowedStability && 'stable' !== $metadata->getStability())
                 || ('stable' !== $metadata->getStability() && version_compare($allowedStability, $metadata->getStability(), 'gt'))
             ) {
-                // This Mautic does support the given release's stability so continue
+                // This MailVotech does support the given release's stability so continue
                 continue;
             }
 
-            if (version_compare($mauticVersion, $metadata->getMinSupportedMauticVersion(), 'lt')) {
-                // This Mautic version cannot be upgraded to the given release so continue
+            if (version_compare($mailvotechVersion, $metadata->getMinSupportedMailVotechVersion(), 'lt')) {
+                // This MailVotech version cannot be upgraded to the given release so continue
                 continue;
             }
 
-            if (version_compare($mauticVersion, $metadata->getVersion(), 'ge')) {
-                // This Mautic version is the same as the given release so continue
+            if (version_compare($mailvotechVersion, $metadata->getVersion(), 'ge')) {
+                // This MailVotech version is the same as the given release so continue
                 continue;
             }
 
@@ -60,8 +60,8 @@ class ReleaseParser
     private function getMetadata(string $releaseUrl): Metadata
     {
         // Convert the release URL to a repository URL to fetch the contents of the release_metadata.json file
-        // https://github.com/mautic/mautic/releases/tag/3.0.0-beta
-        // https://raw.githubusercontent.com/mautic/mautic/3.0.0-beta
+        // https://github.com/mailvotech/mailvotech/releases/tag/3.0.0-beta
+        // https://raw.githubusercontent.com/mailvotech/mailvotech/3.0.0-beta
 
         $contentUrl  = str_replace(['github.com', 'releases/tag/'], ['raw.githubusercontent.com', ''], $releaseUrl);
         $metadataUrl = $contentUrl.'/app/release_metadata.json';

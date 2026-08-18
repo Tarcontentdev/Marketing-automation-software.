@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Mautic\CoreBundle\DependencyInjection\MauticCoreExtension;
-use Mautic\PluginBundle\EventListener\CampaignSubscriber;
-use Mautic\PluginBundle\EventListener\FormSubscriber;
+use MailVotech\CoreBundle\DependencyInjection\MailVotechCoreExtension;
+use MailVotech\PluginBundle\EventListener\CampaignSubscriber;
+use MailVotech\PluginBundle\EventListener\FormSubscriber;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
@@ -22,23 +22,23 @@ return function (ContainerConfigurator $configurator): void {
         'Form/Constraint/CanPublish.php',
     ];
 
-    $services->load('Mautic\\PluginBundle\\', '../')
-        ->exclude('../{'.implode(',', array_merge(MauticCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
+    $services->load('MailVotech\\PluginBundle\\', '../')
+        ->exclude('../{'.implode(',', array_merge(MailVotechCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
 
-    $services->load('Mautic\\PluginBundle\\Entity\\', '../Entity/*Repository.php');
-    $services->set('mautic.helper.integration', Mautic\PluginBundle\Helper\IntegrationHelper::class);
-    $services->alias(Mautic\PluginBundle\Helper\IntegrationHelper::class, 'mautic.helper.integration');
-    $services->set('mautic.plugin.helper.reload', Mautic\PluginBundle\Helper\ReloadHelper::class);
-    $services->alias(Mautic\PluginBundle\Helper\ReloadHelper::class, 'mautic.plugin.helper.reload');
-    $services->set('mautic.plugin.facade.reload', Mautic\PluginBundle\Facade\ReloadFacade::class);
-    $services->alias(Mautic\PluginBundle\Facade\ReloadFacade::class, 'mautic.plugin.facade.reload');
+    $services->load('MailVotech\\PluginBundle\\Entity\\', '../Entity/*Repository.php');
+    $services->set('mailvotech.helper.integration', MailVotech\PluginBundle\Helper\IntegrationHelper::class);
+    $services->alias(MailVotech\PluginBundle\Helper\IntegrationHelper::class, 'mailvotech.helper.integration');
+    $services->set('mailvotech.plugin.helper.reload', MailVotech\PluginBundle\Helper\ReloadHelper::class);
+    $services->alias(MailVotech\PluginBundle\Helper\ReloadHelper::class, 'mailvotech.plugin.helper.reload');
+    $services->set('mailvotech.plugin.facade.reload', MailVotech\PluginBundle\Facade\ReloadFacade::class);
+    $services->alias(MailVotech\PluginBundle\Facade\ReloadFacade::class, 'mailvotech.plugin.facade.reload');
 
-    $services->alias('mautic.plugin.repository.integration', Mautic\PluginBundle\Entity\IntegrationRepository::class);
-    $services->alias('mautic.plugin.model.plugin', Mautic\PluginBundle\Model\PluginModel::class);
-    $services->alias('mautic.plugin.model.integration_entity', Mautic\PluginBundle\Model\IntegrationEntityModel::class);
+    $services->alias('mailvotech.plugin.repository.integration', MailVotech\PluginBundle\Entity\IntegrationRepository::class);
+    $services->alias('mailvotech.plugin.model.plugin', MailVotech\PluginBundle\Model\PluginModel::class);
+    $services->alias('mailvotech.plugin.model.integration_entity', MailVotech\PluginBundle\Model\IntegrationEntityModel::class);
 
     $services->set(FormSubscriber::class)
-        ->call('setIntegrationHelper', [service('mautic.helper.integration')]);
+        ->call('setIntegrationHelper', [service('mailvotech.helper.integration')]);
     $services->set(CampaignSubscriber::class)
-        ->call('setIntegrationHelper', [service('mautic.helper.integration')]);
+        ->call('setIntegrationHelper', [service('mailvotech.helper.integration')]);
 };

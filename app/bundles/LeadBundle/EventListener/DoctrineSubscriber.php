@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\DBAL\Types\StringType;
 use Doctrine\ORM\Tools\Event\GenerateSchemaEventArgs;
 use Doctrine\ORM\Tools\ToolEvents;
-use Mautic\LeadBundle\Field\SchemaDefinition;
+use MailVotech\LeadBundle\Field\SchemaDefinition;
 use Monolog\Logger;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 final readonly class DoctrineSubscriber
 {
     public function __construct(
-        #[Autowire(service: 'monolog.logger.mautic')]
+        #[Autowire(service: 'monolog.logger.mailvotech')]
         private Logger $logger,
     ) {
     }
@@ -24,7 +24,7 @@ final readonly class DoctrineSubscriber
         $schema = $args->getSchema();
 
         try {
-            if (!$schema->hasTable(MAUTIC_TABLE_PREFIX.'lead_fields')) {
+            if (!$schema->hasTable(MAILVOTECH_TABLE_PREFIX.'lead_fields')) {
                 return;
             }
 
@@ -34,12 +34,12 @@ final readonly class DoctrineSubscriber
             ];
 
             foreach ($objects as $object => $tableName) {
-                $table = $schema->getTable(MAUTIC_TABLE_PREFIX.$tableName);
+                $table = $schema->getTable(MAILVOTECH_TABLE_PREFIX.$tableName);
 
                 // get a list of fields
                 $fields = $args->getEntityManager()->getConnection()->createQueryBuilder()
                     ->select('f.alias, f.is_unique_identifer as is_unique, f.is_index, f.type, f.object')
-                    ->from(MAUTIC_TABLE_PREFIX.'lead_fields', 'f')
+                    ->from(MAILVOTECH_TABLE_PREFIX.'lead_fields', 'f')
                     ->where("f.object = '{$object}'")
                     ->orderBy('f.field_order', 'ASC')
                     ->executeQuery()
@@ -58,7 +58,7 @@ final readonly class DoctrineSubscriber
                     }
 
                     if (!empty($field['is_unique']) || !empty($field['is_index'])) {
-                        $table->addIndex([$columnDef['name']], MAUTIC_TABLE_PREFIX.$field['alias'].'_search');
+                        $table->addIndex([$columnDef['name']], MAILVOTECH_TABLE_PREFIX.$field['alias'].'_search');
                     }
                 }
 
@@ -78,22 +78,22 @@ final readonly class DoctrineSubscriber
                     // Only use three to prevent max key length errors
                     asort($uniqueFields);
                     $uniqueFields = array_slice($uniqueFields, 0, 3);
-                    $table->addIndex($uniqueFields, MAUTIC_TABLE_PREFIX.'unique_identifier_search');
+                    $table->addIndex($uniqueFields, MAILVOTECH_TABLE_PREFIX.'unique_identifier_search');
                 }
 
                 switch ($object) {
                     case 'lead':
-                        $table->addIndex(['attribution', 'attribution_date'], MAUTIC_TABLE_PREFIX.'contact_attribution');
-                        $table->addIndex(['date_added', 'country'], MAUTIC_TABLE_PREFIX.'date_added_country_index');
+                        $table->addIndex(['attribution', 'attribution_date'], MAILVOTECH_TABLE_PREFIX.'contact_attribution');
+                        $table->addIndex(['date_added', 'country'], MAILVOTECH_TABLE_PREFIX.'date_added_country_index');
                         break;
                     case 'company':
-                        $table->addIndex(['companyname', 'companyemail'], MAUTIC_TABLE_PREFIX.'company_filter');
-                        $table->addIndex(['companyname', 'companycity', 'companycountry', 'companystate'], MAUTIC_TABLE_PREFIX.'company_match');
+                        $table->addIndex(['companyname', 'companyemail'], MAILVOTECH_TABLE_PREFIX.'company_filter');
+                        $table->addIndex(['companyname', 'companycity', 'companycountry', 'companystate'], MAILVOTECH_TABLE_PREFIX.'company_match');
                         break;
                 }
             }
         } catch (\Exception $e) {
-            if (defined('MAUTIC_INSTALLER')) {
+            if (defined('MAILVOTECH_INSTALLER')) {
                 return;
             }
             // table doesn't exist or something bad happened so oh well

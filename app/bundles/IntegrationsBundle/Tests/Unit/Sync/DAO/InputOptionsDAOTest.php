@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\DAO;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\DAO;
 
-use Mautic\IntegrationsBundle\Exception\InvalidValueException;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\ObjectIdsDAO;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
+use MailVotech\IntegrationsBundle\Exception\InvalidValueException;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\ObjectIdsDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
 use PHPUnit\Framework\TestCase;
 
 final class InputOptionsDAOTest extends TestCase
@@ -22,7 +22,7 @@ final class InputOptionsDAOTest extends TestCase
                 'disable-push'          => false,
                 'disable-pull'          => true,
                 'disable-activity-push' => true,
-                'mautic-object-id'      => ['contact:12', 'contact:13', 'company:45'],
+                'mailvotech-object-id'      => ['contact:12', 'contact:13', 'company:45'],
                 'integration-object-id' => ['Lead:hfskjdhf', 'Lead:hfskjdhr'],
                 'start-datetime'        => '2019-09-12T12:01:20',
                 'end-datetime'          => '2019-10-12T12:01:20',
@@ -35,8 +35,8 @@ final class InputOptionsDAOTest extends TestCase
         $this->assertFalse($inputOptionsDAO->pullIsEnabled());
         $this->assertTrue($inputOptionsDAO->pushIsEnabled());
         $this->assertFalse($inputOptionsDAO->activityPushIsEnabled());
-        $this->assertSame(['12', '13'], $inputOptionsDAO->getMauticObjectIds()->getObjectIdsFor(Contact::NAME));
-        $this->assertSame(['45'], $inputOptionsDAO->getMauticObjectIds()->getObjectIdsFor(MauticSyncDataExchange::OBJECT_COMPANY));
+        $this->assertSame(['12', '13'], $inputOptionsDAO->getMailVotechObjectIds()->getObjectIdsFor(Contact::NAME));
+        $this->assertSame(['45'], $inputOptionsDAO->getMailVotechObjectIds()->getObjectIdsFor(MailVotechSyncDataExchange::OBJECT_COMPANY));
         $this->assertSame(['hfskjdhf', 'hfskjdhr'], $inputOptionsDAO->getIntegrationObjectIds()->getObjectIdsFor('Lead'));
         $this->assertSame('2019-09-12T12:01:20+00:00', $inputOptionsDAO->getStartDateTime()->format(DATE_ATOM));
         $this->assertSame('2019-10-12T12:01:20+00:00', $inputOptionsDAO->getEndDateTime()->format(DATE_ATOM));
@@ -57,7 +57,7 @@ final class InputOptionsDAOTest extends TestCase
         $this->assertTrue($inputOptionsDAO->pullIsEnabled());
         $this->assertTrue($inputOptionsDAO->pushIsEnabled());
         $this->assertTrue($inputOptionsDAO->activityPushIsEnabled());
-        $this->assertNotInstanceOf(ObjectIdsDAO::class, $inputOptionsDAO->getMauticObjectIds());
+        $this->assertNotInstanceOf(ObjectIdsDAO::class, $inputOptionsDAO->getMailVotechObjectIds());
         $this->assertNotInstanceOf(ObjectIdsDAO::class, $inputOptionsDAO->getIntegrationObjectIds());
         $this->assertNotInstanceOf(\DateTimeInterface::class, $inputOptionsDAO->getStartDateTime());
         $this->assertNotInstanceOf(\DateTimeInterface::class, $inputOptionsDAO->getEndDateTime());
@@ -66,7 +66,7 @@ final class InputOptionsDAOTest extends TestCase
 
     public function testWorkflowFromServiceWithAllValuesSet(): void
     {
-        $mauticObjectIds      = new ObjectIdsDAO();
+        $mailvotechObjectIds      = new ObjectIdsDAO();
         $integrationObjectIds = new ObjectIdsDAO();
         $start                = new \DateTimeImmutable('2019-09-12T12:01:20', new \DateTimeZone('UTC'));
         $end                  = new \DateTimeImmutable('2019-10-12T12:01:20', new \DateTimeZone('UTC'));
@@ -78,7 +78,7 @@ final class InputOptionsDAOTest extends TestCase
                 'disable-push'          => false,
                 'disable-pull'          => true,
                 'disable-activity-push' => false,
-                'mautic-object-id'      => $mauticObjectIds,
+                'mailvotech-object-id'      => $mailvotechObjectIds,
                 'integration-object-id' => $integrationObjectIds,
                 'start-datetime'        => $start,
                 'end-datetime'          => $end,
@@ -91,7 +91,7 @@ final class InputOptionsDAOTest extends TestCase
         $this->assertFalse($inputOptionsDAO->pullIsEnabled());
         $this->assertTrue($inputOptionsDAO->pushIsEnabled());
         $this->assertTrue($inputOptionsDAO->activityPushIsEnabled());
-        $this->assertSame($mauticObjectIds, $inputOptionsDAO->getMauticObjectIds());
+        $this->assertSame($mailvotechObjectIds, $inputOptionsDAO->getMailVotechObjectIds());
         $this->assertSame($integrationObjectIds, $inputOptionsDAO->getIntegrationObjectIds());
         $this->assertSame($start, $inputOptionsDAO->getStartDateTime());
         $this->assertSame($end, $inputOptionsDAO->getEndDateTime());

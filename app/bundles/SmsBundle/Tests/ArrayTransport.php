@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests;
+namespace MailVotech\SmsBundle\Tests;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\SmsBundle\Sms\TransportInterface;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\SmsBundle\Sms\TransportInterface;
 
 final class ArrayTransport implements TransportInterface
 {

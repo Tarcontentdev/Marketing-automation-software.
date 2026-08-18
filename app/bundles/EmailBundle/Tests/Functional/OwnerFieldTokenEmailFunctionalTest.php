@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Functional;
+namespace MailVotech\EmailBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\UserEntityTrait;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\UserEntityTrait;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
-final class OwnerFieldTokenEmailFunctionalTest extends MauticMysqlTestCase
+final class OwnerFieldTokenEmailFunctionalTest extends MailVotechMysqlTestCase
 {
     use UserEntityTrait;
 
@@ -44,7 +44,7 @@ final class OwnerFieldTokenEmailFunctionalTest extends MauticMysqlTestCase
             .'Owner first name: {ownerfield=firstname} '
             .'Owner last name: {ownerfield=lastname} '
             .'Owner email: {ownerfield=email} '
-            .'<a id="owner-profile-link" href="https://example.mautic/author/{ownerfield=firstname}/">Owner profile</a>'
+            .'<a id="owner-profile-link" href="https://example.mailvotech/author/{ownerfield=firstname}/">Owner profile</a>'
             .'</body></html>'
         );
 
@@ -99,14 +99,14 @@ final class OwnerFieldTokenEmailFunctionalTest extends MauticMysqlTestCase
         $profileLinkHref = $crawler->filter('#owner-profile-link')->attr('href');
         $this->assertNotNull($profileLinkHref);
         $this->assertStringNotContainsString('{ownerfield=', $profileLinkHref);
-        if (str_starts_with($profileLinkHref, 'https://example.mautic/author/')) {
-            $this->assertSame('https://example.mautic/author/Contact/', $profileLinkHref);
+        if (str_starts_with($profileLinkHref, 'https://example.mailvotech/author/')) {
+            $this->assertSame('https://example.mailvotech/author/Contact/', $profileLinkHref);
         } else {
             $this->client->followRedirects(false);
             $this->client->request(Request::METHOD_GET, $profileLinkHref);
             $location = $this->client->getResponse()->headers->get('Location');
             $this->assertNotNull($location);
-            $this->assertStringContainsString('https://example.mautic/author/Contact/', $location);
+            $this->assertStringContainsString('https://example.mailvotech/author/Contact/', $location);
         }
     }
 }

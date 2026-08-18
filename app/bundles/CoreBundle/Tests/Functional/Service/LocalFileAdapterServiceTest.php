@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Service;
+namespace MailVotech\CoreBundle\Tests\Functional\Service;
 
 use FM\ElfinderBundle\Connector\ElFinderConnector;
 use FM\ElfinderBundle\Loader\ElFinderLoader;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\User;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-final class LocalFileAdapterServiceTest extends MauticMysqlTestCase
+final class LocalFileAdapterServiceTest extends MailVotechMysqlTestCase
 {
     private ?string $folderName = null;
 

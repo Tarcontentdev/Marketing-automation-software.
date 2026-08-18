@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\LeadBundle\Tracker\Service\ContactTrackingService;
+namespace MailVotech\LeadBundle\Tracker\Service\ContactTrackingService;
 
-use Mautic\CoreBundle\Helper\CookieHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDeviceRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\MergeRecordRepository;
+use MailVotech\CoreBundle\Helper\CookieHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDeviceRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\MergeRecordRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -71,6 +71,6 @@ final readonly class ContactTrackingService implements ContactTrackingServiceInt
      */
     public function getTrackedIdentifier(): mixed
     {
-        return $this->cookieHelper->getCookie('mautic_session_id');
+        return $this->cookieHelper->getCookie('mailvotech_session_id');
     }
 }

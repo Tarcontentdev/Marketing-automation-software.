@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Command;
+namespace MailVotech\LeadBundle\Command;
 
-use Mautic\CoreBundle\Helper\ExitCode;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\CoreBundle\Helper\ExitCode;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Model\ListModel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -20,7 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 final class DeleteLeadListsCommand extends Command
 {
-    public const COMMAND_NAME = 'mautic:segment:delete';
+    public const COMMAND_NAME = 'mailvotech:segment:delete';
 
     public function __construct(
         private readonly ListModel $listModel,

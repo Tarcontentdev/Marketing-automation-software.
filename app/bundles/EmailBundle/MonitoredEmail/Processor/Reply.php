@@ -1,20 +1,20 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor;
 
 use Doctrine\ORM\EntityNotFoundException;
-use Mautic\CoreBundle\Helper\EmailAddressHelper;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\EmailReply;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Event\EmailReplyEvent;
-use Mautic\EmailBundle\Model\EmailStatModel;
-use Mautic\EmailBundle\MonitoredEmail\Exception\ReplyNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Reply\Parser;
-use Mautic\EmailBundle\MonitoredEmail\Search\ContactFinder;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Tracker\ContactTracker;
+use MailVotech\CoreBundle\Helper\EmailAddressHelper;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\EmailReply;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Event\EmailReplyEvent;
+use MailVotech\EmailBundle\Model\EmailStatModel;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\ReplyNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Reply\Parser;
+use MailVotech\EmailBundle\MonitoredEmail\Search\ContactFinder;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

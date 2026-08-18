@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<UtmTag>
@@ -20,7 +20,7 @@ class UtmTagRepository extends CommonRepository
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('*')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_utmtags', 'ut');
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_utmtags', 'ut');
 
         if ($lead instanceof Lead) {
             $qb->where('ut.lead_id = '.$lead->getId());

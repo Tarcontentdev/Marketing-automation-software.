@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\EventListener;
+namespace MailVotech\LeadBundle\Tests\Functional\EventListener;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Model\ListModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class SegmentSubscriberTest extends MauticMysqlTestCase
+final class SegmentSubscriberTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -56,7 +56,7 @@ final class SegmentSubscriberTest extends MauticMysqlTestCase
                 'type'     => 'email',
                 'operator' => 'like',
             ],
-        ], ['mautic.lead_list.filter.alert.like', 'mautic.lead_list.filter.alert.email']];
+        ], ['mailvotech.lead_list.filter.alert.like', 'mailvotech.lead_list.filter.alert.email']];
         yield [[
             [
                 'glue'     => 'and',
@@ -65,7 +65,7 @@ final class SegmentSubscriberTest extends MauticMysqlTestCase
                 'type'     => 'text',
                 'operator' => 'contains',
             ],
-        ], ['mautic.lead_list.filter.alert.contain']];
+        ], ['mailvotech.lead_list.filter.alert.contain']];
         yield [[
             [
                 'glue'     => 'and',
@@ -74,7 +74,7 @@ final class SegmentSubscriberTest extends MauticMysqlTestCase
                 'type'     => 'text',
                 'operator' => 'like',
             ],
-        ], ['mautic.lead_list.filter.alert.like']];
+        ], ['mailvotech.lead_list.filter.alert.like']];
         yield [[
             [
                 'glue'     => 'and',
@@ -83,7 +83,7 @@ final class SegmentSubscriberTest extends MauticMysqlTestCase
                 'type'     => 'text',
                 'operator' => 'endsWith',
             ],
-        ], ['mautic.lead_list.filter.alert.endwith']];
+        ], ['mailvotech.lead_list.filter.alert.endwith']];
     }
 
     public function testSegmentDeleteWhenBackgroundConfigFalse(): void
@@ -102,7 +102,7 @@ final class SegmentSubscriberTest extends MauticMysqlTestCase
         $segmentId = $segment->getId();
 
         // Run segments update command.
-        $this->testSymfonyCommand('mautic:segments:update', ['-i' => $segmentId]);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['-i' => $segmentId]);
 
         /** @var ListModel $listModel */
         $listModel = $this->getContainer()->get(ListModel::class);

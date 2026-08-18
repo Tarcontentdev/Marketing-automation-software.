@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Form\Constraint;
+namespace MailVotech\PluginBundle\Form\Constraint;
 
-use Mautic\PluginBundle\Event\PluginIsPublishedEvent;
-use Mautic\PluginBundle\PluginEvents;
+use MailVotech\PluginBundle\Event\PluginIsPublishedEvent;
+use MailVotech\PluginBundle\PluginEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

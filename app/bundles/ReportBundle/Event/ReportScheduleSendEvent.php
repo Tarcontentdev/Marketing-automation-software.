@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Event;
+namespace MailVotech\ReportBundle\Event;
 
-use Mautic\ReportBundle\Entity\Scheduler;
+use MailVotech\ReportBundle\Entity\Scheduler;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class ReportScheduleSendEvent extends Event

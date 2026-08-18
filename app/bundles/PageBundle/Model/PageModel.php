@@ -1,58 +1,58 @@
 <?php
 
-namespace Mautic\PageBundle\Model;
+namespace MailVotech\PageBundle\Model;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Psr7\Query;
-use Mautic\CoreBundle\Entity\VariantEntityInterface;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Helper\Chart\PieChart;
-use Mautic\CoreBundle\Helper\CookieHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\AbTest\VariantConverterService;
-use Mautic\CoreBundle\Model\BuilderModelTrait;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\CoreBundle\Model\TranslationModelTrait;
-use Mautic\CoreBundle\Model\VariantModelTrait;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\Helper\BotRatioHelper;
-use Mautic\LeadBundle\DataObject\LeadManipulator;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\UtmTag;
-use Mautic\LeadBundle\Entity\UtmTagRepository;
-use Mautic\LeadBundle\Helper\ContactRequestHelper;
-use Mautic\LeadBundle\Helper\IdentifyCompanyHelper;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\LeadBundle\Tracker\DeviceTracker;
-use Mautic\MessengerBundle\Message\PageHitNotification;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\HitRepository;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Entity\PageRepository;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Entity\RedirectRepository;
-use Mautic\PageBundle\Entity\TrackableRepository;
-use Mautic\PageBundle\Event\PageBuilderEvent;
-use Mautic\PageBundle\Event\PageEvent;
-use Mautic\PageBundle\Event\PageHitEvent;
-use Mautic\PageBundle\Form\Type\PageType;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CoreBundle\Entity\VariantEntityInterface;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Helper\Chart\PieChart;
+use MailVotech\CoreBundle\Helper\CookieHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\AbTest\VariantConverterService;
+use MailVotech\CoreBundle\Model\BuilderModelTrait;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CoreBundle\Model\TranslationModelTrait;
+use MailVotech\CoreBundle\Model\VariantModelTrait;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\Helper\BotRatioHelper;
+use MailVotech\LeadBundle\DataObject\LeadManipulator;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\UtmTag;
+use MailVotech\LeadBundle\Entity\UtmTagRepository;
+use MailVotech\LeadBundle\Helper\ContactRequestHelper;
+use MailVotech\LeadBundle\Helper\IdentifyCompanyHelper;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\LeadBundle\Tracker\DeviceTracker;
+use MailVotech\MessengerBundle\Message\PageHitNotification;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\HitRepository;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\PageRepository;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Entity\RedirectRepository;
+use MailVotech\PageBundle\Entity\TrackableRepository;
+use MailVotech\PageBundle\Event\PageBuilderEvent;
+use MailVotech\PageBundle\Event\PageEvent;
+use MailVotech\PageBundle\Event\PageHitEvent;
+use MailVotech\PageBundle\Form\Type\PageType;
+use MailVotech\PageBundle\PageEvents;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -114,7 +114,7 @@ class PageModel extends FormModel implements GlobalSearchInterface
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         private StatRepository $statRepository,
         private BotRatioHelper $botRatioHelper,
         private ValidatorInterface $validator,
@@ -128,7 +128,7 @@ class PageModel extends FormModel implements GlobalSearchInterface
     ) {
         $this->dateTimeHelper = new DateTimeHelper();
 
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function setCatInUrl($catInUrl): void
@@ -339,7 +339,7 @@ class PageModel extends FormModel implements GlobalSearchInterface
 
         $slug = $this->generateSlug($entity);
 
-        return $this->buildUrl('mautic_page_public', ['slug' => $slug], $absolute, $clickthrough);
+        return $this->buildUrl('mailvotech_page_public', ['slug' => $slug], $absolute, $clickthrough);
     }
 
     /**
@@ -355,7 +355,7 @@ class PageModel extends FormModel implements GlobalSearchInterface
             $catSlug  = (!empty($category))
                 ? $category->getAlias()
                 :
-                $this->translator->trans('mautic.core.url.uncategorized');
+                $this->translator->trans('mailvotech.core.url.uncategorized');
         }
 
         $parent = $entity->getTranslationParent();
@@ -481,7 +481,7 @@ class PageModel extends FormModel implements GlobalSearchInterface
 
         if ($hit->getId()) {
             $this->cookieHelper->setCookie(
-                name: 'mautic_referer_id',
+                name: 'mailvotech_referer_id',
                 value: $hit->getId(),
                 sameSite: Cookie::SAMESITE_NONE
             );
@@ -612,7 +612,7 @@ class PageModel extends FormModel implements GlobalSearchInterface
 
         // Update previous hit's date_left if cookie exists
         // This happens when user navigates from one page to another
-        $lastHit = $request->cookies->get('mautic_referer_id');
+        $lastHit = $request->cookies->get('mailvotech_referer_id');
         if (!empty($lastHit) && is_numeric($lastHit)) {
             // Update the last hit with the date/time the user left
             $this->hitRepository->updateHitDateLeft((int) $lastHit);
@@ -650,7 +650,7 @@ class PageModel extends FormModel implements GlobalSearchInterface
                     );
                 }
             } catch (\Exception $exception) {
-                if (MAUTIC_ENV !== 'prod') {
+                if (MAILVOTECH_ENV !== 'prod') {
                     throw $exception;
                 }
                 $this->logger->error(
@@ -697,7 +697,7 @@ class PageModel extends FormModel implements GlobalSearchInterface
             $this->em->persist($hit);
             $this->em->flush();
         } catch (\Exception $exception) {
-            if (MAUTIC_ENV === 'dev') {
+            if (MAILVOTECH_ENV === 'dev') {
                 throw $exception;
             }
             $this->logger->error(
@@ -788,7 +788,7 @@ class PageModel extends FormModel implements GlobalSearchInterface
      */
     public function limitQueryToCreator(QueryBuilder &$q): void
     {
-        $q->join('t', MAUTIC_TABLE_PREFIX.'pages', 'p', 'p.id = t.page_id')
+        $q->join('t', MAILVOTECH_TABLE_PREFIX.'pages', 'p', 'p.id = t.page_id')
             ->andWhere('p.created_by = :userId')
             ->setParameter('userId', $this->userHelper->getUser()->getId());
     }
@@ -820,7 +820,7 @@ class PageModel extends FormModel implements GlobalSearchInterface
             }
 
             $data = $query->loadAndBuildTimeData($q);
-            $chart->setDataset($this->translator->trans('mautic.page.show.total.visits'), $data);
+            $chart->setDataset($this->translator->trans('mailvotech.page.show.total.visits'), $data);
         }
 
         if ('unique' == $flag || 'total_and_unique' == $flag) {
@@ -838,7 +838,7 @@ class PageModel extends FormModel implements GlobalSearchInterface
             }
 
             $data = $query->loadAndBuildTimeData($q);
-            $chart->setDataset($this->translator->trans('mautic.page.show.unique.visits'), $data);
+            $chart->setDataset($this->translator->trans('mailvotech.page.show.unique.visits'), $data);
         }
 
         return $chart->render();
@@ -899,8 +899,8 @@ class PageModel extends FormModel implements GlobalSearchInterface
         $returning = $query->fetchCount($q);
 
         $unique    = $all - $returning;
-        $chart->setDataset($this->translator->trans('mautic.page.unique'), $unique);
-        $chart->setDataset($this->translator->trans('mautic.page.graph.pie.new.vs.returning.returning'), $returning);
+        $chart->setDataset($this->translator->trans('mailvotech.page.unique'), $unique);
+        $chart->setDataset($this->translator->trans('mailvotech.page.graph.pie.new.vs.returning.returning'), $returning);
 
         return $chart->render();
     }
@@ -939,8 +939,8 @@ class PageModel extends FormModel implements GlobalSearchInterface
         $q = $this->em->getConnection()->createQueryBuilder();
 
         $q->select('count(h.id) as count, ds.device as device')
-            ->from(MAUTIC_TABLE_PREFIX.'page_hits', 'h')
-            ->join('h', MAUTIC_TABLE_PREFIX.'lead_devices', 'ds', 'ds.id=h.device_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'page_hits', 'h')
+            ->join('h', MAILVOTECH_TABLE_PREFIX.'lead_devices', 'ds', 'ds.id=h.device_id')
             ->orderBy('device', 'DESC')
             ->andWhere($q->expr()->gte('h.date_hit', ':date_from'))
             ->setParameter('date_from', $dateFrom->format('Y-m-d'))
@@ -954,13 +954,13 @@ class PageModel extends FormModel implements GlobalSearchInterface
 
         if (empty($results)) {
             $results[] = [
-                'device' => $this->translator->trans('mautic.report.report.noresults'),
+                'device' => $this->translator->trans('mailvotech.report.report.noresults'),
                 'count'  => 0,
             ];
         }
 
         foreach ($results as $result) {
-            $label = empty($result['device']) ? $this->translator->trans('mautic.core.no.info') : $result['device'];
+            $label = empty($result['device']) ? $this->translator->trans('mailvotech.core.no.info') : $result['device'];
 
             $chart->setDataset($label, $result['count']);
         }
@@ -979,8 +979,8 @@ class PageModel extends FormModel implements GlobalSearchInterface
     {
         $q = $this->em->getConnection()->createQueryBuilder();
         $q->select('COUNT(DISTINCT t.id) AS hits, p.id, p.title, p.alias')
-            ->from(MAUTIC_TABLE_PREFIX.'page_hits', 't')
-            ->join('t', MAUTIC_TABLE_PREFIX.'pages', 'p', 'p.id = t.page_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'page_hits', 't')
+            ->join('t', MAILVOTECH_TABLE_PREFIX.'pages', 'p', 'p.id = t.page_id')
             ->orderBy('hits', 'DESC')
             ->groupBy('p.id')
             ->setMaxResults($limit);
@@ -1008,7 +1008,7 @@ class PageModel extends FormModel implements GlobalSearchInterface
     {
         $q = $this->em->getConnection()->createQueryBuilder();
         $q->select('t.id, t.title AS name, t.date_added, t.date_modified')
-            ->from(MAUTIC_TABLE_PREFIX.'pages', 't')
+            ->from(MAILVOTECH_TABLE_PREFIX.'pages', 't')
             ->setMaxResults($limit);
 
         if (!$canViewOthers) {
@@ -1135,13 +1135,13 @@ class PageModel extends FormModel implements GlobalSearchInterface
 
         // Use the current URL
         $isPageEvent = false;
-        if (str_contains((string) $request->server->get('REQUEST_URI'), $this->router->generate('mautic_page_tracker'))) {
+        if (str_contains((string) $request->server->get('REQUEST_URI'), $this->router->generate('mailvotech_page_tracker'))) {
             // Tracking pixel is used
             if ($request->server->get('QUERY_STRING')) {
                 parse_str($request->server->get('QUERY_STRING'), $query);
                 $isPageEvent = true;
             }
-        } elseif (str_contains((string) $request->server->get('REQUEST_URI'), $this->router->generate('mautic_page_tracker_cors'))) {
+        } elseif (str_contains((string) $request->server->get('REQUEST_URI'), $this->router->generate('mailvotech_page_tracker_cors'))) {
             $query       = $request->request->all();
             $isPageEvent = true;
         }

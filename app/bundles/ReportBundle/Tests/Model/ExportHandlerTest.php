@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Model;
+namespace MailVotech\ReportBundle\Tests\Model;
 
-use Mautic\CoreBundle\Exception\FilePathException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\FilePathResolver;
-use Mautic\ReportBundle\Exception\FileIOException;
-use Mautic\ReportBundle\Model\ExportHandler;
+use MailVotech\CoreBundle\Exception\FilePathException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\FilePathResolver;
+use MailVotech\ReportBundle\Exception\FileIOException;
+use MailVotech\ReportBundle\Model\ExportHandler;
 
 final class ExportHandlerTest extends \PHPUnit\Framework\TestCase
 {

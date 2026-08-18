@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Doctrine\GeneratedColumn;
+namespace MailVotech\CoreBundle\Tests\Unit\Doctrine\GeneratedColumn;
 
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumns;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumns;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -80,8 +80,8 @@ final class GeneratedColumnsTest extends TestCase
         $generatedColumn2->setOriginalDateColumn('date_added', 'd');
         $this->generatedColumns->add($generatedColumn2);
 
-        $this->assertSame($generatedColumn1, $this->generatedColumns->getGeneratedColumnForDateColumn(MAUTIC_TABLE_PREFIX.'page_hits', 'date_added', 'd'));
-        $this->assertSame($generatedColumn2, $this->generatedColumns->getGeneratedColumnForDateColumn(MAUTIC_TABLE_PREFIX.'downloads', 'date_added', 'd'));
+        $this->assertSame($generatedColumn1, $this->generatedColumns->getGeneratedColumnForDateColumn(MAILVOTECH_TABLE_PREFIX.'page_hits', 'date_added', 'd'));
+        $this->assertSame($generatedColumn2, $this->generatedColumns->getGeneratedColumnForDateColumn(MAILVOTECH_TABLE_PREFIX.'downloads', 'date_added', 'd'));
     }
 
     #[DataProvider('dataGetGeneratedColumnForDateColumnUnexpectedValue')]

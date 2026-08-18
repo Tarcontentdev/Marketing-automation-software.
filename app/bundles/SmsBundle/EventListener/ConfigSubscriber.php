@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\EventListener;
+namespace MailVotech\SmsBundle\EventListener;
 
-use Mautic\ConfigBundle\ConfigEvents;
-use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use Mautic\SmsBundle\Form\Type\ConfigType;
+use MailVotech\ConfigBundle\ConfigEvents;
+use MailVotech\ConfigBundle\Event\ConfigBuilderEvent;
+use MailVotech\SmsBundle\Form\Type\ConfigType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ConfigSubscriber implements EventSubscriberInterface
@@ -24,8 +24,8 @@ final class ConfigSubscriber implements EventSubscriberInterface
             'bundle'     => 'SmsBundle',
             'formAlias'  => 'smsconfig',
             'formType'   => ConfigType::class,
-            'formTheme'  => '@MauticSms/FormTheme/Config/_config_smsconfig_widget.html.twig',
-            'parameters' => $event->getParametersFromConfig('MauticSmsBundle'),
+            'formTheme'  => '@MailVotechSms/FormTheme/Config/_config_smsconfig_widget.html.twig',
+            'parameters' => $event->getParametersFromConfig('MailVotechSmsBundle'),
         ]);
     }
 }

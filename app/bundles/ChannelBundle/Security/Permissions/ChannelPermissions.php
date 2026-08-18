@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\ChannelBundle\Security\Permissions;
+namespace MailVotech\ChannelBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class ChannelPermissions extends AbstractPermissions

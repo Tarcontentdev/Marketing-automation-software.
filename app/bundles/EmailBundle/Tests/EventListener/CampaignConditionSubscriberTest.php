@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\EmailBundle\EventListener\CampaignConditionSubscriber;
-use Mautic\EmailBundle\Exception\InvalidEmailException;
-use Mautic\EmailBundle\Helper\EmailValidator;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\EmailBundle\EventListener\CampaignConditionSubscriber;
+use MailVotech\EmailBundle\Exception\InvalidEmailException;
+use MailVotech\EmailBundle\Helper\EmailValidator;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;

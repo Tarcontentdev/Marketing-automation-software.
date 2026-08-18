@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Form\Type;
+namespace MailVotech\LeadBundle\Tests\Form\Type;
 
-use Mautic\LeadBundle\Form\Type\FilterType;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Provider\FormAdjustmentsProviderInterface;
-use Mautic\LeadBundle\Provider\TypeOperatorProviderInterface;
+use MailVotech\LeadBundle\Form\Type\FilterType;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Provider\FormAdjustmentsProviderInterface;
+use MailVotech\LeadBundle\Provider\TypeOperatorProviderInterface;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\Form;

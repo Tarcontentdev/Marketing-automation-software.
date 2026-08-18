@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\WebhookBundle\Event;
+namespace MailVotech\WebhookBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\WebhookBundle\Entity\Webhook;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\WebhookBundle\Entity\Webhook;
 
 class WebhookEvent extends CommonEvent
 {

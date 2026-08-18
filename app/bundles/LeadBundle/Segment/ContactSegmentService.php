@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment;
+namespace MailVotech\LeadBundle\Segment;
 
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Segment\Query\ContactSegmentQueryBuilder;
-use Mautic\LeadBundle\Segment\Query\LeadBatchLimiterTrait;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Segment\Query\ContactSegmentQueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\LeadBatchLimiterTrait;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
 use Psr\Log\LoggerInterface;
 
 class ContactSegmentService
@@ -144,7 +144,7 @@ class ContactSegmentService
     public function getNewLeadListLeadsQueryBuilder(LeadList $segment, array $batchLimiters, bool $addNewContactsRestrictions = true): QueryBuilder
     {
         $queryBuilder    = $this->getNewSegmentContactsQuery($segment, $batchLimiters, $addNewContactsRestrictions);
-        $leadsTableAlias = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.'leads');
+        $leadsTableAlias = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.'leads');
 
         // Prepend the DISTINCT to the beginning of the select array
         $select = $queryBuilder->getQueryPart('select');
@@ -275,7 +275,7 @@ class ContactSegmentService
         $expr = $queryBuilder->expr();
         $qbO  = $queryBuilder->createQueryBuilder();
         $qbO->select('orp.lead_id as id, orp.leadlist_id');
-        $qbO->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'orp');
+        $qbO->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'orp');
         $qbO->setParameters($queryBuilder->getParameters(), $queryBuilder->getParameterTypes());
         $qbO->andWhere($expr->eq('orp.leadlist_id', ':orpsegid'));
         $qbO->andWhere($expr->eq('orp.manually_added', $expr->literal(0)));
@@ -292,7 +292,7 @@ class ContactSegmentService
 
     private function excludeVisitors(QueryBuilder $queryBuilder): void
     {
-        $leadsTableAlias = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.'leads');
+        $leadsTableAlias = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.'leads');
         $queryBuilder->andWhere($queryBuilder->expr()->isNotNull($leadsTableAlias.'.date_identified'));
     }
 

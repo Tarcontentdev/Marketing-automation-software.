@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Twig;
+namespace MailVotech\CoreBundle\Tests\Twig;
 
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;

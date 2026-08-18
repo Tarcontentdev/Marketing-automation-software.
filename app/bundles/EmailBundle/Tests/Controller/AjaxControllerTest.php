@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller;
+namespace MailVotech\EmailBundle\Tests\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Controller\AjaxController;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Model\EmailModel;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Controller\AjaxController;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Model\EmailModel;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\DependencyInjection\Container;
@@ -104,17 +104,17 @@ final class AjaxControllerTest extends \PHPUnit\Framework\TestCase
         $this->sessionMock->expects($matcher)
             ->method('get')->willReturnCallback(function (...$parameters) use ($matcher): array|false {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.email.send.progress', $parameters[0]);
+                    $this->assertSame('mailvotech.email.send.progress', $parameters[0]);
 
                     return [0, 100];
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.email.send.stats', $parameters[0]);
+                    $this->assertSame('mailvotech.email.send.stats', $parameters[0]);
 
                     return ['sent' => 0, 'failed' => 0, 'failedRecipients' => []];
                 }
                 if (3 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.email.send.active', $parameters[0]);
+                    $this->assertSame('mailvotech.email.send.active', $parameters[0]);
 
                     return false;
                 }
@@ -149,17 +149,17 @@ final class AjaxControllerTest extends \PHPUnit\Framework\TestCase
         $this->sessionMock->expects($matcher)
             ->method('get')->willReturnCallback(function (...$parameters) use ($matcher): array|false {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.email.send.progress', $parameters[0]);
+                    $this->assertSame('mailvotech.email.send.progress', $parameters[0]);
 
                     return [0, 100];
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.email.send.stats', $parameters[0]);
+                    $this->assertSame('mailvotech.email.send.stats', $parameters[0]);
 
                     return ['sent' => 0, 'failed' => 0, 'failedRecipients' => []];
                 }
                 if (3 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.email.send.active', $parameters[0]);
+                    $this->assertSame('mailvotech.email.send.active', $parameters[0]);
 
                     return false;
                 }

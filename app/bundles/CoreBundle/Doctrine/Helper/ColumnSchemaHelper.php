@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\CoreBundle\Doctrine\Helper;
+namespace MailVotech\CoreBundle\Doctrine\Helper;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Schema\Comparator;
 use Doctrine\DBAL\Schema\Table;
-use Mautic\CoreBundle\Exception\SchemaException;
-use Mautic\LeadBundle\Entity\LeadField;
+use MailVotech\CoreBundle\Exception\SchemaException;
+use MailVotech\LeadBundle\Entity\LeadField;
 
 /**
  * Used to manipulate the schema of an existing table.

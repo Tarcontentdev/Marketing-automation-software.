@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\PointBundle\Form\Type;
+namespace MailVotech\PointBundle\Form\Type;
 
-use Mautic\CategoryBundle\Form\Type\CategoryListType;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\PublishDownDateType;
-use Mautic\CoreBundle\Form\Type\PublishUpDateType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\PointBundle\Entity\Point;
-use Mautic\ProjectBundle\Form\Type\ProjectType;
+use MailVotech\CategoryBundle\Form\Type\CategoryListType;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\PublishDownDateType;
+use MailVotech\CoreBundle\Form\Type\PublishUpDateType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\PointBundle\Entity\Point;
+use MailVotech\ProjectBundle\Form\Type\ProjectType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -39,7 +39,7 @@ final class PointType extends AbstractType
             'name',
             TextType::class,
             [
-                'label'      => 'mautic.core.name',
+                'label'      => 'mailvotech.core.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
             ]
@@ -49,7 +49,7 @@ final class PointType extends AbstractType
             'description',
             TextareaType::class,
             [
-                'label'      => 'mautic.core.description',
+                'label'      => 'mailvotech.core.description',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control editor'],
                 'required'   => false,
@@ -62,11 +62,11 @@ final class PointType extends AbstractType
             [
                 'choices'           => $options['pointActions']['choices'],
                 'placeholder'       => '',
-                'label'             => 'mautic.point.form.type',
+                'label'             => 'mailvotech.point.form.type',
                 'label_attr'        => ['class' => 'control-label'],
                 'attr'              => [
                     'class'    => 'form-control',
-                    'onchange' => 'Mautic.getPointActionPropertiesForm(this.value);',
+                    'onchange' => 'MailVotech.getPointActionPropertiesForm(this.value);',
                 ],
             ]
         );
@@ -75,11 +75,11 @@ final class PointType extends AbstractType
             'delta',
             NumberType::class,
             [
-                'label'      => 'mautic.point.action.delta',
+                'label'      => 'mailvotech.point.action.delta',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.point.action.delta.help',
+                    'tooltip' => 'mailvotech.point.action.delta.help',
                 ],
                 'scale' => 0,
             ]
@@ -106,7 +106,7 @@ final class PointType extends AbstractType
             [
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.point.group.form.group_descr',
+                    'tooltip' => 'mailvotech.point.group.form.group_descr',
                 ],
             ]
         );
@@ -142,13 +142,13 @@ final class PointType extends AbstractType
             'repeatable',
             YesNoButtonGroupType::class,
             [
-                'label'     => 'mautic.point.form.repeat',
+                'label'     => 'mailvotech.point.form.repeat',
                 'data'      => $options['data']->getRepeatable() ?: false,
                 'attr'      => [
-                    'tooltip' => 'mautic.point.form.repeat.help',
+                    'tooltip' => 'mailvotech.point.form.repeat.help',
                 ],
-                'yes_label' => 'mautic.point.form.repeat.yes',
-                'no_label'  => 'mautic.point.form.repeat.no',
+                'yes_label' => 'mailvotech.point.form.repeat.yes',
+                'no_label'  => 'mailvotech.point.form.repeat.no',
             ]
         );
 

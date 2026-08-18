@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\EventListener;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\EventListener;
 
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
-use Mautic\IntegrationsBundle\Event\InternalObjectCreateEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectFindByIdEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectFindEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectOwnerEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectRouteEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectUpdateEvent;
-use Mautic\IntegrationsBundle\EventListener\ContactObjectSubscriber;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\DAO\DateRange;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper\ContactObjectHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Exception\ImportFailedException;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Event\InternalObjectCreateEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectFindByIdEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectFindEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectOwnerEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectRouteEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectUpdateEvent;
+use MailVotech\IntegrationsBundle\EventListener\ContactObjectSubscriber;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\DAO\DateRange;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper\ContactObjectHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Exception\ImportFailedException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Router;
 
@@ -317,7 +317,7 @@ final class ContactObjectSubscriberTest extends TestCase
         $this->router->expects($this->once())
             ->method('generate')
             ->with(
-                'mautic_contact_action',
+                'mailvotech_contact_action',
                 [
                     'objectAction' => 'view',
                     'objectId'     => 123,

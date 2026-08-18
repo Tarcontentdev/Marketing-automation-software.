@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
 use Doctrine\DBAL\Exception as DBALException;
-use Mautic\CoreBundle\Entity\AuditLogRepository;
-use Mautic\CoreBundle\Entity\IpAddressRepository;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Entity\AuditLogRepository;
+use MailVotech\CoreBundle\Entity\IpAddressRepository;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,7 +22,7 @@ final class AnonymizeIpCommand extends Command
     /**
      * @var string
      */
-    public const COMMAND_NAME = 'mautic:anonymize:ip';
+    public const COMMAND_NAME = 'mailvotech:anonymize:ip';
 
     public function __construct(
         private readonly IpAddressRepository $ipAddressRepository,

@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\UserBundle\Entity;
+namespace MailVotech\UserBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<UserToken>

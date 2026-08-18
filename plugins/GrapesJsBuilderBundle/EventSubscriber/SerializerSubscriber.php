@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\EventSubscriber;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\EventSubscriber;
 
 use JMS\Serializer\EventDispatcher\Events;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use JMS\Serializer\JsonSerializationVisitor;
 use JMS\Serializer\Metadata\StaticPropertyMetadata;
-use Mautic\EmailBundle\Entity\Email;
-use MauticPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilderRepository;
-use MauticPlugin\GrapesJsBuilderBundle\Integration\Config;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotechPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilderRepository;
+use MailVotechPlugin\GrapesJsBuilderBundle\Integration\Config;
 
 final readonly class SerializerSubscriber implements EventSubscriberInterface
 {

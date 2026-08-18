@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Field;
+namespace MailVotech\LeadBundle\Tests\Field;
 
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Exception\NoListenerException;
-use Mautic\LeadBundle\Field\Dispatcher\FieldDeleteDispatcher;
-use Mautic\LeadBundle\Field\LeadFieldDeleter;
-use Mautic\LeadBundle\Field\Settings\BackgroundSettings;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Exception\NoListenerException;
+use MailVotech\LeadBundle\Field\Dispatcher\FieldDeleteDispatcher;
+use MailVotech\LeadBundle\Field\LeadFieldDeleter;
+use MailVotech\LeadBundle\Field\Settings\BackgroundSettings;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

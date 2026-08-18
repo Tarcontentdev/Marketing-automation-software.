@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\EventCollector\Accessor\Exception;
+namespace MailVotech\CampaignBundle\EventCollector\Accessor\Exception;
 
 final class TypeNotFoundException extends \InvalidArgumentException
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CoreBundle\Controller;
+namespace MailVotech\CoreBundle\Controller;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\BuildJsEvent;
-use Mautic\CoreBundle\Event\BuildJsScope;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\BuildJsEvent;
+use MailVotech\CoreBundle\Event\BuildJsScope;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -41,19 +41,19 @@ final class JsController extends CommonController
     ]): Response
     {
         // Don't store a visitor with this request
-        defined('MAUTIC_NON_TRACKABLE_REQUEST') || define('MAUTIC_NON_TRACKABLE_REQUEST', 1);
+        defined('MAILVOTECH_NON_TRACKABLE_REQUEST') || define('MAILVOTECH_NON_TRACKABLE_REQUEST', 1);
 
         $event = new BuildJsEvent($this->getJsHeader(), $kernelDebug, $acceptedScopes);
 
-        if ($this->dispatcher->hasListeners(CoreEvents::BUILD_MAUTIC_JS)) {
-            $this->dispatcher->dispatch($event, CoreEvents::BUILD_MAUTIC_JS);
+        if ($this->dispatcher->hasListeners(CoreEvents::BUILD_MAILVOTECH_JS)) {
+            $this->dispatcher->dispatch($event, CoreEvents::BUILD_MAILVOTECH_JS);
         }
 
         return new Response($event->getJs(), 200, ['Content-Type' => 'application/javascript']);
     }
 
     /**
-     * Build a JS header for the Mautic embedded JS.
+     * Build a JS header for the MailVotech embedded JS.
      */
     private function getJsHeader(): string
     {
@@ -61,10 +61,10 @@ final class JsController extends CommonController
 
         return <<<JS
 /**
- * @package     MauticJS
- * @copyright   {$year} Mautic Contributors. All rights reserved.
- * @author      Mautic
- * @link        http://mautic.org
+ * @package     MailVotechJS
+ * @copyright   {$year} MailVotech Contributors. All rights reserved.
+ * @author      MailVotech
+ * @link        http://mailvotech.org
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 JS;

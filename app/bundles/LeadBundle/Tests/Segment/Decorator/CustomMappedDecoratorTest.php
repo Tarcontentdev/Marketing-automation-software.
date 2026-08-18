@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\Decorator;
+namespace MailVotech\LeadBundle\Tests\Segment\Decorator;
 
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterOperator;
-use Mautic\LeadBundle\Segment\Decorator\CustomMappedDecorator;
-use Mautic\LeadBundle\Services\ContactSegmentFilterDictionary;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterOperator;
+use MailVotech\LeadBundle\Segment\Decorator\CustomMappedDecorator;
+use MailVotech\LeadBundle\Services\ContactSegmentFilterDictionary;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -33,7 +33,7 @@ final class CustomMappedDecoratorTest extends \PHPUnit\Framework\TestCase
             'field'    => 'lead_email_read_count',
         ]);
 
-        $this->assertSame(MAUTIC_TABLE_PREFIX.'email_stats', $customMappedDecorator->getTable($contactSegmentFilterCrate));
+        $this->assertSame(MAILVOTECH_TABLE_PREFIX.'email_stats', $customMappedDecorator->getTable($contactSegmentFilterCrate));
     }
 
     public function testGetQueryType(): void
@@ -44,7 +44,7 @@ final class CustomMappedDecoratorTest extends \PHPUnit\Framework\TestCase
             'field'    => 'dnc_bounced',
         ]);
 
-        $this->assertSame('mautic.lead.query.builder.special.dnc', $customMappedDecorator->getQueryType($contactSegmentFilterCrate));
+        $this->assertSame('mailvotech.lead.query.builder.special.dnc', $customMappedDecorator->getQueryType($contactSegmentFilterCrate));
     }
 
     public function testGetForeignContactColumn(): void

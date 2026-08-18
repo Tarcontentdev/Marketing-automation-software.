@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\LeadBundle\Controller;
+namespace MailVotech\LeadBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Exception\DeleteEntitiesDependencyException;
-use Mautic\CoreBundle\Exception\DeleteEntityDependencyException;
-use Mautic\CoreBundle\Exception\SchemaException;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Field\Exception\AbortColumnCreateException;
-use Mautic\LeadBundle\Field\Exception\AbortColumnUpdateException;
-use Mautic\LeadBundle\Helper\FieldAliasHelper;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Exception\DeleteEntitiesDependencyException;
+use MailVotech\CoreBundle\Exception\DeleteEntityDependencyException;
+use MailVotech\CoreBundle\Exception\SchemaException;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnCreateException;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnUpdateException;
+use MailVotech\LeadBundle\Helper\FieldAliasHelper;
+use MailVotech\LeadBundle\Model\FieldModel;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,13 +46,13 @@ final class FieldController extends FormController
 
         $this->setListFilters();
 
-        $limit  = $session->get('mautic.leadfield.limit', $this->coreParametersHelper->get('default_pagelimit'));
-        $search = $request->get('search', $session->get('mautic.leadfield.filter', ''));
-        $session->set('mautic.leadfield.filter', $search);
+        $limit  = $session->get('mailvotech.leadfield.limit', $this->coreParametersHelper->get('default_pagelimit'));
+        $search = $request->get('search', $session->get('mailvotech.leadfield.filter', ''));
+        $session->set('mailvotech.leadfield.filter', $search);
 
         // do some default filtering
-        $orderBy    = $request->getSession()->get('mautic.leadfield.orderby', 'f.order');
-        $orderByDir = $request->getSession()->get('mautic.leadfield.orderbydir', 'ASC');
+        $orderBy    = $request->getSession()->get('mailvotech.leadfield.orderby', 'f.order');
+        $orderByDir = $request->getSession()->get('mailvotech.leadfield.orderbydir', 'ASC');
 
         $start = (1 === $page) ? 0 : (($page - 1) * $limit);
         if ($start < 0) {
@@ -84,22 +84,22 @@ final class FieldController extends FormController
             } else {
                 $lastPage = (ceil($count / $limit)) ?: 1;
             }
-            $session->set('mautic.leadfield.page', $lastPage);
-            $returnUrl = $this->generateUrl('mautic_contactfield_index', ['page' => $lastPage]);
+            $session->set('mailvotech.leadfield.page', $lastPage);
+            $returnUrl = $this->generateUrl('mailvotech_contactfield_index', ['page' => $lastPage]);
 
             return $this->postActionRedirect([
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['page' => $lastPage],
-                'contentTemplate' => 'Mautic\LeadBundle\Controller\FieldController::indexAction',
+                'contentTemplate' => 'MailVotech\LeadBundle\Controller\FieldController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_contactfield_index',
-                    'mauticContent' => 'leadfield',
+                    'activeLink'    => '#mailvotech_contactfield_index',
+                    'mailvotechContent' => 'leadfield',
                 ],
             ]);
         }
 
         // set what page currently on so that we can return here after form submission/cancellation
-        $session->set('mautic.leadfield.page', $page);
+        $session->set('mailvotech.leadfield.page', $page);
 
         $tmpl = $request->isXmlHttpRequest() ? $request->get('tmpl', 'index') : 'index';
 
@@ -113,11 +113,11 @@ final class FieldController extends FormController
                 'limit'       => $limit,
                 'page'        => $page,
             ],
-            'contentTemplate' => '@MauticLead/Field/list.html.twig',
+            'contentTemplate' => '@MailVotechLead/Field/list.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_contactfield_index',
-                'route'         => $this->generateUrl('mautic_contactfield_index', ['page' => $page]),
-                'mauticContent' => 'leadfield',
+                'activeLink'    => '#mailvotech_contactfield_index',
+                'route'         => $this->generateUrl('mailvotech_contactfield_index', ['page' => $page]),
+                'mailvotechContent' => 'leadfield',
             ],
         ]);
     }
@@ -134,8 +134,8 @@ final class FieldController extends FormController
         // retrieve the entity
         $field = $entity instanceof LeadField ? $entity : new LeadField();
         // set the return URL for post actions
-        $returnUrl = $this->generateUrl('mautic_contactfield_index');
-        $action    = $this->generateUrl('mautic_contactfield_action', ['objectAction' => 'new']);
+        $returnUrl = $this->generateUrl('mailvotech_contactfield_index');
+        $action    = $this->generateUrl('mailvotech_contactfield_action', ['objectAction' => 'new']);
         // get the user form factory
         $form = $this->fieldModel->createForm($field, $this->formFactory, $action);
 
@@ -159,14 +159,14 @@ final class FieldController extends FormController
                     }
 
                     if ($valid) {
-                        $flashMessage = 'mautic.core.notice.created';
+                        $flashMessage = 'mailvotech.core.notice.created';
                         try {
                             // form is valid so process the data
                             $this->fieldModel->saveEntity($field);
                         } catch (\Doctrine\DBAL\Exception $ee) {
                             $flashMessage = $ee->getMessage();
                         } catch (AbortColumnCreateException) {
-                            $flashMessage = $this->translator->trans('mautic.lead.field.pushed_to_background');
+                            $flashMessage = $this->translator->trans('mailvotech.lead.field.pushed_to_background');
                         } catch (SchemaException $e) {
                             $flashMessage = $e->getMessage();
                             $form['alias']->addError(new FormError($e->getMessage()));
@@ -174,7 +174,7 @@ final class FieldController extends FormController
                         } catch (\Exception $e) {
                             $form['alias']->addError(
                                 new FormError(
-                                    $this->translator->trans('mautic.lead.field.failed', ['%error%' => $e->getMessage()], 'validators')
+                                    $this->translator->trans('mailvotech.lead.field.failed', ['%error%' => $e->getMessage()], 'validators')
                                 )
                             );
                             $valid = false;
@@ -183,9 +183,9 @@ final class FieldController extends FormController
                             $flashMessage,
                             [
                                 '%name%'      => $field->getLabel(),
-                                '%menu_link%' => 'mautic_contactfield_index',
+                                '%menu_link%' => 'mailvotech_contactfield_index',
                                 '%url%'       => $this->generateUrl(
-                                    'mautic_contactfield_action',
+                                    'mailvotech_contactfield_action',
                                     [
                                         'objectAction' => 'edit',
                                         'objectId'     => $field->getId(),
@@ -201,10 +201,10 @@ final class FieldController extends FormController
                 return $this->postActionRedirect(
                     [
                         'returnUrl'       => $returnUrl,
-                        'contentTemplate' => 'Mautic\LeadBundle\Controller\FieldController::indexAction',
+                        'contentTemplate' => 'MailVotech\LeadBundle\Controller\FieldController::indexAction',
                         'passthroughVars' => [
-                            'activeLink'    => '#mautic_contactfield_index',
-                            'mauticContent' => 'leadfield',
+                            'activeLink'    => '#mailvotech_contactfield_index',
+                            'mailvotechContent' => 'leadfield',
                         ],
                     ]
                 );
@@ -225,11 +225,11 @@ final class FieldController extends FormController
                     'form'      => $form->createView(),
                     'leadField' => $entity,
                 ],
-                'contentTemplate' => '@MauticLead/Field/form.html.twig',
+                'contentTemplate' => '@MailVotechLead/Field/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_contactfield_index',
-                    'route'         => $this->generateUrl('mautic_contactfield_action', ['objectAction' => 'new']),
-                    'mauticContent' => 'leadfield',
+                    'activeLink'    => '#mailvotech_contactfield_index',
+                    'route'         => $this->generateUrl('mailvotech_contactfield_action', ['objectAction' => 'new']),
+                    'mailvotechContent' => 'leadfield',
                 ],
             ]
         );
@@ -248,14 +248,14 @@ final class FieldController extends FormController
         $field = $this->fieldModel->getEntity($objectId);
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_contactfield_index');
+        $returnUrl = $this->generateUrl('mailvotech_contactfield_index');
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\FieldController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\FieldController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_contactfield_index',
-                'mauticContent' => 'leadfield',
+                'activeLink'    => '#mailvotech_contactfield_index',
+                'mailvotechContent' => 'leadfield',
             ],
         ];
         // list not found
@@ -265,7 +265,7 @@ final class FieldController extends FormController
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.lead.field.error.notfound',
+                            'msg'     => 'mailvotech.lead.field.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -277,7 +277,7 @@ final class FieldController extends FormController
             return $this->isLocked($postActionVars, $field, 'lead.field');
         }
 
-        $action = $this->generateUrl('mautic_contactfield_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_contactfield_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $form   = $this->fieldModel->createForm($field, $this->formFactory, $action);
 
         // /Check for a submitted form and process it
@@ -298,13 +298,13 @@ final class FieldController extends FormController
                     }
 
                     if ($valid) {
-                        $flashMessage = 'mautic.core.notice.updated';
+                        $flashMessage = 'mailvotech.core.notice.updated';
 
                         // form is valid so process the data
                         try {
                             $this->fieldModel->saveEntity($field, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
                         } catch (AbortColumnUpdateException) {
-                            $flashMessage = $this->translator->trans('mautic.lead.field.update_pushed_to_background');
+                            $flashMessage = $this->translator->trans('mailvotech.lead.field.update_pushed_to_background');
                         } catch (SchemaException $e) {
                             $flashMessage = $e->getMessage();
                             $form['alias']->addError(new FormError($e->getMessage()));
@@ -313,8 +313,8 @@ final class FieldController extends FormController
 
                         $this->addFlashMessage($flashMessage, [
                             '%name%'      => $field->getLabel(),
-                            '%menu_link%' => 'mautic_contactfield_index',
-                            '%url%'       => $this->generateUrl('mautic_contactfield_action', [
+                            '%menu_link%' => 'mailvotech_contactfield_index',
+                            '%url%'       => $this->generateUrl('mailvotech_contactfield_action', [
                                 'objectAction' => 'edit',
                                 'objectId'     => $field->getId(),
                             ]),
@@ -330,14 +330,14 @@ final class FieldController extends FormController
                 return $this->postActionRedirect(
                     array_merge($postActionVars, [
                         'viewParameters'  => ['objectId' => $field->getId()],
-                        'contentTemplate' => 'Mautic\LeadBundle\Controller\FieldController::indexAction',
+                        'contentTemplate' => 'MailVotech\LeadBundle\Controller\FieldController::indexAction',
                     ]
                     )
                 );
             }
             if ($valid) {
                 // Rebuild the form with new action so that apply doesn't keep creating a clone
-                $action = $this->generateUrl('mautic_contactfield_action', ['objectAction' => 'edit', 'objectId' => $field->getId()]);
+                $action = $this->generateUrl('mailvotech_contactfield_action', ['objectAction' => 'edit', 'objectId' => $field->getId()]);
                 $form   = $this->fieldModel->createForm($field, $this->formFactory, $action);
             } else {
                 // some bug in Symfony prevents repopulating list options on errors
@@ -355,11 +355,11 @@ final class FieldController extends FormController
             'viewParameters' => [
                 'form' => $form->createView(),
             ],
-            'contentTemplate' => '@MauticLead/Field/form.html.twig',
+            'contentTemplate' => '@MailVotechLead/Field/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_contactfield_index',
+                'activeLink'    => '#mailvotech_contactfield_index',
                 'route'         => $action,
-                'mauticContent' => 'leadfield',
+                'mailvotechContent' => 'leadfield',
             ],
         ]);
     }
@@ -379,7 +379,7 @@ final class FieldController extends FormController
 
         $fieldAliasHelper->makeAliasUnique($clone);
 
-        $action    = $this->generateUrl('mautic_contactfield_action', ['objectAction' => 'new']);
+        $action    = $this->generateUrl('mailvotech_contactfield_action', ['objectAction' => 'new']);
         $form      = $fieldModel->createForm($clone, $this->formFactory, $action);
 
         return $this->delegateView([
@@ -387,11 +387,11 @@ final class FieldController extends FormController
                 'form'      => $form->createView(),
                 'leadField' => $clone,
             ],
-            'contentTemplate' => '@MauticLead/Field/form.html.twig',
+            'contentTemplate' => '@MailVotechLead/Field/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_contactfield_index',
-                'route'         => $this->generateUrl('mautic_contactfield_action', ['objectAction' => 'clone', 'objectId' => $objectId]),
-                'mauticContent' => 'leadfield',
+                'activeLink'    => '#mailvotech_contactfield_index',
+                'route'         => $this->generateUrl('mailvotech_contactfield_action', ['objectAction' => 'clone', 'objectId' => $objectId]),
+                'mailvotechContent' => 'leadfield',
             ],
         ]);
     }
@@ -405,15 +405,15 @@ final class FieldController extends FormController
             $this->throwAccessDenied();
         }
 
-        $returnUrl = $this->generateUrl('mautic_contactfield_index');
+        $returnUrl = $this->generateUrl('mailvotech_contactfield_index');
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\FieldController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\FieldController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_contactfield_index',
-                'mauticContent' => 'lead',
+                'activeLink'    => '#mailvotech_contactfield_index',
+                'mailvotechContent' => 'lead',
             ],
         ];
 
@@ -423,7 +423,7 @@ final class FieldController extends FormController
             if (null === $field) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.lead.field.error.notfound',
+                    'msg'     => 'mailvotech.lead.field.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif ($this->fieldModel->isLocked($field)) {
@@ -437,7 +437,7 @@ final class FieldController extends FormController
                 $this->fieldModel->deleteEntity($field);
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.core.notice.deleted',
+                    'msg'     => 'mailvotech.core.notice.deleted',
                     'msgVars' => [
                         '%name%' => $field->getLabel(),
                         '%id%'   => $objectId,
@@ -469,15 +469,15 @@ final class FieldController extends FormController
             $this->throwAccessDenied();
         }
 
-        $returnUrl = $this->generateUrl('mautic_contactfield_index');
+        $returnUrl = $this->generateUrl('mailvotech_contactfield_index');
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\FieldController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\FieldController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_contactfield_index',
-                'mauticContent' => 'lead',
+                'activeLink'    => '#mailvotech_contactfield_index',
+                'mailvotechContent' => 'lead',
             ],
         ];
 
@@ -498,7 +498,7 @@ final class FieldController extends FormController
                     if ($entities) {
                         $flashes[] = [
                             'type'    => 'notice',
-                            'msg'     => 'mautic.lead.field.notice.batch_deleted',
+                            'msg'     => 'mailvotech.lead.field.notice.batch_deleted',
                             'msgVars' => [
                                 '%count%' => count($entities),
                             ],
@@ -533,7 +533,7 @@ final class FieldController extends FormController
         if (null === $entity) {
             $flashes[] = [
                 'type'    => 'error',
-                'msg'     => 'mautic.lead.field.error.notfound',
+                'msg'     => 'mailvotech.lead.field.error.notfound',
                 'msgVars' => ['%id%' => $objectId],
             ];
         } elseif ($entity->isFixed()) {
@@ -563,7 +563,7 @@ final class FieldController extends FormController
         if ([] !== $deletedEntities) {
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.lead.field.notice.batch_deleted',
+                'msg'     => 'mailvotech.lead.field.notice.batch_deleted',
                 'msgVars' => ['%count%' => count($deletedEntities)],
             ];
         }
@@ -571,7 +571,7 @@ final class FieldController extends FormController
         if ([] !== $unableToDeleteEntities) {
             $flashes[] = [
                 'type'    => 'error',
-                'msg'     => 'mautic.core.notice.used.fields',
+                'msg'     => 'mailvotech.core.notice.used.fields',
                 'msgVars' => [
                     '%fields%' => implode(', ', array_map(fn ($entity): string => $entity->getName().' ('.$entity->getId().')', $unableToDeleteEntities)),
                 ],

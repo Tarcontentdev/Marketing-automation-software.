@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\EventListener;
+namespace MailVotech\CoreBundle\Tests\Unit\EventListener;
 
-use Mautic\CoreBundle\EventListener\RequestSubscriber;
+use MailVotech\CoreBundle\EventListener\RequestSubscriber;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;

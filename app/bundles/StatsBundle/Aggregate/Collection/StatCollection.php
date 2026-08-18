@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\StatsBundle\Aggregate\Collection;
+namespace MailVotech\StatsBundle\Aggregate\Collection;
 
-use Mautic\StatsBundle\Aggregate\Calculator;
-use Mautic\StatsBundle\Aggregate\Collection\DAO\StatsDAO;
-use Mautic\StatsBundle\Aggregate\Helper\CalculatorHelper;
+use MailVotech\StatsBundle\Aggregate\Calculator;
+use MailVotech\StatsBundle\Aggregate\Collection\DAO\StatsDAO;
+use MailVotech\StatsBundle\Aggregate\Helper\CalculatorHelper;
 
 final class StatCollection
 {

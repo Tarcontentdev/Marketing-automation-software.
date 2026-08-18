@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine\Provider;
+namespace MailVotech\CoreBundle\Doctrine\Provider;
 
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumns;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumns;
 
 interface GeneratedColumnsProviderInterface
 {

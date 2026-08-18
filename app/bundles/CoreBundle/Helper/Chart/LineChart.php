@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper\Chart;
+namespace MailVotech\CoreBundle\Helper\Chart;
 
 /**
  * Line chart requires the same data as Bar chart.

@@ -1,21 +1,21 @@
 /** NotificationBundle **/
-Mautic.notificationOnLoad = function (container, response) {
+MailVotech.notificationOnLoad = function (container, response) {
     if (mQuery(container + ' #list-search').length) {
-        Mautic.activateSearchAutocomplete('list-search', 'notification');
+        MailVotech.activateSearchAutocomplete('list-search', 'notification');
     }
 
-    Mautic.activatePreviewPanelUpdate();
+    MailVotech.activatePreviewPanelUpdate();
 };
 
-Mautic.selectNotificationType = function(notificationType) {
+MailVotech.selectNotificationType = function(notificationType) {
     if (notificationType == 'list') {
         mQuery('#leadList').removeClass('hide');
         mQuery('#publishStatus').addClass('hide');
-        mQuery('.page-header h3').text(mauticLang.newListNotification);
+        mQuery('.page-header h3').text(mailvotechLang.newListNotification);
     } else {
         mQuery('#publishStatus').removeClass('hide');
         mQuery('#leadList').addClass('hide');
-        mQuery('.page-header h3').text(mauticLang.newTemplateNotification);
+        mQuery('.page-header h3').text(mailvotechLang.newTemplateNotification);
     }
 
     mQuery('#notification_notificationType').val(notificationType);
@@ -26,7 +26,7 @@ Mautic.selectNotificationType = function(notificationType) {
     mQuery('.notification-type-modal-backdrop').remove();
 };
 
-Mautic.standardNotificationUrl = function(options) {
+MailVotech.standardNotificationUrl = function(options) {
     if (!options) {
         return;
     }
@@ -44,7 +44,7 @@ Mautic.standardNotificationUrl = function(options) {
     return options;
 };
 
-Mautic.disabledNotificationAction = function(opener) {
+MailVotech.disabledNotificationAction = function(opener) {
     if (typeof opener == 'undefined') {
         opener = window;
     }
@@ -56,7 +56,7 @@ Mautic.disabledNotificationAction = function(opener) {
     opener.mQuery('#campaignevent_properties_editNotificationButton').prop('disabled', disabled);
 };
 
-Mautic.activatePreviewPanelUpdate = function () {
+MailVotech.activatePreviewPanelUpdate = function () {
     var notificationPreview = mQuery('#notification-preview');
     var notificationForm    = mQuery('form[name="notification"]');
 

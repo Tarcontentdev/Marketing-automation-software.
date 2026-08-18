@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Utils\PHPStan\Tests\Rule\Fixture;
 
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Translation\Translator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -38,7 +38,7 @@ final class NonServiceInMethodParameter
         $containerBuilder->setParameter('some_parameter', true);
     }
 
-    public function translateWithMauticTranslator(Translator $translator, string $key): string
+    public function translateWithMailVotechTranslator(Translator $translator, string $key): string
     {
         return $translator->trans($key);
     }

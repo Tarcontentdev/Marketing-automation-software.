@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\CoreBundle\Event\DetermineWinnerEvent;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\PageBundle\Entity\HitRepository;
+use MailVotech\CoreBundle\Event\DetermineWinnerEvent;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\PageBundle\Entity\HitRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -57,8 +57,8 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                         : $children[$id]->getName();
                     $support['labels'][]                                            = $name.' ('.$stats['readRate'].'%)';
                     $rates[$id]                                                     = $stats['readRate'];
-                    $data[$this->translator->trans('mautic.email.abtest.label.opened')][] = $stats['readCount'];
-                    $data[$this->translator->trans('mautic.email.abtest.label.sent')][]   = $stats['totalCount'];
+                    $data[$this->translator->trans('mailvotech.email.abtest.label.opened')][] = $stats['readCount'];
+                    $data[$this->translator->trans('mailvotech.email.abtest.label.sent')][]   = $stats['totalCount'];
                     $hasResults[]                                                   = $id;
                 }
 
@@ -66,8 +66,8 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                     // make sure that parent and published children are included
                     $support['labels'][] = $parent->getName().' (0%)';
 
-                    $data[$this->translator->trans('mautic.email.abtest.label.opened')][] = 0;
-                    $data[$this->translator->trans('mautic.email.abtest.label.sent')][]   = 0;
+                    $data[$this->translator->trans('mailvotech.email.abtest.label.opened')][] = 0;
+                    $data[$this->translator->trans('mailvotech.email.abtest.label.sent')][]   = 0;
                 }
 
                 foreach ($children as $c) {
@@ -75,8 +75,8 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                         if (!in_array($c->getId(), $hasResults)) {
                             // make sure that parent and published children are included
                             $support['labels'][]                                            = $c->getName().' (0%)';
-                            $data[$this->translator->trans('mautic.email.abtest.label.opened')][] = 0;
-                            $data[$this->translator->trans('mautic.email.abtest.label.sent')][]   = 0;
+                            $data[$this->translator->trans('mailvotech.email.abtest.label.opened')][] = 0;
+                            $data[$this->translator->trans('mailvotech.email.abtest.label.sent')][]   = 0;
                         }
                     }
                 }
@@ -103,7 +103,7 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                     'winners'         => $winners,
                     'support'         => $support,
                     'basedOn'         => 'email.openrate',
-                    'supportTemplate' => '@MauticPage/SubscribedEvents/AbTest/bargraph.html.twig',
+                    'supportTemplate' => '@MailVotechPage/SubscribedEvents/AbTest/bargraph.html.twig',
                 ]);
 
                 return;
@@ -153,8 +153,8 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                     $name                = ($parentId === $id) ? $parent->getName() : $children[$id]->getName();
                     $support['labels'][] = $name.' ('.$rates[$id].'%)';
 
-                    $data[$this->translator->trans('mautic.email.abtest.label.clickthrough')][]     = $count;
-                    $data[$this->translator->trans('mautic.email.abtest.label.opened')][]           = $sentCounts[$id];
+                    $data[$this->translator->trans('mailvotech.email.abtest.label.clickthrough')][]     = $count;
+                    $data[$this->translator->trans('mailvotech.email.abtest.label.opened')][]           = $sentCounts[$id];
                     $hasResults[]                                                             = $id;
                 }
 
@@ -162,8 +162,8 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                     // make sure that parent and published children are included
                     $support['labels'][] = $parent->getName().' (0%)';
 
-                    $data[$this->translator->trans('mautic.email.abtest.label.clickthrough')][] = 0;
-                    $data[$this->translator->trans('mautic.email.abtest.label.opened')][]       = 0;
+                    $data[$this->translator->trans('mailvotech.email.abtest.label.clickthrough')][] = 0;
+                    $data[$this->translator->trans('mailvotech.email.abtest.label.opened')][]       = 0;
                 }
 
                 foreach ($children as $c) {
@@ -171,8 +171,8 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                         if (!in_array($c->getId(), $hasResults)) {
                             // make sure that parent and published children are included
                             $support['labels'][]                                                  = $c->getName().' (0%)';
-                            $data[$this->translator->trans('mautic.email.abtest.label.clickthrough')][] = 0;
-                            $data[$this->translator->trans('mautic.email.abtest.label.opened')][]       = 0;
+                            $data[$this->translator->trans('mailvotech.email.abtest.label.clickthrough')][] = 0;
+                            $data[$this->translator->trans('mailvotech.email.abtest.label.opened')][]       = 0;
                         }
                     }
                 }
@@ -199,7 +199,7 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                     'winners'         => $winners,
                     'support'         => $support,
                     'basedOn'         => 'email.clickthrough',
-                    'supportTemplate' => '@MauticPage/SubscribedEvents/AbTest/bargraph.html.twig',
+                    'supportTemplate' => '@MailVotechPage/SubscribedEvents/AbTest/bargraph.html.twig',
                 ]);
 
                 return;

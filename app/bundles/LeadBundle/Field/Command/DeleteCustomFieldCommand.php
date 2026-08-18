@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field\Command;
+namespace MailVotech\LeadBundle\Field\Command;
 
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\DBAL\Schema\SchemaException;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Field\BackgroundService;
-use Mautic\LeadBundle\Field\Exception\AbortColumnUpdateException;
-use Mautic\LeadBundle\Field\Exception\LeadFieldWasNotFoundException;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Field\BackgroundService;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnUpdateException;
+use MailVotech\LeadBundle\Field\Exception\LeadFieldWasNotFoundException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,7 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
-    name: 'mautic:custom-field:delete-column',
+    name: 'mailvotech:custom-field:delete-column',
     description: 'Delete custom field column in the background',
     help: <<<'TXT'
 The <info>%command.name%</info> command will delete a column in a lead_fields table if the proces should run in background.
@@ -58,7 +58,7 @@ final class DeleteCustomFieldCommand extends Command
 
             if ($field) {
                 $output->writeln('<info>'.$this->translator->trans(
-                    'mautic.lead.field.column_was_found_for_deletion',
+                    'mailvotech.lead.field.column_was_found_for_deletion',
                     ['%fieldName%' => $field->getName(), '%fieldId%' => $field->getId()]
                 ).'</info>');
 
@@ -73,21 +73,21 @@ final class DeleteCustomFieldCommand extends Command
         try {
             $this->backgroundService->deleteColumn($leadFieldId, $userId);
         } catch (LeadFieldWasNotFoundException) {
-            $output->writeln('<error>'.$this->translator->trans('mautic.lead.field.notfound').'</error>');
+            $output->writeln('<error>'.$this->translator->trans('mailvotech.lead.field.notfound').'</error>');
 
             return Command::FAILURE;
         } catch (AbortColumnUpdateException) {
-            $output->writeln('<error>'.$this->translator->trans('mautic.lead.field.column_delete_aborted').'</error>');
+            $output->writeln('<error>'.$this->translator->trans('mailvotech.lead.field.column_delete_aborted').'</error>');
 
             return Command::SUCCESS;
-        } catch (DriverException|SchemaException|\Mautic\CoreBundle\Exception\SchemaException $e) {
+        } catch (DriverException|SchemaException|\MailVotech\CoreBundle\Exception\SchemaException $e) {
             $output->writeln('<error>'.$this->translator->trans($e->getMessage()).'</error>');
 
             return Command::FAILURE;
         }
 
         $output->writeln('');
-        $output->writeln('<info>'.$this->translator->trans('mautic.lead.field.column_was_deleted').'</info>');
+        $output->writeln('<info>'.$this->translator->trans('mailvotech.lead.field.column_was_deleted').'</info>');
 
         return Command::SUCCESS;
     }

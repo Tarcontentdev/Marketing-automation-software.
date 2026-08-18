@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\MaintenanceEvent;
-use Mautic\UserBundle\Entity\UserTokenRepositoryInterface;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\MaintenanceEvent;
+use MailVotech\UserBundle\Entity\UserTokenRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -32,7 +32,7 @@ final readonly class MaintenanceSubscriber implements EventSubscriberInterface
         $this->cleanupData($event, 'notifications');
 
         $rows = $this->userTokenRepository->deleteExpired($event->isDryRun());
-        $event->setStat($this->translator->trans('mautic.maintenance.user_tokens'), $rows);
+        $event->setStat($this->translator->trans('mailvotech.maintenance.user_tokens'), $rows);
     }
 
     private function cleanupData(MaintenanceEvent $event, string $table): void
@@ -42,7 +42,7 @@ final readonly class MaintenanceSubscriber implements EventSubscriberInterface
 
         if ($event->isDryRun()) {
             $rows = (int) $qb->select('count(*) as records')
-                ->from(MAUTIC_TABLE_PREFIX.$table, 'log')
+                ->from(MAILVOTECH_TABLE_PREFIX.$table, 'log')
                 ->where(
                     $qb->expr()->lte('log.date_added', ':date')
                 )
@@ -50,7 +50,7 @@ final readonly class MaintenanceSubscriber implements EventSubscriberInterface
                 ->fetchOne();
         } else {
             $qb->select('log.id')
-              ->from(MAUTIC_TABLE_PREFIX.$table, 'log')
+              ->from(MAILVOTECH_TABLE_PREFIX.$table, 'log')
               ->where(
                   $qb->expr()->lte('log.date_added', ':date')
               );
@@ -66,7 +66,7 @@ final readonly class MaintenanceSubscriber implements EventSubscriberInterface
                     break;
                 }
 
-                $rows += $qb2->delete(MAUTIC_TABLE_PREFIX.$table)
+                $rows += $qb2->delete(MAILVOTECH_TABLE_PREFIX.$table)
                   ->where(
                       $qb2->expr()->in(
                           'id', ':ids'
@@ -77,6 +77,6 @@ final readonly class MaintenanceSubscriber implements EventSubscriberInterface
             }
         }
 
-        $event->setStat($this->translator->trans('mautic.maintenance.'.$table), $rows, $qb->getSQL(), $qb->getParameters());
+        $event->setStat($this->translator->trans('mailvotech.maintenance.'.$table), $rows, $qb->getSQL(), $qb->getParameters());
     }
 }

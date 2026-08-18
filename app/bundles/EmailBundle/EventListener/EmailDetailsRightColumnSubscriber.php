@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\CustomContentEvent;
-use Mautic\EmailBundle\Model\AbTest\EmailStatus;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\CustomContentEvent;
+use MailVotech\EmailBundle\Model\AbTest\EmailStatus;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class EmailDetailsRightColumnSubscriber implements EventSubscriberInterface
@@ -23,7 +23,7 @@ final class EmailDetailsRightColumnSubscriber implements EventSubscriberInterfac
 
     public function injectContent(CustomContentEvent $event): void
     {
-        if ($event->checkContext('@MauticEmail/Email/details.html.twig', 'right.section.start')) {
+        if ($event->checkContext('@MailVotechEmail/Email/details.html.twig', 'right.section.start')) {
             $vars  = $event->getVars();
             $email = $vars['email'];
 
@@ -31,7 +31,7 @@ final class EmailDetailsRightColumnSubscriber implements EventSubscriberInterfac
                 'email'          => $email,
                 'emailStatus'    => new EmailStatus($email, $email->getPublishStatus()),
             ];
-            $event->addTemplate('@MauticEmail/Email/abdetails.html.twig', $data);
+            $event->addTemplate('@MailVotechEmail/Email/abdetails.html.twig', $data);
         }
     }
 }

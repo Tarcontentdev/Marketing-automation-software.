@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Model;
+namespace MailVotech\LeadBundle\Tests\Model;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Model\FieldModel;
 
-final class FieldModelDeleteTest extends MauticMysqlTestCase
+final class FieldModelDeleteTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -58,7 +58,7 @@ final class FieldModelDeleteTest extends MauticMysqlTestCase
 
     private function columnExists(string $table, string $column): bool
     {
-        $prefix = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix = self::getContainer()->getParameter('mailvotech.db_table_prefix');
 
         return (bool) $this->connection->createQueryBuilder()
             ->select('1')

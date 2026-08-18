@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Tests\Controller;
+namespace MailVotech\DynamicContentBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\UserBundle\Entity\Permission;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\UserBundle\Entity\Permission;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
-final class DynamicContentControllerFunctionalTest extends MauticMysqlTestCase
+final class DynamicContentControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     public const PERMISSION_CREATE       = 'dynamiccontent:dynamiccontents:create';
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\EmailBundle\Validator;
+namespace MailVotech\EmailBundle\Validator;
 
-use Mautic\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
-use Mautic\EmailBundle\Exception\InvalidEmailException;
-use Mautic\EmailBundle\Helper\EmailValidator;
+use MailVotech\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
+use MailVotech\EmailBundle\Exception\InvalidEmailException;
+use MailVotech\EmailBundle\Helper\EmailValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -31,7 +31,7 @@ final class MultipleEmailsValidValidator extends ConstraintValidator
             try {
                 $this->emailValidator->validate($email);
             } catch (InvalidEmailException $e) {
-                $this->context->buildViolation('mautic.email.multiple_emails.not_valid', ['%email%' => $e->getMessage()])
+                $this->context->buildViolation('mailvotech.email.multiple_emails.not_valid', ['%email%' => $e->getMessage()])
                     ->addViolation();
 
                 return;

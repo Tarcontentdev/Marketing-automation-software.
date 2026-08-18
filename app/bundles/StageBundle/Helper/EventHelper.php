@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\Helper;
+namespace MailVotech\StageBundle\Helper;
 
 final class EventHelper
 {

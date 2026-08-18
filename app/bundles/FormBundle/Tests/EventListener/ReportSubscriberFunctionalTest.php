@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\EventListener;
+namespace MailVotech\FormBundle\Tests\EventListener;
 
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\ReportBundle\Tests\Functional\AbstractReportSubscriberTestCase;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\ReportBundle\Tests\Functional\AbstractReportSubscriberTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -179,13 +179,13 @@ final class ReportSubscriberFunctionalTest extends AbstractReportSubscriberTestC
     {
         // Submit the form
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_submissiontestform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_submissiontestform]');
         $this->assertCount(1, $formCrawler);
         $form = $formCrawler->form();
 
         $formData = [];
         foreach ($submissionData as $key => $value) {
-            $formData["mauticform[{$key}]"] = $value;
+            $formData["mailvotechform[{$key}]"] = $value;
         }
         $form->setValues($formData);
 

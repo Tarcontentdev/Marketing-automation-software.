@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Bundle;
+namespace MailVotech\IntegrationsBundle\Bundle;
 
-use Mautic\PluginBundle\Bundle\PluginBundleBase;
+use MailVotech\PluginBundle\Bundle\PluginBundleBase;
 
 /**
  * Base Bundle class which should be extended by addon bundles.

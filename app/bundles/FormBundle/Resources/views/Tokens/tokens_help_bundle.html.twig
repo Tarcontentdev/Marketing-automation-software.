@@ -1,5 +1,5 @@
 {% set childContainer %}
-<p class="pi-md text-helper">{{'mautic.placeholder_tokens.form.redirect_url'|trans}}</p>
+<p class="pi-md text-helper">{{'mailvotech.placeholder_tokens.form.redirect_url'|trans}}</p>
 
 <ul id="formTokensAccordion" class="accordion" role="tablist" aria-multiselectable="true">
     <!-- Form specific tokens -->
@@ -8,7 +8,7 @@
             data-parent="#formTokensAccordion" href="#collapseFormTokens" aria-expanded="false"
             aria-controls="collapseFormTokens">
             <i class="ri-arrow-down-s-line accordion-arrow"></i>
-            <span class="accordion-title">{{ 'mautic.placeholder_tokens.form_tokens'|trans }}</span>
+            <span class="accordion-title">{{ 'mailvotech.placeholder_tokens.form_tokens'|trans }}</span>
         </a>
         <div id="collapseFormTokens" class="collapse accordion-wrapper" role="tabpanel"
             aria-labelledby="headingFormTokens">
@@ -16,17 +16,17 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>{{ 'mautic.placeholder_tokens.variable_name'|trans }}</th>
-                        <th>{{ 'mautic.placeholder_tokens.variable_syntax'|trans }}</th>
+                        <th>{{ 'mailvotech.placeholder_tokens.variable_name'|trans }}</th>
+                        <th>{{ 'mailvotech.placeholder_tokens.variable_syntax'|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ 'mautic.placeholder_tokens.form.field_value'|trans }}</td>
+                        <td>{{ 'mailvotech.placeholder_tokens.form.field_value'|trans }}</td>
                         <td><code>{formfield=alias}</code></td>
                     </tr>
                     <tr>
-                        <td>{{ 'mautic.placeholder_tokens.form.page'|trans }}</td>
+                        <td>{{ 'mailvotech.placeholder_tokens.form.page'|trans }}</td>
                         <td><code>{pagelink=ID}</code></td>
                     </tr>
                 </tbody>
@@ -36,4 +36,4 @@
 </ul>
 {% endset %}
 
-{% include '@MauticCore/Components/content-section.html.twig' with {'heading': 'mautic.form.forms', 'childContainer': childContainer} %}
+{% include '@MailVotechCore/Components/content-section.html.twig' with {'heading': 'mailvotech.form.forms', 'childContainer': childContainer} %}

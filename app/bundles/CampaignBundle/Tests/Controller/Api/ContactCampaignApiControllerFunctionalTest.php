@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Controller\Api;
+namespace MailVotech\CampaignBundle\Tests\Controller\Api;
 
-use Mautic\CampaignBundle\Entity\Lead as CampaignMember;
-use Mautic\CampaignBundle\Tests\Campaign\AbstractCampaignTestCase;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignMember;
+use MailVotech\CampaignBundle\Tests\Campaign\AbstractCampaignTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Request;
 

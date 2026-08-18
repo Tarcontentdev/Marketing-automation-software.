@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\ChannelBundle\Model;
+namespace MailVotech\ChannelBundle\Model;
 
-use Mautic\LeadBundle\Entity\DoNotContact as DNC;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\DoNotContact;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Entity\DoNotContact as DNC;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\DoNotContact;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class ChannelActionModel
@@ -65,7 +65,7 @@ final readonly class ChannelActionModel
                 $contact->getId(),
                 $channel,
                 DNC::MANUAL,
-                $this->translator->trans('mautic.lead.event.donotcontact_manual')
+                $this->translator->trans('mailvotech.lead.event.donotcontact_manual')
             );
         }
     }

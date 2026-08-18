@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DashboardBundle\Exception;
+namespace MailVotech\DashboardBundle\Exception;
 
 final class CouldNotFormatDateTimeException extends \Exception
 {

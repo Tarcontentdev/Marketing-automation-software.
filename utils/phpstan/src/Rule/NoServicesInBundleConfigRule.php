@@ -17,7 +17,7 @@ use PHPStan\Rules\RuleErrorBuilder;
  * Bundle Config/config.php must not define services, the autowired Config/services.php next to it is the place for them.
  *
  * The "menus" group is left alone - a menu is no service of its own, ServicePass builds it out of the KnpMenu builder
- * and gives it a renderer of its own, see Mautic\CoreBundle\DependencyInjection\Compiler\ServicePass.
+ * and gives it a renderer of its own, see MailVotech\CoreBundle\DependencyInjection\Compiler\ServicePass.
  *
  * @implements Rule<Return_>
  */
@@ -118,7 +118,7 @@ final class NoServicesInBundleConfigRule implements Rule
             'Config file must not define services. Register the "%s" group in the autowired Config/services.php instead.',
             $groupName
         ))
-            ->identifier('mautic.noServicesInBundleConfig')
+            ->identifier('mailvotech.noServicesInBundleConfig')
             ->line($line)
             ->build();
     }

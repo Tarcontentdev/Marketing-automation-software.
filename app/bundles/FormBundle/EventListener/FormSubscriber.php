@@ -1,22 +1,22 @@
 <?php
 
-namespace Mautic\FormBundle\EventListener;
+namespace MailVotech\FormBundle\EventListener;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Response;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Event as Events;
-use Mautic\FormBundle\Exception\ValidationException;
-use Mautic\FormBundle\Form\Type\SubmitActionEmailType;
-use Mautic\FormBundle\Form\Type\SubmitActionRepostType;
-use Mautic\FormBundle\FormEvents;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Event as Events;
+use MailVotech\FormBundle\Exception\ValidationException;
+use MailVotech\FormBundle\Form\Type\SubmitActionEmailType;
+use MailVotech\FormBundle\Form\Type\SubmitActionRepostType;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -96,24 +96,24 @@ final readonly class FormSubscriber implements EventSubscriberInterface
     public function onFormBuilder(Events\FormBuilderEvent $event): void
     {
         $event->addSubmitAction('form.email', [
-            'group'              => 'mautic.email.actions',
-            'label'              => 'mautic.form.action.sendemail',
-            'description'        => 'mautic.form.action.sendemail.descr',
+            'group'              => 'mailvotech.email.actions',
+            'label'              => 'mailvotech.form.action.sendemail',
+            'description'        => 'mailvotech.form.action.sendemail.descr',
             'formType'           => SubmitActionEmailType::class,
-            'formTheme'          => '@MauticForm/FormTheme/FormAction/_formaction_properties_row.html.twig',
+            'formTheme'          => '@MailVotechForm/FormTheme/FormAction/_formaction_properties_row.html.twig',
             'formTypeCleanMasks' => [
                 'message' => 'raw',
             ],
             'eventName' => FormEvents::ON_EXECUTE_SUBMIT_ACTION,
-            'template'  => '@MauticForm/Action/form_email.html.twig',
+            'template'  => '@MailVotechForm/Action/form_email.html.twig',
         ]);
 
         $event->addSubmitAction('form.repost', [
-            'group'              => 'mautic.form.actions',
-            'label'              => 'mautic.form.action.repost',
-            'description'        => 'mautic.form.action.repost.descr',
+            'group'              => 'mailvotech.form.actions',
+            'label'              => 'mailvotech.form.action.repost',
+            'description'        => 'mailvotech.form.action.repost.descr',
             'formType'           => SubmitActionRepostType::class,
-            'formTheme'          => '@MauticForm/FormTheme/SubmitAction/_submit_action_repost_widget.html.twig',
+            'formTheme'          => '@MailVotechForm/FormTheme/SubmitAction/_submit_action_repost_widget.html.twig',
             'formTypeCleanMasks' => [
                 'post_url'             => 'url',
                 'failure_email'        => 'string',
@@ -202,8 +202,8 @@ final readonly class FormSubscriber implements EventSubscriberInterface
         $lead          = $event->getSubmission()->getLead();
         $matchedFields = [];
         $payload       = [
-            'mautic_contact' => $lead->getProfileFields(),
-            'mautic_form'    => [
+            'mailvotech_contact' => $lead->getProfileFields(),
+            'mailvotech_form'    => [
                 'id'   => $post['formId'],
                 'name' => $post['formName'],
                 'url'  => $post['return'],
@@ -267,7 +267,7 @@ final readonly class FormSubscriber implements EventSubscriberInterface
             $email = $config['failure_email'];
             // Failed so send email if applicable
             if (!empty($email)) {
-                // Remove Mautic values and password fields
+                // Remove MailVotech values and password fields
                 foreach ($post as $key => $value) {
                     if (in_array($key, ['messenger', 'submit', 'formId', 'formid', 'formName', 'return'])) {
                         unset($post[$key]);
@@ -276,22 +276,22 @@ final readonly class FormSubscriber implements EventSubscriberInterface
                         $post[$key] = '*********';
                     }
                 }
-                $post['mautic_contact'] = array_filter($payload['mautic_contact']);
-                $post['mautic_form']    = $payload['mautic_form'];
+                $post['mailvotech_contact'] = array_filter($payload['mailvotech_contact']);
+                $post['mailvotech_form']    = $payload['mailvotech_form'];
 
                 $results    = $this->postToHtml($post);
                 $submission = $event->getSubmission();
                 $emails     = $this->getEmailsFromString($email);
                 $this->mailer->setTo($emails);
                 $this->mailer->setSubject(
-                    $this->translator->trans('mautic.form.action.repost.failed_subject', ['%form%' => $submission->getForm()->getName()])
+                    $this->translator->trans('mailvotech.form.action.repost.failed_subject', ['%form%' => $submission->getForm()->getName()])
                 );
                 $this->mailer->setBody(
                     $this->translator->trans(
-                        'mautic.form.action.repost.failed_message',
+                        'mailvotech.form.action.repost.failed_message',
                         [
                             '%link%' => $this->router->generate(
-                                'mautic_form_results',
+                                'mailvotech_form_results',
                                 ['objectId' => $submission->getForm()->getId(), 'result' => $submission->getId()],
                                 UrlGeneratorInterface::ABSOLUTE_URL
                             ),
@@ -332,10 +332,10 @@ final readonly class FormSubscriber implements EventSubscriberInterface
             } elseif (isset($body['errors'])) {
                 $error = implode(', ', $body['errors']);
             } elseif (isset($body['violations'])) {
-                $error          = $this->translator->trans('mautic.form.action.repost.validation_failed');
+                $error          = $this->translator->trans('mailvotech.form.action.repost.validation_failed');
                 $formViolations = $body['violations'];
 
-                // Ensure the violations match up to Mautic's
+                // Ensure the violations match up to MailVotech's
                 foreach ($formViolations as $field => $violation) {
                     if (isset($matchedFields[$field])) {
                         $violations[$matchedFields[$field]] = $violation;

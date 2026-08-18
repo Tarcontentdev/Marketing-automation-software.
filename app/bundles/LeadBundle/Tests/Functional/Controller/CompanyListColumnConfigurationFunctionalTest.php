@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\Controller;
+namespace MailVotech\LeadBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Company;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Company;
 
-final class CompanyListColumnConfigurationFunctionalTest extends MauticMysqlTestCase
+final class CompanyListColumnConfigurationFunctionalTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Event;
+namespace MailVotech\PluginBundle\Event;
 
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Integration\UnifiedIntegrationInterface;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Integration\UnifiedIntegrationInterface;
 
 final class PluginIntegrationEvent extends AbstractPluginIntegrationEvent
 {

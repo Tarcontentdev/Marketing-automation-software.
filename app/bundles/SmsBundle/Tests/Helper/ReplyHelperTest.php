@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\Helper;
+namespace MailVotech\SmsBundle\Tests\Helper;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\SmsBundle\Callback\CallbackInterface;
-use Mautic\SmsBundle\Exception\NumberNotFoundException;
-use Mautic\SmsBundle\Helper\ReplyHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\SmsBundle\Callback\CallbackInterface;
+use MailVotech\SmsBundle\Exception\NumberNotFoundException;
+use MailVotech\SmsBundle\Helper\ReplyHelper;
 use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;

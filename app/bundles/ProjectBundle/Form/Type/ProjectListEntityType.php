@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Form\Type;
+namespace MailVotech\ProjectBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\EntityLookupType;
+use MailVotech\CoreBundle\Form\Type\EntityLookupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;

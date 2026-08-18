@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine\Connection;
+namespace MailVotech\CoreBundle\Doctrine\Connection;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;

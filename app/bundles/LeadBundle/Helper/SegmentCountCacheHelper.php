@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Helper;
+namespace MailVotech\LeadBundle\Helper;
 
-use Mautic\CacheBundle\Cache\CacheProviderInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CacheBundle\Cache\CacheProviderInterface;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Psr\Cache\InvalidArgumentException;
 
 class SegmentCountCacheHelper

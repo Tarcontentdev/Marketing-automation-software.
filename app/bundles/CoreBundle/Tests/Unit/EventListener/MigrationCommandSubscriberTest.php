@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\EventListener;
+namespace MailVotech\CoreBundle\Tests\Unit\EventListener;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\MySQLSchemaManager;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumns;
-use Mautic\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
-use Mautic\CoreBundle\Doctrine\Provider\VersionProviderInterface;
-use Mautic\CoreBundle\EventListener\MigrationCommandSubscriber;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumn;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumns;
+use MailVotech\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
+use MailVotech\CoreBundle\Doctrine\Provider\VersionProviderInterface;
+use MailVotech\CoreBundle\EventListener\MigrationCommandSubscriber;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
@@ -60,7 +60,7 @@ final class MigrationCommandSubscriberTest extends TestCase
     {
         $this->command->expects($this->once())
             ->method('getName')
-            ->willReturn('mautic:segments:update');
+            ->willReturn('mailvotech:segments:update');
 
         $this->generatedColumnsProvider->expects($this->never())
             ->method('generatedColumnsAreSupported');

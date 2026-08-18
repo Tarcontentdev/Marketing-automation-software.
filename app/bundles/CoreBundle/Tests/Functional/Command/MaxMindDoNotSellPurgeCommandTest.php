@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Command;
+namespace MailVotech\CoreBundle\Tests\Functional\Command;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
 
-final class MaxMindDoNotSellPurgeCommandTest extends MauticMysqlTestCase
+final class MaxMindDoNotSellPurgeCommandTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -42,7 +42,7 @@ final class MaxMindDoNotSellPurgeCommandTest extends MauticMysqlTestCase
 
         $lead->getIpAddresses()->clear();
 
-        $tester = $this->testSymfonyCommand('mautic:max-mind:purge');
+        $tester = $this->testSymfonyCommand('mailvotech:max-mind:purge');
 
         $this->assertSame(0, $tester->getStatusCode());
 

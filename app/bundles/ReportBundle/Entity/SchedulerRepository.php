@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\ReportBundle\Entity;
+namespace MailVotech\ReportBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\ReportBundle\Scheduler\Option\ExportOption;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\ReportBundle\Scheduler\Option\ExportOption;
 
 /**
  * @extends CommonRepository<Scheduler>

@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\CampaignBundle\Membership;
+namespace MailVotech\CampaignBundle\Membership;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\LeadRepository as CampaignLeadRepository;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\CampaignBundle\Membership\Exception\RunLimitReachedException;
-use Mautic\CoreBundle\Helper\ProgressBarHelper;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\LeadRepository as CampaignLeadRepository;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CampaignBundle\Membership\Exception\RunLimitReachedException;
+use MailVotech\CoreBundle\Helper\ProgressBarHelper;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -36,7 +36,7 @@ class MembershipBuilder
      */
     public function build(Campaign $campaign, ContactLimiter $contactLimiter, $runLimit, ?OutputInterface $output = null): int
     {
-        defined('MAUTIC_REBUILDING_CAMPAIGNS') || define('MAUTIC_REBUILDING_CAMPAIGNS', 1);
+        defined('MAILVOTECH_REBUILDING_CAMPAIGNS') || define('MAILVOTECH_REBUILDING_CAMPAIGNS', 1);
 
         $this->campaign       = $campaign;
         $this->contactLimiter = $contactLimiter;
@@ -78,7 +78,7 @@ class MembershipBuilder
 
             $this->output->writeln(
                 $this->translator->trans(
-                    'mautic.campaign.rebuild.to_be_added',
+                    'mailvotech.campaign.rebuild.to_be_added',
                     ['%leads%' => $countResult->getCount(), '%batch%' => $this->contactLimiter->getBatchLimit()]
                 )
             );
@@ -145,7 +145,7 @@ class MembershipBuilder
 
             $this->output->writeln(
                 $this->translator->trans(
-                    'mautic.lead.list.rebuild.to_be_removed',
+                    'mailvotech.lead.list.rebuild.to_be_removed',
                     ['%leads%' => $countResult->getCount(), '%batch%' => $this->contactLimiter->getBatchLimit()]
                 )
             );

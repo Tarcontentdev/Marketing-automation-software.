@@ -2,46 +2,46 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Model;
+namespace MailVotech\FormBundle\Tests\Model;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Mautic\CampaignBundle\Membership\MembershipManager;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\FormBundle\Entity\SubmissionRepository;
-use Mautic\FormBundle\Event\Service\FieldValueTransformer;
-use Mautic\FormBundle\Event\SubmissionEvent;
-use Mautic\FormBundle\Helper\FormFieldHelper;
-use Mautic\FormBundle\Helper\FormUploader;
-use Mautic\FormBundle\Model\FormModel;
-use Mautic\FormBundle\Model\SubmissionModel;
-use Mautic\FormBundle\Validator\UploadFieldValidator;
-use Mautic\LeadBundle\Deduplicate\ContactMerger;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\FieldModel as LeadFieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
-use Mautic\PageBundle\Model\PageModel;
-use Mautic\StageBundle\Entity\StageRepository;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\CampaignBundle\Membership\MembershipManager;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
+use MailVotech\FormBundle\Event\Service\FieldValueTransformer;
+use MailVotech\FormBundle\Event\SubmissionEvent;
+use MailVotech\FormBundle\Helper\FormFieldHelper;
+use MailVotech\FormBundle\Helper\FormUploader;
+use MailVotech\FormBundle\Model\FormModel;
+use MailVotech\FormBundle\Model\SubmissionModel;
+use MailVotech\FormBundle\Validator\UploadFieldValidator;
+use MailVotech\LeadBundle\Deduplicate\ContactMerger;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\FieldModel as LeadFieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
+use MailVotech\PageBundle\Model\PageModel;
+use MailVotech\StageBundle\Entity\StageRepository;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
 use Monolog\Logger;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -321,7 +321,7 @@ final class SubmissionModelTest extends \PHPUnit\Framework\TestCase
     {
         $reflection            = new \ReflectionClass(SubmissionModel::class);
         $method                = $reflection->getMethod('normalizeValue');
-        $fieldSession          = 'mautic_'.sha1(uniqid((string) mt_rand(), true));
+        $fieldSession          = 'mailvotech_'.sha1(uniqid((string) mt_rand(), true));
         $fields[$fieldSession] = [
             'label'        => 'Email',
             'showLabel'    => 1,
@@ -367,7 +367,7 @@ final class SubmissionModelTest extends \PHPUnit\Framework\TestCase
      */
     private function getTestFormFields(): array
     {
-        $fieldSession          = 'mautic_'.sha1(uniqid((string) mt_rand(), true));
+        $fieldSession          = 'mailvotech_'.sha1(uniqid((string) mt_rand(), true));
         $fields[$fieldSession] = [
             'label'        => 'Email',
             'showLabel'    => 1,
@@ -434,12 +434,12 @@ final class SubmissionModelTest extends \PHPUnit\Framework\TestCase
             ->method('trans')
             ->with($this->anything())
             ->willReturnCallback(fn ($text): ?string => match ($text) {
-                'mautic.form.report.submission.id'  => $values[0],
-                'mautic.lead.report.contact_id'     => $values[1],
-                'mautic.form.result.thead.date'     => $values[2],
-                'mautic.core.ipaddress'             => $values[3],
-                'mautic.form.result.thead.referrer' => $values[4],
-                'mautic.form.report.form_id'        => $values[5],
+                'mailvotech.form.report.submission.id'  => $values[0],
+                'mailvotech.lead.report.contact_id'     => $values[1],
+                'mailvotech.form.result.thead.date'     => $values[2],
+                'mailvotech.core.ipaddress'             => $values[3],
+                'mailvotech.form.result.thead.referrer' => $values[4],
+                'mailvotech.form.report.form_id'        => $values[5],
                 default                             => null,
             });
     }
@@ -501,7 +501,7 @@ final class SubmissionModelTest extends \PHPUnit\Framework\TestCase
 
     public function testPutCsvExportRow(): void
     {
-        $tmpFile = tempnam(sys_get_temp_dir(), 'mautic_csv_export_test_');
+        $tmpFile = tempnam(sys_get_temp_dir(), 'mailvotech_csv_export_test_');
         $handle  = fopen($tmpFile, 'r+');
         $header  = ['Submission ID', 'Contact ID', 'Form ID'];
 

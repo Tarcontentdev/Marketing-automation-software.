@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Event;
+namespace MailVotech\PointBundle\Event;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\GroupContactScore;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\GroupContactScore;
 
 final readonly class GroupScoreChangeEvent
 {

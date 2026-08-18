@@ -1,0 +1,19 @@
+{
+    "name": "mailvotech/composer-installer",
+    "description": "Composer installer for MailVotech core, plugins and themes",
+    "version": "1.0.0",
+    "type": "composer-plugin",
+    "license": "GPL-3.0",
+    "require": {
+        "php": ">=8.2",
+        "composer-plugin-api": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MailVotech\\ComposerInstaller\\": "src/"
+        }
+    },
+    "extra": {
+        "class": "MailVotech\\ComposerInstaller\\Plugin"
+    }
+}

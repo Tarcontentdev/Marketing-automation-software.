@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Executioner\Helper;
+namespace MailVotech\CampaignBundle\Executioner\Helper;
 
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CampaignBundle\Executioner\Exception\DecisionNotApplicableException;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Executioner\Exception\DecisionNotApplicableException;
+use MailVotech\LeadBundle\Entity\Lead;
 
 final readonly class DecisionHelper
 {

@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\Controller;
+namespace MailVotech\AssetBundle\Tests\Controller;
 
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Entity\Download;
-use Mautic\AssetBundle\Entity\DownloadRepository;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Entity\Download;
+use MailVotech\AssetBundle\Entity\DownloadRepository;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Page;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class AssetDownloadFunctionalTest extends MauticMysqlTestCase
+final class AssetDownloadFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testDownloadOfNotFoundAsset(): void
     {

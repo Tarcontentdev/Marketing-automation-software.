@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -20,13 +20,13 @@ final class CompanyChangeScoreActionType extends AbstractType
             'score',
             NumberType::class,
             [
-                'label'       => 'mautic.lead.lead.events.changecompanyscore',
+                'label'       => 'mailvotech.lead.lead.events.changecompanyscore',
                 'attr'        => ['class' => 'form-control'],
                 'label_attr'  => ['class' => 'control-label'],
                 'scale'       => 0,
                 'data'        => $options['data']['score'] ?? 0,
                 'constraints' => [
-                    new NotEqualTo(value: 0, message: 'mautic.core.value.required'),
+                    new NotEqualTo(value: 0, message: 'mailvotech.core.value.required'),
                 ],
             ]
         );

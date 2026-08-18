@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Event;
+namespace MailVotech\PluginBundle\Event;
 
 class PluginIsPublishedEvent extends \Symfony\Contracts\EventDispatcher\Event
 {

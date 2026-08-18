@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Event;
+namespace MailVotech\IntegrationsBundle\Event;
 
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Entity\Integration;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class KeysEncryptionEvent extends Event

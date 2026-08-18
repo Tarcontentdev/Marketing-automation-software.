@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\CampaignBundle\Membership;
+namespace MailVotech\CampaignBundle\Membership;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Event\CampaignLeadChangeEvent;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Event\CampaignLeadChangeEvent;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EventDispatcher

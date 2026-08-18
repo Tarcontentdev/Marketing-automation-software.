@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Entity;
+namespace MailVotech\CoreBundle\Tests\Unit\Entity;
 
-use Mautic\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Entity\IpAddress;
 
 final class IpAddressTest extends \PHPUnit\Framework\TestCase
 {

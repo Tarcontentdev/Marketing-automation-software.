@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Controller\Api;
+namespace MailVotech\FormBundle\Tests\Controller\Api;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Form;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Form;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Response;
 
-final class FormApiControllerTest extends MauticMysqlTestCase
+final class FormApiControllerTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 

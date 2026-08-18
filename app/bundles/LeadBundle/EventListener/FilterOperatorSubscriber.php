@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Event\LeadListFiltersChoicesEvent;
-use Mautic\LeadBundle\Event\LeadListFiltersOperatorsEvent;
-use Mautic\LeadBundle\Exception\ChoicesNotFoundException;
-use Mautic\LeadBundle\Helper\FormFieldHelper;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Provider\FieldChoicesProviderInterface;
-use Mautic\LeadBundle\Provider\TypeOperatorProviderInterface;
-use Mautic\LeadBundle\Segment\OperatorOptions;
-use Mautic\LeadBundle\Segment\SegmentFilterIconTrait;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Event\LeadListFiltersChoicesEvent;
+use MailVotech\LeadBundle\Event\LeadListFiltersOperatorsEvent;
+use MailVotech\LeadBundle\Exception\ChoicesNotFoundException;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Provider\FieldChoicesProviderInterface;
+use MailVotech\LeadBundle\Provider\TypeOperatorProviderInterface;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Segment\SegmentFilterIconTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -128,7 +128,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
             'lead',
             'leadlist',
             [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.lists'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.lists'),
                 'properties' => [
                     'type' => 'leadlist',
                     'list' => $this->fieldChoicesProvider->getChoicesForField('multiselect', 'leadlist', $event->getSearch()),
@@ -139,7 +139,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
             ]
         );
 
-        // Only show for segments and not dynamic content addressed by https://github.com/mautic/mautic/pull/9260
+        // Only show for segments and not dynamic content addressed by https://github.com/mailvotech/mailvotech/pull/9260
         if (!$event->isForSegmentation()) {
             return;
         }
@@ -147,31 +147,31 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
         $this->setIncludeExcludeOperatorsToTextFilters($event);
         $staticFields = [
             'date_added' => [
-                'label'      => $this->translator->trans('mautic.core.date.added'),
+                'label'      => $this->translator->trans('mailvotech.core.date.added'),
                 'properties' => ['type' => 'datetime'],
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('date'),
                 'object'     => 'lead',
             ],
             'date_identified' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.date_identified'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.date_identified'),
                 'properties' => ['type' => 'datetime'],
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('date'),
                 'object'     => 'lead',
             ],
             'last_active' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.last_active'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.last_active'),
                 'properties' => ['type' => 'datetime'],
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('date'),
                 'object'     => 'lead',
             ],
             'date_modified' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.date_modified'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.date_modified'),
                 'properties' => ['type' => 'datetime'],
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('date'),
                 'object'     => 'lead',
             ],
             'owner_id' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.owner'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.owner'),
                 'properties' => [
                     'type'     => 'lookup_id',
                     'callback' => 'activateSegmentFilterTypeahead',
@@ -180,13 +180,13 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 'object'    => 'lead',
             ],
             'points' => [
-                'label'      => $this->translator->trans('mautic.lead.lead.event.points'),
+                'label'      => $this->translator->trans('mailvotech.lead.lead.event.points'),
                 'properties' => ['type' => 'number'],
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('default'),
                 'object'     => 'lead',
             ],
             'campaign' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.campaign'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.campaign'),
                 'properties' => [
                     'type' => 'campaign',
                     'list' => $this->fieldChoicesProvider->getChoicesForField('select', 'campaign'),
@@ -195,7 +195,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 'object'     => 'lead',
             ],
             'tags' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.tags'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.tags'),
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('multiselect'),
                 'object'     => 'lead',
                 'properties' => [
@@ -204,7 +204,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 ],
             ],
             'device_type' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.device_type'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.device_type'),
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('multiselect'),
                 'object'     => 'lead',
                 'properties' => [
@@ -213,7 +213,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 ],
             ],
             'device_brand' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.device_brand'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.device_brand'),
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('multiselect'),
                 'object'     => 'lead',
                 'properties' => [
@@ -222,7 +222,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 ],
             ],
             'device_os' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.device_os'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.device_os'),
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('multiselect'),
                 'object'     => 'lead',
                 'properties' => [
@@ -231,7 +231,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 ],
             ],
             'device_model' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.device_model'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.device_model'),
                 'properties' => ['type' => 'text'],
                 'operators'  => $this->typeOperatorProvider->getOperatorsIncluding([
                     OperatorOptions::EQUAL_TO,
@@ -241,7 +241,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 'object' => 'lead',
             ],
             'dnc_bounced' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.dnc_bounced'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.dnc_bounced'),
                 'properties' => [
                     'type' => 'boolean',
                     'list' => $this->fieldChoicesProvider->getChoicesForField('boolean', 'dnc_bounced'),
@@ -250,7 +250,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 'object'    => 'lead',
             ],
             'dnc_unsubscribed' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.dnc_unsubscribed'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.dnc_unsubscribed'),
                 'properties' => [
                     'type' => 'boolean',
                     'list' => $this->fieldChoicesProvider->getChoicesForField('boolean', 'dnc_unsubscribed'),
@@ -259,7 +259,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 'object'    => 'lead',
             ],
             'dnc_manual_email' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.dnc_manual_email'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.dnc_manual_email'),
                 'properties' => [
                     'type' => 'boolean',
                     'list' => $this->fieldChoicesProvider->getChoicesForField('boolean', 'dnc_manual_email'),
@@ -268,7 +268,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 'object'     => 'lead',
             ],
             'dnc_bounced_sms' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.dnc_bounced_sms'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.dnc_bounced_sms'),
                 'properties' => [
                     'type' => 'boolean',
                     'list' => $this->fieldChoicesProvider->getChoicesForField('boolean', 'dnc_bounced_sms'),
@@ -277,7 +277,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 'object'    => 'lead',
             ],
             'dnc_unsubscribed_sms' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.dnc_unsubscribed_sms'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.dnc_unsubscribed_sms'),
                 'properties' => [
                     'type' => 'boolean',
                     'list' => $this->fieldChoicesProvider->getChoicesForField('boolean', 'dnc_unsubscribed_sms'),
@@ -286,7 +286,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 'object'    => 'lead',
             ],
             'dnc_manual_sms' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.dnc_manual_sms'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.dnc_manual_sms'),
                 'properties' => [
                     'type' => 'boolean',
                     'list' => $this->fieldChoicesProvider->getChoicesForField('boolean', 'dnc_manual_sms'),
@@ -295,7 +295,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 'object'     => 'lead',
             ],
             'stage' => [
-                'label'      => $this->translator->trans('mautic.lead.lead.field.stage'),
+                'label'      => $this->translator->trans('mailvotech.lead.lead.field.stage'),
                 'object'     => 'lead',
                 'properties' => [
                     'type' => 'stage',
@@ -309,7 +309,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 ]),
             ],
             'globalcategory' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.categories'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.categories'),
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('multiselect'),
                 'object'     => 'lead',
                 'properties' => [
@@ -317,31 +317,31 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 ],
             ],
             'utm_campaign' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.utmcampaign'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.utmcampaign'),
                 'properties' => ['type' => 'text'],
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('default'),
                 'object'     => 'lead',
             ],
             'utm_content' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.utmcontent'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.utmcontent'),
                 'properties' => ['type' => 'text'],
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('default'),
                 'object'     => 'lead',
             ],
             'utm_medium' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.utmmedium'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.utmmedium'),
                 'properties' => ['type' => 'text'],
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('default'),
                 'object'     => 'lead',
             ],
             'utm_source' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.utmsource'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.utmsource'),
                 'properties' => ['type' => 'text'],
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('default'),
                 'object'     => 'lead',
             ],
             'utm_term' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.utmterm'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.utmterm'),
                 'properties' => ['type' => 'text'],
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('default'),
                 'object'     => 'lead',
@@ -356,7 +356,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
 
     public function onGenerateSegmentFiltersAddBehaviors(LeadListFiltersChoicesEvent $event): void
     {
-        // Only show for segments and not dynamic content addressed by https://github.com/mautic/mautic/pull/9260
+        // Only show for segments and not dynamic content addressed by https://github.com/mailvotech/mailvotech/pull/9260
         if (!$event->isForSegmentation()) {
             return;
         }
@@ -364,7 +364,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
         $this->setIncludeExcludeOperatorsToTextFilters($event);
         $choices = [
             'lead_asset_download' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.lead_asset_download'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.lead_asset_download'),
                 'properties' => [
                     'type' => 'assets',
                     'list' => $this->fieldChoicesProvider->getChoicesForField('select', 'lead_asset_download', $event->getSearch()),
@@ -373,7 +373,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 'object'     => 'lead',
             ],
             'lead_email_received' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.lead_email_received'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.lead_email_received'),
                 'object'     => 'lead',
                 'properties' => [
                     'type' => 'lead_email_received',
@@ -382,7 +382,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 'operators' => $this->getBehaviorOperators('lead_email_received'),
             ],
             'lead_email_sent' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.lead_email_sent'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.lead_email_sent'),
                 'object'     => 'lead',
                 'properties' => [
                     'type' => 'lead_email_received',
@@ -391,44 +391,44 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 'operators' => $this->getBehaviorOperators('lead_email_received'),
             ],
             'lead_email_sent_date' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.lead_email_sent_date'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.lead_email_sent_date'),
                 'object'     => 'lead',
                 'properties' => ['type' => 'datetime'],
                 'operators'  => $this->getBehaviorOperators('datetime'),
             ],
             'lead_email_read_date' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.lead_email_read_date'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.lead_email_read_date'),
                 'properties' => ['type' => 'datetime'],
                 'operators'  => $this->getBehaviorOperators('datetime'),
                 'object'     => 'lead',
             ],
             'lead_email_read_count' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.lead_email_read_count'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.lead_email_read_count'),
                 'object'     => 'lead',
                 'properties' => ['type' => 'number'],
                 'operators'  => $this->getBehaviorOperators('number'),
             ],
             'hit_url' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.visited_url'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.visited_url'),
                 'properties' => ['type' => 'text'],
                 'object'     => 'lead',
                 'operators'  => $this->getBehaviorOperators('text'),
             ],
             'hit_url_date' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.visited_url_date'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.visited_url_date'),
                 'properties' => ['type' => 'datetime'],
                 'object'     => 'lead',
                 'operators'  => $this->getBehaviorOperators('datetime'),
             ],
             'hit_url_count' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.visited_url_count'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.visited_url_count'),
                 'properties' => ['type' => 'number'],
                 'object'     => 'lead',
                 'operators'  => $this->getBehaviorOperators('number'),
             ],
             // Clicked any link from any email
             'email_id' => [ // kept as email_id for BC
-                'label'      => $this->translator->trans('mautic.lead.list.filter.email_id'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.email_id'),
                 'properties' => [
                     'type' => 'boolean',
                     'list' => $this->fieldChoicesProvider->getChoicesForField('boolean', 'email_id'),
@@ -438,14 +438,14 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
             ],
             // Clicked any link from any email relative to time
             'email_clicked_link_date' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.email_clicked_link_date'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.email_clicked_link_date'),
                 'properties' => ['type' => 'datetime'],
                 'object'     => 'lead',
                 'operators'  => $this->getBehaviorOperators('datetime'),
             ],
             // Clicked any link from any sms
             'sms_clicked_link' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.sms_clicked_link'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.sms_clicked_link'),
                 'properties' => [
                     'type' => 'boolean',
                     'list' => $this->fieldChoicesProvider->getChoicesForField('boolean', 'sms_clicked_link'),
@@ -455,43 +455,43 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
             ],
             // Clicked any link from any sms relative to time
             'sms_clicked_link_date' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.sms_clicked_link_date'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.sms_clicked_link_date'),
                 'properties' => ['type' => 'datetime'],
                 'object'     => 'lead',
                 'operators'  => $this->getBehaviorOperators('datetime'),
             ],
             'sessions' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.session'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.session'),
                 'properties' => ['type' => 'number'],
                 'operators'  => $this->getBehaviorOperators('number'),
                 'object'     => 'lead',
             ],
             'referer' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.referer'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.referer'),
                 'properties' => ['type' => 'text'],
                 'operators'  => $this->getBehaviorOperators('text'),
                 'object'     => 'lead',
             ],
             'url_title' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.url_title'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.url_title'),
                 'properties' => ['type' => 'text'],
                 'operators'  => $this->getBehaviorOperators('text'),
                 'object'     => 'lead',
             ],
             'source' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.source'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.source'),
                 'properties' => ['type' => 'text'],
                 'operators'  => $this->getBehaviorOperators('text'),
                 'object'     => 'lead',
             ],
             'source_id' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.source.id'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.source.id'),
                 'properties' => ['type' => 'number'],
                 'operators'  => $this->typeOperatorProvider->getOperatorsForFieldType('default'),
                 'object'     => 'lead',
             ],
             'notification' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.notification'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.notification'),
                 'properties' => [
                     'type' => 'boolean',
                     'list' => $this->fieldChoicesProvider->getChoicesForField('boolean', 'notification'),
@@ -500,7 +500,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 'object'    => 'lead',
             ],
             'page_id' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.page_id'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.page_id'),
                 'properties' => [
                     'type' => 'boolean',
                     'list' => $this->fieldChoicesProvider->getChoicesForField('boolean', 'page_id'),
@@ -509,7 +509,7 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
                 'object'    => 'lead',
             ],
             'redirect_id' => [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.redirect_id'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.redirect_id'),
                 'properties' => [
                     'type' => 'boolean',
                     'list' => $this->fieldChoicesProvider->getChoicesForField('boolean', 'redirect_id'),
@@ -593,10 +593,10 @@ final class FilterOperatorSubscriber implements EventSubscriberInterface
     private function translateOperators(array $operators): array
     {
         $translationKeys = [
-            'gt'  => 'mautic.lead.list.form.operator.greaterthan.date',
-            'gte' => 'mautic.lead.list.form.operator.greaterthanequals.date',
-            'lt'  => 'mautic.lead.list.form.operator.lessthan.date',
-            'lte' => 'mautic.lead.list.form.operator.lessthanequals.date',
+            'gt'  => 'mailvotech.lead.list.form.operator.greaterthan.date',
+            'gte' => 'mailvotech.lead.list.form.operator.greaterthanequals.date',
+            'lt'  => 'mailvotech.lead.list.form.operator.lessthan.date',
+            'lte' => 'mailvotech.lead.list.form.operator.lessthanequals.date',
         ];
 
         foreach ($operators as $operator => $string) {

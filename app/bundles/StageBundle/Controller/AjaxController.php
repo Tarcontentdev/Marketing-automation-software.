@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\StageBundle\Controller;
+namespace MailVotech\StageBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\StageBundle\Form\Type\StageActionType;
-use Mautic\StageBundle\Model\StageModel;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\StageBundle\Form\Type\StageActionType;
+use MailVotech\StageBundle\Model\StageModel;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +35,7 @@ final class AjaxController extends CommonAjaxController
             $actions = $this->stageModel->getStageActions();
 
             if (isset($actions['actions'][$type])) {
-                $themes = ['MauticStageBundle:FormTheme\Action'];
+                $themes = ['MailVotechStageBundle:FormTheme\Action'];
                 if (!empty($actions['actions'][$type]['formTheme'])) {
                     $themes[] = $actions['actions'][$type]['formTheme'];
                 }
@@ -43,7 +43,7 @@ final class AjaxController extends CommonAjaxController
                 $formTypeOptions = (!empty($actions['actions'][$type]['formTypeOptions'])) ? $actions['actions'][$type]['formTypeOptions'] : [];
 
                 $form = $formFactory->create(StageActionType::class, [], ['formType' => $formType, 'formTypeOptions' => $formTypeOptions]);
-                $html = $this->renderView('@MauticStage/Stage/actionform.html.twig', [
+                $html = $this->renderView('@MailVotechStage/Stage/actionform.html.twig', [
                     'form' => $this->setFormTheme($form, $twig, $themes),
                 ]);
 

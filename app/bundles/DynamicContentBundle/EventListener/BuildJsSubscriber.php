@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\DynamicContentBundle\EventListener;
+namespace MailVotech\DynamicContentBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\BuildJsEvent;
-use Mautic\CoreBundle\Event\BuildJsScope;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\BuildJsEvent;
+use MailVotech\CoreBundle\Event\BuildJsScope;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -25,7 +25,7 @@ final readonly class BuildJsSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            CoreEvents::BUILD_MAUTIC_JS => ['onBuildJs', 200],
+            CoreEvents::BUILD_MAILVOTECH_JS => ['onBuildJs', 200],
         ];
     }
 
@@ -34,25 +34,25 @@ final readonly class BuildJsSubscriber implements EventSubscriberInterface
      */
     public function onBuildJs(BuildJsEvent $event): void
     {
-        $dwcUrl = $this->router->generate('mautic_api_dynamicContent_action', ['objectAlias' => 'slotNamePlaceholder'], UrlGeneratorInterface::ABSOLUTE_URL);
+        $dwcUrl = $this->router->generate('mailvotech_api_dynamicContent_action', ['objectAlias' => 'slotNamePlaceholder'], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $js = <<<JS
         
            // call variable if doesnt exist
-            if (typeof MauticDomain == 'undefined') {
-                var MauticDomain = '{$this->requestStack->getCurrentRequest()->getSchemeAndHttpHost()}';
+            if (typeof MailVotechDomain == 'undefined') {
+                var MailVotechDomain = '{$this->requestStack->getCurrentRequest()->getSchemeAndHttpHost()}';
             }            
-            if (typeof MauticLang == 'undefined') {
-                var MauticLang = {
-                     'submittingMessage': "{$this->translator->trans('mautic.form.submission.pleasewait')}"
+            if (typeof MailVotechLang == 'undefined') {
+                var MailVotechLang = {
+                     'submittingMessage': "{$this->translator->trans('mailvotech.form.submission.pleasewait')}"
         };
             }
-MauticJS.replaceDynamicContent = function (params) {
+MailVotechJS.replaceDynamicContent = function (params) {
     params = params || {};
 
-    var dynamicContentSlots = document.querySelectorAll('.mautic-slot, [data-slot="dwc"]');
+    var dynamicContentSlots = document.querySelectorAll('.mailvotech-slot, [data-slot="dwc"]');
     if (dynamicContentSlots.length) {
-        MauticJS.iterateCollection(dynamicContentSlots)(function(node, i) {
+        MailVotechJS.iterateCollection(dynamicContentSlots)(function(node, i) {
             var slotName = node.dataset['slotName'];
             if ('undefined' === typeof slotName) {
                 slotName = node.dataset['paramSlotName'];
@@ -63,13 +63,13 @@ MauticJS.replaceDynamicContent = function (params) {
             }
             var url = '{$dwcUrl}'.replace('slotNamePlaceholder', slotName);
 
-            MauticJS.makeCORSRequest('GET', url, params, function(response, xhr) {
+            MailVotechJS.makeCORSRequest('GET', url, params, function(response, xhr) {
                 if (response.content) {
                     var dwcContent = response.content;
                     node.innerHTML = dwcContent;
 
-                    MauticJS.onDynamicContentResponse(response);
-                    MauticJS.enhanceDynamicContent(dwcContent);
+                    MailVotechJS.onDynamicContentResponse(response);
+                    MailVotechJS.enhanceDynamicContent(dwcContent);
                 }
             });
         });
@@ -77,74 +77,74 @@ MauticJS.replaceDynamicContent = function (params) {
 };
 
 // Tracking overrides this hook before PageBundle drains the pre-delivery queue.
-MauticJS.onDynamicContentResponse = function() {};
+MailVotechJS.onDynamicContentResponse = function() {};
 
-MauticJS.enhanceDynamicContent = function(dwcContent) {
+MailVotechJS.enhanceDynamicContent = function(dwcContent) {
     // form load library
-    MauticJS.initializeForms(dwcContent);
+    MailVotechJS.initializeForms(dwcContent);
 
     var m;
     var regEx = /<script[^>]+src="?([^"\s]+)"?\s/g;
 
     while (m = regEx.exec(dwcContent)) {
         if ((m[1]).search("/focus/") > 0) {
-            MauticJS.insertScript(m[1]);
+            MailVotechJS.insertScript(m[1]);
         }
     }
 };
 
-MauticJS.initializeForms = function(content) {
-    if (content.search("mauticform_wrapper") !== -1) {
+MailVotechJS.initializeForms = function(content) {
+    if (content.search("mailvotechform_wrapper") !== -1) {
         // if doesn't exist
-        if (typeof MauticSDK == 'undefined') {
-            if (typeof MauticSDKLoaded == 'undefined') {
-                window.MauticSDKLoaded = true;
-                MauticJS.insertScript('{$this->assetsHelper->getUrl('media/js/mautic-form.js', null, null, true)}');
+        if (typeof MailVotechSDK == 'undefined') {
+            if (typeof MailVotechSDKLoaded == 'undefined') {
+                window.MailVotechSDKLoaded = true;
+                MailVotechJS.insertScript('{$this->assetsHelper->getUrl('media/js/mailvotech-form.js', null, null, true)}');
 
                 // check initialize form library
                 var fileInterval = setInterval(function() {
-                    if (typeof MauticSDK != 'undefined') {
-                        MauticSDK.onLoad();
+                    if (typeof MailVotechSDK != 'undefined') {
+                        MailVotechSDK.onLoad();
                         clearInterval(fileInterval); // clear interval
                      }
                  }, 100); // check every 100ms
             }
         } else {
-            MauticSDK.onLoad();
+            MailVotechSDK.onLoad();
          }
     }
 };
 
-MauticJS.documentReady(function() {
-    var fallbackForms = document.querySelectorAll('.mautic-slot form[data-mautic-form], [data-slot="dwc"] form[data-mautic-form]');
+MailVotechJS.documentReady(function() {
+    var fallbackForms = document.querySelectorAll('.mailvotech-slot form[data-mailvotech-form], [data-slot="dwc"] form[data-mailvotech-form]');
     var initializationRequested = false;
-    MauticJS.iterateCollection(fallbackForms)(function(form) {
-        var formId = form.getAttribute('data-mautic-form');
-        if (!initializationRequested && !document.getElementById('mauticform_' + formId + '_messenger')) {
+    MailVotechJS.iterateCollection(fallbackForms)(function(form) {
+        var formId = form.getAttribute('data-mailvotech-form');
+        if (!initializationRequested && !document.getElementById('mailvotechform_' + formId + '_messenger')) {
             initializationRequested = true;
-            MauticJS.initializeForms('mauticform_wrapper');
+            MailVotechJS.initializeForms('mailvotechform_wrapper');
         }
     });
 });
 
-MauticJS.beforeFirstEventDelivery(MauticJS.replaceDynamicContent);
+MailVotechJS.beforeFirstEventDelivery(MailVotechJS.replaceDynamicContent);
 JS;
-        $event->appendJsForScope($js, BuildJsScope::ESSENTIAL, 'Mautic Dynamic Content');
+        $event->appendJsForScope($js, BuildJsScope::ESSENTIAL, 'MailVotech Dynamic Content');
 
         $js = <<<'JS_WRAP'
         (function(window) {
-        var MauticJS = window.MauticJS;
-        if (!MauticJS || MauticJS.runtimeReady !== true) {
+        var MailVotechJS = window.MailVotechJS;
+        if (!MailVotechJS || MailVotechJS.runtimeReady !== true) {
             return;
         }
         
-        MauticJS.onDynamicContentResponse = function(response) {
+        MailVotechJS.onDynamicContentResponse = function(response) {
             if (response.id && response.sid) {
-                MauticJS.setTrackedContact(response);
+                MailVotechJS.setTrackedContact(response);
             }
         };
         })(window);
         JS_WRAP;
-        $event->appendJsForScope($js, BuildJsScope::TRACKING, 'Mautic Dynamic Content Tracking');
+        $event->appendJsForScope($js, BuildJsScope::TRACKING, 'MailVotech Dynamic Content Tracking');
     }
 }

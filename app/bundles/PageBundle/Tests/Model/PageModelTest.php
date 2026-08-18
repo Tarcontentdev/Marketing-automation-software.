@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Model;
+namespace MailVotech\PageBundle\Tests\Model;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Helper\ClickthroughHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Tests\PageTestAbstract;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Helper\ClickthroughHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Tests\PageTestAbstract;
 use Symfony\Component\HttpFoundation\Request;
 
 final class PageModelTest extends PageTestAbstract
@@ -63,7 +63,7 @@ final class PageModelTest extends PageTestAbstract
             ->method('generate')
             ->willReturnCallback(
                 function (string $route, array $routeParams, int $referenceType): string {
-                    $this->assertSame('mautic_page_public', $route);
+                    $this->assertSame('mailvotech_page_public', $route);
                     $this->assertSame(['slug' => 'this-is-a-test'], $routeParams);
                     $this->assertSame(0, $referenceType);
 
@@ -102,14 +102,14 @@ final class PageModelTest extends PageTestAbstract
         $cleanQueryMethod    = $pageModelReflection->getMethod('cleanQuery');
         $res                 = $cleanQueryMethod->invokeArgs($pageModel, [
             [
-                'page_title'    => 'Mautic & PHP',
-                'page_url'      => 'http://mautic.com/page/test?hello=world&lorem=ipsum&q=this%20has%20spaces',
+                'page_title'    => 'MailVotech & PHP',
+                'page_url'      => 'http://mailvotech.com/page/test?hello=world&lorem=ipsum&q=this%20has%20spaces',
                 'page_language' => 'en',
             ],
         ]);
         $this->assertEquals($res, [
-            'page_title'    => 'Mautic &#38; PHP',
-            'page_url'      => 'http://mautic.com/page/test?hello=world&lorem=ipsum&q=this%20has%20spaces',
+            'page_title'    => 'MailVotech &#38; PHP',
+            'page_url'      => 'http://mailvotech.com/page/test?hello=world&lorem=ipsum&q=this%20has%20spaces',
             'page_language' => 'en',
         ]);
     }
@@ -246,7 +246,7 @@ final class PageModelTest extends PageTestAbstract
             'page_referrer'   => '',
             'page_url'        => sprintf('https://www.domain.com/testpage/?%s', $querystring),
             'counter'         => 0,
-            'mautic_device_id'=> 'nowvkqdf6113236eokcg7qs',
+            'mailvotech_device_id'=> 'nowvkqdf6113236eokcg7qs',
             'resolution'      => '1792x1120',
             'timezone_offset' => -120,
             'platform'        => 'MacIntel',
@@ -259,7 +259,7 @@ final class PageModelTest extends PageTestAbstract
             'page_referrer'   => '',
             'page_url'        => 'https://www.domain.com/testpage/?utm_source=t%C3%A9%C3%A0%C3%A8st-utm_source&utm_medium=t%C3%A4%C3%B6ust-utm_medium&utm_campaign=te+%20%C2%B0st-utm_campaign&utm_content=t%E4%BD%A0%E5%A5%BDt-utm_content',
             'counter'         => 0,
-            'mautic_device_id'=> 'nowvkqdf6113236eokcg7qs',
+            'mailvotech_device_id'=> 'nowvkqdf6113236eokcg7qs',
             'resolution'      => '1792x1120',
             'timezone_offset' => -120,
             'platform'        => 'MacIntel',
@@ -272,7 +272,7 @@ final class PageModelTest extends PageTestAbstract
             'page_referrer'   => '',
             'page_url'        => sprintf('https://www.domain.com/testpage/?ct=%s&%s', $ct, $querystring),
             'counter'         => 0,
-            'mautic_device_id'=> 'nowvkqdf6113236eokcg7qs',
+            'mailvotech_device_id'=> 'nowvkqdf6113236eokcg7qs',
             'resolution'      => '1792x1120',
             'timezone_offset' => -120,
             'platform'        => 'MacIntel',

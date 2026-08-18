@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CampaignBundle\Form\Type;
+namespace MailVotech\CampaignBundle\Form\Type;
 
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\Options;
@@ -48,7 +48,7 @@ final class CampaignListType extends AbstractType
                 'multiple'          => true,
                 'required'          => false,
                 'include_this'      => false,
-                'this_translation'  => 'mautic.campaign.form.thiscampaign',
+                'this_translation'  => 'mailvotech.campaign.form.thiscampaign',
             ]
         );
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Helper;
+namespace MailVotech\EmailBundle\Helper;
 
 interface EmailConfigInterface
 {

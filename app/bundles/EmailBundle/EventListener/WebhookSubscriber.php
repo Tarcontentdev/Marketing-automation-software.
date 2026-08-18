@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\EmailOpenEvent;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\WebhookBundle\Event\WebhookBuilderEvent;
-use Mautic\WebhookBundle\Event\WebhookQueueEvent;
-use Mautic\WebhookBundle\Model\WebhookModel;
-use Mautic\WebhookBundle\WebhookEvents;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\EmailOpenEvent;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\WebhookBundle\Event\WebhookBuilderEvent;
+use MailVotech\WebhookBundle\Event\WebhookQueueEvent;
+use MailVotech\WebhookBundle\Model\WebhookModel;
+use MailVotech\WebhookBundle\WebhookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class WebhookSubscriber implements EventSubscriberInterface
@@ -36,12 +36,12 @@ final readonly class WebhookSubscriber implements EventSubscriberInterface
     {
         // add checkbox to the webhook form for new leads
         $mailSend= [
-            'label'       => 'mautic.email.webhook.event.send',
-            'description' => 'mautic.email.webhook.event.send_desc',
+            'label'       => 'mailvotech.email.webhook.event.send',
+            'description' => 'mailvotech.email.webhook.event.send_desc',
         ];
         $mailOpen = [
-            'label'       => 'mautic.email.webhook.event.open',
-            'description' => 'mautic.email.webhook.event.open_desc',
+            'label'       => 'mailvotech.email.webhook.event.open',
+            'description' => 'mailvotech.email.webhook.event.open_desc',
         ];
 
         // add it to the list

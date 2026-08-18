@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Model;
+namespace MailVotech\LeadBundle\Tests\Model;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\Entity\TagRepository;
-use Mautic\LeadBundle\Model\TagModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Entity\TagRepository;
+use MailVotech\LeadBundle\Model\TagModel;
 
-final class TagModelFunctionalTest extends MauticMysqlTestCase
+final class TagModelFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testDeleteOrphanTags(): void
     {

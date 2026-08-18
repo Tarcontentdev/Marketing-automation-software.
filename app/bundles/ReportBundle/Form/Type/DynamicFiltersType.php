@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\ReportBundle\Form\Type;
+namespace MailVotech\ReportBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\ButtonGroupType;
-use Mautic\ReportBundle\Builder\MauticReportBuilder;
-use Mautic\ReportBundle\Entity\Report;
+use MailVotech\CoreBundle\Form\Type\ButtonGroupType;
+use MailVotech\ReportBundle\Builder\MailVotechReportBuilder;
+use MailVotech\ReportBundle\Entity\Report;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -33,11 +33,11 @@ final class DynamicFiltersType extends AbstractType
 
                 $operatorGroup = $definition['operatorGroup'] ?? $definition['type'];
 
-                if (!array_key_exists($operatorGroup, MauticReportBuilder::OPERATORS)) {
+                if (!array_key_exists($operatorGroup, MailVotechReportBuilder::OPERATORS)) {
                     $operatorGroup = 'default';
                 }
 
-                $operatorLabelKey = $definition['operators'][$filter['condition']] ?? MauticReportBuilder::OPERATORS[$operatorGroup][$filter['condition']] ?? null;
+                $operatorLabelKey = $definition['operators'][$filter['condition']] ?? MailVotechReportBuilder::OPERATORS[$operatorGroup][$filter['condition']] ?? null;
                 $operatorLabel    = $operatorLabelKey ? $this->translator->trans($operatorLabelKey) : null;
 
                 $label = $definition['label'];
@@ -50,7 +50,7 @@ final class DynamicFiltersType extends AbstractType
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'    => 'form-control',
-                        'onchange' => "Mautic.filterTableData('report.".$options['report']->getId()."','".$column."',mQuery(this).val(),'list','.report-content');",
+                        'onchange' => "MailVotech.filterTableData('report.".$options['report']->getId()."','".$column."',mQuery(this).val(),'list','.report-content');",
                     ],
                     'required' => false,
                 ];
@@ -67,9 +67,9 @@ final class DynamicFiltersType extends AbstractType
                         $type            = ButtonGroupType::class;
                         $args['choices'] = [
                             [
-                                'mautic.core.form.no'      => false,
-                                'mautic.core.form.yes'     => true,
-                                'mautic.core.filter.clear' => '2',
+                                'mailvotech.core.form.no'      => false,
+                                'mailvotech.core.form.yes'     => true,
+                                'mailvotech.core.filter.clear' => '2',
                             ],
                         ];
 

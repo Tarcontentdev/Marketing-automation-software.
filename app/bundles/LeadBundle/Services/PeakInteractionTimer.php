@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Services;
+namespace MailVotech\LeadBundle\Services;
 
-use Mautic\CacheBundle\Cache\CacheProviderInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\FormBundle\Entity\SubmissionRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\HitRepository;
+use MailVotech\CacheBundle\Cache\CacheProviderInterface;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\HitRepository;
 
 class PeakInteractionTimer
 {

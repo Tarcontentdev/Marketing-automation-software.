@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\EventListener;
+namespace MailVotech\ChannelBundle\EventListener;
 
-use Mautic\ChannelBundle\ChannelEvents;
-use Mautic\ChannelBundle\Event\MessageEvent;
-use Mautic\CoreBundle\Model\AuditLogModel;
+use MailVotech\ChannelBundle\ChannelEvents;
+use MailVotech\ChannelBundle\Event\MessageEvent;
+use MailVotech\CoreBundle\Model\AuditLogModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class MessageSubscriber implements EventSubscriberInterface

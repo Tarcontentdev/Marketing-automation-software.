@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Tests;
+namespace MailVotech\LeadBundle\Tests;
 
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyLead;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyLead;
+use MailVotech\LeadBundle\Entity\Lead;
 
 trait TestEntityCreationTrait
 {

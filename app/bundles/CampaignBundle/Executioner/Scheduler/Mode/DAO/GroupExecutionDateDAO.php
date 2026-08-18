@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Executioner\Scheduler\Mode\DAO;
+namespace MailVotech\CampaignBundle\Executioner\Scheduler\Mode\DAO;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Lead;
 
 final readonly class GroupExecutionDateDAO
 {

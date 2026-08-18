@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\Integration;
+namespace MailVotech\PluginBundle\Tests\Integration;
 
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Helper\CacheStorageHelper;
-use Mautic\CoreBundle\Helper\EncryptionHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\DoNotContact;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PluginBundle\Entity\IntegrationEntityRepository;
-use Mautic\PluginBundle\Integration\AbstractIntegration;
-use Mautic\PluginBundle\Model\IntegrationEntityModel;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\CoreBundle\Helper\CacheStorageHelper;
+use MailVotech\CoreBundle\Helper\EncryptionHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\DoNotContact;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PluginBundle\Entity\IntegrationEntityRepository;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\PluginBundle\Model\IntegrationEntityModel;
+use MailVotech\UserBundle\Entity\UserRepository;
 use Monolog\Logger;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

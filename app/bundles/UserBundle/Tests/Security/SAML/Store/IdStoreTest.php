@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Security\SAML\Store;
+namespace MailVotech\UserBundle\Tests\Security\SAML\Store;
 
 use Doctrine\ORM\EntityManager;
 use LightSaml\Provider\TimeProvider\TimeProviderInterface;
-use Mautic\UserBundle\Entity\IdEntry;
-use Mautic\UserBundle\Security\SAML\Store\IdStore;
+use MailVotech\UserBundle\Entity\IdEntry;
+use MailVotech\UserBundle\Security\SAML\Store\IdStore;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Doctrine\Type;
+namespace MailVotech\CoreBundle\Doctrine\Type;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;

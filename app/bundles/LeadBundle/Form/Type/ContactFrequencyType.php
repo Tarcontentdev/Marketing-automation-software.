@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -41,7 +41,7 @@ final class ContactFrequencyType extends AbstractType
                 'lead_lists',
                 LeadListType::class,
                 [
-                    'label'      => 'mautic.lead.form.list',
+                    'label'      => 'mailvotech.lead.form.list',
                     'label_attr' => ['class' => 'control-label'],
                     'multiple'   => true,
                     'expanded'   => $options['public_view'],
@@ -54,7 +54,7 @@ final class ContactFrequencyType extends AbstractType
                 LeadListType::class,
                 [
                     'preference_center_only' => $options['preference_center_only'],
-                    'label'                  => 'mautic.lead.form.list',
+                    'label'                  => 'mailvotech.lead.form.list',
                     'label_attr'             => ['class' => 'control-label'],
                     'multiple'               => true,
                     'expanded'               => true,
@@ -68,7 +68,7 @@ final class ContactFrequencyType extends AbstractType
                 'global_categories',
                 LeadCategoryType::class,
                 [
-                    'label'      => 'mautic.lead.form.categories',
+                    'label'      => 'mailvotech.lead.form.categories',
                     'label_attr' => ['class' => 'control-label'],
                     'multiple'   => true,
                     'expanded'   => $options['public_view'],
@@ -82,7 +82,7 @@ final class ContactFrequencyType extends AbstractType
             FormButtonsType::class,
             [
                 'apply_text'     => false,
-                'save_text'      => 'mautic.core.form.save',
+                'save_text'      => 'mailvotech.core.form.save',
                 'cancel_onclick' => 'javascript:void(0);',
                 'cancel_attr'    => [
                     'data-dismiss' => 'modal',

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Command\Api;
+namespace MailVotech\CampaignBundle\Tests\Command\Api;
 
-use Mautic\CacheBundle\Cache\CacheProvider;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CacheBundle\Cache\CacheProvider;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 
-final class CampaignApiControllerFunctionalTest extends MauticMysqlTestCase
+final class CampaignApiControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     #[DataProvider('withContactCountsProvider')]
     public function testCampaignAPI(string $withContactCounts, bool $fromCache, int $expectedContacts): void

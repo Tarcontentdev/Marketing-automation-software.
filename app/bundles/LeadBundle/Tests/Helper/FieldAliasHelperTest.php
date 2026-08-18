@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Helper;
+namespace MailVotech\LeadBundle\Tests\Helper;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Helper\FieldAliasHelper;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Helper\FieldAliasHelper;
+use MailVotech\LeadBundle\Model\FieldModel;
 
 final class FieldAliasHelperTest extends \PHPUnit\Framework\TestCase
 {

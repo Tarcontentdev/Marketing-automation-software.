@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\DependencyInjection\EnvProcessor;
+namespace MailVotech\CoreBundle\DependencyInjection\EnvProcessor;
 
 use Symfony\Component\DependencyInjection\EnvVarProcessorInterface;
 

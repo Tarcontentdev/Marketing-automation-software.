@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\EventListener;
+namespace MailVotech\CampaignBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Event\DeleteCampaign;
-use Mautic\CampaignBundle\Event\DeleteEvent;
-use Mautic\CampaignBundle\Helper\CampaignConfig;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CampaignBundle\Model\EventModel;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Event\DeleteCampaign;
+use MailVotech\CampaignBundle\Event\DeleteEvent;
+use MailVotech\CampaignBundle\Helper\CampaignConfig;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CampaignBundle\Model\EventModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class CampaignEventDeleteSubscriber implements EventSubscriberInterface

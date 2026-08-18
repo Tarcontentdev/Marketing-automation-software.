@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\CampaignBundle\EventListener;
+namespace MailVotech\CampaignBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CampaignBundle\Form\Type\CampaignEventAddRemoveLeadType;
-use Mautic\CampaignBundle\Form\Validator\Constraints\InfiniteLoopValidator;
-use Mautic\CampaignBundle\Membership\MembershipManager;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Event\EntityValidateEvent;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CampaignBundle\Form\Type\CampaignEventAddRemoveLeadType;
+use MailVotech\CampaignBundle\Form\Validator\Constraints\InfiniteLoopValidator;
+use MailVotech\CampaignBundle\Membership\MembershipManager;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Event\EntityValidateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class CampaignActionChangeMembershipSubscriber implements EventSubscriberInterface
@@ -40,8 +40,8 @@ final readonly class CampaignActionChangeMembershipSubscriber implements EventSu
         $event->addAction(
             'campaign.addremovelead',
             [
-                'label'           => 'mautic.campaign.event.addremovelead',
-                'description'     => 'mautic.campaign.event.addremovelead_descr',
+                'label'           => 'mailvotech.campaign.event.addremovelead',
+                'description'     => 'mailvotech.campaign.event.addremovelead_descr',
                 'formType'        => CampaignEventAddRemoveLeadType::class,
                 'formTypeOptions' => [
                     'include_this' => true,

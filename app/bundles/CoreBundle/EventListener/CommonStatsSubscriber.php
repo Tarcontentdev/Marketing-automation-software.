@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Event\StatsEvent;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Event\StatsEvent;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 

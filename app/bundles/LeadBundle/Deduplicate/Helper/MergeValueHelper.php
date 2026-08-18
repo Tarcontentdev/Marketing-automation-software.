@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Deduplicate\Helper;
+namespace MailVotech\LeadBundle\Deduplicate\Helper;
 
-use Mautic\LeadBundle\Deduplicate\Exception\ValueNotMergeableException;
+use MailVotech\LeadBundle\Deduplicate\Exception\ValueNotMergeableException;
 
 final class MergeValueHelper
 {

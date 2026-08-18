@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\ReportBundle\Event;
+namespace MailVotech\ReportBundle\Event;
 
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Model\ReportModel;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Model\ReportModel;
 
 class ReportGeneratorEvent extends AbstractReportEvent
 {
@@ -57,7 +57,7 @@ class ReportGeneratorEvent extends AbstractReportEvent
         }
 
         // Default content template
-        return '@MauticReport/Report/details.html.twig';
+        return '@MailVotechReport/Report/details.html.twig';
     }
 
     public function setContentTemplate(?string $contentTemplate): self
@@ -113,7 +113,7 @@ class ReportGeneratorEvent extends AbstractReportEvent
     public function addCategoryLeftJoin(QueryBuilder $queryBuilder, $prefix, $categoryPrefix = self::CATEGORY_PREFIX): self
     {
         if ($this->usesColumnWithPrefix($categoryPrefix)) {
-            $queryBuilder->leftJoin($prefix, MAUTIC_TABLE_PREFIX.'categories', $categoryPrefix, $categoryPrefix.'.id = '.$prefix.'.category_id');
+            $queryBuilder->leftJoin($prefix, MAILVOTECH_TABLE_PREFIX.'categories', $categoryPrefix, $categoryPrefix.'.id = '.$prefix.'.category_id');
         }
 
         return $this;
@@ -132,7 +132,7 @@ class ReportGeneratorEvent extends AbstractReportEvent
             || $this->usesColumn('clel.campaign_id')
             || $this->usesColumn('dnc_preferences')
         ) {
-            $queryBuilder->leftJoin($prefix, MAUTIC_TABLE_PREFIX.'leads', $leadPrefix, $leadPrefix.'.id = '.$prefix.'.lead_id');
+            $queryBuilder->leftJoin($prefix, MAILVOTECH_TABLE_PREFIX.'leads', $leadPrefix, $leadPrefix.'.id = '.$prefix.'.lead_id');
         }
 
         return $this;
@@ -147,7 +147,7 @@ class ReportGeneratorEvent extends AbstractReportEvent
     public function addIpAddressLeftJoin(QueryBuilder $queryBuilder, $prefix, $ipPrefix = self::IP_ADDRESS_PREFIX): self
     {
         if ($this->usesColumnWithPrefix($ipPrefix)) {
-            $queryBuilder->leftJoin($prefix, MAUTIC_TABLE_PREFIX.'ip_addresses', $ipPrefix, $ipPrefix.'.id = '.$prefix.'.ip_id');
+            $queryBuilder->leftJoin($prefix, MAILVOTECH_TABLE_PREFIX.'ip_addresses', $ipPrefix, $ipPrefix.'.id = '.$prefix.'.ip_id');
         }
 
         return $this;
@@ -164,7 +164,7 @@ class ReportGeneratorEvent extends AbstractReportEvent
     {
         if ($this->usesColumnWithPrefix($ipPrefix)) {
             $this->addIpAddressLeftJoin($queryBuilder, $ipXrefPrefix, $ipPrefix);
-            $queryBuilder->leftJoin($leadPrefix, MAUTIC_TABLE_PREFIX.'lead_ips_xref', $ipXrefPrefix, $ipXrefPrefix.'.lead_id = '.$leadPrefix.'.id');
+            $queryBuilder->leftJoin($leadPrefix, MAILVOTECH_TABLE_PREFIX.'lead_ips_xref', $ipXrefPrefix, $ipXrefPrefix.'.lead_id = '.$leadPrefix.'.id');
         }
 
         return $this;
@@ -182,8 +182,8 @@ class ReportGeneratorEvent extends AbstractReportEvent
     {
         if ($this->usesColumn('cmp.name') || $this->usesColumn('clel.campaign_id')) {
             $condition = "clel.channel='{$channel}' AND {$prefix}.{$onColumn} = clel.channel_id AND clel.lead_id = {$leadPrefix}.id";
-            $queryBuilder->leftJoin($prefix, MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'clel', $condition);
-            $queryBuilder->leftJoin('clel', MAUTIC_TABLE_PREFIX.'campaigns', 'cmp', 'cmp.id = clel.campaign_id');
+            $queryBuilder->leftJoin($prefix, MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'clel', $condition);
+            $queryBuilder->leftJoin('clel', MAILVOTECH_TABLE_PREFIX.'campaigns', 'cmp', 'cmp.id = clel.campaign_id');
         }
 
         return $this;
@@ -211,7 +211,7 @@ class ReportGeneratorEvent extends AbstractReportEvent
 
             $queryBuilder->leftJoin(
                 $prefix,
-                MAUTIC_TABLE_PREFIX.$reportDetails['table'],
+                MAILVOTECH_TABLE_PREFIX.$reportDetails['table'],
                 $channel,
                 $prefix.'.channel_id = '.$channel.'.id AND '.$prefix.'.channel = :'.$channelParameter
             );
@@ -225,11 +225,11 @@ class ReportGeneratorEvent extends AbstractReportEvent
     public function addCompanyLeftJoin(QueryBuilder $queryBuilder, string $companyPrefix = self::COMPANY_PREFIX, string $contactPrefix = self::CONTACT_PREFIX): void
     {
         if ($this->usesColumnWithPrefix($companyPrefix) || $this->usesColumnWithPrefix(self::COMPANY_LEAD_PREFIX)) {
-            if ($this->isJoined($queryBuilder, MAUTIC_TABLE_PREFIX.'companies_leads', 'l', self::COMPANY_LEAD_PREFIX)) {
+            if ($this->isJoined($queryBuilder, MAILVOTECH_TABLE_PREFIX.'companies_leads', 'l', self::COMPANY_LEAD_PREFIX)) {
                 return;
             }
-            $queryBuilder->leftJoin('l', MAUTIC_TABLE_PREFIX.'companies_leads', self::COMPANY_LEAD_PREFIX, $contactPrefix.'.id ='.self::COMPANY_LEAD_PREFIX.'.lead_id');
-            $queryBuilder->leftJoin(self::COMPANY_LEAD_PREFIX, MAUTIC_TABLE_PREFIX.'companies', $companyPrefix, self::COMPANY_LEAD_PREFIX.'.company_id = '.$companyPrefix.'.id');
+            $queryBuilder->leftJoin('l', MAILVOTECH_TABLE_PREFIX.'companies_leads', self::COMPANY_LEAD_PREFIX, $contactPrefix.'.id ='.self::COMPANY_LEAD_PREFIX.'.lead_id');
+            $queryBuilder->leftJoin(self::COMPANY_LEAD_PREFIX, MAILVOTECH_TABLE_PREFIX.'companies', $companyPrefix, self::COMPANY_LEAD_PREFIX.'.company_id = '.$companyPrefix.'.id');
         }
     }
 

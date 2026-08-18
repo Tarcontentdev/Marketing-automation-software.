@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CacheBundle\Tests\EventListener;
+namespace MailVotech\CacheBundle\Tests\EventListener;
 
-use Mautic\CacheBundle\Cache\AbstractCacheProvider;
-use Mautic\CacheBundle\EventListener\CacheClearSubscriber;
+use MailVotech\CacheBundle\Cache\AbstractCacheProvider;
+use MailVotech\CacheBundle\EventListener\CacheClearSubscriber;
 use Monolog\Logger;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Cache\Adapter\AdapterInterface;

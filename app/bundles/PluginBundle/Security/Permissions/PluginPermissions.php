@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\PluginBundle\Security\Permissions;
+namespace MailVotech\PluginBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class PluginPermissions extends AbstractPermissions

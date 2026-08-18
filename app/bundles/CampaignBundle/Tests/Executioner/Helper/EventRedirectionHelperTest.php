@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Executioner\Helper;
+namespace MailVotech\CampaignBundle\Tests\Executioner\Helper;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Executioner\Helper\EventRedirectionHelper;
-use Mautic\CoreBundle\Test\ReflectionHelper;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Executioner\Helper\EventRedirectionHelper;
+use MailVotech\CoreBundle\Test\ReflectionHelper;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 

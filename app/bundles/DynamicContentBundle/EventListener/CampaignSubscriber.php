@@ -1,18 +1,18 @@
 <?php
 
-namespace Mautic\DynamicContentBundle\EventListener;
+namespace MailVotech\DynamicContentBundle\EventListener;
 
-use Mautic\CacheBundle\Cache\CacheProvider;
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\DynamicContentBundle\DynamicContentEvents;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\DynamicContentBundle\Entity\DynamicContentRepository;
-use Mautic\DynamicContentBundle\Form\Type\DynamicContentDecisionType;
-use Mautic\DynamicContentBundle\Form\Type\DynamicContentSendType;
-use Mautic\DynamicContentBundle\Model\DynamicContentModel;
+use MailVotech\CacheBundle\Cache\CacheProvider;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\DynamicContentBundle\DynamicContentEvents;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\DynamicContentBundle\Entity\DynamicContentRepository;
+use MailVotech\DynamicContentBundle\Form\Type\DynamicContentDecisionType;
+use MailVotech\DynamicContentBundle\Form\Type\DynamicContentSendType;
+use MailVotech\DynamicContentBundle\Model\DynamicContentModel;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -41,13 +41,13 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
         $event->addAction(
             'dwc.push_content',
             [
-                'label'                  => 'mautic.dynamicContent.campaign.send_dwc',
-                'description'            => 'mautic.dynamicContent.campaign.send_dwc.tooltip',
+                'label'                  => 'mailvotech.dynamicContent.campaign.send_dwc',
+                'description'            => 'mailvotech.dynamicContent.campaign.send_dwc.tooltip',
                 'eventName'              => DynamicContentEvents::ON_CAMPAIGN_TRIGGER_ACTION,
                 'formType'               => DynamicContentSendType::class,
                 'formTypeOptions'        => ['update_select' => 'campaignevent_properties_dynamicContent'],
-                'formTheme'              => '@MauticDynamicContent/FormTheme/DynamicContentPushList/_dynamiccontentpush_list_row.html.twig',
-                'timelineTemplate'       => '@MauticDynamicContent/SubscribedEvents/Timeline/index.html.twig',
+                'formTheme'              => '@MailVotechDynamicContent/FormTheme/DynamicContentPushList/_dynamiccontentpush_list_row.html.twig',
+                'timelineTemplate'       => '@MailVotechDynamicContent/SubscribedEvents/Timeline/index.html.twig',
                 'hideTriggerMode'        => true,
                 'connectionRestrictions' => [
                     'anchor' => [
@@ -67,12 +67,12 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
         $event->addDecision(
             'dwc.decision',
             [
-                'label'           => 'mautic.dynamicContent.campaign.decision_dwc',
-                'description'     => 'mautic.dynamicContent.campaign.decision_dwc.tooltip',
+                'label'           => 'mailvotech.dynamicContent.campaign.decision_dwc',
+                'description'     => 'mailvotech.dynamicContent.campaign.decision_dwc.tooltip',
                 'eventName'       => DynamicContentEvents::ON_CAMPAIGN_TRIGGER_DECISION,
                 'formType'        => DynamicContentDecisionType::class,
                 'formTypeOptions' => ['update_select' => 'campaignevent_properties_dynamicContent'],
-                'formTheme'       => '@MauticDynamicContent/FormTheme/DynamicContentDecisionList/_dynamiccontentdecision_list_row.html.twig',
+                'formTheme'       => '@MailVotechDynamicContent/FormTheme/DynamicContentDecisionList/_dynamiccontentdecision_list_row.html.twig',
                 'channel'         => 'dynamicContent',
                 'channelIdField'  => 'dynamicContent',
             ]

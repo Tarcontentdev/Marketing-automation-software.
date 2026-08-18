@@ -3,7 +3,7 @@
     - form
 #}
 {% form_theme form with [
-      '@MauticCampaign/FormTheme/Event/_campaignevent_properties_row.html.twig',
+      '@MailVotechCampaign/FormTheme/Event/_campaignevent_properties_row.html.twig',
 ] %}
 {% if formTheme is defined %}
   {% form_theme form formTheme %}
@@ -45,11 +45,11 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="d-flex fd-row fw-nowrap ai-center gap-sm">
-                            <div>{{ 'mautic.campaign.form.type.interval_schedule_at'|trans }} </div>
+                            <div>{{ 'mailvotech.campaign.form.type.interval_schedule_at'|trans }} </div>
                             <div>{{ form_widget(form.triggerHour) }}</div>
-                            <div> {{ 'mautic.campaign.form.type.interval_schedule_between_hours'|trans }} </div>
+                            <div> {{ 'mailvotech.campaign.form.type.interval_schedule_between_hours'|trans }} </div>
                             <div>{{ form_widget(form.triggerRestrictedStartHour) }}</div>
-                            <div> {{ 'mautic.core.and'|trans }} </div>
+                            <div> {{ 'mailvotech.core.and'|trans }} </div>
                             <div>{{ form_widget(form.triggerRestrictedStopHour) }}</div>
                         </div>
 
@@ -57,7 +57,7 @@
                 </div>
                 <hr />
                 <div class="row mt-5">
-                    <div class="col-sm-12" style="font-weight: 600;">{{ 'mautic.campaign.form.type.interval_trigger_restricted_dow'|trans }}</div>
+                    <div class="col-sm-12" style="font-weight: 600;">{{ 'mailvotech.campaign.form.type.interval_trigger_restricted_dow'|trans }}</div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">

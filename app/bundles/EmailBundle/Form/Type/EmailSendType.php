@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
-use Mautic\ChannelBundle\Entity\MessageQueue;
-use Mautic\CoreBundle\Form\Type\ButtonGroupType;
-use Mautic\EmailBundle\Helper\MailHelper;
+use MailVotech\ChannelBundle\Entity\MessageQueue;
+use MailVotech\CoreBundle\Form\Type\ButtonGroupType;
+use MailVotech\EmailBundle\Helper\MailHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -32,19 +32,19 @@ final class EmailSendType extends AbstractType
             'email',
             EmailListType::class,
             [
-                'label'      => 'mautic.email.send.selectemails',
+                'label'      => 'mailvotech.email.send.selectemails',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'                => 'form-control',
-                    'tooltip'              => 'mautic.email.choose.emails_descr',
-                    'onchange'             => 'Mautic.disabledEmailAction(window, this)',
+                    'tooltip'              => 'mailvotech.email.choose.emails_descr',
+                    'onchange'             => 'MailVotech.disabledEmailAction(window, this)',
                     'data-onload-callback' => 'setSendToDncOnModelLoad',
                 ],
                 'multiple'    => false,
                 'required'    => true,
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.email.chooseemail.notblank'
+                        message: 'mailvotech.email.chooseemail.notblank'
                     ),
                 ],
             ]
@@ -56,14 +56,14 @@ final class EmailSendType extends AbstractType
                 ButtonGroupType::class,
                 [
                     'choices' => [
-                        'mautic.core.form.no'  => MailHelper::EMAIL_TYPE_MARKETING,
-                        'mautic.core.form.yes' => MailHelper::EMAIL_TYPE_TRANSACTIONAL,
+                        'mailvotech.core.form.no'  => MailHelper::EMAIL_TYPE_MARKETING,
+                        'mailvotech.core.form.yes' => MailHelper::EMAIL_TYPE_TRANSACTIONAL,
                     ],
-                    'label'      => 'mautic.email.send.emailtype',
+                    'label'      => 'mailvotech.email.send.emailtype',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control email-type',
-                        'tooltip' => 'mautic.email.send.emailtype.tooltip',
+                        'tooltip' => 'mailvotech.email.send.emailtype.tooltip',
                     ],
                     'data' => (!isset($options['data']['email_type'])) ? MailHelper::EMAIL_TYPE_MARKETING : $options['data']['email_type'],
                 ]
@@ -72,7 +72,7 @@ final class EmailSendType extends AbstractType
 
         if (!empty($options['update_select'])) {
             $windowUrl = $this->router->generate(
-                'mautic_email_action',
+                'mailvotech_email_action',
                 [
                     'objectAction' => 'new',
                     'contentOnly'  => 1,
@@ -86,18 +86,18 @@ final class EmailSendType extends AbstractType
                 [
                     'attr' => [
                         'class'   => 'btn btn-tertiary btn-sm btn-nospin mr-xs',
-                        'onclick' => 'Mautic.loadNewWindow({
+                        'onclick' => 'MailVotech.loadNewWindow({
                             "windowUrl": "'.$windowUrl.'"
                         })',
                         'icon' => 'ri-add-line',
                     ],
-                    'label' => 'mautic.email.send.new.email',
+                    'label' => 'mailvotech.email.send.new.email',
                 ]
             );
 
             // create button edit email
             $windowUrlEdit = $this->router->generate(
-                'mautic_email_action',
+                'mailvotech_email_action',
                 [
                     'objectAction' => 'edit',
                     'objectId'     => 'emailId',
@@ -112,16 +112,16 @@ final class EmailSendType extends AbstractType
                 [
                     'attr' => [
                         'class'    => 'btn btn-tertiary btn-sm btn-nospin mr-xs',
-                        'onclick'  => 'Mautic.loadNewWindow(Mautic.standardEmailUrl({"windowUrl": "'.$windowUrlEdit.'","origin":"#'.$options['update_select'].'"}))',
+                        'onclick'  => 'MailVotech.loadNewWindow(MailVotech.standardEmailUrl({"windowUrl": "'.$windowUrlEdit.'","origin":"#'.$options['update_select'].'"}))',
                         'disabled' => !isset($options['data']['email']) && !isset($options['attr']['email']),
                         'icon'     => 'ri-edit-line',
                     ],
-                    'label' => 'mautic.email.send.edit.email',
+                    'label' => 'mailvotech.email.send.edit.email',
                 ]
             );
 
             // create button preview email
-            $windowUrlPreview = $this->router->generate('mautic_email_preview', ['objectId' => 'emailId']);
+            $windowUrlPreview = $this->router->generate('mailvotech_email_preview', ['objectId' => 'emailId']);
 
             $builder->add(
                 'previewEmailButton',
@@ -129,11 +129,11 @@ final class EmailSendType extends AbstractType
                 [
                     'attr' => [
                         'class'    => 'btn btn-tertiary btn-sm btn-nospin mr-xs',
-                        'onclick'  => 'Mautic.loadNewWindow(Mautic.standardEmailUrl({"windowUrl": "'.$windowUrlPreview.'","origin":"#'.$options['update_select'].'"}))',
+                        'onclick'  => 'MailVotech.loadNewWindow(MailVotech.standardEmailUrl({"windowUrl": "'.$windowUrlPreview.'","origin":"#'.$options['update_select'].'"}))',
                         'disabled' => !isset($options['data']['email']) && !isset($options['attr']['email']),
                         'icon'     => 'ri-external-link-line',
                     ],
-                    'label' => 'mautic.email.send.preview.email',
+                    'label' => 'mailvotech.email.send.preview.email',
                 ]
             );
             if (!empty($options['with_email_types'])) {
@@ -143,14 +143,14 @@ final class EmailSendType extends AbstractType
                     ChoiceType::class,
                     [
                         'choices' => [
-                            'mautic.channel.message.send.priority.normal' => MessageQueue::PRIORITY_NORMAL,
-                            'mautic.channel.message.send.priority.high'   => MessageQueue::PRIORITY_HIGH,
+                            'mailvotech.channel.message.send.priority.normal' => MessageQueue::PRIORITY_NORMAL,
+                            'mailvotech.channel.message.send.priority.high'   => MessageQueue::PRIORITY_HIGH,
                         ],
-                        'label'    => 'mautic.channel.message.send.priority',
+                        'label'    => 'mailvotech.channel.message.send.priority',
                         'required' => false,
                         'attr'     => [
                             'class'        => 'form-control',
-                            'tooltip'      => 'mautic.channel.message.send.priority.tooltip',
+                            'tooltip'      => 'mailvotech.channel.message.send.priority.tooltip',
                         ],
                         'data'        => $data,
                         'placeholder' => false,
@@ -162,10 +162,10 @@ final class EmailSendType extends AbstractType
                     'attempts',
                     NumberType::class,
                     [
-                        'label' => 'mautic.channel.message.send.attempts',
+                        'label' => 'mailvotech.channel.message.send.attempts',
                         'attr'  => [
                             'class'        => 'form-control',
-                            'tooltip'      => 'mautic.channel.message.send.attempts.tooltip',
+                            'tooltip'      => 'mailvotech.channel.message.send.attempts.tooltip',
                         ],
                         'data'       => $data,
                         'empty_data' => 0,

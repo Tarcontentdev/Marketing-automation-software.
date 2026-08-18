@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\PageBundle\EventListener;
+namespace MailVotech\PageBundle\EventListener;
 
-use Mautic\CoreBundle\Event\DetermineWinnerEvent;
-use Mautic\PageBundle\Entity\HitRepository;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CoreBundle\Event\DetermineWinnerEvent;
+use MailVotech\PageBundle\Entity\HitRepository;
+use MailVotech\PageBundle\PageEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -78,7 +78,7 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                 $rates             = [];
                 $support['data']   = [];
                 $support['labels'] = [];
-                $bounceLabel       = $this->translator->trans('mautic.page.abtest.label.bounces');
+                $bounceLabel       = $this->translator->trans('mailvotech.page.abtest.label.bounces');
 
                 foreach ($combined as $pid => $stats) {
                     $rates[$pid]                     = $stats['rate'];
@@ -95,7 +95,7 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                     'winners'         => $winners,
                     'support'         => $support,
                     'basedOn'         => 'page.bouncerate',
-                    'supportTemplate' => '@MauticPage/SubscribedEvents/AbTest/bargraph.html.twig',
+                    'supportTemplate' => '@MailVotechPage/SubscribedEvents/AbTest/bargraph.html.twig',
                 ]);
 
                 return;
@@ -132,7 +132,7 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                 $support['labels'] = [];
                 foreach ($counts as $pid => $stats) {
                     $avgs[$pid]                                                                                = $stats['average'];
-                    $support['data'][$this->translator->trans('mautic.page.abtest.label.dewlltime.average')][] = $stats['average'];
+                    $support['data'][$this->translator->trans('mailvotech.page.abtest.label.dewlltime.average')][] = $stats['average'];
                     $support['labels'][]                                                                       = $pid.':'.$stats['title'];
                 }
 
@@ -147,7 +147,7 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                     'winners'         => $winners,
                     'support'         => $support,
                     'basedOn'         => 'page.dwelltime',
-                    'supportTemplate' => '@MauticPage/SubscribedEvents/AbTest/bargraph.html.twig',
+                    'supportTemplate' => '@MailVotechPage/SubscribedEvents/AbTest/bargraph.html.twig',
                 ]);
 
                 return;

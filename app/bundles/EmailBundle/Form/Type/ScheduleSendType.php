@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\EmailBundle\Validator\ScheduleDateRange;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\EmailBundle\Validator\ScheduleDateRange;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,7 +27,7 @@ final class ScheduleSendType extends AbstractType
             DateTimeType::class,
             [
                 'widget' => 'single_text',
-                'label'  => 'mautic.email.send.datetime.start',
+                'label'  => 'mailvotech.email.send.datetime.start',
                 'attr'   => [
                     'class'       => 'form-control',
                     'data-toggle' => 'datetime',
@@ -36,7 +36,7 @@ final class ScheduleSendType extends AbstractType
                 'required'    => false,
                 'html5'       => false,
                 'constraints' => new NotBlank(
-                    message: 'mautic.core.value.required'
+                    message: 'mailvotech.core.value.required'
                 ),
             ]
         );
@@ -45,10 +45,10 @@ final class ScheduleSendType extends AbstractType
             'continueSending',
             YesNoButtonGroupType::class,
             [
-                'label'    => 'mautic.email.send.continue',
+                'label'    => 'mailvotech.email.send.continue',
                 'required' => false,
                 'attr'     => [
-                    'tooltip' => 'mautic.email.send.continue.tooltip',
+                    'tooltip' => 'mailvotech.email.send.continue.tooltip',
                 ],
                 'data'     => $options['data']['continueSending'] ?? false,
             ]
@@ -59,7 +59,7 @@ final class ScheduleSendType extends AbstractType
             DateTimeType::class,
             [
                 'widget' => 'single_text',
-                'label'  => 'mautic.email.send.datetime.end',
+                'label'  => 'mailvotech.email.send.datetime.end',
                 'attr'   => [
                     'class'            => 'form-control',
                     'data-toggle'      => 'datetime',
@@ -76,7 +76,7 @@ final class ScheduleSendType extends AbstractType
                 'buttons',
                 FormButtonsType::class,
                 [
-                    'save_text'  => 'mautic.email.send.schedule',
+                    'save_text'  => 'mailvotech.email.send.schedule',
                     'save_icon'  => null,
                     'apply_text' => false,
                 ]
@@ -86,13 +86,13 @@ final class ScheduleSendType extends AbstractType
                 'buttons',
                 FormButtonsType::class,
                 [
-                    'save_text'   => 'mautic.email.send.schedule.update',
+                    'save_text'   => 'mailvotech.email.send.schedule.update',
                     'save_icon'   => null,
                     'save_class'  => 'btn btn-primary',
-                    'apply_text'  => 'mautic.email.send.schedule.cancel',
+                    'apply_text'  => 'mailvotech.email.send.schedule.cancel',
                     'apply_icon'  => null,
                     'apply_class' => 'btn btn-secondary btn-cancel',
-                    'cancel_text' => 'mautic.core.close',
+                    'cancel_text' => 'mailvotech.core.close',
                     'cancel_icon' => null,
                 ]
             );

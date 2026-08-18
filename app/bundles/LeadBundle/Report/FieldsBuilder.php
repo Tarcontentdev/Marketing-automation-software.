@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\LeadBundle\Report;
+namespace MailVotech\LeadBundle\Report;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\UserBundle\Model\UserModel;
 
 class FieldsBuilder
 {
@@ -53,11 +53,11 @@ class FieldsBuilder
         $segmentKey           = $segmentPrefix.'leadlist_id';
         $filters[$segmentKey] = [
             'alias'     => 'segment_id',
-            'label'     => 'mautic.core.filter.lists',
+            'label'     => 'mailvotech.core.filter.lists',
             'type'      => 'select',
             'list'      => $list,
             'operators' => [
-                'eq' => 'mautic.core.operator.equals',
+                'eq' => 'mailvotech.core.operator.equals',
             ],
         ];
 
@@ -68,14 +68,14 @@ class FieldsBuilder
         }
 
         $filters['tag'] = [
-            'label'     => 'mautic.core.filter.tags',
+            'label'     => 'mailvotech.core.filter.tags',
             'type'      => 'multiselect',
             'list'      => $aTags,
             'operators' => [
-                'in'       => 'mautic.core.operator.in',
-                'notIn'    => 'mautic.core.operator.notin',
-                'empty'    => 'mautic.core.operator.isempty',
-                'notEmpty' => 'mautic.core.operator.isnotempty',
+                'in'       => 'mailvotech.core.operator.in',
+                'notIn'    => 'mailvotech.core.operator.notin',
+                'empty'    => 'mailvotech.core.operator.isempty',
+                'notEmpty' => 'mailvotech.core.operator.isnotempty',
             ],
         ];
 
@@ -89,7 +89,7 @@ class FieldsBuilder
             $ownersList[$owner['id']] = sprintf('%s %s', $owner['firstName'], $owner['lastName']);
         }
         $filters[$ownerPrefix] = [
-            'label' => 'mautic.lead.list.filter.owner',
+            'label' => 'mailvotech.lead.list.filter.owner',
             'type'  => 'select',
             'list'  => $ownersList,
         ];
@@ -113,42 +113,42 @@ class FieldsBuilder
     {
         return [
             'l.id' => [
-                'label' => 'mautic.lead.report.contact_id',
+                'label' => 'mailvotech.lead.report.contact_id',
                 'type'  => 'int',
-                'link'  => 'mautic_contact_action',
+                'link'  => 'mailvotech_contact_action',
             ],
             'i.ip_address' => [
-                'label' => 'mautic.core.ipaddress',
+                'label' => 'mailvotech.core.ipaddress',
                 'type'  => 'text',
             ],
             'l.date_identified' => [
-                'label'          => 'mautic.lead.report.date_identified',
+                'label'          => 'mailvotech.lead.report.date_identified',
                 'type'           => 'datetime',
                 'groupByFormula' => 'DATE(l.date_identified)',
             ],
             'l.date_added' => [
-                'label'          => 'mautic.core.date.added',
+                'label'          => 'mailvotech.core.date.added',
                 'type'           => 'datetime',
                 'groupByFormula' => 'DATE(l.date_added)',
             ],
             'l.points' => [
-                'label' => 'mautic.lead.points',
+                'label' => 'mailvotech.lead.points',
                 'type'  => 'int',
             ],
             'l.owner_id' => [
-                'label' => 'mautic.lead.report.owner_id',
+                'label' => 'mailvotech.lead.report.owner_id',
                 'type'  => 'int',
             ],
             'u.first_name' => [
-                'label' => 'mautic.lead.report.owner_firstname',
+                'label' => 'mailvotech.lead.report.owner_firstname',
                 'type'  => 'string',
             ],
             'u.last_name' => [
-                'label' => 'mautic.lead.report.owner_lastname',
+                'label' => 'mailvotech.lead.report.owner_lastname',
                 'type'  => 'string',
             ],
             'l.generated_email_domain' => [
-                'label' => 'mautic.lead.report.generated_email_domain',
+                'label' => 'mailvotech.lead.report.generated_email_domain',
                 'type'  => 'string',
             ],
         ];
@@ -158,34 +158,34 @@ class FieldsBuilder
     {
         return [
             'comp.id' => [
-                'label' => 'mautic.lead.report.company.company_id',
+                'label' => 'mailvotech.lead.report.company.company_id',
                 'type'  => 'int',
-                'link'  => 'mautic_company_action',
+                'link'  => 'mailvotech_company_action',
             ],
             'comp.companyname' => [
-                'label' => 'mautic.lead.report.company.company_name',
+                'label' => 'mailvotech.lead.report.company.company_name',
                 'type'  => 'string',
-                'link'  => 'mautic_company_action',
+                'link'  => 'mailvotech_company_action',
             ],
             'comp.companycity' => [
-                'label' => 'mautic.lead.report.company.company_city',
+                'label' => 'mailvotech.lead.report.company.company_city',
                 'type'  => 'string',
-                'link'  => 'mautic_company_action',
+                'link'  => 'mailvotech_company_action',
             ],
             'comp.companystate' => [
-                'label' => 'mautic.lead.report.company.company_state',
+                'label' => 'mailvotech.lead.report.company.company_state',
                 'type'  => 'string',
-                'link'  => 'mautic_company_action',
+                'link'  => 'mailvotech_company_action',
             ],
             'comp.companycountry' => [
-                'label' => 'mautic.lead.report.company.company_country',
+                'label' => 'mailvotech.lead.report.company.company_country',
                 'type'  => 'string',
-                'link'  => 'mautic_company_action',
+                'link'  => 'mailvotech_company_action',
             ],
             'comp.companyindustry' => [
-                'label' => 'mautic.lead.report.company.company_industry',
+                'label' => 'mailvotech.lead.report.company.company_industry',
                 'type'  => 'string',
-                'link'  => 'mautic_company_action',
+                'link'  => 'mailvotech_company_action',
             ],
         ];
     }

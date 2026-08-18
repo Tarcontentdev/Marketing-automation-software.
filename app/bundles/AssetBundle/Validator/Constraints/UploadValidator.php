@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Validator\Constraints;
+namespace MailVotech\AssetBundle\Validator\Constraints;
 
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\CoreBundle\Exception\FileInvalidException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Validator\FileUploadValidator;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\CoreBundle\Exception\FileInvalidException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Validator\FileUploadValidator;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -47,13 +47,13 @@ final class UploadValidator extends ConstraintValidator
     private function validateLocal(Asset $asset): void
     {
         if ($asset->isNew() && null === $asset->getTempName() && null === $asset->getPath()) {
-            $this->context->buildViolation('mautic.asset.asset.error.missing.file')
+            $this->context->buildViolation('mailvotech.asset.asset.error.missing.file')
                 ->atPath('tempName')
                 ->addViolation();
         }
 
         if (null === $asset->getTitle()) {
-            $this->context->buildViolation('mautic.asset.asset.error.missing.title')
+            $this->context->buildViolation('mailvotech.asset.asset.error.missing.title')
                 ->atPath('title')
                 ->addViolation();
         }
@@ -66,7 +66,7 @@ final class UploadValidator extends ConstraintValidator
     private function validateRemote(Asset $asset): void
     {
         if (null === $asset->getRemotePath()) {
-            $this->context->buildViolation('mautic.asset.asset.error.missing.remote.path')
+            $this->context->buildViolation('mailvotech.asset.asset.error.missing.remote.path')
                 ->atPath('remotePath')
                 ->addViolation();
         }
@@ -122,7 +122,7 @@ final class UploadValidator extends ConstraintValidator
     private function validateMimeType(string $mimeType): bool
     {
         if (!$mimeType) {
-            $this->context->buildViolation('mautic.asset.asset.error.remote.mimetype.not.resolved')
+            $this->context->buildViolation('mailvotech.asset.asset.error.remote.mimetype.not.resolved')
                 ->atPath('file')
                 ->addViolation();
 

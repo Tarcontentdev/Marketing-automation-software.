@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\MonitoredEmail;
+namespace MailVotech\EmailBundle\MonitoredEmail;
 
 final class Attachment
 {

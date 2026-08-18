@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +17,7 @@ final class TrackingPixelHelper
     {
         $response = new Response();
 
-        if ('test' === MAUTIC_ENV) {
+        if ('test' === MAILVOTECH_ENV) {
             return $response;
         }
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Entity;
+namespace MailVotech\CampaignBundle\Tests\Entity;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
@@ -10,9 +10,9 @@ use Doctrine\DBAL\Query\QueryBuilder as DbalQueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder as OrmQueryBuilder;
-use Mautic\CampaignBundle\Entity\ContactLimiterTrait;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\CoreBundle\Test\Doctrine\MockedConnectionTrait;
+use MailVotech\CampaignBundle\Entity\ContactLimiterTrait;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CoreBundle\Test\Doctrine\MockedConnectionTrait;
 
 final class ContactLimiterTraitTest extends \PHPUnit\Framework\TestCase
 {

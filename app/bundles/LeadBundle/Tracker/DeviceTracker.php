@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\LeadBundle\Tracker;
+namespace MailVotech\LeadBundle\Tracker;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDevice;
-use Mautic\LeadBundle\Tracker\Factory\DeviceDetectorFactory\DeviceDetectorFactoryInterface;
-use Mautic\LeadBundle\Tracker\Service\DeviceCreatorService\DeviceCreatorServiceInterface;
-use Mautic\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDevice;
+use MailVotech\LeadBundle\Tracker\Factory\DeviceDetectorFactory\DeviceDetectorFactoryInterface;
+use MailVotech\LeadBundle\Tracker\Service\DeviceCreatorService\DeviceCreatorServiceInterface;
+use MailVotech\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
 use Psr\Log\LoggerInterface;
 
 class DeviceTracker

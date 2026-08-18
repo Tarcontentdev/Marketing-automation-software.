@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\ReportBundle\Entity;
+namespace MailVotech\ReportBundle\Entity;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<Report>
@@ -44,20 +44,20 @@ class ReportRepository extends CommonRepository
         [$expr, $parameters]     = parent::addSearchCommandWhereClause($q, $filter);
 
         switch ($command) {
-            case $this->translator->trans('mautic.core.searchcommand.ispublished'):
-            case $this->translator->trans('mautic.core.searchcommand.ispublished', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ispublished'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ispublished', [], null, 'en_US'):
                 $expr            = $q->expr()->eq('r.isPublished', ":{$unique}");
                 $forceParameters = [$unique => true];
 
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.isunpublished'):
-            case $this->translator->trans('mautic.core.searchcommand.isunpublished', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.isunpublished'):
+            case $this->translator->trans('mailvotech.core.searchcommand.isunpublished', [], null, 'en_US'):
                 $expr            = $q->expr()->eq('r.isPublished', ":{$unique}");
                 $forceParameters = [$unique => false];
 
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.ismine'):
-            case $this->translator->trans('mautic.core.searchcommand.ismine', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ismine'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ismine', [], null, 'en_US'):
                 $expr = $q->expr()->eq('IDENTITY(r.createdBy)', $this->currentUser->getId());
                 break;
         }
@@ -79,9 +79,9 @@ class ReportRepository extends CommonRepository
     public function getSearchCommands(): array
     {
         $commands = [
-            'mautic.core.searchcommand.ispublished',
-            'mautic.core.searchcommand.isunpublished',
-            'mautic.core.searchcommand.ismine',
+            'mailvotech.core.searchcommand.ispublished',
+            'mailvotech.core.searchcommand.isunpublished',
+            'mailvotech.core.searchcommand.ismine',
         ];
 
         return array_merge($commands, parent::getSearchCommands());
@@ -107,7 +107,7 @@ class ReportRepository extends CommonRepository
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $qb->select('r.id, r.name, r.graphs')
-            ->from(MAUTIC_TABLE_PREFIX.'reports', 'r')
+            ->from(MAILVOTECH_TABLE_PREFIX.'reports', 'r')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->isNotNull('r.graphs'),

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\ProgressiveProfiling;
+namespace MailVotech\FormBundle\Tests\ProgressiveProfiling;
 
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\ProgressiveProfiling\DisplayManager;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\ProgressiveProfiling\DisplayManager;
 
 final class DisplayManagerTest extends \PHPUnit\Framework\TestCase
 {

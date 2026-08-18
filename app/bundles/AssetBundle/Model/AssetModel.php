@@ -1,38 +1,38 @@
 <?php
 
-namespace Mautic\AssetBundle\Model;
+namespace MailVotech\AssetBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\PersistentCollection;
-use Mautic\AssetBundle\AssetEvents;
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Entity\AssetRepository;
-use Mautic\AssetBundle\Entity\Download;
-use Mautic\AssetBundle\Entity\DownloadRepository;
-use Mautic\AssetBundle\Event\AssetEvent;
-use Mautic\AssetBundle\Event\AssetLoadEvent;
-use Mautic\AssetBundle\Form\Type\AssetType;
-use Mautic\CategoryBundle\Entity\CategoryRepository;
-use Mautic\CategoryBundle\Model\CategoryModel;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Helper\Chart\PieChart;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\FileHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\LeadBundle\Tracker\Factory\DeviceDetectorFactory\DeviceDetectorFactoryInterface;
-use Mautic\LeadBundle\Tracker\Service\DeviceCreatorService\DeviceCreatorServiceInterface;
-use Mautic\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
+use MailVotech\AssetBundle\AssetEvents;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Entity\AssetRepository;
+use MailVotech\AssetBundle\Entity\Download;
+use MailVotech\AssetBundle\Entity\DownloadRepository;
+use MailVotech\AssetBundle\Event\AssetEvent;
+use MailVotech\AssetBundle\Event\AssetLoadEvent;
+use MailVotech\AssetBundle\Form\Type\AssetType;
+use MailVotech\CategoryBundle\Entity\CategoryRepository;
+use MailVotech\CategoryBundle\Model\CategoryModel;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Helper\Chart\PieChart;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\FileHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\LeadBundle\Tracker\Factory\DeviceDetectorFactory\DeviceDetectorFactoryInterface;
+use MailVotech\LeadBundle\Tracker\Service\DeviceCreatorService\DeviceCreatorServiceInterface;
+use MailVotech\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -111,7 +111,7 @@ class AssetModel extends FormModel implements GlobalSearchInterface
 
         if (!$request instanceof Request) {
             // likely this download came via a cron (no request), do not bother logging the download.
-            // https://github.com/mautic/mautic/issues/13577
+            // https://github.com/mailvotech/mailvotech/issues/13577
             return;
         }
 
@@ -218,7 +218,7 @@ class AssetModel extends FormModel implements GlobalSearchInterface
             if (isset($systemEntry['tracking_id'])) {
                 $trackingId             = $systemEntry['tracking_id'];
                 $trackingNewlyGenerated = false;
-            } elseif ($this->security->isAnonymous() && !defined('IN_MAUTIC_CONSOLE')) {
+            } elseif ($this->security->isAnonymous() && !defined('IN_MAILVOTECH_CONSOLE')) {
                 // If the session is anonymous and not triggered via CLI, assume the lead did something to trigger the
                 // system forced download such as an email
                 $deviceWasTracked       = $this->deviceTrackingService->isTracked();
@@ -266,7 +266,7 @@ class AssetModel extends FormModel implements GlobalSearchInterface
             $this->em->persist($download);
             $this->em->flush();
         } catch (\Exception $e) {
-            if (MAUTIC_ENV === 'dev') {
+            if (MAILVOTECH_ENV === 'dev') {
                 throw $e;
             }
             error_log($e);
@@ -389,7 +389,7 @@ class AssetModel extends FormModel implements GlobalSearchInterface
                 $request   = $this->requestStack->getCurrentRequest();
                 $this->assetRepository->setCurrentUser($this->userHelper->getUser());
                 // During the form submit & edit, make sure that the data is checked against available assets
-                if ('mautic_segment_action' === $request->get('_route')
+                if ('mailvotech_segment_action' === $request->get('_route')
                     && (Request::METHOD_POST === $request->getMethod() || 'edit' === $request->get('objectAction'))
                 ) {
                     $limit = 0;
@@ -417,7 +417,7 @@ class AssetModel extends FormModel implements GlobalSearchInterface
         }
 
         $referenceType = ($absolute) ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH;
-        $url           = $this->router->generate('mautic_asset_download', $routeParams, $referenceType);
+        $url           = $this->router->generate('mailvotech_asset_download', $routeParams, $referenceType);
 
         if ([] === $clickthrough) {
             return $url;
@@ -498,14 +498,14 @@ class AssetModel extends FormModel implements GlobalSearchInterface
         $q     = $query->prepareTimeDataQuery('asset_downloads', 'date_download', $filter);
 
         if (!$canViewOthers) {
-            $q->join('t', MAUTIC_TABLE_PREFIX.'assets', 'a', 'a.id = t.asset_id')
+            $q->join('t', MAILVOTECH_TABLE_PREFIX.'assets', 'a', 'a.id = t.asset_id')
                 ->andWhere('a.created_by = :userId')
                 ->setParameter('userId', $this->userHelper->getUser()->getId());
         }
 
         $data = $query->loadAndBuildTimeData($q);
 
-        $chart->setDataset($this->translator->trans('mautic.asset.downloadcount'), $data);
+        $chart->setDataset($this->translator->trans('mailvotech.asset.downloadcount'), $data);
 
         return $chart->render();
     }
@@ -526,7 +526,7 @@ class AssetModel extends FormModel implements GlobalSearchInterface
         $allQ    = $query->getCountQuery('asset_downloads', 'id', 'date_download', $filters);
         $uniqueBaseQ = $this->em->getConnection()->createQueryBuilder();
         $uniqueBaseQ->select('t.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'asset_downloads', 't')
+            ->from(MAILVOTECH_TABLE_PREFIX.'asset_downloads', 't')
             ->having('COUNT(*) = 1')
             ->groupBy('t.lead_id');
 
@@ -534,11 +534,11 @@ class AssetModel extends FormModel implements GlobalSearchInterface
         $query->applyDateFilters($uniqueBaseQ, 'date_download');
 
         if (!$canViewOthers) {
-            $allQ->join('t', MAUTIC_TABLE_PREFIX.'assets', 'a', 'a.id = t.asset_id')
+            $allQ->join('t', MAILVOTECH_TABLE_PREFIX.'assets', 'a', 'a.id = t.asset_id')
                 ->andWhere('a.created_by = :userId')
                 ->setParameter('userId', $this->userHelper->getUser()->getId());
 
-            $uniqueBaseQ->join('t', MAUTIC_TABLE_PREFIX.'assets', 'a', 'a.id = t.asset_id')
+            $uniqueBaseQ->join('t', MAILVOTECH_TABLE_PREFIX.'assets', 'a', 'a.id = t.asset_id')
                 ->andWhere('a.created_by = :userId')
                 ->setParameter('userId', $this->userHelper->getUser()->getId());
         }
@@ -552,8 +552,8 @@ class AssetModel extends FormModel implements GlobalSearchInterface
         $unique = $query->fetchCount($uniqueQ);
 
         $repetitive = $all - $unique;
-        $chart->setDataset($this->translator->trans('mautic.asset.unique'), $unique);
-        $chart->setDataset($this->translator->trans('mautic.asset.repetitive'), $repetitive);
+        $chart->setDataset($this->translator->trans('mailvotech.asset.unique'), $unique);
+        $chart->setDataset($this->translator->trans('mailvotech.asset.repetitive'), $repetitive);
 
         return $chart->render();
     }
@@ -571,8 +571,8 @@ class AssetModel extends FormModel implements GlobalSearchInterface
     {
         $q = $this->em->getConnection()->createQueryBuilder();
         $q->select('COUNT(DISTINCT t.id) AS download_count, a.id, a.title')
-            ->from(MAUTIC_TABLE_PREFIX.'asset_downloads', 't')
-            ->join('t', MAUTIC_TABLE_PREFIX.'assets', 'a', 'a.id = t.asset_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'asset_downloads', 't')
+            ->join('t', MAILVOTECH_TABLE_PREFIX.'assets', 'a', 'a.id = t.asset_id')
             ->orderBy('download_count', 'DESC')
             ->groupBy('a.id')
             ->setMaxResults($limit);
@@ -599,7 +599,7 @@ class AssetModel extends FormModel implements GlobalSearchInterface
     {
         $q = $this->em->getConnection()->createQueryBuilder();
         $q->select('t.id, t.title as name, t.date_added, t.date_modified')
-            ->from(MAUTIC_TABLE_PREFIX.'assets', 't')
+            ->from(MAILVOTECH_TABLE_PREFIX.'assets', 't')
             ->setMaxResults($limit);
 
         if (empty($options['canViewOthers'])) {

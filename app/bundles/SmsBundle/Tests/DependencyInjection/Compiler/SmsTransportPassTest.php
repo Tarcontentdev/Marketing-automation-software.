@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\DependencyInjection\Compiler;
+namespace MailVotech\SmsBundle\Tests\DependencyInjection\Compiler;
 
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\SmsBundle\DependencyInjection\Compiler\SmsTransportPass;
-use Mautic\SmsBundle\Sms\TransportChain;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\SmsBundle\DependencyInjection\Compiler\SmsTransportPass;
+use MailVotech\SmsBundle\Sms\TransportChain;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -20,7 +20,7 @@ final class SmsTransportPassTest extends TestCase
             ->register('foo')
             ->setPublic(true)
             ->setAbstract(true)
-            ->addTag('mautic.sms_transport', ['alias'=>'fakeAliasDefault', 'integrationAlias' => 'fakeIntegrationDefault']);
+            ->addTag('mailvotech.sms_transport', ['alias'=>'fakeAliasDefault', 'integrationAlias' => 'fakeIntegrationDefault']);
 
         $container
             ->register('chocolate')
@@ -31,7 +31,7 @@ final class SmsTransportPassTest extends TestCase
             ->register('bar')
             ->setPublic(true)
             ->setAbstract(true)
-            ->addTag('mautic.sms_transport');
+            ->addTag('mailvotech.sms_transport');
 
         $transport = $this->getMockBuilder(TransportChain::class)
             ->disableOriginalConstructor()
@@ -39,7 +39,7 @@ final class SmsTransportPassTest extends TestCase
             ->getMock();
 
         $container
-            ->register('mautic.sms.transport_chain')
+            ->register('mailvotech.sms.transport_chain')
             ->setClass($transport::class)
             ->setArguments(['foo', $this->createStub(IntegrationHelper::class)])
             ->setShared(false)
@@ -49,10 +49,10 @@ final class SmsTransportPassTest extends TestCase
         $pass = new SmsTransportPass();
         $pass->process($container);
 
-        $this->assertCount(2, $container->findTaggedServiceIds('mautic.sms_transport'));
+        $this->assertCount(2, $container->findTaggedServiceIds('mailvotech.sms_transport'));
 
-        $methodCalls = $container->getDefinition('mautic.sms.transport_chain')->getMethodCalls();
-        $this->assertCount(count($methodCalls), $container->findTaggedServiceIds('mautic.sms_transport'));
+        $methodCalls = $container->getDefinition('mailvotech.sms.transport_chain')->getMethodCalls();
+        $this->assertCount(count($methodCalls), $container->findTaggedServiceIds('mailvotech.sms_transport'));
 
         // Translation string
         $this->assertEquals('fakeAliasDefault', $methodCalls[0][1][2]);

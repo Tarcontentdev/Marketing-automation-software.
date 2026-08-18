@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Command;
+namespace MailVotech\LeadBundle\Command;
 
 use Doctrine\ORM\Exception\ORMException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -25,7 +25,7 @@ TXT
 )]
 final class DeleteContactSecondaryCompaniesCommand extends Command
 {
-    public const NAME                    = 'mautic:contact:delete:secondary-companies';
+    public const NAME                    = 'mailvotech:contact:delete:secondary-companies';
 
     public function __construct(
         private readonly LoggerInterface $logger,
@@ -42,7 +42,7 @@ final class DeleteContactSecondaryCompaniesCommand extends Command
 
         // We process only if the config is set to false
         if ($allowMultiple) {
-            $output->writeln($this->translator->trans('mautic.lead.command.delete_contact_secondary_company.allow_multiple_enabled'));
+            $output->writeln($this->translator->trans('mailvotech.lead.command.delete_contact_secondary_company.allow_multiple_enabled'));
 
             return Command::SUCCESS;
         }
@@ -50,12 +50,12 @@ final class DeleteContactSecondaryCompaniesCommand extends Command
         try {
             $this->companyLeadsRepository->removeAllSecondaryCompanies();
         } catch (ORMException $e) {
-            $errorMessage = $this->translator->trans('mautic.lead.command.error', ['%name%' => self::NAME, '%error%' => $e->getMessage()]);
+            $errorMessage = $this->translator->trans('mailvotech.lead.command.error', ['%name%' => self::NAME, '%error%' => $e->getMessage()]);
             $output->writeln($errorMessage);
             $this->logger->error($errorMessage);
         }
 
-        $output->writeln($this->translator->trans('mautic.lead.command.delete_contact_secondary_company.success'));
+        $output->writeln($this->translator->trans('mailvotech.lead.command.delete_contact_secondary_company.success'));
 
         return Command::SUCCESS;
     }

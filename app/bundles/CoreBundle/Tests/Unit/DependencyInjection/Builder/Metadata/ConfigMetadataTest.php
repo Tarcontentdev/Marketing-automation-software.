@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\DependencyInjection\Builder\Metadata;
+namespace MailVotech\CoreBundle\Tests\Unit\DependencyInjection\Builder\Metadata;
 
-use Mautic\CoreBundle\DependencyInjection\Builder\BundleMetadata;
-use Mautic\CoreBundle\DependencyInjection\Builder\Metadata\ConfigMetadata;
-use Mautic\CoreBundle\IpLookup\ExtremeIpLookup;
+use MailVotech\CoreBundle\DependencyInjection\Builder\BundleMetadata;
+use MailVotech\CoreBundle\DependencyInjection\Builder\Metadata\ConfigMetadata;
+use MailVotech\CoreBundle\IpLookup\ExtremeIpLookup;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -79,7 +79,7 @@ final class ConfigMetadataTest extends TestCase
         $configMetadata->build();
 
         $config = $this->metadata->toArray()['config'];
-        $this->assertArrayHasKey('mautic.helper.bundle', $config['services']['helpers']);
+        $this->assertArrayHasKey('mailvotech.helper.bundle', $config['services']['helpers']);
         $this->assertArrayHasKey('log_path', $config['parameters']);
     }
 
@@ -93,7 +93,7 @@ final class ConfigMetadataTest extends TestCase
         $configMetadata->build();
 
         $config = $this->metadata->toArray()['config'];
-        $this->assertArrayNotHasKey('mautic.test.fixture', $config['services']['fixtures']);
+        $this->assertArrayNotHasKey('mailvotech.test.fixture', $config['services']['fixtures']);
     }
 
     public function testParameterArgumentsAreEncoded(): void
@@ -106,9 +106,9 @@ final class ConfigMetadataTest extends TestCase
         $configMetadata->build();
 
         $config = $this->metadata->toArray()['config'];
-        $this->assertArrayHasKey('mautic.helper.bundle', $config['services']['helpers']);
+        $this->assertArrayHasKey('mailvotech.helper.bundle', $config['services']['helpers']);
 
-        $this->assertEquals('%%mautic.bundles%%', $config['services']['helpers']['mautic.helper.bundle']['arguments'][0]);
+        $this->assertEquals('%%mailvotech.bundles%%', $config['services']['helpers']['mailvotech.helper.bundle']['arguments'][0]);
     }
 
     public function testParametersAreEncoded(): void

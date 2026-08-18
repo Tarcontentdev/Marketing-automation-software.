@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\PointBundle\Controller;
+namespace MailVotech\PointBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController as CommonFormController;
-use Mautic\PointBundle\Entity\TriggerEvent;
-use Mautic\PointBundle\Form\Type\TriggerEventType;
-use Mautic\PointBundle\Model\TriggerModel;
+use MailVotech\CoreBundle\Controller\FormController as CommonFormController;
+use MailVotech\PointBundle\Entity\TriggerEvent;
+use MailVotech\PointBundle\Form\Type\TriggerEventType;
+use MailVotech\PointBundle\Model\TriggerModel;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -58,7 +58,7 @@ final class TriggerEventController extends CommonFormController
         }
         $events = $this->triggerModel->getEvents();
         $form   = $this->formFactory->create(TriggerEventType::class, $triggerEvent, [
-            'action'   => $this->generateUrl('mautic_pointtriggerevent_action', ['objectAction' => 'new']),
+            'action'   => $this->generateUrl('mailvotech_pointtriggerevent_action', ['objectAction' => 'new']),
             'settings' => $events[$eventType],
         ]);
         $form->get('triggerId')->setData($triggerId);
@@ -74,7 +74,7 @@ final class TriggerEventController extends CommonFormController
                     $keyId = 'new'.hash('sha1', uniqid(mt_rand()));
 
                     // save the properties to session
-                    $actions            = $session->get('mautic.point.'.$triggerId.'.triggerevents.modified');
+                    $actions            = $session->get('mailvotech.point.'.$triggerId.'.triggerevents.modified');
                     $formData           = $form->getData();
                     $triggerEvent       = array_merge($triggerEvent, $formData);
                     $triggerEvent['id'] = $keyId;
@@ -83,7 +83,7 @@ final class TriggerEventController extends CommonFormController
                         $triggerEvent['name'] = $this->translator->trans($triggerEvent['settings']['label']);
                     }
                     $actions[$keyId] = $triggerEvent;
-                    $session->set('mautic.point.'.$triggerId.'.triggerevents.modified', $actions);
+                    $session->set('mailvotech.point.'.$triggerId.'.triggerevents.modified', $actions);
                 }
             }
         }
@@ -103,7 +103,7 @@ final class TriggerEventController extends CommonFormController
         }
 
         $passthroughVars = [
-            'mauticContent' => 'pointTriggerEvent',
+            'mailvotechContent' => 'pointTriggerEvent',
             'success'       => $success,
             'route'         => false,
         ];
@@ -114,7 +114,7 @@ final class TriggerEventController extends CommonFormController
             $blank        = $entity->convertToArray();
             $triggerEvent = array_merge($blank, $triggerEvent);
 
-            $template = (empty($triggerEvent['settings']['template'])) ? '@MauticPoint/Event/generic.html.twig'
+            $template = (empty($triggerEvent['settings']['template'])) ? '@MailVotechPoint/Event/generic.html.twig'
                 : $triggerEvent['settings']['template'];
 
             $passthroughVars['eventId']   = $keyId;
@@ -133,7 +133,7 @@ final class TriggerEventController extends CommonFormController
         }
 
         return $this->ajaxAction($request, [
-            'contentTemplate' => '@MauticPoint/Event/form.html.twig',
+            'contentTemplate' => '@MailVotechPoint/Event/form.html.twig',
             'viewParameters'  => $viewParams,
             'passthroughVars' => $passthroughVars,
         ]);
@@ -150,7 +150,7 @@ final class TriggerEventController extends CommonFormController
         $method       = $request->getMethod();
         $triggerEvent = $request->request->all()['pointtriggerevent'] ?? [];
         $triggerId    = 'POST' === $method ? ($triggerEvent['triggerId'] ?? '') : $request->query->get('triggerId');
-        $events       = $session->get('mautic.point.'.$triggerId.'.triggerevents.modified', []);
+        $events       = $session->get('mailvotech.point.'.$triggerId.'.triggerevents.modified', []);
         $success      = 0;
         $valid        = $cancelled = false;
         $triggerEvent = $events[$objectId] ?? null;
@@ -172,7 +172,7 @@ final class TriggerEventController extends CommonFormController
             }
 
             $form = $this->formFactory->create(TriggerEventType::class, $triggerEvent, [
-                'action'   => $this->generateUrl('mautic_pointtriggerevent_action', ['objectAction' => 'edit', 'objectId' => $objectId]),
+                'action'   => $this->generateUrl('mailvotech_pointtriggerevent_action', ['objectAction' => 'edit', 'objectId' => $objectId]),
                 'settings' => $triggerEvent['settings'],
             ]);
             $form->get('triggerId')->setData($triggerId);
@@ -186,7 +186,7 @@ final class TriggerEventController extends CommonFormController
 
                         // save the properties to session
                         $session  = $request->getSession();
-                        $events   = $session->get('mautic.point.'.$triggerId.'.triggerevents.modified');
+                        $events   = $session->get('mailvotech.point.'.$triggerId.'.triggerevents.modified');
                         /** @var array<mixed> $formData */
                         $formData = $form->getData();
                         // overwrite with updated data
@@ -196,7 +196,7 @@ final class TriggerEventController extends CommonFormController
                             $triggerEvent['name'] = $this->translator->trans($triggerEvent['settings']['label']);
                         }
                         $events[$objectId] = $triggerEvent;
-                        $session->set('mautic.point.'.$triggerId.'.triggerevents.modified', $events);
+                        $session->set('mailvotech.point.'.$triggerId.'.triggerevents.modified', $events);
 
                         // generate HTML for the field
                         $keyId = $objectId;
@@ -218,7 +218,7 @@ final class TriggerEventController extends CommonFormController
             }
 
             $passthroughVars = [
-                'mauticContent' => 'pointTriggerEvent',
+                'mailvotechContent' => 'pointTriggerEvent',
                 'success'       => $success,
                 'route'         => false,
             ];
@@ -230,7 +230,7 @@ final class TriggerEventController extends CommonFormController
                 $entity       = new TriggerEvent();
                 $blank        = $entity->convertToArray();
                 $triggerEvent = array_merge($blank, $triggerEvent);
-                $template     = (empty($triggerEvent['settings']['template'])) ? '@MauticPoint/Event/generic.html.twig'
+                $template     = (empty($triggerEvent['settings']['template'])) ? '@MailVotechPoint/Event/generic.html.twig'
                     : $triggerEvent['settings']['template'];
 
                 $passthroughVars['eventId']   = $keyId;
@@ -249,7 +249,7 @@ final class TriggerEventController extends CommonFormController
             }
 
             return $this->ajaxAction($request, [
-                'contentTemplate' => '@MauticPoint/Event/form.html.twig',
+                'contentTemplate' => '@MailVotechPoint/Event/form.html.twig',
                 'viewParameters'  => $viewParams,
                 'passthroughVars' => $passthroughVars,
             ]);
@@ -267,8 +267,8 @@ final class TriggerEventController extends CommonFormController
     {
         $session   = $request->getSession();
         $triggerId = $request->get('triggerId');
-        $events    = $session->get('mautic.point.'.$triggerId.'.triggerevents.modified', []);
-        $delete    = $session->get('mautic.point.'.$triggerId.'.triggerevents.deleted', []);
+        $events    = $session->get('mailvotech.point.'.$triggerId.'.triggerevents.modified', []);
+        $delete    = $session->get('mailvotech.point.'.$triggerId.'.triggerevents.deleted', []);
 
         // ajax only for form fields
         if (!$request->isXmlHttpRequest()
@@ -286,10 +286,10 @@ final class TriggerEventController extends CommonFormController
             // add the field to the delete list
             if (!in_array($objectId, $delete)) {
                 $delete[] = $objectId;
-                $session->set('mautic.point.'.$triggerId.'.triggerevents.deleted', $delete);
+                $session->set('mailvotech.point.'.$triggerId.'.triggerevents.deleted', $delete);
             }
 
-            $template = (empty($triggerEvent['settings']['template'])) ? '@MauticPoint/Event/generic.html.twig'
+            $template = (empty($triggerEvent['settings']['template'])) ? '@MailVotechPoint/Event/generic.html.twig'
                 : $triggerEvent['settings']['template'];
 
             // prevent undefined errors
@@ -298,7 +298,7 @@ final class TriggerEventController extends CommonFormController
             $triggerEvent = array_merge($blank, $triggerEvent);
 
             $dataArray = [
-                'mauticContent' => 'pointTriggerEvent',
+                'mailvotechContent' => 'pointTriggerEvent',
                 'success'       => 1,
                 'target'        => '#triggerEvent'.$objectId,
                 'route'         => false,
@@ -326,8 +326,8 @@ final class TriggerEventController extends CommonFormController
     {
         $session   = $request->getSession();
         $triggerId = $request->get('triggerId');
-        $events    = $session->get('mautic.point.'.$triggerId.'.triggerevents.modified', []);
-        $delete    = $session->get('mautic.point.'.$triggerId.'.triggerevents.deleted', []);
+        $events    = $session->get('mailvotech.point.'.$triggerId.'.triggerevents.modified', []);
+        $delete    = $session->get('mailvotech.point.'.$triggerId.'.triggerevents.deleted', []);
 
         // ajax only for form fields
         if (!$request->isXmlHttpRequest()
@@ -346,10 +346,10 @@ final class TriggerEventController extends CommonFormController
             if (in_array($objectId, $delete)) {
                 $key = array_search($objectId, $delete);
                 unset($delete[$key]);
-                $session->set('mautic.point.'.$triggerId.'.triggerevents.deleted', $delete);
+                $session->set('mailvotech.point.'.$triggerId.'.triggerevents.deleted', $delete);
             }
 
-            $template = (empty($triggerEvent['settings']['template'])) ? '@MauticPoint/Event/generic.html.twig'
+            $template = (empty($triggerEvent['settings']['template'])) ? '@MailVotechPoint/Event/generic.html.twig'
                 : $triggerEvent['settings']['template'];
 
             // prevent undefined errors
@@ -358,7 +358,7 @@ final class TriggerEventController extends CommonFormController
             $triggerEvent = array_merge($blank, $triggerEvent);
 
             $dataArray = [
-                'mauticContent' => 'pointTriggerEvent',
+                'mailvotechContent' => 'pointTriggerEvent',
                 'success'       => 1,
                 'target'        => '#triggerEvent'.$objectId,
                 'route'         => false,

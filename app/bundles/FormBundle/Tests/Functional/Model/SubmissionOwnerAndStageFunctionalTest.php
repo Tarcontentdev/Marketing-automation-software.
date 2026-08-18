@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Functional\Model;
+namespace MailVotech\FormBundle\Tests\Functional\Model;
 
 use Doctrine\ORM\Exception\NotSupported;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\Persistence\Mapping\MappingException;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class SubmissionOwnerAndStageFunctionalTest extends MauticMysqlTestCase
+final class SubmissionOwnerAndStageFunctionalTest extends MailVotechMysqlTestCase
 {
     private const STAGE_NAME_TOKEN       = '%stage_name%';
 
@@ -85,11 +85,11 @@ final class SubmissionOwnerAndStageFunctionalTest extends MauticMysqlTestCase
         $formId   = $response['form']['id'];
 
         $crawler = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $form    = $crawler->filter('form[id=mauticform_formtest]')->form();
+        $form    = $crawler->filter('form[id=mailvotechform_formtest]')->form();
 
         $formValues = [];
         foreach ($submissionData as $key => $value) {
-            $formValues['mauticform['.$key.']'] = $value;
+            $formValues['mailvotechform['.$key.']'] = $value;
         }
 
         $this->client->submit($form, $formValues);
@@ -259,7 +259,7 @@ final class SubmissionOwnerAndStageFunctionalTest extends MauticMysqlTestCase
             'contact.invalid.stage.id@test.com',
             [
                 'email' => 'contact.invalid.stage.id@test.com',
-                'stage' => 'mautic',
+                'stage' => 'mailvotech',
             ]
         );
 

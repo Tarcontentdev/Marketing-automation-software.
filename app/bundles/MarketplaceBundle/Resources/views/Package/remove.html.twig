@@ -10,7 +10,7 @@
 </div>
 <div style="display: none" class="text-center" id="marketplace-removal-success">
     <p>{{ 'marketplace.package.remove.html.success'|trans({'%packagename%' : packageDetail.packageBase.getHumanPackageName()})|purify }}</p>
-    <p><a class="btn btn-primary" href="{{ path(constant('Mautic\\MarketplaceBundle\\Service\\RouteProvider::ROUTE_LIST')) }}">
+    <p><a class="btn btn-primary" href="{{ path(constant('MailVotech\\MarketplaceBundle\\Service\\RouteProvider::ROUTE_LIST')) }}">
     {% trans %}marketplace.package.remove.html.success.continue{% endtrans %}</a></p>
 </div>
 
@@ -23,7 +23,7 @@
 
     removePackageResetView();
 
-    Mautic.Marketplace.removePackage(
+    MailVotech.Marketplace.removePackage(
         '{{ packageDetail.packageBase.getVendorName()|escape }}',
         '{{ packageDetail.packageBase.getPackageName()|escape }}',
         (response) => {

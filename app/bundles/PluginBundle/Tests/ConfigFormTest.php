@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests;
+namespace MailVotech\PluginBundle\Tests;
 
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Cache\ResultCacheOptions;
-use Mautic\CoreBundle\Helper\BundleHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\PluginBundle\Entity\IntegrationRepository;
-use Mautic\PluginBundle\Entity\Plugin;
-use Mautic\PluginBundle\Event\PluginIntegrationKeyEvent;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PluginBundle\Model\PluginModel;
-use Mautic\PluginBundle\PluginEvents;
+use MailVotech\CoreBundle\Cache\ResultCacheOptions;
+use MailVotech\CoreBundle\Helper\BundleHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\PluginBundle\Entity\IntegrationRepository;
+use MailVotech\PluginBundle\Entity\Plugin;
+use MailVotech\PluginBundle\Event\PluginIntegrationKeyEvent;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Model\PluginModel;
+use MailVotech\PluginBundle\PluginEvents;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
@@ -111,16 +111,16 @@ final class ConfigFormTest extends KernelTestCase
         return $result;
     }
 
-    public function testAmendLeadDataBeforeMauticPopulate(): void
+    public function testAmendLeadDataBeforeMailVotechPopulate(): void
     {
         $plugins = $this->getIntegrationObject()->getIntegrationObjects();
         $object  = 'company';
         $data    = ['company_name' => 'company_name', 'email' => 'company_email'];
 
         foreach ($plugins as $integration) {
-            $methodExists = method_exists($integration, 'amendLeadDataBeforeMauticPopulate');
+            $methodExists = method_exists($integration, 'amendLeadDataBeforeMailVotechPopulate');
             if ($methodExists) {
-                $count = $integration->amendLeadDataBeforeMauticPopulate($data, $object);
+                $count = $integration->amendLeadDataBeforeMailVotechPopulate($data, $object);
                 $this->assertGreaterThanOrEqual(0, $count);
             }
         }
@@ -132,11 +132,11 @@ final class ConfigFormTest extends KernelTestCase
         $pluginModel          = $this->createMock(PluginModel::class);
         $coreParametersHelper = new CoreParametersHelper(self::$kernel->getContainer());
 
-        $registeredPluginBundles = self::getContainer()->getParameter('mautic.plugin.bundles');
-        $mauticPlugins           = self::getContainer()->getParameter('mautic.bundles');
+        $registeredPluginBundles = self::getContainer()->getParameter('mailvotech.plugin.bundles');
+        $mailvotechPlugins           = self::getContainer()->getParameter('mailvotech.bundles');
         $bundleHelper->method('getPluginBundles')->willReturn($registeredPluginBundles);
 
-        $bundleHelper->method('getMauticBundles')->willReturn(array_merge($mauticPlugins, $registeredPluginBundles));
+        $bundleHelper->method('getMailVotechBundles')->willReturn(array_merge($mailvotechPlugins, $registeredPluginBundles));
 
         $pluginModel->method('getEntities')
             ->with(
@@ -146,7 +146,7 @@ final class ConfigFormTest extends KernelTestCase
                     'result_cache'   => new ResultCacheOptions(Plugin::CACHE_NAMESPACE),
                 ]
             )->willReturn([
-                'MauticCrmBundle' => ['id' => 1],
+                'MailVotechCrmBundle' => ['id' => 1],
             ]);
 
         return new IntegrationHelper(

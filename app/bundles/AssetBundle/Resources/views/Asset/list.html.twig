@@ -1,18 +1,18 @@
 {% set isIndex = tmpl == 'index' ? true : false %}
 {% set tmpl = 'list' %}
 
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
-{% block mauticContent %}asset
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
+{% block mailvotechContent %}asset
 {% endblock %}
 {% block headerTitle %}
-	{% trans %}mautic.asset.assets{% endtrans %}
+	{% trans %}mailvotech.asset.assets{% endtrans %}
 {% endblock %}
 
 {% block content %}
 	{% if isIndex %}
 		<div id="page-list-wrapper" class="{% if items|length > 0 or searchValue is not empty %}panel {% endif %}panel-default">
 
-			{{- include('@MauticCore/Helper/list_toolbar.html.twig', {
+			{{- include('@MailVotechCore/Helper/list_toolbar.html.twig', {
                 'searchValue': searchValue,
                 'action': currentRoute,
                 'page_actions': {
@@ -31,39 +31,39 @@
                 },
                 'quickFilters': [
                     {
-                        'search': 'mautic.core.searchcommand.isuncategorized',
-                        'label': 'mautic.core.form.uncategorized',
-                        'tooltip': 'mautic.core.search.quickfilter.is_uncategorized',
+                        'search': 'mailvotech.core.searchcommand.isuncategorized',
+                        'label': 'mailvotech.core.form.uncategorized',
+                        'tooltip': 'mailvotech.core.search.quickfilter.is_uncategorized',
                         'icon': 'ri-folder-unknow-line'
                     },
                     {
-                        'search': 'mautic.core.searchcommand.ispublished',
-                        'label': 'mautic.core.form.available',
-                        'tooltip': 'mautic.core.search.quickfilter.is_published',
+                        'search': 'mailvotech.core.searchcommand.ispublished',
+                        'label': 'mailvotech.core.form.available',
+                        'tooltip': 'mailvotech.core.search.quickfilter.is_published',
                         'icon': 'ri-check-line'
                     },
                     {
-                        'search': 'mautic.core.searchcommand.isunpublished',
-                        'label': 'mautic.core.form.unavailable',
-                        'tooltip': 'mautic.core.search.quickfilter.is_unpublished',
+                        'search': 'mailvotech.core.searchcommand.isunpublished',
+                        'label': 'mailvotech.core.form.unavailable',
+                        'tooltip': 'mailvotech.core.search.quickfilter.is_unpublished',
                         'icon': 'ri-close-line'
                     },
                     {
-                        'search': 'mautic.core.searchcommand.ismine',
-                        'label': 'mautic.core.searchcommand.ismine.label',
-                        'tooltip': 'mautic.core.searchcommand.ismine.description',
+                        'search': 'mailvotech.core.searchcommand.ismine',
+                        'label': 'mailvotech.core.searchcommand.ismine.label',
+                        'tooltip': 'mailvotech.core.searchcommand.ismine.description',
                         'icon': 'ri-user-line'
                     },
                     {
-                        'search': 'mautic.asset.asset.searchcommand.isexpired',
-                        'label': 'mautic.core.form.no_longer_available',
-                        'tooltip': 'mautic.asset.asset.searchcommand.isexpired.description',
+                        'search': 'mailvotech.asset.asset.searchcommand.isexpired',
+                        'label': 'mailvotech.core.form.no_longer_available',
+                        'tooltip': 'mailvotech.asset.asset.searchcommand.isexpired.description',
                         'icon': 'ri-time-line'
                     },
                     {
-                        'search': 'mautic.asset.asset.searchcommand.ispending',
-                        'label': 'mautic.core.form.not_yet_available',
-                        'tooltip': 'mautic.asset.asset.searchcommand.ispending.description',
+                        'search': 'mailvotech.asset.asset.searchcommand.ispending',
+                        'label': 'mailvotech.core.form.not_yet_available',
+                        'tooltip': 'mailvotech.asset.asset.searchcommand.ispending.description',
                         'icon': 'ri-timer-line'
                     }
                 ]
@@ -83,71 +83,71 @@
         <table class="table table-hover asset-list" id="assetTable">
             <thead>
             <tr>
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'checkall': 'true',
                     'target': '#assetTable',
                 }) }}
                 {{- include(
-                    '@MauticCore/Helper/tableheader.html.twig',
+                    '@MailVotechCore/Helper/tableheader.html.twig',
                     {
                         'sessionVar' : 'asset',
                         'orderBy'    : 'a.title',
-                        'text'       : 'mautic.core.title',
+                        'text'       : 'mailvotech.core.title',
                         'class'      : 'col-asset-title',
                     }
                 ) -}}
                 {{- include(
-                    '@MauticCore/Helper/tableheader.html.twig',
+                    '@MailVotechCore/Helper/tableheader.html.twig',
                     {
                         'sessionVar' : 'asset',
                         'orderBy'    : 'c.title',
-                        'text'       : 'mautic.core.category',
+                        'text'       : 'mailvotech.core.category',
                         'class'      : 'visible-md visible-lg col-asset-category',
                     }
                 ) -}}
                 {{- include(
-                    '@MauticCore/Helper/tableheader.html.twig',
+                    '@MailVotechCore/Helper/tableheader.html.twig',
                     {
                         'sessionVar' : 'asset',
                         'orderBy'    : 'a.downloadCount',
-                        'text'       : 'mautic.asset.asset.thead.download.count',
+                        'text'       : 'mailvotech.asset.asset.thead.download.count',
                         'class'      : 'visible-md visible-lg col-asset-download-count',
                     }
                 ) -}}
                 {{- include(
-                    '@MauticCore/Helper/tableheader.html.twig',
+                    '@MailVotechCore/Helper/tableheader.html.twig',
                     {
                         'sessionVar' : 'asset',
                         'orderBy'    : 'a.dateAdded',
-                        'text'       : 'mautic.lead.import.label.dateAdded',
+                        'text'       : 'mailvotech.lead.import.label.dateAdded',
                         'class'      : 'visible-md visible-lg col-asset-dateAdded',
                     }
                 ) -}}
                 {{- include(
-                    '@MauticCore/Helper/tableheader.html.twig',
+                    '@MailVotechCore/Helper/tableheader.html.twig',
                     {
                         'sessionVar' : 'asset',
                         'orderBy'    : 'a.dateModified',
-                        'text'       : 'mautic.lead.import.label.dateModified',
+                        'text'       : 'mailvotech.lead.import.label.dateModified',
                         'class'      : 'visible-md visible-lg col-asset-dateModified',
                         'default'    : true,
                     }
                 ) -}}
                 {{- include(
-                    '@MauticCore/Helper/tableheader.html.twig',
+                    '@MailVotechCore/Helper/tableheader.html.twig',
                     {
                         'sessionVar' : 'asset',
                         'orderBy'    : 'a.createdByUser',
-                        'text'       : 'mautic.core.createdby',
+                        'text'       : 'mailvotech.core.createdby',
                         'class'      : 'visible-md visible-lg col-asset-createdByUser',
                     }
                 ) -}}
                 {{- include(
-                    '@MauticCore/Helper/tableheader.html.twig',
+                    '@MailVotechCore/Helper/tableheader.html.twig',
                     {
                         'sessionVar' : 'asset',
                         'orderBy'    : 'a.id',
-                        'text'       : 'mautic.core.id',
+                        'text'       : 'mailvotech.core.id',
                         'class'      : 'visible-md visible-lg col-asset-id',
                     }
                 ) -}}
@@ -158,7 +158,7 @@
                 <tr>
                     <td>
                         {{- include(
-                            '@MauticCore/Helper/list_actions.html.twig',
+                            '@MailVotechCore/Helper/list_actions.html.twig',
                             {
                                 'item'            : item,
                                 'templateButtons' : {
@@ -183,19 +183,19 @@
                                             'data-toggle' : 'ajaxmodal',
                                             'data-target' : '#AssetPreviewModal',
                                             'href'        : path(
-                                                'mautic_asset_action',
+                                                'mailvotech_asset_action',
                                                 {'objectAction' : 'preview', 'objectId' : item.getId(), 'stream': 0}
                                             ),
                                         },
-                                        'btnText'   : 'mautic.asset.asset.preview'|trans,
+                                        'btnText'   : 'mailvotech.asset.asset.preview'|trans,
                                         'iconClass' : 'ri-image-circle-line',
                                     },
                                     1: {
                                         'attr' : {
-                                            'data-copy' : url('mautic_asset_download', {'slug': item.getSlug()}),
+                                            'data-copy' : url('mailvotech_asset_download', {'slug': item.getSlug()}),
                                             'data-toggle' : 'none',
                                         },
-                                        'btnText'   : 'mautic.core.copy_download_link'|trans,
+                                        'btnText'   : 'mailvotech.core.copy_download_link'|trans,
                                         'iconClass' : 'ri-clipboard-line',
                                     },
                                 },
@@ -205,14 +205,14 @@
                     <td>
                         <div>
                             {{- include(
-                                '@MauticCore/Helper/publishstatus_icon.html.twig',
+                                '@MailVotechCore/Helper/publishstatus_icon.html.twig',
                                 {
                                     'item'  : item,
                                     'model' : 'asset.asset',
                                 }
                             ) -}}
                             <a href="{{ path(
-                                'mautic_asset_action',
+                                'mailvotech_asset_action',
                                 {'objectAction' : 'view', 'objectId' : item.getId()}
                             ) }}"
                                data-toggle="ajax">
@@ -220,17 +220,17 @@
                             </a>
                             <i class="{{ item.getIconClass() }}"></i>
                             {{ customContent('asset.name', _context) }}
-                            {{ include('@MauticProject/Modules/projects.html.twig') }}
+                            {{ include('@MailVotechProject/Modules/projects.html.twig') }}
                         </div>
                         {% set description = item.getDescription() %}
                         {% if description %}
-                            {{ include('@MauticCore/Helper/description--inline.html.twig', {
+                            {{ include('@MailVotechCore/Helper/description--inline.html.twig', {
                                 'description': description
                             }) }}
                         {% endif %}
                     </td>
                     <td class="visible-md visible-lg">
-                        {{ include('@MauticCore/Modules/category--expanded.html.twig', {'category': item.getCategory()}) }}
+                        {{ include('@MailVotechCore/Modules/category--expanded.html.twig', {'category': item.getCategory()}) }}
                     </td>
                     <td class="visible-md visible-lg">{{ item.getDownloadCount() }}</td>
                     <td class="visible-md visible-lg" title="{{ item.getDateAdded() ? dateToFullConcat(item.getDateAdded()) : '' }}">
@@ -248,45 +248,45 @@
     </div>
 
     <div class="panel-footer">
-        {{- include('@MauticCore/Helper/pagination.html.twig', {
+        {{- include('@MailVotechCore/Helper/pagination.html.twig', {
                 'totalItems' : items|length,
                 'page'       : page,
                 'limit'      : limit,
-                'menuLinkId' : 'mautic_asset_index',
-                'baseUrl'    : path('mautic_asset_index'),
+                'menuLinkId' : 'mailvotech_asset_index',
+                'baseUrl'    : path('mailvotech_asset_index'),
                 'sessionVar' : 'asset',
         }) -}}
     </div>
 {% else %}
     {% if searchValue is not empty %}
-        {{- include('@MauticCore/Helper/noresults.html.twig', {'tip' : 'mautic.asset.noresults.tip'}) -}}
+        {{- include('@MailVotechCore/Helper/noresults.html.twig', {'tip' : 'mailvotech.asset.noresults.tip'}) -}}
     {% else %}
         <div class="mt-80 col-md-offset-2 col-lg-offset-3 col-md-8 col-lg-5 height-auto">
             {% set childContainer %}
                 <div class="mb-md">
-                    {% include '@MauticCore/Components/pictogram.html.twig' with {
+                    {% include '@MailVotechCore/Components/pictogram.html.twig' with {
                         'pictogram': 'cloud--assets',
                         'size': '80'
                     } %}
                 </div>
             {% endset %}
     
-            {{ include('@MauticCore/Components/content-block.html.twig', {
-                heading: 'mautic.asset.onboarding.heading',
-                subheading: 'mautic.asset.onboarding.subheading',
-                copy: 'mautic.asset.onboarding.copy',
+            {{ include('@MailVotechCore/Components/content-block.html.twig', {
+                heading: 'mailvotech.asset.onboarding.heading',
+                subheading: 'mailvotech.asset.onboarding.subheading',
+                copy: 'mailvotech.asset.onboarding.copy',
                 childContainer: childContainer,
             }) }}
         </div>
     {% endif %}
 {% endif %}
 
-{{- include('@MauticCore/Helper/modal.html.twig', {
+{{- include('@MailVotechCore/Helper/modal.html.twig', {
         'id'     : 'AssetPreviewModal',
         'header' : false,
 }) -}}
 
-{{ include('@MauticCore/Modules/protip.html.twig', {
-    tip: random(['mautic.protip.assets.gating', 'mautic.protip.assets.naming', 'mautic.protip.assets.repurpose', 'mautic.protip.assets.track'])
+{{ include('@MailVotechCore/Modules/protip.html.twig', {
+    tip: random(['mailvotech.protip.assets.gating', 'mailvotech.protip.assets.naming', 'mailvotech.protip.assets.repurpose', 'mailvotech.protip.assets.track'])
 }) }}
 {% endblock %}

@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\WebhookBundle\Form\Type;
+namespace MailVotech\WebhookBundle\Form\Type;
 
 use Doctrine\Common\Collections\Order;
-use Mautic\CategoryBundle\Form\Type\CategoryListType;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Helper\EncryptionHelper;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Form\DataTransformer\EventsToArrayTransformer;
+use MailVotech\CategoryBundle\Form\Type\CategoryListType;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Helper\EncryptionHelper;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Form\DataTransformer\EventsToArrayTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -35,7 +35,7 @@ final class WebhookType extends AbstractType
             'name',
             TextType::class,
             [
-                'label'      => 'mautic.core.name',
+                'label'      => 'mailvotech.core.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => true,
@@ -46,7 +46,7 @@ final class WebhookType extends AbstractType
             'description',
             TextareaType::class,
             [
-                'label'    => 'mautic.webhook.form.description',
+                'label'    => 'mailvotech.webhook.form.description',
                 'required' => false,
                 'attr'     => [
                     'class' => 'form-control',
@@ -58,7 +58,7 @@ final class WebhookType extends AbstractType
             'webhookUrl',
             UrlType::class,
             [
-                'label'      => 'mautic.webhook.form.webhook_url',
+                'label'      => 'mailvotech.webhook.form.webhook_url',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => true,
@@ -69,11 +69,11 @@ final class WebhookType extends AbstractType
             'secret',
             TextType::class,
             [
-                'label'      => 'mautic.webhook.form.secret',
+                'label'      => 'mailvotech.webhook.form.secret',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.webhook.secret.tooltip',
+                    'tooltip' => 'mailvotech.webhook.secret.tooltip',
                 ],
                 'data'     => $webhook->getSecret() ?? EncryptionHelper::generateKey(),
                 'required' => false,
@@ -94,7 +94,7 @@ final class WebhookType extends AbstractType
                 'choices'    => $choices,
                 'multiple'   => true,
                 'expanded'   => true,
-                'label'      => 'mautic.webhook.form.webhook.events',
+                'label'      => 'mailvotech.webhook.form.webhook.events',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => ''],
             ]
@@ -108,8 +108,8 @@ final class WebhookType extends AbstractType
             'sendTest',
             ButtonType::class,
             [
-                'attr'  => ['class' => 'btn btn-tertiary', 'onclick' => 'Mautic.sendHookTest(this)'],
-                'label' => 'mautic.webhook.send.test.payload',
+                'attr'  => ['class' => 'btn btn-tertiary', 'onclick' => 'MailVotech.sendHookTest(this)'],
+                'label' => 'mailvotech.webhook.send.test.payload',
             ]
         );
 
@@ -128,15 +128,15 @@ final class WebhookType extends AbstractType
             ChoiceType::class,
             [
                 'choices' => [
-                    'mautic.webhook.config.event.orderby.chronological'         => Order::Ascending->value,
-                    'mautic.webhook.config.event.orderby.reverse.chronological' => Order::Descending->value,
+                    'mailvotech.webhook.config.event.orderby.chronological'         => Order::Ascending->value,
+                    'mailvotech.webhook.config.event.orderby.reverse.chronological' => Order::Descending->value,
                 ],
-                'label' => 'mautic.webhook.config.event.orderby',
+                'label' => 'mailvotech.webhook.config.event.orderby',
                 'attr'  => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.webhook.config.event.orderby.tooltip',
+                    'tooltip' => 'mailvotech.webhook.config.event.orderby.tooltip',
                 ],
-                'placeholder' => 'mautic.core.form.default',
+                'placeholder' => 'mailvotech.core.form.default',
                 'required'    => false,
             ]
         );

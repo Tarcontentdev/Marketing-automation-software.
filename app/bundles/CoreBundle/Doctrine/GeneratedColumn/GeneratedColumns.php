@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine\GeneratedColumn;
+namespace MailVotech\CoreBundle\Doctrine\GeneratedColumn;
 
 final class GeneratedColumns implements GeneratedColumnsInterface
 {

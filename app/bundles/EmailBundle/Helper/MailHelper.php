@@ -1,35 +1,35 @@
 <?php
 
-namespace Mautic\EmailBundle\Helper;
+namespace MailVotech\EmailBundle\Helper;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CoreBundle\Helper\ClickthroughHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\Copy;
-use Mautic\EmailBundle\Entity\CopyRepository;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\EmailBundle\Exception\InvalidEmailException;
-use Mautic\EmailBundle\Form\Type\ConfigType;
-use Mautic\EmailBundle\Helper\DTO\AddressDTO;
-use Mautic\EmailBundle\Helper\Exception\OwnerNotFoundException;
-use Mautic\EmailBundle\Mailer\Exception\BatchQueueMaxException;
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
-use Mautic\EmailBundle\Mailer\Transport\TokenTransportInterface;
-use Mautic\EmailBundle\Model\EmailStatModel;
-use Mautic\EmailBundle\MonitoredEmail\Mailbox;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\PageBundle\Model\RedirectModel;
-use Mautic\PageBundle\Model\TrackableModel;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CoreBundle\Helper\ClickthroughHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\Copy;
+use MailVotech\EmailBundle\Entity\CopyRepository;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\Exception\InvalidEmailException;
+use MailVotech\EmailBundle\Form\Type\ConfigType;
+use MailVotech\EmailBundle\Helper\DTO\AddressDTO;
+use MailVotech\EmailBundle\Helper\Exception\OwnerNotFoundException;
+use MailVotech\EmailBundle\Mailer\Exception\BatchQueueMaxException;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
+use MailVotech\EmailBundle\Mailer\Transport\TokenTransportInterface;
+use MailVotech\EmailBundle\Model\EmailStatModel;
+use MailVotech\EmailBundle\MonitoredEmail\Mailbox;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\PageBundle\Model\RedirectModel;
+use MailVotech\PageBundle\Model\TrackableModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -73,7 +73,7 @@ class MailHelper
     protected $transport;
 
     /**
-     * @var bool|MauticMessage
+     * @var bool|MailVotechMessage
      */
     public $message;
 
@@ -443,9 +443,9 @@ class MailHelper
      * @param string $returnMode        What should happen post send/queue to $this->message after the email send is attempted.
      *                                  Options are:
      *                                  RESET_TO           resets the to recipients and resets errors
-     *                                  FULL_RESET         creates a new MauticMessage instance and resets errors
-     *                                  DO_NOTHING         leaves the current errors array and MauticMessage instance intact
-     *                                  NOTHING_IF_FAILED  leaves the current errors array MauticMessage instance intact if it fails, otherwise reset_to
+     *                                  FULL_RESET         creates a new MailVotechMessage instance and resets errors
+     *                                  DO_NOTHING         leaves the current errors array and MailVotechMessage instance intact
+     *                                  NOTHING_IF_FAILED  leaves the current errors array MailVotechMessage instance intact if it fails, otherwise reset_to
      *                                  RETURN_ERROR       return an array of [success, $errors]; only one applicable if message is queued
      *
      * @return bool|array
@@ -649,7 +649,7 @@ class MailHelper
      * @param array $search
      * @param array $replace
      */
-    public static function searchReplaceTokens($search, $replace, MauticMessage &$message): void
+    public static function searchReplaceTokens($search, $replace, MailVotechMessage &$message): void
     {
         // Body
         $body         = $message->getHtmlBody();
@@ -1255,7 +1255,7 @@ class MailHelper
 
         $template   = $email->getTemplate();
         $customHtml = $email->getCustomHtml();
-        // Process emails created by Mautic v1
+        // Process emails created by MailVotech v1
         if (empty($customHtml) && $template) {
             $logicalName = $this->themeHelper->checkForTwigTemplate('@themes/'.$template.'/html/email.html.twig');
 
@@ -1336,7 +1336,7 @@ class MailHelper
         if ($listUnsubscribeHeader) {
             if (!empty($headers['List-Unsubscribe'])) {
                 if (!str_contains($headers['List-Unsubscribe'], $listUnsubscribeHeader)) {
-                    // Ensure Mautic's is always part of this header
+                    // Ensure MailVotech's is always part of this header
                     $headers['List-Unsubscribe'] = $listUnsubscribeHeader.','.$headers['List-Unsubscribe'];
                 }
             } else {
@@ -1374,12 +1374,12 @@ class MailHelper
 
             if ($toEmail) {
                 $unsubscribeHash = $this->mailHashHelper->getEmailHash($toEmail);
-                $url             = $this->router->generate('mautic_email_unsubscribe',
+                $url             = $this->router->generate('mailvotech_email_unsubscribe',
                     ['idHash' => $this->idHash, 'urlEmail' => $toEmail, 'secretHash' => $unsubscribeHash],
                     UrlGeneratorInterface::ABSOLUTE_URL
                 );
             } else {
-                $url             = $this->router->generate('mautic_email_unsubscribe',
+                $url             = $this->router->generate('mailvotech_email_unsubscribe',
                     ['idHash' => $this->idHash],
                     UrlGeneratorInterface::ABSOLUTE_URL
                 );
@@ -1418,7 +1418,7 @@ class MailHelper
         // Include the tracking pixel token as it's auto appended to the body
         if ($this->appendTrackingPixel) {
             $tokens['{tracking_pixel}'] = $this->router->generate(
-                'mautic_email_tracker',
+                'mailvotech_email_tracker',
                 [
                     'idHash' => $this->idHash,
                 ],
@@ -1507,7 +1507,7 @@ class MailHelper
         if ($error instanceof \Exception) {
             $exceptionContext = ['exception' => $error];
             $errorMessage     = $error->getMessage();
-            $error            = ('dev' === MAUTIC_ENV) ? (string) $error : $errorMessage;
+            $error            = ('dev' === MAILVOTECH_ENV) ? (string) $error : $errorMessage;
 
             // Clean up the error message
             $errorMessage = trim(preg_replace('/(.*?)Log data:(.*)$/is', '$1', $errorMessage));
@@ -1653,7 +1653,7 @@ class MailHelper
     }
 
     /**
-     * @return \Mautic\PageBundle\Entity\Redirect|object|null
+     * @return \MailVotech\PageBundle\Entity\Redirect|object|null
      */
     public function getTrackableLink($url)
     {
@@ -1928,7 +1928,7 @@ class MailHelper
     /**
      * Validates a given address to ensure RFC 2822, 3.6.2 specs.
      *
-     * @deprecated 2.11.0 to be removed in 3.0; use Mautic\EmailBundle\Helper\EmailValidator
+     * @deprecated 2.11.0 to be removed in 3.0; use MailVotech\EmailBundle\Helper\EmailValidator
      *
      * @throws InvalidEmailException
      */
@@ -2053,9 +2053,9 @@ class MailHelper
         $this->setMessageReplyTo($this->getReplyTo());
     }
 
-    private function getMessageInstance(): MauticMessage
+    private function getMessageInstance(): MailVotechMessage
     {
-        return new MauticMessage();
+        return new MailVotechMessage();
     }
 
     private function getReplyTo(): string

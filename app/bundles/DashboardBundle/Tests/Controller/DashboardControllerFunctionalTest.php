@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DashboardBundle\Tests\Controller;
+namespace MailVotech\DashboardBundle\Tests\Controller;
 
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\DashboardBundle\Entity\Widget;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\DashboardBundle\Entity\Widget;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
-final class DashboardControllerFunctionalTest extends MauticMysqlTestCase
+final class DashboardControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 
@@ -33,7 +33,7 @@ final class DashboardControllerFunctionalTest extends MauticMysqlTestCase
         $widget = new Widget();
         $widget->setName('Line graph report');
         $widget->setType('report');
-        $widget->setParams(['graph' => sprintf('%s:mautic.lead.graph.line.leads', $report->getId())]);
+        $widget->setParams(['graph' => sprintf('%s:mailvotech.lead.graph.line.leads', $report->getId())]);
         $widget->setWidth(100);
         $widget->setHeight(200);
         $this->assertInstanceOf(User::class, $user);

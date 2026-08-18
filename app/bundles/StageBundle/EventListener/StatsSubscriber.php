@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\EventListener;
+namespace MailVotech\StageBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\EventListener\CommonStatsSubscriber;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\StageBundle\Entity\LeadStageLog;
+use MailVotech\CoreBundle\EventListener\CommonStatsSubscriber;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\StageBundle\Entity\LeadStageLog;
 
 final class StatsSubscriber extends CommonStatsSubscriber
 {

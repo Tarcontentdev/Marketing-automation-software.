@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Command;
+namespace MailVotech\CoreBundle\Tests\Functional\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Attributes\After;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Console\Command\Command;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-final class MessageOfTheDayCommandTest extends MauticMysqlTestCase
+final class MessageOfTheDayCommandTest extends MailVotechMysqlTestCase
 {
     private string $cachePath;
 
@@ -55,7 +55,7 @@ final class MessageOfTheDayCommandTest extends MauticMysqlTestCase
 
         file_put_contents($this->cachePath, $json);
 
-        $tester = $this->testSymfonyCommand('mautic:motd');
+        $tester = $this->testSymfonyCommand('mailvotech:motd');
 
         $this->assertSame(Command::SUCCESS, $tester->getStatusCode());
 
@@ -91,7 +91,7 @@ final class MessageOfTheDayCommandTest extends MauticMysqlTestCase
                     [
                         'category' => 'news',
                         'content'  => [
-                            'cli' => ['Welcome to Mautic'],
+                            'cli' => ['Welcome to MailVotech'],
                         ],
                         'start' => null,
                         'end'   => null,
@@ -100,7 +100,7 @@ final class MessageOfTheDayCommandTest extends MauticMysqlTestCase
             ],
             true,
             'News',
-            'Welcome to Mautic',
+            'Welcome to MailVotech',
         ];
 
         yield 'timed message within active window' => [
@@ -171,7 +171,7 @@ final class MessageOfTheDayCommandTest extends MauticMysqlTestCase
     {
         file_put_contents($this->cachePath, '{invalid-json');
 
-        $tester = $this->testSymfonyCommand('mautic:motd');
+        $tester = $this->testSymfonyCommand('mailvotech:motd');
 
         $this->assertSame(Command::SUCCESS, $tester->getStatusCode());
         $this->assertStringContainsString('Skipped MOTD: Could not decode MOTD JSON', $tester->getDisplay());
@@ -188,7 +188,7 @@ final class MessageOfTheDayCommandTest extends MauticMysqlTestCase
             new MockResponse('', ['http_code' => 500]),
         ]);
 
-        $tester = $this->testSymfonyCommand('mautic:motd');
+        $tester = $this->testSymfonyCommand('mailvotech:motd');
 
         $this->assertSame(Command::SUCCESS, $tester->getStatusCode());
         $this->assertStringContainsString('Skipped MOTD: Could not fetch motd.json', $tester->getDisplay());

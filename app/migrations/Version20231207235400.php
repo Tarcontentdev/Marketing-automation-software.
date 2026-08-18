@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\Exception\SkipMigration;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
 
-final class Version20231207235400 extends AbstractMauticMigration
+final class Version20231207235400 extends AbstractMailVotechMigration
 {
     public function preUp(Schema $schema): void
     {

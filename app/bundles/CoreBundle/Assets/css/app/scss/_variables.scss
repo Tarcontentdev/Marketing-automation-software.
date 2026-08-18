@@ -3,27 +3,27 @@
 //
 //## import bootstrap variable.
 @import 'bootstrap/variables';
-@import '../../libraries/bootstrap/bootstrap-mautic-custom-variables';
+@import '../../libraries/bootstrap/bootstrap-mailvotech-custom-variables';
 @import 'components/brand';
 @import 'mixins';
 
 // Brand Colors
-$mautic-primary:							#4e5e9e;
-$mautic-secondary:							#fdb933;
-$mautic-tertiary:							#35b5b9;
+$mailvotech-primary:							#4e5e9e;
+$mailvotech-secondary:							#fdb933;
+$mailvotech-tertiary:							#35b5b9;
 
 //== Logo
 //
 //## common logo color
-$mautic-logo-figure-width:                  32px;
-$mautic-logo-figure-circle-fill:            $mautic-primary;
-$mautic-logo-figure-m-fill:                 $brand-warning;
-$mautic-logo-text-width:                    98px;
-$mautic-logo-text-fill:                     $mautic-primary;
+$mailvotech-logo-figure-width:                  32px;
+$mailvotech-logo-figure-circle-fill:            $mailvotech-primary;
+$mailvotech-logo-figure-m-fill:                 $brand-warning;
+$mailvotech-logo-text-width:                    98px;
+$mailvotech-logo-text-fill:                     $mailvotech-primary;
 
-$alert-mautic-bg:             $brand-primary;
-$alert-mautic-text:           #fff;
-$alert-mautic-border:         rgba(0,0,0,0.03);
+$alert-mailvotech-bg:             $brand-primary;
+$alert-mailvotech-text:           #fff;
+$alert-mailvotech-border:         rgba(0,0,0,0.03);
 
 //== Header layout
 //
@@ -39,7 +39,7 @@ $header-zindex:                             $zindex-navbar + 5; // 1005
 $sidebar-zindex:                           ($header-zindex - 20 + 5);  // 990
 //** left sidebar option
 $sidebar-left-bg:                           darken(#27303a, 5%);
-$sidebar-left-header-bg:                    $mautic-primary;
+$sidebar-left-header-bg:                    $mailvotech-primary;
 $sidebar-left-width:                        230px;
 $sidebar-left-collapse-width:               60px;
 $sidebar-left-dark:							darken($sidebar-left-bg, 8%);
@@ -130,8 +130,8 @@ $brand-google:          #dd4b39;
     --text-primary: #161616;
     --text-secondary: #525252;
     --text-placeholder: #a8a8a8;
-    --text-on-color: #{mautic-contrast($primary-color)};
-    --text-on-color-disabled: #{mautic-contrast($primary-color, #16161640, #8d8d8d)};
+    --text-on-color: #{mailvotech-contrast($primary-color)};
+    --text-on-color-disabled: #{mailvotech-contrast($primary-color, #16161640, #8d8d8d)};
     --text-helper: #6f6f6f;
     --text-error: #da1e28;
     --text-inverse: #ffffff;
@@ -147,8 +147,8 @@ $brand-google:          #dd4b39;
     /// Icons
     --icon-primary: #161616;
     --icon-secondary: #525252;
-    --icon-on-color: #{mautic-contrast($primary-color)};
-    --icon-on-color-disabled: #{mautic-contrast($primary-color, #16161640, #8d8d8d)};
+    --icon-on-color: #{mailvotech-contrast($primary-color)};
+    --icon-on-color-disabled: #{mailvotech-contrast($primary-color, #16161640, #8d8d8d)};
     --icon-interactive: var(--primary-60);
     --icon-inverse: #ffffff;
     --icon-disabled: #16161640;
@@ -498,8 +498,8 @@ $brand-google:          #dd4b39;
     --text-primary: #f4f4f4;
     --text-secondary: #c6c6c6;
     --text-placeholder: #6f6f6f;
-    --text-on-color: #{mautic-contrast(darken($primary-color, 20%))};
-    --text-on-color-disabled: #{mautic-contrast(darken($primary-color, 20%), #16161640, #8d8d8d)};
+    --text-on-color: #{mailvotech-contrast(darken($primary-color, 20%))};
+    --text-on-color-disabled: #{mailvotech-contrast(darken($primary-color, 20%), #16161640, #8d8d8d)};
     --text-helper: #8d8d8d;
     --text-error: #ff8389;
     --text-inverse: #161616;
@@ -515,8 +515,8 @@ $brand-google:          #dd4b39;
     /// Icons
     --icon-primary: #f4f4f4;
     --icon-secondary: #c6c6c6;
-    --icon-on-color: #{mautic-contrast(darken($primary-color, 20%))}; // $primary-80
-    --icon-on-color-disabled: #{mautic-contrast(darken($primary-color, 20%), #16161640, #8d8d8d)}; // $primary-80
+    --icon-on-color: #{mailvotech-contrast(darken($primary-color, 20%))}; // $primary-80
+    --icon-on-color-disabled: #{mailvotech-contrast(darken($primary-color, 20%), #16161640, #8d8d8d)}; // $primary-80
     --icon-interactive: #ffffff;
     --icon-inverse: #161616;
     --icon-disabled: #f4f4f4;
@@ -1513,9 +1513,9 @@ html:root {
         --primary-90: #{darken($accent02, 30%)};
         --primary-100: #{darken($accent02, 40%)};
         --text-on-color: #fff;
-        --text-on-color-disabled: #{mautic-contrast($accent02, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent02, #16161640, #8d8d8d)};
         --icon-on-color: #fff;
-        --icon-on-color-disabled: #{mautic-contrast($accent02, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent02, #16161640, #8d8d8d)};
     }
 
     &:root[accent="03"] {
@@ -1529,9 +1529,9 @@ html:root {
         --primary-90: #{darken($accent03, 30%)};
         --primary-100: #{darken($accent03, 40%)};
         --text-on-color: #000;
-        --text-on-color-disabled: #{mautic-contrast($accent03, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent03, #16161640, #8d8d8d)};
         --icon-on-color: #000;
-        --icon-on-color-disabled: #{mautic-contrast($accent03, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent03, #16161640, #8d8d8d)};
     }
 
     &:root[accent="04"] {
@@ -1545,9 +1545,9 @@ html:root {
         --primary-90: #{darken($accent04, 30%)};
         --primary-100: #{darken($accent04, 40%)};
         --text-on-color: #000;
-        --text-on-color-disabled: #{mautic-contrast($accent04, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent04, #16161640, #8d8d8d)};
         --icon-on-color: #000;
-        --icon-on-color-disabled: #{mautic-contrast($accent04, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent04, #16161640, #8d8d8d)};
     }
 
 
@@ -1562,9 +1562,9 @@ html:root {
         --primary-90: #{darken($accent05, 30%)};
         --primary-100: #{darken($accent05, 40%)};
         --text-on-color: #fff;
-        --text-on-color-disabled: #{mautic-contrast($accent05, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent05, #16161640, #8d8d8d)};
         --icon-on-color: #fff;
-        --icon-on-color-disabled: #{mautic-contrast($accent05, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent05, #16161640, #8d8d8d)};
     }
 
     &:root[accent="06"] {
@@ -1578,9 +1578,9 @@ html:root {
         --primary-90: #{darken($accent06, 30%)};
         --primary-100: #{darken($accent06, 40%)};
         --text-on-color: #fff;
-        --text-on-color-disabled: #{mautic-contrast($accent06, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent06, #16161640, #8d8d8d)};
         --icon-on-color: #fff;
-        --icon-on-color-disabled: #{mautic-contrast($accent06, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent06, #16161640, #8d8d8d)};
     }
 
     &:root[accent="07"] {
@@ -1594,9 +1594,9 @@ html:root {
         --primary-90: #{darken($accent07, 30%)};
         --primary-100: #{darken($accent07, 40%)};
         --text-on-color: #000;
-        --text-on-color-disabled: #{mautic-contrast($accent07, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent07, #16161640, #8d8d8d)};
         --icon-on-color: #000;
-        --icon-on-color-disabled: #{mautic-contrast($accent07, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent07, #16161640, #8d8d8d)};
     }
 
     &:root[accent="08"] {
@@ -1610,9 +1610,9 @@ html:root {
         --primary-90: #{darken($accent08, 30%)};
         --primary-100: #{darken($accent08, 40%)};
         --text-on-color: #fff;
-        --text-on-color-disabled: #{mautic-contrast($accent08, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent08, #16161640, #8d8d8d)};
         --icon-on-color: #fff;
-        --icon-on-color-disabled: #{mautic-contrast($accent08, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent08, #16161640, #8d8d8d)};
     }
 
     &:root[accent="09"] {
@@ -1626,9 +1626,9 @@ html:root {
         --primary-90: #{darken($accent09, 30%)};
         --primary-100: #{darken($accent09, 40%)};
         --text-on-color: #000;
-        --text-on-color-disabled: #{mautic-contrast($accent09, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent09, #16161640, #8d8d8d)};
         --icon-on-color: #000;
-        --icon-on-color-disabled: #{mautic-contrast($accent09, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent09, #16161640, #8d8d8d)};
     }
 
     &:root[accent="10"] {
@@ -1642,9 +1642,9 @@ html:root {
         --primary-90: #{darken($accent10, 30%)};
         --primary-100: #{darken($accent10, 40%)};
         --text-on-color: #000;
-        --text-on-color-disabled: #{mautic-contrast($accent10, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent10, #16161640, #8d8d8d)};
         --icon-on-color: #000;
-        --icon-on-color-disabled: #{mautic-contrast($accent10, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent10, #16161640, #8d8d8d)};
     }
 
     &:root[accent="11"] {
@@ -1658,9 +1658,9 @@ html:root {
         --primary-90: #{darken($accent11, 30%)};
         --primary-100: #{darken($accent11, 40%)};
         --text-on-color: #fff;
-        --text-on-color-disabled: #{mautic-contrast($accent11, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent11, #16161640, #8d8d8d)};
         --icon-on-color: #fff;
-        --icon-on-color-disabled: #{mautic-contrast($accent11, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent11, #16161640, #8d8d8d)};
     }
 
     &:root[accent="12"] {
@@ -1674,9 +1674,9 @@ html:root {
         --primary-90: #{darken($accent12, 30%)};
         --primary-100: #{darken($accent12, 40%)};
         --text-on-color: #fff;
-        --text-on-color-disabled: #{mautic-contrast($accent12, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent12, #16161640, #8d8d8d)};
         --icon-on-color: #fff;
-        --icon-on-color-disabled: #{mautic-contrast($accent12, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent12, #16161640, #8d8d8d)};
     }
 
     &:root[accent="13"] {
@@ -1690,9 +1690,9 @@ html:root {
         --primary-90: #{darken($accent13, 30%)};
         --primary-100: #{darken($accent13, 40%)};
         --text-on-color: #000;
-        --text-on-color-disabled: #{mautic-contrast($accent13, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent13, #16161640, #8d8d8d)};
         --icon-on-color: #000;
-        --icon-on-color-disabled: #{mautic-contrast($accent13, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent13, #16161640, #8d8d8d)};
     }
 
     &:root[accent="14"] {
@@ -1706,9 +1706,9 @@ html:root {
         --primary-90: #{darken($accent14, 30%)};
         --primary-100: #{darken($accent14, 40%)};
         --text-on-color: #fff;
-        --text-on-color-disabled: #{mautic-contrast($accent14, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent14, #16161640, #8d8d8d)};
         --icon-on-color: #fff;
-        --icon-on-color-disabled: #{mautic-contrast($accent14, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent14, #16161640, #8d8d8d)};
     }
 
     &:root[accent="15"] {
@@ -1722,9 +1722,9 @@ html:root {
         --primary-90: #{darken($accent15, 30%)};
         --primary-100: #{darken($accent15, 40%)};
         --text-on-color: #000;
-        --text-on-color-disabled: #{mautic-contrast($accent15, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent15, #16161640, #8d8d8d)};
         --icon-on-color: #000;
-        --icon-on-color-disabled: #{mautic-contrast($accent15, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent15, #16161640, #8d8d8d)};
     }
 
     &:root[accent="16"] {
@@ -1738,9 +1738,9 @@ html:root {
         --primary-90: #{darken($accent16, 30%)};
         --primary-100: #{darken($accent16, 40%)};
         --text-on-color: #fff;
-        --text-on-color-disabled: #{mautic-contrast($accent16, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent16, #16161640, #8d8d8d)};
         --icon-on-color: #fff;
-        --icon-on-color-disabled: #{mautic-contrast($accent16, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent16, #16161640, #8d8d8d)};
     }
 
     &:root[accent="17"] {
@@ -1754,9 +1754,9 @@ html:root {
         --primary-90: #{darken($accent17, 30%)};
         --primary-100: #{darken($accent17, 40%)};
         --text-on-color: #000;
-        --text-on-color-disabled: #{mautic-contrast($accent17, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent17, #16161640, #8d8d8d)};
         --icon-on-color: #000;
-        --icon-on-color-disabled: #{mautic-contrast($accent17, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent17, #16161640, #8d8d8d)};
     }
 
     &:root[accent="18"] {
@@ -1770,9 +1770,9 @@ html:root {
         --primary-90: #{darken($accent18, 30%)};
         --primary-100: #{darken($accent18, 40%)};
         --text-on-color: #fff;
-        --text-on-color-disabled: #{mautic-contrast($accent18, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent18, #16161640, #8d8d8d)};
         --icon-on-color: #fff;
-        --icon-on-color-disabled: #{mautic-contrast($accent18, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent18, #16161640, #8d8d8d)};
     }
 
     &:root[accent="19"] {
@@ -1786,9 +1786,9 @@ html:root {
         --primary-90: #{darken($accent19, 30%)};
         --primary-100: #{darken($accent19, 40%)};
         --text-on-color: #000;
-        --text-on-color-disabled: #{mautic-contrast($accent19, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent19, #16161640, #8d8d8d)};
         --icon-on-color: #000;
-        --icon-on-color-disabled: #{mautic-contrast($accent19, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent19, #16161640, #8d8d8d)};
     }
 
     &:root[accent="20"] {
@@ -1802,9 +1802,9 @@ html:root {
         --primary-90: #{darken($accent20, 30%)};
         --primary-100: #{darken($accent20, 40%)};
         --text-on-color: #fff;
-        --text-on-color-disabled: #{mautic-contrast($accent20, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent20, #16161640, #8d8d8d)};
         --icon-on-color: #fff;
-        --icon-on-color-disabled: #{mautic-contrast($accent20, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent20, #16161640, #8d8d8d)};
     }
 
     &:root[accent="21"] {
@@ -1818,9 +1818,9 @@ html:root {
         --primary-90: #{darken($accent21, 30%)};
         --primary-100: #{darken($accent21, 40%)};
         --text-on-color: #000;
-        --text-on-color-disabled: #{mautic-contrast($accent21, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent21, #16161640, #8d8d8d)};
         --icon-on-color: #000;
-        --icon-on-color-disabled: #{mautic-contrast($accent21, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent21, #16161640, #8d8d8d)};
     }
 
     &:root[accent="22"] {
@@ -1834,9 +1834,9 @@ html:root {
         --primary-90: #{darken($accent22, 30%)};
         --primary-100: #{darken($accent22, 40%)};
         --text-on-color: #fff;
-        --text-on-color-disabled: #{mautic-contrast($accent22, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent22, #16161640, #8d8d8d)};
         --icon-on-color: #fff;
-        --icon-on-color-disabled: #{mautic-contrast($accent22, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent22, #16161640, #8d8d8d)};
     }
 
     &:root[accent="23"] {
@@ -1850,9 +1850,9 @@ html:root {
         --primary-90: #{darken($accent23, 30%)};
         --primary-100: #{darken($accent23, 40%)};
         --text-on-color: #000;
-        --text-on-color-disabled: #{mautic-contrast($accent23, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent23, #16161640, #8d8d8d)};
         --icon-on-color: #000;
-        --icon-on-color-disabled: #{mautic-contrast($accent23, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent23, #16161640, #8d8d8d)};
     }
 
     &:root[accent="24"] {
@@ -1866,9 +1866,9 @@ html:root {
         --primary-90: #{darken($accent24, 30%)};
         --primary-100: #{darken($accent24, 40%)};
         --text-on-color: #000;
-        --text-on-color-disabled: #{mautic-contrast($accent24, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent24, #16161640, #8d8d8d)};
         --icon-on-color: #000;
-        --icon-on-color-disabled: #{mautic-contrast($accent24, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent24, #16161640, #8d8d8d)};
     }
 
     &:root[accent="25"] {
@@ -1882,9 +1882,9 @@ html:root {
         --primary-90: #{darken($accent25, 30%)};
         --primary-100: #{darken($accent25, 40%)};
         --text-on-color: #fff;
-        --text-on-color-disabled: #{mautic-contrast($accent25, #16161640, #8d8d8d)};
+        --text-on-color-disabled: #{mailvotech-contrast($accent25, #16161640, #8d8d8d)};
         --icon-on-color: #fff;
-        --icon-on-color-disabled: #{mautic-contrast($accent25, #16161640, #8d8d8d)};
+        --icon-on-color-disabled: #{mailvotech-contrast($accent25, #16161640, #8d8d8d)};
     }
 }
 

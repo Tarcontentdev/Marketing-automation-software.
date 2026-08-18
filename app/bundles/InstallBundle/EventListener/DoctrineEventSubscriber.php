@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\InstallBundle\EventListener;
+namespace MailVotech\InstallBundle\EventListener;
 
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Tools\Event\GenerateSchemaEventArgs;
 use Doctrine\ORM\Tools\ToolEvents;
-use Mautic\LeadBundle\Field\SchemaDefinition;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Field\SchemaDefinition;
+use MailVotech\LeadBundle\Model\FieldModel;
 
 #[AsDoctrineListener(ToolEvents::postGenerateSchema)]
 final class DoctrineEventSubscriber
@@ -19,7 +19,7 @@ final class DoctrineEventSubscriber
         ];
 
         foreach ($fieldGroups as $tableName => $fields) {
-            $fullTableName = MAUTIC_TABLE_PREFIX.$tableName;
+            $fullTableName = MAILVOTECH_TABLE_PREFIX.$tableName;
             if (!$args->getSchema()->hasTable($fullTableName)) {
                 // Ignore during plugin installations as not all tables are present in the schema.
                 continue;

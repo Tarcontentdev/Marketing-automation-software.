@@ -5,16 +5,16 @@ declare(strict_types=1);
 return [
     'routes'   => [
         'main' => [
-            'mautic_core_ajax' => [
+            'mailvotech_core_ajax' => [
                 'path'       => '/ajax',
-                'controller' => 'Mautic\CoreBundle\Controller\AjaxController::delegateAjaxAction',
+                'controller' => 'MailVotech\CoreBundle\Controller\AjaxController::delegateAjaxAction',
             ],
         ],
     ],
     'menu'     => [
         'main' => [
-            'mautic.core.components' => [
-                'id'        => 'mautic_components_root',
+            'mailvotech.core.components' => [
+                'id'        => 'mailvotech_components_root',
                 'iconClass' => 'ri-puzzle-2-line',
                 'priority'  => 60,
             ],
@@ -22,21 +22,21 @@ return [
     ],
     'services' => [
         'helpers'  => [
-            'mautic.helper.bundle' => [
-                'class'     => Mautic\CoreBundle\Helper\BundleHelper::class,
+            'mailvotech.helper.bundle' => [
+                'class'     => MailVotech\CoreBundle\Helper\BundleHelper::class,
                 'arguments' => [
-                    '%mautic.bundles%',
-                    '%mautic.plugin.bundles%',
+                    '%mailvotech.bundles%',
+                    '%mailvotech.plugin.bundles%',
                 ],
             ],
         ],
         'other'    => [
-            'mautic.http.client' => [
+            'mailvotech.http.client' => [
                 'class' => GuzzleHttp\Client::class,
             ],
         ],
         'fixtures' => [
-            'mautic.test.fixture' => [
+            'mailvotech.test.fixture' => [
                 'class'    => 'Foo\Bar\NonExisting',
                 'optional' => true,
             ],
@@ -46,7 +46,7 @@ return [
     'ip_lookup_services' => [
         'extreme-ip' => [
             'display_name' => 'Extreme-IP',
-            'class'        => Mautic\CoreBundle\IpLookup\ExtremeIpLookup::class,
+            'class'        => MailVotech\CoreBundle\IpLookup\ExtremeIpLookup::class,
         ],
     ],
 

@@ -1,23 +1,23 @@
 <?php
 
-namespace Mautic\LeadBundle\Controller;
+namespace MailVotech\LeadBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\LeadBundle\Entity\Import;
-use Mautic\LeadBundle\Entity\ImportRepository;
-use Mautic\LeadBundle\Event\ImportInitEvent;
-use Mautic\LeadBundle\Event\ImportMappingEvent;
-use Mautic\LeadBundle\Event\ImportValidateEvent;
-use Mautic\LeadBundle\Form\Type\LeadImportFieldType;
-use Mautic\LeadBundle\Form\Type\LeadImportType;
-use Mautic\LeadBundle\Helper\Progress;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\ImportModel;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\LeadBundle\Entity\Import;
+use MailVotech\LeadBundle\Entity\ImportRepository;
+use MailVotech\LeadBundle\Event\ImportInitEvent;
+use MailVotech\LeadBundle\Event\ImportMappingEvent;
+use MailVotech\LeadBundle\Event\ImportValidateEvent;
+use MailVotech\LeadBundle\Form\Type\LeadImportFieldType;
+use MailVotech\LeadBundle\Form\Type\LeadImportType;
+use MailVotech\LeadBundle\Helper\Progress;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\ImportModel;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\Filesystem\Filesystem;
@@ -71,7 +71,7 @@ final class ImportController extends FormController
     public function indexAction(Request $request, $page = 1): Response
     {
         $initEvent = $this->dispatchImportOnInit();
-        $this->requestStack->getSession()->set('mautic.import.object', $initEvent->objectSingular);
+        $this->requestStack->getSession()->set('mailvotech.import.object', $initEvent->objectSingular);
 
         return $this->indexStandard($request, $page);
     }
@@ -88,7 +88,7 @@ final class ImportController extends FormController
      */
     protected function getIndexItems($start, $limit, $filter, $orderBy, $orderByDir, array $args = []): array
     {
-        $object = $this->requestStack->getSession()->get('mautic.import.object');
+        $object = $this->requestStack->getSession()->get('mailvotech.import.object');
 
         $filter['force'][] = [
             'column' => $this->importRepository->getTableAlias().'.object',
@@ -130,7 +130,7 @@ final class ImportController extends FormController
         $initEvent   = $this->dispatchImportOnInit();
         $object      = $initEvent->objectSingular;
         $fullPath    = $this->getFullCsvPath($object);
-        $import      = $this->importModel->getEntity($this->requestStack->getSession()->get('mautic.lead.import.id'));
+        $import      = $this->importModel->getEntity($this->requestStack->getSession()->get('mailvotech.lead.import.id'));
 
         if ($import && $import->getId()) {
             $import->setStatus($import::STOPPED)
@@ -159,7 +159,7 @@ final class ImportController extends FormController
         $initEvent   = $this->dispatchImportOnInit();
         $object      = $initEvent->objectSingular;
         $fullPath    = $this->getFullCsvPath($object);
-        $import      = $this->importModel->getEntity($this->requestStack->getSession()->get('mautic.lead.import.id'));
+        $import      = $this->importModel->getEntity($this->requestStack->getSession()->get('mailvotech.lead.import.id'));
 
         if ($import) {
             $import->setStatus($import::QUEUED);
@@ -190,11 +190,11 @@ final class ImportController extends FormController
 
         $object = $initEvent->objectSingular;
 
-        $this->requestStack->getSession()->set('mautic.import.object', $object);
+        $this->requestStack->getSession()->set('mailvotech.import.object', $object);
 
         // Move the file to cache and rename it
         $forceStop = $request->get('cancel', false);
-        $step      = ($forceStop) ? self::STEP_UPLOAD_CSV : $this->requestStack->getSession()->get('mautic.'.$object.'.import.step', self::STEP_UPLOAD_CSV);
+        $step      = ($forceStop) ? self::STEP_UPLOAD_CSV : $this->requestStack->getSession()->get('mailvotech.'.$object.'.import.step', self::STEP_UPLOAD_CSV);
         $fileName  = $this->getImportFileName($object);
         $importDir = $this->getImportDirName();
         $fullPath  = $this->getFullCsvPath($object);
@@ -204,14 +204,14 @@ final class ImportController extends FormController
         if (!file_exists($fullPath) && self::STEP_UPLOAD_CSV !== $step) {
             // Force step one if the file doesn't exist
             $this->logger->log(LogLevel::WARNING, "File {$fullPath} does not exist anymore. Reseting import to step STEP_UPLOAD_CSV.");
-            $this->addFlashMessage('mautic.import.file.missing', ['%file%' => $this->getImportFileName($object)], FlashBag::LEVEL_ERROR);
+            $this->addFlashMessage('mailvotech.import.file.missing', ['%file%' => $this->getImportFileName($object)], FlashBag::LEVEL_ERROR);
             $step = self::STEP_UPLOAD_CSV;
-            $this->requestStack->getSession()->set('mautic.'.$object.'.import.step', self::STEP_UPLOAD_CSV);
+            $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.step', self::STEP_UPLOAD_CSV);
         }
 
-        $progress = (new Progress())->bindArray($this->requestStack->getSession()->get('mautic.'.$object.'.import.progress', [0, 0]));
+        $progress = (new Progress())->bindArray($this->requestStack->getSession()->get('mailvotech.'.$object.'.import.progress', [0, 0]));
         $import   = $this->importModel->getEntity();
-        $action   = $this->generateUrl('mautic_import_action', ['object' => $request->get('object'), 'objectAction' => 'new']);
+        $action   = $this->generateUrl('mailvotech_import_action', ['object' => $request->get('object'), 'objectAction' => 'new']);
 
         switch ($step) {
             case self::STEP_UPLOAD_CSV:
@@ -237,7 +237,7 @@ final class ImportController extends FormController
                             'object'           => $object,
                             'action'           => $action,
                             'all_fields'       => $mappingEvent->fields,
-                            'import_fields'    => $this->requestStack->getSession()->get('mautic.'.$object.'.import.importfields', []),
+                            'import_fields'    => $this->requestStack->getSession()->get('mailvotech.'.$object.'.import.importfields', []),
                             'line_count_limit' => $this->getLineCountLimit(),
                         ]
                     );
@@ -252,19 +252,19 @@ final class ImportController extends FormController
                 break;
             case self::STEP_PROGRESS_BAR:
                 // Just show the progress form
-                $this->requestStack->getSession()->set('mautic.'.$object.'.import.step', self::STEP_IMPORT_FROM_CSV);
+                $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.step', self::STEP_IMPORT_FROM_CSV);
                 break;
 
             case self::STEP_IMPORT_FROM_CSV:
                 ignore_user_abort(true);
 
-                $inProgress = $this->requestStack->getSession()->get('mautic.'.$object.'.import.inprogress', false);
-                $checks     = $this->requestStack->getSession()->get('mautic.'.$object.'.import.progresschecks', 1);
+                $inProgress = $this->requestStack->getSession()->get('mailvotech.'.$object.'.import.inprogress', false);
+                $checks     = $this->requestStack->getSession()->get('mailvotech.'.$object.'.import.progresschecks', 1);
                 if (!$inProgress || $checks > 5) {
-                    $this->requestStack->getSession()->set('mautic.'.$object.'.import.inprogress', true);
-                    $this->requestStack->getSession()->set('mautic.'.$object.'.import.progresschecks', 1);
+                    $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.inprogress', true);
+                    $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.progresschecks', 1);
 
-                    $import = $this->importModel->getEntity($this->requestStack->getSession()->get('mautic.'.$object.'.import.id'));
+                    $import = $this->importModel->getEntity($this->requestStack->getSession()->get('mailvotech.'.$object.'.import.id'));
 
                     if (!$import->getDateStarted()) {
                         $import->setDateStarted(new \DateTime());
@@ -281,8 +281,8 @@ final class ImportController extends FormController
                         $complete = true;
                     } else {
                         $complete = false;
-                        $this->requestStack->getSession()->set('mautic.'.$object.'.import.inprogress', false);
-                        $this->requestStack->getSession()->set('mautic.'.$object.'.import.progress', $progress->toArray());
+                        $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.inprogress', false);
+                        $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.progress', $progress->toArray());
                     }
 
                     $this->importModel->saveEntity($import);
@@ -290,7 +290,7 @@ final class ImportController extends FormController
                     break;
                 }
                 ++$checks;
-                $this->requestStack->getSession()->set('mautic.'.$object.'.import.progresschecks', $checks);
+                $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.progresschecks', $checks);
         }
 
         // /Check for a submitted form and process it
@@ -336,7 +336,7 @@ final class ImportController extends FormController
                                     }
                                 }
 
-                                $this->requestStack->getSession()->set('mautic.'.$object.'.import.config', $config);
+                                $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.config', $config);
 
                                 // Get the headers for matching
                                 $headers = $file->fgetcsv($config['delimiter'], $config['enclosure'], $config['escape']);
@@ -348,25 +348,25 @@ final class ImportController extends FormController
                                 if (!empty($headers) && is_array($headers)) {
                                     $headers = CsvHelper::sanitizeHeaders($headers);
 
-                                    $this->requestStack->getSession()->set('mautic.'.$object.'.import.headers', $headers);
-                                    $this->requestStack->getSession()->set('mautic.'.$object.'.import.step', self::STEP_MATCH_FIELDS);
-                                    $this->requestStack->getSession()->set('mautic.'.$object.'.import.importfields', CsvHelper::convertHeadersIntoFields($headers));
-                                    $this->requestStack->getSession()->set('mautic.'.$object.'.import.progress', [0, $linecount]);
-                                    $this->requestStack->getSession()->set('mautic.'.$object.'.import.original.file', $fileData->getClientOriginalName());
+                                    $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.headers', $headers);
+                                    $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.step', self::STEP_MATCH_FIELDS);
+                                    $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.importfields', CsvHelper::convertHeadersIntoFields($headers));
+                                    $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.progress', [0, $linecount]);
+                                    $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.original.file', $fileData->getClientOriginalName());
 
                                     return $this->newAction($request, 0, true);
                                 }
                             } catch (FileException $e) {
                                 if (str_contains($e->getMessage(), 'upload_max_filesize')) {
-                                    $errorMessage    = 'mautic.lead.import.filetoolarge';
+                                    $errorMessage    = 'mailvotech.lead.import.filetoolarge';
                                     $errorParameters = [
                                         '%upload_max_filesize%' => ini_get('upload_max_filesize'),
                                     ];
                                 } else {
-                                    $errorMessage = 'mautic.lead.import.filenotreadable';
+                                    $errorMessage = 'mailvotech.lead.import.filenotreadable';
                                 }
                             } catch (\Exception) {
-                                $errorMessage = 'mautic.lead.import.filenotreadable';
+                                $errorMessage = 'mailvotech.lead.import.filenotreadable';
                             } finally {
                                 if (null !== $errorMessage) {
                                     $form->addError(
@@ -406,27 +406,27 @@ final class ImportController extends FormController
                         ->setDir($importDir)
                         ->setLineCount($this->getLineCount($object))
                         ->setFile($fileName)
-                        ->setOriginalFile($this->requestStack->getSession()->get('mautic.'.$object.'.import.original.file'))
+                        ->setOriginalFile($this->requestStack->getSession()->get('mailvotech.'.$object.'.import.original.file'))
                         ->setDefault('owner', $validateEvent->getOwnerId())
                         ->setDefault('list', $validateEvent->getList())
                         ->setDefault('tags', $validateEvent->getTags())
                         ->setDefault('skip_if_exists', $validateEvent->getSkipIfExists())
-                        ->setHeaders($this->requestStack->getSession()->get('mautic.'.$object.'.import.headers'))
-                        ->setParserConfig($this->requestStack->getSession()->get('mautic.'.$object.'.import.config'));
+                        ->setHeaders($this->requestStack->getSession()->get('mailvotech.'.$object.'.import.headers'))
+                        ->setParserConfig($this->requestStack->getSession()->get('mailvotech.'.$object.'.import.config'));
 
-                    $successMessage = 'mautic.lead.batch.import.created';
+                    $successMessage = 'mailvotech.lead.batch.import.created';
                     if (!$this->security->isGranted($this->getPermissionBase().':publish')) {
                         $import->setIsPublished(false);
-                        $successMessage = 'mautic.lead.batch.import.created.unpublished';
+                        $successMessage = 'mailvotech.lead.batch.import.created.unpublished';
                     }
 
                     // In case the user chose to import in browser
                     if ($this->importInBrowser($form, $object)) {
                         $import->setStatus($import::MANUAL);
-                        $this->requestStack->getSession()->set('mautic.'.$object.'.import.step', self::STEP_PROGRESS_BAR);
+                        $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.step', self::STEP_PROGRESS_BAR);
                     }
                     $this->importModel->saveEntity($import);
-                    $this->requestStack->getSession()->set('mautic.'.$object.'.import.id', $import->getId());
+                    $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.id', $import->getId());
                     // In case the user decided to queue the import
                     if ($this->importInCli($form, $object)) {
                         $this->addFlashMessage($successMessage);
@@ -448,13 +448,13 @@ final class ImportController extends FormController
         }
 
         if (self::STEP_UPLOAD_CSV === $step || self::STEP_MATCH_FIELDS === $step) {
-            $contentTemplate = '@MauticLead/Import/new.html.twig';
+            $contentTemplate = '@MailVotechLead/Import/new.html.twig';
             $viewParameters  = [
                 'form'       => $form->createView(),
                 'objectName' => $initEvent->objectName,
             ];
         } else {
-            $contentTemplate = '@MauticLead/Import/progress.html.twig';
+            $contentTemplate = '@MailVotechLead/Import/progress.html.twig';
             $viewParameters  = [
                 'progress'         => $progress,
                 'import'           => $import,
@@ -479,9 +479,9 @@ final class ImportController extends FormController
                     'contentTemplate' => $contentTemplate,
                     'passthroughVars' => [
                         'activeLink'    => $initEvent->activeLink,
-                        'mauticContent' => 'leadImport',
+                        'mailvotechContent' => 'leadImport',
                         'route'         => $this->generateUrl(
-                            'mautic_import_action',
+                            'mailvotech_import_action',
                             [
                                 'object'       => $initEvent->routeObjectName,
                                 'objectAction' => 'new',
@@ -508,7 +508,7 @@ final class ImportController extends FormController
      */
     protected function getLineCount($object)
     {
-        $progress = $this->requestStack->getSession()->get('mautic.'.$object.'.import.progress', [0, 0]);
+        $progress = $this->requestStack->getSession()->get('mailvotech.'.$object.'.import.progress', [0, 0]);
 
         return $progress[1] ?? 0;
     }
@@ -571,14 +571,14 @@ final class ImportController extends FormController
     protected function getImportFileName($object)
     {
         // Return the dir path from session if exists
-        if ($fileName = $this->requestStack->getSession()->get('mautic.'.$object.'.import.file')) {
+        if ($fileName = $this->requestStack->getSession()->get('mailvotech.'.$object.'.import.file')) {
             return $fileName;
         }
 
         $fileName = $this->importModel->getUniqueFileName();
 
         // Set the dir path to session
-        $this->requestStack->getSession()->set('mautic.'.$object.'.import.file', $fileName);
+        $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.file', $fileName);
 
         return $fileName;
     }
@@ -595,14 +595,14 @@ final class ImportController extends FormController
 
     private function resetImport(string $object): void
     {
-        $this->requestStack->getSession()->set('mautic.'.$object.'.import.headers', []);
-        $this->requestStack->getSession()->set('mautic.'.$object.'.import.file', null);
-        $this->requestStack->getSession()->set('mautic.'.$object.'.import.step', self::STEP_UPLOAD_CSV);
-        $this->requestStack->getSession()->set('mautic.'.$object.'.import.progress', [0, 0]);
-        $this->requestStack->getSession()->set('mautic.'.$object.'.import.inprogress', false);
-        $this->requestStack->getSession()->set('mautic.'.$object.'.import.importfields', []);
-        $this->requestStack->getSession()->set('mautic.'.$object.'.import.original.file', null);
-        $this->requestStack->getSession()->set('mautic.'.$object.'.import.id', null);
+        $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.headers', []);
+        $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.file', null);
+        $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.step', self::STEP_UPLOAD_CSV);
+        $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.progress', [0, 0]);
+        $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.inprogress', false);
+        $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.importfields', []);
+        $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.original.file', null);
+        $this->requestStack->getSession()->set('mailvotech.'.$object.'.import.id', null);
     }
 
     private function removeImportFile(string $filepath): void
@@ -628,18 +628,18 @@ final class ImportController extends FormController
     private function getImportCancellationMessage(string $fileName, ?Import $import, ?User $notificationUser): string
     {
         if (!$import || !$import->getId()) {
-            return $this->translator->trans('mautic.lead.import.canceled', ['%file%' => $fileName]);
+            return $this->translator->trans('mailvotech.lead.import.canceled', ['%file%' => $fileName]);
         }
 
         if ($notificationUser && $this->user && $notificationUser->getId() !== $this->user->getId()) {
-            return $this->translator->trans('mautic.lead.import.canceled.with_id_and_user', [
+            return $this->translator->trans('mailvotech.lead.import.canceled.with_id_and_user', [
                 '%file%' => $fileName,
                 '%id%'   => $import->getId(),
                 '%user%' => $this->user->getName(),
             ]);
         }
 
-        return $this->translator->trans('mautic.lead.import.canceled.with_id', ['%file%' => $fileName, '%id%' => $import->getId()]);
+        return $this->translator->trans('mailvotech.lead.import.canceled.with_id', ['%file%' => $fileName, '%id%' => $import->getId()]);
     }
 
     /**
@@ -708,7 +708,7 @@ final class ImportController extends FormController
 
     protected function getTemplateBase(): string
     {
-        return '@MauticLead/Import';
+        return '@MailVotechLead/Import';
     }
 
     /**

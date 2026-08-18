@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,7 +27,7 @@ final class FormFieldSelectType extends AbstractType
             'placeholder',
             TextType::class,
             [
-                'label'      => 'mautic.form.field.form.emptyvalue',
+                'label'      => 'mailvotech.form.field.form.emptyvalue',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -43,7 +43,7 @@ final class FormFieldSelectType extends AbstractType
             'multiple',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.form.field.form.multiple',
+                'label' => 'mailvotech.form.field.form.multiple',
                 'data'  => $default,
             ]
         );

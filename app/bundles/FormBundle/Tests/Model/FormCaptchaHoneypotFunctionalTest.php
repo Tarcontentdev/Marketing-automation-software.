@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Model;
+namespace MailVotech\FormBundle\Tests\Model;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Model\FormModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Model\FormModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class FormCaptchaHoneypotFunctionalTest extends MauticMysqlTestCase
+final class FormCaptchaHoneypotFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -24,11 +24,11 @@ final class FormCaptchaHoneypotFunctionalTest extends MauticMysqlTestCase
         $this->assertInstanceOf(Form::class, $form);
 
         $html = $formModel->generateHtml($form, false);
-        $this->assertStringContainsString('mauticform-honeypot', $html);
+        $this->assertStringContainsString('mailvotechform-honeypot', $html);
 
         $honeypotRow = [];
-        if (preg_match('/<div[^>]*id="mauticform_[^"]*honeypot"[^>]*>/', $html, $honeypotRow)) {
-            $this->assertStringContainsString('mauticform-honeypot', $honeypotRow[0], $html);
+        if (preg_match('/<div[^>]*id="mailvotechform_[^"]*honeypot"[^>]*>/', $html, $honeypotRow)) {
+            $this->assertStringContainsString('mailvotechform-honeypot', $honeypotRow[0], $html);
         } else {
             self::fail('Honeypot captcha row not found in generated HTML.');
         }
@@ -43,7 +43,7 @@ final class FormCaptchaHoneypotFunctionalTest extends MauticMysqlTestCase
 
         $honeypotRow = $crawler->filter('[id$="_honeypot"]');
         $this->assertGreaterThan(0, $honeypotRow->count());
-        $this->assertStringContainsString('mauticform-honeypot', (string) $honeypotRow->attr('class'), $crawler->html());
+        $this->assertStringContainsString('mailvotechform-honeypot', (string) $honeypotRow->attr('class'), $crawler->html());
     }
 
     public function testHoneypotCaptchaFieldMergesHoneypotClassWithExistingContainerClasses(): void
@@ -57,10 +57,10 @@ final class FormCaptchaHoneypotFunctionalTest extends MauticMysqlTestCase
 
         $html = $formModel->generateHtml($form, false);
 
-        preg_match('/<div[^>]*\bid="mauticform_[^"]*honeypot"[^>]*>/', $html, $honeypotRow);
+        preg_match('/<div[^>]*\bid="mailvotechform_[^"]*honeypot"[^>]*>/', $html, $honeypotRow);
         $this->assertNotEmpty($honeypotRow, $html);
         $this->assertStringContainsString('custom-class', $honeypotRow[0], $html);
-        $this->assertStringContainsString('mauticform-honeypot', $honeypotRow[0], $html);
+        $this->assertStringContainsString('mailvotechform-honeypot', $honeypotRow[0], $html);
         $this->assertSame(1, substr_count($honeypotRow[0], 'class="'), $html);
     }
 

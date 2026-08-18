@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\UserBundle\Form\Type;
+namespace MailVotech\UserBundle\Form\Type;
 
-use Mautic\UserBundle\Entity\RoleRepository;
+use MailVotech\UserBundle\Entity\RoleRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,7 +25,7 @@ final class RoleListType extends AbstractType
                 'expanded'          => false,
                 'multiple'          => false,
                 'required'          => false,
-                'placeholder'       => 'mautic.core.form.chooseone',
+                'placeholder'       => 'mailvotech.core.form.chooseone',
             ]
         );
     }

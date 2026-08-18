@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\EventListener;
+namespace MailVotech\PageBundle\Tests\EventListener;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Event\PageHitEvent;
-use Mautic\PageBundle\EventListener\PointSubscriber;
-use Mautic\PageBundle\Form\Type\PointActionPageHitType;
-use Mautic\PageBundle\Form\Type\PointActionUrlHitType;
-use Mautic\PageBundle\Helper\PointActionHelper;
-use Mautic\PointBundle\Event\PointBuilderEvent;
-use Mautic\PointBundle\Model\PointModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Event\PageHitEvent;
+use MailVotech\PageBundle\EventListener\PointSubscriber;
+use MailVotech\PageBundle\Form\Type\PointActionPageHitType;
+use MailVotech\PageBundle\Form\Type\PointActionUrlHitType;
+use MailVotech\PageBundle\Helper\PointActionHelper;
+use MailVotech\PointBundle\Event\PointBuilderEvent;
+use MailVotech\PointBundle\Model\PointModel;
 use PHPUnit\Framework\TestCase;
 
 final class PointSubscriberTest extends TestCase
@@ -21,8 +21,8 @@ final class PointSubscriberTest extends TestCase
     public function testSubscribedEvents(): void
     {
         $this->assertSame([
-            'mautic.point_on_build' => ['onPointBuild', 0],
-            'mautic.page_on_hit'    => ['onPageHit', 0],
+            'mailvotech.point_on_build' => ['onPointBuild', 0],
+            'mailvotech.page_on_hit'    => ['onPageHit', 0],
         ], PointSubscriber::getSubscribedEvents());
     }
 
@@ -37,9 +37,9 @@ final class PointSubscriberTest extends TestCase
             if (1 === $matcher->numberOfInvocations()) {
                 $this->assertSame('page.hit', $parameters[0]);
                 $this->assertSame([
-                    'group'       => 'mautic.page.point.action',
-                    'label'       => 'mautic.page.point.action.pagehit',
-                    'description' => 'mautic.page.point.action.pagehit_descr',
+                    'group'       => 'mailvotech.page.point.action',
+                    'label'       => 'mailvotech.page.point.action.pagehit',
+                    'description' => 'mailvotech.page.point.action.pagehit_descr',
                     'callback'    => [PointActionHelper::class, 'validatePageHit'],
                     'formType'    => PointActionPageHitType::class,
                 ], $parameters[1]);
@@ -47,12 +47,12 @@ final class PointSubscriberTest extends TestCase
             if (2 === $matcher->numberOfInvocations()) {
                 $this->assertSame('url.hit', $parameters[0]);
                 $this->assertSame([
-                    'group'       => 'mautic.page.point.action',
-                    'label'       => 'mautic.page.point.action.urlhit',
-                    'description' => 'mautic.page.point.action.urlhit_descr',
+                    'group'       => 'mailvotech.page.point.action',
+                    'label'       => 'mailvotech.page.point.action.urlhit',
+                    'description' => 'mailvotech.page.point.action.urlhit_descr',
                     'callback'    => [$pointActionHelper, 'validateUrlHit'],
                     'formType'    => PointActionUrlHitType::class,
-                    'formTheme'   => '@MauticPage/FormTheme/Point/pointaction_urlhit_widget.html.twig',
+                    'formTheme'   => '@MailVotechPage/FormTheme/Point/pointaction_urlhit_widget.html.twig',
                 ], $parameters[1]);
             }
         });

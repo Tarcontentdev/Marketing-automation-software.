@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\NotificationBundle\Api;
+namespace MailVotech\NotificationBundle\Api;
 
 use GuzzleHttp\RequestOptions;
-use Mautic\NotificationBundle\Entity\Notification;
-use Mautic\NotificationBundle\Exception\MissingApiKeyException;
-use Mautic\NotificationBundle\Exception\MissingAppIDException;
+use MailVotech\NotificationBundle\Entity\Notification;
+use MailVotech\NotificationBundle\Exception\MissingApiKeyException;
+use MailVotech\NotificationBundle\Exception\MissingAppIDException;
 use Psr\Http\Message\ResponseInterface;
 
 class OneSignalApi extends AbstractNotificationApi

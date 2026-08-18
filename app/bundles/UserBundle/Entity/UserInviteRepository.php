@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Entity;
+namespace MailVotech\UserBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<UserInvite>

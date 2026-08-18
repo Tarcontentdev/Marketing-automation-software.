@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\ApiBundle\EventListener;
+namespace MailVotech\ApiBundle\EventListener;
 
-use Mautic\ApiBundle\Helper\RequestHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\ApiBundle\Helper\RequestHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Translation\Translator;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -53,7 +53,7 @@ final readonly class ApiSubscriber implements EventSubscriberInterface
                 [
                     'errors' => [
                         [
-                            'message' => $this->translator->trans('mautic.api.error.api.disabled'),
+                            'message' => $this->translator->trans('mailvotech.api.error.api.disabled'),
                             'code'    => 403,
                             'type'    => 'api_disabled',
                         ],
@@ -76,7 +76,7 @@ final readonly class ApiSubscriber implements EventSubscriberInterface
                 [
                     'errors' => [
                         [
-                            'message' => $this->translator->trans('mautic.api.error.basic.auth.disabled'),
+                            'message' => $this->translator->trans('mailvotech.api.error.basic.auth.disabled'),
                             'code'    => 403,
                             'type'    => 'access_denied',
                         ],
@@ -132,13 +132,13 @@ final readonly class ApiSubscriber implements EventSubscriberInterface
         switch ($error) {
             case 'access_denied':
                 $type    = $error;
-                $message = $this->translator->trans('mautic.api.auth.error.accessdenied');
+                $message = $this->translator->trans('mailvotech.api.auth.error.accessdenied');
 
                 if ($hasBasicAuth) {
                     if ($this->coreParametersHelper->get('api_enable_basic_auth')) {
-                        $message = $this->translator->trans('mautic.api.error.basic.auth.invalid.credentials');
+                        $message = $this->translator->trans('mailvotech.api.error.basic.auth.invalid.credentials');
                     } else {
-                        $message = $this->translator->trans('mautic.api.error.basic.auth.disabled');
+                        $message = $this->translator->trans('mailvotech.api.error.basic.auth.disabled');
                     }
                 }
 
@@ -147,8 +147,8 @@ final readonly class ApiSubscriber implements EventSubscriberInterface
                 if (isset($data['error_description'])) {
                     $message = $data['error_description'];
                     $type    = $error;
-                } elseif ($this->translator->hasId('mautic.api.auth.error.'.$error)) {
-                    $message = $this->translator->trans('mautic.api.auth.error.'.$error);
+                } elseif ($this->translator->hasId('mailvotech.api.auth.error.'.$error)) {
+                    $message = $this->translator->trans('mailvotech.api.auth.error.'.$error);
                     $type    = $error;
                 }
         }

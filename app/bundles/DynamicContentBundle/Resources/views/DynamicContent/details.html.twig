@@ -1,13 +1,13 @@
 {#
 #}
-{% extends (not isEmbedded) ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
+{% extends (not isEmbedded) ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
 
-{% block mauticContent 'dynamicContent' %}
+{% block mailvotechContent 'dynamicContent' %}
 
 {% block headerTitle entity.name %}
 
 {% block publishStatus %}
-    {{- include('@MauticCore/Helper/publishstatus_badge.html.twig', {
+    {{- include('@MailVotechCore/Helper/publishstatus_badge.html.twig', {
         'entity': entity,
         'status': 'available'
     }) -}}
@@ -17,47 +17,47 @@
         {
             color: 'high-contrast',
             label: entity.isCampaignBased
-                ? 'mautic.dwc.form.is.campaign'
-                : 'mautic.dwc.form.is.standalone'
+                ? 'mailvotech.dwc.form.is.campaign'
+                : 'mailvotech.dwc.form.is.standalone'
         }
     ] %}
 
     {% set tags = tags
         |merge(entity.isTranslation and not entity.isTranslation(true)
-            ? [{ color: 'blue', label: 'mautic.core.icon_tooltip.translation', icon_only: true, icon: 'ri-translate' }]
+            ? [{ color: 'blue', label: 'mailvotech.core.icon_tooltip.translation', icon_only: true, icon: 'ri-translate' }]
             : [])
         |merge(entity.isTranslation(true)
             ? [{ 
                 color: 'warm-gray', 
-                label: 'mautic.core.translation_of'|trans({'%parent%' : translations.parent.getName()}), 
+                label: 'mailvotech.core.translation_of'|trans({'%parent%' : translations.parent.getName()}), 
                 icon: 'ri-translate',
                 attributes: {
-                    'href': path('mautic_dynamicContent_action', {'objectAction': 'view', 'objectId': translations.parent.id}),
+                    'href': path('mailvotech_dynamicContent_action', {'objectAction': 'view', 'objectId': translations.parent.id}),
                     'data-toggle': 'ajax'
                 }
             }]
             : [])
     %}
 
-    {% include '@MauticCore/Helper/_tag.html.twig' with { tags: tags } %}
+    {% include '@MailVotechCore/Helper/_tag.html.twig' with { tags: tags } %}
 {% endblock %}
 
 {% block preHeader %}
-{{- include('@MauticCore/Helper/page_actions.html.twig',
+{{- include('@MailVotechCore/Helper/page_actions.html.twig',
     {
         'item'            : entity,
         'templateButtons' : {
             'close' : securityHasEntityAccess(permissions['dynamiccontent:dynamiccontents:viewown'], permissions['dynamiccontent:dynamiccontents:viewother'], entity.createdBy),
         },
         'routeBase'       : 'dynamicContent',
-        'targetLabel'     : 'mautic.dynamicContent.dynamicContents'|trans
+        'targetLabel'     : 'mailvotech.dynamicContent.dynamicContents'|trans
     }
 ) -}}
-{{ include('@MauticCore/Modules/category--inline.html.twig', {'category': entity.category}) }}
+{{ include('@MailVotechCore/Modules/category--inline.html.twig', {'category': entity.category}) }}
 {% endblock %}
 
 {% block actions %}
-    {{- include('@MauticCore/Helper/page_actions.html.twig', {
+    {{- include('@MailVotechCore/Helper/page_actions.html.twig', {
         'item': entity,
         'customButtons': customButtons|default([]),
         'templateButtons': {
@@ -70,11 +70,11 @@
 {% endblock %}
 
 {% block content %}
-  {%- set translationContent = include('@MauticCore/Translation/index.html.twig', {
+  {%- set translationContent = include('@MailVotechCore/Translation/index.html.twig', {
           'activeEntity': entity,
           'translations': translations,
           'model': 'dynamicContent',
-          'actionRoute': 'mautic_dynamicContent_action',
+          'actionRoute': 'mailvotech_dynamicContent_action',
   })|trim -%}
   {%- set showTranslations = translationContent is not empty -%}
 
@@ -87,26 +87,26 @@
                 {% set description %}
                     {% if entity.isVariant(true) %}
                         <div class="small">
-                            <a href="{{ path('mautic_dynamicContent_action', {'objectAction': 'view', 'objectId': variants.parent.id}) }}" data-toggle="ajax">
-                                {{ 'mautic.core.variant_of'|trans({'%parent%': variants.parent.name}) }}
+                            <a href="{{ path('mailvotech_dynamicContent_action', {'objectAction': 'view', 'objectId': variants.parent.id}) }}" data-toggle="ajax">
+                                {{ 'mailvotech.core.variant_of'|trans({'%parent%': variants.parent.name}) }}
                             </a>
                         </div>
                     {% endif %}
                     {% if entity.isTranslation(true) %}
                         <div class="small">
-                            <a href="{{ path('mautic_dynamicContent_action', {'objectAction': 'view', 'objectId': translations.parent.id}) }}" data-toggle="ajax">
-                                {{ 'mautic.core.translation_of'|trans({'%parent%': translations.parent.name}) }}
+                            <a href="{{ path('mailvotech_dynamicContent_action', {'objectAction': 'view', 'objectId': translations.parent.id}) }}" data-toggle="ajax">
+                                {{ 'mailvotech.core.translation_of'|trans({'%parent%': translations.parent.name}) }}
                             </a>
                         </div>
                     {% endif %}
                     {% if not entity.isCampaignBased %}
                         <div class="small">
-                            {{ 'mautic.dynamicContent.header.is_filter_based'|trans({'%slot%': entity.slotName}) }}
+                            {{ 'mailvotech.dynamicContent.header.is_filter_based'|trans({'%slot%': entity.slotName}) }}
                         </div>
                     {% endif %}
                 {% endset %}
 
-                {% include '@MauticCore/Helper/description--expanded.html.twig' with { 'description': description } %}
+                {% include '@MailVotechCore/Helper/description--expanded.html.twig' with { 'description': description } %}
               <!--/ page detail header -->
               <!-- page detail collapseable -->
               <div class="collapse pr-md pl-md" id="page-details">
@@ -114,14 +114,14 @@
                       <div class="panel shd-none mb-0">
                           <table class="table table-hover mb-0">
                               <tbody>
-                              {{ include('@MauticCore/Helper/details.html.twig', {'entity': entity}) }}
+                              {{ include('@MailVotechCore/Helper/details.html.twig', {'entity': entity}) }}
                               <tr>
-                                  <td width="20%"><span class="fw-b textTitle">{{ 'mautic.dynamicContent.slot.campaign'|trans }}</span></td>
+                                  <td width="20%"><span class="fw-b textTitle">{{ 'mailvotech.dynamicContent.slot.campaign'|trans }}</span></td>
                                   <td>{{ entity.isCampaignBased ? 'Yes' : 'No' }}</td>
                               </tr>
                               {% if not entity.isCampaignBased %}
                                 <tr>
-                                    <td width="20%"><span class="fw-b textTitle">{{ 'mautic.dynamicContent.label.slot_name'|trans }}</span></td>
+                                    <td width="20%"><span class="fw-b textTitle">{{ 'mailvotech.dynamicContent.label.slot_name'|trans }}</span></td>
                                     <td>{{ entity.slotName }}</td>
                                 </tr>
                               {% endif %}
@@ -138,7 +138,7 @@
                   <span data-toggle="tooltip" title="Detail">
                       <a href="javascript:void(0)" class="arrow text-secondary collapsed" data-toggle="collapse" data-target="#page-details">
                           <span class="caret"></span>
-                          {{ 'mautic.core.details'|trans }}
+                          {{ 'mailvotech.core.details'|trans }}
                       </a>
                   </span>
               </div>
@@ -153,19 +153,19 @@
                                   <div class="col-md-3 va-m">
                                       <h5 class="text-white dark-md fw-sb mb-xs">
                                           <span class="ri-line-chart-fill"></span>
-                                          {{ 'mautic.dynamicContent.views'|trans }}
+                                          {{ 'mailvotech.dynamicContent.views'|trans }}
                                       </h5>
                                   </div>
                                   <div class="col-md-9 va-m">
-                                      {{ include('@MauticCore/Helper/graph_dateselect.html.twig', {'dateRangeForm': dateRangeForm, 'class': 'pull-right'}) }}
+                                      {{ include('@MailVotechCore/Helper/graph_dateselect.html.twig', {'dateRangeForm': dateRangeForm, 'class': 'pull-right'}) }}
                                   </div>
                               </div>
                               <div class="d-flex fd-column pt-0 pl-15 pb-15 pr-15 min-h-256">
-                                  {{ include('@MauticCore/Helper/chart.html.twig', {'chartData': entityViews, 'chartType': 'line', 'chartHeight': 300}) }}
+                                  {{ include('@MailVotechCore/Helper/chart.html.twig', {'chartData': entityViews, 'chartType': 'line', 'chartHeight': 300}) }}
                               </div>
                           </div>
                         {% if not entity.isCampaignBased %}
-                            {{ include('@MauticDynamicContent/DynamicContent/StandaloneSlotGenerator/dwc-generator.html.twig') }}
+                            {{ include('@MailVotechDynamicContent/DynamicContent/StandaloneSlotGenerator/dwc-generator.html.twig') }}
                             <hr>
                         {% endif %}
                       </div>
@@ -179,13 +179,13 @@
               <ul class="nav nav-tabs nav-tabs-contained">
                   <li class="active">
                       <a href="#clicks-container" role="tab" data-toggle="tab">
-                          {{ 'mautic.trackable.click_counts'|trans }}
+                          {{ 'mailvotech.trackable.click_counts'|trans }}
                       </a>
                   </li>
                   {% if showTranslations %}
                   <li class>
                       <a href="#translation-container" role="tab" data-toggle="tab">
-                          {{ 'mautic.core.translations'|trans }}
+                          {{ 'mailvotech.core.translations'|trans }}
                       </a>
                   </li>
                   {% endif %}
@@ -195,7 +195,7 @@
           <!-- start: tab-content -->
           <div class="tab-content pa-md">
               <div class="tab-pane active active bdr-w-0" id="clicks-container">
-                  {{ include('@MauticPage/Trackable/click_counts.html.twig', {'trackables': trackables, 'entity': entity, 'channel': 'dynamicContent'}) }}
+                  {{ include('@MailVotechPage/Trackable/click_counts.html.twig', {'trackables': trackables, 'entity': entity, 'channel': 'dynamicContent'}) }}
 
               </div>
               <!-- #translation-container -->
@@ -214,7 +214,7 @@
       <div class="col-md-3 bdr-l height-auto">
           <hr class="hr-w-2" style="width:50%">
           <!-- recent activity -->
-          {{ include('@MauticCore/Helper/recentactivity.html.twig', {'logs': logs}) }}
+          {{ include('@MailVotechCore/Helper/recentactivity.html.twig', {'logs': logs}) }}
       </div>
       <!--/ right section -->
   </div>

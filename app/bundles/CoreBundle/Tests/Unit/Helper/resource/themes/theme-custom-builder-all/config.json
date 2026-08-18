@@ -1,7 +1,7 @@
 {
   "name": "theme-custom-builder-all",
   "author": "Test theme",
-  "authorUrl": "https://www.mautic.org",
+  "authorUrl": "https://www.mailvotech.org",
   "features": [
     "page",
     "email",

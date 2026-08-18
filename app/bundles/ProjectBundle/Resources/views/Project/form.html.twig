@@ -1,12 +1,12 @@
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent 'project' %}
+{% block mailvotechContent 'project' %}
 
 {% block headerTitle %}
     {% if form.vars.data.id %}
-        {{ 'mautic.project.menu.edit'|trans({'%name%': entity.getName()}) }}
+        {{ 'mailvotech.project.menu.edit'|trans({'%name%': entity.getName()}) }}
     {% else %}
-        {{ 'mautic.project.menu.new'|trans }}
+        {{ 'mailvotech.project.menu.new'|trans }}
     {% endif %}
 {% endblock %}
 

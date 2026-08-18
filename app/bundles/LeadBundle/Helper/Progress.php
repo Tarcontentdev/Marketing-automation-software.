@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\LeadBundle\Helper;
+namespace MailVotech\LeadBundle\Helper;
 
-use Mautic\CoreBundle\Helper\ProgressBarHelper;
+use MailVotech\CoreBundle\Helper\ProgressBarHelper;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
 

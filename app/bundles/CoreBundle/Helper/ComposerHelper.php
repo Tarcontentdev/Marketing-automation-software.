@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 use Composer\Console\Application;
-use Mautic\MarketplaceBundle\DTO\ConsoleOutput;
+use MailVotech\MarketplaceBundle\DTO\ConsoleOutput;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -25,7 +25,7 @@ class ComposerHelper
     /**
      * Installs a package using its Packagist name.
      *
-     * @param string $packageName The package name, e.g. mautic/example-plugin
+     * @param string $packageName The package name, e.g. mailvotech/example-plugin
      * @param bool   $dryRun      Whether to dry-run the installation. Comes in handy during automated tests
      *                            and to test whether an installation would succeed or not.
      */
@@ -46,14 +46,14 @@ class ComposerHelper
     /**
      * Removes a package using its Packagist name.
      *
-     * @param string $packageName The package name, e.g. mautic/example-plugin
+     * @param string $packageName The package name, e.g. mailvotech/example-plugin
      * @param bool   $dryRun      Whether to dry-run the removal. Comes in handy during automated tests
      *                            and to test whether an removal would succeed or not.
      */
     public function remove(string $packageName, bool $dryRun = false): ConsoleOutput
     {
         /**
-         * "composer remove package-name" also triggers an update of all other Mautic dependencies.
+         * "composer remove package-name" also triggers an update of all other MailVotech dependencies.
          * By using the --no-update option first, we can work around that issue and only delete
          * this specific package from the composer.json file.
          */
@@ -99,7 +99,7 @@ class ComposerHelper
     /**
      * Checks if the given Composer package is installed.
      *
-     * @param string $packageName The package name, e.g. mautic/exmple-plugin
+     * @param string $packageName The package name, e.g. mailvotech/exmple-plugin
      */
     public function isInstalled(string $packageName): bool
     {
@@ -107,13 +107,13 @@ class ComposerHelper
     }
 
     /**
-     * Returns a list of installed Composer packages that are of type mautic-plugin.
+     * Returns a list of installed Composer packages that are of type mailvotech-plugin.
      *
      * @return string[]
      */
-    public function getMauticPluginPackages(): array
+    public function getMailVotechPluginPackages(): array
     {
-        return \Composer\InstalledVersions::getInstalledPackagesByType('mautic-plugin');
+        return \Composer\InstalledVersions::getInstalledPackagesByType('mailvotech-plugin');
     }
 
     /**

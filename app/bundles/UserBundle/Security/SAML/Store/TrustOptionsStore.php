@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\UserBundle\Security\SAML\Store;
+namespace MailVotech\UserBundle\Security\SAML\Store;
 
 use LightSaml\Meta\TrustOptions\TrustOptions;
 use LightSaml\Store\TrustOptions\TrustOptionsStoreInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 
 final class TrustOptionsStore implements TrustOptionsStoreInterface
 {

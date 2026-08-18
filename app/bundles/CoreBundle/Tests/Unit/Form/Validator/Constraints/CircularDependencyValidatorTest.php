@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Form\Validator\Constraints;
+namespace MailVotech\CoreBundle\Tests\Unit\Form\Validator\Constraints;
 
-use Mautic\CoreBundle\Form\Validator\Constraints\CircularDependency;
-use Mautic\CoreBundle\Form\Validator\Constraints\CircularDependencyValidator;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\CoreBundle\Form\Validator\Constraints\CircularDependency;
+use MailVotech\CoreBundle\Form\Validator\Constraints\CircularDependencyValidator;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Model\ListModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
@@ -155,7 +155,7 @@ final class CircularDependencyValidatorTest extends \PHPUnit\Framework\TestCase
     public function testValidateOnInvalid(?string $message, int $currentSegmentId, array $filters): void
     {
         $this->configureValidator($message, $currentSegmentId)
-            ->validate($filters, new CircularDependency(message: 'mautic.core.segment.circular_dependency_exists'));
+            ->validate($filters, new CircularDependency(message: 'mailvotech.core.segment.circular_dependency_exists'));
     }
 
     /**
@@ -163,7 +163,7 @@ final class CircularDependencyValidatorTest extends \PHPUnit\Framework\TestCase
      */
     public static function validateDataProvider(): \Iterator
     {
-        $constraint = new CircularDependency(message: 'mautic.core.segment.circular_dependency_exists');
+        $constraint = new CircularDependency(message: 'mailvotech.core.segment.circular_dependency_exists');
         // Segment 1 is dependent on Segment 2 which is dependent on segment 1 - circular
         yield [
             $constraint->message,

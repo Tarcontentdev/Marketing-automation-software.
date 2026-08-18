@@ -9,10 +9,10 @@ $parameters = [
     'db_name'               => 'db',
     'db_user'               => 'db',
     'db_password'           => 'db',
-    'admin_email'           => 'mautic@ddev.local',
+    'admin_email'           => 'mailvotech@ddev.local',
     'admin_password'        => 'Maut1cR0cks!',
     'install_source'        => 'DDEV',
     'mailer_from_name'      => 'DDEV',
-    'mailer_from_email'     => 'mautic@ddev.local',
+    'mailer_from_email'     => 'mailvotech@ddev.local',
     'mailer_dsn'            => 'smtp://localhost:1025',
 ];

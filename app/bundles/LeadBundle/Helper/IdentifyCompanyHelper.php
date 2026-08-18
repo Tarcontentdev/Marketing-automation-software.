@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Helper;
+namespace MailVotech\LeadBundle\Helper;
 
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Exception\UniqueFieldNotFoundException;
-use Mautic\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Exception\UniqueFieldNotFoundException;
+use MailVotech\LeadBundle\Model\CompanyModel;
 
 final class IdentifyCompanyHelper
 {

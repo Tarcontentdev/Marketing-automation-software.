@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\Event;
+namespace MailVotech\PluginBundle\Tests\Event;
 
-use Mautic\PluginBundle\Event\PluginIsPublishedEvent;
+use MailVotech\PluginBundle\Event\PluginIsPublishedEvent;
 
 final class PluginIsPublishedEventTest extends \PHPUnit\Framework\TestCase
 {

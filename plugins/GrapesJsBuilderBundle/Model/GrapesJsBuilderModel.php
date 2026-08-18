@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Model;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Model;
 
-use Mautic\CoreBundle\Model\AbstractCommonModel;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\PageBundle\Entity\Page;
-use MauticPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilder;
-use MauticPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilderRepository;
+use MailVotech\CoreBundle\Model\AbstractCommonModel;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotechPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilder;
+use MailVotechPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilderRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Service\Attribute\Required;

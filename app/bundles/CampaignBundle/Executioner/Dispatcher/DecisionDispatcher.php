@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\CampaignBundle\Executioner\Dispatcher;
+namespace MailVotech\CampaignBundle\Executioner\Dispatcher;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\DecisionEvent;
-use Mautic\CampaignBundle\Event\DecisionResultsEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\DecisionAccessor;
-use Mautic\CampaignBundle\Executioner\Result\EvaluatedContacts;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\DecisionEvent;
+use MailVotech\CampaignBundle\Event\DecisionResultsEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\DecisionAccessor;
+use MailVotech\CampaignBundle\Executioner\Result\EvaluatedContacts;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final readonly class DecisionDispatcher

@@ -1,6 +1,6 @@
 {% set formContainer %}
 <div class="mb-48">
-    {% include '@MauticCore/Components/pictogram.html.twig' with {
+    {% include '@MailVotechCore/Components/pictogram.html.twig' with {
         'pictogram': 'collaboration',
         'size': '80'
     } %}
@@ -22,9 +22,9 @@
 {{ form_end(form, {'render_rest': false}) }}
 {% endset %}
 
-{{ include('@MauticCore/Components/content-block.html.twig', {
-    heading: 'mautic.user.invite.collaborate.heading'|trans,
-    subheading: 'mautic.user.invite.collaborate.subheading'|trans,
+{{ include('@MailVotechCore/Components/content-block.html.twig', {
+    heading: 'mailvotech.user.invite.collaborate.heading'|trans,
+    subheading: 'mailvotech.user.invite.collaborate.subheading'|trans,
     childContainer: formContainer,
     noMargin: true,
 }) }}

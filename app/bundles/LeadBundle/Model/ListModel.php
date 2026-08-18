@@ -2,46 +2,46 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Model;
+namespace MailVotech\LeadBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CategoryBundle\Model\CategoryModel;
-use Mautic\CoreBundle\Event\DependencyErrorEventInterface;
-use Mautic\CoreBundle\Exception\DeleteEntitiesDependencyException;
-use Mautic\CoreBundle\Exception\DeleteEntityDependencyException;
-use Mautic\CoreBundle\Helper\Chart\BarChart;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Helper\Chart\PieChart;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\ProgressBarHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\ListLead;
-use Mautic\LeadBundle\Entity\ListLeadRepository;
-use Mautic\LeadBundle\Entity\OperatorListTrait;
-use Mautic\LeadBundle\Event\LeadListEvent;
-use Mautic\LeadBundle\Event\LeadListFiltersChoicesEvent;
-use Mautic\LeadBundle\Event\ListChangeEvent;
-use Mautic\LeadBundle\Event\ListPreProcessListEvent;
-use Mautic\LeadBundle\Form\Type\ListType;
-use Mautic\LeadBundle\Helper\SegmentCountCacheHelper;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Segment\ContactSegmentService;
-use Mautic\LeadBundle\Segment\Exception\FieldNotFoundException;
-use Mautic\LeadBundle\Segment\Exception\SegmentNotFoundException;
-use Mautic\LeadBundle\Segment\Exception\TableNotFoundException;
-use Mautic\LeadBundle\Segment\Stat\ChartQuery\SegmentContactsLineChartQuery;
-use Mautic\LeadBundle\Segment\Stat\SegmentChartQueryFactory;
+use MailVotech\CategoryBundle\Model\CategoryModel;
+use MailVotech\CoreBundle\Event\DependencyErrorEventInterface;
+use MailVotech\CoreBundle\Exception\DeleteEntitiesDependencyException;
+use MailVotech\CoreBundle\Exception\DeleteEntityDependencyException;
+use MailVotech\CoreBundle\Helper\Chart\BarChart;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Helper\Chart\PieChart;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\ProgressBarHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\ListLead;
+use MailVotech\LeadBundle\Entity\ListLeadRepository;
+use MailVotech\LeadBundle\Entity\OperatorListTrait;
+use MailVotech\LeadBundle\Event\LeadListEvent;
+use MailVotech\LeadBundle\Event\LeadListFiltersChoicesEvent;
+use MailVotech\LeadBundle\Event\ListChangeEvent;
+use MailVotech\LeadBundle\Event\ListPreProcessListEvent;
+use MailVotech\LeadBundle\Form\Type\ListType;
+use MailVotech\LeadBundle\Helper\SegmentCountCacheHelper;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Segment\ContactSegmentService;
+use MailVotech\LeadBundle\Segment\Exception\FieldNotFoundException;
+use MailVotech\LeadBundle\Segment\Exception\SegmentNotFoundException;
+use MailVotech\LeadBundle\Segment\Exception\TableNotFoundException;
+use MailVotech\LeadBundle\Segment\Stat\ChartQuery\SegmentContactsLineChartQuery;
+use MailVotech\LeadBundle\Segment\Stat\SegmentChartQueryFactory;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -79,11 +79,11 @@ class ListModel extends FormModel implements GlobalSearchInterface
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         private readonly LeadListRepository $leadListRepository,
         private readonly ListLeadRepository $listLeadRepository,
     ) {
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     /**
@@ -310,7 +310,7 @@ class ListModel extends FormModel implements GlobalSearchInterface
 
         $choices['lead']['tags'] =
             [
-                'label'      => $this->translator->trans('mautic.lead.list.filter.tags'),
+                'label'      => $this->translator->trans('mailvotech.lead.list.filter.tags'),
                 'properties' => [
                     'type' => 'tags',
                 ],
@@ -382,7 +382,7 @@ class ListModel extends FormModel implements GlobalSearchInterface
      */
     public function rebuildListLeads(LeadList $leadList, $limit = 100, $maxLeads = false, ?OutputInterface $output = null): int
     {
-        defined('MAUTIC_REBUILDING_LEAD_LISTS') || define('MAUTIC_REBUILDING_LEAD_LISTS', 1);
+        defined('MAILVOTECH_REBUILDING_LEAD_LISTS') || define('MAILVOTECH_REBUILDING_LEAD_LISTS', 1);
 
         $segmentId = $leadList->getId();
 
@@ -420,7 +420,7 @@ class ListModel extends FormModel implements GlobalSearchInterface
         $this->logger->info('Segment QB - No new leads for segment found');
 
         if ($output) {
-            $output->writeln($this->translator->trans('mautic.lead.list.rebuild.to_be_added', ['%leads%' => $leadCount, '%batch%' => $limit]));
+            $output->writeln($this->translator->trans('mailvotech.lead.list.rebuild.to_be_added', ['%leads%' => $leadCount, '%batch%' => $limit]));
         }
 
         // Handle by batches
@@ -512,7 +512,7 @@ class ListModel extends FormModel implements GlobalSearchInterface
         $leadCount = $orphanLeadsCount[$segmentId]['count'];
 
         if ($output) {
-            $output->writeln($this->translator->trans('mautic.lead.list.rebuild.to_be_removed', ['%leads%' => $leadCount, '%batch%' => $limit]));
+            $output->writeln($this->translator->trans('mailvotech.lead.list.rebuild.to_be_removed', ['%leads%' => $leadCount, '%batch%' => $limit]));
         }
 
         if ($leadCount) {
@@ -943,8 +943,8 @@ class ListModel extends FormModel implements GlobalSearchInterface
     {
         $q = $this->em->getConnection()->createQueryBuilder();
         $q->select('COUNT(t.date_added) AS leads, ll.id, ll.name, ll.alias')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 't')
-            ->join('t', MAUTIC_TABLE_PREFIX.'lead_lists', 'll', 'll.id = t.leadlist_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 't')
+            ->join('t', MAILVOTECH_TABLE_PREFIX.'lead_lists', 'll', 'll.id = t.leadlist_id')
             ->orderBy('leads', 'DESC')
             ->where($q->expr()->eq('ll.is_published', ':published'))
             ->setParameter('published', true)
@@ -980,9 +980,9 @@ class ListModel extends FormModel implements GlobalSearchInterface
         }
         $q = $this->em->getConnection()->createQueryBuilder();
         $q->select('COUNT(t.date_added) AS leads, ll.id, ll.name as name,ll.alias as alias')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 't')
-            ->join('t', MAUTIC_TABLE_PREFIX.'lead_lists', 'll', 'll.id = t.leadlist_id')
-            ->join('t', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = t.lead_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 't')
+            ->join('t', MAILVOTECH_TABLE_PREFIX.'lead_lists', 'll', 'll.id = t.leadlist_id')
+            ->join('t', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = t.lead_id')
             ->orderBy('leads', 'DESC')
             ->where($q->expr()->eq('ll.is_published', ':published'))
             ->setParameter('published', true)
@@ -1010,7 +1010,7 @@ class ListModel extends FormModel implements GlobalSearchInterface
         if (in_array(0, $segments)) {
             $qAll = $this->em->getConnection()->createQueryBuilder();
             $qAll->select('COUNT(t.date_added) AS leads, 0 as id, "All Contacts" as name, "" as alias')
-                ->from(MAUTIC_TABLE_PREFIX.'leads', 't');
+                ->from(MAILVOTECH_TABLE_PREFIX.'leads', 't');
 
             if (!$canViewOthers) {
                 $qAll->andWhere('ll.created_by = :userId')
@@ -1054,7 +1054,7 @@ class ListModel extends FormModel implements GlobalSearchInterface
 
         if (isset($filter['leadlist_id']['value'])) {
             $chart->setDataset(
-                $this->translator->trans('mautic.lead.lifecycle.graph.pie.all.lists'),
+                $this->translator->trans('mailvotech.lead.lifecycle.graph.pie.all.lists'),
                 $all
             );
         }
@@ -1073,9 +1073,9 @@ class ListModel extends FormModel implements GlobalSearchInterface
         $q = $this->em->getConnection()->createQueryBuilder();
 
         $q->select('count(l.id) as leads, s.name as stage')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 't')
-            ->join('t', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = t.lead_id')
-            ->join('t', MAUTIC_TABLE_PREFIX.'stages', 's', 's.id=l.stage_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 't')
+            ->join('t', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = t.lead_id')
+            ->join('t', MAILVOTECH_TABLE_PREFIX.'stages', 's', 's.id=l.stage_id')
             ->orderBy('leads', 'DESC')
             ->where($q->expr()->eq('s.is_published', ':published'))
 
@@ -1106,7 +1106,7 @@ class ListModel extends FormModel implements GlobalSearchInterface
         $data['yAxes'][] = ['display' => true];
 
         $baseData = [
-            'label' => $this->translator->trans('mautic.lead.leads'),
+            'label' => $this->translator->trans('mailvotech.lead.leads'),
             'data'  => $data['values'],
         ];
 
@@ -1133,10 +1133,10 @@ class ListModel extends FormModel implements GlobalSearchInterface
         $q = $this->em->getConnection()->createQueryBuilder();
 
         $q->select('count(l.id) as leads, ds.device')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 't')
-            ->join('t', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = t.lead_id')
-            ->join('t', MAUTIC_TABLE_PREFIX.'page_hits', 'h', 'h.lead_id=l.id')
-            ->join('h', MAUTIC_TABLE_PREFIX.'lead_devices', 'ds', 'ds.id = h.device_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 't')
+            ->join('t', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = t.lead_id')
+            ->join('t', MAILVOTECH_TABLE_PREFIX.'page_hits', 'h', 'h.lead_id=l.id')
+            ->join('h', MAILVOTECH_TABLE_PREFIX.'lead_devices', 'ds', 'ds.id = h.device_id')
             ->orderBy('ds.device', 'DESC')
             ->andWhere($q->expr()->gte('t.date_added', ':date_from'))
             ->setParameter('date_from', $dateFrom->format('Y-m-d'))
@@ -1160,7 +1160,7 @@ class ListModel extends FormModel implements GlobalSearchInterface
         $results = $q->executeQuery()->fetchAllAssociative();
 
         foreach ($results as $result) {
-            $data['labels'][] = substr(empty($result['device']) ? $this->translator->trans('mautic.core.no.info') : $result['device'], 0, 12);
+            $data['labels'][] = substr(empty($result['device']) ? $this->translator->trans('mailvotech.core.no.info') : $result['device'], 0, 12);
             $data['values'][] = $result['leads'];
         }
 
@@ -1168,7 +1168,7 @@ class ListModel extends FormModel implements GlobalSearchInterface
         $data['yAxes'][] = ['display' => true];
 
         $baseData = [
-            'label' => $this->translator->trans('mautic.core.device'),
+            'label' => $this->translator->trans('mailvotech.core.device'),
             'data'  => $data['values'],
         ];
 
@@ -1198,9 +1198,9 @@ class ListModel extends FormModel implements GlobalSearchInterface
         $query    = new SegmentContactsLineChartQuery($this->em->getConnection(), $dateFrom, $dateTo, $filter);
 
         // added line everytime
-        $chart->setDataset($this->translator->trans('mautic.lead.segments.contacts.added'), $this->segmentChartQueryFactory->getContactsAdded($query));
-        $chart->setDataset($this->translator->trans('mautic.lead.segments.contacts.removed'), $this->segmentChartQueryFactory->getContactsRemoved($query));
-        $chart->setDataset($this->translator->trans('mautic.lead.segments.contacts.total'), $this->segmentChartQueryFactory->getContactsTotal($query, $this));
+        $chart->setDataset($this->translator->trans('mailvotech.lead.segments.contacts.added'), $this->segmentChartQueryFactory->getContactsAdded($query));
+        $chart->setDataset($this->translator->trans('mailvotech.lead.segments.contacts.removed'), $this->segmentChartQueryFactory->getContactsRemoved($query));
+        $chart->setDataset($this->translator->trans('mailvotech.lead.segments.contacts.total'), $this->segmentChartQueryFactory->getContactsTotal($query, $this));
 
         return $chart->render();
     }

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\DAO\Sync\Order;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\DAO\Sync\Order;
 
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\RemappedObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\OrderResultsDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\RemappedObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\OrderResultsDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
 use PHPUnit\Framework\TestCase;
 
 final class OrderResultsDAOTest extends TestCase

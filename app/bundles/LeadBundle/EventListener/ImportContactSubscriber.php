@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CoreBundle\Helper\ArrayHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\Event\ImportInitEvent;
-use Mautic\LeadBundle\Event\ImportMappingEvent;
-use Mautic\LeadBundle\Event\ImportProcessEvent;
-use Mautic\LeadBundle\Event\ImportValidateEvent;
-use Mautic\LeadBundle\Field\FieldList;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Helper\ArrayHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Event\ImportInitEvent;
+use MailVotech\LeadBundle\Event\ImportMappingEvent;
+use MailVotech\LeadBundle\Event\ImportProcessEvent;
+use MailVotech\LeadBundle\Event\ImportValidateEvent;
+use MailVotech\LeadBundle\Field\FieldList;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -51,9 +51,9 @@ final readonly class ImportContactSubscriber implements EventSubscriberInterface
             }
 
             $event->objectSingular = 'lead';
-            $event->objectName     = 'mautic.lead.leads';
-            $event->activeLink     = '#mautic_contact_index';
-            $event->setIndexRoute('mautic_contact_index');
+            $event->objectName     = 'mailvotech.lead.leads';
+            $event->activeLink     = '#mailvotech_contact_index';
+            $event->setIndexRoute('mailvotech_contact_index');
             $event->stopPropagation();
         }
     }
@@ -62,26 +62,26 @@ final readonly class ImportContactSubscriber implements EventSubscriberInterface
     {
         if ($event->importIsForRouteObject('contacts')) {
             $specialFields = [
-                'dateAdded'      => 'mautic.lead.import.label.dateAdded',
-                'createdByUser'  => 'mautic.lead.import.label.createdByUser',
-                'dateModified'   => 'mautic.lead.import.label.dateModified',
-                'modifiedByUser' => 'mautic.lead.import.label.modifiedByUser',
-                'lastActive'     => 'mautic.lead.import.label.lastActive',
-                'dateIdentified' => 'mautic.lead.import.label.dateIdentified',
-                'ip'             => 'mautic.lead.import.label.ip',
-                'stage'          => 'mautic.lead.import.label.stage',
-                'doNotEmail'     => 'mautic.lead.import.label.doNotEmail',
-                'ownerusername'  => 'mautic.lead.import.label.ownerusername',
-                'tags'           => 'mautic.lead.import.label.tags',
+                'dateAdded'      => 'mailvotech.lead.import.label.dateAdded',
+                'createdByUser'  => 'mailvotech.lead.import.label.createdByUser',
+                'dateModified'   => 'mailvotech.lead.import.label.dateModified',
+                'modifiedByUser' => 'mailvotech.lead.import.label.modifiedByUser',
+                'lastActive'     => 'mailvotech.lead.import.label.lastActive',
+                'dateIdentified' => 'mailvotech.lead.import.label.dateIdentified',
+                'ip'             => 'mailvotech.lead.import.label.ip',
+                'stage'          => 'mailvotech.lead.import.label.stage',
+                'doNotEmail'     => 'mailvotech.lead.import.label.doNotEmail',
+                'ownerusername'  => 'mailvotech.lead.import.label.ownerusername',
+                'tags'           => 'mailvotech.lead.import.label.tags',
             ];
 
             // Add ID to lead fields to allow matching import contacts by identifier
-            $contactFields = array_merge(['id' => 'mautic.lead.import.label.id'], $this->fieldList->getFieldList(false, false));
+            $contactFields = array_merge(['id' => 'mailvotech.lead.import.label.id'], $this->fieldList->getFieldList(false, false));
 
             $event->fields = [
-                'mautic.lead.contact'        => $contactFields,
-                'mautic.lead.company'        => $this->fieldList->getFieldList(false, false, ['isPublished' => true, 'object' => 'company']),
-                'mautic.lead.special_fields' => $specialFields,
+                'mailvotech.lead.contact'        => $contactFields,
+                'mailvotech.lead.company'        => $this->fieldList->getFieldList(false, false, ['isPublished' => true, 'object' => 'company']),
+                'mailvotech.lead.special_fields' => $specialFields,
             ];
         }
     }
@@ -127,7 +127,7 @@ final readonly class ImportContactSubscriber implements EventSubscriberInterface
         if ([] === $matchedFields) {
             $event->getForm()->addError(
                 new FormError(
-                    $this->translator->trans('mautic.lead.import.matchfields', [], 'validators')
+                    $this->translator->trans('mailvotech.lead.import.matchfields', [], 'validators')
                 )
             );
         }
@@ -211,7 +211,7 @@ final readonly class ImportContactSubscriber implements EventSubscriberInterface
             $event->getForm()->addError(
                 new FormError(
                     $this->translator->trans(
-                        'mautic.import.missing.required.fields',
+                        'mailvotech.import.missing.required.fields',
                         [
                             '%requiredFields%' => implode(', ', $missingRequiredFields),
                             '%fieldOrFields%'  => 1 === count($missingRequiredFields) ? 'field' : 'fields',

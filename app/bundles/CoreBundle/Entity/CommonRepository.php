@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Entity;
+namespace MailVotech\CoreBundle\Entity;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,15 +16,15 @@ use Doctrine\ORM\Query\Expr\Andx;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\CoreBundle\Cache\ResultCacheHelper;
-use Mautic\CoreBundle\Cache\ResultCacheOptions;
-use Mautic\CoreBundle\Doctrine\Paginator\SimplePaginator;
-use Mautic\CoreBundle\Event\GlobalSearchEvent;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\SearchStringHelper;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Cache\ResultCacheHelper;
+use MailVotech\CoreBundle\Cache\ResultCacheOptions;
+use MailVotech\CoreBundle\Doctrine\Paginator\SimplePaginator;
+use MailVotech\CoreBundle\Event\GlobalSearchEvent;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\SearchStringHelper;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Contracts\Service\Attribute\Required;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -706,7 +706,7 @@ class CommonRepository extends ServiceEntityRepository
      */
     public function getSearchCommands(): array
     {
-        return ['mautic.core.searchcommand.ids'];
+        return ['mailvotech.core.searchcommand.ids'];
     }
 
     /**
@@ -779,12 +779,12 @@ class CommonRepository extends ServiceEntityRepository
     public function getStandardSearchCommands(): array
     {
         return [
-            'mautic.core.searchcommand.ispublished',
-            'mautic.core.searchcommand.isunpublished',
-            'mautic.core.searchcommand.isuncategorized',
-            'mautic.core.searchcommand.ismine',
-            'mautic.core.searchcommand.category',
-            'mautic.core.searchcommand.ids',
+            'mailvotech.core.searchcommand.ispublished',
+            'mailvotech.core.searchcommand.isunpublished',
+            'mailvotech.core.searchcommand.isuncategorized',
+            'mailvotech.core.searchcommand.ismine',
+            'mailvotech.core.searchcommand.category',
+            'mailvotech.core.searchcommand.ids',
         ];
     }
 
@@ -1131,8 +1131,8 @@ class CommonRepository extends ServiceEntityRepository
         $expr    = false;
 
         switch ($command) {
-            case $this->translator->trans('mautic.core.searchcommand.ids'):
-            case $this->translator->trans('mautic.core.searchcommand.ids', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ids'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ids', [], null, 'en_US'):
                 $expr = $this->getIdsExpr($q, $filter);
                 break;
         }
@@ -1205,34 +1205,34 @@ class CommonRepository extends ServiceEntityRepository
         $isDbalQB        = $q instanceof DbalQueryBuilder;
 
         switch ($command) {
-            case $this->translator->trans('mautic.core.searchcommand.ispublished'):
-            case $this->translator->trans('mautic.core.searchcommand.ispublished', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ispublished'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ispublished', [], null, 'en_US'):
                 $column          = $isDbalQB ? 'is_published' : 'isPublished';
                 $expr            = $q->expr()->eq("{$prefix}.{$column}", ":{$unique}");
                 $forceParameters = [$unique => true];
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.isunpublished'):
-            case $this->translator->trans('mautic.core.searchcommand.isunpublished', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.isunpublished'):
+            case $this->translator->trans('mailvotech.core.searchcommand.isunpublished', [], null, 'en_US'):
                 $column          = $isDbalQB ? 'is_published' : 'isPublished';
                 $expr            = $q->expr()->eq("{$prefix}.{$column}", ":{$unique}");
                 $forceParameters = [$unique => false];
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.isuncategorized'):
-            case $this->translator->trans('mautic.core.searchcommand.isuncategorized', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.isuncategorized'):
+            case $this->translator->trans('mailvotech.core.searchcommand.isuncategorized', [], null, 'en_US'):
                 $expr = $q->expr()->orX(
                     $q->expr()->isNull("{$prefix}.category"),
                     $q->expr()->eq("{$prefix}.category", $q->expr()->literal(''))
                 );
                 $returnParameter = false;
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.ismine'):
-            case $this->translator->trans('mautic.core.searchcommand.ismine', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ismine'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ismine', [], null, 'en_US'):
                 $column          = $isDbalQB ? 'created_by' : 'createdBy';
                 $expr            = $q->expr()->eq("{$prefix}.{$column}", ":{$unique}");
                 $forceParameters = [$unique => $this->currentUser->getId()];
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.category'):
-            case $this->translator->trans('mautic.core.searchcommand.category', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.category'):
+            case $this->translator->trans('mailvotech.core.searchcommand.category', [], null, 'en_US'):
                 // Find the category prefix
                 $joins     = $q->getDQLPart('join');
                 $catPrefix = false;
@@ -1254,8 +1254,8 @@ class CommonRepository extends ServiceEntityRepository
                 $expr           = $q->expr()->like("{$catPrefix}.alias", ":{$unique}");
                 $filter->strict = true;
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.ids'):
-            case $this->translator->trans('mautic.core.searchcommand.ids', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ids'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ids', [], null, 'en_US'):
                 $expr            = $this->getIdsExpr($q, $filter);
                 $returnParameter = false;
                 break;
@@ -1710,7 +1710,7 @@ class CommonRepository extends ServiceEntityRepository
      * This eliminates chance for parameter name collision and provides unique result for each number.
      * Duplicate method because of DI refactoring difficulty.
      *
-     * @see \Mautic\LeadBundle\Segment\RandomParameterName
+     * @see \MailVotech\LeadBundle\Segment\RandomParameterName
      * @see https://stackoverflow.com/questions/307486/short-unique-id-in-php/1516430#1516430
      */
     public function generateRandomParameterName(): string

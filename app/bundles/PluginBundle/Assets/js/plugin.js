@@ -1,69 +1,69 @@
 /* PluginBundle */
-Mautic.matchedFields = function (index, object, integration) {
-    var compoundMauticFields = ['mauticContactId','mauticContactTimelineLink'];
+MailVotech.matchedFields = function (index, object, integration) {
+    var compoundMailVotechFields = ['mailvotechContactId','mailvotechContactTimelineLink'];
 
     if (mQuery('#integration_details_featureSettings_updateDncByDate_0').is(':checked')) {
-        compoundMauticFields.push('mauticContactIsContactableByEmail');
+        compoundMailVotechFields.push('mailvotechContactIsContactableByEmail');
     }
     var integrationField = mQuery('#integration_details_featureSettings_'+object+'Fields_i_' + index).attr('data-value');
-    var mauticField = mQuery('#integration_details_featureSettings_'+object+'Fields_m_' + index + ' option:selected').val();
+    var mailvotechField = mQuery('#integration_details_featureSettings_'+object+'Fields_m_' + index + ' option:selected').val();
 
     if(mQuery('.btn-arrow' + index).parent().attr('data-force-direction') != 1) {
-        if (mQuery.inArray(mauticField, compoundMauticFields) >= 0) {
+        if (mQuery.inArray(mailvotechField, compoundMailVotechFields) >= 0) {
             mQuery('.btn-arrow' + index).removeClass('active');
-            mQuery('#integration_details_featureSettings_' + object + 'Fields_update_mautic' + index + '_0').attr('checked', 'checked');
-            mQuery('input[name="integration_details[featureSettings][' + object + 'Fields][update_mautic' + index + ']"]').prop('disabled', true).trigger("chosen:updated");
+            mQuery('#integration_details_featureSettings_' + object + 'Fields_update_mailvotech' + index + '_0').attr('checked', 'checked');
+            mQuery('input[name="integration_details[featureSettings][' + object + 'Fields][update_mailvotech' + index + ']"]').prop('disabled', true).trigger("chosen:updated");
             mQuery('.btn-arrow' + index).addClass('disabled');
         }
         else {
-            mQuery('input[name="integration_details[featureSettings][' + object + 'Fields][update_mautic' + index + ']"]').prop('disabled', false).trigger("chosen:updated");
+            mQuery('input[name="integration_details[featureSettings][' + object + 'Fields][update_mailvotech' + index + ']"]').prop('disabled', false).trigger("chosen:updated");
             mQuery('.btn-arrow' + index).removeClass('disabled');
         }
     }
 
     if (object == 'lead') {
-        var updateMauticField = mQuery('input[name="integration_details[featureSettings]['+object+'Fields][update_mautic' + index + ']"]:checked').val();
+        var updateMailVotechField = mQuery('input[name="integration_details[featureSettings]['+object+'Fields][update_mailvotech' + index + ']"]:checked').val();
     } else {
-        var updateMauticField = mQuery('input[name="integration_details[featureSettings]['+object+'Fields][update_mautic_company' + index + ']"]:checked').val();
+        var updateMailVotechField = mQuery('input[name="integration_details[featureSettings]['+object+'Fields][update_mailvotech_company' + index + ']"]:checked').val();
     }
-    Mautic.ajaxActionRequest('plugin:matchFields', {object: object, integration: integration, integrationField : integrationField, mauticField: mauticField, updateMautic : updateMauticField}, function(response) {
+    MailVotech.ajaxActionRequest('plugin:matchFields', {object: object, integration: integration, integrationField : integrationField, mailvotechField: mailvotechField, updateMailVotech : updateMailVotechField}, function(response) {
         var theMessage = (response.success) ? '<i class="ri-check-line-circle text-success"></i>' : '';
         mQuery('#matched-' + index + "-" + object).html(theMessage);
     });
 };
-Mautic.initiateIntegrationAuthorization = function() {
+MailVotech.initiateIntegrationAuthorization = function() {
     mQuery('#integration_details_in_auth').val(1);
 
-    Mautic.postForm(mQuery('form[name="integration_details"]'), 'loadIntegrationAuthWindow');
+    MailVotech.postForm(mQuery('form[name="integration_details"]'), 'loadIntegrationAuthWindow');
 };
 
-Mautic.loadIntegrationAuthWindow = function(response) {
+MailVotech.loadIntegrationAuthWindow = function(response) {
     if (response.newContent) {
-        Mautic.processModalContent(response, '#IntegrationEditModal');
+        MailVotech.processModalContent(response, '#IntegrationEditModal');
     } else {
-        Mautic.stopPageLoadingBar();
-        Mautic.stopIconSpinPostEvent();
+        MailVotech.stopPageLoadingBar();
+        MailVotech.stopIconSpinPostEvent();
         mQuery('#integration_details_in_auth').val(0);
 
         if (response.authUrl) {
             var generator = window.open(response.authUrl, 'integrationauth', 'height=500,width=500');
 
             if (!generator || generator.closed || typeof generator.closed == 'undefined') {
-                alert(mauticLang.popupBlockerMessage);
+                alert(mailvotechLang.popupBlockerMessage);
             }
         }
     }
 };
 
-Mautic.refreshIntegrationForm = function() {
+MailVotech.refreshIntegrationForm = function() {
     var opener = window.opener;
     if(opener) {
             var form = opener.mQuery('form[name="integration_details"]');
             if (form.length) {
                 var action = form.attr('action');
                 if (action) {
-                    opener.Mautic.startModalLoadingBar('#IntegrationEditModal');
-                    opener.Mautic.loadAjaxModal('#IntegrationEditModal', action);
+                    opener.MailVotech.startModalLoadingBar('#IntegrationEditModal');
+                    opener.MailVotech.loadAjaxModal('#IntegrationEditModal', action);
                 }
             }
     }
@@ -71,7 +71,7 @@ Mautic.refreshIntegrationForm = function() {
     window.close()
 };
 
-Mautic.integrationOnLoad = function(container, response) {
+MailVotech.integrationOnLoad = function(container, response) {
     if (response && response.name) {
         var integration = '.integration-' + response.name;
         if (response.enabled) {
@@ -80,12 +80,12 @@ Mautic.integrationOnLoad = function(container, response) {
             mQuery(integration).addClass('integration-disabled');
         }
     } else {
-        Mautic.filterIntegrations();
+        MailVotech.filterIntegrations();
     }
     mQuery('[data-toggle="tooltip"]').tooltip();
 };
 
-Mautic.integrationConfigOnLoad = function(container) {
+MailVotech.integrationConfigOnLoad = function(container) {
     if (mQuery('.fields-container select.integration-field').length) {
         var selects = mQuery('.fields-container select.integration-field');
         selects.on('change', function() {
@@ -128,12 +128,12 @@ Mautic.integrationConfigOnLoad = function(container) {
     }
 };
 
-Mautic.filterIntegrations = function(update) {
+MailVotech.filterIntegrations = function(update) {
     var filter = mQuery('#integrationFilter').val();
 
     if (update) {
         mQuery.ajax({
-            url: mauticAjaxUrl,
+            url: mailvotechAjaxUrl,
             type: "POST",
             data: "action=plugin:setIntegrationFilter&plugin=" + filter
         });
@@ -186,7 +186,7 @@ Mautic.filterIntegrations = function(update) {
     }
 };
 
-Mautic.getIntegrationLeadFields = function (integration, el, settings) {
+MailVotech.getIntegrationLeadFields = function (integration, el, settings) {
 
     if (typeof settings == 'undefined') {
         settings = {};
@@ -194,25 +194,25 @@ Mautic.getIntegrationLeadFields = function (integration, el, settings) {
     settings.integration = integration;
     settings.object      = 'lead';
 
-    Mautic.getIntegrationFields(settings, 1, el);
+    MailVotech.getIntegrationFields(settings, 1, el);
 };
 
-Mautic.getIntegrationCompanyFields = function (integration, el, settings) {
+MailVotech.getIntegrationCompanyFields = function (integration, el, settings) {
     if (typeof settings == 'undefined') {
         settings = {};
     }
     settings.integration = integration;
     settings.object      = 'company';
 
-    Mautic.getIntegrationFields(settings, 1, el);
+    MailVotech.getIntegrationFields(settings, 1, el);
 };
 
-Mautic.getIntegrationFields = function(settings, page, el) {
+MailVotech.getIntegrationFields = function(settings, page, el) {
     var object    = settings.object ? settings.object : 'lead';
     var fieldsTab = ('lead' === object) ? '#fields-tab' : '#'+object+'-fields-container';
 
     if (el && mQuery(el).is('input')) {
-        Mautic.activateLabelLoadingIndicator(mQuery(el).attr('id'));
+        MailVotech.activateLabelLoadingIndicator(mQuery(el).attr('id'));
 
         var namePrefix = mQuery(el).attr('name').split('[')[0];
         if ('integration_details' !== namePrefix) {
@@ -226,10 +226,10 @@ Mautic.getIntegrationFields = function(settings, page, el) {
     var inModal = mQuery(fieldsContainer).closest('.modal');
     if (inModal) {
         var modalId = '#'+mQuery(fieldsContainer).closest('.modal').attr('id');
-        Mautic.startModalLoadingBar(modalId);
+        MailVotech.startModalLoadingBar(modalId);
     }
 
-    Mautic.ajaxActionRequest('plugin:getIntegrationFields',
+    MailVotech.ajaxActionRequest('plugin:getIntegrationFields',
         {
             page: page,
             integration: (settings.integration) ? settings.integration : null,
@@ -238,8 +238,8 @@ Mautic.getIntegrationFields = function(settings, page, el) {
         function(response) {
             if (response.success) {
                 mQuery(fieldsContainer).replaceWith(response.html);
-                Mautic.onPageLoad(fieldsContainer);
-                Mautic.integrationConfigOnLoad(fieldsContainer);
+                MailVotech.onPageLoad(fieldsContainer);
+                MailVotech.integrationConfigOnLoad(fieldsContainer);
                 if (mQuery(fieldsTab).length) {
                     mQuery(fieldsTab).removeClass('hide');
                 }
@@ -250,18 +250,18 @@ Mautic.getIntegrationFields = function(settings, page, el) {
             }
 
             if (el) {
-                Mautic.removeLabelLoadingIndicator();
+                MailVotech.removeLabelLoadingIndicator();
             }
 
             if (inModal) {
-                Mautic.stopModalLoadingBar(modalId);
+                MailVotech.stopModalLoadingBar(modalId);
             }
         }
     );
 };
 
-Mautic.getIntegrationConfig = function (el, settings) {
-    Mautic.activateLabelLoadingIndicator(mQuery(el).attr('id'));
+MailVotech.getIntegrationConfig = function (el, settings) {
+    MailVotech.activateLabelLoadingIndicator(mQuery(el).attr('id'));
 
     if (typeof settings == 'undefined') {
         settings = {};
@@ -272,15 +272,15 @@ Mautic.getIntegrationConfig = function (el, settings) {
     mQuery('.integration-campaigns-status').html('');
     mQuery('.integration-config-container').html('');
 
-    Mautic.ajaxActionRequest('plugin:getIntegrationConfig', data,
+    MailVotech.ajaxActionRequest('plugin:getIntegrationConfig', data,
         function (response) {
             if (response.success) {
                 mQuery('.integration-config-container').html(response.html);
-                Mautic.onPageLoad('.integration-config-container', response);
+                MailVotech.onPageLoad('.integration-config-container', response);
             }
 
-            Mautic.integrationConfigOnLoad('.integration-config-container');
-            Mautic.removeLabelLoadingIndicator();
+            MailVotech.integrationConfigOnLoad('.integration-config-container');
+            MailVotech.removeLabelLoadingIndicator();
         },
         false,
         false,
@@ -290,8 +290,8 @@ Mautic.getIntegrationConfig = function (el, settings) {
 
 };
 
-Mautic.getIntegrationCampaignStatus = function (el, settings) {
-    Mautic.activateLabelLoadingIndicator(mQuery(el).attr('id'));
+MailVotech.getIntegrationCampaignStatus = function (el, settings) {
+    MailVotech.activateLabelLoadingIndicator(mQuery(el).attr('id'));
     if (typeof settings == 'undefined') {
         settings = {};
     }
@@ -304,16 +304,16 @@ Mautic.getIntegrationCampaignStatus = function (el, settings) {
 
     mQuery('.integration-campaigns-status').html('');
     mQuery('.integration-campaigns-status').removeClass('hide');
-    Mautic.ajaxActionRequest('plugin:getIntegrationCampaignStatus', data,
+    MailVotech.ajaxActionRequest('plugin:getIntegrationCampaignStatus', data,
         function (response) {
 
             if (response.success) {
                 mQuery('.integration-campaigns-status').append(response.html);
-                Mautic.onPageLoad('.integration-campaigns-status', response);
+                MailVotech.onPageLoad('.integration-campaigns-status', response);
             }
 
-            Mautic.integrationConfigOnLoad('.integration-campaigns-status');
-            Mautic.removeLabelLoadingIndicator();
+            MailVotech.integrationConfigOnLoad('.integration-campaigns-status');
+            MailVotech.removeLabelLoadingIndicator();
         },
         false,
         false,
@@ -321,11 +321,11 @@ Mautic.getIntegrationCampaignStatus = function (el, settings) {
     );
 };
 
-Mautic.initPluginEvents = function () {
+MailVotech.initPluginEvents = function () {
     const $integrationModal = mQuery('#IntegrationEditModal');
 
-    $integrationModal.off('mautic:onPageLoad:before');
-    $integrationModal.on('mautic:onPageLoad:before', function(e, container, response) {
+    $integrationModal.off('mailvotech:onPageLoad:before');
+    $integrationModal.on('mailvotech:onPageLoad:before', function(e, container, response) {
         if (container === '#IntegrationEditModal' && response && response.pluginVersion) {
             const $modalLabel = mQuery('#IntegrationEditModal-label');
             if ($modalLabel.find('.plugin-version-badge').length === 0) {

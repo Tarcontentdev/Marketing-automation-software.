@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\IpLookup;
+namespace MailVotech\CoreBundle\IpLookup;
 
-use Mautic\CoreBundle\IpLookup\DoNotSellList\MaxMindDoNotSellList;
+use MailVotech\CoreBundle\IpLookup\DoNotSellList\MaxMindDoNotSellList;
 
 abstract class AbstractMaxmindLookup extends AbstractRemoteDataLookup
 {

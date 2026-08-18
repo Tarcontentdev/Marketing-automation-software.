@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\LeadBundle\Helper;
+namespace MailVotech\LeadBundle\Helper;
 
-use Mautic\CoreBundle\Helper\AbstractFormFieldHelper;
+use MailVotech\CoreBundle\Helper\AbstractFormFieldHelper;
 use Symfony\Component\Intl\Locales;
 
 final class FormFieldHelper extends AbstractFormFieldHelper
@@ -18,7 +18,7 @@ final class FormFieldHelper extends AbstractFormFieldHelper
             'properties' => [
                 'list' => [
                     'required'  => true,
-                    'error_msg' => 'mautic.lead.field.select.listmissing',
+                    'error_msg' => 'mailvotech.lead.field.select.listmissing',
                 ],
             ],
         ],
@@ -26,7 +26,7 @@ final class FormFieldHelper extends AbstractFormFieldHelper
             'properties' => [
                 'list' => [
                     'required'  => true,
-                    'error_msg' => 'mautic.lead.field.select.listmissing',
+                    'error_msg' => 'mailvotech.lead.field.select.listmissing',
                 ],
             ],
         ],
@@ -34,11 +34,11 @@ final class FormFieldHelper extends AbstractFormFieldHelper
             'properties' => [
                 'yes' => [
                     'required'  => true,
-                    'error_msg' => 'mautic.lead.field.boolean.yesmissing',
+                    'error_msg' => 'mailvotech.lead.field.boolean.yesmissing',
                 ],
                 'no' => [
                     'required'  => true,
-                    'error_msg' => 'mautic.lead.field.boolean.nomissing',
+                    'error_msg' => 'mailvotech.lead.field.boolean.nomissing',
                 ],
             ],
         ],
@@ -94,7 +94,7 @@ final class FormFieldHelper extends AbstractFormFieldHelper
 
     public function setTranslationKeyPrefix(): void
     {
-        $this->translationKeyPrefix = 'mautic.lead.field.type.';
+        $this->translationKeyPrefix = 'mailvotech.lead.field.type.';
     }
 
     public function getTypes(): array
@@ -114,7 +114,7 @@ final class FormFieldHelper extends AbstractFormFieldHelper
     {
         if (!array_key_exists($type, self::$types)) {
             // ensure the field type is supported
-            return [false, 'mautic.lead.field.typenotrecognized'];
+            return [false, 'mailvotech.lead.field.typenotrecognized'];
         }
 
         $fieldType = self::$types[$type]['properties'];
@@ -133,7 +133,7 @@ final class FormFieldHelper extends AbstractFormFieldHelper
      */
     public static function getCountryChoices(): array
     {
-        $customFile = $_ENV['MAUTIC_UPLOAD_DIR'].'/countries.json';
+        $customFile = $_ENV['MAILVOTECH_UPLOAD_DIR'].'/countries.json';
         $listFile   = file_exists($customFile) ? $customFile : __DIR__.'/../../CoreBundle/Assets/json/countries.json';
         $json       = file_get_contents($listFile);
         $countries  = json_decode($json);
@@ -146,7 +146,7 @@ final class FormFieldHelper extends AbstractFormFieldHelper
      */
     public static function getRegionChoices(): array
     {
-        $customFile = $_ENV['MAUTIC_UPLOAD_DIR'].'/regions.json';
+        $customFile = $_ENV['MAILVOTECH_UPLOAD_DIR'].'/regions.json';
         $listFile   = file_exists($customFile) ? $customFile : __DIR__.'/../../CoreBundle/Assets/json/regions.json';
         $json       = file_get_contents($listFile);
         $regions    = json_decode($json);
@@ -208,10 +208,10 @@ final class FormFieldHelper extends AbstractFormFieldHelper
     public function getDateChoices(): array
     {
         return [
-            'anniversary' => $this->translator->trans('mautic.campaign.event.timed.choice.anniversary'),
-            '+P0D'        => $this->translator->trans('mautic.campaign.event.timed.choice.today'),
-            '-P1D'        => $this->translator->trans('mautic.campaign.event.timed.choice.yesterday'),
-            '+P1D'        => $this->translator->trans('mautic.campaign.event.timed.choice.tomorrow'),
+            'anniversary' => $this->translator->trans('mailvotech.campaign.event.timed.choice.anniversary'),
+            '+P0D'        => $this->translator->trans('mailvotech.campaign.event.timed.choice.today'),
+            '-P1D'        => $this->translator->trans('mailvotech.campaign.event.timed.choice.yesterday'),
+            '+P1D'        => $this->translator->trans('mailvotech.campaign.event.timed.choice.tomorrow'),
         ];
     }
 }

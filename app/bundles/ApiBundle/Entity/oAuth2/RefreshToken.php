@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Entity\oAuth2;
+namespace MailVotech\ApiBundle\Entity\oAuth2;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Model\RefreshToken as BaseRefreshToken;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\UserBundle\Entity\User;
 
 class RefreshToken extends BaseRefreshToken
 {

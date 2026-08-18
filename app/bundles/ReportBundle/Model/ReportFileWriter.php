@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\ReportBundle\Model;
+namespace MailVotech\ReportBundle\Model;
 
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\ReportBundle\Crate\ReportDataResult;
-use Mautic\ReportBundle\Entity\Scheduler;
-use Mautic\ReportBundle\Exception\FileIOException;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\ReportBundle\Crate\ReportDataResult;
+use MailVotech\ReportBundle\Entity\Scheduler;
+use MailVotech\ReportBundle\Exception\FileIOException;
 
 class ReportFileWriter
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\InstallBundle\InstallFixtures\ORM;
+namespace MailVotech\InstallBundle\InstallFixtures\ORM;
 
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\Role;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class RoleData extends AbstractFixture implements OrderedFixtureInterface, FixtureGroupInterface
@@ -18,7 +18,7 @@ final class RoleData extends AbstractFixture implements OrderedFixtureInterface,
 
     public static function getGroups(): array
     {
-        return ['group_install', 'group_mautic_install_data'];
+        return ['group_install', 'group_mailvotech_install_data'];
     }
 
     public function load(ObjectManager $manager): void
@@ -28,8 +28,8 @@ final class RoleData extends AbstractFixture implements OrderedFixtureInterface,
         }
 
         $role = new Role();
-        $role->setName($this->translator->trans('mautic.user.role.admin.name', [], 'fixtures'));
-        $role->setDescription($this->translator->trans('mautic.user.role.admin.description', [], 'fixtures'));
+        $role->setName($this->translator->trans('mailvotech.user.role.admin.name', [], 'fixtures'));
+        $role->setDescription($this->translator->trans('mailvotech.user.role.admin.description', [], 'fixtures'));
         $role->setIsAdmin(1);
         $manager->persist($role);
         $manager->flush();

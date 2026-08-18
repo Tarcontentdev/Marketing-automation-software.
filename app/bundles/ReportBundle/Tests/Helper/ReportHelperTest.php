@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Helper;
+namespace MailVotech\ReportBundle\Tests\Helper;
 
-use Mautic\ReportBundle\Helper\ReportHelper;
+use MailVotech\ReportBundle\Helper\ReportHelper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -23,52 +23,52 @@ final class ReportHelperTest extends TestCase
 
         $expectedColumnns = [
             'somePrefixid' => [
-                'label' => 'mautic.core.id',
+                'label' => 'mailvotech.core.id',
                 'type'  => 'int',
                 'alias' => 'somePrefixid',
             ],
             'somePrefixname' => [
-                'label' => 'mautic.core.name',
+                'label' => 'mailvotech.core.name',
                 'type'  => 'string',
                 'alias' => 'somePrefixname',
             ],
             'somePrefixcreated_by_user' => [
-                'label' => 'mautic.core.createdby',
+                'label' => 'mailvotech.core.createdby',
                 'type'  => 'string',
                 'alias' => 'somePrefixcreated_by_user',
             ],
             'somePrefixdate_added' => [
-                'label' => 'mautic.report.field.date_added',
+                'label' => 'mailvotech.report.field.date_added',
                 'type'  => 'datetime',
                 'alias' => 'somePrefixdate_added',
             ],
             'somePrefixmodified_by_user' => [
-                'label' => 'mautic.report.field.modified_by_user',
+                'label' => 'mailvotech.report.field.modified_by_user',
                 'type'  => 'string',
                 'alias' => 'somePrefixmodified_by_user',
             ],
             'somePrefixdate_modified' => [
-                'label' => 'mautic.report.field.date_modified',
+                'label' => 'mailvotech.report.field.date_modified',
                 'type'  => 'datetime',
                 'alias' => 'somePrefixdate_modified',
             ],
             'somePrefixdescription' => [
-                'label' => 'mautic.core.description',
+                'label' => 'mailvotech.core.description',
                 'type'  => 'string',
                 'alias' => 'somePrefixdescription',
             ],
             'somePrefixpublish_up' => [
-                'label' => 'mautic.report.field.publish_up',
+                'label' => 'mailvotech.report.field.publish_up',
                 'type'  => 'datetime',
                 'alias' => 'somePrefixpublish_up',
             ],
             'somePrefixpublish_down' => [
-                'label' => 'mautic.report.field.publish_down',
+                'label' => 'mailvotech.report.field.publish_down',
                 'type'  => 'datetime',
                 'alias' => 'somePrefixpublish_down',
             ],
             'somePrefixis_published' => [
-                'label' => 'mautic.report.field.is_published',
+                'label' => 'mailvotech.report.field.is_published',
                 'type'  => 'bool',
                 'alias' => 'somePrefixis_published',
             ],

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Tests\Security\Voter;
+namespace MailVotech\ApiBundle\Tests\Security\Voter;
 
-use Mautic\ApiBundle\ApiEvents;
-use Mautic\ApiBundle\Event\ApiPlatformPermissionContextEvent;
-use Mautic\ApiBundle\Security\Voter\ApiPermissionVoter;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\ApiBundle\ApiEvents;
+use MailVotech\ApiBundle\Event\ApiPlatformPermissionContextEvent;
+use MailVotech\ApiBundle\Security\Voter\ApiPermissionVoter;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;

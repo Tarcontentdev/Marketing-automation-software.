@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\EventListener;
+namespace MailVotech\PageBundle\Tests\EventListener;
 
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\ReportBundle\Tests\Functional\AbstractReportSubscriberTestCase;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\ReportBundle\Tests\Functional\AbstractReportSubscriberTestCase;
 
 final class ReportSubscriberFunctionalTest extends AbstractReportSubscriberTestCase
 {
@@ -20,7 +20,7 @@ final class ReportSubscriberFunctionalTest extends AbstractReportSubscriberTestC
 
         $this->createPageHit($leads[0], 2);
         $this->createPageHit($leads[1]);
-        $this->createPageHit($leads[2], 1, 'https://mautic.org');
+        $this->createPageHit($leads[2], 1, 'https://mailvotech.org');
 
         $this->createDnc('email', $leads[0], DoNotContact::BOUNCED);
         $this->createDnc('email', $leads[1], DoNotContact::MANUAL);
@@ -50,7 +50,7 @@ final class ReportSubscriberFunctionalTest extends AbstractReportSubscriberTestC
             // id, url, dnc_preferences
             [(string) $leads[0]->getId(), 'https://example.com', 'DNC Bounced: Email'],
             [(string) $leads[0]->getId(), 'https://example.com', 'DNC Bounced: Email'],
-            [(string) $leads[2]->getId(), 'https://mautic.org', 'DNC Manually Unsubscribed: Text Message, DNC Unsubscribed: Email'],
+            [(string) $leads[2]->getId(), 'https://mailvotech.org', 'DNC Manually Unsubscribed: Text Message, DNC Unsubscribed: Email'],
         ];
         $this->verifyReport($report->getId(), $expectedReport);
         $this->verifyApiReport($report->getId(), $expectedReport);

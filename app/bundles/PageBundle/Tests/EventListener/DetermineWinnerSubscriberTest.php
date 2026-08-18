@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\EventListener;
+namespace MailVotech\PageBundle\Tests\EventListener;
 
 use Doctrine\Common\Collections\Collection;
-use Mautic\CoreBundle\Event\DetermineWinnerEvent;
-use Mautic\PageBundle\Entity\HitRepository;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\EventListener\DetermineWinnerSubscriber;
+use MailVotech\CoreBundle\Event\DetermineWinnerEvent;
+use MailVotech\PageBundle\Entity\HitRepository;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\EventListener\DetermineWinnerSubscriber;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;

@@ -1,28 +1,28 @@
 <?php
 
-namespace Mautic\CampaignBundle\Controller\Api;
+namespace MailVotech\CampaignBundle\Controller\Api;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\ApiBundle\Controller\CommonApiController;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Helper\CampaignContactCountHelper;
-use Mautic\CampaignBundle\Membership\MembershipManager;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CampaignBundle\Model\EventModel;
-use Mautic\CoreBundle\Event\EntityExportEvent;
-use Mautic\CoreBundle\Event\EntityImportEvent;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ImportHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Controller\LeadAccessTrait;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\ApiBundle\Controller\CommonApiController;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Helper\CampaignContactCountHelper;
+use MailVotech\CampaignBundle\Membership\MembershipManager;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CampaignBundle\Model\EventModel;
+use MailVotech\CoreBundle\Event\EntityExportEvent;
+use MailVotech\CoreBundle\Event\EntityImportEvent;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ImportHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Controller\LeadAccessTrait;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -182,12 +182,12 @@ final class CampaignApiController extends CommonApiController
 
         if ('POST' === $method || 'PUT' === $method) {
             if (empty($parameters['events'])) {
-                $msg = $this->translator->trans('mautic.campaign.form.events.notempty', [], 'validators');
+                $msg = $this->translator->trans('mailvotech.campaign.form.events.notempty', [], 'validators');
 
                 return $this->returnError($msg, Response::HTTP_BAD_REQUEST);
             }
             if (empty($parameters['lists']) && empty($parameters['forms'])) {
-                $msg = $this->translator->trans('mautic.campaign.form.sources.notempty', [], 'validators');
+                $msg = $this->translator->trans('mailvotech.campaign.form.sources.notempty', [], 'validators');
 
                 return $this->returnError($msg, Response::HTTP_BAD_REQUEST);
             }
@@ -351,7 +351,7 @@ final class CampaignApiController extends CommonApiController
         ];
 
         return $this->forward(
-            'Mautic\CoreBundle\Controller\Api\StatsApiController::listAction',
+            'MailVotech\CoreBundle\Controller\Api\StatsApiController::listAction',
             [
                 'table'     => 'campaign_leads',
                 'itemsName' => 'contacts',
@@ -384,7 +384,7 @@ final class CampaignApiController extends CommonApiController
         $headers = [];
         // return the newly created entities location if applicable
 
-        $route               = 'mautic_api_campaigns_getone';
+        $route               = 'mailvotech_api_campaigns_getone';
         $headers['Location'] = $this->generateUrl(
             $route,
             array_merge(['id' => $entity->getId()], $this->routeParams),
@@ -441,7 +441,7 @@ final class CampaignApiController extends CommonApiController
 
             if (1 !== count($files)) {
                 return $this->handleView(
-                    $this->view(['error' => $this->translator->trans('mautic.campaign.api.import.incorrect_zip_file', [], 'messages')], Response::HTTP_BAD_REQUEST)
+                    $this->view(['error' => $this->translator->trans('mailvotech.campaign.api.import.incorrect_zip_file', [], 'messages')], Response::HTTP_BAD_REQUEST)
                 );
             }
 
@@ -449,13 +449,13 @@ final class CampaignApiController extends CommonApiController
 
             if (!$uploadedFile->isValid()) {
                 return $this->handleView(
-                    $this->view(['error' => $this->translator->trans('mautic.campaign.api.import.upload_failed', [], 'messages')], Response::HTTP_BAD_REQUEST)
+                    $this->view(['error' => $this->translator->trans('mailvotech.campaign.api.import.upload_failed', [], 'messages')], Response::HTTP_BAD_REQUEST)
                 );
             }
 
             if ('zip' !== strtolower($uploadedFile->getClientOriginalExtension())) {
                 return $this->handleView(
-                    $this->view(['error' => $this->translator->trans('mautic.campaign.api.import.incorrect_upload_file_format', [], 'messages')], Response::HTTP_BAD_REQUEST)
+                    $this->view(['error' => $this->translator->trans('mailvotech.campaign.api.import.incorrect_upload_file_format', [], 'messages')], Response::HTTP_BAD_REQUEST)
                 );
             }
 
@@ -463,7 +463,7 @@ final class CampaignApiController extends CommonApiController
 
             if (!file_exists($zipPath)) {
                 return $this->handleView(
-                    $this->view(['error' => $this->translator->trans('mautic.campaign.api.import.uploaded_file_no_exist', [], 'messages')], Response::HTTP_INTERNAL_SERVER_ERROR)
+                    $this->view(['error' => $this->translator->trans('mailvotech.campaign.api.import.uploaded_file_no_exist', [], 'messages')], Response::HTTP_INTERNAL_SERVER_ERROR)
                 );
             }
 
@@ -484,7 +484,7 @@ final class CampaignApiController extends CommonApiController
             $event  = new EntityImportEvent(Campaign::ENTITY_NAME, $entity, $userId);
             $this->dispatcher->dispatch($event);
         }
-        $view = $this->view([$this->translator->trans('mautic.campaign.campaign.import.finished', [], 'messages')], Response::HTTP_CREATED);
+        $view = $this->view([$this->translator->trans('mailvotech.campaign.campaign.import.finished', [], 'messages')], Response::HTTP_CREATED);
         $this->setSerializationContext($view);
 
         return $this->handleView($view);

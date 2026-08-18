@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Model;
+namespace MailVotech\EmailBundle\Model;
 
-use Mautic\CoreBundle\Model\AbstractCommonModel;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailDraft;
-use Mautic\EmailBundle\Entity\EmailDraftRepository;
+use MailVotech\CoreBundle\Model\AbstractCommonModel;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailDraft;
+use MailVotech\EmailBundle\Entity\EmailDraftRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Service\Attribute\Required;
 

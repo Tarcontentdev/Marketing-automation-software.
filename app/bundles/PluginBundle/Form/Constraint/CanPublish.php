@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Form\Constraint;
+namespace MailVotech\PluginBundle\Form\Constraint;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -16,7 +16,7 @@ final class CanPublish extends Constraint
     #[HasNamedArguments]
     public function __construct(
         public string $integrationName,
-        public string $message = 'mautic.lead_list.not_allowed_plugin_publish',
+        public string $message = 'mailvotech.lead_list.not_allowed_plugin_publish',
         ?array $groups = null,
         mixed $payload = null,
     ) {

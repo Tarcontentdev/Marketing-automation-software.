@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment;
+namespace MailVotech\LeadBundle\Segment;
 
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Event\LeadListMergeFiltersEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Segment\Decorator\DecoratorFactory;
-use Mautic\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
-use Mautic\LeadBundle\Segment\Query\Filter\FilterQueryBuilderInterface;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Event\LeadListMergeFiltersEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Segment\Decorator\DecoratorFactory;
+use MailVotech\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
+use MailVotech\LeadBundle\Segment\Query\Filter\FilterQueryBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Entity;
+namespace MailVotech\CampaignBundle\Tests\Entity;
 
-use Mautic\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Event;
 
 /**
  * Allows to use the live Event entity and set the ID.

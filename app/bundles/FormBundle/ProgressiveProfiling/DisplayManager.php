@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\ProgressiveProfiling;
+namespace MailVotech\FormBundle\ProgressiveProfiling;
 
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
 
 final readonly class DisplayManager
 {

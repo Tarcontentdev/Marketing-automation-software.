@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\DateTime\DateTimeToken;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\EmailBuilderEvent;
-use Mautic\EmailBundle\Event\EmailSendEvent;
+use MailVotech\CoreBundle\Helper\DateTime\DateTimeToken;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\EmailBuilderEvent;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -28,7 +28,7 @@ final readonly class DateTimeTokenSubscriber implements EventSubscriberInterface
 
     public function onEmailBuild(EmailBuilderEvent $event): void
     {
-        $event->addToken('{today}', $this->translator->trans('mautic.core.token.group.other').': '.$this->translator->trans('mautic.email.token.today'));
+        $event->addToken('{today}', $this->translator->trans('mailvotech.core.token.group.other').': '.$this->translator->trans('mailvotech.email.token.today'));
     }
 
     public function onEmailDisplay(EmailSendEvent $event): void

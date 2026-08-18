@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Model;
+namespace MailVotech\ReportBundle\Tests\Model;
 
-use Mautic\ReportBundle\Model\ReportCleanup;
-use Mautic\ReportBundle\Scheduler\Model\FileHandler;
+use MailVotech\ReportBundle\Model\ReportCleanup;
+use MailVotech\ReportBundle\Scheduler\Model\FileHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine\Provider;
+namespace MailVotech\CoreBundle\Doctrine\Provider;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumns;
-use Mautic\CoreBundle\Event\GeneratedColumnsEvent;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Doctrine\GeneratedColumn\GeneratedColumns;
+use MailVotech\CoreBundle\Event\GeneratedColumnsEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class GeneratedColumnsProvider implements GeneratedColumnsProviderInterface

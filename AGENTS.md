@@ -4,7 +4,7 @@ This file provides guidance to agents when working with code in this repository.
 
 ## Project Overview
 
-Mautic is an open-source marketing automation platform built on **Symfony 7.4** and **PHP 8.2+**. It follows a bundle-based architecture with core functionality in `app/bundles/`, plugins in `plugins/`, and themes in `themes/`.
+MailVotech is an open-source marketing automation platform built on **Symfony 7.4** and **PHP 8.2+**. It follows a bundle-based architecture with core functionality in `app/bundles/`, plugins in `plugins/`, and themes in `themes/`.
 
 ## Essential Commands
 
@@ -21,7 +21,7 @@ ddev start
 # Manual setup
 ddev composer install
 npm ci && npm run build
-ddev exec php bin/console mautic:install <site-url>
+ddev exec php bin/console mailvotech:install <site-url>
 ```
 
 ### Testing
@@ -62,7 +62,7 @@ npm run build            # Build frontend with webpack
 ### Bundle Structure
 Each bundle follows this pattern:
 ```
-MauticExampleBundle/
+MailVotechExampleBundle/
 ├── Assets/           # Frontend assets (auto-discovered)
 │   ├── css/          # Bundle-specific stylesheets
 │   └── js/           # Bundle-specific JavaScript
@@ -90,7 +90,7 @@ MauticExampleBundle/
 
 ### Testing Base Classes
 - **Unit tests**: Extend `PHPUnit\Framework\TestCase`
-- **Functional tests**: Extend `Mautic\CoreBundle\Test\MauticMysqlTestCase` (provides `$this->em`, `$this->client`, database access)
+- **Functional tests**: Extend `MailVotech\CoreBundle\Test\MailVotechMysqlTestCase` (provides `$this->em`, `$this->client`, database access)
 
 ## Coding Standards
 
@@ -100,12 +100,12 @@ MauticExampleBundle/
 - Test naming: `*Test.php`, matching class/feature under test
 - Run `composer cs` before PRs; CI will fail otherwise
 
-## Platform Requirements (Mautic 7.0)
+## Platform Requirements (MailVotech 7.0)
 
 - PHP: **8.2+**
 - MySQL: **8.4.0+** or MariaDB: **10.11.0+**
 - Removed: Browser-based updates (use CLI only)
-- Removed: MauticFactory (use dependency injection)
+- Removed: MailVotechFactory (use dependency injection)
 
 ## PR Checklist
 

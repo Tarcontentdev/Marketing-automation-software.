@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\CoreBundle\Security\Permissions;
+namespace MailVotech\CoreBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Exception\PermissionBadFormatException;
-use Mautic\CoreBundle\Security\Exception\PermissionNotFoundException;
-use Mautic\UserBundle\Entity\Permission;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Exception\PermissionBadFormatException;
+use MailVotech\CoreBundle\Security\Exception\PermissionNotFoundException;
+use MailVotech\UserBundle\Entity\Permission;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Contracts\Service\ResetInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -214,7 +214,7 @@ class CorePermissions implements ResetInterface
 
             $parts = explode(':', $permission);
             if (false === in_array(count($parts), [3, 4])) {
-                throw new PermissionBadFormatException($this->translator->trans('mautic.core.permissions.badformat', ['%permission%' => $permission]));
+                throw new PermissionBadFormatException($this->translator->trans('mailvotech.core.permissions.badformat', ['%permission%' => $permission]));
             }
 
             if ($userEntity->isAdmin()) {
@@ -231,7 +231,7 @@ class CorePermissions implements ResetInterface
                     if ($allowUnknown) {
                         $permissions[$permission] = false;
                     } else {
-                        throw new PermissionNotFoundException($this->translator->trans('mautic.core.permissions.notfound', ['%permission%' => $permission]));
+                        throw new PermissionNotFoundException($this->translator->trans('mailvotech.core.permissions.notfound', ['%permission%' => $permission]));
                     }
                 } elseif ('anon.' == $userEntity) {
                     // anon user or session timeout
@@ -260,7 +260,7 @@ class CorePermissions implements ResetInterface
         if ('RETURN_ARRAY' == $mode) {
             return $permissions;
         }
-        throw new PermissionNotFoundException($this->translator->trans('mautic.core.permissions.mode.notfound', ['%mode%' => $mode]));
+        throw new PermissionNotFoundException($this->translator->trans('mailvotech.core.permissions.mode.notfound', ['%mode%' => $mode]));
     }
 
     /**
@@ -445,7 +445,7 @@ class CorePermissions implements ResetInterface
     /**
      * @deprecated To be removed in 4.0.
      *
-     * It is recommended to define permission objects via DI with tag 'mautic.permissions'.
+     * It is recommended to define permission objects via DI with tag 'mailvotech.permissions'.
      * This is fallback for keeping BC where the permission object is instantiated on the fly.
      *
      * @throws \InvalidArgumentException

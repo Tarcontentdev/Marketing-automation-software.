@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\Integration;
+namespace MailVotech\PluginBundle\Tests\Integration;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\RequestOptions;
-use Mautic\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -15,7 +15,7 @@ use Psr\Http\Message\ResponseInterface;
 
 final class AbstractIntegrationTest extends AbstractIntegrationTestCase
 {
-    public function testPopulatedLeadDataReturnsIntAndNotDncEntityForMauticContactIsContactableByEmail(): void
+    public function testPopulatedLeadDataReturnsIntAndNotDncEntityForMailVotechContactIsContactableByEmail(): void
     {
         /** @var MockObject&AbstractIntegration $integration */
         /** @phpstan-ignore classConstant.deprecatedClass */
@@ -58,7 +58,7 @@ final class AbstractIntegrationTest extends AbstractIntegrationTestCase
                 ['id' => 1],
                 [
                     'leadFields' => [
-                        'dnc' => 'mauticContactIsContactableByEmail',
+                        'dnc' => 'mailvotechContactIsContactableByEmail',
                     ],
                 ]
             )

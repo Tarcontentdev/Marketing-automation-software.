@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\DependencyInjection\Compiler;
+namespace MailVotech\CoreBundle\Tests\Functional\DependencyInjection\Compiler;
 
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 
-final class SystemThemeTemplatePathPassTest extends MauticMysqlTestCase
+final class SystemThemeTemplatePathPassTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -68,7 +68,7 @@ final class SystemThemeTemplatePathPassTest extends MauticMysqlTestCase
     private function createOverrideFile(): void
     {
         $fs      = new Filesystem();
-        $content = "{% extends '@MauticCore/Default/content.html.twig' %} {% block headerTitle %}Override test{% endblock %} {% block content %}Override test{% endblock %}";
+        $content = "{% extends '@MailVotechCore/Default/content.html.twig' %} {% block headerTitle %}Override test{% endblock %} {% block content %}Override test{% endblock %}";
 
         $fs->dumpFile($this->getOverridePath().'/index.html.twig', $content);
     }

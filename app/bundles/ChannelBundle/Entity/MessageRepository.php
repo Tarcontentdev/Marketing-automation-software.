@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\ChannelBundle\Entity;
+namespace MailVotech\ChannelBundle\Entity;
 
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\ProjectBundle\Entity\ProjectRepositoryTrait;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\ProjectBundle\Entity\ProjectRepositoryTrait;
 
 /**
  * @extends CommonRepository<Message>
@@ -70,7 +70,7 @@ final class MessageRepository extends CommonRepository
     public function getMessageChannels($messageId): array
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->from(MAUTIC_TABLE_PREFIX.'message_channels', 'mc')
+        $q->from(MAILVOTECH_TABLE_PREFIX.'message_channels', 'mc')
             ->select('id, channel, channel_id, properties')
             ->where($q->expr()->eq('message_id', ':messageId'))
             ->setParameter('messageId', $messageId)
@@ -93,7 +93,7 @@ final class MessageRepository extends CommonRepository
     public function getChannelMessageByChannelId($channelId)
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->from(MAUTIC_TABLE_PREFIX.'message_channels', 'mc')
+        $q->from(MAILVOTECH_TABLE_PREFIX.'message_channels', 'mc')
             ->select('id, channel, channel_id, properties, message_id')
             ->where($q->expr()->eq('id', ':channelId'))
             ->setParameter('channelId', $channelId)
@@ -110,8 +110,8 @@ final class MessageRepository extends CommonRepository
     protected function addSearchCommandWhereClause($q, $filter): array
     {
         return match ($filter->command) {
-            $this->translator->trans('mautic.project.searchcommand.name'),
-            $this->translator->trans('mautic.project.searchcommand.name', [], null, 'en_US') => $this->handleProjectFilter(
+            $this->translator->trans('mailvotech.project.searchcommand.name'),
+            $this->translator->trans('mailvotech.project.searchcommand.name', [], null, 'en_US') => $this->handleProjectFilter(
                 $this->_em->getConnection()->createQueryBuilder(),
                 'message_id',
                 'message_projects_xref',
@@ -129,11 +129,11 @@ final class MessageRepository extends CommonRepository
     public function getSearchCommands(): array
     {
         return array_merge([
-            'mautic.core.searchcommand.ispublished',
-            'mautic.core.searchcommand.isunpublished',
-            'mautic.core.searchcommand.ismine',
-            'mautic.core.searchcommand.isuncategorized',
-            'mautic.project.searchcommand.name',
+            'mailvotech.core.searchcommand.ispublished',
+            'mailvotech.core.searchcommand.isunpublished',
+            'mailvotech.core.searchcommand.ismine',
+            'mailvotech.core.searchcommand.isuncategorized',
+            'mailvotech.project.searchcommand.name',
         ], parent::getSearchCommands());
     }
 }

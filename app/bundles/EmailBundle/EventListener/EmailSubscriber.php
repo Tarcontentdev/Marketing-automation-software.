@@ -1,19 +1,19 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\EmojiHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Event as Events;
-use Mautic\EmailBundle\Event\EmailEditSubmitEvent;
-use Mautic\EmailBundle\Event\EmailEvent;
-use Mautic\EmailBundle\Model\EmailDraftModel;
-use Mautic\EmailBundle\Model\EmailModel;
+use MailVotech\CoreBundle\Helper\EmojiHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Event as Events;
+use MailVotech\EmailBundle\Event\EmailEditSubmitEvent;
+use MailVotech\EmailBundle\Event\EmailEvent;
+use MailVotech\EmailBundle\Model\EmailDraftModel;
+use MailVotech\EmailBundle\Model\EmailModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -132,7 +132,7 @@ final readonly class EmailSubscriber implements EventSubscriberInterface
             $stat = $this->emailModel->getEmailStatus($leadIdHash);
 
             if (null !== $stat) {
-                $reason = $this->translator->trans('mautic.email.dnc.failed', [
+                $reason = $this->translator->trans('mailvotech.email.dnc.failed', [
                     '%subject%' => EmojiHelper::toShort($message->getSubject()),
                 ]);
                 $this->emailModel->setDoNotContact($stat, $reason);
@@ -161,7 +161,7 @@ final readonly class EmailSubscriber implements EventSubscriberInterface
 
         if ($stat->getRetryCount() > self::RETRY_COUNT) {
             // tried too many times so just fail
-            $reason = $this->translator->trans('mautic.email.dnc.retries', [
+            $reason = $this->translator->trans('mailvotech.email.dnc.retries', [
                 '%subject%' => EmojiHelper::toShort($message->getSubject()),
             ]);
             $this->emailModel->setDoNotContact($stat, $reason);

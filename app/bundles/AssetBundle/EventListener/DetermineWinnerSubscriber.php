@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\AssetBundle\EventListener;
+namespace MailVotech\AssetBundle\EventListener;
 
-use Mautic\AssetBundle\AssetEvents;
-use Mautic\AssetBundle\Entity\DownloadRepository;
-use Mautic\CoreBundle\Event\DetermineWinnerEvent;
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\AssetBundle\AssetEvents;
+use MailVotech\AssetBundle\Entity\DownloadRepository;
+use MailVotech\CoreBundle\Event\DetermineWinnerEvent;
+use MailVotech\EmailBundle\Entity\Email;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -54,8 +54,8 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                 $downloads  = $support  = $data  = [];
                 $hasResults = [];
 
-                $downloadsLabel = $this->translator->trans('mautic.asset.abtest.label.downloads');
-                $hitsLabel      = ('page' === $type) ? $this->translator->trans('mautic.asset.abtest.label.hits') : $this->translator->trans('mautic.asset.abtest.label.sentemils');
+                $downloadsLabel = $this->translator->trans('mailvotech.asset.abtest.label.downloads');
+                $hitsLabel      = ('page' === $type) ? $this->translator->trans('mailvotech.asset.abtest.label.hits') : $this->translator->trans('mailvotech.asset.abtest.label.sentemils');
                 foreach ($counts as $stats) {
                     $rate                    = ($stats['total']) ? round(($stats['count'] / $stats['total']) * 100, 2) : 0;
                     $downloads[$stats['id']] = $rate;
@@ -104,7 +104,7 @@ final readonly class DetermineWinnerSubscriber implements EventSubscriberInterfa
                     'winners'         => $winners,
                     'support'         => $support,
                     'basedOn'         => 'asset.downloads',
-                    'supportTemplate' => '@MauticPage/SubscribedEvents/AbTest/bargraph.html.twig',
+                    'supportTemplate' => '@MailVotechPage/SubscribedEvents/AbTest/bargraph.html.twig',
                 ]);
 
                 return;

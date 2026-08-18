@@ -60,14 +60,14 @@ final class NoServiceInMethodParameterRule implements Rule
 
     /**
      * The container builder is only ever handed to a DI extension or a compiler pass, both of which get it as a
-     * method parameter by Symfony design - there is nothing to inject there. The Mautic translator is a different
+     * method parameter by Symfony design - there is nothing to inject there. The MailVotech translator is a different
      * kind of translator than the contract one, and is passed around on purpose.
      *
      * @var string[]
      */
     private const SKIPPED_TYPES = [
         'Symfony\\Component\\DependencyInjection\\ContainerBuilder',
-        'Mautic\\CoreBundle\\Translation\\Translator',
+        'MailVotech\\CoreBundle\\Translation\\Translator',
     ];
 
     /**
@@ -76,7 +76,7 @@ final class NoServiceInMethodParameterRule implements Rule
      *
      * @var array<string, string>
      */
-    private const SKIPPED_PARENT_CLASS_METHODS = ['Mautic\\CoreBundle\\Model\\FormModel' => 'createform'];
+    private const SKIPPED_PARENT_CLASS_METHODS = ['MailVotech\\CoreBundle\\Model\\FormModel' => 'createform'];
 
     /**
      * A test case has no container to inject from - it fetches services itself and hands them to its own data
@@ -97,7 +97,7 @@ final class NoServiceInMethodParameterRule implements Rule
     private const SKIPPED_CLASS_TYPES = [
         'Symfony\\Contracts\\EventDispatcher\\Event',
         'Symfony\\Component\\EventDispatcher\\Event',
-        'Mautic\\CoreBundle\\Entity\\CommonEntity',
+        'MailVotech\\CoreBundle\\Entity\\CommonEntity',
         'Twig\\Extension\\AbstractExtension',
         'FOS\\OAuthServerBundle\\Controller\\AuthorizeController',
     ];
@@ -208,7 +208,7 @@ final class NoServiceInMethodParameterRule implements Rule
                 $paramType,
                 $methodName
             ))
-                ->identifier('mautic.noServiceInMethodParameter')
+                ->identifier('mailvotech.noServiceInMethodParameter')
                 ->line($param->getStartLine())
                 ->build();
         }

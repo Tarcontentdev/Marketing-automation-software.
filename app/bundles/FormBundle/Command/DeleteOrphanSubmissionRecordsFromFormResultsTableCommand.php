@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Command;
+namespace MailVotech\FormBundle\Command;
 
-use Mautic\CoreBundle\Helper\ExitCode;
-use Mautic\FormBundle\Entity\FormRepository;
-use Mautic\FormBundle\Entity\SubmissionRepository;
+use MailVotech\CoreBundle\Helper\ExitCode;
+use MailVotech\FormBundle\Entity\FormRepository;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -22,7 +22,7 @@ final class DeleteOrphanSubmissionRecordsFromFormResultsTableCommand extends Com
 {
     private const SUBMISSION_RESULTS_LIMIT = 5000;
 
-    public const COMMAND_NAME = 'mautic:forms:delete-orphan-form-submission-records-from-form-results-table';
+    public const COMMAND_NAME = 'mailvotech:forms:delete-orphan-form-submission-records-from-form-results-table';
 
     public function __construct(
         private readonly FormRepository $formRepository,
@@ -40,7 +40,7 @@ final class DeleteOrphanSubmissionRecordsFromFormResultsTableCommand extends Com
 
         foreach ($forms as $form) {
             try {
-                $tableName = MAUTIC_TABLE_PREFIX.'form_results_'.$form->getId().'_'.$form->getAlias();
+                $tableName = MAILVOTECH_TABLE_PREFIX.'form_results_'.$form->getId().'_'.$form->getAlias();
 
                 $qbSelect = $this->submissionRepository->getOrphanSubmissionRecords($tableName, self::SUBMISSION_RESULTS_LIMIT);
 
@@ -63,7 +63,7 @@ final class DeleteOrphanSubmissionRecordsFromFormResultsTableCommand extends Com
             }
         }
 
-        $output->writeln($this->translator->trans('mautic.forms.command.orphan_submission_records_deleted', ['%record_count%' => $totalDeletedRecords]));
+        $output->writeln($this->translator->trans('mailvotech.forms.command.orphan_submission_records_deleted', ['%record_count%' => $totalDeletedRecords]));
 
         return ExitCode::SUCCESS;
     }

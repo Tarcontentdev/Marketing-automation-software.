@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use Mautic\CoreBundle\Console\Output\ConsoleDatetimeOutput;
+use MailVotech\CoreBundle\Console\Output\ConsoleDatetimeOutput;
 use Symfony\Component\Console\Input\ArgvInput;
 
 require_once __DIR__.'/../vendor/autoload.php';

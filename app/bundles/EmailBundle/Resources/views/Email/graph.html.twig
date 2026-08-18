@@ -1,14 +1,14 @@
 {% if 'list' == email.getEmailType() %}
-    {% set label = 'mautic.email.lead.list.comparison' %}
+    {% set label = 'mailvotech.email.lead.list.comparison' %}
     {% set type = 'bar' %}
 {% else %}
-    {% set label = 'mautic.email.stats' %}
+    {% set label = 'mailvotech.email.stats' %}
     {% set type = 'line' %}
 {% endif %}
 
 {% set dateFrom = dateRangeForm.children['date_from'].vars['data'] %}
 {% set dateTo = dateRangeForm.children['date_to'].vars['data'] %}
-{% set actionRoute = path('mautic_email_action', {
+{% set actionRoute = path('mailvotech_email_action', {
     'objectAction' : 'view',
     'objectId'     : email.getId(),
     'daterange'    : {
@@ -23,13 +23,13 @@
             <div class="text-right small" id="variant-chart-switcher">
                 <span>
                     <a data-toggle="ajax" class="btn btn-xs{% if not showAllStats %}{{ ' disabled' }}{% endif %}" href="{{ actionRoute ~ '&stats=variant' }}">
-                        {{ 'mautic.email.variant.graph.variant'|trans }}
+                        {{ 'mailvotech.email.variant.graph.variant'|trans }}
                     </a>
                 </span>
                 </span> | </span>
                 <span>
                     <a data-toggle="ajax" class="btn btn-xs{% if not showAllStats %}{{ ' disabled' }}{% endif %}" href="{{ actionRoute ~ '&stats=all' }}">
-                        {{ 'mautic.email.variant.graph.all'|trans }}
+                        {{ 'mailvotech.email.variant.graph.all'|trans }}
                     </a>
                 </span>
             </div>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="row">
                     <div class="pt-0 pl-15 pb-15 pr-15 col-xs-6 min-h-256">
-                        {{- include('@MauticCore/Helper/chart.html.twig', {
+                        {{- include('@MailVotechCore/Helper/chart.html.twig', {
                             'chartData' : stats,
                             'chartType' : type,
                             'chartHeight' : 300
@@ -53,7 +53,7 @@
                         -}}
                     </div>
                     <div class="pt-0 pl-15 pb-15 pr-15 col-xs-6 min-h-256">
-                        {{- include('@MauticCore/Helper/chart.html.twig', {
+                        {{- include('@MailVotechCore/Helper/chart.html.twig', {
                             'chartData' : statsDevices,
                             'chartType' : 'horizontal-bar',
                             'chartHeight' : 300

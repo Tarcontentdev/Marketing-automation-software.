@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Service;
+namespace MailVotech\CampaignBundle\Tests\Service;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CampaignBundle\Service\CampaignAuditService;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CampaignBundle\Service\CampaignAuditService;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final class CampaignAuditServiceTest extends MauticMysqlTestCase
+final class CampaignAuditServiceTest extends MailVotechMysqlTestCase
 {
     private const CAMPAIGN_NAME = 'Test Campaign';
 
@@ -76,7 +76,7 @@ final class CampaignAuditServiceTest extends MauticMysqlTestCase
         $this->urlGeneratorMock->expects($this->once())
             ->method('generate')
             ->with(
-                'mautic_email_action',
+                'mailvotech_email_action',
                 [
                     'objectAction' => 'edit',
                     'objectId'     => $unpublishedEmail->getId(),
@@ -88,10 +88,10 @@ final class CampaignAuditServiceTest extends MauticMysqlTestCase
         $this->flashBagMock->expects($this->once())
             ->method('add')
             ->with(
-                'mautic.core.notice.campaign.unpublished.email',
+                'mailvotech.core.notice.campaign.unpublished.email',
                 $this->callback(function (array $messageVars) use ($unpublishedEmail): true {
                     $this->assertStringContainsString($unpublishedEmail->getName(), (string) $messageVars['%name%']);
-                    $this->assertStringContainsString('mautic_email_index', (string) $messageVars['%menu_link%']);
+                    $this->assertStringContainsString('mailvotech_email_index', (string) $messageVars['%menu_link%']);
 
                     return true;
                 }),

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Helper\Chart;
+namespace MailVotech\CoreBundle\Tests\Functional\Helper\Chart;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Segment\Stat\ChartQuery\SegmentContactsLineChartQuery;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Segment\Stat\ChartQuery\SegmentContactsLineChartQuery;
 
-final class ChartQueryTest extends MauticMysqlTestCase
+final class ChartQueryTest extends MailVotechMysqlTestCase
 {
     public function testSegmentContactsLineChartQuery(): void
     {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Executioner\Scheduler\Mode;
+namespace MailVotech\CampaignBundle\Executioner\Scheduler\Mode;
 
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Services\PeakInteractionTimer;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Services\PeakInteractionTimer;
 
 final readonly class Optimized implements ScheduleModeInterface
 {

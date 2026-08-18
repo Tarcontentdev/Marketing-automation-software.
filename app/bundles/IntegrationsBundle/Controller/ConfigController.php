@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Controller;
+namespace MailVotech\IntegrationsBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AbstractFormController;
-use Mautic\CoreBundle\Twig\Extension\FormExtension;
-use Mautic\IntegrationsBundle\Event\ConfigAuthUrlEvent;
-use Mautic\IntegrationsBundle\Event\ConfigSaveEvent;
-use Mautic\IntegrationsBundle\Event\FormLoadEvent;
-use Mautic\IntegrationsBundle\Event\KeysSaveEvent;
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Form\Type\IntegrationConfigType;
-use Mautic\IntegrationsBundle\Helper\ConfigIntegrationsHelper;
-use Mautic\IntegrationsBundle\Helper\FieldMergerHelper;
-use Mautic\IntegrationsBundle\Helper\FieldValidationHelper;
-use Mautic\IntegrationsBundle\Integration\BasicIntegration;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormAuthInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormAuthorizeButtonInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormCallbackInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormFeatureSettingsInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormFeaturesInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormNotesInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\CoreBundle\Controller\AbstractFormController;
+use MailVotech\CoreBundle\Twig\Extension\FormExtension;
+use MailVotech\IntegrationsBundle\Event\ConfigAuthUrlEvent;
+use MailVotech\IntegrationsBundle\Event\ConfigSaveEvent;
+use MailVotech\IntegrationsBundle\Event\FormLoadEvent;
+use MailVotech\IntegrationsBundle\Event\KeysSaveEvent;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Form\Type\IntegrationConfigType;
+use MailVotech\IntegrationsBundle\Helper\ConfigIntegrationsHelper;
+use MailVotech\IntegrationsBundle\Helper\FieldMergerHelper;
+use MailVotech\IntegrationsBundle\Helper\FieldValidationHelper;
+use MailVotech\IntegrationsBundle\Integration\BasicIntegration;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormAuthInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormAuthorizeButtonInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormCallbackInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormFeatureSettingsInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormFeaturesInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormNotesInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\PluginBundle\Entity\Integration;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -168,7 +168,7 @@ final class ConfigController extends AbstractFormController
             $this->integrationObject->getConfigFormName() ?: IntegrationConfigType::class,
             $this->integrationConfiguration,
             [
-                'action'      => $this->generateUrl('mautic_integration_config', ['integration' => $this->integrationObject->getName()]),
+                'action'      => $this->generateUrl('mailvotech_integration_config', ['integration' => $this->integrationObject->getName()]),
                 'integration' => $this->integrationObject->getName(),
             ]
         );
@@ -228,8 +228,8 @@ final class ConfigController extends AbstractFormController
                 'contentTemplate' => $this->integrationObject->getConfigFormContentTemplate()
                     ?: '@Integrations/Config/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_plugin_index',
-                    'mauticContent' => 'integrationsConfig',
+                    'activeLink'    => '#mailvotech_plugin_index',
+                    'mailvotechContent' => 'integrationsConfig',
                     'route'         => false,
                     'pluginVersion' => $version,
                 ],
@@ -245,7 +245,7 @@ final class ConfigController extends AbstractFormController
             'closeModal'    => 1,
             'enabled'       => $this->integrationConfiguration->getIsPublished(),
             'name'          => $this->integrationConfiguration->getName(),
-            'mauticContent' => 'integrationsConfig',
+            'mailvotechContent' => 'integrationsConfig',
             'flashes'       => $this->getFlashContent(),
         ];
 

@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\CoreBundle\Entity;
+namespace MailVotech\CoreBundle\Entity;
 
 use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Exception as DBALException;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\TimelineTrait;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\TimelineTrait;
+use MailVotech\UserBundle\Entity\User;
 
 /**
  * @extends CommonRepository<AuditLog>
@@ -23,7 +23,7 @@ class AuditLogRepository extends CommonRepository
     public function getAuditLogsCount(Lead $lead, ?array $filters = null)
     {
         $query = $this->_em->getConnection()->createQueryBuilder()
-            ->from(MAUTIC_TABLE_PREFIX.'audit_log', 'al')
+            ->from(MAILVOTECH_TABLE_PREFIX.'audit_log', 'al')
             ->select('count(*)')
             ->where('al.object = \'lead\'')
             ->andWhere('al.object_id = :id')
@@ -206,7 +206,7 @@ class AuditLogRepository extends CommonRepository
 
         $sqb
             ->select('MAX(l.date_added) as date_added, MIN(l.id) as id, l.ip_address, l.object_id as lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'audit_log', 'l')
+            ->from(MAILVOTECH_TABLE_PREFIX.'audit_log', 'l')
             ->where(
                 $sqb->expr()->and(
                     $sqb->expr()->eq('l.bundle', $sqb->expr()->literal('lead')),

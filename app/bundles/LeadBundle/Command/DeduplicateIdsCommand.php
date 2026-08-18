@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Command;
+namespace MailVotech\LeadBundle\Command;
 
-use Mautic\LeadBundle\Deduplicate\ContactDeduper;
+use MailVotech\LeadBundle\Deduplicate\ContactDeduper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -24,7 +24,7 @@ TXT
 )]
 final class DeduplicateIdsCommand extends Command
 {
-    public const NAME = 'mautic:contacts:deduplicate:ids';
+    public const NAME = 'mailvotech:contacts:deduplicate:ids';
 
     public function __construct(
         private readonly ContactDeduper $contactDeduper,

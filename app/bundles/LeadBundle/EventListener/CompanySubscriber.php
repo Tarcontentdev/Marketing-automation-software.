@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Event as Events;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\CompanyModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Event as Events;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\CompanyModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class CompanySubscriber implements EventSubscriberInterface
@@ -111,7 +111,7 @@ final readonly class CompanySubscriber implements EventSubscriberInterface
         }
         $connection = $this->entityManager->getConnection();
         $connection->executeStatement(
-            'UPDATE '.MAUTIC_TABLE_PREFIX.'leads SET company = NULL WHERE company = :companyName',
+            'UPDATE '.MAILVOTECH_TABLE_PREFIX.'leads SET company = NULL WHERE company = :companyName',
             ['companyName' => $companyName]
         );
     }

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\FormBundle\Helper\PropertiesAccessor;
-use Mautic\FormBundle\Model\FieldModel;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\FormBundle\Helper\PropertiesAccessor;
+use MailVotech\FormBundle\Model\FieldModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -61,7 +61,7 @@ final class FormFieldConditionType extends AbstractType
             'any',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.form.field.form.condition.any_value',
+                'label' => 'mailvotech.form.field.form.condition.any_value',
                 'attr'  => [
                     'data-show-on' => '{"formfield_conditions_expr": "in"}',
                 ],
@@ -74,8 +74,8 @@ final class FormFieldConditionType extends AbstractType
             ChoiceType::class,
             [
                 'choices'  => [
-                    'mautic.core.operator.in'    => 'in',
-                    'mautic.core.operator.notin' => 'notIn',
+                    'mailvotech.core.operator.in'    => 'in',
+                    'mailvotech.core.operator.notin' => 'notIn',
                 ],
                 'label'       => false,
                 'placeholder' => false,

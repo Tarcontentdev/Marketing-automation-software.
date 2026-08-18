@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Mautic\CoreBundle\DependencyInjection\MauticCoreExtension;
+use MailVotech\CoreBundle\DependencyInjection\MailVotechCoreExtension;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return function (ContainerConfigurator $configurator): void {
@@ -17,8 +17,8 @@ return function (ContainerConfigurator $configurator): void {
         'Aggregate/Calculator.php',
     ];
 
-    $services->load('Mautic\\StatsBundle\\', '../')
-        ->exclude('../{'.implode(',', array_merge(MauticCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
-    $services->set('mautic.stats.aggregate.collector', Mautic\StatsBundle\Aggregate\Collector::class);
-    $services->alias(Mautic\StatsBundle\Aggregate\Collector::class, 'mautic.stats.aggregate.collector');
+    $services->load('MailVotech\\StatsBundle\\', '../')
+        ->exclude('../{'.implode(',', array_merge(MailVotechCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
+    $services->set('mailvotech.stats.aggregate.collector', MailVotech\StatsBundle\Aggregate\Collector::class);
+    $services->alias(MailVotech\StatsBundle\Aggregate\Collector::class, 'mailvotech.stats.aggregate.collector');
 };

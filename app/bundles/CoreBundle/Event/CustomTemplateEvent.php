@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Event;
+namespace MailVotech\CoreBundle\Event;
 
 use Symfony\Component\HttpFoundation\Request;
 

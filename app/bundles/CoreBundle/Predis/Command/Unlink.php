@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Predis\Command;
+namespace MailVotech\CoreBundle\Predis\Command;
 
 use Predis\Command\Command;
 use Predis\Command\PrefixableCommandInterface;

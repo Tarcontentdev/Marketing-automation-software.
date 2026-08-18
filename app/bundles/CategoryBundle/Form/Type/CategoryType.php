@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\CategoryBundle\Form\Type;
+namespace MailVotech\CategoryBundle\Form\Type;
 
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -34,12 +34,12 @@ final class CategoryType extends AbstractType
             // Do not allow custom bundle
             if (true == $options['show_bundle_select']) {
                 // Create new category from category bundle - let user select the bundle
-                $selected = $this->requestStack->getSession()->get('mautic.category.type', 'category');
+                $selected = $this->requestStack->getSession()->get('mailvotech.category.type', 'category');
                 $builder->add(
                     'bundle',
                     CategoryBundlesType::class,
                     [
-                        'label'      => 'mautic.core.type',
+                        'label'      => 'mailvotech.core.type',
                         'label_attr' => ['class' => 'control-label'],
                         'attr'       => ['class' => 'form-control'],
                         'required'   => true,
@@ -62,7 +62,7 @@ final class CategoryType extends AbstractType
             'title',
             TextType::class,
             [
-                'label'      => 'mautic.core.title',
+                'label'      => 'mailvotech.core.title',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
             ]
@@ -72,7 +72,7 @@ final class CategoryType extends AbstractType
             'description',
             TextType::class,
             [
-                'label'      => 'mautic.core.description',
+                'label'      => 'mailvotech.core.description',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -83,11 +83,11 @@ final class CategoryType extends AbstractType
             'alias',
             TextType::class,
             [
-                'label'      => 'mautic.core.alias',
+                'label'      => 'mailvotech.core.alias',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.category.form.alias.help',
+                    'tooltip' => 'mailvotech.category.form.alias.help',
                 ],
                 'required' => false,
             ]
@@ -97,7 +97,7 @@ final class CategoryType extends AbstractType
             'color',
             TextType::class,
             [
-                'label'      => 'mautic.core.color',
+                'label'      => 'mailvotech.core.color',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'       => 'form-control',
@@ -108,7 +108,7 @@ final class CategoryType extends AbstractType
         );
 
         $builder->add('isPublished', YesNoButtonGroupType::class, [
-            'label' => 'mautic.core.form.available',
+            'label' => 'mailvotech.core.form.available',
         ]);
 
         $builder->add(

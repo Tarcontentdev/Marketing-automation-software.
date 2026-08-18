@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Auth\Provider\ApiKey;
+namespace MailVotech\IntegrationsBundle\Auth\Provider\ApiKey;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
@@ -11,13 +11,13 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
-use Mautic\IntegrationsBundle\Auth\Provider\ApiKey\Credentials\HeaderCredentialsInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\ApiKey\Credentials\ParameterCredentialsInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\AuthConfigInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\AuthProviderInterface;
-use Mautic\IntegrationsBundle\Exception\InvalidCredentialsException;
-use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
+use MailVotech\IntegrationsBundle\Auth\Provider\ApiKey\Credentials\HeaderCredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\ApiKey\Credentials\ParameterCredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthConfigInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthProviderInterface;
+use MailVotech\IntegrationsBundle\Exception\InvalidCredentialsException;
+use MailVotech\IntegrationsBundle\Exception\PluginNotConfiguredException;
 
 /**
  * Factory for building HTTP clients using basic auth.

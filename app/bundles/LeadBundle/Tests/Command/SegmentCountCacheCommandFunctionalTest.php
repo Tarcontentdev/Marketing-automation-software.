@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Command;
+namespace MailVotech\LeadBundle\Tests\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Command\SegmentCountCacheCommand;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Helper\SegmentCountCacheHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Command\SegmentCountCacheCommand;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Helper\SegmentCountCacheHelper;
 use Symfony\Component\HttpFoundation\Request;
 
-final class SegmentCountCacheCommandFunctionalTest extends MauticMysqlTestCase
+final class SegmentCountCacheCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * @throws \Exception
@@ -25,7 +25,7 @@ final class SegmentCountCacheCommandFunctionalTest extends MauticMysqlTestCase
         $segmentId = $segment->getId();
 
         // Run segments update command.
-        $this->testSymfonyCommand('mautic:segments:update', ['-i' => $segmentId]);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['-i' => $segmentId]);
 
         // Run segment count cache command.
         $this->testSymfonyCommand(SegmentCountCacheCommand::COMMAND_NAME);

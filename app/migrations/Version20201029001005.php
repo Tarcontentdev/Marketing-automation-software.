@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\Exception\SkipMigration;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
-use Mautic\PageBundle\Entity\PageDraft;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
+use MailVotech\PageBundle\Entity\PageDraft;
 
-final class Version20201029001005 extends AbstractMauticMigration
+final class Version20201029001005 extends AbstractMailVotechMigration
 {
     /**
      * @throws SkipMigration

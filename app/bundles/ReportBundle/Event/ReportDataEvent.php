@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\ReportBundle\Event;
+namespace MailVotech\ReportBundle\Event;
 
-use Mautic\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\Report;
 
 class ReportDataEvent extends AbstractReportEvent
 {

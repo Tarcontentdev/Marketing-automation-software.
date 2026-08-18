@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Form\Type;
+namespace MailVotech\NotificationBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\EmailBundle\Validator\MultipleEmailsValid;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\EmailBundle\Validator\MultipleEmailsValid;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,11 +24,11 @@ final class NotificationConfigType extends AbstractType
             'campaign_send_notification_to_author',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.notification.form.config.send_notification_to_author',
+                'label' => 'mailvotech.notification.form.config.send_notification_to_author',
                 'attr'  => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.notification.form.config.send_notification_to_author.tooltip',
-                    'onchange' => 'Mautic.resetEmailsToNotification(this)',
+                    'tooltip'  => 'mailvotech.notification.form.config.send_notification_to_author.tooltip',
+                    'onchange' => 'MailVotech.resetEmailsToNotification(this)',
                 ],
                 'required' => true,
             ]
@@ -37,11 +37,11 @@ final class NotificationConfigType extends AbstractType
             'campaign_notification_email_addresses',
             TextType::class,
             [
-                'label'      => 'mautic.notification.form.config.notification_email_addresses',
+                'label'      => 'mailvotech.notification.form.config.notification_email_addresses',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'        => 'form-control notification_email_addresses',
-                    'tooltip'      => 'mautic.notification.form.config.notification_email_addresses.tooltip',
+                    'tooltip'      => 'mailvotech.notification.form.config.notification_email_addresses.tooltip',
                     'data-show-on' => '{"config_notification_config_campaign_send_notification_to_author_0":"checked"}',
                 ],
                 'constraints' => [
@@ -55,11 +55,11 @@ final class NotificationConfigType extends AbstractType
             'webhook_send_notification_to_author',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.notification.form.config.send_notification_to_author',
+                'label' => 'mailvotech.notification.form.config.send_notification_to_author',
                 'attr'  => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.notification.form.config.send_notification_to_author.tooltip',
-                    'onchange' => 'Mautic.resetEmailsToNotification(this)',
+                    'tooltip'  => 'mailvotech.notification.form.config.send_notification_to_author.tooltip',
+                    'onchange' => 'MailVotech.resetEmailsToNotification(this)',
                 ],
                 'required' => true,
             ]
@@ -68,11 +68,11 @@ final class NotificationConfigType extends AbstractType
             'webhook_notification_email_addresses',
             TextType::class,
             [
-                'label'      => 'mautic.notification.form.config.notification_email_addresses',
+                'label'      => 'mailvotech.notification.form.config.notification_email_addresses',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'        => 'form-control notification_email_addresses',
-                    'tooltip'      => 'mautic.notification.form.config.notification_email_addresses.tooltip',
+                    'tooltip'      => 'mailvotech.notification.form.config.notification_email_addresses.tooltip',
                     'data-show-on' => '{"config_notification_config_webhook_send_notification_to_author_0":"checked"}',
                 ],
                 'constraints' => [

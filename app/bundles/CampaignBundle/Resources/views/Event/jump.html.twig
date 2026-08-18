@@ -1,4 +1,4 @@
-{% set route = route|default('mautic_campaignevent_action') %}
+{% set route = route|default('mailvotech_campaignevent_action') %}
 
 {% if update is not defined %}
 <div id="CampaignEvent_{{ event['id'] }}" data-type="{{ event['eventType'] }}" class="draggable list-campaign-event list-campaign-{{ event['eventType'] }} list-campaign-jump" data-event="{{ event['type'] }}" data-event-id="{{ event['id'] }}">
@@ -8,18 +8,18 @@
 <div class="campaign-event-content d-flex fw-nowrap ai-center gap-sm">
     <div class="campaign-event-icon pa-sm mr-5"><i class="{{ getCampaignEventIcon(event['type']) }}"></i></div>
 
-        <span class="fs-18 fw-l">{{ ('mautic.campaign.'~event['type'])|trans }}</span>
-        {% set idString = (event['id'] matches '/^\\d+$/') ? "(" ~ 'mautic.campaign.event.id'|trans ~ ": " ~ event['id'] ~ ") " : '' %}
+        <span class="fs-18 fw-l">{{ ('mailvotech.campaign.'~event['type'])|trans }}</span>
+        {% set idString = (event['id'] matches '/^\\d+$/') ? "(" ~ 'mailvotech.campaign.event.id'|trans ~ ": " ~ event['id'] ~ ") " : '' %}
         <span class="campaign-event-name label label-primary ellipsis">{{ idString ~ event['name'] }}</span>
-        <a class="label label-primary has-click-event highlight-jump-target ml-sm" href="javascript:void(0)" onClick="Mautic.highlightJumpTarget(event, this)" data-jump-target="{{ event['properties']['jumpToEvent'] }}">
-            {{ 'mautic.campaign.locate'|trans }}
+        <a class="label label-primary has-click-event highlight-jump-target ml-sm" href="javascript:void(0)" onClick="MailVotech.highlightJumpTarget(event, this)" data-jump-target="{{ event['properties']['jumpToEvent'] }}">
+            {{ 'mailvotech.campaign.locate'|trans }}
             <i class="ri-map-pin-2-line"></i>
         </a>
 </div>
 </div>
 {% if update is not defined %}
 <div class="campaign-event-buttons hide">
-    {% include '@MauticCore/Helper/button.html.twig' with {
+    {% include '@MailVotechCore/Helper/button.html.twig' with {
         buttons: [
             {
                 href: path(route, {
@@ -31,7 +31,7 @@
                 icon: 'ri-pencil-line',
                 size: 'xs',
                 icon_only: true,
-                label: 'mautic.campaign.event.edit.btn.tooltip'|trans,
+                label: 'mailvotech.campaign.event.edit.btn.tooltip'|trans,
                 attributes: {
                     'data-toggle': 'ajaxmodal',
                     'data-prevent-dismiss': 'true',
@@ -51,7 +51,7 @@
                 icon: 'ri-delete-bin-line',
                 size: 'xs',
                 icon_only: true,
-                label: 'mautic.campaign.event.remove.btn.tooltip'|trans,
+                label: 'mailvotech.campaign.event.remove.btn.tooltip'|trans,
                 attributes: {
                     'data-toggle': 'ajax-delete',
                     'data-target': 'CampaignEvent_' ~ event['id'],

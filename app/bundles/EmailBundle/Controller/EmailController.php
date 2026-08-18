@@ -1,35 +1,35 @@
 <?php
 
-namespace Mautic\EmailBundle\Controller;
+namespace MailVotech\EmailBundle\Controller;
 
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Controller\FormErrorMessagesTrait;
-use Mautic\CoreBundle\Controller\QuickFilterSearchTrait;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\CoreBundle\Form\Type\ContentPreviewSettingsType;
-use Mautic\CoreBundle\Form\Type\DateRangeType;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
-use Mautic\CoreBundle\Model\AbTest\AbTestResultService;
-use Mautic\CoreBundle\Model\AbTest\AbTestSettingsService;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Event\EmailEditSubmitEvent;
-use Mautic\EmailBundle\Event\ManualWinnerEvent;
-use Mautic\EmailBundle\Form\Type\BatchSendType;
-use Mautic\EmailBundle\Form\Type\ExampleSendType;
-use Mautic\EmailBundle\Form\Type\ScheduleSendType;
-use Mautic\EmailBundle\Helper\EmailConfig;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\LeadBundle\Controller\EntityContactsTrait;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Helper\FakeContactHelper;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\PageBundle\Exception\InvalidRenderedHtmlException;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Controller\FormErrorMessagesTrait;
+use MailVotech\CoreBundle\Controller\QuickFilterSearchTrait;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\CoreBundle\Form\Type\ContentPreviewSettingsType;
+use MailVotech\CoreBundle\Form\Type\DateRangeType;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
+use MailVotech\CoreBundle\Model\AbTest\AbTestResultService;
+use MailVotech\CoreBundle\Model\AbTest\AbTestSettingsService;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Event\EmailEditSubmitEvent;
+use MailVotech\EmailBundle\Event\ManualWinnerEvent;
+use MailVotech\EmailBundle\Form\Type\BatchSendType;
+use MailVotech\EmailBundle\Form\Type\ExampleSendType;
+use MailVotech\EmailBundle\Form\Type\ScheduleSendType;
+use MailVotech\EmailBundle\Helper\EmailConfig;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\LeadBundle\Controller\EntityContactsTrait;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Helper\FakeContactHelper;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\PageBundle\Exception\InvalidRenderedHtmlException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,7 +99,7 @@ final class EmailController extends FormController
 
         $listFilters = [
             'filters' => [
-                'placeholder' => $this->translator->trans('mautic.email.filter.placeholder'),
+                'placeholder' => $this->translator->trans('mailvotech.email.filter.placeholder'),
                 'multiple'    => true,
             ],
         ];
@@ -108,14 +108,14 @@ final class EmailController extends FormController
         $listFilters['filters']['groups'] = [];
 
         // set limits
-        $limit = $session->get('mautic.email.limit', $this->coreParametersHelper->get('default_pagelimit'));
+        $limit = $session->get('mailvotech.email.limit', $this->coreParametersHelper->get('default_pagelimit'));
         $start = (1 === $page) ? 0 : (($page - 1) * $limit);
         if ($start < 0) {
             $start = 0;
         }
 
-        $search = $request->get('search', $session->get('mautic.email.filter', ''));
-        $session->set('mautic.email.filter', $search);
+        $search = $request->get('search', $session->get('mailvotech.email.filter', ''));
+        $session->set('mailvotech.email.filter', $search);
 
         $filter = [
             'string' => $search,
@@ -128,19 +128,19 @@ final class EmailController extends FormController
                 ['column' => 'e.createdBy', 'expr' => 'eq', 'value' => $this->user->getId()];
         }
         $availableLists                                               = $this->listModel->getUserLists();
-        $listFilters['filters']['groups']['mautic.core.filter.lists'] = [
+        $listFilters['filters']['groups']['mailvotech.core.filter.lists'] = [
             'options' => array_column($availableLists, 'name', 'alias'),
             'prefix'  => 'list',
         ];
         $listAliasLookup = array_column($availableLists, 'alias', 'id');
 
         // retrieve a list of themes
-        $listFilters['filters']['groups']['mautic.core.filter.themes'] = [
+        $listFilters['filters']['groups']['mailvotech.core.filter.themes'] = [
             'options' => $themeHelper->getInstalledThemes('email'),
             'prefix'  => 'theme',
         ];
 
-        $currentFilters = $session->get('mautic.email.list_filters', []);
+        $currentFilters = $session->get('mailvotech.email.list_filters', []);
         $updatedFilters = $request->get('filters', false);
         $ignoreListJoin = true;
 
@@ -163,7 +163,7 @@ final class EmailController extends FormController
                 $currentFilters = [];
             }
         }
-        $session->set('mautic.email.list_filters', $currentFilters);
+        $session->set('mailvotech.email.list_filters', $currentFilters);
 
         if (!empty($currentFilters)) {
             $listAliases = $catIds = $templates = $searchFilterTerms = [];
@@ -180,7 +180,7 @@ final class EmailController extends FormController
                         break;
                 }
 
-                $listFilters['filters']['groups']['mautic.core.filter.'.$key]['values'] = $typeFilters;
+                $listFilters['filters']['groups']['mailvotech.core.filter.'.$key]['values'] = $typeFilters;
 
                 foreach ($typeFilters as $fltr) {
                     switch ($type) {
@@ -203,7 +203,7 @@ final class EmailController extends FormController
             }
 
             $search = $this->stripQuickFilterTokensFromSearch($search, $searchFilterTerms);
-            $session->set('mautic.email.filter', $search);
+            $session->set('mailvotech.email.filter', $search);
             $filter['string'] = $search;
 
             if ([] !== $listAliases) {
@@ -220,8 +220,8 @@ final class EmailController extends FormController
             }
         }
 
-        $orderBy    = $session->get('mautic.email.orderby', 'e.dateModified');
-        $orderByDir = $session->get('mautic.email.orderbydir', $this->getDefaultOrderDirection());
+        $orderBy    = $session->get('mailvotech.email.orderby', 'e.dateModified');
+        $orderByDir = $session->get('mailvotech.email.orderbydir', $this->getDefaultOrderDirection());
 
         $emails = $model->getEntities(
             [
@@ -243,22 +243,22 @@ final class EmailController extends FormController
                 $lastPage = (floor($count / $limit)) ?: 1;
             }
 
-            $session->set('mautic.email.page', $lastPage);
-            $returnUrl = $this->generateUrl('mautic_email_index', ['page' => $lastPage]);
+            $session->set('mailvotech.email.page', $lastPage);
+            $returnUrl = $this->generateUrl('mailvotech_email_index', ['page' => $lastPage]);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $lastPage],
-                    'contentTemplate' => 'Mautic\EmailBundle\Controller\EmailController::indexAction',
+                    'contentTemplate' => 'MailVotech\EmailBundle\Controller\EmailController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_email_index',
-                        'mauticContent' => 'email',
+                        'activeLink'    => '#mailvotech_email_index',
+                        'mailvotechContent' => 'email',
                     ],
                 ]
             );
         }
-        $session->set('mautic.email.page', $page);
+        $session->set('mailvotech.email.page', $page);
 
         return $this->delegateView(
             [
@@ -274,11 +274,11 @@ final class EmailController extends FormController
                     'model'          => $model,
                     'isDraftEnabled' => $isDraftEnabled,
                 ],
-                'contentTemplate' => '@MauticEmail/Email/list.html.twig',
+                'contentTemplate' => '@MailVotechEmail/Email/list.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_email_index',
-                    'mauticContent' => 'email',
-                    'route'         => $this->generateUrl('mautic_email_index', ['page' => $page]),
+                    'activeLink'    => '#mailvotech_email_index',
+                    'mailvotechContent' => 'email',
+                    'route'         => $this->generateUrl('mailvotech_email_index', ['page' => $page]),
                 ],
             ]
         );
@@ -295,30 +295,30 @@ final class EmailController extends FormController
         $email   = $model->getEntity($objectId);
         $session = $request->getSession();
         // set the page we came from
-        $page = $session->get('mautic.email.page', 1);
+        $page = $session->get('mailvotech.email.page', 1);
 
         // Init the date range filter form
         $dateRangeValues = $request->query->all()['daterange'] ?? $request->request->all()['daterange'] ?? [];
-        $action          = $this->generateUrl('mautic_email_action', ['objectAction' => 'view', 'objectId' => $objectId]);
+        $action          = $this->generateUrl('mailvotech_email_action', ['objectAction' => 'view', 'objectId' => $objectId]);
         $dateRangeForm   = $this->formFactory->create(DateRangeType::class, $dateRangeValues, ['action' => $action]);
 
         if (null === $email) {
             // set the return URL
-            $returnUrl = $this->generateUrl('mautic_email_index', ['page' => $page]);
+            $returnUrl = $this->generateUrl('mailvotech_email_index', ['page' => $page]);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $page],
-                    'contentTemplate' => 'Mautic\EmailBundle\Controller\EmailController::indexAction',
+                    'contentTemplate' => 'MailVotech\EmailBundle\Controller\EmailController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_email_index',
-                        'mauticContent' => 'email',
+                        'activeLink'    => '#mailvotech_email_index',
+                        'mailvotechContent' => 'email',
                     ],
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.email.error.notfound',
+                            'msg'     => 'mailvotech.email.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -350,14 +350,14 @@ final class EmailController extends FormController
         [$translationParent, $translationChildren] = $email->getTranslations();
         $logs = $this->auditLogModel->getLogForObject('email', $email->getId(), $email->getDateAdded());
 
-        if (!$session->has('mautic.email.clicks.orderby')) {
-            $session->set('mautic.email.clicks.orderby', 'r.url');
-            $session->set('mautic.email.clicks.orderbydir', 'DESC');
+        if (!$session->has('mailvotech.email.clicks.orderby')) {
+            $session->set('mailvotech.email.clicks.orderby', 'r.url');
+            $session->set('mailvotech.email.clicks.orderbydir', 'DESC');
         }
         $this->setListFilters('email.clicks');
 
         $clickCountsBaseUrl = $this->generateUrl(
-            'mautic_email_action',
+            'mailvotech_email_action',
             [
                 'objectAction' => 'view',
                 'objectId'     => $email->getId(),
@@ -374,8 +374,8 @@ final class EmailController extends FormController
         // Get click through stats
         $trackableLinks = $model->getEmailClickStats(
             $email->getId(),
-            $session->get('mautic.email.clicks.orderby', 'r.url'),
-            $session->get('mautic.email.clicks.orderbydir', 'DESC')
+            $session->get('mailvotech.email.clicks.orderby', 'r.url'),
+            $session->get('mailvotech.email.clicks.orderbydir', 'DESC')
         );
 
         if ('click_counts' === $request->get('tmpl')) {
@@ -388,10 +388,10 @@ final class EmailController extends FormController
                     'clickCountsSorting'  => $clickCountsSorting,
                     'tmpl'                => 'click_counts',
                 ],
-                'contentTemplate' => '@MauticPage/Trackable/click_counts.html.twig',
+                'contentTemplate' => '@MailVotechPage/Trackable/click_counts.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_email_index',
-                    'mauticContent' => 'email',
+                    'activeLink'    => '#mailvotech_email_index',
+                    'mailvotechContent' => 'email',
                     'route'         => $clickCountsBaseUrl,
                 ],
             ];
@@ -399,7 +399,7 @@ final class EmailController extends FormController
             $draftPreviewUrl = null;
             if ($emailConfig->isDraftEnabled() && $email->hasDraft()) {
                 $draftPreviewUrl = $this->generateUrl(
-                    'mautic_email_preview',
+                    'mailvotech_email_preview',
                     [
                         'objectId'   => $email->getId(),
                         'objectType' => 'draft',
@@ -428,7 +428,7 @@ final class EmailController extends FormController
 
             $view = [
                 'returnUrl' => $this->generateUrl(
-                    'mautic_email_action',
+                    'mailvotech_email_action',
                     [
                         'objectAction' => 'view',
                         'objectId'     => $email->getId(),
@@ -462,15 +462,15 @@ final class EmailController extends FormController
                     'security'        => $security,
                     'draftPreviewUrl' => $draftPreviewUrl,
                     'previewUrl'      => $this->generateUrl(
-                        'mautic_email_preview',
+                        'mailvotech_email_preview',
                         ['objectId' => $email->getId()],
                         UrlGeneratorInterface::ABSOLUTE_URL
                     ),
                     'contacts' => $this->forward(
-                        'Mautic\EmailBundle\Controller\EmailController::contactsAction',
+                        'MailVotech\EmailBundle\Controller\EmailController::contactsAction',
                         [
                             'objectId'   => $email->getId(),
-                            'page'       => $request->getSession()->get('mautic.email.contact.page', 1),
+                            'page'       => $request->getSession()->get('mailvotech.email.contact.page', 1),
                             'ignoreAjax' => true,
                         ]
                     )->getContent(),
@@ -486,10 +486,10 @@ final class EmailController extends FormController
                         ]
                     )->createView(),
                 ],
-                'contentTemplate' => '@MauticEmail/Email/details.html.twig',
+                'contentTemplate' => '@MailVotechEmail/Email/details.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_email_index',
-                    'mauticContent' => 'email',
+                    'activeLink'    => '#mailvotech_email_index',
+                    'mailvotechContent' => 'email',
                 ],
             ];
         }
@@ -523,8 +523,8 @@ final class EmailController extends FormController
         }
 
         // set the page we came from
-        $page         = $session->get('mautic.email.page', 1);
-        $action       = $this->generateUrl('mautic_email_action', ['objectAction' => 'new']);
+        $page         = $session->get('mailvotech.email.page', 1);
+        $action       = $this->generateUrl('mailvotech_email_action', ['objectAction' => 'new']);
         $emailForm    = $request->request->all()['emailform'] ?? [];
         $updateSelect = 'POST' === $method
             ? ($emailForm['updateSelect'] ?? false)
@@ -555,12 +555,12 @@ final class EmailController extends FormController
                         $model->saveEntity($entity);
 
                         $this->addFlashMessage(
-                            'mautic.core.notice.created',
+                            'mailvotech.core.notice.created',
                             [
                                 '%name%'      => $entity->getName(),
-                                '%menu_link%' => 'mautic_email_index',
+                                '%menu_link%' => 'mailvotech_email_index',
                                 '%url%'       => $this->generateUrl(
-                                    'mautic_email_action',
+                                    'mailvotech_email_action',
                                     [
                                         'objectAction' => 'edit',
                                         'objectId'     => $entity->getId(),
@@ -574,8 +574,8 @@ final class EmailController extends FormController
                                 'objectAction' => 'view',
                                 'objectId'     => $entity->getId(),
                             ];
-                            $returnUrl = $this->generateUrl('mautic_email_action', $viewParameters);
-                            $template  = 'Mautic\EmailBundle\Controller\EmailController::viewAction';
+                            $returnUrl = $this->generateUrl('mailvotech_email_action', $viewParameters);
+                            $template  = 'MailVotech\EmailBundle\Controller\EmailController::viewAction';
                         } else {
                             // return edit view so that all the session stuff is loaded
                             return $this->editAction($request, $assetModel, $corePermissions, $emailConfig, $model, $themeHelper, $entity->getId(), true);
@@ -588,15 +588,15 @@ final class EmailController extends FormController
                 }
             } else {
                 $viewParameters = ['page' => $page];
-                $returnUrl      = $this->generateUrl('mautic_email_index', $viewParameters);
-                $template       = 'Mautic\EmailBundle\Controller\EmailController::indexAction';
+                $returnUrl      = $this->generateUrl('mailvotech_email_index', $viewParameters);
+                $template       = 'MailVotech\EmailBundle\Controller\EmailController::indexAction';
                 // clear any modified content
-                $session->remove('mautic.emailbuilder.'.$entity->getSessionId().'.content');
+                $session->remove('mailvotech.emailbuilder.'.$entity->getSessionId().'.content');
             }
 
             $passthrough = [
-                'activeLink'    => 'mautic_email_index',
-                'mauticContent' => 'email',
+                'activeLink'    => 'mailvotech_email_index',
+                'mailvotechContent' => 'email',
             ];
 
             // Check to see if this is a popup
@@ -654,12 +654,12 @@ final class EmailController extends FormController
                     'permissions'       => $permissions,
                     'invalidHtmlError'  => $this->invalidHtmlError,
                 ],
-                'contentTemplate' => '@MauticEmail/Email/form.html.twig',
+                'contentTemplate' => '@MailVotechEmail/Email/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'      => '#mautic_email_index',
-                    'mauticContent'   => 'email',
+                    'activeLink'      => '#mailvotech_email_index',
+                    'mailvotechContent'   => 'email',
                     'updateSelect'    => $updateSelect,
-                    'route'           => $this->generateUrl('mautic_email_action', $routeParams),
+                    'route'           => $this->generateUrl('mailvotech_email_action', $routeParams),
                     'validationError' => $this->getFormErrorForBuilder($form),
                 ],
             ]
@@ -684,18 +684,18 @@ final class EmailController extends FormController
         $method  = $request->getMethod();
         $entity  = $model->getEntity($objectId);
         $session = $request->getSession();
-        $page    = $request->getSession()->get('mautic.email.page', 1);
+        $page    = $request->getSession()->get('mailvotech.email.page', 1);
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_email_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_email_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\EmailBundle\Controller\EmailController::indexAction',
+            'contentTemplate' => 'MailVotech\EmailBundle\Controller\EmailController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_email_index',
-                'mauticContent' => 'email',
+                'activeLink'    => 'mailvotech_email_index',
+                'mailvotechContent' => 'email',
             ],
         ];
 
@@ -708,7 +708,7 @@ final class EmailController extends FormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.email.error.notfound',
+                                'msg'     => 'mailvotech.email.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -729,7 +729,7 @@ final class EmailController extends FormController
         }
 
         // Create the form
-        $action       = $this->generateUrl('mautic_email_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action       = $this->generateUrl('mailvotech_email_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $emailform    = $request->request->all()['emailform'] ?? [];
         $updateSelect = 'POST' === $method
             ? ($emailform['updateSelect'] ?? false)
@@ -771,12 +771,12 @@ final class EmailController extends FormController
                         }
 
                         $this->addFlashMessage(
-                            'mautic.core.notice.updated',
+                            'mailvotech.core.notice.updated',
                             [
                                 '%name%'      => $entity->getName(),
-                                '%menu_link%' => 'mautic_email_index',
+                                '%menu_link%' => 'mailvotech_email_index',
                                 '%url%'       => $this->generateUrl(
-                                    'mautic_email_action',
+                                    'mailvotech_email_action',
                                     [
                                         'objectAction' => 'edit',
                                         'objectId'     => $entity->getId(),
@@ -792,15 +792,15 @@ final class EmailController extends FormController
                 }
             } else {
                 // clear any modified content
-                $session->remove('mautic.emailbuilder.'.$objectId.'.content');
+                $session->remove('mailvotech.emailbuilder.'.$objectId.'.content');
                 // unlock the entity
                 $model->unlockEntity($entity);
             }
 
-            $template    = 'Mautic\EmailBundle\Controller\EmailController::viewAction';
+            $template    = 'MailVotech\EmailBundle\Controller\EmailController::viewAction';
             $passthrough = [
-                'activeLink'    => 'mautic_email_index',
-                'mauticContent' => 'email',
+                'activeLink'    => 'mailvotech_email_index',
+                'mailvotechContent' => 'email',
             ];
 
             // Check to see if this is a popup
@@ -833,7 +833,7 @@ final class EmailController extends FormController
                     array_merge(
                         $postActionVars,
                         [
-                            'returnUrl'       => $this->generateUrl('mautic_email_action', $viewParameters),
+                            'returnUrl'       => $this->generateUrl('mailvotech_email_action', $viewParameters),
                             'viewParameters'  => $viewParameters,
                             'contentTemplate' => $template,
                             'passthroughVars' => $passthrough,
@@ -851,7 +851,7 @@ final class EmailController extends FormController
             $model->lockEntity($entity);
 
             // clear any modified content
-            $session->remove('mautic.emailbuilder.'.$objectId.'.content');
+            $session->remove('mailvotech.emailbuilder.'.$objectId.'.content');
 
             // Set to view content
             $template = $entity->getTemplate();
@@ -884,18 +884,18 @@ final class EmailController extends FormController
         $draftPreviewUrl = '';
         if ($emailConfig->isDraftEnabled() && $entity->hasDraft()) {
             $draftPreviewUrl = $this->generateUrl(
-                'mautic_email_preview',
+                'mailvotech_email_preview',
                 ['objectId'       => $entity->getId(),
                     'objectType'  => 'draft',
                 ]
             );
         }
 
-        $route = $this->generateUrl('mautic_email_action', $routeParams);
+        $route = $this->generateUrl('mailvotech_email_action', $routeParams);
         $error = $this->getFormErrorForBuilder($form);
         $data  = ['version' => $error ? $form['version']->getData() : $entity->getVersion()];
 
-        if ($optimizedResponse = $this->returnOptimizedResponse($request, $form, '#mautic_email_index', 'email', $route, $data)) {
+        if ($optimizedResponse = $this->returnOptimizedResponse($request, $form, '#mailvotech_email_index', 'email', $route, $data)) {
             return $optimizedResponse;
         }
 
@@ -912,17 +912,17 @@ final class EmailController extends FormController
                     'draftPreviewUrl'    => $draftPreviewUrl,
                     'invalidHtmlError'   => $this->invalidHtmlError,
                     'previewUrl'         => $this->generateUrl(
-                        'mautic_email_preview',
+                        'mailvotech_email_preview',
                         ['objectId' => $entity->getId()],
                         UrlGeneratorInterface::ABSOLUTE_URL
                     ),
                 ],
-                'contentTemplate' => '@MauticEmail/Email/form.html.twig',
+                'contentTemplate' => '@MailVotechEmail/Email/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'      => '#mautic_email_index',
-                    'mauticContent'   => 'email',
+                    'activeLink'      => '#mailvotech_email_index',
+                    'mailvotechContent'   => 'email',
                     'updateSelect'    => InputHelper::clean($request->query->get('updateSelect')),
-                    'route'           => $this->generateUrl('mautic_email_action', $routeParams),
+                    'route'           => $this->generateUrl('mailvotech_email_action', $routeParams),
                     'validationError' => $error,
                 ],
             ]
@@ -941,17 +941,17 @@ final class EmailController extends FormController
         }
         $method  = $request->getMethod();
         $session = $request->getSession();
-        $page    = $session->get('mautic.email.page', 1);
+        $page    = $session->get('mailvotech.email.page', 1);
 
-        $returnUrl = $this->generateUrl('mautic_email_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_email_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\EmailBundle\Controller\EmailController::viewAction',
+            'contentTemplate' => 'MailVotech\EmailBundle\Controller\EmailController::viewAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_email_index',
-                'mauticContent' => 'email',
+                'activeLink'    => 'mailvotech_email_index',
+                'mailvotechContent' => 'email',
             ],
         ];
 
@@ -964,7 +964,7 @@ final class EmailController extends FormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.email.error.notfound',
+                                'msg'     => 'mailvotech.email.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -986,7 +986,7 @@ final class EmailController extends FormController
         }
 
         // Create the form
-        $action = $this->generateUrl('mautic_email_action', ['objectAction' => 'clone', 'objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_email_action', ['objectAction' => 'clone', 'objectId' => $objectId]);
         $form   = $model->createForm($entity, $this->formFactory, $action);
 
         // /Check for a submitted form and process it
@@ -1002,12 +1002,12 @@ final class EmailController extends FormController
                         $model->saveEntity($entity);
 
                         $this->addFlashMessage(
-                            'mautic.core.notice.created',
+                            'mailvotech.core.notice.created',
                             [
                                 '%name%'      => $entity->getName(),
-                                '%menu_link%' => 'mautic_email_index',
+                                '%menu_link%' => 'mailvotech_email_index',
                                 '%url%'       => $this->generateUrl(
-                                    'mautic_email_action',
+                                    'mailvotech_email_action',
                                     [
                                         'objectAction' => 'edit',
                                         'objectId'     => $entity->getId(),
@@ -1021,8 +1021,8 @@ final class EmailController extends FormController
                                 'objectAction' => 'view',
                                 'objectId'     => $entity->getId(),
                             ];
-                            $returnUrl = $this->generateUrl('mautic_email_action', $viewParameters);
-                            $template  = 'Mautic\EmailBundle\Controller\EmailController::viewAction';
+                            $returnUrl = $this->generateUrl('mailvotech_email_action', $viewParameters);
+                            $template  = 'MailVotech\EmailBundle\Controller\EmailController::viewAction';
                         } else {
                             return $this->forward(self::class.'::editAction', [
                                 'objectId'   => $entity->getId(),
@@ -1037,15 +1037,15 @@ final class EmailController extends FormController
                 }
             } else {
                 $viewParameters = ['page' => $page];
-                $returnUrl      = $this->generateUrl('mautic_email_index', $viewParameters);
-                $template       = 'Mautic\EmailBundle\Controller\EmailController::indexAction';
+                $returnUrl      = $this->generateUrl('mailvotech_email_index', $viewParameters);
+                $template       = 'MailVotech\EmailBundle\Controller\EmailController::indexAction';
                 // clear any modified content
-                $session->remove('mautic.emailbuilder.'.$entity->getSessionId().'.content');
+                $session->remove('mailvotech.emailbuilder.'.$entity->getSessionId().'.content');
             }
 
             $passthrough = [
-                'activeLink'    => 'mautic_email_index',
-                'mauticContent' => 'email',
+                'activeLink'    => 'mailvotech_email_index',
+                'mailvotechContent' => 'email',
             ];
 
             if ($cancelled || ($valid && $this->getFormButton($form, ['buttons', 'save'])->isClicked())) {
@@ -1079,10 +1079,10 @@ final class EmailController extends FormController
                     'permissions'       => $permissions,
                     'invalidHtmlError'  => $this->invalidHtmlError,
                 ],
-                'contentTemplate' => '@MauticEmail/Email/form.html.twig',
+                'contentTemplate' => '@MailVotechEmail/Email/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'      => '#mautic_email_index',
-                    'mauticContent'   => 'email',
+                    'activeLink'      => '#mailvotech_email_index',
+                    'mailvotechContent'   => 'email',
                     'route'           => $action,
                     'validationError' => $this->getFormErrorForBuilder($form),
                 ],
@@ -1095,17 +1095,17 @@ final class EmailController extends FormController
      */
     public function cloneWithTranslationsAction(Request $request, EmailModel $model, int $objectId): JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse|Response
     {
-        $page = $request->getSession()->get('mautic.email.page', 1);
+        $page = $request->getSession()->get('mailvotech.email.page', 1);
 
-        $returnUrl = $this->generateUrl('mautic_email_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_email_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\EmailBundle\Controller\EmailController::indexAction',
+            'contentTemplate' => 'MailVotech\EmailBundle\Controller\EmailController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_email_index',
-                'mauticContent' => 'email',
+                'activeLink'    => 'mailvotech_email_index',
+                'mailvotechContent' => 'email',
             ],
         ];
 
@@ -1118,7 +1118,7 @@ final class EmailController extends FormController
         if (null === $emailEntity) {
             $postActionVars['flashes'][] = [
                 'type'    => 'error',
-                'msg'     => 'mautic.email.error.notfound',
+                'msg'     => 'mailvotech.email.error.notfound',
                 'msgVars' => ['%id%' => $objectId],
             ];
 
@@ -1142,7 +1142,7 @@ final class EmailController extends FormController
         if ($emailEntity->isTranslation(true) || $emailEntity->isVariant(true)) {
             $postActionVars['flashes'][] = [
                 'type' => 'error',
-                'msg'  => 'mautic.email.error.clone_with_relations_parent_only',
+                'msg'  => 'mailvotech.email.error.clone_with_relations_parent_only',
             ];
 
             return $this->postActionRedirect($postActionVars);
@@ -1155,7 +1155,7 @@ final class EmailController extends FormController
             $postActionVars['flashes'] = [
                 [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.email.notice.cloned_with_relations',
+                    'msg'     => 'mailvotech.email.notice.cloned_with_relations',
                     'msgVars' => [
                         '%name%'  => $clonedParent->getName(),
                         '%count%' => count($clonedEmails),
@@ -1168,10 +1168,10 @@ final class EmailController extends FormController
                 'objectId'     => $clonedParent->getId(),
             ];
             $postActionVars['returnUrl'] = $this->generateUrl(
-                'mautic_email_action',
+                'mailvotech_email_action',
                 $postActionVars['viewParameters']
             );
-            $postActionVars['contentTemplate'] = 'Mautic\EmailBundle\Controller\EmailController::viewAction';
+            $postActionVars['contentTemplate'] = 'MailVotech\EmailBundle\Controller\EmailController::viewAction';
         } catch (InvalidRenderedHtmlException $e) {
             $postActionVars['flashes'] = [
                 [
@@ -1189,17 +1189,17 @@ final class EmailController extends FormController
      */
     public function deleteAction(Request $request, $objectId): Response
     {
-        $page      = $request->getSession()->get('mautic.email.page', 1);
-        $returnUrl = $this->generateUrl('mautic_email_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.email.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_email_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\EmailBundle\Controller\EmailController::indexAction',
+            'contentTemplate' => 'MailVotech\EmailBundle\Controller\EmailController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_email_index',
-                'mauticContent' => 'email',
+                'activeLink'    => 'mailvotech_email_index',
+                'mailvotechContent' => 'email',
             ],
         ];
 
@@ -1209,7 +1209,7 @@ final class EmailController extends FormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.email.error.notfound',
+                    'msg'     => 'mailvotech.email.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->hasEntityAccess(
@@ -1227,7 +1227,7 @@ final class EmailController extends FormController
 
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $entity->getName(),
                     '%id%'   => $objectId,
@@ -1249,7 +1249,7 @@ final class EmailController extends FormController
      * Activate the builder.
      *
      * @throws \Exception
-     * @throws \Mautic\CoreBundle\Exception\FileNotFoundException
+     * @throws \MailVotech\CoreBundle\Exception\FileNotFoundException
      */
     public function builderAction(Request $request, ThemeHelper $themeHelper, $objectId): Response
     {
@@ -1278,7 +1278,7 @@ final class EmailController extends FormController
         $template = InputHelper::clean($request->query->get('template'));
 
         // merge any existing changes
-        $newContent = $request->getSession()->get('mautic.emailbuilder.'.$objectId.'.content', []);
+        $newContent = $request->getSession()->get('mailvotech.emailbuilder.'.$objectId.'.content', []);
         $content    = $entity->getContent();
 
         if (is_array($newContent)) {
@@ -1337,17 +1337,17 @@ final class EmailController extends FormController
     public function winnerAction(Request $request, $objectId): Response
     {
         // todo - add confirmation to button click
-        $page      = $request->getSession()->get('mautic.email', 1);
-        $returnUrl = $this->generateUrl('mautic_email_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.email', 1);
+        $returnUrl = $this->generateUrl('mailvotech_email_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\EmailBundle\Controller\EmailController::indexAction',
+            'contentTemplate' => 'MailVotech\EmailBundle\Controller\EmailController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_email_index',
-                'mauticContent' => 'page',
+                'activeLink'    => 'mailvotech_email_index',
+                'mailvotechContent' => 'page',
             ],
         ];
 
@@ -1357,7 +1357,7 @@ final class EmailController extends FormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.email.error.notfound',
+                    'msg'     => 'mailvotech.email.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->hasEntityAccess(
@@ -1381,7 +1381,7 @@ final class EmailController extends FormController
 
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.email.notice.activated',
+                'msg'     => 'mailvotech.email.notice.activated',
                 'msgVars' => [
                     '%name%' => $entity->getName(),
                     '%id%'   => $objectId,
@@ -1392,8 +1392,8 @@ final class EmailController extends FormController
                 'objectAction' => 'view',
                 'objectId'     => $objectId,
             ];
-            $postActionVars['returnUrl']       = $this->generateUrl('mautic_page_action', $postActionVars['viewParameters']);
-            $postActionVars['contentTemplate'] = 'Mautic\EmailBundle\Controller\EmailController::viewAction';
+            $postActionVars['returnUrl']       = $this->generateUrl('mailvotech_page_action', $postActionVars['viewParameters']);
+            $postActionVars['contentTemplate'] = 'MailVotech\EmailBundle\Controller\EmailController::viewAction';
         } // else don't do anything
 
         return $this->postActionRedirect(
@@ -1413,18 +1413,18 @@ final class EmailController extends FormController
     {
         $entity  = $this->emailModel->getEntity($objectId);
         $session = $request->getSession();
-        $page    = $session->get('mautic.email.page', 1);
+        $page    = $session->get('mailvotech.email.page', 1);
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_email_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_email_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\EmailBundle\Controller\EmailController::indexAction',
+            'contentTemplate' => 'MailVotech\EmailBundle\Controller\EmailController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_email_index',
-                'mauticContent' => 'email',
+                'activeLink'    => 'mailvotech_email_index',
+                'mailvotechContent' => 'email',
             ],
         ];
 
@@ -1437,7 +1437,7 @@ final class EmailController extends FormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.email.error.notfound',
+                                'msg'     => 'mailvotech.email.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -1454,7 +1454,7 @@ final class EmailController extends FormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.email.error.send.unpublished',
+                                'msg'     => 'mailvotech.email.error.send.unpublished',
                                 'msgVars' => [
                                     '%id%'   => $objectId,
                                     '%name%' => $entity->getName(),
@@ -1478,7 +1478,7 @@ final class EmailController extends FormController
 
         // Check that the parent is getting sent
         if ($variantParent = $entity->getVariantParent()) {
-            return $this->redirectToRoute('mautic_email_action', [
+            return $this->redirectToRoute('mailvotech_email_action', [
                 'objectAction' => 'send',
                 'objectId'     => $variantParent->getId(),
             ]);
@@ -1487,13 +1487,13 @@ final class EmailController extends FormController
         $translationParent = $entity->getTranslationParent();
 
         if ($translationParent instanceof Email) {
-            return $this->redirectToRoute('mautic_email_action', [
+            return $this->redirectToRoute('mailvotech_email_action', [
                 'objectAction' => 'send',
                 'objectId'     => $translationParent->getId(),
             ]);
         }
 
-        $action   = $this->generateUrl('mautic_email_action', ['objectAction' => 'send', 'objectId' => $objectId]);
+        $action   = $this->generateUrl('mailvotech_email_action', ['objectAction' => 'send', 'objectId' => $objectId]);
         $pending  = $this->emailModel->getPendingLeads($entity, null, true);
         $form     = $this->formFactory->create(BatchSendType::class, [], ['action' => $action]);
         $complete = $request->request->get('complete', false);
@@ -1501,22 +1501,22 @@ final class EmailController extends FormController
         if ('POST' === $request->getMethod() && ($complete || $this->isFormValid($form))) {
             if (!$complete) {
                 $progress = [0, (int) $pending];
-                $session->set('mautic.email.send.progress', $progress);
+                $session->set('mailvotech.email.send.progress', $progress);
 
                 $stats = ['sent' => 0, 'failed' => 0, 'failedRecipients' => []];
-                $session->set('mautic.email.send.stats', $stats);
+                $session->set('mailvotech.email.send.stats', $stats);
 
                 $status     = 'inprogress';
 
-                $session->set('mautic.email.send.active', false);
+                $session->set('mailvotech.email.send.active', false);
             } else {
-                $stats      = $session->get('mautic.email.send.stats');
-                $progress   = $session->get('mautic.email.send.progress');
+                $stats      = $session->get('mailvotech.email.send.stats');
+                $progress   = $session->get('mailvotech.email.send.progress');
                 $status     = (!empty($stats['failed'])) ? 'with_errors' : 'success';
             }
 
             $batchlimit      = $this->coreParametersHelper->get('mailer_memory_msg_limit');
-            $contentTemplate = '@MauticEmail/Send/progress.html.twig';
+            $contentTemplate = '@MailVotechEmail/Send/progress.html.twig';
             $viewParameters  = [
                 'progress'   => $progress,
                 'stats'      => $stats,
@@ -1526,7 +1526,7 @@ final class EmailController extends FormController
             ];
         } else {
             // process and send
-            $contentTemplate = '@MauticEmail/Send/form.html.twig';
+            $contentTemplate = '@MailVotechEmail/Send/form.html.twig';
             $viewParameters  = [
                 'form'    => $form->createView(),
                 'email'   => $entity,
@@ -1539,7 +1539,7 @@ final class EmailController extends FormController
                 'viewParameters'  => $viewParameters,
                 'contentTemplate' => $contentTemplate,
                 'passthroughVars' => [
-                    'mauticContent' => 'emailSend',
+                    'mailvotechContent' => 'emailSend',
                     'route'         => $action,
                 ],
             ]
@@ -1551,17 +1551,17 @@ final class EmailController extends FormController
      */
     public function batchDeleteAction(Request $request): Response
     {
-        $page      = $request->getSession()->get('mautic.email.page', 1);
-        $returnUrl = $this->generateUrl('mautic_email_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.email.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_email_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\EmailBundle\Controller\EmailController::indexAction',
+            'contentTemplate' => 'MailVotech\EmailBundle\Controller\EmailController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_email_index',
-                'mauticContent' => 'email',
+                'activeLink'    => '#mailvotech_email_index',
+                'mailvotechContent' => 'email',
             ],
         ];
 
@@ -1577,7 +1577,7 @@ final class EmailController extends FormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.email.error.notfound',
+                        'msg'     => 'mailvotech.email.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->hasEntityAccess(
@@ -1600,7 +1600,7 @@ final class EmailController extends FormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.email.notice.batch_deleted',
+                    'msg'     => 'mailvotech.email.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],
@@ -1641,7 +1641,7 @@ final class EmailController extends FormController
         }
 
         // Get the quick add form
-        $action = $this->generateUrl('mautic_email_action', ['objectAction' => 'scheduleSend', 'objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_email_action', ['objectAction' => 'scheduleSend', 'objectId' => $objectId]);
 
         $data = [
             'publishUp'       => $entity->getPublishUp(),
@@ -1661,14 +1661,14 @@ final class EmailController extends FormController
                     $entity->setPublishDown(null);
                     $entity->setContinueSending(false);
 
-                    $this->addFlashMessage('mautic.email.notice.schedule.cancel');
+                    $this->addFlashMessage('mailvotech.email.notice.schedule.cancel');
                 } else {
                     $entity->setPublishUp($data['publishUp']);
                     $entity->setPublishDown($data['publishDown']);
                     $entity->setContinueSending($data['continueSending'] ?? false);
                     $entity->setIsPublished(true);
 
-                    $this->addFlashMessage('mautic.email.notice.schedule.sent');
+                    $this->addFlashMessage('mailvotech.email.notice.schedule.sent');
                 }
 
                 $model->saveEntity($entity);
@@ -1682,11 +1682,11 @@ final class EmailController extends FormController
 
                 return $this->postActionRedirect(
                     [
-                        'returnUrl'       => $this->generateUrl('mautic_email_action', $viewParameters),
+                        'returnUrl'       => $this->generateUrl('mailvotech_email_action', $viewParameters),
                         'viewParameters'  => $viewParameters,
-                        'contentTemplate' => 'Mautic\EmailBundle\Controller\EmailController::viewAction',
+                        'contentTemplate' => 'MailVotech\EmailBundle\Controller\EmailController::viewAction',
                         'passthroughVars' => [
-                            'mauticContent' => 'email',
+                            'mailvotechContent' => 'email',
                             'closeModal'    => 1,
                         ],
                     ]
@@ -1699,7 +1699,7 @@ final class EmailController extends FormController
                 'viewParameters' => [
                     'form' => $form->createView(),
                 ],
-                'contentTemplate' => '@MauticEmail/Email/schedule.html.twig',
+                'contentTemplate' => '@MailVotechEmail/Email/schedule.html.twig',
             ]
         );
     }
@@ -1731,7 +1731,7 @@ final class EmailController extends FormController
         }
 
         // Get the quick add form
-        $action = $this->generateUrl('mautic_email_action', ['objectAction' => 'sendExample', 'objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_email_action', ['objectAction' => 'sendExample', 'objectId' => $objectId]);
         $user   = $this->user;
 
         // We have to add prefix to example emails
@@ -1796,7 +1796,7 @@ final class EmailController extends FormController
                 if (0 !== count($errors)) {
                     $this->addFlashMessage(implode('; ', $errors));
                 } else {
-                    $this->addFlashMessage('mautic.email.notice.test_sent_multiple.success');
+                    $this->addFlashMessage('mailvotech.email.notice.test_sent_multiple.success');
                 }
             }
 
@@ -1817,7 +1817,7 @@ final class EmailController extends FormController
                 'viewParameters' => [
                     'form' => $form->createView(),
                 ],
-                'contentTemplate' => '@MauticEmail/Email/recipients.html.twig',
+                'contentTemplate' => '@MailVotechEmail/Email/recipients.html.twig',
             ]
         );
     }

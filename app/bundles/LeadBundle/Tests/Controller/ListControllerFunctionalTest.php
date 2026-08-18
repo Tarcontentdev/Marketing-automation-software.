@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller;
+namespace MailVotech\LeadBundle\Tests\Controller;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Command\SegmentCountCacheCommand;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\ListLead;
-use Mautic\LeadBundle\Helper\SegmentCountCacheHelper;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\ProjectBundle\Model\ProjectModel;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Command\SegmentCountCacheCommand;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\ListLead;
+use MailVotech\LeadBundle\Helper\SegmentCountCacheHelper;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\ProjectBundle\Model\ProjectModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ListControllerFunctionalTest extends MauticMysqlTestCase
+final class ListControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     private ListModel $listModel;
 
@@ -51,7 +51,7 @@ final class ListControllerFunctionalTest extends MauticMysqlTestCase
         $this->assertInstanceOf(LeadModel::class, $leadModel);
         $this->segmentCountCacheHelper = self::getContainer()->get(SegmentCountCacheHelper::class);
         $this->leadRepo                = $leadModel->getRepository();
-        $this->prefix                  = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $this->prefix                  = self::getContainer()->getParameter('mailvotech.db_table_prefix');
         $this->translator              = self::getContainer()->get(TranslatorInterface::class);
         $this->assertInstanceOf(TranslatorInterface::class, $this->translator);
     }
@@ -164,7 +164,7 @@ final class ListControllerFunctionalTest extends MauticMysqlTestCase
         $contact1Id = $contacts[0]->getId();
 
         // Rebuild segment - set current count to the cache.
-        $this->testSymfonyCommand('mautic:segments:update', ['-i' => $segmentId, '--env' => 'test']);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['-i' => $segmentId, '--env' => 'test']);
 
         // Verify last built date is set.
         $this->em->detach($segment);
@@ -293,7 +293,7 @@ final class ListControllerFunctionalTest extends MauticMysqlTestCase
 
         // Check segment count UI for no contacts.
         usleep(1000000);
-        $this->testSymfonyCommand('mautic:segments:update', ['-i' => $segmentId, '--env' => 'test']);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['-i' => $segmentId, '--env' => 'test']);
 
         $crawler = $this->client->request(Request::METHOD_GET, '/s/segments');
         $html    = $this->getSegmentCountHtml($crawler, $segmentId);
@@ -304,7 +304,7 @@ final class ListControllerFunctionalTest extends MauticMysqlTestCase
         $contact1Id = $contacts[0]->getId();
 
         // Rebuild segment - set current count to the cache.
-        $this->testSymfonyCommand('mautic:segments:update', ['-i' => $segmentId, '--env' => 'test']);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['-i' => $segmentId, '--env' => 'test']);
 
         $this->testSymfonyCommand(SegmentCountCacheCommand::COMMAND_NAME);
 
@@ -511,7 +511,7 @@ final class ListControllerFunctionalTest extends MauticMysqlTestCase
         ]);
 
         $expectedErrorMessage = $this->translator->trans(
-            'mautic.lead.lists.used_in_campaigns.delete',
+            'mailvotech.lead.lists.used_in_campaigns.delete',
             [
                 '%campaignNames%' => '"'.$campaignName.'"',
                 '%segmentNames%'  => 's1',
@@ -551,7 +551,7 @@ final class ListControllerFunctionalTest extends MauticMysqlTestCase
         ]);
 
         $expectedErrorMessage = $this->translator->trans(
-            'mautic.lead.list.error.cannot.delete.batch',
+            'mailvotech.lead.list.error.cannot.delete.batch',
             [
                 '%segments%'  => $list1->getName().', '.$list2->getName(),
             ],
@@ -877,7 +877,7 @@ final class ListControllerFunctionalTest extends MauticMysqlTestCase
 
         $translator = self::getContainer()->get(TranslatorInterface::class);
 
-        $this->assertStringContainsString($translator->trans('mautic.core.recent.activity'), (string) $this->client->getResponse()->getContent());
+        $this->assertStringContainsString($translator->trans('mailvotech.core.recent.activity'), (string) $this->client->getResponse()->getContent());
         $this->assertCount(2, $crawler->filterXPath('//ul[contains(@class, "media-list-feed")]/li'));
     }
 

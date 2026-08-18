@@ -1,10 +1,10 @@
-{% extends '@MauticCore/Default/slim.html.twig' %}
+{% extends '@MailVotechCore/Default/slim.html.twig' %}
 
 {% block pageTitle pageTitle %}
 
 {% block headerTitle report.name %}
 
-{% block mauticContent 'report' %}
+{% block mailvotechContent 'report' %}
 
 {% block _content %}
   {#$showGraphsAboveTable = (true === !empty($report->getSettings()['showGraphsAboveTable']));#}
@@ -28,7 +28,7 @@
   </div>
 
   {% if showGraphsAboveTable is not empty %}
-      {{ include('@MauticReport/Report/details_data_graphs.html.twig', {
+      {{ include('@MailVotechReport/Report/details_data_graphs.html.twig', {
               'graphOrder': graphOrder,
               'graphs': reportDataResult.getGraphs(),
               'report': report,
@@ -59,7 +59,7 @@
               {% endfor %}
               {% if reportDataResult.totals %}
                   <tr class="cm-strong">
-                      <td>{{ 'mautic.report.report.groupby.totals'|trans }}</td>
+                      <td>{{ 'mailvotech.report.report.groupby.totals'|trans }}</td>
                       {% for key in columnOrder %}
                           <td>&nbsp;</td>
                       {% endfor %}
@@ -86,7 +86,7 @@
   {% endif %}
 
   {% if showGraphsAboveTable is empty %}
-      {{ include('@MauticReport/Report/details_data_graphs.html.twig', {
+      {{ include('@MailVotechReport/Report/details_data_graphs.html.twig', {
               'graphOrder': graphOrder,
               'graphs': reportDataResult.getGraphs(),
               'report': report,

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Scheduler\Command;
+namespace MailVotech\ReportBundle\Scheduler\Command;
 
-use Mautic\ReportBundle\Exception\FileIOException;
-use Mautic\ReportBundle\Model\ReportCleanup;
-use Mautic\ReportBundle\Model\ReportExporter;
-use Mautic\ReportBundle\Scheduler\Option\ExportOption;
+use MailVotech\ReportBundle\Exception\FileIOException;
+use MailVotech\ReportBundle\Model\ReportCleanup;
+use MailVotech\ReportBundle\Model\ReportExporter;
+use MailVotech\ReportBundle\Scheduler\Option\ExportOption;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
-    name: 'mautic:reports:scheduler',
+    name: 'mailvotech:reports:scheduler',
     description: "Processes scheduler for report's export"
 )]
 final class ExportSchedulerCommand extends Command
@@ -41,7 +41,7 @@ final class ExportSchedulerCommand extends Command
         $cleanupOnly = $input->getOption('cleanup-only') ?? false;
 
         if (null !== $report && !is_numeric($report)) {
-            $output->writeln('<error>'.$this->translator->trans('mautic.report.schedule.command.invalid_parameter').'</error>');
+            $output->writeln('<error>'.$this->translator->trans('mailvotech.report.schedule.command.invalid_parameter').'</error>');
 
             return Command::INVALID;
         }
@@ -49,7 +49,7 @@ final class ExportSchedulerCommand extends Command
         try {
             $exportOption = new ExportOption((int) $report);
         } catch (\InvalidArgumentException $e) {
-            $output->writeln('<error>'.$this->translator->trans('mautic.report.schedule.command.invalid_parameter').'</error>');
+            $output->writeln('<error>'.$this->translator->trans('mailvotech.report.schedule.command.invalid_parameter').'</error>');
 
             return Command::FAILURE;
         }
@@ -67,7 +67,7 @@ final class ExportSchedulerCommand extends Command
 
             $this->reportExporter->processExport($exportOption);
 
-            $output->writeln('<info>'.$this->translator->trans('mautic.report.schedule.command.finished').'</info>');
+            $output->writeln('<info>'.$this->translator->trans('mailvotech.report.schedule.command.finished').'</info>');
         } catch (FileIOException $e) {
             $output->writeln('<error>'.$e->getMessage().'</error>');
 

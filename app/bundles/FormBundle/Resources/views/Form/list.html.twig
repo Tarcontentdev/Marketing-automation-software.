@@ -11,18 +11,18 @@
 #}
 {% set isIndex = 'index' == tmpl ? true : false %}
 {% set tmpl = 'list' %}
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
 
-{% block mauticContent %}form{% endblock %}
+{% block mailvotechContent %}form{% endblock %}
 
 {% block headerTitle %}
-  {{ 'mautic.form.forms'|trans }}
+  {{ 'mailvotech.form.forms'|trans }}
 {% endblock %}
 
 {% block content %}
   {% if isIndex %}
     <div id="page-list-wrapper" class="{% if items|length > 0 or searchValue is not empty %}panel {% endif %}panel-default">
-      {{- include('@MauticCore/Helper/list_toolbar.html.twig', {
+      {{- include('@MailVotechCore/Helper/list_toolbar.html.twig', {
         'searchValue': searchValue,
         'searchId': 'list-search',
         'action': currentRoute,
@@ -41,11 +41,11 @@
           'customButtons': [
               {
                   'confirm': {
-                      'message': 'mautic.form.confirm_batch_rebuild'|trans,
-                      'confirmText': 'mautic.form.rebuild'|trans,
-                      'confirmAction': path('mautic_form_action', {'objectAction': 'batchRebuildHtml'}),
+                      'message': 'mailvotech.form.confirm_batch_rebuild'|trans,
+                      'confirmText': 'mailvotech.form.rebuild'|trans,
+                      'confirmAction': path('mailvotech_form_action', {'objectAction': 'batchRebuildHtml'}),
                       'iconClass': 'fa ri-fw ri-refresh-line',
-                      'btnText': 'mautic.form.rebuild'|trans,
+                      'btnText': 'mailvotech.form.rebuild'|trans,
                       'precheck': 'batchActionPrecheck',
                       'confirmCallback': 'executeBatchAction',
                   },
@@ -55,58 +55,58 @@
         },
         'quickFilters': [
             {
-                'search': 'mautic.core.searchcommand.ispublished',
-                'label': 'mautic.core.form.available',
-                'tooltip': 'mautic.core.searchcommand.ispublished.description',
+                'search': 'mailvotech.core.searchcommand.ispublished',
+                'label': 'mailvotech.core.form.available',
+                'tooltip': 'mailvotech.core.searchcommand.ispublished.description',
                 'icon': 'ri-check-line'
             },
             {
-                'search': 'mautic.core.searchcommand.isunpublished',
-                'label': 'mautic.core.form.unavailable',
-                'tooltip': 'mautic.core.searchcommand.isunpublished.description',
+                'search': 'mailvotech.core.searchcommand.isunpublished',
+                'label': 'mailvotech.core.form.unavailable',
+                'tooltip': 'mailvotech.core.searchcommand.isunpublished.description',
                 'icon': 'ri-close-line'
             },
             {
-                'search': 'mautic.core.searchcommand.isuncategorized',
-                'label': 'mautic.core.form.uncategorized',
-                'tooltip': 'mautic.core.searchcommand.isuncategorized.description',
+                'search': 'mailvotech.core.searchcommand.isuncategorized',
+                'label': 'mailvotech.core.form.uncategorized',
+                'tooltip': 'mailvotech.core.searchcommand.isuncategorized.description',
                 'icon': 'ri-folder-unknow-line'
             },
             {
-                'search': 'mautic.core.searchcommand.ismine',
-                'label': 'mautic.core.searchcommand.ismine.label',
-                'tooltip': 'mautic.core.searchcommand.ismine.description',
+                'search': 'mailvotech.core.searchcommand.ismine',
+                'label': 'mailvotech.core.searchcommand.ismine.label',
+                'tooltip': 'mailvotech.core.searchcommand.ismine.description',
                 'icon': 'ri-user-line'
             },
             {
-                'search': 'mautic.form.form.searchcommand.isexpired',
-                'label': 'mautic.core.form.no_longer_available',
-                'tooltip': 'mautic.form.form.searchcommand.isexpired.description',
+                'search': 'mailvotech.form.form.searchcommand.isexpired',
+                'label': 'mailvotech.core.form.no_longer_available',
+                'tooltip': 'mailvotech.form.form.searchcommand.isexpired.description',
                 'icon': 'ri-time-line'
             },
             {
-                'search': 'mautic.form.form.searchcommand.ispending',
-                'label': 'mautic.core.form.not_yet_available',
-                'tooltip': 'mautic.form.form.searchcommand.ispending.description',
+                'search': 'mailvotech.form.form.searchcommand.ispending',
+                'label': 'mailvotech.core.form.not_yet_available',
+                'tooltip': 'mailvotech.form.form.searchcommand.ispending.description',
                 'icon': 'ri-timer-line'
             },
             {
                 'search': 'has:results',
-                'label': 'mautic.core.search.quickfilter.form_results',
-                'tooltip': 'mautic.core.search.quickfilter.form_results.tooltip',
+                'label': 'mailvotech.core.search.quickfilter.form_results',
+                'tooltip': 'mailvotech.core.search.quickfilter.form_results.tooltip',
                 'icon': 'ri-file-list-2-line'
             }
         ]
     }) -}}
 
         <div class="page-list">
-          {{ include('@MauticForm/Form/_list.html.twig') }}
+          {{ include('@MailVotechForm/Form/_list.html.twig') }}
         </div>
     </div>
-    {{ include('@MauticCore/Modules/protip.html.twig', {
-      tip: random(['mautic.protip.forms.redirect', 'mautic.protip.forms.minimize', 'mautic.protip.forms.language', 'mautic.protip.forms.multistep'])
+    {{ include('@MailVotechCore/Modules/protip.html.twig', {
+      tip: random(['mailvotech.protip.forms.redirect', 'mailvotech.protip.forms.minimize', 'mailvotech.protip.forms.language', 'mailvotech.protip.forms.multistep'])
   }) }}
   {% else %}
-    {{ include('@MauticForm/Form/_list.html.twig') }}
+    {{ include('@MailVotechForm/Form/_list.html.twig') }}
   {% endif %}
 {% endblock %}

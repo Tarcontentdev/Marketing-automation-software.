@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller;
+namespace MailVotech\EmailBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
-use Mautic\LeadBundle\Entity\LeadList;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
+use MailVotech\LeadBundle\Entity\LeadList;
 use Symfony\Component\HttpFoundation\Request;
 
-final class EmailSendDisabledTrackingFunctionalTest extends MauticMysqlTestCase
+final class EmailSendDisabledTrackingFunctionalTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 
@@ -74,7 +74,7 @@ final class EmailSendDisabledTrackingFunctionalTest extends MauticMysqlTestCase
         ];
 
         foreach ($messages as $message) {
-            $this->assertInstanceOf(MauticMessage::class, $message);
+            $this->assertInstanceOf(MailVotechMessage::class, $message);
             $body = quoted_printable_decode($message->getBody()->bodyToString());
             preg_match('/<a href=\"([^\"]*)\">(.*)<\/a>/iU', $body, $match);
             $this->assertArrayHasKey(1, $match, $body);

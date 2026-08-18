@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Event;
+namespace MailVotech\PageBundle\Event;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Page;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class PageDisplayEvent extends Event

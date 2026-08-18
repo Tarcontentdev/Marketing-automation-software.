@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Validator;
+namespace MailVotech\CoreBundle\Validator;
 
-use Mautic\CoreBundle\Exception\FileInvalidException;
-use Mautic\CoreBundle\Helper\FileHelper;
+use MailVotech\CoreBundle\Exception\FileInvalidException;
+use MailVotech\CoreBundle\Helper\FileHelper;
 use Symfony\Component\Mime\MimeTypes;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -48,7 +48,7 @@ class FileUploadValidator
      *
      * @throws FileInvalidException
      */
-    public function checkExtension($extension, array $allowedExtensions, string $extensionErrorMsg = 'mautic.asset.asset.error.file.extension'): void
+    public function checkExtension($extension, array $allowedExtensions, string $extensionErrorMsg = 'mailvotech.asset.asset.error.file.extension'): void
     {
         $extension         = strtolower($extension);
         $allowedExtensions = array_map(strtolower(...), $allowedExtensions);
@@ -67,7 +67,7 @@ class FileUploadValidator
      *
      * @throws FileInvalidException
      */
-    public function checkFileSize($fileSize, $maxUploadSizeMB, string $sizeErrorMsg = 'mautic.asset.asset.error.file.size'): void
+    public function checkFileSize($fileSize, $maxUploadSizeMB, string $sizeErrorMsg = 'mailvotech.asset.asset.error.file.size'): void
     {
         if (!$maxUploadSizeMB) {
             return;
@@ -88,7 +88,7 @@ class FileUploadValidator
      *
      * @throws FileInvalidException
      */
-    public function checkMimeType(string $mimeType, array $allowedExtensions, string $messageId = 'mautic.asset.asset.error.invalid.mimetype'): void
+    public function checkMimeType(string $mimeType, array $allowedExtensions, string $messageId = 'mailvotech.asset.asset.error.invalid.mimetype'): void
     {
         $allowedExtensions = array_map(strtolower(...), $allowedExtensions);
         $extensions        = $this->getExtensionsByMimeType($mimeType);
@@ -117,7 +117,7 @@ class FileUploadValidator
      *
      * @throws FileInvalidException
      */
-    public function checkMimeTypesMatchExtension(array $mimeTypes, string $extension, string $messageId = 'mautic.asset.asset.error.mimetype.not.match.extension'): void
+    public function checkMimeTypesMatchExtension(array $mimeTypes, string $extension, string $messageId = 'mailvotech.asset.asset.error.mimetype.not.match.extension'): void
     {
         $extension  = strtolower($extension);
 

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\Entity;
+namespace MailVotech\PluginBundle\Tests\Entity;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PluginBundle\Entity\IntegrationEntity;
-use Mautic\PluginBundle\Entity\IntegrationEntityRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PluginBundle\Entity\IntegrationEntity;
+use MailVotech\PluginBundle\Entity\IntegrationEntityRepository;
 
 /**
  * IntegrationRepository.
  */
-final class IntegrationEntityRepositoryTest extends MauticMysqlTestCase
+final class IntegrationEntityRepositoryTest extends MailVotechMysqlTestCase
 {
     public const INTEGRATION        = 'someIntegration';
 
@@ -27,7 +27,7 @@ final class IntegrationEntityRepositoryTest extends MauticMysqlTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->prefix                      = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $this->prefix                      = self::getContainer()->getParameter('mailvotech.db_table_prefix');
         $this->integrationEntityRepository = self::getContainer()->get(IntegrationEntityRepository::class);
     }
 
@@ -115,7 +115,7 @@ final class IntegrationEntityRepositoryTest extends MauticMysqlTestCase
 
     public function testGetIntegrationEntityByLeadWhenNoIntegrationNamePassed(): void
     {
-        $prefix = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix = self::getContainer()->getParameter('mailvotech.db_table_prefix');
 
         $this->connection->executeQuery('SET FOREIGN_KEY_CHECKS=0;');
         $this->connection->executeQuery("INSERT INTO {$prefix}plugin_integration_settings(plugin_id, name, is_published, api_keys) VALUES (:id, :name, :isPublished, '')", ['id' => 1, 'name' => self::INTEGRATION, 'isPublished' => 1]);

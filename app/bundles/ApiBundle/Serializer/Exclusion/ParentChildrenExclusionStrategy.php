@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\ApiBundle\Serializer\Exclusion;
+namespace MailVotech\ApiBundle\Serializer\Exclusion;
 
 /**
  * Only include the first level of a children/parent of an entity that relates to itself.

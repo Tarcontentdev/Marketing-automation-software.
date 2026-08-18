@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Event;
+namespace MailVotech\IntegrationsBundle\Event;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class SyncEvent extends Event

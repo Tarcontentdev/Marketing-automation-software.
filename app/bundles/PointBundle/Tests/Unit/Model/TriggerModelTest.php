@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Unit\Model;
+namespace MailVotech\PointBundle\Tests\Unit\Model;
 
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Form\Type\EmailToUserType;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\PointBundle\Entity\TriggerEvent;
-use Mautic\PointBundle\Entity\TriggerEventRepository;
-use Mautic\PointBundle\Entity\TriggerRepository;
-use Mautic\PointBundle\Model\TriggerEventModel;
-use Mautic\PointBundle\Model\TriggerModel;
-use Mautic\PointBundle\PointEvents;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Form\Type\EmailToUserType;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\PointBundle\Entity\TriggerEvent;
+use MailVotech\PointBundle\Entity\TriggerEventRepository;
+use MailVotech\PointBundle\Entity\TriggerRepository;
+use MailVotech\PointBundle\Model\TriggerEventModel;
+use MailVotech\PointBundle\Model\TriggerModel;
+use MailVotech\PointBundle\PointEvents;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
@@ -93,11 +93,11 @@ final class TriggerModelTest extends \PHPUnit\Framework\TestCase
                     $event->addEvent(
                         'email.send_to_user',
                         [
-                            'group'           => 'mautic.email.point.trigger',
-                            'label'           => 'mautic.email.point.trigger.send_email_to_user',
+                            'group'           => 'mailvotech.email.point.trigger',
+                            'label'           => 'mailvotech.email.point.trigger.send_email_to_user',
                             'formType'        => EmailToUserType::class,
                             'formTypeOptions' => ['update_select' => 'pointtriggerevent_properties_useremail_email'],
-                            'formTheme'       => 'MauticEmailBundle:FormTheme\EmailSendList',
+                            'formTheme'       => 'MailVotechEmailBundle:FormTheme\EmailSendList',
                             'eventName'       => EmailEvents::ON_SENT_EMAIL_TO_USER,
                         ]
                     );

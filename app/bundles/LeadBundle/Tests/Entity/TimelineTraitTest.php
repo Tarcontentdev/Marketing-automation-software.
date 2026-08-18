@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
 use ArrayObject;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Result;
-use Mautic\LeadBundle\Entity\TimelineTrait;
-use Mautic\LeadBundle\Entity\UtmTagRepository;
+use MailVotech\LeadBundle\Entity\TimelineTrait;
+use MailVotech\LeadBundle\Entity\UtmTagRepository;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

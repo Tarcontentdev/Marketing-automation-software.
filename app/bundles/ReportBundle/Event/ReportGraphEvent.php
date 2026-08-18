@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\ReportBundle\Event;
+namespace MailVotech\ReportBundle\Event;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\Report;
 
 class ReportGraphEvent extends AbstractReportEvent
 {

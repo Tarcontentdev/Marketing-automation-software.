@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tracker\Service\ContactTrackingService;
+namespace MailVotech\LeadBundle\Tracker\Service\ContactTrackingService;
 
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Lead;
 
 /**
  * Interface ContactTrackingInterface.

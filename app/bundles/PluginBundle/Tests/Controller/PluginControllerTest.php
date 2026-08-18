@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\Controller;
+namespace MailVotech\PluginBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PluginControllerTest extends MauticMysqlTestCase
+final class PluginControllerTest extends MailVotechMysqlTestCase
 {
     public function testConfigurePluginSuccessValidation(): void
     {
@@ -49,8 +49,8 @@ final class PluginControllerTest extends MauticMysqlTestCase
 
     public function testReturnPluginVersion(): void
     {
-        $this->testSymfonyCommand('mautic:plugins:install');
-        $this->client->xmlHttpRequest(Request::METHOD_GET, '/s/plugins/info/MauticFocusBundle');
+        $this->testSymfonyCommand('mailvotech:plugins:install');
+        $this->client->xmlHttpRequest(Request::METHOD_GET, '/s/plugins/info/MailVotechFocusBundle');
 
         $response = $this->client->getResponse();
         self::assertResponseIsSuccessful();

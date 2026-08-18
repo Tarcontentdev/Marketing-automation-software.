@@ -1,8 +1,8 @@
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
 {% block preHeader %}
 {{- include(
-    '@MauticCore/Helper/page_actions.html.twig', {
+    '@MailVotechCore/Helper/page_actions.html.twig', {
         item: item,
         templateButtons: {
             'close': securityHasEntityAccess(
@@ -12,17 +12,17 @@
             ),
         },
         routeBase: 'webhook',
-        'targetLabel': 'mautic.webhook.webhooks'|trans
+        'targetLabel': 'mailvotech.webhook.webhooks'|trans
 }) -}}
-{{ include('@MauticCore/Modules/category--inline.html.twig', {'category': item.category}) }}
+{{ include('@MailVotechCore/Modules/category--inline.html.twig', {'category': item.category}) }}
 {% endblock %}
 
 {% block headerTitle %}{{ item.getName() }}{% endblock %}
-{% block mauticContent %}mauticWebhook{% endblock %}
+{% block mailvotechContent %}mailvotechWebhook{% endblock %}
 
 {% block actions %}
     {{- include(
-        '@MauticCore/Helper/page_actions.html.twig', {
+        '@MailVotechCore/Helper/page_actions.html.twig', {
             item: item,
             templateButtons: {
                 'edit': securityHasEntityAccess(
@@ -46,7 +46,7 @@
 <div class="box-layout">
     <!-- left section -->
     <div class="col-md-9 height-auto">
-        {% include '@MauticCore/Helper/description--expanded.html.twig' with {'description': item.description} %}
+        {% include '@MailVotechCore/Helper/description--expanded.html.twig' with {'description': item.description} %}
         <div class="pa-md">
             <div class="row">
                 <div class="col-md-12">
@@ -54,10 +54,10 @@
                     {% if hookLog is empty %}
                         <div class="alert alert-warning col-md-6 col-md-offset-3 mt-md" style="white-space: normal;">
                             <h4>
-                                {% trans %}mautic.webhook.no.logs{% endtrans %}
+                                {% trans %}mailvotech.webhook.no.logs{% endtrans %}
                             </h4>
                             <p>
-                                {% trans %}mautic.webhook.no.logs_desc{% endtrans %}
+                                {% trans %}mailvotech.webhook.no.logs_desc{% endtrans %}
                             </p>
                         </div>
                     {% else %}
@@ -65,19 +65,19 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        {% trans %}mautic.core.id{% endtrans %}
+                                        {% trans %}mailvotech.core.id{% endtrans %}
                                     </th>
                                     <th>
-                                        {% trans %}mautic.webhook.status{% endtrans %}
+                                        {% trans %}mailvotech.webhook.status{% endtrans %}
                                     </th>
                                     <th>
-                                        {% trans %}mautic.webhook.note{% endtrans %}
+                                        {% trans %}mailvotech.webhook.note{% endtrans %}
                                     </th>
                                     <th>
-                                        {% trans %}mautic.webhook.runtime{% endtrans %}
+                                        {% trans %}mailvotech.webhook.runtime{% endtrans %}
                                     </th>
                                     <th>
-                                        {% trans %}mautic.core.date.added{% endtrans %}
+                                        {% trans %}mailvotech.core.date.added{% endtrans %}
                                     </th>
                                 </tr>
                             </thead>
@@ -86,11 +86,11 @@
                                     <tr>
                                         <td>{{ log.getId() }}</td>
                                         <td>{{- include(
-                                            '@MauticWebhook/Helper/labelcode.html.twig', {
+                                            '@MailVotechWebhook/Helper/labelcode.html.twig', {
                                                 code: log.getStatusCode()
                                             }
                                         ) }}</td>
-                                        <td>{{ log.getNote() is not empty ? log.getNote() : 'mautic.webhook.webhook.logs.empty.response'|trans }}</td>
+                                        <td>{{ log.getNote() is not empty ? log.getNote() : 'mailvotech.webhook.webhook.logs.empty.response'|trans }}</td>
                                         <td>{{ log.getRuntime() }} s</td>
                                         <td>{{ dateToFull(log.getDateAdded()) }}</td>
                                     </tr>
@@ -99,10 +99,10 @@
                         </table>
                         <div class="alert alert-info col-md-6 col-md-offset-3 mt-md">
                             <h4>
-                                {% trans %}mautic.webhook.webhook.logs.title{% endtrans %}
+                                {% trans %}mailvotech.webhook.webhook.logs.title{% endtrans %}
                             </h4>
                             <p>
-                                {% trans %}mautic.webhook.webhook.logs.desc{% endtrans %}
+                                {% trans %}mailvotech.webhook.webhook.logs.desc{% endtrans %}
                             </p>
                         </div>
                     {% endif %}
@@ -116,17 +116,17 @@
         <!-- preview URL -->
         <div class="panel shd-none bdr-rds-0 bdr-w-0 mt-sm mb-0">
             <div class="panel-heading">
-                <div class="panel-title">{% trans %}mautic.webhook.webhook_url{% endtrans %}</div>
+                <div class="panel-title">{% trans %}mailvotech.webhook.webhook_url{% endtrans %}</div>
             </div>
             <div class="panel-body pt-xs">
                 <div class="input-group">
                     <input onclick="this.setSelectionRange(0, this.value.length);" type="text" class="form-control" readonly
                            value="{{ item.getWebhookUrl()|escape('html_attr') }}" />
                     <span class="input-group-btn">
-                        {% include '@MauticCore/Helper/button.html.twig' with {
+                        {% include '@MailVotechCore/Helper/button.html.twig' with {
                             buttons: [
                                 {
-                                    label: 'mautic.core.open_link',
+                                    label: 'mailvotech.core.open_link',
                                     variant: 'ghost',
                                     icon_only: true,
                                     icon: 'ri-external-link-line',
@@ -142,7 +142,7 @@
 
             <!-- recent activity -->
             {{- include(
-                '@MauticCore/Helper/recentactivity.html.twig', {
+                '@MailVotechCore/Helper/recentactivity.html.twig', {
                     logs: logs
                 }
             ) }}

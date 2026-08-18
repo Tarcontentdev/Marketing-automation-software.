@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field;
+namespace MailVotech\LeadBundle\Field;
 
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\IdentifierFieldEntityInterface;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\IdentifierFieldEntityInterface;
+use MailVotech\LeadBundle\Entity\Lead;
 
 final readonly class IdentifierFields
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -13,13 +13,13 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * CLI Command to install Mautic sample data.
+ * CLI Command to install MailVotech sample data.
  */
 #[AsCommand(
-    name: 'mautic:install:data',
-    description: 'Installs Mautic with sample data',
+    name: 'mailvotech:install:data',
+    description: 'Installs MailVotech with sample data',
     help: <<<'TXT'
-The <info>%command.name%</info> command re-installs Mautic with sample data.
+The <info>%command.name%</info> command re-installs MailVotech with sample data.
 
 <info>php %command.full_name%</info>
 
@@ -54,7 +54,7 @@ final class InstallDataCommand extends Command
         if (!$force) {
             /** @var QuestionHelper $helper */
             $helper         = $this->getHelper('question');
-            $questionString = $this->translator->trans('mautic.core.command.install_data_confirm').' (y = '.$this->translator->trans('mautic.core.form.yes').', n = '.$this->translator->trans('mautic.core.form.no').'): ';
+            $questionString = $this->translator->trans('mailvotech.core.command.install_data_confirm').' (y = '.$this->translator->trans('mailvotech.core.form.yes').', n = '.$this->translator->trans('mailvotech.core.form.no').'): ';
             $question       = new ConfirmationQuestion($questionString, false);
 
             if (!$helper->ask($input, $output, $question)) {
@@ -101,7 +101,7 @@ final class InstallDataCommand extends Command
             '--append' => true,
             '--env'    => $env,
             '--quiet'  => true,
-            '--group'  => ['group_mautic_install_data'],
+            '--group'  => ['group_mailvotech_install_data'],
         ];
 
         $input      = new ArrayInput($args);
@@ -113,7 +113,7 @@ final class InstallDataCommand extends Command
 
         $output->setVerbosity($verbosity);
         $output->writeln(
-            $this->translator->trans('mautic.core.command.install_data_success')
+            $this->translator->trans('mailvotech.core.command.install_data_success')
         );
 
         return Command::SUCCESS;

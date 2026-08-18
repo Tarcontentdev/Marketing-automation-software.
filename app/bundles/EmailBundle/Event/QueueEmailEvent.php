@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Event;
+namespace MailVotech\EmailBundle\Event;
 
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class QueueEmailEvent extends Event
@@ -12,11 +12,11 @@ final class QueueEmailEvent extends Event
     private bool $retry = false;
 
     public function __construct(
-        private readonly MauticMessage $message,
+        private readonly MailVotechMessage $message,
     ) {
     }
 
-    public function getMessage(): MauticMessage
+    public function getMessage(): MailVotechMessage
     {
         return $this->message;
     }

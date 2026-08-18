@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
 
-final class Version20210112162046 extends AbstractMauticMigration
+final class Version20210112162046 extends AbstractMailVotechMigration
 {
     protected const TABLE_NAME = 'sync_object_mapping';
     private const INDEX_NAME   = 'integration_integration_object_name_last_sync_date';

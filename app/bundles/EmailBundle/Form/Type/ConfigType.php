@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
-use Mautic\ConfigBundle\Form\Type\DsnType;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\Type\SortableListType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\EmailBundle\Validator\Dsn;
-use Mautic\EmailBundle\Validator\EmailOrEmailTokenList;
-use Mautic\PageBundle\Form\Type\PreferenceCenterListType;
+use MailVotech\ConfigBundle\Form\Type\DsnType;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\Type\SortableListType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\EmailBundle\Validator\Dsn;
+use MailVotech\EmailBundle\Validator\EmailOrEmailTokenList;
+use MailVotech\PageBundle\Form\Type\PreferenceCenterListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -55,17 +55,17 @@ final class ConfigType extends AbstractType
             'unsubscribe_text',
             TextareaType::class,
             [
-                'label'      => 'mautic.email.config.unsubscribe_text',
+                'label'      => 'mailvotech.email.config.unsubscribe_text',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.unsubscribe_text.tooltip',
+                    'tooltip' => 'mailvotech.email.config.unsubscribe_text.tooltip',
                 ],
                 'required'   => false,
                 'data'       => (array_key_exists('unsubscribe_text', $options['data']) && !empty($options['data']['unsubscribe_text']))
                     ? $options['data']['unsubscribe_text']
                     : $this->translator->trans(
-                        'mautic.email.unsubscribe.text',
+                        'mailvotech.email.unsubscribe.text',
                         ['%link%' => '|URL|']
                     ),
             ]
@@ -75,17 +75,17 @@ final class ConfigType extends AbstractType
             'webview_text',
             TextareaType::class,
             [
-                'label'      => 'mautic.email.config.webview_text',
+                'label'      => 'mailvotech.email.config.webview_text',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.webview_text.tooltip',
+                    'tooltip' => 'mailvotech.email.config.webview_text.tooltip',
                 ],
                 'required'   => false,
                 'data'       => (array_key_exists('webview_text', $options['data']) && !empty($options['data']['webview_text']))
                     ? $options['data']['webview_text']
                     : $this->translator->trans(
-                        'mautic.email.webview.text',
+                        'mailvotech.email.webview.text',
                         ['%link%' => '|URL|']
                     ),
             ]
@@ -95,17 +95,17 @@ final class ConfigType extends AbstractType
             'unsubscribe_message',
             TextareaType::class,
             [
-                'label'      => 'mautic.email.config.unsubscribe_message',
+                'label'      => 'mailvotech.email.config.unsubscribe_message',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.unsubscribe_message.tooltip',
+                    'tooltip' => 'mailvotech.email.config.unsubscribe_message.tooltip',
                 ],
                 'required'   => false,
                 'data'       => (array_key_exists('unsubscribe_message', $options['data']) && !empty($options['data']['unsubscribe_message']))
                     ? $options['data']['unsubscribe_message']
                     : $this->translator->trans(
-                        'mautic.email.unsubscribed.success',
+                        'mailvotech.email.unsubscribed.success',
                         [
                             '%resubscribeUrl%' => '|URL|',
                             '%email%'          => '|EMAIL|',
@@ -118,17 +118,17 @@ final class ConfigType extends AbstractType
             'resubscribe_message',
             TextareaType::class,
             [
-                'label'      => 'mautic.email.config.resubscribe_message',
+                'label'      => 'mailvotech.email.config.resubscribe_message',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.resubscribe_message.tooltip',
+                    'tooltip' => 'mailvotech.email.config.resubscribe_message.tooltip',
                 ],
                 'required'   => false,
                 'data'       => (array_key_exists('resubscribe_message', $options['data']) && !empty($options['data']['resubscribe_message']))
                     ? $options['data']['resubscribe_message']
                     : $this->translator->trans(
-                        'mautic.email.resubscribed.success',
+                        'mailvotech.email.resubscribed.success',
                         [
                             '%unsubscribeUrl%' => '|URL|',
                             '%email%'          => '|EMAIL|',
@@ -141,12 +141,12 @@ final class ConfigType extends AbstractType
             'email_default_preference_center_id',
             PreferenceCenterListType::class,
             [
-                'label'      => 'mautic.email.config.default_preference_center_id',
+                'label'      => 'mailvotech.email.config.default_preference_center_id',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'            => 'form-control',
-                    'tooltip'          => 'mautic.email.config.default_preference_center_id.tooltip',
-                    'data-placeholder' => $this->translator->trans('mautic.core.form.chooseone'),
+                    'tooltip'          => 'mailvotech.email.config.default_preference_center_id.tooltip',
+                    'data-placeholder' => $this->translator->trans('mailvotech.core.form.chooseone'),
                 ],
                 'required'    => false,
                 'multiple'    => false,
@@ -158,11 +158,11 @@ final class ConfigType extends AbstractType
             'email_default_utm_source',
             TextType::class,
             [
-                'label'      => 'mautic.email.config.default_utm_source',
+                'label'      => 'mailvotech.email.config.default_utm_source',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.default_utm_source.tooltip',
+                    'tooltip' => 'mailvotech.email.config.default_utm_source.tooltip',
                 ],
                 'required'   => false,
             ]
@@ -172,11 +172,11 @@ final class ConfigType extends AbstractType
             'email_default_utm_medium',
             TextType::class,
             [
-                'label'      => 'mautic.email.config.default_utm_medium',
+                'label'      => 'mailvotech.email.config.default_utm_medium',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.default_utm_medium.tooltip',
+                    'tooltip' => 'mailvotech.email.config.default_utm_medium.tooltip',
                 ],
                 'required'   => false,
             ]
@@ -186,11 +186,11 @@ final class ConfigType extends AbstractType
             'email_default_utm_campaign',
             TextType::class,
             [
-                'label'      => 'mautic.email.config.default_utm_campaign',
+                'label'      => 'mailvotech.email.config.default_utm_campaign',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.default_utm_campaign.tooltip',
+                    'tooltip' => 'mailvotech.email.config.default_utm_campaign.tooltip',
                 ],
                 'required'   => false,
             ]
@@ -200,11 +200,11 @@ final class ConfigType extends AbstractType
             'email_default_utm_content',
             TextType::class,
             [
-                'label'      => 'mautic.email.config.default_utm_content',
+                'label'      => 'mailvotech.email.config.default_utm_content',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.default_utm_content.tooltip',
+                    'tooltip' => 'mailvotech.email.config.default_utm_content.tooltip',
                 ],
                 'required'   => false,
             ]
@@ -214,17 +214,17 @@ final class ConfigType extends AbstractType
             'default_signature_text',
             TextareaType::class,
             [
-                'label'      => 'mautic.email.config.default_signature_text',
+                'label'      => 'mailvotech.email.config.default_signature_text',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.default_signature_text.tooltip',
+                    'tooltip' => 'mailvotech.email.config.default_signature_text.tooltip',
                 ],
                 'required'   => false,
                 'data'       => (!empty($options['data']['default_signature_text']))
                     ? $options['data']['default_signature_text']
                     : $this->translator->trans(
-                        'mautic.email.default.signature',
+                        'mailvotech.email.default.signature',
                         [
                             '%from_name%' => '|FROM_NAME|',
                         ]
@@ -236,16 +236,16 @@ final class ConfigType extends AbstractType
             'mailer_from_name',
             TextType::class,
             [
-                'label'       => 'mautic.email.config.mailer.from.name',
+                'label'       => 'mailvotech.email.config.mailer.from.name',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.email.config.mailer.from.name.tooltip',
-                    'onchange' => 'Mautic.disableSendTestEmailButton(this)',
+                    'tooltip'  => 'mailvotech.email.config.mailer.from.name.tooltip',
+                    'onchange' => 'MailVotech.disableSendTestEmailButton(this)',
                 ],
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -255,16 +255,16 @@ final class ConfigType extends AbstractType
             'mailer_from_email',
             TextType::class,
             [
-                'label'       => 'mautic.email.config.mailer.from.email',
+                'label'       => 'mailvotech.email.config.mailer.from.email',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.email.config.mailer.from.email.tooltip',
-                    'onchange' => 'Mautic.disableSendTestEmailButton(this)',
+                    'tooltip'  => 'mailvotech.email.config.mailer.from.email.tooltip',
+                    'onchange' => 'MailVotech.disableSendTestEmailButton(this)',
                 ],
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.email.required'
+                        message: 'mailvotech.core.email.required'
                     ),
                     new EmailOrEmailTokenList(allowMultiple: false),
                 ],
@@ -275,16 +275,16 @@ final class ConfigType extends AbstractType
             'mailer_reply_to_email',
             TextType::class,
             [
-                'label'       => 'mautic.email.reply_to_email',
+                'label'       => 'mailvotech.email.reply_to_email',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.email.reply_to_email.tooltip',
-                    'onchange' => 'Mautic.disableSendTestEmailButton(this)',
+                    'tooltip'  => 'mailvotech.email.reply_to_email.tooltip',
+                    'onchange' => 'MailVotech.disableSendTestEmailButton(this)',
                 ],
                 'required'    => false,
                 'constraints' => [
-                    new Email(message: 'mautic.core.email.required', mode: Email::VALIDATION_MODE_HTML5),
+                    new Email(message: 'mailvotech.core.email.required', mode: Email::VALIDATION_MODE_HTML5),
                 ],
             ]
         );
@@ -293,17 +293,17 @@ final class ConfigType extends AbstractType
             'mailer_reply_to_email',
             TextType::class,
             [
-                'label'       => 'mautic.email.reply_to_email',
+                'label'       => 'mailvotech.email.reply_to_email',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.email.reply_to_email.tooltip',
-                    'onchange' => 'Mautic.disableSendTestEmailButton(this)',
+                    'tooltip'  => 'mailvotech.email.reply_to_email.tooltip',
+                    'onchange' => 'MailVotech.disableSendTestEmailButton(this)',
                 ],
                 'required'    => false,
                 'constraints' => [
                     new Email(
-                        message: 'mautic.core.email.required'
+                        message: 'mailvotech.core.email.required'
                     ),
                 ],
             ]
@@ -313,12 +313,12 @@ final class ConfigType extends AbstractType
             'mailer_return_path',
             TextType::class,
             [
-                'label'      => 'mautic.email.config.mailer.return.path',
+                'label'      => 'mailvotech.email.config.mailer.return.path',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.email.config.mailer.return.path.tooltip',
-                    'onchange' => 'Mautic.disableSendTestEmailButton(this)',
+                    'tooltip'  => 'mailvotech.email.config.mailer.return.path.tooltip',
+                    'onchange' => 'MailVotech.disableSendTestEmailButton(this)',
                 ],
                 'required'   => false,
             ]
@@ -329,11 +329,11 @@ final class ConfigType extends AbstractType
             NumberType::class,
             [
                 'scale'      => 0,
-                'label'      => 'mautic.email.config.mailer.address.length.limit',
+                'label'      => 'mailvotech.email.config.mailer.address.length.limit',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.email.config.mailer.address.length.limit.tooltip',
+                    'tooltip'  => 'mailvotech.email.config.mailer.address.length.limit.tooltip',
                 ],
                 'required'   => true,
             ]
@@ -346,7 +346,7 @@ final class ConfigType extends AbstractType
                 'constraints' => [new Dsn()],
                 'test_button' => [
                     'action' => 'email:sendTestEmail',
-                    'label'  => $this->translator->trans('mautic.email.config.mailer.transport.test_send'),
+                    'label'  => $this->translator->trans('mailvotech.email.config.mailer.transport.test_send'),
                 ],
             ]
         );
@@ -355,11 +355,11 @@ final class ConfigType extends AbstractType
             'mailer_convert_embed_images',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.email.config.mailer.convert.embed.images',
+                'label'      => 'mailvotech.email.config.mailer.convert.embed.images',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.mailer.convert.embed.images.tooltip',
+                    'tooltip' => 'mailvotech.email.config.mailer.convert.embed.images.tooltip',
                 ],
                 'data'       => !empty($options['data']['mailer_convert_embed_images']),
                 'required'   => false,
@@ -370,11 +370,11 @@ final class ConfigType extends AbstractType
             'mailer_append_tracking_pixel',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.email.config.mailer.append.tracking.pixel',
+                'label'      => 'mailvotech.email.config.mailer.append.tracking.pixel',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.mailer.append.tracking.pixel.tooltip',
+                    'tooltip' => 'mailvotech.email.config.mailer.append.tracking.pixel.tooltip',
                 ],
                 'data'       => !empty($options['data']['mailer_append_tracking_pixel']),
                 'required'   => false,
@@ -385,11 +385,11 @@ final class ConfigType extends AbstractType
             'disable_trackable_urls',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.email.config.mailer.disable.trackable.urls',
+                'label'      => 'mailvotech.email.config.mailer.disable.trackable.urls',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.mailer.disable.trackable.urls.tooltip',
+                    'tooltip' => 'mailvotech.email.config.mailer.disable.trackable.urls.tooltip',
                 ],
                 'data'       => !empty($options['data']['disable_trackable_urls']),
                 'required'   => false,
@@ -400,11 +400,11 @@ final class ConfigType extends AbstractType
             self::MINIFY_EMAIL_HTML,
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.email.config.mailer.minify.html',
+                'label'      => 'mailvotech.email.config.mailer.minify.html',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.mailer.minify.html.tooltip',
+                    'tooltip' => 'mailvotech.email.config.mailer.minify.html.tooltip',
                 ],
                 'data'       => $options['data'][self::MINIFY_EMAIL_HTML] ?? false,
                 'required'   => false,
@@ -416,10 +416,10 @@ final class ConfigType extends AbstractType
             SortableListType::class,
             [
                 'required'        => false,
-                'label'           => 'mautic.email.custom_headers',
+                'label'           => 'mailvotech.email.custom_headers',
                 'attr'            => [
-                    'tooltip'  => 'mautic.email.custom_headers.config.tooltip',
-                    'onchange' => 'Mautic.disableSendTestEmailButton(this)',
+                    'tooltip'  => 'mailvotech.email.custom_headers.config.tooltip',
+                    'onchange' => 'MailVotech.disableSendTestEmailButton(this)',
                 ],
                 'option_required' => false,
                 'with_labels'     => true,
@@ -441,11 +441,11 @@ final class ConfigType extends AbstractType
             'disable_unsubscribe_link_header',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.email.config.mailer.disable.unsubscribe.link',
+                'label'      => 'mailvotech.email.config.mailer.disable.unsubscribe.link',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.mailer.disable.unsubscribe.link.tooltip',
+                    'tooltip' => 'mailvotech.email.config.mailer.disable.unsubscribe.link.tooltip',
                 ],
                 'data'       => !empty($options['data']['disable_unsubscribe_link_header']),
                 'required'   => false,
@@ -456,11 +456,11 @@ final class ConfigType extends AbstractType
             'mailer_is_owner',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.email.config.mailer.is.owner',
+                'label'      => 'mailvotech.email.config.mailer.is.owner',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.mailer.is.owner.tooltip',
+                    'tooltip' => 'mailvotech.email.config.mailer.is.owner.tooltip',
                 ],
                 'data'       => !empty($options['data']['mailer_is_owner']),
                 'required'   => false,
@@ -472,7 +472,7 @@ final class ConfigType extends AbstractType
             NumberType::class,
             [
                 'scale'      => 0,
-                'label'      => 'mautic.lead.list.frequency.number',
+                'label'      => 'mailvotech.lead.list.frequency.number',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
                 'attr'       => [
@@ -489,7 +489,7 @@ final class ConfigType extends AbstractType
                     'week'  => 'WEEK',
                     'month' => 'MONTH',
                 ],
-                'label'      => 'mautic.lead.list.frequency.times',
+                'label'      => 'mailvotech.lead.list.frequency.times',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
                 'multiple'   => false,
@@ -502,11 +502,11 @@ final class ConfigType extends AbstractType
             'show_contact_segments',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.email.config.show.contact.segments',
+                'label'      => 'mailvotech.email.config.show.contact.segments',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.show.contact.segments.tooltip',
+                    'tooltip' => 'mailvotech.email.config.show.contact.segments.tooltip',
                 ],
                 'data'       => !empty($options['data']['show_contact_segments']),
                 'required'   => false,
@@ -516,11 +516,11 @@ final class ConfigType extends AbstractType
             'show_contact_preferences',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.email.config.show.preference.options',
+                'label'      => 'mailvotech.email.config.show.preference.options',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.show.preference.options.tooltip',
+                    'tooltip' => 'mailvotech.email.config.show.preference.options.tooltip',
                 ],
                 'data'       => !empty($options['data']['show_contact_preferences']),
                 'required'   => false,
@@ -530,11 +530,11 @@ final class ConfigType extends AbstractType
             'show_contact_frequency',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.email.config.show.contact.frequency',
+                'label'      => 'mailvotech.email.config.show.contact.frequency',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.show.contact.frequency.tooltip',
+                    'tooltip' => 'mailvotech.email.config.show.contact.frequency.tooltip',
                 ],
                 'data'       => !empty($options['data']['show_contact_frequency']),
                 'required'   => false,
@@ -544,11 +544,11 @@ final class ConfigType extends AbstractType
             'show_contact_pause_dates',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.email.config.show.contact.pause.dates',
+                'label'      => 'mailvotech.email.config.show.contact.pause.dates',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.show.contact.pause.dates.tooltip',
+                    'tooltip' => 'mailvotech.email.config.show.contact.pause.dates.tooltip',
                 ],
                 'data'       => !empty($options['data']['show_contact_pause_dates']),
                 'required'   => false,
@@ -558,11 +558,11 @@ final class ConfigType extends AbstractType
             'show_contact_categories',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.email.config.show.contact.categories',
+                'label'      => 'mailvotech.email.config.show.contact.categories',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.show.contact.categories.tooltip',
+                    'tooltip' => 'mailvotech.email.config.show.contact.categories.tooltip',
                 ],
                 'data'       => !empty($options['data']['show_contact_categories']),
                 'required'   => false,
@@ -572,11 +572,11 @@ final class ConfigType extends AbstractType
             'show_contact_preferred_channels',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.email.config.show.contact.preferred.channels',
+                'label'      => 'mailvotech.email.config.show.contact.preferred.channels',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.show.contact.preferred.channels',
+                    'tooltip' => 'mailvotech.email.config.show.contact.preferred.channels',
                 ],
                 'data'       => !empty($options['data']['show_contact_preferred_channels']),
                 'required'   => false,
@@ -587,13 +587,13 @@ final class ConfigType extends AbstractType
             'email_draft_enabled',
             YesNoButtonGroupType::class,
             [
-                'label'      => 'mautic.email.config.enable.draft',
+                'label'      => 'mailvotech.email.config.enable.draft',
                 'label_attr' => ['class' => 'control-label'],
                 'data'       => $options['data']['email_draft_enabled'] ?? false,
                 'required'   => false,
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.config.enable.draft.tooltip',
+                    'tooltip' => 'mailvotech.email.config.enable.draft.tooltip',
                 ],
             ]
         );

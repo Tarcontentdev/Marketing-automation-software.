@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\DependencyInjection\Firewall\Factory;
+namespace MailVotech\UserBundle\DependencyInjection\Firewall\Factory;
 
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AuthenticatorFactoryInterface;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
@@ -16,10 +16,10 @@ final class PluginFactory implements AuthenticatorFactoryInterface
 
     public function createAuthenticator(ContainerBuilder $container, string $firewallName, array $config, string $userProviderId): string
     {
-        $authenticatorId = 'security.authentication.provider.mautic.'.$firewallName;
+        $authenticatorId = 'security.authentication.provider.mailvotech.'.$firewallName;
 
         $authenticator = $container
-            ->setDefinition($authenticatorId, new ChildDefinition('security.authenticator.mautic_api'))
+            ->setDefinition($authenticatorId, new ChildDefinition('security.authenticator.mailvotech_api'))
             ->replaceArgument('$firewallName', $firewallName)
             ->replaceArgument('$userProvider', new Reference($userProviderId));
 
@@ -35,7 +35,7 @@ final class PluginFactory implements AuthenticatorFactoryInterface
 
     public function getKey(): string
     {
-        return 'mautic_plugin_auth';
+        return 'mailvotech_plugin_auth';
     }
 
     public function addConfiguration(NodeDefinition $node): void

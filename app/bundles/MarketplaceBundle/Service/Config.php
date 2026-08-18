@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Service;
+namespace MailVotech\MarketplaceBundle\Service;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 
 class Config
 {

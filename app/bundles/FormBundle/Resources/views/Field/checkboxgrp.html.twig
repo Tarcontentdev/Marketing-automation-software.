@@ -3,12 +3,12 @@
 {#
     This field relies on the `hidden.html.twig` implementation.
 
-    Mautic tries to render `@themes/{{theme}}/html/MauticFormBundle/Field/hidden.html.twig`
-    and falls back to the standard template '@MauticForm/Field/hidden.html.twig'.
+    MailVotech tries to render `@themes/{{theme}}/html/MailVotechFormBundle/Field/hidden.html.twig`
+    and falls back to the standard template '@MailVotechForm/Field/hidden.html.twig'.
 
     This eliminates the need to copy twig templates into themes that just rely on one base template file.
 #}
-    {{- include([theme|default('') ~ 'hidden.html.twig', '@MauticForm/Field/hidden.html.twig'], {
+    {{- include([theme|default('') ~ 'hidden.html.twig', '@MailVotechForm/Field/hidden.html.twig'], {
             'field': field,
             'fields': fields|default([]),
             'inForm': inForm|default(false),
@@ -24,12 +24,12 @@
 {#
     This field relies on the `group.html.twig` implementation.
 
-    Mautic tries to render `@themes/{{theme}}/html/MauticFormBundle/Field/group.html.twig`
-    and falls back to the standard template '@MauticForm/Field/group.html.twig'.
+    MailVotech tries to render `@themes/{{theme}}/html/MailVotechFormBundle/Field/group.html.twig`
+    and falls back to the standard template '@MailVotechForm/Field/group.html.twig'.
 
     This eliminates the need to copy twig templates into themes that just rely on one base template file.
 #}
-{{- include([theme|default('') ~ 'group.html.twig', '@MauticForm/Field/group.html.twig'], {
+{{- include([theme|default('') ~ 'group.html.twig', '@MailVotechForm/Field/group.html.twig'], {
         'field': field,
         'inForm': inForm|default(false),
         'id': id,

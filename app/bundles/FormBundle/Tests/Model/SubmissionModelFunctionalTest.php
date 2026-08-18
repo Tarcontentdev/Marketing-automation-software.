@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Model;
+namespace MailVotech\FormBundle\Tests\Model;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class SubmissionModelFunctionalTest extends MauticMysqlTestCase
+final class SubmissionModelFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -169,11 +169,11 @@ final class SubmissionModelFunctionalTest extends MauticMysqlTestCase
     private function submitFormWithCompanies(int $formId, string $formAlias, string $email, string $firstname, string $lastname, string $company, string $companyAddress): void
     {
         $values = [
-            'mauticform[email]'           => $email,
-            'mauticform[firstname]'       => $firstname,
-            'mauticform[lastname]'        => $lastname,
-            'mauticform[companyname]'     => $company,
-            'mauticform[companyaddress1]' => $companyAddress,
+            'mailvotechform[email]'           => $email,
+            'mailvotechform[firstname]'       => $firstname,
+            'mailvotechform[lastname]'        => $lastname,
+            'mailvotechform[companyname]'     => $company,
+            'mailvotechform[companyaddress1]' => $companyAddress,
         ];
         $this->submitForm($formId, $formAlias, $values);
     }
@@ -181,9 +181,9 @@ final class SubmissionModelFunctionalTest extends MauticMysqlTestCase
     private function submitFormWithoutCompanies(int $formId, string $formAlias, string $email, string $firstname, string $lastname): void
     {
         $values = [
-            'mauticform[email]'           => $email,
-            'mauticform[firstname]'       => $firstname,
-            'mauticform[lastname]'        => $lastname,
+            'mailvotechform[email]'           => $email,
+            'mailvotechform[firstname]'       => $firstname,
+            'mailvotechform[lastname]'        => $lastname,
         ];
         $this->submitForm($formId, $formAlias, $values);
     }
@@ -195,7 +195,7 @@ final class SubmissionModelFunctionalTest extends MauticMysqlTestCase
     {
         $crawler = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
         $this->assertResponseIsSuccessful();
-        $formCrawler = $crawler->filter('form[id=mauticform_'.$formAlias.']');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_'.$formAlias.']');
         $this::assertCount(1, $formCrawler, $this->client->getResponse()->getContent());
         $form = $formCrawler->form();
         $form->setValues($values);

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Helper;
+namespace MailVotech\IntegrationsBundle\Helper;
 
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormFeaturesInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Helper\FieldHelper;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormFeaturesInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Helper\FieldHelper;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
@@ -51,7 +51,7 @@ final class FieldValidationHelper
                 $missingFields = $this->findMissingIntegrationRequiredFieldMappings($object, $objectFieldMappings);
                 $this->validateIntegrationRequiredFields($fieldMappingForm, $missingFields);
 
-                $this->validateMauticRequiredFields($fieldMappingForm, $object, $objectFieldMappings);
+                $this->validateMailVotechRequiredFields($fieldMappingForm, $object, $objectFieldMappings);
             } catch (\Throwable $exception) {
                 $fieldMappingForm->addError(new FormError($exception->getMessage()));
             }
@@ -78,7 +78,7 @@ final class FieldValidationHelper
             $formField = $fieldMappingsForm[$field]['mappedField'];
             $formField->addError(
                 new FormError(
-                    $this->translator->trans('mautic.core.value.required', [], 'validators')
+                    $this->translator->trans('mailvotech.core.value.required', [], 'validators')
                 )
             );
         }
@@ -87,7 +87,7 @@ final class FieldValidationHelper
             // A hidden page has required fields that are missing so we have to tell the form there is an error
             $fieldMappingsForm->addError(
                 new FormError(
-                    $this->translator->trans('mautic.core.value.required', [], 'validators')
+                    $this->translator->trans('mailvotech.core.value.required', [], 'validators')
                 )
             );
         }
@@ -110,7 +110,7 @@ final class FieldValidationHelper
     /**
      * @throws ObjectNotFoundException
      */
-    private function validateMauticRequiredFields(FormInterface $fieldMappingsForm, string $object, array $objectFieldMappings): void
+    private function validateMailVotechRequiredFields(FormInterface $fieldMappingsForm, string $object, array $objectFieldMappings): void
     {
         $missingFields = $this->findMissingInternalRequiredFieldMappings($object, $objectFieldMappings);
         if ([] === $missingFields) {
@@ -120,7 +120,7 @@ final class FieldValidationHelper
         $fieldMappingsForm->addError(
             new FormError(
                 $this->translator->trans(
-                    'mautic.integration.sync.missing_mautic_field_mappings',
+                    'mailvotech.integration.sync.missing_mailvotech_field_mappings',
                     [
                         '%fields%' => implode(', ', $missingFields),
                     ],
@@ -141,18 +141,18 @@ final class FieldValidationHelper
             throw new ObjectNotFoundException($object);
         }
 
-        // Get Mautic mapped fields
-        $mauticMappedFields = [];
+        // Get MailVotech mapped fields
+        $mailvotechMappedFields = [];
         foreach ($objectFieldMappings as $mapping) {
             if (empty($mapping['mappedField'])) {
                 continue;
             }
 
-            $mauticMappedFields[$mapping['mappedField']] = true;
+            $mailvotechMappedFields[$mapping['mappedField']] = true;
         }
 
         $requiredFields = $this->fieldHelper->getRequiredFields($mappedObjects[$object]);
 
-        return array_diff_key($requiredFields, $mauticMappedFields);
+        return array_diff_key($requiredFields, $mailvotechMappedFields);
     }
 }

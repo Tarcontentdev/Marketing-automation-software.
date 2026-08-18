@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Controller;
+namespace MailVotech\MarketplaceBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\CoreBundle\Helper\CacheHelper;
-use Mautic\CoreBundle\Helper\ComposerHelper;
-use Mautic\MarketplaceBundle\Security\Permissions\MarketplacePermissions;
-use Mautic\MarketplaceBundle\Service\Config;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\CoreBundle\Helper\CacheHelper;
+use MailVotech\CoreBundle\Helper\ComposerHelper;
+use MailVotech\MarketplaceBundle\Security\Permissions\MarketplacePermissions;
+use MailVotech\MarketplaceBundle\Service\Config;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -147,14 +147,14 @@ final class AjaxController extends CommonAjaxController
             $exitCode = $this->cacheHelper->clearSymfonyCache();
 
             if (0 !== $exitCode) {
-                $this->logger->error('Could not clear Mautic\'s cache. Please try again.');
+                $this->logger->error('Could not clear MailVotech\'s cache. Please try again.');
 
                 return $this->sendJsonResponse([
                     'error' => $this->translator->trans('marketplace.package.cache.clear.failed'),
                 ], 500);
             }
         } catch (\Exception $e) {
-            $this->logger->error('Could not clear Mautic\'s cache. Details: '.$e->getMessage());
+            $this->logger->error('Could not clear MailVotech\'s cache. Details: '.$e->getMessage());
 
             return $this->sendJsonResponse([
                 'error' => $this->translator->trans('marketplace.package.cache.clear.failed'),

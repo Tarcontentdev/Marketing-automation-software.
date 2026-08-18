@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Tests\Functional\Validator;
+namespace MailVotech\ProjectBundle\Tests\Functional\Validator;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\ProjectBundle\Entity\Project;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\ProjectBundle\Entity\Project;
 use Symfony\Component\HttpFoundation\Request;
 
-final class UniqueNameValidatorFunctionalTest extends MauticMysqlTestCase
+final class UniqueNameValidatorFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testDuplicateProjectName(): void
     {

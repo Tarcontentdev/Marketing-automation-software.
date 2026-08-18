@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Stat;
+namespace MailVotech\EmailBundle\Stat;
 
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Model\EmailStatModel;
-use Mautic\EmailBundle\Stat\Exception\StatNotFoundException;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Model\EmailStatModel;
+use MailVotech\EmailBundle\Stat\Exception\StatNotFoundException;
 
 final class StatHelper
 {

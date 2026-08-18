@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Validator;
+namespace MailVotech\CoreBundle\Tests\Unit\Validator;
 
-use Mautic\CoreBundle\Exception\FileInvalidException;
-use Mautic\CoreBundle\Validator\FileUploadValidator;
+use MailVotech\CoreBundle\Exception\FileInvalidException;
+use MailVotech\CoreBundle\Validator\FileUploadValidator;
 use PHPUnit\Framework\Attributes\TestDox;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

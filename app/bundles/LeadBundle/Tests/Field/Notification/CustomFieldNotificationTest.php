@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Field\Notification;
+namespace MailVotech\LeadBundle\Tests\Field\Notification;
 
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Field\Notification\CustomFieldNotification;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Field\Notification\CustomFieldNotification;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Model\UserModel;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class CustomFieldNotificationTest extends \PHPUnit\Framework\TestCase

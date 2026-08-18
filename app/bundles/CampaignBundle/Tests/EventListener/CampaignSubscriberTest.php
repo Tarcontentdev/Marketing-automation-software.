@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\EventListener;
+namespace MailVotech\CampaignBundle\Tests\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Event\CampaignEvent;
-use Mautic\CampaignBundle\EventListener\CampaignSubscriber;
-use Mautic\CampaignBundle\Service\CampaignAuditService;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Event\CampaignEvent;
+use MailVotech\CampaignBundle\EventListener\CampaignSubscriber;
+use MailVotech\CampaignBundle\Service\CampaignAuditService;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
 use PHPUnit\Framework\TestCase;
 
 final class CampaignSubscriberTest extends TestCase

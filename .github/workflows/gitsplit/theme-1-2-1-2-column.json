@@ -3,7 +3,7 @@
         {
             "name": "theme-1-2-1-2-column",
             "directory": "themes/_1-2-1-2-column",
-            "target": "git@github.com:mautic/theme-1-2-1-2-column.git"
+            "target": "git@github.com:mailvotech/theme-1-2-1-2-column.git"
         }
     ]
 }

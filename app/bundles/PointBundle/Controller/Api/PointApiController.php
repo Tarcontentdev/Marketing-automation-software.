@@ -1,21 +1,21 @@
 <?php
 
-namespace Mautic\PointBundle\Controller\Api;
+namespace MailVotech\PointBundle\Controller\Api;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\ApiBundle\Controller\CommonApiController;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Controller\LeadAccessTrait;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PointBundle\Entity\Point;
-use Mautic\PointBundle\Model\PointModel;
+use MailVotech\ApiBundle\Controller\CommonApiController;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Controller\LeadAccessTrait;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PointBundle\Entity\Point;
+use MailVotech\PointBundle\Model\PointModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -105,8 +105,8 @@ final class PointApiController extends CommonApiController
     protected function logApiPointChange(Request $request, IpLookupHelper $ipLookupHelper, $lead, $delta, $operator): void
     {
         $ip         = $ipLookupHelper->getIpAddress();
-        $eventName  = InputHelper::clean($request->request->get('eventName', $this->translator->trans('mautic.lead.lead.submitaction.operator_'.$operator)));
-        $actionName = InputHelper::clean($request->request->get('actionName', $this->translator->trans('mautic.lead.event.api')));
+        $eventName  = InputHelper::clean($request->request->get('eventName', $this->translator->trans('mailvotech.lead.lead.submitaction.operator_'.$operator)));
+        $actionName = InputHelper::clean($request->request->get('actionName', $this->translator->trans('mailvotech.lead.event.api')));
 
         $lead->adjustPoints($delta, $operator);
         $lead->addPointsChangeLogEntry('API', $eventName, $actionName, $delta, $ip);

@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
-use Mautic\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Factory\ModelFactory;
 
 trait ChannelTrait
 {
@@ -74,7 +74,7 @@ trait ChannelTrait
                 if (method_exists($channelModel, 'getActionRouteBase')) {
                     $baseRouteName = $channelModel->getActionRouteBase();
                 }
-                $routeSourceName = 'mautic_'.$baseRouteName.'_action';
+                $routeSourceName = 'mailvotech_'.$baseRouteName.'_action';
 
                 if (null !== $this->router->getRouteCollection()->get($routeSourceName)) {
                     $url = $this->router->generate(

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Event;
+namespace MailVotech\LeadBundle\Tests\Event;
 
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Event\CompanyMergeEvent;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Event\CompanyMergeEvent;
 use PHPUnit\Framework\TestCase;
 
 final class CompanyMergeEventTest extends TestCase

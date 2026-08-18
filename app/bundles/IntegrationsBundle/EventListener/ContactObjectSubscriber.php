@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\EventListener;
+namespace MailVotech\IntegrationsBundle\EventListener;
 
-use Mautic\IntegrationsBundle\Event\InternalObjectCreateEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectFindByIdEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectFindEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectOwnerEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectRouteEvent;
-use Mautic\IntegrationsBundle\Event\InternalObjectUpdateEvent;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper\ContactObjectHelper;
-use Mautic\LeadBundle\Exception\ImportFailedException;
+use MailVotech\IntegrationsBundle\Event\InternalObjectCreateEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectFindByIdEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectFindEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectOwnerEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectRouteEvent;
+use MailVotech\IntegrationsBundle\Event\InternalObjectUpdateEvent;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper\ContactObjectHelper;
+use MailVotech\LeadBundle\Exception\ImportFailedException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -85,7 +85,7 @@ final readonly class ContactObjectSubscriber implements EventSubscriberInterface
 
     public function findContactsByDateRange(InternalObjectFindEvent $event): void
     {
-        if (Contact::NAME !== $event->getObject()->getName() || !$event->getDateRange() instanceof \Mautic\IntegrationsBundle\Sync\DAO\DateRange) {
+        if (Contact::NAME !== $event->getObject()->getName() || !$event->getDateRange() instanceof \MailVotech\IntegrationsBundle\Sync\DAO\DateRange) {
             return;
         }
 
@@ -136,7 +136,7 @@ final readonly class ContactObjectSubscriber implements EventSubscriberInterface
 
         $event->setRoute(
             $this->router->generate(
-                'mautic_contact_action',
+                'mailvotech_contact_action',
                 [
                     'objectAction' => 'view',
                     'objectId'     => $event->getId(),

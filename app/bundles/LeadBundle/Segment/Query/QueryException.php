@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Query;
+namespace MailVotech\LeadBundle\Segment\Query;
 
 /**
  * @since 2.1.4

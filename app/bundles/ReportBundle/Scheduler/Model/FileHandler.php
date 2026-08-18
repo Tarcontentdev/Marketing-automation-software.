@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Scheduler\Model;
+namespace MailVotech\ReportBundle\Scheduler\Model;
 
-use Mautic\CoreBundle\Exception\FileInvalidException;
-use Mautic\CoreBundle\Exception\FilePathException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\FilePathResolver;
-use Mautic\CoreBundle\Helper\FileProperties;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Exception\FileTooBigException;
+use MailVotech\CoreBundle\Exception\FileInvalidException;
+use MailVotech\CoreBundle\Exception\FilePathException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\FilePathResolver;
+use MailVotech\CoreBundle\Helper\FileProperties;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Exception\FileTooBigException;
 
 class FileHandler
 {

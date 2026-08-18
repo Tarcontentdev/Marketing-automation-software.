@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Exception;
+namespace MailVotech\LeadBundle\Exception;
 
-use Mautic\CoreBundle\Exception\InvalidValueException;
+use MailVotech\CoreBundle\Exception\InvalidValueException;
 
 final class InvalidContactFieldTokenException extends InvalidValueException
 {

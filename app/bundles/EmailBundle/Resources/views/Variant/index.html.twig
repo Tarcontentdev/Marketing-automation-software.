@@ -4,7 +4,7 @@
 
 {# Parent variant #}
 {% if variants.parent %}
-    {{ include('@MauticEmail/Variant/row.html.twig', {
+    {{ include('@MailVotechEmail/Variant/row.html.twig', {
         variant: variants.parent,
         variants: variants,
         abTestResults: abTestResults,
@@ -20,7 +20,7 @@
 {% if variants.children|length > 0 %}
     <div class="variant-children">
         {% for id, variant in variants.children %}
-            {{ include('@MauticEmail/Variant/row.html.twig', {
+            {{ include('@MailVotechEmail/Variant/row.html.twig', {
                 variant: variant,
                 variants: variants,
                 abTestResults: abTestResults,
@@ -35,14 +35,14 @@
 {% endif %}
 
 {# Stats Modal #}
-{{ include('@MauticCore/Helper/modal.html.twig', {
+{{ include('@MailVotechCore/Helper/modal.html.twig', {
     id: 'abStatsModal',
-    header: 'mautic.core.ab_test.stats'|trans,
+    header: 'mailvotech.core.ab_test.stats'|trans,
     body: abTestResults.supportTemplate is defined ? 
         include(abTestResults.supportTemplate, {
             results: abTestResults,
             variants: variants
         }) : 
-        'mautic.core.ab_test.noresults'|trans,
+        'mailvotech.core.ab_test.noresults'|trans,
     size: 'lg'
 }) }}

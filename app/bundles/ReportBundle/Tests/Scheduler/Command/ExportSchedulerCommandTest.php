@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Scheduler\Command;
+namespace MailVotech\ReportBundle\Tests\Scheduler\Command;
 
-use Mautic\CoreBundle\Helper\ExitCode;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Entity\Scheduler;
-use Mautic\ReportBundle\Scheduler\Enum\SchedulerEnum;
+use MailVotech\CoreBundle\Helper\ExitCode;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\Scheduler;
+use MailVotech\ReportBundle\Scheduler\Enum\SchedulerEnum;
 
-final class ExportSchedulerCommandTest extends MauticMysqlTestCase
+final class ExportSchedulerCommandTest extends MailVotechMysqlTestCase
 {
     /**
      * Test that scheduler command executes normally without lock contention.
@@ -28,7 +28,7 @@ final class ExportSchedulerCommandTest extends MauticMysqlTestCase
         $this->assertCount(1, $schedulersBeforeCommand, 'Scheduler should exist before command execution');
 
         // Execute command normally
-        $commandTester = $this->testSymfonyCommand('mautic:reports:scheduler', ['--report' => $report->getId()]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:reports:scheduler', ['--report' => $report->getId()]);
         $this->assertSame(ExitCode::SUCCESS, $commandTester->getStatusCode());
     }
 
@@ -44,7 +44,7 @@ final class ExportSchedulerCommandTest extends MauticMysqlTestCase
         $this->assertCount(1, $this->em->getRepository(Scheduler::class)->findBy(['report' => $report]), 'Scheduler should exist before command execution');
 
         $this->em->clear();
-        $commandTester = $this->testSymfonyCommand('mautic:reports:scheduler', ['--report' => $reportId, '--cleanup-only' => true]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:reports:scheduler', ['--report' => $reportId, '--cleanup-only' => true]);
 
         $this->assertSame('', trim($commandTester->getDisplay()), 'Cleanup-only mode should not execute export processing output.');
 

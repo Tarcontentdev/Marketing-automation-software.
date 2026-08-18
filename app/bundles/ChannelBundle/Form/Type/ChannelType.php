@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\ChannelBundle\Form\Type;
+namespace MailVotech\ChannelBundle\Form\Type;
 
-use Mautic\ChannelBundle\Entity\Channel;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\ChannelBundle\Entity\Channel;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -50,9 +50,9 @@ final class ChannelType extends AbstractType
                 'isEnabled',
                 YesNoButtonGroupType::class,
                 [
-                    'label' => 'mautic.channel.message.form.enabled',
+                    'label' => 'mailvotech.channel.message.form.enabled',
                     'attr'  => [
-                        'onchange' => 'Mautic.toggleChannelFormDisplay(this, \''.$channelName.'\')',
+                        'onchange' => 'MailVotech.toggleChannelFormDisplay(this, \''.$channelName.'\')',
                     ],
                 ]
             );
@@ -63,10 +63,10 @@ final class ChannelType extends AbstractType
                     $channelConfig['lookupFormType'],
                     [
                         'multiple'    => false,
-                        'label'       => 'mautic.channel.message.form.message',
+                        'label'       => 'mailvotech.channel.message.form.message',
                         'constraints' => ($enabled) ? [
                             new NotBlank(
-                                message: 'mautic.core.value.required'
+                                message: 'mailvotech.core.value.required'
                             ),
                         ] : [],
                     ]

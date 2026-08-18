@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Type;
+namespace MailVotech\CoreBundle\Tests\Unit\Type;
 
 use Doctrine\DBAL\Platforms\MySQL80Platform;
-use Mautic\CoreBundle\Doctrine\Type\UTCDateTimeImmutableType;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Doctrine\Type\UTCDateTimeImmutableType;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

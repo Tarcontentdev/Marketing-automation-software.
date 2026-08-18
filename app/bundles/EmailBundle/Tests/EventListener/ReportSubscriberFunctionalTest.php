@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Entity\Trackable;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Tests\Functional\AbstractReportSubscriberTestCase;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Entity\Trackable;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Tests\Functional\AbstractReportSubscriberTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -37,7 +37,7 @@ final class ReportSubscriberFunctionalTest extends AbstractReportSubscriberTestC
         $report->setName('Email stats and top 10 links');
         $report->setSource('emails');
         $report->setColumns(['e.id', 'cmp.name', 'e.name']);
-        $report->setGraphs(['mautic.email.table.most.emails.clicks']);
+        $report->setGraphs(['mailvotech.email.table.most.emails.clicks']);
         $this->em->persist($report);
         $this->em->flush();
 
@@ -89,7 +89,7 @@ final class ReportSubscriberFunctionalTest extends AbstractReportSubscriberTestC
         $report->setName('Email sent stats with hits and top 10 links');
         $report->setSource('email.stats');
         $report->setColumns(['l.email', 'e.name', 'hits', 'unique_hits']);
-        $report->setGraphs(['mautic.email.table.most.emails.clicks']);
+        $report->setGraphs(['mailvotech.email.table.most.emails.clicks']);
         $report->setTableOrder([
             [
                 'column'    => 'hits',
@@ -253,7 +253,7 @@ final class ReportSubscriberFunctionalTest extends AbstractReportSubscriberTestC
         $this->em->persist($report);
         $this->em->flush();
 
-        // -- test report table in mautic panel
+        // -- test report table in mailvotech panel
         $crawler            = $this->client->request(Request::METHOD_GET, "/s/reports/view/{$report->getId()}");
         $this->assertResponseIsSuccessful();
         $crawlerReportTable = $crawler->filterXPath('//table[@id="reportTable"]')->first();

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Controller;
+namespace MailVotech\CampaignBundle\Tests\Functional\Controller;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Tests\Functional\Fixtures\FixtureHelper;
-use Mautic\CoreBundle\Event\EntityImportEvent;
-use Mautic\CoreBundle\Helper\ImportHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Tests\Functional\Fixtures\FixtureHelper;
+use MailVotech\CoreBundle\Event\EntityImportEvent;
+use MailVotech\CoreBundle\Helper\ImportHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CampaignImportControllerTest extends MauticMysqlTestCase
+final class CampaignImportControllerTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -76,7 +76,7 @@ final class CampaignImportControllerTest extends MauticMysqlTestCase
         $session = $this->client->getRequest()->getSession();
 
         // Simulate import summary with NEW entities to trigger undo
-        $session->set('mautic.campaign.import.summary', [
+        $session->set('mailvotech.campaign.import.summary', [
             [
                 EntityImportEvent::NEW => [
                     Campaign::ENTITY_NAME => [
@@ -105,7 +105,7 @@ final class CampaignImportControllerTest extends MauticMysqlTestCase
         $session = $this->client->getRequest()->getSession();
 
         // Simulate import summary with only UPDATE (no NEW data)
-        $session->set('mautic.campaign.import.summary', [
+        $session->set('mailvotech.campaign.import.summary', [
             [
                 EntityImportEvent::UPDATE => [
                     Campaign::ENTITY_NAME => [
@@ -131,8 +131,8 @@ final class CampaignImportControllerTest extends MauticMysqlTestCase
 
         $this->client->request('GET', '/');
         $session = $this->client->getRequest()->getSession();
-        $session->set('mautic.campaign.import.step', 2);
-        $session->set('mautic.campaign.import.file', __DIR__.'/Fixtures/empty.zip');
+        $session->set('mailvotech.campaign.import.step', 2);
+        $session->set('mailvotech.campaign.import.file', __DIR__.'/Fixtures/empty.zip');
         $session->save();
 
         $importHelper = $this->createMock(ImportHelper::class);
@@ -161,8 +161,8 @@ final class CampaignImportControllerTest extends MauticMysqlTestCase
         $fakePath = $fixturesDir.'/fake.zip';
         file_put_contents($fakePath, 'dummy zip content');
 
-        $session->set('mautic.campaign.import.step', 2);
-        $session->set('mautic.campaign.import.file', $fakePath);
+        $session->set('mailvotech.campaign.import.step', 2);
+        $session->set('mailvotech.campaign.import.file', $fakePath);
         $session->save();
 
         $importHelper = $this->createMock(ImportHelper::class);
@@ -184,8 +184,8 @@ final class CampaignImportControllerTest extends MauticMysqlTestCase
 
         $this->client->request('GET', '/');
         $session = $this->client->getRequest()->getSession();
-        $session->set('mautic.campaign.import.step', 3);
-        $session->set('mautic.campaign.import.file', __DIR__.'/Fixtures/empty.zip');
+        $session->set('mailvotech.campaign.import.step', 3);
+        $session->set('mailvotech.campaign.import.file', __DIR__.'/Fixtures/empty.zip');
         $session->save();
 
         $importHelper = $this->createMock(ImportHelper::class);
@@ -214,8 +214,8 @@ final class CampaignImportControllerTest extends MauticMysqlTestCase
         $fakePath = $fixturesDir.'/fake.zip';
         file_put_contents($fakePath, 'dummy zip content');
 
-        $session->set('mautic.campaign.import.step', 3);
-        $session->set('mautic.campaign.import.file', $fakePath);
+        $session->set('mailvotech.campaign.import.step', 3);
+        $session->set('mailvotech.campaign.import.file', $fakePath);
         $session->save();
 
         $importHelper = $this->createMock(ImportHelper::class);

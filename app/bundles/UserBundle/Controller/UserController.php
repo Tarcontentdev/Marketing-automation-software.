@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Controller;
+namespace MailVotech\UserBundle\Controller;
 
 use JMS\Serializer\SerializerInterface;
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Entity\AuditLogRepository;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\RoleRepository;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Form\Type\ContactType;
-use Mautic\UserBundle\Form\Type\UserInviteType;
-use Mautic\UserBundle\Model\RoleModel;
-use Mautic\UserBundle\Model\UserModel;
-use Mautic\UserBundle\Security\SAML\Helper as SAMLHelper;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Entity\AuditLogRepository;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\RoleRepository;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Form\Type\ContactType;
+use MailVotech\UserBundle\Form\Type\UserInviteType;
+use MailVotech\UserBundle\Model\RoleModel;
+use MailVotech\UserBundle\Model\UserModel;
+use MailVotech\UserBundle\Security\SAML\Helper as SAMLHelper;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,18 +60,18 @@ final class UserController extends FormController
         if (!$this->security->isGranted('user:users:view')) {
             $this->throwAccessDenied();
         }
-        $pageHelper = $pageHelperFactory->make('mautic.user', $page);
+        $pageHelper = $pageHelperFactory->make('mailvotech.user', $page);
 
         $this->setListFilters();
 
         $currentUserId = $this->user->getId();
         $limit         = $pageHelper->getLimit();
         $start         = $pageHelper->getStart();
-        $orderBy       = $request->getSession()->get('mautic.user.orderby', 'u.lastName, u.firstName, u.username');
-        $orderByDir    = $request->getSession()->get('mautic.user.orderbydir', 'ASC');
-        $search        = $request->get('search', $request->getSession()->get('mautic.user.filter', ''));
+        $orderBy       = $request->getSession()->get('mailvotech.user.orderby', 'u.lastName, u.firstName, u.username');
+        $orderByDir    = $request->getSession()->get('mailvotech.user.orderbydir', 'ASC');
+        $search        = $request->get('search', $request->getSession()->get('mailvotech.user.filter', ''));
         $search        = html_entity_decode($search);
-        $request->getSession()->set('mautic.user.filter', $search);
+        $request->getSession()->set('mailvotech.user.filter', $search);
 
         // do some default filtering
         $filter = ['string' => $search, 'force' => ''];
@@ -91,7 +91,7 @@ final class UserController extends FormController
             // the number of entities are now less then the current page so redirect to the last page
             $lastPage = $pageHelper->countPage($count);
             $pageHelper->rememberPage($lastPage);
-            $returnUrl = $this->generateUrl('mautic_user_index', ['page' => $lastPage]);
+            $returnUrl = $this->generateUrl('mailvotech_user_index', ['page' => $lastPage]);
 
             return $this->postActionRedirect([
                 'returnUrl'      => $returnUrl,
@@ -99,10 +99,10 @@ final class UserController extends FormController
                     'page' => $lastPage,
                     'tmpl' => $tmpl,
                 ],
-                'contentTemplate' => 'Mautic\UserBundle\Controller\UserController::indexAction',
+                'contentTemplate' => 'MailVotech\UserBundle\Controller\UserController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_user_index',
-                    'mauticContent' => 'user',
+                    'activeLink'    => '#mailvotech_user_index',
+                    'mailvotechContent' => 'user',
                 ],
             ]);
         }
@@ -111,7 +111,7 @@ final class UserController extends FormController
 
         $inviteForm = null;
         if ($this->security->isGranted('user:users:create')) {
-            $action     = $this->generateUrl('mautic_user_action', ['objectAction' => 'invite']);
+            $action     = $this->generateUrl('mailvotech_user_action', ['objectAction' => 'invite']);
             $inviteForm = $this->createForm(UserInviteType::class, [], ['action' => $action]);
         }
 
@@ -130,10 +130,10 @@ final class UserController extends FormController
                 ],
                 'inviteForm'    => $inviteForm ? $inviteForm->createView() : null,
             ],
-            'contentTemplate' => '@MauticUser/User/list.html.twig',
+            'contentTemplate' => '@MailVotechUser/User/list.html.twig',
             'passthroughVars' => [
-                'route'         => $this->generateUrl('mautic_user_index', ['page' => $page]),
-                'mauticContent' => 'user',
+                'route'         => $this->generateUrl('mailvotech_user_index', ['page' => $page]),
+                'mailvotechContent' => 'user',
             ],
         ]);
     }
@@ -146,7 +146,7 @@ final class UserController extends FormController
         if (!$this->security->isGranted('user:users:create')) {
             $this->throwAccessDenied();
         }
-        $action = $this->generateUrl('mautic_user_action', ['objectAction' => 'invite']);
+        $action = $this->generateUrl('mailvotech_user_action', ['objectAction' => 'invite']);
         $form   = $this->createForm(UserInviteType::class, [], ['action' => $action]);
 
         if ('POST' === $request->getMethod()) {
@@ -161,15 +161,15 @@ final class UserController extends FormController
                 \assert($role instanceof Role);
 
                 $model->createInvite($email, $role);
-                $this->addFlashMessage('mautic.user.invite.flash.sent', ['%email%' => $email], 'notice', 'flashes');
+                $this->addFlashMessage('mailvotech.user.invite.flash.sent', ['%email%' => $email], 'notice', 'flashes');
 
                 if ($request->isXmlHttpRequest()) {
                     $response = new JsonResponse([
                         'closeModal' => 1,
-                        'redirect'   => $this->generateUrl('mautic_user_index'),
+                        'redirect'   => $this->generateUrl('mailvotech_user_index'),
                     ]);
                 } else {
-                    $response = $this->redirectToRoute('mautic_user_index');
+                    $response = $this->redirectToRoute('mailvotech_user_index');
                 }
             }
 
@@ -177,11 +177,11 @@ final class UserController extends FormController
                 'viewParameters' => [
                     'form' => $form->createView(),
                 ],
-                'contentTemplate' => '@MauticUser/User/invite.html.twig',
+                'contentTemplate' => '@MailVotechUser/User/invite.html.twig',
                 'passthroughVars' => [
                     'route'              => $action,
-                    'mauticContent'      => 'user',
-                    'header'             => $this->translator->trans('mautic.user.invite.title'),
+                    'mailvotechContent'      => 'user',
+                    'header'             => $this->translator->trans('mailvotech.user.invite.title'),
                     'target'             => '#InviteUserModal .modal-body-content',
                     'updateModalContent' => 1,
                 ],
@@ -192,11 +192,11 @@ final class UserController extends FormController
             'viewParameters' => [
                 'form' => $form->createView(),
             ],
-            'contentTemplate' => '@MauticUser/User/invite.html.twig',
+            'contentTemplate' => '@MailVotechUser/User/invite.html.twig',
             'passthroughVars' => [
                 'route'         => $action,
-                'mauticContent' => 'user',
-                'header'        => $this->translator->trans('mautic.user.invite.title'),
+                'mailvotechContent' => 'user',
+                'header'        => $this->translator->trans('mailvotech.user.invite.title'),
             ],
         ]);
     }
@@ -211,7 +211,7 @@ final class UserController extends FormController
         $user = $this->userModel->getEntity();
 
         // get the user form factory
-        $action   = $this->generateUrl('mautic_user_action', ['objectAction' => 'new']);
+        $action   = $this->generateUrl('mailvotech_user_action', ['objectAction' => 'new']);
         $form     = $this->userModel->createForm($user, $this->formFactory, $action);
         $response = null;
 
@@ -235,12 +235,12 @@ final class UserController extends FormController
 
         if ($cancelled || ($valid && $this->getFormButton($form, ['buttons', 'save'])->isClicked())) {
             $response = $this->postActionRedirect([
-                'returnUrl'       => $this->generateUrl('mautic_user_index'),
-                'viewParameters'  => ['page' => $request->getSession()->get('mautic.user.page', 1), 'isSamlUser' => false],
-                'contentTemplate' => 'Mautic\UserBundle\Controller\UserController::indexAction',
+                'returnUrl'       => $this->generateUrl('mailvotech_user_index'),
+                'viewParameters'  => ['page' => $request->getSession()->get('mailvotech.user.page', 1), 'isSamlUser' => false],
+                'contentTemplate' => 'MailVotech\UserBundle\Controller\UserController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_user_index',
-                    'mauticContent' => 'user',
+                    'activeLink'    => '#mailvotech_user_index',
+                    'mailvotechContent' => 'user',
                 ],
             ]);
         } elseif ($valid) {
@@ -262,10 +262,10 @@ final class UserController extends FormController
             $this->userModel->saveEntity($user);
             $this->loadNewUserLocale($languageHelper, $user);
 
-            $this->addFlashMessage('mautic.core.notice.created', [
+            $this->addFlashMessage('mailvotech.core.notice.created', [
                 '%name%'      => $user->getName(),
-                '%menu_link%' => 'mautic_user_index',
-                '%url%'       => $this->generateUrl('mautic_user_action', [
+                '%menu_link%' => 'mailvotech_user_index',
+                '%url%'       => $this->generateUrl('mailvotech_user_action', [
                     'objectAction' => 'edit',
                     'objectId'     => $user->getId(),
                 ]),
@@ -286,7 +286,7 @@ final class UserController extends FormController
                 $user->setLocale(null);
                 $this->userModel->saveEntity($user);
                 $this->addFlashMessage(
-                    $fetchLanguage['message'] ?? 'mautic.core.could.not.set.language',
+                    $fetchLanguage['message'] ?? 'mailvotech.core.could.not.set.language',
                     $fetchLanguage['vars'] ?? []
                 );
             }
@@ -297,11 +297,11 @@ final class UserController extends FormController
     {
         return $this->delegateView([
             'viewParameters'  => ['form' => $form->createView(), 'isSamlUser' => false],
-            'contentTemplate' => '@MauticUser/User/form.html.twig',
+            'contentTemplate' => '@MailVotechUser/User/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_user_new',
+                'activeLink'    => '#mailvotech_user_new',
                 'route'         => $action,
-                'mauticContent' => 'user',
+                'mailvotechContent' => 'user',
             ],
         ]);
     }
@@ -320,11 +320,11 @@ final class UserController extends FormController
         $user = $this->userModel->getEntity($objectId);
         if (null === $user) {
             return $this->postActionRedirect([
-                'returnUrl'       => $this->generateUrl('mautic_user_index'),
+                'returnUrl'       => $this->generateUrl('mailvotech_user_index'),
                 'flashes'         => [
                     [
                         'type'    => 'error',
-                        'msg'     => 'mautic.user.user.error.notfound',
+                        'msg'     => 'mailvotech.user.user.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ],
                 ],
@@ -338,18 +338,18 @@ final class UserController extends FormController
         $roles              = $this->roleRepository->getEntities();
 
         // set the page we came from
-        $page = $request->getSession()->get('mautic.user.page', 1);
+        $page = $request->getSession()->get('mailvotech.user.page', 1);
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_user_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_user_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\UserBundle\Controller\UserController::indexAction',
+            'contentTemplate' => 'MailVotech\UserBundle\Controller\UserController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_user_index',
-                'mauticContent' => 'user',
+                'activeLink'    => '#mailvotech_user_index',
+                'mailvotechContent' => 'user',
             ],
         ];
 
@@ -358,7 +358,7 @@ final class UserController extends FormController
             return $this->isLocked($postActionVars, $user, 'user.user');
         }
 
-        $action = $this->generateUrl('mautic_user_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_user_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $form   = $this->userModel->createForm($user, $this->formFactory, $action);
 
         $isSamlUser    = $samlHelper->isSamlSession();
@@ -399,7 +399,7 @@ final class UserController extends FormController
                         if ($fetchLanguage['error']) {
                             $user->setLocale(null);
                             $this->userModel->saveEntity($user);
-                            $message     = 'mautic.core.could.not.set.language';
+                            $message     = 'mailvotech.core.could.not.set.language';
                             $messageVars = [];
 
                             if (isset($fetchLanguage['message'])) {
@@ -414,10 +414,10 @@ final class UserController extends FormController
                         }
                     }
 
-                    $this->addFlashMessage('mautic.core.notice.updated', [
+                    $this->addFlashMessage('mailvotech.core.notice.updated', [
                         '%name%'      => $user->getName(),
-                        '%menu_link%' => 'mautic_user_index',
-                        '%url%'       => $this->generateUrl('mautic_user_action', [
+                        '%menu_link%' => 'mailvotech_user_index',
+                        '%url%'       => $this->generateUrl('mailvotech_user_action', [
                             'objectAction' => 'edit',
                             'objectId'     => $user->getId(),
                         ]),
@@ -445,11 +445,11 @@ final class UserController extends FormController
                 'editAction'             => true,
                 'isSamlUser'             => $isSamlUser,
             ],
-            'contentTemplate' => '@MauticUser/User/form.html.twig',
+            'contentTemplate' => '@MailVotechUser/User/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_user_index',
+                'activeLink'    => '#mailvotech_user_index',
                 'route'         => $action,
-                'mauticContent' => 'user',
+                'mailvotechContent' => 'user',
             ],
         ]);
     }
@@ -466,19 +466,19 @@ final class UserController extends FormController
         }
 
         $currentUser    = $this->user;
-        $page           = $request->getSession()->get('mautic.user.page', 1);
-        $returnUrl      = $this->generateUrl('mautic_user_index', ['page' => $page]);
+        $page           = $request->getSession()->get('mailvotech.user.page', 1);
+        $returnUrl      = $this->generateUrl('mailvotech_user_index', ['page' => $page]);
         $success        = 0;
         $flashes        = [];
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\UserBundle\Controller\UserController::indexAction',
+            'contentTemplate' => 'MailVotech\UserBundle\Controller\UserController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_user_index',
+                'activeLink'    => '#mailvotech_user_index',
                 'route'         => $returnUrl,
                 'success'       => $success,
-                'mauticContent' => 'user',
+                'mailvotechContent' => 'user',
             ],
         ];
         if ('POST' === $request->getMethod()) {
@@ -489,7 +489,7 @@ final class UserController extends FormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.user.user.error.notfound',
+                        'msg'     => 'mailvotech.user.user.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif ($this->userModel->isLocked($entity)) {
@@ -499,7 +499,7 @@ final class UserController extends FormController
                     $name      = $entity->getName();
                     $flashes[] = [
                         'type'    => 'notice',
-                        'msg'     => 'mautic.core.notice.deleted',
+                        'msg'     => 'mailvotech.core.notice.deleted',
                         'msgVars' => [
                             '%name%' => $name,
                             '%id%'   => $objectId,
@@ -509,7 +509,7 @@ final class UserController extends FormController
             } else {
                 $flashes[] = [
                     'type' => 'error',
-                    'msg'  => 'mautic.user.user.error.cannotdeleteself',
+                    'msg'  => 'mailvotech.user.user.error.cannotdeleteself',
                 ];
             }
         } // else don't do anything
@@ -533,19 +533,19 @@ final class UserController extends FormController
         // user not found
         if (null === $user) {
             return $this->postActionRedirect([
-                'returnUrl'       => $this->generateUrl('mautic_dashboard_index'),
-                'contentTemplate' => 'Mautic\UserBundle\Controller\UserController::contactAction',
+                'returnUrl'       => $this->generateUrl('mailvotech_dashboard_index'),
+                'contentTemplate' => 'MailVotech\UserBundle\Controller\UserController::contactAction',
                 'flashes'         => [
                     [
                         'type'    => 'error',
-                        'msg'     => 'mautic.user.user.error.notfound',
+                        'msg'     => 'mailvotech.user.user.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ],
                 ],
             ]);
         }
 
-        $action = $this->generateUrl('mautic_user_action', ['objectAction' => 'contact', 'objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_user_action', ['objectAction' => 'contact', 'objectId' => $objectId]);
         $form   = $this->createForm(ContactType::class, [], ['action' => $action]);
 
         $currentUser = $this->user;
@@ -553,7 +553,7 @@ final class UserController extends FormController
         if ('POST' === $request->getMethod()) {
             $contact   = $request->request->all()['contact'] ?? [];
             $formUrl   = $contact['returnUrl'] ?? '';
-            $returnUrl = $formUrl ? urldecode($formUrl) : $this->generateUrl('mautic_dashboard_index');
+            $returnUrl = $formUrl ? urldecode($formUrl) : $this->generateUrl('mailvotech_dashboard_index');
             $valid     = false;
 
             if (!$cancelled = $this->isFormCancelled($form)) {
@@ -596,7 +596,7 @@ final class UserController extends FormController
                     ];
                     $this->auditLogModel->writeToLog($log);
 
-                    $this->addFlashMessage('mautic.user.user.notice.messagesent', ['%name%' => $user->getName()]);
+                    $this->addFlashMessage('mailvotech.user.user.notice.messagesent', ['%name%' => $user->getName()]);
                 }
             }
             if ($cancelled || $valid) {
@@ -605,7 +605,7 @@ final class UserController extends FormController
         } else {
             $reEntityId = (int) $request->get('id');
             $reSubject  = InputHelper::clean($request->get('subject'));
-            $returnUrl  = InputHelper::clean($request->get('returnUrl', $this->generateUrl('mautic_dashboard_index')));
+            $returnUrl  = InputHelper::clean($request->get('returnUrl', $this->generateUrl('mailvotech_dashboard_index')));
             $reEntity   = InputHelper::clean($request->get('entity'));
 
             $form->get('entity')->setData($reEntity);
@@ -629,10 +629,10 @@ final class UserController extends FormController
                 'form' => $form->createView(),
                 'user' => $user,
             ],
-            'contentTemplate' => '@MauticUser/User/contact.html.twig',
+            'contentTemplate' => '@MailVotechUser/User/contact.html.twig',
             'passthroughVars' => [
                 'route'         => $action,
-                'mauticContent' => 'user',
+                'mailvotechContent' => 'user',
             ],
         ]);
     }
@@ -642,17 +642,17 @@ final class UserController extends FormController
      */
     public function batchDeleteAction(Request $request): Response
     {
-        $page      = $request->getSession()->get('mautic.user.page', 1);
-        $returnUrl = $this->generateUrl('mautic_user_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.user.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_user_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\UserBundle\Controller\UserController::indexAction',
+            'contentTemplate' => 'MailVotech\UserBundle\Controller\UserController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_user_index',
-                'mauticContent' => 'user',
+                'activeLink'    => '#mailvotech_user_index',
+                'mailvotechContent' => 'user',
             ],
         ];
 
@@ -668,12 +668,12 @@ final class UserController extends FormController
                 if ((int) $currentUser->getId() === (int) $objectId) {
                     $flashes[] = [
                         'type' => 'error',
-                        'msg'  => 'mautic.user.user.error.cannotdeleteself',
+                        'msg'  => 'mailvotech.user.user.error.cannotdeleteself',
                     ];
                 } elseif (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.user.user.error.notfound',
+                        'msg'     => 'mailvotech.user.user.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->isGranted('user:users:delete')) {
@@ -691,7 +691,7 @@ final class UserController extends FormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.user.user.notice.batch_deleted',
+                    'msg'     => 'mailvotech.user.user.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],

@@ -47,13 +47,13 @@
 <!-- tabs controls -->
 <ul class="nav nav-tabs nav-tabs-line">
     <li class="{% if 'details-container' == activeTab %}active{% endif %}" id="details-tab">
-        <a href="#details-container" role="tab" data-toggle="tab">{{ 'mautic.plugin.integration.tab.details'|trans }}</a>
+        <a href="#details-container" role="tab" data-toggle="tab">{{ 'mailvotech.plugin.integration.tab.details'|trans }}</a>
     </li>
 
     {%- if hasSupportedFeatures or hasFeatureSettings -%}
         <li class="" id="features-tab">
             <a href="#features-container" role="tab" data-toggle="tab">
-                {{- 'mautic.plugin.integration.tab.features'|trans -}}
+                {{- 'mailvotech.plugin.integration.tab.features'|trans -}}
                 {%- if (hasSupportedFeatures and formContainsErrors(form.supportedFeatures)) or (hasFeatureSettings and formContainsErrors(form.featureSettings, ['leadFields'])) -%}
                     <i class="ri-fw ri-alert-fill text-danger"></i>
                 {%- endif -%}
@@ -64,7 +64,7 @@
     {%- if hasFields -%}
         <li class="{{ fieldTabClass }} {% if 'leadFieldsContainer' == activeTab %}active{% endif %}" id="fields-tab">
             <a href="#fields-container" role="tab" data-toggle="tab">
-                {{- 'mautic.plugin.integration.tab.fieldmapping'|trans -}}
+                {{- 'mailvotech.plugin.integration.tab.fieldmapping'|trans -}}
                 {%- if hasLeadFieldErrors -%}
                     <i class="ri-fw ri-alert-fill text-danger"></i>
                 {%- endif -%}
@@ -75,7 +75,7 @@
     {%- if companyFieldHtml is not empty -%}
         <li class="{{ fieldTabClass }} {% if 'companyFieldsContainer' == activeTab %}active{% endif %}" id="company-fields-tab">
             <a href="#company-fields-container" role="tab" data-toggle="tab">
-                {{- 'mautic.plugin.integration.tab.companyfieldmapping'|trans -}}
+                {{- 'mailvotech.plugin.integration.tab.companyfieldmapping'|trans -}}
                 {%- if hasCompanyFieldErrors -%}
                     <i class="ri-fw ri-alert-fill text-danger"></i>
                 {% endif %}
@@ -101,8 +101,8 @@
             <div class="row">
                 {%- if form.apiKeys|length > 0 and callbackUrl is not empty -%}
                     <div class="well well-sm">
-                        {{- 'mautic.integration.callbackuri'|trans }}<br/>
-                        {{ include('@MauticCore/Components/code-snippet.html.twig', {
+                        {{- 'mailvotech.integration.callbackuri'|trans }}<br/>
+                        {{ include('@MailVotechCore/Components/code-snippet.html.twig', {
                             variant: 'single',
                             innerText: callbackUrl,
                             className: 'layer-two mt-sm'
@@ -158,7 +158,7 @@
 
     {%- if hasCompanyFields -%}
         <div class="tab-pane fade {% if 'companyFieldsContainer' == activeTab %}in active{% endif %} bdr-w-0" id="company-fields-container">
-            <h4 class="mb-sm">{{ 'mautic.integration.companyfield_matches'|trans }}</h4>
+            <h4 class="mb-sm">{{ 'mailvotech.integration.companyfield_matches'|trans }}</h4>
             {{- companyFieldHtml|raw -}}
         </div>
     {%- endif -%}

@@ -25,19 +25,19 @@
     "prettier": "node_modules/.bin/prettier -w Assets/library/js/",
     "prettier-check": "node_modules/.bin/prettier -c Assets/library/js/",
     "start-helloWorld": "parcel Demo/helloWorld/index.html",
-    "start-mautic-full": "cp -r Demo/data dist && parcel Demo/mautic/full.html",
-    "start-mautic": "cp -r Demo/data dist && parcel Demo/mautic/index.html"
+    "start-mailvotech-full": "cp -r Demo/data dist && parcel Demo/mailvotech/full.html",
+    "start-mailvotech": "cp -r Demo/data dist && parcel Demo/mailvotech/index.html"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mautic/plugin-grapesjs-builder.git"
+    "url": "git+https://github.com/mailvotech/plugin-grapesjs-builder.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mautic/plugin-grapesjs-builder/issues"
+    "url": "https://github.com/mailvotech/plugin-grapesjs-builder/issues"
   },
-  "homepage": "https://github.com/mautic/plugin-grapesjs-builder#readme",
+  "homepage": "https://github.com/mailvotech/plugin-grapesjs-builder#readme",
   "engines": {
     "npm": ">=8.0.0",
     "node": ">=16.0.0"

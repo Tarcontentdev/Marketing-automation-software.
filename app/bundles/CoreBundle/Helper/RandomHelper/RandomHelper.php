@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper\RandomHelper;
+namespace MailVotech\CoreBundle\Helper\RandomHelper;
 
 final class RandomHelper implements RandomHelperInterface
 {

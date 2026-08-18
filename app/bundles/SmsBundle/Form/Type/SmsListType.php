@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Form\Type;
+namespace MailVotech\SmsBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\EntityLookupType;
+use MailVotech\CoreBundle\Form\Type\EntityLookupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,8 +18,8 @@ final class SmsListType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'modal_route'         => 'mautic_sms_action',
-                'modal_header'        => 'mautic.sms.header.new',
+                'modal_route'         => 'mailvotech_sms_action',
+                'modal_header'        => 'mailvotech.sms.header.new',
                 'model'               => 'sms',
                 'model_lookup_method' => 'getLookupResults',
                 'lookup_arguments'    => fn (Options $options): array => [

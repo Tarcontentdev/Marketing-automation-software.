@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CampaignBundle\Tests\Functional\Controller;
+namespace MailVotech\CampaignBundle\Tests\Functional\Controller;
 
-use Mautic\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Campaign;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\DomCrawler\Crawler;
 

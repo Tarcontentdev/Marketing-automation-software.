@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Functional;
+namespace MailVotech\FormBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class UpdateLeadFormActionFunctionalTest extends MauticMysqlTestCase
+final class UpdateLeadFormActionFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -40,7 +40,7 @@ final class UpdateLeadFormActionFunctionalTest extends MauticMysqlTestCase
         $form = $this->createFormViaApi('Test form', $actionProperties);
 
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$form->getId()}");
-        $formCrawler = $crawler->filter('form[id=mauticform_testform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_testform]');
 
         if (0 === $formCrawler->count()) {
             $this->fail('Form not found: '.$this->client->getResponse()->getContent());
@@ -49,7 +49,7 @@ final class UpdateLeadFormActionFunctionalTest extends MauticMysqlTestCase
 
         $formValues = [];
         foreach ($formData as $field => $value) {
-            $formValues["mauticform[{$field}]"] = $value;
+            $formValues["mailvotechform[{$field}]"] = $value;
         }
 
         $formElement->setValues($formValues);

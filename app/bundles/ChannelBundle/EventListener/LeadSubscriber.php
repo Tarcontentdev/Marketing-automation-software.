@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\ChannelBundle\EventListener;
+namespace MailVotech\ChannelBundle\EventListener;
 
-use Mautic\ChannelBundle\Entity\MessageQueueRepository;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\ChannelBundle\Entity\MessageQueueRepository;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -31,12 +31,12 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
     public function onTimelineGenerate(LeadTimelineEvent $event): void
     {
         $eventTypeKey  = 'message.queue';
-        $eventTypeName = $this->translator->trans('mautic.message.queue');
+        $eventTypeName = $this->translator->trans('mailvotech.message.queue');
 
         $event->addEventType($eventTypeKey, $eventTypeName);
         $event->addSerializerGroup('messageQueueList');
 
-        $label = $this->translator->trans('mautic.queued.channel');
+        $label = $this->translator->trans('mailvotech.queued.channel');
 
         // Decide if those events are filtered
         if (!$event->isApplicable($eventTypeKey)) {
@@ -53,7 +53,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
             foreach ($logs['results'] as $log) {
                 $eventName = [
                     'label' => $label.$log['channelName'].' '.$log['channelId'],
-                    'href'  => $this->router->generate('mautic_'.$log['channelName'].'_action', ['objectAction' => 'view', 'objectId' => $log['channelId']]),
+                    'href'  => $this->router->generate('mailvotech_'.$log['channelName'].'_action', ['objectAction' => 'view', 'objectId' => $log['channelId']]),
                 ];
                 $event->addEvent(
                     [
@@ -65,7 +65,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                         'extra'      => [
                             'log' => $log,
                         ],
-                        'contentTemplate' => '@MauticChannel/SubscribedEvents/Timeline/queued_messages.html.twig',
+                        'contentTemplate' => '@MailVotechChannel/SubscribedEvents/Timeline/queued_messages.html.twig',
                         'icon'            => 'ri-question-answer-line',
                         'contactId'       => $log['lead_id'],
                     ]

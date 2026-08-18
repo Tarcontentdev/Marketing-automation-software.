@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Query\Expression;
+namespace MailVotech\LeadBundle\Segment\Query\Expression;
 
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder as BaseExpressionBuilder;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Segment\Exception\SegmentQueryException;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Segment\Exception\SegmentQueryException;
 
 class ExpressionBuilder extends BaseExpressionBuilder
 {

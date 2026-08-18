@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\FormBundle\EventListener;
+namespace MailVotech\FormBundle\EventListener;
 
 use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumberUtil;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\FormBundle\Event as Events;
-use Mautic\FormBundle\Form\Type\FormFieldCheckboxGroupType;
-use Mautic\FormBundle\Form\Type\FormFieldEmailType;
-use Mautic\FormBundle\Form\Type\FormFieldTelType;
-use Mautic\FormBundle\FormEvents;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\FormBundle\Event as Events;
+use MailVotech\FormBundle\Form\Type\FormFieldCheckboxGroupType;
+use MailVotech\FormBundle\Form\Type\FormFieldEmailType;
+use MailVotech\FormBundle\Form\Type\FormFieldTelType;
+use MailVotech\FormBundle\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -95,7 +95,7 @@ final readonly class FormValidationSubscriber implements EventSubscriberInterfac
             $donotSubmitFilter  = fn ($doNotSubmitArray): bool => fnmatch($doNotSubmitArray, $value, FNM_CASEFOLD);
             $notNotSubmitEmails = $this->coreParametersHelper->get('do_not_submit_emails');
             if (array_filter($notNotSubmitEmails, $donotSubmitFilter)) {
-                $validationMsg = $field->getValidation()['donotsubmit_validationmsg'] ?? $this->translator->trans('mautic.form.submission.email.donotsubmit.invalid', [], 'validators');
+                $validationMsg = $field->getValidation()['donotsubmit_validationmsg'] ?? $this->translator->trans('mailvotech.form.submission.email.donotsubmit.invalid', [], 'validators');
                 $event->failedValidation($validationMsg);
             }
         }
@@ -104,7 +104,7 @@ final readonly class FormValidationSubscriber implements EventSubscriberInterfac
             $blockedProviders = $this->coreParametersHelper->get('blocked_free_email_providers') ?? [];
             $domain           = strtolower(substr(strrchr($value, '@'), 1));
             if ($domain && in_array($domain, $blockedProviders, true)) {
-                $validationMsg = $field->getValidation()['blockfreeemail_validationmsg'] ?? $this->translator->trans('mautic.form.submission.email.freeproviders.invalid', [], 'validators');
+                $validationMsg = $field->getValidation()['blockfreeemail_validationmsg'] ?? $this->translator->trans('mailvotech.form.submission.email.freeproviders.invalid', [], 'validators');
                 $event->failedValidation($validationMsg);
             }
         }
@@ -123,7 +123,7 @@ final readonly class FormValidationSubscriber implements EventSubscriberInterfac
                 if (!empty($field->getValidation()['international_validationmsg'])) {
                     $event->failedValidation($field->getValidation()['international_validationmsg']);
                 } else {
-                    $event->failedValidation($this->translator->trans('mautic.form.submission.phone.invalid', [], 'validators'));
+                    $event->failedValidation($this->translator->trans('mailvotech.form.submission.phone.invalid', [], 'validators'));
                 }
             }
         }
@@ -155,7 +155,7 @@ final readonly class FormValidationSubscriber implements EventSubscriberInterfac
             $message = !empty($validation['min_message'])
                 ? $validation['min_message']
                 : $this->translator->trans(
-                    'mautic.form.submission.checkboxgrp.minimum',
+                    'mailvotech.form.submission.checkboxgrp.minimum',
                     ['%min%' => (int) $validation['minimum']],
                     'validators'
                 );
@@ -169,7 +169,7 @@ final readonly class FormValidationSubscriber implements EventSubscriberInterfac
             $message = !empty($validation['max_message'])
                 ? $validation['max_message']
                 : $this->translator->trans(
-                    'mautic.form.submission.checkboxgrp.maximum',
+                    'mailvotech.form.submission.checkboxgrp.maximum',
                     ['%max%' => (int) $validation['maximum']],
                     'validators'
                 );

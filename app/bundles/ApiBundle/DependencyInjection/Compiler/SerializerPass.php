@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\DependencyInjection\Compiler;
+namespace MailVotech\ApiBundle\DependencyInjection\Compiler;
 
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

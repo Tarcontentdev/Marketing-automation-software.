@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Notification\Handler;
+namespace MailVotech\IntegrationsBundle\Sync\Notification\Handler;
 
-use Mautic\IntegrationsBundle\Sync\Exception\HandlerNotSupportedException;
+use MailVotech\IntegrationsBundle\Sync\Exception\HandlerNotSupportedException;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 final class HandlerContainer
@@ -15,7 +15,7 @@ final class HandlerContainer
      * @param iterable<HandlerInterface> $handlers
      */
     public function __construct(
-        #[AutowireIterator('mautic.sync.notification_handler')]
+        #[AutowireIterator('mailvotech.sync.notification_handler')]
         iterable $handlers = [],
     ) {
         foreach ($handlers as $handler) {

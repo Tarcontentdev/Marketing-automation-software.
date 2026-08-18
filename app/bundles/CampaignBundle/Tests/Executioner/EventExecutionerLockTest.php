@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Executioner;
+namespace MailVotech\CampaignBundle\Tests\Executioner;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\CampaignBundle\Executioner\EventExecutioner;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Traits\LoggerTrait;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\CampaignBundle\Executioner\EventExecutioner;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Traits\LoggerTrait;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class EventExecutionerLockTest extends MauticMysqlTestCase
+final class EventExecutionerLockTest extends MailVotechMysqlTestCase
 {
     use LoggerTrait {
         setUp as loggerTraitSetup;

@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\WebhookBundle\Controller;
+namespace MailVotech\WebhookBundle\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\FormBundle\Helper\FormFieldHelper;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\FormBundle\Helper\FormFieldHelper;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,12 +35,12 @@ final class WebhookController extends FormController
         $this->setStandardParameters(
             'webhook.webhook', // model name
             'webhook:webhooks', // permission base
-            'mautic_webhook', // route base
-            'mautic_webhook', // session base
-            'mautic.webhook', // lang string base
-            '@MauticWebhook/Webhook', // template base
-            'mautic_webhook', // activeLink
-            'mauticWebhook' // mauticContent
+            'mailvotech_webhook', // route base
+            'mailvotech_webhook', // session base
+            'mailvotech.webhook', // lang string base
+            '@MailVotechWebhook/Webhook', // template base
+            'mailvotech_webhook', // activeLink
+            'mailvotechWebhook' // mailvotechContent
         );
 
         parent::__construct($formFactory, $fieldHelper, $doctrine, $modelFactory, $userHelper, $coreParametersHelper, $dispatcher, $translator, $flashBag, $requestStack, $security);

@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\PluginBundle\Model;
+namespace MailVotech\PluginBundle\Model;
 
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\PluginBundle\Entity\IntegrationEntity;
-use Mautic\PluginBundle\Entity\IntegrationEntityRepository;
-use Mautic\PluginBundle\Integration\IntegrationObject;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\PluginBundle\Entity\IntegrationEntity;
+use MailVotech\PluginBundle\Entity\IntegrationEntityRepository;
+use MailVotech\PluginBundle\Integration\IntegrationObject;
 use Symfony\Contracts\Service\Attribute\Required;
 
 /**
@@ -78,9 +78,9 @@ class IntegrationEntityModel extends FormModel
         return '"'.$csList.'"';
     }
 
-    public function getMauticContactsById($mauticContactIds, $integrationName, $internalObject): array
+    public function getMailVotechContactsById($mailvotechContactIds, $integrationName, $internalObject): array
     {
-        if (!$formattedRecords = $this->formatListOfContacts($mauticContactIds)) {
+        if (!$formattedRecords = $this->formatListOfContacts($mailvotechContactIds)) {
             return [];
         }
 

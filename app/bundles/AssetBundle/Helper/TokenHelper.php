@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\AssetBundle\Helper;
+namespace MailVotech\AssetBundle\Helper;
 
-use Mautic\AssetBundle\Model\AssetModel;
+use MailVotech\AssetBundle\Model\AssetModel;
 
 class TokenHelper
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Extension;
+namespace MailVotech\CoreBundle\Twig\Extension;
 
 use DeviceDetector\Parser\Device\AbstractDeviceParser;
 use Twig\Extension\AbstractExtension;

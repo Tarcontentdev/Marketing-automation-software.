@@ -1,42 +1,42 @@
 <?php
 
-namespace Mautic\PluginBundle\Integration;
+namespace MailVotech\PluginBundle\Integration;
 
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\RequestOptions;
-use Mautic\CoreBundle\Entity\CommonEntity;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Helper\CacheStorageHelper;
-use Mautic\CoreBundle\Helper\EncryptionHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\LeadBundle\DataObject\LeadManipulator;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\DoNotContact as DoNotContactModel;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Entity\IntegrationEntity;
-use Mautic\PluginBundle\Entity\IntegrationEntityRepository;
-use Mautic\PluginBundle\Event\PluginIntegrationAuthCallbackUrlEvent;
-use Mautic\PluginBundle\Event\PluginIntegrationFormBuildEvent;
-use Mautic\PluginBundle\Event\PluginIntegrationFormDisplayEvent;
-use Mautic\PluginBundle\Event\PluginIntegrationKeyEvent;
-use Mautic\PluginBundle\Event\PluginIntegrationRequestEvent;
-use Mautic\PluginBundle\Exception\ApiErrorException;
-use Mautic\PluginBundle\Helper\Cleaner;
-use Mautic\PluginBundle\Helper\oAuthHelper;
-use Mautic\PluginBundle\Model\IntegrationEntityModel;
-use Mautic\PluginBundle\PluginEvents;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\CoreBundle\Entity\CommonEntity;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Helper\CacheStorageHelper;
+use MailVotech\CoreBundle\Helper\EncryptionHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\LeadBundle\DataObject\LeadManipulator;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\DoNotContact as DoNotContactModel;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Entity\IntegrationEntity;
+use MailVotech\PluginBundle\Entity\IntegrationEntityRepository;
+use MailVotech\PluginBundle\Event\PluginIntegrationAuthCallbackUrlEvent;
+use MailVotech\PluginBundle\Event\PluginIntegrationFormBuildEvent;
+use MailVotech\PluginBundle\Event\PluginIntegrationFormDisplayEvent;
+use MailVotech\PluginBundle\Event\PluginIntegrationKeyEvent;
+use MailVotech\PluginBundle\Event\PluginIntegrationRequestEvent;
+use MailVotech\PluginBundle\Exception\ApiErrorException;
+use MailVotech\PluginBundle\Helper\Cleaner;
+use MailVotech\PluginBundle\Helper\oAuthHelper;
+use MailVotech\PluginBundle\Model\IntegrationEntityModel;
+use MailVotech\PluginBundle\PluginEvents;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -51,7 +51,7 @@ use Symfony\Contracts\Service\Attribute\Required;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @deprecated To be removed in Mautic 6.0. Please use the IntegrationsBundle instead, which is meant to be a drop-in replacement for AbstractIntegration.
+ * @deprecated To be removed in MailVotech 6.0. Please use the IntegrationsBundle instead, which is meant to be a drop-in replacement for AbstractIntegration.
  */
 abstract class AbstractIntegration implements UnifiedIntegrationInterface
 {
@@ -86,7 +86,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
 
     protected ?string $lastIntegrationError     = null;
 
-    protected array $mauticDuplicates           = [];
+    protected array $mailvotechDuplicates           = [];
 
     protected array $salesforceIdMapping        = [];
 
@@ -134,7 +134,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
         protected FieldsWithUniqueIdentifier $fieldsWithUniqueIdentifier,
     ) {
         $this->cache                  = $cacheStorageHelper->getCache($this->getName());
-        $this->request                = (!defined('IN_MAUTIC_CONSOLE')) ? $requestStack->getCurrentRequest() : null;
+        $this->request                = (!defined('IN_MAILVOTECH_CONSOLE')) ? $requestStack->getCurrentRequest() : null;
 
         $this->setClientFactory(fn (array $options): Client => new Client([
             'handler' => HandlerStack::create(new CurlHandler([
@@ -281,7 +281,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
      * supported feature checkbox group.
      *
      * Example:
-     *  'cloud_storage' => 'mautic.integration.form.features.cloud_storage.tooltip'
+     *  'cloud_storage' => 'mailvotech.integration.form.features.cloud_storage.tooltip'
      *
      * @return array<string, string>
      */
@@ -307,7 +307,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
      */
     public function getFormTemplate()
     {
-        return '@MauticPlugin/Integration/form.html.twig';
+        return '@MailVotechPlugin/Integration/form.html.twig';
     }
 
     /**
@@ -317,7 +317,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
      */
     public function getFormTheme()
     {
-        return '@MauticPlugin/FormTheme/Integration/layout.html.twig';
+        return '@MailVotechPlugin/FormTheme/Integration/layout.html.twig';
     }
 
     /**
@@ -551,19 +551,19 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
     {
         return match ($this->getAuthenticationType()) {
             'oauth1a' => [
-                'consumer_id'     => 'mautic.integration.keyfield.consumerid',
-                'consumer_secret' => 'mautic.integration.keyfield.consumersecret',
+                'consumer_id'     => 'mailvotech.integration.keyfield.consumerid',
+                'consumer_secret' => 'mailvotech.integration.keyfield.consumersecret',
             ],
             'oauth2' => [
-                'client_id'     => 'mautic.integration.keyfield.clientid',
-                'client_secret' => 'mautic.integration.keyfield.clientsecret',
+                'client_id'     => 'mailvotech.integration.keyfield.clientid',
+                'client_secret' => 'mailvotech.integration.keyfield.clientsecret',
             ],
             'key' => [
-                'key' => 'mautic.integration.keyfield.api',
+                'key' => 'mailvotech.integration.keyfield.api',
             ],
             'basic' => [
-                'username' => 'mautic.integration.keyfield.username',
-                'password' => 'mautic.integration.keyfield.password',
+                'username' => 'mailvotech.integration.keyfield.username',
+                'password' => 'mailvotech.integration.keyfield.password',
             ],
             default => [],
         };
@@ -698,7 +698,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
             return [
                 'error' => [
                     'message' => $this->translator->trans(
-                        'mautic.integration.missingkeys'
+                        'mailvotech.integration.missingkeys'
                     ),
                 ],
             ];
@@ -843,7 +843,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
         ?array $internal = null,
         $persist = true,
     ): ?IntegrationEntity {
-        $date = (defined('MAUTIC_DATE_MODIFIED_OVERRIDE')) ? \DateTime::createFromFormat('U', MAUTIC_DATE_MODIFIED_OVERRIDE)
+        $date = (defined('MAILVOTECH_DATE_MODIFIED_OVERRIDE')) ? \DateTime::createFromFormat('U', MAILVOTECH_DATE_MODIFIED_OVERRIDE)
             : new \DateTime();
         $entity = new IntegrationEntity();
         $entity->setDateAdded($date)
@@ -1017,7 +1017,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
         }
 
         return $this->router->generate(
-            'mautic_integration_auth_callback',
+            'mailvotech_integration_auth_callback',
             ['integration' => $this->getName()]
         );
     }
@@ -1050,7 +1050,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
     public function getAuthCallbackUrl()
     {
         $defaultUrl = $this->router->generate(
-            'mautic_integration_auth_callback',
+            'mailvotech_integration_auth_callback',
             ['integration' => $this->getName()],
             UrlGeneratorInterface::ABSOLUTE_URL // absolute
         );
@@ -1086,7 +1086,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
 
                     if ($state && $state !== $givenState) {
                         $this->requestStack->getSession()->remove($this->getName().'_csrf_token');
-                        throw new ApiErrorException($this->translator->trans('mautic.integration.auth.invalid.state'));
+                        throw new ApiErrorException($this->translator->trans('mailvotech.integration.auth.invalid.state'));
                     }
                 }
 
@@ -1158,7 +1158,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
             $error = $this->getErrorsFromResponse($data);
             if (empty($error)) {
                 $error = $this->translator->trans(
-                    'mautic.integration.error.genericerror',
+                    'mailvotech.integration.error.genericerror',
                     [],
                     'flashes'
                 );
@@ -1383,7 +1383,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
     /**
      * @return array
      */
-    public function cleanUpFields(Integration $entity, array $mauticLeadFields, array $mauticCompanyFields)
+    public function cleanUpFields(Integration $entity, array $mailvotechLeadFields, array $mailvotechCompanyFields)
     {
         $featureSettings        = $entity->getFeatureSettings();
         $submittedFields        = $featureSettings['leadFields'] ?? [];
@@ -1392,9 +1392,9 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
         $missingRequiredFields  = [];
 
         // add special case in order to prevent it from being removed
-        $mauticLeadFields['mauticContactId']                   = '';
-        $mauticLeadFields['mauticContactTimelineLink']         = '';
-        $mauticLeadFields['mauticContactIsContactableByEmail'] = '';
+        $mailvotechLeadFields['mailvotechContactId']                   = '';
+        $mailvotechLeadFields['mailvotechContactTimelineLink']         = '';
+        $mailvotechLeadFields['mailvotechContactIsContactableByEmail'] = '';
 
         // make sure now non-existent aren't saved
         $settings = [
@@ -1407,15 +1407,15 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
         /**
          * @param $mappedFields
          * @param $integrationFields
-         * @param $mauticFields
+         * @param $mailvotechFields
          * @param $fieldType
          */
-        $cleanup = function (array &$mappedFields, array $integrationFields, $mauticFields, $fieldType) use (&$missingRequiredFields, &$featureSettings): void {
-            $updateKey    = ('companyFields' === $fieldType) ? 'update_mautic_company' : 'update_mautic';
+        $cleanup = function (array &$mappedFields, array $integrationFields, $mailvotechFields, $fieldType) use (&$missingRequiredFields, &$featureSettings): void {
+            $updateKey    = ('companyFields' === $fieldType) ? 'update_mailvotech_company' : 'update_mailvotech';
             $removeFields = array_keys(array_diff_key($mappedFields, $integrationFields));
 
-            // Find all the mapped fields that no longer exist in Mautic
-            if ($nonExistentFields = array_diff($mappedFields, array_keys($mauticFields))) {
+            // Find all the mapped fields that no longer exist in MailVotech
+            if ($nonExistentFields = array_diff($mappedFields, array_keys($mailvotechFields))) {
                 // Remove those fields
                 $removeFields = array_merge($removeFields, array_keys($nonExistentFields));
             }
@@ -1429,9 +1429,9 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
             }
 
             // Check that the remaining fields have an updateKey set
-            foreach ($mappedFields as $field => $mauticField) {
+            foreach ($mappedFields as $field => $mailvotechField) {
                 if (!isset($featureSettings[$updateKey][$field])) {
-                    // Assume it's mapped to Mautic
+                    // Assume it's mapped to MailVotech
                     $featureSettings[$updateKey][$field] = 1;
                 }
             }
@@ -1447,7 +1447,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
             if (in_array('company', $submittedObjects)) {
                 // special handling for company fields
                 if (isset($availableIntegrationFields['company'])) {
-                    $cleanup($submittedCompanyFields, $availableIntegrationFields['company'], $mauticCompanyFields, 'companyFields');
+                    $cleanup($submittedCompanyFields, $availableIntegrationFields['company'], $mailvotechCompanyFields, 'companyFields');
                     $featureSettings['companyFields'] = $submittedCompanyFields;
                     unset($availableIntegrationFields['company']);
                 }
@@ -1470,7 +1470,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
         }
 
         if ([] !== $leadFields) {
-            $cleanup($submittedFields, $leadFields, $mauticLeadFields, 'leadFields');
+            $cleanup($submittedFields, $leadFields, $mailvotechLeadFields, 'leadFields');
             $featureSettings['leadFields'] = $submittedFields;
         }
 
@@ -1546,7 +1546,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
             $availableFields = $availableFields[0] ?? $availableFields;
         }
 
-        $unknown = $this->translator->trans('mautic.integration.form.lead.unknown');
+        $unknown = $this->translator->trans('mailvotech.integration.form.lead.unknown');
         $matched = [];
 
         foreach ($availableFields as $key => $field) {
@@ -1556,24 +1556,24 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
             }
 
             if (isset($leadFields[$integrationKey])) {
-                if ('mauticContactTimelineLink' === $leadFields[$integrationKey]) {
+                if ('mailvotechContactTimelineLink' === $leadFields[$integrationKey]) {
                     $matched[$integrationKey] = $this->getContactTimelineLink($leadId);
 
                     continue;
                 }
-                if ('mauticContactIsContactableByEmail' === $leadFields[$integrationKey]) {
+                if ('mailvotechContactIsContactableByEmail' === $leadFields[$integrationKey]) {
                     $matched[$integrationKey] = $this->getLeadDoNotContact($leadId);
 
                     continue;
                 }
-                if ('mauticContactId' === $leadFields[$integrationKey]) {
+                if ('mailvotechContactId' === $leadFields[$integrationKey]) {
                     $matched[$integrationKey] = $lead->getId();
                     continue;
                 }
-                $mauticKey = $leadFields[$integrationKey];
-                if (isset($fields[$mauticKey]) && '' !== $fields[$mauticKey]) {
+                $mailvotechKey = $leadFields[$integrationKey];
+                if (isset($fields[$mailvotechKey]) && '' !== $fields[$mailvotechKey]) {
                     $matched[$matchIntegrationKey] = $this->cleanPushData(
-                        $fields[$mauticKey],
+                        $fields[$mailvotechKey],
                         $field['type'] ?? 'string'
                     );
                 }
@@ -1610,16 +1610,16 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
 
         $companyFields   = $config['companyFields'];
         $availableFields = $this->getAvailableLeadFields($config)['company'];
-        $unknown         = $this->translator->trans('mautic.integration.form.lead.unknown');
+        $unknown         = $this->translator->trans('mailvotech.integration.form.lead.unknown');
         $matched         = [];
 
         foreach ($availableFields as $key => $field) {
             $integrationKey = $this->convertLeadFieldKey($key, $field);
 
             if (isset($companyFields[$key])) {
-                $mauticKey = $companyFields[$key];
-                if (isset($fields[$mauticKey]) && !empty($fields[$mauticKey])) {
-                    $matched[$integrationKey] = $this->cleanPushData($fields[$mauticKey], $field['type'] ?? 'string');
+                $mailvotechKey = $companyFields[$key];
+                if (isset($fields[$mailvotechKey]) && !empty($fields[$mailvotechKey])) {
+                    $matched[$integrationKey] = $this->cleanPushData($fields[$mailvotechKey], $field['type'] ?? 'string');
                 }
             }
 
@@ -1632,14 +1632,14 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
     }
 
     /**
-     * Takes profile data from an integration and maps it to Mautic's lead fields.
+     * Takes profile data from an integration and maps it to MailVotech's lead fields.
      *
      * @param array       $config
      * @param string|null $object
      *
      * @return array
      */
-    public function populateMauticLeadData($data, $config = [], $object = null)
+    public function populateMailVotechLeadData($data, $config = [], $object = null)
     {
         // Glean supported fields from what was returned by the integration
         $gleanedData = $data;
@@ -1672,7 +1672,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
         $matched = [];
         foreach ($gleanedData as $key => $field) {
             if (isset($fields[$key]) && isset($gleanedData[$key])
-                && $this->translator->trans('mautic.integration.form.lead.unknown') !== $gleanedData[$key]
+                && $this->translator->trans('mailvotech.integration.form.lead.unknown') !== $gleanedData[$key]
             ) {
                 $matched[$fields[$key]] = $gleanedData[$key];
             }
@@ -1682,7 +1682,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
     }
 
     /**
-     * Create or update existing Mautic lead from the integration's profile data.
+     * Create or update existing MailVotech lead from the integration's profile data.
      *
      * @param mixed      $data        Profile data from integration
      * @param bool|true  $persist     Set to false to not persist lead to the database in this method
@@ -1691,7 +1691,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
      *
      * @return Lead
      */
-    public function getMauticLead($data, $persist = true, $socialCache = null, $identifiers = null)
+    public function getMailVotechLead($data, $persist = true, $socialCache = null, $identifiers = null)
     {
         if (is_object($data)) {
             // Convert to array in all levels
@@ -1702,7 +1702,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
         }
 
         // Match that data with mapped lead fields
-        $matchedFields = $this->populateMauticLeadData($data);
+        $matchedFields = $this->populateMailVotechLeadData($data);
 
         if (empty($matchedFields)) {
             return;
@@ -1952,7 +1952,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
 
             $errorMessage = $e->getMessage();
             $errorHeader  = $this->getTranslator()->trans(
-                'mautic.integration.error',
+                'mailvotech.integration.error',
                 [
                     '%name%' => $this->getName(),
                 ]
@@ -1963,14 +1963,14 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
                 $contactId   = $contact->getId();
                 $contactName = $contact->getPrimaryIdentifier();
             } elseif ($contactId = $e->getContactId()) {
-                $contactName = $this->getTranslator()->trans('mautic.integration.error.generic_contact_name', ['%id%' => $contactId]);
+                $contactName = $this->getTranslator()->trans('mailvotech.integration.error.generic_contact_name', ['%id%' => $contactId]);
             }
 
             $this->lastIntegrationError = $errorHeader.': '.$errorMessage;
 
             if ($contactId) {
                 $contactLink = $this->router->generate(
-                    'mautic_contact_action',
+                    'mailvotech_contact_action',
                     [
                         'objectAction' => 'view',
                         'objectId'     => $contactId,
@@ -1999,7 +1999,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
             }
         }
 
-        $this->logger->error('INTEGRATION ERROR: '.$this->getName().' - '.(('dev' == MAUTIC_ENV) ? (string) $e : $e->getMessage()));
+        $this->logger->error('INTEGRATION ERROR: '.$this->getName().' - '.(('dev' == MAILVOTECH_ENV) ? (string) $e : $e->getMessage()));
     }
 
     /**
@@ -2028,7 +2028,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
     public function getFormNotes($section)
     {
         if ('leadfield_match' == $section) {
-            return ['mautic.integration.form.field_match_notes', 'info'];
+            return ['mailvotech.integration.form.field_match_notes', 'info'];
         }
 
         return ['', 'info'];
@@ -2150,7 +2150,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
     public function getContactTimelineLink($contactId)
     {
         return $this->router->generate(
-            'mautic_plugin_timeline_view',
+            'mailvotech_plugin_timeline_view',
             ['integration' => $this->getName(), 'leadId' => $contactId],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
@@ -2221,14 +2221,14 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
     protected function cleanupFromSync(&$leadsToSync = [], $error = false)
     {
         $duplicates = 0;
-        if ($this->mauticDuplicates) {
+        if ($this->mailvotechDuplicates) {
             // Create integration entities for these to be ignored until they are updated
-            foreach ($this->mauticDuplicates as $id => $dup) {
+            foreach ($this->mailvotechDuplicates as $id => $dup) {
                 $this->persistIntegrationEntities[] = $this->createIntegrationEntity('Lead', null, $dup, $id, [], false);
                 ++$duplicates;
             }
 
-            $this->mauticDuplicates = [];
+            $this->mailvotechDuplicates = [];
         }
 
         if (!empty($leadsToSync)) {
@@ -2263,7 +2263,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
     }
 
     /**
-     * @param array $mapping array of [$mauticId => ['entity' => FormEntity, 'integration_entity_id' => $integrationId]]
+     * @param array $mapping array of [$mailvotechId => ['entity' => FormEntity, 'integration_entity_id' => $integrationId]]
      * @param array $params
      */
     protected function buildIntegrationEntities(array $mapping, $integrationEntity, $internalEntity, $params = [])
@@ -2340,7 +2340,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
             }
         }
 
-        return (defined('MAUTIC_DATE_MODIFIED_OVERRIDE')) ? \DateTime::createFromFormat('U', MAUTIC_DATE_MODIFIED_OVERRIDE)
+        return (defined('MAILVOTECH_DATE_MODIFIED_OVERRIDE')) ? \DateTime::createFromFormat('U', MAILVOTECH_DATE_MODIFIED_OVERRIDE)
             : new \DateTime();
     }
 
@@ -2399,16 +2399,16 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
     }
 
     /**
-     * Get pseudo fields from mautic, these are lead properties we want to map to integration fields.
+     * Get pseudo fields from mailvotech, these are lead properties we want to map to integration fields.
      *
      * @return mixed
      */
-    public function getCompoundMauticFields($lead)
+    public function getCompoundMailVotechFields($lead)
     {
         if ($lead['internal_entity_id']) {
-            $lead['mauticContactId']                   = $lead['internal_entity_id'];
-            $lead['mauticContactTimelineLink']         = $this->getContactTimelineLink($lead['internal_entity_id']);
-            $lead['mauticContactIsContactableByEmail'] = $this->getLeadDoNotContact($lead['internal_entity_id']);
+            $lead['mailvotechContactId']                   = $lead['internal_entity_id'];
+            $lead['mailvotechContactTimelineLink']         = $this->getContactTimelineLink($lead['internal_entity_id']);
+            $lead['mailvotechContactIsContactableByEmail'] = $this->getLeadDoNotContact($lead['internal_entity_id']);
         }
 
         return $lead;
@@ -2417,15 +2417,15 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
     /**
      * @return bool
      */
-    public function isCompoundMauticField(string $fieldName)
+    public function isCompoundMailVotechField(string $fieldName)
     {
         $compoundFields = [
-            'mauticContactTimelineLink' => 'mauticContactTimelineLink',
-            'mauticContactId'           => 'mauticContactId',
+            'mailvotechContactTimelineLink' => 'mailvotechContactTimelineLink',
+            'mailvotechContactId'           => 'mailvotechContactId',
         ];
 
         if ($this->updateDncByDate()) {
-            $compoundFields['mauticContactIsContactableByEmail'] = 'mauticContactIsContactableByEmail';
+            $compoundFields['mailvotechContactIsContactableByEmail'] = 'mailvotechContactIsContactableByEmail';
         }
 
         return isset($compoundFields[$fieldName]);
@@ -2452,7 +2452,7 @@ abstract class AbstractIntegration implements UnifiedIntegrationInterface
     }
 
     /**
-     * Because so many integrations extend this class and mautic.http.client is not in the
+     * Because so many integrations extend this class and mailvotech.http.client is not in the
      * constructor at the time of writing, let's just create a new client here. In addition,
      * we add some custom cURL options.
      *

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Types\BigIntType;
-use Mautic\CoreBundle\Doctrine\PreUpAssertionMigration;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\GroupContactScore;
+use MailVotech\CoreBundle\Doctrine\PreUpAssertionMigration;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\GroupContactScore;
 
 final class Version20230621074925 extends PreUpAssertionMigration
 {

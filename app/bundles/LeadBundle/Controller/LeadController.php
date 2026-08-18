@@ -1,63 +1,63 @@
 <?php
 
-namespace Mautic\LeadBundle\Controller;
+namespace MailVotech\LeadBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Membership\MembershipManager;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Cache\ResultCacheOptions;
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Form\Type\FindReplaceType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ExportHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\IteratorExportDataModel;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\LeadBundle\DataObject\LeadManipulator;
-use Mautic\LeadBundle\Deduplicate\ContactMerger;
-use Mautic\LeadBundle\Deduplicate\Exception\SameContactException;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Entity\CustomFieldEntityInterface;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDevice;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\PointsChangeLog;
-use Mautic\LeadBundle\Event\ContactExportEvent;
-use Mautic\LeadBundle\Event\ContactExportSchedulerEvent;
-use Mautic\LeadBundle\Field\CustomFieldFindReplace;
-use Mautic\LeadBundle\Field\DTO\CustomFieldFindReplaceCriteria;
-use Mautic\LeadBundle\Form\Type\BatchType;
-use Mautic\LeadBundle\Form\Type\ContactGroupPointsType;
-use Mautic\LeadBundle\Form\Type\DncType;
-use Mautic\LeadBundle\Form\Type\EmailType;
-use Mautic\LeadBundle\Form\Type\MergeType;
-use Mautic\LeadBundle\Form\Type\OwnerType;
-use Mautic\LeadBundle\Form\Type\StageType;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\ContactExportSchedulerModel;
-use Mautic\LeadBundle\Model\DoNotContact as DoNotContactModel;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Model\NoteModel;
-use Mautic\LeadBundle\Services\ContactColumnsDictionary;
-use Mautic\LeadBundle\Twig\Helper\AvatarHelper;
-use Mautic\PluginBundle\Entity\IntegrationEntity;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PointBundle\Model\PointGroupModel;
-use Mautic\StageBundle\Model\StageModel;
-use Mautic\UserBundle\Entity\UserRepository;
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\CampaignBundle\Membership\MembershipManager;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Cache\ResultCacheOptions;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Form\Type\FindReplaceType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ExportHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\IteratorExportDataModel;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\LeadBundle\DataObject\LeadManipulator;
+use MailVotech\LeadBundle\Deduplicate\ContactMerger;
+use MailVotech\LeadBundle\Deduplicate\Exception\SameContactException;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Entity\CustomFieldEntityInterface;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDevice;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\PointsChangeLog;
+use MailVotech\LeadBundle\Event\ContactExportEvent;
+use MailVotech\LeadBundle\Event\ContactExportSchedulerEvent;
+use MailVotech\LeadBundle\Field\CustomFieldFindReplace;
+use MailVotech\LeadBundle\Field\DTO\CustomFieldFindReplaceCriteria;
+use MailVotech\LeadBundle\Form\Type\BatchType;
+use MailVotech\LeadBundle\Form\Type\ContactGroupPointsType;
+use MailVotech\LeadBundle\Form\Type\DncType;
+use MailVotech\LeadBundle\Form\Type\EmailType;
+use MailVotech\LeadBundle\Form\Type\MergeType;
+use MailVotech\LeadBundle\Form\Type\OwnerType;
+use MailVotech\LeadBundle\Form\Type\StageType;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\ContactExportSchedulerModel;
+use MailVotech\LeadBundle\Model\DoNotContact as DoNotContactModel;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Model\NoteModel;
+use MailVotech\LeadBundle\Services\ContactColumnsDictionary;
+use MailVotech\LeadBundle\Twig\Helper\AvatarHelper;
+use MailVotech\PluginBundle\Entity\IntegrationEntity;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PointBundle\Model\PointGroupModel;
+use MailVotech\StageBundle\Model\StageModel;
+use MailVotech\UserBundle\Entity\UserRepository;
+use MailVotech\UserBundle\Model\UserModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
@@ -170,29 +170,29 @@ final class LeadController extends FormController
         $this->setListFilters();
         $session = $request->getSession();
         // set limits
-        $limit = $session->get('mautic.lead.limit', $this->coreParametersHelper->get('default_pagelimit'));
+        $limit = $session->get('mailvotech.lead.limit', $this->coreParametersHelper->get('default_pagelimit'));
         $start = (1 === $page) ? 0 : (($page - 1) * $limit);
         if ($start < 0) {
             $start = 0;
         }
 
-        $search = $request->get('search', $session->get('mautic.lead.filter', ''));
-        $session->set('mautic.lead.filter', $search);
+        $search = $request->get('search', $session->get('mailvotech.lead.filter', ''));
+        $session->set('mailvotech.lead.filter', $search);
 
         // do some default filtering
-        $orderBy    = $session->get('mautic.lead.orderby', 'l.last_active');
+        $orderBy    = $session->get('mailvotech.lead.orderby', 'l.last_active');
         // Add an id field to orderBy. Prevent Null-value ordering
         $orderById  = 'l.id' !== $orderBy ? ', l.id' : '';
         $orderBy .= $orderById;
-        $orderByDir = $session->get('mautic.lead.orderbydir', 'DESC');
+        $orderByDir = $session->get('mailvotech.lead.orderbydir', 'DESC');
 
         $filter      = ['string' => $search, 'force' => ''];
-        $anonymous   = $this->translator->trans('mautic.lead.lead.searchcommand.isanonymous');
-        $listCommand = $this->translator->trans('mautic.lead.lead.searchcommand.list');
-        $mine        = $this->translator->trans('mautic.core.searchcommand.ismine');
-        $indexMode   = $request->get('view', $session->get('mautic.lead.indexmode', 'list'));
+        $anonymous   = $this->translator->trans('mailvotech.lead.lead.searchcommand.isanonymous');
+        $listCommand = $this->translator->trans('mailvotech.lead.lead.searchcommand.list');
+        $mine        = $this->translator->trans('mailvotech.core.searchcommand.ismine');
+        $indexMode   = $request->get('view', $session->get('mailvotech.lead.indexmode', 'list'));
 
-        $session->set('mautic.lead.indexmode', $indexMode);
+        $session->set('mailvotech.lead.indexmode', $indexMode);
 
         $anonymousShowing = false;
         if ('list' != $indexMode || ('list' == $indexMode && !str_contains($search, $anonymous))) {
@@ -229,24 +229,24 @@ final class LeadController extends FormController
             } else {
                 $lastPage = (ceil($count / $limit)) ?: 1;
             }
-            $session->set('mautic.lead.page', $lastPage);
-            $returnUrl = $this->generateUrl('mautic_contact_index', ['page' => $lastPage]);
+            $session->set('mailvotech.lead.page', $lastPage);
+            $returnUrl = $this->generateUrl('mailvotech_contact_index', ['page' => $lastPage]);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $lastPage],
-                    'contentTemplate' => 'Mautic\LeadBundle\Controller\LeadController::indexAction',
+                    'contentTemplate' => 'MailVotech\LeadBundle\Controller\LeadController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_contact_index',
-                        'mauticContent' => 'lead',
+                        'activeLink'    => '#mailvotech_contact_index',
+                        'mailvotechContent' => 'lead',
                     ],
                 ]
             );
         }
 
         // set what page currently on so that we can return here after form submission/cancellation
-        $session->set('mautic.lead.page', $page);
+        $session->set('mailvotech.lead.page', $page);
 
         $tmpl = $request->isXmlHttpRequest() ? $request->get('tmpl', 'index') : 'index';
 
@@ -297,11 +297,11 @@ final class LeadController extends FormController
                     'maxLeadId'        => $maxLeadId,
                     'anonymousShowing' => $anonymousShowing,
                 ],
-                'contentTemplate' => "@MauticLead/Lead/{$indexMode}.html.twig",
+                'contentTemplate' => "@MailVotechLead/Lead/{$indexMode}.html.twig",
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_contact_index',
-                    'mauticContent' => 'lead',
-                    'route'         => $this->generateUrl('mautic_contact_index', ['page' => $page]),
+                    'activeLink'    => '#mailvotech_contact_index',
+                    'mailvotechContent' => 'lead',
+                    'route'         => $this->generateUrl('mailvotech_contact_index', ['page' => $page]),
                 ],
             ]
         );
@@ -332,7 +332,7 @@ final class LeadController extends FormController
         }
 
         // Get the quick add form
-        $action = $this->generateUrl('mautic_contact_action', ['objectAction' => 'new', 'qf' => 1]);
+        $action = $this->generateUrl('mailvotech_contact_action', ['objectAction' => 'new', 'qf' => 1]);
 
         $fields = $this->leadFieldModel->getEntities(
             [
@@ -385,10 +385,10 @@ final class LeadController extends FormController
                 'viewParameters' => [
                     'quickForm' => $quickForm->createView(),
                 ],
-                'contentTemplate' => '@MauticLead/Lead/quickadd.html.twig',
+                'contentTemplate' => '@MailVotechLead/Lead/quickadd.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_contact_index',
-                    'mauticContent' => 'lead',
+                    'activeLink'    => '#mailvotech_contact_index',
+                    'mailvotechContent' => 'lead',
                     'route'         => false,
                 ],
             ]
@@ -404,24 +404,24 @@ final class LeadController extends FormController
 
         if (null === $lead) {
             // get the page we came from
-            $page = $request->getSession()->get('mautic.lead.page', 1);
+            $page = $request->getSession()->get('mailvotech.lead.page', 1);
 
             // set the return URL
-            $returnUrl = $this->generateUrl('mautic_contact_index', ['page' => $page]);
+            $returnUrl = $this->generateUrl('mailvotech_contact_index', ['page' => $page]);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $page],
-                    'contentTemplate' => 'Mautic\LeadBundle\Controller\LeadController::indexAction',
+                    'contentTemplate' => 'MailVotech\LeadBundle\Controller\LeadController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_contact_index',
-                        'mauticContent' => 'contact',
+                        'activeLink'    => '#mailvotech_contact_index',
+                        'mailvotechContent' => 'contact',
                     ],
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.lead.lead.error.notfound',
+                            'msg'     => 'mailvotech.lead.lead.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -437,7 +437,7 @@ final class LeadController extends FormController
             $formPage = max(1, (int) $request->query->get('formPage', 1));
 
             if ($formId > 0) {
-                $returnUrl = $this->generateUrl('mautic_form_results', [
+                $returnUrl = $this->generateUrl('mailvotech_form_results', [
                     'objectId' => $formId,
                     'page'     => $formPage,
                 ]);
@@ -501,7 +501,7 @@ final class LeadController extends FormController
             [
                 'viewParameters' => [
                     'lead'                   => $lead,
-                    'avatarPanelState'       => $request->cookies->get('mautic_lead_avatar_panel', 'expanded'),
+                    'avatarPanelState'       => $request->cookies->get('mailvotech_lead_avatar_panel', 'expanded'),
                     'fields'                 => $fields,
                     'companies'              => $companies,
                     'lists'                  => $lists,
@@ -522,7 +522,7 @@ final class LeadController extends FormController
                     'enableExportPermission' => $this->security->isAdmin() || $this->security->isGranted('lead:export:enable', 'MATCH_ONE'),
                     'returnUrl'              => $returnUrl,
                     // 'leadNotes'         => $this->forward(
-                    //    'Mautic\LeadBundle\Controller\NoteController::indexAction',
+                    //    'MailVotech\LeadBundle\Controller\NoteController::indexAction',
                     //    [
                     //        'leadId'     => $lead->getId(),
                     //        'ignoreAjax' => 1,
@@ -530,12 +530,12 @@ final class LeadController extends FormController
                     // )->getContent(),
                 ],
                 'allowMultipleCompanies' => $coreParametersHelper->get('contact_allow_multiple_companies'),
-                'contentTemplate'        => '@MauticLead/Lead/lead.html.twig',
+                'contentTemplate'        => '@MailVotechLead/Lead/lead.html.twig',
                 'passthroughVars'        => [
-                    'activeLink'    => '#mautic_contact_index',
-                    'mauticContent' => 'lead',
+                    'activeLink'    => '#mailvotech_contact_index',
+                    'mailvotechContent' => 'lead',
                     'route'         => $this->generateUrl(
-                        'mautic_contact_action',
+                        'mailvotech_contact_action',
                         [
                             'objectAction' => 'view',
                             'objectId'     => $lead->getId(),
@@ -558,8 +558,8 @@ final class LeadController extends FormController
         }
 
         // set the page we came from
-        $page           = $request->getSession()->get('mautic.lead.page', 1);
-        $action         = $this->generateUrl('mautic_contact_action', ['objectAction' => 'new']);
+        $page           = $request->getSession()->get('mailvotech.lead.page', 1);
+        $action         = $this->generateUrl('mailvotech_contact_action', ['objectAction' => 'new']);
         $fields = $this->leadFieldModel->getPublishedFieldArrays('lead');
         $form   = $this->leadModel->createForm($lead, $this->formFactory, $action, ['fields' => $fields]);
 
@@ -620,12 +620,12 @@ final class LeadController extends FormController
                     $identifier = $this->translator->trans($lead->getPrimaryIdentifier());
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.created',
+                        'mailvotech.core.notice.created',
                         [
                             '%name%'      => $identifier,
-                            '%menu_link%' => 'mautic_contact_index',
+                            '%menu_link%' => 'mailvotech_contact_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_contact_action',
+                                'mailvotech_contact_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $lead->getId(),
@@ -638,15 +638,15 @@ final class LeadController extends FormController
 
                     if ($inQuickForm) {
                         $viewParameters = ['page' => $page];
-                        $returnUrl      = $this->generateUrl('mautic_contact_index', $viewParameters);
-                        $template       = 'Mautic\LeadBundle\Controller\LeadController::indexAction';
+                        $returnUrl      = $this->generateUrl('mailvotech_contact_index', $viewParameters);
+                        $template       = 'MailVotech\LeadBundle\Controller\LeadController::indexAction';
                     } elseif ($this->getFormButton($form, ['buttons', 'save'])->isClicked()) {
                         $viewParameters = [
                             'objectAction' => 'view',
                             'objectId'     => $lead->getId(),
                         ];
-                        $returnUrl = $this->generateUrl('mautic_contact_action', $viewParameters);
-                        $template  = 'Mautic\LeadBundle\Controller\LeadController::viewAction';
+                        $returnUrl = $this->generateUrl('mailvotech_contact_action', $viewParameters);
+                        $template  = 'MailVotech\LeadBundle\Controller\LeadController::viewAction';
                     } else {
                         return $this->editAction($request, $userHelper, $avatarHelper, $lead->getId(), true);
                     }
@@ -664,8 +664,8 @@ final class LeadController extends FormController
                 }
             } else {
                 $viewParameters = ['page' => $page];
-                $returnUrl      = $this->generateUrl('mautic_contact_index', $viewParameters);
-                $template       = 'Mautic\LeadBundle\Controller\LeadController::indexAction';
+                $returnUrl      = $this->generateUrl('mailvotech_contact_index', $viewParameters);
+                $template       = 'MailVotech\LeadBundle\Controller\LeadController::indexAction';
             }
 
             if ($cancelled || $valid) { // cancelled or success
@@ -675,8 +675,8 @@ final class LeadController extends FormController
                         'viewParameters'  => $viewParameters,
                         'contentTemplate' => $template,
                         'passthroughVars' => [
-                            'activeLink'    => '#mautic_contact_index',
-                            'mauticContent' => 'lead',
+                            'activeLink'    => '#mailvotech_contact_index',
+                            'mailvotechContent' => 'lead',
                             'closeModal'    => 1, // just in case in quick form
                         ],
                     ]
@@ -695,12 +695,12 @@ final class LeadController extends FormController
                     'lead'   => $lead,
                     'fields' => $this->leadModel->organizeFieldsByGroup($fields),
                 ],
-                'contentTemplate' => '@MauticLead/Lead/form.html.twig',
+                'contentTemplate' => '@MailVotechLead/Lead/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_contact_index',
-                    'mauticContent' => 'lead',
+                    'activeLink'    => '#mailvotech_contact_index',
+                    'mailvotechContent' => 'lead',
                     'route'         => $this->generateUrl(
-                        'mautic_contact_action',
+                        'mailvotech_contact_action',
                         [
                             'objectAction' => 'new',
                         ]
@@ -720,18 +720,18 @@ final class LeadController extends FormController
         $lead  = $this->leadModel->getEntity($objectId);
 
         // set the page we came from
-        $page = $request->getSession()->get('mautic.lead.page', 1);
+        $page = $request->getSession()->get('mailvotech.lead.page', 1);
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_contact_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_contact_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\LeadController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\LeadController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_contact_index',
-                'mauticContent' => 'lead',
+                'activeLink'    => '#mailvotech_contact_index',
+                'mailvotechContent' => 'lead',
             ],
         ];
         // lead not found
@@ -743,7 +743,7 @@ final class LeadController extends FormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.lead.lead.error.notfound',
+                                'msg'     => 'mailvotech.lead.lead.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -763,7 +763,7 @@ final class LeadController extends FormController
             return $this->isLocked($postActionVars, $lead, 'lead.lead');
         }
 
-        $action         = $this->generateUrl('mautic_contact_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action         = $this->generateUrl('mailvotech_contact_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $fields = $this->leadFieldModel->getPublishedFieldArrays('lead');
         $form   = $this->leadModel->createForm($lead, $this->formFactory, $action, ['fields' => $fields]);
 
@@ -811,19 +811,19 @@ final class LeadController extends FormController
                             $this->uploadAvatar($request, $avatarHelper, $lead);
 
                             // Note the avatar update so that it can be forced to update
-                            $request->getSession()->set('mautic.lead.avatar.updated', true);
+                            $request->getSession()->set('mailvotech.lead.avatar.updated', true);
                         }
                     }
 
                     $identifier = $this->translator->trans($lead->getPrimaryIdentifier());
 
                     $this->addFlashMessage(
-                        'mautic.core.notice.updated',
+                        'mailvotech.core.notice.updated',
                         [
                             '%name%'      => $identifier,
-                            '%menu_link%' => 'mautic_contact_index',
+                            '%menu_link%' => 'mailvotech_contact_index',
                             '%url%'       => $this->generateUrl(
-                                'mautic_contact_action',
+                                'mailvotech_contact_action',
                                 [
                                     'objectAction' => 'edit',
                                     'objectId'     => $lead->getId(),
@@ -854,9 +854,9 @@ final class LeadController extends FormController
                     array_merge(
                         $postActionVars,
                         [
-                            'returnUrl'       => $this->generateUrl('mautic_contact_action', $viewParameters),
+                            'returnUrl'       => $this->generateUrl('mailvotech_contact_action', $viewParameters),
                             'viewParameters'  => $viewParameters,
-                            'contentTemplate' => 'Mautic\LeadBundle\Controller\LeadController::viewAction',
+                            'contentTemplate' => 'MailVotech\LeadBundle\Controller\LeadController::viewAction',
                         ]
                     )
                 );
@@ -878,12 +878,12 @@ final class LeadController extends FormController
                     'lead'   => $lead,
                     'fields' => $lead->getFields(), // pass in the lead fields as they are already organized by ['group']['alias']
                 ],
-                'contentTemplate' => '@MauticLead/Lead/form.html.twig',
+                'contentTemplate' => '@MailVotechLead/Lead/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_contact_index',
-                    'mauticContent' => 'lead',
+                    'activeLink'    => '#mailvotech_contact_index',
+                    'mailvotechContent' => 'lead',
                     'route'         => $this->generateUrl(
-                        'mautic_contact_action',
+                        'mailvotech_contact_action',
                         [
                             'objectAction' => 'edit',
                             'objectId'     => $lead->getId(),
@@ -919,18 +919,18 @@ final class LeadController extends FormController
     public function mergeAction(Request $request, ContactMerger $contactMerger, $objectId): Response
     {
         $mainLead = $this->leadModel->getEntity($objectId);
-        $page     = $request->getSession()->get('mautic.lead.page', 1);
+        $page     = $request->getSession()->get('mailvotech.lead.page', 1);
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_contact_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_contact_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\LeadController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\LeadController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_contact_index',
-                'mauticContent' => 'lead',
+                'activeLink'    => '#mailvotech_contact_index',
+                'mailvotechContent' => 'lead',
             ],
         ];
 
@@ -942,7 +942,7 @@ final class LeadController extends FormController
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.lead.lead.error.notfound',
+                                'msg'     => 'mailvotech.lead.lead.error.notfound',
                                 'msgVars' => ['%id%' => $objectId],
                             ],
                         ],
@@ -953,8 +953,8 @@ final class LeadController extends FormController
 
         // do some default filtering
         $session = $request->getSession();
-        $search  = $request->get('search', $session->get('mautic.lead.merge.filter', ''));
-        $session->set('mautic.lead.merge.filter', $search);
+        $search  = $request->get('search', $session->get('mailvotech.lead.merge.filter', ''));
+        $session->set('mailvotech.lead.merge.filter', $search);
         $leads = [];
 
         if (!empty($search)) {
@@ -990,7 +990,7 @@ final class LeadController extends FormController
             $leadChoices[$l->getPrimaryIdentifier()] = $l->getId();
         }
 
-        $action = $this->generateUrl('mautic_contact_action', ['objectAction' => 'merge', 'objectId' => $mainLead->getId()]);
+        $action = $this->generateUrl('mailvotech_contact_action', ['objectAction' => 'merge', 'objectId' => $mainLead->getId()]);
 
         $form = $this->formFactory->create(
             MergeType::class,
@@ -1017,7 +1017,7 @@ final class LeadController extends FormController
                                     'flashes' => [
                                         [
                                             'type'    => 'error',
-                                            'msg'     => 'mautic.lead.lead.error.notfound',
+                                            'msg'     => 'mailvotech.lead.lead.error.notfound',
                                             'msgVars' => ['%id%' => $secLeadId],
                                         ],
                                     ],
@@ -1054,16 +1054,16 @@ final class LeadController extends FormController
 
                 return $this->postActionRedirect(
                     [
-                        'returnUrl'       => $this->generateUrl('mautic_contact_action', $viewParameters),
+                        'returnUrl'       => $this->generateUrl('mailvotech_contact_action', $viewParameters),
                         'viewParameters'  => $viewParameters,
-                        'contentTemplate' => 'Mautic\LeadBundle\Controller\LeadController::viewAction',
+                        'contentTemplate' => 'MailVotech\LeadBundle\Controller\LeadController::viewAction',
                         'passthroughVars' => [
                             'closeModal' => 1,
                         ],
                         'flashes' => [
                             [
                                 'type' => 'notice',
-                                'msg'  => 'mautic.lead.lead.notice.merged',
+                                'msg'  => 'mailvotech.lead.lead.notice.merged',
                             ],
                         ],
                     ]
@@ -1082,14 +1082,14 @@ final class LeadController extends FormController
                     'action'       => $action,
                     'form'         => $form->createView(),
                     'currentRoute' => $this->generateUrl(
-                        'mautic_contact_action',
+                        'mailvotech_contact_action',
                         [
                             'objectAction' => 'merge',
                             'objectId'     => $mainLead->getId(),
                         ]
                     ),
                 ],
-                'contentTemplate' => '@MauticLead/Lead/merge.html.twig',
+                'contentTemplate' => '@MailVotechLead/Lead/merge.html.twig',
                 'passthroughVars' => [
                     'route'  => false,
                     'target' => ('update' == $tmpl) ? '.lead-merge-options' : null,
@@ -1125,18 +1125,18 @@ final class LeadController extends FormController
             $viewParameters,
             $data,
             false,
-            $this->generateUrl('mautic_contact_action', ['objectAction' => 'contactFrequency', 'objectId' => $lead->getId()])
+            $this->generateUrl('mailvotech_contact_action', ['objectAction' => 'contactFrequency', 'objectId' => $lead->getId()])
         );
 
         if (true === $form) {
             return $this->postActionRedirect(
                 [
-                    'returnUrl' => $this->generateUrl('mautic_contact_action', [
+                    'returnUrl' => $this->generateUrl('mailvotech_contact_action', [
                         'objectId'     => $lead->getId(),
                         'objectAction' => 'view',
                     ]),
                     'viewParameters'  => $viewParameters,
-                    'contentTemplate' => 'Mautic\LeadBundle\Controller\LeadController::viewAction',
+                    'contentTemplate' => 'MailVotech\LeadBundle\Controller\LeadController::viewAction',
                     'passthroughVars' => [
                         'closeModal' => 1,
                     ],
@@ -1153,7 +1153,7 @@ final class LeadController extends FormController
                         'tmpl'         => $tmpl,
                         'form'         => $form->createView(),
                         'currentRoute' => $this->generateUrl(
-                            'mautic_contact_action',
+                            'mailvotech_contact_action',
                             [
                                 'objectAction' => 'contactFrequency',
                                 'objectId'     => $lead->getId(),
@@ -1163,7 +1163,7 @@ final class LeadController extends FormController
                     ],
                     $viewParameters
                 ),
-                'contentTemplate' => '@MauticLead/Lead/frequency.html.twig',
+                'contentTemplate' => '@MailVotechLead/Lead/frequency.html.twig',
                 'passthroughVars' => [
                     'route'  => false,
                     'target' => ('update' == $tmpl) ? '.lead-frequency-options' : null,
@@ -1177,17 +1177,17 @@ final class LeadController extends FormController
      */
     public function deleteAction(Request $request, $objectId): Response
     {
-        $page      = $request->getSession()->get('mautic.lead.page', 1);
-        $returnUrl = $this->generateUrl('mautic_contact_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.lead.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_contact_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\LeadController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\LeadController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_contact_index',
-                'mauticContent' => 'lead',
+                'activeLink'    => '#mailvotech_contact_index',
+                'mailvotechContent' => 'lead',
             ],
         ];
 
@@ -1197,7 +1197,7 @@ final class LeadController extends FormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.lead.lead.error.notfound',
+                    'msg'     => 'mailvotech.lead.lead.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->hasEntityAccess(
@@ -1215,7 +1215,7 @@ final class LeadController extends FormController
                 $identifier = $this->translator->trans($entity->getPrimaryIdentifier());
                 $flashes[]  = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.core.notice.deleted',
+                    'msg'     => 'mailvotech.core.notice.deleted',
                     'msgVars' => [
                         '%name%' => $identifier,
                         '%id%'   => $objectId,
@@ -1239,17 +1239,17 @@ final class LeadController extends FormController
      */
     public function batchDeleteAction(Request $request): Response
     {
-        $page      = $request->getSession()->get('mautic.lead.page', 1);
-        $returnUrl = $this->generateUrl('mautic_contact_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.lead.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_contact_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\LeadBundle\Controller\LeadController::indexAction',
+            'contentTemplate' => 'MailVotech\LeadBundle\Controller\LeadController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_contact_index',
-                'mauticContent' => 'lead',
+                'activeLink'    => '#mailvotech_contact_index',
+                'mailvotechContent' => 'lead',
             ],
         ];
 
@@ -1264,7 +1264,7 @@ final class LeadController extends FormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.lead.lead.error.notfound',
+                        'msg'     => 'mailvotech.lead.lead.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->hasEntityAccess(
@@ -1287,7 +1287,7 @@ final class LeadController extends FormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.lead.lead.notice.batch_deleted',
+                    'msg'     => 'mailvotech.lead.lead.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],
@@ -1334,7 +1334,7 @@ final class LeadController extends FormController
                     'leadsLists' => $leadsLists,
                     'lead'       => $lead,
                 ],
-                'contentTemplate' => '@MauticLead/LeadLists/index.html.twig',
+                'contentTemplate' => '@MailVotechLead/LeadLists/index.html.twig',
             ]
         );
     }
@@ -1371,7 +1371,7 @@ final class LeadController extends FormController
                     'companyLead' => $companyLead,
                     'lead'        => $lead,
                 ],
-                'contentTemplate' => '@MauticLead/Lead/company.html.twig',
+                'contentTemplate' => '@MailVotechLead/Lead/company.html.twig',
             ]
         );
     }
@@ -1406,7 +1406,7 @@ final class LeadController extends FormController
                     'campaigns' => $campaigns,
                     'lead'      => $lead,
                 ],
-                'contentTemplate' => '@MauticLead/LeadCampaigns/index.html.twig',
+                'contentTemplate' => '@MailVotechLead/LeadCampaigns/index.html.twig',
             ]
         );
     }
@@ -1467,7 +1467,7 @@ final class LeadController extends FormController
         // Check if lead has a bounce status
         $dnc    = $this->doNotContactRepository->getEntriesByLeadAndChannel($lead, 'email');
 
-        $action = $this->generateUrl('mautic_contact_action', ['objectAction' => 'email', 'objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_contact_action', ['objectAction' => 'email', 'objectId' => $objectId]);
         $form   = $this->formFactory->create(EmailType::class, $email, ['action' => $action]);
 
         if ('POST' === $request->getMethod()) {
@@ -1522,7 +1522,7 @@ final class LeadController extends FormController
                     if ($mailer->send(true, false)) {
                         $mailer->createEmailStat();
                         $this->addFlashMessage(
-                            'mautic.lead.email.notice.sent',
+                            'mailvotech.lead.email.notice.sent',
                             [
                                 '%subject%' => $subject,
                                 '%email%'   => $leadEmail,
@@ -1539,7 +1539,7 @@ final class LeadController extends FormController
                         $form->addError(
                             new FormError(
                                 $this->translator->trans(
-                                    'mautic.lead.email.error.failed',
+                                    'mailvotech.lead.email.error.failed',
                                     [
                                         '%subject%' => $subject,
                                         '%email%'   => $leadEmail,
@@ -1557,13 +1557,13 @@ final class LeadController extends FormController
 
         if (empty($leadEmail) || $valid || $cancelled) {
             if ($inList) {
-                $route          = 'mautic_contact_index';
+                $route          = 'mailvotech_contact_index';
                 $viewParameters = [
-                    'page' => $request->getSession()->get('mautic.lead.page', 1),
+                    'page' => $request->getSession()->get('mailvotech.lead.page', 1),
                 ];
                 $func = 'index';
             } else {
-                $route          = 'mautic_contact_action';
+                $route          = 'mailvotech_contact_action';
                 $viewParameters = [
                     'objectAction' => 'view',
                     'objectId'     => $objectId,
@@ -1575,9 +1575,9 @@ final class LeadController extends FormController
                 [
                     'returnUrl'       => $this->generateUrl($route, $viewParameters),
                     'viewParameters'  => $viewParameters,
-                    'contentTemplate' => 'Mautic\LeadBundle\Controller\LeadController::'.$func.'Action',
+                    'contentTemplate' => 'MailVotech\LeadBundle\Controller\LeadController::'.$func.'Action',
                     'passthroughVars' => [
-                        'mauticContent' => 'lead',
+                        'mailvotechContent' => 'lead',
                         'closeModal'    => 1,
                     ],
                 ]
@@ -1587,13 +1587,13 @@ final class LeadController extends FormController
         return $this->ajaxAction(
             $request,
             [
-                'contentTemplate' => '@MauticLead/Lead/email.html.twig',
+                'contentTemplate' => '@MailVotechLead/Lead/email.html.twig',
                 'viewParameters'  => [
                     'form' => $form->createView(),
                     'dnc'  => end($dnc),
                 ],
                 'passthroughVars' => [
-                    'mauticContent' => 'leadEmail',
+                    'mailvotechContent' => 'leadEmail',
                     'route'         => false,
                 ],
             ]
@@ -1668,7 +1668,7 @@ final class LeadController extends FormController
             }
 
             $this->addFlashMessage(
-                'mautic.lead.batch_leads_affected',
+                'mailvotech.lead.batch_leads_affected',
                 [
                     '%count%'     => $count,
                 ]
@@ -1689,7 +1689,7 @@ final class LeadController extends FormController
         }
 
         $route = $this->generateUrl(
-            'mautic_contact_action',
+            'mailvotech_contact_action',
             [
                 'objectAction' => 'batchCampaigns',
             ]
@@ -1707,10 +1707,10 @@ final class LeadController extends FormController
                         ]
                     )->createView(),
                 ],
-                'contentTemplate' => '@MauticLead/Batch/form.html.twig',
+                'contentTemplate' => '@MailVotechLead/Batch/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_contact_index',
-                    'mauticContent' => 'leadBatch',
+                    'activeLink'    => '#mailvotech_contact_index',
+                    'mailvotechContent' => 'leadBatch',
                     'route'         => $route,
                 ],
             ]
@@ -1755,7 +1755,7 @@ final class LeadController extends FormController
             }
 
             $this->addFlashMessage(
-                'mautic.lead.batch_leads_affected',
+                'mailvotech.lead.batch_leads_affected',
                 [
                     '%count%' => $count,
                 ]
@@ -1770,7 +1770,7 @@ final class LeadController extends FormController
         }
 
         $route = $this->generateUrl(
-            'mautic_contact_action',
+            'mailvotech_contact_action',
             [
                 'objectAction' => 'batchDnc',
             ]
@@ -1781,10 +1781,10 @@ final class LeadController extends FormController
                 'viewParameters' => [
                     'form' => $this->createForm(DncType::class, [], ['action' => $route])->createView(),
                 ],
-                'contentTemplate' => '@MauticLead/Batch/form.html.twig',
+                'contentTemplate' => '@MailVotechLead/Batch/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_contact_index',
-                    'mauticContent' => 'leadBatch',
+                    'activeLink'    => '#mailvotech_contact_index',
+                    'mailvotechContent' => 'leadBatch',
                     'route'         => $route,
                 ],
             ]
@@ -1830,7 +1830,7 @@ final class LeadController extends FormController
                         $this->leadModel->addToStage(
                             $lead,
                             $stage,
-                            $this->translator->trans('mautic.stage.event.added.batch')
+                            $this->translator->trans('mailvotech.stage.event.added.batch')
                         );
                     }
 
@@ -1839,7 +1839,7 @@ final class LeadController extends FormController
                         $this->leadModel->removeFromStage(
                             $lead,
                             $stage,
-                            $this->translator->trans('mautic.stage.event.removed.batch')
+                            $this->translator->trans('mailvotech.stage.event.removed.batch')
                         );
                     }
                 }
@@ -1847,7 +1847,7 @@ final class LeadController extends FormController
             // Save entities
             $this->leadModel->saveEntities($entities);
             $this->addFlashMessage(
-                'mautic.lead.batch_leads_affected',
+                'mailvotech.lead.batch_leads_affected',
                 [
                     '%count%'     => $count,
                 ]
@@ -1868,7 +1868,7 @@ final class LeadController extends FormController
         }
 
         $route = $this->generateUrl(
-            'mautic_contact_action',
+            'mailvotech_contact_action',
             [
                 'objectAction' => 'batchStages',
             ]
@@ -1886,10 +1886,10 @@ final class LeadController extends FormController
                         ]
                     )->createView(),
                 ],
-                'contentTemplate' => '@MauticLead/Batch/form.html.twig',
+                'contentTemplate' => '@MailVotechLead/Batch/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_contact_index',
-                    'mauticContent' => 'leadBatch',
+                    'activeLink'    => '#mailvotech_contact_index',
+                    'mailvotechContent' => 'leadBatch',
                     'route'         => $route,
                 ],
             ]
@@ -1942,7 +1942,7 @@ final class LeadController extends FormController
             // Save entities
             $this->leadModel->saveEntities($entities);
             $this->addFlashMessage(
-                'mautic.lead.batch_leads_affected',
+                'mailvotech.lead.batch_leads_affected',
                 [
                     '%count%'     => $count,
                 ]
@@ -1962,7 +1962,7 @@ final class LeadController extends FormController
         }
 
         $route = $this->generateUrl(
-            'mautic_contact_action',
+            'mailvotech_contact_action',
             [
                 'objectAction' => 'batchOwners',
             ]
@@ -1980,10 +1980,10 @@ final class LeadController extends FormController
                         ]
                     )->createView(),
                 ],
-                'contentTemplate' => '@MauticLead/Batch/form.html.twig',
+                'contentTemplate' => '@MailVotechLead/Batch/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_contact_index',
-                    'mauticContent' => 'leadBatch',
+                    'activeLink'    => '#mailvotech_contact_index',
+                    'mailvotechContent' => 'leadBatch',
                     'route'         => $route,
                 ],
             ]
@@ -2040,7 +2040,7 @@ final class LeadController extends FormController
         }
 
         $this->addFlashMessage(
-            'mautic.lead.batch_leads_affected',
+            'mailvotech.lead.batch_leads_affected',
             [
                 '%count%' => count($updated),
             ]
@@ -2123,7 +2123,7 @@ final class LeadController extends FormController
     private function createContactFindReplaceFormResponse(Request $request, CustomFieldFindReplace $findReplace): Response
     {
         $route = $this->generateUrl(
-            'mautic_contact_action',
+            'mailvotech_contact_action',
             [
                 'objectAction' => 'batchFindReplace',
             ]
@@ -2136,13 +2136,13 @@ final class LeadController extends FormController
                         'action'        => $route,
                         'all_items'     => $request->query->getBoolean('all'),
                         'field_choices' => $findReplace->getFieldChoices('lead'),
-                        'field_label'   => 'mautic.lead.batch.find_replace.field',
+                        'field_label'   => 'mailvotech.lead.batch.find_replace.field',
                     ])->createView(),
                 ],
-                'contentTemplate' => '@MauticLead/Batch/form.html.twig',
+                'contentTemplate' => '@MailVotechLead/Batch/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_contact_index',
-                    'mauticContent' => 'leadBatch',
+                    'activeLink'    => '#mailvotech_contact_index',
+                    'mailvotechContent' => 'leadBatch',
                     'route'         => $route,
                 ],
             ]
@@ -2157,11 +2157,11 @@ final class LeadController extends FormController
     private function getCurrentContactListFilter(Request $request, array $permissions): array
     {
         $session    = $request->getSession();
-        $search     = $session->get('mautic.lead.filter', '');
+        $search     = $session->get('mailvotech.lead.filter', '');
         $filter     = ['string' => $search, 'force' => ''];
-        $anonymous  = $this->translator->trans('mautic.lead.lead.searchcommand.isanonymous');
-        $mine       = $this->translator->trans('mautic.core.searchcommand.ismine');
-        $indexMode  = $session->get('mautic.lead.indexmode', 'list');
+        $anonymous  = $this->translator->trans('mailvotech.lead.lead.searchcommand.isanonymous');
+        $mine       = $this->translator->trans('mailvotech.core.searchcommand.ismine');
+        $indexMode  = $session->get('mailvotech.lead.indexmode', 'list');
 
         if ('list' != $indexMode || ('list' == $indexMode && !str_contains($search, $anonymous))) {
             $filter['force'] .= " !{$anonymous}";
@@ -2203,18 +2203,18 @@ final class LeadController extends FormController
 
         $fileType = $request->get('filetype', 'csv');
         $session    = $request->getSession();
-        $search     = $session->get('mautic.lead.filter', '');
-        $orderBy    = $session->get('mautic.lead.orderby', 'l.last_active');
+        $search     = $session->get('mailvotech.lead.filter', '');
+        $orderBy    = $session->get('mailvotech.lead.orderby', 'l.last_active');
         // Add an id field to orderBy. Prevent Null-value ordering
         $orderById  = 'l.id' !== $orderBy ? ', l.id' : '';
         $orderBy .= $orderById;
-        $orderByDir = $session->get('mautic.lead.orderbydir', 'DESC');
+        $orderByDir = $session->get('mailvotech.lead.orderbydir', 'DESC');
         $ids        = $request->get('ids');
 
         $filter     = ['string' => $search, 'force' => ''];
-        $anonymous  = $this->translator->trans('mautic.lead.lead.searchcommand.isanonymous');
-        $mine       = $this->translator->trans('mautic.core.searchcommand.ismine');
-        $indexMode  = $session->get('mautic.lead.indexmode', 'list');
+        $anonymous  = $this->translator->trans('mailvotech.lead.lead.searchcommand.isanonymous');
+        $mine       = $this->translator->trans('mailvotech.core.searchcommand.ismine');
+        $indexMode  = $session->get('mailvotech.lead.indexmode', 'list');
 
         if (!empty($ids)) {
             $filter['force'] = [
@@ -2253,8 +2253,8 @@ final class LeadController extends FormController
                 '%limit%' => number_format($contactExportLimit),
                 '%total%' => number_format($totalContacts),
             ];
-            $this->addFlashMessage('mautic.lead.export.limit.exceeded', $messageVars, FlashBag::LEVEL_ERROR);
-            $response['message'] = $this->translator->trans('mautic.lead.export.limit.exceeded', $messageVars, 'flashes');
+            $this->addFlashMessage('mailvotech.lead.export.limit.exceeded', $messageVars, FlashBag::LEVEL_ERROR);
+            $response['message'] = $this->translator->trans('mailvotech.lead.export.limit.exceeded', $messageVars, 'flashes');
             $response['flashes'] = $this->getFlashContent();
 
             return new JsonResponse($response, Response::HTTP_BAD_REQUEST);
@@ -2356,7 +2356,7 @@ final class LeadController extends FormController
             LeadEvents::POST_CONTACT_EXPORT_SCHEDULED
         );
 
-        $this->addFlashMessage('mautic.lead.export.being.prepared', ['%user_email%' => $this->user->getEmail()]);
+        $this->addFlashMessage('mailvotech.lead.export.being.prepared', ['%user_email%' => $this->user->getEmail()]);
         $response['message'] = 'Contact export scheduled for CSV file type.';
         $response['flashes'] = $this->getFlashContent();
 
@@ -2385,7 +2385,7 @@ final class LeadController extends FormController
                 'viewParameters' => [
                     'emailStats' => $this->leadModel->getLeadEmailStats($lead),
                 ],
-                'contentTemplate' => '@MauticLead/Lead/lead_stats.html.twig',
+                'contentTemplate' => '@MailVotechLead/Lead/lead_stats.html.twig',
             ]
         );
     }
@@ -2420,7 +2420,7 @@ final class LeadController extends FormController
         }
 
         $form = $this->formFactory->create(ContactGroupPointsType::class, $initData, [
-            'action' => $this->generateUrl('mautic_contact_action', [
+            'action' => $this->generateUrl('mailvotech_contact_action', [
                 'objectAction' => 'contactGroupPoints',
                 'objectId'     => $objectId,
             ]),
@@ -2450,7 +2450,7 @@ final class LeadController extends FormController
                             $log->setDelta($delta);
                             $log->setLead($lead);
                             $log->setType('manual');
-                            $log->setEventName($this->translator->trans('mautic.point.event.manual_change'));
+                            $log->setEventName($this->translator->trans('mailvotech.point.event.manual_change'));
                             $log->setActionName('');
                             $log->setIpAddress($ipLookupHelper->getIpAddress());
                             $log->setDateAdded(new \DateTime());
@@ -2466,7 +2466,7 @@ final class LeadController extends FormController
 
                     return $this->postActionRedirect(
                         [
-                            'returnUrl' => $this->generateUrl('mautic_contact_action', [
+                            'returnUrl' => $this->generateUrl('mailvotech_contact_action', [
                                 'objectId'     => $lead->getId(),
                                 'objectAction' => 'view',
                             ]),
@@ -2474,7 +2474,7 @@ final class LeadController extends FormController
                                 'objectId'     => $lead->getId(),
                                 'objectAction' => 'view',
                             ],
-                            'contentTemplate' => 'Mautic\LeadBundle\Controller\LeadController::viewAction',
+                            'contentTemplate' => 'MailVotech\LeadBundle\Controller\LeadController::viewAction',
                             'passthroughVars' => [
                                 'closeModal' => 1,
                             ],
@@ -2487,7 +2487,7 @@ final class LeadController extends FormController
         return $this->delegateView(
             [
                 'viewParameters' => ['fields' => $fields, 'form' => $form->createView(), 'lead' => $lead],
-                'contentTemplate' => '@MauticLead/Lead/group_points.html.twig',
+                'contentTemplate' => '@MailVotechLead/Lead/group_points.html.twig',
             ]
         );
     }

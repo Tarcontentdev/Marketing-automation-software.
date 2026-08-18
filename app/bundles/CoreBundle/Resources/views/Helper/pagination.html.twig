@@ -52,11 +52,11 @@
                 <select
                     autocomplete="false"
                     class="form-control not-chosen pagination-limit{% if paginationClass is defined and paginationClass is not empty %} input-{{ paginationClass }}{% endif %}"
-                    onchange="Mautic.limitTableData('{{ sessionVar }}',this.value,'{{ tmpl }}','{{ target }}'{% if baseUrl is defined and baseUrl is not empty %}, '{{ baseUrl ~ queryString }}'{% endif %});"
+                    onchange="MailVotech.limitTableData('{{ sessionVar }}',this.value,'{{ tmpl }}','{{ target }}'{% if baseUrl is defined and baseUrl is not empty %}, '{{ baseUrl ~ queryString }}'{% endif %});"
                 >
                     {% for value, label in limitOptions %}
                         <option{% if limit == value %} selected="selected"{% endif %} value="{{ value|escape('html_attr') }}">
-                            {{ ('mautic.core.pagination.' ~ label)|trans }}
+                            {{ ('mailvotech.core.pagination.' ~ label)|trans }}
                         </option>
                     {% endfor %}
                 </select>
@@ -115,9 +115,9 @@
             </ul>
             <div class="clearfix"></div>
             <small class="text-secondary">
-                {% trans with {'%count%': totalItems} %}mautic.core.pagination.items{% endtrans %},
-                {% trans with {'%count%': totalPages} %}mautic.core.pagination.pages{% endtrans %}
-                {% trans %}mautic.core.pagination.total{% endtrans %}
+                {% trans with {'%count%': totalItems} %}mailvotech.core.pagination.items{% endtrans %},
+                {% trans with {'%count%': totalPages} %}mailvotech.core.pagination.pages{% endtrans %}
+                {% trans %}mailvotech.core.pagination.total{% endtrans %}
             </small>
         </div>
     </div>

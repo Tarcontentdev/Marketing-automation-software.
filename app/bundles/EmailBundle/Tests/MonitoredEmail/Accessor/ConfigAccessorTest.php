@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\MonitoredEmail\Accessor;
+namespace MailVotech\EmailBundle\Tests\MonitoredEmail\Accessor;
 
-use Mautic\EmailBundle\MonitoredEmail\Accessor\ConfigAccessor;
+use MailVotech\EmailBundle\MonitoredEmail\Accessor\ConfigAccessor;
 use PHPUnit\Framework\Attributes\TestDox;
 
 final class ConfigAccessorTest extends \PHPUnit\Framework\TestCase

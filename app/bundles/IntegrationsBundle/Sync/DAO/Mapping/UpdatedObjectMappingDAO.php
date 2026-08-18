@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Mapping;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Mapping;
 
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
 
 class UpdatedObjectMappingDAO
 {

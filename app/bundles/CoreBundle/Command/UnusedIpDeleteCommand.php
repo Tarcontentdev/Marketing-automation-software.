@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\LeadBundle\Model\IpAddressModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\LeadBundle\Model\IpAddressModel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * CLI Command to delete unused IP addresses.
  */
 #[AsCommand(
-    name: 'mautic:unusedip:delete',
+    name: 'mailvotech:unusedip:delete',
     description: 'Deletes IP addresses that are not used in any other database table',
     help: <<<'TXT'
                 The <info>%command.name%</info> command is used to delete IP addresses that are not used in any other database table.

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Functional\Entity;
+namespace MailVotech\IntegrationsBundle\Tests\Functional\Entity;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\IntegrationsBundle\Entity\FieldChange;
-use Mautic\IntegrationsBundle\Entity\FieldChangeRepository;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\IntegrationsBundle\Entity\FieldChange;
+use MailVotech\IntegrationsBundle\Entity\FieldChangeRepository;
+use MailVotech\LeadBundle\Entity\Lead;
 
-final class FieldChangeRepositoryTest extends MauticMysqlTestCase
+final class FieldChangeRepositoryTest extends MailVotechMysqlTestCase
 {
     private const INTEGRATION = 'someIntegration';
 
@@ -117,7 +117,7 @@ final class FieldChangeRepositoryTest extends MauticMysqlTestCase
     private function deleteLead(Lead $lead): void
     {
         $qb2 = $this->em->getConnection()->createQueryBuilder();
-        $qb2->delete(MAUTIC_TABLE_PREFIX.'leads')
+        $qb2->delete(MAILVOTECH_TABLE_PREFIX.'leads')
             ->where(
                 $qb2->expr()->eq('id', $lead->getId())
             );

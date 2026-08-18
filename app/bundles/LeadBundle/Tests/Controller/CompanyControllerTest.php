@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller;
+namespace MailVotech\LeadBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\ProjectBundle\Entity\Project;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\ProjectBundle\Entity\Project;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class CompanyControllerTest extends MauticMysqlTestCase
+final class CompanyControllerTest extends MailVotechMysqlTestCase
 {
     private const COUNTRY_UNITED_STATES = 'United States';
 
@@ -90,7 +90,7 @@ final class CompanyControllerTest extends MauticMysqlTestCase
     {
         $this->createLead();
         $segment = $this->createSegment();
-        $this->testSymfonyCommand('mautic:segments:update', ['--list-id' => $segment->getId()]);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['--list-id' => $segment->getId()]);
         $crawler  = $this->client->request('GET', "s/company/graph/{$this->company1Id}");
         $response = $this->client->getResponse();
         $this->assertResponseIsSuccessful();
@@ -168,7 +168,7 @@ final class CompanyControllerTest extends MauticMysqlTestCase
             ->setLastname('without company');
         $leadModel->saveEntity($lead2);
 
-        // Create a lead not linked to a company, but with `ids` in it's name (see https://github.com/mautic/mautic/issues/12415)
+        // Create a lead not linked to a company, but with `ids` in it's name (see https://github.com/mailvotech/mailvotech/issues/12415)
         $lead3 = new Lead();
         $lead3->setFirstname('lead')
             ->setLastname('without company')
@@ -423,10 +423,10 @@ final class CompanyControllerTest extends MauticMysqlTestCase
         $this->assertStringContainsString($company2->getName(), (string) $content);
 
         $translator  = self::getContainer()->get(TranslatorInterface::class);
-        $itemMessage = $translator->trans('mautic.core.pagination.items', ['%count%' => 2]);
+        $itemMessage = $translator->trans('mailvotech.core.pagination.items', ['%count%' => 2]);
         $this->assertStringContainsString($itemMessage, (string) $content);
 
-        $pageMessage = $translator->trans('mautic.core.pagination.pages', ['%count%' => 1]);
+        $pageMessage = $translator->trans('mailvotech.core.pagination.pages', ['%count%' => 1]);
         $this->assertStringContainsString($pageMessage, (string) $content);
     }
 

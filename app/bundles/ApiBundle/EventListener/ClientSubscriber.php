@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\EventListener;
+namespace MailVotech\ApiBundle\EventListener;
 
-use Mautic\ApiBundle\ApiEvents;
-use Mautic\ApiBundle\Event as Events;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
+use MailVotech\ApiBundle\ApiEvents;
+use MailVotech\ApiBundle\Event as Events;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ClientSubscriber implements EventSubscriberInterface

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Controller;
+namespace MailVotech\CampaignBundle\Controller;
 
-use Mautic\CampaignBundle\Event\EventPreview;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CampaignBundle\Model\EventModel;
-use Mautic\CoreBundle\Helper\Chart\BarChart;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Stats\EmailPeriodMetrics;
+use MailVotech\CampaignBundle\Event\EventPreview;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CampaignBundle\Model\EventModel;
+use MailVotech\CoreBundle\Helper\Chart\BarChart;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Stats\EmailPeriodMetrics;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -42,21 +42,21 @@ final class CampaignMetricsController extends AbstractController
         $stats                 = $emailPeriodMetrics->emailMetricsPerWeekdayByCampaignEvents($eventsIds, $dateFromObject, $dateToObject, $defaultTimezoneOffset);
 
         $chart  = new BarChart([
-            $this->translator->trans('mautic.core.date.monday'),
-            $this->translator->trans('mautic.core.date.tuesday'),
-            $this->translator->trans('mautic.core.date.wednesday'),
-            $this->translator->trans('mautic.core.date.thursday'),
-            $this->translator->trans('mautic.core.date.friday'),
-            $this->translator->trans('mautic.core.date.saturday'),
-            $this->translator->trans('mautic.core.date.sunday'),
+            $this->translator->trans('mailvotech.core.date.monday'),
+            $this->translator->trans('mailvotech.core.date.tuesday'),
+            $this->translator->trans('mailvotech.core.date.wednesday'),
+            $this->translator->trans('mailvotech.core.date.thursday'),
+            $this->translator->trans('mailvotech.core.date.friday'),
+            $this->translator->trans('mailvotech.core.date.saturday'),
+            $this->translator->trans('mailvotech.core.date.sunday'),
         ]);
 
-        $chart->setDataset($this->translator->trans('mautic.email.sent'), array_column($stats, 'sent_count'));
-        $chart->setDataset($this->translator->trans('mautic.email.read'), array_column($stats, 'read_count'));
-        $chart->setDataset($this->translator->trans('mautic.email.click'), array_column($stats, 'hit_count'));
+        $chart->setDataset($this->translator->trans('mailvotech.email.sent'), array_column($stats, 'sent_count'));
+        $chart->setDataset($this->translator->trans('mailvotech.email.read'), array_column($stats, 'read_count'));
+        $chart->setDataset($this->translator->trans('mailvotech.email.click'), array_column($stats, 'hit_count'));
 
         return $this->render(
-            '@MauticCore/Helper/chart.html.twig',
+            '@MailVotechCore/Helper/chart.html.twig',
             [
                 'chartData'   => $chart->render(),
                 'chartType'   => 'bar',
@@ -95,12 +95,12 @@ final class CampaignMetricsController extends AbstractController
         }
 
         $chart  = new BarChart($labels);
-        $chart->setDataset($this->translator->trans('mautic.email.sent'), array_column($stats, 'sent_count'));
-        $chart->setDataset($this->translator->trans('mautic.email.read'), array_column($stats, 'read_count'));
-        $chart->setDataset($this->translator->trans('mautic.email.click'), array_column($stats, 'hit_count'));
+        $chart->setDataset($this->translator->trans('mailvotech.email.sent'), array_column($stats, 'sent_count'));
+        $chart->setDataset($this->translator->trans('mailvotech.email.read'), array_column($stats, 'read_count'));
+        $chart->setDataset($this->translator->trans('mailvotech.email.click'), array_column($stats, 'hit_count'));
 
         return $this->render(
-            '@MauticCore/Helper/chart.html.twig',
+            '@MailVotechCore/Helper/chart.html.twig',
             [
                 'chartData'   => $chart->render(),
                 'chartType'   => 'hour',
@@ -118,7 +118,7 @@ final class CampaignMetricsController extends AbstractController
 
         if (!$event) {
             return $this->json([
-                'message' => $this->translator->trans('mautic.core.error.notfound', [], 'flashes'),
+                'message' => $this->translator->trans('mailvotech.core.error.notfound', [], 'flashes'),
             ], Response::HTTP_NOT_FOUND);
         }
 

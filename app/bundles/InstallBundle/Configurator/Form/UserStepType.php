@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\InstallBundle\Configurator\Form;
+namespace MailVotech\InstallBundle\Configurator\Form;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\UserBundle\Form\Validator\Constraints\NotWeak;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\UserBundle\Form\Validator\Constraints\NotWeak;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -24,20 +24,20 @@ final class UserStepType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $storedData = $this->requestStack->getSession()->get('mautic.installer.user', new \stdClass());
+        $storedData = $this->requestStack->getSession()->get('mailvotech.installer.user', new \stdClass());
 
         $builder->add(
             'firstname',
             TextType::class,
             [
-                'label'       => 'mautic.core.firstname',
+                'label'       => 'mailvotech.core.firstname',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => ['class' => 'form-control'],
                 'required'    => true,
                 'data'        => (!empty($storedData->firstname)) ? $storedData->firstname : '',
                 'constraints' => [
                     new Assert\NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -47,14 +47,14 @@ final class UserStepType extends AbstractType
             'lastname',
             TextType::class,
             [
-                'label'       => 'mautic.core.lastname',
+                'label'       => 'mailvotech.core.lastname',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => ['class' => 'form-control'],
                 'required'    => true,
                 'data'        => (!empty($storedData->lastname)) ? $storedData->lastname : '',
                 'constraints' => [
                     new Assert\NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -64,7 +64,7 @@ final class UserStepType extends AbstractType
             'email',
             EmailType::class,
             [
-                'label'      => 'mautic.install.form.user.email',
+                'label'      => 'mailvotech.install.form.user.email',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
@@ -74,10 +74,10 @@ final class UserStepType extends AbstractType
                 'data'        => (!empty($storedData->email)) ? $storedData->email : '',
                 'constraints' => [
                     new Assert\NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                     new Assert\Email(
-                        message: 'mautic.core.email.required'
+                        message: 'mailvotech.core.email.required'
                     ),
                 ],
             ]
@@ -87,7 +87,7 @@ final class UserStepType extends AbstractType
             'username',
             TextType::class,
             [
-                'label'      => 'mautic.install.form.user.username',
+                'label'      => 'mailvotech.install.form.user.username',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -96,7 +96,7 @@ final class UserStepType extends AbstractType
                 'data'        => (!empty($storedData->username)) ? $storedData->username : '',
                 'constraints' => [
                     new Assert\NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -106,20 +106,20 @@ final class UserStepType extends AbstractType
             'password',
             PasswordType::class,
             [
-                'label'      => 'mautic.install.form.user.password',
+                'label'      => 'mailvotech.install.form.user.password',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.user.user.form.help.passwordrequirements',
+                    'tooltip'  => 'mailvotech.user.user.form.help.passwordrequirements',
                     'preaddon' => 'ri-lock-fill',
                 ],
                 'required'    => true,
                 'constraints' => [
                     new Assert\NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
-                    new Assert\Length(min: 6, minMessage: 'mautic.install.password.minlength'),
-                    new NotWeak(message: 'mautic.user.user.password.weak'),
+                    new Assert\Length(min: 6, minMessage: 'mailvotech.install.password.minlength'),
+                    new NotWeak(message: 'mailvotech.user.user.password.weak'),
                 ],
             ]
         );
@@ -131,12 +131,12 @@ final class UserStepType extends AbstractType
                 'pre_extra_buttons' => [
                     [
                         'name'  => 'next',
-                        'label' => 'mautic.install.next.step',
+                        'label' => 'mailvotech.install.next.step',
                         'type'  => 'submit',
                         'attr'  => [
                             'class'   => 'btn btn-success pull-right btn-next',
                             'icon'    => 'ri-arrow-right-circle-line',
-                            'onclick' => 'MauticInstaller.showWaitMessage(event);',
+                            'onclick' => 'MailVotechInstaller.showWaitMessage(event);',
                         ],
                     ],
                 ],

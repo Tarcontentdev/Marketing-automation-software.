@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 use Composer\Autoload\ClassLoader;
-use Mautic\CoreBundle\Loader\ParameterLoader;
+use MailVotech\CoreBundle\Loader\ParameterLoader;
 
 class PathsHelper
 {
@@ -31,7 +31,7 @@ class PathsHelper
 
     private readonly string $temporaryDir;
 
-    private readonly ?\Mautic\UserBundle\Entity\User $user;
+    private readonly ?\MailVotech\UserBundle\Entity\User $user;
 
     private readonly string $importLeadsDir;
 

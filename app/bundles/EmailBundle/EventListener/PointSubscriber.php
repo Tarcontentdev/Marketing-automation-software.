@@ -1,21 +1,21 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\EmailOpenEvent;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\EmailBundle\Form\Type\EmailOpenType;
-use Mautic\EmailBundle\Form\Type\EmailSendType;
-use Mautic\EmailBundle\Form\Type\EmailToUserType;
-use Mautic\EmailBundle\Helper\PointEventHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PointBundle\Event\PointBuilderEvent;
-use Mautic\PointBundle\Event\TriggerBuilderEvent;
-use Mautic\PointBundle\Model\PointModel;
-use Mautic\PointBundle\PointEvents;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\EmailOpenEvent;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\Form\Type\EmailOpenType;
+use MailVotech\EmailBundle\Form\Type\EmailSendType;
+use MailVotech\EmailBundle\Form\Type\EmailToUserType;
+use MailVotech\EmailBundle\Helper\PointEventHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PointBundle\Event\PointBuilderEvent;
+use MailVotech\PointBundle\Event\TriggerBuilderEvent;
+use MailVotech\PointBundle\Model\PointModel;
+use MailVotech\PointBundle\PointEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class PointSubscriber implements EventSubscriberInterface
@@ -40,8 +40,8 @@ final readonly class PointSubscriber implements EventSubscriberInterface
     public function onPointBuild(PointBuilderEvent $event): void
     {
         $action = [
-            'group'    => 'mautic.email.actions',
-            'label'    => 'mautic.email.point.action.open',
+            'group'    => 'mailvotech.email.actions',
+            'label'    => 'mailvotech.email.point.action.open',
             'callback' => [PointEventHelper::class, 'validateEmail'],
             'formType' => EmailOpenType::class,
         ];
@@ -49,8 +49,8 @@ final readonly class PointSubscriber implements EventSubscriberInterface
         $event->addAction('email.open', $action);
 
         $action = [
-            'group'    => 'mautic.email.actions',
-            'label'    => 'mautic.email.point.action.send',
+            'group'    => 'mailvotech.email.actions',
+            'label'    => 'mailvotech.email.point.action.send',
             'callback' => [PointEventHelper::class, 'validateEmail'],
             'formType' => EmailOpenType::class,
         ];
@@ -61,22 +61,22 @@ final readonly class PointSubscriber implements EventSubscriberInterface
     public function onTriggerBuild(TriggerBuilderEvent $event): void
     {
         $sendEvent = [
-            'group'           => 'mautic.email.point.trigger',
-            'label'           => 'mautic.email.point.trigger.sendemail',
+            'group'           => 'mailvotech.email.point.trigger',
+            'label'           => 'mailvotech.email.point.trigger.sendemail',
             'callback'        => [$this->pointEventHelper, 'sendEmail'],
             'formType'        => EmailSendType::class,
             'formTypeOptions' => ['update_select' => 'pointtriggerevent_properties_email'],
-            'formTheme'       => '@MauticEmail/FormTheme/EmailSendList/emailsend_list_row.html.twig',
+            'formTheme'       => '@MailVotechEmail/FormTheme/EmailSendList/emailsend_list_row.html.twig',
         ];
 
         $event->addEvent('email.send', $sendEvent);
 
         $sendToOwnerEvent = [
-            'group'           => 'mautic.email.point.trigger',
-            'label'           => 'mautic.email.point.trigger.send_email_to_user',
+            'group'           => 'mailvotech.email.point.trigger',
+            'label'           => 'mailvotech.email.point.trigger.send_email_to_user',
             'formType'        => EmailToUserType::class,
             'formTypeOptions' => ['update_select' => 'pointtriggerevent_properties_useremail_email'],
-            'formTheme'       => '@MauticEmail/FormTheme/EmailSendList/email_to_user_row.html.twig',
+            'formTheme'       => '@MailVotechEmail/FormTheme/EmailSendList/email_to_user_row.html.twig',
             'eventName'       => EmailEvents::ON_SENT_EMAIL_TO_USER,
         ];
 

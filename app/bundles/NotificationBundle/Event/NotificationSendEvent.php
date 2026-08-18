@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Event;
+namespace MailVotech\NotificationBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\LeadBundle\Entity\Lead;
 
 final class NotificationSendEvent extends CommonEvent
 {

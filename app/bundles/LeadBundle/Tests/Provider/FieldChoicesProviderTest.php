@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Provider;
+namespace MailVotech\LeadBundle\Tests\Provider;
 
-use Mautic\LeadBundle\Event\ListFieldChoicesEvent;
-use Mautic\LeadBundle\Exception\ChoicesNotFoundException;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Provider\FieldChoicesProvider;
+use MailVotech\LeadBundle\Event\ListFieldChoicesEvent;
+use MailVotech\LeadBundle\Exception\ChoicesNotFoundException;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Provider\FieldChoicesProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

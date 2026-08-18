@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Command;
+namespace MailVotech\FormBundle\Command;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\ExitCode;
-use Mautic\FormBundle\Entity\FormRepository;
+use MailVotech\CoreBundle\Helper\ExitCode;
+use MailVotech\FormBundle\Entity\FormRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -21,7 +21,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 )]
 final class DeleteOrphanFormResultsTableCommand extends Command
 {
-    public const COMMAND_NAME = 'mautic:forms:delete-results-table';
+    public const COMMAND_NAME = 'mailvotech:forms:delete-results-table';
 
     private readonly Connection $conn;
 
@@ -53,7 +53,7 @@ final class DeleteOrphanFormResultsTableCommand extends Command
                 return ExitCode::FAILURE;
             }
         }
-        $output->writeln($this->translator->trans('mautic.forms.command.dropped_tables_count', ['%table_count%' => count($orphanFormResultsTableNames)]));
+        $output->writeln($this->translator->trans('mailvotech.forms.command.dropped_tables_count', ['%table_count%' => count($orphanFormResultsTableNames)]));
 
         return ExitCode::SUCCESS;
     }

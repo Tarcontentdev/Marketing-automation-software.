@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Form\Type;
+namespace MailVotech\PageBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,11 +15,11 @@ final class PointActionPageHitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('pages', PageListType::class, [
-            'label'      => 'mautic.page.point.action.form.pages',
+            'label'      => 'mailvotech.page.point.action.form.pages',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => [
                 'class'   => 'form-control',
-                'tooltip' => 'mautic.page.point.action.form.pages.descr',
+                'tooltip' => 'mailvotech.page.point.action.form.pages.descr',
             ],
         ]);
     }

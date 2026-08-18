@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\DashboardBundle\EventListener;
+namespace MailVotech\DashboardBundle\EventListener;
 
-use Mautic\DashboardBundle\DashboardEvents;
-use Mautic\DashboardBundle\Event\WidgetDetailEvent;
-use Mautic\DashboardBundle\Event\WidgetFormEvent;
-use Mautic\DashboardBundle\Event\WidgetTypeListEvent;
+use MailVotech\DashboardBundle\DashboardEvents;
+use MailVotech\DashboardBundle\Event\WidgetDetailEvent;
+use MailVotech\DashboardBundle\Event\WidgetFormEvent;
+use MailVotech\DashboardBundle\Event\WidgetTypeListEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DashboardSubscriber implements EventSubscriberInterface
@@ -48,7 +48,7 @@ class DashboardSubscriber implements EventSubscriberInterface
      */
     public function onWidgetDetailPreLoad(WidgetDetailEvent $event): void
     {
-        $event->setTemplate('@MauticCore/Helper/chart.html.twig');
+        $event->setTemplate('@MailVotechCore/Helper/chart.html.twig');
         $event->stopPropagation();
     }
 
@@ -94,7 +94,7 @@ class DashboardSubscriber implements EventSubscriberInterface
         $widgetTypes = array_keys($this->types);
         if ($this->permissions && !$event->hasPermissions($this->permissions) && in_array($event->getType(), $widgetTypes)) {
             $translator = $event->getTranslator();
-            $event->setErrorMessage($translator->trans('mautic.dashboard.missing.permission', ['%section%' => $this->bundle]));
+            $event->setErrorMessage($translator->trans('mailvotech.dashboard.missing.permission', ['%section%' => $this->bundle]));
             $event->stopPropagation();
 
             return;

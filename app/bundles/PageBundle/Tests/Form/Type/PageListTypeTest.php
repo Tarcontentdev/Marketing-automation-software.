@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Form\Type;
+namespace MailVotech\PageBundle\Tests\Form\Type;
 
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\PageBundle\Entity\PageRepository;
-use Mautic\PageBundle\Form\Type\PageListType;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\PageBundle\Entity\PageRepository;
+use MailVotech\PageBundle\Form\Type\PageListType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;

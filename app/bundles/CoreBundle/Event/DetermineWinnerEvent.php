@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Event;
+namespace MailVotech\CoreBundle\Event;
 
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -20,10 +20,10 @@ final class DetermineWinnerEvent extends Event
 
     /**
      * @param array{
-     *   parent?: \Mautic\CoreBundle\Entity\VariantEntityInterface|mixed,
+     *   parent?: \MailVotech\CoreBundle\Entity\VariantEntityInterface|mixed,
      *   children?: array<mixed>,
-     *   page?: \Mautic\PageBundle\Entity\Page,
-     *   email?: \Mautic\EmailBundle\Entity\Email|\Mautic\CoreBundle\Entity\VariantEntityInterface
+     *   page?: \MailVotech\PageBundle\Entity\Page,
+     *   email?: \MailVotech\EmailBundle\Entity\Email|\MailVotech\CoreBundle\Entity\VariantEntityInterface
      * } $parameters
      */
     public function __construct(
@@ -33,10 +33,10 @@ final class DetermineWinnerEvent extends Event
 
     /**
      * @return array{
-     *                parent?: \Mautic\CoreBundle\Entity\VariantEntityInterface|mixed,
+     *                parent?: \MailVotech\CoreBundle\Entity\VariantEntityInterface|mixed,
      *                children?: array<mixed>,
-     *                page?: \Mautic\PageBundle\Entity\Page,
-     *                email?: \Mautic\EmailBundle\Entity\Email|\Mautic\CoreBundle\Entity\VariantEntityInterface
+     *                page?: \MailVotech\PageBundle\Entity\Page,
+     *                email?: \MailVotech\EmailBundle\Entity\Email|\MailVotech\CoreBundle\Entity\VariantEntityInterface
      *                }
      */
     public function getParameters(): array

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Form\DataTransformer;
+namespace MailVotech\CoreBundle\Tests\Unit\Form\DataTransformer;
 
-use Mautic\CoreBundle\Form\DataTransformer\BarStringTransformer;
+use MailVotech\CoreBundle\Form\DataTransformer\BarStringTransformer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

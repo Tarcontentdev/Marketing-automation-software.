@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\Decorator;
+namespace MailVotech\LeadBundle\Tests\Segment\Decorator;
 
-use Mautic\LeadBundle\Event\LeadListFiltersDecoratorDelegateEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\Decorator\BaseDecorator;
-use Mautic\LeadBundle\Segment\Decorator\CompanyDecorator;
-use Mautic\LeadBundle\Segment\Decorator\CustomMappedDecorator;
-use Mautic\LeadBundle\Segment\Decorator\Date\DateOptionFactory;
-use Mautic\LeadBundle\Segment\Decorator\DecoratorFactory;
-use Mautic\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
-use Mautic\LeadBundle\Services\ContactSegmentFilterDictionary;
+use MailVotech\LeadBundle\Event\LeadListFiltersDecoratorDelegateEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\Decorator\BaseDecorator;
+use MailVotech\LeadBundle\Segment\Decorator\CompanyDecorator;
+use MailVotech\LeadBundle\Segment\Decorator\CustomMappedDecorator;
+use MailVotech\LeadBundle\Segment\Decorator\Date\DateOptionFactory;
+use MailVotech\LeadBundle\Segment\Decorator\DecoratorFactory;
+use MailVotech\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
+use MailVotech\LeadBundle\Services\ContactSegmentFilterDictionary;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Middleware;
+namespace MailVotech\Middleware;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

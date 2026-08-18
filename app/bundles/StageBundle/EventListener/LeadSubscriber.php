@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\StageBundle\EventListener;
+namespace MailVotech\StageBundle\EventListener;
 
-use Mautic\LeadBundle\Entity\StagesChangeLogRepository;
-use Mautic\LeadBundle\Event\LeadMergeEvent;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\StageBundle\Entity\LeadStageLogRepository;
+use MailVotech\LeadBundle\Entity\StagesChangeLogRepository;
+use MailVotech\LeadBundle\Event\LeadMergeEvent;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\StageBundle\Entity\LeadStageLogRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -36,7 +36,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
     {
         // Set available event types
         $eventTypeKey  = 'stage.changed';
-        $eventTypeName = $this->translator->trans('mautic.stage.event.changed');
+        $eventTypeName = $this->translator->trans('mailvotech.stage.event.changed');
         $event->addEventType($eventTypeKey, $eventTypeName);
         $event->addSerializerGroup('stageList');
 
@@ -55,7 +55,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                 if (isset($log['reference']) && null != $log['reference']) {
                     $eventLabel = [
                         'label'      => $log['eventName'],
-                        'href'       => $this->router->generate('mautic_stage_action', ['objectAction' => 'edit', 'objectId' => $log['reference']]),
+                        'href'       => $this->router->generate('mailvotech_stage_action', ['objectAction' => 'edit', 'objectId' => $log['reference']]),
                         'isExternal' => false,
                     ];
                 } else {

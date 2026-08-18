@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Exception\EmailCouldNotBeSentException;
-use Mautic\EmailBundle\Model\SendEmailToUser;
-use Mautic\PointBundle\Event\TriggerExecutedEvent;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Exception\EmailCouldNotBeSentException;
+use MailVotech\EmailBundle\Model\SendEmailToUser;
+use MailVotech\PointBundle\Event\TriggerExecutedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class EmailToUserSubscriber implements EventSubscriberInterface

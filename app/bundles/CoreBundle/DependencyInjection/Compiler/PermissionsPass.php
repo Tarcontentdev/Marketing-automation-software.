@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\DependencyInjection\Compiler;
+namespace MailVotech\CoreBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -11,9 +11,9 @@ final class PermissionsPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        $corePermissions = $container->findDefinition('mautic.security');
+        $corePermissions = $container->findDefinition('mailvotech.security');
 
-        foreach ($container->findTaggedServiceIds('mautic.permissions') as $id => $tags) {
+        foreach ($container->findTaggedServiceIds('mailvotech.permissions') as $id => $tags) {
             $permissionObject = $container->findDefinition($id);
             $corePermissions->addMethodCall('setPermissionObject', [$permissionObject]);
         }

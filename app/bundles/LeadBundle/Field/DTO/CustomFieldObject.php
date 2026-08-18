@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field\DTO;
+namespace MailVotech\LeadBundle\Field\DTO;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Exception\InvalidObjectTypeException;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Exception\InvalidObjectTypeException;
 
 final class CustomFieldObject
 {

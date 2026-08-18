@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\MonitoredEmailEvent;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\MonitoredEmailEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,7 +25,7 @@ final class ConfigMonitoredEmailType extends AbstractType
             $event = new MonitoredEmailEvent($builder, $data);
 
             // Default email bundles
-            $event->addFolder('general', '', 'mautic.email.config.monitored_email.general');
+            $event->addFolder('general', '', 'mailvotech.email.config.monitored_email.general');
 
             $this->dispatcher->dispatch($event, EmailEvents::MONITORED_EMAIL_CONFIG);
 

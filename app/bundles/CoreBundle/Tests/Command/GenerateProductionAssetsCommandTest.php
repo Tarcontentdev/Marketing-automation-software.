@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Command;
+namespace MailVotech\CoreBundle\Tests\Command;
 
-use Mautic\CoreBundle\Helper\Filesystem;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Helper\Filesystem;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class GenerateProductionAssetsCommandTest extends MauticMysqlTestCase
+final class GenerateProductionAssetsCommandTest extends MailVotechMysqlTestCase
 {
     private const CKEDITOR_FILE_NAME      = 'ckeditor.js';
 
@@ -31,7 +31,7 @@ final class GenerateProductionAssetsCommandTest extends MauticMysqlTestCase
 
     public function testAssetGenerateCommand(): void
     {
-        $commandTester = $this->testSymfonyCommand('mautic:assets:generate');
+        $commandTester = $this->testSymfonyCommand('mailvotech:assets:generate');
         $this->assertStringContainsString('Production assets have been regenerated.', $commandTester->getDisplay());
         $this->assertSame(0, $commandTester->getStatusCode());
     }
@@ -43,7 +43,7 @@ final class GenerateProductionAssetsCommandTest extends MauticMysqlTestCase
             $this->filesystem->rename($ckeditorFilePath, $this->ckeditorFilePath.self::TEMP_CKEDITOR_FILE_NAME);
         }
 
-        $commandTester = $this->testSymfonyCommand('mautic:assets:generate');
+        $commandTester = $this->testSymfonyCommand('mailvotech:assets:generate');
         $this->assertStringContainsString("{$ckeditorFilePath} does not exist. Execute `npm install` to generate it.", $commandTester->getDisplay());
         $this->assertSame(1, $commandTester->getStatusCode());
     }

@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\LeadBundle\Controller;
+namespace MailVotech\LeadBundle\Controller;
 
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CoreBundle\Entity\AuditLogRepository;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CoreBundle\Entity\AuditLogRepository;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -22,7 +22,7 @@ trait LeadDetailsTrait
 
         if (null == $filters) {
             $filters = $session->get(
-                'mautic.plugin.timeline.filters',
+                'mailvotech.plugin.timeline.filters',
                 [
                     'search'        => '',
                     'includeEvents' => [],
@@ -32,14 +32,14 @@ trait LeadDetailsTrait
         }
 
         if (null == $orderBy) {
-            if (!$session->has('mautic.plugin.timeline.orderby')) {
-                $session->set('mautic.plugin.timeline.orderby', 'timestamp');
-                $session->set('mautic.plugin.timeline.orderbydir', 'DESC');
+            if (!$session->has('mailvotech.plugin.timeline.orderby')) {
+                $session->set('mailvotech.plugin.timeline.orderby', 'timestamp');
+                $session->set('mailvotech.plugin.timeline.orderbydir', 'DESC');
             }
 
             $orderBy = [
-                $session->get('mautic.plugin.timeline.orderby'),
-                $session->get('mautic.plugin.timeline.orderbydir'),
+                $session->get('mailvotech.plugin.timeline.orderby'),
+                $session->get('mailvotech.plugin.timeline.orderbydir'),
             ];
         }
 
@@ -173,10 +173,10 @@ trait LeadDetailsTrait
         /** @var LeadModel $model */
         $model       = $this->getModel('lead');
         $engagements = $model->getEngagementCount($lead, $fromDate, $toDate, 'm', $chartQuery);
-        $lineChart->setDataset($this->translator->trans('mautic.lead.graph.line.all_engagements'), $engagements['byUnit']);
+        $lineChart->setDataset($this->translator->trans('mailvotech.lead.graph.line.all_engagements'), $engagements['byUnit']);
 
         $pointStats = $chartQuery->fetchSumTimeData('lead_points_change_log', 'date_added', ['lead_id' => $lead->getId()], 'delta');
-        $lineChart->setDataset($this->translator->trans('mautic.lead.graph.line.points'), $pointStats);
+        $lineChart->setDataset($this->translator->trans('mailvotech.lead.graph.line.points'), $pointStats);
 
         return $lineChart->render();
     }
@@ -190,7 +190,7 @@ trait LeadDetailsTrait
 
         if (null == $filters) {
             $filters = $session->get(
-                'mautic.lead.'.$lead->getId().'.auditlog.filters',
+                'mailvotech.lead.'.$lead->getId().'.auditlog.filters',
                 [
                     'search'        => '',
                     'includeEvents' => [],
@@ -200,14 +200,14 @@ trait LeadDetailsTrait
         }
 
         if (null == $orderBy) {
-            if (!$session->has('mautic.lead.'.$lead->getId().'.auditlog.orderby')) {
-                $session->set('mautic.lead.'.$lead->getId().'.auditlog.orderby', 'al.dateAdded');
-                $session->set('mautic.lead.'.$lead->getId().'.auditlog.orderbydir', 'DESC');
+            if (!$session->has('mailvotech.lead.'.$lead->getId().'.auditlog.orderby')) {
+                $session->set('mailvotech.lead.'.$lead->getId().'.auditlog.orderby', 'al.dateAdded');
+                $session->set('mailvotech.lead.'.$lead->getId().'.auditlog.orderbydir', 'DESC');
             }
 
             $orderBy = [
-                $session->get('mautic.lead.'.$lead->getId().'.auditlog.orderby'),
-                $session->get('mautic.lead.'.$lead->getId().'.auditlog.orderbydir'),
+                $session->get('mailvotech.lead.'.$lead->getId().'.auditlog.orderby'),
+                $session->get('mailvotech.lead.'.$lead->getId().'.auditlog.orderbydir'),
             ];
         }
 
@@ -224,16 +224,16 @@ trait LeadDetailsTrait
             'userName'        => $l['userName'],
             'timestamp'       => $l['dateAdded'],
             'details'         => $l['details'],
-            'contentTemplate' => '@MauticLead/Auditlog/details.html.twig',
+            'contentTemplate' => '@MailVotechLead/Auditlog/details.html.twig',
         ], $logs);
 
         $types = [
-            'delete'     => $this->translator->trans('mautic.lead.event.delete'),
-            'create'     => $this->translator->trans('mautic.lead.event.create'),
-            'identified' => $this->translator->trans('mautic.lead.event.identified'),
-            'ipadded'    => $this->translator->trans('mautic.lead.event.ipadded'),
-            'merge'      => $this->translator->trans('mautic.lead.event.merge'),
-            'update'     => $this->translator->trans('mautic.lead.event.update'),
+            'delete'     => $this->translator->trans('mailvotech.lead.event.delete'),
+            'create'     => $this->translator->trans('mailvotech.lead.event.create'),
+            'identified' => $this->translator->trans('mailvotech.lead.event.identified'),
+            'ipadded'    => $this->translator->trans('mailvotech.lead.event.ipadded'),
+            'merge'      => $this->translator->trans('mailvotech.lead.event.merge'),
+            'update'     => $this->translator->trans('mailvotech.lead.event.update'),
         ];
 
         return [
@@ -254,7 +254,7 @@ trait LeadDetailsTrait
 
         if (null == $filters) {
             $filters = $session->get(
-                'mautic.lead.'.$lead->getId().'.timeline.filters',
+                'mailvotech.lead.'.$lead->getId().'.timeline.filters',
                 [
                     'search'        => '',
                     'includeEvents' => [],
@@ -264,14 +264,14 @@ trait LeadDetailsTrait
         }
 
         if (null == $orderBy) {
-            if (!$session->has('mautic.lead.'.$lead->getId().'.timeline.orderby')) {
-                $session->set('mautic.lead.'.$lead->getId().'.timeline.orderby', 'timestamp');
-                $session->set('mautic.lead.'.$lead->getId().'.timeline.orderbydir', 'DESC');
+            if (!$session->has('mailvotech.lead.'.$lead->getId().'.timeline.orderby')) {
+                $session->set('mailvotech.lead.'.$lead->getId().'.timeline.orderby', 'timestamp');
+                $session->set('mailvotech.lead.'.$lead->getId().'.timeline.orderbydir', 'DESC');
             }
 
             $orderBy = [
-                $session->get('mautic.lead.'.$lead->getId().'.timeline.orderby'),
-                $session->get('mautic.lead.'.$lead->getId().'.timeline.orderbydir'),
+                $session->get('mailvotech.lead.'.$lead->getId().'.timeline.orderby'),
+                $session->get('mailvotech.lead.'.$lead->getId().'.timeline.orderbydir'),
             ];
         }
         /** @var LeadModel $model */
@@ -357,9 +357,9 @@ trait LeadDetailsTrait
 
         $lineChart  = new LineChart(null, $fromDate, $toDate);
 
-        $lineChart->setDataset($this->translator->trans('mautic.lead.graph.line.all_engagements'), $graphData['engagements']);
+        $lineChart->setDataset($this->translator->trans('mailvotech.lead.graph.line.all_engagements'), $graphData['engagements']);
 
-        $lineChart->setDataset($this->translator->trans('mautic.lead.graph.line.points'), $graphData['points']);
+        $lineChart->setDataset($this->translator->trans('mailvotech.lead.graph.line.points'), $graphData['points']);
 
         return $lineChart->render();
     }
@@ -367,7 +367,7 @@ trait LeadDetailsTrait
     protected function getScheduledCampaignEvents(Lead $lead): array
     {
         // Upcoming events from Campaign Bundle
-        /** @var \Mautic\CampaignBundle\Entity\LeadEventLogRepository $leadEventLogRepository */
+        /** @var \MailVotech\CampaignBundle\Entity\LeadEventLogRepository $leadEventLogRepository */
         $leadEventLogRepository = $this->doctrine->getManager()->getRepository(LeadEventLog::class);
 
         return $leadEventLogRepository->getUpcomingEvents(

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
 use DeviceDetector\DeviceDetector;
-use Mautic\CoreBundle\Entity\IpAddressRepository;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\LeadBundle\Tracker\Factory\DeviceDetectorFactory\DeviceDetectorFactoryInterface;
+use MailVotech\CoreBundle\Entity\IpAddressRepository;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\LeadBundle\Tracker\Factory\DeviceDetectorFactory\DeviceDetectorFactoryInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +32,7 @@ final class IpLookupHelperTest extends \PHPUnit\Framework\TestCase
         $this->deviceDetectorFactory = $this->createMock(DeviceDetectorFactoryInterface::class);
         $this->deviceDetector        = $this->createMock(DeviceDetector::class);
 
-        defined('MAUTIC_ENV') || define('MAUTIC_ENV', 'test');
+        defined('MAILVOTECH_ENV') || define('MAILVOTECH_ENV', 'test');
     }
 
     public function testDeviceDetectorBotsDetectionTrue(): void

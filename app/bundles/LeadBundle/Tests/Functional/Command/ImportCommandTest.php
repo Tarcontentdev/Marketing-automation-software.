@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\Command;
+namespace MailVotech\LeadBundle\Tests\Functional\Command;
 
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Import;
-use Mautic\LeadBundle\Model\ImportModel;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Import;
+use MailVotech\LeadBundle\Model\ImportModel;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ImportCommandTest extends MauticMysqlTestCase
+final class ImportCommandTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -48,7 +48,7 @@ final class ImportCommandTest extends MauticMysqlTestCase
         $import = $this->createCsvContactImport();
 
         // Run command to import CSV.
-        $this->testSymfonyCommand('mautic:import', ['-e' => 'test', '-i' => $import->getId(), '--limit' => 10000]);
+        $this->testSymfonyCommand('mailvotech:import', ['-e' => 'test', '-i' => $import->getId(), '--limit' => 10000]);
 
         // See the notifications.
         $crawler = $this->client->request(Request::METHOD_GET, '/s/contacts/import');
@@ -58,7 +58,7 @@ final class ImportCommandTest extends MauticMysqlTestCase
 
     private function generateSmallCSV(): string
     {
-        $tmpFile = tempnam(sys_get_temp_dir(), 'mautic_import_test_').'.csv';
+        $tmpFile = tempnam(sys_get_temp_dir(), 'mailvotech_import_test_').'.csv';
         $file    = fopen($tmpFile, 'wb');
 
         foreach ($this->csvRows as $line) {

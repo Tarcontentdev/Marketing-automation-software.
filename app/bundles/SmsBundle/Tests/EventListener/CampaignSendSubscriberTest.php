@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\EventListener;
+namespace MailVotech\SmsBundle\Tests\EventListener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\EventListener\CampaignSendSubscriber;
-use Mautic\SmsBundle\Model\SmsModel;
-use Mautic\SmsBundle\Sms\TransportChain;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\EventListener\CampaignSendSubscriber;
+use MailVotech\SmsBundle\Model\SmsModel;
+use MailVotech\SmsBundle\Sms\TransportChain;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -39,7 +39,7 @@ final class CampaignSendSubscriberTest extends \PHPUnit\Framework\TestCase
     public function testSendDeletedSms(): void
     {
         $this->smsModel->expects($this->once())->method('getEntity')->willReturn(null);
-        $this->translator->method('trans')->willReturn('mautic.sms.campaign.failed.missing_entity');
+        $this->translator->method('trans')->willReturn('mailvotech.sms.campaign.failed.missing_entity');
 
         $event    = new Event();
         $campaign = new class() extends Campaign {
@@ -68,7 +68,7 @@ final class CampaignSendSubscriberTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(0, $pendingEvent->getFailures());
         $this->assertCount(1, $pendingEvent->getSuccessful());
         $this->assertSame(1, $leadLog->getMetadata()['failed']);
-        $this->assertSame('mautic.sms.campaign.failed.missing_entity', $leadLog->getMetadata()['reason']);
+        $this->assertSame('mailvotech.sms.campaign.failed.missing_entity', $leadLog->getMetadata()['reason']);
     }
 
     public function testSendUnpublishedSms(): void
@@ -97,7 +97,7 @@ final class CampaignSendSubscriberTest extends \PHPUnit\Framework\TestCase
         $event->setType('sms.send_text_sms');
 
         $this->smsModel->expects($this->once())->method('getEntity')->willReturn($sms);
-        $this->translator->method('trans')->willReturn('mautic.sms.campaign.failed.unpublished');
+        $this->translator->method('trans')->willReturn('mailvotech.sms.campaign.failed.unpublished');
 
         $pendingEvent = new PendingEvent(new ActionAccessor([]), $event, new ArrayCollection([$leadLog->getId() => $leadLog]));
 
@@ -106,7 +106,7 @@ final class CampaignSendSubscriberTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(0, $pendingEvent->getFailures());
         $this->assertCount(1, $pendingEvent->getSuccessful());
         $this->assertSame(1, $leadLog->getMetadata()['failed']);
-        $this->assertSame('mautic.sms.campaign.failed.unpublished', $leadLog->getMetadata()['reason']);
+        $this->assertSame('mailvotech.sms.campaign.failed.unpublished', $leadLog->getMetadata()['reason']);
     }
 
     public function testOnCampaignTriggerBatchAction(): void

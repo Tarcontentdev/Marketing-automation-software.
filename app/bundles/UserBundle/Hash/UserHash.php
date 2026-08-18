@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Hash;
+namespace MailVotech\UserBundle\Hash;
 
 final class UserHash
 {

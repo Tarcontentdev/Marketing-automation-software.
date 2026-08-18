@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\EventListener;
+namespace MailVotech\SmsBundle\EventListener;
 
-use Mautic\ChannelBundle\ChannelEvents;
-use Mautic\ChannelBundle\Event\ChannelBroadcastEvent;
-use Mautic\SmsBundle\Broadcast\BroadcastExecutioner;
+use MailVotech\ChannelBundle\ChannelEvents;
+use MailVotech\ChannelBundle\Event\ChannelBroadcastEvent;
+use MailVotech\SmsBundle\Broadcast\BroadcastExecutioner;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class BroadcastSubscriber implements EventSubscriberInterface

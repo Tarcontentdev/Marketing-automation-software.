@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
 use Doctrine\DBAL\Connection;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Form\ChoiceLoader\EntityLookupChoiceLoader;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Form\ChoiceLoader\EntityLookupChoiceLoader;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -113,7 +113,7 @@ final class EntityLookupType extends AbstractType
                 [
                     'data-new-route'          => $this->router->generate($options['modal_route'], $options['modal_route_parameters']),
                     'data-header'             => $options['modal_header'] ? $this->translator->trans($options['modal_header']) : 'false',
-                    'data-chosen-placeholder' => $this->translator->trans('mautic.core.lookup.search_options', [], 'javascript'),
+                    'data-chosen-placeholder' => $this->translator->trans('mailvotech.core.lookup.search_options', [], 'javascript'),
                 ]
             );
         }

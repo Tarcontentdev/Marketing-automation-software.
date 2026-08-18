@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Functional;
+namespace MailVotech\PointBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\GroupContactScore;
-use Mautic\ReportBundle\Entity\Report;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\GroupContactScore;
+use MailVotech\ReportBundle\Entity\Report;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ReportSubscriberFunctionalTest extends MauticMysqlTestCase
+final class ReportSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -38,7 +38,7 @@ final class ReportSubscriberFunctionalTest extends MauticMysqlTestCase
         $this->em->flush();
         $this->em->clear();
 
-        // -- test report table in mautic panel
+        // -- test report table in mailvotech panel
         $crawler            = $this->client->request(Request::METHOD_GET, "/s/reports/view/{$report->getId()}");
         $crawlerReportTable = $crawler->filterXPath('//table[@id="reportTable"]')->first();
 
@@ -112,7 +112,7 @@ final class ReportSubscriberFunctionalTest extends MauticMysqlTestCase
         $this->em->flush();
         $this->em->clear();
 
-        // -- test report table in mautic panel
+        // -- test report table in mailvotech panel
         $crawler            = $this->client->request(Request::METHOD_GET, "/s/reports/view/{$report->getId()}");
         $crawlerReportTable = $crawler->filterXPath('//table[@id="reportTable"]')->first();
 

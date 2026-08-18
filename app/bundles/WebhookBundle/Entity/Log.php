@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\WebhookBundle\Entity;
+namespace MailVotech\WebhookBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
 
 class Log
 {

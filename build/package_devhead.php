@@ -12,7 +12,7 @@ echo "Preparing environment\n";
 umask(022);
 chdir($baseDir);
 system('rm -rf packaging');
-@unlink($baseDir.'/packages/mautic-head.zip');
+@unlink($baseDir.'/packages/mailvotech-head.zip');
 
 // Preparation - Provision packaging space
 mkdir(__DIR__.'/packaging');
@@ -25,11 +25,11 @@ system("rsync -az --exclude-from 'excludefiles.txt' ../ packaging > /dev/null");
 include_once __DIR__.'/processfiles.php';
 
 // Step 5 - ZIP it up
-echo "Packaging Mautic\n";
+echo "Packaging MailVotech\n";
 chdir(__DIR__.'/packaging');
 
-system('zip -r ../packages/mautic-head.zip . > /dev/null');
+system('zip -r ../packages/mailvotech-head.zip . > /dev/null');
 
 chdir(__DIR__.'/packaging');
-echo "Packaging Mautic Update Package\n";
-system('zip -r ../packages/mautic-head-update.zip . > /dev/null');
+echo "Packaging MailVotech Update Package\n";
+system('zip -r ../packages/mailvotech-head-update.zip . > /dev/null');

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Command;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Command;
 
-use Mautic\IntegrationsBundle\Command\SyncCommand;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\ObjectIdsDAO;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncService\SyncServiceInterface;
+use MailVotech\IntegrationsBundle\Command\SyncCommand;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\ObjectIdsDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncService\SyncServiceInterface;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
@@ -65,7 +65,7 @@ final class SyncCommandTest extends TestCase
             ->method('processIntegrationSync')
             ->with($this->callback(function (InputOptionsDAO $inputOptionsDAO): true {
                 $this->assertSame(self::INTEGRATION_NAME, $inputOptionsDAO->getIntegration());
-                $this->assertSame(['123', '345'], $inputOptionsDAO->getMauticObjectIds()->getObjectIdsFor(Contact::NAME));
+                $this->assertSame(['123', '345'], $inputOptionsDAO->getMailVotechObjectIds()->getObjectIdsFor(Contact::NAME));
                 $this->assertNotInstanceOf(ObjectIdsDAO::class, $inputOptionsDAO->getIntegrationObjectIds());
                 $this->assertTrue($inputOptionsDAO->pullIsEnabled());
                 $this->assertFalse($inputOptionsDAO->pushIsEnabled());
@@ -76,7 +76,7 @@ final class SyncCommandTest extends TestCase
         $code = $this->commandTester->execute([
             'integration'        => self::INTEGRATION_NAME,
             '--disable-push'     => true,
-            '--mautic-object-id' => ['contact:123', 'contact:345'],
+            '--mailvotech-object-id' => ['contact:123', 'contact:345'],
         ]);
 
         $this->assertSame(0, $code);

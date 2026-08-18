@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 class ImportHelper
 {
@@ -18,7 +18,7 @@ class ImportHelper
      */
     public function readZipFile(string $filePath): array
     {
-        // Use Mautic setting, instead of sys_get_temp_dir. The latter is considered unsafe, because other processes are able to read from the dir.
+        // Use MailVotech setting, instead of sys_get_temp_dir. The latter is considered unsafe, because other processes are able to read from the dir.
         $tempDir      = $this->pathsHelper->getTemporaryPath();
         $zip          = new \ZipArchive();
         $jsonFilePath = null;

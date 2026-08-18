@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Controller;
+namespace MailVotech\CoreBundle\Controller;
 
 use Symfony\Component\Form\FormInterface;
 
@@ -90,6 +90,6 @@ trait FormErrorMessagesTrait
 
         $validationError = $this->getFormErrorMessage($validationErrors);
 
-        return $this->translator->trans('mautic.core.form.builder.error', ['%error%' => $validationError]);
+        return $this->translator->trans('mailvotech.core.form.builder.error', ['%error%' => $validationError]);
     }
 }

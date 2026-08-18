@@ -2,16 +2,16 @@
 {% set isIndex = tmpl == 'index' ? true : false %}
 {% set tmpl = 'list' %}
 
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
 
-{% block mauticContent %}
-    {% if mauticContent is defined %}
-        {{ mauticContent }}
+{% block mailvotechContent %}
+    {% if mailvotechContent is defined %}
+        {{ mailvotechContent }}
     {% endif %}
 {% endblock %}
 
 {% if headerTitle is not defined %}
-    {% set headerTitle = 'Mautic' %}
+    {% set headerTitle = 'MailVotech' %}
 {% endif %}
 {% set headerTitle = headerTitle|trans %}
 
@@ -20,7 +20,7 @@
 {% block content %}
     {% if isIndex %}
         <div id="page-list-wrapper" class="panel panel-default">
-            {{- include('@MauticCore/Helper/list_toolbar.html.twig', {
+            {{- include('@MailVotechCore/Helper/list_toolbar.html.twig', {
                 'searchValue': searchValue,
                 'action': currentRoute,
                 'actionRoute': actionRoute,
@@ -76,7 +76,7 @@
                 <thead>
                 <tr>
                     {% if ignoreStandardColumns is empty %}
-                        {{- include('@MauticCore/Helper/tableheader.html.twig',
+                        {{- include('@MailVotechCore/Helper/tableheader.html.twig',
                             {
                                 'checkall'        : 'true',
                                 'actionRoute'     : actionRoute,
@@ -86,22 +86,22 @@
                                 },
                         }) -}}
                         {{- include(
-                            '@MauticCore/Helper/tableheader.html.twig',
+                            '@MailVotechCore/Helper/tableheader.html.twig',
                             {
                                 'sessionVar' : sessionVar,
                                 'orderBy'    : tablePrefix ~ '.name',
-                                'text'       : 'mautic.core.name',
+                                'text'       : 'mailvotech.core.name',
                                 'class'      : 'col-name',
                                 'default'    : true,
                             }
                         ) -}}
 
                         {% if attribute(firstItem, 'getCategory') is defined %}
-                            {{ include('@MauticCore/Helper/tableheader.html.twig',
+                            {{ include('@MailVotechCore/Helper/tableheader.html.twig',
                                 {
                                     'sessionVar' : sessionVar,
                                     'orderBy'    : (categoryTablePrefix is defined ? categoryTablePrefix : 'cat') ~ '.title',
-                                    'text'       : 'mautic.core.category',
+                                    'text'       : 'mailvotech.core.category',
                                     'class'      : 'visible-md visible-lg col-focus-category',
                             }) }}
                         {% endif %}
@@ -112,16 +112,16 @@
                                 {% if header.sessionVar is not defined %}
                                     {% set header = header|merge({'sessionVar': sessionVar}) %}
                                 {% endif %}
-                            {{- include('@MauticCore/Helper/tableheader.html.twig', header) -}}
+                            {{- include('@MailVotechCore/Helper/tableheader.html.twig', header) -}}
                             {% endfor %}
                         {% endif %}
 
                         {% if ignoreStandardColumns is empty %}
-                        {{- include('@MauticCore/Helper/tableheader.html.twig',
+                        {{- include('@MailVotechCore/Helper/tableheader.html.twig',
                             {
                                 'sessionVar' : sessionVar,
                                 'orderBy'    : tablePrefix ~ '.id',
-                                'text'       : 'mautic.core.id',
+                                'text'       : 'mailvotech.core.id',
                                 'class'      : 'visible-md visible-lg col-id',
                         }) -}}
                         {% endif %}
@@ -134,7 +134,7 @@
                     <tr>
                         {% if ignoreStandardColumns is empty %}
                             <td>
-                            {{- include('@MauticCore/Helper/list_actions.html.twig',
+                            {{- include('@MailVotechCore/Helper/list_actions.html.twig',
                                     {
                                         'item'            : item,
                                         'templateButtons' : {
@@ -169,7 +169,7 @@
                                 <div>
                                     {% if attribute(item, 'isPublished') is defined %}
                                     {{ include(
-                                            '@MauticCore/Helper/publishstatus_icon.html.twig',
+                                            '@MailVotechCore/Helper/publishstatus_icon.html.twig',
                                             {'item' : item, 'model' : modelName}
                                         ) }}
                                     {% endif %}
@@ -182,7 +182,7 @@
                                     </a>
                                 </div>
                                 {% if attribute(item, 'getDescription') is defined and item.getDescription() %}
-                                    {{ include('@MauticCore/Helper/description--inline.html.twig', {
+                                    {{ include('@MailVotechCore/Helper/description--inline.html.twig', {
                                         'description': item.getDescription()
                                     }) }}
                                 {% endif %}
@@ -192,7 +192,7 @@
                                     {% set category = item.getCategory() %}
                                     {% set catName, color = category
                                         ? category.getTitle()
-                                        : 'mautic.core.form.uncategorized'|trans, category ? '#' ~ category.getColor() : '' %}
+                                        : 'mailvotech.core.form.uncategorized'|trans, category ? '#' ~ category.getColor() : '' %}
                                     <div class="d-flex ai-center gap-xs"><span class="label label-gray label-category" style="background: {{ color }};"> </span> {{ catName }}</div>
                                 </td>
                             {% endif %}
@@ -212,7 +212,7 @@
             </table>
         </div>
         <div class="panel-footer">
-            {{- include('@MauticCore/Helper/pagination.html.twig',
+            {{- include('@MailVotechCore/Helper/pagination.html.twig',
                 {
                     'totalItems' : totalItems,
                     'page'       : page,
@@ -222,7 +222,7 @@
             }) -}}
         </div>
     {% else %}
-        {{- include('@MauticCore/Helper/noresults.html.twig') -}}
+        {{- include('@MailVotechCore/Helper/noresults.html.twig') -}}
     {% endif %}
 
 {% endblock %}

@@ -1,25 +1,25 @@
 //PageBundle
-Mautic.pageOnLoad = function (container, response) {
+MailVotech.pageOnLoad = function (container, response) {
     if (mQuery(container + ' #list-search').length) {
-        Mautic.activateSearchAutocomplete('list-search', 'page.page');
+        MailVotech.activateSearchAutocomplete('list-search', 'page.page');
     }
 
     if (mQuery(container + ' #page_template').length) {
-        Mautic.toggleBuilderButton(mQuery('#page_template').val() == '');
+        MailVotech.toggleBuilderButton(mQuery('#page_template').val() == '');
 
         // Preload tokens for code mode builder
-        Mautic.getTokens(Mautic.getBuilderTokensMethod(), function(){});
-        Mautic.initSelectTheme(mQuery('#page_template'));
+        MailVotech.getTokens(MailVotech.getBuilderTokensMethod(), function(){});
+        MailVotech.initSelectTheme(mQuery('#page_template'));
     }
 
     // Open the builder directly when saved from the builder
     if (response && response.inBuilder) {
-        Mautic.launchBuilder('page');
-        Mautic.processBuilderErrors(response);
+        MailVotech.launchBuilder('page');
+        MailVotech.processBuilderErrors(response);
     }
 };
 
-Mautic.getPageAbTestWinnerForm = function(abKey) {
+MailVotech.getPageAbTestWinnerForm = function(abKey) {
     if (abKey && mQuery(abKey).val() && mQuery(abKey).closest('.form-group').hasClass('has-error')) {
         mQuery(abKey).closest('.form-group').removeClass('has-error');
         if (mQuery(abKey).next().hasClass('help-block')) {
@@ -27,13 +27,13 @@ Mautic.getPageAbTestWinnerForm = function(abKey) {
         }
     }
 
-    Mautic.activateLabelLoadingIndicator('page_variantSettings_winnerCriteria');
+    MailVotech.activateLabelLoadingIndicator('page_variantSettings_winnerCriteria');
 
     var pageId = mQuery('#page_sessionId').val();
     var query  = "action=page:getAbTestForm&abKey=" + mQuery(abKey).val() + "&pageId=" + pageId;
 
     mQuery.ajax({
-        url: mauticAjaxUrl,
+        url: mailvotechAjaxUrl,
         type: "POST",
         data: query,
         dataType: "json",
@@ -46,19 +46,19 @@ Mautic.getPageAbTestWinnerForm = function(abKey) {
                 }
 
                 if (response.html != '') {
-                    Mautic.onPageLoad('#page_variantSettings_properties', response);
+                    MailVotech.onPageLoad('#page_variantSettings_properties', response);
                 }
             }
 
-            Mautic.removeLabelLoadingIndicator();
+            MailVotech.removeLabelLoadingIndicator();
 
         },
         error: function (request, textStatus, errorThrown) {
-            Mautic.processAjaxError(request, textStatus, errorThrown);
+            MailVotech.processAjaxError(request, textStatus, errorThrown);
             spinner.remove();
         },
         complete: function () {
-            Mautic.removeLabelLoadingIndicator();
+            MailVotech.removeLabelLoadingIndicator();
         }
     });
 };

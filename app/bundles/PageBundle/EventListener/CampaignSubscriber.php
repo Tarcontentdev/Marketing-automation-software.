@@ -1,21 +1,21 @@
 <?php
 
-namespace Mautic\PageBundle\EventListener;
+namespace MailVotech\PageBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\CampaignBundle\Executioner\RealTimeExecutioner;
-use Mautic\EmailBundle\Helper\UrlMatcher;
-use Mautic\LeadBundle\Form\Type\CampaignEventLeadDeviceType;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Event\PageHitEvent;
-use Mautic\PageBundle\Form\Type\CampaignEventPageHitType;
-use Mautic\PageBundle\Form\Type\TrackingPixelSendType;
-use Mautic\PageBundle\Helper\TrackingHelper;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\CampaignBundle\Executioner\RealTimeExecutioner;
+use MailVotech\EmailBundle\Helper\UrlMatcher;
+use MailVotech\LeadBundle\Form\Type\CampaignEventLeadDeviceType;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Event\PageHitEvent;
+use MailVotech\PageBundle\Form\Type\CampaignEventPageHitType;
+use MailVotech\PageBundle\Form\Type\TrackingPixelSendType;
+use MailVotech\PageBundle\Helper\TrackingHelper;
+use MailVotech\PageBundle\PageEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class CampaignSubscriber implements EventSubscriberInterface
@@ -47,8 +47,8 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
     {
         // Add trigger
         $pageHitTrigger = [
-            'label'          => 'mautic.page.campaign.event.pagehit',
-            'description'    => 'mautic.page.campaign.event.pagehit_descr',
+            'label'          => 'mailvotech.page.campaign.event.pagehit',
+            'description'    => 'mailvotech.page.campaign.event.pagehit_descr',
             'formType'       => CampaignEventPageHitType::class,
             'eventName'      => PageEvents::ON_CAMPAIGN_TRIGGER_DECISION,
             'channel'        => 'page',
@@ -58,8 +58,8 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
 
         // Add trigger
         $deviceHitTrigger = [
-            'label'          => 'mautic.page.campaign.event.devicehit',
-            'description'    => 'mautic.page.campaign.event.devicehit_descr',
+            'label'          => 'mailvotech.page.campaign.event.devicehit',
+            'description'    => 'mailvotech.page.campaign.event.devicehit_descr',
             'formType'       => CampaignEventLeadDeviceType::class,
             'eventName'      => PageEvents::ON_CAMPAIGN_TRIGGER_DECISION,
             'channel'        => 'page',
@@ -70,8 +70,8 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
         $trackingServices = $this->trackingHelper->getEnabledServices();
         if ([] !== $trackingServices) {
             $action = [
-                'label'                  => 'mautic.page.tracking.pixel.event.send',
-                'description'            => 'mautic.page.tracking.pixel.event.send_desc',
+                'label'                  => 'mailvotech.page.tracking.pixel.event.send',
+                'description'            => 'mailvotech.page.tracking.pixel.event.send_desc',
                 'eventName'              => PageEvents::ON_CAMPAIGN_TRIGGER_ACTION,
                 'formType'               => TrackingPixelSendType::class,
                 'connectionRestrictions' => [

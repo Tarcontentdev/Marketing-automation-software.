@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Segment\Decorator;
+namespace MailVotech\LeadBundle\Segment\Decorator;
 
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\Query\Filter\ComplexRelationValueFilterQueryBuilder;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\Query\Filter\ComplexRelationValueFilterQueryBuilder;
 
 class CompanyDecorator extends BaseDecorator
 {
     public function getRelationJoinTable(): string
     {
-        return MAUTIC_TABLE_PREFIX.'companies_leads';
+        return MAILVOTECH_TABLE_PREFIX.'companies_leads';
     }
 
     public function getRelationJoinTableField(): string

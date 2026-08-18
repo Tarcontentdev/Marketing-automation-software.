@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\WebhookBundle\Http;
+namespace MailVotech\WebhookBundle\Http;
 
 use GuzzleHttp\Psr7\Request;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PrivateAddressChecker;
-use Mautic\WebhookBundle\Exception\PrivateAddressException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PrivateAddressChecker;
+use MailVotech\WebhookBundle\Exception\PrivateAddressException;
 use Psr\Http\Message\ResponseInterface;
 
 class Client

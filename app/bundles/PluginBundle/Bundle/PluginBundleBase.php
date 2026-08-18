@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Bundle;
+namespace MailVotech\PluginBundle\Bundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

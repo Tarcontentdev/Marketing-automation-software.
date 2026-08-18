@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Command;
+namespace MailVotech\ReportBundle\Tests\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class ExportSchedulerCommandTest extends MauticMysqlTestCase
+final class ExportSchedulerCommandTest extends MailVotechMysqlTestCase
 {
     public function testCommand(): void
     {
-        $commandTester = $this->testSymfonyCommand('mautic:reports:scheduler');
+        $commandTester = $this->testSymfonyCommand('mailvotech:reports:scheduler');
 
         $this->assertSame(0, $commandTester->getStatusCode());
         $this->assertSame("Scheduler has finished\n", $commandTester->getDisplay());

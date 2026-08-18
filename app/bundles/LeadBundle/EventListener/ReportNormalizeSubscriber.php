@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Helper\CustomFieldValueHelper;
-use Mautic\ReportBundle\Event\ReportDataEvent;
-use Mautic\ReportBundle\ReportEvents;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Helper\CustomFieldValueHelper;
+use MailVotech\ReportBundle\Event\ReportDataEvent;
+use MailVotech\ReportBundle\ReportEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ReportNormalizeSubscriber implements EventSubscriberInterface

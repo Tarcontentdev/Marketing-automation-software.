@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\PluginBundle\Controller;
+namespace MailVotech\PluginBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\PluginBundle\Form\Type\CompanyFieldsType;
-use Mautic\PluginBundle\Form\Type\FieldsType;
-use Mautic\PluginBundle\Form\Type\IntegrationCampaignsType;
-use Mautic\PluginBundle\Form\Type\IntegrationConfigType;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PluginBundle\Model\PluginModel;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\PluginBundle\Form\Type\CompanyFieldsType;
+use MailVotech\PluginBundle\Form\Type\FieldsType;
+use MailVotech\PluginBundle\Form\Type\IntegrationCampaignsType;
+use MailVotech\PluginBundle\Form\Type\IntegrationConfigType;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Model\PluginModel;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -28,7 +28,7 @@ final class AjaxController extends CommonAjaxController
     {
         $session      = $request->getSession();
         $pluginFilter = (int) $request->get('plugin');
-        $session->set('mautic.integrations.filter', $pluginFilter);
+        $session->set('mailvotech.integrations.filter', $pluginFilter);
 
         return $this->sendJsonResponse(['success' => 1]);
     }
@@ -49,7 +49,7 @@ final class AjaxController extends CommonAjaxController
         $dataArray = ['success' => 0];
 
         if (!empty($integration) && [] !== $settings) {
-            /** @var \Mautic\PluginBundle\Integration\AbstractIntegration $integrationObject */
+            /** @var \MailVotech\PluginBundle\Integration\AbstractIntegration $integrationObject */
             $integrationObject = $helper->getIntegrationObject($integration);
 
             if ($integrationObject) {
@@ -66,10 +66,10 @@ final class AjaxController extends CommonAjaxController
 
                 if (!empty($integrationFields)) {
                     $session = $request->getSession();
-                    $session->set('mautic.plugin.'.$integration.'.'.$object.'.page', $page);
+                    $session->set('mailvotech.plugin.'.$integration.'.'.$object.'.page', $page);
 
                     // Get a list of custom form fields
-                    $mauticFields       = ($isLead) ? $this->pluginModel->getLeadFields() : $this->pluginModel->getCompanyFields();
+                    $mailvotechFields       = ($isLead) ? $this->pluginModel->getLeadFields() : $this->pluginModel->getCompanyFields();
                     $featureSettings    = $integrationObject->getIntegrationSettings()->getFeatureSettings();
                     $enableDataPriority = $integrationObject->getDataPriority();
                     $formType           = $isLead ? 'integration_fields' : 'integration_company_fields';
@@ -77,7 +77,7 @@ final class AjaxController extends CommonAjaxController
                         $isLead ? FieldsType::class : CompanyFieldsType::class,
                         $featureSettings[$object.'Fields'] ?? [],
                         [
-                            'mautic_fields'        => $mauticFields,
+                            'mailvotech_fields'        => $mailvotechFields,
                             'data'                 => $featureSettings,
                             'integration_fields'   => $integrationFields,
                             'csrf_protection'      => false,
@@ -89,9 +89,9 @@ final class AjaxController extends CommonAjaxController
                         ]
                     );
 
-                    $html = $this->render('@MauticCore/Helper/blank_form.html.twig', [
+                    $html = $this->render('@MailVotechCore/Helper/blank_form.html.twig', [
                         'form'      => $form->createView(),
-                        'formTheme' => '@MauticPlugin/FormTheme/Integration/layout.html.twig',
+                        'formTheme' => '@MailVotechPlugin/FormTheme/Integration/layout.html.twig',
                         'function'  => 'row',
                     ]
                     )->getContent();
@@ -127,7 +127,7 @@ final class AjaxController extends CommonAjaxController
         $dataArray   = ['success' => 0];
 
         if (!empty($integration) && !empty($settings)) {
-            /** @var \Mautic\PluginBundle\Integration\AbstractIntegration $object */
+            /** @var \MailVotech\PluginBundle\Integration\AbstractIntegration $object */
             $object = $integrationHelper->getIntegrationObject($integration);
 
             if ($object) {
@@ -148,10 +148,10 @@ final class AjaxController extends CommonAjaxController
                     'campaigns'       => $data,
                 ]);
 
-                $html = $this->render('@MauticCore/Helper/blank_form.html.twig', [
+                $html = $this->render('@MailVotechCore/Helper/blank_form.html.twig', [
                     'form'      => $form->createView(),
                     'function'  => 'widget',
-                    'formTheme' => '@MauticPlugin/FormTheme/Integration/layout.html.twig',
+                    'formTheme' => '@MailVotechPlugin/FormTheme/Integration/layout.html.twig',
                     'variables' => [
                         'integration' => $object,
                     ],
@@ -182,7 +182,7 @@ final class AjaxController extends CommonAjaxController
         $dataArray   = ['success' => 0];
         $statusData  = [];
         if (!empty($integration) && !empty($campaign)) {
-            /** @var \Mautic\PluginBundle\Integration\AbstractIntegration $object */
+            /** @var \MailVotech\PluginBundle\Integration\AbstractIntegration $object */
             $object = $integrationHelper->getIntegrationObject($integration);
 
             if ($object) {
@@ -199,9 +199,9 @@ final class AjaxController extends CommonAjaxController
                     'campaignContactStatus' => $statusData,
                 ]);
 
-                $html = $this->render('@MauticCore/Helper/blank_form.html.twig', [
+                $html = $this->render('@MailVotechCore/Helper/blank_form.html.twig', [
                     'form'      => $form->createView(),
-                    'formTheme' => '@MauticPlugin/FormTheme/Integration/layout.html.twig',
+                    'formTheme' => '@MailVotechPlugin/FormTheme/Integration/layout.html.twig',
                     'function'  => 'widget',
                     'variables' => [
                         'integration' => $object,
@@ -232,20 +232,20 @@ final class AjaxController extends CommonAjaxController
     {
         $integration       = $request->request->get('integration');
         $integration_field = $request->request->get('integrationField');
-        $mautic_field      = $request->request->get('mauticField');
-        $update_mautic     = $request->request->get('updateMautic');
+        $mailvotech_field      = $request->request->get('mailvotechField');
+        $update_mailvotech     = $request->request->get('updateMailVotech');
         $object            = $request->request->get('object');
 
         $integration_object = $integrationHelper->getIntegrationObject($integration);
         $entity             = $integration_object->getIntegrationSettings();
         $featureSettings    = $entity->getFeatureSettings();
-        $doNotMatchField    = ('-1' === $mautic_field || '' === $mautic_field);
+        $doNotMatchField    = ('-1' === $mailvotech_field || '' === $mailvotech_field);
         if ('lead' == $object) {
             $fields       = 'leadFields';
-            $updateFields = 'update_mautic';
+            $updateFields = 'update_mailvotech';
         } else {
             $fields       = 'companyFields';
-            $updateFields = 'update_mautic_company';
+            $updateFields = 'update_mailvotech_company';
         }
         $newFeatureSettings = [];
         if ($doNotMatchField) {
@@ -257,13 +257,13 @@ final class AjaxController extends CommonAjaxController
             }
             $dataArray = ['success' => 0];
         } else {
-            $newFeatureSettings[$integration_field] = $update_mautic;
+            $newFeatureSettings[$integration_field] = $update_mailvotech;
             if (isset($featureSettings[$updateFields])) {
                 $featureSettings[$updateFields] = array_merge($featureSettings[$updateFields], $newFeatureSettings);
             } else {
                 $featureSettings[$updateFields] = $newFeatureSettings;
             }
-            $newFeatureSettings[$integration_field] = $mautic_field;
+            $newFeatureSettings[$integration_field] = $mailvotech_field;
             if (isset($featureSettings[$fields])) {
                 $featureSettings[$fields] = array_merge($featureSettings[$fields], $newFeatureSettings);
             } else {

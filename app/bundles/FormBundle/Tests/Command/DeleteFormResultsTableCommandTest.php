@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Command;
+namespace MailVotech\FormBundle\Tests\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\FormRepository;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\FormBundle\Entity\SubmissionRepository;
-use Mautic\FormBundle\Tests\FormTestHelperTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\FormRepository;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
+use MailVotech\FormBundle\Tests\FormTestHelperTrait;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
-final class DeleteFormResultsTableCommandTest extends MauticMysqlTestCase
+final class DeleteFormResultsTableCommandTest extends MailVotechMysqlTestCase
 {
     use FormTestHelperTrait;
 
@@ -54,7 +54,7 @@ final class DeleteFormResultsTableCommandTest extends MauticMysqlTestCase
         $kernel      = self::$kernel;
         $application = new Application($kernel);
         $application->setAutoExit(false);
-        $command = $application->find('mautic:forms:delete-results-table');
+        $command = $application->find('mailvotech:forms:delete-results-table');
 
         $commandTester = new CommandTester($command);
         $this->em->clear();

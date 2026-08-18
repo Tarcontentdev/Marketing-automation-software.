@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Event;
+namespace MailVotech\PointBundle\Event;
 
-use Mautic\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\Group;
 
 final class GroupEvent
 {

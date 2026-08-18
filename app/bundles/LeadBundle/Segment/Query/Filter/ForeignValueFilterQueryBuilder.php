@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Query\Filter;
+namespace MailVotech\LeadBundle\Segment\Query\Filter;
 
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\OperatorOptions;
-use Mautic\LeadBundle\Segment\Query\LeadBatchLimiterTrait;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Segment\Query\LeadBatchLimiterTrait;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
 
 final class ForeignValueFilterQueryBuilder extends BaseFilterQueryBuilder
 {
@@ -13,12 +13,12 @@ final class ForeignValueFilterQueryBuilder extends BaseFilterQueryBuilder
 
     public static function getServiceId(): string
     {
-        return 'mautic.lead.query.builder.foreign.value';
+        return 'mailvotech.lead.query.builder.foreign.value';
     }
 
     public function applyQuery(QueryBuilder $queryBuilder, ContactSegmentFilter $filter): QueryBuilder
     {
-        $leadsTableAlias  = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.'leads');
+        $leadsTableAlias  = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.'leads');
         $filterOperator   = $filter->getOperator();
         $batchLimiters    = $filter->getBatchLimiters();
         $filterParameters = $filter->getParameterValue();
@@ -42,7 +42,7 @@ final class ForeignValueFilterQueryBuilder extends BaseFilterQueryBuilder
         $subQueryBuilder = $queryBuilder->createQueryBuilder();
 
         if (null !== $filter->getWhere()) {
-            $subQueryBuilder->andWhere(str_replace(str_replace(MAUTIC_TABLE_PREFIX, '', $filter->getTable()).'.', $tableAlias.'.', $filter->getWhere()));
+            $subQueryBuilder->andWhere(str_replace(str_replace(MAILVOTECH_TABLE_PREFIX, '', $filter->getTable()).'.', $tableAlias.'.', $filter->getWhere()));
         }
 
         switch ($filterOperator) {
@@ -53,7 +53,7 @@ final class ForeignValueFilterQueryBuilder extends BaseFilterQueryBuilder
             case 'notEmpty':
                 $subQueryBuilder->select($tableAlias.'.'.$foreignContactColumn)->from($filter->getTable(), $tableAlias);
 
-                $this->addLeadAndMinMaxLimiters($subQueryBuilder, $batchLimiters, str_replace(MAUTIC_TABLE_PREFIX, '', $filter->getTable()), $foreignContactColumn);
+                $this->addLeadAndMinMaxLimiters($subQueryBuilder, $batchLimiters, str_replace(MAILVOTECH_TABLE_PREFIX, '', $filter->getTable()), $foreignContactColumn);
 
                 $queryBuilder->addLogic(
                     $queryBuilder->expr()->in($leadsTableAlias.'.id', $subQueryBuilder->getSQL()),
@@ -110,7 +110,7 @@ final class ForeignValueFilterQueryBuilder extends BaseFilterQueryBuilder
                 $subQueryBuilder->select($tableAlias.'.'.$foreignContactColumn)
                     ->from($filter->getTable(), $tableAlias);
 
-                $this->addLeadAndMinMaxLimiters($subQueryBuilder, $batchLimiters, str_replace(MAUTIC_TABLE_PREFIX, '', $filter->getTable()), $foreignContactColumn);
+                $this->addLeadAndMinMaxLimiters($subQueryBuilder, $batchLimiters, str_replace(MAILVOTECH_TABLE_PREFIX, '', $filter->getTable()), $foreignContactColumn);
 
                 $not        = ('notRegexp' === $filterOperator) ? ' NOT' : '';
                 $expression = $tableAlias.'.'.$filter->getField().$not.' REGEXP '.$filterParametersHolder;
@@ -126,7 +126,7 @@ final class ForeignValueFilterQueryBuilder extends BaseFilterQueryBuilder
                 $subQueryBuilder->select($tableAlias.'.'.$foreignContactColumn)
                     ->from($filter->getTable(), $tableAlias);
 
-                $this->addLeadAndMinMaxLimiters($subQueryBuilder, $batchLimiters, str_replace(MAUTIC_TABLE_PREFIX, '', $filter->getTable()), $foreignContactColumn);
+                $this->addLeadAndMinMaxLimiters($subQueryBuilder, $batchLimiters, str_replace(MAILVOTECH_TABLE_PREFIX, '', $filter->getTable()), $foreignContactColumn);
 
                 $expression = $subQueryBuilder->expr()->in(
                     $tableAlias.'.'.$filter->getField(),
@@ -164,7 +164,7 @@ final class ForeignValueFilterQueryBuilder extends BaseFilterQueryBuilder
                 $subQueryBuilder->select($tableAlias.'.'.$foreignContactColumn)
                     ->from($filter->getTable(), $tableAlias);
 
-                $this->addLeadAndMinMaxLimiters($subQueryBuilder, $batchLimiters, str_replace(MAUTIC_TABLE_PREFIX, '', $filter->getTable()), $foreignContactColumn);
+                $this->addLeadAndMinMaxLimiters($subQueryBuilder, $batchLimiters, str_replace(MAILVOTECH_TABLE_PREFIX, '', $filter->getTable()), $foreignContactColumn);
 
                 $expression = $subQueryBuilder->expr()->{$filterOperator}(
                     $tableAlias.'.'.$filter->getField(),

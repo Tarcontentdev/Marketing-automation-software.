@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Command;
+namespace MailVotech\CampaignBundle\Tests\Command;
 
-use Mautic\CampaignBundle\Command\ResumeStuckCampaignCommand;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Command\ResumeStuckCampaignCommand;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\RuntimeException;

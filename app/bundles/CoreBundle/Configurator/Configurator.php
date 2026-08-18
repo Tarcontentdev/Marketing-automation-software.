@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CoreBundle\Configurator;
+namespace MailVotech\CoreBundle\Configurator;
 
-use Mautic\CoreBundle\Configurator\Step\StepInterface;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Loader\ParameterLoader;
+use MailVotech\CoreBundle\Configurator\Step\StepInterface;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Loader\ParameterLoader;
 use Symfony\Component\Process\Exception\RuntimeException;
 
 /**

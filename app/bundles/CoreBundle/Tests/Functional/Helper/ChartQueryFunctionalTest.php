@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Helper;
+namespace MailVotech\CoreBundle\Tests\Functional\Helper;
 
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
 
-final class ChartQueryFunctionalTest extends MauticMysqlTestCase
+final class ChartQueryFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testGetCountQueryWithUniqueOptionsExecutesAgainstDatabase(): void
     {

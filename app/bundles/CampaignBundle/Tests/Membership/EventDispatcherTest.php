@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Membership;
+namespace MailVotech\CampaignBundle\Tests\Membership;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Event\CampaignLeadChangeEvent;
-use Mautic\CampaignBundle\Membership\Action\Adder;
-use Mautic\CampaignBundle\Membership\EventDispatcher;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Event\CampaignLeadChangeEvent;
+use MailVotech\CampaignBundle\Membership\Action\Adder;
+use MailVotech\CampaignBundle\Membership\EventDispatcher;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

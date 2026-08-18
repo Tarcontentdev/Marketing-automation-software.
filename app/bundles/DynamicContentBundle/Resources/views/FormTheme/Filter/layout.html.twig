@@ -37,10 +37,10 @@
         </div>
 
         <div class="col-xs-2 col-sm-1">
-            {% include '@MauticCore/Helper/button.html.twig' with {
+            {% include '@MailVotechCore/Helper/button.html.twig' with {
                 buttons: [
                     {
-                        label: 'mautic.report.report.label.removefilter',
+                        label: 'mailvotech.report.report.label.removefilter',
                         variant: 'ghost',
                         icon_only: true,
                         size: 'xs',
@@ -63,6 +63,6 @@
 {% endblock %}
 
 {% block _dwc_filters_widget %}
-  {% use '@MauticLead/FormTheme/Filter/_leadlist_filters_widget.html.twig' %}
+  {% use '@MailVotechLead/FormTheme/Filter/_leadlist_filters_widget.html.twig' %}
   {{ block('_leadlist_filters_widget') }}
 {% endblock %}

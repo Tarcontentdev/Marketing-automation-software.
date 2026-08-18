@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\Form\Constraint;
+namespace MailVotech\PluginBundle\Tests\Form\Constraint;
 
-use Mautic\PluginBundle\Event\PluginIsPublishedEvent;
-use Mautic\PluginBundle\Form\Constraint\CanPublish;
-use Mautic\PluginBundle\Form\Constraint\CanPublishValidator;
-use Mautic\PluginBundle\PluginEvents;
+use MailVotech\PluginBundle\Event\PluginIsPublishedEvent;
+use MailVotech\PluginBundle\Form\Constraint\CanPublish;
+use MailVotech\PluginBundle\Form\Constraint\CanPublishValidator;
+use MailVotech\PluginBundle\PluginEvents;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

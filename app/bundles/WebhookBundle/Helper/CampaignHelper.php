@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\WebhookBundle\Helper;
+namespace MailVotech\WebhookBundle\Helper;
 
 use Doctrine\Common\Collections\Collection;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Mautic\CoreBundle\Helper\AbstractFormFieldHelper;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Helper\TokenHelper;
-use Mautic\WebhookBundle\Event\WebhookRequestEvent;
-use Mautic\WebhookBundle\WebhookEvents;
+use MailVotech\CoreBundle\Helper\AbstractFormFieldHelper;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Helper\TokenHelper;
+use MailVotech\WebhookBundle\Event\WebhookRequestEvent;
+use MailVotech\WebhookBundle\WebhookEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class CampaignHelper

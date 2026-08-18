@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StatsBundle\Tests\Aggregate\Collection;
+namespace MailVotech\StatsBundle\Tests\Aggregate\Collection;
 
-use Mautic\StatsBundle\Aggregate\Collector;
-use Mautic\StatsBundle\Event\AggregateStatRequestEvent;
-use Mautic\StatsBundle\StatEvents;
+use MailVotech\StatsBundle\Aggregate\Collector;
+use MailVotech\StatsBundle\Event\AggregateStatRequestEvent;
+use MailVotech\StatsBundle\StatEvents;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 

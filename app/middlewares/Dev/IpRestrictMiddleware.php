@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\Middleware\Dev;
+namespace MailVotech\Middleware\Dev;
 
-use Mautic\Middleware\ConfigAwareTrait;
-use Mautic\Middleware\PrioritizedMiddlewareInterface;
+use MailVotech\Middleware\ConfigAwareTrait;
+use MailVotech\Middleware\PrioritizedMiddlewareInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -34,8 +34,8 @@ final class IpRestrictMiddleware implements HttpKernelInterface, PrioritizedMidd
             $this->allowedIps = array_merge($this->allowedIps, $parameters['dev_hosts']);
         }
 
-        if (isset($_SERVER['MAUTIC_CUSTOM_DEV_HOSTS'])) {
-            $localIps         = json_decode($_SERVER['MAUTIC_CUSTOM_DEV_HOSTS'], true);
+        if (isset($_SERVER['MAILVOTECH_CUSTOM_DEV_HOSTS'])) {
+            $localIps         = json_decode($_SERVER['MAILVOTECH_CUSTOM_DEV_HOSTS'], true);
             $this->allowedIps = array_merge($this->allowedIps, $localIps);
         }
     }

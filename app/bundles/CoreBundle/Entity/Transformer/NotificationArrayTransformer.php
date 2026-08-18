@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Entity\Transformer;
+namespace MailVotech\CoreBundle\Entity\Transformer;
 
-use Mautic\CoreBundle\Entity\Notification;
+use MailVotech\CoreBundle\Entity\Notification;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 

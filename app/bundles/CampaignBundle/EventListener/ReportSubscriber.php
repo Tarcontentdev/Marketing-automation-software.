@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\EventListener;
+namespace MailVotech\CampaignBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\LeadBundle\Report\DncReportService;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportDataEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\Event\ReportGraphEvent;
-use Mautic\ReportBundle\ReportEvents;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\LeadBundle\Report\DncReportService;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportDataEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\Event\ReportGraphEvent;
+use MailVotech\ReportBundle\ReportEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ReportSubscriber implements EventSubscriberInterface
@@ -54,87 +54,87 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
         $columns = [
             // Log columns
             $prefix.'date_triggered' => [
-                'label'          => 'mautic.report.campaign.log.date_triggered',
+                'label'          => 'mailvotech.report.campaign.log.date_triggered',
                 'type'           => 'datetime',
                 'alias'          => $aliasPrefix.'date_triggered',
                 'groupByFormula' => 'DATE('.$prefix.'date_triggered)',
             ],
             $prefix.'is_scheduled' => [
-                'label' => 'mautic.report.campaign.log.is_scheduled',
+                'label' => 'mailvotech.report.campaign.log.is_scheduled',
                 'type'  => 'boolean',
                 'alias' => $aliasPrefix.'is_scheduled',
             ],
             $prefix.'trigger_date' => [
-                'label'          => 'mautic.report.campaign.log.trigger_date',
+                'label'          => 'mailvotech.report.campaign.log.trigger_date',
                 'type'           => 'datetime',
                 'alias'          => $aliasPrefix.'trigger_date',
                 'groupByFormula' => 'DATE('.$prefix.'trigger_date)',
             ],
             $prefix.'system_triggered' => [
-                'label' => 'mautic.report.campaign.log.system_triggered',
+                'label' => 'mailvotech.report.campaign.log.system_triggered',
                 'type'  => 'boolean',
                 'alias' => $aliasPrefix.'system_triggered',
             ],
             $prefix.'non_action_path_taken' => [
-                'label' => 'mautic.report.campaign.log.non_action_path_taken',
+                'label' => 'mailvotech.report.campaign.log.non_action_path_taken',
                 'type'  => 'boolean',
                 'alias' => $aliasPrefix.'non_action_path_taken',
             ],
             $prefix.'channel' => [
-                'label' => 'mautic.report.campaign.log.channel',
+                'label' => 'mailvotech.report.campaign.log.channel',
                 'type'  => 'string',
                 'alias' => $aliasPrefix.'channel',
             ],
             $prefix.'channel_id' => [
-                'label' => 'mautic.report.campaign.log.channel_id',
+                'label' => 'mailvotech.report.campaign.log.channel_id',
                 'type'  => 'int',
                 'alias' => $aliasPrefix.'channel_id',
             ],
             $prefix.'rotation' => [
-                'label' => 'mautic.report.campaign.event.rotation',
+                'label' => 'mailvotech.report.campaign.event.rotation',
                 'type'  => 'int',
                 'alias' => $eventAliasPrefix.'rotation',
             ],
 
             // Event columns
             $eventPrefix.'name' => [
-                'label' => 'mautic.report.campaign.event.name',
+                'label' => 'mailvotech.report.campaign.event.name',
                 'type'  => 'string',
                 'alias' => $eventAliasPrefix.'name',
             ],
             $eventPrefix.'description' => [
-                'label' => 'mautic.report.campaign.event.description',
+                'label' => 'mailvotech.report.campaign.event.description',
                 'type'  => 'string',
                 'alias' => $eventAliasPrefix.'description',
             ],
             $eventPrefix.'type' => [
-                'label' => 'mautic.report.campaign.event.type',
+                'label' => 'mailvotech.report.campaign.event.type',
                 'type'  => 'string',
                 'alias' => $eventAliasPrefix.'type',
             ],
             $eventPrefix.'event_type' => [
-                'label' => 'mautic.report.campaign.event.event_type',
+                'label' => 'mailvotech.report.campaign.event.event_type',
                 'type'  => 'string',
                 'alias' => $eventAliasPrefix.'event_type',
             ],
             $eventPrefix.'trigger_date' => [
-                'label'          => 'mautic.report.campaign.event.trigger_date',
+                'label'          => 'mailvotech.report.campaign.event.trigger_date',
                 'type'           => 'datetime',
                 'alias'          => $eventAliasPrefix.'trigger_date',
                 'groupByFormula' => 'DATE('.$eventPrefix.'trigger_date)',
             ],
             $eventPrefix.'trigger_mode' => [
-                'label' => 'mautic.report.campaign.event.trigger_mode',
+                'label' => 'mailvotech.report.campaign.event.trigger_mode',
                 'type'  => 'string',
                 'alias' => $eventAliasPrefix.'trigger_mode',
             ],
             $eventPrefix.'channel' => [
-                'label' => 'mautic.report.campaign.event.channel',
+                'label' => 'mailvotech.report.campaign.event.channel',
                 'type'  => 'string',
                 'alias' => $eventAliasPrefix.'channel',
             ],
             $eventPrefix.'channel_id' => [
-                'label' => 'mautic.report.campaign.event.channel_id',
+                'label' => 'mailvotech.report.campaign.event.channel_id',
                 'type'  => 'int',
                 'alias' => $eventAliasPrefix.'channel_id',
             ],
@@ -144,7 +144,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
         $commonColumnsAndFilters = array_merge(
             $columns,
-            $event->getStandardColumns($campaignPrefix, [], 'mautic_campaign_action'),
+            $event->getStandardColumns($campaignPrefix, [], 'mailvotech_campaign_action'),
             $event->getCategoryColumns($catPrefix),
             $event->getLeadColumns($leadPrefix),
             $event->getIpColumn(),
@@ -155,14 +155,14 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
         $reportFilters = array_merge($commonColumnsAndFilters, $this->dncReportService->getDncFilters());
 
         $data = [
-            'display_name' => 'mautic.campaign.events',
+            'display_name' => 'mailvotech.campaign.events',
             'columns'      => $reportColumns,
             'filters'      => $reportFilters,
         ];
         $event->addTable(self::CONTEXT_CAMPAIGN_LEAD_EVENT_LOG, $data);
 
         // Register graphs
-        // $event->addGraph($context, 'line', 'mautic.page.graph.line.hits');
+        // $event->addGraph($context, 'line', 'mailvotech.page.graph.line.hits');
     }
 
     /**
@@ -176,9 +176,9 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
         $qb = $event->getQueryBuilder();
 
-        $qb->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'log')
-            ->leftJoin('log', MAUTIC_TABLE_PREFIX.'campaigns', 'c', 'c.id = log.campaign_id')
-            ->leftJoin('log', MAUTIC_TABLE_PREFIX.'campaign_events', 'e', 'e.id = log.event_id');
+        $qb->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'log')
+            ->leftJoin('log', MAILVOTECH_TABLE_PREFIX.'campaigns', 'c', 'c.id = log.campaign_id')
+            ->leftJoin('log', MAILVOTECH_TABLE_PREFIX.'campaign_events', 'e', 'e.id = log.event_id');
 
         $event
             ->addLeadLeftJoin($qb, 'log')
@@ -217,7 +217,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
             switch ($g) {
                 /*
-                case 'mautic.page.graph.line.hits':
+                case 'mailvotech.page.graph.line.hits':
                     $chart = new LineChart(null, $options['dateFrom'], $options['dateTo']);
                     $chartQuery->modifyTimeDataQuery($queryBuilder, 'date_hit', 'ph');
                     $hits = $chartQuery->loadAndBuildTimeData($queryBuilder);

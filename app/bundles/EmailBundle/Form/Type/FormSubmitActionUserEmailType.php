@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
-use Mautic\UserBundle\Form\Type\UserListType;
+use MailVotech\UserBundle\Form\Type\UserListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,10 +20,10 @@ final class FormSubmitActionUserEmailType extends AbstractType
         $builder->add('useremail',
             EmailSendType::class,
             [
-                'label' => 'mautic.email.emails',
+                'label' => 'mailvotech.email.emails',
                 'attr'  => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.choose.emails_descr',
+                    'tooltip' => 'mailvotech.email.choose.emails_descr',
                 ],
                 'update_select' => 'formaction_properties_useremail_email',
             ]
@@ -33,15 +33,15 @@ final class FormSubmitActionUserEmailType extends AbstractType
             'user_id',
             UserListType::class,
             [
-                'label'      => 'mautic.email.form.users',
+                'label'      => 'mailvotech.email.form.users',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.help.autocomplete',
+                    'tooltip' => 'mailvotech.core.help.autocomplete',
                 ],
                 'required'    => true,
                 'constraints' => new NotBlank(
-                    message: 'mautic.core.value.required'
+                    message: 'mailvotech.core.value.required'
                 ),
             ]
         );

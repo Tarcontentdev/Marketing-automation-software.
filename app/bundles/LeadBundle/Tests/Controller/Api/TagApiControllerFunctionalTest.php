@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller\Api;
+namespace MailVotech\LeadBundle\Tests\Controller\Api;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\Entity\TagRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Entity\TagRepository;
 use Symfony\Component\HttpFoundation\Response;
 
-final class TagApiControllerFunctionalTest extends MauticMysqlTestCase
+final class TagApiControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testTagWorkflow(): void
     {

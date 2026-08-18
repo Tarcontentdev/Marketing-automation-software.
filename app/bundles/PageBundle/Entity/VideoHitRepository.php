@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\PageBundle\Entity;
+namespace MailVotech\PageBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\TimelineTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\TimelineTrait;
 
 /**
  * @extends CommonRepository<VideoHit>
@@ -25,7 +25,7 @@ final class VideoHitRepository extends CommonRepository
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $query->select('h.id, h.url, h.date_hit, h.time_watched, h.duration, h.referer, h.user_agent')
-            ->from(MAUTIC_TABLE_PREFIX.'video_hits', 'h');
+            ->from(MAILVOTECH_TABLE_PREFIX.'video_hits', 'h');
 
         if ($leadId) {
             $query->where($query->expr()->eq('h.lead_id', (int) $leadId));
@@ -119,7 +119,7 @@ final class VideoHitRepository extends CommonRepository
     public function updateLead($fromLeadId, $toLeadId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'video_hits')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'video_hits')
             ->set('lead_id', (int) $toLeadId)
             ->where('lead_id = '.(int) $fromLeadId)
             ->executeStatement();

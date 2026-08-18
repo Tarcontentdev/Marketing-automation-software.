@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Controller;
+namespace MailVotech\UserBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Model\UserModel;
-use Mautic\UserBundle\Security\SAML\Helper as SAMLHelper;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Model\UserModel;
+use MailVotech\UserBundle\Security\SAML\Helper as SAMLHelper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +48,7 @@ final class ProfileController extends FormController
             'editEmail'    => $this->security->isGranted('user:profile:editemail'),
         ];
 
-        $action = $this->generateUrl('mautic_user_account');
+        $action = $this->generateUrl('mailvotech_user_account');
         $form   = $this->userModel->createForm($me, $this->formFactory, $action, ['in_profile' => true]);
 
         $overrides = [];
@@ -70,7 +70,7 @@ final class ProfileController extends FormController
                             'firstName_unbound',
                             TextType::class,
                             [
-                                'label'      => 'mautic.core.firstname',
+                                'label'      => 'mailvotech.core.firstname',
                                 'label_attr' => ['class' => 'control-label'],
                                 'attr'       => ['class' => 'form-control'],
                                 'mapped'     => false,
@@ -85,7 +85,7 @@ final class ProfileController extends FormController
                             'lastName_unbound',
                             TextType::class,
                             [
-                                'label'      => 'mautic.core.lastname',
+                                'label'      => 'mailvotech.core.lastname',
                                 'label_attr' => ['class' => 'control-label'],
                                 'attr'       => ['class' => 'form-control'],
                                 'mapped'     => false,
@@ -103,7 +103,7 @@ final class ProfileController extends FormController
                             'username_unbound',
                             TextType::class,
                             [
-                                'label'      => 'mautic.core.username',
+                                'label'      => 'mailvotech.core.username',
                                 'label_attr' => ['class' => 'control-label'],
                                 'attr'       => ['class' => 'form-control'],
                                 'mapped'     => false,
@@ -120,7 +120,7 @@ final class ProfileController extends FormController
                             'position_unbound',
                             TextType::class,
                             [
-                                'label'      => 'mautic.core.position',
+                                'label'      => 'mailvotech.core.position',
                                 'label_attr' => ['class' => 'control-label'],
                                 'attr'       => ['class' => 'form-control'],
                                 'mapped'     => false,
@@ -137,7 +137,7 @@ final class ProfileController extends FormController
                             'email_unbound',
                             TextType::class,
                             [
-                                'label'      => 'mautic.core.type.email',
+                                'label'      => 'mailvotech.core.type.email',
                                 'label_attr' => ['class' => 'control-label'],
                                 'attr'       => ['class' => 'form-control'],
                                 'mapped'     => false,
@@ -180,7 +180,7 @@ final class ProfileController extends FormController
                         if ($fetchLanguage['error']) {
                             $me->setLocale(null);
                             $this->userModel->saveEntity($me);
-                            $message     = 'mautic.core.could.not.set.language';
+                            $message     = 'mailvotech.core.could.not.set.language';
                             $messageVars = [];
 
                             if (isset($fetchLanguage['message'])) {
@@ -208,26 +208,26 @@ final class ProfileController extends FormController
                     }
                     $request->getSession()->set('_locale', $locale);
 
-                    $returnUrl = $this->generateUrl('mautic_user_account');
+                    $returnUrl = $this->generateUrl('mailvotech_user_account');
 
                     return $this->postActionRedirect(
                         [
                             'returnUrl'       => $returnUrl,
-                            'contentTemplate' => 'Mautic\UserBundle\Controller\ProfileController::indexAction',
+                            'contentTemplate' => 'MailVotech\UserBundle\Controller\ProfileController::indexAction',
                             'passthroughVars' => [
-                                'mauticContent' => 'user',
+                                'mailvotechContent' => 'user',
                             ],
                             'flashes' => [ // success
                                 [
                                     'type' => 'notice',
-                                    'msg'  => 'mautic.user.account.notice.updated',
+                                    'msg'  => 'mailvotech.user.account.notice.updated',
                                 ],
                             ],
                         ]
                     );
                 }
             } else {
-                return $this->redirectToRoute('mautic_dashboard_index');
+                return $this->redirectToRoute('mailvotech_dashboard_index');
             }
         }
         $request->getSession()->set('formProcessed', 0);
@@ -242,16 +242,16 @@ final class ProfileController extends FormController
             'me'                => $me,
             'userForm'          => $form->createView(),
             'isSamlUser'        => $isSamlUser,
-            'authorizedClients' => $this->forward('Mautic\ApiBundle\Controller\ClientController::authorizedClientsAction')->getContent(),
+            'authorizedClients' => $this->forward('MailVotech\ApiBundle\Controller\ClientController::authorizedClientsAction')->getContent(),
         ];
 
         return $this->delegateView(
             [
                 'viewParameters'  => $parameters,
-                'contentTemplate' => '@MauticUser/Profile/index.html.twig',
+                'contentTemplate' => '@MailVotechUser/Profile/index.html.twig',
                 'passthroughVars' => [
-                    'route'         => $this->generateUrl('mautic_user_account'),
-                    'mauticContent' => 'user',
+                    'route'         => $this->generateUrl('mailvotech_user_account'),
+                    'mailvotechContent' => 'user',
                 ],
             ]
         );

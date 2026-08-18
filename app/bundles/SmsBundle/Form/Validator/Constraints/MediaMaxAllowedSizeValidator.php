@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Form\Validator\Constraints;
+namespace MailVotech\SmsBundle\Form\Validator\Constraints;
 
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
-use Mautic\SmsBundle\Entity\Sms;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\SmsBundle\Entity\Sms;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Test\Doctrine;
+namespace MailVotech\CoreBundle\Test\Doctrine;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractPlatform;

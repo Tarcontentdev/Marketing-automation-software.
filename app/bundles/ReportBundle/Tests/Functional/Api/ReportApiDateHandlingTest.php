@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Functional\Api;
+namespace MailVotech\ReportBundle\Tests\Functional\Api;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\ReportBundle\Entity\Report;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\ReportBundle\Entity\Report;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ReportApiDateHandlingTest extends MauticMysqlTestCase
+final class ReportApiDateHandlingTest extends MailVotechMysqlTestCase
 {
     private Report $report;
 

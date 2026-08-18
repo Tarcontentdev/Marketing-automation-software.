@@ -1,5 +1,5 @@
 /* Modal Base CSS */
-.mauticForm-overlay
+.mailvotechForm-overlay
 {
     position: fixed;
     z-index: 9998;
@@ -20,7 +20,7 @@
     background: rgba(0,0,0,.6);
 }
 
-.mauticForm-modal
+.mailvotechForm-modal
 {
     position: absolute;
     z-index: 9999;
@@ -48,7 +48,7 @@
     background: #fff;
 }
 
-.mauticForm-modal.mauticForm-open.mauticForm-anchored
+.mailvotechForm-modal.mailvotechForm-open.mailvotechForm-anchored
 {
     top: 20px;
 
@@ -59,19 +59,19 @@
     transform: translate(-50%, 0);
 }
 
-.mauticForm-modal.mauticForm-open
+.mailvotechForm-modal.mailvotechForm-open
 {
     opacity: 1;
 }
 
-.mauticForm-overlay.mauticForm-open
+.mailvotechForm-overlay.mailvotechForm-open
 {
     opacity: 1;
 
 }
 
 /* Close Button */
-.mauticForm-close
+.mailvotechForm-close
 {
     font-family: Helvetica,Arial,sans-serif;
     font-size: 24px;
@@ -92,21 +92,21 @@
     background: #e74c3c;
 }
 
-.mauticForm-close:hover
+.mailvotechForm-close:hover
 {
     background: #c0392b;
 }
 
 /* Default Animation */
 
-.mauticForm-overlay.fade-and-drop
+.mailvotechForm-overlay.fade-and-drop
 {
     display: block;
 
     opacity: 0;
 }
 
-.mauticForm-modal.fade-and-drop
+.mailvotechForm-modal.fade-and-drop
 {
     top: -300%;
 
@@ -115,7 +115,7 @@
     display: block;
 }
 
-.mauticForm-modal.fade-and-drop.mauticForm-open
+.mailvotechForm-modal.fade-and-drop.mailvotechForm-open
 {
     top: 50%;
 
@@ -126,7 +126,7 @@
     transition: 500ms top 500ms ease;
 }
 
-.mauticForm-modal.fade-and-drop.mauticForm-open.mauticForm-anchored
+.mailvotechForm-modal.fade-and-drop.mailvotechForm-open.mailvotechForm-anchored
 {
 
     -webkit-transition: 500ms top 500ms ease;
@@ -136,7 +136,7 @@
     transition: 500ms top 500ms ease;
 }
 
-.mauticForm-overlay.fade-and-drop.mauticForm-open
+.mailvotechForm-overlay.fade-and-drop.mailvotechForm-open
 {
     top: 0;
 
@@ -149,7 +149,7 @@
     opacity: 1;
 }
 
-.mauticForm-modal.fade-and-drop
+.mailvotechForm-modal.fade-and-drop
 {
     -webkit-transition: 500ms top ease;
     -moz-transition: 500ms top ease;
@@ -158,7 +158,7 @@
     transition: 500ms top ease;
 }
 
-.mauticForm-overlay.fade-and-drop
+.mailvotechForm-overlay.fade-and-drop
 {
     -webkit-transition: 500ms opacity 500ms ease;
     -moz-transition: 500ms opacity 500ms ease;
@@ -167,6 +167,6 @@
     transition: 500ms opacity 500ms ease;
 }
 
-.mauticForm-content {
+.mailvotechForm-content {
     height: 100%;
 }

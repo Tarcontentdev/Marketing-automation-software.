@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Helper;
+namespace MailVotech\IntegrationsBundle\Helper;
 
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormInterface;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormInterface;
+use MailVotech\PluginBundle\Entity\Integration;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 final class ConfigIntegrationsHelper
@@ -21,7 +21,7 @@ final class ConfigIntegrationsHelper
      */
     public function __construct(
         private readonly IntegrationsHelper $integrationsHelper,
-        #[AutowireIterator('mautic.config_integration')]
+        #[AutowireIterator('mailvotech.config_integration')]
         iterable $integrations = [],
     ) {
         foreach ($integrations as $integration) {
@@ -42,7 +42,7 @@ final class ConfigIntegrationsHelper
     public function getIntegration(string $integration)
     {
         if (!isset($this->integrations[$integration])) {
-            throw new IntegrationNotFoundException("{$integration} either doesn't exist or has not been tagged with mautic.config_integration");
+            throw new IntegrationNotFoundException("{$integration} either doesn't exist or has not been tagged with mailvotech.config_integration");
         }
 
         // Ensure the configuration is hydrated

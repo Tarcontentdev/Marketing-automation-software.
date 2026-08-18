@@ -13,7 +13,7 @@
             {% if button.variant is not defined or button.variant != 'link' %}
                 {% set button = button|merge({'variant': 'tertiary', 'wide': true}) %}
             {% endif %}
-            {% include '@MauticCore/Helper/button.html.twig' with {'buttons': [button]} %}
+            {% include '@MailVotechCore/Helper/button.html.twig' with {'buttons': [button]} %}
         </div>
         {% endif %}
     </div>
@@ -49,7 +49,7 @@
             data-target="#collapse-{{ randomId }}"
             aria-expanded="false"
             aria-controls="collapse-{{ randomId }}"
-            title="{{ 'mautic.core.interact_to_expand_tile'|trans }}"
+            title="{{ 'mailvotech.core.interact_to_expand_tile'|trans }}"
             id="expandable-tile-{{ randomId }}"
             tabindex="0">
         <div>
@@ -86,7 +86,7 @@
                     data-target="#collapse-{{ randomId }}"
                     aria-expanded="false"
                     aria-controls="expandable-tile-interactive-{{ randomId }}"
-                    aria-label="{{ 'mautic.core.interact_to_expand_tile'|trans }}"
+                    aria-label="{{ 'mailvotech.core.interact_to_expand_tile'|trans }}"
                     class="tile__chevron tile__chevron--interactive collapsed">
                 <i class="ri-arrow-down-s-line"></i>
             </button>

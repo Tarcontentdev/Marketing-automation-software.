@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class SegmentOperatorQueryBuilderEvent extends Event
@@ -23,7 +23,7 @@ final class SegmentOperatorQueryBuilderEvent extends Event
         private readonly ContactSegmentFilter $filter,
         private $parameterHolder,
     ) {
-        $this->leadsTableAlias = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.'leads');
+        $this->leadsTableAlias = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.'leads');
     }
 
     public function getQueryBuilder(): QueryBuilder

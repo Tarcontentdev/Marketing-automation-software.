@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\Controller\Api;
+namespace MailVotech\AssetBundle\Tests\Controller\Api;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class AssetWidgetDataApiControllerFunctionalTest extends MauticMysqlTestCase
+final class AssetWidgetDataApiControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * @return iterable<string, array{string}>

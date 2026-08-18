@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\IpLookup;
+namespace MailVotech\CoreBundle\Tests\Unit\IpLookup;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
-use Mautic\CoreBundle\IpLookup\IpinfodbLookup;
+use MailVotech\CoreBundle\IpLookup\IpinfodbLookup;
 
 final class IpinfodbLookupTest extends \PHPUnit\Framework\TestCase
 {

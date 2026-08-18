@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\LeadBundle\DataFixtures\ORM;
+namespace MailVotech\LeadBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CategoryBundle\Entity\CategoryRepository;
-use Mautic\CoreBundle\Helper\CsvHelper;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CategoryBundle\Entity\CategoryRepository;
+use MailVotech\CoreBundle\Helper\CsvHelper;
 
 final class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterface
 {

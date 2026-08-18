@@ -1,36 +1,36 @@
 <?php
 
-namespace Mautic\CampaignBundle\Controller;
+namespace MailVotech\CampaignBundle\Controller;
 
 use Doctrine\DBAL\Cache\CacheException;
 use Doctrine\Persistence\ManagerRegistry;
-use Mautic\AssetBundle\Event\AssetExportListEvent;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Entity\SummaryRepository;
-use Mautic\CampaignBundle\EventCollector\EventCollector;
-use Mautic\CampaignBundle\EventListener\CampaignActionJumpToEventSubscriber;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CampaignBundle\Model\EventModel;
-use Mautic\CampaignBundle\Service\PublishStateService;
-use Mautic\CoreBundle\Controller\AbstractStandardFormController;
-use Mautic\CoreBundle\Controller\QuickFilterSearchTrait;
-use Mautic\CoreBundle\Event\EntityExportEvent;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\CoreBundle\Form\Type\DateRangeType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\ExportHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
-use Mautic\FormBundle\Helper\FormFieldHelper;
-use Mautic\LeadBundle\Controller\EntityContactsTrait;
+use MailVotech\AssetBundle\Event\AssetExportListEvent;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Entity\SummaryRepository;
+use MailVotech\CampaignBundle\EventCollector\EventCollector;
+use MailVotech\CampaignBundle\EventListener\CampaignActionJumpToEventSubscriber;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CampaignBundle\Model\EventModel;
+use MailVotech\CampaignBundle\Service\PublishStateService;
+use MailVotech\CoreBundle\Controller\AbstractStandardFormController;
+use MailVotech\CoreBundle\Controller\QuickFilterSearchTrait;
+use MailVotech\CoreBundle\Event\EntityExportEvent;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\CoreBundle\Form\Type\DateRangeType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\ExportHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\FormBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\Controller\EntityContactsTrait;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormError;
@@ -164,10 +164,10 @@ class CampaignController extends AbstractStandardFormController
         $filePath = $exportHelper->writeToZipFile($jsonOutput, $assetList, '');
         if (!file_exists($filePath)) {
             $this->logger->error('Export file could not be created', ['filePath' => $filePath]);
-            $this->addFlashMessage('mautic.campaign.error.export.file_not_found', ['%path%' => $filePath], FlashBag::LEVEL_ERROR);
+            $this->addFlashMessage('mailvotech.campaign.error.export.file_not_found', ['%path%' => $filePath], FlashBag::LEVEL_ERROR);
 
             return new JsonResponse([
-                'error'   => $this->translator->trans('mautic.campaign.error.export.file_not_found', ['%path%' => $filePath], 'flashes'),
+                'error'   => $this->translator->trans('mailvotech.campaign.error.export.file_not_found', ['%path%' => $filePath], 'flashes'),
                 'flashes' => $this->getFlashContent(),
             ], 400);
         }
@@ -192,7 +192,7 @@ class CampaignController extends AbstractStandardFormController
         }
 
         $date           = (new \DateTimeImmutable())->format(DateTimeHelper::FORMAT_DB);
-        $exportFileName = $this->translator->trans('mautic.campaign.campaign_export_file.name', ['%date%' => $date]);
+        $exportFileName = $this->translator->trans('mailvotech.campaign.campaign_export_file.name', ['%date%' => $date]);
 
         $event = new EntityExportEvent(Campaign::ENTITY_NAME, $objectId);
         $event = $this->dispatcher->dispatch($event);
@@ -230,12 +230,12 @@ class CampaignController extends AbstractStandardFormController
         }
 
         $session     = $request->getSession();
-        $filter      = $session->get('mautic.campaign.filter', '');
-        $orderByDir  = $session->get('mautic.campaign.orderbydir', 'ASC');
+        $filter      = $session->get('mailvotech.campaign.filter', '');
+        $orderByDir  = $session->get('mailvotech.campaign.orderbydir', 'ASC');
 
         $ids            = $request->get('ids');
         $date           = (new \DateTimeImmutable())->format(DateTimeHelper::FORMAT_DB);
-        $exportFileName = $this->translator->trans('mautic.campaign.campaign_export_file.name', ['%date%' => $date]);
+        $exportFileName = $this->translator->trans('mailvotech.campaign.campaign_export_file.name', ['%date%' => $date]);
         $objectIds      = json_decode($ids, true);
 
         if (empty($ids)) {
@@ -255,10 +255,10 @@ class CampaignController extends AbstractStandardFormController
         $allData = [];
 
         if (empty($objectIds)) {
-            $this->addFlashMessage('mautic.campaign.error.export.no_campaigns_selected', [], FlashBag::LEVEL_WARNING);
+            $this->addFlashMessage('mailvotech.campaign.error.export.no_campaigns_selected', [], FlashBag::LEVEL_WARNING);
 
             return new JsonResponse([
-                'error'   => $this->translator->trans('mautic.campaign.error.export.no_campaigns_selected', [], 'flashes'),
+                'error'   => $this->translator->trans('mailvotech.campaign.error.export.no_campaigns_selected', [], 'flashes'),
                 'flashes' => $this->getFlashContent(),
             ], 400);
         }
@@ -297,7 +297,7 @@ class CampaignController extends AbstractStandardFormController
         ?\DateTimeInterface $dateTo = null,
     ): Response {
         $session = $request->getSession();
-        $session->set('mautic.campaign.contact.page', $page);
+        $session->set('mailvotech.campaign.contact.page', $page);
 
         $permissions = [
             'campaign:campaigns:view',
@@ -361,7 +361,7 @@ class CampaignController extends AbstractStandardFormController
 
         $response['preview']    = trim(
             $this->renderView(
-                '@MauticCampaign/Campaign/_preview.html.twig',
+                '@MailVotechCampaign/Campaign/_preview.html.twig',
                 [
                     'campaignId'      => $objectId,
                     'campaign'        => $campaign,
@@ -372,9 +372,9 @@ class CampaignController extends AbstractStandardFormController
                 ]
             )
         );
-        $response['decisions']  = trim($this->renderView('@MauticCampaign/Campaign/_events.html.twig', ['events' => $sortedEvents['decision']]));
-        $response['actions']    = trim($this->renderView('@MauticCampaign/Campaign/_events.html.twig', ['events' => $sortedEvents['action']]));
-        $response['conditions'] = trim($this->renderView('@MauticCampaign/Campaign/_events.html.twig', ['events' => $sortedEvents['condition']]));
+        $response['decisions']  = trim($this->renderView('@MailVotechCampaign/Campaign/_events.html.twig', ['events' => $sortedEvents['decision']]));
+        $response['actions']    = trim($this->renderView('@MailVotechCampaign/Campaign/_events.html.twig', ['events' => $sortedEvents['action']]));
+        $response['conditions'] = trim($this->renderView('@MailVotechCampaign/Campaign/_events.html.twig', ['events' => $sortedEvents['condition']]));
 
         return new JsonResponse(array_filter($response));
     }
@@ -382,7 +382,7 @@ class CampaignController extends AbstractStandardFormController
     public function GraphAction(Request $request, int $objectId, string $dateFrom, string $dateTo): Response
     {
         $dateRangeValues = ['date_from' => $dateFrom, 'date_to' => $dateTo];
-        $action          = $this->generateUrl('mautic_campaign_action', ['objectAction' => 'view', 'objectId' => $objectId]);
+        $action          = $this->generateUrl('mailvotech_campaign_action', ['objectAction' => 'view', 'objectId' => $objectId]);
         $dateRangeForm   = $this->formFactory->create(DateRangeType::class, $dateRangeValues, ['action' => $action]);
         $stats           = $this->campaignModel->getCampaignMetricsLineChartData(
             null,
@@ -395,7 +395,7 @@ class CampaignController extends AbstractStandardFormController
         return $this->ajaxAction(
             $request,
             [
-                'contentTemplate' => '@MauticCampaign/Campaign/graph.html.twig',
+                'contentTemplate' => '@MailVotechCampaign/Campaign/graph.html.twig',
                 'viewParameters'  => [
                     'campiagnId'    => $objectId,
                     'stats'         => $stats,
@@ -448,10 +448,10 @@ class CampaignController extends AbstractStandardFormController
         }
 
         // set the page we came from
-        $page = $request->getSession()->get('mautic.campaign.page', 1);
+        $page = $request->getSession()->get('mailvotech.campaign.page', 1);
 
         $options = $this->getEntityFormOptions();
-        $action  = $this->generateUrl('mautic_campaign_action', ['objectAction' => 'new']);
+        $action  = $this->generateUrl('mailvotech_campaign_action', ['objectAction' => 'new']);
         $form    = $this->campaignModel->createForm($campaign, $this->formFactory, $action, $options);
 
         // /Check for a submitted form and process it
@@ -468,8 +468,8 @@ class CampaignController extends AbstractStandardFormController
                         $this->afterEntitySave($campaign, $form, 'new', $valid);
 
                         $viewParameters = ['objectId' => $campaign->getId(), 'objectAction' => 'view'];
-                        $returnUrl      = $this->generateUrl('mautic_campaign_action', $viewParameters);
-                        $template       = 'Mautic\CampaignBundle\Controller\CampaignController::viewAction';
+                        $returnUrl      = $this->generateUrl('mailvotech_campaign_action', $viewParameters);
+                        $template       = 'MailVotech\CampaignBundle\Controller\CampaignController::viewAction';
                     }
                 }
 
@@ -477,11 +477,11 @@ class CampaignController extends AbstractStandardFormController
             } else {
                 $viewParameters = ['page' => $page];
                 $returnUrl      = $this->generateUrl($this->getIndexRoute(), $viewParameters);
-                $template       = 'Mautic\CampaignBundle\Controller\CampaignController::indexAction';
+                $template       = 'MailVotech\CampaignBundle\Controller\CampaignController::indexAction';
             }
 
             $passthrough = [
-                'mauticContent' => 'cammpaign',
+                'mailvotechContent' => 'cammpaign',
             ];
 
             if ($isInPopup = isset($form['updateSelect'])) {
@@ -518,9 +518,9 @@ class CampaignController extends AbstractStandardFormController
         $delegateArgs = [
             'viewParameters' => [
                 'permissionBase'  => $this->campaignModel->getPermissionBase(),
-                'mauticContent'   => 'campaign',
-                'actionRoute'     => 'mautic_campaign_action',
-                'indexRoute'      => 'mautic_campaign_index',
+                'mailvotechContent'   => 'campaign',
+                'actionRoute'     => 'mailvotech_campaign_action',
+                'indexRoute'      => 'mailvotech_campaign_index',
                 'tablePrefix'     => 'c',
                 'modelName'       => 'campaign',
                 'translationBase' => $this->getTranslationBase(),
@@ -528,11 +528,11 @@ class CampaignController extends AbstractStandardFormController
                 'entity'          => $campaign,
                 'form'            => $this->getFormView($form, 'new'),
             ],
-            'contentTemplate' => '@MauticCampaign/Campaign/form.html.twig',
+            'contentTemplate' => '@MailVotechCampaign/Campaign/form.html.twig',
             'passthroughVars' => [
-                'mauticContent' => 'campaign',
+                'mailvotechContent' => 'campaign',
                 'route'         => $this->generateUrl(
-                    'mautic_campaign_action',
+                    'mailvotech_campaign_action',
                     [
                         'objectAction' => (!empty($valid) ? 'edit' : 'new'), // valid means a new form was applied
                         'objectId'     => ($campaign) ? $campaign->getId() : 0,
@@ -572,7 +572,7 @@ class CampaignController extends AbstractStandardFormController
      */
     protected function afterEntityClone($campaign, $oldCampaign)
     {
-        $tempId   = 'mautic_'.sha1(uniqid(mt_rand(), true));
+        $tempId   = 'mailvotech_'.sha1(uniqid(mt_rand(), true));
         $objectId = $oldCampaign->getId();
 
         // Get the events that need to be duplicated as well
@@ -749,7 +749,7 @@ class CampaignController extends AbstractStandardFormController
             // set the error
             $form->addError(
                 new FormError(
-                    $this->translator->trans('mautic.campaign.form.events.notempty', [], 'validators')
+                    $this->translator->trans('mailvotech.campaign.form.events.notempty', [], 'validators')
                 )
             );
 
@@ -760,7 +760,7 @@ class CampaignController extends AbstractStandardFormController
             // set the error
             $form->addError(
                 new FormError(
-                    $this->translator->trans('mautic.campaign.form.sources.notempty', [], 'validators')
+                    $this->translator->trans('mailvotech.campaign.form.sources.notempty', [], 'validators')
                 )
             );
 
@@ -813,7 +813,7 @@ class CampaignController extends AbstractStandardFormController
         if ($objectId) {
             $sessionId = $objectId;
         } elseif ('new' === $action) {
-            $sessionId = 'mautic_'.sha1(uniqid(mt_rand(), true));
+            $sessionId = 'mailvotech_'.sha1(uniqid(mt_rand(), true));
             if ($this->requestStack->getCurrentRequest()->request->has('campaign')) {
                 $campaign  = $this->requestStack->getCurrentRequest()->request->all()['campaign'] ?? [];
                 $sessionId = $campaign['sessionId'] ?? $sessionId;
@@ -829,26 +829,26 @@ class CampaignController extends AbstractStandardFormController
 
     protected function getTemplateBase(): string
     {
-        return '@MauticCampaign/Campaign';
+        return '@MailVotechCampaign/Campaign';
     }
 
     protected function getIndexItems($start, $limit, $filter, $orderBy, $orderByDir, array $args = [])
     {
         $session        = $this->getCurrentRequest()->getSession();
-        $currentFilters = $session->get('mautic.campaign.list_filters', []);
+        $currentFilters = $session->get('mailvotech.campaign.list_filters', []);
         $updatedFilters = $this->requestStack->getCurrentRequest()->get('filters', false);
 
         $sourceLists = $this->campaignModel->getSourceLists();
         $listFilters = [
             'filters' => [
-                'placeholder' => $this->translator->trans('mautic.campaign.filter.placeholder'),
+                'placeholder' => $this->translator->trans('mailvotech.campaign.filter.placeholder'),
                 'multiple'    => true,
                 'groups'      => [
-                    'mautic.campaign.leadsource.form' => [
+                    'mailvotech.campaign.leadsource.form' => [
                         'options' => $sourceLists['forms'],
                         'prefix'  => 'form',
                     ],
-                    'mautic.campaign.leadsource.list' => [
+                    'mailvotech.campaign.leadsource.list' => [
                         'options' => $sourceLists['lists'],
                         'prefix'  => 'list',
                     ],
@@ -875,13 +875,13 @@ class CampaignController extends AbstractStandardFormController
                 $currentFilters = [];
             }
         }
-        $session->set('mautic.campaign.list_filters', $currentFilters);
+        $session->set('mailvotech.campaign.list_filters', $currentFilters);
 
         $joinLists = $joinForms = false;
         if (!empty($currentFilters)) {
             $formIds = $listAliases = $searchFilterTerms = [];
             foreach ($currentFilters as $type => $typeFilters) {
-                $listFilters['filters']['groups']['mautic.campaign.leadsource.'.$type]['values'] = $typeFilters;
+                $listFilters['filters']['groups']['mailvotech.campaign.leadsource.'.$type]['values'] = $typeFilters;
 
                 foreach ($typeFilters as $fltr) {
                     if ('list' == $type) {
@@ -895,7 +895,7 @@ class CampaignController extends AbstractStandardFormController
             }
 
             $filter['string'] = $this->stripQuickFilterTokensFromSearch((string) ($filter['string'] ?? ''), $searchFilterTerms);
-            $session->set('mautic.campaign.filter', $filter['string']);
+            $session->set('mailvotech.campaign.filter', $filter['string']);
 
             if ([] !== $listAliases) {
                 $joinLists         = true;
@@ -1029,7 +1029,7 @@ class CampaignController extends AbstractStandardFormController
                 $objectId = $args['objectId'];
                 // Init the date range filter form
                 $dateRangeValues     = $this->requestStack->getCurrentRequest()->get('daterange', []);
-                $action              = $this->generateUrl('mautic_campaign_action', ['objectAction' => 'view', 'objectId' => $objectId]);
+                $action              = $this->generateUrl('mailvotech_campaign_action', ['objectAction' => 'view', 'objectId' => $objectId]);
                 $dateRangeForm       = $this->formFactory->create(DateRangeType::class, $dateRangeValues, ['action' => $action]);
                 $isEmailStatsEnabled = (bool) $this->coreParametersHelper->get('campaign_email_stats_enabled', true);
                 $showEmailStats      = $isEmailStatsEnabled && $entity->isEmailCampaign();
@@ -1060,7 +1060,7 @@ class CampaignController extends AbstractStandardFormController
                         'campaignEvents'   => $this->campaignEvents,
                         'campaignSources'  => $this->campaignSources,
                         'deletedEvents'    => $this->deletedEvents,
-                        'hasEventClone'    => $session->has('mautic.campaign.events.clone.storage'),
+                        'hasEventClone'    => $session->has('mailvotech.campaign.events.clone.storage'),
                         'campaignElements' => $this->campaignElements,
                     ]
                 );
@@ -1253,11 +1253,11 @@ class CampaignController extends AbstractStandardFormController
             case 'interval':
                 if (!empty($event['triggerInterval']) && !empty($event['triggerIntervalUnit'])) {
                     return $this->translator->trans(
-                        'mautic.campaign.connection.trigger.interval.label'.('no' == $event['decisionPath'] ? '_inaction' : ''),
+                        'mailvotech.campaign.connection.trigger.interval.label'.('no' == $event['decisionPath'] ? '_inaction' : ''),
                         [
                             '%number%' => $event['triggerInterval'],
                             '%unit%'   => $this->translator->trans(
-                                'mautic.campaign.event.intervalunit.'.$event['triggerIntervalUnit'],
+                                'mailvotech.campaign.event.intervalunit.'.$event['triggerIntervalUnit'],
                                 ['%count%' => $event['triggerInterval']]
                             ),
                         ]
@@ -1267,7 +1267,7 @@ class CampaignController extends AbstractStandardFormController
             case 'date':
                 if (!empty($event['triggerDate'])) {
                     return $this->translator->trans(
-                        'mautic.campaign.connection.trigger.date.label'.('no' == $event['decisionPath'] ? '_inaction' : ''),
+                        'mailvotech.campaign.connection.trigger.date.label'.('no' == $event['decisionPath'] ? '_inaction' : ''),
                         [
                             '%full%' => $this->dateHelper->toFull($event['triggerDate']),
                             '%time%' => $this->dateHelper->toTime($event['triggerDate']),

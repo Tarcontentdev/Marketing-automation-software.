@@ -1,7 +1,7 @@
 {
-  "name": "mautic",
+  "name": "mailvotech",
   "version": "0.0.0",
-  "description": "Mautic Open Source Distribution",
+  "description": "MailVotech Open Source Distribution",
   "overrides": {
     "ajv": ">=8.18.0",
     "yaml": ">=2.8.3",

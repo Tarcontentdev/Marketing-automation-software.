@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Event;
+namespace MailVotech\UserBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\UserBundle\Entity\Role;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\UserBundle\Entity\Role;
 
 final class RoleEvent extends CommonEvent
 {

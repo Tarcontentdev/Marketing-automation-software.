@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\SmsBundle\Integration\Twilio;
+namespace MailVotech\SmsBundle\Integration\Twilio;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\SmsBundle\Callback\CallbackInterface;
-use Mautic\SmsBundle\Exception\NumberNotFoundException;
-use Mautic\SmsBundle\Helper\ContactHelper;
+use MailVotech\SmsBundle\Callback\CallbackInterface;
+use MailVotech\SmsBundle\Exception\NumberNotFoundException;
+use MailVotech\SmsBundle\Helper\ContactHelper;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Executioner\ContactFinder;
+namespace MailVotech\CampaignBundle\Tests\Executioner\ContactFinder;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadRepository as CampaignLeadRepository;
-use Mautic\CampaignBundle\Executioner\ContactFinder\InactiveContactFinder;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\CampaignBundle\Executioner\Exception\NoContactsFoundException;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadRepository as CampaignLeadRepository;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\InactiveContactFinder;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CampaignBundle\Executioner\Exception\NoContactsFoundException;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 use Psr\Log\NullLogger;
 
 final class InactiveContactFinderTest extends \PHPUnit\Framework\TestCase

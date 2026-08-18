@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\EventListener;
+namespace MailVotech\PageBundle\Tests\EventListener;
 
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Form\Type\ContactFrequencyType;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Event\PageDisplayEvent;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Form\Type\ContactFrequencyType;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Event\PageDisplayEvent;
+use MailVotech\PageBundle\PageEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Translation\Translator;
 
-final class PreferencePageTest extends MauticMysqlTestCase
+final class PreferencePageTest extends MailVotechMysqlTestCase
 {
     private EventDispatcherInterface $dispatcher;
 
@@ -87,19 +87,19 @@ final class PreferencePageTest extends MauticMysqlTestCase
         $this->assertCustomLabels($params, $content);
 
         $this->assertStringContainsString($params['channelfrequency']['label-text'], $content);
-        $this->assertStringNotContainsString('mautic.lead.contact.me.label', $content);
+        $this->assertStringNotContainsString('mailvotech.lead.contact.me.label', $content);
 
         $this->assertStringContainsString($params['channelfrequency']['label-text1'], $content);
-        $this->assertStringNotContainsString('mautic.lead.list.frequency.number', $content);
+        $this->assertStringNotContainsString('mailvotech.lead.list.frequency.number', $content);
 
         $this->assertStringContainsString($params['channelfrequency']['label-text2'], $content);
-        $this->assertStringNotContainsString('mautic.lead.list.frequency.times', $content);
+        $this->assertStringNotContainsString('mailvotech.lead.list.frequency.times', $content);
 
         $this->assertStringContainsString($params['channelfrequency']['label-text3'], $content);
-        $this->assertStringNotContainsString('mautic.lead.frequency.dates.label', $content);
+        $this->assertStringNotContainsString('mailvotech.lead.frequency.dates.label', $content);
 
         $this->assertStringContainsString($params['channelfrequency']['label-text4'], $content);
-        $this->assertStringNotContainsString('mautic.lead.frequency.contact.end.date', $content);
+        $this->assertStringNotContainsString('mailvotech.lead.frequency.contact.end.date', $content);
     }
 
     public function testCustomLabelsWithForm(): void
@@ -209,20 +209,20 @@ final class PreferencePageTest extends MauticMysqlTestCase
 
     private function assertDefaultLabels(string $content): void
     {
-        $this->assertStringContainsString('mautic.lead.form.categories', $content);
-        $this->assertStringContainsString('mautic.lead.contact.me.label', $content);
-        $this->assertStringContainsString('mautic.lead.list.frequency.number', $content);
-        $this->assertStringContainsString('mautic.lead.list.frequency.times', $content);
-        $this->assertStringContainsString('mautic.lead.frequency.dates.label', $content);
-        $this->assertStringContainsString('mautic.lead.frequency.contact.end.date', $content);
-        $this->assertStringContainsString('mautic.lead.list.frequency.preferred.channel', $content);
-        $this->assertStringContainsString('mautic.page.form.saveprefs', $content);
-        $this->assertStringContainsString('mautic.lead.form.list', $content);
-        $this->assertStringContainsString('mautic.lead.contact.me.label', $content);
-        $this->assertStringContainsString('mautic.lead.list.frequency.number', $content);
-        $this->assertStringContainsString('mautic.lead.list.frequency.times', $content);
-        $this->assertStringContainsString('mautic.lead.frequency.dates.label', $content);
-        $this->assertStringContainsString('mautic.lead.frequency.contact.end.date', $content);
+        $this->assertStringContainsString('mailvotech.lead.form.categories', $content);
+        $this->assertStringContainsString('mailvotech.lead.contact.me.label', $content);
+        $this->assertStringContainsString('mailvotech.lead.list.frequency.number', $content);
+        $this->assertStringContainsString('mailvotech.lead.list.frequency.times', $content);
+        $this->assertStringContainsString('mailvotech.lead.frequency.dates.label', $content);
+        $this->assertStringContainsString('mailvotech.lead.frequency.contact.end.date', $content);
+        $this->assertStringContainsString('mailvotech.lead.list.frequency.preferred.channel', $content);
+        $this->assertStringContainsString('mailvotech.page.form.saveprefs', $content);
+        $this->assertStringContainsString('mailvotech.lead.form.list', $content);
+        $this->assertStringContainsString('mailvotech.lead.contact.me.label', $content);
+        $this->assertStringContainsString('mailvotech.lead.list.frequency.number', $content);
+        $this->assertStringContainsString('mailvotech.lead.list.frequency.times', $content);
+        $this->assertStringContainsString('mailvotech.lead.frequency.dates.label', $content);
+        $this->assertStringContainsString('mailvotech.lead.frequency.contact.end.date', $content);
     }
 
     /**
@@ -231,16 +231,16 @@ final class PreferencePageTest extends MauticMysqlTestCase
     private function assertCustomLabels(array $params, string $content): void
     {
         $this->assertStringContainsString($params['categorylist']['label-text'], $content);
-        $this->assertStringNotContainsString('mautic.lead.form.categories', $content);
+        $this->assertStringNotContainsString('mailvotech.lead.form.categories', $content);
 
         $this->assertStringContainsString($params['preferredchannel']['label-text'], $content);
-        $this->assertStringNotContainsString('mautic.lead.list.frequency.preferred.channel', $content);
+        $this->assertStringNotContainsString('mailvotech.lead.list.frequency.preferred.channel', $content);
 
         $this->assertStringContainsString($params['saveprefsbutton']['btnText'], $content);
-        $this->assertStringNotContainsString('mautic.page.form.saveprefs', $content);
+        $this->assertStringNotContainsString('mailvotech.page.form.saveprefs', $content);
 
         $this->assertStringContainsString($params['segmentlist']['label-text'], $content);
-        $this->assertStringNotContainsString('mautic.lead.form.list', $content);
+        $this->assertStringNotContainsString('mailvotech.lead.form.list', $content);
     }
 
     private function disableTranslations(Translator $translator): void

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\ProcessSignal\Exception;
+namespace MailVotech\CoreBundle\ProcessSignal\Exception;
 
 final class InvalidStateException extends \InvalidArgumentException
 {

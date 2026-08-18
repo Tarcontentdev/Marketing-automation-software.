@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CampaignBundle\Entity;
+namespace MailVotech\CampaignBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -15,20 +15,20 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CampaignBundle\Validator\Constraints\NoOrphanEvents;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\OptimisticLockInterface;
-use Mautic\CoreBundle\Entity\OptimisticLockTrait;
-use Mautic\CoreBundle\Entity\UuidInterface;
-use Mautic\CoreBundle\Entity\UuidTrait;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\Lead as Contact;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\ProjectBundle\Entity\ProjectTrait;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CampaignBundle\Validator\Constraints\NoOrphanEvents;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\OptimisticLockInterface;
+use MailVotech\CoreBundle\Entity\OptimisticLockTrait;
+use MailVotech\CoreBundle\Entity\UuidInterface;
+use MailVotech\CoreBundle\Entity\UuidTrait;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\Lead as Contact;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\ProjectBundle\Entity\ProjectTrait;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -74,7 +74,7 @@ class Campaign extends FormEntity implements OptimisticLockInterface, UuidInterf
      * @var string|null
      */
     #[Groups(['campaign:read', 'campaign:write'])]
-    #[Assert\NotBlank(message: 'mautic.core.name.required')]
+    #[Assert\NotBlank(message: 'mailvotech.core.name.required')]
     private $name;
 
     /**
@@ -98,7 +98,7 @@ class Campaign extends FormEntity implements OptimisticLockInterface, UuidInterf
     #[Groups(['campaign:read', 'campaign:write'])]
     public ?\DateTimeInterface $deleted = null;
 
-    // see Mautic\CampaignBundle\Enum\RepublishBehavior for available values.
+    // see MailVotech\CampaignBundle\Enum\RepublishBehavior for available values.
     #[Groups(['campaign:read', 'campaign:write'])]
     private ?string $republishBehavior = null;
 
@@ -700,7 +700,7 @@ class Campaign extends FormEntity implements OptimisticLockInterface, UuidInterf
      */
     public function getOnclickMethod(): string
     {
-        return 'Mautic.confirmationCampaignPublishStatus(mQuery(this));';
+        return 'MailVotech.confirmationCampaignPublishStatus(mQuery(this));';
     }
 
     /**
@@ -725,9 +725,9 @@ class Campaign extends FormEntity implements OptimisticLockInterface, UuidInterf
     public function getTranslationKeysDataAttributes(): array
     {
         return [
-            'data-message'      => 'mautic.campaign.form.confirmation.message',
-            'data-confirm-text' => 'mautic.campaign.form.confirmation.confirm_text',
-            'data-cancel-text'  => 'mautic.campaign.form.confirmation.cancel_text',
+            'data-message'      => 'mailvotech.campaign.form.confirmation.message',
+            'data-confirm-text' => 'mailvotech.campaign.form.confirmation.confirm_text',
+            'data-cancel-text'  => 'mailvotech.campaign.form.confirmation.cancel_text',
         ];
     }
 

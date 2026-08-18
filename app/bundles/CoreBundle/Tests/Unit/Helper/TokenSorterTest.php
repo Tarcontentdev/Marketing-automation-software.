@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\TokenSorter;
+use MailVotech\CoreBundle\Helper\TokenSorter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -17,8 +17,8 @@ final class TokenSorterTest extends TestCase
         $translator = $this->createMock(TranslatorInterface::class);
         $translator->method('trans')
             ->willReturnCallback(fn (string $key): string => match ($key) {
-                'mautic.page.token.thispage' => 'This page',
-                'mautic.email.email'         => 'Email',
+                'mailvotech.page.token.thispage' => 'This page',
+                'mailvotech.email.email'         => 'Email',
                 default                      => $key,
             });
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\PluginBundle\Form\Type;
+namespace MailVotech\PluginBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -25,9 +25,9 @@ final class IntegrationConfigType extends AbstractType
                 [
                     'choices' => array_flip($options['campaigns']),
                     'attr'    => [
-                        'class' => 'form-control', 'onchange' => 'Mautic.getIntegrationCampaignStatus(this);', ],
-                    'label'             => 'mautic.plugin.integration.campaigns',
-                    'placeholder'       => 'mautic.plugin.config.campaign.member.chooseone',
+                        'class' => 'form-control', 'onchange' => 'MailVotech.getIntegrationCampaignStatus(this);', ],
+                    'label'             => 'mailvotech.plugin.integration.campaigns',
+                    'placeholder'       => 'mailvotech.plugin.config.campaign.member.chooseone',
                     'required'          => false,
                 ]
             );

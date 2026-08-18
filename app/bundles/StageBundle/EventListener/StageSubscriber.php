@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\EventListener;
+namespace MailVotech\StageBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\StageBundle\Event as Events;
-use Mautic\StageBundle\StageEvents;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\StageBundle\Event as Events;
+use MailVotech\StageBundle\StageEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class StageSubscriber implements EventSubscriberInterface

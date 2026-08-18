@@ -2,34 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Helper;
+namespace MailVotech\EmailBundle\Tests\Helper;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\CopyRepository;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\EmailBundle\Exception\InvalidEmailException;
-use Mautic\EmailBundle\Helper\FromEmailHelper;
-use Mautic\EmailBundle\Helper\MailHashHelper;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\Helper\SMimeHelper;
-use Mautic\EmailBundle\Mailer\Exception\BatchQueueMaxException;
-use Mautic\EmailBundle\Model\EmailStatModel;
-use Mautic\EmailBundle\MonitoredEmail\Mailbox;
-use Mautic\EmailBundle\Tests\Helper\Transport\BatchTransport;
-use Mautic\EmailBundle\Tests\Helper\Transport\BcInterfaceTokenTransport;
-use Mautic\EmailBundle\Tests\Helper\Transport\SmtpTransport;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PageBundle\Model\RedirectModel;
-use Mautic\PageBundle\Model\TrackableModel;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\CopyRepository;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\Exception\InvalidEmailException;
+use MailVotech\EmailBundle\Helper\FromEmailHelper;
+use MailVotech\EmailBundle\Helper\MailHashHelper;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\Helper\SMimeHelper;
+use MailVotech\EmailBundle\Mailer\Exception\BatchQueueMaxException;
+use MailVotech\EmailBundle\Model\EmailStatModel;
+use MailVotech\EmailBundle\MonitoredEmail\Mailbox;
+use MailVotech\EmailBundle\Tests\Helper\Transport\BatchTransport;
+use MailVotech\EmailBundle\Tests\Helper\Transport\BcInterfaceTokenTransport;
+use MailVotech\EmailBundle\Tests\Helper\Transport\SmtpTransport;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PageBundle\Model\RedirectModel;
+use MailVotech\PageBundle\Model\TrackableModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -136,7 +136,7 @@ final class MailHelperTest extends TestCase
 
     protected function setUp(): void
     {
-        defined('MAUTIC_ENV') || define('MAUTIC_ENV', 'test');
+        defined('MAILVOTECH_ENV') || define('MAILVOTECH_ENV', 'test');
 
         // Some local environments do not have ext-imap loaded, but Mailbox uses these
         // constants in method signatures and class loading fails without them.
@@ -629,7 +629,7 @@ final class MailHelperTest extends TestCase
     {
         $params = [
             ['mailer_from_email', null, 'nobody@nowhere.com'],
-            ['mailer_reply_to_email', null, 'admin@mautic.com'],
+            ['mailer_reply_to_email', null, 'admin@mailvotech.com'],
         ];
 
         $this->coreParametersHelper->method('get')->willReturnMap($params);
@@ -645,7 +645,7 @@ final class MailHelperTest extends TestCase
         $mailer->send();
         $replyTo = $mailer->message->getReplyTo() ? $mailer->message->getReplyTo()[0]->getAddress() : null;
         // Expect from address in reply to
-        $this->assertEquals('admin@mautic.com', $replyTo);
+        $this->assertEquals('admin@mailvotech.com', $replyTo);
     }
 
     public function testStandardOwnerAsMailer(): void
@@ -794,7 +794,7 @@ final class MailHelperTest extends TestCase
     public function testGlobalHeadersAreSet(): void
     {
         $params = [
-            ['mailer_custom_headers', [], ['X-Mautic-Test' => 'test', 'X-Mautic-Test2' => 'test']],
+            ['mailer_custom_headers', [], ['X-MailVotech-Test' => 'test', 'X-MailVotech-Test2' => 'test']],
             ['mailer_from_email', null, 'nobody@nowhere.com'],
         ];
         $this->coreParametersHelper->method('get')->willReturnMap($params);
@@ -809,7 +809,7 @@ final class MailHelperTest extends TestCase
         /** @var array<\Symfony\Component\Mime\Header\AbstractHeader> $headers */
         $headers = $mailer->message->getHeaders()->all();
         foreach ($headers as $header) {
-            if (str_contains($header->getName(), 'X-Mautic-Test')) {
+            if (str_contains($header->getName(), 'X-MailVotech-Test')) {
                 $customHeadersFounds[] = $header->getName();
 
                 $this->assertEquals('test', $header->getBody());
@@ -822,7 +822,7 @@ final class MailHelperTest extends TestCase
     public function testGlobalHeadersAreMergedIfEmailEntityIsSet(): void
     {
         $params = [
-            ['mailer_custom_headers', [], ['X-Mautic-Test' => 'test', 'X-Mautic-Test2' => 'test']],
+            ['mailer_custom_headers', [], ['X-MailVotech-Test' => 'test', 'X-MailVotech-Test2' => 'test']],
             ['mailer_from_email', null, 'nobody@nowhere.com'],
         ];
         $this->coreParametersHelper->method('get')->willReturnMap($params);
@@ -839,19 +839,19 @@ final class MailHelperTest extends TestCase
         $headers = iterator_to_array($mailer->message->getHeaders()->all());
 
         foreach ($headers as $header) {
-            if (str_contains($header->getName(), 'X-Mautic-Test')) {
+            if (str_contains($header->getName(), 'X-MailVotech-Test')) {
                 $this->assertEquals('test', $header->getBody());
             }
         }
 
-        $this->assertSame('test', $headers['x-mautic-test']->getBody());
-        $this->assertSame('test', $headers['x-mautic-test2']->getBody());
+        $this->assertSame('test', $headers['x-mailvotech-test']->getBody());
+        $this->assertSame('test', $headers['x-mailvotech-test2']->getBody());
     }
 
     public function testEmailHeadersAreSet(): void
     {
         $params = [
-            ['mailer_custom_headers', [], ['X-Mautic-Test' => 'test', 'X-Mautic-Test2' => 'test', 'custom-mautic-header' => '{contactfield=email}', 'Reply-to' => '{contactfield=email}']],
+            ['mailer_custom_headers', [], ['X-MailVotech-Test' => 'test', 'X-MailVotech-Test2' => 'test', 'custom-mailvotech-header' => '{contactfield=email}', 'Reply-to' => '{contactfield=email}']],
             ['mailer_from_email', null, 'nobody@nowhere.com'],
         ];
         $this->coreParametersHelper->method('get')->willReturnMap($params);
@@ -864,7 +864,7 @@ final class MailHelperTest extends TestCase
         $email = new Email();
         $email->setSubject('Test');
         $email->setCustomHtml('{signature}');
-        $email->setHeaders(['X-Mautic-Test3' => 'test2', 'X-Mautic-Test4' => 'test2']);
+        $email->setHeaders(['X-MailVotech-Test3' => 'test2', 'X-MailVotech-Test4' => 'test2']);
         $mailer->setEmail($email);
         $mailer->send();
 
@@ -874,15 +874,15 @@ final class MailHelperTest extends TestCase
         $headers = $mailer->message->getHeaders()->all();
 
         foreach ($headers as $header) {
-            if ('X-Mautic-Test' === $header->getName() || 'X-Mautic-Test2' === $header->getName()) {
+            if ('X-MailVotech-Test' === $header->getName() || 'X-MailVotech-Test2' === $header->getName()) {
                 $customHeadersFounds[] = $header->getName();
                 $this->assertEquals('test', $header->getBody());
             }
-            if ('X-Mautic-Test3' === $header->getName() || 'X-Mautic-Test4' === $header->getName()) {
+            if ('X-MailVotech-Test3' === $header->getName() || 'X-MailVotech-Test4' === $header->getName()) {
                 $customHeadersFounds[] = $header->getName();
                 $this->assertEquals('test2', $header->getBody());
             }
-            if ('custom-mautic-header' === $header->getName()) {
+            if ('custom-mailvotech-header' === $header->getName()) {
                 $customHeadersFounds[] = $header->getName();
                 $this->assertEquals($this->contacts[0]['email'], $header->getBody());
             }
@@ -899,7 +899,7 @@ final class MailHelperTest extends TestCase
     public function testUnsubscribeHeader(): void
     {
         $params = [
-            ['mailer_custom_headers', [], ['X-Mautic-Test' => 'test', 'X-Mautic-Test2' => 'test']],
+            ['mailer_custom_headers', [], ['X-MailVotech-Test' => 'test', 'X-MailVotech-Test2' => 'test']],
             ['secret_key', null, 'secret'],
         ];
         $this->coreParametersHelper->method('get')->willReturnMap($params);
@@ -912,12 +912,12 @@ final class MailHelperTest extends TestCase
         $this->router->method('generate')
             ->willReturnCallback(function (string $route, array $params = []) use (&$callCount, $unsubscribeUrl, $trackingPixelUrl, $emailSecret): string {
                 if (0 === $callCount++) {
-                    $this->assertSame('mautic_email_unsubscribe', $route);
+                    $this->assertSame('mailvotech_email_unsubscribe', $route);
                     $this->assertSame(['idHash' => 'hash', 'urlEmail' => 'someemail@email.test', 'secretHash' => $emailSecret], $params);
 
                     return $unsubscribeUrl;
                 }
-                $this->assertSame('mautic_email_tracker', $route);
+                $this->assertSame('mailvotech_email_tracker', $route);
                 $this->assertSame(['idHash' => 'hash'], $params);
 
                 return $trackingPixelUrl;
@@ -953,8 +953,8 @@ final class MailHelperTest extends TestCase
         $params = [
             ['mailer_custom_headers', [],
                 [
-                    'X-Mautic-Test'    => 'test',
-                    'X-Mautic-Test2'   => 'test',
+                    'X-MailVotech-Test'    => 'test',
+                    'X-MailVotech-Test2'   => 'test',
                     'List-Unsubscribe' => '<mailto:list@host.com?subject=unsubscribe>',
                 ]],
             ['secret_key', null, 'secret'],
@@ -966,7 +966,7 @@ final class MailHelperTest extends TestCase
         $this->router->method('generate')
             ->willReturnCallback(
                 static function (string $route, array $parameters, int $referenceType) use ($emailSecret): string {
-                    if ('mautic_email_unsubscribe' === $route) {
+                    if ('mailvotech_email_unsubscribe' === $route) {
                         TestCase::assertSame(
                             ['idHash' => 'hash', 'urlEmail' => 'someemail@email.test', 'secretHash' => $emailSecret],
                             $parameters
@@ -976,7 +976,7 @@ final class MailHelperTest extends TestCase
                         return 'https://www.somedomain.cz/email/unsubscribe/hash/someemail@email.test/'.$emailSecret;
                     }
 
-                    if ('mautic_email_tracker' === $route) {
+                    if ('mailvotech_email_tracker' === $route) {
                         TestCase::assertSame(['idHash' => 'hash'], $parameters);
                         TestCase::assertSame(UrlGeneratorInterface::ABSOLUTE_URL, $referenceType);
 
@@ -1110,7 +1110,7 @@ final class MailHelperTest extends TestCase
         $this->coreParametersHelper->expects($this->atLeast(5))->method('get')
             ->willReturnMap(
                 [
-                    ['mailer_custom_headers', [], ['X-Mautic-Test-1' => '{tracking_pixel}']],
+                    ['mailer_custom_headers', [], ['X-MailVotech-Test-1' => '{tracking_pixel}']],
                     ['mailer_reply_to_email', false, '{tracking_pixel}'],
                     ['mailer_from_email', null, 'nobody@nowhere.com'],
                     ['mailer_from_name', null, 'No Body'],
@@ -1124,7 +1124,7 @@ final class MailHelperTest extends TestCase
         $email = new Email();
         $email->setSubject('Test');
         $email->setCustomHtml('<html>{unsubscribe_url}</html>');
-        $email->setHeaders(['X-Mautic-Test-2' => '{tracking_pixel}']);
+        $email->setHeaders(['X-MailVotech-Test-2' => '{tracking_pixel}']);
         $email->setSendToDnc(false);
         $smtpMailHelper->setEmail($email);
         $smtpMailHelper->send();
@@ -1143,8 +1143,8 @@ final class MailHelperTest extends TestCase
             'Sender'                => 'No Body <nobody@nowhere.com>',
             'Reply-To'              => 'nobody@nowhere.com',
             'Subject'               => 'Test',
-            'X-Mautic-Test-2'       => MailHelper::getBlankPixel(),
-            'X-Mautic-Test-1'       => MailHelper::getBlankPixel(),
+            'X-MailVotech-Test-2'       => MailHelper::getBlankPixel(),
+            'X-MailVotech-Test-1'       => MailHelper::getBlankPixel(),
             'List-Unsubscribe'      => '<{unsubscribe_url}>',
             'List-Unsubscribe-Post' => 'List-Unsubscribe=One-Click',
         ]);
@@ -1161,7 +1161,7 @@ final class MailHelperTest extends TestCase
                     ['mailer_from_name', null, 'Test'],
                     ['mailer_append_tracking_pixel', null, true],
                     ['secret_key', null, 'secret'],
-                    ['site_url', null, 'https://mautic.url'],
+                    ['site_url', null, 'https://mailvotech.url'],
                 ]
             );
 
@@ -1436,7 +1436,7 @@ final class MailHelperTest extends TestCase
                     ['mailer_from_name', null, 'Test'],
                     ['mailer_append_tracking_pixel', null, true],
                     ['secret_key', null, 'secret'],
-                    ['site_url', null, 'https://mautic.com'],
+                    ['site_url', null, 'https://mailvotech.com'],
                 ]
             );
 
@@ -1466,13 +1466,13 @@ final class MailHelperTest extends TestCase
         $mailer->addTo($this->contacts[0]['email']);
         $mailer->setIdHash();
 
-        $initialHtml = 'Text <a href="https://mautic.com">Mautic</a> <img src="cid:abc" /> <img src="{ token }" /> <img src="https://mautic.com/app/assets/images/flags/{ country }.png"/> <img src="https://mautic.com/fake.jpg">';
+        $initialHtml = 'Text <a href="https://mailvotech.com">MailVotech</a> <img src="cid:abc" /> <img src="{ token }" /> <img src="https://mailvotech.com/app/assets/images/flags/{ country }.png"/> <img src="https://mailvotech.com/fake.jpg">';
         $trackedHtml = $initialHtml.'{unsubscribe_url}<img height="1" width="1" src="{tracking_pixel}" alt="" />';
 
         $this->dispatcher->method('dispatch')
             ->willReturnCallback(function (EmailSendEvent $event, string $eventName): EmailSendEvent {
                 if (EmailEvents::EMAIL_ON_SEND === $eventName) {
-                    $event->addToken('{ token }', 'https://mautic.com/app/assets/images/flags/Venezuela.png');
+                    $event->addToken('{ token }', 'https://mailvotech.com/app/assets/images/flags/Venezuela.png');
                     $event->addToken('{ country }', 'Venezuela');
                 }
 
@@ -1481,8 +1481,8 @@ final class MailHelperTest extends TestCase
 
         $this->router->method('generate')
             ->willReturnCallback(fn (string $route): string => match ($route) {
-                'mautic_email_unsubscribe' => '/unsubscribe',
-                'mautic_email_tracker'     => '/tracking.gif',
+                'mailvotech_email_unsubscribe' => '/unsubscribe',
+                'mailvotech_email_tracker'     => '/tracking.gif',
                 default                    => $route,
             });
 
@@ -1501,7 +1501,7 @@ final class MailHelperTest extends TestCase
         $this->assertSame($trackedHtml, $mailer->getBody());
         $mailer->send(true);
 
-        $this->assertMatchesRegularExpression('#^Text <a href="https://mautic\.com">Mautic</a> <img src="cid:abc" /> <img src="cid:2cb7cfd2ffccfbbbaf0e4d8891df2d79" /> <img src="cid:2cb7cfd2ffccfbbbaf0e4d8891df2d79"/> <img src="https://mautic\.com/fake\.jpg">\{unsubscribe_url\}<img height="1" width="1" src="/tracking\.gif\?ct=[A-Za-z0-9%]+" alt="" />$#', $mailer->message->getHtmlBody());
+        $this->assertMatchesRegularExpression('#^Text <a href="https://mailvotech\.com">MailVotech</a> <img src="cid:abc" /> <img src="cid:2cb7cfd2ffccfbbbaf0e4d8891df2d79" /> <img src="cid:2cb7cfd2ffccfbbbaf0e4d8891df2d79"/> <img src="https://mailvotech\.com/fake\.jpg">\{unsubscribe_url\}<img height="1" width="1" src="/tracking\.gif\?ct=[A-Za-z0-9%]+" alt="" />$#', $mailer->message->getHtmlBody());
         $this->assertSame($trackedHtml, $mailer->getBody());
     }
 

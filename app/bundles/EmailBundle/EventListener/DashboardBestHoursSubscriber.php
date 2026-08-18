@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\ArrayHelper;
-use Mautic\DashboardBundle\Event\WidgetDetailEvent;
-use Mautic\DashboardBundle\EventListener\DashboardSubscriber as MainDashboardSubscriber;
-use Mautic\EmailBundle\Form\Type\DashboardBestHoursWidgetType;
-use Mautic\EmailBundle\Model\EmailModel;
+use MailVotech\CoreBundle\Helper\ArrayHelper;
+use MailVotech\DashboardBundle\Event\WidgetDetailEvent;
+use MailVotech\DashboardBundle\EventListener\DashboardSubscriber as MainDashboardSubscriber;
+use MailVotech\EmailBundle\Form\Type\DashboardBestHoursWidgetType;
+use MailVotech\EmailBundle\Model\EmailModel;
 
 final class DashboardBestHoursSubscriber extends MainDashboardSubscriber
 {
@@ -71,7 +71,7 @@ final class DashboardBestHoursSubscriber extends MainDashboardSubscriber
                 ]);
             }
 
-            $event->setTemplate('@MauticCore/Helper/chart.html.twig');
+            $event->setTemplate('@MailVotechCore/Helper/chart.html.twig');
             $event->stopPropagation();
         }
     }

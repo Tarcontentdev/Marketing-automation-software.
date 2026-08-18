@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Scheduler;
+namespace MailVotech\ReportBundle\Scheduler;
 
 interface SchedulerInterface
 {

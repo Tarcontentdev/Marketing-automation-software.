@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\DynamicContentBundle\Helper;
+namespace MailVotech\DynamicContentBundle\Helper;
 
-use Mautic\CampaignBundle\Executioner\RealTimeExecutioner;
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\DynamicContentBundle\DynamicContentEvents;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\DynamicContentBundle\Event\ContactFiltersEvaluateEvent;
-use Mautic\DynamicContentBundle\Model\DynamicContentModel;
-use Mautic\EmailBundle\EventListener\MatchFilterForLeadTrait;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CampaignBundle\Executioner\RealTimeExecutioner;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\DynamicContentBundle\DynamicContentEvents;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\DynamicContentBundle\Event\ContactFiltersEvaluateEvent;
+use MailVotech\DynamicContentBundle\Model\DynamicContentModel;
+use MailVotech\EmailBundle\EventListener\MatchFilterForLeadTrait;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DynamicContentHelper

@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Functional;
+namespace MailVotech\EmailBundle\Tests\Functional;
 
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\LeadBundle\Entity\Lead;
 
-final class EmailVariantInCampaignFunctionalTest extends MauticMysqlTestCase
+final class EmailVariantInCampaignFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testMarketingEmailWithVariantShouldBeSentOnce(): void
     {
@@ -36,7 +36,7 @@ final class EmailVariantInCampaignFunctionalTest extends MauticMysqlTestCase
 
         $this->em->flush();
 
-        $commandResult = $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $commandResult = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
         $this->assertStringContainsString('2 total events(s) to be processed in batches', $commandResult->getDisplay());
 
         /** @var StatRepository $emailStatRepository */
@@ -132,7 +132,7 @@ final class EmailVariantInCampaignFunctionalTest extends MauticMysqlTestCase
                 'type'            => 'email.send',
                 'eventType'       => 'action',
                 'anchorEventType' => 'source',
-                'campaignId'      => 'mautic_ce6c7dddf8444e579d741c0125f18b33a5d49b45',
+                'campaignId'      => 'mailvotech_ce6c7dddf8444e579d741c0125f18b33a5d49b45',
                 '_token'          => 'HgysZwvH_n0uAp47CcAcsGddRnRk65t-3crOnuLx28Y',
                 'buttons'         => [
                     'save' => '',
@@ -180,7 +180,7 @@ final class EmailVariantInCampaignFunctionalTest extends MauticMysqlTestCase
                 'type'            => 'email.send',
                 'eventType'       => 'action',
                 'anchorEventType' => 'source',
-                'campaignId'      => 'mautic_ce6c7dddf8444e579d741c0125f18b33a5d49b45',
+                'campaignId'      => 'mailvotech_ce6c7dddf8444e579d741c0125f18b33a5d49b45',
                 '_token'          => 'HgysZwvH_n0uAp47CcAcsGddRnRk65t-3crOnuLx28Y',
                 'buttons'         => [
                     'save' => '',

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Command;
+namespace MailVotech\CampaignBundle\Tests\Command;
 
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Executioner\ScheduledExecutioner;
-use Mautic\CampaignBundle\Tests\Functional\Fixtures\FixtureHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Executioner\ScheduledExecutioner;
+use MailVotech\CampaignBundle\Tests\Functional\Fixtures\FixtureHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 
 final class ExecuteEventCommandTest extends AbstractCampaignCommand
 {
@@ -16,7 +16,7 @@ final class ExecuteEventCommandTest extends AbstractCampaignCommand
     {
         putenv('CAMPAIGN_EXECUTIONER_SCHEDULER_ACKNOWLEDGE_SECONDS=1');
 
-        $this->testSymfonyCommand('mautic:campaigns:trigger', ['-i' => 1, '--contact-ids' => '1,2,3']);
+        $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['-i' => 1, '--contact-ids' => '1,2,3']);
 
         // There should be three events scheduled
         $byEvent = $this->getCampaignEventLogs([2]);
@@ -31,7 +31,7 @@ final class ExecuteEventCommandTest extends AbstractCampaignCommand
             $logIds[] = $log['id'];
         }
 
-        $this->testSymfonyCommand('mautic:campaigns:execute', ['--scheduled-log-ids' => implode(',', $logIds)]);
+        $this->testSymfonyCommand('mailvotech:campaigns:execute', ['--scheduled-log-ids' => implode(',', $logIds)]);
 
         // There should still be three events scheduled
         $byEvent = $this->getCampaignEventLogs([2]);
@@ -49,7 +49,7 @@ final class ExecuteEventCommandTest extends AbstractCampaignCommand
         // Wait 6 seconds to go past scheduled time
         self::getContainer()->get(ScheduledExecutioner::class)->setNowTime(new \DateTime('+'.self::CONDITION_SECONDS.' seconds'));
 
-        $this->testSymfonyCommand('mautic:campaigns:execute', ['--scheduled-log-ids' => implode(',', $logIds)]);
+        $this->testSymfonyCommand('mailvotech:campaigns:execute', ['--scheduled-log-ids' => implode(',', $logIds)]);
 
         // The events should have executed
         $byEvent = $this->getCampaignEventLogs([2]);
@@ -83,7 +83,7 @@ final class ExecuteEventCommandTest extends AbstractCampaignCommand
 
         $this->em->flush();
 
-        $commandResult = $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $commandResult = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
 
         $this->assertStringContainsString('1 total event was scheduled', $commandResult->getDisplay());
 
@@ -108,7 +108,7 @@ final class ExecuteEventCommandTest extends AbstractCampaignCommand
         $this->em->flush();
         $this->em->clear();
 
-        $commandResult = $this->testSymfonyCommand('mautic:campaigns:execute', ['--scheduled-log-ids' => $log->getId()]);
+        $commandResult = $this->testSymfonyCommand('mailvotech:campaigns:execute', ['--scheduled-log-ids' => $log->getId()]);
 
         $this->assertStringContainsString('0 total events(s) to be processed', $commandResult->getDisplay());
         $this->assertStringContainsString('0 total events were executed', $commandResult->getDisplay());
@@ -131,7 +131,7 @@ final class ExecuteEventCommandTest extends AbstractCampaignCommand
 
         $this->em->flush();
 
-        $commandResult = $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $commandResult = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
 
         $this->assertStringContainsString('1 total event was scheduled', $commandResult->getDisplay());
 
@@ -157,7 +157,7 @@ final class ExecuteEventCommandTest extends AbstractCampaignCommand
         $this->em->flush();
         $this->em->clear();
 
-        $commandResult = $this->testSymfonyCommand('mautic:campaigns:execute', ['--scheduled-log-ids' => $log->getId()]);
+        $commandResult = $this->testSymfonyCommand('mailvotech:campaigns:execute', ['--scheduled-log-ids' => $log->getId()]);
 
         $this->assertStringContainsString('1 total events(s) to be processed', $commandResult->getDisplay());
         $this->assertStringContainsString('0 total events were executed', $commandResult->getDisplay());
@@ -184,7 +184,7 @@ final class ExecuteEventCommandTest extends AbstractCampaignCommand
 
         $this->em->flush();
 
-        $commandResult = $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $commandResult = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
 
         $this->assertStringContainsString('1 total event was scheduled', $commandResult->getDisplay());
 
@@ -196,7 +196,7 @@ final class ExecuteEventCommandTest extends AbstractCampaignCommand
 
         $this->assertTrue($log->getIsScheduled());
 
-        $commandResult = $this->testSymfonyCommand('mautic:campaigns:execute', ['--scheduled-log-ids' => $log->getId()]);
+        $commandResult = $this->testSymfonyCommand('mailvotech:campaigns:execute', ['--scheduled-log-ids' => $log->getId()]);
 
         $this->assertStringContainsString('1 total events(s) to be processed', $commandResult->getDisplay());
         $this->assertStringContainsString('1 total event was scheduled', $commandResult->getDisplay());

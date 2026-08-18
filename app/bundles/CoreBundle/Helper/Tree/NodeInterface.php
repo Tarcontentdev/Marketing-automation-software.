@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper\Tree;
+namespace MailVotech\CoreBundle\Helper\Tree;
 
 /**
  * @extends \RecursiveIterator<int,NodeInterface>

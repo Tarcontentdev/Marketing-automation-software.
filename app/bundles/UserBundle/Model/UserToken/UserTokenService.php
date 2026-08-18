@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\UserBundle\Model\UserToken;
+namespace MailVotech\UserBundle\Model\UserToken;
 
-use Mautic\CoreBundle\Helper\RandomHelper\RandomHelperInterface;
-use Mautic\UserBundle\Entity\UserToken;
-use Mautic\UserBundle\Entity\UserTokenRepositoryInterface;
+use MailVotech\CoreBundle\Helper\RandomHelper\RandomHelperInterface;
+use MailVotech\UserBundle\Entity\UserToken;
+use MailVotech\UserBundle\Entity\UserTokenRepositoryInterface;
 
 final readonly class UserTokenService implements UserTokenServiceInterface
 {

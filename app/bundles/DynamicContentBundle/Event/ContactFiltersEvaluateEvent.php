@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Event;
+namespace MailVotech\DynamicContentBundle\Event;
 
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class ContactFiltersEvaluateEvent extends Event

@@ -17,7 +17,7 @@ $container->loadFromExtension('security',
                 'encode_as_base64' => false,
                 'iterations'       => 0,
             ],
-            Mautic\UserBundle\Entity\User::class => [
+            MailVotech\UserBundle\Entity\User::class => [
                 'algorithm'        => 'md5',
                 'encode_as_base64' => false,
                 'iterations'       => 0,

@@ -1,21 +1,21 @@
 <?php
 
-namespace Mautic\FormBundle\EventListener;
+namespace MailVotech\FormBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\FormRepository;
-use Mautic\FormBundle\Entity\SubmissionRepository;
-use Mautic\FormBundle\Model\FormModel;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\LeadBundle\Report\DncReportService;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportDataEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\Event\ReportGraphEvent;
-use Mautic\ReportBundle\Helper\ReportHelper;
-use Mautic\ReportBundle\ReportEvents;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\FormRepository;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
+use MailVotech\FormBundle\Model\FormModel;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\LeadBundle\Report\DncReportService;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportDataEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\Event\ReportGraphEvent;
+use MailVotech\ReportBundle\Helper\ReportHelper;
+use MailVotech\ReportBundle\ReportEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -62,17 +62,17 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
         $prefix  = 'f.';
         $columns = [
             $prefix.'alias' => [
-                'label' => 'mautic.core.alias',
+                'label' => 'mailvotech.core.alias',
                 'type'  => 'string',
             ],
         ];
         $columns = array_merge(
             $columns,
-            $event->getStandardColumns($prefix, [], 'mautic_form_action'),
+            $event->getStandardColumns($prefix, [], 'mailvotech_form_action'),
             $event->getCategoryColumns()
         );
         $data = [
-            'display_name' => 'mautic.form.forms',
+            'display_name' => 'mailvotech.form.forms',
             'columns'      => $columns,
         ];
         $event->addTable(self::CONTEXT_FORMS, $data);
@@ -83,21 +83,21 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             $pagePrefix        = 'p.';
             $submissionColumns = [
                 $submissionPrefix.'date_submitted' => [
-                    'label'          => 'mautic.form.report.submit.date_submitted',
+                    'label'          => 'mailvotech.form.report.submit.date_submitted',
                     'type'           => 'datetime',
                     'groupByFormula' => 'DATE('.$submissionPrefix.'date_submitted)',
                 ],
                 $submissionPrefix.'referer' => [
-                    'label' => 'mautic.core.referer',
+                    'label' => 'mailvotech.core.referer',
                     'type'  => 'string',
                 ],
                 $pagePrefix.'id' => [
-                    'label' => 'mautic.form.report.page_id',
+                    'label' => 'mailvotech.form.report.page_id',
                     'type'  => 'int',
-                    'link'  => 'mautic_page_action',
+                    'link'  => 'mailvotech_page_action',
                 ],
                 $pagePrefix.'title' => [
-                    'label' => 'mautic.form.report.page_name',
+                    'label' => 'mailvotech.form.report.page_name',
                     'type'  => 'string',
                 ],
             ];
@@ -116,7 +116,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             $formSubmissionFilters = array_merge($commonColumnsAndFilters, $this->dncReportService->getDncFilters());
 
             $data = [
-                'display_name' => 'mautic.form.report.submission.table',
+                'display_name' => 'mailvotech.form.report.submission.table',
                 'columns'      => $formSubmissionColumns,
                 'filters'      => $formSubmissionFilters,
             ];
@@ -124,9 +124,9 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
             // Register graphs
             $context = self::CONTEXT_FORM_SUBMISSION;
-            $event->addGraph($context, 'line', 'mautic.form.graph.line.submissions');
-            $event->addGraph($context, 'table', 'mautic.form.table.top.referrers');
-            $event->addGraph($context, 'table', 'mautic.form.table.most.submitted');
+            $event->addGraph($context, 'line', 'mailvotech.form.graph.line.submissions');
+            $event->addGraph($context, 'table', 'mailvotech.form.table.top.referrers');
+            $event->addGraph($context, 'table', 'mailvotech.form.table.most.submitted');
         }
 
         if ($event->checkContext(self::CONTEXT_FORM_RESULT)) {
@@ -186,15 +186,15 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
 
         switch ($context) {
             case self::CONTEXT_FORMS:
-                $qb->from(MAUTIC_TABLE_PREFIX.'forms', 'f');
+                $qb->from(MAILVOTECH_TABLE_PREFIX.'forms', 'f');
                 $event->addCategoryLeftJoin($qb, 'f');
                 break;
             case self::CONTEXT_FORM_SUBMISSION:
                 $event->applyDateFilters($qb, 'date_submitted', 'fs');
 
-                $qb->from(MAUTIC_TABLE_PREFIX.'form_submissions', 'fs')
-                    ->leftJoin('fs', MAUTIC_TABLE_PREFIX.'forms', 'f', 'f.id = fs.form_id')
-                    ->leftJoin('fs', MAUTIC_TABLE_PREFIX.'pages', 'p', 'p.id = fs.page_id');
+                $qb->from(MAILVOTECH_TABLE_PREFIX.'form_submissions', 'fs')
+                    ->leftJoin('fs', MAILVOTECH_TABLE_PREFIX.'forms', 'f', 'f.id = fs.form_id')
+                    ->leftJoin('fs', MAILVOTECH_TABLE_PREFIX.'pages', 'p', 'p.id = fs.page_id');
                 $event->addCategoryLeftJoin($qb, 'f');
                 $event->addLeadLeftJoin($qb, 'fs');
                 $event->addIpAddressLeftJoin($qb, 'fs');
@@ -208,8 +208,8 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             case self::CONTEXT_FORM_RESULT.str_replace(self::CONTEXT_FORM_RESULT, '', $context):
                 $resultsTableName = str_replace(self::CONTEXT_FORM_RESULT.'.', '', $context);
 
-                $qb->from(MAUTIC_TABLE_PREFIX.$resultsTableName, 'fr')
-                    ->leftJoin('fr', MAUTIC_TABLE_PREFIX.'form_submissions', 'fs', 'fs.id = fr.submission_id');
+                $qb->from(MAILVOTECH_TABLE_PREFIX.$resultsTableName, 'fr')
+                    ->leftJoin('fr', MAILVOTECH_TABLE_PREFIX.'form_submissions', 'fs', 'fs.id = fr.submission_id');
                 $event->addLeadLeftJoin($qb, 'fs');
                 if ($this->companyReportData->eventHasCompanyColumns($event)) {
                     $event->addCompanyLeftJoin($qb);
@@ -241,7 +241,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             $chartQuery->applyDateFilters($queryBuilder, 'date_submitted', 'fs');
 
             switch ($g) {
-                case 'mautic.form.graph.line.submissions':
+                case 'mailvotech.form.graph.line.submissions':
                     $chart = new LineChart(null, $options['dateFrom'], $options['dateTo']);
                     $chartQuery->modifyTimeDataQuery($queryBuilder, 'date_submitted', 'fs');
                     $hits = $chartQuery->loadAndBuildTimeData($queryBuilder);
@@ -252,7 +252,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $event->setGraph($g, $data);
                     break;
 
-                case 'mautic.form.table.top.referrers':
+                case 'mailvotech.form.table.top.referrers':
                     $limit                  = 10;
                     $offset                 = 0;
                     $items                  = $this->submissionRepository->getTopReferrers($queryBuilder, $limit, $offset);
@@ -260,11 +260,11 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-login-box-line';
-                    $graphData['link']      = 'mautic_form_action';
+                    $graphData['link']      = 'mailvotech_form_action';
                     $event->setGraph($g, $graphData);
                     break;
 
-                case 'mautic.form.table.most.submitted':
+                case 'mailvotech.form.table.most.submitted':
                     $limit                  = 10;
                     $offset                 = 0;
                     $items                  = $this->submissionRepository->getMostSubmitted($queryBuilder, $limit, $offset);
@@ -272,7 +272,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
                     $graphData['data']      = $items;
                     $graphData['name']      = $g;
                     $graphData['iconClass'] = 'ri-check-line';
-                    $graphData['link']      = 'mautic_form_action';
+                    $graphData['link']      = 'mailvotech_form_action';
                     $event->setGraph($g, $graphData);
                     break;
             }
@@ -306,13 +306,13 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
             if (!in_array($field->getType(), $viewOnlyFields)) {
                 $index                      = $prefix.$field->getAlias();
                 $formResultsColumns[$index] = [
-                    'label' => $this->translator->trans('mautic.form.report.form_results.label', ['%field%' => $field->getLabel()]),
+                    'label' => $this->translator->trans('mailvotech.form.report.form_results.label', ['%field%' => $field->getLabel()]),
                     'type'  => 'number' === $field->getType() ? 'int' : 'string',
                     'alias' => $field->getAlias(),
                 ];
 
                 if ('file' === $field->getType()) {
-                    $formResultsColumns[$index]['link']           = 'mautic_form_file_download_by_name';
+                    $formResultsColumns[$index]['link']           = 'mailvotech_form_file_download_by_name';
                     $formResultsColumns[$index]['linkParameters'] = [
                         'fieldId'  => $field->getId(),
                         'fileName' => '%alias%',
@@ -322,14 +322,14 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
         }
 
         $formResultsColumns[$prefix.'submission_id'] = [
-            'label' => $this->translator->trans('mautic.form.report.form_results.label', ['%field%' => $this->translator->trans('mautic.form.report.submission.id')]),
+            'label' => $this->translator->trans('mailvotech.form.report.form_results.label', ['%field%' => $this->translator->trans('mailvotech.form.report.submission.id')]),
             'type'  => 'int',
             'alias' => 'submissionId',
         ];
         $formResultsColumns[$prefix.'form_id']       = [
-            'label' => $this->translator->trans('mautic.form.report.form_results.label', ['%field%' => $this->translator->trans('mautic.form.report.form_id')]),
+            'label' => $this->translator->trans('mailvotech.form.report.form_results.label', ['%field%' => $this->translator->trans('mailvotech.form.report.form_id')]),
             'type'  => 'int',
-            'link'  => 'mautic_form_action',
+            'link'  => 'mailvotech_form_action',
             'alias' => 'formResultId',
         ];
 

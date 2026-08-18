@@ -1,4 +1,4 @@
-{% extends "@MauticCore/Theme/index.html.twig" %}
+{% extends "@MailVotechCore/Theme/index.html.twig" %}
 
 {% block mainContent %}
 
@@ -7,21 +7,21 @@
             <table class="table table-hover theme-list" id="themeTable">
                 <thead>
                     <tr>
-                        {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                        {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                             'checkall': 'true',
                             'target'  : '#themeTable',
                         })}}
 
-                        {{ include('@MauticCore/Helper/tableheader.html.twig', {
-                            'text': 'mautic.core.title',
+                        {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
+                            'text': 'mailvotech.core.title',
                         })}}
 
-                        {{ include('@MauticCore/Helper/tableheader.html.twig', {
-                            'text': 'mautic.core.author',
+                        {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
+                            'text': 'mailvotech.core.author',
                         })}}
 
-                        {{ include('@MauticCore/Helper/tableheader.html.twig', {
-                            'text': 'mautic.core.features',
+                        {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
+                            'text': 'mailvotech.core.features',
                         })}}
 
                     </tr>
@@ -35,15 +35,15 @@
                         {% set customButtons = [] %}
 
                         {% if item.visibility is defined %}
-                            {% set btnText         = 'mautic.core.theme.hide' %}
+                            {% set btnText         = 'mailvotech.core.theme.hide' %}
                             {% set iconClass       = 'ri-eye-off-line' %}
-                            {% set message         = 'mautic.core.theme.form.confirm.hide' %}
+                            {% set message         = 'mailvotech.core.theme.form.confirm.hide' %}
                             {% set confirmBtnClass = '' %}
 
                             {% if item.visibility.hidden|default(false) %}
-                                {% set btnText         = 'mautic.core.theme.unhide' %}
+                                {% set btnText         = 'mailvotech.core.theme.unhide' %}
                                 {% set iconClass       = 'ri-eye-line' %}
-                                {% set message         = 'mautic.core.theme.form.confirm.unhide' %}
+                                {% set message         = 'mailvotech.core.theme.form.confirm.unhide' %}
                                 {% set confirmBtnClass = 'btn btn-success' %}
                                 {% set visibilityCss   = 'disabled-row' %}
                             {% endif %}
@@ -51,11 +51,11 @@
                             {% set visibilityButton = {
                                 'attr': {
                                     'data-toggle': 'confirmation',
-                                    'href': path('mautic_themes_action', {'objectAction': 'visibility', 'objectId': k}),
+                                    'href': path('mailvotech_themes_action', {'objectAction': 'visibility', 'objectId': k}),
                                     'data-message': message|trans({'%theme%': item.name ~ ' (' ~ k ~ ')'}),
                                     'data-confirm-text': btnText|trans,
                                     'data-confirm-callback': 'executeAction',
-                                    'data-cancel-text': 'mautic.core.form.cancel'|trans,
+                                    'data-cancel-text': 'mailvotech.core.form.cancel'|trans,
                                     'data-confirm-btn-class': confirmBtnClass,
                                 },
                                 'btnText': btnText|trans,
@@ -72,7 +72,7 @@
                                         'data-toggle': 'modal',
                                         'data-target': '#theme-' ~ k,
                                     },
-                                    'btnText': 'mautic.asset.asset.preview'|trans,
+                                    'btnText': 'mailvotech.asset.asset.preview'|trans,
                                     'iconClass': 'ri-image-line',
                                     } %}
                                 {% set customButtons = hasThumbnail 
@@ -85,13 +85,13 @@
                                 {% set templateButtons = (k not in defaultThemes) ? deleteButton : {} %}
                                 {% set downloadButton = {
                                     'attr': {
-                                        'href': path('mautic_themes_action', {
+                                        'href': path('mailvotech_themes_action', {
                                             objectAction: 'download',
                                             objectId: k
                                         }),
                                         'data-toggle': '0',
                                     },
-                                    'btnText': 'mautic.core.download'|trans,
+                                    'btnText': 'mailvotech.core.download'|trans,
                                     'iconClass': 'ri-download-line',
                                 } %}
                                 {% set customButtons = customButtons|merge([downloadButton]) %}
@@ -99,7 +99,7 @@
                                     {% set customButtons = customButtons|merge([visibilityButton]) %}
                                 {% endif %}
 
-                                {{ include ('@MauticCore/Helper/list_actions.html.twig',
+                                {{ include ('@MailVotechCore/Helper/list_actions.html.twig',
                                     {
                                         'item': item,
                                         'templateButtons': templateButtons,
@@ -154,7 +154,7 @@
                                     {% for feature in item['config']['features'] %}
 
                                             <span class="label label-gray">
-                                                {{ ('mautic.core.theme.feature.' ~ feature|e)|trans }}
+                                                {{ ('mailvotech.core.theme.feature.' ~ feature|e)|trans }}
                                             </span>
 
                                     {% endfor %}
@@ -167,8 +167,8 @@
             </table>
         </div>
     {% else %}
-    {{ include('@MauticCore/Helper/noresults.html.twig', {
-                'tip': 'mautic.theme.noresults.tip'
+    {{ include('@MailVotechCore/Helper/noresults.html.twig', {
+                'tip': 'mailvotech.theme.noresults.tip'
             })
         }}
     {% endif %}

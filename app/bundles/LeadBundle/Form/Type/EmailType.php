@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\EmailBundle\Form\Type\EmailListType;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\EmailBundle\Form\Type\EmailListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -36,11 +36,11 @@ final class EmailType extends AbstractType
             'subject',
             TextType::class,
             [
-                'label'       => 'mautic.email.subject',
+                'label'       => 'mailvotech.email.subject',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => ['class' => 'form-control'],
                 'constraints' => [
-                    new NotBlank(message: 'mautic.core.subject.required'),
+                    new NotBlank(message: 'mailvotech.core.subject.required'),
                 ],
             ]
         );
@@ -52,7 +52,7 @@ final class EmailType extends AbstractType
             'fromname',
             TextType::class,
             [
-                'label'      => 'mautic.lead.email.from_name',
+                'label'      => 'mailvotech.lead.email.from_name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
@@ -68,7 +68,7 @@ final class EmailType extends AbstractType
             'from',
             TextType::class,
             [
-                'label'       => 'mautic.lead.email.from_email',
+                'label'       => 'mailvotech.lead.email.from_email',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => [
                     'class'    => 'form-control',
@@ -77,8 +77,8 @@ final class EmailType extends AbstractType
                 'required'    => false,
                 'data'        => $default,
                 'constraints' => [
-                    new NotBlank(message: 'mautic.core.email.required'),
-                    new Email(message: 'mautic.core.email.required'),
+                    new NotBlank(message: 'mailvotech.core.email.required'),
+                    new Email(message: 'mailvotech.core.email.required'),
                 ],
             ]
         );
@@ -87,12 +87,12 @@ final class EmailType extends AbstractType
             self::REPLY_TO_ADDRESS,
             TextType::class,
             [
-                'label'      => 'mautic.email.reply_to_email',
+                'label'      => 'mailvotech.email.reply_to_email',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
                     'preaddon' => 'ri-mail-line',
-                    'tooltip'  => 'mautic.email.reply_to_email.tooltip',
+                    'tooltip'  => 'mailvotech.email.reply_to_email.tooltip',
                 ],
                 'required' => false,
             ]
@@ -102,7 +102,7 @@ final class EmailType extends AbstractType
             'body',
             TextareaType::class,
             [
-                'label'      => 'mautic.email.form.body',
+                'label'      => 'mailvotech.email.form.body',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'                => 'form-control editor editor-basic-fullpage editor-builder-tokens editor-email',
@@ -113,7 +113,7 @@ final class EmailType extends AbstractType
                 'constraints' => [
                     new Callback(callback: function ($value, ExecutionContextInterface $context): void {
                         if ('' === trim(strip_tags($value))) {
-                            $context->buildViolation('mautic.lead.email.body.required')->addViolation();
+                            $context->buildViolation('mailvotech.lead.email.body.required')->addViolation();
                         }
                     }),
                 ],
@@ -126,12 +126,12 @@ final class EmailType extends AbstractType
             'templates',
             EmailListType::class,
             [
-                'label'      => 'mautic.lead.email.template',
+                'label'      => 'mailvotech.lead.email.template',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
                 'attr'       => [
                     'class'    => 'form-control',
-                    'onchange' => 'Mautic.getLeadEmailContent(this)',
+                    'onchange' => 'MailVotech.getLeadEmailContent(this)',
                 ],
                 'multiple' => false,
             ]
@@ -139,7 +139,7 @@ final class EmailType extends AbstractType
 
         $builder->add('buttons', FormButtonsType::class, [
             'apply_text'  => false,
-            'save_text'   => 'mautic.email.send',
+            'save_text'   => 'mailvotech.email.send',
             'save_class'  => 'btn btn-primary',
             'save_icon'   => 'ri-send-plane-line',
             'cancel_icon' => 'ri-close-line',

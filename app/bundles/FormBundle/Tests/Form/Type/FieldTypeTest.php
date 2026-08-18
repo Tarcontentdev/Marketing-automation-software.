@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Form\Type;
+namespace MailVotech\FormBundle\Tests\Form\Type;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\FormBundle\Collection\FieldCollection;
-use Mautic\FormBundle\Collection\ObjectCollection;
-use Mautic\FormBundle\Collector\AlreadyMappedFieldCollectorInterface;
-use Mautic\FormBundle\Collector\FieldCollectorInterface;
-use Mautic\FormBundle\Collector\ObjectCollectorInterface;
-use Mautic\FormBundle\Crate\FieldCrate;
-use Mautic\FormBundle\Crate\ObjectCrate;
-use Mautic\FormBundle\Form\Type\FieldType;
-use Mautic\FormBundle\Form\Type\FormFieldRatingType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\FormBundle\Collection\FieldCollection;
+use MailVotech\FormBundle\Collection\ObjectCollection;
+use MailVotech\FormBundle\Collector\AlreadyMappedFieldCollectorInterface;
+use MailVotech\FormBundle\Collector\FieldCollectorInterface;
+use MailVotech\FormBundle\Collector\ObjectCollectorInterface;
+use MailVotech\FormBundle\Crate\FieldCrate;
+use MailVotech\FormBundle\Crate\ObjectCrate;
+use MailVotech\FormBundle\Form\Type\FieldType;
+use MailVotech\FormBundle\Form\Type\FormFieldRatingType;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\PreloadedExtension;
@@ -100,12 +100,12 @@ final class FieldTypeTest extends TypeTestCase
         $view = $form->createView();
 
         $expectedChoices = [
-            '100%'   => 'mautic.form.field.form.field_width.one_hundred',
-            '75%'    => 'mautic.form.field.form.field_width.seventy_five',
-            '66.66%' => 'mautic.form.field.form.field_width.sixty_six',
-            '50%'    => 'mautic.form.field.form.field_width.fifty',
-            '33.33%' => 'mautic.form.field.form.field_width.thirty_three',
-            '25%'    => 'mautic.form.field.form.field_width.twenty_five',
+            '100%'   => 'mailvotech.form.field.form.field_width.one_hundred',
+            '75%'    => 'mailvotech.form.field.form.field_width.seventy_five',
+            '66.66%' => 'mailvotech.form.field.form.field_width.sixty_six',
+            '50%'    => 'mailvotech.form.field.form.field_width.fifty',
+            '33.33%' => 'mailvotech.form.field.form.field_width.thirty_three',
+            '25%'    => 'mailvotech.form.field.form.field_width.twenty_five',
         ];
 
         $this->assertArrayHasKey('fieldWidth', $view);

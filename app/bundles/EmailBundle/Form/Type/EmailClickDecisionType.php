@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\SortableListType;
+use MailVotech\CoreBundle\Form\Type\SortableListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -19,7 +19,7 @@ final class EmailClickDecisionType extends AbstractType
             'urls',
             SortableListType::class,
             [
-                'label'           => 'mautic.email.click.urls.contains',
+                'label'           => 'mailvotech.email.click.urls.contains',
                 'option_required' => false,
                 'with_labels'     => false,
                 'required'        => false,

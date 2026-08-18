@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CacheBundle\Cache\Adapter;
+namespace MailVotech\CacheBundle\Cache\Adapter;
 
-use Mautic\CacheBundle\Exceptions\InvalidArgumentException;
-use Mautic\CoreBundle\Helper\PRedisConnectionHelper;
+use MailVotech\CacheBundle\Exceptions\InvalidArgumentException;
+use MailVotech\CoreBundle\Helper\PRedisConnectionHelper;
 use Predis\Client;
 
 trait RedisAdapterTrait

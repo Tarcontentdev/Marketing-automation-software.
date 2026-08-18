@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Form\Type;
+namespace MailVotech\EmailBundle\Tests\Form\Type;
 
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ThemeHelperInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Form\Type\EmailType;
-use Mautic\EmailBundle\Helper\EmailConfigInterface;
-use Mautic\EmailBundle\Helper\EmailDefaultsHelper;
-use Mautic\StageBundle\Entity\StageRepository;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelperInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Form\Type\EmailType;
+use MailVotech\EmailBundle\Helper\EmailConfigInterface;
+use MailVotech\EmailBundle\Helper\EmailDefaultsHelper;
+use MailVotech\StageBundle\Entity\StageRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;

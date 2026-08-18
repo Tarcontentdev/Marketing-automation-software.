@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\EventListener;
+namespace MailVotech\AssetBundle\Tests\EventListener;
 
-use Mautic\AssetBundle\Entity\DownloadRepository;
-use Mautic\AssetBundle\EventListener\ReportSubscriber;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\LeadBundle\Report\DncReportService;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\Helper\ReportHelper;
+use MailVotech\AssetBundle\Entity\DownloadRepository;
+use MailVotech\AssetBundle\EventListener\ReportSubscriber;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\LeadBundle\Report\DncReportService;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\Helper\ReportHelper;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -94,26 +94,26 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame([
             'alias' => 'download_count',
-            'label' => '[trans]mautic.asset.report.download_count[/trans]',
+            'label' => '[trans]mailvotech.asset.report.download_count[/trans]',
             'type'  => 'int',
         ], $event->getTables()['assets']['columns']['a.download_count']);
 
         $this->assertSame([
             'alias' => 'unique_download_count',
-            'label' => '[trans]mautic.asset.report.unique_download_count[/trans]',
+            'label' => '[trans]mailvotech.asset.report.unique_download_count[/trans]',
             'type'  => 'int',
         ], $event->getTables()['assets']['columns']['a.unique_download_count']);
 
         $this->assertSame([
             'alias'   => 'download_count',
-            'label'   => '[trans]mautic.asset.report.download_count[/trans]',
+            'label'   => '[trans]mailvotech.asset.report.download_count[/trans]',
             'type'    => 'int',
             'formula' => 'COUNT(ad.id)',
         ], $event->getTables()['asset.downloads']['columns']['a.download_count']);
 
         $this->assertSame([
             'alias'   => 'unique_download_count',
-            'label'   => '[trans]mautic.asset.report.unique_download_count[/trans]',
+            'label'   => '[trans]mailvotech.asset.report.unique_download_count[/trans]',
             'type'    => 'int',
             'formula' => 'COUNT(DISTINCT ad.lead_id)',
         ], $event->getTables()['asset.downloads']['columns']['a.unique_download_count']);

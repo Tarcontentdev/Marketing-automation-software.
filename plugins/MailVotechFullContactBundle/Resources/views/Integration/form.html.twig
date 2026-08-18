@@ -1,0 +1,8 @@
+{{ includeScript('plugins/MailVotechFullContactBundle/Assets/js/fullcontact.js') }}
+<div class="well well-sm" style="margin-bottom:0 !important;">
+    <p>{{ 'mailvotech.plugin.fullcontact.webhook'|trans }}</p>
+    <div class="alert alert-warning">
+        {{ 'mailvotech.plugin.fullcontact.public_info'|trans|purify }}
+    </div>
+    <input type="text" readonly="readonly" value="{{ mailvotechUrl }}" class="form-control" title="url"/>
+</div>

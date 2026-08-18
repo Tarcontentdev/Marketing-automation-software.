@@ -1,62 +1,62 @@
 // DashboardBundle
 // Use absolute path to keep dashboard working when app is in subdir
-Mautic.widgetUrl = mauticBasePath + '/s/dashboard/widget/';
+MailVotech.widgetUrl = mailvotechBasePath + '/s/dashboard/widget/';
 
 /**
  * @type jQuery DOM element to be replaced with spinner
  */
-Mautic.dashboardSubmitButton = false; // Button text, to be get and shown instead of spinner
+MailVotech.dashboardSubmitButton = false; // Button text, to be get and shown instead of spinner
 
 /**
  * Init dashboard events
  * @param container
  */
-Mautic.dashboardOnLoad = function (container) {
-    Mautic.loadWidgets();
+MailVotech.dashboardOnLoad = function (container) {
+    MailVotech.loadWidgets();
 };
 
 /**
  * Load all widgets on initial page render
  */
-Mautic.loadWidgets = function () {
-    Mautic.dashboardFilterPreventSubmit();
+MailVotech.loadWidgets = function () {
+    MailVotech.dashboardFilterPreventSubmit();
 
     jQuery('.widget').each(function() {
         let widgetId = jQuery(this).attr('data-widget-id');
         let container = jQuery('.widget[data-widget-id="'+widgetId+'"]');
         jQuery.ajax({
-            url: Mautic.widgetUrl+widgetId+'?ignoreAjax=true',
+            url: MailVotech.widgetUrl+widgetId+'?ignoreAjax=true',
         }).done(function(response) {
-            Mautic.widgetOnLoad(container, response);
+            MailVotech.widgetOnLoad(container, response);
         });
     });
 
     jQuery(document).ajaxComplete(function(){
-        Mautic.initDashboardFilter();
+        MailVotech.initDashboardFilter();
     });
 };
 
 /**
  * Init dashboard filter events after widget load
  */
-Mautic.initDashboardFilter = function () {
+MailVotech.initDashboardFilter = function () {
     let form = jQuery('form[name="daterange"]');
     form.find('button')
-        .replaceWith(Mautic.dashboardSubmitButton);
+        .replaceWith(MailVotech.dashboardSubmitButton);
     form
         .unbind('submit')
         .on('submit', function(e){
             e.preventDefault();
-            Mautic.dashboardFilterPreventSubmit();
+            MailVotech.dashboardFilterPreventSubmit();
             jQuery('.widget').each(function() {
                 let widgetId = jQuery(this).attr('data-widget-id');
                 let element = jQuery('.widget[data-widget-id="' + widgetId + '"]');
                 jQuery.ajax({
                     type: 'POST',
-                    url: Mautic.widgetUrl + widgetId + '?ignoreAjax=true',
+                    url: MailVotech.widgetUrl + widgetId + '?ignoreAjax=true',
                     data: form.serializeArray(),
                     success: function (response) {
-                        Mautic.widgetOnLoad(element, response);
+                        MailVotech.widgetOnLoad(element, response);
                     }
                 });
             });
@@ -66,10 +66,10 @@ Mautic.initDashboardFilter = function () {
 /**
  * Prevent filter from submit, show spinner instead of send button
  */
-Mautic.dashboardFilterPreventSubmit = function() {
+MailVotech.dashboardFilterPreventSubmit = function() {
     let form = jQuery('form[name="daterange"]');
     let button = form.find('button:first');
-    Mautic.dashboardSubmitButton = button.clone();
+    MailVotech.dashboardSubmitButton = button.clone();
     button.width(button.width()+'px'); // Keep button width
     button.html('<i class="ri-loader-3-line ri-spin"></i>');
     jQuery('.widget').find('.card-body').html('<div class="spinner"><i class="ri-loader-3-line ri-spin"></i></div>');
@@ -80,7 +80,7 @@ Mautic.dashboardFilterPreventSubmit = function() {
         });
 };
 
-Mautic.dashboardOnUnload = function(id) {
+MailVotech.dashboardOnUnload = function(id) {
     // Trash initialized dashboard vars on app content change.
     mQuery('.jvectormap-tip').remove();
 };
@@ -91,7 +91,7 @@ Mautic.dashboardOnUnload = function(id) {
  * @param container
  * @param response
  */
-Mautic.widgetOnLoad = function(container, response) {
+MailVotech.widgetOnLoad = function(container, response) {
     if (!response.widgetId) return;
     // target in DOM
     var widget = mQuery('.widget[data-widget-id="' + response.widgetId + '"]');
@@ -101,7 +101,7 @@ Mautic.widgetOnLoad = function(container, response) {
     // initialize edit button modal again
     widgetHtml.find("*[data-toggle='ajaxmodal']").on('click.ajaxmodal', function (event) {
         event.preventDefault();
-        Mautic.ajaxifyModal(this, event);
+        MailVotech.ajaxifyModal(this, event);
     });
 
     // Create the new widget wrapper and add it to the 0 position if doesn't exist (probably a new one)
@@ -115,19 +115,19 @@ Mautic.widgetOnLoad = function(container, response) {
     widget.html(widgetHtml)
         .css('width', response.widgetWidth + '%')
         .css('height', response.widgetHeight + '%');
-    Mautic.renderCharts(widgetHtml);
+    MailVotech.renderCharts(widgetHtml);
 
     const map = widgetHtml.find('.vector-map').first();
     if (map.length && !map.hasClass('map-rendered')) {
-        Mautic.initMap(widgetHtml, 'regions');
+        MailVotech.initMap(widgetHtml, 'regions');
     }
 
-    Mautic.initWidgetRemoveEvents();
-    Mautic.initWidgetSorting();
-    Mautic.initDashboardFilter();
+    MailVotech.initWidgetRemoveEvents();
+    MailVotech.initWidgetSorting();
+    MailVotech.initDashboardFilter();
 };
 
-Mautic.initWidgetRemoveEvents = function () {
+MailVotech.initWidgetRemoveEvents = function () {
     jQuery('.remove-widget')
         .unbind('click')
         .on('click', function(e) {
@@ -141,7 +141,7 @@ Mautic.initWidgetRemoveEvents = function () {
         });
 };
 
-Mautic.initWidgetSorting = function () {
+MailVotech.initWidgetSorting = function () {
     var widgetsWrapper = mQuery('#dashboard-widgets');
     var bodyOverflow = {};
 
@@ -233,7 +233,7 @@ Mautic.initWidgetSorting = function () {
             mQuery("#dashboard-widgets .widget").css("visibility", "visible");
             mQuery("#cloned-widgets .widget").remove();
 
-            Mautic.saveWidgetSorting();
+            MailVotech.saveWidgetSorting();
         },
         change: function(e, ui) {
             mQuery("#dashboard-widgets .widget:not(.exclude-me)").each(function() {
@@ -250,7 +250,7 @@ Mautic.initWidgetSorting = function () {
     }).disableSelection();
 }
 
-Mautic.saveWidgetSorting = function () {
+MailVotech.saveWidgetSorting = function () {
     var widgetsWrapper = mQuery('#dashboard-widgets');
     var widgets = widgetsWrapper.children();
     var ordering = [];
@@ -258,27 +258,27 @@ Mautic.saveWidgetSorting = function () {
         ordering.push(mQuery(this).attr('data-widget-id'));
     });
 
-    Mautic.ajaxActionRequest('dashboard:updateWidgetOrdering', {'ordering': ordering}, function(response) {
+    MailVotech.ajaxActionRequest('dashboard:updateWidgetOrdering', {'ordering': ordering}, function(response) {
         // @todo handle errors
     });
 }
 
-Mautic.updateWidgetForm = function (element) {
-    Mautic.activateLabelLoadingIndicator('widget_type');
+MailVotech.updateWidgetForm = function (element) {
+    MailVotech.activateLabelLoadingIndicator('widget_type');
     var formWrapper = mQuery(element).closest('form');
     var WidgetFormValues = formWrapper.serializeArray();
-    Mautic.ajaxActionRequest('dashboard:updateWidgetForm', WidgetFormValues, function(response) {
+    MailVotech.ajaxActionRequest('dashboard:updateWidgetForm', WidgetFormValues, function(response) {
         if (response.formHtml) {
             var formHtml = mQuery(response.formHtml);
             formHtml.find('#widget_buttons').addClass('hide hidden');
             formWrapper.html(formHtml.children());
-            Mautic.onPageLoad('#widget_params');
+            MailVotech.onPageLoad('#widget_params');
         }
-        Mautic.removeLabelLoadingIndicator();
+        MailVotech.removeLabelLoadingIndicator();
     });
 };
 
-Mautic.exportDashboardLayout = function(text, baseUrl) {
+MailVotech.exportDashboardLayout = function(text, baseUrl) {
     var name = prompt(text, "");
 
     if (name !== null) {
@@ -290,13 +290,13 @@ Mautic.exportDashboardLayout = function(text, baseUrl) {
     }
 };
 
-Mautic.saveDashboardLayout = function(text) {
+MailVotech.saveDashboardLayout = function(text) {
     var name = prompt(text, "");
 
     if (name) {
         mQuery.ajax({
             type: 'POST',
-            url: mauticBaseUrl+'s/dashboard/save',
+            url: mailvotechBaseUrl+'s/dashboard/save',
             data: {name: name}
         });
     }

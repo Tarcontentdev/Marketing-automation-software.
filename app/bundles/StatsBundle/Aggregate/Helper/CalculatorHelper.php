@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\StatsBundle\Aggregate\Helper;
+namespace MailVotech\StatsBundle\Aggregate\Helper;
 
-use Mautic\StatsBundle\Aggregate\Collection\DAO\StatDAO;
+use MailVotech\StatsBundle\Aggregate\Collection\DAO\StatDAO;
 
 final class CalculatorHelper
 {

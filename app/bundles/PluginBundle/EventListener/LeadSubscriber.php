@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\PluginBundle\EventListener;
+namespace MailVotech\PluginBundle\EventListener;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Event\CompanyEvent;
-use Mautic\LeadBundle\Event\LeadEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Entity\IntegrationRepository;
-use Mautic\PluginBundle\Model\PluginModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Event\CompanyEvent;
+use MailVotech\LeadBundle\Event\LeadEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Entity\IntegrationRepository;
+use MailVotech\PluginBundle\Model\PluginModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class LeadSubscriber implements EventSubscriberInterface
@@ -41,7 +41,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
 
     public function onCompanyDelete(CompanyEvent $event): bool
     {
-        /** @var \Mautic\LeadBundle\Entity\Company $company */
+        /** @var \MailVotech\LeadBundle\Entity\Company $company */
         $company               = $event->getCompany();
         $integrationEntityRepo = $this->pluginModel->getIntegrationEntityRepository();
         $integrationEntityRepo->findLeadsToDelete('company%', $company->getId());

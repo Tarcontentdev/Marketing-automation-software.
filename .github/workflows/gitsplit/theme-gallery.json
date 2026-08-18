@@ -3,7 +3,7 @@
         {
             "name": "theme-gallery",
             "directory": "themes/_gallery",
-            "target": "git@github.com:mautic/theme-gallery.git"
+            "target": "git@github.com:mailvotech/theme-gallery.git"
         }
     ]
 }

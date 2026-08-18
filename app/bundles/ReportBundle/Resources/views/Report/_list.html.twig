@@ -3,51 +3,51 @@
         <table class="table table-hover report-list" id="reportTable">
             <thead>
             <tr>
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'checkall': 'true',
                     'target': '#reportTable',
                 }) }}
 
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'report',
                         'orderBy': 'r.name',
-                        'text': 'mautic.core.name',
+                        'text': 'mailvotech.core.name',
                         'class': 'col-report-name'
                 }) }}
 
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar': 'report',
-                    'text': 'mautic.report.report.form.source',
+                    'text': 'mailvotech.report.report.form.source',
                     'class': 'visible-lg col-email-source'
                 }) }}
 
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar': 'report',
                     'orderBy': 'r.dateAdded',
-                    'text': 'mautic.lead.import.label.dateAdded',
+                    'text': 'mailvotech.lead.import.label.dateAdded',
                     'class': 'visible-lg col-report-dateAdded'
                 }) }}
 
-                {{- include('@MauticCore/Helper/tableheader.html.twig', {
+                {{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar' : 'report',
                     'orderBy'    : 'r.dateModified',
                     'dir'        : 'DESC',
-                    'text'       : 'mautic.lead.import.label.dateModified',
+                    'text'       : 'mailvotech.lead.import.label.dateModified',
                     'class'      : 'visible-lg col-report-dateModified',
                     'default'    : true,
                 }) -}}
 
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar': 'report',
                     'orderBy': 'r.createdByUser',
-                    'text': 'mautic.core.createdby',
+                    'text': 'mailvotech.core.createdby',
                     'class': 'visible-lg col-report-createdByUser'
                 }) }}
 
-                {{ include('@MauticCore/Helper/tableheader.html.twig', {
+                {{ include('@MailVotechCore/Helper/tableheader.html.twig', {
                         'sessionVar': 'report',
                         'orderBy': 'r.id',
-                        'text': 'mautic.core.id',
+                        'text': 'mailvotech.core.id',
                         'class': 'col-report-id visible-md visible-lg',
                 }) }}
             </tr>
@@ -62,14 +62,14 @@
                                   'attr': {
                                       'data-toggle': 'ajaxmodal',
                                       'data-target': '#AssetPreviewModal',
-                                      'href': path('mautic_report_schedule', {'reportId': item.id}),
+                                      'href': path('mailvotech_report_schedule', {'reportId': item.id}),
                                   },
-                                  'btnText': 'mautic.report.export.and.send'|trans,
+                                  'btnText': 'mailvotech.report.export.and.send'|trans,
                                   'iconClass': 'ri-send-plane-line',
                               },
                           ] %}
                         {% endif %}
-                        {{ include('@MauticCore/Helper/list_actions.html.twig', {
+                        {{ include('@MailVotechCore/Helper/list_actions.html.twig', {
                                 'item': item,
                                 'templateButtons': {
                                     'edit': securityHasEntityAccess(permissions['report:reports:editown'], permissions['report:reports:editother'], item.createdBy),
@@ -83,14 +83,14 @@
                     </td>
                     <td>
                         <div>
-                            {{ include('@MauticCore/Helper/publishstatus_icon.html.twig', {'item': item, 'model': 'report.report'}) }}
-                            <a href="{{ path('mautic_report_view', {'objectId': item.id}) }}" data-toggle="ajax">
+                            {{ include('@MailVotechCore/Helper/publishstatus_icon.html.twig', {'item': item, 'model': 'report.report'}) }}
+                            <a href="{{ path('mailvotech_report_view', {'objectId': item.id}) }}" data-toggle="ajax">
                                 {{ item.name|e }}
                             </a>
                             {% if item.isScheduled %}
                                 <label class="control-label" data-toggle="tooltip"
                                        data-container="body" data-placement="top" title=""
-                                       data-original-title="{{ 'mautic.report.is.scheduled'|trans }}">
+                                       data-original-title="{{ 'mailvotech.report.is.scheduled'|trans }}">
                                     <i class="ri-fw ri-send-plane-line"></i></label>
                             {% endif %}
                         </div>
@@ -117,16 +117,16 @@
             </tbody>
         </table>
         <div class="panel-footer">
-            {{ include('@MauticCore/Helper/pagination.html.twig', {
+            {{ include('@MailVotechCore/Helper/pagination.html.twig', {
                     'totalItems': totalItems,
                     'page': page,
                     'limit': limit,
-                    'menuLinkId': 'mautic_report_index',
-                    'baseUrl': path('mautic_report_index'),
+                    'menuLinkId': 'mailvotech_report_index',
+                    'baseUrl': path('mailvotech_report_index'),
                     'sessionVar': 'report',
             }) }}
         </div>
     </div>
 {% else %}
-    {{ include('@MauticCore/Helper/noresults.html.twig') }}
+    {{ include('@MailVotechCore/Helper/noresults.html.twig') }}
 {% endif %}

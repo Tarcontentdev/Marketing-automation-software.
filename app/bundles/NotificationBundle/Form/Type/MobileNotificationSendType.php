@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Form\Type;
+namespace MailVotech\NotificationBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -27,24 +27,24 @@ final class MobileNotificationSendType extends AbstractType
             'notification',
             MobileNotificationListType::class,
             [
-                'label'      => 'mautic.notification.send.selectnotifications',
+                'label'      => 'mailvotech.notification.send.selectnotifications',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.notification.choose.notifications',
-                    'onchange' => 'Mautic.disabledNotificationAction()',
+                    'tooltip'  => 'mailvotech.notification.choose.notifications',
+                    'onchange' => 'MailVotech.disabledNotificationAction()',
                 ],
                 'multiple'    => false,
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.notification.choosenotification.notblank'
+                        message: 'mailvotech.notification.choosenotification.notblank'
                     ),
                 ],
             ]
         );
 
         if (!empty($options['update_select'])) {
-            $windowUrl = $this->router->generate('mautic_mobile_notification_action', [
+            $windowUrl = $this->router->generate('mailvotech_mobile_notification_action', [
                 'objectAction' => 'new',
                 'contentOnly'  => 1,
                 'updateSelect' => $options['update_select'],
@@ -56,12 +56,12 @@ final class MobileNotificationSendType extends AbstractType
                 [
                     'attr' => [
                         'class'   => 'btn btn-primary btn-nospin',
-                        'onclick' => 'Mautic.loadNewWindow({
+                        'onclick' => 'MailVotech.loadNewWindow({
                             "windowUrl": "'.$windowUrl.'"
                         })',
                         'icon' => 'ri-add-line',
                     ],
-                    'label' => 'mautic.notification.send.new.notification',
+                    'label' => 'mailvotech.notification.send.new.notification',
                 ]
             );
 
@@ -72,7 +72,7 @@ final class MobileNotificationSendType extends AbstractType
             }
 
             // create button edit notification
-            $windowUrlEdit = $this->router->generate('mautic_mobile_notification_action', [
+            $windowUrlEdit = $this->router->generate('mailvotech_mobile_notification_action', [
                 'objectAction' => 'edit',
                 'objectId'     => 'notificationId',
                 'contentOnly'  => 1,
@@ -85,11 +85,11 @@ final class MobileNotificationSendType extends AbstractType
                 [
                     'attr' => [
                         'class'    => 'btn btn-primary btn-nospin',
-                        'onclick'  => 'Mautic.loadNewWindow(Mautic.standardNotificationUrl({"windowUrl": "'.$windowUrlEdit.'"}))',
+                        'onclick'  => 'MailVotech.loadNewWindow(MailVotech.standardNotificationUrl({"windowUrl": "'.$windowUrlEdit.'"}))',
                         'disabled' => !isset($notification),
                         'icon'     => 'ri-edit-line',
                     ],
-                    'label' => 'mautic.notification.send.edit.notification',
+                    'label' => 'mailvotech.notification.send.edit.notification',
                 ]
             );
         }

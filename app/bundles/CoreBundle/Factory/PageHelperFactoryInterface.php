@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Factory;
+namespace MailVotech\CoreBundle\Factory;
 
-use Mautic\CoreBundle\Helper\PageHelperInterface;
+use MailVotech\CoreBundle\Helper\PageHelperInterface;
 
 interface PageHelperFactoryInterface
 {

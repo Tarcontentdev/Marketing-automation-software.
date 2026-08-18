@@ -1,12 +1,12 @@
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent 'pointInsight' %}
+{% block mailvotechContent 'pointInsight' %}
 
 {%- block headerTitle -%}
     {%- if entity.id -%}
-        {{ 'mautic.point.insight.header.edit'|trans({'%name%': entity.name|trans}) }}
+        {{ 'mailvotech.point.insight.header.edit'|trans({'%name%': entity.name|trans}) }}
     {%- else -%}
-        {{ 'mautic.point.insight.header.new'|trans }}
+        {{ 'mailvotech.point.insight.header.new'|trans }}
     {%- endif -%}
 {%- endblock -%}
 

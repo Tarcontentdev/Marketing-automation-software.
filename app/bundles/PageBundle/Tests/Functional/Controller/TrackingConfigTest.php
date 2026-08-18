@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Functional\Controller;
+namespace MailVotech\PageBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Request;
 
-final class TrackingConfigTest extends MauticMysqlTestCase
+final class TrackingConfigTest extends MailVotechMysqlTestCase
 {
     public function testTrackingScriptOptionsAreRendered(): void
     {
@@ -24,34 +24,34 @@ final class TrackingConfigTest extends MauticMysqlTestCase
         };
 
         $essential = $getSnippet('Essential script (before consent)');
-        $this->assertStringContainsString('/mautic-essential.js', $essential);
-        $this->assertStringContainsString("dispatchEvent('mauticEssentialReady')", $essential);
-        $this->assertStringNotContainsString('/mautic-tracking.js', $essential);
+        $this->assertStringContainsString('/mailvotech-essential.js', $essential);
+        $this->assertStringContainsString("dispatchEvent('mailvotechEssentialReady')", $essential);
+        $this->assertStringNotContainsString('/mailvotech-tracking.js', $essential);
         $this->assertStringNotContainsString('/mtc.js', $essential);
-        $this->assertStringNotContainsString('MauticTrackingObject', $essential);
+        $this->assertStringNotContainsString('MailVotechTrackingObject', $essential);
         $this->assertStringNotContainsString('pageview', $essential);
 
         $tracking = $getSnippet('Tracking add-on (after consent)');
-        $this->assertStringContainsString('/mautic-tracking.js', $tracking);
-        $this->assertStringContainsString("d.addEventListener('mauticEssentialReady',enableTracking)", $tracking);
-        $this->assertStringContainsString('w.MauticJS.runtimeReady !== true', $tracking);
-        $this->assertStringContainsString("w['MauticTrackingObject']=n", $tracking);
+        $this->assertStringContainsString('/mailvotech-tracking.js', $tracking);
+        $this->assertStringContainsString("d.addEventListener('mailvotechEssentialReady',enableTracking)", $tracking);
+        $this->assertStringContainsString('w.MailVotechJS.runtimeReady !== true', $tracking);
+        $this->assertStringContainsString("w['MailVotechTrackingObject']=n", $tracking);
         $this->assertStringContainsString("w[n]('send','pageview')", $tracking);
-        $this->assertStringContainsString("a.id='mautic-tracking-script'", $tracking);
-        $this->assertStringContainsString("d.getElementById('mautic-tracking-script')", $tracking);
-        $this->assertStringNotContainsString('/mautic-essential.js', $tracking);
+        $this->assertStringContainsString("a.id='mailvotech-tracking-script'", $tracking);
+        $this->assertStringContainsString("d.getElementById('mailvotech-tracking-script')", $tracking);
+        $this->assertStringNotContainsString('/mailvotech-essential.js', $tracking);
         $this->assertStringNotContainsString('/mtc.js', $tracking);
 
         $full = $getSnippet('Full tracking');
-        $this->assertSame(1, substr_count($full, '/mautic-essential.js'));
-        $this->assertSame(1, substr_count($full, '/mautic-tracking.js'));
+        $this->assertSame(1, substr_count($full, '/mailvotech-essential.js'));
+        $this->assertSame(1, substr_count($full, '/mailvotech-tracking.js'));
         $this->assertStringNotContainsString('/mtc.js', $full);
         $this->assertStringContainsString('a.onload=function()', $full);
         $this->assertStringContainsString('s.src=r', $full);
         $this->assertStringContainsString("mt('send', 'pageview');", $full);
 
-        $essentialPosition = strpos($full, '/mautic-essential.js');
-        $trackingPosition  = strpos($full, '/mautic-tracking.js');
+        $essentialPosition = strpos($full, '/mailvotech-essential.js');
+        $trackingPosition  = strpos($full, '/mailvotech-tracking.js');
         $this->assertNotFalse($essentialPosition);
         $this->assertNotFalse($trackingPosition);
         $this->assertLessThan($trackingPosition, $essentialPosition);

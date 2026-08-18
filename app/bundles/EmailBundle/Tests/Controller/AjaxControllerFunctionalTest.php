@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller;
+namespace MailVotech\EmailBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Event\EmailEvent;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Entity\Trackable;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Event\EmailEvent;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Entity\Trackable;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mime\Email as EmailMime;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class AjaxControllerFunctionalTest extends MauticMysqlTestCase
+final class AjaxControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     #[DataProvider('provideSendToDncStatus')]
     public function testGetEmailSendToDncStatusAction(bool $sendToDnc, string $expectedTranslationKey): void
@@ -63,8 +63,8 @@ final class AjaxControllerFunctionalTest extends MauticMysqlTestCase
      */
     public static function provideSendToDncStatus(): iterable
     {
-        yield 'send to dnc enabled' => [true, 'mautic.core.form.yes'];
-        yield 'send to dnc disabled' => [false, 'mautic.core.form.no'];
+        yield 'send to dnc enabled' => [true, 'mailvotech.core.form.yes'];
+        yield 'send to dnc disabled' => [false, 'mailvotech.core.form.no'];
     }
 
     public function testGetEmailSendToDncStatusActionWithoutIdReturnsEmptyResponse(): void
@@ -95,8 +95,8 @@ final class AjaxControllerFunctionalTest extends MauticMysqlTestCase
         $userHelper = self::getContainer()->get(UserHelper::class);
         $user       = $userHelper->getUser();
 
-        $this->assertSame('Mautic test email', $email->getSubject());
-        $this->assertSame('Hi! This is a test email from Mautic. Testing...testing...1...2...3!', $email->getTextBody());
+        $this->assertSame('MailVotech test email', $email->getSubject());
+        $this->assertSame('Hi! This is a test email from MailVotech. Testing...testing...1...2...3!', $email->getTextBody());
         $this->assertCount(1, $email->getFrom());
         $this->assertSame($parameters->get('mailer_from_name'), $email->getFrom()[0]->getName());
         $this->assertSame($parameters->get('mailer_from_email'), $email->getFrom()[0]->getAddress());

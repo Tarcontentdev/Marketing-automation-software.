@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Event;
+namespace MailVotech\ChannelBundle\Event;
 
-use Mautic\ChannelBundle\Entity\Message;
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\ChannelBundle\Entity\Message;
+use MailVotech\CoreBundle\Event\CommonEvent;
 
 final class MessageEvent extends CommonEvent
 {

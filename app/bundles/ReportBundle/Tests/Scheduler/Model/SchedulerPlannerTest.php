@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Scheduler\Model;
+namespace MailVotech\ReportBundle\Tests\Scheduler\Model;
 
 use Doctrine\ORM\EntityManager;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Entity\Scheduler;
-use Mautic\ReportBundle\Entity\SchedulerRepository;
-use Mautic\ReportBundle\Scheduler\Date\DateBuilder;
-use Mautic\ReportBundle\Scheduler\Exception\NoScheduleException;
-use Mautic\ReportBundle\Scheduler\Model\SchedulerPlanner;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\Scheduler;
+use MailVotech\ReportBundle\Entity\SchedulerRepository;
+use MailVotech\ReportBundle\Scheduler\Date\DateBuilder;
+use MailVotech\ReportBundle\Scheduler\Exception\NoScheduleException;
+use MailVotech\ReportBundle\Scheduler\Model\SchedulerPlanner;
 
 final class SchedulerPlannerTest extends \PHPUnit\Framework\TestCase
 {

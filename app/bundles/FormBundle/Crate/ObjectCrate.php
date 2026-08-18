@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Crate;
+namespace MailVotech\FormBundle\Crate;
 
 final readonly class ObjectCrate
 {

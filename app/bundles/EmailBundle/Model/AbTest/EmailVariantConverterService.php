@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Model\AbTest;
+namespace MailVotech\EmailBundle\Model\AbTest;
 
-use Mautic\CoreBundle\Entity\VariantEntityInterface;
-use Mautic\CoreBundle\Model\AbTest\VariantConverterService;
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\CoreBundle\Entity\VariantEntityInterface;
+use MailVotech\CoreBundle\Model\AbTest\VariantConverterService;
+use MailVotech\EmailBundle\Entity\Email;
 
 class EmailVariantConverterService
 {

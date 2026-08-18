@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\ReportBundle\Form\Type;
+namespace MailVotech\ReportBundle\Form\Type;
 
-use Mautic\ReportBundle\Form\DataTransformer\ReportFilterDataTransformer;
+use MailVotech\ReportBundle\Form\DataTransformer\ReportFilterDataTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;

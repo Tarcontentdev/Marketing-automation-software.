@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor\FeedbackLoop;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor\FeedbackLoop;
 
-use Mautic\EmailBundle\MonitoredEmail\Exception\FeedbackLoopNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Address;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\FeedbackLoopNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Address;
 
 final readonly class Parser
 {

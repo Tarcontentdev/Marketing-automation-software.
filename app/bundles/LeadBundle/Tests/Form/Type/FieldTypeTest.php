@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Form\Type;
+namespace MailVotech\LeadBundle\Tests\Form\Type;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Form\Type\FieldType;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Form\Type\FieldType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormInterface;

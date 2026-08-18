@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Controller;
+namespace MailVotech\CampaignBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\LeadList;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\LeadList;
 
-final class SourceControllerTest extends MauticMysqlTestCase
+final class SourceControllerTest extends MailVotechMysqlTestCase
 {
     private const ACCESS_DENIED      = 'You do not have access to the requested area\/action';
 
@@ -50,9 +50,9 @@ final class SourceControllerTest extends MauticMysqlTestCase
         $json = json_decode($response->getContent(), true);
         if (is_array($json)) {
             $this->assertArrayHasKey('success', $json, 'Response should contain success key');
-            $this->assertArrayHasKey('mauticContent', $json, 'Response should contain mauticContent key');
+            $this->assertArrayHasKey('mailvotechContent', $json, 'Response should contain mailvotechContent key');
             $this->assertJsonResponseEquals('success', 0, $json);
-            $this->assertJsonResponseEquals('mauticContent', 'campaignSource', $json);
+            $this->assertJsonResponseEquals('mailvotechContent', 'campaignSource', $json);
             // When cancelled, we expect the form to be returned with error state
             $this->assertArrayHasKey('newContent', $json, 'Response should contain form HTML when validation fails');
         } else {
@@ -78,7 +78,7 @@ final class SourceControllerTest extends MauticMysqlTestCase
         if (is_array($json)) {
             $this->assertArrayHasKey('success', $json, 'Response should contain success key');
             $this->assertJsonResponseEquals('success', 0, $json);
-            $this->assertArrayHasKey('mauticContent', $json, 'Response should contain mauticContent key');
+            $this->assertArrayHasKey('mailvotechContent', $json, 'Response should contain mailvotechContent key');
             $this->assertArrayHasKey('newContent', $json, 'Response should contain form HTML when validation fails');
         } else {
             $this->fail('Response is not valid JSON: '.$response->getContent());

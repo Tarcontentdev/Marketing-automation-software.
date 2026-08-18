@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Mapping;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Mapping;
 
-use Mautic\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
 
 class MappingManualDAO
 {
@@ -88,7 +88,7 @@ class MappingManualDAO
     }
 
     /**
-     * Get a list of fields that should sync from Mautic to the integration.
+     * Get a list of fields that should sync from MailVotech to the integration.
      *
      * @throws ObjectNotFoundException
      */
@@ -105,8 +105,8 @@ class MappingManualDAO
             $objectMappingDAO = $this->objectsMapping[$internalObjectName][$integrationObjectName];
             $fieldMappings    = $objectMappingDAO->getFieldMappings();
             foreach ($fieldMappings as $fieldMapping) {
-                if (ObjectMappingDAO::SYNC_TO_MAUTIC === $fieldMapping->getSyncDirection() && !$fieldMapping->isRequired()) {
-                    // Ignore because this field is a one way sync from the integration to Mautic nor is required
+                if (ObjectMappingDAO::SYNC_TO_MAILVOTECH === $fieldMapping->getSyncDirection() && !$fieldMapping->isRequired()) {
+                    // Ignore because this field is a one way sync from the integration to MailVotech nor is required
                     continue;
                 }
 
@@ -152,11 +152,11 @@ class MappingManualDAO
     }
 
     /**
-     * Get a list of fields that should sync from the integration to Mautic.
+     * Get a list of fields that should sync from the integration to MailVotech.
      *
      * @throws ObjectNotFoundException
      */
-    public function getIntegrationObjectFieldsToSyncToMautic(string $integrationObjectName): array
+    public function getIntegrationObjectFieldsToSyncToMailVotech(string $integrationObjectName): array
     {
         if (!array_key_exists($integrationObjectName, $this->integrationObjectsMapping)) {
             throw new ObjectNotFoundException($integrationObjectName);
@@ -171,7 +171,7 @@ class MappingManualDAO
             $fieldMappings    = $objectMappingDAO->getFieldMappings();
             foreach ($fieldMappings as $fieldMapping) {
                 if (ObjectMappingDAO::SYNC_TO_INTEGRATION === $fieldMapping->getSyncDirection() && !$fieldMapping->isRequired()) {
-                    // Ignore because this field is a one way sync from Mautic to the integration nor a required field
+                    // Ignore because this field is a one way sync from MailVotech to the integration nor a required field
                     continue;
                 }
 

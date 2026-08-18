@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\LeadEventLogRepository;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\LeadEventLogRepository;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class TimelineEventLogSubscriber implements EventSubscriberInterface
@@ -34,7 +34,7 @@ final class TimelineEventLogSubscriber implements EventSubscriberInterface
         $this->addEvents(
             $event,
             'lead.source.created',
-            'mautic.lead.timeline.created_source',
+            'mailvotech.lead.timeline.created_source',
             'ri-spy-line',
             null,
             null,
@@ -44,7 +44,7 @@ final class TimelineEventLogSubscriber implements EventSubscriberInterface
         $this->addEvents(
             $event,
             'lead.source.identified',
-            'mautic.lead.timeline.identified_source',
+            'mailvotech.lead.timeline.identified_source',
             'ri-user-6-fill',
             null,
             null,

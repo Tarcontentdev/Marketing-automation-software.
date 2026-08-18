@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\PageBundle\Entity;
+namespace MailVotech\PageBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\TimelineTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\TimelineTrait;
 
 /**
  * @extends CommonRepository<Hit>
@@ -28,7 +28,7 @@ class HitRepository extends CommonRepository
         $q2 = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $q2->select('null')
-            ->from(MAUTIC_TABLE_PREFIX.'page_hits', 'h');
+            ->from(MAILVOTECH_TABLE_PREFIX.'page_hits', 'h');
 
         // If we know the lead, use that to determine uniqueness
         if (null !== $lead && $lead->getId()) {
@@ -68,8 +68,8 @@ class HitRepository extends CommonRepository
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $query->select('h.id as hitId, h.page_id, h.user_agent as userAgent, h.date_hit as dateHit, h.date_left as dateLeft, h.referer, h.source, h.source_id as sourceId, h.url, h.url_title as urlTitle, h.query, ds.client_info as clientInfo, ds.device, ds.device_os_name as deviceOsName, ds.device_brand as deviceBrand, ds.device_model as deviceModel, h.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'page_hits', 'h')
-            ->leftJoin('h', MAUTIC_TABLE_PREFIX.'pages', 'p', 'h.page_id = p.id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'page_hits', 'h')
+            ->leftJoin('h', MAILVOTECH_TABLE_PREFIX.'pages', 'p', 'h.page_id = p.id');
 
         if ($leadId) {
             $query->where('h.lead_id = :leadId')
@@ -82,7 +82,7 @@ class HitRepository extends CommonRepository
             )->setParameter('search', '%'.$options['search'].'%');
         }
 
-        $query->leftjoin('h', MAUTIC_TABLE_PREFIX.'lead_devices', 'ds', 'ds.id = h.device_id');
+        $query->leftjoin('h', MAILVOTECH_TABLE_PREFIX.'lead_devices', 'ds', 'ds.id = h.device_id');
 
         if (isset($options['url']) && $options['url']) {
             $query->andWhere($query->expr()->eq('h.url', $query->expr()->literal($options['url'])));
@@ -135,7 +135,7 @@ class HitRepository extends CommonRepository
         }
 
         $q->select('count(distinct(h.tracking_id)) as hit_count, h.email_id')
-            ->from(MAUTIC_TABLE_PREFIX.'page_hits', 'h')
+            ->from(MAILVOTECH_TABLE_PREFIX.'page_hits', 'h')
             ->where($q->expr()->in('h.email_id', ':emailIds'))
             ->setParameter('emailIds', $emailIds, ArrayParameterType::INTEGER)
             ->groupBy('h.email_id');
@@ -231,7 +231,7 @@ class HitRepository extends CommonRepository
     {
         $sq = $this->_em->getConnection()->createQueryBuilder();
         $sq->select('h.date_hit')
-            ->from(MAUTIC_TABLE_PREFIX.'page_hits', 'h')
+            ->from(MAILVOTECH_TABLE_PREFIX.'page_hits', 'h')
             ->orderBy('h.date_hit', 'DESC')
             ->setMaxResults(1);
 
@@ -275,7 +275,7 @@ class HitRepository extends CommonRepository
         $hitsColumn = ($isVariantCheck) ? 'variant_hits' : 'unique_hits';
         $q          = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $pages      = $q->select("p.id, p.{$hitsColumn} as totalHits, p.title")
-            ->from(MAUTIC_TABLE_PREFIX.'pages', 'p')
+            ->from(MAILVOTECH_TABLE_PREFIX.'pages', 'p')
             ->where($q->expr()->{$inOrEq}('p.id', $pageIds))
             ->executeQuery()
             ->fetchAllAssociative();
@@ -308,7 +308,7 @@ class HitRepository extends CommonRepository
         }
 
         $q->select('count(*) as bounces, h.page_id')
-            ->from(MAUTIC_TABLE_PREFIX.'page_hits', 'h')
+            ->from(MAILVOTECH_TABLE_PREFIX.'page_hits', 'h')
             ->where($expr)
             ->groupBy('h.page_id');
 
@@ -361,8 +361,8 @@ class HitRepository extends CommonRepository
     public function getDwellTimesForPages(array $pageIds, array $options): array
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->from(MAUTIC_TABLE_PREFIX.'page_hits', 'ph')
-            ->leftJoin('ph', MAUTIC_TABLE_PREFIX.'pages', 'p', 'ph.page_id = p.id')
+        $q->from(MAILVOTECH_TABLE_PREFIX.'page_hits', 'ph')
+            ->leftJoin('ph', MAILVOTECH_TABLE_PREFIX.'pages', 'p', 'ph.page_id = p.id')
             ->select('ph.page_id, ph.date_hit, ph.date_left, p.title')
             ->orderBy('ph.date_hit', 'ASC')
             ->andWhere(
@@ -413,8 +413,8 @@ class HitRepository extends CommonRepository
     public function getDwellTimesForUrl($url, array $options): array
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->from(MAUTIC_TABLE_PREFIX.'page_hits', 'ph')
-            ->leftJoin('ph', MAUTIC_TABLE_PREFIX.'pages', 'p', 'ph.page_id = p.id')
+        $q->from(MAILVOTECH_TABLE_PREFIX.'page_hits', 'ph')
+            ->leftJoin('ph', MAILVOTECH_TABLE_PREFIX.'pages', 'p', 'ph.page_id = p.id')
             ->select('ph.id, ph.page_id, ph.date_hit, ph.date_left, ph.tracking_id, ph.page_language, p.title')
             ->orderBy('ph.date_hit', 'ASC')
             ->andWhere($q->expr()->like('ph.url', ':url'))
@@ -464,7 +464,7 @@ class HitRepository extends CommonRepository
     {
         $dt = new DateTimeHelper();
         $q  = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'page_hits')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'page_hits')
             ->set('date_left', ':datetime')
             ->where('id = '.(int) $lastHitId)
             ->setParameter('datetime', $dt->toUtcString());
@@ -523,7 +523,7 @@ class HitRepository extends CommonRepository
     public function updateLeadByTrackingId($leadId, $newTrackingId, $oldTrackingId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'page_hits')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'page_hits')
             ->set('lead_id', (int) $leadId)
             ->set('tracking_id', ':newTrackingId')
             ->where(
@@ -542,7 +542,7 @@ class HitRepository extends CommonRepository
     public function updateLead($fromLeadId, $toLeadId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'page_hits')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'page_hits')
             ->set('lead_id', (int) $toLeadId)
             ->where('lead_id = '.(int) $fromLeadId)
             ->executeStatement();
@@ -552,7 +552,7 @@ class HitRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder()
             ->select('MAX(date_hit)')
-            ->from(MAUTIC_TABLE_PREFIX.'page_hits')
+            ->from(MAILVOTECH_TABLE_PREFIX.'page_hits')
             ->where('lead_id = :leadId')
             ->setParameter('leadId', $leadId);
 

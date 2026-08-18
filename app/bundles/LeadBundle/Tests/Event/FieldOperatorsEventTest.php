@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Event;
+namespace MailVotech\LeadBundle\Tests\Event;
 
-use Mautic\LeadBundle\Event\FieldOperatorsEvent;
+use MailVotech\LeadBundle\Event\FieldOperatorsEvent;
 
 final class FieldOperatorsEventTest extends \PHPUnit\Framework\TestCase
 {

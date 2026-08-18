@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Controller\oAuth2;
+namespace MailVotech\ApiBundle\Controller\oAuth2;
 
 use FOS\OAuthServerBundle\Form\Handler\AuthorizeFormHandler;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +36,7 @@ final class AuthorizeController extends \FOS\OAuthServerBundle\Controller\Author
     protected function renderAuthorize(array $data, Environment $twig): Response
     {
         $response = $twig->render(
-            '@MauticApi/Authorize/oAuth2/authorize.html.twig',
+            '@MailVotechApi/Authorize/oAuth2/authorize.html.twig',
             $data
         );
 

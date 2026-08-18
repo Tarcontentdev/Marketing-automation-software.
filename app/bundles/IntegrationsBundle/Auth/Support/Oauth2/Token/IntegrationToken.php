@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token;
+namespace MailVotech\IntegrationsBundle\Auth\Support\Oauth2\Token;
 
 use kamermans\OAuth2\Token\TokenInterface;
 use kamermans\OAuth2\Token\TokenSerializer;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Twig\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Twig\Helper;
 
-use Mautic\CoreBundle\Twig\Helper\ContentHelper;
+use MailVotech\CoreBundle\Twig\Helper\ContentHelper;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 

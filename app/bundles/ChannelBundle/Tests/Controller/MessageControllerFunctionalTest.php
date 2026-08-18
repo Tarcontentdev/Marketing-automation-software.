@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Tests\Controller;
+namespace MailVotech\ChannelBundle\Tests\Controller;
 
-use Mautic\ChannelBundle\Entity\Message;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\ProjectBundle\Entity\Project;
+use MailVotech\ChannelBundle\Entity\Message;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\ProjectBundle\Entity\Project;
 
-final class MessageControllerFunctionalTest extends MauticMysqlTestCase
+final class MessageControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testFormWithProject(): void
     {

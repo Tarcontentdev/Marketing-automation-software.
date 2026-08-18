@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\PageBundle\Entity;
+namespace MailVotech\PageBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\ProjectBundle\Entity\ProjectRepositoryTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\ProjectBundle\Entity\ProjectRepositoryTrait;
 
 /**
  * @extends CommonRepository<Page>
@@ -138,24 +138,24 @@ class PageRepository extends CommonRepository
         $returnParameter = false; // returning a parameter that is not used will lead to a Doctrine error
 
         switch ($command) {
-            case $this->translator->trans('mautic.page.searchcommand.isexpired'):
-            case $this->translator->trans('mautic.page.searchcommand.isexpired', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.page.searchcommand.isexpired'):
+            case $this->translator->trans('mailvotech.page.searchcommand.isexpired', [], null, 'en_US'):
                 $expr = sprintf(
                     "(p.isPublished = :%1\$s AND p.publishDown IS NOT NULL AND p.publishDown <> '' AND p.publishDown < CURRENT_TIMESTAMP())",
                     $unique
                 );
                 $forceParameters = [$unique => true];
                 break;
-            case $this->translator->trans('mautic.page.searchcommand.ispending'):
-            case $this->translator->trans('mautic.page.searchcommand.ispending', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.page.searchcommand.ispending'):
+            case $this->translator->trans('mailvotech.page.searchcommand.ispending', [], null, 'en_US'):
                 $expr = sprintf(
                     "(p.isPublished = :%1\$s AND p.publishUp IS NOT NULL AND p.publishUp <> '' AND p.publishUp > CURRENT_TIMESTAMP())",
                     $unique
                 );
                 $forceParameters = [$unique => true];
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.lang'):
-            case $this->translator->trans('mautic.core.searchcommand.lang', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.lang'):
+            case $this->translator->trans('mailvotech.core.searchcommand.lang', [], null, 'en_US'):
                 $langUnique      = $this->generateRandomParameterName();
                 $langValue       = $filter->string.'_%';
                 $forceParameters = [
@@ -165,13 +165,13 @@ class PageRepository extends CommonRepository
                 $expr            = '('.$q->expr()->eq('p.language', ":{$unique}").' OR '.$q->expr()->like('p.language', ":{$langUnique}").')';
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.page.searchcommand.isprefcenter'):
-            case $this->translator->trans('mautic.page.searchcommand.isprefcenter', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.page.searchcommand.isprefcenter'):
+            case $this->translator->trans('mailvotech.page.searchcommand.isprefcenter', [], null, 'en_US'):
                 $expr            = $q->expr()->eq('p.isPreferenceCenter', ":{$unique}");
                 $forceParameters = [$unique => true];
                 break;
-            case $this->translator->trans('mautic.project.searchcommand.name'):
-            case $this->translator->trans('mautic.project.searchcommand.name', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.project.searchcommand.name'):
+            case $this->translator->trans('mailvotech.project.searchcommand.name', [], null, 'en_US'):
                 return $this->handleProjectFilter(
                     $this->_em->getConnection()->createQueryBuilder(),
                     'page_id',
@@ -202,16 +202,16 @@ class PageRepository extends CommonRepository
     public function getSearchCommands(): array
     {
         $commands = [
-            'mautic.core.searchcommand.ispublished',
-            'mautic.core.searchcommand.isunpublished',
-            'mautic.core.searchcommand.isuncategorized',
-            'mautic.core.searchcommand.ismine',
-            'mautic.page.searchcommand.isexpired',
-            'mautic.page.searchcommand.ispending',
-            'mautic.core.searchcommand.category',
-            'mautic.core.searchcommand.lang',
-            'mautic.page.searchcommand.isprefcenter',
-            'mautic.project.searchcommand.name',
+            'mailvotech.core.searchcommand.ispublished',
+            'mailvotech.core.searchcommand.isunpublished',
+            'mailvotech.core.searchcommand.isuncategorized',
+            'mailvotech.core.searchcommand.ismine',
+            'mailvotech.page.searchcommand.isexpired',
+            'mailvotech.page.searchcommand.ispending',
+            'mailvotech.core.searchcommand.category',
+            'mailvotech.core.searchcommand.lang',
+            'mailvotech.page.searchcommand.isprefcenter',
+            'mailvotech.project.searchcommand.name',
         ];
 
         return array_merge($commands, parent::getSearchCommands());
@@ -239,7 +239,7 @@ class PageRepository extends CommonRepository
         }
 
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
-        $qb->update(MAUTIC_TABLE_PREFIX.'pages')
+        $qb->update(MAILVOTECH_TABLE_PREFIX.'pages')
             ->set('variant_hits', 0)
             ->set('variant_start_date', ':date')
             ->setParameter('date', $date)
@@ -259,7 +259,7 @@ class PageRepository extends CommonRepository
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
-        $q->update(MAUTIC_TABLE_PREFIX.'pages')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'pages')
             ->set('hits', 'hits + '.(int) $increaseBy)
             ->where('id = '.(int) $id);
 

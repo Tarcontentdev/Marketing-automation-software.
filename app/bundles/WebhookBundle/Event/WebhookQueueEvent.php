@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Event;
+namespace MailVotech\WebhookBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Entity\WebhookQueue;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Entity\WebhookQueue;
 
 final class WebhookQueueEvent extends CommonEvent
 {

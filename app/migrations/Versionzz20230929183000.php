@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
-use Mautic\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
+use MailVotech\CoreBundle\Helper\PathsHelper;
 
 /**
  * Move config files that contain local config to a folder outside the application data.
  */
-final class Versionzz20230929183000 extends AbstractMauticMigration
+final class Versionzz20230929183000 extends AbstractMailVotechMigration
 {
     public function preUp(Schema $schema): void
     {

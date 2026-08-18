@@ -1,24 +1,24 @@
 <?php
 
-namespace Mautic\NotificationBundle\Model;
+namespace MailVotech\NotificationBundle\Model;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Model\AjaxLookupModelInterface;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\CoreBundle\Model\TranslationModelTrait;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\NotificationBundle\Entity\Notification;
-use Mautic\NotificationBundle\Entity\NotificationRepository;
-use Mautic\NotificationBundle\Entity\Stat;
-use Mautic\NotificationBundle\Entity\StatRepository;
-use Mautic\NotificationBundle\Event\NotificationEvent;
-use Mautic\NotificationBundle\Form\Type\MobileNotificationType;
-use Mautic\NotificationBundle\Form\Type\NotificationType;
-use Mautic\NotificationBundle\NotificationEvents;
-use Mautic\PageBundle\Model\TrackableModel;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Model\AjaxLookupModelInterface;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CoreBundle\Model\TranslationModelTrait;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\NotificationBundle\Entity\Notification;
+use MailVotech\NotificationBundle\Entity\NotificationRepository;
+use MailVotech\NotificationBundle\Entity\Stat;
+use MailVotech\NotificationBundle\Entity\StatRepository;
+use MailVotech\NotificationBundle\Event\NotificationEvent;
+use MailVotech\NotificationBundle\Form\Type\MobileNotificationType;
+use MailVotech\NotificationBundle\Form\Type\NotificationType;
+use MailVotech\NotificationBundle\NotificationEvents;
+use MailVotech\PageBundle\Model\TrackableModel;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -198,7 +198,7 @@ final class NotificationModel extends FormModel implements AjaxLookupModelInterf
      */
     public function limitQueryToCreator(QueryBuilder &$q): void
     {
-        $q->join('t', MAUTIC_TABLE_PREFIX.'push_notifications', 'p', 'p.id = t.notification_id')
+        $q->join('t', MAILVOTECH_TABLE_PREFIX.'push_notifications', 'p', 'p.id = t.notification_id')
             ->andWhere('p.created_by = :userId')
             ->setParameter('userId', $this->userHelper->getUser()->getId());
     }
@@ -230,7 +230,7 @@ final class NotificationModel extends FormModel implements AjaxLookupModelInterf
             }
 
             $data = $query->loadAndBuildTimeData($q);
-            $chart->setDataset($this->translator->trans('mautic.notification.show.total.sent'), $data);
+            $chart->setDataset($this->translator->trans('mailvotech.notification.show.total.sent'), $data);
         }
 
         return $chart->render();

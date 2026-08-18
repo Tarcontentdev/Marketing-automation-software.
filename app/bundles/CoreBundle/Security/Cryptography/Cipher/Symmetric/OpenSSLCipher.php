@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Security\Cryptography\Cipher\Symmetric;
+namespace MailVotech\CoreBundle\Security\Cryptography\Cipher\Symmetric;
 
-use Mautic\CoreBundle\Security\Exception\Cryptography\Symmetric\InvalidDecryptionException;
+use MailVotech\CoreBundle\Security\Exception\Cryptography\Symmetric\InvalidDecryptionException;
 
 class OpenSSLCipher implements SymmetricCipherInterface
 {

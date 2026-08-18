@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Form\Type;
+namespace MailVotech\IntegrationsBundle\Form\Type;
 
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,10 +24,10 @@ final class ActivityListType extends AbstractType
         $resolver->setDefaults(
             [
                 'choices'    => array_flip($this->leadModel->getEngagementTypes()),
-                'label'      => 'mautic.integration.feature.push_activity.included_events',
+                'label'      => 'mailvotech.integration.feature.push_activity.included_events',
                 'label_attr' => [
                     'class'       => 'control-label',
-                    'tooltip'     => 'mautic.integration.feature.push_activity.included_events.tooltip',
+                    'tooltip'     => 'mailvotech.integration.feature.push_activity.included_events.tooltip',
                 ],
                 'multiple'   => true,
                 'required'   => false,

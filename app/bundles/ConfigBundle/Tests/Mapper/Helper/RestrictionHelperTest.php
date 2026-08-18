@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ConfigBundle\Tests\Mapper\Helper;
+namespace MailVotech\ConfigBundle\Tests\Mapper\Helper;
 
-use Mautic\ConfigBundle\Mapper\Helper\RestrictionHelper;
+use MailVotech\ConfigBundle\Mapper\Helper\RestrictionHelper;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 

@@ -2,32 +2,32 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Model;
+namespace MailVotech\FormBundle\Tests\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
-use Mautic\CoreBundle\Doctrine\Helper\TableSchemaHelper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\FormBundle\Collector\MappedObjectCollectorInterface;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\FormRepository;
-use Mautic\FormBundle\Helper\FormFieldHelper;
-use Mautic\FormBundle\Helper\FormUploader;
-use Mautic\FormBundle\Model\ActionModel;
-use Mautic\FormBundle\Model\FieldModel;
-use Mautic\FormBundle\Model\FormModel;
-use Mautic\FormBundle\Tests\Helper\ConditionalFieldOrderTestData;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Helper\PrimaryCompanyHelper;
-use Mautic\LeadBundle\Model\FieldModel as LeadFieldModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
+use MailVotech\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
+use MailVotech\CoreBundle\Doctrine\Helper\TableSchemaHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\FormBundle\Collector\MappedObjectCollectorInterface;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\FormRepository;
+use MailVotech\FormBundle\Helper\FormFieldHelper;
+use MailVotech\FormBundle\Helper\FormUploader;
+use MailVotech\FormBundle\Model\ActionModel;
+use MailVotech\FormBundle\Model\FieldModel;
+use MailVotech\FormBundle\Model\FormModel;
+use MailVotech\FormBundle\Tests\Helper\ConditionalFieldOrderTestData;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Helper\PrimaryCompanyHelper;
+use MailVotech\LeadBundle\Model\FieldModel as LeadFieldModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
@@ -67,8 +67,8 @@ final class FormModelTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        if (!isset($_ENV['MAUTIC_UPLOAD_DIR'])) {
-            $_ENV['MAUTIC_UPLOAD_DIR'] = sys_get_temp_dir();
+        if (!isset($_ENV['MAILVOTECH_UPLOAD_DIR'])) {
+            $_ENV['MAILVOTECH_UPLOAD_DIR'] = sys_get_temp_dir();
         }
         $this->contactTracker        = $this->createMock(ContactTracker::class);
         $this->fieldHelper           = $this->createMock(FormFieldHelper::class);
@@ -116,7 +116,7 @@ final class FormModelTest extends \PHPUnit\Framework\TestCase
 
         $content = $this->formModel->getContent($form);
 
-        $this->assertStringContainsString('mautic-form-message', $content);
+        $this->assertStringContainsString('mailvotech-form-message', $content);
         // Executable XSS vectors must be stripped.
         $this->assertStringNotContainsString('<script', $content);
         $this->assertStringNotContainsString('onerror', $content);
@@ -704,7 +704,7 @@ final class FormModelTest extends \PHPUnit\Framework\TestCase
         $form->addField(123, $companyname);
 
         $contactCompanyData = [
-            'companyname' => 'Mautic',
+            'companyname' => 'MailVotech',
         ];
 
         $this->contactTracker->method('getContact')
@@ -715,7 +715,7 @@ final class FormModelTest extends \PHPUnit\Framework\TestCase
 
         $this->fieldHelper->expects($this->once())
             ->method('populateField')
-            ->with($companyname, 'Mautic', 'form-', $formHtml);
+            ->with($companyname, 'MailVotech', 'form-', $formHtml);
 
         $this->formModel->populateValuesWithLead($form, $formHtml);
     }
@@ -763,8 +763,8 @@ final class FormModelTest extends \PHPUnit\Framework\TestCase
      */
     private function getTestFormFields(): array
     {
-        $fieldSession          = 'mautic_'.sha1(uniqid((string) mt_rand(), true));
-        $fieldSession2         = 'mautic_'.sha1(uniqid((string) mt_rand(), true));
+        $fieldSession          = 'mailvotech_'.sha1(uniqid((string) mt_rand(), true));
+        $fieldSession2         = 'mailvotech_'.sha1(uniqid((string) mt_rand(), true));
         $fields[$fieldSession] = [
             'label'        => 'Email',
             'showLabel'    => 1,

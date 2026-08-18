@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper;
+namespace MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\Logger\DebugLogger;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\Model\CompanyModel;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\Logger\DebugLogger;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Model\CompanyModel;
 
 class CompanyObjectHelper implements ObjectHelperInterface
 {
@@ -56,7 +56,7 @@ class CompanyObjectHelper implements ObjectHelperInterface
             $this->model->saveEntity($company);
 
             DebugLogger::log(
-                MauticSyncDataExchange::NAME,
+                MailVotechSyncDataExchange::NAME,
                 sprintf(
                     'Created company ID %d',
                     $company->getId()
@@ -69,7 +69,7 @@ class CompanyObjectHelper implements ObjectHelperInterface
                 ->setIntegration($object->getIntegration())
                 ->setIntegrationObjectName($object->getMappedObject())
                 ->setIntegrationObjectId($object->getMappedObjectId())
-                ->setInternalObjectName(MauticSyncDataExchange::OBJECT_COMPANY)
+                ->setInternalObjectName(MailVotechSyncDataExchange::OBJECT_COMPANY)
                 ->setInternalObjectId($company->getId());
             $objectMappings[] = $objectMapping;
         }
@@ -101,7 +101,7 @@ class CompanyObjectHelper implements ObjectHelperInterface
         /** @var Company[] $companies */
         $companies = $this->model->getEntities(['ids' => $ids]);
         DebugLogger::log(
-            MauticSyncDataExchange::NAME,
+            MailVotechSyncDataExchange::NAME,
             sprintf(
                 'Found %d companies to update with ids %s',
                 count($companies),
@@ -123,7 +123,7 @@ class CompanyObjectHelper implements ObjectHelperInterface
             $this->repository->detachEntity($company);
 
             DebugLogger::log(
-                MauticSyncDataExchange::NAME,
+                MailVotechSyncDataExchange::NAME,
                 sprintf(
                     'Updated company ID %d',
                     $company->getId()
@@ -153,7 +153,7 @@ class CompanyObjectHelper implements ObjectHelperInterface
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
-            ->from(MAUTIC_TABLE_PREFIX.'companies', 'c')
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies', 'c')
             ->where(
                 $qb->expr()->or(
                     $qb->expr()->and(
@@ -182,7 +182,7 @@ class CompanyObjectHelper implements ObjectHelperInterface
 
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*')
-            ->from(MAUTIC_TABLE_PREFIX.'companies', 'c')
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies', 'c')
             ->where(
                 $qb->expr()->in('id', ':ids')
             )
@@ -195,10 +195,10 @@ class CompanyObjectHelper implements ObjectHelperInterface
     {
         $q = $this->connection->createQueryBuilder()
             ->select('c.id')
-            ->from(MAUTIC_TABLE_PREFIX.'companies', 'c');
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies', 'c');
 
         foreach ($fields as $col => $val) {
-            // Use andWhere because Mautic treats conflicting unique identifiers as different objects
+            // Use andWhere because MailVotech treats conflicting unique identifiers as different objects
             $q->{$this->repository->getUniqueIdentifiersWherePart()}("c.{$col} = :".$col)
                 ->setParameter($col, $val);
         }
@@ -214,7 +214,7 @@ class CompanyObjectHelper implements ObjectHelperInterface
 
         $qb = $this->connection->createQueryBuilder();
         $qb->select('c.owner_id, c.id');
-        $qb->from(MAUTIC_TABLE_PREFIX.'companies', 'c');
+        $qb->from(MAILVOTECH_TABLE_PREFIX.'companies', 'c');
         $qb->where('c.owner_id IS NOT NULL');
         $qb->andWhere('c.id IN (:objectIds)');
         $qb->setParameter('objectIds', $objectIds, ArrayParameterType::INTEGER);
@@ -238,7 +238,7 @@ class CompanyObjectHelper implements ObjectHelperInterface
     private function getUniqueIdentifierFields(): array
     {
         if (null === $this->uniqueIdentifierFields) {
-            $uniqueIdentifierFields       = $this->fieldsWithUniqueIdentifier->getFieldsWithUniqueIdentifier(['object' => MauticSyncDataExchange::OBJECT_COMPANY]);
+            $uniqueIdentifierFields       = $this->fieldsWithUniqueIdentifier->getFieldsWithUniqueIdentifier(['object' => MailVotechSyncDataExchange::OBJECT_COMPANY]);
             $this->uniqueIdentifierFields = array_keys($uniqueIdentifierFields);
         }
 

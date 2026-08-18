@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment;
+namespace MailVotech\LeadBundle\Tests\Segment;
 
 use Doctrine\DBAL\Connection;
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\Decorator\BaseDecorator;
-use Mautic\LeadBundle\Segment\Decorator\CompanyDecorator;
-use Mautic\LeadBundle\Segment\Exception\FieldNotFoundException;
-use Mautic\LeadBundle\Segment\Query\Filter\FilterQueryBuilderInterface;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
-use Mautic\LeadBundle\Segment\TableSchemaColumnsCache;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\Decorator\BaseDecorator;
+use MailVotech\LeadBundle\Segment\Decorator\CompanyDecorator;
+use MailVotech\LeadBundle\Segment\Exception\FieldNotFoundException;
+use MailVotech\LeadBundle\Segment\Query\Filter\FilterQueryBuilderInterface;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\TableSchemaColumnsCache;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

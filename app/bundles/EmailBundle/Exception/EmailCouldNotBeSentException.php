@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Exception;
+namespace MailVotech\EmailBundle\Exception;
 
 final class EmailCouldNotBeSentException extends \Exception
 {

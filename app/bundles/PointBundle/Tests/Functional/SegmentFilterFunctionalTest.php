@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Functional;
+namespace MailVotech\PointBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\GroupContactScore;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\GroupContactScore;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\ApplicationTester;
 
-final class SegmentFilterFunctionalTest extends MauticMysqlTestCase
+final class SegmentFilterFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -60,7 +60,7 @@ final class SegmentFilterFunctionalTest extends MauticMysqlTestCase
         // Execute segment update command.
         $exitCode = $applicationTester->run(
             [
-                'command'       => 'mautic:segments:update',
+                'command'       => 'mailvotech:segments:update',
                 '-i'            => $segmentA->getId(),
             ]
         );

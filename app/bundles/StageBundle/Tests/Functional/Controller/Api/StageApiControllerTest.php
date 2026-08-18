@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\Tests\Functional\Controller\Api;
+namespace MailVotech\StageBundle\Tests\Functional\Controller\Api;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\StageBundle\Entity\Stage;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\StageBundle\Entity\Stage;
 use Symfony\Component\HttpFoundation\Response;
 
-final class StageApiControllerTest extends MauticMysqlTestCase
+final class StageApiControllerTest extends MailVotechMysqlTestCase
 {
     protected function beforeBeginTransaction(): void
     {

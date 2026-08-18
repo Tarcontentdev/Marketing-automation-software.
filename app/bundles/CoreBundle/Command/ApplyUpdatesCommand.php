@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
-use Mautic\CoreBundle\Exception\UpdateFailedException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ProgressBarHelper;
-use Mautic\CoreBundle\Update\StepProvider;
+use MailVotech\CoreBundle\Exception\UpdateFailedException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ProgressBarHelper;
+use MailVotech\CoreBundle\Update\StepProvider;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -20,10 +20,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * CLI Command to update the application.
  */
 #[AsCommand(
-    name: 'mautic:update:apply',
-    description: 'Updates the Mautic application',
+    name: 'mailvotech:update:apply',
+    description: 'Updates the MailVotech application',
     help: <<<'TXT'
-                The <info>%command.name%</info> command updates the Mautic application.
+                The <info>%command.name%</info> command updates the MailVotech application.
 
 <info>php %command.full_name%</info>
 
@@ -77,12 +77,12 @@ final class ApplyUpdatesCommand extends Command
         $progressBar->setFormat('Step %current% [%bar%] <info>%message%</info>');
 
         // Define this just in case
-        if (!defined('MAUTIC_ENV')) {
-            define('MAUTIC_ENV', $options['env'] ?? 'prod');
+        if (!defined('MAILVOTECH_ENV')) {
+            define('MAILVOTECH_ENV', $options['env'] ?? 'prod');
         }
 
         if (true === $this->coreParametersHelper->get('composer_updates', false)) {
-            $output->writeln('<error>'.$this->translator->trans('mautic.core.command.update.composer').'</error>');
+            $output->writeln('<error>'.$this->translator->trans('mailvotech.core.command.update.composer').'</error>');
 
             return Command::FAILURE;
         }
@@ -92,7 +92,7 @@ final class ApplyUpdatesCommand extends Command
                 $returnCode = $this->startUpgrade($input, $output, $progressBar);
 
                 $output->writeln(
-                    "\n\n<warning>".$this->translator->trans('mautic.core.command.update.finalize_instructions').'</warning>'
+                    "\n\n<warning>".$this->translator->trans('mailvotech.core.command.update.finalize_instructions').'</warning>'
                 );
 
                 // Must hard exit here to prevent Symfony from trying to use the kernel while in the same PHP process
@@ -117,10 +117,10 @@ final class ApplyUpdatesCommand extends Command
         if (!$input->getOption('force')) {
             /** @var SymfonyQuestionHelper $helper */
             $helper   = $this->getHelperSet()->get('question');
-            $question = new ConfirmationQuestion($this->translator->trans('mautic.core.update.confirm_application_update').' ', false);
+            $question = new ConfirmationQuestion($this->translator->trans('mailvotech.core.update.confirm_application_update').' ', false);
 
             if (!$helper->ask($input, $output, $question)) {
-                throw new UpdateFailedException($this->translator->trans('mautic.core.update.aborted'));
+                throw new UpdateFailedException($this->translator->trans('mailvotech.core.update.aborted'));
             }
         }
 

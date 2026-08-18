@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Twig\Extension;
+namespace MailVotech\CoreBundle\Tests\Unit\Twig\Extension;
 
-use Mautic\CoreBundle\Twig\Extension\HtmlExtension;
+use MailVotech\CoreBundle\Twig\Extension\HtmlExtension;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

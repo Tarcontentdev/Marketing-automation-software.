@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Membership;
+namespace MailVotech\CampaignBundle\Tests\Membership;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Lead as CampaignMember;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CampaignBundle\Membership\Action\Adder;
-use Mautic\CampaignBundle\Membership\Action\Remover;
-use Mautic\CampaignBundle\Membership\EventDispatcher;
-use Mautic\CampaignBundle\Membership\MembershipManager;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignMember;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Membership\Action\Adder;
+use MailVotech\CampaignBundle\Membership\Action\Remover;
+use MailVotech\CampaignBundle\Membership\EventDispatcher;
+use MailVotech\CampaignBundle\Membership\MembershipManager;
+use MailVotech\LeadBundle\Entity\Lead;
 use Psr\Log\NullLogger;
 
 final class MembershipManagerTest extends \PHPUnit\Framework\TestCase

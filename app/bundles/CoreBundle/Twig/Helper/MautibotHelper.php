@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Twig\Helper;
+namespace MailVotech\CoreBundle\Twig\Helper;
 
 final class MautibotHelper
 {

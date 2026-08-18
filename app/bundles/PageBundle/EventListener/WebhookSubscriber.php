@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\EventListener;
+namespace MailVotech\PageBundle\EventListener;
 
-use Mautic\PageBundle\Event\PageHitEvent;
-use Mautic\PageBundle\PageEvents;
-use Mautic\WebhookBundle\Event\WebhookBuilderEvent;
-use Mautic\WebhookBundle\Model\WebhookModel;
-use Mautic\WebhookBundle\WebhookEvents;
+use MailVotech\PageBundle\Event\PageHitEvent;
+use MailVotech\PageBundle\PageEvents;
+use MailVotech\WebhookBundle\Event\WebhookBuilderEvent;
+use MailVotech\WebhookBundle\Model\WebhookModel;
+use MailVotech\WebhookBundle\WebhookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class WebhookSubscriber implements EventSubscriberInterface
@@ -33,8 +33,8 @@ final readonly class WebhookSubscriber implements EventSubscriberInterface
     {
         // add checkbox to the webhook form for new leads
         $pageHit = [
-            'label'       => 'mautic.page.webhook.event.hit',
-            'description' => 'mautic.page.webhook.event.hit_desc',
+            'label'       => 'mailvotech.page.webhook.event.hit',
+            'description' => 'mailvotech.page.webhook.event.hit_desc',
         ];
 
         // add it to the list

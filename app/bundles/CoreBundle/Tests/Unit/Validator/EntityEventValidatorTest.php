@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Validator;
+namespace MailVotech\CoreBundle\Tests\Unit\Validator;
 
-use Mautic\CoreBundle\Event\EntityValidateEvent;
-use Mautic\CoreBundle\Validator\EntityEvent;
-use Mautic\CoreBundle\Validator\EntityEventValidator;
+use MailVotech\CoreBundle\Event\EntityValidateEvent;
+use MailVotech\CoreBundle\Validator\EntityEvent;
+use MailVotech\CoreBundle\Validator\EntityEventValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -45,7 +45,7 @@ final class EntityEventValidatorTest extends TestCase
     public function testInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessageMatches('/Expected argument of type "Mautic\\\CoreBundle\\\Validator\\\EntityEvent"/');
+        $this->expectExceptionMessageMatches('/Expected argument of type "MailVotech\\\CoreBundle\\\Validator\\\EntityEvent"/');
 
         $this->validator->validate(new \stdClass(), new NotBlank());
     }

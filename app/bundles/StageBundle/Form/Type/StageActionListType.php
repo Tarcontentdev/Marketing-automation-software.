@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\Form\Type;
+namespace MailVotech\StageBundle\Form\Type;
 
-use Mautic\StageBundle\Model\StageModel;
+use MailVotech\StageBundle\Model\StageModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\Options;

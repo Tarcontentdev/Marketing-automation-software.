@@ -1,8 +1,8 @@
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block headerTitle %}{{ 'mautic.dashboard.import'|trans }}{% endblock %}
+{% block headerTitle %}{{ 'mailvotech.dashboard.import'|trans }}{% endblock %}
 
-{% block mauticContent %}dashboardImport{% endblock %}
+{% block mailvotechContent %}dashboardImport{% endblock %}
 
 {% block content %}
   <div class="row">
@@ -11,7 +11,7 @@
             <div class="ml-sm mt-sm pa-sm">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <div class="panel-title">{{ 'mautic.dashboard.predefined'|trans }}</div>
+                        <div class="panel-title">{{ 'mailvotech.dashboard.predefined'|trans }}</div>
                     </div>
                     <div class="panel-body">
                         <div class="list-group">
@@ -20,14 +20,14 @@
                                     <h4 class="list-group-item-heading">{{ config.name|purify }}</h4>
                                     {% if config.description is not empty %}<p class="small">{{ config.description|purify }}</p>{% endif %}
                                     <p class="list-group-item-heading">
-                                        <a href="{{ path('mautic_dashboard_action', {'objectAction': 'import', 'preview': dashboard}) }}">
-                                            {{ 'mautic.dashboard.preview'|trans }}
+                                        <a href="{{ path('mailvotech_dashboard_action', {'objectAction': 'import', 'preview': dashboard}) }}">
+                                            {{ 'mailvotech.dashboard.preview'|trans }}
                                         </a>&#183;
-                                        <a href="{{ path('mautic_dashboard_action', {'objectAction': 'applyDashboardFile', 'file': config.type~'.'~dashboard}) }}">
-                                            {{ 'mautic.core.form.apply'|trans }}
+                                        <a href="{{ path('mailvotech_dashboard_action', {'objectAction': 'applyDashboardFile', 'file': config.type~'.'~dashboard}) }}">
+                                            {{ 'mailvotech.core.form.apply'|trans }}
                                         </a>{% if 'user' == config.type %}&#183;
-                                        <a href="{{ path('mautic_dashboard_action', {'objectAction': 'deleteDashboardFile', 'file': config.type~'.'~dashboard}) }}" data-toggle="confirmation" data-message="{{ 'mautic.dashboard.delete_layout'|trans|e }}" data-confirm-text="{{ 'mautic.core.form.delete'|trans|e }}" data-confirm-callback="executeAction" data-cancel-text="{{ 'mautic.core.form.cancel'|trans|e }}">
-                                            {{ 'mautic.core.form.delete'|trans }}
+                                        <a href="{{ path('mailvotech_dashboard_action', {'objectAction': 'deleteDashboardFile', 'file': config.type~'.'~dashboard}) }}" data-toggle="confirmation" data-message="{{ 'mailvotech.dashboard.delete_layout'|trans|e }}" data-confirm-text="{{ 'mailvotech.core.form.delete'|trans|e }}" data-confirm-callback="executeAction" data-cancel-text="{{ 'mailvotech.core.form.cancel'|trans|e }}">
+                                            {{ 'mailvotech.core.form.delete'|trans }}
                                         </a>{% endif %}
                                     </p>
                                 </div>
@@ -42,7 +42,7 @@
           <div class="mr-sm mt-sm pa-sm">
               <div class="panel panel-info">
                   <div class="panel-heading">
-                      <div class="panel-title">{{ 'mautic.dashboard.import.start.instructions'|trans }}</div>
+                      <div class="panel-title">{{ 'mailvotech.dashboard.import.start.instructions'|trans }}</div>
                   </div>
                   <div class="panel-body">
                       {{ form_start(form) }}
@@ -60,12 +60,12 @@
   </div>
   {% if widgets %}
       <div class="col-md-12">
-          <h2>{{ 'mautic.dashboard.widgets.preview'|trans }}</h2>
+          <h2>{{ 'mailvotech.dashboard.widgets.preview'|trans }}</h2>
       </div>
       <div id="dashboard-widgets" class="dashboard-widgets cards">
           {% for widget in widgets %}
               <div class="card-flex widget" data-widget-id="{{ widget.id }}" style="width: {{ widget.width|default('100') }}%; height: {{ widget.height|default('300') }}px;">
-                  {{ include('@MauticDashboard/Widget/detail.html.twig', {widget}) }}
+                  {{ include('@MailVotechDashboard/Widget/detail.html.twig', {widget}) }}
               </div>
           {% endfor %}
       </div>

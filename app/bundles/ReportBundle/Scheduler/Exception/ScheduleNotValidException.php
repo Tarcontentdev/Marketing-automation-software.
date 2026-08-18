@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Scheduler\Exception;
+namespace MailVotech\ReportBundle\Scheduler\Exception;
 
 final class ScheduleNotValidException extends \Exception
 {

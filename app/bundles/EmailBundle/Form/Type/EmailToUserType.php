@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\EmailBundle\Validator\EmailOrEmailTokenList;
-use Mautic\UserBundle\Form\Type\UserListType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\EmailBundle\Validator\EmailOrEmailTokenList;
+use MailVotech\UserBundle\Form\Type\UserListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,10 +21,10 @@ final class EmailToUserType extends AbstractType
     {
         $builder->add('useremail',
             EmailSendType::class, [
-                'label' => 'mautic.email.emails',
+                'label' => 'mailvotech.email.emails',
                 'attr'  => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.choose.emails_descr',
+                    'tooltip' => 'mailvotech.email.choose.emails_descr',
                     'email'   => isset($options['data']) && isset($options['data']['useremail']) && isset($options['data']['useremail']['email']) ? $options['data']['useremail']['email'] : null,
                 ],
                 'update_select' => empty($options['update_select']) ? 'formaction_properties_useremail_email' : $options['update_select'],
@@ -35,11 +35,11 @@ final class EmailToUserType extends AbstractType
             'user_id',
             UserListType::class,
             [
-                'label'      => 'mautic.email.form.users',
+                'label'      => 'mailvotech.email.form.users',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.help.autocomplete',
+                    'tooltip' => 'mailvotech.core.help.autocomplete',
                 ],
                 'required' => false,
             ]
@@ -49,7 +49,7 @@ final class EmailToUserType extends AbstractType
             'to_owner',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.form.action.send.email.to.owner',
+                'label' => 'mailvotech.form.action.send.email.to.owner',
                 'data'  => $options['data']['to_owner'] ?? false,
             ]
         );
@@ -58,12 +58,12 @@ final class EmailToUserType extends AbstractType
             'to',
             TextType::class,
             [
-                'label'      => 'mautic.core.send.email.to',
+                'label'      => 'mailvotech.core.send.email.to',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'       => 'form-control',
-                    'placeholder' => 'mautic.core.optional',
-                    'tooltip'     => 'mautic.core.send.email.to.multiple.addresses',
+                    'placeholder' => 'mailvotech.core.optional',
+                    'tooltip'     => 'mailvotech.core.send.email.to.multiple.addresses',
                 ],
                 'required'    => false,
                 'constraints' => new EmailOrEmailTokenList(),
@@ -74,12 +74,12 @@ final class EmailToUserType extends AbstractType
             'cc',
             TextType::class,
             [
-                'label'      => 'mautic.core.send.email.cc',
+                'label'      => 'mailvotech.core.send.email.cc',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'       => 'form-control',
-                    'placeholder' => 'mautic.core.optional',
-                    'tooltip'     => 'mautic.core.send.email.to.multiple.addresses',
+                    'placeholder' => 'mailvotech.core.optional',
+                    'tooltip'     => 'mailvotech.core.send.email.to.multiple.addresses',
                 ],
                 'required'    => false,
                 'constraints' => new EmailOrEmailTokenList(),
@@ -90,12 +90,12 @@ final class EmailToUserType extends AbstractType
             'bcc',
             TextType::class,
             [
-                'label'      => 'mautic.core.send.email.bcc',
+                'label'      => 'mailvotech.core.send.email.bcc',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'       => 'form-control',
-                    'placeholder' => 'mautic.core.optional',
-                    'tooltip'     => 'mautic.core.send.email.to.multiple.addresses',
+                    'placeholder' => 'mailvotech.core.optional',
+                    'tooltip'     => 'mailvotech.core.send.email.to.multiple.addresses',
                 ],
                 'required'    => false,
                 'constraints' => new EmailOrEmailTokenList(),

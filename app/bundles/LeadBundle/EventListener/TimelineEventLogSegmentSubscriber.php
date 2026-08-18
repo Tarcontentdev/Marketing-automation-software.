@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\LeadBundle\Entity\LeadEventLogRepository;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\Event\ListChangeEvent;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Entity\LeadEventLogRepository;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\Event\ListChangeEvent;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class TimelineEventLogSegmentSubscriber implements EventSubscriberInterface
@@ -56,7 +56,7 @@ final class TimelineEventLogSegmentSubscriber implements EventSubscriberInterfac
         $this->addEvents(
             $event,
             'segment_membership',
-            'mautic.lead.timeline.segment_membership',
+            'mailvotech.lead.timeline.segment_membership',
             'ri-pie-chart-line',
             'lead',
             'segment'
@@ -93,7 +93,7 @@ final class TimelineEventLogSegmentSubscriber implements EventSubscriberInterfac
 
             $log = new LeadEventLog();
             $log->setUserId($user->getId())
-                ->setUserName($user->getUserIdentifier() ?: $this->translator->trans('mautic.core.system'))
+                ->setUserName($user->getUserIdentifier() ?: $this->translator->trans('mailvotech.core.system'))
                 ->setLead($contact)
                 ->setBundle('lead')
                 ->setAction($action)

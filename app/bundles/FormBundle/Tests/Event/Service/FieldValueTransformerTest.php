@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Event\Service;
+namespace MailVotech\FormBundle\Tests\Event\Service;
 
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\FormBundle\Event\Service\FieldValueTransformer;
-use Mautic\FormBundle\Event\SubmissionEvent;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\FormBundle\Event\Service\FieldValueTransformer;
+use MailVotech\FormBundle\Event\SubmissionEvent;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Router;
@@ -45,7 +45,7 @@ final class FieldValueTransformerTest extends \PHPUnit\Framework\TestCase
 
             public function generate(string $name, mixed $parameters = [], int $referenceType = self::ABSOLUTE_PATH): string
             {
-                Assert::assertSame('mautic_form_file_download', $name);
+                Assert::assertSame('mailvotech_form_file_download', $name);
                 Assert::assertSame([
                     'submissionId' => 456,
                     'field'        => 'file_field_1',

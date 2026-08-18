@@ -1,10 +1,10 @@
-Mautic.downloadIpLookupDataStore = function() {
+MailVotech.downloadIpLookupDataStore = function() {
     var ipService = mQuery('#config_coreconfig_ip_lookup_service').val();
     var ipAuth = mQuery('#config_coreconfig_ip_lookup_auth').val();
 
     mQuery('#iplookup_fetch_button_container .ri-loader-3-line').removeClass('hide');
 
-    Mautic.ajaxActionRequest('downloadIpLookupDataStore', {
+    MailVotech.ajaxActionRequest('downloadIpLookupDataStore', {
         service: ipService,
         auth: ipAuth
     }, function (response) {
@@ -20,22 +20,22 @@ Mautic.downloadIpLookupDataStore = function() {
     }, false, false, 'POST');
 };
 
-Mautic.getIpLookupFormConfig = function() {
+MailVotech.getIpLookupFormConfig = function() {
     var ipService = mQuery('#config_coreconfig_ip_lookup_service').val();
 
-    Mautic.activateLabelLoadingIndicator('config_coreconfig_ip_lookup_service');
+    MailVotech.activateLabelLoadingIndicator('config_coreconfig_ip_lookup_service');
 
-    Mautic.ajaxActionRequest('getIpLookupForm', {
+    MailVotech.ajaxActionRequest('getIpLookupForm', {
         service: ipService
     }, function (response) {
-        Mautic.removeLabelLoadingIndicator();
+        MailVotech.removeLabelLoadingIndicator();
 
         mQuery('#ip_lookup_config_container').html(response.html);
         mQuery('#ip_lookup_attribution').html(response.attribution);
     }, false, false, "GET");
 };
 
-Mautic.configOnLoad = function(container) {
+MailVotech.configOnLoad = function(container) {
     document.querySelectorAll('input[type="radio"][data-attribute-toggle]').forEach(radio => {
         const attributeName = radio.dataset.attributeToggle;
         const modifiedName = attributeName.replace('-', '_');

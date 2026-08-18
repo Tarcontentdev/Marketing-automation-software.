@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\DataTransformer\SortableListTransformer;
+use MailVotech\CoreBundle\Form\DataTransformer\SortableListTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,7 +22,7 @@ final class SortableListType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $constraints = ($options['option_required']) ? [
-            new Count(min: 1, minMessage: 'mautic.form.lists.count'),
+            new Count(min: 1, minMessage: 'mailvotech.form.lists.count'),
         ] : [];
 
         if ($options['constraint_callback'] instanceof Callback) {
@@ -31,7 +31,7 @@ final class SortableListType extends AbstractType
 
         if ($options['option_notblank']) {
             $options['option_constraint'][] = new NotBlank(
-                message: 'mautic.form.lists.notblank'
+                message: 'mailvotech.form.lists.notblank'
             );
         }
 
@@ -76,7 +76,7 @@ final class SortableListType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'remove_onclick'      => 'Mautic.removeFormListOption(this);',
+                'remove_onclick'      => 'MailVotech.removeFormListOption(this);',
                 'option_required'     => true,
                 'option_notblank'     => true,
                 'constraint_callback' => false,
@@ -84,7 +84,7 @@ final class SortableListType extends AbstractType
                 'sortable'            => 'ri-draggable handle',
                 'with_labels'         => false,
                 'entry_type'          => TextType::class,
-                'add_value_button'    => 'mautic.core.form.list.additem',
+                'add_value_button'    => 'mailvotech.core.form.list.additem',
                 // Stores as [label => value] array instead of [list => [[label => the label, value => the value], ...]]
                 'key_value_pairs'     => false,
                 'option_constraint'   => [],

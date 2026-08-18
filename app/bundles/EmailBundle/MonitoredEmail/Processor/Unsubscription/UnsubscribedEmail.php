@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor\Unsubscription;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor\Unsubscription;
 
 final class UnsubscribedEmail
 {

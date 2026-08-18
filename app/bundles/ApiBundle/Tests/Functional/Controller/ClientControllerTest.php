@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Tests\Functional\Controller;
+namespace MailVotech\ApiBundle\Tests\Functional\Controller;
 
-use Mautic\ApiBundle\Entity\oAuth2\Client;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\ApiBundle\Entity\oAuth2\Client;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ClientControllerTest extends MauticMysqlTestCase
+final class ClientControllerTest extends MailVotechMysqlTestCase
 {
     private const TOTAL_COUNT = 6;
 
@@ -69,13 +69,13 @@ final class ClientControllerTest extends MauticMysqlTestCase
 
         // Check for total item count in pagination
         $this->assertStringContainsString(
-            $translator->trans('mautic.core.pagination.items', ['%count%' => self::TOTAL_COUNT]),
+            $translator->trans('mailvotech.core.pagination.items', ['%count%' => self::TOTAL_COUNT]),
             (string) $content
         );
 
         // Check for total page count in pagination
         $this->assertStringContainsString(
-            $translator->trans('mautic.core.pagination.pages', ['%count%' => $pageCount]),
+            $translator->trans('mailvotech.core.pagination.pages', ['%count%' => $pageCount]),
             (string) $content
         );
     }

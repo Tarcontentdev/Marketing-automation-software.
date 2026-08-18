@@ -9,13 +9,13 @@
 {% set class = class|default('table') %}
 {% set shortenLinkText = shortenLinkText|default(30) %}
 {% set showHeaders = [
-    'mautic.dashboard.label.contact.email.address',
-    'mautic.dashboard.label.contact.open',
-    'mautic.dashboard.label.contact.click',
-    'mautic.dashboard.label.email.name',
-    'mautic.dashboard.label.segment.name',
-    'mautic.dashboard.label.company.name',
-    'mautic.dashboard.label.campaign.name',
+    'mailvotech.dashboard.label.contact.email.address',
+    'mailvotech.dashboard.label.contact.open',
+    'mailvotech.dashboard.label.contact.click',
+    'mailvotech.dashboard.label.email.name',
+    'mailvotech.dashboard.label.segment.name',
+    'mailvotech.dashboard.label.company.name',
+    'mailvotech.dashboard.label.campaign.name',
 ] %}
 {% set showValues = [
     'contact_email',
@@ -47,31 +47,31 @@
                             {% if key in showValues %}
                             <td>
                                 {% if 'contact_email' == key and row.contact_id is not empty %}
-                                    <a href="{{ path('mautic_contact_action', {'objectAction': 'view', 'objectId': row.contact_id}) }}"
+                                    <a href="{{ path('mailvotech_contact_action', {'objectAction': 'view', 'objectId': row.contact_id}) }}"
                                         title="{{ item|e }}"
                                         data-toggle="ajax">
                                         {{ item|slice(0, shortenLinkText) }}
                                     </a>
                                 {% elseif 'email_name' == key and row.email_id is not empty %}
-                                    <a href="{{ path('mautic_email_action', {'objectAction': 'view', 'objectId': row.email_id}) }}"
+                                    <a href="{{ path('mailvotech_email_action', {'objectAction': 'view', 'objectId': row.email_id}) }}"
                                         title="{{ item|e }}"
                                         data-toggle="ajax">
                                         {{ item|slice(0, shortenLinkText) }}
                                     </a>
                                 {% elseif 'segment_name' == key and row.segment_id is not empty %}
-                                    <a href="{{ path('mautic_segment_action', {'objectAction': 'view', 'objectId': row.segment_id}) }}"
+                                    <a href="{{ path('mailvotech_segment_action', {'objectAction': 'view', 'objectId': row.segment_id}) }}"
                                         title="{{ item|e }}"
                                         data-toggle="ajax">
                                         {{ item|slice(0, shortenLinkText) }}
                                     </a>
                                 {% elseif 'company_name' == key and row.company_id is not empty %}
-                                    <a href="{{ path('mautic_company_action', {'objectAction': 'edit', 'objectId': row.company_id}) }}"
+                                    <a href="{{ path('mailvotech_company_action', {'objectAction': 'edit', 'objectId': row.company_id}) }}"
                                         title="{{ item|e }}"
                                         data-toggle="ajax">
                                         {{ item|slice(0, shortenLinkText) }}
                                     </a>
                                 {% elseif 'campaign_name' == key and row.campaign_id is not empty %}
-                                    <a href="{{ path('mautic_campaign_action', {'objectAction': 'view', 'objectId': row.campaign_id}) }}"
+                                    <a href="{{ path('mailvotech_campaign_action', {'objectAction': 'view', 'objectId': row.campaign_id}) }}"
                                         title="{{ item|e }}"
                                         data-toggle="ajax">
                                         {{ item|slice(0, shortenLinkText) }}

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\DataTransformer;
+namespace MailVotech\LeadBundle\Form\DataTransformer;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**

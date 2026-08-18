@@ -3,7 +3,7 @@
     {% set headerOrderBy = 'comp.' ~ column %}
 {% endif %}
 {% set colClass = column == 'companyname' ? 'col-company-name' : 'visible-md visible-lg col-company-' ~ column %}
-{{ include('@MauticCore/Helper/tableheader.html.twig', {
+{{ include('@MailVotechCore/Helper/tableheader.html.twig', {
     'sessionVar': 'company',
     'orderBy': headerOrderBy,
     'text': label,

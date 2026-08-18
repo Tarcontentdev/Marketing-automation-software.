@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\MonitoredEmailEvent;
-use Mautic\EmailBundle\Event\ParseEmailEvent;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\MonitoredEmailEvent;
+use MailVotech\EmailBundle\Event\ParseEmailEvent;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ProcessBounceSubscriber implements EventSubscriberInterface
@@ -29,7 +29,7 @@ final readonly class ProcessBounceSubscriber implements EventSubscriberInterface
 
     public function onEmailConfig(MonitoredEmailEvent $event): void
     {
-        $event->addFolder(self::BUNDLE, self::FOLDER_KEY, 'mautic.email.config.monitored_email.bounce_folder');
+        $event->addFolder(self::BUNDLE, self::FOLDER_KEY, 'mailvotech.email.config.monitored_email.bounce_folder');
     }
 
     public function onEmailParse(ParseEmailEvent $event): void

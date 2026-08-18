@@ -3,7 +3,7 @@
         {
             "name": "theme-cards",
             "directory": "themes/cards",
-            "target": "git@github.com:mautic/theme-cards.git"
+            "target": "git@github.com:mailvotech/theme-cards.git"
         }
     ]
 }

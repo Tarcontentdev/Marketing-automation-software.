@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\ThemeHelper;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Entity\CopyRepository;
-use Mautic\EmailBundle\Event\EmailBuilderEvent;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\EmailBundle\Helper\FromEmailHelper;
-use Mautic\EmailBundle\Helper\MailHashHelper;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\Helper\SMimeHelper;
-use Mautic\EmailBundle\Model\EmailStatModel;
-use Mautic\EmailBundle\MonitoredEmail\Mailbox;
-use Mautic\EmailBundle\Tests\Helper\Transport\SmtpTransport;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\EventListener\OwnerSubscriber;
-use Mautic\PageBundle\Model\RedirectModel;
-use Mautic\PageBundle\Model\TrackableModel;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelper;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Entity\CopyRepository;
+use MailVotech\EmailBundle\Event\EmailBuilderEvent;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\Helper\FromEmailHelper;
+use MailVotech\EmailBundle\Helper\MailHashHelper;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\Helper\SMimeHelper;
+use MailVotech\EmailBundle\Model\EmailStatModel;
+use MailVotech\EmailBundle\MonitoredEmail\Mailbox;
+use MailVotech\EmailBundle\Tests\Helper\Transport\SmtpTransport;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\EventListener\OwnerSubscriber;
+use MailVotech\PageBundle\Model\RedirectModel;
+use MailVotech\PageBundle\Model\TrackableModel;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -240,7 +240,7 @@ final class OwnerSubscriberTest extends TestCase
     protected function getMockMailer(array $lead): MailHelper
     {
         $parameterMap = [
-            ['mailer_custom_headers', [], ['X-Mautic-Test' => 'test', 'X-Mautic-Test2' => 'test']],
+            ['mailer_custom_headers', [], ['X-MailVotech-Test' => 'test', 'X-MailVotech-Test2' => 'test']],
         ];
 
         $coreParametersHelper = $this->getMockParametersHelper(true, $parameterMap);
@@ -248,7 +248,7 @@ final class OwnerSubscriberTest extends TestCase
         $coreParametersHelper->expects($this->atLeast(1))->method('get')
             ->willReturnMap(
                 [
-                    ['mailer_custom_headers', [], ['X-Mautic-Test' => 'test', 'X-Mautic-Test2' => 'test']],
+                    ['mailer_custom_headers', [], ['X-MailVotech-Test' => 'test', 'X-MailVotech-Test2' => 'test']],
                 ]
             );
 

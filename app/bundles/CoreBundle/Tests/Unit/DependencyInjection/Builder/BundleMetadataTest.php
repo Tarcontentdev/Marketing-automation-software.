@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\DependencyInjection\Builder;
+namespace MailVotech\CoreBundle\Tests\Unit\DependencyInjection\Builder;
 
-use Mautic\CoreBundle\DependencyInjection\Builder\BundleMetadata;
+use MailVotech\CoreBundle\DependencyInjection\Builder\BundleMetadata;
 use PHPUnit\Framework\TestCase;
 
 final class BundleMetadataTest extends TestCase
@@ -15,11 +15,11 @@ final class BundleMetadataTest extends TestCase
             'isPlugin'          => true,
             'base'              => 'Core',
             'bundle'            => 'CoreBundle',
-            'relative'          => 'app/bundles/MauticCoreBundle',
-            'directory'         => '/var/www/app/bundles/MauticCoreBundle',
-            'namespace'         => 'Mautic\\CoreBundle',
-            'symfonyBundleName' => 'MauticCoreBundle',
-            'bundleClass'       => '\\Mautic\\CoreBundle',
+            'relative'          => 'app/bundles/MailVotechCoreBundle',
+            'directory'         => '/var/www/app/bundles/MailVotechCoreBundle',
+            'namespace'         => 'MailVotech\\CoreBundle',
+            'symfonyBundleName' => 'MailVotechCoreBundle',
+            'bundleClass'       => '\\MailVotech\\CoreBundle',
         ];
 
         $metadata = new BundleMetadata($metadataArray);

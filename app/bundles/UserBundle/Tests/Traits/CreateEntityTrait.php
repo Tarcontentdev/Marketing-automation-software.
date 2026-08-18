@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Traits;
+namespace MailVotech\UserBundle\Tests\Traits;
 
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 trait CreateEntityTrait
@@ -20,7 +20,7 @@ trait CreateEntityTrait
         return $role;
     }
 
-    public function createUser(Role $role, string $email = 'test@acquia.com', string $password = 'mautic'): User
+    public function createUser(Role $role, string $email = 'test@acquia.com', string $password = 'mailvotech'): User
     {
         $userName = explode('@', $email)[0].random_int(1000, 9999);
         $user     = new User();

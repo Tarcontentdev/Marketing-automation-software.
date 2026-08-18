@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Event;
+namespace MailVotech\CoreBundle\Event;
 
-use Mautic\CoreBundle\Entity\CommonEntity;
-use Mautic\DynamicContentBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Entity\CommonEntity;
+use MailVotech\DynamicContentBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\Lead;
 
 class TokenReplacementEvent extends CommonEvent
 {

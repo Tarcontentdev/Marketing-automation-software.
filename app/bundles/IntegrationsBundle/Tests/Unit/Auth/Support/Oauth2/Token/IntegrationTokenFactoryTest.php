@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Auth\Support\Oauth2\Token;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Auth\Support\Oauth2\Token;
 
-use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\IntegrationToken;
-use Mautic\IntegrationsBundle\Auth\Support\Oauth2\Token\IntegrationTokenFactory;
+use MailVotech\IntegrationsBundle\Auth\Support\Oauth2\Token\IntegrationToken;
+use MailVotech\IntegrationsBundle\Auth\Support\Oauth2\Token\IntegrationTokenFactory;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 

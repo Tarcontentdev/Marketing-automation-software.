@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\SmsBundle\Helper;
+namespace MailVotech\SmsBundle\Helper;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\SmsBundle\Callback\CallbackInterface;
-use Mautic\SmsBundle\Event\ReplyEvent;
-use Mautic\SmsBundle\Exception\NumberNotFoundException;
-use Mautic\SmsBundle\SmsEvents;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\SmsBundle\Callback\CallbackInterface;
+use MailVotech\SmsBundle\Event\ReplyEvent;
+use MailVotech\SmsBundle\Exception\NumberNotFoundException;
+use MailVotech\SmsBundle\SmsEvents;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;

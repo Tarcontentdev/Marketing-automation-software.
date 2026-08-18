@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Controller;
+namespace MailVotech\PageBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class PreviewFunctionalTest extends MauticMysqlTestCase
+final class PreviewFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testPreviewPageWithContact(): void
     {
@@ -214,7 +214,7 @@ final class PreviewFunctionalTest extends MauticMysqlTestCase
             'page:pages:viewother',
             $page->getCreatedBy()
         )->willReturn(false);
-        $this->getContainer()->set('mautic.security', $security);
+        $this->getContainer()->set('mailvotech.security', $security);
         $this->assertEquals(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
         $this->assertStringContainsString('Unauthorized access to requested URL: /page/preview/'.$pageId, $crawler->text());
     }

@@ -1,7 +1,7 @@
 // copied from: https://github.com/GrapesJS/grapesjs/issues/1855
 
 export default class CompCopyPaste {
-  static storage_key = 'preset-mautic:grapesjs-clipboard';
+  static storage_key = 'preset-mailvotech:grapesjs-clipboard';
   editor;
 
   // COPY PASTE COMPONENTS/STYLE BETWEEN PAGES

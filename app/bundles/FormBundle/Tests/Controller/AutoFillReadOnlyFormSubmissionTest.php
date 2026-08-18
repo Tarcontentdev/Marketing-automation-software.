@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Controller;
+namespace MailVotech\FormBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DomCrawler\Crawler;
 
-final class AutoFillReadOnlyFormSubmissionTest extends MauticMysqlTestCase
+final class AutoFillReadOnlyFormSubmissionTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -40,7 +40,7 @@ final class AutoFillReadOnlyFormSubmissionTest extends MauticMysqlTestCase
         $crawler = $this->client->request('GET', sprintf('/s/forms/edit/%d', $form->getId()));
         $this->assertResponseIsSuccessful();
 
-        $formElement = $crawler->filterXPath('//form[@name="mauticform"]')->form();
+        $formElement = $crawler->filterXPath('//form[@name="mailvotechform"]')->form();
         $this->client->submit($formElement);
         $this->assertResponseIsSuccessful();
 
@@ -128,11 +128,11 @@ final class AutoFillReadOnlyFormSubmissionTest extends MauticMysqlTestCase
         $formValues = ['john@doe.com', 'John', 'Doe'];
 
         // Submit the form
-        $formCrawler = $crawler->filter('form[id=mauticform_test]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_test]');
         $form        = $formCrawler->form([
-            'mauticform[email]'     => $formValues[0],
-            'mauticform[firstname]' => $formValues[1],
-            'mauticform[lastname]'  => $formValues[2],
+            'mailvotechform[email]'     => $formValues[0],
+            'mailvotechform[firstname]' => $formValues[1],
+            'mailvotechform[lastname]'  => $formValues[2],
         ]);
         $this->client->submit($form);
 

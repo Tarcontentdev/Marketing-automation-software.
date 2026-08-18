@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,12 +15,12 @@ final class PointActionFormSubmitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('forms', FormListType::class, [
-            'label'      => 'mautic.form.point.action.forms',
+            'label'      => 'mailvotech.form.point.action.forms',
             'label_attr' => ['class' => 'control-label'],
             'required'   => false,
             'attr'       => [
                 'class'   => 'form-control',
-                'tooltip' => 'mautic.form.point.action.forms.descr',
+                'tooltip' => 'mailvotech.form.point.action.forms.descr',
             ],
         ]);
     }

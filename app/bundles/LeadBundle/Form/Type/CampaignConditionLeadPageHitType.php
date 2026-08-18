@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\DataTransformer\SecondsConversionTransformer;
-use Mautic\PageBundle\Form\Type\PageListType;
+use MailVotech\CoreBundle\Form\DataTransformer\SecondsConversionTransformer;
+use MailVotech\PageBundle\Form\Type\PageListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,22 +22,22 @@ final class CampaignConditionLeadPageHitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('page_url', TextType::class, [
-            'label'      => 'mautic.page.point.action.form.page.url',
+            'label'      => 'mailvotech.page.point.action.form.page.url',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => [
                 'class'       => 'form-control',
-                'tooltip'     => 'mautic.page.point.action.form.page.url.descr',
+                'tooltip'     => 'mailvotech.page.point.action.form.page.url.descr',
                 'placeholder' => 'https://',
             ],
             'required' => false,
         ]);
 
         $builder->add('page', PageListType::class, [
-            'label'      => 'mautic.page.campaign.condition.form.page',
+            'label'      => 'mailvotech.page.campaign.condition.form.page',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => [
                 'class'   => 'form-control',
-                'tooltip' => 'mautic.page.campaign.condition.form.page.descr',
+                'tooltip' => 'mailvotech.page.campaign.condition.form.page.descr',
             ],
             'multiple'     => false,
             'required'     => false,
@@ -48,7 +48,7 @@ final class CampaignConditionLeadPageHitType extends AbstractType
             'startDate',
             TextType::class,
             [
-                'label'  => 'mautic.page.campaign.condition.form.startdate',
+                'label'  => 'mailvotech.page.campaign.condition.form.startdate',
                 'attr'   => [
                     'class'       => 'form-control',
                     'preaddon'    => 'ri-calendar-line',
@@ -62,7 +62,7 @@ final class CampaignConditionLeadPageHitType extends AbstractType
             'endDate',
             TextType::class,
             [
-                'label'  => 'mautic.page.campaign.condition.form.enddate',
+                'label'  => 'mailvotech.page.campaign.condition.form.enddate',
                 'attr'   => [
                     'class'       => 'form-control',
                     'preaddon'    => 'ri-calendar-line',
@@ -81,7 +81,7 @@ final class CampaignConditionLeadPageHitType extends AbstractType
             $secondsTransformer = new SecondsConversionTransformer($unit);
             $form->add(
                 $builder->create('accumulative_time', TextType::class, [
-                    'label'      => 'mautic.page.campaign.condition.form.timespent',
+                    'label'      => 'mailvotech.page.campaign.condition.form.timespent',
                     'required'   => false,
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [

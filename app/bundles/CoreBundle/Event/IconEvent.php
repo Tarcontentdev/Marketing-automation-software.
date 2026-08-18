@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Event;
+namespace MailVotech\CoreBundle\Event;
 
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class IconEvent extends Event

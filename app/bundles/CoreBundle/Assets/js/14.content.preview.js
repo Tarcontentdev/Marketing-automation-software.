@@ -1,7 +1,7 @@
 /**
  * Email & page preview URL builder
  */
-Mautic.contentPreviewUrlGenerator = {
+MailVotech.contentPreviewUrlGenerator = {
 
     urlBase : 'email/preview',
     lastUsedObjectId : false,
@@ -108,7 +108,7 @@ Mautic.contentPreviewUrlGenerator = {
             this.lastUsedObjectId = newValue = value;
         }
 
-        let previewUrl = mauticBaseUrl + this.urlBase + '/' + newValue;
+        let previewUrl = mailvotechBaseUrl + this.urlBase + '/' + newValue;
 
         if (this.contactId !== false) {
             previewUrl = previewUrl + '?contactId=' + this.contactId;
@@ -129,11 +129,11 @@ Mautic.contentPreviewUrlGenerator = {
 /**
  * Used in data-lookup-callback attr of form field in ContentPreviewSettingsType
  */
-Mautic.updatePreviewContactLookupListFilter = function(field, item) {
+MailVotech.updatePreviewContactLookupListFilter = function(field, item) {
     if (item && item.id) {
         mQuery('#content_preview_settings_contact_id').val(item.id);
         mQuery(field).val(item.value);
-        Mautic.contentPreviewUrlGenerator.regenerateUrl(
+        MailVotech.contentPreviewUrlGenerator.regenerateUrl(
             item.id,
             mQuery('#content_preview_settings_contact_id')
         );
@@ -144,7 +144,7 @@ Mautic.updatePreviewContactLookupListFilter = function(field, item) {
  * Used in data-lookup-callback attr of form field in ContentPreviewSettingsType
  * Take a look at https://github.com/twitter/typeahead.js/
  */
-Mautic.activatePreviewContactLookupField = function(fieldOptions, filterId) {
+MailVotech.activatePreviewContactLookupField = function(fieldOptions, filterId) {
 
     const lookupElementId = 'content_preview_settings_contact';
     const action          = mQuery('#' + lookupElementId).attr('data-chosen-lookup');
@@ -154,13 +154,13 @@ Mautic.activatePreviewContactLookupField = function(fieldOptions, filterId) {
         'searchKey': 'lead.lead',
     };
 
-    Mautic.activateFieldTypeahead(lookupElementId, filterId, options, action);
-    Mautic.contentPreviewUrlGenerator.init();
+    MailVotech.activateFieldTypeahead(lookupElementId, filterId, options, action);
+    MailVotech.contentPreviewUrlGenerator.init();
 
     mQuery('#content_preview_settings_contact').on('change',function(event) {
         if (event.target.value === '') {
             // Delete selected contact ID from URL and hidden input
-            Mautic.contentPreviewUrlGenerator.regenerateUrl('', mQuery('#content_preview_settings_contact_id'));
+            MailVotech.contentPreviewUrlGenerator.regenerateUrl('', mQuery('#content_preview_settings_contact_id'));
             mQuery('#content_preview_settings_contact_id').val('');
         }
     });

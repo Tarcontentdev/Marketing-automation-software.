@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CampaignBundle\Event;
+namespace MailVotech\CampaignBundle\Event;
 
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
 
 final class DecisionEvent extends CampaignExecutionEvent
 {
@@ -26,7 +26,7 @@ final class DecisionEvent extends CampaignExecutionEvent
                 'eventDetails'    => $passthrough,
                 'event'           => $eventLog->getEvent(),
                 'lead'            => $eventLog->getLead(),
-                'systemTriggered' => defined('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED'),
+                'systemTriggered' => defined('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED'),
                 'dateScheduled'   => $eventLog->getTriggerDate(),
             ],
             null,

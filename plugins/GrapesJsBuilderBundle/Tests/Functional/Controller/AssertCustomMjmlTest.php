@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Tests\Functional\Controller;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Entity\Plugin;
-use MauticPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilder;
-use MauticPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilderRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Entity\Plugin;
+use MailVotechPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilder;
+use MailVotechPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilderRepository;
 
-final class AssertCustomMjmlTest extends MauticMysqlTestCase
+final class AssertCustomMjmlTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {

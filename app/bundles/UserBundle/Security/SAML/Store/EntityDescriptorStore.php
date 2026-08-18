@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\UserBundle\Security\SAML\Store;
+namespace MailVotech\UserBundle\Security\SAML\Store;
 
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 
 final class EntityDescriptorStore implements EntityDescriptorStoreInterface
 {

@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Mautic\CoreBundle\Helper\Language\Installer;
+use MailVotech\CoreBundle\Helper\Language\Installer;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Helper class for managing Mautic's installed languages.
+ * Helper class for managing MailVotech's installed languages.
  */
 class LanguageHelper
 {
@@ -78,11 +78,11 @@ class LanguageHelper
 
         if (true !== $archive) {
             $error = match ($archive) {
-                \ZipArchive::ER_EXISTS => 'mautic.core.update.archive_file_exists',
-                \ZipArchive::ER_INCONS, \ZipArchive::ER_INVAL, \ZipArchive::ER_MEMORY => 'mautic.core.update.archive_zip_corrupt',
-                \ZipArchive::ER_NOENT => 'mautic.core.update.archive_no_such_file',
-                \ZipArchive::ER_NOZIP => 'mautic.core.update.archive_not_valid_zip',
-                default               => 'mautic.core.update.archive_could_not_open',
+                \ZipArchive::ER_EXISTS => 'mailvotech.core.update.archive_file_exists',
+                \ZipArchive::ER_INCONS, \ZipArchive::ER_INVAL, \ZipArchive::ER_MEMORY => 'mailvotech.core.update.archive_zip_corrupt',
+                \ZipArchive::ER_NOENT => 'mailvotech.core.update.archive_no_such_file',
+                \ZipArchive::ER_NOZIP => 'mailvotech.core.update.archive_not_valid_zip',
+                default               => 'mailvotech.core.update.archive_could_not_open',
             };
 
             return [
@@ -97,7 +97,7 @@ class LanguageHelper
         if (!$zipper->extractTo($tempDir)) {
             return [
                 'error'   => true,
-                'message' => 'mautic.core.update.archive_failed_to_extract',
+                'message' => 'mailvotech.core.update.archive_failed_to_extract',
             ];
         }
 
@@ -111,7 +111,7 @@ class LanguageHelper
 
         return [
             'error'   => false,
-            'message' => 'mautic.core.language.helper.language.saved.successfully',
+            'message' => 'mailvotech.core.language.helper.language.saved.successfully',
         ];
     }
 
@@ -157,7 +157,7 @@ class LanguageHelper
             $languages = [];
 
             // translate the manifest (plain array) to a format
-            // expected everywhere else inside mautic (locale keyed sorted array)
+            // expected everywhere else inside mailvotech (locale keyed sorted array)
             foreach ($manifest['languages'] as $lang) {
                 $languages[$lang['locale']] = $lang;
             }
@@ -170,7 +170,7 @@ class LanguageHelper
                 ? []
                 : [
                     'error'   => true,
-                    'message' => 'mautic.core.language.helper.error.fetching.languages',
+                    'message' => 'mailvotech.core.language.helper.error.fetching.languages',
                 ];
         }
 
@@ -188,7 +188,7 @@ class LanguageHelper
                 ? []
                 : [
                     'error'   => true,
-                    'message' => 'mautic.core.language.helper.error.fetching.languages',
+                    'message' => 'mailvotech.core.language.helper.error.fetching.languages',
                 ];
         }
 
@@ -216,7 +216,7 @@ class LanguageHelper
         if (!is_readable($this->cacheFile)) {
             return [
                 'error'   => true,
-                'message' => 'mautic.core.language.helper.error.fetching.languages',
+                'message' => 'mailvotech.core.language.helper.error.fetching.languages',
             ];
         }
 
@@ -228,7 +228,7 @@ class LanguageHelper
         if ('' === $languageCode || !isset($cacheLanguages[$languageCode])) {
             return [
                 'error'   => true,
-                'message' => 'mautic.core.language.helper.invalid.language',
+                'message' => 'mailvotech.core.language.helper.invalid.language',
                 'vars'    => [
                     '%language%' => $languageCode,
                 ],
@@ -245,7 +245,7 @@ class LanguageHelper
 
             return [
                 'error'   => true,
-                'message' => 'mautic.core.language.helper.error.fetching.package.exception',
+                'message' => 'mailvotech.core.language.helper.error.fetching.package.exception',
                 'vars'    => [
                     '%exception%' => $exception->getMessage(),
                 ],
@@ -255,7 +255,7 @@ class LanguageHelper
         if ($data->getStatusCode() >= 300 && $data->getStatusCode() < 400) {
             return [
                 'error'   => true,
-                'message' => 'mautic.core.language.helper.error.follow.redirects',
+                'message' => 'mailvotech.core.language.helper.error.follow.redirects',
                 'vars'    => [
                     '%url%' => $langUrl,
                 ],
@@ -264,7 +264,7 @@ class LanguageHelper
         if (200 != $data->getStatusCode()) {
             return [
                 'error'   => true,
-                'message' => 'mautic.core.language.helper.error.on.language.server.side',
+                'message' => 'mailvotech.core.language.helper.error.on.language.server.side',
                 'vars'    => [
                     '%code%' => $data->getStatusCode(),
                 ],
@@ -284,7 +284,7 @@ class LanguageHelper
     }
 
     /**
-     * Returns Mautic translation files.
+     * Returns MailVotech translation files.
      *
      * @param string[] $forBundles empty array means all bundles
      *
@@ -293,10 +293,10 @@ class LanguageHelper
     public function getLanguageFiles(array $forBundles = []): array
     {
         $files         = [];
-        $mauticBundles = $this->coreParametersHelper->get('bundles');
+        $mailvotechBundles = $this->coreParametersHelper->get('bundles');
         $pluginBundles = $this->coreParametersHelper->get('plugin.bundles');
 
-        foreach (array_merge($mauticBundles, $pluginBundles) as $bundle) {
+        foreach (array_merge($mailvotechBundles, $pluginBundles) as $bundle) {
             // Apply the bundle filter.
             if ([] !== $forBundles && !in_array($bundle['bundle'], $forBundles)) {
                 continue;
@@ -336,12 +336,12 @@ class LanguageHelper
             }
 
             if (!mkdir($dir)) {
-                throw new \RuntimeException($this->translator->trans('mautic.core.command.transifex_error_creating_directory', ['%directory%' => $dir]));
+                throw new \RuntimeException($this->translator->trans('mailvotech.core.command.transifex_error_creating_directory', ['%directory%' => $dir]));
             }
         }
 
         if (!file_put_contents($filePath, $content)) {
-            throw new \RuntimeException($this->translator->trans('mautic.core.command.transifex_error_creating_file', ['%file%' => $filePath]));
+            throw new \RuntimeException($this->translator->trans('mailvotech.core.command.transifex_error_creating_file', ['%file%' => $filePath]));
         }
     }
 

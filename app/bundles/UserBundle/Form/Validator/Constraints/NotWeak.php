@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Form\Validator\Constraints;
+namespace MailVotech\UserBundle\Form\Validator\Constraints;
 
-use Mautic\UserBundle\Model\PasswordStrengthEstimatorModel;
+use MailVotech\UserBundle\Model\PasswordStrengthEstimatorModel;
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 

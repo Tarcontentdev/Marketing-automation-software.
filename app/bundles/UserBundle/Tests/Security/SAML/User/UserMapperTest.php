@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Security\SAML\User;
+namespace MailVotech\UserBundle\Tests\Security\SAML\User;
 
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\Attribute;
 use LightSaml\Model\Assertion\AttributeStatement;
 use LightSaml\Model\Protocol\Response;
-use Mautic\UserBundle\Security\SAML\User\UserMapper;
+use MailVotech\UserBundle\Security\SAML\User\UserMapper;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

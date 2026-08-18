@@ -1,4 +1,4 @@
-@import '../../libraries/bootstrap/bootstrap-mautic-custom-variables';
+@import '../../libraries/bootstrap/bootstrap-mailvotech-custom-variables';
 
 .label-as-badge {
   border-radius: $badge-border-radius !important;
@@ -168,7 +168,7 @@ label.required:after {
   flex:1 1 auto;
 }
 
-.mautic-pleasewait {
+.mailvotech-pleasewait {
   width: 200px;
   height: 50px;
   position: fixed;
@@ -378,8 +378,8 @@ code:hover > .copy-icon {
 // Logo
 // --------------------------------------------------
 
-// mautic-brand
-.mautic-brand {
+// mailvotech-brand
+.mailvotech-brand {
   display: block;
   height: $header-height;
   width: 100%;
@@ -389,31 +389,31 @@ code:hover > .copy-icon {
     width: 75%;
   }
 
-  // mautic logo figure
-  > svg.mautic-logo-figure {
-    width: $mautic-logo-figure-width;
+  // mailvotech logo figure
+  > svg.mailvotech-logo-figure {
+    width: $mailvotech-logo-figure-width;
     height: $header-height;
     .circle {
-      fill: $mautic-logo-figure-circle-fill;
+      fill: $mailvotech-logo-figure-circle-fill;
     }
     .m,
     .m-arrow {
-      fill: $mautic-logo-figure-m-fill;
+      fill: $mailvotech-logo-figure-m-fill;
     }
   }
 
-  // mautic logo text
-  > svg.mautic-logo-text {
+  // mailvotech logo text
+  > svg.mailvotech-logo-text {
     height: $header-height;
-    width: $mautic-logo-text-width;
+    width: $mailvotech-logo-text-width;
     .m,.a,.u,.t,.i,.c {
-      fill: $mautic-logo-text-fill
+      fill: $mailvotech-logo-text-fill
     }
   }
 }
 
 @media (max-width: 768px) {
-  svg.mautic-logo-text {
+  svg.mailvotech-logo-text {
     display: none;
   }
 }

@@ -25,8 +25,8 @@ system('rm -f app/config/local*.php');
 system('rm -f app/config/routing_dev.php');
 system('rm -f app/config/security_test.php');
 
-// mautic/transifex
-system('rm -f vendor/mautic/transifex/.scrutinizer.yml');
+// mailvotech/transifex
+system('rm -f vendor/mailvotech/transifex/.scrutinizer.yml');
 
 // doctrine/common
 system('rm -f vendor/doctrine/common/UPGRADE_TO*');

@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper\DateTime;
+namespace MailVotech\CoreBundle\Helper\DateTime;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 
 final readonly class DateTimeToken
 {

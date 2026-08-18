@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Unit\Model;
+namespace MailVotech\WebhookBundle\Tests\Unit\Model;
 
 use Doctrine\ORM\EntityManager;
 use GuzzleHttp\Psr7\Response;
 use JMS\Serializer\SerializerInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\WebhookBundle\Entity\Event;
-use Mautic\WebhookBundle\Entity\EventRepository;
-use Mautic\WebhookBundle\Entity\LogRepository;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Entity\WebhookQueue;
-use Mautic\WebhookBundle\Entity\WebhookQueueRepository;
-use Mautic\WebhookBundle\Entity\WebhookRepository;
-use Mautic\WebhookBundle\Http\Client;
-use Mautic\WebhookBundle\Model\WebhookModel;
-use Mautic\WebhookBundle\Service\WebhookService;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\WebhookBundle\Entity\Event;
+use MailVotech\WebhookBundle\Entity\EventRepository;
+use MailVotech\WebhookBundle\Entity\LogRepository;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Entity\WebhookQueue;
+use MailVotech\WebhookBundle\Entity\WebhookQueueRepository;
+use MailVotech\WebhookBundle\Entity\WebhookRepository;
+use MailVotech\WebhookBundle\Http\Client;
+use MailVotech\WebhookBundle\Model\WebhookModel;
+use MailVotech\WebhookBundle\Service\WebhookService;
 use Monolog\Logger;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -197,7 +197,7 @@ final class WebhookModelTest extends TestCase
         $webhook->setWebhookUrl('test-webhook.com');
 
         $event = new Event();
-        $event->setEventType('mautic.email_on_send');
+        $event->setEventType('mailvotech.email_on_send');
 
         $queue = new class() extends WebhookQueue {
             public function getId(): string
@@ -214,7 +214,7 @@ final class WebhookModelTest extends TestCase
             ->with([1]);
 
         $responsePayload = [
-            'mautic.email_on_send' => [
+            'mailvotech.email_on_send' => [
                 [
                     'payload'   => 'some data',
                     'timestamp' => '2021-04-01T16:00:00+00:00',

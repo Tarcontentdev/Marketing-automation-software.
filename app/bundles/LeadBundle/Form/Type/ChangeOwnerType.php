@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\UserBundle\Model\UserModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,7 +25,7 @@ final class ChangeOwnerType extends AbstractType
             'owner',
             ChoiceType::class,
             [
-                'label'             => 'mautic.lead.batch.add_to',
+                'label'             => 'mailvotech.lead.batch.add_to',
                 'multiple'          => false,
                 'choices'           => $this->userModel->getOwnerListChoices(),
                 'required'          => true,

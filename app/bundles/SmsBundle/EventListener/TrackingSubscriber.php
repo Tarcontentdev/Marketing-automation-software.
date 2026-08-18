@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\SmsBundle\EventListener;
+namespace MailVotech\SmsBundle\EventListener;
 
-use Mautic\LeadBundle\Event\ContactIdentificationEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\SmsBundle\Entity\Stat;
-use Mautic\SmsBundle\Entity\StatRepository;
+use MailVotech\LeadBundle\Event\ContactIdentificationEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\SmsBundle\Entity\Stat;
+use MailVotech\SmsBundle\Entity\StatRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class TrackingSubscriber implements EventSubscriberInterface

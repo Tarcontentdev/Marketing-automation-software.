@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\EmailBundle\Stats\Helper;
+namespace MailVotech\EmailBundle\Stats\Helper;
 
-use Mautic\EmailBundle\Stats\FetchOptions\EmailStatOptions;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\StatsBundle\Aggregate\Collection\StatCollection;
+use MailVotech\EmailBundle\Stats\FetchOptions\EmailStatOptions;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\StatsBundle\Aggregate\Collection\StatCollection;
 
 final class BouncedHelper extends AbstractHelper
 {
@@ -30,7 +30,7 @@ final class BouncedHelper extends AbstractHelper
 
         $this->limitQueryToEmailIds($q, $options->getEmailIds(), 'channel_id', 't');
 
-        $q->join('t', MAUTIC_TABLE_PREFIX.'email_stats', 'es', 't.channel_id = es.email_id AND t.channel = \'email\' AND t.lead_id = es.lead_id');
+        $q->join('t', MAILVOTECH_TABLE_PREFIX.'email_stats', 'es', 't.channel_id = es.email_id AND t.channel = \'email\' AND t.lead_id = es.lead_id');
 
         if (!$options->canViewOthers()) {
             $this->limitQueryToCreator($q, 'es.email_id');

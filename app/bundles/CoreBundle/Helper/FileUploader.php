@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\CoreBundle\Exception\FilePathException;
-use Mautic\CoreBundle\Exception\FileUploadException;
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Exception\FilePathException;
+use MailVotech\CoreBundle\Exception\FileUploadException;
+use MailVotech\CoreBundle\Translation\Translator;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -58,7 +58,7 @@ class FileUploader
 
                 return $fileName;
             } catch (FileException) {
-                throw new FileUploadException($this->translator->trans('mautic.core.fileuploader.upload_error'));
+                throw new FileUploadException($this->translator->trans('mailvotech.core.fileuploader.upload_error'));
             }
         } catch (FilePathException $e) {
             throw new FileUploadException($e->getMessage(), $e->getCode(), $e);
@@ -74,12 +74,12 @@ class FileUploader
     {
         // Check if the file is an image
         if (!in_array($file->getMimeType(), $this->imageMimes)) {
-            throw new FileUploadException($this->translator->trans('mautic.core.fileuploader.unsupported_image', ['%types%' => implode(', ', $this->imageExtensions)]));
+            throw new FileUploadException($this->translator->trans('mailvotech.core.fileuploader.unsupported_image', ['%types%' => implode(', ', $this->imageExtensions)]));
         }
         // Also check the file extension
         $extension = strtolower(pathinfo($file instanceof UploadedFile ? $file->getClientOriginalName() : $file->getFilename(), PATHINFO_EXTENSION));
         if (!in_array($extension, $this->imageExtensions)) {
-            throw new FileUploadException($this->translator->trans('mautic.core.fileuploader.unsupported_image', ['%types%' => implode(', ', $this->imageExtensions)]));
+            throw new FileUploadException($this->translator->trans('mailvotech.core.fileuploader.unsupported_image', ['%types%' => implode(', ', $this->imageExtensions)]));
         }
     }
 

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Event\LeadListEvent as SegmentEvent;
-use Mautic\LeadBundle\EventListener\SegmentSubscriber;
-use Mautic\LeadBundle\Helper\SegmentCountCacheHelper;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Validator\SegmentUsedInCampaignsValidator;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Event\LeadListEvent as SegmentEvent;
+use MailVotech\LeadBundle\EventListener\SegmentSubscriber;
+use MailVotech\LeadBundle\Helper\SegmentCountCacheHelper;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Validator\SegmentUsedInCampaignsValidator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;

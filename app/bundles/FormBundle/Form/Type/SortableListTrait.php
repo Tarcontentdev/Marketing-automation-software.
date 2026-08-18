@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\SortableListType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Form\Type\SortableListType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -24,7 +24,7 @@ trait SortableListTrait
                 function ($validateMe, ExecutionContextInterface $context) use ($listName): void {
                     $data = $context->getRoot()->getData();
                     if ((empty($data['properties']['syncList']) || empty($data['mappedField'])) && !count($data['properties'][$listName]['list'])) {
-                        $context->buildViolation('mautic.form.lists.count')->addViolation();
+                        $context->buildViolation('mailvotech.form.lists.count')->addViolation();
                     }
                 }
             ),
@@ -42,7 +42,7 @@ trait SortableListTrait
                 'attr' => [
                     'data-show-on' => '{"'.$formName.'_mappedField:data-list-type": "1"}',
                 ],
-                'label' => 'mautic.form.field.form.property_list_sync_choices',
+                'label' => 'mailvotech.form.field.form.property_list_sync_choices',
                 'data'  => !isset($options['data']['syncList']) ? false : (bool) $options['data']['syncList'],
             ]
         );

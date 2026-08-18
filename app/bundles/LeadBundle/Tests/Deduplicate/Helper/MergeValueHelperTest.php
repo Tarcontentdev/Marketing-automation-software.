@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Deduplicate\Helper;
+namespace MailVotech\LeadBundle\Tests\Deduplicate\Helper;
 
-use Mautic\LeadBundle\Deduplicate\Exception\ValueNotMergeableException;
-use Mautic\LeadBundle\Deduplicate\Helper\MergeValueHelper;
+use MailVotech\LeadBundle\Deduplicate\Exception\ValueNotMergeableException;
+use MailVotech\LeadBundle\Deduplicate\Helper\MergeValueHelper;
 
 final class MergeValueHelperTest extends \PHPUnit\Framework\TestCase
 {

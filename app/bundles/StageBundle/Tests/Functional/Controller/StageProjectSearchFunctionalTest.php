@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\Tests\Controller;
+namespace MailVotech\StageBundle\Tests\Controller;
 
-use Mautic\ProjectBundle\Tests\Functional\AbstractProjectSearchTestCase;
-use Mautic\StageBundle\Entity\Stage;
+use MailVotech\ProjectBundle\Tests\Functional\AbstractProjectSearchTestCase;
+use MailVotech\StageBundle\Entity\Stage;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class StageProjectSearchFunctionalTest extends AbstractProjectSearchTestCase

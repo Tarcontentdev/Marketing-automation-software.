@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\GlobalSearch;
-use Mautic\CoreBundle\Test\Doctrine\MockedConnectionTrait;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Event\LeadBuildSearchEvent;
-use Mautic\LeadBundle\EventListener\SearchSubscriber;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\GlobalSearch;
+use MailVotech\CoreBundle\Test\Doctrine\MockedConnectionTrait;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Event\LeadBuildSearchEvent;
+use MailVotech\LeadBundle\EventListener\SearchSubscriber;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -55,12 +55,12 @@ final class SearchSubscriberTest extends TestCase
                     if (!array_key_exists($primaryTable['alias'], $joins)) {
                         $q->{$joinType}(
                             $primaryTable['from_alias'],
-                            MAUTIC_TABLE_PREFIX.$primaryTable['table'],
+                            MAILVOTECH_TABLE_PREFIX.$primaryTable['table'],
                             $primaryTable['alias'],
                             $primaryTable['condition']
                         );
                         foreach ($tables as $table) {
-                            $q->{$joinType}($table['from_alias'], MAUTIC_TABLE_PREFIX.$table['table'], $table['alias'], $table['condition']);
+                            $q->{$joinType}($table['from_alias'], MAILVOTECH_TABLE_PREFIX.$table['table'], $table['alias'], $table['condition']);
                         }
                         if ($whereExpression) {
                             $q->andWhere($whereExpression);

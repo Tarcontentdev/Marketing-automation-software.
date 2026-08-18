@@ -18,7 +18,7 @@ final class ContactPage
     public static $saveAndCloseButton = '#lead_buttons_save_toolbar';
 
     // Quick Add Form
-    public static $quickAddModal      = '#MauticSharedModal-label';
+    public static $quickAddModal      = '#MailVotechSharedModal-label';
     public static $saveButton         = '.btn-save.btn-copy';
 
     // Edit Contact Form
@@ -51,21 +51,21 @@ final class ContactPage
     public static $importProgressComplete = '#leadImportProgressComplete';
 
     // Campaigns
-    public static $campaignsModalAddOption     = '//*[@id="MauticSharedModal"]//*[@id="lead_batch_add_chosen"]/ul/li/input';
-    public static $campaignsModalRemoveOption  = '//*[@id="MauticSharedModal"]//*[@id="lead_batch_remove_chosen"]/ul/li/input';
-    public static $firstCampaignFromAddList    = '#MauticSharedModal #lead_batch_add_chosen > div > ul > li';
-    public static $firstCampaignFromRemoveList = '#MauticSharedModal #lead_batch_remove_chosen > div > ul > li';
-    public static $campaignsModalSaveButton    = '#MauticSharedModal > div > div > div.modal-footer > div > button.btn.btn-save.btn-copy';
+    public static $campaignsModalAddOption     = '//*[@id="MailVotechSharedModal"]//*[@id="lead_batch_add_chosen"]/ul/li/input';
+    public static $campaignsModalRemoveOption  = '//*[@id="MailVotechSharedModal"]//*[@id="lead_batch_remove_chosen"]/ul/li/input';
+    public static $firstCampaignFromAddList    = '#MailVotechSharedModal #lead_batch_add_chosen > div > ul > li';
+    public static $firstCampaignFromRemoveList = '#MailVotechSharedModal #lead_batch_remove_chosen > div > ul > li';
+    public static $campaignsModalSaveButton    = '#MailVotechSharedModal > div > div > div.modal-footer > div > button.btn.btn-save.btn-copy';
 
     // Change Owner From
     public static $addToTheFollowing          = '#lead_batch_owner_addowner_chosen';
     public static $adminUser                  = '#lead_batch_owner_addowner_chosen > div > ul > li:nth-child(1)';
-    public static $changeOwnerModalSaveButton = '//*[@id="MauticSharedModal"]/div/div/div[3]/div/button[1]';
+    public static $changeOwnerModalSaveButton = '//*[@id="MailVotechSharedModal"]/div/div/div[3]/div/button[1]';
 
     // Change Segment Form
     public static $addToTheFollowingSegment           = '#lead_batch_add_chosen';
     public static $addToTheFollowingSegmentInput      = '#lead_batch_add_chosen > ul > li > input';
-    public static $changeSegmentModalSaveButton       = '//*[@id="MauticSharedModal"]/div/div/div[3]/div/button[1]';
+    public static $changeSegmentModalSaveButton       = '//*[@id="MailVotechSharedModal"]/div/div/div[3]/div/button[1]';
     public static $removeFromTheFollowingSegment      = '#lead_batch_remove_chosen';
     public static $removeFromTheFollowingSegmentInput = '#lead_batch_remove_chosen > ul > li > input';
 
@@ -79,7 +79,7 @@ final class ContactPage
     // Do Not Contact
     public static $firstContactDoNotContact  = '#leadTable > tbody > tr:nth-child(1) > td:nth-child(2) > a > div.pull-right > span';
     public static $secondContactDoNotContact = '#leadTable > tbody > tr:nth-child(2) > td:nth-child(2) > a > div.pull-right > span';
-    public static $doNotContactSaveButton    = '//*[@id="MauticSharedModal"]/div/div/div[3]/div/button[1]';
+    public static $doNotContactSaveButton    = '//*[@id="MailVotechSharedModal"]/div/div/div[3]/div/button[1]';
 
     /**
      * Basic route example for your current URL

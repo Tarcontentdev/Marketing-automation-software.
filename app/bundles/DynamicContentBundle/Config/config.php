@@ -6,10 +6,10 @@ return [
     'menu' => [
         'main' => [
             'items' => [
-                'mautic.dynamicContent.dynamicContent' => [
-                    'route'    => 'mautic_dynamicContent_index',
+                'mailvotech.dynamicContent.dynamicContent' => [
+                    'route'    => 'mailvotech_dynamicContent_index',
                     'access'   => ['dynamiccontent:dynamiccontents:viewown', 'dynamiccontent:dynamiccontents:viewother'],
-                    'parent'   => 'mautic.core.components',
+                    'parent'   => 'mailvotech.core.components',
                     'priority' => 90,
                 ],
             ],
@@ -17,36 +17,36 @@ return [
     ],
     'categories' => [
         'dynamicContent' => [
-            'class' => Mautic\DynamicContentBundle\Entity\DynamicContent::class,
+            'class' => MailVotech\DynamicContentBundle\Entity\DynamicContent::class,
         ],
     ],
     'routes' => [
         'main' => [
-            'mautic_dynamicContent_index' => [
+            'mailvotech_dynamicContent_index' => [
                 'path'       => '/dwc/{page}',
-                'controller' => 'Mautic\DynamicContentBundle\Controller\DynamicContentController::indexAction',
+                'controller' => 'MailVotech\DynamicContentBundle\Controller\DynamicContentController::indexAction',
             ],
-            'mautic_dynamicContent_action' => [
+            'mailvotech_dynamicContent_action' => [
                 'path'       => '/dwc/{objectAction}/{objectId}',
-                'controller' => 'Mautic\DynamicContentBundle\Controller\DynamicContentController::executeAction',
+                'controller' => 'MailVotech\DynamicContentBundle\Controller\DynamicContentController::executeAction',
             ],
         ],
         'public' => [
-            'mautic_api_dynamicContent_index' => [
+            'mailvotech_api_dynamicContent_index' => [
                 'path'       => '/dwc',
-                'controller' => 'Mautic\DynamicContentBundle\Controller\DynamicContentApiController::getAction',
+                'controller' => 'MailVotech\DynamicContentBundle\Controller\DynamicContentApiController::getAction',
             ],
-            'mautic_api_dynamicContent_action' => [
+            'mailvotech_api_dynamicContent_action' => [
                 'path'       => '/dwc/{objectAlias}',
-                'controller' => 'Mautic\DynamicContentBundle\Controller\DynamicContentApiController::processAction',
+                'controller' => 'MailVotech\DynamicContentBundle\Controller\DynamicContentApiController::processAction',
             ],
         ],
         'api' => [
-            'mautic_api_dynamicContent_standard' => [
+            'mailvotech_api_dynamicContent_standard' => [
                 'standard_entity' => true,
                 'name'            => 'dynamicContents',
                 'path'            => '/dynamiccontents',
-                'controller'      => Mautic\DynamicContentBundle\Controller\Api\DynamicContentApiController::class,
+                'controller'      => MailVotech\DynamicContentBundle\Controller\Api\DynamicContentApiController::class,
             ],
         ],
     ],

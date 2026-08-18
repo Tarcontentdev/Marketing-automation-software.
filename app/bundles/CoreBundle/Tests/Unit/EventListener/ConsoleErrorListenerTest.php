@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\EventListener;
+namespace MailVotech\CoreBundle\Tests\Unit\EventListener;
 
-use Mautic\CoreBundle\EventListener\ConsoleErrorListener;
+use MailVotech\CoreBundle\EventListener\ConsoleErrorListener;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Event\ConsoleErrorEvent;

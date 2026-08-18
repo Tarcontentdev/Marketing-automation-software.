@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Controller;
+namespace MailVotech\FormBundle\Tests\Controller;
 
-use Mautic\FormBundle\Entity\Form;
-use Mautic\ProjectBundle\Tests\Functional\AbstractProjectSearchTestCase;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\ProjectBundle\Tests\Functional\AbstractProjectSearchTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class FormProjectSearchFunctionalTest extends AbstractProjectSearchTestCase

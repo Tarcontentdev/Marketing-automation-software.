@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Command;
+namespace MailVotech\IntegrationsBundle\Command;
 
-use Mautic\IntegrationsBundle\Entity\FieldChangeRepository;
+use MailVotech\IntegrationsBundle\Entity\FieldChangeRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 final class CleanupCommand extends Command
 {
-    public const NAME = 'mautic:integrations:cleanup';
+    public const NAME = 'mailvotech:integrations:cleanup';
 
     public function __construct(
         private readonly FieldChangeRepository $fieldChangeRepository,

@@ -12,7 +12,7 @@ $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__.'/utils')
     // rector rule fixtures are test data, not code, and reformatting them breaks the expected output
     ->notName('*.php.inc')
-    ->in(__DIR__.'/.github/workflows/mautic-asset-upload')
+    ->in(__DIR__.'/.github/workflows/mailvotech-asset-upload')
     ->exclude('_support/_generated')
     ->exclude('node_modules')
     ->append([

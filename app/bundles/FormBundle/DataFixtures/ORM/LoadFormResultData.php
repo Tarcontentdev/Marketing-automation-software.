@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\FormBundle\DataFixtures\ORM;
+namespace MailVotech\FormBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\FormBundle\Entity\SubmissionRepository;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
+use MailVotech\PageBundle\Model\PageModel;
 
 final class LoadFormResultData extends AbstractFixture implements OrderedFixtureInterface
 {

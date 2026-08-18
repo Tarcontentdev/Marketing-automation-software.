@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\PreferenceBuilder;
+namespace MailVotech\ChannelBundle\PreferenceBuilder;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
 
 final class ChannelPreferences
 {

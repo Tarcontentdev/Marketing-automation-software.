@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Controller;
+namespace MailVotech\CampaignBundle\Tests\Functional\Controller;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
-final class CampaignEventStatsTest extends MauticMysqlTestCase
+final class CampaignEventStatsTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 

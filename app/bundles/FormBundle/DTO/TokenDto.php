@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\DTO;
+namespace MailVotech\FormBundle\DTO;
 
 final readonly class TokenDto
 {

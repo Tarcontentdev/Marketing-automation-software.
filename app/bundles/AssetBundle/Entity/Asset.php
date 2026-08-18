@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\AssetBundle\Entity;
+namespace MailVotech\AssetBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -11,16 +11,16 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\AssetBundle\Validator\Constraints\Upload;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\UuidInterface;
-use Mautic\CoreBundle\Entity\UuidTrait;
-use Mautic\CoreBundle\Helper\FileHelper;
-use Mautic\CoreBundle\Validator\SafeRemoteUrl;
-use Mautic\ProjectBundle\Entity\ProjectTrait;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\AssetBundle\Validator\Constraints\Upload;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\UuidInterface;
+use MailVotech\CoreBundle\Entity\UuidTrait;
+use MailVotech\CoreBundle\Helper\FileHelper;
+use MailVotech\CoreBundle\Validator\SafeRemoteUrl;
+use MailVotech\ProjectBundle\Entity\ProjectTrait;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\File\File;
@@ -91,7 +91,7 @@ class Asset extends FormEntity implements UuidInterface
      */
     #[Groups(['asset:read', 'asset:write', 'download:read', 'email:read'])]
     #[Sequentially([
-        new Assert\Url(message: 'mautic.asset.validation.error.url'),
+        new Assert\Url(message: 'mailvotech.asset.validation.error.url'),
         new SafeRemoteUrl(),
     ])]
     private $remotePath;

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\EventListener;
+namespace MailVotech\PageBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\EventListener\CommonStatsSubscriber;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\Entity\RedirectRepository;
-use Mautic\PageBundle\Entity\TrackableRepository;
-use Mautic\PageBundle\Entity\VideoHit;
+use MailVotech\CoreBundle\EventListener\CommonStatsSubscriber;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\RedirectRepository;
+use MailVotech\PageBundle\Entity\TrackableRepository;
+use MailVotech\PageBundle\Entity\VideoHit;
 
 final class StatsSubscriber extends CommonStatsSubscriber
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\PageBundle\Model;
+namespace MailVotech\PageBundle\Model;
 
-use Mautic\CoreBundle\Helper\UrlHelper;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Shortener\Shortener;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Entity\RedirectRepository;
-use Mautic\PageBundle\Event\RedirectGenerationEvent;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CoreBundle\Helper\UrlHelper;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Shortener\Shortener;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Entity\RedirectRepository;
+use MailVotech\PageBundle\Event\RedirectGenerationEvent;
+use MailVotech\PageBundle\PageEvents;
 use Symfony\Contracts\Service\Attribute\Required;
 
 /**
@@ -43,7 +43,7 @@ class RedirectModel extends FormModel
     }
 
     /**
-     * Generate a Mautic redirect/passthrough URL.
+     * Generate a MailVotech redirect/passthrough URL.
      *
      * @param array $clickthrough
      * @param bool  $shortenUrl
@@ -58,12 +58,12 @@ class RedirectModel extends FormModel
         $utmTags = [],
     ) {
         if (func_num_args() > 2) {
-            $deprecation = '$shortenUrl is deprecated. Please use \Mautic\PageBundle\Model\RedirectModel::shortenUrl.';
+            $deprecation = '$shortenUrl is deprecated. Please use \MailVotech\PageBundle\Model\RedirectModel::shortenUrl.';
             trigger_error($deprecation, E_USER_DEPRECATED);
         }
 
         if (func_num_args() > 3) {
-            $deprecation = '$utmTags is deprecated. Please use \Mautic\PageBundle\Model\RedirectModel::applyUtmTags.';
+            $deprecation = '$utmTags is deprecated. Please use \MailVotech\PageBundle\Model\RedirectModel::applyUtmTags.';
             trigger_error($deprecation, E_USER_DEPRECATED);
         }
 
@@ -75,7 +75,7 @@ class RedirectModel extends FormModel
         }
 
         $url = $this->buildUrl(
-            'mautic_url_redirect',
+            'mailvotech_url_redirect',
             ['redirectId' => $redirect->getRedirectId()],
             true,
             $clickthrough
@@ -108,7 +108,7 @@ class RedirectModel extends FormModel
     /**
      * Get a Redirect entity by URL.
      *
-     * Use Mautic\PageBundle\Model\TrackableModel::getTrackableByUrl() if associated with a channel
+     * Use MailVotech\PageBundle\Model\TrackableModel::getTrackableByUrl() if associated with a channel
      *
      * @return Redirect|null
      */

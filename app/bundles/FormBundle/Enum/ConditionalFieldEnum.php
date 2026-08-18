@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Enum;
+namespace MailVotech\FormBundle\Enum;
 
 final class ConditionalFieldEnum
 {

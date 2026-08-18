@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\ReportBundle\Form\Type;
+namespace MailVotech\ReportBundle\Form\Type;
 
-use Mautic\CoreBundle\Helper\Serializer;
-use Mautic\ReportBundle\Model\ReportModel;
+use MailVotech\CoreBundle\Helper\Serializer;
+use MailVotech\ReportBundle\Model\ReportModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,7 +42,7 @@ final class ReportWidgetType extends AbstractType
                 'choices'           => $choices,
                 'expanded'          => false,
                 'multiple'          => false,
-                'label'             => 'mautic.report.report.form.choose_graphs',
+                'label'             => 'mailvotech.report.report.form.choose_graphs',
                 'label_attr'        => ['class' => 'control-label'],
                 'placeholder'       => false,
                 'required'          => false,

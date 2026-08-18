@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\Controller;
+namespace MailVotech\LeadBundle\Controller;
 
-use Mautic\CoreBundle\Controller\CommonController;
-use Mautic\CoreBundle\Helper\ExportHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\CoreBundle\Controller\CommonController;
+use MailVotech\CoreBundle\Helper\ExportHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -34,14 +34,14 @@ final class TimelineController extends CommonController
                 'includeEvents' => InputHelper::clean($request->request->all()['includeEvents'] ?? []),
                 'excludeEvents' => InputHelper::clean($request->request->all()['excludeEvents'] ?? []),
             ];
-            $session->set('mautic.lead.'.$leadId.'.timeline.filters', $filters);
+            $session->set('mailvotech.lead.'.$leadId.'.timeline.filters', $filters);
         } else {
             $filters = null;
         }
 
         $order = [
-            $session->get('mautic.lead.'.$leadId.'.timeline.orderby'),
-            $session->get('mautic.lead.'.$leadId.'.timeline.orderbydir'),
+            $session->get('mailvotech.lead.'.$leadId.'.timeline.orderby'),
+            $session->get('mailvotech.lead.'.$leadId.'.timeline.orderbydir'),
         ];
 
         $events = $this->getEngagements($lead, $filters, $order, $page);
@@ -55,10 +55,10 @@ final class TimelineController extends CommonController
                 ],
                 'passthroughVars' => [
                     'route'         => false,
-                    'mauticContent' => 'leadTimeline',
+                    'mailvotechContent' => 'leadTimeline',
                     'timelineCount' => $events['total'],
                 ],
-                'contentTemplate' => '@MauticLead/Timeline/_list.html.twig',
+                'contentTemplate' => '@MailVotechLead/Timeline/_list.html.twig',
             ]
         );
     }
@@ -81,14 +81,14 @@ final class TimelineController extends CommonController
                 'includeEvents' => InputHelper::clean($request->request->all()['includeEvents'] ?? []),
                 'excludeEvents' => InputHelper::clean($request->request->all()['excludeEvents'] ?? []),
             ];
-            $session->set('mautic.plugin.timeline.filters', $filters);
+            $session->set('mailvotech.plugin.timeline.filters', $filters);
         } else {
             $filters = null;
         }
 
         $order = [
-            $session->get('mautic.plugin.timeline.orderby'),
-            $session->get('mautic.plugin.timeline.orderbydir'),
+            $session->get('mailvotech.plugin.timeline.orderby'),
+            $session->get('mailvotech.plugin.timeline.orderbydir'),
         ];
 
         // get all events grouped by lead
@@ -117,10 +117,10 @@ final class TimelineController extends CommonController
                 ],
                 'passthroughVars' => [
                     'route'         => false,
-                    'mauticContent' => 'pluginTimeline',
+                    'mailvotechContent' => 'pluginTimeline',
                     'timelineCount' => $events['total'],
                 ],
-                'contentTemplate' => sprintf('@MauticLead/Timeline/plugin_%s.html.twig', $tmpl),
+                'contentTemplate' => sprintf('@MailVotechLead/Timeline/plugin_%s.html.twig', $tmpl),
             ]
         );
     }
@@ -145,14 +145,14 @@ final class TimelineController extends CommonController
                 'includeEvents' => InputHelper::clean($request->request->all()['includeEvents'] ?? []),
                 'excludeEvents' => InputHelper::clean($request->request->all()['excludeEvents'] ?? []),
             ];
-            $session->set('mautic.plugin.timeline.'.$leadId.'.filters', $filters);
+            $session->set('mailvotech.plugin.timeline.'.$leadId.'.filters', $filters);
         } else {
             $filters = null;
         }
 
         $order = [
-            $session->get('mautic.plugin.timeline.'.$leadId.'.orderby'),
-            $session->get('mautic.plugin.timeline.'.$leadId.'.orderbydir'),
+            $session->get('mailvotech.plugin.timeline.'.$leadId.'.orderby'),
+            $session->get('mailvotech.plugin.timeline.'.$leadId.'.orderbydir'),
         ];
 
         $events = $this->getEngagements($lead, $filters, $order, $page);
@@ -179,10 +179,10 @@ final class TimelineController extends CommonController
                 ],
                 'passthroughVars' => [
                     'route'         => false,
-                    'mauticContent' => 'pluginTimeline',
+                    'mailvotechContent' => 'pluginTimeline',
                     'timelineCount' => $events['total'],
                 ],
-                'contentTemplate' => sprintf('@MauticLead/Timeline/plugin_%s.html.twig', $tmpl),
+                'contentTemplate' => sprintf('@MailVotechLead/Timeline/plugin_%s.html.twig', $tmpl),
             ]
         );
     }
@@ -211,14 +211,14 @@ final class TimelineController extends CommonController
                 'includeEvents' => InputHelper::clean($request->request->all()['includeEvents'] ?? []),
                 'excludeEvents' => InputHelper::clean($request->request->all()['excludeEvents'] ?? []),
             ];
-            $session->set('mautic.lead.'.$leadId.'.timeline.filters', $filters);
+            $session->set('mailvotech.lead.'.$leadId.'.timeline.filters', $filters);
         } else {
             $filters = null;
         }
 
         $order = [
-            $session->get('mautic.lead.'.$leadId.'.timeline.orderby'),
-            $session->get('mautic.lead.'.$leadId.'.timeline.orderbydir'),
+            $session->get('mailvotech.lead.'.$leadId.'.timeline.orderby'),
+            $session->get('mailvotech.lead.'.$leadId.'.timeline.orderbydir'),
         ];
 
         $dataType = $request->get('filetype', 'csv');

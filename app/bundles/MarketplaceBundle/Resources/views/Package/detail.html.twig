@@ -1,4 +1,4 @@
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 {% block headerTitle %}{% endblock %}
 
 {% set latestVersion = packageDetail.versions.findLatestStableVersionPackage() %}
@@ -8,14 +8,14 @@
 {% endif %}
 
 {% block preHeader %}
-    {% include '@MauticCore/Helper/button.html.twig' with {
+    {% include '@MailVotechCore/Helper/button.html.twig' with {
         buttons: [
             {
-                label: 'mautic.core.close_back'|trans({'%target%': 'mautic.marketplace.marketplace'|trans}),
+                label: 'mailvotech.core.close_back'|trans({'%target%': 'mailvotech.marketplace.marketplace'|trans}),
                 size: 'xs',
                 variant: 'tertiary',
                 icon: 'ri-arrow-left-line',
-                href: path(constant('Mautic\\MarketplaceBundle\\Service\\RouteProvider::ROUTE_LIST')),
+                href: path(constant('MailVotech\\MarketplaceBundle\\Service\\RouteProvider::ROUTE_LIST')),
                 attributes: {
                     'data-toggle': 'ajax',
                     'class': 'btn-back mb-lg'
@@ -56,8 +56,8 @@
  }}) %}
 {% endif %}
 
-{% if security.isGranted(constant('Mautic\\MarketplaceBundle\\Security\\Permissions\\MarketplacePermissions::CAN_INSTALL_PACKAGES')) and not isInstalled and isComposerEnabled %}
-    {% set installRoute = path(constant('Mautic\\MarketplaceBundle\\Service\\RouteProvider::ROUTE_INSTALL'),
+{% if security.isGranted(constant('MailVotech\\MarketplaceBundle\\Security\\Permissions\\MarketplacePermissions::CAN_INSTALL_PACKAGES')) and not isInstalled and isComposerEnabled %}
+    {% set installRoute = path(constant('MailVotech\\MarketplaceBundle\\Service\\RouteProvider::ROUTE_INSTALL'),
         {
             'vendor' : packageDetail.packageBase.getVendorName(),
             'package' : packageDetail.packageBase.getPackageName(),
@@ -75,8 +75,8 @@
         'primary'   : true,
     }}) %}
 
-{% elseif security.isGranted(constant('Mautic\\MarketplaceBundle\\Security\\Permissions\\MarketplacePermissions::CAN_INSTALL_PACKAGES')) and isComposerEnabled %}
-    {% set removeRoute = path(constant('Mautic\\MarketplaceBundle\\Service\\RouteProvider::ROUTE_REMOVE'),
+{% elseif security.isGranted(constant('MailVotech\\MarketplaceBundle\\Security\\Permissions\\MarketplacePermissions::CAN_INSTALL_PACKAGES')) and isComposerEnabled %}
+    {% set removeRoute = path(constant('MailVotech\\MarketplaceBundle\\Service\\RouteProvider::ROUTE_REMOVE'),
         {'vendor' : packageDetail.packageBase.getVendorName(),
         'package' : packageDetail.packageBase.getPackageName(),
         }) %}
@@ -92,7 +92,7 @@
         'primary'   : true,
     }}) %}
 {% endif %}
-    {{- include('@MauticCore/Helper/page_actions.html.twig', {
+    {{- include('@MailVotechCore/Helper/page_actions.html.twig', {
         'customButtons' : buttons
     }) -}}
 {% endblock %}
@@ -107,7 +107,7 @@
         {% endif %}
         <hr>
         <div class="d-flex gap-3 mt-sm">
-            {% include '@MauticCore/Helper/_tag.html.twig' with {
+            {% include '@MailVotechCore/Helper/_tag.html.twig' with {
                 tags: [
                     {
                         type: 'read-only',
@@ -163,14 +163,14 @@
     </div>
     <hr>
 
-    {% include '@MauticCore/Helper/nav_tabs.html.twig' with {
+    {% include '@MailVotechCore/Helper/nav_tabs.html.twig' with {
         'tabs': [
             {
-                'title': 'mautic.core.overview',
+                'title': 'mailvotech.core.overview',
                 'content': include('@bundles/MarketplaceBundle/Resources/views/Package/Details/details--tab_overview.html.twig')
             },
             {
-                'title': 'mautic.core.details',
+                'title': 'mailvotech.core.details',
                 'content': include('@bundles/MarketplaceBundle/Resources/views/Package/Details/details--tab_details.html.twig')
             }
         ],
@@ -211,7 +211,7 @@
     </div>
     <hr>
 
-    {% include '@MauticCore/Helper/nav_tabs.html.twig' with {
+    {% include '@MailVotechCore/Helper/nav_tabs.html.twig' with {
         'tabs': [
             {
                 'title': 'marketplace.package.github.info',
@@ -227,14 +227,14 @@
 
 </div>
 
-{{- include('@MauticCore/Helper/modal.html.twig', {
+{{- include('@MailVotechCore/Helper/modal.html.twig', {
     'id'            : 'InstallationInProgressModal',
     'header'        : 'Installing ' ~ packageDetail.packageBase.getHumanPackageName()|escape,
     'size'          : 'md',
     'footerButtons' : false,
 }) -}}
 
-{{- include('@MauticCore/Helper/modal.html.twig', {
+{{- include('@MailVotechCore/Helper/modal.html.twig', {
     'id'            : 'RemovalInProgressModal',
     'header'        : 'Removing ' ~ packageDetail.packageBase.getHumanPackageName()|escape,
     'size'          : 'md',

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CacheBundle\Cache\Adapter;
+namespace MailVotech\CacheBundle\Cache\Adapter;
 
-use Mautic\CacheBundle\Exceptions\InvalidArgumentException;
+use MailVotech\CacheBundle\Exceptions\InvalidArgumentException;
 use Symfony\Component\Cache\Adapter\MemcachedAdapter;
 use Symfony\Component\Cache\Adapter\TagAwareAdapter;
 

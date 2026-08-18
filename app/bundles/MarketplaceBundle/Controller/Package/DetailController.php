@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Controller\Package;
+namespace MailVotech\MarketplaceBundle\Controller\Package;
 
-use Mautic\CoreBundle\Controller\CommonController;
-use Mautic\CoreBundle\Helper\ComposerHelper;
-use Mautic\MarketplaceBundle\Exception\RecordNotFoundException;
-use Mautic\MarketplaceBundle\Model\PackageModel;
-use Mautic\MarketplaceBundle\Security\Permissions\MarketplacePermissions;
-use Mautic\MarketplaceBundle\Service\Config;
-use Mautic\MarketplaceBundle\Service\RouteProvider;
+use MailVotech\CoreBundle\Controller\CommonController;
+use MailVotech\CoreBundle\Helper\ComposerHelper;
+use MailVotech\MarketplaceBundle\Exception\RecordNotFoundException;
+use MailVotech\MarketplaceBundle\Model\PackageModel;
+use MailVotech\MarketplaceBundle\Security\Permissions\MarketplacePermissions;
+use MailVotech\MarketplaceBundle\Service\Config;
+use MailVotech\MarketplaceBundle\Service\RouteProvider;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -68,8 +68,8 @@ final class DetailController extends CommonController
                 ],
                 'contentTemplate' => '@Marketplace/Package/detail.html.twig',
                 'passthroughVars' => [
-                    'mauticContent' => 'package',
-                    'activeLink'    => '#mautic_marketplace',
+                    'mailvotechContent' => 'package',
+                    'activeLink'    => '#mailvotech_marketplace',
                     'route'         => $this->routeProvider->buildDetailRoute($vendor, $package),
                 ],
             ]

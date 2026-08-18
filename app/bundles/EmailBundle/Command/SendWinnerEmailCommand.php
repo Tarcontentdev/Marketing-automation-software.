@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Command;
+namespace MailVotech\EmailBundle\Command;
 
-use Mautic\CoreBundle\Command\ModeratedCommand;
-use Mautic\CoreBundle\Exception\RecordNotFoundException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\EmailBundle\Model\AbTest\SendWinnerService;
+use MailVotech\CoreBundle\Command\ModeratedCommand;
+use MailVotech\CoreBundle\Exception\RecordNotFoundException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\EmailBundle\Model\AbTest\SendWinnerService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -30,7 +30,7 @@ final class SendWinnerEmailCommand extends ModeratedCommand
 {
     protected static string $defaultDescription = 'Send winner email variant to remaining contacts';
 
-    public const COMMAND_NAME                   = 'mautic:email:sendwinner';
+    public const COMMAND_NAME                   = 'mailvotech:email:sendwinner';
 
     public function __construct(
         private readonly SendWinnerService $sendWinnerService,

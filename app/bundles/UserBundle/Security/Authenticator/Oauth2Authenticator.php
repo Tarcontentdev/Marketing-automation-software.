@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Security\Authenticator;
+namespace MailVotech\UserBundle\Security\Authenticator;
 
 use FOS\OAuthServerBundle\Model\AccessToken;
 use FOS\OAuthServerBundle\Security\Authenticator\Passport\Badge\AccessTokenBadge;
@@ -66,7 +66,7 @@ final class Oauth2Authenticator extends \FOS\OAuthServerBundle\Security\Authenti
 
             // Parent uses $client->getUserIdentifier() here, which breaks
             // user-bound bearer tokens on /api/v2 because the client identifier
-            // is not a Mautic username.
+            // is not a MailVotech username.
             return new SelfValidatingPassport(
                 new UserBadge($user?->getUserIdentifier() ?? $client->getUserIdentifier()),
                 [$accessTokenBadge]

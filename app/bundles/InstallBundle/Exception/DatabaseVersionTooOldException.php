@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\InstallBundle\Exception;
+namespace MailVotech\InstallBundle\Exception;
 
 final class DatabaseVersionTooOldException extends \Exception
 {

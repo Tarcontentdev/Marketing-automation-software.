@@ -1,33 +1,33 @@
 <?php
 
-namespace Mautic\ReportBundle\Model;
+namespace MailVotech\ReportBundle\Model;
 
 use Doctrine\DBAL\Connections\PrimaryReadReplicaConnection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\ReportBundle\Builder\MauticReportBuilder;
-use Mautic\ReportBundle\Crate\ReportDataResult;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Entity\ReportRepository;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportDataEvent;
-use Mautic\ReportBundle\Event\ReportEvent;
-use Mautic\ReportBundle\Event\ReportGraphEvent;
-use Mautic\ReportBundle\Event\ReportQueryEvent;
-use Mautic\ReportBundle\Generator\ReportGenerator;
-use Mautic\ReportBundle\Helper\ReportHelper;
-use Mautic\ReportBundle\ReportEvents;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\ReportBundle\Builder\MailVotechReportBuilder;
+use MailVotech\ReportBundle\Crate\ReportDataResult;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\ReportRepository;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportDataEvent;
+use MailVotech\ReportBundle\Event\ReportEvent;
+use MailVotech\ReportBundle\Event\ReportGraphEvent;
+use MailVotech\ReportBundle\Event\ReportQueryEvent;
+use MailVotech\ReportBundle\Generator\ReportGenerator;
+use MailVotech\ReportBundle\Helper\ReportHelper;
+use MailVotech\ReportBundle\ReportEvents;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -75,13 +75,13 @@ class ReportModel extends FormModel implements GlobalSearchInterface
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         private readonly RequestStack $requestStack,
         private readonly ReportRepository $reportRepository,
     ) {
         $this->defaultPageLimit  = $coreParametersHelper->get('default_pagelimit');
 
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function getRepository(): ReportRepository
@@ -358,7 +358,7 @@ class ReportModel extends FormModel implements GlobalSearchInterface
 
         // First sort
         foreach ($graphData as $key => $details) {
-            $return->choices[$key] = $this->translator->trans($key).' ('.$this->translator->trans('mautic.report.graph.'.$details['type']).')';
+            $return->choices[$key] = $this->translator->trans($key).' ('.$this->translator->trans('mailvotech.report.graph.'.$details['type']).')';
         }
         natsort($return->choices);
 
@@ -407,7 +407,7 @@ class ReportModel extends FormModel implements GlobalSearchInterface
 
             case 'html':
                 $content = $this->twig->render(
-                    '@MauticReport/Report/export.html.twig',
+                    '@MailVotechReport/Report/export.html.twig',
                     [
                         'pageTitle'        => $name,
                         'report'           => $report,
@@ -502,8 +502,8 @@ class ReportModel extends FormModel implements GlobalSearchInterface
         // make sure to use the session if it's started. Otherwise this is impossible to test:
         // Failed to start the session because headers have already been sent by "/var/www/html/vendor/phpunit/phpunit/src/Util/Printer.php" at line 104.
         if ($session->isStarted()) {
-            $orderBy    = $session->get('mautic.report.'.$entity->getId().'.orderby', $orderBy);
-            $orderByDir = $session->get('mautic.report.'.$entity->getId().'.orderbydir', $orderByDir);
+            $orderBy    = $session->get('mailvotech.report.'.$entity->getId().'.orderby', $orderBy);
+            $orderByDir = $session->get('mailvotech.report.'.$entity->getId().'.orderbydir', $orderByDir);
         }
 
         $dataOptions = [
@@ -524,7 +524,7 @@ class ReportModel extends FormModel implements GlobalSearchInterface
         // set what page currently on so that we can return here after form submission/cancellation
         $session = $this->getSession();
         if ($session->isStarted()) {
-            $session->set('mautic.report.'.$entity->getId().'.page', $reportPage);
+            $session->set('mailvotech.report.'.$entity->getId().'.page', $reportPage);
         }
 
         // Reset the orderBy as it causes errors in graphs and the count query in table data
@@ -583,7 +583,7 @@ class ReportModel extends FormModel implements GlobalSearchInterface
             if ($paginate) {
                 // Build the options array to pass into the query
                 if ($session->isStarted()) {
-                    $limit = $session->get('mautic.report.'.$entity->getId().'.limit', $this->defaultPageLimit);
+                    $limit = $session->get('mailvotech.report.'.$entity->getId().'.limit', $this->defaultPageLimit);
                 }
                 if (!empty($options['limit'])) {
                     $limit      = $options['limit'];
@@ -770,11 +770,11 @@ class ReportModel extends FormModel implements GlobalSearchInterface
         } else {
             $operator = $data['operatorGroup'] ?? $data['type'];
 
-            if (!array_key_exists($operator, MauticReportBuilder::OPERATORS)) {
+            if (!array_key_exists($operator, MailVotechReportBuilder::OPERATORS)) {
                 $operator = 'default';
             }
 
-            $options = MauticReportBuilder::OPERATORS[$operator];
+            $options = MailVotechReportBuilder::OPERATORS[$operator];
         }
 
         foreach ($options as &$label) {
@@ -902,6 +902,6 @@ class ReportModel extends FormModel implements GlobalSearchInterface
 
     protected function isDebugMode(): bool
     {
-        return MAUTIC_ENV == 'dev' || $this->coreParametersHelper->get('debug');
+        return MAILVOTECH_ENV == 'dev' || $this->coreParametersHelper->get('debug');
     }
 }

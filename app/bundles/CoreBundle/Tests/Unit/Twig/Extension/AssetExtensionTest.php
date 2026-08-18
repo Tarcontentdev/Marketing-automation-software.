@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Twig\Extension;
+namespace MailVotech\CoreBundle\Tests\Unit\Twig\Extension;
 
-use Mautic\CoreBundle\Test\AbstractMauticTestCase;
-use Mautic\CoreBundle\Twig\Extension\AssetExtension;
+use MailVotech\CoreBundle\Test\AbstractMailVotechTestCase;
+use MailVotech\CoreBundle\Twig\Extension\AssetExtension;
 
-final class AssetExtensionTest extends AbstractMauticTestCase
+final class AssetExtensionTest extends AbstractMailVotechTestCase
 {
     public function testGetCountryFlag(): void
     {

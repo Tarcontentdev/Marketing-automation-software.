@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Functional;
+namespace MailVotech\PointBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\PointBundle\Entity\Trigger;
-use Mautic\PointBundle\Entity\TriggerEvent;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\PointBundle\Entity\Trigger;
+use MailVotech\PointBundle\Entity\TriggerEvent;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\DomCrawler\Form;
 use Symfony\Component\HttpFoundation\Request;
 
-final class EmailTriggerTest extends MauticMysqlTestCase
+final class EmailTriggerTest extends MailVotechMysqlTestCase
 {
     #[PreserveGlobalState(false)]
     #[RunInSeparateProcess]

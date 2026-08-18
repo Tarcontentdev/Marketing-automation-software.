@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 
-final class Version20250804003400 extends AbstractMauticMigration
+final class Version20250804003400 extends AbstractMailVotechMigration
 {
     private string $leadListsTable;
 

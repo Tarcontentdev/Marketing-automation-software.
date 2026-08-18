@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\DynamicContentBundle\Form\Type;
+namespace MailVotech\DynamicContentBundle\Form\Type;
 
-use Mautic\LeadBundle\Form\Type\FilterTrait;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Form\Type\FilterTrait;
+use MailVotech\LeadBundle\Model\ListModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -37,12 +37,12 @@ final class DwcEntryFiltersType extends AbstractType
             [
                 'label'   => false,
                 'choices' => [
-                    'mautic.lead.list.form.glue.and' => 'and',
-                    'mautic.lead.list.form.glue.or'  => 'or',
+                    'mailvotech.lead.list.form.glue.and' => 'and',
+                    'mailvotech.lead.list.form.glue.or'  => 'or',
                 ],
                 'attr'              => [
                     'class'    => 'form-control not-chosen glue-select',
-                    'onchange' => 'Mautic.updateFilterPositioning(this)',
+                    'onchange' => 'MailVotech.updateFilterPositioning(this)',
                 ],
             ]
         );
@@ -94,7 +94,7 @@ final class DwcEntryFiltersType extends AbstractType
             [
                 'label'          => false,
                 'error_bubbling' => false,
-                // @see \Mautic\LeadBundle\Controller\AjaxController::loadSegmentFilterFormAction()
+                // @see \MailVotech\LeadBundle\Controller\AjaxController::loadSegmentFilterFormAction()
                 'lists'          => $this->listModel->getChoiceFields()['lead']['leadlist']['properties']['list'],
             ]
         );

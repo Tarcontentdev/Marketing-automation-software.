@@ -1,11 +1,11 @@
 {% set isIndex = tmpl == 'index' ? true : false %}
 {% set tmpl = 'list' %}
 
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
-{% block mauticContent %}user
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
+{% block mailvotechContent %}user
 {% endblock %}
 {% block headerTitle %}
-	{% trans %}mautic.user.users{% endtrans %}
+	{% trans %}mailvotech.user.users{% endtrans %}
 {% endblock %}
 
 {% block content %}
@@ -20,11 +20,11 @@
 					'data-toggle': 'modal',
 				},
 				'iconClass': 'ri-team-line',
-				'tooltip': 'mautic.user.profile.invite',
+				'tooltip': 'mailvotech.user.profile.invite',
 				'primary': true,
 			}]) %}
 		{% endif %}
-		{{- include('@MauticCore/Helper/list_toolbar.html.twig', {
+		{{- include('@MailVotechCore/Helper/list_toolbar.html.twig', {
 			'searchValue': searchValue,
 			'action': currentRoute,
 			'page_actions': {
@@ -44,21 +44,21 @@
 			},
 			'quickFilters': [
 				{
-					'search': 'mautic.user.user.searchcommand.isadmin',
-					'label': 'mautic.user.role.form.isadmin',
-					'tooltip': 'mautic.core.search.quickfilter.is_admin',
+					'search': 'mailvotech.user.user.searchcommand.isadmin',
+					'label': 'mailvotech.user.role.form.isadmin',
+					'tooltip': 'mailvotech.core.search.quickfilter.is_admin',
 					'icon': 'ri-admin-line'
 				},
 				{
-					'search': 'mautic.core.searchcommand.ispublished',
-					'label': 'mautic.core.form.active',
-					'tooltip': 'mautic.core.search.quickfilter.is_published',
+					'search': 'mailvotech.core.searchcommand.ispublished',
+					'label': 'mailvotech.core.form.active',
+					'tooltip': 'mailvotech.core.search.quickfilter.is_published',
 					'icon': 'ri-check-line'
 				},
 				{
-					'search': 'mautic.core.searchcommand.isunpublished',
-					'label': 'mautic.core.form.inactive',
-					'tooltip': 'mautic.core.search.quickfilter.is_unpublished',
+					'search': 'mailvotech.core.searchcommand.isunpublished',
+					'label': 'mailvotech.core.form.inactive',
+					'tooltip': 'mailvotech.core.search.quickfilter.is_unpublished',
 					'icon': 'ri-close-line'
 				}
 			]
@@ -77,22 +77,22 @@
 			{% set modalAttributes = modalAttributes|merge({'data-auto-open': 'true'}) %}
 		{% endif %}
 
-		{% include '@MauticCore/Components/modal.html.twig' with {
+		{% include '@MailVotechCore/Components/modal.html.twig' with {
 			id: 'InviteUserModal',
-			modalLabel: 'mautic.user.invite.title',
-			modalContent: include('@MauticUser/User/invite.html.twig', { form: inviteForm }),
+			modalLabel: 'mailvotech.user.invite.title',
+			modalContent: include('@MailVotechUser/User/invite.html.twig', { form: inviteForm }),
 			type: 'expressive',
 			modalAttributes: modalAttributes,
 			buttons: [
 				{
-					'label': 'mautic.core.form.cancel'|trans,
+					'label': 'mailvotech.core.form.cancel'|trans,
 					'variant': 'secondary',
 					'attributes': {
 						'data-dismiss': 'modal'
 					}
 				},
 				{
-					'label': 'mautic.user.invite.send'|trans,
+					'label': 'mailvotech.user.invite.send'|trans,
 					'variant': 'primary',
 					'onclick': "mQuery('#InviteUserModal').find('#invite-user-form button[type=submit]').trigger('click');"
 				}
@@ -106,50 +106,50 @@
 		<table class="table table-hover user-list" id="userTable">
 			<thead>
 				<tr>
-					{{- include('@MauticCore/Helper/tableheader.html.twig', {
+					{{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'checkall'        : 'true',
                     'target'          : '#userTable'
             }) -}}
 
 					<th class="visible-md visible-lg col-user-avatar"></th>
-					{{- include('@MauticCore/Helper/tableheader.html.twig', {
+					{{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar' : 'user',
                     'orderBy'    : 'u.lastName, u.firstName, u.username',
-                    'text'       : 'mautic.core.name',
+                    'text'       : 'mailvotech.core.name',
                     'class'      : 'col-user-name',
                     'default'    : true,
                 }) -}}
-					{{- include('@MauticCore/Helper/tableheader.html.twig', {
+					{{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar' : 'user',
                     'orderBy'    : 'u.username',
-                    'text'       : 'mautic.core.username',
+                    'text'       : 'mailvotech.core.username',
                     'class'      : 'col-user-username',
                 }) -}}
-					{{- include('@MauticCore/Helper/tableheader.html.twig', {
+					{{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar' : 'user',
                     'orderBy'    : 'u.email',
-                    'text'       : 'mautic.core.type.email',
+                    'text'       : 'mailvotech.core.type.email',
                     'class'      : 'visible-md visible-lg col-user-email',
                 }) -}}
 
-					{{- include('@MauticCore/Helper/tableheader.html.twig', {
+					{{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar' : 'user',
                     'orderBy'    : 'r.name',
-                    'text'       : 'mautic.user.role',
+                    'text'       : 'mailvotech.user.role',
                     'class'      : 'visible-md visible-lg col-user-role',
                 }) -}}
 
-					{{- include('@MauticCore/Helper/tableheader.html.twig', {
+					{{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar' : 'user',
                     'orderBy'    : 'u.lastLogin',
-                    'text'       : 'mautic.user.lastlogin',
+                    'text'       : 'mailvotech.user.lastlogin',
                     'class'      : 'visible-md visible-lg col-user-lastlogin',
                 }) -}}
 
-					{{- include('@MauticCore/Helper/tableheader.html.twig', {
+					{{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar' : 'user',
                     'orderBy'    : 'u.id',
-                    'text'       : 'mautic.core.id',
+                    'text'       : 'mailvotech.core.id',
                     'class'      : 'visible-md visible-lg col-user-id',
                 }) -}}
 
@@ -159,7 +159,7 @@
 				{% for item in items %}
 					<tr>
 						<td>
-							{{- include('@MauticCore/Helper/list_actions.html.twig', {
+							{{- include('@MailVotechCore/Helper/list_actions.html.twig', {
                             'item'            : item,
                             'templateButtons' : {
                                 'edit'   : permissions['edit'],
@@ -176,13 +176,13 @@
 						<td>
 							<div>
 								{% if item.getId() != currentUserId %}
-									{{- include('@MauticCore/Helper/publishstatus_icon.html.twig', {
+									{{- include('@MailVotechCore/Helper/publishstatus_icon.html.twig', {
 										'item'  : item,
 										'model' : 'user',
 									}) -}}
 								{% endif %}
 								{% if permissions['edit'] %}
-									<a href="{{ path( 'mautic_user_action', {'objectAction' : 'edit', 'objectId' : item.getId()} ) }}" data-toggle="ajax">
+									<a href="{{ path( 'mailvotech_user_action', {'objectAction' : 'edit', 'objectId' : item.getId()} ) }}" data-toggle="ajax">
 										{{ item.getName(true) }}
 									</a>
 								{% else %}
@@ -205,11 +205,11 @@
 			</tbody>
 		</table>
 		<div class="panel-footer">
-			{{- include('@MauticCore/Helper/pagination.html.twig', {
+			{{- include('@MailVotechCore/Helper/pagination.html.twig', {
             'totalItems' : items|length,
             'page'       : page,
             'limit'      : limit,
-            'baseUrl'    : path('mautic_user_index'),
+            'baseUrl'    : path('mailvotech_user_index'),
             'sessionVar' : 'user',
        }) -}}
 		</div>

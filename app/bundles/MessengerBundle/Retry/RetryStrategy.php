@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\Retry;
+namespace MailVotech\MessengerBundle\Retry;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Retry\MultiplierRetryStrategy;
 use Symfony\Component\Messenger\Retry\RetryStrategyInterface;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
-use Mautic\CoreBundle\IpLookup\AbstractLocalDataLookup;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\CoreBundle\IpLookup\AbstractLocalDataLookup;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,10 +31,10 @@ final class IpLookupDownloadDataStoreButtonType extends AbstractType
             'fetch_button',
             ButtonType::class,
             [
-                'label' => ($localDataExists) ? 'mautic.core.ip_lookup.update_data' : 'mautic.core.ip_lookup.fetch_data',
+                'label' => ($localDataExists) ? 'mailvotech.core.ip_lookup.update_data' : 'mailvotech.core.ip_lookup.fetch_data',
                 'attr'  => [
                     'class'   => 'btn btn-tertiary btn-sm',
-                    'onclick' => 'Mautic.downloadIpLookupDataStore()',
+                    'onclick' => 'MailVotech.downloadIpLookupDataStore()',
                 ],
             ]
         );
@@ -53,7 +53,7 @@ final class IpLookupDownloadDataStoreButtonType extends AbstractType
             if ($localDataExists && $lastModifiedTimestamp = filemtime($localFilePath)) {
                 $lastModified                            = $this->dateHelper->toText($lastModifiedTimestamp, 'UTC', 'U');
                 $view->vars['ipDataStoreLastDownloaded'] = $this->translator->trans(
-                    'mautic.core.ip_lookup.last_updated',
+                    'mailvotech.core.ip_lookup.last_updated',
                     ['%date%' => $lastModified]
                 );
             }

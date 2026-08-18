@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
 final class CompanyBuildSearchEvent extends LeadBuildSearchEvent
 {

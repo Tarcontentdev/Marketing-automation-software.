@@ -1,8 +1,8 @@
-# Mautic release leads
+# MailVotech release leads
 
-This document contains the schedule and release team for upcoming Mautic releases.
+This document contains the schedule and release team for upcoming MailVotech releases.
 
-## Mautic 5.2
+## MailVotech 5.2
 
 | Release Date | Version | Name     | Lead          | Assistant Lead  |
 |--------------|---------|----------|---------------|-----------------|
@@ -13,7 +13,7 @@ This document contains the schedule and release team for upcoming Mautic release
 | 23/02/2026   | 5.2.10  | Celaeno  | John Linhart  |                 |
 | 25/05/2026   | 5.2.11  | Capella  |               |                 |
 
-## Mautic 6.0 
+## MailVotech 6.0 
 
 | Release Date | Version  | Name       | Lead          | Assistant Lead  |
 |--------------|----------|----------  |---------------|-----------------|
@@ -25,7 +25,7 @@ This document contains the schedule and release team for upcoming Mautic release
 | 24/11/2025   | 6.0.7    | Rigel      | Patryk Gruszka  |               |
 | 23/02/2026   | 6.0.8    | Tabit      |                 |               |
 
-## Mautic 7.0
+## MailVotech 7.0
 
 | Release Date | Version  | Name     | Lead          | Assistant Lead  |
 |--------------|----------|----------|---------------|-----------------|

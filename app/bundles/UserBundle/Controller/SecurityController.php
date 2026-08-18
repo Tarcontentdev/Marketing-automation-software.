@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Controller;
+namespace MailVotech\UserBundle\Controller;
 
-use Mautic\CoreBundle\Controller\CommonController;
-use Mautic\CoreBundle\Service\FlashBag;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\UserBundle\Exception\WeakPasswordException;
-use Mautic\UserBundle\Security\SAML\Helper as SAMLHelper;
+use MailVotech\CoreBundle\Controller\CommonController;
+use MailVotech\CoreBundle\Service\FlashBag;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\UserBundle\Exception\WeakPasswordException;
+use MailVotech\UserBundle\Security\SAML\Helper as SAMLHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,7 +46,7 @@ final class SecurityController extends CommonController implements EventSubscrib
         if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')
             || $this->authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')
         ) {
-            $redirectUrl = $this->generateUrl('mautic_dashboard_index');
+            $redirectUrl = $this->generateUrl('mailvotech_dashboard_index');
             $event->setResponse(new RedirectResponse($redirectUrl));
         }
     }
@@ -60,14 +60,14 @@ final class SecurityController extends CommonController implements EventSubscrib
 
         if (null !== $error) {
             if ($error instanceof WeakPasswordException) {
-                $this->addFlash(FlashBag::LEVEL_ERROR, $translator->trans('mautic.user.auth.error.weakpassword', [], 'flashes'));
+                $this->addFlash(FlashBag::LEVEL_ERROR, $translator->trans('mailvotech.user.auth.error.weakpassword', [], 'flashes'));
 
-                return $this->forward('Mautic\UserBundle\Controller\PublicController::passwordResetAction');
+                return $this->forward('MailVotech\UserBundle\Controller\PublicController::passwordResetAction');
             }
             if ($error instanceof Exception\BadCredentialsException) {
-                $msg = 'mautic.user.auth.error.invalidlogin';
+                $msg = 'mailvotech.user.auth.error.invalidlogin';
             } elseif ($error instanceof Exception\DisabledException) {
-                $msg = 'mautic.user.auth.error.disabledaccount';
+                $msg = 'mailvotech.user.auth.error.disabledaccount';
             } elseif ($error instanceof Exception\AuthenticationException) {
                 $msg = $error->getMessageKey();
             } else {
@@ -87,10 +87,10 @@ final class SecurityController extends CommonController implements EventSubscrib
                 'last_username' => $authenticationUtils->getLastUsername(),
                 'integrations'  => $integrations,
             ],
-            'contentTemplate' => '@MauticUser/Security/login.html.twig',
+            'contentTemplate' => '@MailVotechUser/Security/login.html.twig',
             'passthroughVars' => [
                 'route'          => $this->generateUrl('login'),
-                'mauticContent'  => 'user',
+                'mailvotechContent'  => 'user',
                 'sessionExpired' => true,
             ],
         ]);
@@ -122,16 +122,16 @@ final class SecurityController extends CommonController implements EventSubscrib
 
         $session->invalidate();
 
-        $this->addFlashMessage('mautic.user.security.saml.clearsession', [], FlashBag::LEVEL_ERROR);
+        $this->addFlashMessage('mailvotech.user.security.saml.clearsession', [], FlashBag::LEVEL_ERROR);
 
         return $this->delegateView([
             'viewParameters' => [
                 'loginRoute' => $this->generateUrl('lightsaml_sp.discovery'),
             ],
-            'contentTemplate' => '@MauticUser/Security/saml_login_retry.html.twig',
+            'contentTemplate' => '@MailVotechUser/Security/saml_login_retry.html.twig',
             'passthroughVars' => [
-                'route'          => $this->generateUrl('mautic_base_index'),
-                'mauticContent'  => 'user',
+                'route'          => $this->generateUrl('mailvotech_base_index'),
+                'mailvotechContent'  => 'user',
                 'sessionExpired' => true,
             ],
         ]);

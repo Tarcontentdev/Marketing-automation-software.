@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Tests\PreferenceBuilder;
+namespace MailVotech\ChannelBundle\Tests\PreferenceBuilder;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\ChannelBundle\PreferenceBuilder\ChannelPreferences;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\ChannelBundle\PreferenceBuilder\ChannelPreferences;
 
 final class ChannelPreferencesTest extends \PHPUnit\Framework\TestCase
 {

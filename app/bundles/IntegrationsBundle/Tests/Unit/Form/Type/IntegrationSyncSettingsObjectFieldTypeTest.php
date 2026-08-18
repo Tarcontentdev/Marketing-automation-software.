@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Form\Type;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Form\Type;
 
-use Mautic\IntegrationsBundle\Exception\InvalidFormOptionException;
-use Mautic\IntegrationsBundle\Form\Type\IntegrationSyncSettingsObjectFieldType;
-use Mautic\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Exception\InvalidFormOptionException;
+use MailVotech\IntegrationsBundle\Form\Type\IntegrationSyncSettingsObjectFieldType;
+use MailVotech\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -44,9 +44,9 @@ final class IntegrationSyncSettingsObjectFieldTypeTest extends \PHPUnit\Framewor
             'placeholder'  => 'Placeholder ABC',
             'object'       => 'Object A',
             'integration'  => 'Integration A',
-            'mauticFields' => [
-                'mautic_field_a' => 'Mautic Field A',
-                'mautic_field_b' => 'Mautic Field B',
+            'mailvotechFields' => [
+                'mailvotech_field_a' => 'MailVotech Field A',
+                'mailvotech_field_b' => 'MailVotech Field B',
             ],
         ];
 
@@ -54,7 +54,7 @@ final class IntegrationSyncSettingsObjectFieldTypeTest extends \PHPUnit\Framewor
         $field->method('getName')->willReturn('Integration Field A');
         $field->method('isBidirectionalSyncEnabled')->willReturn(false);
         $field->method('isToIntegrationSyncEnabled')->willReturn(true);
-        $field->method('isToMauticSyncEnabled')->willReturn(true);
+        $field->method('isToMailVotechSyncEnabled')->willReturn(true);
         $matcher = $this->exactly(2);
 
         $this->formBuilder->expects($matcher)
@@ -65,8 +65,8 @@ final class IntegrationSyncSettingsObjectFieldTypeTest extends \PHPUnit\Framewor
                     $this->assertSame([
                         'label'          => false,
                         'choices'        => [
-                            'Mautic Field A' => 'mautic_field_a',
-                            'Mautic Field B' => 'mautic_field_b',
+                            'MailVotech Field A' => 'mailvotech_field_a',
+                            'MailVotech Field B' => 'mailvotech_field_b',
                         ],
                         'required'       => true,
                         'placeholder'    => '',
@@ -85,8 +85,8 @@ final class IntegrationSyncSettingsObjectFieldTypeTest extends \PHPUnit\Framewor
                     $this->assertSame(ChoiceType::class, $parameters[1]);
                     $this->assertSame([
                         'choices' => [
-                            'mautic.integration.sync_direction_integration' => ObjectMappingDAO::SYNC_TO_INTEGRATION,
-                            'mautic.integration.sync_direction_mautic'      => ObjectMappingDAO::SYNC_TO_MAUTIC,
+                            'mailvotech.integration.sync_direction_integration' => ObjectMappingDAO::SYNC_TO_INTEGRATION,
+                            'mailvotech.integration.sync_direction_mailvotech'      => ObjectMappingDAO::SYNC_TO_MAILVOTECH,
                         ],
                         'label'      => false,
                         'empty_data' => ObjectMappingDAO::SYNC_TO_INTEGRATION,

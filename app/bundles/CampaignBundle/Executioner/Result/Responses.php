@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CampaignBundle\Executioner\Result;
+namespace MailVotech\CampaignBundle\Executioner\Result;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
 
 final class Responses
 {

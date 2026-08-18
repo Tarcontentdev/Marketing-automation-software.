@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
-use Mautic\CoreBundle\Helper\MaxMindDoNotSellDownloadHelper;
+use MailVotech\CoreBundle\Helper\MaxMindDoNotSellDownloadHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
-    name: 'mautic:donotsell:download',
+    name: 'mailvotech:donotsell:download',
     description: 'Fetch remote do not sell list from MaxMind',
     help: <<<'TXT'
                 The <info>%command.name%</info> command is used to update MaxMind Do Not Sell list.
@@ -32,14 +32,14 @@ final class UpdateDoNotSellListCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if ($this->maxMindDoNotSellDownloadHelper->downloadRemoteDataStore()) {
-            $output->writeln('<info>'.$this->translator->trans('mautic.core.success').'</info>');
+            $output->writeln('<info>'.$this->translator->trans('mailvotech.core.success').'</info>');
         } else {
             $remoteUrl = $this->maxMindDoNotSellDownloadHelper->getRemoteDataStoreDownloadUrl();
             $localPath = $this->maxMindDoNotSellDownloadHelper->getLocalDataStoreFilepath();
 
             if ($remoteUrl && $localPath) {
                 $output->writeln('<error>'.$this->translator->trans(
-                    'mautic.core.do_not_sell.remote_fetch_error',
+                    'mailvotech.core.do_not_sell.remote_fetch_error',
                     [
                         '%remoteUrl%' => $remoteUrl,
                         '%localPath%' => $localPath,
@@ -47,7 +47,7 @@ final class UpdateDoNotSellListCommand extends Command
                 ).'</error>');
             } else {
                 $output->writeln('<error>'.$this->translator->trans(
-                    'mautic.core.do_not_sell.remote_fetch_error_generic'
+                    'mailvotech.core.do_not_sell.remote_fetch_error_generic'
                 ).'</error>');
             }
         }

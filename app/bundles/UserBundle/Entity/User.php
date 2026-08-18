@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\UserBundle\Entity;
+namespace MailVotech\UserBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -10,12 +10,12 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\CacheInvalidateInterface;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\UserBundle\ApiPlatform\UserProcessor;
-use Mautic\UserBundle\Form\Validator\Constraints\NotWeak;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\CacheInvalidateInterface;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\UserBundle\ApiPlatform\UserProcessor;
+use MailVotech\UserBundle\Form\Validator\Constraints\NotWeak;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Security\Core\User\EquatableInterface;
@@ -230,38 +230,38 @@ class User extends FormEntity implements UserInterface, EquatableInterface, Pass
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addPropertyConstraint('username', new Assert\NotBlank(
-            message: 'mautic.user.user.username.notblank'
+            message: 'mailvotech.user.user.username.notblank'
         ));
 
-        $metadata->addConstraint(new UniqueEntity(fields: ['username'], message: 'mautic.user.user.username.unique', repositoryMethod: 'checkUniqueUsernameEmail'));
+        $metadata->addConstraint(new UniqueEntity(fields: ['username'], message: 'mailvotech.user.user.username.unique', repositoryMethod: 'checkUniqueUsernameEmail'));
 
         $metadata->addPropertyConstraint('firstName', new Assert\NotBlank(
-            message: 'mautic.user.user.firstname.notblank'
+            message: 'mailvotech.user.user.firstname.notblank'
         ));
 
         $metadata->addPropertyConstraint('lastName', new Assert\NotBlank(
-            message: 'mautic.user.user.lastname.notblank'
+            message: 'mailvotech.user.user.lastname.notblank'
         ));
 
         $metadata->addPropertyConstraint('email', new Assert\NotBlank(
-            message: 'mautic.user.user.email.valid'
+            message: 'mailvotech.user.user.email.valid'
         ));
 
-        $metadata->addPropertyConstraint('email', new Assert\Email(message: 'mautic.user.user.email.valid', groups: ['SecondPass']));
+        $metadata->addPropertyConstraint('email', new Assert\Email(message: 'mailvotech.user.user.email.valid', groups: ['SecondPass']));
 
-        $metadata->addConstraint(new UniqueEntity(fields: ['email'], message: 'mautic.user.user.email.unique', repositoryMethod: 'checkUniqueUsernameEmail', groups: ['User', 'SecondPass']));
+        $metadata->addConstraint(new UniqueEntity(fields: ['email'], message: 'mailvotech.user.user.email.unique', repositoryMethod: 'checkUniqueUsernameEmail', groups: ['User', 'SecondPass']));
 
-        $metadata->addPropertyConstraint('position', new Assert\Length(max: 191, maxMessage: 'mautic.user.user.position.toolong'));
+        $metadata->addPropertyConstraint('position', new Assert\Length(max: 191, maxMessage: 'mailvotech.user.user.position.toolong'));
 
         $metadata->addPropertyConstraint('role', new Assert\NotBlank(
-            message: 'mautic.user.user.role.notblank'
+            message: 'mailvotech.user.user.role.notblank'
         ));
 
-        $metadata->addPropertyConstraint('plainPassword', new Assert\NotBlank(message: 'mautic.user.user.password.notblank', groups: ['CheckPasswordNotBlank']));
+        $metadata->addPropertyConstraint('plainPassword', new Assert\NotBlank(message: 'mailvotech.user.user.password.notblank', groups: ['CheckPasswordNotBlank']));
 
-        $metadata->addPropertyConstraint('plainPassword', new Assert\Length(min: 6, minMessage: 'mautic.user.user.password.minlength', groups: ['CheckPassword']));
+        $metadata->addPropertyConstraint('plainPassword', new Assert\Length(min: 6, minMessage: 'mailvotech.user.user.password.minlength', groups: ['CheckPassword']));
 
-        $metadata->addPropertyConstraint('plainPassword', new NotWeak(message: 'mautic.user.user.password.weak', groups: ['CheckPassword']));
+        $metadata->addPropertyConstraint('plainPassword', new NotWeak(message: 'mailvotech.user.user.password.weak', groups: ['CheckPassword']));
 
         $metadata->setGroupSequence(['User', 'SecondPass', 'CheckPassword']);
     }
@@ -381,7 +381,7 @@ class User extends FormEntity implements UserInterface, EquatableInterface, Pass
                 ($this->isAdmin()) ? 'ROLE_ADMIN' : 'ROLE_USER',
             ];
 
-            if (defined('MAUTIC_API_REQUEST') && MAUTIC_API_REQUEST) {
+            if (defined('MAILVOTECH_API_REQUEST') && MAILVOTECH_API_REQUEST) {
                 $roles[] = 'ROLE_API';
             }
         }

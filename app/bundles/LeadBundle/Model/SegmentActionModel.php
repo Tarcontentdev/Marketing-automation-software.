@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\LeadBundle\Model;
+namespace MailVotech\LeadBundle\Model;
 
 final readonly class SegmentActionModel
 {

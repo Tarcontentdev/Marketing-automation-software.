@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\FormBundle\Entity;
+namespace MailVotech\FormBundle\Entity;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Event\GlobalSearchEvent;
-use Mautic\ProjectBundle\Entity\ProjectRepositoryTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Event\GlobalSearchEvent;
+use MailVotech\ProjectBundle\Entity\ProjectRepositoryTrait;
 
 /**
  * @extends CommonRepository<Form>
@@ -58,12 +58,12 @@ class FormRepository extends CommonRepository
      * @param int         $limit
      * @param int         $start
      * @param bool        $viewOther
-     * @param string|null $formType  @deprecated since Mautic 7.1, this parameter is ignored and will be removed in 8.0
+     * @param string|null $formType  @deprecated since MailVotech 7.1, this parameter is ignored and will be removed in 8.0
      */
     public function getFormList($search = '', $limit = 10, $start = 0, $viewOther = false, $formType = null): array
     {
         if (null !== $formType) {
-            trigger_deprecation('mautic/mautic', '7.1', 'The $formType parameter in FormRepository::getFormList() is deprecated and will be removed in 8.0.');
+            trigger_deprecation('mailvotech/mailvotech', '7.1', 'The $formType parameter in FormRepository::getFormList() is deprecated and will be removed in 8.0.');
         }
 
         $q = $this->createQueryBuilder('f');
@@ -116,8 +116,8 @@ class FormRepository extends CommonRepository
         $returnParameter = false; // returning a parameter that is not used will lead to a Doctrine error
 
         switch ($command) {
-            case $this->translator->trans('mautic.form.form.searchcommand.isexpired'):
-            case $this->translator->trans('mautic.form.form.searchcommand.isexpired', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.form.form.searchcommand.isexpired'):
+            case $this->translator->trans('mailvotech.form.form.searchcommand.isexpired', [], null, 'en_US'):
                 $expr = $q->expr()->and(
                     $q->expr()->eq('f.isPublished', ":{$unique}"),
                     $q->expr()->isNotNull('f.publishDown'),
@@ -126,8 +126,8 @@ class FormRepository extends CommonRepository
                 );
                 $forceParameters = [$unique => true];
                 break;
-            case $this->translator->trans('mautic.form.form.searchcommand.ispending'):
-            case $this->translator->trans('mautic.form.form.searchcommand.ispending', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.form.form.searchcommand.ispending'):
+            case $this->translator->trans('mailvotech.form.form.searchcommand.ispending', [], null, 'en_US'):
                 $expr = $q->expr()->and(
                     $q->expr()->eq('f.isPublished', ":{$unique}"),
                     $q->expr()->isNotNull('f.publishUp'),
@@ -136,8 +136,8 @@ class FormRepository extends CommonRepository
                 );
                 $forceParameters = [$unique => true];
                 break;
-            case $this->translator->trans('mautic.form.form.searchcommand.hasresults'):
-            case $this->translator->trans('mautic.form.form.searchcommand.hasresults', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.form.form.searchcommand.hasresults'):
+            case $this->translator->trans('mailvotech.form.form.searchcommand.hasresults', [], null, 'en_US'):
                 $sq       = $this->getEntityManager()->createQueryBuilder();
                 $subquery = $sq->select('count(s.id)')
                     ->from(Submission::class, 's')
@@ -151,13 +151,13 @@ class FormRepository extends CommonRepository
                     ->getDql();
                 $expr = $q->expr()->gt(sprintf('(%s)', $subquery), 1);
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.name'):
-            case $this->translator->trans('mautic.core.searchcommand.name', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.name'):
+            case $this->translator->trans('mailvotech.core.searchcommand.name', [], null, 'en_US'):
                 $expr            = $q->expr()->like('f.name', ':'.$unique);
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.project.searchcommand.name'):
-            case $this->translator->trans('mautic.project.searchcommand.name', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.project.searchcommand.name'):
+            case $this->translator->trans('mailvotech.project.searchcommand.name', [], null, 'en_US'):
                 return $this->handleProjectFilter(
                     $this->_em->getConnection()->createQueryBuilder(),
                     'form_id',
@@ -195,7 +195,7 @@ class FormRepository extends CommonRepository
     {
         $query = $this->_em->getConnection()->createQueryBuilder();
 
-        $query->from(MAUTIC_TABLE_PREFIX.'form_submissions', 'fs')
+        $query->from(MAILVOTECH_TABLE_PREFIX.'form_submissions', 'fs')
             ->select('fr.*')
             ->leftJoin('fs', $this->getResultsTableName($form->getId(), $form->getAlias()), 'fr', 'fr.submission_id = fs.id')
             ->where('fs.form_id = :formId')
@@ -226,8 +226,8 @@ class FormRepository extends CommonRepository
     public function getValidFormResultsTable(): array
     {
         return $this->_em->getConnection()->createQueryBuilder()
-            ->select("CONCAT('".MAUTIC_TABLE_PREFIX."','form_results_', t.id, '_', t.alias) as validFormTable")
-            ->from(MAUTIC_TABLE_PREFIX.'forms', 't')
+            ->select("CONCAT('".MAILVOTECH_TABLE_PREFIX."','form_results_', t.id, '_', t.alias) as validFormTable")
+            ->from(MAILVOTECH_TABLE_PREFIX.'forms', 't')
             ->executeQuery()
             ->fetchAllAssociative();
     }
@@ -240,12 +240,12 @@ class FormRepository extends CommonRepository
      */
     public function getResultsTableName($formId, $formAlias): string
     {
-        return MAUTIC_TABLE_PREFIX.'form_results_'.$formId.'_'.$formAlias;
+        return MAILVOTECH_TABLE_PREFIX.'form_results_'.$formId.'_'.$formAlias;
     }
 
     public function getFormTableIdViaResults(string $resultsTableName): ?string
     {
-        $regexp = '/.*'.MAUTIC_TABLE_PREFIX.'form_results_([0-9]+)_(.*)/i';
+        $regexp = '/.*'.MAILVOTECH_TABLE_PREFIX.'form_results_([0-9]+)_(.*)/i';
         preg_match($regexp, $resultsTableName, $matches);
 
         return $matches[1] ?? null;
@@ -257,16 +257,16 @@ class FormRepository extends CommonRepository
     public function getSearchCommands(): array
     {
         $commands = [
-            'mautic.core.searchcommand.ispublished',
-            'mautic.core.searchcommand.isunpublished',
-            'mautic.core.searchcommand.isuncategorized',
-            'mautic.core.searchcommand.ismine',
-            'mautic.form.form.searchcommand.isexpired',
-            'mautic.form.form.searchcommand.ispending',
-            'mautic.form.form.searchcommand.hasresults',
-            'mautic.core.searchcommand.category',
-            'mautic.core.searchcommand.name',
-            'mautic.project.searchcommand.name',
+            'mailvotech.core.searchcommand.ispublished',
+            'mailvotech.core.searchcommand.isunpublished',
+            'mailvotech.core.searchcommand.isuncategorized',
+            'mailvotech.core.searchcommand.ismine',
+            'mailvotech.form.form.searchcommand.isexpired',
+            'mailvotech.form.form.searchcommand.ispending',
+            'mailvotech.form.form.searchcommand.hasresults',
+            'mailvotech.core.searchcommand.category',
+            'mailvotech.core.searchcommand.name',
+            'mailvotech.project.searchcommand.name',
         ];
 
         return array_merge($commands, parent::getSearchCommands());

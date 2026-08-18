@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Form\Type;
+namespace MailVotech\IntegrationsBundle\Form\Type;
 
-use Mautic\IntegrationsBundle\Exception\InvalidFormOptionException;
-use Mautic\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Exception\InvalidFormOptionException;
+use MailVotech\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,7 +32,7 @@ final class IntegrationSyncSettingsObjectFieldType extends AbstractType
             ChoiceType::class,
             [
                 'label'          => false,
-                'choices'        => array_flip($options['mauticFields']),
+                'choices'        => array_flip($options['mailvotechFields']),
                 'required'       => $field->showAsRequired(),
                 'placeholder'    => '',
                 'error_bubbling' => false,
@@ -48,13 +48,13 @@ final class IntegrationSyncSettingsObjectFieldType extends AbstractType
 
         $choices = [];
         if ($field->isBidirectionalSyncEnabled()) {
-            $choices['mautic.integration.sync_direction_bidirectional'] = ObjectMappingDAO::SYNC_BIDIRECTIONALLY;
+            $choices['mailvotech.integration.sync_direction_bidirectional'] = ObjectMappingDAO::SYNC_BIDIRECTIONALLY;
         }
         if ($field->isToIntegrationSyncEnabled()) {
-            $choices['mautic.integration.sync_direction_integration'] = ObjectMappingDAO::SYNC_TO_INTEGRATION;
+            $choices['mailvotech.integration.sync_direction_integration'] = ObjectMappingDAO::SYNC_TO_INTEGRATION;
         }
-        if ($field->isToMauticSyncEnabled()) {
-            $choices['mautic.integration.sync_direction_mautic'] = ObjectMappingDAO::SYNC_TO_MAUTIC;
+        if ($field->isToMailVotechSyncEnabled()) {
+            $choices['mailvotech.integration.sync_direction_mailvotech'] = ObjectMappingDAO::SYNC_TO_MAILVOTECH;
         }
 
         if ([] === $choices) {
@@ -84,7 +84,7 @@ final class IntegrationSyncSettingsObjectFieldType extends AbstractType
     {
         $resolver->setRequired(
             [
-                'mauticFields',
+                'mailvotechFields',
                 'placeholder',
                 'integration',
                 'object',

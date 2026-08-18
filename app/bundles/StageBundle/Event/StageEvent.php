@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\Event;
+namespace MailVotech\StageBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\StageBundle\Entity\Stage;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\StageBundle\Entity\Stage;
 
 final class StageEvent extends CommonEvent
 {

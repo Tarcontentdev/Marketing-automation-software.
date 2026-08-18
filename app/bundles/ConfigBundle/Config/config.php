@@ -5,33 +5,33 @@ declare(strict_types=1);
 return [
     'routes' => [
         'main' => [
-            'mautic_config_action' => [
+            'mailvotech_config_action' => [
                 'path'       => '/config/{objectAction}/{objectId}',
-                'controller' => 'Mautic\ConfigBundle\Controller\ConfigController::executeAction',
+                'controller' => 'MailVotech\ConfigBundle\Controller\ConfigController::executeAction',
             ],
-            'mautic_sysinfo_index' => [
+            'mailvotech_sysinfo_index' => [
                 'path'       => '/sysinfo',
-                'controller' => 'Mautic\ConfigBundle\Controller\SysinfoController::indexAction',
+                'controller' => 'MailVotech\ConfigBundle\Controller\SysinfoController::indexAction',
             ],
         ],
     ],
 
     'menu' => [
         'admin' => [
-            'mautic.config.menu.index' => [
-                'route'           => 'mautic_config_action',
+            'mailvotech.config.menu.index' => [
+                'route'           => 'mailvotech_config_action',
                 'routeParameters' => ['objectAction' => 'edit'],
                 'iconClass'       => 'ri-settings-5-line',
-                'id'              => 'mautic_config_index',
-                'parent'          => 'mautic.core.general',
+                'id'              => 'mailvotech_config_index',
+                'parent'          => 'mailvotech.core.general',
                 'access'          => 'admin',
                 'priority'        => 16,
             ],
-            'mautic.sysinfo.menu.index' => [
-                'route'     => 'mautic_sysinfo_index',
+            'mailvotech.sysinfo.menu.index' => [
+                'route'     => 'mailvotech_sysinfo_index',
                 'iconClass' => 'ri-information-2-line',
-                'id'        => 'mautic_sysinfo_index',
-                'parent'    => 'mautic.core.general',
+                'id'        => 'mailvotech_sysinfo_index',
+                'parent'    => 'mailvotech.core.general',
                 'access'    => 'admin',
                 'priority'  => 04,
                 'checks'    => [

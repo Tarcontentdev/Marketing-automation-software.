@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Helper;
+namespace MailVotech\EmailBundle\Tests\Helper;
 
-use Mautic\EmailBundle\Helper\PlainTextHelper;
+use MailVotech\EmailBundle\Helper\PlainTextHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

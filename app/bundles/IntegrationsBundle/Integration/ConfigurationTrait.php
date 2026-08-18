@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Integration;
+namespace MailVotech\IntegrationsBundle\Integration;
 
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Entity\Integration;
 
 trait ConfigurationTrait
 {

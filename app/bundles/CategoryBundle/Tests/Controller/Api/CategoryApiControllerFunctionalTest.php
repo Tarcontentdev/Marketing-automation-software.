@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CategoryBundle\Tests\Controller\Api;
+namespace MailVotech\CategoryBundle\Tests\Controller\Api;
 
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadCategory;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadCategory;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 
-final class CategoryApiControllerFunctionalTest extends MauticMysqlTestCase
+final class CategoryApiControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * Test retrieving categories via API Platform v2 endpoint.

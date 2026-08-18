@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Tests\Model;
+namespace MailVotech\ChannelBundle\Tests\Model;
 
-use Mautic\ChannelBundle\Model\ChannelActionModel;
-use Mautic\LeadBundle\Entity\DoNotContact as DNC;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\DoNotContact;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\ChannelBundle\Model\ChannelActionModel;
+use MailVotech\LeadBundle\Entity\DoNotContact as DNC;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\DoNotContact;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ChannelActionModelTest extends \PHPUnit\Framework\TestCase

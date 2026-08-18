@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\EventListener;
+namespace MailVotech\ProjectBundle\EventListener;
 
-use Mautic\ApiBundle\Event\ApiInitializeEvent;
-use Mautic\ApiBundle\Serializer\Exclusion\FieldInclusionStrategy;
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\ChannelBundle\Entity\Message;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PointBundle\Entity\Point;
-use Mautic\PointBundle\Entity\Trigger;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\StageBundle\Entity\Stage;
-use MauticPlugin\MauticFocusBundle\Entity\Focus;
+use MailVotech\ApiBundle\Event\ApiInitializeEvent;
+use MailVotech\ApiBundle\Serializer\Exclusion\FieldInclusionStrategy;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\ChannelBundle\Entity\Message;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PointBundle\Entity\Point;
+use MailVotech\PointBundle\Entity\Trigger;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotechPlugin\MailVotechFocusBundle\Entity\Focus;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ApiSubscriber implements EventSubscriberInterface

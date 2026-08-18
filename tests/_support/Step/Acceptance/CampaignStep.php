@@ -6,7 +6,7 @@ use Page\Acceptance\ContactPage;
 
 final class CampaignStep extends \AcceptanceTester
 {
-    private const MODAL_SELECTOR = '#MauticSharedModal';
+    private const MODAL_SELECTOR = '#MailVotechSharedModal';
 
     public function addContactsToCampaign(): int
     {

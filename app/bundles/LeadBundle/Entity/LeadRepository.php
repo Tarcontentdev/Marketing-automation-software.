@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Order;
@@ -8,15 +8,15 @@ use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\SearchStringHelper;
-use Mautic\LeadBundle\Controller\ListController;
-use Mautic\LeadBundle\Event\LeadBuildSearchEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Segment\OperatorOptions;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder as SegmentQueryBuilder;
-use Mautic\PointBundle\Model\TriggerModel;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\SearchStringHelper;
+use MailVotech\LeadBundle\Controller\ListController;
+use MailVotech\LeadBundle\Event\LeadBuildSearchEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder as SegmentQueryBuilder;
+use MailVotech\PointBundle\Model\TriggerModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -153,7 +153,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
 
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('l.id')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l');
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l');
 
         if ($ignoreId) {
             $q->where('l.id != :ignoreId')
@@ -214,7 +214,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
         $result = $this->getEntityManager()
             ->createQuery("
                 SELECT c.id
-                FROM Mautic\LeadBundle\Entity\Lead c
+                FROM MailVotech\LeadBundle\Entity\Lead c
                 WHERE c.email IN (:emails)
             ")
             ->setParameter('emails', $emails, ArrayParameterType::STRING)
@@ -293,7 +293,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select($select)
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l');
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l');
 
         foreach ($uniqueFieldsWithData as $col => $val) {
             $q->{$this->getUniqueIdentifiersWherePart()}("l.{$col} = :".$col)
@@ -323,7 +323,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('l.id')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->where('email = :search')
             ->setParameter('search', $email);
 
@@ -368,7 +368,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
     {
         $fq = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $fq->select('l.*')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->where('l.id = '.$id);
         $results = $fq->executeQuery()->fetchAllAssociative();
 
@@ -379,7 +379,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
     {
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $query->select('1')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->where('l.id = :id')
             ->setParameter('id', $id);
 
@@ -566,7 +566,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
         $alias = $this->getTableAlias();
 
         return (new SegmentQueryBuilder($this->getEntityManager()->getConnection()))
-            ->from(MAUTIC_TABLE_PREFIX.'leads', $alias);
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', $alias);
     }
 
     /**
@@ -637,7 +637,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
         if (!empty($joinTable)) {
             $qb->join(
                 $this->getTableAlias(),
-                MAUTIC_TABLE_PREFIX.$joinTable,
+                MAILVOTECH_TABLE_PREFIX.$joinTable,
                 'entity',
                 $joinCondition
             );
@@ -647,7 +647,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
             foreach ($additionalJoins as $t) {
                 $qb->{$t['type']}(
                     $t['from_alias'],
-                    MAUTIC_TABLE_PREFIX.$t['table'],
+                    MAILVOTECH_TABLE_PREFIX.$t['table'],
                     $t['alias'],
                     $t['condition']
                 );
@@ -749,54 +749,54 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
         $nullExpr = $operators['null'][$exprType];
         $inExpr   = $operators['in'][$exprType];
 
-        $formSearchCommand = $this->translator->trans('mautic.lead.lead.searchcommand.form');
-        if ($command === $this->translator->trans('mautic.lead.lead.searchcommand.form', [], null, 'en_US')) {
+        $formSearchCommand = $this->translator->trans('mailvotech.lead.lead.searchcommand.form');
+        if ($command === $this->translator->trans('mailvotech.lead.lead.searchcommand.form', [], null, 'en_US')) {
             $command = $formSearchCommand;
         }
 
         switch ($command) {
-            case $this->translator->trans('mautic.lead.lead.searchcommand.isanonymous'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.isanonymous', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.isanonymous'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.isanonymous', [], null, 'en_US'):
                 $expr = $q->expr()->{$nullExpr}('l.date_identified');
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.ismine'):
-            case $this->translator->trans('mautic.core.searchcommand.ismine', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ismine'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ismine', [], null, 'en_US'):
                 $expr = $q->expr()->{$eqExpr}('l.owner_id', $this->currentUser->getId());
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.isunowned'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.isunowned', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.isunowned'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.isunowned', [], null, 'en_US'):
                 $expr = $q->expr()->or(
                     $q->expr()->{$eqExpr}('l.owner_id', 0),
                     $q->expr()->{$nullExpr}('l.owner_id')
                 );
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.owner'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.owner', [], null, 'en_US'):
-                $q->leftJoin($this->getTableAlias(), MAUTIC_TABLE_PREFIX.'users', 'u', "u.id = {$this->getTableAlias()}.owner_id");
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.owner'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.owner', [], null, 'en_US'):
+                $q->leftJoin($this->getTableAlias(), MAILVOTECH_TABLE_PREFIX.'users', 'u', "u.id = {$this->getTableAlias()}.owner_id");
                 $expr = $q->expr()->or(
                     $q->expr()->{$likeExpr}('u.first_name', ':'.$unique),
                     $q->expr()->{$likeExpr}('u.last_name', ':'.$unique)
                 );
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.name'):
-            case $this->translator->trans('mautic.core.searchcommand.name', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.name'):
+            case $this->translator->trans('mailvotech.core.searchcommand.name', [], null, 'en_US'):
                 $expr = $q->expr()->or(
                     $q->expr()->{$likeExpr}('l.firstname', ":{$unique}"),
                     $q->expr()->{$likeExpr}('l.lastname', ":{$unique}")
                 );
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.email'):
-            case $this->translator->trans('mautic.core.searchcommand.email', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.email'):
+            case $this->translator->trans('mailvotech.core.searchcommand.email', [], null, 'en_US'):
                 $expr            = $q->expr()->{$likeExpr}('l.email', ":{$unique}");
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.list'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.list', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.list'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.list', [], null, 'en_US'):
                 $sq = $this->getEntityManager()->getConnection()->createQueryBuilder();
                 $sq->select('1')
-                    ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'lla')
+                    ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'lla')
                     ->where(
                         $q->expr()->and(
                             $q->expr()->eq('l.id', 'lla.lead_id'),
@@ -806,14 +806,14 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
                     );
                 $from = $q->getQueryPart('from')[0];
                 $q->resetQueryPart('from');
-                $q->add('from', ['hint' => 'USE INDEX FOR JOIN ('.MAUTIC_TABLE_PREFIX.'lead_date_added)'] + $from, true);
+                $q->add('from', ['hint' => 'USE INDEX FOR JOIN ('.MAILVOTECH_TABLE_PREFIX.'lead_date_added)'] + $from, true);
 
                 $filter->strict  = true;
                 $q->andWhere($this->getExistsExpression($filter->not).'('.$sq->getSQL().')');
                 $q->setParameter($unique, $this->getListIdsByAlias($string) ?: [0], ArrayParameterType::INTEGER);
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.company_id'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.company_id', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.company_id'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.company_id', [], null, 'en_US'):
                 $this->applySearchQueryRelationship(
                     $q,
                     [
@@ -831,8 +831,8 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
                 $returnParameter = true;
 
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.ip'):
-            case $this->translator->trans('mautic.core.searchcommand.ip', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ip'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ip', [], null, 'en_US'):
                 $this->applySearchQueryRelationship(
                     $q,
                     [
@@ -855,8 +855,8 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
                 $returnParameter = true;
 
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.duplicate'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.duplicate', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.duplicate'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.duplicate', [], null, 'en_US'):
                 $prateek  = explode('+', $string);
                 $imploder = [];
 
@@ -871,7 +871,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
 
                 $sq = $this->getEntityManager()->getConnection()->createQueryBuilder();
                 $sq->select('duplicate.lead_id')
-                    ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'duplicate')
+                    ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'duplicate')
                     ->where(
                         $q->expr()->and(
                             $q->expr()->in('duplicate.leadlist_id', $imploder),
@@ -885,8 +885,8 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
                 $returnParameter = true;
 
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.tag'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.tag', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.tag'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.tag', [], null, 'en_US'):
                 $this->applySearchQueryRelationship(
                     $q,
                     [
@@ -908,8 +908,8 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
                 );
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.company'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.company', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.company'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.company', [], null, 'en_US'):
                 $this->applySearchQueryRelationship(
                     $q,
                     [
@@ -931,8 +931,8 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
                 );
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.stage'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.stage', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.stage'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.stage', [], null, 'en_US'):
                 $this->applySearchQueryRelationship(
                     $q,
                     [
@@ -948,13 +948,13 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
                 );
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.dnc'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.dnc', [], null, 'en_US'):
-                $anyKeyword   = $this->translator->trans('mautic.lead.lead.searchcommand.dnc.any');
-                $anyKeywordEn = $this->translator->trans('mautic.lead.lead.searchcommand.dnc.any', [], null, 'en_US');
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.dnc'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.dnc', [], null, 'en_US'):
+                $anyKeyword   = $this->translator->trans('mailvotech.lead.lead.searchcommand.dnc.any');
+                $anyKeywordEn = $this->translator->trans('mailvotech.lead.lead.searchcommand.dnc.any', [], null, 'en_US');
                 $sq           = $this->getEntityManager()->getConnection()->createQueryBuilder();
                 $sq->select('1')
-                    ->from(MAUTIC_TABLE_PREFIX.'lead_donotcontact', 'dnc')
+                    ->from(MAILVOTECH_TABLE_PREFIX.'lead_donotcontact', 'dnc')
                     ->where($q->expr()->eq('l.id', 'dnc.lead_id'));
 
                 if ($string === $anyKeyword || $string === $anyKeywordEn) {
@@ -973,8 +973,8 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
                 }
                 $sq = $this->getEntityManager()->getConnection()->createQueryBuilder();
                 $sq->select('1')
-                    ->from(MAUTIC_TABLE_PREFIX.'form_submissions', 'fsub')
-                    ->innerJoin('fsub', MAUTIC_TABLE_PREFIX.'forms', 'ffrm', 'fsub.form_id = ffrm.id')
+                    ->from(MAILVOTECH_TABLE_PREFIX.'form_submissions', 'fsub')
+                    ->innerJoin('fsub', MAILVOTECH_TABLE_PREFIX.'forms', 'ffrm', 'fsub.form_id = ffrm.id')
                     ->where(
                         $q->expr()->and(
                             $q->expr()->eq('fsub.lead_id', 'l.id'),
@@ -1021,34 +1021,34 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
     public function getSearchCommands(): array
     {
         $commands = [
-            'mautic.lead.lead.searchcommand.isanonymous',
-            'mautic.core.searchcommand.ismine',
-            'mautic.lead.lead.searchcommand.isunowned',
-            'mautic.lead.lead.searchcommand.list',
-            'mautic.lead.lead.searchcommand.campaign_membership',
-            'mautic.core.searchcommand.name',
-            'mautic.lead.lead.searchcommand.company',
-            'mautic.lead.lead.searchcommand.company_id',
-            'mautic.core.searchcommand.email',
-            'mautic.lead.lead.searchcommand.owner',
-            'mautic.core.searchcommand.ip',
-            'mautic.lead.lead.searchcommand.tag',
-            'mautic.lead.lead.searchcommand.stage',
-            'mautic.lead.lead.searchcommand.duplicate',
-            'mautic.lead.lead.searchcommand.email_sent',
-            'mautic.lead.lead.searchcommand.email_read',
-            'mautic.lead.lead.searchcommand.email_queued',
-            'mautic.lead.lead.searchcommand.email_pending',
-            'mautic.lead.lead.searchcommand.page_source',
-            'mautic.lead.lead.searchcommand.page_source_id',
-            'mautic.lead.lead.searchcommand.import_id',
-            'mautic.lead.lead.searchcommand.import_action',
-            'mautic.lead.lead.searchcommand.page_id',
-            'mautic.lead.lead.searchcommand.sms_sent',
-            'mautic.lead.lead.searchcommand.web_sent',
-            'mautic.lead.lead.searchcommand.mobile_sent',
-            'mautic.lead.lead.searchcommand.dnc',
-            'mautic.lead.lead.searchcommand.form',
+            'mailvotech.lead.lead.searchcommand.isanonymous',
+            'mailvotech.core.searchcommand.ismine',
+            'mailvotech.lead.lead.searchcommand.isunowned',
+            'mailvotech.lead.lead.searchcommand.list',
+            'mailvotech.lead.lead.searchcommand.campaign_membership',
+            'mailvotech.core.searchcommand.name',
+            'mailvotech.lead.lead.searchcommand.company',
+            'mailvotech.lead.lead.searchcommand.company_id',
+            'mailvotech.core.searchcommand.email',
+            'mailvotech.lead.lead.searchcommand.owner',
+            'mailvotech.core.searchcommand.ip',
+            'mailvotech.lead.lead.searchcommand.tag',
+            'mailvotech.lead.lead.searchcommand.stage',
+            'mailvotech.lead.lead.searchcommand.duplicate',
+            'mailvotech.lead.lead.searchcommand.email_sent',
+            'mailvotech.lead.lead.searchcommand.email_read',
+            'mailvotech.lead.lead.searchcommand.email_queued',
+            'mailvotech.lead.lead.searchcommand.email_pending',
+            'mailvotech.lead.lead.searchcommand.page_source',
+            'mailvotech.lead.lead.searchcommand.page_source_id',
+            'mailvotech.lead.lead.searchcommand.import_id',
+            'mailvotech.lead.lead.searchcommand.import_action',
+            'mailvotech.lead.lead.searchcommand.page_id',
+            'mailvotech.lead.lead.searchcommand.sms_sent',
+            'mailvotech.lead.lead.searchcommand.web_sent',
+            'mailvotech.lead.lead.searchcommand.mobile_sent',
+            'mailvotech.lead.lead.searchcommand.dnc',
+            'mailvotech.lead.lead.searchcommand.form',
         ];
 
         if ([] !== $this->availableSearchFields) {
@@ -1084,7 +1084,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
         $dt     = new DateTimeHelper($lastActiveDate ?? '');
         $fields = ['last_active' => $dt->toUtcString()];
 
-        $this->getEntityManager()->getConnection()->update(MAUTIC_TABLE_PREFIX.'leads', $fields, ['id' => $leadId]);
+        $this->getEntityManager()->getConnection()->update(MAILVOTECH_TABLE_PREFIX.'leads', $fields, ['id' => $leadId]);
     }
 
     /**
@@ -1096,7 +1096,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
     {
         $result = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('max(id) as max_lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->executeQuery()
             ->fetchAllAssociative();
 
@@ -1118,7 +1118,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
 
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('u.id, u.first_name, u.last_name, u.email, u.position, u.signature')
-            ->from(MAUTIC_TABLE_PREFIX.'users', 'u')
+            ->from(MAILVOTECH_TABLE_PREFIX.'users', 'u')
             ->where('u.id = :ownerId')
             ->setParameter('ownerId', (int) $ownerId);
 
@@ -1147,8 +1147,8 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
 
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $q->select('s.id')
-            ->from(MAUTIC_TABLE_PREFIX.'stages', 's');
-        $q->join('s', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.stage_id = s.id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'stages', 's');
+        $q->join('s', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.stage_id = s.id')
             ->where(
                 $q->expr()->and(
                     $q->expr()->in('s.id', ':stageIds'),
@@ -1172,8 +1172,8 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
 
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $q->select('u.id')
-            ->from(MAUTIC_TABLE_PREFIX.'users', 'u')
-            ->join('u', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.owner_id = u.id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'users', 'u')
+            ->join('u', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.owner_id = u.id')
             ->where(
                 $q->expr()->and(
                     $q->expr()->in('u.id', ':ownerIds'),
@@ -1190,7 +1190,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
-        $qb->select('l.*')->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+        $qb->select('l.*')->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->where(
                 $qb->expr()->in('l.id', ':ids')
             )
@@ -1326,7 +1326,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
         if (!preg_match('/"'.preg_quote($primaryTable['alias'], '/').'"/i', json_encode($q->getQueryPart('join')))) {
             $q->{$joinType}(
                 $primaryTable['from_alias'],
-                MAUTIC_TABLE_PREFIX.$primaryTable['table'],
+                MAILVOTECH_TABLE_PREFIX.$primaryTable['table'],
                 $primaryTable['alias'],
                 $primaryTable['condition']
             );
@@ -1347,7 +1347,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
             if (!$exists) {
                 $q->{$joinType}(
                     $table['from_alias'],
-                    MAUTIC_TABLE_PREFIX.$table['table'],
+                    MAILVOTECH_TABLE_PREFIX.$table['table'],
                     $table['alias'],
                     $table['condition']
                 );
@@ -1370,7 +1370,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
     protected function updateContactPoints(array $changes, $id, $tries = 1): int
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder()
-            ->update(MAUTIC_TABLE_PREFIX.'leads')
+            ->update(MAILVOTECH_TABLE_PREFIX.'leads')
             ->where('id = '.$id);
 
         $ph = 0;
@@ -1398,7 +1398,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
         // Query new points
         return (int) $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('l.points')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->where('l.id = '.$id)
             ->executeQuery()
             ->fetchOne();
@@ -1489,7 +1489,7 @@ class LeadRepository extends CommonRepository implements CustomFieldRepositoryIn
             ->getConnection()
             ->createQueryBuilder()
             ->select('list.id')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists', 'list')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists', 'list')
             ->where('list.alias = :alias')
             ->setParameter('alias', $alias)
             ->executeQuery()

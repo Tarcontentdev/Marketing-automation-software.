@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\EventListener;
+namespace MailVotech\PageBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
-use Mautic\PageBundle\Event\UrlTokenReplaceEvent;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
+use MailVotech\PageBundle\Event\UrlTokenReplaceEvent;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  *
  * Tests the VWO segment tracking feature that appends segment IDs to tracking URLs.
  */
-final class SegmentTrackingSubscriberFunctionalTest extends MauticMysqlTestCase
+final class SegmentTrackingSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     private const TEST_URL = 'https://example.com/page';
 
@@ -324,7 +324,7 @@ final class SegmentTrackingSubscriberFunctionalTest extends MauticMysqlTestCase
      */
     private function getContactSegments(Lead $lead): array
     {
-        /** @var \Mautic\LeadBundle\Entity\LeadListRepository $repository */
+        /** @var \MailVotech\LeadBundle\Entity\LeadListRepository $repository */
         $repository = $this->em->getRepository(LeadList::class);
 
         return $repository->getLeadLists($lead->getId(), false, true);

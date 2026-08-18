@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\MaxMindDoNotSellDownloadHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\MaxMindDoNotSellDownloadHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -144,7 +144,7 @@ final class MaxMindDoNotSellDownloadHelperTest extends \PHPUnit\Framework\TestCa
             ->willReturn(200);
         $responseMock->expects($this->once())
             ->method('getContent')
-            ->willReturn('["mautic"]');
+            ->willReturn('["mailvotech"]');
         $result = $maxMindDoNotSellDownloadHelper->downloadRemoteDataStore();
         $this->assertTrue($result);
         $this->assertFileExists($maxMindDoNotSellDownloadHelper->getLocalDataStoreFilepath());

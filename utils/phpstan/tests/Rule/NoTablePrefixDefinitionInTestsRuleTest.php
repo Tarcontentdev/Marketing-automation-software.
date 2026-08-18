@@ -22,11 +22,11 @@ final class NoTablePrefixDefinitionInTestsRuleTest extends RuleTestCase
     {
         $this->analyse([__DIR__.'/Fixture/DefineTablePrefixTest.php'], [
             [
-                'Test must not define the "MAUTIC_TABLE_PREFIX" const, the test bootstrap defines it already. Remove the definition.',
+                'Test must not define the "MAILVOTECH_TABLE_PREFIX" const, the test bootstrap defines it already. Remove the definition.',
                 12,
             ],
             [
-                'Test must not define the "MAUTIC_TABLE_PREFIX" const, the test bootstrap defines it already. Remove the definition.',
+                'Test must not define the "MAILVOTECH_TABLE_PREFIX" const, the test bootstrap defines it already. Remove the definition.',
                 18,
             ],
         ]);

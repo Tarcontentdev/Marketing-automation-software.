@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\EventListener;
+namespace MailVotech\SmsBundle\EventListener;
 
-use Mautic\SmsBundle\Event\SmsSendEvent;
-use Mautic\SmsBundle\SmsEvents;
-use Mautic\WebhookBundle\Event\WebhookBuilderEvent;
-use Mautic\WebhookBundle\Model\WebhookModel;
-use Mautic\WebhookBundle\WebhookEvents;
+use MailVotech\SmsBundle\Event\SmsSendEvent;
+use MailVotech\SmsBundle\SmsEvents;
+use MailVotech\WebhookBundle\Event\WebhookBuilderEvent;
+use MailVotech\WebhookBundle\Model\WebhookModel;
+use MailVotech\WebhookBundle\WebhookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class WebhookSubscriber implements EventSubscriberInterface
@@ -34,8 +34,8 @@ final readonly class WebhookSubscriber implements EventSubscriberInterface
         $event->addEvent(
             SmsEvents::SMS_ON_SEND,
             [
-                'label'       => 'mautic.sms.webhook.event.send',
-                'description' => 'mautic.sms.webhook.event.send_desc',
+                'label'       => 'mailvotech.sms.webhook.event.send',
+                'description' => 'mailvotech.sms.webhook.event.send_desc',
             ]
         );
     }

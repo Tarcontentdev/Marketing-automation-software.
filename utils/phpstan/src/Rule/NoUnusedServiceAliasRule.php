@@ -16,7 +16,7 @@ use Utils\PHPStan\Collector\ServiceTypeUsageCollector;
 /**
  * Reports the service aliases of Config/services.php nothing refers to.
  *
- * A service id alias is used by an id string, e.g. service('mautic.some.helper'), a class name alias is used
+ * A service id alias is used by an id string, e.g. service('mailvotech.some.helper'), a class name alias is used
  * by a type hint, as that is what autowiring wires it by.
  *
  * Only PHP is analysed, so an alias used by a Twig template, a YAML or an XML file alone looks unused here.
@@ -61,7 +61,7 @@ final class NoUnusedServiceAliasRule implements Rule
                     'Service alias "%s" is never used, remove it.',
                     $aliasName
                 ))
-                    ->identifier('mautic.noUnusedServiceAlias')
+                    ->identifier('mailvotech.noUnusedServiceAlias')
                     ->file($filePath)
                     ->line($startLine)
                     ->build();
@@ -96,7 +96,7 @@ final class NoUnusedServiceAliasRule implements Rule
 
     /**
      * A used name is either the alias name itself or the sprintf() format an id is built by at runtime,
-     * e.g. "mautic.%s.model.%s" of ModelFactory covers "mautic.lead.model.lead".
+     * e.g. "mailvotech.%s.model.%s" of ModelFactory covers "mailvotech.lead.model.lead".
      */
     private function isMatchingName(string $usedName, string $aliasName): bool
     {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Segment\Decorator\Date\Year;
+namespace MailVotech\LeadBundle\Segment\Decorator\Date\Year;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\Decorator\Date\DateOptionAbstract;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\Decorator\Date\DateOptionAbstract;
 
 abstract class DateYearAbstract extends DateOptionAbstract
 {

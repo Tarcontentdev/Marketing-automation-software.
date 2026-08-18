@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Executioner\Result;
+namespace MailVotech\CampaignBundle\Tests\Executioner\Result;
 
-use Mautic\CampaignBundle\Executioner\Result\Counter;
+use MailVotech\CampaignBundle\Executioner\Result\Counter;
 
 final class CounterTest extends \PHPUnit\Framework\TestCase
 {

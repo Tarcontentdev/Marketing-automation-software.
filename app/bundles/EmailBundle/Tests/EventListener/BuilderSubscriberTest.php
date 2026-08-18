@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\EmailBundle\EventListener\BuilderSubscriber;
-use Mautic\EmailBundle\Helper\FromEmailHelper;
-use Mautic\EmailBundle\Helper\MailHashHelper;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\PageBundle\Entity\RedirectRepository;
-use Mautic\PageBundle\Entity\TrackableRepository;
-use Mautic\PageBundle\Model\RedirectModel;
-use Mautic\PageBundle\Model\TrackableModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\EventListener\BuilderSubscriber;
+use MailVotech\EmailBundle\Helper\FromEmailHelper;
+use MailVotech\EmailBundle\Helper\MailHashHelper;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\PageBundle\Entity\RedirectRepository;
+use MailVotech\PageBundle\Entity\TrackableRepository;
+use MailVotech\PageBundle\Model\RedirectModel;
+use MailVotech\PageBundle\Model\TrackableModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -284,9 +284,9 @@ final class BuilderSubscriberTest extends TestCase
         $emailHash = hash_hmac('sha256', 'lukas.sykora@acquia.com', 'secret');
         $this->emailModel->method('buildUrl')
             ->willReturnCallback(fn (string $route): string => match ($route) {
-                'mautic_email_unsubscribe' => '/email/unsubscribe/hash/lukas.sykora@acquia.com/'.$emailHash,
-                'mautic_email_webview'     => '/email/webview/'.$emailHash,
-                'mautic_email_preview'     => '/email/preview/111',
+                'mailvotech_email_unsubscribe' => '/email/unsubscribe/hash/lukas.sykora@acquia.com/'.$emailHash,
+                'mailvotech_email_webview'     => '/email/webview/'.$emailHash,
+                'mailvotech_email_preview'     => '/email/preview/111',
                 default                    => '',
             });
 

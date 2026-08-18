@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Form\Type;
+namespace MailVotech\FormBundle\Tests\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\FormBundle\Form\Type\FormFieldConditionType;
-use Mautic\FormBundle\Helper\PropertiesAccessor;
-use Mautic\FormBundle\Model\FieldModel;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\FormBundle\Form\Type\FormFieldConditionType;
+use MailVotech\FormBundle\Helper\PropertiesAccessor;
+use MailVotech\FormBundle\Model\FieldModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -73,7 +73,7 @@ final class FormFieldConditionTypeTest extends \PHPUnit\Framework\TestCase
                     $this->assertSame('any', $parameters[0]);
                     $this->assertSame(YesNoButtonGroupType::class, $parameters[1]);
                     $this->assertSame([
-                        'label' => 'mautic.form.field.form.condition.any_value',
+                        'label' => 'mailvotech.form.field.form.condition.any_value',
                         'attr'  => [
                             'data-show-on' => '{"formfield_conditions_expr": "in"}',
                         ],
@@ -85,8 +85,8 @@ final class FormFieldConditionTypeTest extends \PHPUnit\Framework\TestCase
                     $this->assertSame(ChoiceType::class, $parameters[1]);
                     $this->assertSame([
                         'choices'  => [
-                            'mautic.core.operator.in'    => 'in',
-                            'mautic.core.operator.notin' => 'notIn',
+                            'mailvotech.core.operator.in'    => 'in',
+                            'mailvotech.core.operator.notin' => 'notIn',
                         ],
                         'label'       => false,
                         'placeholder' => false,

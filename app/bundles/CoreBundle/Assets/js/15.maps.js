@@ -1,4 +1,4 @@
-class MauticMap {
+class MailVotechMap {
 
     static TYPES = {
         'markers': 0,
@@ -47,10 +47,10 @@ class MauticMap {
     }
 
     constructor(wrapper, typeKey = 'regions' ) {
-        this.type = MauticMap.TYPES[typeKey];
+        this.type = MailVotechMap.TYPES[typeKey];
         this.scope = mQuery(wrapper);
         this.mapData = this.getMapData();
-        this.settings = MauticMap.SETTINGS;
+        this.settings = MailVotechMap.SETTINGS;
         this.map = this.getMapsInScope();
         this.legendEnabled = this.isLegendEnabled();
         this.statUnit = this.getStatUnitFromItem(this.map);
@@ -82,12 +82,12 @@ class MauticMap {
     }
 
     initSeries(data) {
-        if (this.type === MauticMap.TYPES['regions']) {
+        if (this.type === MailVotechMap.TYPES['regions']) {
             this.settings.series.regions[0].values = data;
             this.settings.markers = {};
         }
 
-        if(this.type === MauticMap.TYPES['markers']) {
+        if(this.type === MailVotechMap.TYPES['markers']) {
             this.settings.series.regions[0].values = {};
             this.settings.markers = data;
         }
@@ -221,11 +221,11 @@ class MauticMap {
         this.mapData = values;
         mapObject.reset();
 
-        if (this.type === MauticMap.TYPES['regions'] && dataSeries) {
+        if (this.type === MailVotechMap.TYPES['regions'] && dataSeries) {
             // Force map color scaling
             this.unsetExtremeValues(dataSeries);
             dataSeries.setValues(values);
-        } else if (this.type === MauticMap.TYPES['markers']) {
+        } else if (this.type === MailVotechMap.TYPES['markers']) {
             this.settings.markers[0].setValues(values)
         }
     }
@@ -250,12 +250,12 @@ class MauticMap {
     }
 }
 
-Mautic.initMap = (wrapper, typeKey) => {
-    const map = new MauticMap(wrapper, typeKey);
+MailVotech.initMap = (wrapper, typeKey) => {
+    const map = new MailVotechMap(wrapper, typeKey);
     map.init();
 
-    if (!Mautic.mapObjects) Mautic.mapObjects = [];
-    Mautic.mapObjects.push(map);
+    if (!MailVotech.mapObjects) MailVotech.mapObjects = [];
+    MailVotech.mapObjects.push(map);
 
     return map;
 }

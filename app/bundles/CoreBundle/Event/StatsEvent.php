@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Event;
+namespace MailVotech\CoreBundle\Event;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
@@ -85,7 +85,7 @@ class StatsEvent extends Event
         array $where,
         protected User $user,
     ) {
-        $this->table = strtolower(trim(str_replace(MAUTIC_TABLE_PREFIX, '', strip_tags($table))));
+        $this->table = strtolower(trim(str_replace(MAILVOTECH_TABLE_PREFIX, '', strip_tags($table))));
         $this->start = (int) $start;
         $this->limit = (int) $limit;
         $this->where = $where;
@@ -98,7 +98,7 @@ class StatsEvent extends Event
      */
     public function isLookingForTable($table, ?CommonRepository $repository = null): bool
     {
-        $this->tables[] = $table = str_replace(MAUTIC_TABLE_PREFIX, '', $table);
+        $this->tables[] = $table = str_replace(MAILVOTECH_TABLE_PREFIX, '', $table);
         if ($repository) {
             $this->tableColumns[$table] = $repository->getTableColumns();
         }

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Controller;
+namespace MailVotech\CampaignBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DomCrawler\Crawler;
 
-final class VisitedPageConditionControllerFunctionalTest extends MauticMysqlTestCase
+final class VisitedPageConditionControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * @param array<mixed,mixed> $pageUrl
@@ -26,7 +26,7 @@ final class VisitedPageConditionControllerFunctionalTest extends MauticMysqlTest
         array $page,
     ): void {
         // Fetch the campaign condition form.
-        $uri = 's/campaigns/events/new?type=lead.pageHit&eventType=condition&campaignId=3&anchor=leadsource&anchorEventType=source&_=1682493324393&mauticUserLastActive=897&mauticLastNotificationId=';
+        $uri = 's/campaigns/events/new?type=lead.pageHit&eventType=condition&campaignId=3&anchor=leadsource&anchorEventType=source&_=1682493324393&mailvotechUserLastActive=897&mailvotechLastNotificationId=';
         $this->client->xmlHttpRequest('GET', $uri);
         $response = $this->client->getResponse();
         $this->assertResponseIsSuccessful();

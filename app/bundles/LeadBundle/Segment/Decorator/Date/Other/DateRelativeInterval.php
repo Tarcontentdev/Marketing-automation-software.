@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Decorator\Date\Other;
+namespace MailVotech\LeadBundle\Segment\Decorator\Date\Other;
 
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\Decorator\Date\DateOptionParameters;
-use Mautic\LeadBundle\Segment\Decorator\DateDecorator;
-use Mautic\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
-use Mautic\LeadBundle\Segment\Decorator\ParseDateFilterValueTrait;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\Decorator\Date\DateOptionParameters;
+use MailVotech\LeadBundle\Segment\Decorator\DateDecorator;
+use MailVotech\LeadBundle\Segment\Decorator\FilterDecoratorInterface;
+use MailVotech\LeadBundle\Segment\Decorator\ParseDateFilterValueTrait;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 
 final class DateRelativeInterval implements FilterDecoratorInterface
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\SmsBundle\Entity;
+namespace MailVotech\SmsBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Entity\TimelineTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Entity\TimelineTrait;
 
 /**
  * @extends CommonRepository<Stat>
@@ -40,7 +40,7 @@ class StatRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('s.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'sms_messages_stats', 's')
+            ->from(MAILVOTECH_TABLE_PREFIX.'sms_messages_stats', 's')
             ->where('s.sms_id = :sms')
             ->setParameter('sms', $smsId);
 
@@ -73,7 +73,7 @@ class StatRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('count(s.id) as sent_count')
-            ->from(MAUTIC_TABLE_PREFIX.'sms_message_stats', 's');
+            ->from(MAILVOTECH_TABLE_PREFIX.'sms_message_stats', 's');
 
         if ($smsIds) {
             if (!is_array($smsIds)) {
@@ -110,8 +110,8 @@ class StatRepository extends CommonRepository
     public function getLeadStats($leadId, array $options = [])
     {
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder();
-        $query->from(MAUTIC_TABLE_PREFIX.'sms_message_stats', 's')
-            ->leftJoin('s', MAUTIC_TABLE_PREFIX.'sms_messages', 'e', 's.sms_id = e.id');
+        $query->from(MAILVOTECH_TABLE_PREFIX.'sms_message_stats', 's')
+            ->leftJoin('s', MAILVOTECH_TABLE_PREFIX.'sms_messages', 'e', 's.sms_id = e.id');
 
         if ($leadId) {
             $query->andWhere(
@@ -127,7 +127,7 @@ class StatRepository extends CommonRepository
             $query->select(
                 's.sms_id, s.id, s.date_sent as dateSent, e.name, e.name as sms_name, e.message, e.sms_type as type, s.is_failed as isFailed, s.list_id, l.name as list_name, s.tracking_hash as idHash, s.lead_id, s.details'
             )
-                ->leftJoin('s', MAUTIC_TABLE_PREFIX.'lead_lists', 'l', 's.list_id = l.id');
+                ->leftJoin('s', MAILVOTECH_TABLE_PREFIX.'lead_lists', 'l', 's.list_id = l.id');
         }
 
         if (isset($options['state'])) {
@@ -169,7 +169,7 @@ class StatRepository extends CommonRepository
     public function updateLead($fromLeadId, $toLeadId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'sms_message_stats')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'sms_message_stats')
             ->set('sms_id', (int) $toLeadId)
             ->where('sms_id = '.(int) $fromLeadId)
             ->executeStatement();
@@ -177,7 +177,7 @@ class StatRepository extends CommonRepository
 
     public function deleteStat($id): void
     {
-        $this->_em->getConnection()->delete(MAUTIC_TABLE_PREFIX.'sms_message_stats', ['id' => (int) $id]);
+        $this->_em->getConnection()->delete(MAILVOTECH_TABLE_PREFIX.'sms_message_stats', ['id' => (int) $id]);
     }
 
     public function getTableAlias(): string

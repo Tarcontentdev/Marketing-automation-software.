@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Helper;
+namespace MailVotech\CoreBundle\Tests\Helper;
 
-use Mautic\CoreBundle\Helper\PrivateAddressChecker;
+use MailVotech\CoreBundle\Helper\PrivateAddressChecker;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

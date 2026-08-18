@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Notification;
+namespace MailVotech\IntegrationsBundle\Sync\Notification;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Service\BulkNotificationInterface;
-use Mautic\IntegrationsBundle\Sync\Notification\Helper\UserNotificationBuilder;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Service\BulkNotificationInterface;
+use MailVotech\IntegrationsBundle\Sync\Notification\Helper\UserNotificationBuilder;
+use MailVotech\UserBundle\Entity\User;
 
 class BulkNotification
 {
@@ -23,12 +23,12 @@ class BulkNotification
         string $message,
         string $integrationDisplayName,
         string $objectDisplayName,
-        string $mauticObject,
+        string $mailvotechObject,
         int $id,
         string $linkText,
     ): void {
-        $link    = $this->userNotificationBuilder->buildLink($mauticObject, $id, $linkText);
-        $userIds = $this->userNotificationBuilder->getUserIds($mauticObject, $id);
+        $link    = $this->userNotificationBuilder->buildLink($mailvotechObject, $id, $linkText);
+        $userIds = $this->userNotificationBuilder->getUserIds($mailvotechObject, $id);
 
         foreach ($userIds as $userId) {
             /** @var User $user */

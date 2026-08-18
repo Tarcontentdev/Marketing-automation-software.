@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Validator\Constraints;
+namespace MailVotech\LeadBundle\Validator\Constraints;
 
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Validator\SegmentUsedInCampaignsValidator as InternalValidator;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Validator\SegmentUsedInCampaignsValidator as InternalValidator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

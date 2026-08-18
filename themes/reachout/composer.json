@@ -1,10 +1,14 @@
 {
-  "name": "mautic/theme-reachout",
-  "description": "Mautic ReachOut Theme",
-  "type": "mautic-theme",
-  "keywords": ["mautic","theme"],
-  "minimum-stability": "dev",
-  "require": {
-    "mautic/core-lib": ">=7.0"
-  }
+    "name": "mailvotech/theme-reachout",
+    "description": "MailVotech ReachOut Theme",
+    "type": "mailvotech-theme",
+    "keywords": [
+        "mailvotech",
+        "theme"
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "mailvotech/core-lib": ">=7.0",
+        "mailvotech/composer-installer": "^1.0"
+    }
 }

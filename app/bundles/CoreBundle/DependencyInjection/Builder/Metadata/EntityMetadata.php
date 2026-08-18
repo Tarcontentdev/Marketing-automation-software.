@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\DependencyInjection\Builder\Metadata;
+namespace MailVotech\CoreBundle\DependencyInjection\Builder\Metadata;
 
-use Mautic\CoreBundle\DependencyInjection\Builder\BundleMetadata;
-use Mautic\CoreBundle\Entity\DeprecatedInterface;
+use MailVotech\CoreBundle\DependencyInjection\Builder\BundleMetadata;
+use MailVotech\CoreBundle\Entity\DeprecatedInterface;
 use Symfony\Component\Finder\Finder;
 
 final class EntityMetadata

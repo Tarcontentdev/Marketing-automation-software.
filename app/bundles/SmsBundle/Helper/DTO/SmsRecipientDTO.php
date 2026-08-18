@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Helper\DTO;
+namespace MailVotech\SmsBundle\Helper\DTO;
 
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Lead;
 
 final class SmsRecipientDTO implements \JsonSerializable
 {

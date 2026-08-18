@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Form\RequestTrait;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\FrequencyRule;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadEventLog;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Form\RequestTrait;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\FrequencyRule;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
 use PHPUnit\Framework\TestCase;
 
 final class LeadTest extends TestCase

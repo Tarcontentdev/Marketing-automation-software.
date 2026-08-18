@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\ReportBundle\Model;
+namespace MailVotech\ReportBundle\Model;
 
-use Mautic\CoreBundle\Twig\Helper\FormatterHelper;
-use Mautic\ReportBundle\Crate\ReportDataResult;
+use MailVotech\CoreBundle\Twig\Helper\FormatterHelper;
+use MailVotech\ReportBundle\Crate\ReportDataResult;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -90,7 +90,7 @@ class ExcelExporter
         $key = array_key_first($totals);
 
         if (empty($totals[$key])) {
-            $totals[$key] = $this->translator->trans('mautic.report.report.groupby.totals');
+            $totals[$key] = $this->translator->trans('mailvotech.report.report.groupby.totals');
         }
 
         $activeSheet->fromArray($totals, null, $startCell);

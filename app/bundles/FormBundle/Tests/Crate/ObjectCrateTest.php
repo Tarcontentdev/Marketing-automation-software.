@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Crate;
+namespace MailVotech\FormBundle\Tests\Crate;
 
-use Mautic\FormBundle\Crate\ObjectCrate;
+use MailVotech\FormBundle\Crate\ObjectCrate;
 
 final class ObjectCrateTest extends \PHPUnit\Framework\TestCase
 {

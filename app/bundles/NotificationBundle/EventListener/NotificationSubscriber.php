@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\NotificationBundle\EventListener;
+namespace MailVotech\NotificationBundle\EventListener;
 
-use Mautic\AssetBundle\Helper\TokenHelper as AssetTokenHelper;
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Helper\TokenHelper;
-use Mautic\NotificationBundle\Event\NotificationEvent;
-use Mautic\NotificationBundle\NotificationEvents;
-use Mautic\PageBundle\Entity\Trackable;
-use Mautic\PageBundle\Helper\TokenHelper as PageTokenHelper;
-use Mautic\PageBundle\Model\TrackableModel;
+use MailVotech\AssetBundle\Helper\TokenHelper as AssetTokenHelper;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Helper\TokenHelper;
+use MailVotech\NotificationBundle\Event\NotificationEvent;
+use MailVotech\NotificationBundle\NotificationEvents;
+use MailVotech\PageBundle\Entity\Trackable;
+use MailVotech\PageBundle\Helper\TokenHelper as PageTokenHelper;
+use MailVotech\PageBundle\Model\TrackableModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class NotificationSubscriber implements EventSubscriberInterface

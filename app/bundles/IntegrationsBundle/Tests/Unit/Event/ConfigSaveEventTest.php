@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Event;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Event;
 
-use Mautic\IntegrationsBundle\Event\ConfigSaveEvent;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\IntegrationsBundle\Event\ConfigSaveEvent;
+use MailVotech\PluginBundle\Entity\Integration;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigSaveEventTest extends TestCase

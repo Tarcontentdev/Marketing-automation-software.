@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Helper;
+namespace MailVotech\LeadBundle\Helper;
 
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\LeadBundle\Entity\DoNotContact;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\LeadBundle\Entity\DoNotContact;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class DncFormatterHelper
@@ -30,10 +30,10 @@ final class DncFormatterHelper
     {
         if (null === $this->dncReasons) {
             $this->dncReasons = [
-                DoNotContact::IS_CONTACTABLE => $this->translator->trans('mautic.lead.report.dnc_contactable'),
-                DoNotContact::UNSUBSCRIBED   => $this->translator->trans('mautic.lead.report.dnc_unsubscribed'),
-                DoNotContact::BOUNCED        => $this->translator->trans('mautic.lead.report.dnc_bounced'),
-                DoNotContact::MANUAL         => $this->translator->trans('mautic.lead.report.dnc_manual'),
+                DoNotContact::IS_CONTACTABLE => $this->translator->trans('mailvotech.lead.report.dnc_contactable'),
+                DoNotContact::UNSUBSCRIBED   => $this->translator->trans('mailvotech.lead.report.dnc_unsubscribed'),
+                DoNotContact::BOUNCED        => $this->translator->trans('mailvotech.lead.report.dnc_bounced'),
+                DoNotContact::MANUAL         => $this->translator->trans('mailvotech.lead.report.dnc_manual'),
             ];
         }
 

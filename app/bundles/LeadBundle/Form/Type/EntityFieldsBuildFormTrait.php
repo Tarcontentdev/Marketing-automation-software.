@@ -1,22 +1,22 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\BooleanType;
-use Mautic\CoreBundle\Form\Type\CountryType;
-use Mautic\CoreBundle\Form\Type\LocaleType;
-use Mautic\CoreBundle\Form\Type\LookupType;
-use Mautic\CoreBundle\Form\Type\MultiselectType;
-use Mautic\CoreBundle\Form\Type\RegionType;
-use Mautic\CoreBundle\Form\Type\SelectType;
-use Mautic\CoreBundle\Form\Type\TimezoneType;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Exception\FieldNotFoundException;
-use Mautic\LeadBundle\Form\FieldAliasToFqcnMap;
-use Mautic\LeadBundle\Form\Validator\Constraints\EmailAddress;
-use Mautic\LeadBundle\Helper\FormFieldHelper;
-use Mautic\LeadBundle\Validator\Constraints\Length;
-use Mautic\LeadBundle\Validator\Constraints\SafeUrl;
+use MailVotech\CoreBundle\Form\Type\BooleanType;
+use MailVotech\CoreBundle\Form\Type\CountryType;
+use MailVotech\CoreBundle\Form\Type\LocaleType;
+use MailVotech\CoreBundle\Form\Type\LookupType;
+use MailVotech\CoreBundle\Form\Type\MultiselectType;
+use MailVotech\CoreBundle\Form\Type\RegionType;
+use MailVotech\CoreBundle\Form\Type\SelectType;
+use MailVotech\CoreBundle\Form\Type\TimezoneType;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Exception\FieldNotFoundException;
+use MailVotech\LeadBundle\Form\FieldAliasToFqcnMap;
+use MailVotech\LeadBundle\Form\Validator\Constraints\EmailAddress;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\Validator\Constraints\Length;
+use MailVotech\LeadBundle\Validator\Constraints\SafeUrl;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -74,7 +74,7 @@ trait EntityFieldsBuildFormTrait
             $constraints = [];
             if ($required && empty($options['ignore_required_constraints'])) {
                 $constraints[] = new NotBlank(
-                    message: 'mautic.lead.customfield.notblank'
+                    message: 'mailvotech.lead.customfield.notblank'
                 );
             } elseif (!empty($options['ignore_required_constraints'])) {
                 $required            = false;
@@ -209,7 +209,7 @@ trait EntityFieldsBuildFormTrait
 
                     if (array_key_exists('use_nullable_yes_no_type', $options) && true === $options['use_nullable_yes_no_type'] && BooleanType::class === $type) {
                         $type       = NullableYesNoButtonGroupType::class;
-                        $emptyValue = 'mautic.core.form.no_change';
+                        $emptyValue = 'mailvotech.core.form.no_change';
                     } elseif (in_array($type, [SelectType::class, MultiselectType::class]) && !empty($properties['list'])) {
                         $typeProperties['choices']      = array_flip(FormFieldHelper::parseList($properties['list']));
                         $cleaningRules[$field['alias']] = 'raw';

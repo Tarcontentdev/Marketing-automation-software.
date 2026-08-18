@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\EmailBundle\Model\EmailModel;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\EmailBundle\Model\EmailModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -38,7 +38,7 @@ final class VariantType extends AbstractType
             'enableAbTest',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.core.ab_test.form.enable',
+                'label' => 'mailvotech.core.ab_test.form.enable',
                 'attr'  => [
                     'class'   => 'form-control',
                 ],
@@ -46,18 +46,18 @@ final class VariantType extends AbstractType
         );
 
         $builder->add('weight', IntegerType::class, [
-            'label'      => 'mautic.core.ab_test.form.traffic_weight',
+            'label'      => 'mailvotech.core.ab_test.form.traffic_weight',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => [
                 'class'           => 'form-control',
-                'tooltip'         => 'mautic.core.ab_test.form.traffic_weight.help',
+                'tooltip'         => 'mailvotech.core.ab_test.form.traffic_weight.help',
                 'postaddon_text'  => '%',
             ],
         ]);
 
         $attr = [
             'class'    => 'form-control',
-            'tooltip'  => 'mautic.core.ab_test.form.traffic_total_weight.help',
+            'tooltip'  => 'mailvotech.core.ab_test.form.traffic_total_weight.help',
         ];
 
         if (true === $options['is_parent'] && false === $options['is_existing']) {
@@ -65,7 +65,7 @@ final class VariantType extends AbstractType
         }
 
         $builder->add('totalWeight', IntegerType::class, [
-            'label'       => 'mautic.core.ab_test.form.traffic_total_weight',
+            'label'       => 'mailvotech.core.ab_test.form.traffic_total_weight',
             'label_attr'  => ['class' => 'control-label'],
             'attr'        => $attr + ['postaddon_text'  => '%'],
             'constraints' => new Assert\Range(min: 0, max: 100),
@@ -73,7 +73,7 @@ final class VariantType extends AbstractType
 
         $attr = [
             'class'    => 'form-control',
-            'tooltip'  => 'mautic.core.ab_test.form.send_winner_delay.help',
+            'tooltip'  => 'mailvotech.core.ab_test.form.send_winner_delay.help',
         ];
 
         if (true === $options['is_parent'] && false === $options['is_existing']) {
@@ -81,9 +81,9 @@ final class VariantType extends AbstractType
         }
 
         $builder->add('sendWinnerDelay', IntegerType::class, [
-            'label'       => 'mautic.core.ab_test.form.send_winner_delay',
+            'label'       => 'mailvotech.core.ab_test.form.send_winner_delay',
             'label_attr'  => ['class' => 'control-label'],
-            'attr'        => $attr + ['postaddon_text'  => $this->translator->trans('mautic.core.time.hours')],
+            'attr'        => $attr + ['postaddon_text'  => $this->translator->trans('mailvotech.core.time.hours')],
             'constraints' => new Assert\Range(min: 1, max: 480),
             'data' => $options['data']['sendWinnerDelay'] ?? self::DEFAULT_WINNER_DELAY,
         ]);
@@ -97,13 +97,13 @@ final class VariantType extends AbstractType
 
             if ($options['is_parent']) {
                 $constraints[] = new NotBlank(
-                    message: 'mautic.core.ab_test.winner_criteria.not_blank'
+                    message: 'mailvotech.core.ab_test.winner_criteria.not_blank'
                 );
             }
 
             $attr = [
                 'class'    => 'form-control',
-                'onchange' => 'Mautic.getAbTestWinnerForm(\'email\', \'emailform\', this);',
+                'onchange' => 'MailVotech.getAbTestWinnerForm(\'email\', \'emailform\', this);',
             ];
             if (true === $options['is_parent'] && false === $options['is_existing']) {
                 $attr['data-show-on'] = '{"emailform_variantSettings_enableAbTest_1":"checked"}';
@@ -113,13 +113,13 @@ final class VariantType extends AbstractType
                 'winnerCriteria',
                 ChoiceType::class,
                 [
-                    'label'       => 'mautic.core.ab_test.form.winner',
+                    'label'       => 'mailvotech.core.ab_test.form.winner',
                     'label_attr'  => ['class' => 'control-label'],
                     'attr'        => $attr,
                     'expanded'    => false,
                     'multiple'    => false,
                     'choices'     => $choices,
-                    'placeholder' => 'mautic.core.form.chooseone',
+                    'placeholder' => 'mailvotech.core.form.chooseone',
                     'constraints' => $constraints,
                 ]
             );
@@ -148,7 +148,7 @@ final class VariantType extends AbstractType
                 'buttons',
                 FormButtonsType::class,
                 [
-                    'cancel_text'   => 'mautic.core.close',
+                    'cancel_text'   => 'mailvotech.core.close',
                     'apply_text'    => false,
                 ]
             );

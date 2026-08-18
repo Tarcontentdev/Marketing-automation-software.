@@ -26,29 +26,29 @@
     margin: 0 25px 25px 25px;
 }
 
-.mauticform-100 { width: 100%; }
-.mauticform-75 { width: 75%; }
-.mauticform-66 { width: 66.66%; }
-.mauticform-50 { width: 50%; }
-.mauticform-33 { width: 33.33%; }
-.mauticform-25 { width: 25%; }
+.mailvotechform-100 { width: 100%; }
+.mailvotechform-75 { width: 75%; }
+.mailvotechform-66 { width: 66.66%; }
+.mailvotechform-50 { width: 50%; }
+.mailvotechform-33 { width: 33.33%; }
+.mailvotechform-25 { width: 25%; }
 
 @media (max-width: 767px) {
-    .mauticform-75,
-    .mauticform-66,
-    .mauticform-50,
-    .mauticform-33,
-    .mauticform-25 {
+    .mailvotechform-75,
+    .mailvotechform-66,
+    .mailvotechform-50,
+    .mailvotechform-33,
+    .mailvotechform-25 {
         width: 100%;
     }
 }
 
-#mauticforms_actions .mauticform-row .action-label {
+#mailvotechforms_actions .mailvotechform-row .action-label {
     font-size: 1.1em;
     font-weight: bold;
     display: block;
 }
-#mauticforms_actions .mauticform-row .action-descr {
+#mailvotechforms_actions .mailvotechform-row .action-descr {
     font-size: 0.9em;
     display: block;
 }
@@ -60,16 +60,16 @@
     z-index: 1;
     height: fit-content;
 }
-#mauticforms_fields .chosen-container-single .chosen-search input[type="text"] {
+#mailvotechforms_fields .chosen-container-single .chosen-search input[type="text"] {
     width: 100%;
 }
-#mauticforms_fields .panel-footer {
+#mailvotechforms_fields .panel-footer {
     padding: 3px 15px;
 }
-#mauticforms_fields input[type="date"],
-#mauticforms_fields input[type="time"],
-#mauticforms_fields input[type="datetime-local"],
-#mauticforms_fields input[type="month"] {
+#mailvotechforms_fields input[type="date"],
+#mailvotechforms_fields input[type="time"],
+#mailvotechforms_fields input[type="datetime-local"],
+#mailvotechforms_fields input[type="month"] {
     line-height: inherit;
 }
 
@@ -98,34 +98,34 @@ textarea.form-html {
     padding-right: 20px;
 }
 
-.mauticform_wrapper {
+.mailvotechform_wrapper {
     max-width: 600px;
     margin: 10px auto;
 }
-.mauticform-innerform {
+.mailvotechform-innerform {
     width: 100%;
 }
-.mauticform-post-success {
+.mailvotechform-post-success {
     text-align: center;
 }
-.mauticform-name {
+.mailvotechform-name {
     font-weight: bold;
     font-size: 1.5em;
     margin-bottom: 3px;
 }
-.mauticform-description {
+.mailvotechform-description {
     margin-top: 2px;
     margin-bottom: 10px;
 }
-.mauticform-error {
+.mailvotechform-error {
     margin-bottom: 10px;
     color: red;
 }
-.mauticform-message {
+.mailvotechform-message {
     margin-bottom: 10px;
     color: green;
 }
-.mauticform-row {
+.mailvotechform-row {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -133,30 +133,30 @@ textarea.form-html {
     min-height: 60px;
     padding: 10px;
 }
-.mauticform-label {
+.mailvotechform-label {
     font-size: 1.1em;
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
 }
-.mauticform-row.mauticform-required .mauticform-label:after {
+.mailvotechform-row.mailvotechform-required .mailvotechform-label:after {
     color: #e32;
     content: " *";
     display: inline;
 }
-.mauticform-helpmessage {
+.mailvotechform-helpmessage {
     display: block;
     font-size: 0.9em;
     margin-bottom: 3px;
 }
-.mauticform-errormsg {
+.mailvotechform-errormsg {
     display: block;
     color: red;
     margin-top: 2px;
 }
-.mauticform-selectbox,
-.mauticform-input,
-.mauticform-textarea {
+.mailvotechform-selectbox,
+.mailvotechform-input,
+.mailvotechform-textarea {
     width: 75%;
     max-width: 500px;
     padding: 0.5em 0.5em;
@@ -164,38 +164,38 @@ textarea.form-html {
     border-radius: 4px;
     box-sizing: border-box;
 }
-.mauticform-checkboxgrp-row {
+.mailvotechform-checkboxgrp-row {
     display: flex;
     align-items: flex-start;
     gap: 5px;
 }
 
-.mauticform-checkboxgrp-row input[type="radio"],
-.mauticform-checkboxgrp-row input[type="checkbox"] {
+.mailvotechform-checkboxgrp-row input[type="radio"],
+.mailvotechform-checkboxgrp-row input[type="checkbox"] {
     margin: 0;
 }
-.mauticform-checkboxgrp-label {
+.mailvotechform-checkboxgrp-label {
     font-weight: normal;
     line-height: 1em;
 }
-.mauticform-checkboxgrp-checkbox {
+.mailvotechform-checkboxgrp-checkbox {
     margin-right: 5px;
 }
-.mauticform-radiogrp-row {
+.mailvotechform-radiogrp-row {
     margin-bottom: 5px;
 }
-.mauticform-radiogrp-label {
+.mailvotechform-radiogrp-label {
     font-weight: normal;
 }
-input[type="radio"].mauticform-radiogrp-radio {
+input[type="radio"].mailvotechform-radiogrp-radio {
     width: 16px;
     height: 16px;
     vertical-align: -3px;
     margin-right: 4px;
 }
 
-.mauticform-button-wrapper .mauticform-button,
-.mauticform-pagebreak-wrapper .mauticform-pagebreak {
+.mailvotechform-button-wrapper .mailvotechform-button,
+.mailvotechform-pagebreak-wrapper .mailvotechform-pagebreak {
     margin-bottom: 0;
     font-weight: 600;
     cursor: pointer;
@@ -207,28 +207,28 @@ input[type="radio"].mauticform-radiogrp-radio {
     -ms-user-select: none;
     user-select: none;
 }
-.mauticform-button-wrapper .mauticform-button.btn-ghost[disabled],
-.mauticform-pagebreak-wrapper .mauticform-pagebreak.btn-ghost[disabled] {
+.mailvotechform-button-wrapper .mailvotechform-button.btn-ghost[disabled],
+.mailvotechform-pagebreak-wrapper .mailvotechform-pagebreak.btn-ghost[disabled] {
     cursor: not-allowed;
 }
-.mauticform-pagebreak-wrapper .mauticform-button-wrapper {
+.mailvotechform-pagebreak-wrapper .mailvotechform-button-wrapper {
     display: inline;
 }
-.mauticform-rating .mauticform-rating-row {
+.mailvotechform-rating .mailvotechform-rating-row {
     direction: rtl;
     display: inline-flex;
 }
-.mauticform-rating .mauticform-rating-radio {
+.mailvotechform-rating .mailvotechform-rating-radio {
     display: none;
 }
-.mauticform-rating .mauticform-rating-label {
+.mailvotechform-rating .mailvotechform-rating-label {
     font-size: 1.5em;
     color: var(--base-color, #ccc);
     cursor: pointer;
     padding: 0 2px;
 }
-.mauticform-rating .mauticform-rating-radio:checked ~ label.mauticform-rating-label,
-.mauticform-rating .mauticform-rating-label:hover,
-.mauticform-rating .mauticform-rating-label:hover ~ label.mauticform-rating-label {
+.mailvotechform-rating .mailvotechform-rating-radio:checked ~ label.mailvotechform-rating-label,
+.mailvotechform-rating .mailvotechform-rating-label:hover,
+.mailvotechform-rating .mailvotechform-rating-label:hover ~ label.mailvotechform-rating-label {
     color: var(--star-color, #f5b301);
 }

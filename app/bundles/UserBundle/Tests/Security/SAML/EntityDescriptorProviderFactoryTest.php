@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Security\SAML;
+namespace MailVotech\UserBundle\Tests\Security\SAML;
 
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Credential\X509Credential;
 use LightSaml\Store\Credential\CredentialStoreInterface;
-use Mautic\UserBundle\Security\SAML\EntityDescriptorProviderFactory;
+use MailVotech\UserBundle\Security\SAML\EntityDescriptorProviderFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\RouterInterface;
 

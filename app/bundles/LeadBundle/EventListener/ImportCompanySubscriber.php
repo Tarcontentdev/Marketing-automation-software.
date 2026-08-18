@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\ArrayHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\LeadBundle\Event\ImportInitEvent;
-use Mautic\LeadBundle\Event\ImportMappingEvent;
-use Mautic\LeadBundle\Event\ImportProcessEvent;
-use Mautic\LeadBundle\Event\ImportValidateEvent;
-use Mautic\LeadBundle\Field\FieldList;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\CompanyModel;
+use MailVotech\CoreBundle\Helper\ArrayHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\LeadBundle\Event\ImportInitEvent;
+use MailVotech\LeadBundle\Event\ImportMappingEvent;
+use MailVotech\LeadBundle\Event\ImportProcessEvent;
+use MailVotech\LeadBundle\Event\ImportValidateEvent;
+use MailVotech\LeadBundle\Field\FieldList;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\CompanyModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -49,9 +49,9 @@ final readonly class ImportCompanySubscriber implements EventSubscriberInterface
             }
 
             $event->objectSingular = 'company';
-            $event->objectName     = 'mautic.lead.lead.companies';
-            $event->activeLink     = '#mautic_company_index';
-            $event->setIndexRoute('mautic_company_index');
+            $event->objectName     = 'mailvotech.lead.lead.companies';
+            $event->activeLink     = '#mailvotech_company_index';
+            $event->setIndexRoute('mailvotech_company_index');
             $event->stopPropagation();
         }
     }
@@ -60,15 +60,15 @@ final readonly class ImportCompanySubscriber implements EventSubscriberInterface
     {
         if ($event->importIsForRouteObject('companies')) {
             $specialFields = [
-                'dateAdded'      => 'mautic.lead.import.label.dateAdded',
-                'createdByUser'  => 'mautic.lead.import.label.createdByUser',
-                'dateModified'   => 'mautic.lead.import.label.dateModified',
-                'modifiedByUser' => 'mautic.lead.import.label.modifiedByUser',
+                'dateAdded'      => 'mailvotech.lead.import.label.dateAdded',
+                'createdByUser'  => 'mailvotech.lead.import.label.createdByUser',
+                'dateModified'   => 'mailvotech.lead.import.label.dateModified',
+                'modifiedByUser' => 'mailvotech.lead.import.label.modifiedByUser',
             ];
 
             $event->fields = [
-                'mautic.lead.company'        => $this->fieldList->getFieldList(false, false, ['isPublished' => true, 'object' => 'company']),
-                'mautic.lead.special_fields' => $specialFields,
+                'mailvotech.lead.company'        => $this->fieldList->getFieldList(false, false, ['isPublished' => true, 'object' => 'company']),
+                'mailvotech.lead.special_fields' => $specialFields,
             ];
         }
     }
@@ -107,7 +107,7 @@ final readonly class ImportCompanySubscriber implements EventSubscriberInterface
         if ([] === $matchedFields) {
             $event->getForm()->addError(
                 new FormError(
-                    $this->translator->trans('mautic.lead.import.matchfields', [], 'validators')
+                    $this->translator->trans('mailvotech.lead.import.matchfields', [], 'validators')
                 )
             );
         }
@@ -150,7 +150,7 @@ final readonly class ImportCompanySubscriber implements EventSubscriberInterface
             $event->getForm()->addError(
                 new FormError(
                     $this->translator->trans(
-                        'mautic.import.missing.required.fields',
+                        'mailvotech.import.missing.required.fields',
                         [
                             '%requiredFields%' => implode(', ', $missingRequiredFields),
                             '%fieldOrFields%'  => 1 === count($missingRequiredFields) ? 'field' : 'fields',

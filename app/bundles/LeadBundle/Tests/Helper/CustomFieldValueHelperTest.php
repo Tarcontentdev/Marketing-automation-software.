@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Helper;
+namespace MailVotech\LeadBundle\Tests\Helper;
 
-use Mautic\LeadBundle\Helper\CustomFieldValueHelper;
+use MailVotech\LeadBundle\Helper\CustomFieldValueHelper;
 
 final class CustomFieldValueHelperTest extends \PHPUnit\Framework\TestCase
 {

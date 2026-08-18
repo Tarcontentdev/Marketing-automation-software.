@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Loader\EnvVars;
+namespace MailVotech\CoreBundle\Loader\EnvVars;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -23,7 +23,7 @@ final class ConfigEnvVars implements EnvVarsInterface
             }
 
             // Set the environment variable
-            $envKey = sprintf('MAUTIC_%s', mb_strtoupper($key));
+            $envKey = sprintf('MAILVOTECH_%s', mb_strtoupper($key));
             $envVars->set($envKey, $value);
         }
     }

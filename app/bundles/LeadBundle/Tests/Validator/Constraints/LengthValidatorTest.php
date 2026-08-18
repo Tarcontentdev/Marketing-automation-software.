@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Validator\Constraints;
+namespace MailVotech\LeadBundle\Tests\Validator\Constraints;
 
-use Mautic\LeadBundle\Validator\Constraints\Length;
-use Mautic\LeadBundle\Validator\Constraints\LengthValidator;
+use MailVotech\LeadBundle\Validator\Constraints\Length;
+use MailVotech\LeadBundle\Validator\Constraints\LengthValidator;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 
 final class LengthValidatorTest extends \PHPUnit\Framework\TestCase

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\LeadBundle\Event\ContactExportSchedulerEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\ContactExportSchedulerModel;
+use MailVotech\LeadBundle\Event\ContactExportSchedulerEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\ContactExportSchedulerModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ContactScheduledExportSubscriber implements EventSubscriberInterface

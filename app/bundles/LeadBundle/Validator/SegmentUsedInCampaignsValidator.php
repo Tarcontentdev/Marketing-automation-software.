@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Validator;
+namespace MailVotech\LeadBundle\Validator;
 
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SegmentUsedInCampaignsValidator
@@ -33,7 +33,7 @@ class SegmentUsedInCampaignsValidator
         $campaignNamesCsv    = implode(', ', $campaignNamesQuotes);
 
         $this->errorMessage = $this->translator->trans(
-            'mautic.lead.lists.used_in_campaigns.'.$action,
+            'mailvotech.lead.lists.used_in_campaigns.'.$action,
             [
                 '%campaignNames%' => $campaignNamesCsv,
                 '%segmentNames%'  => $segment->getName(),

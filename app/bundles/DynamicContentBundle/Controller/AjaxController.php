@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Controller;
+namespace MailVotech\DynamicContentBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\CoreBundle\Controller\AjaxLookupControllerTrait;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\CoreBundle\Controller\AjaxLookupControllerTrait;
 
 final class AjaxController extends CommonAjaxController
 {

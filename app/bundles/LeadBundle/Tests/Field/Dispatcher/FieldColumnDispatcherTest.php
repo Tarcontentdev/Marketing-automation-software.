@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Field\Dispatcher;
+namespace MailVotech\LeadBundle\Tests\Field\Dispatcher;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Field\Dispatcher\FieldColumnDispatcher;
-use Mautic\LeadBundle\Field\Event\AddColumnEvent;
-use Mautic\LeadBundle\Field\Event\DeleteColumnEvent;
-use Mautic\LeadBundle\Field\Event\UpdateColumnEvent;
-use Mautic\LeadBundle\Field\Exception\AbortColumnCreateException;
-use Mautic\LeadBundle\Field\Exception\AbortColumnUpdateException;
-use Mautic\LeadBundle\Field\Settings\BackgroundSettings;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Field\Dispatcher\FieldColumnDispatcher;
+use MailVotech\LeadBundle\Field\Event\AddColumnEvent;
+use MailVotech\LeadBundle\Field\Event\DeleteColumnEvent;
+use MailVotech\LeadBundle\Field\Event\UpdateColumnEvent;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnCreateException;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnUpdateException;
+use MailVotech\LeadBundle\Field\Settings\BackgroundSettings;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class FieldColumnDispatcherTest extends \PHPUnit\Framework\TestCase
@@ -30,7 +30,7 @@ final class FieldColumnDispatcherTest extends \PHPUnit\Framework\TestCase
             ->method('dispatch')
             ->with(
                 $this->isInstanceOf(AddColumnEvent::class),
-                'mautic.lead_field_pre_add_column',
+                'mailvotech.lead_field_pre_add_column',
             );
 
         $fieldColumnDispatcher = new FieldColumnDispatcher($dispatcher, $backgroundSettings);
@@ -52,7 +52,7 @@ final class FieldColumnDispatcherTest extends \PHPUnit\Framework\TestCase
             ->method('dispatch')
             ->with(
                 $this->isInstanceOf(AddColumnEvent::class),
-                'mautic.lead_field_pre_add_column'
+                'mailvotech.lead_field_pre_add_column'
             );
 
         $fieldColumnDispatcher = new FieldColumnDispatcher($dispatcher, $backgroundSettings);
@@ -85,7 +85,7 @@ final class FieldColumnDispatcherTest extends \PHPUnit\Framework\TestCase
             ->method('dispatch')
             ->with(
                 $this->isInstanceOf(UpdateColumnEvent::class),
-                'mautic.lead_field_pre_update_column'
+                'mailvotech.lead_field_pre_update_column'
             );
 
         $fieldColumnDispatcher = new FieldColumnDispatcher($dispatcher, $backgroundSettings);
@@ -114,7 +114,7 @@ final class FieldColumnDispatcherTest extends \PHPUnit\Framework\TestCase
             ->method('dispatch')
             ->with(
                 $this->isInstanceOf(DeleteColumnEvent::class),
-                'mautic.lead_field_pre_delete_column',
+                'mailvotech.lead_field_pre_delete_column',
             );
 
         $fieldColumnDispatcher = new FieldColumnDispatcher($dispatcher, $backgroundSettings);

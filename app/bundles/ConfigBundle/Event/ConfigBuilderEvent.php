@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ConfigBundle\Event;
+namespace MailVotech\ConfigBundle\Event;
 
-use Mautic\CoreBundle\Helper\BundleHelper;
+use MailVotech\CoreBundle\Helper\BundleHelper;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class ConfigBuilderEvent extends Event
@@ -18,8 +18,8 @@ class ConfigBuilderEvent extends Event
      * @var string[]
      */
     private array $formThemes = [
-        '@MauticConfig/FormTheme/_config_file_row.html.twig',
-        '@MauticConfig/FormTheme/dsn_row.html.twig',
+        '@MailVotechConfig/FormTheme/_config_file_row.html.twig',
+        '@MailVotechConfig/FormTheme/dsn_row.html.twig',
     ];
 
     /**
@@ -88,7 +88,7 @@ class ConfigBuilderEvent extends Event
         static $allBundles;
 
         if (empty($allBundles)) {
-            $allBundles = $this->bundleHelper->getMauticBundles(true);
+            $allBundles = $this->bundleHelper->getMailVotechBundles(true);
         }
 
         if (isset($allBundles[$bundle]) && $allBundles[$bundle]['config']['parameters']) {

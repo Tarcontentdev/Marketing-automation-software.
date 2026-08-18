@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Event;
+namespace MailVotech\PageBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\PageBundle\Entity\Redirect;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\PageBundle\Entity\Redirect;
 
 final class RedirectGenerationEvent extends CommonEvent
 {

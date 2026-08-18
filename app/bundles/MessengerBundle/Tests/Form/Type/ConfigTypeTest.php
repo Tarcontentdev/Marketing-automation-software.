@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\Tests\Form\Type;
+namespace MailVotech\MessengerBundle\Tests\Form\Type;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ConfigTypeTest extends MauticMysqlTestCase
+final class ConfigTypeTest extends MailVotechMysqlTestCase
 {
     private const MULTIPLIER_FIELD = 'config[messengerconfig][messenger_retry_strategy_multiplier]';
 
@@ -19,7 +19,7 @@ final class ConfigTypeTest extends MauticMysqlTestCase
     private const MIN_MULTIPLIER_ERROR = 'greater than or equal to 1';
 
     /**
-     * Regression for https://github.com/mautic/mautic/issues/16017.
+     * Regression for https://github.com/mailvotech/mailvotech/issues/16017.
      *
      * Symfony's MultiplierRetryStrategy throws an InvalidArgumentException at
      * runtime for any multiplier < 1, which previously crashed the queue worker
@@ -59,7 +59,7 @@ final class ConfigTypeTest extends MauticMysqlTestCase
 
         $form = $crawler->selectButton('config[buttons][save]')->form();
         $form->setValues([
-            'config[coreconfig][site_url]' => 'https://mautic-community.local', // required
+            'config[coreconfig][site_url]' => 'https://mailvotech-community.local', // required
             self::MULTIPLIER_FIELD         => $value,
         ]);
 

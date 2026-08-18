@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\ChannelBundle\Event;
+namespace MailVotech\ChannelBundle\Event;
 
-use Mautic\ChannelBundle\Model\MessageModel;
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\ChannelBundle\Model\MessageModel;
+use MailVotech\CoreBundle\Event\CommonEvent;
 
 final class ChannelEvent extends CommonEvent
 {
@@ -61,7 +61,7 @@ final class ChannelEvent extends CommonEvent
 
         // if not defined, try the classic naming convention
         $channel = ucfirst($channel);
-        $class   = "\Mautic\\{$channel}Bundle\Entity\\{$channel}";
+        $class   = "\MailVotech\\{$channel}Bundle\Entity\\{$channel}";
         \assert(class_exists($class));
 
         return $class;

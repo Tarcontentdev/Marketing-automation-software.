@@ -1,30 +1,30 @@
 <?php
 
-namespace Mautic\PointBundle\Model;
+namespace MailVotech\PointBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel as CommonFormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\PointBundle\Entity\GroupContactScore;
-use Mautic\PointBundle\Entity\LeadTriggerLog;
-use Mautic\PointBundle\Entity\Trigger;
-use Mautic\PointBundle\Entity\TriggerEvent;
-use Mautic\PointBundle\Entity\TriggerEventRepository;
-use Mautic\PointBundle\Entity\TriggerRepository;
-use Mautic\PointBundle\Event as Events;
-use Mautic\PointBundle\Event\TriggerBuilderEvent;
-use Mautic\PointBundle\Form\Type\TriggerType;
-use Mautic\PointBundle\PointEvents;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel as CommonFormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\PointBundle\Entity\GroupContactScore;
+use MailVotech\PointBundle\Entity\LeadTriggerLog;
+use MailVotech\PointBundle\Entity\Trigger;
+use MailVotech\PointBundle\Entity\TriggerEvent;
+use MailVotech\PointBundle\Entity\TriggerEventRepository;
+use MailVotech\PointBundle\Entity\TriggerRepository;
+use MailVotech\PointBundle\Event as Events;
+use MailVotech\PointBundle\Event\TriggerBuilderEvent;
+use MailVotech\PointBundle\Form\Type\TriggerType;
+use MailVotech\PointBundle\PointEvents;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -56,13 +56,13 @@ class TriggerModel extends CommonFormModel implements GlobalSearchInterface
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         CoreParametersHelper $coreParametersHelper,
         private readonly TriggerRepository $triggerRepository,
         private readonly TriggerEventRepository $triggerEventRepository,
         private readonly LeadRepository $leadRepository,
     ) {
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function getRepository(): TriggerRepository
@@ -138,7 +138,7 @@ class TriggerModel extends CommonFormModel implements GlobalSearchInterface
                     ];
                 } else {
                     $args['qb'] = $this->leadRepository->getEntitiesDbalQueryBuilder()
-                        ->leftJoin('l', MAUTIC_TABLE_PREFIX.GroupContactScore::TABLE_NAME, 'pls', 'l.id = pls.contact_id');
+                        ->leftJoin('l', MAILVOTECH_TABLE_PREFIX.GroupContactScore::TABLE_NAME, 'pls', 'l.id = pls.contact_id');
                     $args['filter']['force'][] = [
                         'column' => 'pls.score',
                         'expr'   => 'gte',

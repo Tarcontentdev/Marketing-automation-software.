@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Command;
+namespace MailVotech\LeadBundle\Command;
 
-use Mautic\CoreBundle\Helper\ExitCode;
-use Mautic\CoreBundle\ProcessSignal\Exception\SignalCaughtException;
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalService;
-use Mautic\CoreBundle\Twig\Helper\FormatterHelper;
-use Mautic\LeadBundle\Entity\ContactExportSchedulerRepository;
-use Mautic\LeadBundle\Event\ContactExportSchedulerEvent;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\CoreBundle\Helper\ExitCode;
+use MailVotech\CoreBundle\ProcessSignal\Exception\SignalCaughtException;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalService;
+use MailVotech\CoreBundle\Twig\Helper\FormatterHelper;
+use MailVotech\LeadBundle\Entity\ContactExportSchedulerRepository;
+use MailVotech\LeadBundle\Event\ContactExportSchedulerEvent;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,7 +26,7 @@ class ContactScheduledExportCommand extends Command
 {
     private const PICK_SCHEDULED_EXPORTS_LIMIT = 10;
 
-    public const COMMAND_NAME                  = 'mautic:contacts:scheduled_export';
+    public const COMMAND_NAME                  = 'mailvotech:contacts:scheduled_export';
 
     public function __construct(
         private readonly EventDispatcherInterface $eventDispatcher,

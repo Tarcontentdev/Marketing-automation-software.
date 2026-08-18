@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\InstallBundle\Tests\Command;
+namespace MailVotech\InstallBundle\Tests\Command;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Mautic\CoreBundle\Doctrine\Connection\ConnectionWrapper;
-use Mautic\InstallBundle\Command\InstallCommand;
-use Mautic\InstallBundle\Install\InstallService;
+use MailVotech\CoreBundle\Doctrine\Connection\ConnectionWrapper;
+use MailVotech\InstallBundle\Command\InstallCommand;
+use MailVotech\InstallBundle\Install\InstallService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
@@ -59,7 +59,7 @@ final class InstallCommandTest extends TestCase
         $output = new BufferedOutput();
         $this->command->run($input, $output);
 
-        $this->assertSame('Mautic already installed'.PHP_EOL, $output->fetch());
+        $this->assertSame('MailVotech already installed'.PHP_EOL, $output->fetch());
     }
 
     public function testCommandWhenSiteNotInstalled(): void
@@ -72,7 +72,7 @@ final class InstallCommandTest extends TestCase
             [
                 'site_url'          => 'localhost',
                 '--admin_firstname' => 'Admin',
-                '--admin_lastname'  => 'Mautic',
+                '--admin_lastname'  => 'MailVotech',
                 '--admin_username'  => 'admin',
                 '--admin_email'     => 'admin@example.com',
                 '--admin_password'  => 'password',

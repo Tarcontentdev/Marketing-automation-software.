@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Value;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Value;
 
 final class ReferenceValueDAO implements \Stringable
 {

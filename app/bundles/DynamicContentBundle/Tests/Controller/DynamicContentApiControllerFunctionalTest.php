@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Tests\Controller;
+namespace MailVotech\DynamicContentBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Helper\ClickthroughHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\DynamicContentBundle\Entity\DynamicContentLeadData;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Helper\ClickthroughHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\DynamicContentBundle\Entity\DynamicContentLeadData;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 #[PreserveGlobalState(false)]
 #[RunTestsInSeparateProcesses]
-final class DynamicContentApiControllerFunctionalTest extends MauticMysqlTestCase
+final class DynamicContentApiControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testDwcGetEndpointForNoSlotNorContact(): void
     {

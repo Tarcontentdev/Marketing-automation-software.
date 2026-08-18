@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\PluginBundle\EventListener;
+namespace MailVotech\PluginBundle\EventListener;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
 
 /**
  * Static methods must be used due to the Point triggers not being converted to Events yet

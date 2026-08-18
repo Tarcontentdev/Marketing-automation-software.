@@ -1,17 +1,17 @@
-{% extends '@MauticForm/Action/base_form_action.html.twig' %}
+{% extends '@MailVotechForm/Action/base_form_action.html.twig' %}
 
 {% set footerContent %}
     {% if action.properties.addToLists is defined and action.properties.addToLists is not empty and securityIsGranted('lead:lists:view') %}
         <!-- Add to segments -->
-        {% set segments = getEntities('Mautic\\LeadBundle\\Entity\\LeadList', action.properties.addToLists) %}
+        {% set segments = getEntities('MailVotech\\LeadBundle\\Entity\\LeadList', action.properties.addToLists) %}
         {% for segment in segments %}
-            {% include '@MauticCore/Helper/_tag.html.twig' with {
+            {% include '@MailVotechCore/Helper/_tag.html.twig' with {
                 'tags': [{
                     'label': segment.name,
                     'color': 'green',
                     'icon': 'ri-pie-chart-line',
                     'attributes': {
-                        'href': path('mautic_segment_action', {'objectAction': 'view', 'objectId': segment.id }),
+                        'href': path('mailvotech_segment_action', {'objectAction': 'view', 'objectId': segment.id }),
                         'target': '_blank'
                     }
                 }]
@@ -21,15 +21,15 @@
 
     {% if action.properties.removeFromLists is defined and action.properties.removeFromLists is not empty and securityIsGranted('lead:lists:view') %}
         <!-- Remove from segments -->
-        {% set segments = getEntities('Mautic\\LeadBundle\\Entity\\LeadList', action.properties.removeFromLists) %}
+        {% set segments = getEntities('MailVotech\\LeadBundle\\Entity\\LeadList', action.properties.removeFromLists) %}
         {% for segment in segments %}
-            {% include '@MauticCore/Helper/_tag.html.twig' with {
+            {% include '@MailVotechCore/Helper/_tag.html.twig' with {
                 'tags': [{
                     'label': segment.name,
                     'color': 'red',
                     'icon': 'ri-pie-chart-line',
                     'attributes': {
-                        'href': path('mautic_segment_action', {'objectAction': 'view', 'objectId': segment.id }),
+                        'href': path('mailvotech_segment_action', {'objectAction': 'view', 'objectId': segment.id }),
                         'target': '_blank'
                     }
                 }]

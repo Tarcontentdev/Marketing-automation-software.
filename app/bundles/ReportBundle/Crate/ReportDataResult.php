@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\ReportBundle\Crate;
+namespace MailVotech\ReportBundle\Crate;
 
-use Mautic\CoreBundle\Twig\Helper\FormatterHelper;
+use MailVotech\CoreBundle\Twig\Helper\FormatterHelper;
 
 final class ReportDataResult
 {

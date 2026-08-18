@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\EventListener;
+namespace MailVotech\UserBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Event\LoginEvent;
-use Mautic\UserBundle\EventListener\SecuritySubscriber;
-use Mautic\UserBundle\UserEvents;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Event\LoginEvent;
+use MailVotech\UserBundle\EventListener\SecuritySubscriber;
+use MailVotech\UserBundle\UserEvents;
 
 final class SecuritySubscriberTest extends \PHPUnit\Framework\TestCase
 {

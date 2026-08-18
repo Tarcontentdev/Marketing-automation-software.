@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Entity;
+namespace MailVotech\IntegrationsBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\LeadBundle\Entity\Lead;
 
 /**
  * @extends CommonRepository<FieldChange>
@@ -23,7 +23,7 @@ class FieldChangeRepository extends CommonRepository
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $qb
-            ->delete(MAUTIC_TABLE_PREFIX.'sync_object_field_change_report')
+            ->delete(MAILVOTECH_TABLE_PREFIX.'sync_object_field_change_report')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->eq('object_type', ':objectType'),
@@ -61,7 +61,7 @@ class FieldChangeRepository extends CommonRepository
             ->setParameter('objectId', $objectId);
 
         $qb
-            ->delete(MAUTIC_TABLE_PREFIX.'sync_object_field_change_report')
+            ->delete(MAILVOTECH_TABLE_PREFIX.'sync_object_field_change_report')
             ->where($expr)
             ->executeStatement();
     }
@@ -76,7 +76,7 @@ class FieldChangeRepository extends CommonRepository
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $qb
             ->select('f.object_id')
-            ->from(MAUTIC_TABLE_PREFIX.'sync_object_field_change_report', 'f')
+            ->from(MAILVOTECH_TABLE_PREFIX.'sync_object_field_change_report', 'f')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->eq('f.integration', ':integration'),
@@ -85,7 +85,7 @@ class FieldChangeRepository extends CommonRepository
                 )
             );
         if (Lead::class === $objectType) {
-            $qb->join('f', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = f.object_id');
+            $qb->join('f', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = f.object_id');
         }
         $qb->setParameter('integration', $integration)
             ->setParameter('objectType', $objectType)
@@ -110,7 +110,7 @@ class FieldChangeRepository extends CommonRepository
         $qb
             ->resetQueryParts()
             ->select('*')
-            ->from(MAUTIC_TABLE_PREFIX.'sync_object_field_change_report', 'f')
+            ->from(MAILVOTECH_TABLE_PREFIX.'sync_object_field_change_report', 'f')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->eq('f.integration', ':integration'),
@@ -137,7 +137,7 @@ class FieldChangeRepository extends CommonRepository
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $qb
             ->select('*')
-            ->from(MAUTIC_TABLE_PREFIX.'sync_object_field_change_report', 'f')
+            ->from(MAILVOTECH_TABLE_PREFIX.'sync_object_field_change_report', 'f')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->eq('f.integration', ':integration'),
@@ -173,8 +173,8 @@ class FieldChangeRepository extends CommonRepository
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $qb->select('f.id')
-            ->from(MAUTIC_TABLE_PREFIX.'sync_object_field_change_report', 'f')
-            ->leftJoin('f', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = f.object_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'sync_object_field_change_report', 'f')
+            ->leftJoin('f', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = f.object_id')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->eq('object_type', ':objectType'),
@@ -191,7 +191,7 @@ class FieldChangeRepository extends CommonRepository
         }
 
         $qb2 = $this->getEntityManager()->getConnection()->createQueryBuilder();
-        $qb2->delete(MAUTIC_TABLE_PREFIX.'sync_object_field_change_report')
+        $qb2->delete(MAILVOTECH_TABLE_PREFIX.'sync_object_field_change_report')
             ->where(
                 $qb2->expr()->in('id', ':ids')
             )

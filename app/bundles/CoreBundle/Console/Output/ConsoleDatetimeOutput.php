@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Console\Output;
+namespace MailVotech\CoreBundle\Console\Output;
 
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;

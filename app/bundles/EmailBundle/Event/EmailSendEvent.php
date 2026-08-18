@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\EmailBundle\Event;
+namespace MailVotech\EmailBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\Helper\PlainTextHelper;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\Helper\PlainTextHelper;
+use MailVotech\LeadBundle\Entity\Lead;
 
 class EmailSendEvent extends CommonEvent
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail\Search;
+namespace MailVotech\EmailBundle\MonitoredEmail\Search;
 
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Address;
-use Mautic\LeadBundle\Entity\LeadRepository;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Address;
+use MailVotech\LeadBundle\Entity\LeadRepository;
 use Psr\Log\LoggerInterface;
 
 class ContactFinder

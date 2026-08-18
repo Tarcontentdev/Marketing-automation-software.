@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor;
 
-use Mautic\EmailBundle\MonitoredEmail\Exception\FeedbackLoopNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
-use Mautic\EmailBundle\MonitoredEmail\Processor\FeedbackLoop\Parser;
-use Mautic\EmailBundle\MonitoredEmail\Search\ContactFinder;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Model\DoNotContact as DoNotContactModel;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\FeedbackLoopNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\FeedbackLoop\Parser;
+use MailVotech\EmailBundle\MonitoredEmail\Search\ContactFinder;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Model\DoNotContact as DoNotContactModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -49,7 +49,7 @@ class FeedbackLoop implements ProcessorInterface
             return false;
         }
 
-        $comments = $this->translator->trans('mautic.email.bounce.reason.spam');
+        $comments = $this->translator->trans('mailvotech.email.bounce.reason.spam');
         foreach ($contacts as $contact) {
             $this->doNotContact->addDncForContact($contact->getId(), 'email', DoNotContact::UNSUBSCRIBED, $comments);
         }

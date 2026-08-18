@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Helper\Chart;
+namespace MailVotech\CoreBundle\Tests\Helper\Chart;
 
-use Mautic\CoreBundle\Helper\Chart\SeriesPieChart;
+use MailVotech\CoreBundle\Helper\Chart\SeriesPieChart;
 use PHPUnit\Framework\TestCase;
 
 final class SeriesPieChartTest extends TestCase

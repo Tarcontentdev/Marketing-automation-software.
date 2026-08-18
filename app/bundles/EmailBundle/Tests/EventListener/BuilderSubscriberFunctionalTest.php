@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 
-final class BuilderSubscriberFunctionalTest extends MauticMysqlTestCase
+final class BuilderSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -53,7 +53,7 @@ final class BuilderSubscriberFunctionalTest extends MauticMysqlTestCase
         $this->assertQueuedEmailCount(3);
 
         foreach ($this->getMailerMessages() as $message) {
-            $this->assertInstanceOf(MauticMessage::class, $message);
+            $this->assertInstanceOf(MailVotechMessage::class, $message);
             $clickThrough = $this->parseClickThrough($message->getHtmlBody());
             $email        = $message->getTo()[0]->getAddress();
             $this->assertSame((string) $leads[$email]->getId(), $clickThrough['lead'], '"lead" parameter within the click through should match the contact\'s ID.');
@@ -137,6 +137,6 @@ final class BuilderSubscriberFunctionalTest extends MauticMysqlTestCase
         preg_match('/<a href=\"([^\"]*)\">(.*)<\/a>/iU', $string, $match);
         parse_str(parse_url($match[1], PHP_URL_QUERY), $queryParams);
 
-        return \Mautic\CoreBundle\Helper\Serializer::decode(base64_decode($queryParams['ct']));
+        return \MailVotech\CoreBundle\Helper\Serializer::decode(base64_decode($queryParams['ct']));
     }
 }

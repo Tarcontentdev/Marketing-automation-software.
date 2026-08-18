@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Event;
+namespace MailVotech\CampaignBundle\Event;
 
-use Mautic\CampaignBundle\DTO\EventPreviewStatDto;
-use Mautic\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\DTO\EventPreviewStatDto;
+use MailVotech\CampaignBundle\Entity\Event;
 
 final class EventPreview
 {

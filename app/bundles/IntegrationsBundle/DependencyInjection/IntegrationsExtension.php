@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\DependencyInjection;
+namespace MailVotech\IntegrationsBundle\DependencyInjection;
 
-use Mautic\IntegrationsBundle\Integration\Interfaces\BasicInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\BuilderInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\BasicInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\BuilderInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormInterface;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -24,12 +24,12 @@ final class IntegrationsExtension extends Extension
         $loader->load('services.php');
 
         $container->registerForAutoconfiguration(IntegrationInterface::class)
-            ->addTag('mautic.integration');
+            ->addTag('mailvotech.integration');
         $container->registerForAutoconfiguration(BasicInterface::class)
-            ->addTag('mautic.basic_integration');
+            ->addTag('mailvotech.basic_integration');
         $container->registerForAutoconfiguration(ConfigFormInterface::class)
-            ->addTag('mautic.config_integration');
+            ->addTag('mailvotech.config_integration');
         $container->registerForAutoconfiguration(BuilderInterface::class)
-            ->addTag('mautic.builder_integration');
+            ->addTag('mailvotech.builder_integration');
     }
 }

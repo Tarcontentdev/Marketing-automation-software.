@@ -1,4 +1,4 @@
-Mautic.testMonitoredEmailServerConnection = function(mailbox) {
+MailVotech.testMonitoredEmailServerConnection = function(mailbox) {
     var data = {
         host:       mQuery('#config_emailconfig_monitored_email_' + mailbox + '_host').val(),
         port:       mQuery('#config_emailconfig_monitored_email_' + mailbox + '_port').val(),
@@ -29,7 +29,7 @@ Mautic.testMonitoredEmailServerConnection = function(mailbox) {
 
     mQuery('#' + mailbox + 'TestButtonContainer .ri-loader-3-line').removeClass('hide');
 
-    Mautic.ajaxActionRequest('email:testMonitoredEmailServerConnection', data, function(response) {
+    MailVotech.ajaxActionRequest('email:testMonitoredEmailServerConnection', data, function(response) {
         var theClass = (response.success) ? 'has-success' : 'has-error';
         var theMessage = response.message;
         mQuery('#' + mailbox + 'TestButtonContainer').removeClass('has-success has-error').addClass(theClass);
@@ -63,6 +63,6 @@ Mautic.testMonitoredEmailServerConnection = function(mailbox) {
     });
 };
 
-Mautic.disableSendTestEmailButton = function(element) {
-    mQuery(element).closest('.tab-pane').find('.config-dsn-test-container').each(function () {Mautic.configDsnTestDisable(this)});
+MailVotech.disableSendTestEmailButton = function(element) {
+    mQuery(element).closest('.tab-pane').find('.config-dsn-test-container').each(function () {MailVotech.configDsnTestDisable(this)});
 };

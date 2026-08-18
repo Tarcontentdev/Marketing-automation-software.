@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\CoreBundle\Menu;
+namespace MailVotech\CoreBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\Loader\ArrayLoader;
 use Knp\Menu\Matcher\MatcherInterface;
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\MenuEvent;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\MenuEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final readonly class MenuBuilder

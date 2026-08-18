@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\CoreBundle\Model;
+namespace MailVotech\CoreBundle\Model;
 
 use Doctrine\ORM\UnitOfWork;
-use Mautic\CoreBundle\Entity\SkipModifiedInterface;
-use Mautic\CoreBundle\Event\DependencyErrorEventInterface;
-use Mautic\CoreBundle\Exception\DeleteEntitiesDependencyException;
-use Mautic\CoreBundle\Exception\DeleteEntityDependencyException;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\SkipModifiedInterface;
+use MailVotech\CoreBundle\Event\DependencyErrorEventInterface;
+use MailVotech\CoreBundle\Exception\DeleteEntitiesDependencyException;
+use MailVotech\CoreBundle\Exception\DeleteEntityDependencyException;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -279,7 +279,7 @@ class FormModel extends AbstractCommonModel
     {
         if (method_exists($entity, 'setDateModified') && method_exists($entity, 'getDateModified') && !$entity->getDateModified()) {
             $entity->setDateModified(
-                defined('MAUTIC_DATE_MODIFIED_OVERRIDE') ? \DateTime::createFromFormat('U', MAUTIC_DATE_MODIFIED_OVERRIDE) : new \DateTime()
+                defined('MAILVOTECH_DATE_MODIFIED_OVERRIDE') ? \DateTime::createFromFormat('U', MAILVOTECH_DATE_MODIFIED_OVERRIDE) : new \DateTime()
             );
         }
 
@@ -413,8 +413,8 @@ class FormModel extends AbstractCommonModel
     public function getUserContactSubject($subject, $entity): string
     {
         $msg = match ($subject) {
-            'locked' => 'mautic.user.user.contact.locked',
-            default  => 'mautic.user.user.contact.regarding',
+            'locked' => 'mailvotech.user.user.contact.locked',
+            default  => 'mailvotech.user.user.contact.regarding',
         };
 
         $nameGetter = $this->getNameGetter();
@@ -491,7 +491,7 @@ class FormModel extends AbstractCommonModel
         try {
             $this->em->flush();
         } catch (\Exception $ex) {
-            if (MAUTIC_ENV === 'dev') {
+            if (MAILVOTECH_ENV === 'dev') {
                 throw $ex;
             }
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Loader\EnvVars;
+namespace MailVotech\CoreBundle\Loader\EnvVars;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -14,9 +14,9 @@ final class ElFinderEnvVars implements EnvVarsInterface
 
         $relativeImageFolderPath = trim((string) $config->get('image_path'), '/');
         $absoluteImageFolderPath = $root.'/'.$relativeImageFolderPath;
-        $envVars->set('MAUTIC_EL_FINDER_PATH', $absoluteImageFolderPath);
+        $envVars->set('MAILVOTECH_EL_FINDER_PATH', $absoluteImageFolderPath);
 
         $url = rtrim((string) $config->get('site_url'), '/').'/'.$relativeImageFolderPath;
-        $envVars->set('MAUTIC_EL_FINDER_URL', $url);
+        $envVars->set('MAILVOTECH_EL_FINDER_URL', $url);
     }
 }

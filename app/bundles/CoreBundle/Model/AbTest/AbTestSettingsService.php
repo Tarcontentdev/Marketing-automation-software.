@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Model\AbTest;
+namespace MailVotech\CoreBundle\Model\AbTest;
 
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\VariantEntityInterface;
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\VariantEntityInterface;
+use MailVotech\EmailBundle\Entity\Email;
 
 class AbTestSettingsService
 {

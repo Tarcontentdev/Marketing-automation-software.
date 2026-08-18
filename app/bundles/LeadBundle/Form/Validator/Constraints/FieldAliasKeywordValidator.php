@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Validator\Constraints;
+namespace MailVotech\LeadBundle\Form\Validator\Constraints;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Helper\FieldAliasHelper;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Services\ContactSegmentFilterDictionary;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Helper\FieldAliasHelper;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Services\ContactSegmentFilterDictionary;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -54,7 +54,7 @@ final class FieldAliasKeywordValidator extends ConstraintValidator
             if (in_array($field->getAlias(), self::RESTRICTED_ALIASES)) {
                 $this->context->addViolation(
                     $this->translator->trans(
-                        'mautic.lead.field.keyword.restricted',
+                        'mailvotech.lead.field.keyword.restricted',
                         ['%alias%' => $field->getAlias()],
                         'validators'
                     )

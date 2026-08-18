@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\SmsBundle\Entity;
+namespace MailVotech\SmsBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -12,21 +12,21 @@ use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\TranslationEntityInterface;
-use Mautic\CoreBundle\Entity\TranslationEntityTrait;
-use Mautic\CoreBundle\Entity\UuidInterface;
-use Mautic\CoreBundle\Entity\UuidTrait;
-use Mautic\CoreBundle\Entity\VariantEntityInterface;
-use Mautic\CoreBundle\Entity\VariantEntityTrait;
-use Mautic\CoreBundle\Validator\EntityEvent;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Form\Validator\Constraints\LeadListAccess;
-use Mautic\ProjectBundle\Entity\ProjectTrait;
-use Mautic\SmsBundle\Form\Validator\Constraints\MediaMaxAllowedSize;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\TranslationEntityInterface;
+use MailVotech\CoreBundle\Entity\TranslationEntityTrait;
+use MailVotech\CoreBundle\Entity\UuidInterface;
+use MailVotech\CoreBundle\Entity\UuidTrait;
+use MailVotech\CoreBundle\Entity\VariantEntityInterface;
+use MailVotech\CoreBundle\Entity\VariantEntityTrait;
+use MailVotech\CoreBundle\Validator\EntityEvent;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Form\Validator\Constraints\LeadListAccess;
+use MailVotech\ProjectBundle\Entity\ProjectTrait;
+use MailVotech\SmsBundle\Form\Validator\Constraints\MediaMaxAllowedSize;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Count;
@@ -226,12 +226,12 @@ class Sms extends FormEntity implements UuidInterface, TranslationEntityInterfac
     {
         $metadata->addPropertyConstraint(
             'name',
-            new NotBlank(message: 'mautic.core.name.required')
+            new NotBlank(message: 'mailvotech.core.name.required')
         );
 
         $metadata->addPropertyConstraint(
             'media',
-            new Count(max: 10, maxMessage: 'mautic.sms.form.max.media.error')
+            new Count(max: 10, maxMessage: 'mailvotech.sms.form.max.media.error')
         );
 
         $metadata->addConstraint(new Callback(
@@ -242,7 +242,7 @@ class Sms extends FormEntity implements UuidInterface, TranslationEntityInterfac
                     $violations = $validator->validate(
                         $sms->getLists(),
                         [
-                            new NotBlank(message: 'mautic.lead.lists.required'),
+                            new NotBlank(message: 'mailvotech.lead.lists.required'),
                             new LeadListAccess(),
                         ]
                     );

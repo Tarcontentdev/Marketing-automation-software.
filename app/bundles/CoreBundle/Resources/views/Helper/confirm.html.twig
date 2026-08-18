@@ -1,18 +1,18 @@
 {%- if template is defined %}
 {%- set btnClass = btnClass|default('btn btn-primary bdr-rds-0') %}
     {%- if template is same as 'batchdelete' %}
-        {%- set confirmText = confirmText|default('mautic.core.form.delete'|trans) %}
+        {%- set confirmText = confirmText|default('mailvotech.core.form.delete'|trans) %}
         {%- set iconClass = iconClass|default('ri-delete-bin-line text-danger') %}
-        {%- set btnText = btnText|default('mautic.core.form.delete_selected'|trans) %}
+        {%- set btnText = btnText|default('mailvotech.core.form.delete_selected'|trans) %}
         {%- set confirmCallback = confirmCallback|default('executeBatchAction') %}
         {% set wrapOpeningTag = wrapOpeningTag is defined ? wrapOpeningTag : '' %}
         {% set wrapClosingTag = wrapClosingTag is defined ? wrapClosingTag : '' %}
         {%- set precheck = precheck|default('batchActionPrecheck') %}
     {%- elseif template is same as 'delete' %}
         {%- set btnClass = 'danger' %}
-        {%- set confirmText = confirmText|default('mautic.core.form.delete'|trans) %}
+        {%- set confirmText = confirmText|default('mailvotech.core.form.delete'|trans) %}
         {%- set iconClass = iconClass|default('ri-delete-bin-line') %}
-        {%- set btnText = btnText|default('mautic.core.form.delete')|trans %}
+        {%- set btnText = btnText|default('mailvotech.core.form.delete')|trans %}
     {%- endif %}
 {%- endif %}
 
@@ -30,7 +30,7 @@
     {%- set confirmCallback = 'executeAction' %}
 {%- endif %}
 
-{%- set cancelText = cancelText|default('mautic.core.form.cancel'|trans) %}
+{%- set cancelText = cancelText|default('mailvotech.core.form.cancel'|trans) %}
 
 {%- set cancelCallback = cancelCallback|default('dismissConfirmation') %}
 

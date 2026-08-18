@@ -22,7 +22,7 @@
                         <div class="pull-right label label-danger"><i class="ri-prohibited-line"></i></div>
                     {% endif %}
                     <h4 class="fw-sb mb-xs ellipsis">
-                        <a href="{{ path('mautic_contact_action', {'objectAction': 'view', 'objectId': contact.id}) }}" data-toggle="ajax">
+                        <a href="{{ path('mailvotech_contact_action', {'objectAction': 'view', 'objectId': contact.id}) }}" data-toggle="ajax">
                             <span>{{ contact.primaryIdentifier | trans }}</span>
                         </a>
                     </h4>

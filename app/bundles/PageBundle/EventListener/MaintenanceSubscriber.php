@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\PageBundle\EventListener;
+namespace MailVotech\PageBundle\EventListener;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\MaintenanceEvent;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\MaintenanceEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -37,8 +37,8 @@ final readonly class MaintenanceSubscriber implements EventSubscriberInterface
 
         if ($event->isDryRun()) {
             $qb->select('count(*) as records')
-              ->from(MAUTIC_TABLE_PREFIX.$table, 'h')
-              ->join('h', MAUTIC_TABLE_PREFIX.'leads', 'l', 'h.lead_id = l.id')
+              ->from(MAILVOTECH_TABLE_PREFIX.$table, 'h')
+              ->join('h', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'h.lead_id = l.id')
               ->where($qb->expr()->lte('l.last_active', ':date'));
 
             if (false === $event->isGdpr()) {
@@ -55,7 +55,7 @@ final readonly class MaintenanceSubscriber implements EventSubscriberInterface
             $rows = $qb->executeQuery()->fetchOne();
         } else {
             $subQb = $this->db->createQueryBuilder();
-            $subQb->select('id')->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            $subQb->select('id')->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
               ->where($qb->expr()->lte('l.last_active', ':date'));
 
             if (false === $event->isGdpr()) {
@@ -80,7 +80,7 @@ final readonly class MaintenanceSubscriber implements EventSubscriberInterface
                     break;
                 }
 
-                $rows += $qb->delete(MAUTIC_TABLE_PREFIX.$table)
+                $rows += $qb->delete(MAILVOTECH_TABLE_PREFIX.$table)
                   ->where(
                       $qb->expr()->in(
                           'lead_id', ':leadsIds')
@@ -90,6 +90,6 @@ final readonly class MaintenanceSubscriber implements EventSubscriberInterface
                 ++$loop;
             }
         }
-        $event->setStat($this->translator->trans('mautic.maintenance.'.$table), $rows, $qb->getSQL(), $qb->getParameters());
+        $event->setStat($this->translator->trans('mailvotech.maintenance.'.$table), $rows, $qb->getSQL(), $qb->getParameters());
     }
 }

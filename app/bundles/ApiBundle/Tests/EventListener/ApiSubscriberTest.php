@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Tests\EventListener;
+namespace MailVotech\ApiBundle\Tests\EventListener;
 
-use Mautic\ApiBundle\EventListener\ApiSubscriber;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Tests\CommonMocks;
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\ApiBundle\EventListener\ApiSubscriber;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Tests\CommonMocks;
+use MailVotech\CoreBundle\Translation\Translator;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\JsonResponse;

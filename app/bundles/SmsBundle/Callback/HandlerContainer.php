@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\SmsBundle\Callback;
+namespace MailVotech\SmsBundle\Callback;
 
-use Mautic\SmsBundle\Exception\CallbackHandlerNotFound;
+use MailVotech\SmsBundle\Exception\CallbackHandlerNotFound;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 final class HandlerContainer
@@ -16,7 +16,7 @@ final class HandlerContainer
      * @param iterable<CallbackInterface> $callbackHandlers
      */
     public function __construct(
-        #[AutowireIterator('mautic.sms_callback_handler')]
+        #[AutowireIterator('mailvotech.sms_callback_handler')]
         iterable $callbackHandlers = [],
     ) {
         foreach ($callbackHandlers as $callbackHandler) {

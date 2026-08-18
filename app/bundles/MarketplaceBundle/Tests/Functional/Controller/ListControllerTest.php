@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Tests\Functional\Controller;
+namespace MailVotech\MarketplaceBundle\Tests\Functional\Controller;
 
 use GuzzleHttp\Psr7\Response;
-use Mautic\CoreBundle\Test\Guzzle\ClientMockTrait;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\MarketplaceBundle\Service\Allowlist;
-use Mautic\MarketplaceBundle\Service\Config;
+use MailVotech\CoreBundle\Test\Guzzle\ClientMockTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\MarketplaceBundle\Service\Allowlist;
+use MailVotech\MarketplaceBundle\Service\Config;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
-final class ListControllerTest extends MauticMysqlTestCase
+final class ListControllerTest extends MailVotechMysqlTestCase
 {
     use ClientMockTrait;
 
@@ -40,11 +40,11 @@ final class ListControllerTest extends MauticMysqlTestCase
         self::assertResponseIsSuccessful($this->client->getResponse()->getContent());
 
         $this->assertSame([
-            'Mautic Saelos Bundle',
-            'Mautic Recaptcha Bundle',
-            'Mautic Ldap Auth Bundle',
-            'Mautic Referrals Bundle',
-            'Mautic Do Not Contact Extras Bundle',
+            'MailVotech Saelos Bundle',
+            'MailVotech Recaptcha Bundle',
+            'MailVotech Ldap Auth Bundle',
+            'MailVotech Referrals Bundle',
+            'MailVotech Do Not Contact Extras Bundle',
         ], array_map(
             trim(...),
             $crawler->filter('#marketplace-packages-table .package-name a')->extract(['_text'])
@@ -58,8 +58,8 @@ final class ListControllerTest extends MauticMysqlTestCase
         $handlerStack = $this->getClientMockHandler();
         $handlerStack->append(
             new Response(SymfonyResponse::HTTP_OK, [], file_get_contents(__DIR__.'/../../ApiResponse/allowlist.json')), // Getting Allow list from Github API.
-            new Response(SymfonyResponse::HTTP_OK, [], json_encode(['results' => [$mockResults[1]]])), // mautic-recaptcha-bundle
-            new Response(SymfonyResponse::HTTP_OK, [], json_encode(['results' => [$mockResults[3]]])), // mautic-referrals-bundle
+            new Response(SymfonyResponse::HTTP_OK, [], json_encode(['results' => [$mockResults[1]]])), // mailvotech-recaptcha-bundle
+            new Response(SymfonyResponse::HTTP_OK, [], json_encode(['results' => [$mockResults[3]]])), // mailvotech-referrals-bundle
         );
 
         /** @var Allowlist $allowlist */
@@ -72,7 +72,7 @@ final class ListControllerTest extends MauticMysqlTestCase
 
         $this->assertSame([
             'KocoCaptcha',
-            'Mautic Referrals Bundle',
+            'MailVotech Referrals Bundle',
         ], array_map(
             trim(...),
             $crawler->filter('#marketplace-packages-table .package-name a')->extract(['_text'])

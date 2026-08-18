@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Integration;
+namespace MailVotech\IntegrationsBundle\Integration;
 
-use Mautic\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
-use Mautic\PluginBundle\Entity\Integration;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\IntegrationInterface;
+use MailVotech\PluginBundle\Entity\Integration;
 
 abstract class BasicIntegration implements IntegrationInterface
 {

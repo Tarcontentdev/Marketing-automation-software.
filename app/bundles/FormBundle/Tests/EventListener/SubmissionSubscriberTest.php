@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\EventListener;
+namespace MailVotech\FormBundle\Tests\EventListener;
 
 use Doctrine\Persistence\Event\LifecycleEventArgs;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\FormRepository;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\FormBundle\EventListener\SubmissionSubscriber;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\FormRepository;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\FormBundle\EventListener\SubmissionSubscriber;
 use PHPUnit\Framework\TestCase;
 
 final class SubmissionSubscriberTest extends TestCase

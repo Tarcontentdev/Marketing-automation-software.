@@ -9,7 +9,7 @@ body:
         Thanks for taking the time to fill out this bug report!
         Before you create the issue:
         - Search for similar reports among other reported issues.
-        - Learn how to troubleshoot at https://www.mautic.org/docs/en/tips/troubleshooting.html
+        - Learn how to troubleshoot at https://www.mailvotech.org/docs/en/tips/troubleshooting.html
 #  - type: input
 #    id: contact
 #    attributes:
@@ -19,10 +19,10 @@ body:
 #    validations:
 #      required: false
   - type: dropdown
-    id: Mautic_Series
+    id: MailVotech_Series
     attributes:
-      label: Mautic Series
-      description: What series of Mautic you are using? Please test to reproduce your bug with the [latest stable version of Mautic](https://www.mautic.org/mautic-releases) which might contain new fixes.  If you are able, please also check the latest development release.
+      label: MailVotech Series
+      description: What series of MailVotech you are using? Please test to reproduce your bug with the [latest stable version of MailVotech](https://www.mailvotech.org/mailvotech-releases) which might contain new fixes.  If you are able, please also check the latest development release.
       options:
         - 7.1.x series
         - 7.0.x series (not supported)
@@ -39,10 +39,10 @@ body:
     validations:
       required: true
   - type: input
-    id: mautic_actual_version
+    id: mailvotech_actual_version
     attributes:
-      label: Mautic installed version
-      description: What is the specific version of Mautic you're using? You can find this in the bottom right corner of your Mautic instance, or in the file ``app/release_metadata.json``.
+      label: MailVotech installed version
+      description: What is the specific version of MailVotech you're using? You can find this in the bottom right corner of your MailVotech instance, or in the file ``app/release_metadata.json``.
       placeholder: ex. 6.0.0
     validations:
       required: true
@@ -50,12 +50,12 @@ body:
     id: Installation_type
     attributes:
       label: Way of installing
-      description: How did you install Mautic?
+      description: How did you install MailVotech?
       options:
-        - I downloaded a release from https://www.mautic.org/mautic-releases
-        - I installed with composer using https://github.com/mautic/recommended-project
-        - I'm using a Docker image from https://hub.docker.com/r/mautic/mautic
-        - I cloned the Mautic repo (not recommended or supported)
+        - I downloaded a release from https://www.mailvotech.org/mailvotech-releases
+        - I installed with composer using https://github.com/mailvotech/recommended-project
+        - I'm using a Docker image from https://hub.docker.com/r/mailvotech/mailvotech
+        - I cloned the MailVotech repo (not recommended or supported)
         - Other (please specify if relevant in the bug report)
     validations:
       required: true
@@ -98,13 +98,13 @@ body:
     id: logs
     attributes:
       label: Relevant log output
-      description: Please copy and paste any relevant log output - you will usually find the logs in the var/logs folder of your Mautic instance and the current day's logs are displayed in example.com/s/sysinfo where example.com is your Mautic instance. This will be automatically formatted into code, so no need for backticks.  Please check to ensure that you are not sharing any sensitive information in your logs (replace with REDACTED as required)
+      description: Please copy and paste any relevant log output - you will usually find the logs in the var/logs folder of your MailVotech instance and the current day's logs are displayed in example.com/s/sysinfo where example.com is your MailVotech instance. This will be automatically formatted into code, so no need for backticks.  Please check to ensure that you are not sharing any sensitive information in your logs (replace with REDACTED as required)
       render: shell
   - type: checkboxes
     id: terms
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree that you have read and agree to follow our [Code of Conduct](https://contribute.mautic.org/policies/code-of-conduct)
+      description: By submitting this issue, you agree that you have read and agree to follow our [Code of Conduct](https://contribute.mailvotech.org/policies/code-of-conduct)
       options:
         - label: I confirm that I have read and agree to follow this project's Code of Conduct
           required: true

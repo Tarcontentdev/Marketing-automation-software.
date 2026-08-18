@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\NotificationBundle\Controller;
+namespace MailVotech\NotificationBundle\Controller;
 
-use Mautic\CoreBundle\Controller\CommonController;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\NotificationBundle\Entity\NotificationRepository;
-use Mautic\NotificationBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\Controller\CommonController;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\NotificationBundle\Entity\NotificationRepository;
+use MailVotech\NotificationBundle\Model\NotificationModel;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Service\Attribute\Required;

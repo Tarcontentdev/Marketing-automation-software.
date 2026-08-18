@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment;
+namespace MailVotech\LeadBundle\Tests\Segment;
 
 use Doctrine\Common\DataFixtures\ReferenceRepository;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\InstallBundle\InstallFixtures\ORM\LeadFieldData;
-use Mautic\LeadBundle\Command\UpdateLeadListsCommand;
-use Mautic\LeadBundle\DataFixtures\ORM\LoadCompanyData;
-use Mautic\LeadBundle\DataFixtures\ORM\LoadLeadData;
-use Mautic\LeadBundle\DataFixtures\ORM\LoadLeadListData;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Segment\ContactSegmentService;
-use Mautic\LeadBundle\Segment\Exception\TableNotFoundException;
-use Mautic\LeadBundle\Tests\DataFixtures\ORM\LoadClickData;
-use Mautic\LeadBundle\Tests\DataFixtures\ORM\LoadDncData;
-use Mautic\LeadBundle\Tests\DataFixtures\ORM\LoadPageHitData;
-use Mautic\LeadBundle\Tests\DataFixtures\ORM\LoadSegmentsData;
-use Mautic\LeadBundle\Tests\DataFixtures\ORM\LoadTagData;
-use Mautic\PageBundle\DataFixtures\ORM\LoadPageCategoryData;
-use Mautic\UserBundle\DataFixtures\ORM\LoadRoleData;
-use Mautic\UserBundle\DataFixtures\ORM\LoadUserData;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\InstallBundle\InstallFixtures\ORM\LeadFieldData;
+use MailVotech\LeadBundle\Command\UpdateLeadListsCommand;
+use MailVotech\LeadBundle\DataFixtures\ORM\LoadCompanyData;
+use MailVotech\LeadBundle\DataFixtures\ORM\LoadLeadData;
+use MailVotech\LeadBundle\DataFixtures\ORM\LoadLeadListData;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Segment\ContactSegmentService;
+use MailVotech\LeadBundle\Segment\Exception\TableNotFoundException;
+use MailVotech\LeadBundle\Tests\DataFixtures\ORM\LoadClickData;
+use MailVotech\LeadBundle\Tests\DataFixtures\ORM\LoadDncData;
+use MailVotech\LeadBundle\Tests\DataFixtures\ORM\LoadPageHitData;
+use MailVotech\LeadBundle\Tests\DataFixtures\ORM\LoadSegmentsData;
+use MailVotech\LeadBundle\Tests\DataFixtures\ORM\LoadTagData;
+use MailVotech\PageBundle\DataFixtures\ORM\LoadPageCategoryData;
+use MailVotech\UserBundle\DataFixtures\ORM\LoadRoleData;
+use MailVotech\UserBundle\DataFixtures\ORM\LoadUserData;
 
 /**
- * These tests cover same tests like \Mautic\LeadBundle\Tests\Model\ListModelFunctionalTest.
+ * These tests cover same tests like \MailVotech\LeadBundle\Tests\Model\ListModelFunctionalTest.
  */
-final class ContactSegmentServiceFunctionalTest extends MauticMysqlTestCase
+final class ContactSegmentServiceFunctionalTest extends MailVotechMysqlTestCase
 {
     private ReferenceRepository $fixtures;
 
@@ -69,7 +69,7 @@ final class ContactSegmentServiceFunctionalTest extends MauticMysqlTestCase
 
     public function testSegmentCountIsCorrect(): void
     {
-        $this->testSymfonyCommand('mautic:segments:update', ['--env' => 'test']);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['--env' => 'test']);
 
         // purposively not using dataProvider here to avoid loading fixtures with each segment
         foreach ($this->provideSegments() as $segmentAlias => $expectedCount) {
@@ -141,7 +141,7 @@ final class ContactSegmentServiceFunctionalTest extends MauticMysqlTestCase
         $this->assertSame($lastRebuiltDate, $segmentTest3Ref->getLastBuiltDate(), 'Make sure the segment was not executed, if excluded.');
 
         $this->testSymfonyCommand(
-            'mautic:segments:update',
+            'mailvotech:segments:update',
             [
                 '-i'    => $segmentTest3Ref->getId(),
                 '--env' => 'test',
@@ -159,10 +159,10 @@ final class ContactSegmentServiceFunctionalTest extends MauticMysqlTestCase
         $this->assertNotSame($lastRebuiltDate, $segmentTest3Ref->getLastBuiltDate(), 'Make sure the segment was executed, if not excluded.');
 
         // Remove the title from all contacts, rebuild the list, and check that list is updated
-        $this->em->getConnection()->executeQuery(sprintf('UPDATE %sleads SET title = NULL;', MAUTIC_TABLE_PREFIX));
+        $this->em->getConnection()->executeQuery(sprintf('UPDATE %sleads SET title = NULL;', MAILVOTECH_TABLE_PREFIX));
 
         $this->testSymfonyCommand(
-            'mautic:segments:update',
+            'mailvotech:segments:update',
             [
                 '-i'    => $segmentTest3Ref->getId(),
                 '--env' => 'test',
@@ -178,7 +178,7 @@ final class ContactSegmentServiceFunctionalTest extends MauticMysqlTestCase
         );
 
         $segmentTest40Ref      = $this->getReference('segment-test-include-segment-with-or');
-        $this->testSymfonyCommand('mautic:segments:update', [
+        $this->testSymfonyCommand('mailvotech:segments:update', [
             '-i'    => $segmentTest40Ref->getId(),
             '--env' => 'test',
         ]);
@@ -192,7 +192,7 @@ final class ContactSegmentServiceFunctionalTest extends MauticMysqlTestCase
         );
 
         $segmentTest51Ref      = $this->getReference('has-email-and-visited-url');
-        $this->testSymfonyCommand('mautic:segments:update', [
+        $this->testSymfonyCommand('mailvotech:segments:update', [
             '-i'    => $segmentTest51Ref->getId(),
             '--env' => 'test',
         ]);
@@ -208,13 +208,13 @@ final class ContactSegmentServiceFunctionalTest extends MauticMysqlTestCase
         // Change the url from page_hits with the right tracking_id, rebuild the list, and check that list is updated
         $this->em->getConnection()->executeQuery(sprintf(
             "UPDATE %spage_hits SET url = '%s' WHERE tracking_id = '%s';",
-            MAUTIC_TABLE_PREFIX,
+            MAILVOTECH_TABLE_PREFIX,
             'https://test/regex-segment-other.com',
             'abcdr')
         );
 
         $this->testSymfonyCommand(
-            'mautic:segments:update',
+            'mailvotech:segments:update',
             [
                 '-i'    => $segmentTest51Ref->getId(),
                 '--env' => 'test',
@@ -252,7 +252,7 @@ final class ContactSegmentServiceFunctionalTest extends MauticMysqlTestCase
         $segment = $this->fixtures->getReference('segment-having-company');
         $this->assertInstanceOf(LeadList::class, $segment);
 
-        $this->connection->delete(MAUTIC_TABLE_PREFIX.'lead_lists_leads', ['leadlist_id' => $segment->getId()]);
+        $this->connection->delete(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', ['leadlist_id' => $segment->getId()]);
 
         $leads = $this->contactSegmentService->getNewLeadListLeads($segment, []);
         $this->assertArrayHasKey($segment->getId(), $leads);

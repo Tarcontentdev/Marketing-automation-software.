@@ -3,7 +3,7 @@
         {
             "name": "theme-trulypersonal",
             "directory": "themes/trulypersonal",
-            "target": "git@github.com:mautic/theme-trulypersonal.git"
+            "target": "git@github.com:mailvotech/theme-trulypersonal.git"
         }
     ]
 }

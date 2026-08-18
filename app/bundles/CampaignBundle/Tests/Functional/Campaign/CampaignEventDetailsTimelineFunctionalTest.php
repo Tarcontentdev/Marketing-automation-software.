@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Campaign;
+namespace MailVotech\CampaignBundle\Tests\Functional\Campaign;
 
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\Mapping\MappingException;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class CampaignEventDetailsTimelineFunctionalTest extends MauticMysqlTestCase
+final class CampaignEventDetailsTimelineFunctionalTest extends MailVotechMysqlTestCase
 {
     use CampaignEntitiesTrait;
 
@@ -77,16 +77,16 @@ final class CampaignEventDetailsTimelineFunctionalTest extends MauticMysqlTestCa
         $this->em->flush();
         $this->em->clear();
 
-        $this->testSymfonyCommand('mautic:campaigns:update', ['--campaign-id' => $campaign->getId()]);
-        $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $this->testSymfonyCommand('mailvotech:campaigns:update', ['--campaign-id' => $campaign->getId()]);
+        $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
 
         $translator = self::getContainer()->get(TranslatorInterface::class);
         $this->assertInstanceOf(TranslatorInterface::class, $translator);
-        $operator = $translator->trans('mautic.lead.list.form.operator.in');
+        $operator = $translator->trans('mailvotech.lead.list.form.operator.in');
 
         $this->client->request('GET', sprintf('/s/contacts/view/%s', $lead1->getId()));
         $this->assertStringContainsString(
-            $translator->trans('mautic.campaign.event.condition.details', [
+            $translator->trans('mailvotech.campaign.event.condition.details', [
                 '%path%'            => 'yes',
                 '%field%'           => 'select_field',
                 '%operator%'        => $operator,
@@ -98,7 +98,7 @@ final class CampaignEventDetailsTimelineFunctionalTest extends MauticMysqlTestCa
 
         $this->client->request('GET', sprintf('/s/contacts/view/%s', $lead2->getId()));
         $this->assertStringContainsString(
-            $translator->trans('mautic.campaign.event.condition.details', [
+            $translator->trans('mailvotech.campaign.event.condition.details', [
                 '%path%'            => 'no',
                 '%field%'           => 'select_field',
                 '%operator%'        => $operator,

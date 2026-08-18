@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Mautic\CoreBundle\DependencyInjection\MauticCoreExtension;
+use MailVotech\CoreBundle\DependencyInjection\MailVotechCoreExtension;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
@@ -16,21 +16,21 @@ return function (ContainerConfigurator $configurator): void {
 
     $excludes = [];
 
-    $services->load('Mautic\\NotificationBundle\\', '../')
-        ->exclude('../{'.implode(',', array_merge(MauticCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
+    $services->load('MailVotech\\NotificationBundle\\', '../')
+        ->exclude('../{'.implode(',', array_merge(MailVotechCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
 
-    $services->load('Mautic\\NotificationBundle\\Entity\\', '../Entity/*Repository.php')
+    $services->load('MailVotech\\NotificationBundle\\Entity\\', '../Entity/*Repository.php')
         ->tag(Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\ServiceRepositoryCompilerPass::REPOSITORY_SERVICE_TAG);
-    $services->set('mautic.notification.campaignbundle.subscriber', Mautic\NotificationBundle\EventListener\CampaignSubscriber::class)
-        ->arg('$notificationApi', service('mautic.notification.api'));
-    $services->alias(Mautic\NotificationBundle\EventListener\CampaignSubscriber::class, 'mautic.notification.campaignbundle.subscriber');
-    $services->set('mautic.integration.onesignal', Mautic\NotificationBundle\Integration\OneSignalIntegration::class);
-    $services->alias(Mautic\NotificationBundle\Integration\OneSignalIntegration::class, 'mautic.integration.onesignal');
+    $services->set('mailvotech.notification.campaignbundle.subscriber', MailVotech\NotificationBundle\EventListener\CampaignSubscriber::class)
+        ->arg('$notificationApi', service('mailvotech.notification.api'));
+    $services->alias(MailVotech\NotificationBundle\EventListener\CampaignSubscriber::class, 'mailvotech.notification.campaignbundle.subscriber');
+    $services->set('mailvotech.integration.onesignal', MailVotech\NotificationBundle\Integration\OneSignalIntegration::class);
+    $services->alias(MailVotech\NotificationBundle\Integration\OneSignalIntegration::class, 'mailvotech.integration.onesignal');
 
-    $services->alias('mautic.notification.model.notification', Mautic\NotificationBundle\Model\NotificationModel::class);
-    $services->alias('mautic.notification.repository.stat', Mautic\NotificationBundle\Entity\StatRepository::class);
-    $services->alias('mautic.helper.notification', Mautic\NotificationBundle\Helper\NotificationHelper::class);
-    $services->alias('notification_helper', Mautic\NotificationBundle\Helper\NotificationHelper::class);
+    $services->alias('mailvotech.notification.model.notification', MailVotech\NotificationBundle\Model\NotificationModel::class);
+    $services->alias('mailvotech.notification.repository.stat', MailVotech\NotificationBundle\Entity\StatRepository::class);
+    $services->alias('mailvotech.helper.notification', MailVotech\NotificationBundle\Helper\NotificationHelper::class);
+    $services->alias('notification_helper', MailVotech\NotificationBundle\Helper\NotificationHelper::class);
 
-    $services->alias('mautic.notification.api', Mautic\NotificationBundle\Api\OneSignalApi::class);
+    $services->alias('mailvotech.notification.api', MailVotech\NotificationBundle\Api\OneSignalApi::class);
 };

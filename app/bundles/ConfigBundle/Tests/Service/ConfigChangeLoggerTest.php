@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ConfigBundle\Tests\Service;
+namespace MailVotech\ConfigBundle\Tests\Service;
 
-use Mautic\ConfigBundle\Service\ConfigChangeLogger;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
+use MailVotech\ConfigBundle\Service\ConfigChangeLogger;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
 
 final class ConfigChangeLoggerTest extends \PHPUnit\Framework\TestCase
 {

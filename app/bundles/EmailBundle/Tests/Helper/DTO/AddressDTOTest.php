@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Helper\DTO;
+namespace MailVotech\EmailBundle\Tests\Helper\DTO;
 
-use Mautic\EmailBundle\Helper\DTO\AddressDTO;
-use Mautic\EmailBundle\Helper\Exception\TokenNotFoundOrEmptyException;
+use MailVotech\EmailBundle\Helper\DTO\AddressDTO;
+use MailVotech\EmailBundle\Helper\Exception\TokenNotFoundOrEmptyException;
 use PHPUnit\Framework\TestCase;
 
 final class AddressDTOTest extends TestCase

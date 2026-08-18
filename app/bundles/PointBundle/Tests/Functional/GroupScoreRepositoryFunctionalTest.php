@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Functional;
+namespace MailVotech\PointBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\GroupContactScore;
-use Mautic\PointBundle\Entity\GroupContactScoreRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\GroupContactScore;
+use MailVotech\PointBundle\Entity\GroupContactScoreRepository;
 
-final class GroupScoreRepositoryFunctionalTest extends MauticMysqlTestCase
+final class GroupScoreRepositoryFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 

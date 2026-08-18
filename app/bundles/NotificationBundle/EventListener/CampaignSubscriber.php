@@ -1,24 +1,24 @@
 <?php
 
-namespace Mautic\NotificationBundle\EventListener;
+namespace MailVotech\NotificationBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\DoNotContact as DoNotContactModel;
-use Mautic\NotificationBundle\Api\AbstractNotificationApi;
-use Mautic\NotificationBundle\Entity\Notification;
-use Mautic\NotificationBundle\Entity\NotificationRepository;
-use Mautic\NotificationBundle\Event\NotificationSendEvent;
-use Mautic\NotificationBundle\Form\Type\MobileNotificationSendType;
-use Mautic\NotificationBundle\Form\Type\NotificationSendType;
-use Mautic\NotificationBundle\Model\NotificationModel;
-use Mautic\NotificationBundle\NotificationEvents;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\DoNotContact as DoNotContactModel;
+use MailVotech\NotificationBundle\Api\AbstractNotificationApi;
+use MailVotech\NotificationBundle\Entity\Notification;
+use MailVotech\NotificationBundle\Entity\NotificationRepository;
+use MailVotech\NotificationBundle\Event\NotificationSendEvent;
+use MailVotech\NotificationBundle\Form\Type\MobileNotificationSendType;
+use MailVotech\NotificationBundle\Form\Type\NotificationSendType;
+use MailVotech\NotificationBundle\Model\NotificationModel;
+use MailVotech\NotificationBundle\NotificationEvents;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -76,13 +76,13 @@ class CampaignSubscriber implements EventSubscriberInterface
             $event->addAction(
                 static::EVENT_ACTION_SEND_MOBILE_NOTIFICATION,
                 [
-                    'label'            => 'mautic.notification.campaign.send_mobile_notification',
-                    'description'      => 'mautic.notification.campaign.send_mobile_notification.tooltip',
+                    'label'            => 'mailvotech.notification.campaign.send_mobile_notification',
+                    'description'      => 'mailvotech.notification.campaign.send_mobile_notification.tooltip',
                     'batchEventName'   => NotificationEvents::ON_CAMPAIGN_BATCH_ACTION,
                     'formType'         => MobileNotificationSendType::class,
                     'formTypeOptions'  => ['update_select' => 'campaignevent_properties_notification'],
-                    'formTheme'        => '@MauticNotification/FormTheme/NotificationSendList/_notificationsend_list_row.html.twig',
-                    'timelineTemplate' => '@MauticNotification/SubscribedEvents/Timeline/index.html.twig',
+                    'formTheme'        => '@MailVotechNotification/FormTheme/NotificationSendList/_notificationsend_list_row.html.twig',
+                    'timelineTemplate' => '@MailVotechNotification/SubscribedEvents/Timeline/index.html.twig',
                     'channel'          => 'mobile_notification',
                     'channelIdField'   => 'mobile_notification',
                 ]
@@ -92,13 +92,13 @@ class CampaignSubscriber implements EventSubscriberInterface
         $event->addAction(
             static::EVENT_ACTION_SEND_NOTIFICATION,
             [
-                'label'            => 'mautic.notification.campaign.send_notification',
-                'description'      => 'mautic.notification.campaign.send_notification.tooltip',
+                'label'            => 'mailvotech.notification.campaign.send_notification',
+                'description'      => 'mailvotech.notification.campaign.send_notification.tooltip',
                 'batchEventName'   => NotificationEvents::ON_CAMPAIGN_BATCH_ACTION,
                 'formType'         => NotificationSendType::class,
                 'formTypeOptions'  => ['update_select' => 'campaignevent_properties_notification'],
-                'formTheme'        => '@MauticNotification/FormTheme/NotificationSendList/_notificationsend_list_row.html.twig',
-                'timelineTemplate' => '@MauticNotification/SubscribedEvents/Timeline/index.html.twig',
+                'formTheme'        => '@MailVotechNotification/FormTheme/NotificationSendList/_notificationsend_list_row.html.twig',
+                'timelineTemplate' => '@MailVotechNotification/SubscribedEvents/Timeline/index.html.twig',
                 'channel'          => 'notification',
                 'channelIdField'   => 'notification',
             ]
@@ -115,13 +115,13 @@ class CampaignSubscriber implements EventSubscriberInterface
         $notification   = $notificationId ? $this->notificationModel->getEntity((int) $notificationId) : null;
 
         if (!$notification) {
-            $event->passAllWithError($this->translator->trans('mautic.notification.campaign.failed.missing_entity'));
+            $event->passAllWithError($this->translator->trans('mailvotech.notification.campaign.failed.missing_entity'));
 
             return;
         }
 
         if (!$notification->getIsPublished()) {
-            $event->passAllWithError($this->translator->trans('mautic.notification.campaign.failed.unpublished'));
+            $event->passAllWithError($this->translator->trans('mailvotech.notification.campaign.failed.unpublished'));
 
             return;
         }
@@ -182,7 +182,7 @@ class CampaignSubscriber implements EventSubscriberInterface
         $contactable = DoNotContact::IS_CONTACTABLE === $this->doNotContact->isContactable($log->getLead(), 'notification');
 
         if (!$contactable) {
-            $event->passWithError($log, $this->translator->trans('mautic.notification.campaign.failed.not_contactable'));
+            $event->passWithError($log, $this->translator->trans('mailvotech.notification.campaign.failed.not_contactable'));
         }
 
         return $contactable;
@@ -210,7 +210,7 @@ class CampaignSubscriber implements EventSubscriberInterface
         }
 
         if ([] === $playerIds) {
-            $event->passWithError($log, $this->translator->trans('mautic.notification.campaign.failed.not_subscribed'));
+            $event->passWithError($log, $this->translator->trans('mailvotech.notification.campaign.failed.not_subscribed'));
         }
 
         return $playerIds;
@@ -259,7 +259,7 @@ class CampaignSubscriber implements EventSubscriberInterface
 
     private function processResponse(ResponseInterface $response, PendingEvent $event, LeadEventLog $log, Notification $notification, Notification $sendNotification): void
     {
-        // if for some reason the call failed, tell mautic to try again
+        // if for some reason the call failed, tell mailvotech to try again
         if (200 !== $response->getStatusCode()) {
             $event->fail($log, sprintf('%s (%s)', (string) $response->getBody(), $response->getStatusCode()));
 
@@ -270,8 +270,8 @@ class CampaignSubscriber implements EventSubscriberInterface
         $this->notificationRepository->upCount($notification->getId());
 
         $result = [
-            'status'  => 'mautic.notification.timeline.status.delivered',
-            'type'    => 'mautic.notification.notification',
+            'status'  => 'mailvotech.notification.timeline.status.delivered',
+            'type'    => 'mailvotech.notification.notification',
             'id'      => $notification->getId(),
             'name'    => $notification->getName(),
             'heading' => $sendNotification->getHeading(),

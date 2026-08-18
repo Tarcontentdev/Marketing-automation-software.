@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\DependencyInjection\Compiler;
+namespace MailVotech\UserBundle\DependencyInjection\Compiler;
 
-use Mautic\UserBundle\Security\Authenticator\Oauth2Authenticator;
+use MailVotech\UserBundle\Security\Authenticator\Oauth2Authenticator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

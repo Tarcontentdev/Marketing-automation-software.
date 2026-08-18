@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Form\Type;
+namespace MailVotech\PointBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\PointBundle\Entity\Group;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\PointBundle\Entity\Group;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,7 +26,7 @@ final class GroupType extends AbstractType
         $builder->addEventSubscriber(new FormExitSubscriber('point.group', $options));
 
         $builder->add('name', TextType::class, [
-            'label'      => 'mautic.core.name',
+            'label'      => 'mailvotech.core.name',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => ['class' => 'form-control'],
         ]);
@@ -35,7 +35,7 @@ final class GroupType extends AbstractType
             'description',
             TextareaType::class,
             [
-                'label'      => 'mautic.core.description',
+                'label'      => 'mailvotech.core.description',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control editor'],
                 'required'   => false,
@@ -47,7 +47,7 @@ final class GroupType extends AbstractType
             $data = $options['data']->isPublished(false);
         }
         $builder->add('isPublished', YesNoButtonGroupType::class, [
-            'label'     => 'mautic.core.form.available',
+            'label'     => 'mailvotech.core.form.available',
             'data'      => $data,
         ]);
 

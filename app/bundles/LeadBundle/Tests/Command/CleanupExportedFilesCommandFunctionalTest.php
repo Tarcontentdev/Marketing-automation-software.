@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Command;
+namespace MailVotech\LeadBundle\Tests\Command;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Command\CleanupExportedFilesCommand;
-use Mautic\LeadBundle\Command\ContactScheduledExportCommand;
-use Mautic\LeadBundle\Entity\ContactExportScheduler;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Command\CleanupExportedFilesCommand;
+use MailVotech\LeadBundle\Command\ContactScheduledExportCommand;
+use MailVotech\LeadBundle\Entity\ContactExportScheduler;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\HttpFoundation\Request;
 
-final class CleanupExportedFilesCommandFunctionalTest extends MauticMysqlTestCase
+final class CleanupExportedFilesCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {

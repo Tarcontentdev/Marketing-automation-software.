@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\PageBundle\Entity;
+namespace MailVotech\PageBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<Redirect>
@@ -34,7 +34,7 @@ class RedirectRepository extends CommonRepository
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
-        $q->update(MAUTIC_TABLE_PREFIX.'page_redirects')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'page_redirects')
             ->set('hits', 'hits + '.(int) $increaseBy)
             ->where('id = '.(int) $id);
 
@@ -65,10 +65,10 @@ class RedirectRepository extends CommonRepository
         $q->addSelect('pr.url')
             ->addSelect('count(ph.id) as hits')
             ->addSelect('count(distinct ph.tracking_id) as unique_hits')
-            ->from(MAUTIC_TABLE_PREFIX.'page_hits', 'ph')
-            ->join('ph', MAUTIC_TABLE_PREFIX.'page_redirects', 'pr', 'pr.id = ph.redirect_id')
-            ->join('ph', MAUTIC_TABLE_PREFIX.'email_stats', 'es', 'ph.source = \'email\' and ph.source_id = es.email_id and ph.lead_id = es.lead_id')
-            ->join('es', MAUTIC_TABLE_PREFIX.'emails', 'e', 'es.email_id = e.id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'page_hits', 'ph')
+            ->join('ph', MAILVOTECH_TABLE_PREFIX.'page_redirects', 'pr', 'pr.id = ph.redirect_id')
+            ->join('ph', MAILVOTECH_TABLE_PREFIX.'email_stats', 'es', 'ph.source = \'email\' and ph.source_id = es.email_id and ph.lead_id = es.lead_id')
+            ->join('es', MAILVOTECH_TABLE_PREFIX.'emails', 'e', 'es.email_id = e.id')
             ->addSelect('e.id AS email_id')
             ->addSelect('e.name AS email_name');
 
@@ -81,8 +81,8 @@ class RedirectRepository extends CommonRepository
             ->setParameter('dateFrom', $dateFrom->format('Y-m-d H:i:s'))
             ->setParameter('dateTo', $dateTo->format('Y-m-d H:i:s'));
 
-        $q->leftJoin('es', MAUTIC_TABLE_PREFIX.'campaign_events', 'ce', 'es.source = "campaign.event" and es.source_id = ce.id')
-            ->leftJoin('ce', MAUTIC_TABLE_PREFIX.'campaigns', 'campaign', 'ce.campaign_id = campaign.id')
+        $q->leftJoin('es', MAILVOTECH_TABLE_PREFIX.'campaign_events', 'ce', 'es.source = "campaign.event" and es.source_id = ce.id')
+            ->leftJoin('ce', MAILVOTECH_TABLE_PREFIX.'campaigns', 'campaign', 'ce.campaign_id = campaign.id')
             ->addSelect('campaign.id AS campaign_id')
             ->addSelect('campaign.name AS campaign_name');
 
@@ -95,7 +95,7 @@ class RedirectRepository extends CommonRepository
             $sb = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
             $sb->select('null')
-                ->from(MAUTIC_TABLE_PREFIX.'companies_leads', 'cl')
+                ->from(MAILVOTECH_TABLE_PREFIX.'companies_leads', 'cl')
                 ->where(
                     $sb->expr()->and(
                         $sb->expr()->eq('cl.company_id', ':companyId'),
@@ -113,7 +113,7 @@ class RedirectRepository extends CommonRepository
             $sb = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
             $sb->select('null')
-                ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'lll')
+                ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'lll')
                 ->where(
                     $sb->expr()->and(
                         $sb->expr()->eq('lll.leadlist_id', ':segmentId'),

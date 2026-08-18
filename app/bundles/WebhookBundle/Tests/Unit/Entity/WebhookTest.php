@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Unit\Entity;
+namespace MailVotech\WebhookBundle\Tests\Unit\Entity;
 
-use Mautic\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Entity\Webhook;
 
 final class WebhookTest extends \PHPUnit\Framework\TestCase
 {
@@ -33,9 +33,9 @@ final class WebhookTest extends \PHPUnit\Framework\TestCase
     {
         $webhook  = new Webhook();
         $triggers = [
-            'mautic.company_post_save',
-            'mautic.company_post_delete',
-            'mautic.lead_channel_subscription_changed',
+            'mailvotech.company_post_save',
+            'mailvotech.company_post_delete',
+            'mailvotech.lead_channel_subscription_changed',
         ];
 
         $webhook->setTriggers($triggers);

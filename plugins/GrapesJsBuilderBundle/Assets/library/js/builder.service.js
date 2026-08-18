@@ -14,14 +14,14 @@ import grapesjsckeditor from './plugins/grapesjs-ckeditor';
 import grapesjsMjmlThemeTokens, { pluginId as mjmlThemeTokensPluginId } from './plugins/grapesjs-mjmlThemeTokens';
 import grapesjsImageLink from './plugins/grapesjs-image-link';
 import { extractMjHeadContent, createHeadInjectingMjmlParser } from './plugins/grapesjs-mjmlThemeTokens/utils';
-import contentService from './preset-mautic/content.service';
-import grapesjsmautic from './preset-mautic';
-import editorFontsService from './preset-mautic/editorFonts/editorFonts.service';
+import contentService from './preset-mailvotech/content.service';
+import grapesjsmailvotech from './preset-mailvotech';
+import editorFontsService from './preset-mailvotech/editorFonts/editorFonts.service';
 import StorageService from './storage.service';
 
 import CodeModeButton from './codeMode/codeMode.button';
 import CompCopyPaste from './commands/compCopyPaste';
-import MjmlService from './preset-mautic/mjml/mjml.service';
+import MjmlService from './preset-mailvotech/mjml/mjml.service';
 import MjmlStylesService from './mjmlStyles.service';
 import EditorStateService from './editorState.service';
 
@@ -84,7 +84,7 @@ export default class BuilderService {
 
   patchMjmlCommentViews(editor) {
     const dc = editor?.DomComponents;
-    if (!dc || dc.__mauticMjmlCommentViewPatched) {
+    if (!dc || dc.__mailvotechMjmlCommentViewPatched) {
       return;
     }
 
@@ -118,7 +118,7 @@ export default class BuilderService {
       }),
     });
 
-    dc.__mauticMjmlCommentViewPatched = true;
+    dc.__mailvotechMjmlCommentViewPatched = true;
   }
 
   /**
@@ -363,7 +363,7 @@ export default class BuilderService {
       return;
     }
 
-    const command = this.editor.Commands.get('preset-mautic:apply-form');
+    const command = this.editor.Commands.get('preset-mailvotech:apply-form');
     if (!command || typeof command.run !== 'function' || command.__gjsSubmitGuardPatched) {
       return;
     }
@@ -371,19 +371,19 @@ export default class BuilderService {
     const originalRun = command.run.bind(command);
 
     command.run = (...args) => {
-      if (typeof MauticVars !== 'undefined' && MauticVars.formSubmitInProgress) {
+      if (typeof MailVotechVars !== 'undefined' && MailVotechVars.formSubmitInProgress) {
         return;
       }
 
-      if (typeof MauticVars !== 'undefined') {
-        MauticVars.formSubmitInProgress = true;
+      if (typeof MailVotechVars !== 'undefined') {
+        MailVotechVars.formSubmitInProgress = true;
       }
 
       try {
         return originalRun(...args);
       } catch (error) {
-        if (typeof MauticVars !== 'undefined') {
-          MauticVars.formSubmitInProgress = false;
+        if (typeof MailVotechVars !== 'undefined') {
+          MailVotechVars.formSubmitInProgress = false;
         }
         throw error;
       }
@@ -611,7 +611,7 @@ export default class BuilderService {
     const keymaps = this.editor.Keymaps;
     let allKeymaps;
 
-    if (mauticEditorFonts) {
+    if (mailvotechEditorFonts) {
       this.editor.on('load', () => editorFontsService.loadEditorFonts(this.editor));
     }
 
@@ -642,7 +642,7 @@ export default class BuilderService {
     });
 
     this.editor.on('asset:upload:error', (error) => {
-      Mautic.setFlashes(Mautic.addErrorFlashMessage(error));
+      MailVotech.setFlashes(MailVotech.addErrorFlashMessage(error));
     });
 
     this.editor.on('asset:open', () => {
@@ -715,10 +715,10 @@ export default class BuilderService {
           this.cacheOptimisticLockVersion();
         });
     }
-    this.editor.on('run:mautic-editor-page-html-close', triggerBuilderHide);
-    this.editor.on('run:mautic-editor-email-html-close', triggerBuilderHide);
-    this.editor.on('run:mautic-editor-email-mjml-close', triggerBuilderHide);
-    this.editor.on('run:preset-mautic:apply-form', () => this.persistEditorState());
+    this.editor.on('run:mailvotech-editor-page-html-close', triggerBuilderHide);
+    this.editor.on('run:mailvotech-editor-email-html-close', triggerBuilderHide);
+    this.editor.on('run:mailvotech-editor-email-mjml-close', triggerBuilderHide);
+    this.editor.on('run:preset-mailvotech:apply-form', () => this.persistEditorState());
 
     this.editor.on('load', () => {
       if (this.isPageContext()) {
@@ -728,7 +728,7 @@ export default class BuilderService {
     });
     this.editor.on('component:add', (component) => this.normalizeTextComponentContainers(component));
     this.editor.on('rte:disable', (component) => this.normalizeTextComponentContainers(component));
-    this.editor.on('mautic:code-editor-update', () => this.normalizeTextComponentContainers());
+    this.editor.on('mailvotech:code-editor-update', () => this.normalizeTextComponentContainers());
 
     // add offset to flashes container for better UI visibility when builder is on
     this.editor.on('show', () => mQuery('#flashes').addClass('alert-offset'));
@@ -750,19 +750,19 @@ export default class BuilderService {
       ? null
       : this.editorStateService.prefillEditorStateField(this.context);
 
-    // grapesjs-custom-plugins: add globally defined mautic-grapesjs-plugins using name as pluginId for the plugin-function
-    if (window.MauticGrapesJsPlugins) {
-      window.MauticGrapesJsPlugins.forEach((item) => {
+    // grapesjs-custom-plugins: add globally defined mailvotech-grapesjs-plugins using name as pluginId for the plugin-function
+    if (window.MailVotechGrapesJsPlugins) {
+      window.MailVotechGrapesJsPlugins.forEach((item) => {
         if (!item.name) {
           console.warn(
-            'A name is required for Mautic-GrapesJs plugins in window.MauticGrapesJsPlugins. Registration skipped!'
+            'A name is required for MailVotech-GrapesJs plugins in window.MailVotechGrapesJsPlugins. Registration skipped!'
           );
           return;
         }
 
         if (typeof item.plugin !== 'function') {
           console.warn(
-            'The Mautic-GrapesJs plugin must be a function in window.MauticGrapesJsPlugins. Registration skipped!'
+            'The MailVotech-GrapesJs plugin must be a function in window.MailVotechGrapesJsPlugins. Registration skipped!'
           );
           return;
         }
@@ -771,7 +771,7 @@ export default class BuilderService {
       });
     }
 
-    // disable mautic global shortcuts
+    // disable mailvotech global shortcuts
     Mousetrap.reset();
     if (object === 'page') {
       this.editor = this.initPage();
@@ -827,7 +827,7 @@ export default class BuilderService {
     this.setListeners();
   }
 
-  static getMauticConf(mode) {
+  static getMailVotechConf(mode) {
     return {
       mode,
     };
@@ -844,9 +844,9 @@ export default class BuilderService {
 
     const globalPolicy =
       typeof window !== 'undefined' &&
-      window.MauticGrapesJsCkEditorContentPolicy &&
-      typeof window.MauticGrapesJsCkEditorContentPolicy === 'object'
-        ? window.MauticGrapesJsCkEditorContentPolicy
+      window.MailVotechGrapesJsCkEditorContentPolicy &&
+      typeof window.MailVotechGrapesJsCkEditorContentPolicy === 'object'
+        ? window.MailVotechGrapesJsCkEditorContentPolicy
         : {};
 
     return {
@@ -891,10 +891,10 @@ export default class BuilderService {
 
     blockToolbar.push('|', 'TokenPlugin', 'heading');
 
-    const blockConfig = Mautic.GetCkEditorConfigOptions(blockToolbar, tokenCallback) || {};
+    const blockConfig = MailVotech.GetCkEditorConfigOptions(blockToolbar, tokenCallback) || {};
 
     blockConfig.licenseKey = 'GPL';
-    blockConfig.mauticContentPolicy = contentPolicy;
+    blockConfig.mailvotechContentPolicy = contentPolicy;
 
     const fontFamilyConfig = blockConfig.fontFamily ? { ...blockConfig.fontFamily } : {};
     fontFamilyConfig.supportAllValues = true;
@@ -1031,7 +1031,7 @@ export default class BuilderService {
   }
 
   static getCkeditorModuleUrl() {
-    const baseUrl = typeof mauticBaseUrl !== 'undefined' ? mauticBaseUrl : '';
+    const baseUrl = typeof mailvotechBaseUrl !== 'undefined' ? mailvotechBaseUrl : '';
 
     return `${baseUrl}media/libraries/ckeditor/ckeditor.js`;
   }
@@ -1111,9 +1111,9 @@ export default class BuilderService {
       return null;
     }
 
-    const { Mautic: mauticGlobal } = window;
-    if (mauticGlobal && typeof mauticGlobal.builderTheme === 'string') {
-      const fromGlobal = mauticGlobal.builderTheme.trim();
+    const { MailVotech: mailvotechGlobal } = window;
+    if (mailvotechGlobal && typeof mailvotechGlobal.builderTheme === 'string') {
+      const fromGlobal = mailvotechGlobal.builderTheme.trim();
       if (fromGlobal) {
         return fromGlobal;
       }
@@ -1156,7 +1156,7 @@ export default class BuilderService {
       canvas: {
         styles: [
           ...contentService.getStyles(),
-          `${mauticBaseUrl}plugins/GrapesJsBuilderBundle/Assets/library/js/grapesjs-editor.css`,
+          `${mailvotechBaseUrl}plugins/GrapesJsBuilderBundle/Assets/library/js/grapesjs-editor.css`,
         ],
       },
       storageManager: false, // https://grapesjs.com/docs/modules/Storage.html#basic-configuration
@@ -1168,7 +1168,7 @@ export default class BuilderService {
         // partially copied from: https://github.com/GrapesJS/grapesjs/blob/gh-pages/demo.html
         grapesjswebpage,
         grapesjspostcss,
-        grapesjsmautic,
+        grapesjsmailvotech,
         grapesjsckeditor,
         grapesjsblocksbasic,
         grapesjscomponentcountdown,
@@ -1187,7 +1187,7 @@ export default class BuilderService {
           formsOpts: false,
           useCustomTheme: false,
         },
-        grapesjsmautic: BuilderService.getMauticConf('page-html'),
+        grapesjsmailvotech: BuilderService.getMailVotechConf('page-html'),
         [grapesjsckeditor]: {
           ckeditor_module: ckeditorModuleUrl,
           licenseKey: 'GPL',
@@ -1227,7 +1227,7 @@ export default class BuilderService {
     const mjHeadContent = extractMjHeadContent(components);
 
     const styles = [
-      `${mauticBaseUrl}plugins/GrapesJsBuilderBundle/Assets/library/js/grapesjs-editor.css`,
+      `${mailvotechBaseUrl}plugins/GrapesJsBuilderBundle/Assets/library/js/grapesjs-editor.css`,
     ];
 
     // IMPORTANT: mjmlParser must be provided directly to grapesjs-mjml via pluginsOpts
@@ -1282,7 +1282,7 @@ export default class BuilderService {
         grapesjsmjml,
         grapesjsMjmlThemeTokens,
         grapesjspostcss,
-        grapesjsmautic,
+        grapesjsmailvotech,
         grapesjsckeditor,
         ...BuilderService.getPluginNames('email-mjml'),
       ],
@@ -1299,7 +1299,7 @@ export default class BuilderService {
           mjmlParser: headInjectingParser,
         },
 
-        grapesjsmautic: BuilderService.getMauticConf('email-mjml'),
+        grapesjsmailvotech: BuilderService.getMailVotechConf('email-mjml'),
         [grapesjsckeditor]: {
           ckeditor_module: ckeditorModuleUrl,
           licenseKey: 'GPL',
@@ -1404,7 +1404,7 @@ export default class BuilderService {
     }
 
     const styles = [
-      `${mauticBaseUrl}plugins/GrapesJsBuilderBundle/Assets/library/js/grapesjs-editor.css`,
+      `${mailvotechBaseUrl}plugins/GrapesJsBuilderBundle/Assets/library/js/grapesjs-editor.css`,
     ];
 
     const ckeditorModuleUrl = BuilderService.getCkeditorModuleUrl();
@@ -1426,7 +1426,7 @@ export default class BuilderService {
       plugins: [
         grapesjsnewsletter,
         grapesjspostcss,
-        grapesjsmautic,
+        grapesjsmailvotech,
         grapesjsckeditor,
         grapesjsImageLink,
         ...BuilderService.getPluginNames('email-html'),
@@ -1435,7 +1435,7 @@ export default class BuilderService {
         grapesjsnewsletter: {
           useCustomTheme: false,
         },
-        grapesjsmautic: BuilderService.getMauticConf('email-html'),
+        grapesjsmailvotech: BuilderService.getMailVotechConf('email-html'),
         [grapesjsckeditor]: {
           ckeditor_module: ckeditorModuleUrl,
           licenseKey: 'GPL',
@@ -1453,7 +1453,7 @@ export default class BuilderService {
       },
     });
 
-    // add a Mautic custom block Button
+    // add a MailVotech custom block Button
     this.editor.BlockManager.get('button').set({
       content:
         '<a href="#" target="_blank" style="display:inline-block;text-decoration:none;border-color:#4e5d9d;border-width: 10px 20px;border-style:solid; text-decoration: none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; background-color: #4e5d9d; display: inline-block;font-size: 16px; color: #ffffff; ">\n' +
@@ -1472,8 +1472,8 @@ export default class BuilderService {
   static getPluginNames(context) {
     let plugins = [];
 
-    if (window.MauticGrapesJsPlugins) {
-      window.MauticGrapesJsPlugins.forEach((item) => {
+    if (window.MailVotechGrapesJsPlugins) {
+      window.MailVotechGrapesJsPlugins.forEach((item) => {
         if (item.name) {
           if (!item.context || !Array.isArray(item.context) || item.context.length === 0) {
             // if no context is given, the plugin is always added
@@ -1501,8 +1501,8 @@ export default class BuilderService {
   static getPluginOptions(context) {
     let pluginOptions = {};
 
-    if (window.MauticGrapesJsPlugins) {
-      window.MauticGrapesJsPlugins.forEach((item) => {
+    if (window.MailVotechGrapesJsPlugins) {
+      window.MailVotechGrapesJsPlugins.forEach((item) => {
         if (!item.context || !Array.isArray(item.context) || item.context.length === 0) {
           // if no context is given, the plugin is always added
           pluginOptions[item.name] = item.pluginOptions ?? {};
@@ -1531,13 +1531,13 @@ export default class BuilderService {
     const applyButton = mQuery('.btn-apply');
 
     if (activate) {
-      Mautic.activateButtonLoadingIndicator(builderButton);
-      Mautic.activateButtonLoadingIndicator(saveButton);
-      Mautic.activateButtonLoadingIndicator(applyButton);
+      MailVotech.activateButtonLoadingIndicator(builderButton);
+      MailVotech.activateButtonLoadingIndicator(saveButton);
+      MailVotech.activateButtonLoadingIndicator(applyButton);
     } else {
-      Mautic.removeButtonLoadingIndicator(builderButton);
-      Mautic.removeButtonLoadingIndicator(saveButton);
-      Mautic.removeButtonLoadingIndicator(applyButton);
+      MailVotech.removeButtonLoadingIndicator(builderButton);
+      MailVotech.removeButtonLoadingIndicator(saveButton);
+      MailVotech.removeButtonLoadingIndicator(applyButton);
     }
   }
 
@@ -1547,7 +1547,7 @@ export default class BuilderService {
    */
   getAssetManagerConf() {
     const noAssetsTranslationKey = 'grapesjsbuilder.assetManager.noAssets';
-    const translatedNoAssets = Mautic.translate(noAssetsTranslationKey);
+    const translatedNoAssets = MailVotech.translate(noAssetsTranslationKey);
     const noAssetsMessage =
       translatedNoAssets && translatedNoAssets !== noAssetsTranslationKey
         ? translatedNoAssets
@@ -1578,7 +1578,7 @@ export default class BuilderService {
       embedAsBase64: false,
       openAssetsOnDrop: 1,
       autoAdd: 1,
-      headers: { 'X-CSRF-Token': mauticAjaxCsrf }, // global variable
+      headers: { 'X-CSRF-Token': mailvotechAjaxCsrf }, // global variable
     };
   }
 

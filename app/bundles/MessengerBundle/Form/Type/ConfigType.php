@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\Form\Type;
+namespace MailVotech\MessengerBundle\Form\Type;
 
-use Mautic\ConfigBundle\Form\Type\DsnType;
-use Mautic\MessengerBundle\Validator\Dsn;
+use MailVotech\ConfigBundle\Form\Type\DsnType;
+use MailVotech\MessengerBundle\Validator\Dsn;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,7 +23,7 @@ final class ConfigType extends AbstractType
     {
         $testButton = [
             'action' => 'messenger:sendTestMessage',
-            'label'  => $this->translator->trans('mautic.messenger.config.dsn.send_test_message'),
+            'label'  => $this->translator->trans('mailvotech.messenger.config.dsn.send_test_message'),
         ];
 
         $builder->add(
@@ -58,7 +58,7 @@ final class ConfigType extends AbstractType
             'messenger_retry_strategy_max_retries',
             NumberType::class,
             [
-                'label'      => 'mautic.messenger.config.retry_strategy.max_retries',
+                'label'      => 'mailvotech.messenger.config.retry_strategy.max_retries',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
                 'attr'       => [
@@ -72,7 +72,7 @@ final class ConfigType extends AbstractType
             'messenger_retry_strategy_delay',
             NumberType::class,
             [
-                'label'      => 'mautic.messenger.config.retry_strategy.delay',
+                'label'      => 'mailvotech.messenger.config.retry_strategy.delay',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
                 'attr'       => [
@@ -87,7 +87,7 @@ final class ConfigType extends AbstractType
             NumberType::class,
             [
                 'scale'      => 2,
-                'label'      => 'mautic.messenger.config.retry_strategy.multiplier',
+                'label'      => 'mailvotech.messenger.config.retry_strategy.multiplier',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
                 'attr'       => [
@@ -104,7 +104,7 @@ final class ConfigType extends AbstractType
             'messenger_retry_strategy_max_delay',
             NumberType::class,
             [
-                'label'      => 'mautic.messenger.config.retry_strategy.max_delay',
+                'label'      => 'mailvotech.messenger.config.retry_strategy.max_delay',
                 'label_attr' => ['class' => 'control-label'],
                 'required'   => false,
                 'attr'       => [

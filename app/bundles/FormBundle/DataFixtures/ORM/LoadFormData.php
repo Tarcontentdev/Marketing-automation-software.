@@ -1,20 +1,20 @@
 <?php
 
-namespace Mautic\FormBundle\DataFixtures\ORM;
+namespace MailVotech\FormBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\CoreBundle\Doctrine\Common\DataFixtures\Event\PreExecuteEvent;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\CoreBundle\Helper\Serializer;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Entity\ActionRepository;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\FieldRepository;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\FormRepository;
-use Mautic\FormBundle\Model\FormModel;
+use MailVotech\CoreBundle\Doctrine\Common\DataFixtures\Event\PreExecuteEvent;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Helper\Serializer;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Entity\ActionRepository;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\FieldRepository;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\FormRepository;
+use MailVotech\FormBundle\Model\FormModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class LoadFormData extends AbstractFixture implements OrderedFixtureInterface

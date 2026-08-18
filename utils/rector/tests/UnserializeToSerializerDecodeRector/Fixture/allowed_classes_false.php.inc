@@ -20,7 +20,7 @@ class AllowedClassesFalse
 {
     public function run(string $data)
     {
-        return \Mautic\CoreBundle\Helper\Serializer::decode($data);
+        return \MailVotech\CoreBundle\Helper\Serializer::decode($data);
     }
 }
 

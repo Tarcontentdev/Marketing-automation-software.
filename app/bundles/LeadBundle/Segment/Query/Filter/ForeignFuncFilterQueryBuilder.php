@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Query\Filter;
+namespace MailVotech\LeadBundle\Segment\Query\Filter;
 
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\Exception\FieldNotFoundException;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
-use Mautic\LeadBundle\Segment\Query\QueryException;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\Exception\FieldNotFoundException;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\QueryException;
 
 final class ForeignFuncFilterQueryBuilder extends BaseFilterQueryBuilder
 {
     public static function getServiceId(): string
     {
-        return 'mautic.lead.query.builder.foreign.func';
+        return 'mailvotech.lead.query.builder.foreign.func';
     }
 
     /**
@@ -20,7 +20,7 @@ final class ForeignFuncFilterQueryBuilder extends BaseFilterQueryBuilder
      */
     public function applyQuery(QueryBuilder $queryBuilder, ContactSegmentFilter $filter): QueryBuilder
     {
-        $leadsTableAlias = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.'leads');
+        $leadsTableAlias = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.'leads');
         $filterOperator  = $filter->getOperator();
         $filterAggr      = $filter->getAggregateFunction();
 
@@ -54,14 +54,14 @@ final class ForeignFuncFilterQueryBuilder extends BaseFilterQueryBuilder
             } else {
                 if ('companies' == $filter->getTable()) {
                     $relTable = $this->generateRandomParameterName();
-                    $queryBuilder->leftJoin($leadsTableAlias, MAUTIC_TABLE_PREFIX.'companies_leads', $relTable, $relTable.'.lead_id = '.$leadsTableAlias.'.id');
+                    $queryBuilder->leftJoin($leadsTableAlias, MAILVOTECH_TABLE_PREFIX.'companies_leads', $relTable, $relTable.'.lead_id = '.$leadsTableAlias.'.id');
                     $queryBuilder->leftJoin($relTable, $filter->getTable(), $tableAlias, $tableAlias.'.id = '.$relTable.'.company_id');
                 } else { // This should never happen
                     $queryBuilder->leftJoin(
                         $leadsTableAlias,
                         $filter->getTable(),
                         $tableAlias,
-                        sprintf('%s.id = %s.lead_id', $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.'leads'), $tableAlias)
+                        sprintf('%s.id = %s.lead_id', $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.'leads'), $tableAlias)
                     );
                 }
             }

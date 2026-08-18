@@ -3,7 +3,7 @@
         {
             "name": "theme-multi-step",
             "directory": "themes/multi-step",
-            "target": "git@github.com:mautic/theme-multi-step.git"
+            "target": "git@github.com:mailvotech/theme-multi-step.git"
         }
     ]
 }

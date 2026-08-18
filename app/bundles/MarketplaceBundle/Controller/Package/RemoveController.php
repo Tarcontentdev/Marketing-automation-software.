@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Controller\Package;
+namespace MailVotech\MarketplaceBundle\Controller\Package;
 
-use Mautic\CoreBundle\Controller\CommonController;
-use Mautic\MarketplaceBundle\Model\PackageModel;
-use Mautic\MarketplaceBundle\Security\Permissions\MarketplacePermissions;
-use Mautic\MarketplaceBundle\Service\Config;
-use Mautic\MarketplaceBundle\Service\RouteProvider;
+use MailVotech\CoreBundle\Controller\CommonController;
+use MailVotech\MarketplaceBundle\Model\PackageModel;
+use MailVotech\MarketplaceBundle\Security\Permissions\MarketplacePermissions;
+use MailVotech\MarketplaceBundle\Service\Config;
+use MailVotech\MarketplaceBundle\Service\RouteProvider;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -49,8 +49,8 @@ final class RemoveController extends CommonController
                 ],
                 'contentTemplate' => '@Marketplace/Package/remove.html.twig',
                 'passthroughVars' => [
-                    'mauticContent' => 'package',
-                    'activeLink'    => '#mautic_marketplace',
+                    'mailvotechContent' => 'package',
+                    'activeLink'    => '#mailvotech_marketplace',
                     'route'         => $this->routeProvider->buildRemoveRoute($vendor, $package),
                 ],
             ]

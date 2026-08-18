@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Serializer\Exclusion;
+namespace MailVotech\ApiBundle\Serializer\Exclusion;
 
 /**
  * Only include FormEntity properties for the top level entity and not the associated entities.

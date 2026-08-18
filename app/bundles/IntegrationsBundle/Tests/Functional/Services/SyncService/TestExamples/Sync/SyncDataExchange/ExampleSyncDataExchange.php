@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Sync\SyncDataExchange;
+namespace MailVotech\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Sync\SyncDataExchange;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Request\RequestDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
-use Mautic\IntegrationsBundle\Sync\ValueNormalizer\ValueNormalizer;
-use Mautic\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Integration\ExampleIntegration;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\OrderDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Request\RequestDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\SyncDataExchangeInterface;
+use MailVotech\IntegrationsBundle\Sync\ValueNormalizer\ValueNormalizer;
+use MailVotech\IntegrationsBundle\Tests\Functional\Services\SyncService\TestExamples\Integration\ExampleIntegration;
 
 final class ExampleSyncDataExchange implements SyncDataExchangeInterface
 {
@@ -57,7 +57,7 @@ final class ExampleSyncDataExchange implements SyncDataExchangeInterface
     }
 
     /**
-     * This pushes to the integration objects that were updated/created in Mautic. The "sync order" is
+     * This pushes to the integration objects that were updated/created in MailVotech. The "sync order" is
      * created by the SyncProcess service.
      */
     public function executeSyncOrder(OrderDAO $syncOrderDAO): void
@@ -170,7 +170,7 @@ final class ExampleSyncDataExchange implements SyncDataExchangeInterface
     }
 
     /**
-     * This fetches objects from the integration that needs to be updated or created in Mautic.
+     * This fetches objects from the integration that needs to be updated or created in MailVotech.
      * A "sync report" is created that will be processed by the SyncProcess service.
      */
     public function getSyncReport(RequestDAO $requestDAO): ReportDAO
@@ -196,8 +196,8 @@ final class ExampleSyncDataExchange implements SyncDataExchangeInterface
                 $objectDAO = new ObjectDAO($objectName, $person['id'], $objectChangeTimestamp);
 
                 foreach ($person as $field => $value) {
-                    // Normalize the value from the API to what Mautic needs
-                    $normalizedValue = $this->valueNormalizer->normalizeForMautic(self::FIELDS[$field]['type'], $value);
+                    // Normalize the value from the API to what MailVotech needs
+                    $normalizedValue = $this->valueNormalizer->normalizeForMailVotech(self::FIELDS[$field]['type'], $value);
                     $reportFieldDAO  = new FieldDAO($field, $normalizedValue);
 
                     // If we know for certain that this specific field was modified at a specific date/time, set the change timestamp

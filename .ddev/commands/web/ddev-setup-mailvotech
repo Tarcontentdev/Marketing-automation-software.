@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source ./.ddev/mailvotech-setup.sh
+echo "ddev-managed" > ./.ddev/mailvotech-preference
+setup_mailvotech

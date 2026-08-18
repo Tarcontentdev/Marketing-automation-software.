@@ -1,12 +1,12 @@
 //UserBundle
-Mautic.userOnLoad = function (container) {
+MailVotech.userOnLoad = function (container) {
     if (mQuery(container + ' form[name="user"]').length) {
         if (mQuery('#user_position').length) {
-            Mautic.activateTypeahead('#user_position', { displayKey: 'position' });
+            MailVotech.activateTypeahead('#user_position', { displayKey: 'position' });
         }
     } else {
         if (mQuery(container + ' #list-search').length) {
-            Mautic.activateSearchAutocomplete('list-search', 'user.user');
+            MailVotech.activateSearchAutocomplete('list-search', 'user.user');
         }
 
         if (mQuery('#InviteUserModal').data('auto-open')) {
@@ -62,21 +62,21 @@ Mautic.userOnLoad = function (container) {
 
 };
 
-Mautic.roleOnLoad = function (container, response) {
+MailVotech.roleOnLoad = function (container, response) {
     if (mQuery(container + ' #list-search').length) {
-        Mautic.activateSearchAutocomplete('list-search', 'user.role');
+        MailVotech.activateSearchAutocomplete('list-search', 'user.role');
     }
 
     if (response && response.permissionList) {
-        MauticVars.permissionList = response.permissionList;
+        MailVotechVars.permissionList = response.permissionList;
     }
-    Mautic.togglePermissionVisibility();
+    MailVotech.togglePermissionVisibility();
 };
 
 /**
  * Toggles permission panel visibility for roles
  */
-Mautic.togglePermissionVisibility = function () {
+MailVotech.togglePermissionVisibility = function () {
     //add a very slight delay in order for the clicked on checkbox to be selected since the onclick action
     //is set to the parent div
     setTimeout(function () {
@@ -98,7 +98,7 @@ Mautic.togglePermissionVisibility = function () {
  * @param changedPermission
  * @param bundle
  */
-Mautic.onPermissionChange = function (changedPermission, bundle) {
+MailVotech.onPermissionChange = function (changedPermission, bundle) {
     var granted = 0;
 
     if (mQuery(changedPermission).prop('checked')) {
@@ -125,7 +125,7 @@ Mautic.onPermissionChange = function (changedPermission, bundle) {
     //update granted numbers
     if (mQuery('.' + bundle + '_granted').length) {
         var granted = 0;
-        var levelPerms = MauticVars.permissionList[bundle];
+        var levelPerms = MailVotechVars.permissionList[bundle];
         mQuery.each(levelPerms, function (level, perms) {
             mQuery.each(perms, function (index, perm) {
                 var isChecked = mQuery('input[data-permission="' + bundle + ':' + level + ':' + perm + '"]').prop('checked');

@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\ApiBundle\Model;
+namespace MailVotech\ApiBundle\Model;
 
-use Mautic\ApiBundle\ApiEvents;
-use Mautic\ApiBundle\Entity\oAuth2\Client;
-use Mautic\ApiBundle\Entity\oAuth2\ClientRepository;
-use Mautic\ApiBundle\Event\ClientEvent;
-use Mautic\ApiBundle\Form\Type\ClientType;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\ApiBundle\ApiEvents;
+use MailVotech\ApiBundle\Entity\oAuth2\Client;
+use MailVotech\ApiBundle\Entity\oAuth2\ClientRepository;
+use MailVotech\ApiBundle\Event\ClientEvent;
+use MailVotech\ApiBundle\Form\Type\ClientType;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -51,7 +51,7 @@ final class ClientModel extends FormModel implements GlobalSearchInterface
         }
 
         if (null !== $request = $this->requestStack->getCurrentRequest()) {
-            return $request->get('api_mode', $request->getSession()->get('mautic.client.filter.api_mode', self::DEFAULT_API_MODE));
+            return $request->get('api_mode', $request->getSession()->get('mailvotech.client.filter.api_mode', self::DEFAULT_API_MODE));
         }
 
         return self::DEFAULT_API_MODE;

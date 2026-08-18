@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Cache\Adapter\DoctrineDbalAdapter;
@@ -56,7 +56,7 @@ class CacheStorageHelper
             if (file_exists($adaptor)) {
                 $this->cacheDir = $adaptor.'/data';
             } else {
-                throw new \InvalidArgumentException('cache directory either not set or does not exist; use the container\'s mautic.helper.cache_storage service.');
+                throw new \InvalidArgumentException('cache directory either not set or does not exist; use the container\'s mailvotech.helper.cache_storage service.');
             }
 
             $this->adaptor = self::ADAPTOR_FILESYSTEM;
@@ -164,7 +164,7 @@ class CacheStorageHelper
                 $namespace          = ($this->namespace) ? InputHelper::alphanum($this->namespace, false, '-', ['-', '+', '.']) : '';
 
                 $this->cacheAdaptor = new DoctrineDbalAdapter(
-                    $this->connection, $namespace, $this->defaultExpiration, ['db_table' => MAUTIC_TABLE_PREFIX.'cache_items']
+                    $this->connection, $namespace, $this->defaultExpiration, ['db_table' => MAILVOTECH_TABLE_PREFIX.'cache_items']
                 );
                 break;
             case self::ADAPTOR_FILESYSTEM:

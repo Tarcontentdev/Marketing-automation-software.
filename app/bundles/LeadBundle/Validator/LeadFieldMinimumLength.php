@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Validator;
+namespace MailVotech\LeadBundle\Validator;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -15,7 +15,7 @@ final class LeadFieldMinimumLength extends Constraint
      */
     #[HasNamedArguments]
     public function __construct(
-        public string $message = 'mautic.lead.field.char_length_limit.too_short',
+        public string $message = 'mailvotech.lead.field.char_length_limit.too_short',
         ?array $groups = null,
         mixed $payload = null,
     ) {

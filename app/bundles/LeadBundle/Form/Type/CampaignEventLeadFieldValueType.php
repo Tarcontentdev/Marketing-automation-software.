@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CoreBundle\Helper\ArrayHelper;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Helper\FormFieldHelper;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\CoreBundle\Helper\ArrayHelper;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -36,22 +36,22 @@ final class CampaignEventLeadFieldValueType extends AbstractType
             'field',
             LeadFieldsType::class,
             [
-                'label'                 => 'mautic.lead.campaign.event.field',
+                'label'                 => 'mailvotech.lead.campaign.event.field',
                 'label_attr'            => ['class' => 'control-label'],
                 'multiple'              => false,
                 'with_company_fields'   => true,
                 'with_tags'             => true,
                 'with_utm'              => true,
-                'placeholder'           => 'mautic.core.select',
+                'placeholder'           => 'mailvotech.core.select',
                 'attr'                  => [
                     'class'    => 'form-control',
-                    'tooltip'  => 'mautic.lead.campaign.event.field_descr',
-                    'onchange' => 'Mautic.updateLeadFieldValues(this)',
+                    'tooltip'  => 'mailvotech.lead.campaign.event.field_descr',
+                    'onchange' => 'MailVotech.updateLeadFieldValues(this)',
                 ],
                 'required'    => true,
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.core.value.required'
+                        message: 'mailvotech.core.value.required'
                     ),
                 ],
             ]
@@ -102,7 +102,7 @@ final class CampaignEventLeadFieldValueType extends AbstractType
                             case 'datetime':
                                 if ('date' === $operator) {
                                     $fieldValues = $this->formFieldHelper->getDateChoices();
-                                    $customText  = $this->translator->trans('mautic.campaign.event.timed.choice.custom');
+                                    $customText  = $this->translator->trans('mailvotech.campaign.event.timed.choice.custom');
                                     $customValue = (empty($data['value']) || isset($fieldValues[$data['value']])) ? 'custom' : $data['value'];
                                     $fieldValues = array_merge(
                                         [
@@ -141,12 +141,12 @@ final class CampaignEventLeadFieldValueType extends AbstractType
                 $value        = $isMultiple && !is_array($data['value']) ? [$data['value']] : $data['value'];
                 $innerBuilder = $form->getConfig()->getFormFactory()->createNamedBuilder('value', ChoiceType::class, null, [
                     'choices'    => array_flip($fieldValues),
-                    'label'      => 'mautic.form.field.form.value',
+                    'label'      => 'mailvotech.form.field.form.value',
                     'multiple'   => $isMultiple,
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'                => 'form-control',
-                        'onchange'             => 'Mautic.updateLeadFieldValueOptions(this)',
+                        'onchange'             => 'MailVotech.updateLeadFieldValueOptions(this)',
                         'data-toggle'          => $fieldType,
                         'data-onload-callback' => 'updateLeadFieldValueOptions',
                     ],
@@ -154,7 +154,7 @@ final class CampaignEventLeadFieldValueType extends AbstractType
                     'required'    => true,
                     'constraints' => [
                         new NotBlank(
-                            message: 'mautic.core.value.required'
+                            message: 'mailvotech.core.value.required'
                         ),
                     ],
                     'auto_initialize' => false,
@@ -186,12 +186,12 @@ final class CampaignEventLeadFieldValueType extends AbstractType
                     'value',
                     TextType::class,
                     [
-                        'label'       => 'mautic.form.field.form.value',
+                        'label'       => 'mailvotech.form.field.form.value',
                         'label_attr'  => ['class' => 'control-label'],
                         'attr'        => $attr,
                         'constraints' => ($supportsValue) ? [
                             new NotBlank(
-                                message: 'mautic.core.value.required'
+                                message: 'mailvotech.core.value.required'
                             ),
                         ] : [],
                     ]
@@ -203,10 +203,10 @@ final class CampaignEventLeadFieldValueType extends AbstractType
                 ChoiceType::class,
                 [
                     'choices'           => $this->leadModel->getOperatorsForFieldType(null == $fieldType ? 'default' : $fieldType, ['date']),
-                    'label'             => 'mautic.lead.lead.submitaction.operator',
+                    'label'             => 'mailvotech.lead.lead.submitaction.operator',
                     'label_attr'        => ['class' => 'control-label'],
                     'attr'              => [
-                        'onchange' => 'Mautic.updateLeadFieldValues(this)',
+                        'onchange' => 'MailVotech.updateLeadFieldValues(this)',
                     ],
                 ]
             );

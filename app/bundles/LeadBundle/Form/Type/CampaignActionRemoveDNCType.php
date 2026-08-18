@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,7 +19,7 @@ final class CampaignActionRemoveDNCType extends AbstractType
             'channels',
             PreferenceChannelsType::class,
             [
-                'label'       => 'mautic.lead.contact.channels',
+                'label'       => 'mailvotech.lead.contact.channels',
                 'multiple'    => true,
                 'required'    => true,
                 'constraints' => [

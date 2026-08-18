@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Form\Type;
+namespace MailVotech\ReportBundle\Tests\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\ButtonGroupType;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Form\Type\DynamicFiltersType;
+use MailVotech\CoreBundle\Form\Type\ButtonGroupType;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Form\Type\DynamicFiltersType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -75,7 +75,7 @@ final class DynamicFiltersTypeTest extends TestCase
             'label'         => 'Test Label',
             'type'          => 'text',
             'operatorGroup' => 'text',
-            'operators'     => ['eq' => 'mautic.core.operator.equals'],
+            'operators'     => ['eq' => 'mailvotech.core.operator.equals'],
         ], $overrides);
     }
 
@@ -158,7 +158,7 @@ final class DynamicFiltersTypeTest extends TestCase
                         'label_attr' => ['class' => 'control-label'],
                         'attr'       => [
                             'class'       => 'form-control',
-                            'onchange'    => "Mautic.filterTableData('report.1','test_column',mQuery(this).val(),'list','.report-content');",
+                            'onchange'    => "MailVotech.filterTableData('report.1','test_column',mQuery(this).val(),'list','.report-content');",
                             'placeholder' => 'test_value',
                         ],
                         'required' => false,
@@ -190,15 +190,15 @@ final class DynamicFiltersTypeTest extends TestCase
                         'label_attr' => ['class' => 'control-label'],
                         'attr'       => [
                             'class'       => 'form-control',
-                            'onchange'    => "Mautic.filterTableData('report.1','test_column',mQuery(this).val(),'list','.report-content');",
+                            'onchange'    => "MailVotech.filterTableData('report.1','test_column',mQuery(this).val(),'list','.report-content');",
                             'placeholder' => 1,
                         ],
                         'required' => false,
                         'choices'  => [
                             [
-                                'mautic.core.form.no'      => false,
-                                'mautic.core.form.yes'     => true,
-                                'mautic.core.filter.clear' => '2',
+                                'mailvotech.core.form.no'      => false,
+                                'mailvotech.core.form.yes'     => true,
+                                'mailvotech.core.filter.clear' => '2',
                             ],
                         ],
                         'data' => 1,
@@ -252,7 +252,7 @@ final class DynamicFiltersTypeTest extends TestCase
                         'label_attr' => ['class' => 'control-label'],
                         'attr'       => [
                             'class'       => 'form-control datepicker',
-                            'onchange'    => "Mautic.filterTableData('report.1','test_column',mQuery(this).val(),'list','.report-content');",
+                            'onchange'    => "MailVotech.filterTableData('report.1','test_column',mQuery(this).val(),'list','.report-content');",
                             'placeholder' => '2023-01-01',
                         ],
                         'required' => false,
@@ -288,7 +288,7 @@ final class DynamicFiltersTypeTest extends TestCase
                         'label_attr' => ['class' => 'control-label'],
                         'attr'       => [
                             'class'       => 'form-control datetimepicker',
-                            'onchange'    => "Mautic.filterTableData('report.1','test_column',mQuery(this).val(),'list','.report-content');",
+                            'onchange'    => "MailVotech.filterTableData('report.1','test_column',mQuery(this).val(),'list','.report-content');",
                             'placeholder' => '2023-01-01 12:00:00',
                         ],
                         'required' => false,
@@ -339,7 +339,7 @@ final class DynamicFiltersTypeTest extends TestCase
         $this->setupFilterDefinitions($this->createFilterDefinition([
             'type'          => 'multiselect',
             'operatorGroup' => 'multiselect',
-            'operators'     => ['in' => 'mautic.core.operator.in'],
+            'operators'     => ['in' => 'mailvotech.core.operator.in'],
             'list'          => ['option1' => 'Option 1', 'option2' => 'Option 2'],
         ]));
         $this->setupTranslator('In');

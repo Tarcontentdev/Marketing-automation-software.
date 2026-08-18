@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\DBAL\ParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<StagesChangeLog>
@@ -22,7 +22,7 @@ class StagesChangeLogRepository extends CommonRepository
     public function getLeadTimelineEvents($leadId = null, array $options = [])
     {
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder()
-            ->from(MAUTIC_TABLE_PREFIX.'lead_stages_change_log', 'ls')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_stages_change_log', 'ls')
             ->select('ls.id, ls.stage_id as reference, ls.event_name as eventName, ls.action_name as actionName, ls.date_added as dateAdded, ls.lead_id');
 
         if ($leadId) {
@@ -47,7 +47,7 @@ class StagesChangeLogRepository extends CommonRepository
     public function updateLead(string $fromLeadId, string $toLeadId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'lead_stages_change_log')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'lead_stages_change_log')
             ->set('lead_id', ':to')
             ->where('lead_id = :from')
             ->setParameter('to', $toLeadId)
@@ -58,7 +58,7 @@ class StagesChangeLogRepository extends CommonRepository
     public function updateStage(int $fromStageId, int $toStageId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'lead_stages_change_log')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'lead_stages_change_log')
             ->set('stage_id', ':to')
             ->where('stage_id = :from')
             ->setParameter('to', $toStageId, ParameterType::INTEGER)
@@ -76,7 +76,7 @@ class StagesChangeLogRepository extends CommonRepository
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $query->select('stage_id as stage')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_stages_change_log', 'ls')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_stages_change_log', 'ls')
             ->where($query->expr()->eq('lead_id', ':value'))
             ->setParameter('value', $leadId)
             ->orderBy('date_added', 'DESC');

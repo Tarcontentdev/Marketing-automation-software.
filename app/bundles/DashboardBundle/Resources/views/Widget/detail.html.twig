@@ -10,30 +10,30 @@
                     <li class="small fw-sb text-secondary ma-md ellipsis">
                         {% if widget.isCached %}
                             <i class="ri-history-line mr-xs"></i>
-                            {{ 'mautic.dashboard.widget.data.loaded.from.cache'|trans }}
+                            {{ 'mailvotech.dashboard.widget.data.loaded.from.cache'|trans }}
                         {% else %}
                             <i class="ri-flashlight-line mr-xs"></i>
-                            {{ 'mautic.dashboard.widget.data.loaded.from.database'|trans }}
+                            {{ 'mailvotech.dashboard.widget.data.loaded.from.database'|trans }}
                         {% endif %}
                     </li>
                     <li>
-                        <a  href="{{ url('mautic_dashboard_action', {'objectAction': 'edit', 'objectId': widget.id}) }}"
+                        <a  href="{{ url('mailvotech_dashboard_action', {'objectAction': 'edit', 'objectId': widget.id}) }}"
                             data-toggle="ajaxmodal"
-                            data-target="#MauticSharedModal"
-                            data-header="{{ 'mautic.dashboard.widget.header.edit'|trans }}">
+                            data-target="#MailVotechSharedModal"
+                            data-header="{{ 'mailvotech.dashboard.widget.header.edit'|trans }}">
                             <span>
                                 <i class="ri-edit-line"></i>
-                                {{'mautic.core.form.edit'|trans}}
+                                {{'mailvotech.core.form.edit'|trans}}
                             </span>
                         </a>
                     </li>
                     <li>
-                        <a  href="{{ url('mautic_dashboard_action', {'objectAction': 'delete', 'objectId': widget.id}) }}"
-                            data-header="{{ 'mautic.dashboard.widget.header.delete'|trans }}"
+                        <a  href="{{ url('mailvotech_dashboard_action', {'objectAction': 'delete', 'objectId': widget.id}) }}"
+                            data-header="{{ 'mailvotech.dashboard.widget.header.delete'|trans }}"
                             class="remove-widget danger">
                             <span>
                                 <i class="ri-close-line"></i>
-                                {{'mautic.core.remove'|trans}}
+                                {{'mailvotech.core.remove'|trans}}
                             </span>
                         </a>
                     </li>

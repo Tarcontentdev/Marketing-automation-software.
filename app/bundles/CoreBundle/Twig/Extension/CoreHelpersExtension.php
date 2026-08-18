@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Extension;
+namespace MailVotech\CoreBundle\Twig\Extension;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
@@ -70,7 +70,7 @@ final class CoreHelpersExtension extends AbstractExtension
         if (!empty($filter['placeholder'])) {
             $attr[] = 'data-placeholder="'.$filter['placeholder'].'"';
         } else {
-            $attr[] = 'data-placeholder="'.$this->translate->trans('mautic.core.list.filter').'"';
+            $attr[] = 'data-placeholder="'.$this->translate->trans('mailvotech.core.list.filter').'"';
         }
 
         if (!empty($filter['onchange'])) {

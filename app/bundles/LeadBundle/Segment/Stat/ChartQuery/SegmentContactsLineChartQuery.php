@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Stat\ChartQuery;
+namespace MailVotech\LeadBundle\Segment\Stat\ChartQuery;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Helper\ArrayHelper;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\LeadBundle\Segment\Exception\SegmentNotFoundException;
+use MailVotech\CoreBundle\Helper\ArrayHelper;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Segment\Exception\SegmentNotFoundException;
 
 final class SegmentContactsLineChartQuery extends ChartQuery
 {
@@ -134,7 +134,7 @@ final class SegmentContactsLineChartQuery extends ChartQuery
     private function optimizeSearchInLeadEventLog(QueryBuilder $qb): QueryBuilder
     {
         $fromPart             = $qb->getQueryPart('from');
-        $fromPart[0]['alias'] = sprintf('%s USE INDEX (%s)', $fromPart[0]['alias'], MAUTIC_TABLE_PREFIX.LeadEventLog::INDEX_SEARCH);
+        $fromPart[0]['alias'] = sprintf('%s USE INDEX (%s)', $fromPart[0]['alias'], MAILVOTECH_TABLE_PREFIX.LeadEventLog::INDEX_SEARCH);
         $qb->resetQueryPart('from');
         $qb->from($fromPart[0]['table'], $fromPart[0]['alias']);
 

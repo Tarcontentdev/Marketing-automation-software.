@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\LeadBundle\Entity\LeadDevice;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\LeadBundle\Entity\LeadDevice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,7 +29,7 @@ final class DeviceType extends AbstractType
             FormButtonsType::class,
             [
                 'apply_text' => false,
-                'save_text'  => 'mautic.core.form.save',
+                'save_text'  => 'mailvotech.core.form.save',
             ]
         );
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\EmailBundle\Entity\EmailReplyRepository;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\LeadBundle\Event\LeadMergeEvent;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\EmailBundle\Entity\EmailReplyRepository;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\LeadBundle\Event\LeadMergeEvent;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -52,7 +52,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
     {
         // Set available event types
         $eventTypeKey  = 'email.'.$state;
-        $eventTypeName = $this->translator->trans('mautic.email.'.$state);
+        $eventTypeName = $this->translator->trans('mailvotech.email.'.$state);
         $event->addEventType($eventTypeKey, $eventTypeName);
         $event->addSerializerGroup('emailList');
 
@@ -74,15 +74,15 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                 if (!empty($stat['email_name'])) {
                     $label = $stat['email_name'];
                 } elseif (!empty($stat['storedSubject'])) {
-                    $label = $this->translator->trans('mautic.email.timeline.event.custom_email').': '.$stat['storedSubject'];
+                    $label = $this->translator->trans('mailvotech.email.timeline.event.custom_email').': '.$stat['storedSubject'];
                 } else {
-                    $label = $this->translator->trans('mautic.email.timeline.event.custom_email');
+                    $label = $this->translator->trans('mailvotech.email.timeline.event.custom_email');
                 }
 
                 if (!empty($stat['idHash'])) {
                     $eventName = [
                         'label'      => $label,
-                        'href'       => $this->router->generate('mautic_email_webview', ['idHash' => $stat['idHash']]),
+                        'href'       => $this->router->generate('mailvotech_email_webview', ['idHash' => $stat['idHash']]),
                         'isExternal' => true,
                     ];
                 } else {
@@ -107,7 +107,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                             'stat' => $stat,
                             'type' => $state,
                         ],
-                        'contentTemplate' => '@MauticEmail/SubscribedEvents/Timeline/index.html.twig',
+                        'contentTemplate' => '@MailVotechEmail/SubscribedEvents/Timeline/index.html.twig',
                         'icon'            => ('read' === $state) ? 'ri-mail-open-line' : 'ri-mail-unread-line',
                         'contactId'       => $contactId,
                     ]
@@ -119,7 +119,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
     private function addEmailReplies(LeadTimelineEvent $event): void
     {
         $eventTypeKey  = 'email.replied';
-        $eventTypeName = $this->translator->trans('mautic.email.replied');
+        $eventTypeName = $this->translator->trans('mailvotech.email.replied');
         $event->addEventType($eventTypeKey, $eventTypeName);
         $event->addSerializerGroup('emailList');
 
@@ -132,7 +132,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
         $replies          = $this->emailReplyRepository->getByLeadIdForTimeline($event->getLeadId(), $options);
         if (!$event->isEngagementCount()) {
             foreach ($replies['results'] as $reply) {
-                $label = $this->translator->trans('mautic.email.timeline.event.email_reply');
+                $label = $this->translator->trans('mailvotech.email.timeline.event.email_reply');
                 if (!empty($reply['email_name'])) {
                     $label .= ': '.$reply['email_name'];
                 } elseif (!empty($reply['storedSubject'])) {

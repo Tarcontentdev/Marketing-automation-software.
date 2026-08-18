@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Validator;
+namespace MailVotech\FormBundle\Tests\Validator;
 
-use Mautic\CoreBundle\Exception\FileInvalidException;
-use Mautic\CoreBundle\Validator\FileUploadValidator;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Exception\FileValidationException;
-use Mautic\FormBundle\Exception\NoFileGivenException;
-use Mautic\FormBundle\Validator\UploadFieldValidator;
+use MailVotech\CoreBundle\Exception\FileInvalidException;
+use MailVotech\CoreBundle\Validator\FileUploadValidator;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Exception\FileValidationException;
+use MailVotech\FormBundle\Exception\NoFileGivenException;
+use MailVotech\FormBundle\Validator\UploadFieldValidator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -31,7 +31,7 @@ final class UploadFieldValidatorTest extends \PHPUnit\Framework\TestCase
 
         $parameterBagMock->expects($this->once())
             ->method('get')
-            ->with('mauticform')
+            ->with('mailvotechform')
             ->willReturn(false);
 
         $request        = new Request();
@@ -65,7 +65,7 @@ final class UploadFieldValidatorTest extends \PHPUnit\Framework\TestCase
 
         $parameterBagMock->expects($this->once())
             ->method('get')
-            ->with('mauticform')
+            ->with('mailvotechform')
             ->willReturn($files);
 
         $request        = new Request();
@@ -104,7 +104,7 @@ final class UploadFieldValidatorTest extends \PHPUnit\Framework\TestCase
 
         $parameterBagMock->expects($this->once())
             ->method('get')
-            ->with('mauticform')
+            ->with('mailvotechform')
             ->willReturn($files);
 
         $request        = new Request();

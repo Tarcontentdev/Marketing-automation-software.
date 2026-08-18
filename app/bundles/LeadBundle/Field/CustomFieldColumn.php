@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field;
+namespace MailVotech\LeadBundle\Field;
 
 use Doctrine\DBAL\Exception\DriverException;
-use Mautic\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
-use Mautic\CoreBundle\Exception\SchemaException;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Exception\NoListenerException;
-use Mautic\LeadBundle\Field\Dispatcher\FieldColumnDispatcher;
-use Mautic\LeadBundle\Field\Exception\AbortColumnCreateException;
-use Mautic\LeadBundle\Field\Exception\AbortColumnUpdateException;
-use Mautic\LeadBundle\Field\Exception\CustomFieldLimitException;
+use MailVotech\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
+use MailVotech\CoreBundle\Exception\SchemaException;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Exception\NoListenerException;
+use MailVotech\LeadBundle\Field\Dispatcher\FieldColumnDispatcher;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnCreateException;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnUpdateException;
+use MailVotech\LeadBundle\Field\Exception\CustomFieldLimitException;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -60,7 +60,7 @@ class CustomFieldColumn
             }
         } catch (SchemaException) {
             // We use slightly different error message if the column already exists in this case.
-            throw new SchemaException($this->translator->trans('mautic.lead.field.column.already.exists', ['%field%' => $leadField->getName()], 'validators'));
+            throw new SchemaException($this->translator->trans('mailvotech.lead.field.column.already.exists', ['%field%' => $leadField->getName()], 'validators'));
         }
 
         try {
@@ -108,7 +108,7 @@ class CustomFieldColumn
             $this->logger->warning($e->getMessage());
 
             if (1118 === $e->getCode() /* ER_TOO_BIG_ROWSIZE */) {
-                throw new CustomFieldLimitException('mautic.lead.field.max_column_error', $e->getCode(), $e);
+                throw new CustomFieldLimitException('mailvotech.lead.field.max_column_error', $e->getCode(), $e);
             }
 
             throw $e;

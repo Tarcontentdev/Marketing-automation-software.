@@ -20,6 +20,6 @@ final class GetRepositoryByEntityRepository
     public function byString(): void
     {
         // string name is not an entity constant, nothing to report
-        $this->entityManager->getRepository('MauticLeadBundle:Lead');
+        $this->entityManager->getRepository('MailVotechLeadBundle:Lead');
     }
 }

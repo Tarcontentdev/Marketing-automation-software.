@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Helper;
+namespace MailVotech\IntegrationsBundle\Helper;
 
-use Mautic\IntegrationsBundle\Exception\InvalidFormOptionException;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
-use Mautic\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Exception\InvalidFormOptionException;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
+use MailVotech\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
 
 final class FieldMergerHelper
 {
@@ -127,8 +127,8 @@ final class FieldMergerHelper
             $supportedDirections[] = ObjectMappingDAO::SYNC_TO_INTEGRATION;
         }
 
-        if ($field->isToMauticSyncEnabled()) {
-            $supportedDirections[] = ObjectMappingDAO::SYNC_TO_MAUTIC;
+        if ($field->isToMailVotechSyncEnabled()) {
+            $supportedDirections[] = ObjectMappingDAO::SYNC_TO_MAILVOTECH;
         }
 
         if ([] === $supportedDirections) {

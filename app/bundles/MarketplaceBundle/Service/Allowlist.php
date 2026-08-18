@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Service;
+namespace MailVotech\MarketplaceBundle\Service;
 
 use GuzzleHttp\ClientInterface;
-use Mautic\CacheBundle\Cache\CacheProvider;
-use Mautic\MarketplaceBundle\DTO\Allowlist as DTOAllowlist;
-use Mautic\MarketplaceBundle\Exception\ApiException;
+use MailVotech\CacheBundle\Cache\CacheProvider;
+use MailVotech\MarketplaceBundle\DTO\Allowlist as DTOAllowlist;
+use MailVotech\MarketplaceBundle\Exception\ApiException;
 
 /**
- * Provides several helper functions to interact with Mautic's allowlist.
+ * Provides several helper functions to interact with MailVotech's allowlist.
  */
 class Allowlist
 {

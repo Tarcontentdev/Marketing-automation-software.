@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional;
+namespace MailVotech\LeadBundle\Tests\Functional;
 
 use Doctrine\DBAL\Types\Types;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\HttpFoundation\Request;
 
-final class DncSearchFunctionalTest extends MauticMysqlTestCase
+final class DncSearchFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -124,7 +124,7 @@ final class DncSearchFunctionalTest extends MauticMysqlTestCase
     private function addDncRecord(int $contactId, string $channel): void
     {
         $this->em->getConnection()->executeStatement(
-            'INSERT INTO '.MAUTIC_TABLE_PREFIX.'lead_donotcontact (lead_id, channel, reason, comments, date_added) VALUES (?, ?, ?, ?, ?)',
+            'INSERT INTO '.MAILVOTECH_TABLE_PREFIX.'lead_donotcontact (lead_id, channel, reason, comments, date_added) VALUES (?, ?, ?, ?, ?)',
             [$contactId, $channel, 1, 'Test DNC', new \DateTime()],
             [Types::INTEGER, Types::STRING, Types::INTEGER, Types::STRING, Types::DATETIME_MUTABLE]
         );

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Loader\EnvVars;
+namespace MailVotech\CoreBundle\Loader\EnvVars;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -12,8 +12,8 @@ final class SessionEnvVars implements EnvVarsInterface
         $localConfigFile = $defaultConfig->get('local_config_path', uniqid());
         $secretKey       = $config->get('secret_key');
 
-        $key         = $secretKey ?: 'mautic';
+        $key         = $secretKey ?: 'mailvotech';
         $sessionName = md5(md5($localConfigFile).$key);
-        $envVars->set('MAUTIC_SESSION_NAME', $sessionName);
+        $envVars->set('MAILVOTECH_SESSION_NAME', $sessionName);
     }
 }

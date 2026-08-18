@@ -3,7 +3,7 @@
         {
             "name": "theme-chord",
             "directory": "themes/chord",
-            "target": "git@github.com:mautic/theme-chord.git"
+            "target": "git@github.com:mailvotech/theme-chord.git"
         }
     ]
 }

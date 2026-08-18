@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CampaignBundle\EventCollector\Builder;
+namespace MailVotech\CampaignBundle\EventCollector\Builder;
 
-use Mautic\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Event;
 
 final class ConnectionBuilder
 {

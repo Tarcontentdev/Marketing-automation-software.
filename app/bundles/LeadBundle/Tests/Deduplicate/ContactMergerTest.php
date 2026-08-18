@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Deduplicate;
+namespace MailVotech\LeadBundle\Tests\Deduplicate;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Test\ReflectionHelper;
-use Mautic\LeadBundle\Deduplicate\ContactMerger;
-use Mautic\LeadBundle\Deduplicate\Exception\SameContactException;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyLead;
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\MergeRecordRepository;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Test\ReflectionHelper;
+use MailVotech\LeadBundle\Deduplicate\ContactMerger;
+use MailVotech\LeadBundle\Deduplicate\Exception\SameContactException;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyLead;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\MergeRecordRepository;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\UserBundle\Entity\User;
 use Monolog\Logger;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -413,7 +413,7 @@ final class ContactMergerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Scenario: A contact clicks on a tracked email link that goes to a tracked page.
-     * The browser must contain no Mautic cookies. A new contact is created with only default values.
+     * The browser must contain no MailVotech cookies. A new contact is created with only default values.
      * If default values from the new contact overwrite the values of the original contact then data are lost.
      */
     public function testMergeFieldDataWithDefaultValues(): void

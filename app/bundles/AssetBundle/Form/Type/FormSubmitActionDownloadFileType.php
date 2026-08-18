@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Form\Type;
+namespace MailVotech\AssetBundle\Form\Type;
 
-use Mautic\CategoryBundle\Form\Type\CategoryListType;
+use MailVotech\CategoryBundle\Form\Type\CategoryListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -21,13 +21,13 @@ final class FormSubmitActionDownloadFileType extends AbstractType
             [
                 'expanded'    => false,
                 'multiple'    => false,
-                'label'       => 'mautic.asset.form.submit.assets',
+                'label'       => 'mailvotech.asset.form.submit.assets',
                 'label_attr'  => ['class' => 'control-label'],
-                'placeholder' => 'mautic.asset.form.submit.latest.category',
+                'placeholder' => 'mailvotech.asset.form.submit.latest.category',
                 'required'    => false,
                 'attr'        => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.asset.form.submit.assets_descr',
+                    'tooltip' => 'mailvotech.asset.form.submit.assets_descr',
                 ],
             ]
         );
@@ -36,7 +36,7 @@ final class FormSubmitActionDownloadFileType extends AbstractType
             'category',
             CategoryListType::class,
             [
-                'label'         => 'mautic.asset.form.submit.latest.category',
+                'label'         => 'mailvotech.asset.form.submit.latest.category',
                 'label_attr'    => ['class' => 'control-label'],
                 'placeholder'   => false,
                 'required'      => false,
@@ -44,7 +44,7 @@ final class FormSubmitActionDownloadFileType extends AbstractType
                 'return_entity' => false,
                 'attr'          => [
                     'class'        => 'form-control',
-                    'tooltip'      => 'mautic.asset.form.submit.latest.category_descr',
+                    'tooltip'      => 'mailvotech.asset.form.submit.latest.category_descr',
                     'data-show-on' => '{"formaction_properties_asset":""}',
                 ],
             ]

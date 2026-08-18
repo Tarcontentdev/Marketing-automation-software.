@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\EventListener;
+namespace MailVotech\ReportBundle\Tests\EventListener;
 
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Entity\Scheduler;
-use Mautic\ReportBundle\Event\ReportScheduleSendEvent;
-use Mautic\ReportBundle\EventListener\SchedulerSubscriber;
-use Mautic\ReportBundle\Scheduler\Model\SendSchedule;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\Scheduler;
+use MailVotech\ReportBundle\Event\ReportScheduleSendEvent;
+use MailVotech\ReportBundle\EventListener\SchedulerSubscriber;
+use MailVotech\ReportBundle\Scheduler\Model\SendSchedule;
 
 final class SchedulerSubscriberTest extends \PHPUnit\Framework\TestCase
 {

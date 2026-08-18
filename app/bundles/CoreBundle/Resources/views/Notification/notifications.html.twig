@@ -1,5 +1,5 @@
 <li class="dropdown dropdown-custom" id="notificationsDropdown">
-    <a href="javascript: void(0);" onclick="Mautic.showNotifications();" class="dropdown-toggle dropdown-notification" data-toggle="dropdown" aria-label={{ 'mautic.core.notifications'|trans }}>
+    <a href="javascript: void(0);" onclick="MailVotech.showNotifications();" class="dropdown-toggle dropdown-notification" data-toggle="dropdown" aria-label={{ 'mailvotech.core.notifications'|trans }}>
         {% set hideClass = updateMessage.isNew or showNewIndicator ? '' : ' hide' %}
         <span class="label label-danger{{ hideClass }}" id="newNotificationIndicator"><i class="ri-asterisk"></i></span>
         <span class="ri-notification-3-line ri-xl"></span>
@@ -8,12 +8,12 @@
         <div class="panel panel-default">
             <div class="panel-heading pt-sm">
                 <div class="panel-title notification notification-title">
-                    <h6 class="fw-sb d-flex jc-space-between ai-center">{{ 'mautic.core.notifications'|trans }}
+                    <h6 class="fw-sb d-flex jc-space-between ai-center">{{ 'mailvotech.core.notifications'|trans }}
                         {% if notifications is not empty %}
-                            {% include '@MauticCore/Helper/button.html.twig' with {
+                            {% include '@MailVotechCore/Helper/button.html.twig' with {
                                 buttons: [
                                     {
-                                        label: 'mautic.core.notifications.clearall',
+                                        label: 'mailvotech.core.notifications.clearall',
                                         variant: 'ghost',
                                         size: 'xs',
                                         icon_only: true,
@@ -21,7 +21,7 @@
                                         attributes: {
                                             'class': 'pull-right',
                                         },
-                                        onclick: 'Mautic.clearNotification(0);'
+                                        onclick: 'MailVotech.clearNotification(0);'
                                     }
                                 ]
                             } %}
@@ -31,20 +31,20 @@
             </div>
             <div class="pt-0 pb-xs pl-0 pr-0">
                 <div class="scroll-content slimscroll d-flex fd-column" id="notifications">
-                    {{ include('@MauticCore/Notification/notification_messages.html.twig', {
+                    {{ include('@MailVotechCore/Notification/notification_messages.html.twig', {
                         notifications: notifications,
                         updateMessage: updateMessage
                     }) }}
                     {% set class = notifications is not empty ? ' hide' : '' %}
                     <div class="{{ class }} mautibot-image pa-lg d-flex fd-column ai-center jc-center" id="notificationMautibot">
                         <div class="fs-30">🦄</div>
-                        <div class="text-secondary fw-sb">{{'mautic.core.notifications.empty'|trans}}</div>
-                        <div class="text-secondary">{{'mautic.core.notifications.empty_extra'|trans}}</div>
+                        <div class="text-secondary fw-sb">{{'mailvotech.core.notifications.empty'|trans}}</div>
+                        <div class="text-secondary">{{'mailvotech.core.notifications.empty_extra'|trans}}</div>
                     </div>
                 </div>
             </div>
             {% set lastNotification = notifications|first %}
-            <input id="mauticLastNotificationId" type="hidden" value="{{ lastNotification.id is defined ? lastNotification.id|escape : '' }}" />
+            <input id="mailvotechLastNotificationId" type="hidden" value="{{ lastNotification.id is defined ? lastNotification.id|escape : '' }}" />
         </div>
     </div>
 </li>

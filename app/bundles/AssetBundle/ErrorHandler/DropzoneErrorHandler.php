@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\ErrorHandler;
+namespace MailVotech\AssetBundle\ErrorHandler;
 
 use Oneup\UploaderBundle\Uploader\ErrorHandler\ErrorHandlerInterface;
 use Oneup\UploaderBundle\Uploader\Response\AbstractResponse;

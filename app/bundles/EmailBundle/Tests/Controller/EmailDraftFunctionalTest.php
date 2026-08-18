@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller;
+namespace MailVotech\EmailBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailDraft;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailDraft;
 use Symfony\Component\HttpFoundation\Request;
 
-final class EmailDraftFunctionalTest extends MauticMysqlTestCase
+final class EmailDraftFunctionalTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {

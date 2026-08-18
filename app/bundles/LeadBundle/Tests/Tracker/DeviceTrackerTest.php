@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Tracker;
+namespace MailVotech\LeadBundle\Tests\Tracker;
 
-use Mautic\CacheBundle\Cache\CacheProvider;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDevice;
-use Mautic\LeadBundle\Tracker\DeviceTracker;
-use Mautic\LeadBundle\Tracker\Factory\DeviceDetectorFactory\DeviceDetectorFactory;
-use Mautic\LeadBundle\Tracker\Service\DeviceCreatorService\DeviceCreatorService;
-use Mautic\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
+use MailVotech\CacheBundle\Cache\CacheProvider;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDevice;
+use MailVotech\LeadBundle\Tracker\DeviceTracker;
+use MailVotech\LeadBundle\Tracker\Factory\DeviceDetectorFactory\DeviceDetectorFactory;
+use MailVotech\LeadBundle\Tracker\Service\DeviceCreatorService\DeviceCreatorService;
+use MailVotech\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
 use Monolog\Logger;
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Symfony\Component\Cache\CacheItem;
@@ -57,13 +57,13 @@ final class DeviceTrackerTest extends \PHPUnit\Framework\TestCase
         $coreParametersHelper->expects($this->once())
           ->method('get')
           ->with('cache_adapter')
-          ->willReturn('mautic.cache.adapter.filesystem');
+          ->willReturn('mailvotech.cache.adapter.filesystem');
 
         $container = $this->createMock(ContainerInterface::class);
         $container
           ->expects($this->once())
           ->method('get')
-          ->with('mautic.cache.adapter.filesystem')
+          ->with('mailvotech.cache.adapter.filesystem')
           ->willReturn($cacheAdapter);
 
         $cacheProvider               = new CacheProvider($coreParametersHelper, $container);

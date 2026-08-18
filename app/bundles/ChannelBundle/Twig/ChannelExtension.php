@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Twig;
+namespace MailVotech\ChannelBundle\Twig;
 
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\LeadBundle\Exception\UnknownDncReasonException;
-use Mautic\LeadBundle\Twig\Helper\DncReasonHelper;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\LeadBundle\Exception\UnknownDncReasonException;
+use MailVotech\LeadBundle\Twig\Helper\DncReasonHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

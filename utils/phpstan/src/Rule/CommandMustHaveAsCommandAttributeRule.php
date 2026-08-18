@@ -68,7 +68,7 @@ final class CommandMustHaveAsCommandAttributeRule implements Rule
             'Class "%s" extends Command but is missing the #[AsCommand] attribute.',
             $className
         ))
-            ->identifier('mautic.asCommandAttribute')
+            ->identifier('mailvotech.asCommandAttribute')
             ->build();
 
         return [$ruleError];

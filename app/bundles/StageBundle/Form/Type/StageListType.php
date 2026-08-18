@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\Form\Type;
+namespace MailVotech\StageBundle\Form\Type;
 
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\StageBundle\Entity\StageRepository;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\StageBundle\Entity\StageRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,7 +32,7 @@ final class StageListType extends AbstractType
             'expanded'          => false,
             'multiple'          => true,
             'required'          => false,
-            'placeholder'       => 'mautic.core.form.chooseone',
+            'placeholder'       => 'mailvotech.core.form.chooseone',
         ]);
     }
 

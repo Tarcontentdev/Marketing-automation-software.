@@ -1,15 +1,15 @@
 {% set isIndex = 'index' == tmpl %}
 {% set tmpl = 'list' %}
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
 
-{% block mauticContent 'point' %}
+{% block mailvotechContent 'point' %}
 
-{% block headerTitle 'mautic.points.menu.root'|trans %}
+{% block headerTitle 'mailvotech.points.menu.root'|trans %}
 
 {% block content %}
   {% if isIndex %}
     <div id="page-list-wrapper" class="{% if items|length > 0 or searchValue is not empty %}panel {% endif %}panel-default">
-        {{ include('@MauticCore/Helper/list_toolbar.html.twig', {
+        {{ include('@MailVotechCore/Helper/list_toolbar.html.twig', {
             'searchValue': searchValue,
             'action': currentRoute,
             'page_actions': {
@@ -26,27 +26,27 @@
             },
             'quickFilters': [
                 {
-                    'search': 'mautic.core.searchcommand.ispublished',
-                    'label': 'mautic.core.form.active',
-                    'tooltip': 'mautic.core.searchcommand.ispublished.description',
+                    'search': 'mailvotech.core.searchcommand.ispublished',
+                    'label': 'mailvotech.core.form.active',
+                    'tooltip': 'mailvotech.core.searchcommand.ispublished.description',
                     'icon': 'ri-check-line'
                 },
                 {
-                    'search': 'mautic.core.searchcommand.isunpublished',
-                    'label': 'mautic.core.form.inactive',
-                    'tooltip': 'mautic.core.searchcommand.isunpublished.description',
+                    'search': 'mailvotech.core.searchcommand.isunpublished',
+                    'label': 'mailvotech.core.form.inactive',
+                    'tooltip': 'mailvotech.core.searchcommand.isunpublished.description',
                     'icon': 'ri-close-line'
                 },
                 {
-                    'search': 'mautic.core.searchcommand.isuncategorized',
-                    'label': 'mautic.core.form.uncategorized',
-                    'tooltip': 'mautic.core.searchcommand.isuncategorized.description',
+                    'search': 'mailvotech.core.searchcommand.isuncategorized',
+                    'label': 'mailvotech.core.form.uncategorized',
+                    'tooltip': 'mailvotech.core.searchcommand.isuncategorized.description',
                     'icon': 'ri-folder-unknow-line'
                 },
                 {
-                    'search': 'mautic.core.searchcommand.ismine',
-                    'label': 'mautic.core.searchcommand.ismine.label',
-                    'tooltip': 'mautic.core.searchcommand.ismine.description',
+                    'search': 'mailvotech.core.searchcommand.ismine',
+                    'label': 'mailvotech.core.searchcommand.ismine.label',
+                    'tooltip': 'mailvotech.core.searchcommand.ismine.description',
                     'icon': 'ri-user-line'
                 }
             ]
@@ -54,14 +54,14 @@
         <div class="page-list">
   {% endif %}
 
-  {{ include('@MauticPoint/Point/_list.html.twig') }}
+  {{ include('@MailVotechPoint/Point/_list.html.twig') }}
 
   {% if isIndex %}
         </div>
     </div>
 
-    {{ include('@MauticCore/Modules/protip.html.twig', {
-      tip: random(['mautic.protip.points.decay', 'mautic.protip.points.reduce', 'mautic.protip.points.limit'])
+    {{ include('@MailVotechCore/Modules/protip.html.twig', {
+      tip: random(['mailvotech.protip.points.decay', 'mailvotech.protip.points.reduce', 'mailvotech.protip.points.limit'])
   }) }}
   {% endif %}
 {% endblock %}

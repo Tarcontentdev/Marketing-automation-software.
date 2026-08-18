@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Update;
+namespace MailVotech\CoreBundle\Tests\Unit\Update;
 
-use Mautic\CoreBundle\Update\Step\StepInterface;
-use Mautic\CoreBundle\Update\StepProvider;
+use MailVotech\CoreBundle\Update\Step\StepInterface;
+use MailVotech\CoreBundle\Update\StepProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

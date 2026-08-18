@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Security\Permissions;
+namespace MailVotech\CoreBundle\Security\Permissions;
 
 /**
  * If a permission implements this interface, a user does not need to have

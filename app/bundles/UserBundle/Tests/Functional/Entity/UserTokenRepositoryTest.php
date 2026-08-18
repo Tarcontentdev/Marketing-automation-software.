@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Functional\Entity;
+namespace MailVotech\UserBundle\Tests\Functional\Entity;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserToken;
-use Mautic\UserBundle\Entity\UserTokenRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserToken;
+use MailVotech\UserBundle\Entity\UserTokenRepository;
 
-final class UserTokenRepositoryTest extends MauticMysqlTestCase
+final class UserTokenRepositoryTest extends MailVotechMysqlTestCase
 {
     private UserTokenRepository $repository;
 

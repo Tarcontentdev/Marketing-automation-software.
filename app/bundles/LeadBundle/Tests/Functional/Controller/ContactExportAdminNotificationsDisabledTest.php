@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\Controller;
+namespace MailVotech\LeadBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Entity\AuditLog;
-use Mautic\CoreBundle\Entity\Notification;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
-use Mautic\LeadBundle\Command\ContactScheduledExportCommand;
-use Mautic\LeadBundle\Entity\ContactExportScheduler;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\AuditLog;
+use MailVotech\CoreBundle\Entity\Notification;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
+use MailVotech\LeadBundle\Command\ContactScheduledExportCommand;
+use MailVotech\LeadBundle\Entity\ContactExportScheduler;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final class ContactExportAdminNotificationsDisabledTest extends MauticMysqlTestCase
+final class ContactExportAdminNotificationsDisabledTest extends MailVotechMysqlTestCase
 {
     /**
      * @var array<string>
@@ -72,7 +72,7 @@ final class ContactExportAdminNotificationsDisabledTest extends MauticMysqlTestC
         $requesterNotifications = $this->em->getRepository(Notification::class)->findBy(
             [
                 'user'   => $requestingAdmin,
-                'header' => 'mautic.lead.export.being.prepared.header',
+                'header' => 'mailvotech.lead.export.being.prepared.header',
             ]
         );
         $this->assertCount(1, $requesterNotifications);
@@ -80,7 +80,7 @@ final class ContactExportAdminNotificationsDisabledTest extends MauticMysqlTestC
         $adminNotifications = $this->em->getRepository(Notification::class)->findBy(
             [
                 'user'   => $secondaryAdmin,
-                'header' => 'mautic.lead.export.admin.notification.header',
+                'header' => 'mailvotech.lead.export.admin.notification.header',
             ]
         );
         $this->assertCount(0, $adminNotifications);
@@ -113,7 +113,7 @@ final class ContactExportAdminNotificationsDisabledTest extends MauticMysqlTestC
         $zipFileName          = 'contacts_export_'.$contactExportScheduler->getScheduledDateTime()->format('Y_m_d_H_i_s').'.zip';
         $this->filePaths[]    = $filePath = $coreParametersHelper->get('contact_export_dir').'/'.$zipFileName;
         $downloadLink         = $this->router->generate(
-            'mautic_contact_export_download',
+            'mailvotech_contact_export_download',
             ['fileName' => basename($filePath)],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
@@ -123,12 +123,12 @@ final class ContactExportAdminNotificationsDisabledTest extends MauticMysqlTestC
         $this->assertInstanceOf(User::class, $requestingAdmin);
 
         $requesterEmail = $this->findMailerMessageByRecipient($requestingAdmin->getEmail());
-        $this->assertInstanceOf(MauticMessage::class, $requesterEmail);
+        $this->assertInstanceOf(MailVotechMessage::class, $requesterEmail);
         $this->assertSame('Your contact export is ready', $requesterEmail->getSubject());
         $this->assertStringContainsString($downloadLink, (string) $requesterEmail->getHtmlBody());
         $this->assertStringContainsString($zipFileName, (string) $requesterEmail->getHtmlBody());
 
-        $this->assertNotInstanceOf(MauticMessage::class, $this->findMailerMessageByRecipient($secondaryAdmin->getEmail()));
+        $this->assertNotInstanceOf(MailVotechMessage::class, $this->findMailerMessageByRecipient($secondaryAdmin->getEmail()));
     }
 
     private function createContacts(): void
@@ -198,10 +198,10 @@ final class ContactExportAdminNotificationsDisabledTest extends MauticMysqlTestC
         return $user;
     }
 
-    private function findMailerMessageByRecipient(string $email): ?MauticMessage
+    private function findMailerMessageByRecipient(string $email): ?MailVotechMessage
     {
         foreach (self::getMailerMessages() as $message) {
-            if (!$message instanceof MauticMessage) {
+            if (!$message instanceof MailVotechMessage) {
                 continue;
             }
 

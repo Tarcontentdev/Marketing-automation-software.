@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Command;
+namespace MailVotech\CoreBundle\Tests\Command;
 
 use GuzzleHttp\Psr7\Response;
-use Mautic\CoreBundle\Command\PullTransifexCommand;
-use Mautic\CoreBundle\Helper\Filesystem;
-use Mautic\CoreBundle\Test\Guzzle\ClientMockTrait;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Command\PullTransifexCommand;
+use MailVotech\CoreBundle\Helper\Filesystem;
+use MailVotech\CoreBundle\Test\Guzzle\ClientMockTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
-final class PullTransifexCommandFunctionalTest extends MauticMysqlTestCase
+final class PullTransifexCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     use ClientMockTrait;
 

@@ -3,7 +3,7 @@
         {
             "name": "theme-blank",
             "directory": "themes/blank",
-            "target": "git@github.com:mautic/theme-blank.git"
+            "target": "git@github.com:mailvotech/theme-blank.git"
         }
     ]
 }

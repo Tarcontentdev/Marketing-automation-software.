@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Functional\Model;
+namespace MailVotech\WebhookBundle\Tests\Functional\Model;
 
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\User;
-use Mautic\WebhookBundle\Entity\Event;
-use Mautic\WebhookBundle\Entity\Log;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Model\WebhookModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\WebhookBundle\Entity\Event;
+use MailVotech\WebhookBundle\Entity\Log;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Model\WebhookModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class WebhookModelProcessFailureTest extends MauticMysqlTestCase
+final class WebhookModelProcessFailureTest extends MailVotechMysqlTestCase
 {
     private WebhookModel $webhookModel;
 

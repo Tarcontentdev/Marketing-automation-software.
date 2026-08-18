@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\PluginBundle\Entity;
+namespace MailVotech\PluginBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\CacheInvalidateInterface;
-use Mautic\CoreBundle\Entity\CommonEntity;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\CacheInvalidateInterface;
+use MailVotech\CoreBundle\Entity\CommonEntity;
 
 class Plugin extends CommonEntity implements CacheInvalidateInterface
 {

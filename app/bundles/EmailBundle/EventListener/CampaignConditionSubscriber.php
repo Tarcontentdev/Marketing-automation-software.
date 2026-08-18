@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Exception\InvalidEmailException;
-use Mautic\EmailBundle\Helper\EmailValidator;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Exception\InvalidEmailException;
+use MailVotech\EmailBundle\Helper\EmailValidator;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
@@ -31,8 +31,8 @@ final readonly class CampaignConditionSubscriber implements EventSubscriberInter
         $event->addCondition(
             'email.validate.address',
             [
-                'label'       => 'mautic.email.campaign.event.validate_address',
-                'description' => 'mautic.email.campaign.event.validate_address_descr',
+                'label'       => 'mailvotech.email.campaign.event.validate_address',
+                'description' => 'mailvotech.email.campaign.event.validate_address_descr',
                 'eventName'   => EmailEvents::ON_CAMPAIGN_TRIGGER_CONDITION,
             ]
         );

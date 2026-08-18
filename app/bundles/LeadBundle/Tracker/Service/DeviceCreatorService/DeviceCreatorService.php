@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Tracker\Service\DeviceCreatorService;
+namespace MailVotech\LeadBundle\Tracker\Service\DeviceCreatorService;
 
 use DeviceDetector\DeviceDetector;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDevice;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDevice;
 
 final class DeviceCreatorService implements DeviceCreatorServiceInterface
 {

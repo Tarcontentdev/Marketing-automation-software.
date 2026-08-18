@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\StatsBundle\Event;
+namespace MailVotech\StatsBundle\Event;
 
-use Mautic\StatsBundle\Aggregate\Collection\StatCollection;
-use Mautic\StatsBundle\Event\Options\FetchOptions;
+use MailVotech\StatsBundle\Aggregate\Collection\StatCollection;
+use MailVotech\StatsBundle\Event\Options\FetchOptions;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class AggregateStatRequestEvent extends Event

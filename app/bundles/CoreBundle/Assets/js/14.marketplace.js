@@ -1,6 +1,6 @@
 'use strict';
 
-Mautic.Marketplace = {
+MailVotech.Marketplace = {
     /**
      * @param string vendorName The packagist vendor name
      * @param string packageName The packagist package name to install
@@ -10,7 +10,7 @@ Mautic.Marketplace = {
     installPackage: (vendorName, packageName, successCallback, errorCallback) => {
         mQuery.ajax({
             showLoadingBar: true,
-            url: mauticAjaxUrl + `?action=marketplace:installPackage`,
+            url: mailvotechAjaxUrl + `?action=marketplace:installPackage`,
             type: 'POST',
             data: JSON.stringify({
                 vendor: vendorName,
@@ -31,7 +31,7 @@ Mautic.Marketplace = {
     removePackage: (vendorName, packageName, successCallback, errorCallback) => {
         mQuery.ajax({
             showLoadingBar: true,
-            url: mauticAjaxUrl + `?action=marketplace:removePackage`,
+            url: mailvotechAjaxUrl + `?action=marketplace:removePackage`,
             type: 'POST',
             data: JSON.stringify({
                 vendor: vendorName,

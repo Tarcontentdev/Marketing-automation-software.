@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Security\SAML\Store;
+namespace MailVotech\UserBundle\Tests\Security\SAML\Store;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\UserBundle\Security\SAML\Store\TrustOptionsStore;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\UserBundle\Security\SAML\Store\TrustOptionsStore;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

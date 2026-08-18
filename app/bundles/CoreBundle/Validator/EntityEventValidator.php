@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Validator;
+namespace MailVotech\CoreBundle\Validator;
 
-use Mautic\CoreBundle\Event\EntityValidateEvent;
+use MailVotech\CoreBundle\Event\EntityValidateEvent;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

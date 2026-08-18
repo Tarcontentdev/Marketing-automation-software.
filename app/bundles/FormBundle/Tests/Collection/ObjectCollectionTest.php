@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Collection;
+namespace MailVotech\FormBundle\Tests\Collection;
 
-use Mautic\FormBundle\Collection\ObjectCollection;
-use Mautic\FormBundle\Crate\ObjectCrate;
+use MailVotech\FormBundle\Collection\ObjectCollection;
+use MailVotech\FormBundle\Crate\ObjectCrate;
 
 final class ObjectCollectionTest extends \PHPUnit\Framework\TestCase
 {

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\EventListener\FormSubscriber;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\FormBundle\Entity\Action;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Event\SubmissionEvent;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Tracker\ContactTracker;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\EventListener\FormSubscriber;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\FormBundle\Entity\Action;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Event\SubmissionEvent;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

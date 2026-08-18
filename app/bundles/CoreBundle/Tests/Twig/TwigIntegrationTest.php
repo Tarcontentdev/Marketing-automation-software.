@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Twig;
+namespace MailVotech\CoreBundle\Tests\Twig;
 
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Twig\Extension\AppExtension;
-use Mautic\CoreBundle\Twig\Extension\AssetExtension;
-use Mautic\CoreBundle\Twig\Extension\ClassExtension;
-use Mautic\CoreBundle\Twig\Extension\FormExtension;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Twig\Extension\AppExtension;
+use MailVotech\CoreBundle\Twig\Extension\AssetExtension;
+use MailVotech\CoreBundle\Twig\Extension\ClassExtension;
+use MailVotech\CoreBundle\Twig\Extension\FormExtension;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Form\FormRendererInterface;

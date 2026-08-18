@@ -3,8 +3,8 @@
 {% set fieldKeys = fields|keys %}
 
 {% if fieldKeys|filter(v => v in ['saml_idp_metadata', 'saml_idp_own_certificate', 'saml_idp_own_private_key', 'saml_idp_own_password'])|length > 0 %}
-    <h4 class="fw-sb mt-48 mb-xs">{{ 'mautic.user.config.header.saml'|trans }}</h4>
-    <div class="text-muted small pb-md">{{ 'mautic.core.config.header.saml.description'|trans }}</div>
+    <h4 class="fw-sb mt-48 mb-xs">{{ 'mailvotech.user.config.header.saml'|trans }}</h4>
+    <div class="text-muted small pb-md">{{ 'mailvotech.core.config.header.saml.description'|trans }}</div>
     <div class="row">
         <div class="panel panel-default mb-md">
             <div class="panel-body">
@@ -23,7 +23,7 @@
                 </div>
 
                 <hr />
-                <div class="alert alert-info">{{ 'mautic.user.config.form.saml.idp_attributes'|trans }}</div>
+                <div class="alert alert-info">{{ 'mailvotech.user.config.form.saml.idp_attributes'|trans }}</div>
 
                 <div class="row">
                     <div class="col-xs-12">
@@ -43,7 +43,7 @@
                 </div>
 
                 <hr />
-                <div class="alert alert-info">{{ 'mautic.user.config.form.saml.idp.own_certificate.description'|trans }}</div>
+                <div class="alert alert-info">{{ 'mailvotech.user.config.form.saml.idp.own_certificate.description'|trans }}</div>
 
                 <div class="row">
                     <div class="col-xs-12">

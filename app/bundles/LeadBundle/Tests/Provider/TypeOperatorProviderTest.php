@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Provider;
+namespace MailVotech\LeadBundle\Tests\Provider;
 
-use Mautic\LeadBundle\Event\FieldOperatorsEvent;
-use Mautic\LeadBundle\Event\TypeOperatorsEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Provider\FilterOperatorProviderInterface;
-use Mautic\LeadBundle\Provider\TypeOperatorProvider;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Event\FieldOperatorsEvent;
+use MailVotech\LeadBundle\Event\TypeOperatorsEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Provider\FilterOperatorProviderInterface;
+use MailVotech\LeadBundle\Provider\TypeOperatorProvider;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

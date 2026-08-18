@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\ApiBundle\EventListener;
+namespace MailVotech\ApiBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\OAuthServerBundle\Event\OAuthEvent;
-use Mautic\ApiBundle\Entity\oAuth2\Client;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\ApiBundle\Entity\oAuth2\Client;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\UserBundle\Entity\UserRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -16,7 +16,7 @@ final readonly class PreAuthorizationEventListener implements EventSubscriberInt
     public function __construct(
         private EntityManagerInterface $em,
         private UserRepository $userRepository,
-        private CorePermissions $mauticSecurity,
+        private CorePermissions $mailvotechSecurity,
         private TranslatorInterface $translator,
     ) {
     }
@@ -39,8 +39,8 @@ final readonly class PreAuthorizationEventListener implements EventSubscriberInt
     {
         if ($user = $this->getUser($event)) {
             // check to see if user has api access
-            if (!$this->mauticSecurity->isGranted('api:access:full')) {
-                throw new AccessDeniedException($this->translator->trans('mautic.core.error.accessdenied', [], 'flashes'));
+            if (!$this->mailvotechSecurity->isGranted('api:access:full')) {
+                throw new AccessDeniedException($this->translator->trans('mailvotech.core.error.accessdenied', [], 'flashes'));
             }
             $client = $event->getClient();
 

@@ -1,6 +1,6 @@
 {% block _config_smsconfig_widget %}
-<h4 class="fw-sb mt-48 mb-xs">{{ 'mautic.config.tab.smsconfig'|trans }}</h4>
-<div class="text-muted small pb-md">{{ 'mautic.core.config.header.smsconfig.description'|trans }}</div>
+<h4 class="fw-sb mt-48 mb-xs">{{ 'mailvotech.config.tab.smsconfig'|trans }}</h4>
+<div class="text-muted small pb-md">{{ 'mailvotech.core.config.header.smsconfig.description'|trans }}</div>
 <div class="row">
     <div class="panel panel-default mb-md">
         <div class="panel-body">
@@ -9,7 +9,7 @@
                     {% if form.sms_transport.vars.choices|length %}
                         {{ formRowIfExists(form, 'sms_transport') }}
                     {% else %}
-                        {{ 'mautic.sms.config.smsconfig'|trans }}
+                        {{ 'mailvotech.sms.config.smsconfig'|trans }}
                     {% endif %}
                 </div>
                 <hr>

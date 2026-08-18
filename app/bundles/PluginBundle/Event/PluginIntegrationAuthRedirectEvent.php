@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Event;
+namespace MailVotech\PluginBundle\Event;
 
-use Mautic\PluginBundle\Integration\UnifiedIntegrationInterface;
+use MailVotech\PluginBundle\Integration\UnifiedIntegrationInterface;
 
 final class PluginIntegrationAuthRedirectEvent extends AbstractPluginIntegrationEvent
 {

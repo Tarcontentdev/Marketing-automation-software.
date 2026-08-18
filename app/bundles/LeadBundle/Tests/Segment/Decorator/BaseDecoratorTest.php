@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\Decorator;
+namespace MailVotech\LeadBundle\Tests\Segment\Decorator;
 
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterOperator;
-use Mautic\LeadBundle\Segment\Decorator\BaseDecorator;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterOperator;
+use MailVotech\LeadBundle\Segment\Decorator\BaseDecorator;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(BaseDecorator::class)]
@@ -37,7 +37,7 @@ final class BaseDecoratorTest extends \PHPUnit\Framework\TestCase
             'object'   => 'lead',
         ]);
 
-        $this->assertSame(MAUTIC_TABLE_PREFIX.'leads', $baseDecorator->getTable($contactSegmentFilterCrate));
+        $this->assertSame(MAILVOTECH_TABLE_PREFIX.'leads', $baseDecorator->getTable($contactSegmentFilterCrate));
     }
 
     public function testGetTableCompany(): void
@@ -48,7 +48,7 @@ final class BaseDecoratorTest extends \PHPUnit\Framework\TestCase
             'object'   => 'company',
         ]);
 
-        $this->assertSame(MAUTIC_TABLE_PREFIX.'companies', $baseDecorator->getTable($contactSegmentFilterCrate));
+        $this->assertSame(MAILVOTECH_TABLE_PREFIX.'companies', $baseDecorator->getTable($contactSegmentFilterCrate));
     }
 
     public function testGetOperatorEqual(): void
@@ -125,7 +125,7 @@ final class BaseDecoratorTest extends \PHPUnit\Framework\TestCase
 
         $contactSegmentFilterCrate = new ContactSegmentFilterCrate([]);
 
-        $this->assertSame('mautic.lead.query.builder.basic', $baseDecorator->getQueryType($contactSegmentFilterCrate));
+        $this->assertSame('mailvotech.lead.query.builder.basic', $baseDecorator->getQueryType($contactSegmentFilterCrate));
     }
 
     public function testGetParameterHolderSingle(): void

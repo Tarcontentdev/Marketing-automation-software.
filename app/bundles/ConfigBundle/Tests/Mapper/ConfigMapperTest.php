@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ConfigBundle\Tests\Mapper;
+namespace MailVotech\ConfigBundle\Tests\Mapper;
 
-use Mautic\ConfigBundle\Exception\BadFormConfigException;
-use Mautic\ConfigBundle\Mapper\ConfigMapper;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\ConfigBundle\Exception\BadFormConfigException;
+use MailVotech\ConfigBundle\Mapper\ConfigMapper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 
@@ -21,9 +21,9 @@ final class ConfigMapperTest extends \PHPUnit\Framework\TestCase
         'emailconfig' => [
             'bundle'     => 'EmailBundle',
             'formAlias'  => 'emailconfig',
-            'formTheme'  => 'MauticEmailBundle:FormTheme\\Config',
+            'formTheme'  => 'MailVotechEmailBundle:FormTheme\\Config',
             'parameters' => [
-                'mailer_from_name'                      => 'Mautic',
+                'mailer_from_name'                      => 'MailVotech',
                 'mailer_from_email'                     => 'email@yoursite.com',
                 'mailer_return_path'                    => null,
                 'mailer_transport'                      => 'mail',
@@ -153,7 +153,7 @@ final class ConfigMapperTest extends \PHPUnit\Framework\TestCase
             'emailconfig' => [
                 'bundle'    => 'EmailBundle',
                 'formAlias' => 'emailconfig',
-                'formTheme' => 'MauticEmailBundle:FormTheme\Config',
+                'formTheme' => 'MailVotechEmailBundle:FormTheme\Config',
             ],
         ];
 

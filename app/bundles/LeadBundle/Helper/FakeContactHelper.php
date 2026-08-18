@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Helper;
+namespace MailVotech\LeadBundle\Helper;
 
-use Mautic\LeadBundle\Field\FieldList;
+use MailVotech\LeadBundle\Field\FieldList;
 
 class FakeContactHelper
 {

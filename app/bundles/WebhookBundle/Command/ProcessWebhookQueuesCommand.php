@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\WebhookBundle\Command;
+namespace MailVotech\WebhookBundle\Command;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\WebhookBundle\Model\WebhookModel;
-use Mautic\WebhookBundle\Service\WebhookService;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\WebhookBundle\Model\WebhookModel;
+use MailVotech\WebhookBundle\Service\WebhookService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,7 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 final class ProcessWebhookQueuesCommand extends Command
 {
-    public const COMMAND_NAME = 'mautic:webhooks:process';
+    public const COMMAND_NAME = 'mailvotech:webhooks:process';
 
     public function __construct(
         private readonly WebhookModel $webhookModel,

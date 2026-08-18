@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Form\Type;
+namespace MailVotech\FormBundle\Tests\Form\Type;
 
-use Mautic\FormBundle\Form\Type\FormFieldSliderType;
+use MailVotech\FormBundle\Form\Type\FormFieldSliderType;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;

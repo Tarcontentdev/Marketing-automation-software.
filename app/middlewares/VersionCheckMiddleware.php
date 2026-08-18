@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\Middleware;
+namespace MailVotech\Middleware;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,12 +47,12 @@ final class VersionCheckMiddleware implements HttpKernelInterface, PrioritizedMi
     {
         // Are we running the minimum version?
         if (version_compare(PHP_VERSION, $this->minimumPHPVersion, 'lt')) {
-            return new Response('Your server does not meet the minimum PHP requirements. Mautic requires PHP version '.$this->minimumPHPVersion.' while your server has '.PHP_VERSION.'. Please contact your host to update your PHP installation.', 500);
+            return new Response('Your server does not meet the minimum PHP requirements. MailVotech requires PHP version '.$this->minimumPHPVersion.' while your server has '.PHP_VERSION.'. Please contact your host to update your PHP installation.', 500);
         }
 
-        // Are we running a version newer than what Mautic supports?
+        // Are we running a version newer than what MailVotech supports?
         if (version_compare(PHP_VERSION, $this->maximumPHPVersion, 'gt')) {
-            return new Response('Mautic does not support PHP version '.PHP_VERSION.' at this time. To use Mautic, you will need to downgrade to an earlier version.', 500);
+            return new Response('MailVotech does not support PHP version '.PHP_VERSION.' at this time. To use MailVotech, you will need to downgrade to an earlier version.', 500);
         }
 
         return $this->app->handle($request, $type, $catch);

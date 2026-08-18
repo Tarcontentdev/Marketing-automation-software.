@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\CoreBundle\Test\AbstractMauticTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\ListLead;
+use MailVotech\CoreBundle\Test\AbstractMailVotechTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\ListLead;
 
-final class LeadListRepositoryFunctionalTest extends AbstractMauticTestCase
+final class LeadListRepositoryFunctionalTest extends AbstractMailVotechTestCase
 {
     public function testCheckLeadSegmentsByIds(): void
     {

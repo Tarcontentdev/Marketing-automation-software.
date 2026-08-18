@@ -1,35 +1,35 @@
 {%- set isIndex = 'index' == tmpl -%}
 {%- set tmpl = 'list' -%}
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
 
-{% block mauticContent 'report' %}
+{% block mailvotechContent 'report' %}
 
-{% block headerTitle 'mautic.report.report.header.view'|trans({'%name%': report.name|trans}) %}
+{% block headerTitle 'mailvotech.report.report.header.view'|trans({'%name%': report.name|trans}) %}
 
 {% block publishStatus %}
-    {{- include('@MauticCore/Helper/publishstatus_badge.html.twig', {
+    {{- include('@MailVotechCore/Helper/publishstatus_badge.html.twig', {
         'entity': report,
         'status': 'available'
     }) -}}
     {% if report.source is defined and report.source is not empty %}
-        {% include '@MauticCore/Helper/_tag.html.twig' with {
+        {% include '@MailVotechCore/Helper/_tag.html.twig' with {
             tags: [{
-                label: 'mautic.report.source.'~report.source,
+                label: 'mailvotech.report.source.'~report.source,
                 icon: 'ri-database-2-line',
                 color: 'high-contrast',
                 attributes: {
                     'data-toggle': 'tooltip',
                     'data-placement': 'top',
-                    'title': 'mautic.report.report.form.source'|trans
+                    'title': 'mailvotech.report.report.form.source'|trans
                 }
             }]
         } %}
     {% endif %}
     
     {% if report.system is defined and report.system == 1 %}
-        {% include '@MauticCore/Helper/_tag.html.twig' with {
+        {% include '@MailVotechCore/Helper/_tag.html.twig' with {
             tags: [{
-                label: 'mautic.report.report.form.issystem',
+                label: 'mailvotech.report.report.form.issystem',
                 icon: 'ri-group-2-fill',
                 color: 'blue',
                 icon_only: true
@@ -39,7 +39,7 @@
 {% endblock %}
 
 {% block preHeader %}
-{{- include('@MauticCore/Helper/page_actions.html.twig',
+{{- include('@MailVotechCore/Helper/page_actions.html.twig',
     {
         'item'            : report,
         'templateButtons' : {
@@ -50,7 +50,7 @@
             ),
         },
         'routeBase' : 'report',
-        'targetLabel': 'mautic.report.reports'|trans
+        'targetLabel': 'mailvotech.report.reports'|trans
     }
 ) -}}
 {% endblock %}
@@ -63,9 +63,9 @@
               'target': '_new',
               'data-toggle': '',
               'class': 'btn btn-ghost btn-nospin',
-              'href': path('mautic_report_export', {'objectId': report.id, 'format': 'html'}),
+              'href': path('mailvotech_report_export', {'objectId': report.id, 'format': 'html'}),
           },
-          'btnText': 'mautic.form.result.export.html'|trans,
+          'btnText': 'mailvotech.form.result.export.html'|trans,
           'iconClass': 'ri-file-code-line',
       }]) -%}
 
@@ -74,9 +74,9 @@
               'attr': {
                   'data-toggle': 'download',
                   'class': 'btn btn-ghost btn-nospin',
-                  'href': path('mautic_report_export', {'objectId': report.id, 'format': 'csv'}),
+                  'href': path('mailvotech_report_export', {'objectId': report.id, 'format': 'csv'}),
               },
-              'btnText': 'mautic.form.result.export.csv'|trans,
+              'btnText': 'mailvotech.form.result.export.csv'|trans,
               'iconClass': 'ri-file-text-line',
           }]) -%}
 
@@ -85,16 +85,16 @@
                   'attr': {
                       'data-toggle': 'download',
                       'class': 'btn btn-ghost btn-nospin',
-                      'href': path('mautic_report_export', {'objectId': report.id, 'format': 'xlsx'}),
+                      'href': path('mailvotech_report_export', {'objectId': report.id, 'format': 'xlsx'}),
                   },
-                  'btnText': 'mautic.form.result.export.xlsx'|trans,
+                  'btnText': 'mailvotech.form.result.export.xlsx'|trans,
                   'iconClass': 'ri-file-excel-2-fill',
               }]) -%}
           {% endif %}
       {% endif %}
   {% endif %}
 
-  {{ include('@MauticCore/Helper/page_actions.html.twig', {
+  {{ include('@MailVotechCore/Helper/page_actions.html.twig', {
           'item': report,
           'templateButtons': {
               'edit': securityHasEntityAccess(permissions['report:reports:editown'], permissions['report:reports:editother'], report.createdBy),
@@ -108,12 +108,12 @@
 
 {% block content %}
   {% if isIndex %}
-    {{ include('@MauticReport/Report/_details_content_header.html.twig') }}
+    {{ include('@MailVotechReport/Report/_details_content_header.html.twig') }}
   {% endif %}
 
-  {{ include('@MauticReport/Report/_details_report_content.html.twig') }}
+  {{ include('@MailVotechReport/Report/_details_report_content.html.twig') }}
 
   {% if isIndex %}
-    {{ include('@MauticReport/Report/_details_content_footer.html.twig') }}
+    {{ include('@MailVotechReport/Report/_details_content_footer.html.twig') }}
   {% endif %}
 {% endblock %}

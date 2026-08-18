@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Provider;
+namespace MailVotech\LeadBundle\Tests\Provider;
 
-use Mautic\LeadBundle\Event\FormAdjustmentEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Provider\FormAdjustmentsProvider;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Event\FormAdjustmentEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Provider\FormAdjustmentsProvider;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;

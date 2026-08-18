@@ -55,14 +55,14 @@ export default class EditorStateService {
       return null;
     }
 
-    const baseUrl = typeof mauticBaseUrl === 'string' && mauticBaseUrl.length > 0 ? mauticBaseUrl : '/';
+    const baseUrl = typeof mailvotechBaseUrl === 'string' && mailvotechBaseUrl.length > 0 ? mailvotechBaseUrl : '/';
 
     let parsedBaseUrl;
 
     try {
       parsedBaseUrl = new URL(baseUrl, window.location.origin);
     } catch (error) {
-      console.warn('Unable to parse mauticBaseUrl when building GrapesJS editor state route', error);
+      console.warn('Unable to parse mailvotechBaseUrl when building GrapesJS editor state route', error);
       return null;
     }
 

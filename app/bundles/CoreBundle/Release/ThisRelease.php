@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Release;
+namespace MailVotech\CoreBundle\Release;
 
 final class ThisRelease
 {

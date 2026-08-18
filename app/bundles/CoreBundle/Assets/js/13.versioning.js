@@ -1,6 +1,6 @@
-Mautic.contentVersions = {};
-Mautic.versionNamespace = '';
-Mautic.currentContentVersion = -1;
+MailVotech.contentVersions = {};
+MailVotech.versionNamespace = '';
+MailVotech.currentContentVersion = -1;
 
 /**
  * Setup versioning for the given namespace
@@ -9,9 +9,9 @@ Mautic.currentContentVersion = -1;
  * @param redoCallback function
  * @param namespace
  */
-Mautic.prepareVersioning = function (undoCallback, redoCallback, namespace) {
+MailVotech.prepareVersioning = function (undoCallback, redoCallback, namespace) {
     // Check if localStorage is supported and if not, disable undo/redo buttons
-    if (!Mautic.isLocalStorageSupported()) {
+    if (!MailVotech.isLocalStorageSupported()) {
         mQuery('.btn-undo').prop('disabled', true);
         mQuery('.btn-redo').prop('disabled', true);
 
@@ -21,26 +21,26 @@ Mautic.prepareVersioning = function (undoCallback, redoCallback, namespace) {
     mQuery('.btn-undo')
         .prop('disabled', false)
         .on('click', function() {
-            Mautic.undoVersion(undoCallback);
+            MailVotech.undoVersion(undoCallback);
         });
 
     mQuery('.btn-redo')
         .prop('disabled', false)
         .on('click', function() {
-            Mautic.redoVersion(redoCallback);
+            MailVotech.redoVersion(redoCallback);
         });
 
-    Mautic.currentContentVersion = -1;
+    MailVotech.currentContentVersion = -1;
 
     if (!namespace) {
         namespace = window.location.href;
     }
 
-    if (typeof Mautic.contentVersions[namespace] == 'undefined') {
-        Mautic.contentVersions[namespace] = [];
+    if (typeof MailVotech.contentVersions[namespace] == 'undefined') {
+        MailVotech.contentVersions[namespace] = [];
     }
 
-    Mautic.versionNamespace = namespace;
+    MailVotech.versionNamespace = namespace;
 
     console.log(namespace);
 };
@@ -50,17 +50,17 @@ Mautic.prepareVersioning = function (undoCallback, redoCallback, namespace) {
  *
  * @param namespace
  */
-Mautic.clearVersioning = function () {
-    if (!Mautic.versionNamespace) {
+MailVotech.clearVersioning = function () {
+    if (!MailVotech.versionNamespace) {
         throw 'Versioning not configured';
     }
 
-    if (typeof Mautic.contentVersions[Mautic.versionNamespace] !== 'undefined') {
-        delete Mautic.contentVersions[Mautic.versionNamespace];
+    if (typeof MailVotech.contentVersions[MailVotech.versionNamespace] !== 'undefined') {
+        delete MailVotech.contentVersions[MailVotech.versionNamespace];
     }
 
-    Mautic.versionNamespace = '';
-    Mautic.currentContentVersion = -1;
+    MailVotech.versionNamespace = '';
+    MailVotech.currentContentVersion = -1;
 };
 
 /**
@@ -68,16 +68,16 @@ Mautic.clearVersioning = function () {
  *
  * @param content
  */
-Mautic.storeVersion = function(content) {
-    if (!Mautic.versionNamespace) {
+MailVotech.storeVersion = function(content) {
+    if (!MailVotech.versionNamespace) {
         throw 'Versioning not configured';
     }
 
     // Store the content
-    Mautic.contentVersions[Mautic.versionNamespace].push(content);
+    MailVotech.contentVersions[MailVotech.versionNamespace].push(content);
 
     // Set the current location to the latest spot
-    Mautic.currentContentVersion = Mautic.contentVersions[Mautic.versionNamespace].length;
+    MailVotech.currentContentVersion = MailVotech.contentVersions[MailVotech.versionNamespace].length;
 };
 
 /**
@@ -85,21 +85,21 @@ Mautic.storeVersion = function(content) {
  *
  * @param callback
  */
-Mautic.undoVersion = function(callback) {
+MailVotech.undoVersion = function(callback) {
     console.log('undo');
-    if (!Mautic.versionNamespace) {
+    if (!MailVotech.versionNamespace) {
         throw 'Versioning not configured';
     }
 
-    if (Mautic.currentContentVersion < 0) {
+    if (MailVotech.currentContentVersion < 0) {
         // Nothing to undo
 
         return;
     }
 
-    var version = Mautic.currentContentVersion - 1;
-    if (Mautic.getVersion(version, callback)) {
-        --Mautic.currentContentVersion;
+    var version = MailVotech.currentContentVersion - 1;
+    if (MailVotech.getVersion(version, callback)) {
+        --MailVotech.currentContentVersion;
     };
 };
 
@@ -108,21 +108,21 @@ Mautic.undoVersion = function(callback) {
  *
  * @param callback
  */
-Mautic.redoVersion = function(callback) {
+MailVotech.redoVersion = function(callback) {
     console.log('redo');
-    if (!Mautic.versionNamespace) {
+    if (!MailVotech.versionNamespace) {
         throw 'Versioning not configured';
     }
 
-    if (Mautic.currentContentVersion < 0 || Mautic.contentVersions[Mautic.versionNamespace].length === Mautic.currentContentVersion) {
+    if (MailVotech.currentContentVersion < 0 || MailVotech.contentVersions[MailVotech.versionNamespace].length === MailVotech.currentContentVersion) {
         // Nothing to redo
 
         return;
     }
 
-    var version = Mautic.currentContentVersion + 1;
-    if (Mautic.getVersion(version, callback)) {
-        ++Mautic.currentContentVersion;
+    var version = MailVotech.currentContentVersion + 1;
+    if (MailVotech.getVersion(version, callback)) {
+        ++MailVotech.currentContentVersion;
     };
 };
 
@@ -133,10 +133,10 @@ Mautic.redoVersion = function(callback) {
  * @param command
  * @returns {boolean}
  */
-Mautic.getVersion = function(version, callback) {
+MailVotech.getVersion = function(version, callback) {
     var content = false;
-    if (typeof Mautic.contentVersions[Mautic.versionNamespace][version] !== 'undefined') {
-        content = Mautic.contentVersions[Mautic.versionNamespace][version];
+    if (typeof MailVotech.contentVersions[MailVotech.versionNamespace][version] !== 'undefined') {
+        content = MailVotech.contentVersions[MailVotech.versionNamespace][version];
     }
 
     if (false !== content && typeof callback == 'function') {

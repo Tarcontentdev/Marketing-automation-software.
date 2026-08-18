@@ -1,34 +1,34 @@
 <?php
 
-namespace Mautic\LeadBundle\Model;
+namespace MailVotech\LeadBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalService;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Import;
-use Mautic\LeadBundle\Entity\ImportRepository;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\LeadBundle\Entity\LeadEventLogRepository;
-use Mautic\LeadBundle\Event\ImportEvent;
-use Mautic\LeadBundle\Event\ImportProcessEvent;
-use Mautic\LeadBundle\Exception\ImportDelayedException;
-use Mautic\LeadBundle\Exception\ImportFailedException;
-use Mautic\LeadBundle\Helper\Progress;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalService;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Import;
+use MailVotech\LeadBundle\Entity\ImportRepository;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Entity\LeadEventLogRepository;
+use MailVotech\LeadBundle\Event\ImportEvent;
+use MailVotech\LeadBundle\Event\ImportProcessEvent;
+use MailVotech\LeadBundle\Exception\ImportDelayedException;
+use MailVotech\LeadBundle\Exception\ImportFailedException;
+use MailVotech\LeadBundle\Helper\Progress;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\UserBundle\Entity\User;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -54,14 +54,14 @@ class ImportModel extends FormModel
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         private readonly ProcessSignalService $processSignalService,
         private readonly ImportRepository $importRepository,
         private readonly LeadEventLogRepository $leadEventLogRepository,
     ) {
         $this->leadEventLogRepo  = $leadModel->getEventLogRepository();
 
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $config);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $config);
     }
 
     /**
@@ -109,7 +109,7 @@ class ImportModel extends FormModel
         $linkText = $text ?? $import->getOriginalFile().' ('.$import->getId().')';
 
         return '<a href="'.$this->router->generate(
-            'mautic_import_action',
+            'mailvotech_import_action',
             ['objectAction' => 'view', 'object' => 'lead', 'objectId' => $import->getId()]
         ).'" data-toggle="ajax">'.$linkText.'</a>';
     }
@@ -129,18 +129,18 @@ class ImportModel extends FormModel
 
         foreach ($imports as $import) {
             $import->setStatus($import::FAILED)
-                ->setStatusInfo($this->translator->trans('mautic.lead.import.ghost.limit.hit', ['%limit%' => $ghostDelay]))
+                ->setStatusInfo($this->translator->trans('mailvotech.lead.import.ghost.limit.hit', ['%limit%' => $ghostDelay]))
                 ->removeFile();
 
             if ($import->getCreatedBy()) {
                 $this->notificationModel->addNotification(
                     $this->translator->trans(
-                        'mautic.lead.import.result.info',
+                        'mailvotech.lead.import.result.info',
                         ['%import%' => $this->generateLink($import)]
                     ),
                     'info',
                     false,
-                    $this->translator->trans('mautic.lead.import.failed', ['%reason%' =>  $import->getStatusInfo()]),
+                    $this->translator->trans('mailvotech.lead.import.failed', ['%reason%' =>  $import->getStatusInfo()]),
                     'ri-download-line',
                     null,
                     $this->em->getReference(User::class, $import->getCreatedBy())
@@ -178,7 +178,7 @@ class ImportModel extends FormModel
 
         if (!$this->checkParallelImportLimit()) {
             $info = $this->translator->trans(
-                'mautic.lead.import.parallel.limit.hit',
+                'mailvotech.lead.import.parallel.limit.hit',
                 ['%limit%' => $this->getParallelImportLimit()]
             );
             $import->setStatus($import::DELAYED)->setStatusInfo($info);
@@ -213,7 +213,7 @@ class ImportModel extends FormModel
         } catch (ORMException $e) {
             // The EntityManager is probably closed. The entity cannot be saved.
             $info = $this->translator->trans(
-                'mautic.lead.import.database.exception',
+                'mailvotech.lead.import.database.exception',
                 ['%message%' => $e->getMessage()]
             );
 
@@ -231,7 +231,7 @@ class ImportModel extends FormModel
         if ($import->getCreatedBy()) {
             $this->notificationModel->addNotification(
                 $this->translator->trans(
-                    'mautic.lead.import.result',
+                    'mailvotech.lead.import.result',
                     [
                         '%lines%'   => $import->getProcessedRows(),
                         '%created%' => $import->getInsertedCount(),
@@ -242,7 +242,7 @@ class ImportModel extends FormModel
                 ),
                 'info',
                 false,
-                $this->generateLink($import, $this->translator->trans('mautic.lead.import.completed')),
+                $this->generateLink($import, $this->translator->trans('mailvotech.lead.import.completed')),
                 'ri-download-line',
                 null,
                 $this->em->getReference(User::class, $import->getCreatedBy())
@@ -306,11 +306,11 @@ class ImportModel extends FormModel
             $eventLog     = $this->initEventLog($import, $lineNumber);
 
             if ($this->isEmptyCsvRow($data)) {
-                $errorMessage = 'mautic.lead.import.error.line_empty';
+                $errorMessage = 'mailvotech.lead.import.error.line_empty';
             }
 
             if ($this->hasMoreValuesThanColumns($data, $headerCount)) {
-                $errorMessage = 'mautic.lead.import.error.header_mismatch';
+                $errorMessage = 'mailvotech.lead.import.error.header_mismatch';
             }
 
             if (!$errorMessage) {
@@ -525,7 +525,7 @@ class ImportModel extends FormModel
         $chart = new LineChart($unit, $dateFrom, $dateTo, $dateFormat);
         $data  = $query->fetchTimeData('lead_event_log', 'date_added', $filter);
 
-        $chart->setDataset($this->translator->trans('mautic.lead.import.processed.rows'), $data);
+        $chart->setDataset($this->translator->trans('mailvotech.lead.import.processed.rows'), $data);
 
         return $chart->render();
     }
@@ -640,7 +640,7 @@ class ImportModel extends FormModel
      */
     protected function logDebug($msg, ?Import $import = null): void
     {
-        if (MAUTIC_ENV === 'dev') {
+        if (MAILVOTECH_ENV === 'dev') {
             $importId = $import ? '('.$import->getId().')' : '';
             $this->logger->debug(sprintf('IMPORT%s: %s', $importId, $msg));
         }

@@ -17,7 +17,7 @@
     <select id="{{ form.vars.id }}"
             name="{{ form.vars.full_name }}"
             class="{{ form.vars.attr.class }}"
-            onchange="Mautic.checkReportCondition('{{ form.vars.id }}')">
+            onchange="MailVotech.checkReportCondition('{{ form.vars.id }}')">
         {% for function in form.vars.choices %}
             <option value="{{ function.value|e }}" {% if function.value == form.vars.data %}selected{% endif %}>
                 {{ function.label }}
@@ -39,7 +39,7 @@
                 disabled
                 type="button"
                 class="btn btn-primary"
-                onclick="Mautic.addReportRow('report_aggregators');">{{ 'mautic.report.report.label.function'|trans }}</button>
+                onclick="MailVotech.addReportRow('report_aggregators');">{{ 'mailvotech.report.report.label.function'|trans }}</button>
     </div>
 </div>
 {% endblock %}
@@ -57,7 +57,7 @@
 
 {% block _report_filters_entry_condition_row %}
 <label class="{{ form.vars.label_attr.class }}" for="{{ form.vars.id }}">{{ form.vars.label|trans }}</label>
-<select id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" class="{{ form.vars.attr.class }}" onchange="Mautic.checkReportCondition('{{ form.vars.id }}')">
+<select id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" class="{{ form.vars.attr.class }}" onchange="MailVotech.checkReportCondition('{{ form.vars.id }}')">
     {% for condition in form.vars.choices %}
     <option value="{{ condition.value|e }}" {% if condition.value == form.vars.data %}selected{% endif %}>
         {{ condition.label }}
@@ -84,7 +84,7 @@
         {{ form_errors(form) }}
     </div>
     <div class="col-xs-12">
-        <button type="button" class="btn btn-primary" onclick="Mautic.addReportRow('report_filters');">{{ 'mautic.report.report.label.addfilter'|trans }}</button>
+        <button type="button" class="btn btn-primary" onclick="MailVotech.addReportRow('report_filters');">{{ 'mailvotech.report.report.label.addfilter'|trans }}</button>
     </div>
 </div>
 {% endblock %}
@@ -123,7 +123,7 @@
         {{ form_errors(form) }}
     </div>
     <div class="col-xs-12">
-        <button type="button" class="btn btn-primary" onclick="Mautic.addReportRow('report_tableOrder');">{{ 'mautic.report.report.label.addtableorder'|trans }}</button>
+        <button type="button" class="btn btn-primary" onclick="MailVotech.addReportRow('report_tableOrder');">{{ 'mailvotech.report.report.label.addtableorder'|trans }}</button>
     </div>
 </div>
 {% endblock %}
@@ -133,7 +133,7 @@
     {{ form_row(form.vars.form.children.function) }}
     {{ form_row(form.vars.form.children.column) }}
     <div class="col-xs-1 mt-lg">
-        <button type="button" class="btn btn-danger btn--icon-only" onclick="Mautic.removeReportRow('{{ form.vars.id }}_container');" data-toggle="tooltip" title="{{ 'mautic.report.report.label.removefilter'|trans }}"><i class="ri-delete-row"></i></button>
+        <button type="button" class="btn btn-danger btn--icon-only" onclick="MailVotech.removeReportRow('{{ form.vars.id }}_container');" data-toggle="tooltip" title="{{ 'mailvotech.report.report.label.removefilter'|trans }}"><i class="ri-delete-row"></i></button>
     </div>
 </div>
 {% endblock %}
@@ -163,11 +163,11 @@
             <div class="col-xs-1 pa-0 jc-center">
                 <div class="d-flex fd-row">
                     <!-- Clone Button -->
-                    <button type="button" class="btn btn-xs btn-ghost btn--icon-only btn-nospin" onclick="Mautic.cloneReportRow('{{ form.vars.id }}_container');" data-toggle="tooltip" title="{{'mautic.report.report.label.clonefilter'|trans}}">
+                    <button type="button" class="btn btn-xs btn-ghost btn--icon-only btn-nospin" onclick="MailVotech.cloneReportRow('{{ form.vars.id }}_container');" data-toggle="tooltip" title="{{'mailvotech.report.report.label.clonefilter'|trans}}">
                         <i class="ri-file-copy-line"></i>
                     </button>
                     <!-- Remove Button -->
-                    <button type="button" class="btn btn-xs btn-ghost btn--icon-only btn-danger" onclick="Mautic.removeReportRow('{{ form.vars.id }}_container');" data-toggle="tooltip" title="{{ 'mautic.report.report.label.removefilter'|trans }}">
+                    <button type="button" class="btn btn-xs btn-ghost btn--icon-only btn-danger" onclick="MailVotech.removeReportRow('{{ form.vars.id }}_container');" data-toggle="tooltip" title="{{ 'mailvotech.report.report.label.removefilter'|trans }}">
                         <i class="ri-subtract-line"></i>
                     </button>
                 </div>
@@ -183,7 +183,7 @@
     {{ form_row(form.vars.form.children.column) }}
     {{ form_row(form.vars.form.children.direction) }}
     <div class="col-xs-2 mt-lg">
-        <button type="button" class="btn btn-ghost btn--icon-only btn-sm" onclick="Mautic.removeReportRow('{{ form.vars.id }}_container');" data-toggle="tooltip" title="{{ 'mautic.report.report.label.removefilter'|trans }}"><i class="ri-delete-bin-2-line fs-14"></i></button>
+        <button type="button" class="btn btn-ghost btn--icon-only btn-sm" onclick="MailVotech.removeReportRow('{{ form.vars.id }}_container');" data-toggle="tooltip" title="{{ 'mailvotech.report.report.label.removefilter'|trans }}"><i class="ri-delete-bin-2-line fs-14"></i></button>
     </div>
 </div>
 {% endblock %}

@@ -2,60 +2,60 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Model;
+namespace MailVotech\LeadBundle\Tests\Model;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CategoryBundle\Model\CategoryModel;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Test\ReflectionHelper;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\Helper\EmailValidator;
-use Mautic\LeadBundle\DataObject\LeadManipulator;
-use Mautic\LeadBundle\Entity\CompanyLeadRepository;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\FrequencyRuleRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadCategoryRepository;
-use Mautic\LeadBundle\Entity\LeadDeviceRepository;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\LeadBundle\Entity\LeadEventLogRepository;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\MergeRecordRepository;
-use Mautic\LeadBundle\Entity\PointsChangeLogRepository;
-use Mautic\LeadBundle\Entity\StagesChangeLogRepository;
-use Mautic\LeadBundle\Entity\TagRepository;
-use Mautic\LeadBundle\Entity\UtmTagRepository;
-use Mautic\LeadBundle\Event\LeadEvent;
-use Mautic\LeadBundle\Event\SaveBatchLeadsEvent;
-use Mautic\LeadBundle\Exception\ImportFailedException;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\IpAddressModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Tests\Fixtures\Model\LeadModelStub;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\LeadBundle\Tracker\DeviceTracker;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PointBundle\Entity\GroupContactScoreRepository;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\StageBundle\Entity\StageRepository;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
-use Mautic\UserBundle\Security\Provider\UserProvider;
+use MailVotech\CategoryBundle\Model\CategoryModel;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Test\ReflectionHelper;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\Helper\EmailValidator;
+use MailVotech\LeadBundle\DataObject\LeadManipulator;
+use MailVotech\LeadBundle\Entity\CompanyLeadRepository;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\FrequencyRuleRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadCategoryRepository;
+use MailVotech\LeadBundle\Entity\LeadDeviceRepository;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Entity\LeadEventLogRepository;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\MergeRecordRepository;
+use MailVotech\LeadBundle\Entity\PointsChangeLogRepository;
+use MailVotech\LeadBundle\Entity\StagesChangeLogRepository;
+use MailVotech\LeadBundle\Entity\TagRepository;
+use MailVotech\LeadBundle\Entity\UtmTagRepository;
+use MailVotech\LeadBundle\Event\LeadEvent;
+use MailVotech\LeadBundle\Event\SaveBatchLeadsEvent;
+use MailVotech\LeadBundle\Exception\ImportFailedException;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\IpAddressModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Tests\Fixtures\Model\LeadModelStub;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\LeadBundle\Tracker\DeviceTracker;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PointBundle\Entity\GroupContactScoreRepository;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\StageBundle\Entity\StageRepository;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
+use MailVotech\UserBundle\Security\Provider\UserProvider;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
@@ -449,7 +449,7 @@ final class LeadModelTest extends \PHPUnit\Framework\TestCase
 
         $this->translator->expects($this->once())
             ->method('trans')
-            ->with('mautic.stage.event.changed');
+            ->with('mailvotech.stage.event.changed');
 
         $this->leadModel->setFieldValues($lead, $data, false, false);
     }
@@ -472,7 +472,7 @@ final class LeadModelTest extends \PHPUnit\Framework\TestCase
 
         $this->translator->expects($this->once())
             ->method('trans')
-            ->with('mautic.lead.import.stage.not.exists', ['%id%' => $data['stage']])
+            ->with('mailvotech.lead.import.stage.not.exists', ['%id%' => $data['stage']])
             ->willReturn('Stage not found');
 
         $this->expectException(ImportFailedException::class);

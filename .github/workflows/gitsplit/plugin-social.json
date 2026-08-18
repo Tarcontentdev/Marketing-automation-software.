@@ -1,9 +1,9 @@
 {
     "subtree-splits": [
         {
-            "name": "MauticSocialBundle",
-            "directory": "plugins/MauticSocialBundle",
-            "target": "git@github.com:mautic/plugin-social.git"
+            "name": "MailVotechSocialBundle",
+            "directory": "plugins/MailVotechSocialBundle",
+            "target": "git@github.com:mailvotech/plugin-social.git"
         }
     ]
 }

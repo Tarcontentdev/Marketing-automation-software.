@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\SmsBundle\EventListener;
+namespace MailVotech\SmsBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\DecisionEvent;
-use Mautic\CampaignBundle\Executioner\RealTimeExecutioner;
-use Mautic\SmsBundle\Event\ReplyEvent;
-use Mautic\SmsBundle\Form\Type\CampaignReplyType;
-use Mautic\SmsBundle\Helper\ReplyHelper;
-use Mautic\SmsBundle\Sms\TransportChain;
-use Mautic\SmsBundle\SmsEvents;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\DecisionEvent;
+use MailVotech\CampaignBundle\Executioner\RealTimeExecutioner;
+use MailVotech\SmsBundle\Event\ReplyEvent;
+use MailVotech\SmsBundle\Form\Type\CampaignReplyType;
+use MailVotech\SmsBundle\Helper\ReplyHelper;
+use MailVotech\SmsBundle\Sms\TransportChain;
+use MailVotech\SmsBundle\SmsEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class CampaignReplySubscriber implements EventSubscriberInterface
@@ -41,8 +41,8 @@ final readonly class CampaignReplySubscriber implements EventSubscriberInterface
         $event->addDecision(
             self::TYPE,
             [
-                'label'       => 'mautic.campaign.sms.reply',
-                'description' => 'mautic.campaign.sms.reply.tooltip',
+                'label'       => 'mailvotech.campaign.sms.reply',
+                'description' => 'mailvotech.campaign.sms.reply.tooltip',
                 'eventName'   => SmsEvents::ON_CAMPAIGN_REPLY,
                 'formType'    => CampaignReplyType::class,
             ]
@@ -73,10 +73,10 @@ final readonly class CampaignReplySubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException
-     * @throws \Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException
-     * @throws \Mautic\CampaignBundle\Executioner\Exception\CannotProcessEventException
-     * @throws \Mautic\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException
+     * @throws \MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException
+     * @throws \MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException
+     * @throws \MailVotech\CampaignBundle\Executioner\Exception\CannotProcessEventException
+     * @throws \MailVotech\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException
      */
     public function onReply(ReplyEvent $event): void
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests;
+namespace MailVotech\ReportBundle\Tests;
 
 final class Fixtures
 {
@@ -200,7 +200,7 @@ final class Fixtures
             'all' => [
                 'tables' => [
                     'assets' => [
-                        'display_name' => 'mautic.asset.assets',
+                        'display_name' => 'mailvotech.asset.assets',
                         'columns'      => [
                             'a.alias' => [
                                 'label' => 'Alias',
@@ -218,7 +218,7 @@ final class Fixtures
                 ],
                 'graphs' => [
                     'all'                 => [],
-                    'mautic.asset.assets' => [
+                    'mailvotech.asset.assets' => [
                         'tables' => [],
                     ],
                 ],
@@ -271,7 +271,7 @@ final class Fixtures
                 'e.id' => [
                     'label' => 'ID',
                     'type'  => self::getIntegerType(),
-                    'link'  => 'mautic_email_action',
+                    'link'  => 'mailvotech_email_action',
                     'alias' => 'e_id',
                 ],
                 'e.name' => [
@@ -287,7 +287,7 @@ final class Fixtures
                 'l.id' => [
                     'label' => 'Contact ID',
                     'type'  => self::getIntegerType(),
-                    'link'  => 'mautic_email_action',
+                    'link'  => 'mailvotech_email_action',
                     'alias' => 'contactId',
                 ],
             ],
@@ -411,7 +411,7 @@ final class Fixtures
                 'e.id' => [
                     'label' => 'ID',
                     'type'  => self::getIntegerType(),
-                    'link'  => 'mautic_email_action',
+                    'link'  => 'mailvotech_email_action',
                     'alias' => 'e_id',
                 ],
                 'e.name' => [
@@ -428,7 +428,7 @@ final class Fixtures
             'page'   => 1,
             'limit'  => 10,
             'graphs' => [
-                'mautic.email.graph.line.stats' => [
+                'mailvotech.email.graph.line.stats' => [
                     'options'        => [],
                     'dynamicFilters' => [],
                     'paginate'       => true,

@@ -3,19 +3,19 @@
     - form
 #}
 {% form_theme form with [
-      '@MauticLead/FormTheme/Filter/_leadlist_filters_entry_widget.html.twig',
-      '@MauticLead/FormTheme/Filter/_leadlist_filters_widget.html.twig',
+      '@MailVotechLead/FormTheme/Filter/_leadlist_filters_entry_widget.html.twig',
+      '@MailVotechLead/FormTheme/Filter/_leadlist_filters_widget.html.twig',
 ] %}
 
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent %}leadlist{% endblock %}
+{% block mailvotechContent %}leadlist{% endblock %}
 
 {% block headerTitle %}
   {% if form.vars.data.id is not empty %}
-      {{- 'mautic.lead.list.header.edit'|trans({'%name%': form.vars.data.name}) -}}
+      {{- 'mailvotech.lead.list.header.edit'|trans({'%name%': form.vars.data.name}) -}}
   {% else %}
-      {{- 'mautic.lead.list.header.new'|trans -}}
+      {{- 'mailvotech.lead.list.header.new'|trans -}}
   {% endif %}
 {% endblock %}
 
@@ -29,15 +29,15 @@
                 <ul class="nav nav-tabs nav-tabs-contained">
                     <li class="active">
                         <a href="#details" role="tab" data-toggle="tab" class="{% if formContainsErrors(form, ['filters']) %}text-danger{% endif %}">
-                            {{ 'mautic.core.details'|trans }}
+                            {{ 'mailvotech.core.details'|trans }}
                             {% if formContainsErrors(form, ['filters']) %}
                               <i class="ri-alert-line"></i>
                             {% endif %}
                         </a>
                     </li>
-                    <li data-toggle="tooltip" title="" data-placement="top" data-original-title="{{ 'mautic.lead.lead.segment.add.help'|trans }}">
+                    <li data-toggle="tooltip" title="" data-placement="top" data-original-title="{{ 'mailvotech.lead.lead.segment.add.help'|trans }}">
                         <a href="#filters" role="tab" data-toggle="tab" class="{% if formContainsErrors(form.filters) %}text-danger{% endif %}">
-                            {{ 'mautic.core.filters'|trans }}
+                            {{ 'mailvotech.core.filters'|trans }}
                             {% if formContainsErrors(form.filters) %}
                                 <i class="ri-alert-line"></i>
                             {% endif %}
@@ -66,18 +66,18 @@
                         </div>
                     </div>
                     <div class="tab-pane fade bdr-w-0" id="filters">
-                        <div class="alert alert-info"><p>{{ 'mautic.lead.lead.segment.filter.info'|trans }}</p></div>
+                        <div class="alert alert-info"><p>{{ 'mailvotech.lead.lead.segment.filter.info'|trans }}</p></div>
                         <div class="form-group">
                             <div class="available-filters mb-md pl-0 col-md-4" data-prototype="{{ form_widget(form.filters.vars.prototype)|e }}" data-index="{{ index + 1 }}">
                                 <select class="chosen form-control" id="available_segment_filters">
                                     <option value=""></option>
                                     {% for object, field in form.vars.fields %}
-                                      {% set header = translatorHasId('mautic.lead.' ~ object) ? ('mautic.lead.' ~ object)|trans : object|trans %}
+                                      {% set header = translatorHasId('mailvotech.lead.' ~ object) ? ('mailvotech.lead.' ~ object)|trans : object|trans %}
                                       <optgroup label="{{ header }}">
                                           {% for value, params in field %}
                                               {% set operators = params.operators is not empty ? params.operators|json_encode() : '{}' %}
-                                              {% set objectLabel = translatorHasId('mautic.lead_list.filter.' ~ object) ? ('mautic.lead_list.filter.' ~ object)|trans : object|trans  %}
-                                              {% set label =  'mautic.lead_list.filter.field.label'|trans({'%object%': objectLabel, '%field%': params.label|capitalize|trans }) %}
+                                              {% set objectLabel = translatorHasId('mailvotech.lead_list.filter.' ~ object) ? ('mailvotech.lead_list.filter.' ~ object)|trans : object|trans  %}
+                                              {% set label =  'mailvotech.lead_list.filter.field.label'|trans({'%object%': objectLabel, '%field%': params.label|capitalize|trans }) %}
                                               <option value="{{ value|e }}"
                                                       id="available_{{ object }}_{{ value }}"
                                                       data-field-label="{{ label }}"

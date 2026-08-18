@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Notificator;
+namespace MailVotech\WebhookBundle\Notificator;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\MissingIdentifierField;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Event\WebhookNotificationEvent;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Event\WebhookNotificationEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 

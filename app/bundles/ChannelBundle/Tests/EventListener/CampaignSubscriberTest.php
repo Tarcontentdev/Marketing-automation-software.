@@ -2,33 +2,33 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Tests\EventListener;
+namespace MailVotech\ChannelBundle\Tests\EventListener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
-use Mautic\CampaignBundle\EventCollector\EventCollector;
-use Mautic\CampaignBundle\Executioner\Dispatcher\ActionDispatcher;
-use Mautic\CampaignBundle\Executioner\Dispatcher\LegacyEventDispatcher;
-use Mautic\CampaignBundle\Executioner\Scheduler\EventScheduler;
-use Mautic\ChannelBundle\ChannelEvents;
-use Mautic\ChannelBundle\EventListener\CampaignSubscriber;
-use Mautic\ChannelBundle\Form\Type\MessageSendType;
-use Mautic\ChannelBundle\Model\MessageModel;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Form\Type\EmailListType;
-use Mautic\EmailBundle\Form\Type\EmailSendType;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Form\Type\SmsSendType;
-use Mautic\SmsBundle\SmsEvents;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\CampaignBundle\EventCollector\EventCollector;
+use MailVotech\CampaignBundle\Executioner\Dispatcher\ActionDispatcher;
+use MailVotech\CampaignBundle\Executioner\Dispatcher\LegacyEventDispatcher;
+use MailVotech\CampaignBundle\Executioner\Scheduler\EventScheduler;
+use MailVotech\ChannelBundle\ChannelEvents;
+use MailVotech\ChannelBundle\EventListener\CampaignSubscriber;
+use MailVotech\ChannelBundle\Form\Type\MessageSendType;
+use MailVotech\ChannelBundle\Model\MessageModel;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Form\Type\EmailListType;
+use MailVotech\EmailBundle\Form\Type\EmailSendType;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Form\Type\SmsSendType;
+use MailVotech\SmsBundle\SmsEvents;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -112,12 +112,12 @@ final class CampaignSubscriberTest extends \PHPUnit\Framework\TestCase
                         case 'email.send':
                             return new ActionAccessor(
                                 [
-                                    'label'                => 'mautic.email.campaign.event.send',
-                                    'description'          => 'mautic.email.campaign.event.send_descr',
+                                    'label'                => 'mailvotech.email.campaign.event.send',
+                                    'description'          => 'mailvotech.email.campaign.event.send_descr',
                                     'batchEventName'       => EmailEvents::ON_CAMPAIGN_BATCH_ACTION,
                                     'formType'             => EmailSendType::class,
                                     'formTypeOptions'      => ['update_select' => 'campaignevent_properties_email', 'with_email_types' => true],
-                                    'formTheme'            => 'MauticEmailBundle:FormTheme\EmailSendList',
+                                    'formTheme'            => 'MailVotechEmailBundle:FormTheme\EmailSendList',
                                     'channel'              => 'email',
                                     'channelIdField'       => 'email',
                                 ]
@@ -126,13 +126,13 @@ final class CampaignSubscriberTest extends \PHPUnit\Framework\TestCase
                         case 'sms.send_text_sms':
                             return new ActionAccessor(
                                 [
-                                    'label'            => 'mautic.campaign.sms.send_text_sms',
-                                    'description'      => 'mautic.campaign.sms.send_text_sms.tooltip',
+                                    'label'            => 'mailvotech.campaign.sms.send_text_sms',
+                                    'description'      => 'mailvotech.campaign.sms.send_text_sms.tooltip',
                                     'eventName'        => SmsEvents::ON_CAMPAIGN_TRIGGER_ACTION,
                                     'formType'         => SmsSendType::class,
                                     'formTypeOptions'  => ['update_select' => 'campaignevent_properties_sms'],
-                                    'formTheme'        => 'MauticSmsBundle:FormTheme\SmsSendList',
-                                    'timelineTemplate' => '@MauticSms/SubscribedEvents/Timeline/index.html.twig',
+                                    'formTheme'        => 'MailVotechSmsBundle:FormTheme\SmsSendList',
+                                    'timelineTemplate' => '@MailVotechSms/SubscribedEvents/Timeline/index.html.twig',
                                     'channel'          => 'sms',
                                     'channelIdField'   => 'sms',
                                 ]
@@ -159,11 +159,11 @@ final class CampaignSubscriberTest extends \PHPUnit\Framework\TestCase
         $event  = $this->getEvent();
         $config = new ActionAccessor(
             [
-                'label'                  => 'mautic.channel.message.send.marketing.message',
-                'description'            => 'mautic.channel.message.send.marketing.message.descr',
+                'label'                  => 'mailvotech.channel.message.send.marketing.message',
+                'description'            => 'mailvotech.channel.message.send.marketing.message.descr',
                 'batchEventName'         => ChannelEvents::ON_CAMPAIGN_BATCH_ACTION,
                 'formType'               => MessageSendType::class,
-                'formTheme'              => 'MauticChannelBundle:FormTheme\MessageSend',
+                'formTheme'              => 'MailVotechChannelBundle:FormTheme\MessageSend',
                 'channel'                => 'channel.message',
                 'channelIdField'         => 'marketingMessage',
                 'connectionRestrictions' => [
@@ -176,7 +176,7 @@ final class CampaignSubscriberTest extends \PHPUnit\Framework\TestCase
                         ],
                     ],
                 ],
-                'timelineTemplate'       => '@MauticChannel/SubscribedEvents/Timeline/index.html.twig',
+                'timelineTemplate'       => '@MailVotechChannel/SubscribedEvents/Timeline/index.html.twig',
                 'timelineTemplateVars'   => [
                     'messageSettings' => [],
                 ],

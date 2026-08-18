@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\EmailBundle\Stats\Helper;
+namespace MailVotech\EmailBundle\Stats\Helper;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -22,7 +22,7 @@ trait FilterTrait
             $sb = $this->connection->createQueryBuilder();
 
             $sb->select('null')
-                ->from(MAUTIC_TABLE_PREFIX.'companies_leads', 'cl')
+                ->from(MAILVOTECH_TABLE_PREFIX.'companies_leads', 'cl')
                 ->where(
                     $sb->expr()->and(
                         $sb->expr()->eq('cl.company_id', ':companyId'),
@@ -43,7 +43,7 @@ trait FilterTrait
     protected function addCampaignFilter(QueryBuilder $q, $campaignId = null, $fromAlias = 't'): void
     {
         if (null !== $campaignId && intval($campaignId)) {
-            $q->innerJoin($fromAlias, '(SELECT DISTINCT event_id, lead_id FROM '.MAUTIC_TABLE_PREFIX.'campaign_lead_event_log WHERE campaign_id = :campaignId)', 'clel', $fromAlias.'.source_id = clel.event_id AND '.$fromAlias.'.source = "campaign.event" AND '.$fromAlias.'.lead_id = clel.lead_id')
+            $q->innerJoin($fromAlias, '(SELECT DISTINCT event_id, lead_id FROM '.MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log WHERE campaign_id = :campaignId)', 'clel', $fromAlias.'.source_id = clel.event_id AND '.$fromAlias.'.source = "campaign.event" AND '.$fromAlias.'.lead_id = clel.lead_id')
                 ->setParameter('campaignId', $campaignId);
         }
     }
@@ -55,7 +55,7 @@ trait FilterTrait
     protected function addCampaignFilterForEmailSource(QueryBuilder $q, $campaignId = null, $fromAlias = 't'): void
     {
         if (null !== $campaignId && intval($campaignId)) {
-            $q->innerJoin($fromAlias, '(SELECT DISTINCT channel_id, lead_id FROM '.MAUTIC_TABLE_PREFIX.'campaign_lead_event_log WHERE campaign_id = :campaignId AND channel = "email")', 'clel', $fromAlias.'.source_id = clel.channel_id AND '.$fromAlias.'.source = "email" AND '.$fromAlias.'.lead_id = clel.lead_id')
+            $q->innerJoin($fromAlias, '(SELECT DISTINCT channel_id, lead_id FROM '.MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log WHERE campaign_id = :campaignId AND channel = "email")', 'clel', $fromAlias.'.source_id = clel.channel_id AND '.$fromAlias.'.source = "email" AND '.$fromAlias.'.lead_id = clel.lead_id')
                 ->setParameter('campaignId', $campaignId);
         }
     }
@@ -70,7 +70,7 @@ trait FilterTrait
             $sb = $this->connection->createQueryBuilder();
 
             $sb->select('null')
-                ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'lll')
+                ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'lll')
                 ->where(
                     $sb->expr()->and(
                         $sb->expr()->eq('lll.leadlist_id', ':segmentId'),

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CoreBundle\Exception\DeleteEntityDependencyException;
-use Mautic\CoreBundle\Exception\RecordCanNotUnpublishException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\LeadBundle\Event\LeadListEvent as SegmentEvent;
-use Mautic\LeadBundle\Helper\SegmentCountCacheHelper;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Validator\SegmentUsedInCampaignsValidator;
+use MailVotech\CoreBundle\Exception\DeleteEntityDependencyException;
+use MailVotech\CoreBundle\Exception\RecordCanNotUnpublishException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\LeadBundle\Event\LeadListEvent as SegmentEvent;
+use MailVotech\LeadBundle\Helper\SegmentCountCacheHelper;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Validator\SegmentUsedInCampaignsValidator;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -76,7 +76,7 @@ final readonly class SegmentSubscriber implements EventSubscriberInterface
         $lists    = $this->listModel->getSegmentsWithDependenciesOnSegment($leadList->getId());
         if (count($lists)) {
             $message = $this->translator->trans(
-                'mautic.lead_list.is_in_use.unpublish',
+                'mailvotech.lead_list.is_in_use.unpublish',
                 [
                     '%segments%'     => implode(',', $lists),
                     '%segmentNames%' => $leadList->getName(),
@@ -100,7 +100,7 @@ final readonly class SegmentSubscriber implements EventSubscriberInterface
 
         if (count($lists)) {
             $message = $this->translator->trans(
-                'mautic.lead_list.is_in_use.delete',
+                'mailvotech.lead_list.is_in_use.delete',
                 [
                     '%segments%'     => implode(',', $lists),
                     '%segmentNames%' => $leadList->getName(),

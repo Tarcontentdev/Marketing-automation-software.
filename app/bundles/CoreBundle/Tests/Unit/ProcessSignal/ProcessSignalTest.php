@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\ProcessSignal;
+namespace MailVotech\CoreBundle\Tests\Unit\ProcessSignal;
 
-use Mautic\CoreBundle\ProcessSignal\Exception\InvalidStateException;
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalState;
+use MailVotech\CoreBundle\ProcessSignal\Exception\InvalidStateException;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalState;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

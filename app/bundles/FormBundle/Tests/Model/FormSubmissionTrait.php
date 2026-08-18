@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Model;
+namespace MailVotech\FormBundle\Tests\Model;
 
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Request;
@@ -124,11 +124,11 @@ trait FormSubmissionTrait
     private function submitFormWithCompanies(int $formId, string $formAlias, string $email, string $firstname, string $lastname, string $company, string $companyAddress): void
     {
         $values = [
-            'mauticform[email]'           => $email,
-            'mauticform[firstname]'       => $firstname,
-            'mauticform[lastname]'        => $lastname,
-            'mauticform[companyname]'     => $company,
-            'mauticform[companyaddress1]' => $companyAddress,
+            'mailvotechform[email]'           => $email,
+            'mailvotechform[firstname]'       => $firstname,
+            'mailvotechform[lastname]'        => $lastname,
+            'mailvotechform[companyname]'     => $company,
+            'mailvotechform[companyaddress1]' => $companyAddress,
         ];
         $this->submitForm($formId, $formAlias, $values);
     }
@@ -136,9 +136,9 @@ trait FormSubmissionTrait
     private function submitFormWithoutCompanies(int $formId, string $formAlias, string $email, string $firstname, string $lastname): void
     {
         $values = [
-            'mauticform[email]'           => $email,
-            'mauticform[firstname]'       => $firstname,
-            'mauticform[lastname]'        => $lastname,
+            'mailvotechform[email]'           => $email,
+            'mailvotechform[firstname]'       => $firstname,
+            'mailvotechform[lastname]'        => $lastname,
         ];
         $this->submitForm($formId, $formAlias, $values);
     }
@@ -149,7 +149,7 @@ trait FormSubmissionTrait
     private function submitForm(int $formId, string $formAlias, $values): void
     {
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_'.$formAlias.']');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_'.$formAlias.']');
         $this::assertCount(1, $formCrawler, $this->client->getResponse()->getContent());
         $form = $formCrawler->form();
         $form->setValues($values);

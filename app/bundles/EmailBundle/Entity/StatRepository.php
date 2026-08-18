@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\EmailBundle\Entity;
+namespace MailVotech\EmailBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Entity\TimelineTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Entity\TimelineTrait;
 
 /**
  * @extends CommonRepository<Stat>
@@ -48,7 +48,7 @@ class StatRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('distinct ph.url, ph.date_hit')
-            ->from(MAUTIC_TABLE_PREFIX.'page_hits', 'ph')
+            ->from(MAILVOTECH_TABLE_PREFIX.'page_hits', 'ph')
             ->where('ph.email_id = :emailId')
             ->andWhere('ph.lead_id = :leadId')
             ->setParameter('leadId', $contactId)
@@ -104,9 +104,9 @@ class StatRepository extends CommonRepository
 
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $q->select(...$selectColumns)
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats', 's')
-            ->leftJoin('s', MAUTIC_TABLE_PREFIX.'emails', 'e', 's.email_id = e.id')
-            ->leftJoin('s', MAUTIC_TABLE_PREFIX.'page_hits', 'ph', 'ph.source = \'email\' and ph.source_id = s.email_id and ph.lead_id = s.lead_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 's')
+            ->leftJoin('s', MAILVOTECH_TABLE_PREFIX.'emails', 'e', 's.email_id = e.id')
+            ->leftJoin('s', MAILVOTECH_TABLE_PREFIX.'page_hits', 'ph', 'ph.source = \'email\' and ph.source_id = s.email_id and ph.lead_id = s.lead_id')
             ->addSelect('COUNT(ph.id) AS link_hits');
 
         if (null !== $createdByUserId) {
@@ -124,28 +124,28 @@ class StatRepository extends CommonRepository
             $companyJoinOnExpr .= ' AND cl.is_primary = 1';
         }
 
-        $q->leftJoin('s', MAUTIC_TABLE_PREFIX.'companies_leads', 'cl', $companyJoinOnExpr)
-            ->leftJoin('s', MAUTIC_TABLE_PREFIX.'companies', 'c', 'cl.company_id = c.id');
+        $q->leftJoin('s', MAILVOTECH_TABLE_PREFIX.'companies_leads', 'cl', $companyJoinOnExpr)
+            ->leftJoin('s', MAILVOTECH_TABLE_PREFIX.'companies', 'c', 'cl.company_id = c.id');
 
         if (!empty($companyId)) {
             $q->andWhere('cl.company_id = :companyId')
                 ->setParameter('companyId', $companyId);
         }
 
-        $q->leftJoin('s', MAUTIC_TABLE_PREFIX.'campaign_events', 'ce', 's.source = "campaign.event" and s.source_id = ce.id')
-            ->leftJoin('ce', MAUTIC_TABLE_PREFIX.'campaigns', 'campaign', 'ce.campaign_id = campaign.id');
+        $q->leftJoin('s', MAILVOTECH_TABLE_PREFIX.'campaign_events', 'ce', 's.source = "campaign.event" and s.source_id = ce.id')
+            ->leftJoin('ce', MAILVOTECH_TABLE_PREFIX.'campaigns', 'campaign', 'ce.campaign_id = campaign.id');
 
         if (null !== $campaignId) {
             $q->andWhere('ce.campaign_id = :campaignId')
                 ->setParameter('campaignId', $campaignId);
         }
 
-        $q->leftJoin('s', MAUTIC_TABLE_PREFIX.'lead_lists', 'll', 's.list_id = ll.id');
+        $q->leftJoin('s', MAILVOTECH_TABLE_PREFIX.'lead_lists', 'll', 's.list_id = ll.id');
 
         if (null !== $segmentId) {
             $sb = $this->getEntityManager()->getConnection()->createQueryBuilder();
             $sb->select('null')
-                ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'lll')
+                ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'lll')
                 ->where(
                     $sb->expr()->and(
                         $sb->expr()->eq('lll.leadlist_id', ':segmentId'),
@@ -186,7 +186,7 @@ class StatRepository extends CommonRepository
 
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('s.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats', 's')
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 's')
             ->where(
                 $q->expr()->in('s.email_id', ':emailIds')
             )
@@ -259,7 +259,7 @@ class StatRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('count(s.id) as count')
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats', 's');
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 's');
 
         if ($emailIds) {
             if (!is_array($emailIds)) {
@@ -290,7 +290,7 @@ class StatRepository extends CommonRepository
             } else {
                 $subQ = $this->getEntityManager()->getConnection()->createQueryBuilder();
                 $subQ->select('null')
-                    ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'list')
+                    ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'list')
                     ->andWhere(
                         $q->expr()->and(
                             $q->expr()->in('list.leadlist_id', ':subQListIds'),
@@ -343,7 +343,7 @@ class StatRepository extends CommonRepository
 
         $sq = $this->_em->getConnection()->createQueryBuilder();
         $sq->select('e.email_id, count(e.id) as the_count')
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats', 'e')
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 'e')
             ->where(
                 $sq->expr()->and(
                     $sq->expr()->eq('e.is_failed', ':false'),
@@ -416,7 +416,7 @@ class StatRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('s.id')
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats', 's');
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 's');
 
         if ($emailIds) {
             if (!is_array($emailIds)) {
@@ -450,9 +450,9 @@ class StatRepository extends CommonRepository
     public function getLeadStats($leadId, array $options = [])
     {
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder();
-        $query->from(MAUTIC_TABLE_PREFIX.'email_stats', 's')
-            ->leftJoin('s', MAUTIC_TABLE_PREFIX.'emails', 'e', 's.email_id = e.id')
-            ->leftJoin('s', MAUTIC_TABLE_PREFIX.'email_copies', 'ec', 's.copy_id = ec.id');
+        $query->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 's')
+            ->leftJoin('s', MAILVOTECH_TABLE_PREFIX.'emails', 'e', 's.email_id = e.id')
+            ->leftJoin('s', MAILVOTECH_TABLE_PREFIX.'email_copies', 'ec', 's.copy_id = ec.id');
 
         if ($leadId) {
             $query->andWhere('s.lead_id = :leadId')
@@ -467,7 +467,7 @@ class StatRepository extends CommonRepository
             $query->select(
                 's.email_id, s.id, s.date_read as dateRead, s.date_sent as dateSent,e.subject, e.name as email_name, s.is_read as isRead, s.is_failed as isFailed, s.viewed_in_browser as viewedInBrowser, s.retry_count as retryCount, s.list_id, l.name as list_name, s.tracking_hash as idHash, s.open_details as openDetails, ec.subject as storedSubject, s.lead_id'
             )
-                ->leftJoin('s', MAUTIC_TABLE_PREFIX.'lead_lists', 'l', 's.list_id = l.id');
+                ->leftJoin('s', MAILVOTECH_TABLE_PREFIX.'lead_lists', 'l', 's.list_id = l.id');
         }
 
         $timestampColumn = 's.date_sent';
@@ -576,7 +576,7 @@ class StatRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('e.email_id, count(e.id) as sentcount')
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats', 'e')
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 'e')
             ->where(
                 $q->expr()->and(
                     $q->expr()->in('e.email_id', ':emailIds'),
@@ -619,7 +619,7 @@ class StatRepository extends CommonRepository
     public function updateLead($fromLeadId, $toLeadId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'email_stats')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'email_stats')
             ->set('lead_id', (int) $toLeadId)
             ->where('lead_id = '.(int) $fromLeadId)
             ->executeStatement();
@@ -627,14 +627,14 @@ class StatRepository extends CommonRepository
 
     public function deleteStat($id): void
     {
-        $this->getEntityManager()->getConnection()->delete(MAUTIC_TABLE_PREFIX.'email_stats', ['id' => (int) $id]);
+        $this->getEntityManager()->getConnection()->delete(MAILVOTECH_TABLE_PREFIX.'email_stats', ['id' => (int) $id]);
     }
 
     public function deleteStats(array $ids): void
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
-        $qb->delete(MAUTIC_TABLE_PREFIX.'email_stats')
+        $qb->delete(MAILVOTECH_TABLE_PREFIX.'email_stats')
             ->where(
                 $qb->expr()->in('id', ':ids')
             )
@@ -663,7 +663,7 @@ class StatRepository extends CommonRepository
     public function checkContactSentEmail(int $contactId, int $emailId): bool
     {
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder();
-        $query->from(MAUTIC_TABLE_PREFIX.'email_stats', 's');
+        $query->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 's');
         $query->select('1')
             ->where('s.email_id = :emailId')
             ->andWhere('s.lead_id = :contactId')
@@ -681,7 +681,7 @@ class StatRepository extends CommonRepository
     public function getSentCountForContacts(array $contacts, $emailId): array
     {
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder();
-        $query->from(MAUTIC_TABLE_PREFIX.'email_stats', 's');
+        $query->from(MAILVOTECH_TABLE_PREFIX.'email_stats', 's');
         $query->select('count(s.id) as sent_count, s.lead_id')
             ->where('s.email_id = :email')
             ->andWhere('s.lead_id in (:contacts)')
@@ -725,10 +725,10 @@ class StatRepository extends CommonRepository
             "{$cutAlias}.channel_id",
             "{$pageHitsAlias}.lead_id"
         )
-            ->from(MAUTIC_TABLE_PREFIX.'channel_url_trackables', $cutAlias)
+            ->from(MAILVOTECH_TABLE_PREFIX.'channel_url_trackables', $cutAlias)
             ->join(
                 $cutAlias,
-                MAUTIC_TABLE_PREFIX.'page_hits',
+                MAILVOTECH_TABLE_PREFIX.'page_hits',
                 $pageHitsAlias,
                 "{$cutAlias}.redirect_id = {$pageHitsAlias}.redirect_id AND {$cutAlias}.channel_id = {$pageHitsAlias}.source_id"
             )
@@ -743,10 +743,10 @@ class StatRepository extends CommonRepository
             "COUNT({$statsAlias}.id) AS `sent_count`",
             "SUM(IF({$statsAlias}.is_read IS NULL, 0, {$statsAlias}.is_read)) AS `read_count`",
             "SUM(IF({$subQueryAlias}.hits is NULL, 0, 1)) AS `clicked_through_count`",
-        )->from(MAUTIC_TABLE_PREFIX.'email_stats', $statsAlias)
+        )->from(MAILVOTECH_TABLE_PREFIX.'email_stats', $statsAlias)
             ->rightJoin(
                 $statsAlias,
-                MAUTIC_TABLE_PREFIX.'leads',
+                MAILVOTECH_TABLE_PREFIX.'leads',
                 $leadAlias,
                 "{$statsAlias}.lead_id=l.id"
             )->leftJoin(
@@ -806,10 +806,10 @@ class StatRepository extends CommonRepository
             "{$statsAlias}.id AS stat_id",
             "COUNT(DISTINCT {$pageHitsAlias}.id) AS hits"
         )
-            ->from(MAUTIC_TABLE_PREFIX.'email_stats', $statsAlias)
+            ->from(MAILVOTECH_TABLE_PREFIX.'email_stats', $statsAlias)
             ->join(
                 $statsAlias,
-                MAUTIC_TABLE_PREFIX.'page_hits',
+                MAILVOTECH_TABLE_PREFIX.'page_hits',
                 $pageHitsAlias,
                 "{$pageHitsAlias}.email_id = {$statsAlias}.email_id AND {$pageHitsAlias}.lead_id = {$statsAlias}.lead_id"
             )
@@ -824,10 +824,10 @@ class StatRepository extends CommonRepository
             "COUNT({$statsAlias}.id) AS `sent_count`",
             "SUM(IF({$statsAlias}.is_read IS NULL, 0, {$statsAlias}.is_read)) AS `read_count`",
             "COUNT(DISTINCT CASE WHEN {$subQueryAlias}.hits > 0 THEN {$statsAlias}.id END) AS `clicked_through_count`"
-        )->from(MAUTIC_TABLE_PREFIX.'email_stats', $statsAlias)
+        )->from(MAILVOTECH_TABLE_PREFIX.'email_stats', $statsAlias)
             ->rightJoin(
                 $statsAlias,
-                MAUTIC_TABLE_PREFIX.'campaign_events',
+                MAILVOTECH_TABLE_PREFIX.'campaign_events',
                 $eventAlias,
                 "{$statsAlias}.source_id = {$eventAlias}.id AND {$statsAlias}.source = 'campaign.event'"
             )->leftJoin(
@@ -886,10 +886,10 @@ class StatRepository extends CommonRepository
             "{$cutAlias}.channel_id",
             "{$pageHitsAlias}.lead_id"
         )
-            ->from(MAUTIC_TABLE_PREFIX.'channel_url_trackables', $cutAlias)
+            ->from(MAILVOTECH_TABLE_PREFIX.'channel_url_trackables', $cutAlias)
             ->join(
                 $cutAlias,
-                MAUTIC_TABLE_PREFIX.'page_hits',
+                MAILVOTECH_TABLE_PREFIX.'page_hits',
                 $pageHitsAlias,
                 "{$cutAlias}.redirect_id = {$pageHitsAlias}.redirect_id AND {$cutAlias}.channel_id = {$pageHitsAlias}.source_id"
             )
@@ -902,10 +902,10 @@ class StatRepository extends CommonRepository
             "COUNT({$statsAlias}.id) AS `sent_count`",
             "SUM(IF({$statsAlias}.is_read IS NULL, 0, {$statsAlias}.is_read)) AS `read_count`",
             "SUM(IF({$subQueryAlias}.hits is NULL, 0, 1)) AS `clicked_through_count`",
-        )->from(MAUTIC_TABLE_PREFIX.'email_stats', $statsAlias)
+        )->from(MAILVOTECH_TABLE_PREFIX.'email_stats', $statsAlias)
             ->rightJoin(
                 $statsAlias,
-                MAUTIC_TABLE_PREFIX.'leads',
+                MAILVOTECH_TABLE_PREFIX.'leads',
                 $leadAlias,
                 "{$statsAlias}.lead_id=l.id"
             )->leftJoin(

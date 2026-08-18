@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Entity;
+namespace MailVotech\CampaignBundle\Tests\Entity;
 
 use Doctrine\DBAL\Query\QueryBuilder as DbalQueryBuilder;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -27,8 +27,8 @@ final class CampaignRepositoryTest extends TestCase
 
         $translator = $this->createMock(TranslatorInterface::class);
         $translator->method('trans')->willReturnCallback(fn (string $id): string => match ($id) {
-            'mautic.campaign.campaign.searchcommand.isexpired' => 'is:expired',
-            'mautic.campaign.campaign.searchcommand.ispending' => 'is:pending',
+            'mailvotech.campaign.campaign.searchcommand.isexpired' => 'is:expired',
+            'mailvotech.campaign.campaign.searchcommand.ispending' => 'is:pending',
             default                                            => $id,
         });
 
@@ -64,7 +64,7 @@ final class CampaignRepositoryTest extends TestCase
     public function testGetSearchCommandsContainsExpirationFilters(): void
     {
         $commands = $this->repository->getSearchCommands();
-        $this->assertContains('mautic.campaign.campaign.searchcommand.isexpired', $commands);
-        $this->assertContains('mautic.campaign.campaign.searchcommand.ispending', $commands);
+        $this->assertContains('mailvotech.campaign.campaign.searchcommand.isexpired', $commands);
+        $this->assertContains('mailvotech.campaign.campaign.searchcommand.ispending', $commands);
     }
 }

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Event\DetermineWinnerEvent;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\EventListener\DetermineWinnerSubscriber;
-use Mautic\PageBundle\Entity\HitRepository;
+use MailVotech\CoreBundle\Event\DetermineWinnerEvent;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\EventListener\DetermineWinnerSubscriber;
+use MailVotech\PageBundle\Entity\HitRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -64,8 +64,8 @@ final class DetermineWinnerSubscriberTest extends \PHPUnit\Framework\TestCase
         ];
 
         $this->translator->expects($this->atLeast(3))->method('trans')->willReturnMap([
-            ['mautic.email.abtest.label.opened', [], null, null, 'opened'],
-            ['mautic.email.abtest.label.sent', [], null, null, 'sent'],
+            ['mailvotech.email.abtest.label.opened', [], null, null, 'opened'],
+            ['mailvotech.email.abtest.label.sent', [], null, null, 'sent'],
         ]);
 
         $parentMock->expects($this->once())
@@ -119,8 +119,8 @@ final class DetermineWinnerSubscriberTest extends \PHPUnit\Framework\TestCase
 
         $this->translator->expects($this->atLeast(3))->method('trans')->willReturnMap(
             [
-                ['mautic.email.abtest.label.clickthrough', [], null, null, 'clickthrough'],
-                ['mautic.email.abtest.label.opened', [], null, null, 'opened'],
+                ['mailvotech.email.abtest.label.clickthrough', [], null, null, 'clickthrough'],
+                ['mailvotech.email.abtest.label.opened', [], null, null, 'opened'],
             ]
         );
 

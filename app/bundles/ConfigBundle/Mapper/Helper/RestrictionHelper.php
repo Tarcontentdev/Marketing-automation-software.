@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\ConfigBundle\Mapper\Helper;
+namespace MailVotech\ConfigBundle\Mapper\Helper;
 
 final class RestrictionHelper
 {

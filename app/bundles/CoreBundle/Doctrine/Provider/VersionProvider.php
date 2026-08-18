@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine\Provider;
+namespace MailVotech\CoreBundle\Doctrine\Provider;
 
 use Doctrine\DBAL\Connection;
 

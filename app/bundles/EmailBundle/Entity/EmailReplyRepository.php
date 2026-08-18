@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\EmailBundle\Entity;
+namespace MailVotech\EmailBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\TimelineTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\TimelineTrait;
 
 /**
  * @extends CommonRepository<EmailReply>
@@ -24,10 +24,10 @@ final class EmailReplyRepository extends CommonRepository implements EmailReplyR
             $leadId = $leadId->getId();
         }
         $qb = $this->_em->getConnection()->createQueryBuilder();
-        $qb->from(MAUTIC_TABLE_PREFIX.'email_stat_replies', 'reply')
-            ->innerJoin('reply', MAUTIC_TABLE_PREFIX.'email_stats', 'stat', 'reply.stat_id = stat.id')
-            ->leftJoin('stat', MAUTIC_TABLE_PREFIX.'emails', 'email', 'stat.email_id = email.id')
-            ->leftJoin('stat', MAUTIC_TABLE_PREFIX.'email_copies', 'email_copy', 'stat.copy_id = email_copy.id');
+        $qb->from(MAILVOTECH_TABLE_PREFIX.'email_stat_replies', 'reply')
+            ->innerJoin('reply', MAILVOTECH_TABLE_PREFIX.'email_stats', 'stat', 'reply.stat_id = stat.id')
+            ->leftJoin('stat', MAILVOTECH_TABLE_PREFIX.'emails', 'email', 'stat.email_id = email.id')
+            ->leftJoin('stat', MAILVOTECH_TABLE_PREFIX.'email_copies', 'email_copy', 'stat.copy_id = email_copy.id');
 
         if (null !== $leadId) {
             $qb->andWhere('stat.lead_id = :leadId')

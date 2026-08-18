@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\Query\Filter;
+namespace MailVotech\LeadBundle\Tests\Segment\Query\Filter;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\LeadBundle\Model\ListModel;
 
-final class SegmentReferenceFilterQueryBuilderGlueTest extends MauticMysqlTestCase
+final class SegmentReferenceFilterQueryBuilderGlueTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 
@@ -64,7 +64,7 @@ final class SegmentReferenceFilterQueryBuilderGlueTest extends MauticMysqlTestCa
         $this->em->flush();
         $this->em->clear();
 
-        $this->testSymfonyCommand('mautic:segments:update', ['--list-id' => $segmentD->getId()]);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['--list-id' => $segmentD->getId()]);
 
         /** @var ListModel $listModel */
         $listModel = self::getContainer()->get(ListModel::class);

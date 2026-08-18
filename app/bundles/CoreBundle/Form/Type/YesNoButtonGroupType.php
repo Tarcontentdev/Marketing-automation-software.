@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
@@ -41,12 +41,12 @@ final class YesNoButtonGroupType extends AbstractType
                 'expanded'          => true,
                 'multiple'          => false,
                 'label_attr'        => ['class' => 'control-label'],
-                'label'             => 'mautic.core.form.active',
+                'label'             => 'mailvotech.core.form.active',
                 'placeholder'       => false,
                 'required'          => false,
-                'no_label'          => 'mautic.core.form.no',
+                'no_label'          => 'mailvotech.core.form.no',
                 'no_value'          => 0,
-                'yes_label'         => 'mautic.core.form.yes',
+                'yes_label'         => 'mailvotech.core.form.yes',
                 'yes_value'         => 1,
             ]
         );

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -100,19 +100,19 @@ final class FormButtonsType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'apply_text'         => 'mautic.core.form.apply',
+                'apply_text'         => 'mailvotech.core.form.apply',
                 'apply_icon'         => 'ri-check-line',
                 'apply_class'        => 'btn btn-primary btn-apply',
                 'apply_onclick'      => false,
                 'apply_attr'         => [],
                 'apply_type'         => SubmitType::class,
-                'save_text'          => 'mautic.core.form.saveandclose',
+                'save_text'          => 'mailvotech.core.form.saveandclose',
                 'save_icon'          => 'ri-save-line',
                 'save_class'         => 'btn btn-primary btn-save',
                 'save_onclick'       => false,
                 'save_attr'          => [],
                 'save_type'          => SubmitType::class,
-                'cancel_text'        => 'mautic.core.form.cancel',
+                'cancel_text'        => 'mailvotech.core.form.cancel',
                 'cancel_icon'        => 'ri-close-line',
                 'cancel_class'       => 'btn btn-secondary btn-cancel',
                 'cancel_onclick'     => false,

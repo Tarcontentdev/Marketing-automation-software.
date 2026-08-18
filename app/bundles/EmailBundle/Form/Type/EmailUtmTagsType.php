@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\LeadBundle\Validator\Constraints\Length;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\LeadBundle\Validator\Constraints\Length;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +21,7 @@ final class EmailUtmTagsType extends AbstractType
             'utmSource',
             TextType::class,
             [
-                'label'      => 'mautic.email.campaign_source',
+                'label'      => 'mailvotech.email.campaign_source',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -34,7 +34,7 @@ final class EmailUtmTagsType extends AbstractType
             'utmMedium',
             TextType::class,
             [
-                'label'      => 'mautic.email.campaign_medium',
+                'label'      => 'mailvotech.email.campaign_medium',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -47,7 +47,7 @@ final class EmailUtmTagsType extends AbstractType
             'utmCampaign',
             TextType::class,
             [
-                'label'      => 'mautic.email.campaign_name',
+                'label'      => 'mailvotech.email.campaign_name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -60,7 +60,7 @@ final class EmailUtmTagsType extends AbstractType
             'utmContent',
             TextType::class,
             [
-                'label'      => 'mautic.email.campaign_content',
+                'label'      => 'mailvotech.email.campaign_content',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',

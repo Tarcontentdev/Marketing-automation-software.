@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Controller;
+namespace MailVotech\MarketplaceBundle\Controller;
 
-use Mautic\CoreBundle\Controller\CommonController;
-use Mautic\MarketplaceBundle\Security\Permissions\MarketplacePermissions;
-use Mautic\MarketplaceBundle\Service\Allowlist;
-use Mautic\MarketplaceBundle\Service\Config;
+use MailVotech\CoreBundle\Controller\CommonController;
+use MailVotech\MarketplaceBundle\Security\Permissions\MarketplacePermissions;
+use MailVotech\MarketplaceBundle\Service\Allowlist;
+use MailVotech\MarketplaceBundle\Service\Config;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -39,7 +39,7 @@ final class CacheController extends CommonController
         $this->allowlist->clearCache();
 
         return $this->forward(
-            'Mautic\MarketplaceBundle\Controller\Package\ListController::listAction'
+            'MailVotech\MarketplaceBundle\Controller\Package\ListController::listAction'
         );
     }
 }

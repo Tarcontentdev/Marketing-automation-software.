@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Internal;
+namespace MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Internal;
 
-use Mautic\IntegrationsBundle\Exception\InvalidValueException;
-use Mautic\IntegrationsBundle\Exception\RequiredValueException;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\FieldMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InformationChangeRequestDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO as ReportFieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO as ReportObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\ConflictUnresolvedException;
-use Mautic\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectSyncSkippedException;
-use Mautic\IntegrationsBundle\Sync\Logger\DebugLogger;
-use Mautic\IntegrationsBundle\Sync\Notification\BulkNotification;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Helper\FieldHelper;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\IntegrationsBundle\Sync\SyncJudge\SyncJudgeInterface;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Helper\ValueHelper;
+use MailVotech\IntegrationsBundle\Exception\InvalidValueException;
+use MailVotech\IntegrationsBundle\Exception\RequiredValueException;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\FieldMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\ObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InformationChangeRequestDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO as ReportFieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO as ReportObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ReportDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\ConflictUnresolvedException;
+use MailVotech\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectSyncSkippedException;
+use MailVotech\IntegrationsBundle\Sync\Logger\DebugLogger;
+use MailVotech\IntegrationsBundle\Sync\Notification\BulkNotification;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Helper\FieldHelper;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\IntegrationsBundle\Sync\SyncJudge\SyncJudgeInterface;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Helper\ValueHelper;
 
 class ObjectChangeGenerator
 {
@@ -66,7 +66,7 @@ class ObjectChangeGenerator
             DebugLogger::log(
                 $mappingManual->getIntegration(),
                 sprintf(
-                    "Integration to Mautic; found a match between Mautic's %s:%s object and the integration %s:%s object ",
+                    "Integration to MailVotech; found a match between MailVotech's %s:%s object and the integration %s:%s object ",
                     $internalObject->getObject(),
                     (string) $internalObject->getObjectId(),
                     $integrationObject->getObject(),
@@ -78,7 +78,7 @@ class ObjectChangeGenerator
             DebugLogger::log(
                 $mappingManual->getIntegration(),
                 sprintf(
-                    'Integration to Mautic; no match found for %s:%s',
+                    'Integration to MailVotech; no match found for %s:%s',
                     $integrationObject->getObject(),
                     (string) $integrationObject->getObjectId()
                 ),
@@ -115,7 +115,7 @@ class ObjectChangeGenerator
             DebugLogger::log(
                 $mappingManual->getIntegration(),
                 sprintf(
-                    "Integration to Mautic; the %s object's field %s was skipped because it's configured to sync to the integration",
+                    "Integration to MailVotech; the %s object's field %s was skipped because it's configured to sync to the integration",
                     $internalObject->getObject(),
                     $fieldMappingDAO->getInternalField()
                 ),
@@ -150,7 +150,7 @@ class ObjectChangeGenerator
                 return;
             }
 
-            $newValue = $this->valueHelper->getValueForMautic(
+            $newValue = $this->valueHelper->getValueForMailVotech(
                 $integrationInformationChangeRequest->getNewValue(),
                 $internalFieldState,
                 $fieldMappingDAO->getSyncDirection()
@@ -176,11 +176,11 @@ class ObjectChangeGenerator
             $internalFieldState
         );
 
-        // ObjectMappingDAO::SYNC_TO_MAUTIC
+        // ObjectMappingDAO::SYNC_TO_MAILVOTECH
         DebugLogger::log(
             $mappingManual->getIntegration(),
             sprintf(
-                'Integration to Mautic; syncing %s %s with a value of %s',
+                'Integration to MailVotech; syncing %s %s with a value of %s',
                 $internalFieldState,
                 $fieldMappingDAO->getInternalField(),
                 var_export($newValue->getNormalizedValue(), true)
@@ -204,7 +204,7 @@ class ObjectChangeGenerator
         }
 
         if (!$internalField) {
-            $newValue = $this->valueHelper->getValueForMautic(
+            $newValue = $this->valueHelper->getValueForMailVotech(
                 $integrationInformationChangeRequest->getNewValue(),
                 $fieldState,
                 $fieldMappingDAO->getSyncDirection()
@@ -218,7 +218,7 @@ class ObjectChangeGenerator
             DebugLogger::log(
                 $mappingManual->getIntegration(),
                 sprintf(
-                    "Integration to Mautic; the sync is bidirectional but no conflicts were found so syncing the %s object's %s field %s with a value of %s",
+                    "Integration to MailVotech; the sync is bidirectional but no conflicts were found so syncing the %s object's %s field %s with a value of %s",
                     $internalObject->getObject(),
                     $fieldState,
                     $fieldMappingDAO->getInternalField(),
@@ -231,7 +231,7 @@ class ObjectChangeGenerator
         }
 
         $internalInformationChangeRequest = new InformationChangeRequestDAO(
-            MauticSyncDataExchange::NAME,
+            MailVotechSyncDataExchange::NAME,
             $internalObject->getObject(),
             $internalObject->getObjectId(),
             $internalField->getName(),
@@ -268,7 +268,7 @@ class ObjectChangeGenerator
                 DebugLogger::log(
                     $mappingManual->getIntegration(),
                     sprintf(
-                        'Integration to Mautic; no winner was determined using the %s judging mode for object %s field %s',
+                        'Integration to MailVotech; no winner was determined using the %s judging mode for object %s field %s',
                         $judgeMode,
                         $internalObject->getObject(),
                         $fieldMappingDAO->getInternalField()
@@ -297,7 +297,7 @@ class ObjectChangeGenerator
             $integrationInformationChangeRequest
         );
 
-        $newValue = $this->valueHelper->getValueForMautic(
+        $newValue = $this->valueHelper->getValueForMailVotech(
             $winningChangeRequest->getNewValue(),
             $fieldState,
             $fieldMappingDAO->getSyncDirection()
@@ -311,7 +311,7 @@ class ObjectChangeGenerator
         DebugLogger::log(
             $mappingManual->getIntegration(),
             sprintf(
-                "Integration to Mautic; sync judge determined to sync %s to the %s object's %s field %s with a value of %s using the %s judging mode",
+                "Integration to MailVotech; sync judge determined to sync %s to the %s object's %s field %s with a value of %s using the %s judging mode",
                 $winningChangeRequest->getIntegration(),
                 $winningChangeRequest->getObject(),
                 $fieldState,
@@ -325,7 +325,7 @@ class ObjectChangeGenerator
 
     private function getFieldState(string $object, string $field, string $integrationFieldState): string
     {
-        // If this is a Mautic required field, return required
+        // If this is a MailVotech required field, return required
         if (isset($this->fieldHelper->getRequiredFields($object)[$field])) {
             return ReportFieldDAO::FIELD_REQUIRED;
         }

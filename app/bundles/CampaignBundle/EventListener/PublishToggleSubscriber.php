@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\EventListener;
+namespace MailVotech\CampaignBundle\EventListener;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\CustomTemplateEvent;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\CustomTemplateEvent;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -28,7 +28,7 @@ final readonly class PublishToggleSubscriber implements EventSubscriberInterface
 
     public function onTemplateRender(CustomTemplateEvent $event): void
     {
-        if ('@MauticCore/Helper/publishstatus_icon.html.twig' !== $event->getTemplate()) {
+        if ('@MailVotechCore/Helper/publishstatus_icon.html.twig' !== $event->getTemplate()) {
             return;
         }
 
@@ -37,19 +37,19 @@ final readonly class PublishToggleSubscriber implements EventSubscriberInterface
         }
 
         $republishBehavior  = $event->getVars()['item']->getRepublishBehavior() ?? $this->coreParametersHelper->get('campaign_republish_behavior');
-        $republishBehavior  = $this->translator->trans('mautic.campaignconfig.campaign_republish_behavior.'.$republishBehavior);
+        $republishBehavior  = $this->translator->trans('mailvotech.campaignconfig.campaign_republish_behavior.'.$republishBehavior);
         $vars               = $event->getVars();
-        $vars['onclick']    = 'Mautic.confirmationCampaignPublishStatus(mQuery(this));';
+        $vars['onclick']    = 'MailVotech.confirmationCampaignPublishStatus(mQuery(this));';
         $vars['attributes'] = [
             'data-toggle'           => 'confirmation',
             'data-confirm-callback' => 'confirmCallbackCampaignPublishStatus',
             'data-cancel-callback'  => 'dismissConfirmation',
         ];
         $vars['transKeys'] = [
-            'data-message-publish'   => $this->translator->trans('mautic.campaign.form.confirmation.message.publish', ['%republishBehavior%' => $republishBehavior]),
-            'data-message-unpublish' => $this->translator->trans('mautic.campaign.form.confirmation.message'),
-            'data-confirm-text'      => 'mautic.campaign.form.confirmation.confirm_text',
-            'data-cancel-text'       => 'mautic.campaign.form.confirmation.cancel_text',
+            'data-message-publish'   => $this->translator->trans('mailvotech.campaign.form.confirmation.message.publish', ['%republishBehavior%' => $republishBehavior]),
+            'data-message-unpublish' => $this->translator->trans('mailvotech.campaign.form.confirmation.message'),
+            'data-confirm-text'      => 'mailvotech.campaign.form.confirmation.confirm_text',
+            'data-cancel-text'       => 'mailvotech.campaign.form.confirmation.cancel_text',
         ];
 
         $event->setVars($vars);

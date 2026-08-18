@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\InstallBundle\Tests\Install;
+namespace MailVotech\InstallBundle\Tests\Install;
 
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Configurator\Configurator;
-use Mautic\CoreBundle\Configurator\Step\StepInterface;
-use Mautic\CoreBundle\Doctrine\Loader\FixturesLoaderInterface;
-use Mautic\CoreBundle\Helper\CacheHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\InstallBundle\Install\InstallService;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\CoreBundle\Configurator\Configurator;
+use MailVotech\CoreBundle\Configurator\Step\StepInterface;
+use MailVotech\CoreBundle\Doctrine\Loader\FixturesLoaderInterface;
+use MailVotech\CoreBundle\Helper\CacheHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\InstallBundle\Install\InstallService;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
@@ -245,8 +245,8 @@ final class InstallServiceTest extends \PHPUnit\Framework\TestCase
             'driver' => 'pdo_mysql',
             'host'   => 'localhost',
             'port'   => '-1',
-            'name'   => 'mautic',
-            'user'   => 'mautic',
+            'name'   => 'mailvotech',
+            'user'   => 'mailvotech',
         ];
         $messages = [
             'port' => null,
@@ -261,8 +261,8 @@ final class InstallServiceTest extends \PHPUnit\Framework\TestCase
             'driver' => 'pdo_mysql',
             'host'   => 'localhost',
             'port'   => '3306',
-            'name'   => 'mautic',
-            'user'   => 'mautic',
+            'name'   => 'mailvotech',
+            'user'   => 'mailvotech',
         ];
 
         $this->assertSame([], $this->installer->validateDatabaseParams($dbParams));
@@ -274,8 +274,8 @@ final class InstallServiceTest extends \PHPUnit\Framework\TestCase
             'driver' => 'pdo_sqlite',
             'host'   => 'localhost',
             'port'   => '3306',
-            'name'   => 'mautic',
-            'user'   => 'mautic',
+            'name'   => 'mailvotech',
+            'user'   => 'mailvotech',
         ];
         $messages = [
             'driver' => null,
@@ -293,9 +293,9 @@ final class InstallServiceTest extends \PHPUnit\Framework\TestCase
             'driver'       => 'pdo_mysql',
             'host'         => 'localhost',
             'port'         => '3306',
-            'name'         => 'mautic',
-            'user'         => 'mautic',
-            'table_prefix' => 'mautic_',
+            'name'         => 'mailvotech',
+            'user'         => 'mailvotech',
+            'table_prefix' => 'mailvotech_',
         ];
 
         $step = $this->createStub(StepInterface::class);
@@ -311,9 +311,9 @@ final class InstallServiceTest extends \PHPUnit\Framework\TestCase
             'driver'       => 'pdo_mysql',
             'host'         => 'localhost',
             'port'         => '3306',
-            'name'         => 'mautic',
-            'user'         => 'mautic',
-            'table_prefix' => 'mautic_',
+            'name'         => 'mailvotech',
+            'user'         => 'mailvotech',
+            'table_prefix' => 'mailvotech_',
         ];
 
         $this->assertEquals(['error' => null], $this->installer->createSchemaStep($dbParams));

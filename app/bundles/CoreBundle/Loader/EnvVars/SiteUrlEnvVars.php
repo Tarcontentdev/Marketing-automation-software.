@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Loader\EnvVars;
+namespace MailVotech\CoreBundle\Loader\EnvVars;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -21,11 +21,11 @@ final class SiteUrlEnvVars implements EnvVarsInterface
         if (empty($parts['host'])) {
             return;
         }
-        $envVars->set('MAUTIC_REQUEST_CONTEXT_HOST', $parts['host']);
+        $envVars->set('MAILVOTECH_REQUEST_CONTEXT_HOST', $parts['host']);
 
         // Scheme
         $scheme = !empty($parts['scheme']) ? $parts['scheme'] : 'http';
-        $envVars->set('MAUTIC_REQUEST_CONTEXT_SCHEME', $scheme);
+        $envVars->set('MAILVOTECH_REQUEST_CONTEXT_SCHEME', $scheme);
 
         // Path
         if (!empty($parts['path'])) {
@@ -36,22 +36,22 @@ final class SiteUrlEnvVars implements EnvVarsInterface
                 $path = substr($path, 0, -1);
             }
 
-            $envVars->set('MAUTIC_REQUEST_CONTEXT_BASE_URL', $path);
+            $envVars->set('MAILVOTECH_REQUEST_CONTEXT_BASE_URL', $path);
         }
 
         // Port
         if (!empty($parts['port'])) {
-            $portKey = ('http' === $scheme) ? 'MAUTIC_REQUEST_CONTEXT_HTTP_PORT' : 'MAUTIC_REQUEST_CONTEXT_HTTPS_PORT';
+            $portKey = ('http' === $scheme) ? 'MAILVOTECH_REQUEST_CONTEXT_HTTP_PORT' : 'MAILVOTECH_REQUEST_CONTEXT_HTTPS_PORT';
             $envVars->set($portKey, $parts['port']);
         }
     }
 
     private static function setNull(ParameterBag $envVars): void
     {
-        $envVars->set('MAUTIC_REQUEST_CONTEXT_HOST', null);
-        $envVars->set('MAUTIC_REQUEST_CONTEXT_SCHEME', null);
-        $envVars->set('MAUTIC_REQUEST_CONTEXT_BASE_URL', null);
-        $envVars->set('MAUTIC_REQUEST_CONTEXT_HTTP_PORT', 80);
-        $envVars->set('MAUTIC_REQUEST_CONTEXT_HTTPS_PORT', 443);
+        $envVars->set('MAILVOTECH_REQUEST_CONTEXT_HOST', null);
+        $envVars->set('MAILVOTECH_REQUEST_CONTEXT_SCHEME', null);
+        $envVars->set('MAILVOTECH_REQUEST_CONTEXT_BASE_URL', null);
+        $envVars->set('MAILVOTECH_REQUEST_CONTEXT_HTTP_PORT', 80);
+        $envVars->set('MAILVOTECH_REQUEST_CONTEXT_HTTPS_PORT', 443);
     }
 }

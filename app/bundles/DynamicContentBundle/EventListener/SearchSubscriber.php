@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\EventListener;
+namespace MailVotech\DynamicContentBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\DTO\GlobalSearchFilterDTO;
-use Mautic\CoreBundle\Event\GlobalSearchEvent;
-use Mautic\CoreBundle\Service\GlobalSearch;
-use Mautic\DynamicContentBundle\Model\DynamicContentModel;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\DTO\GlobalSearchFilterDTO;
+use MailVotech\CoreBundle\Event\GlobalSearchEvent;
+use MailVotech\CoreBundle\Service\GlobalSearch;
+use MailVotech\DynamicContentBundle\Model\DynamicContentModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class SearchSubscriber implements EventSubscriberInterface
@@ -32,11 +32,11 @@ final readonly class SearchSubscriber implements EventSubscriberInterface
         $results   = $this->globalSearch->performSearch(
             $filterDTO,
             $this->dynamicContentModel,
-            '@MauticDynamicContent/SubscribedEvents/Search/global.html.twig'
+            '@MailVotechDynamicContent/SubscribedEvents/Search/global.html.twig'
         );
 
         if ([] !== $results) {
-            $event->addResults('mautic.dynamicContent.dynamicContent', $results);
+            $event->addResults('mailvotech.dynamicContent.dynamicContent', $results);
         }
     }
 }

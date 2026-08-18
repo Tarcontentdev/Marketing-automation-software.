@@ -1,23 +1,23 @@
 /** SmsBundle **/
-Mautic.smsOnLoad = function (container, response) {
+MailVotech.smsOnLoad = function (container, response) {
     const smsMessage = mQuery('#sms_message');
 
     if (smsMessage.length) {
-        Mautic.setSmsCharactersCount(smsMessage);
+        MailVotech.setSmsCharactersCount(smsMessage);
         smsMessage.on('input', () => {
-            Mautic.setSmsCharactersCount(smsMessage);
+            MailVotech.setSmsCharactersCount(smsMessage);
         });
     }
     mQuery('#media_url').on("keydown", (event) => {
         // add media from url if enter key (keycode = 13) is pressed.
         if (event.keyCode == 13) {
             event.preventDefault();
-            Mautic.addMediaFromUrl();
+            MailVotech.addMediaFromUrl();
         }
     });
 
     mQuery('#media_url').on('input', () => {
-        Mautic.clearMediaUrlError();
+        MailVotech.clearMediaUrlError();
     });
 
     mQuery('#sms_message').on("input", () => {
@@ -25,7 +25,7 @@ Mautic.smsOnLoad = function (container, response) {
     });
 
     if (mQuery(container + ' #list-search').length) {
-        Mautic.activateSearchAutocomplete('list-search', 'sms');
+        MailVotech.activateSearchAutocomplete('list-search', 'sms');
     }
 
     mQuery('ul#media_row').on('change', 'input[type="checkbox"]', function() {
@@ -45,7 +45,7 @@ Mautic.smsOnLoad = function (container, response) {
         // Get all stats numbers in batches of 10
         while (ids.length > 0) {
             let batchIds = ids.splice(0, 10);
-            Mautic.ajaxActionRequest(
+            MailVotech.ajaxActionRequest(
                 'sms:getSmsCountStats',
                 {ids: batchIds},
                 function (response) {
@@ -67,15 +67,15 @@ Mautic.smsOnLoad = function (container, response) {
         }
     }
 
-    Mautic.initSmsAtWho();
+    MailVotech.initSmsAtWho();
 };
 
-Mautic.setSmsCharactersCount = function (smsMessage) {
+MailVotech.setSmsCharactersCount = function (smsMessage) {
     mQuery('#sms_nb_char').text((smsMessage.val().length))
 };
 
 
-Mautic.initSmsAtWho = function () {
+MailVotech.initSmsAtWho = function () {
     var smsMessage = mQuery('#sms_message, #send_sms_message');
     smsMessage.each(function () {
         var obj = mQuery(this);
@@ -84,20 +84,20 @@ Mautic.initSmsAtWho = function () {
             obj.attr('data-token-callback', 'sms:getBuilderTokens');
             obj.attr('data-token-activator', '{');
             obj.attr('data-token-visual', 'false');
-            Mautic.initAtWho(obj, obj.attr('data-token-callback'));
+            MailVotech.initAtWho(obj, obj.attr('data-token-callback'));
         }
     })
 }
 
-Mautic.selectSmsType = function(smsType) {
+MailVotech.selectSmsType = function(smsType) {
     if (smsType == 'list') {
         mQuery('#leadList').removeClass('hide');
         mQuery('#publishStatus').addClass('hide');
-        mQuery('.page-header h3').text(mauticLang.newListSms);
+        mQuery('.page-header h3').text(mailvotechLang.newListSms);
     } else {
         mQuery('#publishStatus').removeClass('hide');
         mQuery('#leadList').addClass('hide');
-        mQuery('.page-header h3').text(mauticLang.newTemplateSms);
+        mQuery('.page-header h3').text(mailvotechLang.newTemplateSms);
     }
 
     mQuery('#sms_smsType').val(smsType);
@@ -108,7 +108,7 @@ Mautic.selectSmsType = function(smsType) {
     mQuery('.sms-type-modal-backdrop').remove();
 };
 
-Mautic.standardSmsUrl = function(options) {
+MailVotech.standardSmsUrl = function(options) {
     if (!options) {
         return;
     }
@@ -124,7 +124,7 @@ Mautic.standardSmsUrl = function(options) {
     return options;
 };
 
-Mautic.disabledSmsAction = function(opener) {
+MailVotech.disabledSmsAction = function(opener) {
     if (typeof opener == 'undefined') {
         opener = globalThis;
     }
@@ -137,17 +137,17 @@ Mautic.disabledSmsAction = function(opener) {
 };
 
 globalThis.document.mediaManagerInsertImageCallback = function(url) {
-    Mautic.addMediaList(url);
+    MailVotech.addMediaList(url);
 };
 
-Mautic.addMediaList = function(url){
+MailVotech.addMediaList = function(url){
     const elemIdNumber = mQuery('#media_row input[type="checkbox"]:last').length > 0 ? Number.parseInt(mQuery('#media_row input[type="checkbox"]:last').attr('id').split('_')[2], 10) + 1 : 0;
     const mediaHtml = '<li id="li_sms_media_'+elemIdNumber+'"><input type="checkbox" id="sms_media_'+elemIdNumber+'" name="sms[media][]" autocomplete="false" value="'+url+'" checked="checked">' +
-        '<label for="sms_media_'+elemIdNumber+'"><img src="'+url+'" alt="'+Mautic.translate('mautic.sms.type_media_url')+'"></label></li>';
+        '<label for="sms_media_'+elemIdNumber+'"><img src="'+url+'" alt="'+MailVotech.translate('mailvotech.sms.type_media_url')+'"></label></li>';
     mQuery('#media_row').append(mediaHtml);
 };
 
-Mautic.isValidMediaUrl = function(url) {
+MailVotech.isValidMediaUrl = function(url) {
     if (!url) {
         return false;
     }
@@ -158,21 +158,21 @@ Mautic.isValidMediaUrl = function(url) {
     return parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:';
 };
 
-Mautic.showMediaUrlError = function(translationKey) {
+MailVotech.showMediaUrlError = function(translationKey) {
     mQuery('#media_url').parent('.input-group').addClass('has-error');
-    mQuery('#media_url_error').text(Mautic.translate(translationKey)).removeClass('hide');
+    mQuery('#media_url_error').text(MailVotech.translate(translationKey)).removeClass('hide');
 };
 
-Mautic.clearMediaUrlError = function() {
+MailVotech.clearMediaUrlError = function() {
     mQuery('#media_url').parent('.input-group').removeClass('has-error');
     mQuery('#media_url_error').text('').addClass('hide');
 };
 
-Mautic.addMediaFromUrl = function (){
+MailVotech.addMediaFromUrl = function (){
     const url = mQuery('#media_url').val().trim();
 
-    if (!Mautic.isValidMediaUrl(url)) {
-        Mautic.showMediaUrlError('mautic.sms.media_url.error.invalid');
+    if (!MailVotech.isValidMediaUrl(url)) {
+        MailVotech.showMediaUrlError('mailvotech.sms.media_url.error.invalid');
 
         return;
     }
@@ -180,18 +180,18 @@ Mautic.addMediaFromUrl = function (){
     const probeImage = new Image();
 
     probeImage.onload = function() {
-        Mautic.clearMediaUrlError();
-        Mautic.addMediaList(url);
+        MailVotech.clearMediaUrlError();
+        MailVotech.addMediaList(url);
         mQuery('#media_url').val('');
     };
 
     probeImage.onerror = function() {
-        Mautic.showMediaUrlError('mautic.sms.media_url.error.not_image');
+        MailVotech.showMediaUrlError('mailvotech.sms.media_url.error.not_image');
     };
 
     probeImage.src = url;
 }
 
-Mautic.toggleIsMms = function () {
+MailVotech.toggleIsMms = function () {
     mQuery("#media_div").toggleClass("hide");
 };

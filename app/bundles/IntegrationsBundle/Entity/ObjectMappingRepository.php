@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Entity;
+namespace MailVotech\IntegrationsBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Types\Types;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 
 /**
  * @extends CommonRepository<ObjectMapping>
@@ -34,7 +34,7 @@ class ObjectMappingRepository extends CommonRepository
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $qb->select('*')
-            ->from(MAUTIC_TABLE_PREFIX.'sync_object_mapping', 'i')
+            ->from(MAILVOTECH_TABLE_PREFIX.'sync_object_mapping', 'i')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->eq('i.integration', ':integration'),
@@ -64,7 +64,7 @@ class ObjectMappingRepository extends CommonRepository
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
-        $qb->update(MAUTIC_TABLE_PREFIX.'sync_object_mapping', 'i')
+        $qb->update(MAILVOTECH_TABLE_PREFIX.'sync_object_mapping', 'i')
             ->set('integration_object_name', ':newObjectName')
             ->set('integration_object_id', ':newObjectId')
             ->where(
@@ -87,7 +87,7 @@ class ObjectMappingRepository extends CommonRepository
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
-        $qb->update(MAUTIC_TABLE_PREFIX.'sync_object_mapping')
+        $qb->update(MAILVOTECH_TABLE_PREFIX.'sync_object_mapping')
             ->set('internal_object_id', ':internalObjectId')
             ->where($qb->expr()->eq('id', ':id'))
             ->setParameter('internalObjectId', $internalObjectId)
@@ -105,7 +105,7 @@ class ObjectMappingRepository extends CommonRepository
         $createdAt = $createdAt ?: new \DateTimeImmutable();
         $qb        = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
-        $qb->insert(MAUTIC_TABLE_PREFIX.'sync_object_mapping')
+        $qb->insert(MAILVOTECH_TABLE_PREFIX.'sync_object_mapping')
             ->values([
                 'integration'             => ':integration',
                 'integration_object_name' => ':integrationObjectName',
@@ -136,7 +136,7 @@ class ObjectMappingRepository extends CommonRepository
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
-        $qb->update(MAUTIC_TABLE_PREFIX.'sync_object_mapping', 'm')
+        $qb->update(MAILVOTECH_TABLE_PREFIX.'sync_object_mapping', 'm')
             ->set('is_deleted', 1)
             ->where(
                 $qb->expr()->and(
@@ -201,7 +201,7 @@ class ObjectMappingRepository extends CommonRepository
         $connection = $this->getEntityManager()->getConnection();
         $qb         = $connection->createQueryBuilder();
         $qb->select('*')
-            ->from(MAUTIC_TABLE_PREFIX.'sync_object_mapping', 'i')
+            ->from(MAILVOTECH_TABLE_PREFIX.'sync_object_mapping', 'i')
             ->where(
                 $qb->expr()->and(
                     $qb->expr()->eq('i.integration', ':integration'),

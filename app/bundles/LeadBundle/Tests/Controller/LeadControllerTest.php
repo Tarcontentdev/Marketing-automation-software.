@@ -2,35 +2,35 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller;
+namespace MailVotech\LeadBundle\Tests\Controller;
 
 use Illuminate\Support\Collection;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CoreBundle\Entity\AuditLog;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
-use Mautic\LeadBundle\DataFixtures\ORM\LoadCategorizedLeadListData;
-use Mautic\LeadBundle\DataFixtures\ORM\LoadCategoryData;
-use Mautic\LeadBundle\DataFixtures\ORM\LoadCompanyData;
-use Mautic\LeadBundle\DataFixtures\ORM\LoadLeadData;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyLead;
-use Mautic\LeadBundle\Entity\ContactExportScheduler;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\PointsChangeLog;
-use Mautic\LeadBundle\Form\Type\ContactGroupPointsType;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\StageBundle\Entity\Stage;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CoreBundle\Entity\AuditLog;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
+use MailVotech\LeadBundle\DataFixtures\ORM\LoadCategorizedLeadListData;
+use MailVotech\LeadBundle\DataFixtures\ORM\LoadCategoryData;
+use MailVotech\LeadBundle\DataFixtures\ORM\LoadCompanyData;
+use MailVotech\LeadBundle\DataFixtures\ORM\LoadLeadData;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyLead;
+use MailVotech\LeadBundle\Entity\ContactExportScheduler;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\PointsChangeLog;
+use MailVotech\LeadBundle\Form\Type\ContactGroupPointsType;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\StageBundle\Entity\Stage;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\TestDox;
 use Symfony\Component\DomCrawler\Crawler;
@@ -39,7 +39,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class LeadControllerTest extends MauticMysqlTestCase
+final class LeadControllerTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 
@@ -53,7 +53,7 @@ final class LeadControllerTest extends MauticMysqlTestCase
 
     protected function setUp(): void
     {
-        $this->configParams['mailer_from_email']   = 'admin@mautic-community.test';
+        $this->configParams['mailer_from_email']   = 'admin@mailvotech-community.test';
         $this->configParams['messenger_dsn_email'] = 'testEmailSendToContactSync' === $this->name() ? 'sync://' : 'in-memory://default';
 
         parent::setUp();
@@ -455,7 +455,7 @@ final class LeadControllerTest extends MauticMysqlTestCase
 
     /**
      * Only tests if an actual Excel file is returned and if the content size isn't suspiciously small.
-     * We do more in-depth tests in \Mautic\CoreBundle\Tests\Unit\Helper\ExportHelperTest.
+     * We do more in-depth tests in \MailVotech\CoreBundle\Tests\Unit\Helper\ExportHelperTest.
      */
     public function testExcelIsExportedCorrectly(): void
     {
@@ -476,7 +476,7 @@ final class LeadControllerTest extends MauticMysqlTestCase
 
         // Delete all company associations for this test because the fixures have mismatching data to start with
         $this->connection->createQueryBuilder()
-            ->delete(MAUTIC_TABLE_PREFIX.'companies_leads')
+            ->delete(MAILVOTECH_TABLE_PREFIX.'companies_leads')
             ->executeStatement();
 
         // Test a single company is added and is set as primary
@@ -518,7 +518,7 @@ final class LeadControllerTest extends MauticMysqlTestCase
     {
         return $this->connection->createQueryBuilder()
             ->select('cl.lead_id, cl.manually_added, cl.manually_removed, cl.date_last_exited')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_leads', 'cl')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_leads', 'cl')
             ->where("cl.campaign_id = {$campaignId}")
             ->executeQuery()
             ->fetchAllAssociative();
@@ -531,7 +531,7 @@ final class LeadControllerTest extends MauticMysqlTestCase
     {
         return $this->connection->createQueryBuilder()
             ->select('ll.id', 'll.name', 'll.category_id')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists', 'll')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists', 'll')
             ->executeQuery()
             ->fetchAllAssociative();
     }
@@ -541,7 +541,7 @@ final class LeadControllerTest extends MauticMysqlTestCase
     {
         $crawler             = $this->client->request('GET', '/s/contacts/new');
         $elementPlaceholder  = $crawler->filter('#lead_timezone')->filter('select')->attr('data-placeholder');
-        $expectedPlaceholder = self::getContainer()->get(TranslatorInterface::class)->trans('mautic.lead.field.timezone');
+        $expectedPlaceholder = self::getContainer()->get(TranslatorInterface::class)->trans('mailvotech.lead.field.timezone');
         $this->assertEquals($expectedPlaceholder, $elementPlaceholder);
 
         // Test that a locale option is present correctly.
@@ -623,7 +623,7 @@ final class LeadControllerTest extends MauticMysqlTestCase
     public function testEmailSendToContactSync(): void
     {
         $contact     = $this->createContact('contact@an.email');
-        $replyTo     = 'reply@mautic-community.test';
+        $replyTo     = 'reply@mailvotech-community.test';
 
         $this->client->request(Request::METHOD_GET, "/s/contacts/email/{$contact->getId()}");
 
@@ -642,7 +642,7 @@ final class LeadControllerTest extends MauticMysqlTestCase
         $this->assertQueuedEmailCount(1);
 
         $email = $this->getMailerMessage();
-        $this->assertInstanceOf(MauticMessage::class, $email);
+        $this->assertInstanceOf(MailVotechMessage::class, $email);
 
         $userHelper = self::getContainer()->get(UserHelper::class);
         $user       = $userHelper->getUser();
@@ -663,7 +663,7 @@ final class LeadControllerTest extends MauticMysqlTestCase
 
     public function testEmailSendToContactHasCompany(): void
     {
-        $company = $this->createCompany('Mautic', 'hello@mautic.org');
+        $company = $this->createCompany('MailVotech', 'hello@mailvotech.org');
         $company->setCity('Pune');
         $company->setCountry('India');
 
@@ -673,7 +673,7 @@ final class LeadControllerTest extends MauticMysqlTestCase
         $this->createPrimaryCompanyForLead($contact, $company);
         $this->em->flush();
 
-        $replyTo     = 'reply@mautic-community.test';
+        $replyTo     = 'reply@mailvotech-community.test';
 
         $this->client->request(Request::METHOD_GET, "/s/contacts/email/{$contact->getId()}");
 
@@ -692,16 +692,16 @@ final class LeadControllerTest extends MauticMysqlTestCase
         $this->assertQueuedEmailCount(1);
 
         $email = $this->getMailerMessage();
-        $this->assertInstanceOf(MauticMessage::class, $email);
+        $this->assertInstanceOf(MailVotechMessage::class, $email);
 
         $userHelper = self::getContainer()->get(UserHelper::class);
         $user       = $userHelper->getUser();
 
         $this->assertSame('Ahoy contact@an.email', $email->getSubject());
-        $this->assertMatchesRegularExpression('#Your email is <b>contact@an\.email<\/b>. Company details: Mautic, Pune.<img height="1" width="1" src="https:\/\/localhost\/email\/[a-z0-9]+\.gif\?ct=[^" ]*" alt="" \/>#', $email->getHtmlBody());
+        $this->assertMatchesRegularExpression('#Your email is <b>contact@an\.email<\/b>. Company details: MailVotech, Pune.<img height="1" width="1" src="https:\/\/localhost\/email\/[a-z0-9]+\.gif\?ct=[^" ]*" alt="" \/>#', $email->getHtmlBody());
         $expectedText = <<<EMAIL
 Your email is contact@an.email. Company details:
-Mautic, Pune.
+MailVotech, Pune.
 EMAIL;
 
         $this->assertSame($expectedText, $email->getTextBody());
@@ -898,8 +898,8 @@ EMAIL;
     {
         return $this->connection->createQueryBuilder()
             ->select('cl.lead_id, cl.company_id, cl.is_primary, c.companyname')
-            ->from(MAUTIC_TABLE_PREFIX.'companies_leads', 'cl')
-            ->join('cl', MAUTIC_TABLE_PREFIX.'companies', 'c', 'c.id = cl.company_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies_leads', 'cl')
+            ->join('cl', MAILVOTECH_TABLE_PREFIX.'companies', 'c', 'c.id = cl.company_id')
             ->where("cl.lead_id = {$leadId}")
             ->orderBy('cl.company_id')
             ->executeQuery()
@@ -910,7 +910,7 @@ EMAIL;
     {
         return $this->connection->createQueryBuilder()
             ->select('l.company')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
             ->where("l.id = {$leadId}")
             ->executeQuery()
             ->fetchOne();

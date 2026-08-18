@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\ApiPlatform;
+namespace MailVotech\LeadBundle\Tests\Functional\ApiPlatform;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Model\RoleModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Model\RoleModel;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
-abstract class OwnershipScopedApiAuthorizationTestBase extends MauticMysqlTestCase
+abstract class OwnershipScopedApiAuthorizationTestBase extends MailVotechMysqlTestCase
 {
     /**
      * @param array<string, array<string>> $permissions

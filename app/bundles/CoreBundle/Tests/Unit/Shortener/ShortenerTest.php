@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Shortener;
+namespace MailVotech\CoreBundle\Tests\Unit\Shortener;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Shortener\Shortener;
-use Mautic\CoreBundle\Shortener\ShortenerServiceInterface;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Shortener\Shortener;
+use MailVotech\CoreBundle\Shortener\ShortenerServiceInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

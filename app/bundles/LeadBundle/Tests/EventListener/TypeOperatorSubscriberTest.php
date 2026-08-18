@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CategoryBundle\Model\CategoryModel;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\LeadBundle\Event\FormAdjustmentEvent;
-use Mautic\LeadBundle\Event\ListFieldChoicesEvent;
-use Mautic\LeadBundle\Event\TypeOperatorsEvent;
-use Mautic\LeadBundle\EventListener\TypeOperatorSubscriber;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Segment\OperatorOptions;
-use Mautic\StageBundle\Entity\StageRepository;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CategoryBundle\Model\CategoryModel;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\LeadBundle\Event\FormAdjustmentEvent;
+use MailVotech\LeadBundle\Event\ListFieldChoicesEvent;
+use MailVotech\LeadBundle\Event\TypeOperatorsEvent;
+use MailVotech\LeadBundle\EventListener\TypeOperatorSubscriber;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
+use MailVotech\StageBundle\Entity\StageRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -70,8 +70,8 @@ final class TypeOperatorSubscriberTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
 
-        $this->defaultUploadDir    = $_ENV['MAUTIC_UPLOAD_DIR'] ?? null;
-        $_ENV['MAUTIC_UPLOAD_DIR'] = $this->defaultUploadDir ?? sys_get_temp_dir();
+        $this->defaultUploadDir    = $_ENV['MAILVOTECH_UPLOAD_DIR'] ?? null;
+        $_ENV['MAILVOTECH_UPLOAD_DIR'] = $this->defaultUploadDir ?? sys_get_temp_dir();
 
         $this->leadModel       = $this->createMock(LeadModel::class);
         $this->listModel       = $this->createMock(ListModel::class);
@@ -113,9 +113,9 @@ final class TypeOperatorSubscriberTest extends \PHPUnit\Framework\TestCase
     protected function tearDown(): void
     {
         if (null === $this->defaultUploadDir) {
-            unset($_ENV['MAUTIC_UPLOAD_DIR']);
+            unset($_ENV['MAILVOTECH_UPLOAD_DIR']);
         } else {
-            $_ENV['MAUTIC_UPLOAD_DIR'] = $this->defaultUploadDir;
+            $_ENV['MAILVOTECH_UPLOAD_DIR'] = $this->defaultUploadDir;
         }
 
         parent::tearDown();
@@ -238,13 +238,13 @@ final class TypeOperatorSubscriberTest extends \PHPUnit\Framework\TestCase
                     'multiple'                  => true,
                     'choice_translation_domain' => false,
                     'disabled'                  => false,
-                    'constraints'               => [new NotBlank(message: 'mautic.core.value.required')],
+                    'constraints'               => [new NotBlank(message: 'mailvotech.core.value.required')],
                     'attr'                      => [
                         'class'                => 'form-control',
-                        'data-placeholder'     => 'mautic.lead.tags.select_or_create',
-                        'data-no-results-text' => 'mautic.lead.tags.enter_to_create',
+                        'data-placeholder'     => 'mailvotech.lead.tags.select_or_create',
+                        'data-no-results-text' => 'mailvotech.lead.tags.enter_to_create',
                         'data-allow-add'       => true,
-                        'onchange'             => 'Mautic.createLeadTag(this)',
+                        'onchange'             => 'MailVotech.createLeadTag(this)',
                     ],
                 ]
             );
@@ -301,8 +301,8 @@ final class TypeOperatorSubscriberTest extends \PHPUnit\Framework\TestCase
                                 'class'                 => 'form-control',
                                 'data-field-callback'   => 'activateSegmentFilterTypeahead',
                                 'data-target'           => 'owner',
-                                'placeholder'           => 'mautic.lead.list.form.startTyping',
-                                'data-no-record-message'=> 'mautic.core.form.nomatches',
+                                'placeholder'           => 'mailvotech.lead.list.form.startTyping',
+                                'data-no-record-message'=> 'mailvotech.core.form.nomatches',
                             ],
                             $options['attr']
                         );
@@ -353,8 +353,8 @@ final class TypeOperatorSubscriberTest extends \PHPUnit\Framework\TestCase
                                 'class'                  => 'form-control',
                                 'data-field-callback'    => 'fooBarCallback',
                                 'data-target'            => 'custom',
-                                'placeholder'            => 'mautic.lead.list.form.startTyping',
-                                'data-no-record-message' => 'mautic.core.form.nomatches',
+                                'placeholder'            => 'mailvotech.lead.list.form.startTyping',
+                                'data-no-record-message' => 'mailvotech.core.form.nomatches',
                                 'data-action'            => 'foo.bar',
                             ],
                             $options['attr']
@@ -420,7 +420,7 @@ final class TypeOperatorSubscriberTest extends \PHPUnit\Framework\TestCase
                         'data-options' => ['Choice A' => 'choice_a'],
                         'data-target'  => 'lookup_a',
                         'data-action'  => 'lead:fieldList',
-                        'placeholder'  => 'mautic.lead.list.form.filtervalue',
+                        'placeholder'  => 'mailvotech.lead.list.form.filtervalue',
                     ],
                 ]
             );
@@ -489,7 +489,7 @@ final class TypeOperatorSubscriberTest extends \PHPUnit\Framework\TestCase
                     'multiple'                  => true,
                     'choice_translation_domain' => false,
                     'disabled'                  => false,
-                    'constraints'               => [new NotBlank(message: 'mautic.core.value.required')],
+                    'constraints'               => [new NotBlank(message: 'mailvotech.core.value.required')],
                 ]
             );
 

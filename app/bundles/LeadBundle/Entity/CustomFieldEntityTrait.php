@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\LeadBundle\Field\SchemaDefinition;
-use Mautic\LeadBundle\Helper\CustomFieldHelper;
-use Mautic\LeadBundle\Helper\CustomFieldValueHelper;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\LeadBundle\Field\SchemaDefinition;
+use MailVotech\LeadBundle\Helper\CustomFieldHelper;
+use MailVotech\LeadBundle\Helper\CustomFieldValueHelper;
 
 trait CustomFieldEntityTrait
 {
     /**
-     * Used by Mautic to populate the fields pulled from the DB.
+     * Used by MailVotech to populate the fields pulled from the DB.
      *
      * @var array
      */

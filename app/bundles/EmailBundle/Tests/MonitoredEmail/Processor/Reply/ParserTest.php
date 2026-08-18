@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\MonitoredEmail\Processor\Reply;
+namespace MailVotech\EmailBundle\Tests\MonitoredEmail\Processor\Reply;
 
-use Mautic\EmailBundle\MonitoredEmail\Exception\ReplyNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Reply\Parser;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\ReplyNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Reply\Parser;
 use PHPUnit\Framework\Attributes\TestDox;
 
 final class ParserTest extends \PHPUnit\Framework\TestCase

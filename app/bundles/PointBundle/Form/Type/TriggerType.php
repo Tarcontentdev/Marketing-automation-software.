@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\PointBundle\Form\Type;
+namespace MailVotech\PointBundle\Form\Type;
 
-use Mautic\CategoryBundle\Form\Type\CategoryListType;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\PublishDownDateType;
-use Mautic\CoreBundle\Form\Type\PublishUpDateType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\PointBundle\Entity\Trigger;
-use Mautic\ProjectBundle\Form\Type\ProjectType;
+use MailVotech\CategoryBundle\Form\Type\CategoryListType;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\PublishDownDateType;
+use MailVotech\CoreBundle\Form\Type\PublishUpDateType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\PointBundle\Entity\Trigger;
+use MailVotech\ProjectBundle\Form\Type\ProjectType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -39,7 +39,7 @@ final class TriggerType extends AbstractType
             'name',
             TextType::class,
             [
-                'label'      => 'mautic.core.name',
+                'label'      => 'mailvotech.core.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
             ]
@@ -49,7 +49,7 @@ final class TriggerType extends AbstractType
             'description',
             TextareaType::class,
             [
-                'label'      => 'mautic.core.description',
+                'label'      => 'mailvotech.core.description',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control editor'],
                 'required'   => false,
@@ -70,11 +70,11 @@ final class TriggerType extends AbstractType
             'points',
             NumberType::class,
             [
-                'label'      => 'mautic.point.trigger.form.points',
+                'label'      => 'mailvotech.point.trigger.form.points',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.point.trigger.form.points_descr',
+                    'tooltip' => 'mailvotech.point.trigger.form.points_descr',
                 ],
                 'required' => false,
             ]
@@ -86,12 +86,12 @@ final class TriggerType extends AbstractType
             'color',
             TextType::class,
             [
-                'label'      => 'mautic.point.trigger.form.color',
+                'label'      => 'mailvotech.point.trigger.form.color',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'       => 'form-control',
                     'data-toggle' => 'color',
-                    'tooltip'     => 'mautic.point.trigger.form.color_descr',
+                    'tooltip'     => 'mailvotech.point.trigger.form.color_descr',
                 ],
                 'required'   => false,
                 'data'       => (!empty($color)) ? $color : 'a0acb8',
@@ -105,7 +105,7 @@ final class TriggerType extends AbstractType
             [
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.point.group.form.group_descr',
+                    'tooltip' => 'mailvotech.point.group.form.group_descr',
                 ],
             ]
         );
@@ -114,7 +114,7 @@ final class TriggerType extends AbstractType
             'triggerExistingLeads',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.point.trigger.form.existingleads',
+                'label' => 'mailvotech.point.trigger.form.existingleads',
             ]
         );
 

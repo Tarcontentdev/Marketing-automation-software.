@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Form\Type;
+namespace MailVotech\CoreBundle\Tests\Unit\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\DynamicListType;
+use MailVotech\CoreBundle\Form\Type\DynamicListType;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;

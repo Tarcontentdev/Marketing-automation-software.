@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\Tests\Functional\Controller;
+namespace MailVotech\NotificationBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Entity\TranslationEntityInterface;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\NotificationBundle\Entity\Notification;
-use Mautic\NotificationBundle\Entity\Stat;
+use MailVotech\CoreBundle\Entity\TranslationEntityInterface;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\NotificationBundle\Entity\Notification;
+use MailVotech\NotificationBundle\Entity\Stat;
 use Symfony\Component\HttpFoundation\Request;
 
-final class MobileNotificationTranslationFunctionalTest extends MauticMysqlTestCase
+final class MobileNotificationTranslationFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testNotificationCanBeCreatedWithTranslationParent(): void
     {

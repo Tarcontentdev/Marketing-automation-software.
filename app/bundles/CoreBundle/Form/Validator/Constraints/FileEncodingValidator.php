@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Form\Validator\Constraints;
+namespace MailVotech\CoreBundle\Form\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

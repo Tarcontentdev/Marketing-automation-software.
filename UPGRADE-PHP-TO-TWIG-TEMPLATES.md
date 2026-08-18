@@ -6,9 +6,9 @@ Tip: if you're using VS Code, install this plugin: `bajdzis.vscode-twig-pack`
 
 ```PHP
 <?php
-$view->extend('MauticCoreBundle:Default:content.html.php');
-$view['slots']->set('mauticContent', 'mauticWebhook');
-$view['slots']->set('headerTitle', $view['translator']->trans('mautic.webhook.webhooks'));
+$view->extend('MailVotechCoreBundle:Default:content.html.php');
+$view['slots']->set('mailvotechContent', 'mailvotechWebhook');
+$view['slots']->set('headerTitle', $view['translator']->trans('mailvotech.webhook.webhooks'));
 ?>
 
 // ROUTING
@@ -20,7 +20,7 @@ $view['slots']->set('headerTitle', $view['translator']->trans('mautic.webhook.we
 <?php echo $view['form']->end($form); ?>
 
 // PAGE ACTIONS
-$view['slots']->set('actions', $view->render('MauticCoreBundle:Helper:page_actions.html.php', [
+$view['slots']->set('actions', $view->render('MailVotechCoreBundle:Helper:page_actions.html.php', [
     'item'            => $item,
     'templateButtons' => [
         'edit'   => $view['security']->hasEntityAccess($permissions['webhook:webhooks:editown'], $permissions['webhook:webhooks:editother'], $item->getCreatedBy()),
@@ -36,10 +36,10 @@ $view['slots']->set('actions', $view->render('MauticCoreBundle:Helper:page_actio
 Becomes
 
 ```Twig
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block headerTitle %}{% trans %}mautic.webhook.webhooks{% endtrans %}{% endblock %}
-{% block mauticContent %}mauticWebhook{% endblock %}
+{% block headerTitle %}{% trans %}mailvotech.webhook.webhooks{% endtrans %}{% endblock %}
+{% block mailvotechContent %}mailvotechWebhook{% endblock %}
 
 {# ROUTING #}
 <a href="{{ path('/emails', {objectAction: 'batchDelete'}) }}">Hello world!</a>
@@ -52,7 +52,7 @@ Becomes
 {# PAGE ACTIONS #}
 {% block actions %}
     {{- include(
-        '@MauticCore/Helper/page_actions.html.twig', {
+        '@MailVotechCore/Helper/page_actions.html.twig', {
             item: item,
             templateButtons: {
                 'edit': securityHasEntityAccess(
@@ -77,7 +77,7 @@ Becomes
 ## Random notes
 
 - `strict_variables` is enabled both in dev mode (`config_dev.php`) and in prod mode (`config_prod.php`) to help you prevent bugs in your code. See the [Twig documentation](https://twig.symfony.com/doc/3.x/api.html#environment_options) for more details.
-- If you extend `MauticCoreBundle:Default:content.html.twig`, everything HAS to be in blocks. Trying to put any HTML elements outside a block will fail with the following error:
+- If you extend `MailVotechCoreBundle:Default:content.html.twig`, everything HAS to be in blocks. Trying to put any HTML elements outside a block will fail with the following error:
 
     > A template that extends another one cannot include content outside Twig blocks.
 - If you need to extend a Twig template but also need to override variabes inside of it, you can use [Embed](https://twig.symfony.com/doc/3.x/tags/embed.html)(`embed`) instead. This tag combines the functionality of `include` and `extends`.

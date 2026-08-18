@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Monolog\Handler;
+namespace MailVotech\CoreBundle\Monolog\Handler;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Level;
@@ -14,7 +14,7 @@ final class FileLogHandler extends RotatingFileHandler
         $logPath     = $coreParametersHelper->get('log_path');
         $logFileName = $coreParametersHelper->get('log_file_name');
         $maxFiles    = $coreParametersHelper->get('max_log_files');
-        $debugMode   = $coreParametersHelper->get('debug', false) || (defined('MAUTIC_ENV') && 'dev' === MAUTIC_ENV);
+        $debugMode   = $coreParametersHelper->get('debug', false) || (defined('MAILVOTECH_ENV') && 'dev' === MAILVOTECH_ENV);
         $level       = $debugMode ? Level::Debug : Level::Notice;
 
         if ($debugMode) {

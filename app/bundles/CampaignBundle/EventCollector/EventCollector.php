@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\CampaignBundle\EventCollector;
+namespace MailVotech\CampaignBundle\EventCollector;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
-use Mautic\CampaignBundle\EventCollector\Accessor\EventAccessor;
-use Mautic\CampaignBundle\EventCollector\Builder\ConnectionBuilder;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\AbstractEventAccessor;
+use MailVotech\CampaignBundle\EventCollector\Accessor\EventAccessor;
+use MailVotech\CampaignBundle\EventCollector\Builder\ConnectionBuilder;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

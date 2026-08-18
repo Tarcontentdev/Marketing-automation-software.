@@ -1,19 +1,19 @@
 <?php
 
-namespace Mautic\CoreBundle\Twig\Helper;
+namespace MailVotech\CoreBundle\Twig\Helper;
 
-use Mautic\CoreBundle\Helper\AssetGenerationHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\InstallBundle\Install\InstallService;
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Helper\BuilderIntegrationsHelper;
+use MailVotech\CoreBundle\Helper\AssetGenerationHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\InstallBundle\Install\InstallService;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Helper\BuilderIntegrationsHelper;
 use Symfony\Component\Asset\Packages;
 
 final class AssetsHelper
 {
     /**
-     * Used for Mautic app.
+     * Used for MailVotech app.
      */
     public const CONTEXT_APP = 'app';
 
@@ -307,12 +307,12 @@ final class AssetsHelper
         $styles = '';
         if (isset($this->assets[$this->context]['stylesheets'])) {
             foreach (array_reverse($this->assets[$this->context]['stylesheets']) as $s) {
-                $styles .= '<link rel="stylesheet" href="'.$this->getUrl($s).'" data-source="mautic" />'."\n";
+                $styles .= '<link rel="stylesheet" href="'.$this->getUrl($s).'" data-source="mailvotech" />'."\n";
             }
         }
 
         if (isset($this->assets[$this->context]['styleDeclarations'])) {
-            $styles .= "<style data-source=\"mautic\">\n";
+            $styles .= "<style data-source=\"mailvotech\">\n";
             foreach (array_reverse($this->assets[$this->context]['styleDeclarations']) as $d) {
                 $styles .= "{$d}\n";
             }
@@ -332,12 +332,12 @@ final class AssetsHelper
         if (isset($this->assets[$this->context]['scripts'][$location])) {
             foreach (array_reverse($this->assets[$this->context]['scripts'][$location]) as $s) {
                 [$script, $async] = $s;
-                echo '<script src="'.$this->getUrl($script).'"'.($async ? ' async' : '').' data-source="mautic"></script>'."\n";
+                echo '<script src="'.$this->getUrl($script).'"'.($async ? ' async' : '').' data-source="mailvotech"></script>'."\n";
             }
         }
 
         if (isset($this->assets[$this->context]['scriptDeclarations'][$location])) {
-            echo "<script data-source=\"mautic\">\n";
+            echo "<script data-source=\"mailvotech\">\n";
             foreach (array_reverse($this->assets[$this->context]['scriptDeclarations'][$location]) as $d) {
                 echo "{$d}\n";
             }
@@ -380,7 +380,7 @@ final class AssetsHelper
                         }
                         [$script, $async] = $output;
 
-                        $headOutput .= "\n".'<script src="'.$this->getUrl($script).'"'.($async ? ' async' : '').' data-source="mautic"></script>';
+                        $headOutput .= "\n".'<script src="'.$this->getUrl($script).'"'.($async ? ' async' : '').' data-source="mailvotech"></script>';
                         break;
                     case 'custom':
                     case 'declaration':
@@ -388,7 +388,7 @@ final class AssetsHelper
                             $headOutput .= "\n</script>";
                             $scriptOpen = false;
                         } elseif ('declaration' == $type && !$scriptOpen) {
-                            $headOutput .= "\n<script data-source=\"mautic\">";
+                            $headOutput .= "\n<script data-source=\"mailvotech\">";
                             $scriptOpen = true;
                         }
                         $headOutput .= "\n{$output}";
@@ -409,7 +409,7 @@ final class AssetsHelper
 
         if (isset($assets['css'])) {
             foreach ($assets['css'] as $url) {
-                echo '<link rel="stylesheet" href="'.$this->getUrl($url).'" data-source="mautic" />'."\n";
+                echo '<link rel="stylesheet" href="'.$this->getUrl($url).'" data-source="mailvotech" />'."\n";
             }
         }
     }
@@ -427,13 +427,13 @@ final class AssetsHelper
 
         if (isset($assets['js'])) {
             foreach ($assets['js'] as $url) {
-                echo '<script src="'.$this->getUrl($url).'" data-source="mautic"></script>'."\n";
+                echo '<script src="'.$this->getUrl($url).'" data-source="mailvotech"></script>'."\n";
             }
         }
 
         if ($this->installService->checkIfInstalled()) {
             /**
-             * We want to enable JS consumers to simply query Mautic.getActiveBuilderName() so they can add logic based on the active builder.
+             * We want to enable JS consumers to simply query MailVotech.getActiveBuilderName() so they can add logic based on the active builder.
              * The $builderName variable is passed to the template so we can get that info on the JS-side.
              */
             try {
@@ -444,7 +444,7 @@ final class AssetsHelper
                 $builderName = 'legacy';
             }
 
-            echo '<script>Mautic.getActiveBuilderName = function() { return \''.$builderName.'\'; }</script>'."\n";
+            echo '<script>MailVotech.getActiveBuilderName = function() { return \''.$builderName.'\'; }</script>'."\n";
         }
     }
 
@@ -468,7 +468,7 @@ final class AssetsHelper
             $js = '';
             if (isset($assets['js'])) {
                 foreach ($assets['js'] as $url) {
-                    $js .= '<script src="'.$this->getUrl($url).'" data-source="mautic"></script>'."\n";
+                    $js .= '<script src="'.$this->getUrl($url).'" data-source="mailvotech"></script>'."\n";
                 }
             }
 
@@ -495,21 +495,21 @@ final class AssetsHelper
     /**
      * Loads an addon script.
      *
-     * @param string $assetFilePath         The path to the file location. Can use full path or relative to mautic web root
-     * @param string $onLoadCallback        Mautic namespaced function to call for the script onload
-     * @param string $alreadyLoadedCallback Mautic namespaced function to call if the script has already been loaded
+     * @param string $assetFilePath         The path to the file location. Can use full path or relative to mailvotech web root
+     * @param string $onLoadCallback        MailVotech namespaced function to call for the script onload
+     * @param string $alreadyLoadedCallback MailVotech namespaced function to call if the script has already been loaded
      */
     public function includeScript($assetFilePath, $onLoadCallback = '', $alreadyLoadedCallback = ''): string
     {
-        return '<script async="async" type="text/javascript" data-source="mautic">Mautic.loadScript(\''.$this->getUrl($assetFilePath)."', '{$onLoadCallback}', '{$alreadyLoadedCallback}');</script>";
+        return '<script async="async" type="text/javascript" data-source="mailvotech">MailVotech.loadScript(\''.$this->getUrl($assetFilePath)."', '{$onLoadCallback}', '{$alreadyLoadedCallback}');</script>";
     }
 
     /**
-     * @param string $assetFilePath the path to the file location. Can use full path or relative to mautic web root
+     * @param string $assetFilePath the path to the file location. Can use full path or relative to mailvotech web root
      */
     public function includeStylesheet($assetFilePath): string
     {
-        return '<script async="async" type="text/javascript" data-source="mautic">Mautic.loadStylesheet(\''.$this->getUrl($assetFilePath).'\');</script>';
+        return '<script async="async" type="text/javascript" data-source="mailvotech">MailVotech.loadStylesheet(\''.$this->getUrl($assetFilePath).'\');</script>';
     }
 
     /**

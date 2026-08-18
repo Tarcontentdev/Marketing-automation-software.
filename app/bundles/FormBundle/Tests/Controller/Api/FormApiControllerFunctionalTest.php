@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Controller\Api;
+namespace MailVotech\FormBundle\Tests\Controller\Api;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class FormApiControllerFunctionalTest extends MauticMysqlTestCase
+final class FormApiControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -386,17 +386,17 @@ final class FormApiControllerFunctionalTest extends MauticMysqlTestCase
 
         // Submit the form:
         $crawler     = $this->client->request(Request::METHOD_GET, "/form/{$formId}");
-        $formCrawler = $crawler->filter('form[id=mauticform_apiform]');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_apiform]');
         $this->assertCount(1, $formCrawler);
         $form = $formCrawler->form();
         $form->setValues([
-            'mauticform[email]'       => 'john@doe.test',
-            'mauticform[number]'      => '123',
-            'mauticform[company]'     => 'Doe Corp',
-            'mauticform[phone]'       => '+420444555666',
-            'mauticform[country]'     => 'Czech Republic',
-            'mauticform[state]'       => 'Plzeňský kraj',
-            'mauticform[multiselect]' => ['two'],
+            'mailvotechform[email]'       => 'john@doe.test',
+            'mailvotechform[number]'      => '123',
+            'mailvotechform[company]'     => 'Doe Corp',
+            'mailvotechform[phone]'       => '+420444555666',
+            'mailvotechform[country]'     => 'Czech Republic',
+            'mailvotechform[state]'       => 'Plzeňský kraj',
+            'mailvotechform[multiselect]' => ['two'],
         ]);
         $this->client->submit($form);
 

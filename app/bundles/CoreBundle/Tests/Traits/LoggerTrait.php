@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Traits;
+namespace MailVotech\CoreBundle\Tests\Traits;
 
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\TestHandler;
@@ -23,7 +23,7 @@ trait LoggerTrait
     {
         parent::setUp();
 
-        $this->logger           = self::getContainer()->get('monolog.logger.mautic');
+        $this->logger           = self::getContainer()->get('monolog.logger.mailvotech');
         $this->originalHandlers = $this->logger->getHandlers();
         $this->logger->setHandlers([$this->testHandler = new TestHandler()]);
     }

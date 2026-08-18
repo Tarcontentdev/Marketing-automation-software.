@@ -1,0 +1,41 @@
+<?php
+
+declare(strict_types=1);
+
+namespace MailVotechPlugin\MailVotechTagManagerBundle\Tests\Unit\Security\Permissions;
+
+use MailVotechPlugin\MailVotechTagManagerBundle\Security\Permissions\TagManagerPermissions;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\FormBuilderInterface;
+
+final class TagManagerPermissionsTest extends TestCase
+{
+    /**
+     * @var TagManagerPermissions
+     */
+    private \PHPUnit\Framework\MockObject\MockObject $tagManagerPermissions;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->tagManagerPermissions = $this->getMockBuilder(TagManagerPermissions::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods([
+                'addStandardFormFields',
+            ])
+            ->getMock();
+    }
+
+    public function testBuildFormMethodAddsStandardFormFields(): void
+    {
+        $options = ['someOption'];
+        $data    = ['someData'];
+        $this->tagManagerPermissions->expects($this->once())
+            ->method('addStandardFormFields')
+            ->with('tagManager', 'tagManager', $this->createStub(FormBuilderInterface::class), $data);
+
+        $formBuilderSTub = $this->createStub(FormBuilderInterface::class);
+        $this->tagManagerPermissions->buildForm($formBuilderSTub, $options, $data);
+    }
+}

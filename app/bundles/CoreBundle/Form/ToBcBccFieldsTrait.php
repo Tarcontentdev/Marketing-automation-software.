@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Form;
+namespace MailVotech\CoreBundle\Form;
 
-use Mautic\EmailBundle\Validator\MultipleEmailsValid;
+use MailVotech\EmailBundle\Validator\MultipleEmailsValid;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -18,12 +18,12 @@ trait ToBcBccFieldsTrait
             'to',
             TextType::class,
             [
-                'label'      => 'mautic.core.send.email.to',
+                'label'      => 'mailvotech.core.send.email.to',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'       => 'form-control',
-                    'placeholder' => 'mautic.core.optional',
-                    'tooltip'     => 'mautic.core.send.email.to.multiple.addresses',
+                    'placeholder' => 'mailvotech.core.optional',
+                    'tooltip'     => 'mailvotech.core.send.email.to.multiple.addresses',
                 ],
                 'required'    => false,
                 'constraints' => $multipleEmailConstraint,
@@ -34,12 +34,12 @@ trait ToBcBccFieldsTrait
             'cc',
             TextType::class,
             [
-                'label'      => 'mautic.core.send.email.cc',
+                'label'      => 'mailvotech.core.send.email.cc',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'       => 'form-control',
-                    'placeholder' => 'mautic.core.optional',
-                    'tooltip'     => 'mautic.core.send.email.to.multiple.addresses',
+                    'placeholder' => 'mailvotech.core.optional',
+                    'tooltip'     => 'mailvotech.core.send.email.to.multiple.addresses',
                 ],
                 'required'    => false,
                 'constraints' => $multipleEmailConstraint,
@@ -50,12 +50,12 @@ trait ToBcBccFieldsTrait
             'bcc',
             TextType::class,
             [
-                'label'      => 'mautic.core.send.email.bcc',
+                'label'      => 'mailvotech.core.send.email.bcc',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'       => 'form-control',
-                    'placeholder' => 'mautic.core.optional',
-                    'tooltip'     => 'mautic.core.send.email.to.multiple.addresses',
+                    'placeholder' => 'mailvotech.core.optional',
+                    'tooltip'     => 'mailvotech.core.send.email.to.multiple.addresses',
                 ],
                 'required'    => false,
                 'constraints' => $multipleEmailConstraint,

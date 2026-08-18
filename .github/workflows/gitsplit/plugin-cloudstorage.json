@@ -1,9 +1,9 @@
 {
     "subtree-splits": [
         {
-            "name": "MauticCloudStorageBundle",
-            "directory": "plugins/MauticCloudStorageBundle",
-            "target": "git@github.com:mautic/plugin-cloudstorage.git"
+            "name": "MailVotechCloudStorageBundle",
+            "directory": "plugins/MailVotechCloudStorageBundle",
+            "target": "git@github.com:mailvotech/plugin-cloudstorage.git"
         }
     ]
 }

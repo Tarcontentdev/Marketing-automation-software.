@@ -1,11 +1,11 @@
 {# //Check to see if the entire page should be displayed or just main content #}
 {% set isIndex = tmpl == 'index' ? true : false %}
 {% set tmpl = 'list' %}
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
-{% block headerTitle %}{% trans %}mautic.api.client.header.index{% endtrans %}{% endblock %}
-{% block mauticContent %}client{% endblock %}
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
+{% block headerTitle %}{% trans %}mailvotech.api.client.header.index{% endtrans %}{% endblock %}
+{% block mailvotechContent %}client{% endblock %}
 {% block actions %}
-{{- include('@MauticCore/Helper/page_actions.html.twig',
+{{- include('@MailVotechCore/Helper/page_actions.html.twig',
     {
         'templateButtons' : {
             'new' : permissions.create,
@@ -19,9 +19,9 @@
 {% block content %}
     {% if isIndex %}
         <div id="page-list-wrapper" class="{% if items|length > 0 or searchValue is not empty %}panel {% endif %}panel-default">
-            {{- include('@MauticCore/Helper/list_toolbar.html.twig', {
+            {{- include('@MailVotechCore/Helper/list_toolbar.html.twig', {
                 'searchValue' : searchValue,
-                'searchHelp'  : 'mautic.api.client.help.searchcommands',
+                'searchHelp'  : 'mailvotech.api.client.help.searchcommands',
                 'filters'     : filters,
             }) -}}
             <div class="page-list">
@@ -40,7 +40,7 @@
         <thead>
         <tr>
             {{- include(
-                '@MauticCore/Helper/tableheader.html.twig',
+                '@MailVotechCore/Helper/tableheader.html.twig',
                 {
                     'checkall'        : false,
                     'text'            : null,
@@ -51,23 +51,23 @@
                 }
             ) -}}
             {{- include(
-                '@MauticCore/Helper/tableheader.html.twig',
+                '@MailVotechCore/Helper/tableheader.html.twig',
                 {
                     'sessionVar' : 'client',
                     'orderBy'    : 'c.name',
-                    'text'       : 'mautic.core.name',
+                    'text'       : 'mailvotech.core.name',
                     'default'    : 'true',
                     'class'      : 'col-client-name',
                 }
             ) -}}
-            <th class="visible-md visible-lg col-client-publicid">{{ 'mautic.api.client.thead.publicid'|trans }}</th>
-            <th class="visible-md visible-lg col-client-secret">{{ 'mautic.api.client.thead.secret'|trans }}</th>
+            <th class="visible-md visible-lg col-client-publicid">{{ 'mailvotech.api.client.thead.publicid'|trans }}</th>
+            <th class="visible-md visible-lg col-client-secret">{{ 'mailvotech.api.client.thead.secret'|trans }}</th>
             {{- include(
-                '@MauticCore/Helper/tableheader.html.twig',
+                '@MailVotechCore/Helper/tableheader.html.twig',
                 {
                     'sessionVar' : 'client',
                     'orderBy'    : 'c.id',
-                    'text'       : 'mautic.core.id',
+                    'text'       : 'mailvotech.core.id',
                     'class'      : 'visible-md visible-lg col-client-id',
                 }
             ) -}}
@@ -78,7 +78,7 @@
             <tr>
                 <td>
                     {{- include(
-                        '@MauticCore/Helper/list_actions.html.twig',
+                        '@MailVotechCore/Helper/list_actions.html.twig',
                         {
                             'item'            : item,
                             'templateButtons' : {
@@ -106,12 +106,12 @@
         </tbody>
     </table>
     <div class="panel-footer">
-        {{- include('@MauticCore/Helper/pagination.html.twig', {
+        {{- include('@MailVotechCore/Helper/pagination.html.twig', {
             'totalItems' : items|length,
             'page'       : page,
             'limit'      : limit,
-            'menuLinkId' : 'mautic_client_index',
-            'baseUrl'    : path('mautic_client_index'),
+            'menuLinkId' : 'mailvotech_client_index',
+            'baseUrl'    : path('mailvotech_client_index'),
             'sessionVar' : 'client',
             'tmpl'       : tmpl,
         }) -}}
@@ -119,22 +119,22 @@
 </div>
 {% else %}
     {% if searchValue is not empty %}
-        {{- include('@MauticCore/Helper/noresults.html.twig') -}}
+        {{- include('@MailVotechCore/Helper/noresults.html.twig') -}}
     {% else %}
         <div class="mt-80 col-md-offset-2 col-lg-offset-3 col-md-8 col-lg-5 height-auto">
             {% set childContainer %}
                 <div class="mt-32 mb-md">
-                    {% include '@MauticCore/Components/pictogram.html.twig' with {
+                    {% include '@MailVotechCore/Components/pictogram.html.twig' with {
                         'pictogram': 'api',
                         'size': '80'
                     } %}
                 </div>
             {% endset %}
 
-            {{ include('@MauticCore/Components/content-block.html.twig', {
-                heading: 'mautic.api.client.contentblock.heading',
-                subheading: 'mautic.api.client.contentblock.subheading',
-                copy: 'mautic.api.client.contentblock.copy',
+            {{ include('@MailVotechCore/Components/content-block.html.twig', {
+                heading: 'mailvotech.api.client.contentblock.heading',
+                subheading: 'mailvotech.api.client.contentblock.subheading',
+                copy: 'mailvotech.api.client.contentblock.copy',
                 childContainer: childContainer,
             }) }}
         </div>

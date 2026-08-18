@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Sync\Order;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order;
 
 final readonly class NotificationDAO
 {
@@ -12,12 +12,12 @@ final readonly class NotificationDAO
     ) {
     }
 
-    public function getMauticObject(): string
+    public function getMailVotechObject(): string
     {
         return $this->objectChangeDAO->getMappedObject();
     }
 
-    public function getMauticObjectId(): int
+    public function getMailVotechObjectId(): int
     {
         return (int) $this->objectChangeDAO->getMappedObjectId();
     }

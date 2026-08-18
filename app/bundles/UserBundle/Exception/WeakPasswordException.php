@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Exception;
+namespace MailVotech\UserBundle\Exception;
 
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Controller;
+namespace MailVotech\PageBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\ProjectBundle\Entity\Project;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\ProjectBundle\Entity\Project;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PageControllerFunctionalTest extends MauticMysqlTestCase
+final class PageControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testPagePreview(): void
     {
@@ -111,7 +111,7 @@ final class PageControllerFunctionalTest extends MauticMysqlTestCase
 
         $page->setTitle('Page A');
         $page->setAlias('page-a');
-        $page->setTemplate('mautic_code_mode');
+        $page->setTemplate('mailvotech_code_mode');
 
         $this->em->persist($page);
         $this->em->flush();

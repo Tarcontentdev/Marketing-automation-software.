@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Twig\Extension;
+namespace MailVotech\CoreBundle\Tests\Unit\Twig\Extension;
 
-use Mautic\CoreBundle\Twig\Extension\OverrideIncludeExtension;
+use MailVotech\CoreBundle\Twig\Extension\OverrideIncludeExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\RequestStack;

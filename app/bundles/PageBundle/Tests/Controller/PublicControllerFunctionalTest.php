@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\Controller;
+namespace MailVotech\PageBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PublicControllerFunctionalTest extends MauticMysqlTestCase
+final class PublicControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testTrackingImageAction(): void
     {
-        $this->client->request('GET', '/mtracking.gif?url=http%3A%2F%2Fmautic.org');
+        $this->client->request('GET', '/mtracking.gif?url=http%3A%2F%2Fmailvotech.org');
 
         $this->assertResponseStatusCodeSame(200);
     }

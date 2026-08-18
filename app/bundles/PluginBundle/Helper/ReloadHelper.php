@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\PluginBundle\Helper;
+namespace MailVotech\PluginBundle\Helper;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Mautic\PluginBundle\Entity\Plugin;
-use Mautic\PluginBundle\Event\PluginInstallEvent;
-use Mautic\PluginBundle\Event\PluginUpdateEvent;
-use Mautic\PluginBundle\PluginEvents;
+use MailVotech\PluginBundle\Entity\Plugin;
+use MailVotech\PluginBundle\Event\PluginInstallEvent;
+use MailVotech\PluginBundle\Event\PluginUpdateEvent;
+use MailVotech\PluginBundle\PluginEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**

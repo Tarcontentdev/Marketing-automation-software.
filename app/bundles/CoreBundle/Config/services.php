@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Mautic\CoreBundle\DependencyInjection\MauticCoreExtension;
+use MailVotech\CoreBundle\DependencyInjection\MailVotechCoreExtension;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
@@ -12,7 +12,7 @@ use Twig\Extra\String\StringExtension;
 
 return function (ContainerConfigurator $configurator): void {
     $parameters = $configurator->parameters();
-    $parameters->set('twig.controller.exception.class', Mautic\CoreBundle\Controller\ExceptionController::class);
+    $parameters->set('twig.controller.exception.class', MailVotech\CoreBundle\Controller\ExceptionController::class);
 
     $services = $configurator->services()
         ->defaults()
@@ -45,295 +45,295 @@ return function (ContainerConfigurator $configurator): void {
         'Cache/ResultCacheOptions.php',
     ];
 
-    $services->set(Mautic\CoreBundle\Twig\Helper\MenuHelper::class)
+    $services->set(MailVotech\CoreBundle\Twig\Helper\MenuHelper::class)
         ->arg('$helper', \Symfony\Component\DependencyInjection\Loader\Configurator\service('knp_menu.helper'))
         ->tag('twig.helper', ['alias' => 'menu']);
 
-    $services->load('Mautic\\CoreBundle\\', '../')
-        ->exclude('../{'.implode(',', array_merge(MauticCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
+    $services->load('MailVotech\\CoreBundle\\', '../')
+        ->exclude('../{'.implode(',', array_merge(MailVotechCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
 
-    $services->load('Mautic\\CoreBundle\\Entity\\', '../Entity/*Repository.php');
+    $services->load('MailVotech\\CoreBundle\\Entity\\', '../Entity/*Repository.php');
 
-    $services->set('mautic.helper.core_parameters', Mautic\CoreBundle\Helper\CoreParametersHelper::class)->tag('twig.helper');
+    $services->set('mailvotech.helper.core_parameters', MailVotech\CoreBundle\Helper\CoreParametersHelper::class)->tag('twig.helper');
 
-    $services->alias(Mautic\CoreBundle\Helper\CoreParametersHelper::class, 'mautic.helper.core_parameters');
-    $services->alias('mautic.config', 'mautic.helper.core_parameters');
+    $services->alias(MailVotech\CoreBundle\Helper\CoreParametersHelper::class, 'mailvotech.helper.core_parameters');
+    $services->alias('mailvotech.config', 'mailvotech.helper.core_parameters');
 
-    $services->set('mautic.ip_lookup', Mautic\CoreBundle\IpLookup\AbstractLookup::class)
-        ->factory([service('mautic.ip_lookup.factory'), 'getService'])
-        ->args([param('mautic.ip_lookup_service'), param('mautic.ip_lookup_auth'), param('mautic.ip_lookup_config'), service('mautic.http.client')]);
-    $services->alias(Mautic\CoreBundle\IpLookup\AbstractLookup::class, 'mautic.ip_lookup');
-    $services->set('mautic.native.connector', Symfony\Contracts\HttpClient\HttpClientInterface::class)
+    $services->set('mailvotech.ip_lookup', MailVotech\CoreBundle\IpLookup\AbstractLookup::class)
+        ->factory([service('mailvotech.ip_lookup.factory'), 'getService'])
+        ->args([param('mailvotech.ip_lookup_service'), param('mailvotech.ip_lookup_auth'), param('mailvotech.ip_lookup_config'), service('mailvotech.http.client')]);
+    $services->alias(MailVotech\CoreBundle\IpLookup\AbstractLookup::class, 'mailvotech.ip_lookup');
+    $services->set('mailvotech.native.connector', Symfony\Contracts\HttpClient\HttpClientInterface::class)
         ->factory([Symfony\Component\HttpClient\HttpClient::class, 'create']);
-    $services->alias(Symfony\Contracts\HttpClient\HttpClientInterface::class, 'mautic.native.connector');
-    $services->set('mautic.translation.loader', Mautic\CoreBundle\Loader\TranslationLoader::class)->tag('translation.loader', ['alias' => 'mautic']);
-    $services->alias(Mautic\CoreBundle\Loader\TranslationLoader::class, 'mautic.translation.loader');
-    $services->set('mautic.helper.theme', Mautic\CoreBundle\Helper\ThemeHelper::class)
-        ->call('setDefaultTheme', [param('mautic.theme')]);
-    $services->alias(Mautic\CoreBundle\Helper\ThemeHelper::class, 'mautic.helper.theme');
-    $services->set('mautic.menu_renderer', Mautic\CoreBundle\Menu\MenuRenderer::class)->tag('knp_menu.renderer', ['alias' => 'mautic']);
-    $services->alias(Mautic\CoreBundle\Menu\MenuRenderer::class, 'mautic.menu_renderer');
+    $services->alias(Symfony\Contracts\HttpClient\HttpClientInterface::class, 'mailvotech.native.connector');
+    $services->set('mailvotech.translation.loader', MailVotech\CoreBundle\Loader\TranslationLoader::class)->tag('translation.loader', ['alias' => 'mailvotech']);
+    $services->alias(MailVotech\CoreBundle\Loader\TranslationLoader::class, 'mailvotech.translation.loader');
+    $services->set('mailvotech.helper.theme', MailVotech\CoreBundle\Helper\ThemeHelper::class)
+        ->call('setDefaultTheme', [param('mailvotech.theme')]);
+    $services->alias(MailVotech\CoreBundle\Helper\ThemeHelper::class, 'mailvotech.helper.theme');
+    $services->set('mailvotech.menu_renderer', MailVotech\CoreBundle\Menu\MenuRenderer::class)->tag('knp_menu.renderer', ['alias' => 'mailvotech']);
+    $services->alias(MailVotech\CoreBundle\Menu\MenuRenderer::class, 'mailvotech.menu_renderer');
 
-    $services->set('mautic.helper.menu', Mautic\CoreBundle\Menu\MenuHelper::class);
-    $services->alias(Mautic\CoreBundle\Menu\MenuHelper::class, 'mautic.helper.menu');
-    $services->set('mautic.menu.builder', Mautic\CoreBundle\Menu\MenuBuilder::class);
-    $services->alias(Mautic\CoreBundle\Menu\MenuBuilder::class, 'mautic.menu.builder');
+    $services->set('mailvotech.helper.menu', MailVotech\CoreBundle\Menu\MenuHelper::class);
+    $services->alias(MailVotech\CoreBundle\Menu\MenuHelper::class, 'mailvotech.helper.menu');
+    $services->set('mailvotech.menu.builder', MailVotech\CoreBundle\Menu\MenuBuilder::class);
+    $services->alias(MailVotech\CoreBundle\Menu\MenuBuilder::class, 'mailvotech.menu.builder');
 
-    $services->set('mautic.helper.twig.date', Mautic\CoreBundle\Twig\Helper\DateHelper::class)
-        ->arg('$dateFullFormat', param('mautic.date_format_full'))
-        ->arg('$dateShortFormat', param('mautic.date_format_short'))
-        ->arg('$dateOnlyFormat', param('mautic.date_format_dateonly'))
-        ->arg('$timeOnlyFormat', param('mautic.date_format_timeonly'))
+    $services->set('mailvotech.helper.twig.date', MailVotech\CoreBundle\Twig\Helper\DateHelper::class)
+        ->arg('$dateFullFormat', param('mailvotech.date_format_full'))
+        ->arg('$dateShortFormat', param('mailvotech.date_format_short'))
+        ->arg('$dateOnlyFormat', param('mailvotech.date_format_dateonly'))
+        ->arg('$timeOnlyFormat', param('mailvotech.date_format_timeonly'))
         ->tag('twig.helper', ['alias' => 'date']);
-    $services->alias(Mautic\CoreBundle\Twig\Helper\DateHelper::class, 'mautic.helper.twig.date');
-    $services->set('mautic.helper.twig.gravatar', Mautic\CoreBundle\Twig\Helper\GravatarHelper::class)->tag('twig.helper', ['alias' => 'gravatar']);
-    $services->alias(Mautic\CoreBundle\Twig\Helper\GravatarHelper::class, 'mautic.helper.twig.gravatar');
-    $services->set('mautic.helper.twig.analytics', Mautic\CoreBundle\Twig\Helper\AnalyticsHelper::class)->tag('twig.helper', ['alias' => 'analytics']);
-    $services->alias(Mautic\CoreBundle\Twig\Helper\AnalyticsHelper::class, 'mautic.helper.twig.analytics');
-    $services->set('mautic.helper.twig.config', Mautic\CoreBundle\Twig\Helper\ConfigHelper::class)->tag('twig.helper', ['alias' => 'config']);
-    $services->alias(Mautic\CoreBundle\Twig\Helper\ConfigHelper::class, 'mautic.helper.twig.config');
-    $services->set('mautic.helper.twig.mautibot', Mautic\CoreBundle\Twig\Helper\MautibotHelper::class)->tag('twig.helper', ['alias' => 'mautibot']);
-    $services->alias(Mautic\CoreBundle\Twig\Helper\MautibotHelper::class, 'mautic.helper.twig.mautibot');
-    $services->set('mautic.helper.twig.button', Mautic\CoreBundle\Twig\Helper\ButtonHelper::class)->tag('twig.helper', ['alias' => 'buttons']);
-    $services->alias(Mautic\CoreBundle\Twig\Helper\ButtonHelper::class, 'mautic.helper.twig.button');
-    $services->set('mautic.helper.twig.content', Mautic\CoreBundle\Twig\Helper\ContentHelper::class)->tag('twig.helper', ['alias' => 'content']);
-    $services->alias(Mautic\CoreBundle\Twig\Helper\ContentHelper::class, 'mautic.helper.twig.content');
-    $services->set('mautic.helper.twig.formatter', Mautic\CoreBundle\Twig\Helper\FormatterHelper::class)->tag('twig.helper', ['alias' => 'formatter']);
-    $services->alias(Mautic\CoreBundle\Twig\Helper\FormatterHelper::class, 'mautic.helper.twig.formatter');
-    $services->set('mautic.helper.twig.version', Mautic\CoreBundle\Twig\Helper\VersionHelper::class)->tag('twig.helper', ['alias' => 'version']);
-    $services->alias(Mautic\CoreBundle\Twig\Helper\VersionHelper::class, 'mautic.helper.twig.version');
-    $services->set('mautic.helper.twig.security', Mautic\CoreBundle\Twig\Helper\SecurityHelper::class)->tag('twig.helper', ['alias' => 'security']);
-    $services->alias(Mautic\CoreBundle\Twig\Helper\SecurityHelper::class, 'mautic.helper.twig.security');
+    $services->alias(MailVotech\CoreBundle\Twig\Helper\DateHelper::class, 'mailvotech.helper.twig.date');
+    $services->set('mailvotech.helper.twig.gravatar', MailVotech\CoreBundle\Twig\Helper\GravatarHelper::class)->tag('twig.helper', ['alias' => 'gravatar']);
+    $services->alias(MailVotech\CoreBundle\Twig\Helper\GravatarHelper::class, 'mailvotech.helper.twig.gravatar');
+    $services->set('mailvotech.helper.twig.analytics', MailVotech\CoreBundle\Twig\Helper\AnalyticsHelper::class)->tag('twig.helper', ['alias' => 'analytics']);
+    $services->alias(MailVotech\CoreBundle\Twig\Helper\AnalyticsHelper::class, 'mailvotech.helper.twig.analytics');
+    $services->set('mailvotech.helper.twig.config', MailVotech\CoreBundle\Twig\Helper\ConfigHelper::class)->tag('twig.helper', ['alias' => 'config']);
+    $services->alias(MailVotech\CoreBundle\Twig\Helper\ConfigHelper::class, 'mailvotech.helper.twig.config');
+    $services->set('mailvotech.helper.twig.mautibot', MailVotech\CoreBundle\Twig\Helper\MautibotHelper::class)->tag('twig.helper', ['alias' => 'mautibot']);
+    $services->alias(MailVotech\CoreBundle\Twig\Helper\MautibotHelper::class, 'mailvotech.helper.twig.mautibot');
+    $services->set('mailvotech.helper.twig.button', MailVotech\CoreBundle\Twig\Helper\ButtonHelper::class)->tag('twig.helper', ['alias' => 'buttons']);
+    $services->alias(MailVotech\CoreBundle\Twig\Helper\ButtonHelper::class, 'mailvotech.helper.twig.button');
+    $services->set('mailvotech.helper.twig.content', MailVotech\CoreBundle\Twig\Helper\ContentHelper::class)->tag('twig.helper', ['alias' => 'content']);
+    $services->alias(MailVotech\CoreBundle\Twig\Helper\ContentHelper::class, 'mailvotech.helper.twig.content');
+    $services->set('mailvotech.helper.twig.formatter', MailVotech\CoreBundle\Twig\Helper\FormatterHelper::class)->tag('twig.helper', ['alias' => 'formatter']);
+    $services->alias(MailVotech\CoreBundle\Twig\Helper\FormatterHelper::class, 'mailvotech.helper.twig.formatter');
+    $services->set('mailvotech.helper.twig.version', MailVotech\CoreBundle\Twig\Helper\VersionHelper::class)->tag('twig.helper', ['alias' => 'version']);
+    $services->alias(MailVotech\CoreBundle\Twig\Helper\VersionHelper::class, 'mailvotech.helper.twig.version');
+    $services->set('mailvotech.helper.twig.security', MailVotech\CoreBundle\Twig\Helper\SecurityHelper::class)->tag('twig.helper', ['alias' => 'security']);
+    $services->alias(MailVotech\CoreBundle\Twig\Helper\SecurityHelper::class, 'mailvotech.helper.twig.security');
 
-    $services->set('mautic.core.service.local_file_adapter', Mautic\CoreBundle\Service\LocalFileAdapterService::class)
-        ->arg('$root', param('env(resolve:MAUTIC_EL_FINDER_PATH)'));
+    $services->set('mailvotech.core.service.local_file_adapter', MailVotech\CoreBundle\Service\LocalFileAdapterService::class)
+        ->arg('$root', param('env(resolve:MAILVOTECH_EL_FINDER_PATH)'));
 
-    $services->alias(Mautic\CoreBundle\Service\LocalFileAdapterService::class, 'mautic.core.service.local_file_adapter');
-    $services->set('mautic.helper.maxmind_do_not_sell_download', Mautic\CoreBundle\Helper\MaxMindDoNotSellDownloadHelper::class)
-        ->arg('$auth', param('mautic.ip_lookup_auth'));
-    $services->alias(Mautic\CoreBundle\Helper\MaxMindDoNotSellDownloadHelper::class, 'mautic.helper.maxmind_do_not_sell_download');
-    $services->set('mautic.cache.warmer.middleware', Mautic\CoreBundle\Cache\MiddlewareCacheWarmer::class)
+    $services->alias(MailVotech\CoreBundle\Service\LocalFileAdapterService::class, 'mailvotech.core.service.local_file_adapter');
+    $services->set('mailvotech.helper.maxmind_do_not_sell_download', MailVotech\CoreBundle\Helper\MaxMindDoNotSellDownloadHelper::class)
+        ->arg('$auth', param('mailvotech.ip_lookup_auth'));
+    $services->alias(MailVotech\CoreBundle\Helper\MaxMindDoNotSellDownloadHelper::class, 'mailvotech.helper.maxmind_do_not_sell_download');
+    $services->set('mailvotech.cache.warmer.middleware', MailVotech\CoreBundle\Cache\MiddlewareCacheWarmer::class)
         ->arg('$env', param('kernel.environment'))
         ->tag('kernel.cache_warmer');
-    $services->alias(Mautic\CoreBundle\Cache\MiddlewareCacheWarmer::class, 'mautic.cache.warmer.middleware');
-    $services->set('mautic.helper.cache_storage', Mautic\CoreBundle\Helper\CacheStorageHelper::class)
+    $services->alias(MailVotech\CoreBundle\Cache\MiddlewareCacheWarmer::class, 'mailvotech.cache.warmer.middleware');
+    $services->set('mailvotech.helper.cache_storage', MailVotech\CoreBundle\Helper\CacheStorageHelper::class)
         ->arg('$adaptor', 'db')
-        ->arg('$namespace', param('mautic.db_table_prefix'))
+        ->arg('$namespace', param('mailvotech.db_table_prefix'))
         ->arg('$connection', service('doctrine.dbal.default_connection'))
         ->arg('$cacheDir', param('kernel.cache_dir'));
-    $services->alias(Mautic\CoreBundle\Helper\CacheStorageHelper::class, 'mautic.helper.cache_storage');
-    $services->set('mautic.helper.cache', Mautic\CoreBundle\Helper\CacheHelper::class)
+    $services->alias(MailVotech\CoreBundle\Helper\CacheStorageHelper::class, 'mailvotech.helper.cache_storage');
+    $services->set('mailvotech.helper.cache', MailVotech\CoreBundle\Helper\CacheHelper::class)
         ->arg('$cacheDir', param('kernel.cache_dir'));
-    $services->alias(Mautic\CoreBundle\Helper\CacheHelper::class, 'mautic.helper.cache');
-    $services->set('mautic.ip_lookup.factory', Mautic\CoreBundle\Factory\IpLookupFactory::class)
-        ->arg('$lookupServices', param('mautic.ip_lookup_services'))
+    $services->alias(MailVotech\CoreBundle\Helper\CacheHelper::class, 'mailvotech.helper.cache');
+    $services->set('mailvotech.ip_lookup.factory', MailVotech\CoreBundle\Factory\IpLookupFactory::class)
+        ->arg('$lookupServices', param('mailvotech.ip_lookup_services'))
         ->arg('$cacheDir', param('kernel.cache_dir'));
-    $services->alias(Mautic\CoreBundle\Factory\IpLookupFactory::class, 'mautic.ip_lookup.factory');
-    $services->set('mautic.schema.helper.column', Mautic\CoreBundle\Doctrine\Helper\ColumnSchemaHelper::class)
-        ->arg('$prefix', param('mautic.db_table_prefix'));
-    $services->alias(Mautic\CoreBundle\Doctrine\Helper\ColumnSchemaHelper::class, 'mautic.schema.helper.column');
-    $services->set('mautic.schema.helper.index', Mautic\CoreBundle\Doctrine\Helper\IndexSchemaHelper::class)
-        ->arg('$prefix', param('mautic.db_table_prefix'));
-    $services->alias(Mautic\CoreBundle\Doctrine\Helper\IndexSchemaHelper::class, 'mautic.schema.helper.index');
-    $services->set('mautic.schema.helper.table', Mautic\CoreBundle\Doctrine\Helper\TableSchemaHelper::class)
-        ->arg('$prefix', param('mautic.db_table_prefix'));
-    $services->alias(Mautic\CoreBundle\Doctrine\Helper\TableSchemaHelper::class, 'mautic.schema.helper.table');
-    $services->set('mautic.maxmind.doNotSellList', Mautic\CoreBundle\IpLookup\DoNotSellList\MaxMindDoNotSellList::class);
-    $services->alias(Mautic\CoreBundle\IpLookup\DoNotSellList\MaxMindDoNotSellList::class, 'mautic.maxmind.doNotSellList');
-    $services->set('mautic.form.type.dynamic_content_filter_entry_filters', Mautic\CoreBundle\Form\Type\DynamicContentFilterEntryFiltersType::class)
+    $services->alias(MailVotech\CoreBundle\Factory\IpLookupFactory::class, 'mailvotech.ip_lookup.factory');
+    $services->set('mailvotech.schema.helper.column', MailVotech\CoreBundle\Doctrine\Helper\ColumnSchemaHelper::class)
+        ->arg('$prefix', param('mailvotech.db_table_prefix'));
+    $services->alias(MailVotech\CoreBundle\Doctrine\Helper\ColumnSchemaHelper::class, 'mailvotech.schema.helper.column');
+    $services->set('mailvotech.schema.helper.index', MailVotech\CoreBundle\Doctrine\Helper\IndexSchemaHelper::class)
+        ->arg('$prefix', param('mailvotech.db_table_prefix'));
+    $services->alias(MailVotech\CoreBundle\Doctrine\Helper\IndexSchemaHelper::class, 'mailvotech.schema.helper.index');
+    $services->set('mailvotech.schema.helper.table', MailVotech\CoreBundle\Doctrine\Helper\TableSchemaHelper::class)
+        ->arg('$prefix', param('mailvotech.db_table_prefix'));
+    $services->alias(MailVotech\CoreBundle\Doctrine\Helper\TableSchemaHelper::class, 'mailvotech.schema.helper.table');
+    $services->set('mailvotech.maxmind.doNotSellList', MailVotech\CoreBundle\IpLookup\DoNotSellList\MaxMindDoNotSellList::class);
+    $services->alias(MailVotech\CoreBundle\IpLookup\DoNotSellList\MaxMindDoNotSellList::class, 'mailvotech.maxmind.doNotSellList');
+    $services->set('mailvotech.form.type.dynamic_content_filter_entry_filters', MailVotech\CoreBundle\Form\Type\DynamicContentFilterEntryFiltersType::class)
         ->call('setConnection', [service('database_connection')]);
-    $services->alias(Mautic\CoreBundle\Form\Type\DynamicContentFilterEntryFiltersType::class, 'mautic.form.type.dynamic_content_filter_entry_filters');
+    $services->alias(MailVotech\CoreBundle\Form\Type\DynamicContentFilterEntryFiltersType::class, 'mailvotech.form.type.dynamic_content_filter_entry_filters');
 
-    $services->set('mautic.core.subscriber.router', Mautic\CoreBundle\EventListener\RouterSubscriber::class)
+    $services->set('mailvotech.core.subscriber.router', MailVotech\CoreBundle\EventListener\RouterSubscriber::class)
         ->arg('$scheme', param('router.request_context.scheme'))
         ->arg('$host', param('router.request_context.host'))
         ->arg('$httpsPort', param('request_listener.https_port'))
         ->arg('$httpPort', param('request_listener.http_port'))
         ->arg('$baseUrl', param('router.request_context.base_url'));
-    $services->alias(Mautic\CoreBundle\EventListener\RouterSubscriber::class, 'mautic.core.subscriber.router');
-    $services->set('mautic.helper.paths', Mautic\CoreBundle\Helper\PathsHelper::class)
+    $services->alias(MailVotech\CoreBundle\EventListener\RouterSubscriber::class, 'mailvotech.core.subscriber.router');
+    $services->set('mailvotech.helper.paths', MailVotech\CoreBundle\Helper\PathsHelper::class)
         ->arg('$cacheDir', param('kernel.cache_dir'))
         ->arg('$logsDir', param('kernel.logs_dir'))
-        ->arg('$rootDir', param('mautic.application_dir'));
-    $services->alias(Mautic\CoreBundle\Helper\PathsHelper::class, 'mautic.helper.paths');
-    $services->set('mautic.helper.bundle', Mautic\CoreBundle\Helper\BundleHelper::class)
-        ->arg('$coreBundles', param('mautic.bundles'))
-        ->arg('$pluginBundles', param('mautic.plugin.bundles'));
-    $services->alias(Mautic\CoreBundle\Helper\BundleHelper::class, 'mautic.helper.bundle');
-    $services->set('mautic.configurator', Mautic\CoreBundle\Configurator\Configurator::class);
-    $services->alias(Mautic\CoreBundle\Configurator\Configurator::class, 'mautic.configurator');
-    $services->set('mautic.cipher.openssl', Mautic\CoreBundle\Security\Cryptography\Cipher\Symmetric\OpenSSLCipher::class);
-    $services->alias(Mautic\CoreBundle\Security\Cryptography\Cipher\Symmetric\OpenSSLCipher::class, 'mautic.cipher.openssl');
-    $services->set('mautic.security', Mautic\CoreBundle\Security\Permissions\CorePermissions::class)
-        ->arg('$bundles', param('mautic.bundles'))
-        ->arg('$pluginBundles', param('mautic.plugin.bundles'));
-    $services->alias(Mautic\CoreBundle\Security\Permissions\CorePermissions::class, 'mautic.security');
+        ->arg('$rootDir', param('mailvotech.application_dir'));
+    $services->alias(MailVotech\CoreBundle\Helper\PathsHelper::class, 'mailvotech.helper.paths');
+    $services->set('mailvotech.helper.bundle', MailVotech\CoreBundle\Helper\BundleHelper::class)
+        ->arg('$coreBundles', param('mailvotech.bundles'))
+        ->arg('$pluginBundles', param('mailvotech.plugin.bundles'));
+    $services->alias(MailVotech\CoreBundle\Helper\BundleHelper::class, 'mailvotech.helper.bundle');
+    $services->set('mailvotech.configurator', MailVotech\CoreBundle\Configurator\Configurator::class);
+    $services->alias(MailVotech\CoreBundle\Configurator\Configurator::class, 'mailvotech.configurator');
+    $services->set('mailvotech.cipher.openssl', MailVotech\CoreBundle\Security\Cryptography\Cipher\Symmetric\OpenSSLCipher::class);
+    $services->alias(MailVotech\CoreBundle\Security\Cryptography\Cipher\Symmetric\OpenSSLCipher::class, 'mailvotech.cipher.openssl');
+    $services->set('mailvotech.security', MailVotech\CoreBundle\Security\Permissions\CorePermissions::class)
+        ->arg('$bundles', param('mailvotech.bundles'))
+        ->arg('$pluginBundles', param('mailvotech.plugin.bundles'));
+    $services->alias(MailVotech\CoreBundle\Security\Permissions\CorePermissions::class, 'mailvotech.security');
 
-    $services->set('mautic.exception.listener', Mautic\CoreBundle\EventListener\ExceptionListener::class)
-        ->arg('$controller', 'Mautic\CoreBundle\Controller\ExceptionController::showAction');
+    $services->set('mailvotech.exception.listener', MailVotech\CoreBundle\EventListener\ExceptionListener::class)
+        ->arg('$controller', 'MailVotech\CoreBundle\Controller\ExceptionController::showAction');
 
-    $services->alias(Mautic\CoreBundle\EventListener\ExceptionListener::class, 'mautic.exception.listener');
-    $services->set('mautic.helper.cookie', Mautic\CoreBundle\Helper\CookieHelper::class)
-        ->arg('$path', param('mautic.cookie_path'))
-        ->arg('$domain', param('mautic.cookie_domain'))
-        ->arg('$secure', param('mautic.cookie_secure'))
-        ->arg('$httponly', param('mautic.cookie_httponly'))
+    $services->alias(MailVotech\CoreBundle\EventListener\ExceptionListener::class, 'mailvotech.exception.listener');
+    $services->set('mailvotech.helper.cookie', MailVotech\CoreBundle\Helper\CookieHelper::class)
+        ->arg('$path', param('mailvotech.cookie_path'))
+        ->arg('$domain', param('mailvotech.cookie_domain'))
+        ->arg('$secure', param('mailvotech.cookie_secure'))
+        ->arg('$httponly', param('mailvotech.cookie_httponly'))
         ->tag('kernel.event_subscriber');
-    $services->alias(Mautic\CoreBundle\Helper\CookieHelper::class, 'mautic.helper.cookie');
+    $services->alias(MailVotech\CoreBundle\Helper\CookieHelper::class, 'mailvotech.helper.cookie');
 
-    $services->set(Mautic\CoreBundle\Helper\EncryptionHelper::class)
+    $services->set(MailVotech\CoreBundle\Helper\EncryptionHelper::class)
         ->args([
-            service('mautic.helper.core_parameters'),
-            service('mautic.cipher.openssl'),
+            service('mailvotech.helper.core_parameters'),
+            service('mailvotech.cipher.openssl'),
         ]);
 
-    $services->set('mautic.form.list.validator.circular', Mautic\CoreBundle\Form\Validator\Constraints\CircularDependencyValidator::class)->tag('validator.constraint_validator');
-    $services->alias(Mautic\CoreBundle\Form\Validator\Constraints\CircularDependencyValidator::class, 'mautic.form.list.validator.circular');
+    $services->set('mailvotech.form.list.validator.circular', MailVotech\CoreBundle\Form\Validator\Constraints\CircularDependencyValidator::class)->tag('validator.constraint_validator');
+    $services->alias(MailVotech\CoreBundle\Form\Validator\Constraints\CircularDependencyValidator::class, 'mailvotech.form.list.validator.circular');
 
-    $services->alias('mautic.helper.file_uploader', Mautic\CoreBundle\Helper\FileUploader::class);
-    $services->alias('mautic.helper.file_path_resolver', Mautic\CoreBundle\Helper\FilePathResolver::class);
-    $services->alias('mautic.helper.file_properties', Mautic\CoreBundle\Helper\FileProperties::class);
-    $services->alias('mautic.core.validator.file_upload', Mautic\CoreBundle\Validator\FileUploadValidator::class);
-    $services->alias('mautic.filesystem', Mautic\CoreBundle\Helper\Filesystem::class);
+    $services->alias('mailvotech.helper.file_uploader', MailVotech\CoreBundle\Helper\FileUploader::class);
+    $services->alias('mailvotech.helper.file_path_resolver', MailVotech\CoreBundle\Helper\FilePathResolver::class);
+    $services->alias('mailvotech.helper.file_properties', MailVotech\CoreBundle\Helper\FileProperties::class);
+    $services->alias('mailvotech.core.validator.file_upload', MailVotech\CoreBundle\Validator\FileUploadValidator::class);
+    $services->alias('mailvotech.filesystem', MailVotech\CoreBundle\Helper\Filesystem::class);
 
-    /* @deprecated to be removed in Mautic 4. Use 'mautic.filesystem' instead. */
+    /* @deprecated to be removed in MailVotech 4. Use 'mailvotech.filesystem' instead. */
     $services->set('symfony.filesystem', Symfony\Component\Filesystem\Filesystem::class);
     $services->alias(Symfony\Component\Filesystem\Filesystem::class, 'symfony.filesystem');
 
     $services->set('symfony.finder', Symfony\Component\Finder\Finder::class);
     $services->alias(Symfony\Component\Finder\Finder::class, 'symfony.finder');
 
-    $services->alias('mautic.helper.input_helper', Mautic\CoreBundle\Helper\InputHelper::class);
-    $services->alias('mautic.helper.trailing_slash', Mautic\CoreBundle\Helper\TrailingSlashHelper::class);
-    $services->alias('mautic.helper.url', Mautic\CoreBundle\Helper\UrlHelper::class);
-    $services->alias('mautic.helper.hash', Mautic\CoreBundle\Helper\HashHelper\HashHelper::class);
-    $services->alias('mautic.helper.random', Mautic\CoreBundle\Helper\RandomHelper\RandomHelper::class);
-    $services->alias('mautic.helper.phone_number', Mautic\CoreBundle\Helper\PhoneNumberHelper::class);
-    $services->set(Mautic\CoreBundle\Loader\RouteLoader::class)
+    $services->alias('mailvotech.helper.input_helper', MailVotech\CoreBundle\Helper\InputHelper::class);
+    $services->alias('mailvotech.helper.trailing_slash', MailVotech\CoreBundle\Helper\TrailingSlashHelper::class);
+    $services->alias('mailvotech.helper.url', MailVotech\CoreBundle\Helper\UrlHelper::class);
+    $services->alias('mailvotech.helper.hash', MailVotech\CoreBundle\Helper\HashHelper\HashHelper::class);
+    $services->alias('mailvotech.helper.random', MailVotech\CoreBundle\Helper\RandomHelper\RandomHelper::class);
+    $services->alias('mailvotech.helper.phone_number', MailVotech\CoreBundle\Helper\PhoneNumberHelper::class);
+    $services->set(MailVotech\CoreBundle\Loader\RouteLoader::class)
         ->tag('routing.loader');
 
-    $services->set(Mautic\CoreBundle\Doctrine\Provider\VersionProvider::class);
-    $services->set(Mautic\CoreBundle\Doctrine\Provider\GeneratedColumnsProvider::class);
+    $services->set(MailVotech\CoreBundle\Doctrine\Provider\VersionProvider::class);
+    $services->set(MailVotech\CoreBundle\Doctrine\Provider\GeneratedColumnsProvider::class);
 
-    $services->get(Mautic\CoreBundle\EventListener\DoctrineGeneratedColumnsListener::class)
-        ->arg('$logger', \Symfony\Component\DependencyInjection\Loader\Configurator\service('monolog.logger.mautic'))
+    $services->get(MailVotech\CoreBundle\EventListener\DoctrineGeneratedColumnsListener::class)
+        ->arg('$logger', \Symfony\Component\DependencyInjection\Loader\Configurator\service('monolog.logger.mailvotech'))
         ->tag('doctrine.event_listener', ['event' => 'postGenerateSchema', 'lazy' => true]);
-    $services->alias('mautic.generated.columns.doctrine.listener', Mautic\CoreBundle\EventListener\DoctrineGeneratedColumnsListener::class);
+    $services->alias('mailvotech.generated.columns.doctrine.listener', MailVotech\CoreBundle\EventListener\DoctrineGeneratedColumnsListener::class);
 
-    $services->set(Mautic\CoreBundle\Doctrine\Loader\MauticFixturesLoader::class)
+    $services->set(MailVotech\CoreBundle\Doctrine\Loader\MailVotechFixturesLoader::class)
         ->arg('$fixturesLoader', \Symfony\Component\DependencyInjection\Loader\Configurator\service('doctrine.fixtures.loader'));
 
-    $services->get(Mautic\CoreBundle\EventListener\ErrorHandlingListener::class)
-        ->arg('$logger', \Symfony\Component\DependencyInjection\Loader\Configurator\service('monolog.logger.mautic'))
+    $services->get(MailVotech\CoreBundle\EventListener\ErrorHandlingListener::class)
+        ->arg('$logger', \Symfony\Component\DependencyInjection\Loader\Configurator\service('monolog.logger.mailvotech'))
         ->arg('$mainLogger', \Symfony\Component\DependencyInjection\Loader\Configurator\service('monolog.logger'))
         ->arg('$debugLogger', \Symfony\Component\DependencyInjection\Loader\Configurator\expr("container.has('monolog.logger.chrome') ? container.get('monolog.logger.chrome') : null"));
-    $services->alias('mautic.core.errorhandler.subscriber', Mautic\CoreBundle\EventListener\ErrorHandlingListener::class);
+    $services->alias('mailvotech.core.errorhandler.subscriber', MailVotech\CoreBundle\EventListener\ErrorHandlingListener::class);
 
-    $services->get(Mautic\CoreBundle\Helper\UpdateHelper::class)
-        ->arg('$logger', \Symfony\Component\DependencyInjection\Loader\Configurator\service('monolog.logger.mautic'));
-    $services->alias('mautic.helper.update', Mautic\CoreBundle\Helper\UpdateHelper::class);
-    $services->alias('mautic.helper.update.release_parser', Mautic\CoreBundle\Helper\Update\Github\ReleaseParser::class);
+    $services->get(MailVotech\CoreBundle\Helper\UpdateHelper::class)
+        ->arg('$logger', \Symfony\Component\DependencyInjection\Loader\Configurator\service('monolog.logger.mailvotech'));
+    $services->alias('mailvotech.helper.update', MailVotech\CoreBundle\Helper\UpdateHelper::class);
+    $services->alias('mailvotech.helper.update.release_parser', MailVotech\CoreBundle\Helper\Update\Github\ReleaseParser::class);
 
-    $services->get(Mautic\CoreBundle\Helper\ComposerHelper::class)
-        ->arg('$logger', \Symfony\Component\DependencyInjection\Loader\Configurator\service('monolog.logger.mautic'));
-    $services->alias('mautic.helper.composer', Mautic\CoreBundle\Helper\ComposerHelper::class);
+    $services->get(MailVotech\CoreBundle\Helper\ComposerHelper::class)
+        ->arg('$logger', \Symfony\Component\DependencyInjection\Loader\Configurator\service('monolog.logger.mailvotech'));
+    $services->alias('mailvotech.helper.composer', MailVotech\CoreBundle\Helper\ComposerHelper::class);
 
-    $services->get(Mautic\CoreBundle\Update\Step\DeleteCacheStep::class)->tag('mautic.update_step');
-    $services->alias('mautic.update.step.delete_cache', Mautic\CoreBundle\Update\Step\DeleteCacheStep::class);
+    $services->get(MailVotech\CoreBundle\Update\Step\DeleteCacheStep::class)->tag('mailvotech.update_step');
+    $services->alias('mailvotech.update.step.delete_cache', MailVotech\CoreBundle\Update\Step\DeleteCacheStep::class);
 
-    $services->get(Mautic\CoreBundle\Update\Step\FinalizeUpdateStep::class)->tag('mautic.update_step');
-    $services->alias('mautic.update.step.finalize', Mautic\CoreBundle\Update\Step\FinalizeUpdateStep::class);
+    $services->get(MailVotech\CoreBundle\Update\Step\FinalizeUpdateStep::class)->tag('mailvotech.update_step');
+    $services->alias('mailvotech.update.step.finalize', MailVotech\CoreBundle\Update\Step\FinalizeUpdateStep::class);
 
-    $services->get(Mautic\CoreBundle\Update\Step\InstallNewFilesStep::class)->tag('mautic.update_step');
-    $services->alias('mautic.update.step.install_new_files', Mautic\CoreBundle\Update\Step\InstallNewFilesStep::class);
+    $services->get(MailVotech\CoreBundle\Update\Step\InstallNewFilesStep::class)->tag('mailvotech.update_step');
+    $services->alias('mailvotech.update.step.install_new_files', MailVotech\CoreBundle\Update\Step\InstallNewFilesStep::class);
 
-    $services->get(Mautic\CoreBundle\Update\Step\RemoveDeletedFilesStep::class)
-        ->arg('$logger', \Symfony\Component\DependencyInjection\Loader\Configurator\service('monolog.logger.mautic'))
-        ->tag('mautic.update_step');
-    $services->alias('mautic.update.step.remove_deleted_files', Mautic\CoreBundle\Update\Step\RemoveDeletedFilesStep::class);
+    $services->get(MailVotech\CoreBundle\Update\Step\RemoveDeletedFilesStep::class)
+        ->arg('$logger', \Symfony\Component\DependencyInjection\Loader\Configurator\service('monolog.logger.mailvotech'))
+        ->tag('mailvotech.update_step');
+    $services->alias('mailvotech.update.step.remove_deleted_files', MailVotech\CoreBundle\Update\Step\RemoveDeletedFilesStep::class);
 
-    $services->get(Mautic\CoreBundle\Update\Step\UpdateSchemaStep::class)->tag('mautic.update_step');
-    $services->alias('mautic.update.step.update_schema', Mautic\CoreBundle\Update\Step\UpdateSchemaStep::class);
+    $services->get(MailVotech\CoreBundle\Update\Step\UpdateSchemaStep::class)->tag('mailvotech.update_step');
+    $services->alias('mailvotech.update.step.update_schema', MailVotech\CoreBundle\Update\Step\UpdateSchemaStep::class);
 
-    $services->get(Mautic\CoreBundle\Update\Step\UpdateTranslationsStep::class)
-        ->arg('$logger', \Symfony\Component\DependencyInjection\Loader\Configurator\service('monolog.logger.mautic'))
-        ->tag('mautic.update_step');
-    $services->alias('mautic.update.step.update_translations', Mautic\CoreBundle\Update\Step\UpdateTranslationsStep::class);
+    $services->get(MailVotech\CoreBundle\Update\Step\UpdateTranslationsStep::class)
+        ->arg('$logger', \Symfony\Component\DependencyInjection\Loader\Configurator\service('monolog.logger.mailvotech'))
+        ->tag('mailvotech.update_step');
+    $services->alias('mailvotech.update.step.update_translations', MailVotech\CoreBundle\Update\Step\UpdateTranslationsStep::class);
 
-    $services->get(Mautic\CoreBundle\Update\Step\PreUpdateChecksStep::class)->tag('mautic.update_step');
-    $services->alias('mautic.update.step.checks', Mautic\CoreBundle\Update\Step\PreUpdateChecksStep::class);
+    $services->get(MailVotech\CoreBundle\Update\Step\PreUpdateChecksStep::class)->tag('mailvotech.update_step');
+    $services->alias('mailvotech.update.step.checks', MailVotech\CoreBundle\Update\Step\PreUpdateChecksStep::class);
 
-    $services->set(Mautic\CoreBundle\Helper\Update\PreUpdateChecks\CheckPhpVersion::class)->tag('mautic.update_check');
-    $services->alias('mautic.update.checks.php', Mautic\CoreBundle\Helper\Update\PreUpdateChecks\CheckPhpVersion::class);
+    $services->set(MailVotech\CoreBundle\Helper\Update\PreUpdateChecks\CheckPhpVersion::class)->tag('mailvotech.update_check');
+    $services->alias('mailvotech.update.checks.php', MailVotech\CoreBundle\Helper\Update\PreUpdateChecks\CheckPhpVersion::class);
 
-    $services->set(Mautic\CoreBundle\Helper\Update\PreUpdateChecks\CheckDatabaseDriverAndVersion::class)->tag('mautic.update_check');
-    $services->alias('mautic.update.checks.database', Mautic\CoreBundle\Helper\Update\PreUpdateChecks\CheckDatabaseDriverAndVersion::class);
-    $services->alias('mautic.core.service.bulk_notification', Mautic\CoreBundle\Service\BulkNotification::class);
+    $services->set(MailVotech\CoreBundle\Helper\Update\PreUpdateChecks\CheckDatabaseDriverAndVersion::class)->tag('mailvotech.update_check');
+    $services->alias('mailvotech.update.checks.database', MailVotech\CoreBundle\Helper\Update\PreUpdateChecks\CheckDatabaseDriverAndVersion::class);
+    $services->alias('mailvotech.core.service.bulk_notification', MailVotech\CoreBundle\Service\BulkNotification::class);
 
-    $services->get(Mautic\CoreBundle\Monolog\LogProcessor::class)->tag('monolog.processor');
-    $services->alias('mautic.core.service.log_processor', Mautic\CoreBundle\Monolog\LogProcessor::class);
+    $services->get(MailVotech\CoreBundle\Monolog\LogProcessor::class)->tag('monolog.processor');
+    $services->alias('mailvotech.core.service.log_processor', MailVotech\CoreBundle\Monolog\LogProcessor::class);
 
-    $services->get(Mautic\CoreBundle\Monolog\Handler\FileLogHandler::class)
-        ->arg('$exceptionFormatter', \Symfony\Component\DependencyInjection\Loader\Configurator\service('mautic.monolog.fulltrace.formatter'));
-    $services->alias('mautic.monolog.handler', Mautic\CoreBundle\Monolog\Handler\FileLogHandler::class);
+    $services->get(MailVotech\CoreBundle\Monolog\Handler\FileLogHandler::class)
+        ->arg('$exceptionFormatter', \Symfony\Component\DependencyInjection\Loader\Configurator\service('mailvotech.monolog.fulltrace.formatter'));
+    $services->alias('mailvotech.monolog.handler', MailVotech\CoreBundle\Monolog\Handler\FileLogHandler::class);
 
-    $services->set(Mautic\CoreBundle\DependencyInjection\EnvProcessor\NullableProcessor::class)
+    $services->set(MailVotech\CoreBundle\DependencyInjection\EnvProcessor\NullableProcessor::class)
         ->tag('container.env_var_processor');
-    $services->alias('mautic.di.env_processor.nullable', Mautic\CoreBundle\DependencyInjection\EnvProcessor\NullableProcessor::class);
+    $services->alias('mailvotech.di.env_processor.nullable', MailVotech\CoreBundle\DependencyInjection\EnvProcessor\NullableProcessor::class);
 
-    $services->set(Mautic\CoreBundle\DependencyInjection\EnvProcessor\IntNullableProcessor::class)
-        ->tag('container.env_var_processor');
-
-    $services->alias('mautic.di.env_processor.int_nullable', Mautic\CoreBundle\DependencyInjection\EnvProcessor\IntNullableProcessor::class);
-
-    $services->set(Mautic\CoreBundle\DependencyInjection\EnvProcessor\MauticConstProcessor::class)
+    $services->set(MailVotech\CoreBundle\DependencyInjection\EnvProcessor\IntNullableProcessor::class)
         ->tag('container.env_var_processor');
 
-    $services->alias('mautic.di.env_processor.mauticconst', Mautic\CoreBundle\DependencyInjection\EnvProcessor\MauticConstProcessor::class);
+    $services->alias('mailvotech.di.env_processor.int_nullable', MailVotech\CoreBundle\DependencyInjection\EnvProcessor\IntNullableProcessor::class);
 
-    $services->alias('mautic.helper.user', Mautic\CoreBundle\Helper\UserHelper::class);
-    $services->alias('mautic.helper.ip_lookup', Mautic\CoreBundle\Helper\IpLookupHelper::class);
-    $services->alias('mautic.helper.token_builder', Mautic\CoreBundle\Helper\BuilderTokenHelper::class);
-    $services->alias('mautic.helper.token_builder.factory', Mautic\CoreBundle\Helper\BuilderTokenHelperFactory::class);
-    $services->alias('mautic.helper.app_version', Mautic\CoreBundle\Helper\AppVersion::class);
-    $services->alias('mautic.helper.command', Mautic\CoreBundle\Helper\CommandHelper::class);
-    $services->alias('mautic.page.helper.factory', Mautic\CoreBundle\Factory\PageHelperFactory::class);
+    $services->set(MailVotech\CoreBundle\DependencyInjection\EnvProcessor\MailVotechConstProcessor::class)
+        ->tag('container.env_var_processor');
 
-    $services->alias('mautic.core.repository.ip_address', Mautic\CoreBundle\Entity\IpAddressRepository::class);
+    $services->alias('mailvotech.di.env_processor.mailvotechconst', MailVotech\CoreBundle\DependencyInjection\EnvProcessor\MailVotechConstProcessor::class);
+
+    $services->alias('mailvotech.helper.user', MailVotech\CoreBundle\Helper\UserHelper::class);
+    $services->alias('mailvotech.helper.ip_lookup', MailVotech\CoreBundle\Helper\IpLookupHelper::class);
+    $services->alias('mailvotech.helper.token_builder', MailVotech\CoreBundle\Helper\BuilderTokenHelper::class);
+    $services->alias('mailvotech.helper.token_builder.factory', MailVotech\CoreBundle\Helper\BuilderTokenHelperFactory::class);
+    $services->alias('mailvotech.helper.app_version', MailVotech\CoreBundle\Helper\AppVersion::class);
+    $services->alias('mailvotech.helper.command', MailVotech\CoreBundle\Helper\CommandHelper::class);
+    $services->alias('mailvotech.page.helper.factory', MailVotech\CoreBundle\Factory\PageHelperFactory::class);
+
+    $services->alias('mailvotech.core.repository.ip_address', MailVotech\CoreBundle\Entity\IpAddressRepository::class);
 
     // Explicitly register our Twig extension with high priority
-    $services->set(Mautic\CoreBundle\Twig\Extension\OverrideIncludeExtension::class)
+    $services->set(MailVotech\CoreBundle\Twig\Extension\OverrideIncludeExtension::class)
         ->autowire()
         ->tag('twig.extension', ['priority' => 100]);
 
-    $services->get(Mautic\CoreBundle\Twig\Extension\FormExtension::class)
+    $services->get(MailVotech\CoreBundle\Twig\Extension\FormExtension::class)
         ->arg('$formRenderer', \Symfony\Component\DependencyInjection\Loader\Configurator\service('twig.form.renderer'));
 
-    $services->set('mautic.http.client', GuzzleHttp\Client::class)->autowire();
-    $services->set(Mautic\CoreBundle\Doctrine\MigrationFactoryDecorator::class)->autowire();
+    $services->set('mailvotech.http.client', GuzzleHttp\Client::class)->autowire();
+    $services->set(MailVotech\CoreBundle\Doctrine\MigrationFactoryDecorator::class)->autowire();
 
     $services->set(StringExtension::class)
         ->tag('twig.extension');
 
-    $services->alias(GuzzleHttp\Client::class, 'mautic.http.client');
-    $services->alias(Psr\Http\Client\ClientInterface::class, 'mautic.http.client');
+    $services->alias(GuzzleHttp\Client::class, 'mailvotech.http.client');
+    $services->alias(Psr\Http\Client\ClientInterface::class, 'mailvotech.http.client');
     $services->alias(Symfony\Component\DependencyInjection\ContainerInterface::class, 'service_container');
     $services->alias(Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface::class, 'argument_resolver');
 
-    $services->alias(Mautic\CoreBundle\Doctrine\Provider\VersionProviderInterface::class, Mautic\CoreBundle\Doctrine\Provider\VersionProvider::class);
-    $services->alias('mautic.model.factory', Mautic\CoreBundle\Factory\ModelFactory::class);
-    $services->alias('twig.helper.assets', Mautic\CoreBundle\Twig\Helper\AssetsHelper::class);
-    $services->alias('transifex.factory', Mautic\CoreBundle\Factory\TransifexFactory::class);
-    $services->alias('mautic.helper.language', Mautic\CoreBundle\Helper\LanguageHelper::class);
-    $services->alias('mautic.helper.email.address', Mautic\CoreBundle\Helper\EmailAddressHelper::class);
-    $services->alias('mautic.helper.assetgeneration', Mautic\CoreBundle\Helper\AssetGenerationHelper::class);
-    $services->alias('mautic.helper.update_checks', Mautic\CoreBundle\Helper\PreUpdateCheckHelper::class);
-    $services->alias('mautic.update.step_provider', Mautic\CoreBundle\Update\StepProvider::class);
+    $services->alias(MailVotech\CoreBundle\Doctrine\Provider\VersionProviderInterface::class, MailVotech\CoreBundle\Doctrine\Provider\VersionProvider::class);
+    $services->alias('mailvotech.model.factory', MailVotech\CoreBundle\Factory\ModelFactory::class);
+    $services->alias('twig.helper.assets', MailVotech\CoreBundle\Twig\Helper\AssetsHelper::class);
+    $services->alias('transifex.factory', MailVotech\CoreBundle\Factory\TransifexFactory::class);
+    $services->alias('mailvotech.helper.language', MailVotech\CoreBundle\Helper\LanguageHelper::class);
+    $services->alias('mailvotech.helper.email.address', MailVotech\CoreBundle\Helper\EmailAddressHelper::class);
+    $services->alias('mailvotech.helper.assetgeneration', MailVotech\CoreBundle\Helper\AssetGenerationHelper::class);
+    $services->alias('mailvotech.helper.update_checks', MailVotech\CoreBundle\Helper\PreUpdateCheckHelper::class);
+    $services->alias('mailvotech.update.step_provider', MailVotech\CoreBundle\Update\StepProvider::class);
 
-    $services->get(Mautic\CoreBundle\Twig\Helper\AssetsHelper::class)->tag('twig.helper', ['alias' => 'assets']);
+    $services->get(MailVotech\CoreBundle\Twig\Helper\AssetsHelper::class)->tag('twig.helper', ['alias' => 'assets']);
 
-    $services->get(Mautic\CoreBundle\Model\NotificationModel::class)->call('setDisableUpdates', ['%mautic.security.disableUpdates%']);
-    $services->alias('mautic.core.model.auditlog', Mautic\CoreBundle\Model\AuditLogModel::class);
-    $services->alias('mautic.core.model.notification', Mautic\CoreBundle\Model\NotificationModel::class);
-    $services->alias('mautic.core.model.form', Mautic\CoreBundle\Model\FormModel::class);
+    $services->get(MailVotech\CoreBundle\Model\NotificationModel::class)->call('setDisableUpdates', ['%mailvotech.security.disableUpdates%']);
+    $services->alias('mailvotech.core.model.auditlog', MailVotech\CoreBundle\Model\AuditLogModel::class);
+    $services->alias('mailvotech.core.model.notification', MailVotech\CoreBundle\Model\NotificationModel::class);
+    $services->alias('mailvotech.core.model.form', MailVotech\CoreBundle\Model\FormModel::class);
 };

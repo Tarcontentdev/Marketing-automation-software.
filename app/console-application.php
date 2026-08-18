@@ -13,9 +13,9 @@ if (function_exists('set_time_limit')) {
     set_time_limit(0);
 }
 
-defined('IN_MAUTIC_CONSOLE') or define('IN_MAUTIC_CONSOLE', 1);
+defined('IN_MAILVOTECH_CONSOLE') or define('IN_MAILVOTECH_CONSOLE', 1);
 
-define('MAUTIC_ROOT_DIR', realpath(__DIR__.'/..'));
+define('MAILVOTECH_ROOT_DIR', realpath(__DIR__.'/..'));
 
 require_once __DIR__.'/../autoload.php';
 
@@ -45,7 +45,7 @@ if ($_SERVER['APP_DEBUG']) {
 
 $kernel      = new AppKernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']);
 $application = new Application($kernel);
-$application->setName('Mautic');
+$application->setName('MailVotech');
 $application->setVersion($kernel->getVersion().' - app/'.$kernel->getEnvironment().($kernel->isDebug() ? '/debug' : ''));
 
 return $application;

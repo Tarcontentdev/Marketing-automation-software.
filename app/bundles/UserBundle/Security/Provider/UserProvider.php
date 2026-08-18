@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\UserBundle\Security\Provider;
+namespace MailVotech\UserBundle\Security\Provider;
 
-use Mautic\CoreBundle\Cache\ResultCacheHelper;
-use Mautic\CoreBundle\Cache\ResultCacheOptions;
-use Mautic\CoreBundle\Helper\EncryptionHelper;
-use Mautic\UserBundle\Entity\PermissionRepository;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
-use Mautic\UserBundle\Event\UserEvent;
-use Mautic\UserBundle\UserEvents;
+use MailVotech\CoreBundle\Cache\ResultCacheHelper;
+use MailVotech\CoreBundle\Cache\ResultCacheOptions;
+use MailVotech\CoreBundle\Helper\EncryptionHelper;
+use MailVotech\UserBundle\Entity\PermissionRepository;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
+use MailVotech\UserBundle\Event\UserEvent;
+use MailVotech\UserBundle\UserEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -51,7 +51,7 @@ class UserProvider implements UserProviderInterface
         $user = $query->getOneOrNullResult();
 
         if (!$user instanceof User) {
-            throw new UserNotFoundException($this->translator->trans('mautic.user.exception.user.not_found', ['%identifier%' => $identifier]));
+            throw new UserNotFoundException($this->translator->trans('mailvotech.user.exception.user.not_found', ['%identifier%' => $identifier]));
         }
 
         // load permissions
@@ -100,19 +100,19 @@ class UserProvider implements UserProviderInterface
 
         // Validation for User objects returned by a plugin
         if (!$user->getRole()) {
-            throw new AuthenticationException('mautic.integration.sso.error.no_role');
+            throw new AuthenticationException('mailvotech.integration.sso.error.no_role');
         }
 
         if (!$user->getUserIdentifier()) {
-            throw new AuthenticationException('mautic.integration.sso.error.no_username');
+            throw new AuthenticationException('mailvotech.integration.sso.error.no_username');
         }
 
         if (!$user->getEmail()) {
-            throw new AuthenticationException('mautic.integration.sso.error.no_email');
+            throw new AuthenticationException('mailvotech.integration.sso.error.no_email');
         }
 
         if (!$user->getFirstName() || !$user->getLastName()) {
-            throw new AuthenticationException('mautic.integration.sso.error.no_name');
+            throw new AuthenticationException('mailvotech.integration.sso.error.no_name');
         }
 
         // Check for plain password

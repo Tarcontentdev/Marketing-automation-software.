@@ -1,24 +1,24 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
 use Doctrine\Persistence\Mapping\MappingException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\EmojiHelper;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Event\EmailBuilderEvent;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\EmailBundle\Helper\FromEmailHelper;
-use Mautic\EmailBundle\Helper\MailHashHelper;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Redirect;
-use Mautic\PageBundle\Entity\RedirectRepository;
-use Mautic\PageBundle\Entity\Trackable;
-use Mautic\PageBundle\Entity\TrackableRepository;
-use Mautic\PageBundle\Model\RedirectModel;
-use Mautic\PageBundle\Model\TrackableModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\EmojiHelper;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Event\EmailBuilderEvent;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\Helper\FromEmailHelper;
+use MailVotech\EmailBundle\Helper\MailHashHelper;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Redirect;
+use MailVotech\PageBundle\Entity\RedirectRepository;
+use MailVotech\PageBundle\Entity\Trackable;
+use MailVotech\PageBundle\Entity\TrackableRepository;
+use MailVotech\PageBundle\Model\RedirectModel;
+use MailVotech\PageBundle\Model\TrackableModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -66,27 +66,27 @@ final class BuilderSubscriber implements EventSubscriberInterface
         if ($event->abTestWinnerCriteriaRequested()) {
             // add AB Test Winner Criteria
             $openRate = [
-                'group'    => 'mautic.email.stats',
-                'label'    => 'mautic.email.abtest.criteria.open',
+                'group'    => 'mailvotech.email.stats',
+                'label'    => 'mailvotech.email.abtest.criteria.open',
                 'event'    => EmailEvents::ON_DETERMINE_OPEN_RATE_WINNER,
             ];
             $event->addAbTestWinnerCriteria('email.openrate', $openRate);
 
             $clickThrough = [
-                'group'    => 'mautic.email.stats',
-                'label'    => 'mautic.email.abtest.criteria.clickthrough',
+                'group'    => 'mailvotech.email.stats',
+                'label'    => 'mailvotech.email.abtest.criteria.clickthrough',
                 'event'    => EmailEvents::ON_DETERMINE_CLICKTHROUGH_RATE_WINNER,
             ];
             $event->addAbTestWinnerCriteria('email.clickthrough', $clickThrough);
         }
 
-        $emailPrefix = $this->translator->trans('mautic.email.email').': ';
+        $emailPrefix = $this->translator->trans('mailvotech.email.email').': ';
         $tokens      = [
-            '{unsubscribe_text}' => $emailPrefix.$this->translator->trans('mautic.email.token.unsubscribe_text'),
-            '{webview_text}'     => $emailPrefix.$this->translator->trans('mautic.email.token.webview_text'),
-            '{signature}'        => $emailPrefix.$this->translator->trans('mautic.email.token.signature'),
-            '{brand=name}'       => $emailPrefix.$this->translator->trans('mautic.core.token.brand_name'),
-            '{subject}'          => $emailPrefix.$this->translator->trans('mautic.email.subject'),
+            '{unsubscribe_text}' => $emailPrefix.$this->translator->trans('mailvotech.email.token.unsubscribe_text'),
+            '{webview_text}'     => $emailPrefix.$this->translator->trans('mailvotech.email.token.webview_text'),
+            '{signature}'        => $emailPrefix.$this->translator->trans('mailvotech.email.token.signature'),
+            '{brand=name}'       => $emailPrefix.$this->translator->trans('mailvotech.core.token.brand_name'),
+            '{subject}'          => $emailPrefix.$this->translator->trans('mailvotech.email.subject'),
         ];
 
         if ($event->tokensRequested(array_keys($tokens))) {
@@ -97,10 +97,10 @@ final class BuilderSubscriber implements EventSubscriberInterface
 
         // these should not allow visual tokens
         $tokens = [
-            '{unsubscribe_url}' => $emailPrefix.$this->translator->trans('mautic.email.token.unsubscribe_url'),
-            '{dnc_url}'         => $emailPrefix.$this->translator->trans('mautic.email.token.unsubscribe_all_url'),
-            '{resubscribe_url}' => $emailPrefix.$this->translator->trans('mautic.email.token.resubscribe_url'),
-            '{webview_url}'     => $emailPrefix.$this->translator->trans('mautic.email.token.webview_url'),
+            '{unsubscribe_url}' => $emailPrefix.$this->translator->trans('mailvotech.email.token.unsubscribe_url'),
+            '{dnc_url}'         => $emailPrefix.$this->translator->trans('mailvotech.email.token.unsubscribe_all_url'),
+            '{resubscribe_url}' => $emailPrefix.$this->translator->trans('mailvotech.email.token.resubscribe_url'),
+            '{webview_url}'     => $emailPrefix.$this->translator->trans('mailvotech.email.token.webview_url'),
         ];
         if ($event->tokensRequested(array_keys($tokens))) {
             $event->addTokens(
@@ -175,29 +175,29 @@ final class BuilderSubscriber implements EventSubscriberInterface
 
         $unsubscribeText = $this->coreParametersHelper->get('unsubscribe_text');
         if (!$unsubscribeText) {
-            $unsubscribeText = $this->translator->trans('mautic.email.unsubscribe.text', ['%link%' => '|URL|']);
+            $unsubscribeText = $this->translator->trans('mailvotech.email.unsubscribe.text', ['%link%' => '|URL|']);
         }
 
         // We will replace tokens in unsubscribe text too
-        $unsubscribeLink = $this->emailModel->buildUrl('mautic_email_unsubscribe', ['idHash' => $idHash, 'urlEmail' => $toEmail, 'secretHash' => $unsubscribeHash]);
-        $unsubscribeText = \Mautic\LeadBundle\Helper\TokenHelper::findLeadTokens($unsubscribeText, $lead, true);
+        $unsubscribeLink = $this->emailModel->buildUrl('mailvotech_email_unsubscribe', ['idHash' => $idHash, 'urlEmail' => $toEmail, 'secretHash' => $unsubscribeHash]);
+        $unsubscribeText = \MailVotech\LeadBundle\Helper\TokenHelper::findLeadTokens($unsubscribeText, $lead, true);
         $unsubscribeText = str_replace('|URL|', $unsubscribeLink, $unsubscribeText);
         $event->addToken('{unsubscribe_text}', EmojiHelper::toHtml($unsubscribeText));
         $event->addToken('{unsubscribe_url}', $unsubscribeLink);
-        $event->addToken('{dnc_url}', $this->emailModel->buildUrl('mautic_email_unsubscribe_all', ['idHash' => $idHash, 'urlEmail' => $toEmail, 'secretHash' => $unsubscribeHash]));
-        $event->addToken('{resubscribe_url}', $this->emailModel->buildUrl('mautic_email_resubscribe', ['idHash' => $idHash]));
+        $event->addToken('{dnc_url}', $this->emailModel->buildUrl('mailvotech_email_unsubscribe_all', ['idHash' => $idHash, 'urlEmail' => $toEmail, 'secretHash' => $unsubscribeHash]));
+        $event->addToken('{resubscribe_url}', $this->emailModel->buildUrl('mailvotech_email_resubscribe', ['idHash' => $idHash]));
 
         $webviewText = $this->coreParametersHelper->get('webview_text');
         if (!$webviewText) {
-            $webviewText = $this->translator->trans('mautic.email.webview.text', ['%link%' => '|URL|']);
+            $webviewText = $this->translator->trans('mailvotech.email.webview.text', ['%link%' => '|URL|']);
         }
-        $webviewLink = $this->emailModel->buildUrl('mautic_email_webview', ['idHash' => $idHash]);
+        $webviewLink = $this->emailModel->buildUrl('mailvotech_email_webview', ['idHash' => $idHash]);
         $webviewText = str_replace('|URL|', $webviewLink, $webviewText);
         $event->addToken('{webview_text}', EmojiHelper::toHtml($webviewText));
 
         // Show public email preview if the lead is not known to prevent 404
         if (empty($lead['id']) && $email) {
-            $event->addToken('{webview_url}', $this->emailModel->buildUrl('mautic_email_preview', ['objectId' => $email->getId()]));
+            $event->addToken('{webview_url}', $this->emailModel->buildUrl('mailvotech_email_preview', ['objectId' => $email->getId()]));
         } else {
             $event->addToken('{webview_url}', $webviewLink);
         }

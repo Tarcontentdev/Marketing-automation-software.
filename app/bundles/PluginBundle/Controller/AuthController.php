@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\PluginBundle\Controller;
+namespace MailVotech\PluginBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\PluginBundle\Event\PluginIntegrationAuthRedirectEvent;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PluginBundle\PluginEvents;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\PluginBundle\Event\PluginIntegrationAuthRedirectEvent;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\PluginEvents;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,19 +25,19 @@ final class AuthController extends FormController
 
         // check to see if the service exists
         if (!$integrationObject) {
-            $session->set('mautic.integration.postauth.message', ['mautic.integration.notfound', ['%name%' => $integration], 'error']);
+            $session->set('mailvotech.integration.postauth.message', ['mailvotech.integration.notfound', ['%name%' => $integration], 'error']);
             if ($isAjax) {
-                return new JsonResponse(['url' => $this->generateUrl('mautic_integration_auth_postauth', ['integration' => $integration])]);
+                return new JsonResponse(['url' => $this->generateUrl('mailvotech_integration_auth_postauth', ['integration' => $integration])]);
             }
 
-            return new RedirectResponse($this->generateUrl('mautic_integration_auth_postauth', ['integration' => $integration]));
+            return new RedirectResponse($this->generateUrl('mailvotech_integration_auth_postauth', ['integration' => $integration]));
         }
 
         try {
             $error = $integrationObject->authCallback();
         } catch (\InvalidArgumentException $e) {
-            $session->set('mautic.integration.postauth.message', [$e->getMessage(), [], 'error']);
-            $redirectUrl = $this->generateUrl('mautic_integration_auth_postauth', ['integration' => $integration]);
+            $session->set('mailvotech.integration.postauth.message', [$e->getMessage(), [], 'error']);
+            $redirectUrl = $this->generateUrl('mailvotech_integration_auth_postauth', ['integration' => $integration]);
             if ($isAjax) {
                 return new JsonResponse(['url' => $redirectUrl]);
             }
@@ -48,42 +48,42 @@ final class AuthController extends FormController
         // check for error
         if ($error) {
             $type    = 'error';
-            $message = 'mautic.integration.error.oauthfail';
+            $message = 'mailvotech.integration.error.oauthfail';
             $params  = ['%error%' => $error];
         } else {
             $type    = 'notice';
-            $message = 'mautic.integration.notice.oauthsuccess';
+            $message = 'mailvotech.integration.notice.oauthsuccess';
             $params  = [];
         }
 
-        $session->set('mautic.integration.postauth.message', [$message, $params, $type]);
+        $session->set('mailvotech.integration.postauth.message', [$message, $params, $type]);
 
         $identifier[$integration] = null;
         $socialCache              = [];
         $userData                 = $integrationObject->getUserData($identifier, $socialCache);
 
-        $session->set('mautic.integration.'.$integration.'.userdata', $userData);
+        $session->set('mailvotech.integration.'.$integration.'.userdata', $userData);
 
-        return new RedirectResponse($this->generateUrl('mautic_integration_auth_postauth', ['integration' => $integration]));
+        return new RedirectResponse($this->generateUrl('mailvotech_integration_auth_postauth', ['integration' => $integration]));
     }
 
     public function authStatusAction(Request $request, $integration): Response
     {
-        $postAuthTemplate = '@MauticPlugin/Auth/postauth.html.twig';
+        $postAuthTemplate = '@MailVotechPlugin/Auth/postauth.html.twig';
 
         $session     = $request->getSession();
-        $postMessage = $session->get('mautic.integration.postauth.message');
+        $postMessage = $session->get('mailvotech.integration.postauth.message');
         $userData    = [];
 
         if (isset($integration)) {
-            $userData = $session->get('mautic.integration.'.$integration.'.userdata');
+            $userData = $session->get('mailvotech.integration.'.$integration.'.userdata');
         }
 
         $message = $type = '';
         $alert   = 'success';
         if (!empty($postMessage)) {
             $message = $this->translator->trans($postMessage[0], $postMessage[1], 'flashes');
-            $session->remove('mautic.integration.postauth.message');
+            $session->remove('mailvotech.integration.postauth.message');
             $type = $postMessage[2];
             if ('error' == $type) {
                 $alert = 'danger';
@@ -100,7 +100,7 @@ final class AuthController extends FormController
         $settings['method']      = 'GET';
         $settings['integration'] = $integrationObject->getName();
 
-        /** @var \Mautic\PluginBundle\Integration\AbstractIntegration $integrationObject */
+        /** @var \MailVotech\PluginBundle\Integration\AbstractIntegration $integrationObject */
         $event = $this->dispatcher->dispatch(
             new PluginIntegrationAuthRedirectEvent(
                 $integrationObject,

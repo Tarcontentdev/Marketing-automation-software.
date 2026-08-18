@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Event;
+namespace MailVotech\LeadBundle\Tests\Event;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Event\LeadEvent;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Event\LeadEvent;
 
 final class LeadEventTest extends \PHPUnit\Framework\TestCase
 {

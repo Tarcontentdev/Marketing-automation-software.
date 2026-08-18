@@ -39,7 +39,7 @@
                 <div class="col-xs-1">
                     {% if variants.parent.getId() == variant.getId() %}
                     <h3>
-                        {{ include('@MauticCore/Helper/publishstatus_icon.html.twig', {
+                        {{ include('@MailVotechCore/Helper/publishstatus_icon.html.twig', {
                                 'item': variant,
                                 'model': model,
                                 'size': '',
@@ -50,21 +50,21 @@
                 </div>
                 <div class="col-xs-11">
                     {% if isWinner %}
-                        <div class="mr-xs pull-left" data-toggle="tooltip" title="{{ 'mautic.core.ab_test.make_winner'|trans }}">
-                            {% include '@MauticCore/Helper/button.html.twig' with {
+                        <div class="mr-xs pull-left" data-toggle="tooltip" title="{{ 'mailvotech.core.ab_test.make_winner'|trans }}">
+                            {% include '@MailVotechCore/Helper/button.html.twig' with {
                                 buttons: [
                                     {
-                                        label: 'mautic.core.ab_test.make_winner',
+                                        label: 'mailvotech.core.ab_test.make_winner',
                                         variant: 'warning',
                                         icon_only: true,
                                         icon: 'ri-trophy-fill',
                                         href: path(actionRoute, {'objectAction': 'winner', 'objectId': variant.id}),
                                         attributes: {
                                             'data-toggle': 'confirmation',
-                                            'data-message': ('mautic.core.ab_test.confirm_make_winner'|trans({'%name%': attribute(variant, nameGetter)})|e),
-                                            'data-confirm-text': ('mautic.core.ab_test.make_winner'|trans|e),
+                                            'data-message': ('mailvotech.core.ab_test.confirm_make_winner'|trans({'%name%': attribute(variant, nameGetter)})|e),
+                                            'data-confirm-text': ('mailvotech.core.ab_test.make_winner'|trans|e),
                                             'data-confirm-callback': 'executeAction',
-                                            'data-cancel-text': ('mautic.core.form.cancel'|trans|e)
+                                            'data-cancel-text': ('mailvotech.core.form.cancel'|trans|e)
                                         }
                                     }
                                 ]
@@ -76,13 +76,13 @@
                             {{ attribute(variant, nameGetter) }}
                         </a>
                         {% if isCurrent %}
-                            &nbsp;<span class="label label-success">{{ 'mautic.core.current'|trans }}</span>
+                            &nbsp;<span class="label label-success">{{ 'mailvotech.core.current'|trans }}</span>
                         {% endif %}
                         {% if variants.parent.id is same as variant.id %}
-                            &nbsp;<span class="label label-warning">{{ 'mautic.core.parent'|trans }}</span>
+                            &nbsp;<span class="label label-warning">{{ 'mailvotech.core.parent'|trans }}</span>
                         {% endif %}
-                        {% if variant is instanceof('\\Mautic\\CoreBundle\\Entity\\TranslationEntityInterface') and variant.isTranslation %}
-                            &nbsp;<span data-toggle="tooltip" title="{{ 'mautic.core.icon_tooltip.translation'|trans }}">
+                        {% if variant is instanceof('\\MailVotech\\CoreBundle\\Entity\\TranslationEntityInterface') and variant.isTranslation %}
+                            &nbsp;<span data-toggle="tooltip" title="{{ 'mailvotech.core.icon_tooltip.translation'|trans }}">
                                 <i class="ri-fw ri-translate"></i>
                             </span>
                         {% endif %}
@@ -96,7 +96,7 @@
         <div class="col-md-4 va-t text-right">
             <em class="text-white dark-sm">
                 {% if true == variants['configurationError'] %}
-                    <div class="text-danger" data-toggle="label label-danger" title="{{ 'mautic.core.variant.misconfiguration'|trans }}">
+                    <div class="text-danger" data-toggle="label label-danger" title="{{ 'mailvotech.core.variant.misconfiguration'|trans }}">
                         <div><span class="badge">{{ weight }}%</span></div>
                         <div><i class="ri-fw ri-alert-line"></i>{{ criteriaLabel }}</div>
                     </div>

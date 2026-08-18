@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\EventListener;
+namespace MailVotech\ChannelBundle\EventListener;
 
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportDataEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\ReportEvents;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportDataEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\ReportEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -44,47 +44,47 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
         $prefix  = 'mq.';
         $columns = [
             $prefix.'channel' => [
-                'label' => 'mautic.message.queue.report.channel',
+                'label' => 'mailvotech.message.queue.report.channel',
                 'type'  => 'html',
             ],
             $prefix.'channel_id' => [
-                'label' => 'mautic.message.queue.report.channel_id',
+                'label' => 'mailvotech.message.queue.report.channel_id',
                 'type'  => 'int',
             ],
             $prefix.'priority' => [
-                'label' => 'mautic.message.queue.report.priority',
+                'label' => 'mailvotech.message.queue.report.priority',
                 'type'  => 'string',
             ],
             $prefix.'max_attempts' => [
-                'label' => 'mautic.message.queue.report.max_attempts',
+                'label' => 'mailvotech.message.queue.report.max_attempts',
                 'type'  => 'int',
             ],
             $prefix.'attempts' => [
-                'label' => 'mautic.message.queue.report.attempts',
+                'label' => 'mailvotech.message.queue.report.attempts',
                 'type'  => 'int',
             ],
             $prefix.'success' => [
-                'label' => 'mautic.message.queue.report.success',
+                'label' => 'mailvotech.message.queue.report.success',
                 'type'  => 'boolean',
             ],
             $prefix.'status' => [
-                'label' => 'mautic.message.queue.report.status',
+                'label' => 'mailvotech.message.queue.report.status',
                 'type'  => 'string',
             ],
             $prefix.'last_attempt' => [
-                'label' => 'mautic.message.queue.report.last_attempt',
+                'label' => 'mailvotech.message.queue.report.last_attempt',
                 'type'  => 'datetime',
             ],
             $prefix.'date_sent' => [
-                'label' => 'mautic.message.queue.report.date_sent',
+                'label' => 'mailvotech.message.queue.report.date_sent',
                 'type'  => 'datetime',
             ],
             $prefix.'scheduled_date' => [
-                'label' => 'mautic.message.queue.report.scheduled_date',
+                'label' => 'mailvotech.message.queue.report.scheduled_date',
                 'type'  => 'datetime',
             ],
             $prefix.'date_published' => [
-                'label' => 'mautic.message.queue.report.date_published',
+                'label' => 'mailvotech.message.queue.report.date_published',
                 'type'  => 'datetime',
             ],
         ];
@@ -100,7 +100,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
         $event->addTable(
             self::CONTEXT_MESSAGE_CHANNEL,
             [
-                'display_name' => 'mautic.message.queue',
+                'display_name' => 'mailvotech.message.queue',
                 'columns'      => $columns,
             ]
         );
@@ -116,8 +116,8 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
         }
 
         $queryBuilder = $event->getQueryBuilder();
-        $queryBuilder->from(MAUTIC_TABLE_PREFIX.'message_queue', 'mq')
-            ->leftJoin('mq', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = mq.lead_id');
+        $queryBuilder->from(MAILVOTECH_TABLE_PREFIX.'message_queue', 'mq')
+            ->leftJoin('mq', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = mq.lead_id');
 
         if ($this->companyReportData->eventHasCompanyColumns($event)) {
             $event->addCompanyLeftJoin($queryBuilder);
@@ -132,7 +132,7 @@ final readonly class ReportSubscriber implements EventSubscriberInterface
         if ($event->checkContext([self::CONTEXT_MESSAGE_CHANNEL])) {
             if (isset($data[0]['channel']) && isset($data[0]['channel_id'])) {
                 foreach ($data as &$row) {
-                    $href = $this->router->generate('mautic_'.$row['channel'].'_action', ['objectAction' => 'view', 'objectId' => $row['channel_id']]);
+                    $href = $this->router->generate('mailvotech_'.$row['channel'].'_action', ['objectAction' => 'view', 'objectId' => $row['channel_id']]);
                     if (isset($row['channel'])) {
                         $row['channel'] = '<a href="'.$href.'">'.$row['channel'].'</a>';
                     }

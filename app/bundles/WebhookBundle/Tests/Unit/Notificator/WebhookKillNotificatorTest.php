@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Unit\Notificator;
+namespace MailVotech\WebhookBundle\Tests\Unit\Notificator;
 
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Event\WebhookNotificationEvent;
-use Mautic\WebhookBundle\Notificator\WebhookKillNotificator;
-use Mautic\WebhookBundle\Notificator\WebhookNotificationSender;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Event\WebhookNotificationEvent;
+use MailVotech\WebhookBundle\Notificator\WebhookKillNotificator;
+use MailVotech\WebhookBundle\Notificator\WebhookNotificationSender;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -227,7 +227,7 @@ final class WebhookKillNotificatorTest extends \PHPUnit\Framework\TestCase
         $this->translatorMock->expects($matcher)
             ->method('trans')->willReturnCallback(function (...$parameters) use ($matcher, $htmlUrl): string {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.webhook.stopped', $parameters[0]);
+                    $this->assertSame('mailvotech.webhook.stopped', $parameters[0]);
 
                     return $this->subject;
                 }
@@ -237,7 +237,7 @@ final class WebhookKillNotificatorTest extends \PHPUnit\Framework\TestCase
                     return $this->reason;
                 }
                 if (3 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.webhook.stopped.details', $parameters[0]);
+                    $this->assertSame('mailvotech.webhook.stopped.details', $parameters[0]);
                     $this->assertSame(['%reason%'  => $this->reason, '%webhook%' => $htmlUrl], $parameters[1]);
 
                     return $this->details;
@@ -285,10 +285,10 @@ final class WebhookKillNotificatorTest extends \PHPUnit\Framework\TestCase
         $this->translatorMock->expects($this->exactly(2))
             ->method('trans')
             ->willReturnMap([
-                ['mautic.webhook.stopped', [], null, null, $subject],
+                ['mailvotech.webhook.stopped', [], null, null, $subject],
                 [$reason, [], null, null, $reason],
                 [
-                    'mautic.webhook.stopped.details',
+                    'mailvotech.webhook.stopped.details',
                     [
                         '%reason%'  => $reason,
                         '%webhook%' => $htmlUrl,
@@ -382,10 +382,10 @@ final class WebhookKillNotificatorTest extends \PHPUnit\Framework\TestCase
         $this->translatorMock->expects($this->exactly(2))
             ->method('trans')
             ->willReturnMap([
-                ['mautic.webhook.stopped', [], null, null, $subject],
+                ['mailvotech.webhook.stopped', [], null, null, $subject],
                 [$reason, [], null, null, $reason],
                 [
-                    'mautic.webhook.stopped.details',
+                    'mailvotech.webhook.stopped.details',
                     [
                         '%reason%'  => $reason,
                         '%webhook%' => $htmlUrl,

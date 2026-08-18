@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\AbstractFormFieldHelper;
-use Mautic\CoreBundle\Helper\ListParser\ArrayListParser;
-use Mautic\CoreBundle\Helper\ListParser\BarListParser;
-use Mautic\CoreBundle\Helper\ListParser\JsonListParser;
-use Mautic\CoreBundle\Helper\ListParser\ValueListParser;
+use MailVotech\CoreBundle\Helper\AbstractFormFieldHelper;
+use MailVotech\CoreBundle\Helper\ListParser\ArrayListParser;
+use MailVotech\CoreBundle\Helper\ListParser\BarListParser;
+use MailVotech\CoreBundle\Helper\ListParser\JsonListParser;
+use MailVotech\CoreBundle\Helper\ListParser\ValueListParser;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;

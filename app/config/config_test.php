@@ -1,14 +1,14 @@
 <?php
 
 use Doctrine\Bundle\FixturesBundle\DependencyInjection\CompilerPass\FixturesCompilerPass;
-use Mautic\CoreBundle\Loader\ParameterLoader;
-use Mautic\CoreBundle\Test\EnvLoader;
+use MailVotech\CoreBundle\Loader\ParameterLoader;
+use MailVotech\CoreBundle\Test\EnvLoader;
 use Symfony\Component\DependencyInjection\Reference;
 
 /** @var Symfony\Component\DependencyInjection\ContainerBuilder $container */
 
 // Include path settings
-$root          = $container->getParameter('mautic.application_dir').'/app';
+$root          = $container->getParameter('mailvotech.application_dir').'/app';
 $configBaseDir = ParameterLoader::getLocalConfigBaseDir($root);
 
 $loader->import('config.php');
@@ -16,8 +16,8 @@ $loader->import('config.php');
 EnvLoader::load();
 
 // Define some constants from .env
-defined('MAUTIC_TABLE_PREFIX') || define('MAUTIC_TABLE_PREFIX', getenv('MAUTIC_DB_PREFIX') ?: '');
-defined('MAUTIC_ENV') || define('MAUTIC_ENV', getenv('MAUTIC_ENV') ?: 'test');
+defined('MAILVOTECH_TABLE_PREFIX') || define('MAILVOTECH_TABLE_PREFIX', getenv('MAILVOTECH_DB_PREFIX') ?: '');
+defined('MAILVOTECH_ENV') || define('MAILVOTECH_ENV', getenv('MAILVOTECH_ENV') ?: 'test');
 
 // Twig Configuration
 $container->loadFromExtension('twig', [
@@ -25,13 +25,13 @@ $container->loadFromExtension('twig', [
     'debug'            => '%kernel.debug%',
     'strict_variables' => true,
     'paths'            => [
-        '%mautic.application_dir%/app/bundles'                  => 'bundles',
-        '%mautic.application_dir%/app/bundles/CoreBundle'       => 'MauticCore',
-        '%mautic.application_dir%/themes'                       => 'themes',
+        '%mailvotech.application_dir%/app/bundles'                  => 'bundles',
+        '%mailvotech.application_dir%/app/bundles/CoreBundle'       => 'MailVotechCore',
+        '%mailvotech.application_dir%/themes'                       => 'themes',
     ],
     'form_themes' => [
-        // Can be found at bundles/CoreBundle/Resources/views/mautic_form_layout.html.twig
-        '@MauticCore/FormTheme/mautic_form_layout.html.twig',
+        // Can be found at bundles/CoreBundle/Resources/views/mailvotech_form_layout.html.twig
+        '@MailVotechCore/FormTheme/mailvotech_form_layout.html.twig',
     ],
 ]);
 
@@ -52,7 +52,7 @@ $container->loadFromExtension('framework', [
     ],
 ]);
 
-$container->setParameter('mautic.famework.csrf_protection', true);
+$container->setParameter('mailvotech.famework.csrf_protection', true);
 
 $container->loadFromExtension('web_profiler', [
     'toolbar'             => false,
@@ -60,11 +60,11 @@ $container->loadFromExtension('web_profiler', [
 ]);
 
 $connectionSettings = [
-    'host'     => '%env(DB_HOST)%' ?: '%mautic.db_host%',
-    'port'     => '%env(DB_PORT)%' ?: '%mautic.db_port%',
-    'dbname'   => '%env(DB_NAME)%' ?: '%mautic.db_name%',
-    'user'     => '%env(DB_USER)%' ?: '%mautic.db_user%',
-    'password' => '%env(DB_PASSWD)%' ?: '%mautic.db_password%',
+    'host'     => '%env(DB_HOST)%' ?: '%mailvotech.db_host%',
+    'port'     => '%env(DB_PORT)%' ?: '%mailvotech.db_port%',
+    'dbname'   => '%env(DB_NAME)%' ?: '%mailvotech.db_name%',
+    'user'     => '%env(DB_USER)%' ?: '%mailvotech.db_user%',
+    'password' => '%env(DB_PASSWD)%' ?: '%mailvotech.db_password%',
     'options'  => [PDO::ATTR_STRINGIFY_FETCHES => true], // @see https://www.php.net/manual/en/migration81.incompatible.php#migration81.incompatible.pdo.mysql
 ];
 $container->loadFromExtension('doctrine', [
@@ -76,20 +76,20 @@ $container->loadFromExtension('doctrine', [
     ],
 ]);
 
-$container->setParameter('mautic.db_table_prefix', MAUTIC_TABLE_PREFIX);
+$container->setParameter('mailvotech.db_table_prefix', MAILVOTECH_TABLE_PREFIX);
 
 $container->loadFromExtension('monolog', [
     'channels' => [
-        'mautic',
+        'mailvotech',
     ],
     'handlers' => [
         'main' => [
-            'formatter' => 'mautic.monolog.fulltrace.formatter',
+            'formatter' => 'mailvotech.monolog.fulltrace.formatter',
             'type'      => 'rotating_file',
             'path'      => '%kernel.logs_dir%/%kernel.environment%.php',
-            'level'     => getenv('MAUTIC_DEBUG_LEVEL') ?: 'error',
+            'level'     => getenv('MAILVOTECH_DEBUG_LEVEL') ?: 'error',
             'channels'  => [
-                '!mautic',
+                '!mailvotech',
             ],
             'max_files' => 7,
         ],
@@ -97,13 +97,13 @@ $container->loadFromExtension('monolog', [
             'type'   => 'console',
             'bubble' => false,
         ],
-        'mautic' => [
-            'formatter' => 'mautic.monolog.fulltrace.formatter',
+        'mailvotech' => [
+            'formatter' => 'mailvotech.monolog.fulltrace.formatter',
             'type'      => 'rotating_file',
-            'path'      => '%kernel.logs_dir%/mautic_%kernel.environment%.php',
-            'level'     => getenv('MAUTIC_DEBUG_LEVEL') ?: 'error',
+            'path'      => '%kernel.logs_dir%/mailvotech_%kernel.environment%.php',
+            'level'     => getenv('MAILVOTECH_DEBUG_LEVEL') ?: 'error',
             'channels'  => [
-                'mautic',
+                'mailvotech',
             ],
             'max_files' => 7,
         ],
@@ -125,19 +125,19 @@ if (file_exists($configBaseDir.'/config/config_override.php')) {
 }
 
 // Add required parameters
-$container->setParameter('mautic.secret_key', '68c7e75470c02cba06dd543431411e0de94e04fdf2b3a2eac05957060edb66d0');
-$container->setParameter('mautic.security.disableUpdates', true);
-$container->setParameter('mautic.rss_notification_url', null);
-$container->setParameter('mautic.batch_sleep_time', 0);
+$container->setParameter('mailvotech.secret_key', '68c7e75470c02cba06dd543431411e0de94e04fdf2b3a2eac05957060edb66d0');
+$container->setParameter('mailvotech.security.disableUpdates', true);
+$container->setParameter('mailvotech.rss_notification_url', null);
+$container->setParameter('mailvotech.batch_sleep_time', 0);
 
 // Turn off creating of indexes in lead field fixtures
-$container->register('mautic.install.fixture.lead_field', Mautic\InstallBundle\InstallFixtures\ORM\LeadFieldData::class)
+$container->register('mailvotech.install.fixture.lead_field', MailVotech\InstallBundle\InstallFixtures\ORM\LeadFieldData::class)
     ->addArgument(new Reference('translator'))
     ->addTag(FixturesCompilerPass::FIXTURE_TAG)
     ->setPublic(true);
 
 if (defined('IS_PHPUNIT')) {
-    $container->register('security.csrf.token_storage', Mautic\CoreBundle\Test\Session\InMemoryTokenStorage::class)->setAutowired(true);
+    $container->register('security.csrf.token_storage', MailVotech\CoreBundle\Test\Session\InMemoryTokenStorage::class)->setAutowired(true);
 }
 
 // Use static namespace for token manager
@@ -153,7 +153,7 @@ $container->register(GuzzleHttp\Handler\MockHandler::class)->setPublic(true);
 $container->register('http_client', Symfony\Component\HttpClient\MockHttpClient::class)
     ->setPublic(true);
 
-$container->register('test.service_container', Mautic\CoreBundle\Test\Container\TestContainer::class)
+$container->register('test.service_container', MailVotech\CoreBundle\Test\Container\TestContainer::class)
     ->setArgument('$kernel', new Reference('kernel'))
     ->setArgument('$privateServicesLocatorId', 'test.private_services_locator')
     ->setPublic(true);

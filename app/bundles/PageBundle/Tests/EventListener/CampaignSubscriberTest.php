@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\EventListener;
+namespace MailVotech\PageBundle\Tests\EventListener;
 
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\CampaignBundle\Executioner\RealTimeExecutioner;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PageBundle\Entity\Hit;
-use Mautic\PageBundle\EventListener\CampaignSubscriber;
-use Mautic\PageBundle\Helper\TrackingHelper;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\CampaignBundle\Executioner\RealTimeExecutioner;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\EventListener\CampaignSubscriber;
+use MailVotech\PageBundle\Helper\TrackingHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

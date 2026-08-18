@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Integration\Interfaces;
+namespace MailVotech\IntegrationsBundle\Integration\Interfaces;
 
-use Mautic\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
+use MailVotech\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
 
 interface ConfigFormSyncInterface extends IntegrationInterface
 {
     /**
      * Return an array of Integration objects in the format of [$object => $translatableObjectNameString].
-     * i.e. ['Customer' => 'mautic.something.object.customer', 'Account' => 'mautic.something.object.account'];.
+     * i.e. ['Customer' => 'mailvotech.something.object.customer', 'Account' => 'mailvotech.something.object.account'];.
      */
     public function getSyncConfigObjects(): array;
 
     /**
-     * Return an array of Integration objects and what Mautic objects they are mapped to.
+     * Return an array of Integration objects and what MailVotech objects they are mapped to.
      * i.e. ['Customer' => Contact::NAME, 'Account' =>  Company::NAME];.
      */
     public function getSyncMappedObjects(): array;

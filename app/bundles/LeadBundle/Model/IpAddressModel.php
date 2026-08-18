@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\LeadBundle\Model;
+namespace MailVotech\LeadBundle\Model;
 
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Entity\IpAddressRepository;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Entity\IpAddressRepository;
+use MailVotech\LeadBundle\Entity\Lead;
 use Psr\Log\LoggerInterface;
 
 class IpAddressModel
@@ -58,7 +58,7 @@ class IpAddressModel
             'ip_id'   => ':ipId',
         ];
 
-        $qb->insert(MAUTIC_TABLE_PREFIX.'lead_ips_xref');
+        $qb->insert(MAILVOTECH_TABLE_PREFIX.'lead_ips_xref');
         $qb->values($values);
         $qb->setParameter('leadId', $contact->getId());
         $qb->setParameter('ipId', $ipAddress->getId());

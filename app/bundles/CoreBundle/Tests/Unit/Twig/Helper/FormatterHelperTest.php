@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Twig\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Twig\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
-use Mautic\CoreBundle\Twig\Helper\FormatterHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\CoreBundle\Twig\Helper\FormatterHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Exception;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -59,12 +59,12 @@ final class FormatterHelperTest extends \PHPUnit\Framework\TestCase
         $this->translator->expects($matcher)
             ->method('trans')->willReturnCallback(function (...$parameters) use ($matcher): string {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.core.yes', $parameters[0]);
+                    $this->assertSame('mailvotech.core.yes', $parameters[0]);
 
                     return 'yes';
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.core.no', $parameters[0]);
+                    $this->assertSame('mailvotech.core.no', $parameters[0]);
 
                     return 'no';
                 }

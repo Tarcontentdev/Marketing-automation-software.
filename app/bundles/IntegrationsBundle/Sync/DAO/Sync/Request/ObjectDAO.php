@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Sync\Request;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Sync\Request;
 
 final class ObjectDAO
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Collector;
+namespace MailVotech\FormBundle\Collector;
 
-use Mautic\FormBundle\Collection\FieldCollection;
-use Mautic\FormBundle\Event\FieldCollectEvent;
-use Mautic\FormBundle\FormEvents;
+use MailVotech\FormBundle\Collection\FieldCollection;
+use MailVotech\FormBundle\Event\FieldCollectEvent;
+use MailVotech\FormBundle\FormEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Service\ResetInterface;
 

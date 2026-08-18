@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test\Event;
+namespace MailVotech\CoreBundle\Test\Event;
 
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\TestCase;
 
 final class TokenReplacementEventTest extends TestCase

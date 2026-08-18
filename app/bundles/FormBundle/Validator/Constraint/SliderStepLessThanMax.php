@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Validator\Constraint;
+namespace MailVotech\FormBundle\Validator\Constraint;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -15,7 +15,7 @@ final class SliderStepLessThanMax extends Constraint
      */
     #[HasNamedArguments]
     public function __construct(
-        public string $message = 'mautic.form.field.form.slider_step_lt_max_error',
+        public string $message = 'mailvotech.form.field.form.slider_step_lt_max_error',
         ?array $groups = null,
         mixed $payload = null,
     ) {

@@ -199,12 +199,12 @@
 
   // nav-heading
   .nav-heading {
-    color: fade(mautic-contrast($bgcolor), 25%);
+    color: fade(mailvotech-contrast($bgcolor), 25%);
   }
 
   // nav-divider
   .nav-divider {
-    background-color: fade(mautic-contrast($bgcolor), 6%);
+    background-color: fade(mailvotech-contrast($bgcolor), 6%);
   }
 }
 

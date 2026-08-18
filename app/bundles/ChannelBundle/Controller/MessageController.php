@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\ChannelBundle\Controller;
+namespace MailVotech\ChannelBundle\Controller;
 
-use Mautic\ChannelBundle\Entity\Channel;
-use Mautic\ChannelBundle\Model\MessageModel;
-use Mautic\CoreBundle\Controller\AbstractStandardFormController;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\LeadBundle\Controller\EntityContactsTrait;
+use MailVotech\ChannelBundle\Entity\Channel;
+use MailVotech\ChannelBundle\Model\MessageModel;
+use MailVotech\CoreBundle\Controller\AbstractStandardFormController;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\LeadBundle\Controller\EntityContactsTrait;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,14 +77,14 @@ final class MessageController extends AbstractStandardFormController
         switch ($action) {
             case 'index':
                 $viewParameters = [
-                    'headerTitle' => $this->translator->trans('mautic.channel.messages'),
+                    'headerTitle' => $this->translator->trans('mailvotech.channel.messages'),
                     'listHeaders' => [
                         [
-                            'text'  => 'mautic.core.channels',
+                            'text'  => 'mailvotech.core.channels',
                             'class' => 'visible-md visible-lg',
                         ],
                     ],
-                    'listItemTemplate'  => '@MauticChannel/Message/list_item.html.twig',
+                    'listItemTemplate'  => '@MailVotechChannel/Message/list_item.html.twig',
                     'enableCloneButton' => true,
                 ];
 
@@ -94,7 +94,7 @@ final class MessageController extends AbstractStandardFormController
 
                 // Init the date range filter form
                 $returnUrl = $this->generateUrl(
-                    'mautic_message_action',
+                    'mailvotech_message_action',
                     [
                         'objectAction' => 'view',
                         'objectId'     => $message->getId(),
@@ -108,16 +108,16 @@ final class MessageController extends AbstractStandardFormController
                 $channels        = $this->messageModel->getChannels();
                 $messageChannels = $message->getChannels();
                 $chart->setDataset(
-                    $this->translator->trans('mautic.core.all'),
+                    $this->translator->trans('mailvotech.core.all'),
                     $this->messageModel->getLeadStatsPost($message->getId(), $dateFrom, $dateTo)
                 );
 
                 $messagedLeads = [
                     'all' => $this->forward(
-                        'Mautic\ChannelBundle\Controller\MessageController::contactsAction',
+                        'MailVotech\ChannelBundle\Controller\MessageController::contactsAction',
                         [
                             'objectId'   => $message->getId(),
-                            'page'       => $this->requestStack->getCurrentRequest()->getSession()->get('mautic.'.$this->getSessionBase('all').'.contact.page', 1),
+                            'page'       => $this->requestStack->getCurrentRequest()->getSession()->get('mailvotech.'.$this->getSessionBase('all').'.contact.page', 1),
                             'ignoreAjax' => true,
                             'channel'    => 'all',
                         ]
@@ -132,11 +132,11 @@ final class MessageController extends AbstractStandardFormController
                         );
 
                         $messagedLeads[$channel->getChannel()] = $this->forward(
-                            'Mautic\ChannelBundle\Controller\MessageController::contactsAction',
+                            'MailVotech\ChannelBundle\Controller\MessageController::contactsAction',
                             [
                                 'objectId' => $message->getId(),
                                 'page'     => $this->requestStack->getCurrentRequest()->getSession()->get(
-                                    'mautic.'.$this->getSessionBase($channel->getChannel()).'.contact.page',
+                                    'mailvotech.'.$this->getSessionBase($channel->getChannel()).'.contact.page',
                                     1
                                 ),
                                 'ignoreAjax' => true,
@@ -175,7 +175,7 @@ final class MessageController extends AbstractStandardFormController
 
     protected function getTemplateBase(): string
     {
-        return '@MauticChannel/Message';
+        return '@MailVotechChannel/Message';
     }
 
     protected function getFormView(FormInterface $form, $view): FormView
@@ -205,7 +205,7 @@ final class MessageController extends AbstractStandardFormController
 
     protected function getTranslationBase(): string
     {
-        return 'mautic.channel.message';
+        return 'mailvotech.channel.message';
     }
 
     /**
@@ -221,7 +221,7 @@ final class MessageController extends AbstractStandardFormController
         $filter = [];
         if ('all' !== $channel) {
             $returnUrl = $this->generateUrl(
-                'mautic_message_action',
+                'mailvotech_message_action',
                 [
                     'objectAction' => 'view',
                     'objectId'     => $objectId,

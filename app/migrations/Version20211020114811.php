@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Schema\Schema;
-use Mautic\CoreBundle\Doctrine\PreUpAssertionMigration;
+use MailVotech\CoreBundle\Doctrine\PreUpAssertionMigration;
 
 final class Version20211020114811 extends PreUpAssertionMigration
 {
     private const COMPANIES_TABLE           = 'companies';
     private const SYNC_OBJECT_MAPPING_TABLE = 'sync_object_mapping';
 
-    private const INDEX_COMPANY_MATCH         = MAUTIC_TABLE_PREFIX.'company_match';
-    private const INDEX_INTEGRATION_OBJECT    = MAUTIC_TABLE_PREFIX.'integration_object';
-    private const INDEX_INTEGRATION_REFERENCE = MAUTIC_TABLE_PREFIX.'integration_reference';
+    private const INDEX_COMPANY_MATCH         = MAILVOTECH_TABLE_PREFIX.'company_match';
+    private const INDEX_INTEGRATION_OBJECT    = MAILVOTECH_TABLE_PREFIX.'integration_object';
+    private const INDEX_INTEGRATION_REFERENCE = MAILVOTECH_TABLE_PREFIX.'integration_reference';
 
     protected function preUpAssertions(): void
     {

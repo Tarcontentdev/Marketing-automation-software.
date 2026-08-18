@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\EmailBundle\Helper;
+namespace MailVotech\EmailBundle\Helper;
 
 final class UrlMatcher
 {

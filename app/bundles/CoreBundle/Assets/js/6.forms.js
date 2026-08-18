@@ -18,7 +18,7 @@ mQuery(document).on({
  * @param newIdPrefix
  * @param newNamePrefix
  */
-Mautic.renameFormElements = function(container, oldIdPrefix, oldNamePrefix, newIdPrefix, newNamePrefix) {
+MailVotech.renameFormElements = function(container, oldIdPrefix, oldNamePrefix, newIdPrefix, newNamePrefix) {
     mQuery('*[id^="'+oldIdPrefix+'"]', container).each( function() {
         var id = mQuery(this).attr('id');
         id = id.replace(oldIdPrefix, newIdPrefix);
@@ -43,15 +43,15 @@ Mautic.renameFormElements = function(container, oldIdPrefix, oldNamePrefix, newI
  *
  * @param form
  */
-Mautic.ajaxifyForm = function (formName) {
-    Mautic.initializeFormFieldStateSwitcher(formName);
+MailVotech.ajaxifyForm = function (formName) {
+    MailVotech.initializeFormFieldStateSwitcher(formName);
 
     // Prevent enter from submitting form and instead jump to next line
     var form = 'form[name="' + formName + '"]';
 
     // Handle Command+Enter (Mac) or Control+Enter (Windows/Linux) for form submission
-    Mautic.addKeyboardShortcut(['meta+enter', 'ctrl+enter'], 'Submit form', function(e) {
-        if (MauticVars.formSubmitInProgress) {
+    MailVotech.addKeyboardShortcut(['meta+enter', 'ctrl+enter'], 'Submit form', function(e) {
+        if (MailVotechVars.formSubmitInProgress) {
             return false;
         }
 
@@ -140,25 +140,25 @@ Mautic.ajaxifyForm = function (formName) {
             });
         }
 
-        if (MauticVars.formSubmitInProgress) {
+        if (MailVotechVars.formSubmitInProgress) {
             return false;
         } else {
             var callbackAsync = form.data('submit-callback-async');
-            if (callbackAsync && typeof Mautic[callbackAsync] == 'function') {
-                Mautic[callbackAsync].apply(this, [form, function() {
-                    Mautic.postMauticForm(form);
+            if (callbackAsync && typeof MailVotech[callbackAsync] == 'function') {
+                MailVotech[callbackAsync].apply(this, [form, function() {
+                    MailVotech.postMailVotechForm(form);
                 }]);
             } else {
                 var callback = form.data('submit-callback');
 
                 // Allow a callback to do stuff before submit and abort if needed
-                if (callback && typeof Mautic[callback] == 'function') {
-                    if (!Mautic[callback]()) {
+                if (callback && typeof MailVotech[callback] == 'function') {
+                    if (!MailVotech[callback]()) {
                         return false;
                     }
                 }
 
-                Mautic.postMauticForm(form);
+                MailVotech.postMailVotechForm(form);
             }
         }
 
@@ -171,13 +171,13 @@ Mautic.ajaxifyForm = function (formName) {
  *
  * @param form
  */
-Mautic.postMauticForm = function(form) {
-    MauticVars.formSubmitInProgress = true;
-    Mautic.postForm(form, function (response) {
+MailVotech.postMailVotechForm = function(form) {
+    MailVotechVars.formSubmitInProgress = true;
+    MailVotech.postForm(form, function (response) {
         if (response.inMain) {
-            Mautic.processPageContent(response);
+            MailVotech.processPageContent(response);
         } else {
-            Mautic.processModalContent(response, '#' + response.modalId);
+            MailVotech.processModalContent(response, '#' + response.modalId);
         }
     });
 };
@@ -187,7 +187,7 @@ Mautic.postMauticForm = function(form) {
  *
  * @param form
  */
-Mautic.resetForm = function(form) {
+MailVotech.resetForm = function(form) {
     mQuery(':input', form)
         .not(':button, :submit, :reset, :hidden')
         .val('')
@@ -210,7 +210,7 @@ Mautic.resetForm = function(form) {
  * @param form
  * @param callback
  */
-Mautic.postForm = function (form, callback, extraData = {}) {
+MailVotech.postForm = function (form, callback, extraData = {}) {
     form = mQuery(form);
 
     var modalParent = form.closest('.modal');
@@ -220,7 +220,7 @@ Mautic.postForm = function (form, callback, extraData = {}) {
 
     if (!inMain) {
         var modalTarget = '#' + mQuery(modalParent).attr('id');
-        Mautic.startModalLoadingBar(modalTarget);
+        MailVotech.startModalLoadingBar(modalTarget);
     }
     var showLoading = (!inMain || form.attr('data-hide-loadingbar')) ? false : true;
 
@@ -230,13 +230,13 @@ Mautic.postForm = function (form, callback, extraData = {}) {
         success: function (data) {
             form.trigger('submit:success', [action, data, inMain]);
             if (!inMain) {
-                Mautic.stopModalLoadingBar(modalTarget);
+                MailVotech.stopModalLoadingBar(modalTarget);
             }
 
             if (data.redirect) {
-                Mautic.redirectWithBackdrop(data.redirect);
+                MailVotech.redirectWithBackdrop(data.redirect);
             } else {
-                MauticVars.formSubmitInProgress = false;
+                MailVotechVars.formSubmitInProgress = false;
                 if (!inMain) {
                     var modalId = mQuery(modalParent).attr('id');
                 }
@@ -246,7 +246,7 @@ Mautic.postForm = function (form, callback, extraData = {}) {
                         mQuery('#' + modalId).modal('hide');
                         mQuery('.modal-backdrop').remove();
                     }
-                    Mautic.processPageContent(data);
+                    MailVotech.processPageContent(data);
                 } else if (callback) {
                     data.inMain = inMain;
 
@@ -256,16 +256,16 @@ Mautic.postForm = function (form, callback, extraData = {}) {
 
                     if (typeof callback == 'function') {
                         callback(data);
-                    } else if (typeof Mautic[callback] == 'function') {
-                        Mautic[callback](data);
+                    } else if (typeof MailVotech[callback] == 'function') {
+                        MailVotech[callback](data);
                     }
                 }
             }
         },
         error: function (request, textStatus, errorThrown) {
-            MauticVars.formSubmitInProgress = false;
+            MailVotechVars.formSubmitInProgress = false;
 
-            Mautic.processAjaxError(request, textStatus, errorThrown, inMain);
+            MailVotech.processAjaxError(request, textStatus, errorThrown, inMain);
         }
     });
 };
@@ -276,12 +276,12 @@ Mautic.postForm = function (form, callback, extraData = {}) {
  *
  * @param formName
  */
-Mautic.initializeFormFieldStateSwitcher = function (formName)
+MailVotech.initializeFormFieldStateSwitcher = function (formName)
 {
-    Mautic.switchFormFieldState(formName);
+    MailVotech.switchFormFieldState(formName);
 
     mQuery('form[name="'+formName+'"]').on('change', function() {
-        Mautic.switchFormFieldState(formName);
+        MailVotech.switchFormFieldState(formName);
     });
 };
 
@@ -290,7 +290,7 @@ Mautic.initializeFormFieldStateSwitcher = function (formName)
  *
  * Possible state: visible, disabled
  */
-Mautic.switchFormFieldState = function (formName) {
+MailVotech.switchFormFieldState = function (formName) {
     var form   = mQuery('form[name="'+formName+'"]');
     var visibleFields = {};
     var disabledFields = {};
@@ -370,7 +370,7 @@ Mautic.switchFormFieldState = function (formName) {
 
     var toggleFieldOff = function (field) {
         // Set Yes/No toggle to No.
-        if (field.attr('onchange')?.includes('Mautic.toggleYesNo(this)')
+        if (field.attr('onchange')?.includes('MailVotech.toggleYesNo(this)')
             && field.val() === "1"
             && field.is(':checked')
         ) {
@@ -441,7 +441,7 @@ Mautic.switchFormFieldState = function (formName) {
  *
  * @param response
  */
-Mautic.updateEntitySelect = function (response) {
+MailVotech.updateEntitySelect = function (response) {
     var mQueryParent = (window.opener) ? window.opener.mQuery : mQuery;
 
     if (response.id) {
@@ -464,7 +464,7 @@ Mautic.updateEntitySelect = function (response) {
 
         if (mQueryParent(el).prop('disabled')) {
             mQueryParent(el).prop('disabled', false);
-            var emptyOption = mQuery('<option value="">' + mauticLang.chosenChooseOne + '</option>');
+            var emptyOption = mQuery('<option value="">' + mailvotechLang.chosenChooseOne + '</option>');
         } else {
             if (mQueryParent(el + ' option[value=""]').length) {
                 emptyOption = mQueryParent(el + ' option[value=""]').clone();
@@ -538,7 +538,7 @@ Mautic.updateEntitySelect = function (response) {
     if (window.opener) {
         window.close();
     } else {
-        mQueryParent('#MauticSharedModal').modal('hide');
+        mQueryParent('#MailVotechSharedModal').modal('hide');
     }
 };
 
@@ -546,7 +546,7 @@ Mautic.updateEntitySelect = function (response) {
  * Toggles the class for yes/no button groups
  * @param {HTMLElement} element - The toggle label element
  */
-Mautic.toggleYesNo = function(element) {
+MailVotech.toggleYesNo = function(element) {
     let $label = mQuery(element),
         $toggle = $label.closest('.toggle'),
         yesId = $label.data('yes-id'),
@@ -568,10 +568,10 @@ Mautic.toggleYesNo = function(element) {
     $textEl.text($toggle.data(isYes ? 'no' : 'yes'));
     $toggleLabel.attr('aria-checked', !isYes);
 
-    Mautic.updatePublishingToggle(element);
+    MailVotech.updatePublishingToggle(element);
 };
 
-Mautic.updatePublishingToggle = function(element) {
+MailVotech.updatePublishingToggle = function(element) {
     let $label = mQuery(element),
         $toggle = $label.closest('.toggle'),
         $form = $toggle.closest('form'),
@@ -620,33 +620,33 @@ Mautic.updatePublishingToggle = function(element) {
 };
 
 // Initialize publishing toggles on page load and re-initialize after AJAX content is loaded
-Mautic.initializePublishingToggles = function() {
+MailVotech.initializePublishingToggles = function() {
     mQuery('.toggle[data-none]').each(function() {
         const $label = mQuery(this).find('.toggle__label');
-        Mautic.updatePublishingToggle($label);
+        MailVotech.updatePublishingToggle($label);
     });
 
     mQuery('input[name$="[publishUp]"], input[name$="[publishDown]"]').off('change').on('change', function() {
         const $form = mQuery(this).closest('form');
         $form.find('.toggle[data-none]').each(function() {
             const $label = mQuery(this).find('.toggle__label');
-            Mautic.updatePublishingToggle($label);
+            MailVotech.updatePublishingToggle($label);
         });
     });
 };
 
-mQuery(document).ready(Mautic.initializePublishingToggles);
-mQuery(document).ajaxComplete(Mautic.initializePublishingToggles);
+mQuery(document).ready(MailVotech.initializePublishingToggles);
+mQuery(document).ajaxComplete(MailVotech.initializePublishingToggles);
 
 /**
  * Handles keydown events for accessibility
  * @param {KeyboardEvent} event - The keydown event
  * @param {HTMLElement} element - The toggle label element
  */
-Mautic.handleKeyDown = function(event, element) {
+MailVotech.handleKeyDown = function(event, element) {
     if (event.key === ' ' || event.key === 'Enter') {
         event.preventDefault();
-        Mautic.toggleYesNo(element);
+        MailVotech.toggleYesNo(element);
     }
 };
 
@@ -654,7 +654,7 @@ Mautic.handleKeyDown = function(event, element) {
  * Removes a list option from a list generated by ListType
  * @param el
  */
-Mautic.removeFormListOption = function (el) {
+MailVotech.removeFormListOption = function (el) {
     var sortableDiv = mQuery(el).parents('div.sortable');
     mQuery(sortableDiv).remove();
 };
@@ -664,7 +664,7 @@ Mautic.removeFormListOption = function (el) {
  * @param value
  * @param label
  */
-Mautic.createOption = function (value, label) {
+MailVotech.createOption = function (value, label) {
     return mQuery('<option/>')
         .attr('value', value)
         .text(label);
@@ -677,9 +677,9 @@ Mautic.createOption = function (value, label) {
  * @param action
  * @param valueOnChange
  */
-Mautic.updateFieldOperatorValue = function(field, action, valueOnChange, valueOnChangeArguments) {
+MailVotech.updateFieldOperatorValue = function(field, action, valueOnChange, valueOnChangeArguments) {
     var fieldId = mQuery(field).attr('id');
-    Mautic.activateLabelLoadingIndicator(fieldId);
+    MailVotech.activateLabelLoadingIndicator(fieldId);
 
     if (fieldId.indexOf('_operator') !== -1) {
         var fieldType = 'operator';
@@ -693,7 +693,7 @@ Mautic.updateFieldOperatorValue = function(field, action, valueOnChange, valueOn
     var fieldAlias = mQuery('#'+fieldPrefix+'field').val();
     var fieldOperator = mQuery('#'+fieldPrefix+'operator').val();
 
-    Mautic.ajaxActionRequest(action, {'alias': fieldAlias, 'operator': fieldOperator, 'changed': fieldType}, function(response) {
+    MailVotech.ajaxActionRequest(action, {'alias': fieldAlias, 'operator': fieldOperator, 'changed': fieldType}, function(response) {
         if (typeof response.options != 'undefined') {
             var valueField = mQuery('#'+fieldPrefix+'value');
             var valueFieldAttrs = {
@@ -706,7 +706,7 @@ Mautic.updateFieldOperatorValue = function(field, action, valueOnChange, valueOn
 
             if (mQuery('#'+fieldPrefix+'value_chosen').length) {
                 valueFieldAttrs['value'] = '';
-                Mautic.destroyChosen(valueField);
+                MailVotech.destroyChosen(valueField);
             }
 
             if (!mQuery.isEmptyObject(response.options) && response.fieldType !== 'number') {
@@ -725,14 +725,14 @@ Mautic.updateFieldOperatorValue = function(field, action, valueOnChange, valueOn
                     // Update the name
                     var newName =  newValueField.attr('name') + '[]';
                     newValueField.attr('name', newName);
-                    newValueField.attr('data-placeholder', mauticLang['chosenChooseMore']);
+                    newValueField.attr('data-placeholder', mailvotechLang['chosenChooseMore']);
                 }
 
                 mQuery.each(response.options, function(value, optgroup) {
                     if (typeof optgroup === 'object') {
                         var optgroupEl = mQuery('<optgroup/>').attr('label', value);
                         mQuery.each(optgroup, function(optVal, label) {
-                            var option = Mautic.createOption(optVal, label);
+                            var option = MailVotech.createOption(optVal, label);
 
                             if (response.optionsAttr && response.optionsAttr[optVal]) {
                                 mQuery.each(response.optionsAttr[optVal], function(optAttr, optVal) {
@@ -744,7 +744,7 @@ Mautic.updateFieldOperatorValue = function(field, action, valueOnChange, valueOn
                         });
                         newValueField.append(optgroupEl);
                     } else {
-                        var option = Mautic.createOption(value, optgroup);
+                        var option = MailVotech.createOption(value, optgroup);
 
                         if (response.optionsAttr && response.optionsAttr[value]) {
                             mQuery.each(response.optionsAttr[value], function(optAttr, optVal) {
@@ -758,7 +758,7 @@ Mautic.updateFieldOperatorValue = function(field, action, valueOnChange, valueOn
                 newValueField.val(valueFieldAttrs['value']);
                 valueField.replaceWith(newValueField);
 
-                Mautic.activateChosenSelect(newValueField);
+                MailVotech.activateChosenSelect(newValueField);
             } else {
                 var newValueField = mQuery('<input/>')
                     .attr('type', 'text')
@@ -776,7 +776,7 @@ Mautic.updateFieldOperatorValue = function(field, action, valueOnChange, valueOn
                 valueField.replaceWith(newValueField);
 
                 if (response.fieldType == 'date' || response.fieldType == 'datetime') {
-                    Mautic.activateDateTimeInputs(newValueField, response.fieldType);
+                    MailVotech.activateDateTimeInputs(newValueField, response.fieldType);
                 }
             }
 
@@ -794,7 +794,7 @@ Mautic.updateFieldOperatorValue = function(field, action, valueOnChange, valueOn
             if (!mQuery.isEmptyObject(response.operators)) {
                 var operatorField = mQuery('#'+fieldPrefix+'operator');
 
-                Mautic.destroyChosen(operatorField);
+                MailVotech.destroyChosen(operatorField);
 
                 var operatorFieldAttrs = {
                     'class': operatorField.attr('class'),
@@ -810,15 +810,15 @@ Mautic.updateFieldOperatorValue = function(field, action, valueOnChange, valueOn
                     .attr('name', operatorFieldAttrs['name'])
                     .attr('autocomplete', operatorFieldAttrs['autocomplete'])
                     .attr('value', operatorFieldAttrs['value'])
-                    .attr('onchange', 'Mautic.updateLeadFieldValues(this)');
+                    .attr('onchange', 'MailVotech.updateLeadFieldValues(this)');
                 mQuery.each(response.operators, function(optionVal, optionKey) {
-                    newOperatorField.append(Mautic.createOption(optionKey, optionVal));
+                    newOperatorField.append(MailVotech.createOption(optionKey, optionVal));
                 });
                 newOperatorField.val(operatorField.val());
                 operatorField.replaceWith(newOperatorField);
-                Mautic.activateChosenSelect(newOperatorField);
+                MailVotech.activateChosenSelect(newOperatorField);
             }
         }
-        Mautic.removeLabelLoadingIndicator();
+        MailVotech.removeLabelLoadingIndicator();
     }, false, false, "POST");
 };

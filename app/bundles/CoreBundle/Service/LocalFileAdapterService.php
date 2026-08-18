@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Service;
+namespace MailVotech\CoreBundle\Service;
 
 use League\Flysystem\Config;
 use League\Flysystem\Local\LocalFilesystemAdapter;

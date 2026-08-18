@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\Tests\Message;
+namespace MailVotech\MessengerBundle\Tests\Message;
 
-use Mautic\MessengerBundle\Message\PageHitNotification;
+use MailVotech\MessengerBundle\Message\PageHitNotification;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 

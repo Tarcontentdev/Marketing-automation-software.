@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\EventListener;
+namespace MailVotech\ReportBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\DTO\GlobalSearchFilterDTO;
-use Mautic\CoreBundle\Event as MauticEvents;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\GlobalSearch;
-use Mautic\ReportBundle\Model\ReportModel;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\DTO\GlobalSearchFilterDTO;
+use MailVotech\CoreBundle\Event as MailVotechEvents;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\GlobalSearch;
+use MailVotech\ReportBundle\Model\ReportModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class SearchSubscriber implements EventSubscriberInterface
@@ -29,25 +29,25 @@ final readonly class SearchSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onGlobalSearch(MauticEvents\GlobalSearchEvent $event): void
+    public function onGlobalSearch(MailVotechEvents\GlobalSearchEvent $event): void
     {
         $filterDTO = new GlobalSearchFilterDTO($event->getSearchString());
         $results   = $this->globalSearch->performSearch(
             $filterDTO,
             $this->reportModel,
-            '@MauticReport/SubscribedEvents/Search/global.html.twig'
+            '@MailVotechReport/SubscribedEvents/Search/global.html.twig'
         );
 
         if ([] !== $results) {
-            $event->addResults('mautic.report.reports', $results);
+            $event->addResults('mailvotech.report.reports', $results);
         }
     }
 
-    public function onBuildCommandList(MauticEvents\CommandListEvent $event): void
+    public function onBuildCommandList(MailVotechEvents\CommandListEvent $event): void
     {
         if ($this->security->isGranted(['report:reports:viewown', 'report:reports:viewother'], 'MATCH_ONE')) {
             $event->addCommands(
-                'mautic.report.reports',
+                'mailvotech.report.reports',
                 $this->reportModel->getCommandList()
             );
         }

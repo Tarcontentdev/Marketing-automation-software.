@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\IpLookup;
+namespace MailVotech\CoreBundle\Tests\Unit\IpLookup;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\IpLookup\MaxmindCountryLookup;
-use Mautic\CoreBundle\IpLookup\MaxmindOmniLookup;
-use Mautic\CoreBundle\IpLookup\MaxmindPrecisionLookup;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\IpLookup\MaxmindCountryLookup;
+use MailVotech\CoreBundle\IpLookup\MaxmindOmniLookup;
+use MailVotech\CoreBundle\IpLookup\MaxmindPrecisionLookup;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor;
 
-use Mautic\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
 
 interface ProcessorInterface
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Helper;
+namespace MailVotech\CoreBundle\Tests\Functional\Helper;
 
-use Mautic\CoreBundle\Helper\CommandHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Helper\CommandHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class CommandHelperTest extends MauticMysqlTestCase
+final class CommandHelperTest extends MailVotechMysqlTestCase
 {
     private CommandHelper $commandHelper;
 

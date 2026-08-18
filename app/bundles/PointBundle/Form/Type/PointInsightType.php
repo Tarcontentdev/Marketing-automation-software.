@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Form\Type;
+namespace MailVotech\PointBundle\Form\Type;
 
-use Mautic\CategoryBundle\Form\Type\CategoryListType;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Helper\ArrayHelper;
-use Mautic\LeadBundle\Field\FieldList;
-use Mautic\PointBundle\Entity\PointInsight;
+use MailVotech\CategoryBundle\Form\Type\CategoryListType;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Helper\ArrayHelper;
+use MailVotech\LeadBundle\Field\FieldList;
+use MailVotech\PointBundle\Entity\PointInsight;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -35,7 +35,7 @@ final class PointInsightType extends AbstractType
             'name',
             TextType::class,
             [
-                'label'      => 'mautic.core.name',
+                'label'      => 'mailvotech.core.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
             ]
@@ -45,7 +45,7 @@ final class PointInsightType extends AbstractType
             'description',
             TextareaType::class,
             [
-                'label'      => 'mautic.core.description',
+                'label'      => 'mailvotech.core.description',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control editor'],
                 'required'   => false,
@@ -56,13 +56,13 @@ final class PointInsightType extends AbstractType
             'infoText',
             TextType::class,
             [
-                'label'      => 'mautic.point.insight.action.set_custom_field_to_winning_point_group',
+                'label'      => 'mailvotech.point.insight.action.set_custom_field_to_winning_point_group',
                 'label_attr' => ['class' => 'control-label'],
                 'mapped'     => false,
                 'required'   => false,
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.point.insight.action.set_custom_field_to_winning_point_group.tooltip',
+                    'tooltip' => 'mailvotech.point.insight.action.set_custom_field_to_winning_point_group.tooltip',
                     'style'   => 'display: none;',
                 ],
             ]
@@ -82,7 +82,7 @@ final class PointInsightType extends AbstractType
         );
 
         $insightTypes = [
-            'mautic.point.insight.compare_point_groups' => PointInsight::INSIGHT_TYPE_COMPARE_POINT_GROUPS,
+            'mailvotech.point.insight.compare_point_groups' => PointInsight::INSIGHT_TYPE_COMPARE_POINT_GROUPS,
         ];
 
         $builder->add(
@@ -90,18 +90,18 @@ final class PointInsightType extends AbstractType
             ChoiceType::class,
             [
                 'choices'    => $insightTypes,
-                'label'      => 'mautic.point.insight.type',
+                'label'      => 'mailvotech.point.insight.type',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
                 ],
                 'required'    => true,
-                'placeholder' => 'mautic.core.form.chooseone',
+                'placeholder' => 'mailvotech.core.form.chooseone',
             ]
         );
 
         $insightActions = [
-            'mautic.point.insight.action.set_custom_field' => PointInsight::INSIGHT_ACTION_SET_CUSTOM_FIELD,
+            'mailvotech.point.insight.action.set_custom_field' => PointInsight::INSIGHT_ACTION_SET_CUSTOM_FIELD,
         ];
 
         $builder->add(
@@ -109,13 +109,13 @@ final class PointInsightType extends AbstractType
             ChoiceType::class,
             [
                 'choices'    => $insightActions,
-                'label'      => 'mautic.point.insight.action',
+                'label'      => 'mailvotech.point.insight.action',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
                 ],
                 'required'    => true,
-                'placeholder' => 'mautic.core.form.chooseone',
+                'placeholder' => 'mailvotech.core.form.chooseone',
             ]
         );
 
@@ -123,7 +123,7 @@ final class PointInsightType extends AbstractType
             'pointGroups',
             GroupListType::class,
             [
-                'label'      => 'mautic.point.insight.pointgroups.compare',
+                'label'      => 'mailvotech.point.insight.pointgroups.compare',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'                => 'form-control',
@@ -132,7 +132,7 @@ final class PointInsightType extends AbstractType
                 'multiple'      => true,
                 'required'      => false,
                 'return_entity' => false,
-                'placeholder'   => 'mautic.core.form.choosemultiple',
+                'placeholder'   => 'mailvotech.core.form.choosemultiple',
             ]
         );
 
@@ -140,14 +140,14 @@ final class PointInsightType extends AbstractType
             'customField',
             ChoiceType::class,
             [
-                'label'      => 'mautic.point.insight.customfield',
+                'label'      => 'mailvotech.point.insight.customfield',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'            => 'form-control',
-                    'data-placeholder' => 'mautic.core.form.chooseone',
+                    'data-placeholder' => 'mailvotech.core.form.chooseone',
                 ],
                 'required'    => false,
-                'placeholder' => 'mautic.core.form.chooseone',
+                'placeholder' => 'mailvotech.core.form.chooseone',
                 'choices'     => ArrayHelper::flipArray($this->fieldList->getFieldList(
                     true,
                     true,

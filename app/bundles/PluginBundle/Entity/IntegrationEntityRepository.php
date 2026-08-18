@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\PluginBundle\Entity;
+namespace MailVotech\PluginBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<IntegrationEntity>
@@ -34,7 +34,7 @@ class IntegrationEntityRepository extends CommonRepository
     ): array {
         $q = $this->_em->getConnection()->createQueryBuilder()
             ->select('DISTINCT(i.integration_entity_id), i.id, i.internal_entity_id, i.integration_entity, i.internal_entity')
-            ->from(MAUTIC_TABLE_PREFIX.'integration_entity', 'i');
+            ->from(MAILVOTECH_TABLE_PREFIX.'integration_entity', 'i');
 
         $q->where('i.integration = :integration')
             ->andWhere('i.internal_entity = :internalEntity')
@@ -58,7 +58,7 @@ class IntegrationEntityRepository extends CommonRepository
                 $q->setParameter('startDate', $startDate);
             }
 
-            $q->join('i', MAUTIC_TABLE_PREFIX.'leads', 'l', $joinCondition);
+            $q->join('i', MAILVOTECH_TABLE_PREFIX.'leads', 'l', $joinCondition);
         }
 
         if ($internalEntityIds) {
@@ -108,8 +108,8 @@ class IntegrationEntityRepository extends CommonRepository
     public function getIntegrationEntity($integration, $integrationEntity, $internalEntity, $internalEntityId, $leadFields = null)
     {
         $q = $this->_em->getConnection()->createQueryBuilder()
-            ->from(MAUTIC_TABLE_PREFIX.'integration_entity', 'i')
-            ->join('i', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = i.internal_entity_id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'integration_entity', 'i')
+            ->join('i', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = i.internal_entity_id');
         $q->select('i.integration_entity_id, i.integration_entity, i.id, i.internal_entity_id');
         if ($leadFields) {
             $q->addSelect($leadFields);
@@ -179,8 +179,8 @@ class IntegrationEntityRepository extends CommonRepository
             $joinTable = 'leads';
         }
         $q = $this->_em->getConnection()->createQueryBuilder()
-            ->from(MAUTIC_TABLE_PREFIX.'integration_entity', 'i')
-            ->join('i', MAUTIC_TABLE_PREFIX.$joinTable, 'l', 'l.id = i.internal_entity_id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'integration_entity', 'i')
+            ->join('i', MAILVOTECH_TABLE_PREFIX.$joinTable, 'l', 'l.id = i.internal_entity_id');
 
         if (false === $limit) {
             $q->select('count(i.integration_entity_id) as total');
@@ -315,7 +315,7 @@ class IntegrationEntityRepository extends CommonRepository
             $joinTable = 'leads';
         }
         $q = $this->_em->getConnection()->createQueryBuilder()
-            ->from(MAUTIC_TABLE_PREFIX.$joinTable, 'l');
+            ->from(MAILVOTECH_TABLE_PREFIX.$joinTable, 'l');
 
         if (false === $limit) {
             $q->select('count(*) as total');
@@ -323,13 +323,13 @@ class IntegrationEntityRepository extends CommonRepository
             $q->select('l.id as internal_entity_id,'.$leadFields);
         }
         if ('company' == $internalEntity) {
-            $q->where('not exists (select null from '.MAUTIC_TABLE_PREFIX
+            $q->where('not exists (select null from '.MAILVOTECH_TABLE_PREFIX
                 .'integration_entity i where i.integration = :integration and i.internal_entity LIKE "'.$internalEntity.'%" and i.internal_entity_id = l.id)')
                 ->setParameter('integration', $integration);
         } else {
             $q->where('l.date_identified is not null')
                 ->andWhere(
-                    'not exists (select null from '.MAUTIC_TABLE_PREFIX
+                    'not exists (select null from '.MAILVOTECH_TABLE_PREFIX
                     .'integration_entity i where i.integration = :integration and i.internal_entity LIKE "'.$internalEntity.'%" and i.internal_entity_id = l.id)'
                 )
                 ->setParameter('integration', $integration);
@@ -421,7 +421,7 @@ class IntegrationEntityRepository extends CommonRepository
     public function getIntegrationEntityByLead($leadId, $integration = null, $integrationEntity = null, $internalEntity = null, $limit = 100)
     {
         $q = $this->_em->getConnection()->createQueryBuilder()
-            ->from(MAUTIC_TABLE_PREFIX.'integration_entity', 'i');
+            ->from(MAILVOTECH_TABLE_PREFIX.'integration_entity', 'i');
 
         if (false === $limit) {
             $q->select('count(*) as total');
@@ -436,7 +436,7 @@ class IntegrationEntityRepository extends CommonRepository
             // get list of published integrations
             $pq = $this->_em->getConnection()->createQueryBuilder()
                 ->select('p.name')
-                ->from(MAUTIC_TABLE_PREFIX.'plugin_integration_settings', 'p')
+                ->from(MAILVOTECH_TABLE_PREFIX.'plugin_integration_settings', 'p')
                 ->where('p.is_published = 1');
             $plugins    = $pq->executeQuery()->fetchFirstColumn();
 
@@ -482,7 +482,7 @@ class IntegrationEntityRepository extends CommonRepository
     public function markAsDeleted(array $integrationIds, $integration, $internalEntityType): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'integration_entity')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'integration_entity')
             ->set('internal_entity', ':entity')
             ->where(
                 $q->expr()->and(
@@ -499,8 +499,8 @@ class IntegrationEntityRepository extends CommonRepository
     public function findLeadsToDelete($internalEntity, $leadId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder()
-            ->delete(MAUTIC_TABLE_PREFIX.'integration_entity')
-            ->from(MAUTIC_TABLE_PREFIX.'integration_entity');
+            ->delete(MAILVOTECH_TABLE_PREFIX.'integration_entity')
+            ->from(MAILVOTECH_TABLE_PREFIX.'integration_entity');
 
         $q->where('internal_entity_id = :leadId')
             ->andWhere($q->expr()->like('internal_entity', ':internalEntity'))
@@ -512,7 +512,7 @@ class IntegrationEntityRepository extends CommonRepository
     public function updateErrorLeads($internalEntity, $leadId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder()
-            ->update(MAUTIC_TABLE_PREFIX.'integration_entity')
+            ->update(MAILVOTECH_TABLE_PREFIX.'integration_entity')
             ->set('internal_entity', ':lead')->setParameter('lead', 'lead');
 
         $q->where('internal_entity_id = :leadId')
@@ -523,8 +523,8 @@ class IntegrationEntityRepository extends CommonRepository
             ->executeStatement();
 
         $z = $this->_em->getConnection()->createQueryBuilder()
-            ->delete(MAUTIC_TABLE_PREFIX.'integration_entity')
-            ->from(MAUTIC_TABLE_PREFIX.'integration_entity');
+            ->delete(MAILVOTECH_TABLE_PREFIX.'integration_entity')
+            ->from(MAILVOTECH_TABLE_PREFIX.'integration_entity');
 
         $z->where('internal_entity_id = :leadId')
             ->andWhere($q->expr()->isNull('integration_entity_id'))

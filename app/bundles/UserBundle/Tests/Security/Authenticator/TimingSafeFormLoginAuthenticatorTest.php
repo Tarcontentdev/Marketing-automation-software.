@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Security\Authenticator;
+namespace MailVotech\UserBundle\Tests\Security\Authenticator;
 
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Security\TimingSafeFormLoginAuthenticator;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Security\TimingSafeFormLoginAuthenticator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;

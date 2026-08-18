@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Entity;
+namespace MailVotech\PointBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\IpAddress;
 
 class LeadTriggerLog
 {
@@ -18,7 +18,7 @@ class LeadTriggerLog
     private $event;
 
     /**
-     * @var \Mautic\LeadBundle\Entity\Lead
+     * @var \MailVotech\LeadBundle\Entity\Lead
      */
     private $lead;
 
@@ -87,7 +87,7 @@ class LeadTriggerLog
     }
 
     /**
-     * @return \Mautic\LeadBundle\Entity\Lead|null
+     * @return \MailVotech\LeadBundle\Entity\Lead|null
      */
     public function getLead()
     {

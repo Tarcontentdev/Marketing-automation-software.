@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\FormBundle\Model;
+namespace MailVotech\FormBundle\Model;
 
-use Mautic\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
-use Mautic\CoreBundle\Model\FormModel as CommonFormModel;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\FieldRepository;
-use Mautic\FormBundle\Event\FormFieldEvent;
-use Mautic\FormBundle\Form\Type\FieldType;
-use Mautic\FormBundle\FormEvents;
-use Mautic\LeadBundle\Model\FieldModel as LeadFieldModel;
+use MailVotech\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
+use MailVotech\CoreBundle\Model\FormModel as CommonFormModel;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\FieldRepository;
+use MailVotech\FormBundle\Event\FormFieldEvent;
+use MailVotech\FormBundle\Form\Type\FieldType;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\LeadBundle\Model\FieldModel as LeadFieldModel;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -89,8 +89,8 @@ class FieldModel extends CommonFormModel
      */
     public function getSessionFields($formId): array
     {
-        $fields = $this->getSession()->get('mautic.form.'.$formId.'.fields.modified', []);
-        $remove = $this->getSession()->get('mautic.form.'.$formId.'.fields.deleted', []);
+        $fields = $this->getSession()->get('mailvotech.form.'.$formId.'.fields.modified', []);
+        $remove = $this->getSession()->get('mailvotech.form.'.$formId.'.fields.deleted', []);
 
         return array_diff_key($fields, array_flip($remove));
     }

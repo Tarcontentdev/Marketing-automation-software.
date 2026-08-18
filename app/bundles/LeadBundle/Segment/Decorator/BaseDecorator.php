@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Decorator;
+namespace MailVotech\LeadBundle\Segment\Decorator;
 
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Mautic\LeadBundle\Entity\RegexTrait;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterOperator;
-use Mautic\LeadBundle\Segment\Query\Filter\BaseFilterQueryBuilder;
+use MailVotech\LeadBundle\Entity\RegexTrait;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterOperator;
+use MailVotech\LeadBundle\Segment\Query\Filter\BaseFilterQueryBuilder;
 
 class BaseDecorator implements FilterDecoratorInterface
 {
@@ -29,11 +29,11 @@ class BaseDecorator implements FilterDecoratorInterface
     public function getTable(ContactSegmentFilterCrate $contactSegmentFilterCrate): string
     {
         if ($contactSegmentFilterCrate->isContactType()) {
-            return MAUTIC_TABLE_PREFIX.'leads';
+            return MAILVOTECH_TABLE_PREFIX.'leads';
         }
 
         if ($contactSegmentFilterCrate->isCompanyType()) {
-            return MAUTIC_TABLE_PREFIX.'companies';
+            return MAILVOTECH_TABLE_PREFIX.'companies';
         }
 
         return '';

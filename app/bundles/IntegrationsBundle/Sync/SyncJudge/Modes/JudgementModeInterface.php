@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncJudge\Modes;
+namespace MailVotech\IntegrationsBundle\Sync\SyncJudge\Modes;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InformationChangeRequestDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InformationChangeRequestDAO;
 
 interface JudgementModeInterface
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CoreBundle\IpLookup\DoNotSellList;
+namespace MailVotech\CoreBundle\IpLookup\DoNotSellList;
 
-use Mautic\CoreBundle\Exception\BadConfigurationException;
-use Mautic\CoreBundle\Exception\FileNotFoundException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Exception\BadConfigurationException;
+use MailVotech\CoreBundle\Exception\FileNotFoundException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 
 class MaxMindDoNotSellList implements DoNotSellListInterface
 {

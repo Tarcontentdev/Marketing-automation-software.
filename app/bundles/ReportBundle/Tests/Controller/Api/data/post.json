@@ -25,12 +25,12 @@
     }
   ],
   "graphs": [
-    "mautic.email.graph.line.stats",
-    "mautic.email.graph.pie.ignored.read.failed",
-    "mautic.email.table.most.emails.read",
-    "mautic.email.table.most.emails.sent",
-    "mautic.email.table.most.emails.read.percent",
-    "mautic.email.table.most.emails.failed"
+    "mailvotech.email.graph.line.stats",
+    "mailvotech.email.graph.pie.ignored.read.failed",
+    "mailvotech.email.table.most.emails.read",
+    "mailvotech.email.table.most.emails.sent",
+    "mailvotech.email.table.most.emails.read.percent",
+    "mailvotech.email.table.most.emails.failed"
   ],
   "groupBy": null,
   "settings": [],

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\DTO;
+namespace MailVotech\CoreBundle\DTO;
 
 final class GlobalSearchFilterDTO
 {

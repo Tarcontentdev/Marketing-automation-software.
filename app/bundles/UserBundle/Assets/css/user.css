@@ -12,18 +12,18 @@
     width: 75px;
 }
 
-.mautic-logo {
+.mailvotech-logo {
     width: 150px;
     margin: 0 auto;
     background: #ffffff;
 }
 
-.mautic-logo > svg.mautic-logo-figure .circle {
+.mailvotech-logo > svg.mailvotech-logo-figure .circle {
     fill: #4e5e9e;
 }
 
-.mautic-logo > svg.mautic-logo-figure .m,
-.mautic-logo > svg.mautic-logo-figure .m-arrow {
+.mailvotech-logo > svg.mailvotech-logo-figure .m,
+.mailvotech-logo > svg.mailvotech-logo-figure .m-arrow {
       fill: #fdb933;
 }
 

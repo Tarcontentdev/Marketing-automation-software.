@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Notification\Helper;
+namespace MailVotech\IntegrationsBundle\Sync\Notification\Helper;
 
-use Mautic\IntegrationsBundle\Event\InternalObjectOwnerEvent;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
+use MailVotech\IntegrationsBundle\Event\InternalObjectOwnerEvent;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class OwnerProvider
@@ -35,7 +35,7 @@ class OwnerProvider
             $object = $this->objectProvider->getObjectByName($objectName);
         } catch (ObjectNotFoundException) {
             // Throw this exception for BC.
-            throw new ObjectNotSupportedException(MauticSyncDataExchange::NAME, $objectName);
+            throw new ObjectNotSupportedException(MailVotechSyncDataExchange::NAME, $objectName);
         }
 
         $event = new InternalObjectOwnerEvent($object, $objectIds);

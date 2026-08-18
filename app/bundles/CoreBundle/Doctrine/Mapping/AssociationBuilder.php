@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine\Mapping;
+namespace MailVotech\CoreBundle\Doctrine\Mapping;
 
 /**
  * Override Doctrine's builder classes to add support to orphanRemoval until the fix is incorporated into Doctrine release

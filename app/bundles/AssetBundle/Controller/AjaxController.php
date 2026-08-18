@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\AssetBundle\Controller;
+namespace MailVotech\AssetBundle\Controller;
 
 use Gaufrette\Filesystem;
-use Mautic\AssetBundle\AssetEvents;
-use Mautic\AssetBundle\Event\RemoteAssetBrowseEvent;
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\AssetBundle\AssetEvents;
+use MailVotech\AssetBundle\Event\RemoteAssetBrowseEvent;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -51,7 +51,7 @@ final class AjaxController extends CommonAjaxController
             return $this->sendJsonResponse(['success' => 0]);
         }
 
-        /** @var \Mautic\PluginBundle\Integration\AbstractIntegration $integration */
+        /** @var \MailVotech\PluginBundle\Integration\AbstractIntegration $integration */
         $integration = $integrationHelper->getIntegrationObject($provider);
 
         $event = new RemoteAssetBrowseEvent($integration);
@@ -67,7 +67,7 @@ final class AjaxController extends CommonAjaxController
         $connector = new Filesystem($adapter);
 
         $output = $this->renderView(
-            '@MauticAsset/Remote/list.html.twig',
+            '@MailVotechAsset/Remote/list.html.twig',
             [
                 'connector'   => $connector,
                 'integration' => $integration,

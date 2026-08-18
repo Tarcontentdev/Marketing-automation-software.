@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Translation;
+namespace MailVotech\CoreBundle\Translation;
 
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Translation\Exception\InvalidArgumentException as TranslatorInvalidArgumentException;
@@ -114,11 +114,11 @@ class Translator implements TranslatorInterface, WarmableInterface, TranslatorBa
         $messages        = $this->translator->getCatalogue()->all('javascript');
 
         $oldKeys = [
-            'chosenChooseOne'     => $this->translator->trans('mautic.core.form.chooseone'),
-            'chosenChooseMore'    => $this->translator->trans('mautic.core.form.choosemultiple'),
-            'chosenNoResults'     => $this->translator->trans('mautic.core.form.nomatches'),
-            'pleaseWait'          => $this->translator->trans('mautic.core.wait'),
-            'popupBlockerMessage' => $this->translator->trans('mautic.core.popupblocked'),
+            'chosenChooseOne'     => $this->translator->trans('mailvotech.core.form.chooseone'),
+            'chosenChooseMore'    => $this->translator->trans('mailvotech.core.form.choosemultiple'),
+            'chosenNoResults'     => $this->translator->trans('mailvotech.core.form.nomatches'),
+            'pleaseWait'          => $this->translator->trans('mailvotech.core.wait'),
+            'popupBlockerMessage' => $this->translator->trans('mailvotech.core.popupblocked'),
         ];
         $jsLang = array_merge($defaultMessages, $messages, $oldKeys);
 

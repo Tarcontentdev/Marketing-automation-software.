@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
-use Mautic\CoreBundle\Cache\ResultCacheHelper;
-use Mautic\CoreBundle\Entity\CacheInvalidateInterface;
-use Mautic\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Cache\ResultCacheHelper;
+use MailVotech\CoreBundle\Entity\CacheInvalidateInterface;
+use MailVotech\CoreBundle\Entity\FormEntity;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 #[AsDoctrineListener(Events::postPersist)]

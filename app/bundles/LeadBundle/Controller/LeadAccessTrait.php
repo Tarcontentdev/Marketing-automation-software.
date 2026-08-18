@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Controller;
+namespace MailVotech\LeadBundle\Controller;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -30,22 +30,22 @@ trait LeadAccessTrait
         if (null === $lead || !$lead->getId()) {
             if (method_exists($this, 'postActionRedirect')) {
                 // set the return URL
-                $page      = $this->getCurrentRequest()->getSession()->get($isPlugin ? 'mautic.'.$integration.'.page' : 'mautic.lead.page', 1);
-                $returnUrl = $this->generateUrl($isPlugin ? 'mautic_plugin_timeline_index' : 'mautic_contact_index', ['page' => $page]);
+                $page      = $this->getCurrentRequest()->getSession()->get($isPlugin ? 'mailvotech.'.$integration.'.page' : 'mailvotech.lead.page', 1);
+                $returnUrl = $this->generateUrl($isPlugin ? 'mailvotech_plugin_timeline_index' : 'mailvotech_contact_index', ['page' => $page]);
 
                 return $this->postActionRedirect(
                     [
                         'returnUrl'       => $returnUrl,
                         'viewParameters'  => ['page' => $page],
-                        'contentTemplate' => $isPlugin ? 'Mautic\LeadBundle\Controller\LeadController::pluginIndexAction' : 'Mautic\LeadBundle\Controller\LeadController::indexAction',
+                        'contentTemplate' => $isPlugin ? 'MailVotech\LeadBundle\Controller\LeadController::pluginIndexAction' : 'MailVotech\LeadBundle\Controller\LeadController::indexAction',
                         'passthroughVars' => [
-                            'activeLink'    => $isPlugin ? '#mautic_plugin_timeline_index' : '#mautic_contact_index',
-                            'mauticContent' => 'leadTimeline',
+                            'activeLink'    => $isPlugin ? '#mailvotech_plugin_timeline_index' : '#mailvotech_contact_index',
+                            'mailvotechContent' => 'leadTimeline',
                         ],
                         'flashes' => [
                             [
                                 'type'    => 'error',
-                                'msg'     => 'mautic.lead.lead.error.notfound',
+                                'msg'     => 'mailvotech.lead.lead.error.notfound',
                                 'msgVars' => ['%id%' => $leadId],
                             ],
                         ],
@@ -53,7 +53,7 @@ trait LeadAccessTrait
                 );
             }
 
-            return $this->notFound('mautic.contact.error.notfound');
+            return $this->notFound('mailvotech.contact.error.notfound');
         }
         if (!$this->security->hasEntityAccess(
             'lead:leads:'.$action.'own',
@@ -61,7 +61,7 @@ trait LeadAccessTrait
             $lead->getPermissionUser()
         )
         ) {
-            throw new AccessDeniedHttpException($this->translator->trans('mautic.core.url.error.401', ['%url%' => $this->getCurrentRequest()->getRequestUri()]));
+            throw new AccessDeniedHttpException($this->translator->trans('mailvotech.core.url.error.401', ['%url%' => $this->getCurrentRequest()->getRequestUri()]));
         }
 
         return $lead;

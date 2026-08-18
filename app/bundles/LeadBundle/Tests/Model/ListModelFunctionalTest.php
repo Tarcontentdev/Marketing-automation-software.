@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Model;
+namespace MailVotech\LeadBundle\Tests\Model;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\UserBundle\Entity\User;
 
-final class ListModelFunctionalTest extends MauticMysqlTestCase
+final class ListModelFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testPublicSegmentsInContactPreferences(): void
     {
@@ -104,7 +104,7 @@ final class ListModelFunctionalTest extends MauticMysqlTestCase
 
         $contactRepository->saveEntities($contacts);
 
-        // Adding record in mautic_lead_lists_leads before 11 second from mautic_lead_event_log
+        // Adding record in mailvotech_lead_lists_leads before 11 second from mailvotech_lead_event_log
         // using old code there should be double records means 2 but now it will show only 1 contact
         $segmentModel->addLead($contacts[0], $segment, true, false, 1, new \DateTime('-11 seconds', new \DateTimeZone('UTC'))); // Emulating adding by a filter.
 

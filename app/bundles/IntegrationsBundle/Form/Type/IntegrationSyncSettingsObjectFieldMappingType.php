@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Form\Type;
+namespace MailVotech\IntegrationsBundle\Form\Type;
 
-use Mautic\IntegrationsBundle\Exception\InvalidFormOptionException;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
-use Mautic\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Helper\FieldHelper;
+use MailVotech\IntegrationsBundle\Exception\InvalidFormOptionException;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormSyncInterface;
+use MailVotech\IntegrationsBundle\Mapping\MappedFieldInfoInterface;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Helper\FieldHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -45,9 +45,9 @@ final class IntegrationSyncSettingsObjectFieldMappingType extends AbstractType
 
             $attr = [
                 'label'        => $fieldInfo->getLabel(),
-                'mauticFields' => $this->getMauticFields($integrationObject, $objectName),
+                'mailvotechFields' => $this->getMailVotechFields($integrationObject, $objectName),
                 'required'     => $fieldInfo->showAsRequired(),
-                'placeholder'  => $this->translator->trans('mautic.integration.sync_mautic_field'),
+                'placeholder'  => $this->translator->trans('mailvotech.integration.sync_mailvotech_field'),
                 'object'       => $objectName,
                 'integration'  => $integrationObject->getName(),
                 'field'        => $fieldInfo,
@@ -76,7 +76,7 @@ final class IntegrationSyncSettingsObjectFieldMappingType extends AbstractType
                 'data'   => $options['keyword'],
                 'attr'   => [
                     'class'            => 'form-control integration-keyword-filter',
-                    'placeholder'      => $this->translator->trans('mautic.integration.sync_filter_fields'),
+                    'placeholder'      => $this->translator->trans('mailvotech.integration.sync_filter_fields'),
                     'data-object'      => $objectName,
                     'data-integration' => $integrationObject->getName(),
                 ],
@@ -111,15 +111,15 @@ final class IntegrationSyncSettingsObjectFieldMappingType extends AbstractType
     /**
      * @throws ObjectNotFoundException
      */
-    private function getMauticFields(ConfigFormSyncInterface $integrationObject, string $objectName): array
+    private function getMailVotechFields(ConfigFormSyncInterface $integrationObject, string $objectName): array
     {
         $mappedObjects = $integrationObject->getSyncMappedObjects();
         if (!isset($mappedObjects[$objectName])) {
             throw new ObjectNotFoundException($objectName);
         }
 
-        $mauticObject = $mappedObjects[$objectName];
+        $mailvotechObject = $mappedObjects[$objectName];
 
-        return $this->fieldHelper->getSyncFields($mauticObject);
+        return $this->fieldHelper->getSyncFields($mailvotechObject);
     }
 }

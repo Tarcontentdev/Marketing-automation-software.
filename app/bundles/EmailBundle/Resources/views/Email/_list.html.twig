@@ -3,60 +3,60 @@
         <table class="table table-hover email-list">
             <thead>
             <tr>
-                {{- include('@MauticCore/Helper/tableheader.html.twig', {
+                {{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'checkall'        : 'true'
                 }) -}}
 
-                {{- include('@MauticCore/Helper/tableheader.html.twig', {
+                {{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar' : 'email',
                     'orderBy'    : 'e.name',
-                    'text'       : 'mautic.core.name',
+                    'text'       : 'mailvotech.core.name',
                     'class'      : 'col-email-name',
                 }) -}}
 
-                {{- include('@MauticCore/Helper/tableheader.html.twig', {
+                {{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar' : 'email',
                     'orderBy'    : 'c.title',
-                    'text'       : 'mautic.core.category',
+                    'text'       : 'mailvotech.core.category',
                     'class'      : 'visible-md visible-lg col-email-category',
                 }) -}}
 
-                {{- include('@MauticCore/Helper/tableheader.html.twig', {
+                {{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar' : 'email',
                     'orderBy'    : 'e.template',
-                    'text'       : 'mautic.core.form.theme',
+                    'text'       : 'mailvotech.core.form.theme',
                     'class'      : 'visible-md visible-lg col-email-template',
                 }) -}}
 
-                <th class="visible-sm visible-md visible-lg col-email-stats">{{ 'mautic.core.stats'|trans }}</th>
+                <th class="visible-sm visible-md visible-lg col-email-stats">{{ 'mailvotech.core.stats'|trans }}</th>
 
-                {{- include('@MauticCore/Helper/tableheader.html.twig', {
+                {{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar' : 'email',
                     'orderBy'    : 'e.dateAdded',
-                    'text'       : 'mautic.lead.import.label.dateAdded',
+                    'text'       : 'mailvotech.lead.import.label.dateAdded',
                     'class'      : 'visible-lg col-email-dateAdded',
                 }) -}}
 
-                {{- include('@MauticCore/Helper/tableheader.html.twig', {
+                {{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar' : 'email',
                     'orderBy'    : 'e.dateModified',
                     'defaultDir' : 'DESC',
-                    'text'       : 'mautic.lead.import.label.dateModified',
+                    'text'       : 'mailvotech.lead.import.label.dateModified',
                     'class'      : 'visible-lg col-email-dateModified',
                     'default'    : true,
                 }) -}}
 
-                {{- include('@MauticCore/Helper/tableheader.html.twig', {
+                {{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar' : 'email',
                     'orderBy'    : 'e.createdByUser',
-                    'text'       : 'mautic.core.createdby',
+                    'text'       : 'mailvotech.core.createdby',
                     'class'      : 'visible-lg col-email-createdByUser',
                 }) -}}
 
-                {{- include('@MauticCore/Helper/tableheader.html.twig', {
+                {{- include('@MailVotechCore/Helper/tableheader.html.twig', {
                     'sessionVar' : 'email',
                     'orderBy'    : 'e.id',
-                    'text'       : 'mautic.core.id',
+                    'text'       : 'mailvotech.core.id',
                     'class'      : 'visible-md visible-lg col-email-id',
                 }) -}}
             </tr>
@@ -69,7 +69,7 @@
                 {% set hasChildrenVariants  = item.hasVariants() %}
                 {% set type = item.getEmailType() %}
                 {% set hasDraft  = item.hasDraft() %}
-                {% set mauticTemplateVars = _context|merge({'item' : item}) %}
+                {% set mailvotechTemplateVars = _context|merge({'item' : item}) %}
                 <tr id="row_email_{{ item.id }}">
                     <td>
                         {% set edit = securityHasEntityAccess(
@@ -81,10 +81,10 @@
                         {% set sendButton = {
                             'attr': {
                                 'data-toggle': 'ajax',
-                                'href'        : path('mautic_email_action', {'objectAction' : 'send', 'objectId' : item.getId()}),
+                                'href'        : path('mailvotech_email_action', {'objectAction' : 'send', 'objectId' : item.getId()}),
                             },
                             'iconClass': 'ri-send-plane-line',
-                            'btnText': 'mautic.email.send'
+                            'btnText': 'mailvotech.email.send'
                         } %}
 
                         {% if item.isBackgroundSending() %}
@@ -93,7 +93,7 @@
                                     'href': 'javascript:void(0);',
                                     'disabled': true
                                 },
-                                'tooltip': 'mautic.email.send.disabled',
+                                'tooltip': 'mailvotech.email.send.disabled',
                                 'btnClass': 'disabled'
                             }) %}
                         {% endif %}
@@ -101,12 +101,12 @@
                         {% set previewButton = {
                             'attr': {
                                 'class': 'btn btn-ghost btn-sm btn-nospin',
-                                'href': url('mautic_email_preview', {'objectId': item.getId()}),
+                                'href': url('mailvotech_email_preview', {'objectId': item.getId()}),
                                 'target': '_blank',
                                 'data-toggle': '',
                             },
                             'iconClass': 'ri-external-link-line',
-                            'btnText': 'mautic.core.open_link'|trans,
+                            'btnText': 'mailvotech.core.open_link'|trans,
                             'priority': 100
                         } %}
 
@@ -114,17 +114,17 @@
                             'attr': {
                                 'class': 'btn btn-tertiary btn-sm btn-nospin',
                                 'data-toggle': 'ajaxmodal',
-                                'data-target': '#MauticSharedModal',
-                                'href': path('mautic_email_action', {'objectAction': 'sendExample', 'objectId': item.getId()}),
-                                'data-header': 'mautic.email.send.example'|trans,
+                                'data-target': '#MailVotechSharedModal',
+                                'href': path('mailvotech_email_action', {'objectAction': 'sendExample', 'objectId': item.getId()}),
+                                'data-header': 'mailvotech.email.send.example'|trans,
                             },
                             'iconClass': 'ri-mail-send-line',
-                            'btnText': 'mautic.email.send.example',
+                            'btnText': 'mailvotech.email.send.example',
                         } %}
 
                         {% set customButtons = ('list' == type) ? [sendButton, sendExampleButton, previewButton] : [sendExampleButton, previewButton] %}
 
-                        {{- include('@MauticCore/Helper/list_actions.html.twig', {
+                        {{- include('@MailVotechCore/Helper/list_actions.html.twig', {
                             'item'            : item,
                             'templateButtons' : {
                                 'edit'   : edit,
@@ -142,37 +142,37 @@
                     </td>
                     <td>
                         <div>
-                            {{- include('@MauticCore/Helper/publishstatus_icon.html.twig', {
+                            {{- include('@MailVotechCore/Helper/publishstatus_icon.html.twig', {
                                 'item'  : item,
                                 'model' : 'email',
                                 'status': item.getSendingStatus(),
                             }) -}}
-                            <a href="{{ path('mautic_email_action', {'objectAction' : 'view', 'objectId' : item.getId()}) }}"
+                            <a href="{{ path('mailvotech_email_action', {'objectAction' : 'view', 'objectId' : item.getId()}) }}"
                                data-toggle="ajax">
                                 {{ item.getName() }}
                                 {% if hasChildrenVariants > 0 %}
-                                    <span data-toggle="tooltip" title="{{ 'mautic.email.icon_tooltip.ab_test.has.children'|trans }}"><i class="ri-fw ri-organization-chart fs-14"></i></span>
+                                    <span data-toggle="tooltip" title="{{ 'mailvotech.email.icon_tooltip.ab_test.has.children'|trans }}"><i class="ri-fw ri-organization-chart fs-14"></i></span>
                                 {% endif %}
                                 {% if hasVariants %}
-                                  <span data-toggle="tooltip" title="{{ 'mautic.email.icon_tooltip.ab_test.has.parent'|trans }}"><i class="ri-fw ri-a-b fs-14"></i></span>
+                                  <span data-toggle="tooltip" title="{{ 'mailvotech.email.icon_tooltip.ab_test.has.parent'|trans }}"><i class="ri-fw ri-a-b fs-14"></i></span>
                                 {% endif %}
                                 {% if hasChildrenTranslations > 0 %}
-                                    <span data-toggle="tooltip" title="{{ 'mautic.core.icon_tooltip.has.children.translation'|trans }}"><i class="ri-fw ri-translate fs-14"></i></span>
+                                    <span data-toggle="tooltip" title="{{ 'mailvotech.core.icon_tooltip.has.children.translation'|trans }}"><i class="ri-fw ri-translate fs-14"></i></span>
                                 {% endif %}
                                 {% if hasTranslations %}
-                                  <span data-toggle="tooltip" title="{{ 'mautic.core.icon_tooltip.has.parent.translation'|trans }}"><i class="ri-fw ri-translate-2 fs-14"></i></span>
+                                  <span data-toggle="tooltip" title="{{ 'mailvotech.core.icon_tooltip.has.parent.translation'|trans }}"><i class="ri-fw ri-translate-2 fs-14"></i></span>
                                 {% endif %}
                                 {% if 'list' == type %}
-                                  <span data-toggle="tooltip"title="{{ 'mautic.email.icon_tooltip.list_email'|trans }}"><i class="ri-pie-chart-line fs-14"></i></span>
+                                  <span data-toggle="tooltip"title="{{ 'mailvotech.email.icon_tooltip.list_email'|trans }}"><i class="ri-pie-chart-line fs-14"></i></span>
                                 {% endif %}
                                 {% if isDraftEnabled and hasDraft %}
-                                <span data-toggle="tooltip" title="{{ 'mautic.email.icon_tooltip.has_draft'|trans }}">
+                                <span data-toggle="tooltip" title="{{ 'mailvotech.email.icon_tooltip.has_draft'|trans }}">
                                     <i class="fa fa-fw fa-file"></i>
                                 </span>
                                 {% endif %}
-                                {{ customContent('email.name', mauticTemplateVars) }}
+                                {{ customContent('email.name', mailvotechTemplateVars) }}
                             </a>
-                            {{ include('@MauticProject/Modules/projects.html.twig') }}
+                            {{ include('@MailVotechProject/Modules/projects.html.twig') }}
                         </div>
                         {% if item.getDescription() is not empty %}
                             <div class="text-secondary mt-4">
@@ -181,49 +181,49 @@
                         {% endif %}
                     </td>
                     <td class="visible-md visible-lg">
-                        {{ include('@MauticCore/Modules/category--expanded.html.twig', {'category': item.category}) }}
+                        {{ include('@MailVotechCore/Modules/category--expanded.html.twig', {'category': item.category}) }}
                     </td>
                     <td class="visible-md visible-lg">
                         {% if item.getTemplate() %}
                             {{ getThemeName(item.getTemplate()) }}
                         {% else %}
-                            <span class="text-muted">{{ 'mautic.core.form.default'|trans }}</span>
+                            <span class="text-muted">{{ 'mailvotech.core.form.default'|trans }}</span>
                         {% endif %}
                     </td>
                     <td class="visible-sm visible-md visible-lg col-stats" data-stats="{{ item.getId() }}">
-                        {{ customContent('email.stats.above', mauticTemplateVars) }}
+                        {{ customContent('email.stats.above', mailvotechTemplateVars) }}
                         <span class="mt-xs label label-warm-gray{{ (item.getPendingCount() > 0 and 'list' == item.getEmailType()) ? '' : ' hide' }}"
                               id="pending-{{ item.getId() }}"
                               data-toggle="tooltip"
-                              title="{{ 'mautic.email.stat.leadcount.tooltip'|trans }}">
-                          <i class="ri-more-fill"></i><a href="{{ path('mautic_contact_index', {'search' : 'mautic.lead.lead.searchcommand.email_pending'|trans ~ ':' ~ item.getId()}) }}">
-                              {{ 'mautic.email.stat.leadcount'|trans ({'%count%' : item.getPendingCount()}) }}
+                              title="{{ 'mailvotech.email.stat.leadcount.tooltip'|trans }}">
+                          <i class="ri-more-fill"></i><a href="{{ path('mailvotech_contact_index', {'search' : 'mailvotech.lead.lead.searchcommand.email_pending'|trans ~ ':' ~ item.getId()}) }}">
+                              {{ 'mailvotech.email.stat.leadcount'|trans ({'%count%' : item.getPendingCount()}) }}
                           </a>
                         </span>
                         <span class="mt-xs label label-magenta{{ item.getQueuedCount() > 0 ? '' : ' hide' }}"
                               id="queued-{{ item.getId() }}"
                               data-toggle="tooltip"
-                              title="{{ 'mautic.email.stat.queued.tooltip'|trans }}">
-                          <i class="ri-mail-send-line"></i><a href="{{ path('mautic_contact_index', {'search' : 'mautic.lead.lead.searchcommand.email_queued'|trans ~ ':' ~ item.getId()}) }}">
-                              {{ 'mautic.email.stat.queuedcount'|trans ({'%count%' : item.getQueuedCount()}) }}
+                              title="{{ 'mailvotech.email.stat.queued.tooltip'|trans }}">
+                          <i class="ri-mail-send-line"></i><a href="{{ path('mailvotech_contact_index', {'search' : 'mailvotech.lead.lead.searchcommand.email_queued'|trans ~ ':' ~ item.getId()}) }}">
+                              {{ 'mailvotech.email.stat.queuedcount'|trans ({'%count%' : item.getQueuedCount()}) }}
                           </a>
                         </span>
                         <span class="mt-xs label label-blue" id="sent-count-{{ item.getId() }}">
-                            <i class="ri-mail-unread-line"></i><a href="{{ path('mautic_contact_index', {'search' : 'mautic.lead.lead.searchcommand.email_sent'|trans ~ ':' ~ item.getId()}) }}"
+                            <i class="ri-mail-unread-line"></i><a href="{{ path('mailvotech_contact_index', {'search' : 'mailvotech.lead.lead.searchcommand.email_sent'|trans ~ ':' ~ item.getId()}) }}"
                              data-toggle="tooltip"
-                             title="{{ 'mautic.email.stat.tooltip'|trans }}">{{ 'mautic.email.stat.sentcount'|trans ({'%count%' : item.getSentCount(true)}) }}</a>
+                             title="{{ 'mailvotech.email.stat.tooltip'|trans }}">{{ 'mailvotech.email.stat.sentcount'|trans ({'%count%' : item.getSentCount(true)}) }}</a>
                         </span>
                         <span class="mt-xs label label-teal" id="read-count-{{ item.getId() }}">
-                            <i class="ri-mail-open-line"></i><a href="{{ path('mautic_contact_index', {'search' : 'mautic.lead.lead.searchcommand.email_read'|trans ~ ':' ~ item.getId()}) }}"
+                            <i class="ri-mail-open-line"></i><a href="{{ path('mailvotech_contact_index', {'search' : 'mailvotech.lead.lead.searchcommand.email_read'|trans ~ ':' ~ item.getId()}) }}"
                              data-toggle="tooltip"
-                             title="{{ 'mautic.email.stat.tooltip'|trans }}">{{ 'mautic.email.stat.readcount'|trans ({'%count%' : item.getReadCount(true)}) }}</a>
+                             title="{{ 'mailvotech.email.stat.tooltip'|trans }}">{{ 'mailvotech.email.stat.readcount'|trans ({'%count%' : item.getReadCount(true)}) }}</a>
                              <span id="read-percent-{{ item.getId() }}">
                                 ({{ item.getReadPercentage(true) }}%)
                             </span>
                         </span>
 
-                        {{ customContent('email.stats', mauticTemplateVars) }}
-                        {{ customContent('email.stats.below', mauticTemplateVars) }}
+                        {{ customContent('email.stats', mailvotechTemplateVars) }}
+                        {{ customContent('email.stats.below', mailvotechTemplateVars) }}
                     </td>
                     <td class="visible-lg" title="{{ item.getDateAdded() ? dateToFullConcat(item.getDateAdded()) : '' }}">
                         {{ item.getDateAdded() ? dateToDate(item.getDateAdded()) : '' }}
@@ -239,32 +239,32 @@
         </table>
     </div>
     <div class="panel-footer">
-        {{- include('@MauticCore/Helper/pagination.html.twig', {
+        {{- include('@MailVotechCore/Helper/pagination.html.twig', {
             'totalItems'    : totalItems,
             'page'          : page,
             'limit'         : limit,
-            'baseUrl'       : path('mautic_email_index'),
+            'baseUrl'       : path('mailvotech_email_index'),
             'sessionVar'    : 'email',
         }) -}}
     </div>
 {% else %}
     {% if searchValue is not empty %}
-        {{- include('@MauticCore/Helper/noresults.html.twig') -}}
+        {{- include('@MailVotechCore/Helper/noresults.html.twig') -}}
     {% else %}
         <div class="mt-80 col-md-offset-2 col-lg-offset-3 col-md-8 col-lg-5 height-auto">
             {% set childContainer %}
                 <div class="mt-32 mb-md">
-                    {% include '@MauticCore/Components/pictogram.html.twig' with {
+                    {% include '@MailVotechCore/Components/pictogram.html.twig' with {
                         'pictogram': 'mail--verse',
                         'size': '80'
                     } %}
                 </div>                
             {% endset %}
 
-            {{ include('@MauticCore/Components/content-block.html.twig', {
-                heading: 'mautic.email.contentblock.heading',
-                subheading: 'mautic.email.contentblock.subheading',
-                copy: 'mautic.email.contentblock.copy',
+            {{ include('@MailVotechCore/Components/content-block.html.twig', {
+                heading: 'mailvotech.email.contentblock.heading',
+                subheading: 'mailvotech.email.contentblock.subheading',
+                copy: 'mailvotech.email.contentblock.copy',
                 childContainer: childContainer,
             }) }}
         </div>

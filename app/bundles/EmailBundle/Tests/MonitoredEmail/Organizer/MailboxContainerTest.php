@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\MonitoredEmail\Organizer;
+namespace MailVotech\EmailBundle\Tests\MonitoredEmail\Organizer;
 
-use Mautic\EmailBundle\MonitoredEmail\Accessor\ConfigAccessor;
-use Mautic\EmailBundle\MonitoredEmail\Mailbox;
-use Mautic\EmailBundle\MonitoredEmail\Organizer\MailboxContainer;
+use MailVotech\EmailBundle\MonitoredEmail\Accessor\ConfigAccessor;
+use MailVotech\EmailBundle\MonitoredEmail\Mailbox;
+use MailVotech\EmailBundle\MonitoredEmail\Organizer\MailboxContainer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 

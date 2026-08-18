@@ -1,19 +1,19 @@
 <?php
 
-namespace Mautic\PluginBundle\Controller;
+namespace MailVotech\PluginBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\PluginBundle\Entity\PluginRepository;
-use Mautic\PluginBundle\Event\PluginIntegrationAuthRedirectEvent;
-use Mautic\PluginBundle\Event\PluginIntegrationEvent;
-use Mautic\PluginBundle\Facade\ReloadFacade;
-use Mautic\PluginBundle\Form\Type\DetailsType;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PluginBundle\Integration\AbstractIntegration;
-use Mautic\PluginBundle\Model\PluginModel;
-use Mautic\PluginBundle\PluginEvents;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\PluginBundle\Entity\PluginRepository;
+use MailVotech\PluginBundle\Event\PluginIntegrationAuthRedirectEvent;
+use MailVotech\PluginBundle\Event\PluginIntegrationEvent;
+use MailVotech\PluginBundle\Facade\ReloadFacade;
+use MailVotech\PluginBundle\Form\Type\DetailsType;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\PluginBundle\Model\PluginModel;
+use MailVotech\PluginBundle\PluginEvents;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -59,9 +59,9 @@ final class PluginController extends FormController
         );
 
         $session      = $request->getSession();
-        $pluginFilter = $request->get('plugin', $session->get('mautic.integrations.filter', ''));
+        $pluginFilter = $request->get('plugin', $session->get('mailvotech.integrations.filter', ''));
 
-        $session->set('mautic.integrations.filter', $pluginFilter);
+        $session->set('mailvotech.integrations.filter', $pluginFilter);
 
         $integrationObjects = $integrationHelper->getIntegrationObjects(null, null, true);
         $integrations       = $foundPlugins       = [];
@@ -123,11 +123,11 @@ final class PluginController extends FormController
                     'pluginFilter' => ($pluginFilter) ? ['id' => $pluginId, 'name' => $pluginName] : false,
                     'plugins'      => $plugins,
                 ],
-                'contentTemplate' => '@MauticPlugin/Integration/grid.html.twig',
+                'contentTemplate' => '@MailVotechPlugin/Integration/grid.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_plugin_index',
-                    'mauticContent' => 'integration',
-                    'route'         => $this->generateUrl('mautic_plugin_index'),
+                    'activeLink'    => '#mailvotech_plugin_index',
+                    'mailvotechContent' => 'integration',
+                    'route'         => $this->generateUrl('mailvotech_plugin_index'),
                 ],
             ]
         );
@@ -136,7 +136,7 @@ final class PluginController extends FormController
     /**
      * @param string $name
      */
-    public function configAction(Request $request, EntityManagerInterface $em, IntegrationHelper $integrationHelper, LoggerInterface $mauticLogger, $name, $activeTab = 'details-container', $page = 1): JsonResponse|Response
+    public function configAction(Request $request, EntityManagerInterface $em, IntegrationHelper $integrationHelper, LoggerInterface $mailvotechLogger, $name, $activeTab = 'details-container', $page = 1): JsonResponse|Response
     {
         if (!$this->security->isGranted('plugin:plugins:manage')) {
             $this->throwAccessDenied();
@@ -155,7 +155,7 @@ final class PluginController extends FormController
 
         // Verify that the requested integration exists
         if (empty($integrationObject)) {
-            throw $this->createNotFoundException($this->translator->trans('mautic.core.url.error.404'));
+            throw $this->createNotFoundException($this->translator->trans('mailvotech.core.url.error.404'));
         }
 
         $object = ('leadFieldsContainer' === $activeTab) ? 'lead' : 'company';
@@ -164,8 +164,8 @@ final class PluginController extends FormController
         if ($start < 0) {
             $start = 0;
         }
-        $session->set('mautic.plugin.'.$name.'.'.$object.'.start', $start);
-        $session->set('mautic.plugin.'.$name.'.'.$object.'.page', $page);
+        $session->set('mailvotech.plugin.'.$name.'.'.$object.'.start', $start);
+        $session->set('mailvotech.plugin.'.$name.'.'.$object.'.page', $page);
         $leadFields    = $this->pluginModel->getLeadFields();
         $companyFields = $this->pluginModel->getCompanyFields();
         /** @var AbstractIntegration $integrationObject */
@@ -179,7 +179,7 @@ final class PluginController extends FormController
                 'lead_fields'        => $leadFields,
                 'company_fields'     => $companyFields,
                 'integration_object' => $integrationObject,
-                'action'             => $this->generateUrl('mautic_plugin_config', ['name' => $name]),
+                'action'             => $this->generateUrl('mailvotech_plugin_config', ['name' => $name]),
             ]
         );
 
@@ -213,16 +213,16 @@ final class PluginController extends FormController
                         $features = $entity->getSupportedFeatures();
                         if (in_array('public_profile', $features) || in_array('push_lead', $features)) {
                             // Ungroup the fields
-                            $mauticLeadFields = [];
+                            $mailvotechLeadFields = [];
                             foreach ($leadFields as $groupFields) {
-                                $mauticLeadFields = array_merge($mauticLeadFields, $groupFields);
+                                $mailvotechLeadFields = array_merge($mailvotechLeadFields, $groupFields);
                             }
-                            $mauticCompanyFields = [];
+                            $mailvotechCompanyFields = [];
                             foreach ($companyFields as $groupFields) {
-                                $mauticCompanyFields = array_merge($mauticCompanyFields, $groupFields);
+                                $mailvotechCompanyFields = array_merge($mailvotechCompanyFields, $groupFields);
                             }
 
-                            if ($missing = $integrationObject->cleanUpFields($entity, $mauticLeadFields, $mauticCompanyFields)) {
+                            if ($missing = $integrationObject->cleanUpFields($entity, $mailvotechLeadFields, $mailvotechCompanyFields)) {
                                 if ($entity->getIsPublished()) {
                                     // Only fail validation if the integration is enabled
                                     if (!empty($missing['leadFields'])) {
@@ -230,7 +230,7 @@ final class PluginController extends FormController
 
                                         $form->get('featureSettings')->get('leadFields')->addError(
                                             new FormError(
-                                                $this->translator->trans('mautic.plugin.field.required_mapping_missing', [], 'validators')
+                                                $this->translator->trans('mailvotech.plugin.field.required_mapping_missing', [], 'validators')
                                             )
                                         );
                                     }
@@ -240,7 +240,7 @@ final class PluginController extends FormController
 
                                         $form->get('featureSettings')->get('companyFields')->addError(
                                             new FormError(
-                                                $this->translator->trans('mautic.plugin.field.required_mapping_missing', [], 'validators')
+                                                $this->translator->trans('mailvotech.plugin.field.required_mapping_missing', [], 'validators')
                                             )
                                         );
                                     }
@@ -253,9 +253,9 @@ final class PluginController extends FormController
                     }
 
                     if ($valid || $authorize) {
-                        $mauticLogger->info('Dispatching integration config save event.');
+                        $mailvotechLogger->info('Dispatching integration config save event.');
                         if ($this->dispatcher->hasListeners(PluginEvents::PLUGIN_ON_INTEGRATION_CONFIG_SAVE)) {
-                            $mauticLogger->info('Event dispatcher has integration config save listeners.');
+                            $mailvotechLogger->info('Event dispatcher has integration config save listeners.');
                             if (!$valid && !$existingPublishedState) {
                                 $integrationObject->getIntegrationSettings()->setIsPublished(false);
                             }
@@ -287,7 +287,7 @@ final class PluginController extends FormController
                                 'integration'         => $integration,
                                 'authUrl'             => $oauthUrl,
                                 'authorize'           => 1,
-                                'popupBlockerMessage' => $this->translator->trans('mautic.core.popupblocked'),
+                                'popupBlockerMessage' => $this->translator->trans('mailvotech.core.popupblocked'),
                             ]
                         );
                     }
@@ -301,8 +301,8 @@ final class PluginController extends FormController
                         'closeModal'    => 1,
                         'enabled'       => $entity->getIsPublished(),
                         'name'          => $integrationObject->getName(),
-                        'mauticContent' => 'integrationConfig',
-                        'sidebar'       => $this->renderView('@MauticCore/LeftPanel/index.html.twig'),
+                        'mailvotechContent' => 'integrationConfig',
+                        'sidebar'       => $this->renderView('@MailVotechCore/LeftPanel/index.html.twig'),
                     ]
                 );
             }
@@ -311,7 +311,7 @@ final class PluginController extends FormController
         $template    = $integrationObject->getFormTemplate();
         $objectTheme = $integrationObject->getFormTheme();
         $themes      = [
-            '@MauticPlugin/FormTheme/Integration/layout.html.twig',
+            '@MailVotechPlugin/FormTheme/Integration/layout.html.twig',
         ];
         if (is_array($objectTheme)) {
             $themes = array_merge($themes, $objectTheme);
@@ -356,10 +356,10 @@ final class PluginController extends FormController
                 ],
                 'contentTemplate' => $template,
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_plugin_index',
-                    'mauticContent' => 'integrationConfig',
+                    'activeLink'    => '#mailvotech_plugin_index',
+                    'mailvotechContent' => 'integrationConfig',
                     'route'         => false,
-                    'sidebar'       => $this->renderView('@MauticCore/LeftPanel/index.html.twig'),
+                    'sidebar'       => $this->renderView('@MailVotechCore/LeftPanel/index.html.twig'),
                     'pluginVersion' => $version,
                 ],
             ]
@@ -390,10 +390,10 @@ final class PluginController extends FormController
                     'bundle' => $bundle,
                     'icon'   => $integrationHelper->getIconPath($bundle),
                 ],
-                'contentTemplate' => '@MauticPlugin/Integration/info.html.twig',
+                'contentTemplate' => '@MailVotechPlugin/Integration/info.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_plugin_index',
-                    'mauticContent' => 'integration',
+                    'activeLink'    => '#mailvotech_plugin_index',
+                    'mailvotechContent' => 'integration',
                     'route'         => false,
                     'pluginVersion' => $bundle->getVersion(),
                 ],
@@ -415,18 +415,18 @@ final class PluginController extends FormController
         );
 
         $viewParameters = [
-            'page' => $request->getSession()->get('mautic.plugin.page'),
+            'page' => $request->getSession()->get('mailvotech.plugin.page'),
         ];
 
         // Refresh the index contents
         return $this->postActionRedirect(
             [
-                'returnUrl'       => $this->generateUrl('mautic_plugin_index', $viewParameters),
+                'returnUrl'       => $this->generateUrl('mailvotech_plugin_index', $viewParameters),
                 'viewParameters'  => $viewParameters,
-                'contentTemplate' => 'Mautic\PluginBundle\Controller\PluginController::indexAction',
+                'contentTemplate' => 'MailVotech\PluginBundle\Controller\PluginController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_plugin_index',
-                    'mauticContent' => 'plugin',
+                    'activeLink'    => '#mailvotech_plugin_index',
+                    'mailvotechContent' => 'plugin',
                 ],
             ]
         );

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Security\SAML\Store\Request;
+namespace MailVotech\UserBundle\Security\SAML\Store\Request;
 
 use LightSaml\State\Request\RequestState;
 use LightSaml\Store\Request\AbstractRequestStateArrayStore;
-use Mautic\CacheBundle\Cache\CacheProviderInterface;
+use MailVotech\CacheBundle\Cache\CacheProviderInterface;
 
 final class RequestStateStore extends AbstractRequestStateArrayStore
 {

@@ -5,11 +5,11 @@
             {% set hasEditAccess = securityHasEntityAccess(permissions['lead:leads:editown'], permissions['lead:leads:editother'], item.permissionUser) %}
             {% set custom = [{
                 'attr': {
-                    'href': path('mautic_contact_action', {'objectAction': 'view', 'objectId': item.id}),
+                    'href': path('mailvotech_contact_action', {'objectAction': 'view', 'objectId': item.id}),
                     'data-toggle': 'ajax',
                     'data-method': 'POST',
                 },
-                'btnText': 'mautic.core.details',
+                'btnText': 'mailvotech.core.details',
                 'iconClass': 'ri-information-2-line',
             }] %}
 
@@ -17,11 +17,11 @@
                 {# this lead was manually added to a list so give an option to remove them #}
                 {% set custom = custom|merge([{
                     'attr': {
-                        'href': path('mautic_segment_action', {'objectAction': 'removeLead', 'objectId': currentList.id, 'leadId': item.id}),
+                        'href': path('mailvotech_segment_action', {'objectAction': 'removeLead', 'objectId': currentList.id, 'leadId': item.id}),
                         'data-toggle': 'ajax',
                         'data-method': 'POST',
                     },
-                    'btnText': 'mautic.lead.lead.remove.fromlist',
+                    'btnText': 'mailvotech.lead.lead.remove.fromlist',
                     'iconClass': 'ri-close-line',
                 }]) %}
             {% endif %}
@@ -30,16 +30,16 @@
                 {% set custom = custom|merge([{
                     'attr': {
                         'data-toggle': 'ajaxmodal',
-                        'data-target': '#MauticSharedModal',
-                        'data-header': 'mautic.lead.email.send_email.header'|trans({'%email%': fields['core']['email']['value']}),
-                        'href': path('mautic_contact_action', {'objectId': item.id, 'objectAction': 'email', 'list': 1}),
+                        'data-target': '#MailVotechSharedModal',
+                        'data-header': 'mailvotech.lead.email.send_email.header'|trans({'%email%': fields['core']['email']['value']}),
+                        'href': path('mailvotech_contact_action', {'objectId': item.id, 'objectAction': 'email', 'list': 1}),
                     },
-                    'btnText': 'mautic.lead.email.send_email',
+                    'btnText': 'mailvotech.lead.email.send_email',
                     'iconClass': 'ri-send-plane-line',
                 }]) %}
             {% endif %}
 
-            {{ include('@MauticCore/Helper/list_actions.html.twig', {
+            {{ include('@MailVotechCore/Helper/list_actions.html.twig', {
                 'item': item,
                 'templateButtons': {
                     'edit': hasEditAccess,
@@ -51,7 +51,7 @@
             }) }}
         </td>
         {% for column, label in columns %}
-            {{ include(['@MauticLead/Lead/_list_column_'~column~'.html.twig', '@MauticLead/Lead/_list_column_default.html.twig'], {
+            {{ include(['@MailVotechLead/Lead/_list_column_'~column~'.html.twig', '@MailVotechLead/Lead/_list_column_default.html.twig'], {
                   'item': item,
                   'fields': fields,
                   'label': label,

@@ -1,11 +1,11 @@
-{% extends '@MauticForm/Action/base_form_action.html.twig' %}
+{% extends '@MailVotechForm/Action/base_form_action.html.twig' %}
 
 {% set footerContent %}
     {% if action.properties.copy_lead is defined and action.properties.copy_lead == 1 %}
         <!-- Send to contact -->
-        {% include '@MauticCore/Helper/_tag.html.twig' with {
+        {% include '@MailVotechCore/Helper/_tag.html.twig' with {
             'tags': [{
-                'label': 'mautic.form.form.send_to_contact',
+                'label': 'mailvotech.form.form.send_to_contact',
                 'color': 'blue',
                 'icon': 'ri-mail-send-fill'
             }]
@@ -14,9 +14,9 @@
 
     {% if action.properties.set_replyto is defined and action.properties.set_replyto == 1 %}
         <!-- Reply to contact -->
-        {% include '@MauticCore/Helper/_tag.html.twig' with {
+        {% include '@MailVotechCore/Helper/_tag.html.twig' with {
             'tags': [{
-                'label': 'mautic.form.form.reply_to_contact',
+                'label': 'mailvotech.form.form.reply_to_contact',
                 'color': 'blue',
                 'icon': 'ri-reply-fill'
             }]
@@ -25,9 +25,9 @@
 
     {% if action.properties.email_to_owner is defined and action.properties.email_to_owner == 1 %}
         <!-- Send to owner -->
-        {% include '@MauticCore/Helper/_tag.html.twig' with {
+        {% include '@MailVotechCore/Helper/_tag.html.twig' with {
             'tags': [{
-                'label': 'mautic.form.form.send_to_owner',
+                'label': 'mailvotech.form.form.send_to_owner',
                 'color': 'blue',
                 'icon': 'ri-mail-send-fill'
             }]

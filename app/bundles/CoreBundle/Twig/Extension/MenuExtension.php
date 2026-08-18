@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Extension;
+namespace MailVotech\CoreBundle\Twig\Extension;
 
 use Knp\Menu\ItemInterface;
 use Knp\Menu\Matcher\MatcherInterface;
-use Mautic\CoreBundle\Twig\Helper\MenuHelper;
+use MailVotech\CoreBundle\Twig\Helper\MenuHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

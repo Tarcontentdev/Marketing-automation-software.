@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Entity;
+namespace MailVotech\PointBundle\Tests\Entity;
 
 use Doctrine\Persistence\Mapping\MappingException;
-use Mautic\CoreBundle\Helper\IntHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\PointBundle\Entity\Point;
+use MailVotech\CoreBundle\Helper\IntHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\PointBundle\Entity\Point;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DomCrawler\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class PointEntityValidationTest extends MauticMysqlTestCase
+final class PointEntityValidationTest extends MailVotechMysqlTestCase
 {
     /**
      * @throws MappingException

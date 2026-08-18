@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
 use MatthiasMullie\Minify;
 use Symfony\Component\Finder\Finder;
@@ -87,7 +87,7 @@ final readonly class AssetGenerationHelper
 
         if (empty($assets)) {
             $loadAll    = true;
-            $env        = ($forceRegeneration) ? 'prod' : MAUTIC_ENV;
+            $env        = ($forceRegeneration) ? 'prod' : MAILVOTECH_ENV;
             $rootPath   = $this->pathsHelper->getSystemPath('assets_root');
             $assetsPath = $this->pathsHelper->getSystemPath('media');
 
@@ -144,7 +144,7 @@ final readonly class AssetGenerationHelper
                 $modifiedLast = [];
 
                 // get a list of all core asset files
-                $bundles = $this->bundleHelper->getMauticBundles();
+                $bundles = $this->bundleHelper->getMailVotechBundles();
 
                 $fileTypes = ['css', 'js'];
                 foreach ($bundles as $bundle) {

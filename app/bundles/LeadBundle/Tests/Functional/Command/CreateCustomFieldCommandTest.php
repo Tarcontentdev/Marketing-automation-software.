@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\Command;
+namespace MailVotech\LeadBundle\Tests\Functional\Command;
 
 use Doctrine\DBAL\Schema\Column;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Field\Command\CreateCustomFieldCommand;
-use Mautic\LeadBundle\Field\Notification\CustomFieldNotification;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Field\Command\CreateCustomFieldCommand;
+use MailVotech\LeadBundle\Field\Notification\CustomFieldNotification;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-final class CreateCustomFieldCommandTest extends MauticMysqlTestCase
+final class CreateCustomFieldCommandTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {
@@ -44,7 +44,7 @@ final class CreateCustomFieldCommandTest extends MauticMysqlTestCase
             ->expects($this->once())
             ->method('customFieldWasCreated')
             ->with(self::isInstanceOf(LeadField::class), self::equalTo($expectedUserId));
-        $kernel->getContainer()->set('mautic.lead.field.notification.custom_field', $customFieldNotification);
+        $kernel->getContainer()->set('mailvotech.lead.field.notification.custom_field', $customFieldNotification);
 
         $application   = new Application($kernel);
         $application->setAutoExit(false);
@@ -98,7 +98,7 @@ final class CreateCustomFieldCommandTest extends MauticMysqlTestCase
             ->expects($this->exactly(2))
             ->method('customFieldWasCreated')
             ->with(self::isInstanceOf(LeadField::class), self::equalTo($expectedUserId));
-        $kernel->getContainer()->set('mautic.lead.field.notification.custom_field', $customFieldNotification);
+        $kernel->getContainer()->set('mailvotech.lead.field.notification.custom_field', $customFieldNotification);
 
         $application   = new Application($kernel);
         $application->setAutoExit(false);

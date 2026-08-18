@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Enum;
+namespace MailVotech\CampaignBundle\Enum;
 
 /**
  * Defines how the scheduled events behave after a campaign is republished. It has 3 options:
@@ -18,7 +18,7 @@ enum RepublishBehavior: string
 
     public function getLabel(): string
     {
-        return 'mautic.campaignconfig.campaign_republish_behavior.'.$this->value;
+        return 'mailvotech.campaignconfig.campaign_republish_behavior.'.$this->value;
     }
 
     /**

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CategoryBundle\Tests\Model;
+namespace MailVotech\CategoryBundle\Tests\Model;
 
-use Mautic\CategoryBundle\Model\ContactActionModel;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CategoryBundle\Model\ContactActionModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 

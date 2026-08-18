@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Stats\Helper;
+namespace MailVotech\EmailBundle\Stats\Helper;
 
-use Mautic\EmailBundle\Stats\FetchOptions\EmailStatOptions;
-use Mautic\StatsBundle\Aggregate\Collection\StatCollection;
+use MailVotech\EmailBundle\Stats\FetchOptions\EmailStatOptions;
+use MailVotech\StatsBundle\Aggregate\Collection\StatCollection;
 
 interface StatHelperInterface
 {

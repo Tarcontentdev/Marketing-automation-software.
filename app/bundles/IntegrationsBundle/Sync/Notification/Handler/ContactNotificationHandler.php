@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Notification\Handler;
+namespace MailVotech\IntegrationsBundle\Sync\Notification\Handler;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\NotificationDAO;
-use Mautic\IntegrationsBundle\Sync\Notification\Helper\UserSummaryNotificationHelper;
-use Mautic\IntegrationsBundle\Sync\Notification\Writer;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\LeadBundle\Entity\LeadEventLogRepository;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\NotificationDAO;
+use MailVotech\IntegrationsBundle\Sync\Notification\Helper\UserSummaryNotificationHelper;
+use MailVotech\IntegrationsBundle\Sync\Notification\Writer;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Entity\LeadEventLogRepository;
 
 final class ContactNotificationHandler implements HandlerInterface
 {
@@ -30,7 +30,7 @@ final class ContactNotificationHandler implements HandlerInterface
 
     public function getIntegration(): string
     {
-        return MauticSyncDataExchange::NAME;
+        return MailVotechSyncDataExchange::NAME;
     }
 
     public function getSupportedObject(): string
@@ -48,8 +48,8 @@ final class ContactNotificationHandler implements HandlerInterface
 
         $this->writer->writeAuditLogEntry(
             $notificationDAO->getIntegration(),
-            $notificationDAO->getMauticObject(),
-            $notificationDAO->getMauticObjectId(),
+            $notificationDAO->getMailVotechObject(),
+            $notificationDAO->getMailVotechObjectId(),
             'sync',
             [
                 'integrationObject'   => $notificationDAO->getIntegrationObject(),
@@ -58,17 +58,17 @@ final class ContactNotificationHandler implements HandlerInterface
             ]
         );
 
-        $this->writeEventLogEntry($notificationDAO->getIntegration(), $notificationDAO->getMauticObjectId(), $notificationDAO->getMessage());
+        $this->writeEventLogEntry($notificationDAO->getIntegration(), $notificationDAO->getMailVotechObjectId(), $notificationDAO->getMessage());
 
         // Store these so we can send one notice to the user
-        $this->userNotificationHelper->storeSummaryNotification($integrationDisplayName, $objectDisplayName, $notificationDAO->getMauticObjectId());
+        $this->userNotificationHelper->storeSummaryNotification($integrationDisplayName, $objectDisplayName, $notificationDAO->getMailVotechObjectId());
     }
 
     public function finalize(): void
     {
         $this->userNotificationHelper->writeNotifications(
             Contact::NAME,
-            'mautic.integration.sync.user_notification.contact_message'
+            'mailvotech.integration.sync.user_notification.contact_message'
         );
     }
 

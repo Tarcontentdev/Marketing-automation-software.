@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Services;
+namespace MailVotech\LeadBundle\Services;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\LeadBundle\Field\FieldList;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\LeadBundle\Field\FieldList;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class CompanyColumnsDictionary
@@ -51,12 +51,12 @@ final class CompanyColumnsDictionary
     {
         if ([] === $this->cachedChoices) {
             $this->cachedChoices = [
-                'companyname'    => $this->translator->trans('mautic.company.name'),
-                'companyemail'   => $this->translator->trans('mautic.company.email'),
-                'companywebsite' => $this->translator->trans('mautic.company.website'),
-                'score'          => $this->translator->trans('mautic.company.score'),
-                'leadcount'      => $this->translator->trans('mautic.lead.list.thead.leadcount'),
-                'id'             => $this->translator->trans('mautic.core.id'),
+                'companyname'    => $this->translator->trans('mailvotech.company.name'),
+                'companyemail'   => $this->translator->trans('mailvotech.company.email'),
+                'companywebsite' => $this->translator->trans('mailvotech.company.website'),
+                'score'          => $this->translator->trans('mailvotech.company.score'),
+                'leadcount'      => $this->translator->trans('mailvotech.lead.list.thead.leadcount'),
+                'id'             => $this->translator->trans('mailvotech.core.id'),
             ];
 
             $this->cachedChoices += $this->fieldList->getFieldList(

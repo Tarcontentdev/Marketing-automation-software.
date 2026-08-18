@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Entity;
+namespace MailVotech\ProjectBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -13,12 +13,12 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\ClassMetadata as OrmClassMetadata;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\UuidInterface;
-use Mautic\CoreBundle\Entity\UuidTrait;
-use Mautic\ProjectBundle\Validator\Constraints\UniqueName;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\UuidInterface;
+use MailVotech\CoreBundle\Entity\UuidTrait;
+use MailVotech\ProjectBundle\Validator\Constraints\UniqueName;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -112,7 +112,7 @@ class Project extends FormEntity implements UuidInterface
     {
         $metadata->addPropertyConstraint(
             'name',
-            new NotBlank(message: 'mautic.core.name.required')
+            new NotBlank(message: 'mailvotech.core.name.required')
         );
         $metadata->addConstraint(new UniqueName());
     }

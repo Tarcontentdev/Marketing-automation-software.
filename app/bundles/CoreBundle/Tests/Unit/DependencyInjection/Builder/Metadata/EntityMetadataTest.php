@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\DependencyInjection\Builder\Metadata;
+namespace MailVotech\CoreBundle\Tests\Unit\DependencyInjection\Builder\Metadata;
 
-use Mautic\CoreBundle\DependencyInjection\Builder\BundleMetadata;
-use Mautic\CoreBundle\DependencyInjection\Builder\Metadata\EntityMetadata;
+use MailVotech\CoreBundle\DependencyInjection\Builder\BundleMetadata;
+use MailVotech\CoreBundle\DependencyInjection\Builder\Metadata\EntityMetadata;
 use PHPUnit\Framework\TestCase;
 
 final class EntityMetadataTest extends TestCase
@@ -18,11 +18,11 @@ final class EntityMetadataTest extends TestCase
             'isPlugin'          => true,
             'base'              => 'Core',
             'bundle'            => 'CoreBundle',
-            'relative'          => 'app/bundles/MauticCoreBundle',
+            'relative'          => 'app/bundles/MailVotechCoreBundle',
             'directory'         => __DIR__.'/../../../../../',
-            'namespace'         => 'Mautic\\CoreBundle',
-            'symfonyBundleName' => 'MauticCoreBundle',
-            'bundleClass'       => '\\Mautic\\CoreBundle',
+            'namespace'         => 'MailVotech\\CoreBundle',
+            'symfonyBundleName' => 'MailVotechCoreBundle',
+            'bundleClass'       => '\\MailVotech\\CoreBundle',
         ];
 
         $this->metadata = new BundleMetadata($metadataArray);
@@ -37,7 +37,7 @@ final class EntityMetadataTest extends TestCase
             [
                 'dir'       => 'Entity',
                 'type'      => 'staticphp',
-                'prefix'    => 'Mautic\\CoreBundle\\Entity',
+                'prefix'    => 'MailVotech\\CoreBundle\\Entity',
                 'mapping'   => true,
                 'is_bundle' => true,
             ],
@@ -46,8 +46,8 @@ final class EntityMetadataTest extends TestCase
 
         $this->assertSame(
             [
-                'namespace_prefix' => 'Mautic\\CoreBundle\\Entity',
-                'path'             => '@MauticCoreBundle/Entity',
+                'namespace_prefix' => 'MailVotech\\CoreBundle\\Entity',
+                'path'             => '@MailVotechCoreBundle/Entity',
             ],
             $entityMetadata->getSerializerConfig()
         );

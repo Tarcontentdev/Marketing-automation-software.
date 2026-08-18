@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Command;
+namespace MailVotech\LeadBundle\Tests\Command;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\LeadList;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\LeadList;
 
-final class SegmentStatCommandTest extends MauticMysqlTestCase
+final class SegmentStatCommandTest extends MailVotechMysqlTestCase
 {
     /**
      * @throws \Exception
      */
     public function testSegmentStatCommandWithOutSegment(): void
     {
-        $output = $this->testSymfonyCommand('mautic:segments:stat');
+        $output = $this->testSymfonyCommand('mailvotech:segments:stat');
 
         $this->assertStringContainsString('There is no segment to show!!', $output->getDisplay());
     }
@@ -42,7 +42,7 @@ final class SegmentStatCommandTest extends MauticMysqlTestCase
         $this->em->persist($campaign);
         $this->em->flush();
 
-        $output = $this->testSymfonyCommand('mautic:segments:stat');
+        $output = $this->testSymfonyCommand('mailvotech:segments:stat');
 
         // test table header
         $this->assertMatchesRegularExpression('/Title\s+Id\s+IsPublished\s+IsUsed/i', $output->getDisplay());

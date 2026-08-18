@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\Exception\SkipMigration;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
-use Mautic\CoreBundle\Helper\EmojiHelper;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\EmailBundle\Entity\Copy;
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
+use MailVotech\CoreBundle\Helper\EmojiHelper;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\EmailBundle\Entity\Copy;
+use MailVotech\EmailBundle\Entity\Email;
 
-final class Version20201026101117 extends AbstractMauticMigration
+final class Version20201026101117 extends AbstractMailVotechMigration
 {
     /**
      * @throws SkipMigration

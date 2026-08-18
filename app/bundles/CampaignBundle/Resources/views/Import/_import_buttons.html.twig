@@ -1,17 +1,17 @@
 <div class="pa-sm">
-    {% include '@MauticCore/Helper/button.html.twig' with {
+    {% include '@MailVotechCore/Helper/button.html.twig' with {
         buttons: [
             {
-                href: path('mautic_campaign_index'),
+                href: path('mailvotech_campaign_index'),
                 variant: 'primary',
                 icon: 'ri-list-check-2',
-                label: 'mautic.campaign.campaigns'
+                label: 'mailvotech.campaign.campaigns'
             },
             {
-                href: path('mautic_campaign_import_action', {'objectAction': 'new'}),
+                href: path('mailvotech_campaign_import_action', {'objectAction': 'new'}),
                 variant: 'secondary',
                 icon: 'ri-import-line',
-                label: 'mautic.campaign.campaign.reimport'
+                label: 'mailvotech.campaign.campaign.reimport'
             }
         ]
     } %}
@@ -24,13 +24,13 @@
     {% endfor %}
 
     {% if hasOnlyNew %}
-        {{ include('@MauticCore/Helper/confirm.html.twig', {
+        {{ include('@MailVotechCore/Helper/confirm.html.twig', {
             'btnClass': 'btn btn-danger btn-nospin',
-            'message': 'mautic.campaign.campaign.import.undoconfirm'|trans,
-            'confirmText': 'mautic.campaign.campaign.import.undo'|trans,
-            'confirmAction': path('mautic_campaign_import_action', {'objectAction' : 'undo'}),
+            'message': 'mailvotech.campaign.campaign.import.undoconfirm'|trans,
+            'confirmText': 'mailvotech.campaign.campaign.import.undo'|trans,
+            'confirmAction': path('mailvotech_campaign_import_action', {'objectAction' : 'undo'}),
             'iconClass': 'ri-delete-bin-line',
-            'btnText': 'mautic.campaign.campaign.import.undo'|trans
+            'btnText': 'mailvotech.campaign.campaign.import.undo'|trans
         }) }}
     {% endif %}
 </div>

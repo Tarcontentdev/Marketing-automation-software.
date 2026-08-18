@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 
 trait OperatorListTrait
 {
@@ -126,7 +126,7 @@ trait OperatorListTrait
     ];
 
     /**
-     * @deprecated to be removed in Mautic 3. Use FilterOperatorProvider::getAllOperators() instead.
+     * @deprecated to be removed in MailVotech 3. Use FilterOperatorProvider::getAllOperators() instead.
      *
      * @param string|null $operator
      *

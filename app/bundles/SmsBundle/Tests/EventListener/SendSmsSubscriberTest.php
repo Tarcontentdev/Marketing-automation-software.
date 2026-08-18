@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\EventListener;
+namespace MailVotech\SmsBundle\Tests\EventListener;
 
-use Mautic\ChannelBundle\Model\MessageQueueModel;
-use Mautic\CoreBundle\Test\ReflectionHelper;
-use Mautic\LeadBundle\Entity\DoNotContactRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\SmsBundle\Event\DncEvent;
-use Mautic\SmsBundle\Event\FilterEvent;
-use Mautic\SmsBundle\Event\QueueEvent;
-use Mautic\SmsBundle\EventListener\SendSmsSubscriber;
+use MailVotech\ChannelBundle\Model\MessageQueueModel;
+use MailVotech\CoreBundle\Test\ReflectionHelper;
+use MailVotech\LeadBundle\Entity\DoNotContactRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\SmsBundle\Event\DncEvent;
+use MailVotech\SmsBundle\Event\FilterEvent;
+use MailVotech\SmsBundle\Event\QueueEvent;
+use MailVotech\SmsBundle\EventListener\SendSmsSubscriber;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

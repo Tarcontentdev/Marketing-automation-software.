@@ -7,7 +7,7 @@ on:
 jobs:
   coverage:
     # Only the "check-coverage" and "ready-to-commit" labels trigger this workflow
-    if: (github.event.label.name == 'check-coverage' || github.event.label.name == 'ready-to-commit') && github.repository == 'mautic/mautic'
+    if: (github.event.label.name == 'check-coverage' || github.event.label.name == 'ready-to-commit') && github.repository == 'mailvotech/mailvotech'
     runs-on: ubuntu-latest
 
     name: PHPUnit coverage
@@ -17,7 +17,7 @@ jobs:
         image: mariadb:10.11
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: mautictest
+          MYSQL_DATABASE: mailvotechtest
         ports:
           - 3306
         options: >-
@@ -67,7 +67,7 @@ jobs:
     - name: Set SYMFONY_ENV to test
       run: |
         echo "SYMFONY_ENV=test" >> $GITHUB_ENV
-        echo "MAUTIC_ENV=test" >> $GITHUB_ENV
+        echo "MAILVOTECH_ENV=test" >> $GITHUB_ENV
 
     - name: Install Composer dependencies
       uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0

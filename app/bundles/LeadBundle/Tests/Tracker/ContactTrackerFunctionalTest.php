@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Tracker;
+namespace MailVotech\LeadBundle\Tests\Tracker;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDevice;
-use Mautic\LeadBundle\Tracker\ContactTracker;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDevice;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-final class ContactTrackerFunctionalTest extends MauticMysqlTestCase
+final class ContactTrackerFunctionalTest extends MailVotechMysqlTestCase
 {
     private ContactTracker $contactTracker;
 
@@ -67,7 +67,7 @@ final class ContactTrackerFunctionalTest extends MauticMysqlTestCase
     private function trackContactByDevice(LeadDevice $device): ?Lead
     {
         $request = new Request([
-            'mautic_device_id' => $device->getTrackingId(),
+            'mailvotech_device_id' => $device->getTrackingId(),
         ], [], [], [], [], [
             'HTTP_CLIENT_IP'  => '124.56.35.14',
             'HTTP_USER_AGENT' => 'Functional tester',

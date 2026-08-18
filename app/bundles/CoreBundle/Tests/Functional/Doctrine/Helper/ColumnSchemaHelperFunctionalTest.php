@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Doctrine\Helper;
+namespace MailVotech\CoreBundle\Tests\Functional\Doctrine\Helper;
 
 use Doctrine\DBAL\Schema\Column;
-use Mautic\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class ColumnSchemaHelperFunctionalTest extends MauticMysqlTestCase
+final class ColumnSchemaHelperFunctionalTest extends MailVotechMysqlTestCase
 {
     private LeadField $field;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\WebhookBundle\Event;
+namespace MailVotech\WebhookBundle\Event;
 
 use Symfony\Component\Process\Exception\InvalidArgumentException;
 use Symfony\Contracts\EventDispatcher\Event;

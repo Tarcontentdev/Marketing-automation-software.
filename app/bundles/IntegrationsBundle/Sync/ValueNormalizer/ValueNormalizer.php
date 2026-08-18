@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\ValueNormalizer;
+namespace MailVotech\IntegrationsBundle\Sync\ValueNormalizer;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
 
 final class ValueNormalizer implements ValueNormalizerInterface
 {
     /**
      * @param mixed $value
      */
-    public function normalizeForMautic(string $type, $value): NormalizedValueDAO
+    public function normalizeForMailVotech(string $type, $value): NormalizedValueDAO
     {
         switch ($type) {
             case NormalizedValueDAO::STRING_TYPE:

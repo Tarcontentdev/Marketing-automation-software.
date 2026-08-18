@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Helper;
+namespace MailVotech\IntegrationsBundle\Helper;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\IntegrationsBundle\DTO\IntegrationObjectToken as Token;
+use MailVotech\IntegrationsBundle\DTO\IntegrationObjectToken as Token;
 
 final class TokenParser
 {

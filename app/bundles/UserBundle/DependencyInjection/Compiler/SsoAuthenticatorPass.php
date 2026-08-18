@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\DependencyInjection\Compiler;
+namespace MailVotech\UserBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -11,13 +11,13 @@ use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 /**
  * This will replace $options in the
- * \Mautic\UserBundle\DependencyInjection\Firewall\Factory\MauticSsoFactory::createAuthenticator.
+ * \MailVotech\UserBundle\DependencyInjection\Firewall\Factory\MailVotechSsoFactory::createAuthenticator.
  */
 final class SsoAuthenticatorPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        $ssoAuthenticatorId = 'security.authenticator.mautic_sso.main';
+        $ssoAuthenticatorId = 'security.authenticator.mailvotech_sso.main';
         if (!$container->hasDefinition($ssoAuthenticatorId)) {
             throw new ServiceNotFoundException($ssoAuthenticatorId);
         }

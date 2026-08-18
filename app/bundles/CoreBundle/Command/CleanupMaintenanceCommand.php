@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\MaintenanceEvent;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\MaintenanceEvent;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -23,7 +23,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 #[AsCommand(
     name: CleanupMaintenanceCommand::NAME,
-    description: 'Updates the Mautic application',
+    description: 'Updates the MailVotech application',
     help: <<<'TXT'
 <info>%command.name%</info> purges records of anonymous contacts (<comment>unless the <info>--gdpr</info> flag is set</comment>) that are older than 365 days.
 Adjust the threshold by using <info>--days-old</info>.
@@ -55,7 +55,7 @@ TXT
 )]
 final class CleanupMaintenanceCommand extends ModeratedCommand
 {
-    public const NAME = 'mautic:maintenance:cleanup';
+    public const NAME = 'mailvotech:maintenance:cleanup';
 
     public function __construct(
         private readonly TranslatorInterface $translator,
@@ -104,14 +104,14 @@ final class CleanupMaintenanceCommand extends ModeratedCommand
 
         if (!empty($gdpr)) {
             // Override threshold to delete records of inactive users, default 3 years
-            $daysOld = $this->coreParametersHelper->get('mautic.gdpr_user_purge_threshold', 1095);
+            $daysOld = $this->coreParametersHelper->get('mailvotech.gdpr_user_purge_threshold', 1095);
         }
 
         if (empty($dryRun) && empty($noInteraction)) {
             /** @var \Symfony\Component\Console\Helper\SymfonyQuestionHelper $helper */
             $helper   = $this->getHelperSet()->get('question');
             $question = new ConfirmationQuestion(
-                '<info>'.$this->translator->trans('mautic.maintenance.confirm_data_purge', ['%days%' => $daysOld]).'</info> ', false
+                '<info>'.$this->translator->trans('mailvotech.maintenance.confirm_data_purge', ['%days%' => $daysOld]).'</info> ', false
             );
 
             if (!$helper->ask($input, $output, $question)) {
@@ -132,11 +132,11 @@ final class CleanupMaintenanceCommand extends ModeratedCommand
 
         $table = new Table($output);
         $table
-            ->setHeaders([$this->translator->trans('mautic.maintenance.header.key'), $this->translator->trans('mautic.maintenance.header.records_affected')])
+            ->setHeaders([$this->translator->trans('mailvotech.maintenance.header.key'), $this->translator->trans('mailvotech.maintenance.header.records_affected')])
             ->setRows($rows);
         $table->render();
 
-        if ('dev' == MAUTIC_ENV) {
+        if ('dev' == MAILVOTECH_ENV) {
             $output->writeln('<comment>Debug</comment>');
             $debug = $event->getDebug();
 

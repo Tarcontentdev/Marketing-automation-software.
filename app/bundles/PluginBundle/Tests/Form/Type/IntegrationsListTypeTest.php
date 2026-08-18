@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\Form\Type;
+namespace MailVotech\PluginBundle\Tests\Form\Type;
 
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Entity\Plugin;
-use Mautic\PluginBundle\Form\Type\IntegrationCampaignsType;
-use Mautic\PluginBundle\Form\Type\IntegrationConfigType;
-use Mautic\PluginBundle\Form\Type\IntegrationsListType;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
-use Mautic\PluginBundle\Integration\AbstractIntegration;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Entity\Plugin;
+use MailVotech\PluginBundle\Form\Type\IntegrationCampaignsType;
+use MailVotech\PluginBundle\Form\Type\IntegrationConfigType;
+use MailVotech\PluginBundle\Form\Type\IntegrationsListType;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\PluginBundle\Integration\AbstractIntegration;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

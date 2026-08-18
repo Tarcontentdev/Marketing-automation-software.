@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Query;
+namespace MailVotech\LeadBundle\Segment\Query;
 
 /**
  * Heads-up! Do not use any query parameters within this trait as it could cause conflicts. This trait is used by many query builders.
@@ -12,7 +12,7 @@ trait LeadBatchLimiterTrait
      */
     private function addMinMaxLimiters(QueryBuilder $queryBuilder, array $batchLimiters, string $tableName, string $columnName = 'lead_id'): void
     {
-        $leadsTableAlias = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.$tableName);
+        $leadsTableAlias = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.$tableName);
 
         if (!empty($batchLimiters['minId']) && !empty($batchLimiters['maxId'])) {
             $queryBuilder->andWhere(
@@ -38,7 +38,7 @@ trait LeadBatchLimiterTrait
             return;
         }
 
-        $leadsTableAlias = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.$tableName);
+        $leadsTableAlias = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.$tableName);
         $queryBuilder->andWhere(
             $queryBuilder->expr()->eq($leadsTableAlias.'.'.$columnName, (int) $batchLimiters['lead_id'])
         );
@@ -59,7 +59,7 @@ trait LeadBatchLimiterTrait
             return;
         }
 
-        $leadsTableAlias = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.$tableName);
+        $leadsTableAlias = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.$tableName);
         $queryBuilder->andWhere(
             $queryBuilder->expr()->in($leadsTableAlias.'.'.$columnName, $ids)
         );

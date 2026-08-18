@@ -1,25 +1,25 @@
-{% set src = 'dev' == app.environment ? 'app/assets/js/mautic-form-src.js' : 'media/js/mautic-form.js' %}
+{% set src = 'dev' == app.environment ? 'app/assets/js/mailvotech-form-src.js' : 'media/js/mailvotech-form.js' %}
 {% set scriptSrc = getAssetUrl(src, null, null, true)|replace({
     '/index.php': ''
 }) %}
 
 <script type="text/javascript">
     /** This section is only needed once per page if manually copying **/
-    if (typeof MauticSDKLoaded == 'undefined') {
-        var MauticSDKLoaded = true;
+    if (typeof MailVotechSDKLoaded == 'undefined') {
+        var MailVotechSDKLoaded = true;
         var head            = document.getElementsByTagName('head')[0];
         var script          = document.createElement('script');
         script.type         = 'text/javascript';
         script.src          = '{{ scriptSrc }}';
         script.onload       = function() {
-            MauticSDK.onLoad();
+            MailVotechSDK.onLoad();
         };
         head.appendChild(script);
-        var MauticDomain = '{{ assetGetBaseUrl()|replace({'/index.php': ''}) }}';
-        var MauticLang   = {
-            'submittingMessage': "{{ 'mautic.form.submission.pleasewait'|trans([], 'messages', form.getLanguage())}}"
+        var MailVotechDomain = '{{ assetGetBaseUrl()|replace({'/index.php': ''}) }}';
+        var MailVotechLang   = {
+            'submittingMessage': "{{ 'mailvotech.form.submission.pleasewait'|trans([], 'messages', form.getLanguage())}}"
         }
-    }else if (typeof MauticSDK != 'undefined') {
-        MauticSDK.onLoad();
+    }else if (typeof MailVotechSDK != 'undefined') {
+        MailVotechSDK.onLoad();
     }
 </script>

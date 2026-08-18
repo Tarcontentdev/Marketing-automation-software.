@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
-use Mautic\CoreBundle\Factory\TransifexFactory;
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\UrlHelper;
-use Mautic\Transifex\Connector\Statistics;
-use Mautic\Transifex\Connector\Translations;
-use Mautic\Transifex\Exception\InvalidConfigurationException;
-use Mautic\Transifex\Exception\ResponseException;
-use Mautic\Transifex\Promise;
+use MailVotech\CoreBundle\Factory\TransifexFactory;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\UrlHelper;
+use MailVotech\Transifex\Connector\Statistics;
+use MailVotech\Transifex\Connector\Translations;
+use MailVotech\Transifex\Exception\InvalidConfigurationException;
+use MailVotech\Transifex\Exception\ResponseException;
+use MailVotech\Transifex\Promise;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -26,9 +26,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 #[AsCommand(
     name: PullTransifexCommand::NAME,
-    description: 'Fetches translations for Mautic from Transifex',
+    description: 'Fetches translations for MailVotech from Transifex',
     help: <<<'TXT'
-The <info>%command.name%</info> command is used to retrieve updated Mautic translations from Transifex and writes them to the filesystem.
+The <info>%command.name%</info> command is used to retrieve updated MailVotech translations from Transifex and writes them to the filesystem.
 
 <info>php %command.full_name%</info>
 
@@ -39,7 +39,7 @@ TXT
 )]
 final class PullTransifexCommand extends Command
 {
-    public const NAME = 'mautic:transifex:pull';
+    public const NAME = 'mailvotech:transifex:pull';
 
     public function __construct(
         private readonly TransifexFactory $transifexFactory,
@@ -69,7 +69,7 @@ final class PullTransifexCommand extends Command
         try {
             $transifex = $this->transifexFactory->getTransifex();
         } catch (InvalidConfigurationException) {
-            $output->writeln($this->translator->trans('mautic.core.command.transifex_no_credentials'));
+            $output->writeln($this->translator->trans('mailvotech.core.command.transifex_no_credentials'));
 
             return Command::FAILURE;
         }
@@ -88,7 +88,7 @@ final class PullTransifexCommand extends Command
             foreach ($stringFiles as $file) {
                 $name     = $bundle.' '.str_replace('.ini', '', basename($file));
                 $resource = UrlHelper::stringURLUnicodeSlug($name);
-                $output->writeln($this->translator->trans('mautic.core.command.transifex_processing_resource', ['%resource%' => $name]));
+                $output->writeln($this->translator->trans('mailvotech.core.command.transifex_processing_resource', ['%resource%' => $name]));
 
                 try {
                     $response      = $statistics->getLanguageStats($resource);
@@ -105,7 +105,7 @@ final class PullTransifexCommand extends Command
                             continue;
                         }
 
-                        $output->writeln($this->translator->trans('mautic.core.command.transifex_processing_language', ['%language%' => $language]));
+                        $output->writeln($this->translator->trans('mailvotech.core.command.transifex_processing_language', ['%language%' => $language]));
 
                         $completed = $stats['attributes']['translated_strings'] / $stats['attributes']['total_strings'];
 
@@ -122,7 +122,7 @@ final class PullTransifexCommand extends Command
                         }
                     }
                 } catch (\Exception $exception) {
-                    $output->writeln($this->translator->trans('mautic.core.command.transifex_error_pulling_data', ['%message%' => $exception->getMessage()]));
+                    $output->writeln($this->translator->trans('mailvotech.core.command.transifex_error_pulling_data', ['%message%' => $exception->getMessage()]));
 
                     return Command::FAILURE;
                 }
@@ -143,7 +143,7 @@ final class PullTransifexCommand extends Command
             }
         );
 
-        $output->writeln($this->translator->trans('mautic.core.command.transifex_resource_downloaded'));
+        $output->writeln($this->translator->trans('mailvotech.core.command.transifex_resource_downloaded'));
 
         return Command::SUCCESS;
     }

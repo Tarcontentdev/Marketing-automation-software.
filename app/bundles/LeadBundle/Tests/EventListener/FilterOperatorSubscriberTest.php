@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Event\LeadListFiltersChoicesEvent;
-use Mautic\LeadBundle\Event\LeadListFiltersOperatorsEvent;
-use Mautic\LeadBundle\EventListener\FilterOperatorSubscriber;
-use Mautic\LeadBundle\Exception\ChoicesNotFoundException;
-use Mautic\LeadBundle\Provider\FieldChoicesProviderInterface;
-use Mautic\LeadBundle\Provider\TypeOperatorProviderInterface;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Event\LeadListFiltersChoicesEvent;
+use MailVotech\LeadBundle\Event\LeadListFiltersOperatorsEvent;
+use MailVotech\LeadBundle\EventListener\FilterOperatorSubscriber;
+use MailVotech\LeadBundle\Exception\ChoicesNotFoundException;
+use MailVotech\LeadBundle\Provider\FieldChoicesProviderInterface;
+use MailVotech\LeadBundle\Provider\TypeOperatorProviderInterface;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,7 +73,7 @@ final class FilterOperatorSubscriberTest extends TestCase
         // Test that random operators exist:
         $this->assertSame(
             [
-                'label'       => 'mautic.lead.list.form.operator.notbetween',
+                'label'       => 'mailvotech.lead.list.form.operator.notbetween',
                 'expr'        => 'notBetween',
                 'negate_expr' => 'between',
                 'hide'        => true,
@@ -83,7 +83,7 @@ final class FilterOperatorSubscriberTest extends TestCase
 
         $this->assertSame(
             [
-                'label'       => 'mautic.core.operator.starts.with',
+                'label'       => 'mailvotech.core.operator.starts.with',
                 'expr'        => 'startsWith',
                 'negate_expr' => 'startsWith',
             ],
@@ -92,7 +92,7 @@ final class FilterOperatorSubscriberTest extends TestCase
 
         $this->assertSame(
             [
-                'label'       => 'mautic.lead.list.form.operator.in',
+                'label'       => 'mailvotech.lead.list.form.operator.in',
                 'expr'        => 'in',
                 'negate_expr' => 'notIn',
             ],
@@ -328,7 +328,7 @@ final class FilterOperatorSubscriberTest extends TestCase
     {
         // Only displays on segment actions
         $request = new Request();
-        $request->attributes->set('_route', 'mautic_segment_action');
+        $request->attributes->set('_route', 'mailvotech_segment_action');
 
         $event = new LeadListFiltersChoicesEvent([], [], $this->translator, $request);
 
@@ -370,7 +370,7 @@ final class FilterOperatorSubscriberTest extends TestCase
         // Test for some random choices:
         $this->assertSame(
             [
-                'label'      => 'mautic.lead.list.filter.date_identified',
+                'label'      => 'mailvotech.lead.list.filter.date_identified',
                 'properties' => [
                     'type' => 'datetime',
                 ],
@@ -386,7 +386,7 @@ final class FilterOperatorSubscriberTest extends TestCase
 
         $this->assertSame(
             [
-                'label'      => 'mautic.lead.list.filter.device_model',
+                'label'      => 'mailvotech.lead.list.filter.device_model',
                 'properties' => [
                     'type' => 'text',
                 ],
@@ -402,7 +402,7 @@ final class FilterOperatorSubscriberTest extends TestCase
 
         $this->assertSame(
             [
-                'label'      => 'mautic.lead.list.filter.dnc_manual_email',
+                'label'      => 'mailvotech.lead.list.filter.dnc_manual_email',
                 'properties' => [
                     'type' => 'boolean',
                     'list' => [
@@ -425,7 +425,7 @@ final class FilterOperatorSubscriberTest extends TestCase
     {
         // Only displays on segment actions
         $request = new Request();
-        $request->attributes->set('_route', 'mautic_segment_action');
+        $request->attributes->set('_route', 'mailvotech_segment_action');
 
         $event = new LeadListFiltersChoicesEvent([], [], $this->translator, $request);
 
@@ -467,7 +467,7 @@ final class FilterOperatorSubscriberTest extends TestCase
         // Test for some random choices:
         $this->assertSame(
             [
-                'label'      => 'mautic.lead.list.filter.lead_email_received',
+                'label'      => 'mailvotech.lead.list.filter.lead_email_received',
                 'object'     => 'lead',
                 'properties' => [
                     'type' => 'lead_email_received',
@@ -487,7 +487,7 @@ final class FilterOperatorSubscriberTest extends TestCase
 
         $this->assertSame(
             [
-                'label'      => 'mautic.lead.list.filter.visited_url_count',
+                'label'      => 'mailvotech.lead.list.filter.visited_url_count',
                 'properties' => [
                     'type' => 'number',
                 ],
@@ -505,7 +505,7 @@ final class FilterOperatorSubscriberTest extends TestCase
     public function testOnlyCustomFieldsAreLoadedForNonSegmentRoutes(): void
     {
         $request = new Request();
-        $request->attributes->set('_route', 'mautic_dynamicContent_action');
+        $request->attributes->set('_route', 'mailvotech_dynamicContent_action');
 
         $event = new LeadListFiltersChoicesEvent([], [], $this->translator, $request);
 
@@ -674,7 +674,7 @@ final class FilterOperatorSubscriberTest extends TestCase
         // Test for some random choices:
         $this->assertSame(
             [
-                'label'      => 'mautic.lead.list.filter.date_identified',
+                'label'      => 'mailvotech.lead.list.filter.date_identified',
                 'properties' => [
                     'type' => 'datetime',
                 ],
@@ -690,7 +690,7 @@ final class FilterOperatorSubscriberTest extends TestCase
 
         $this->assertSame(
             [
-                'label'      => 'mautic.lead.list.filter.device_model',
+                'label'      => 'mailvotech.lead.list.filter.device_model',
                 'properties' => [
                     'type' => 'text',
                 ],
@@ -706,7 +706,7 @@ final class FilterOperatorSubscriberTest extends TestCase
 
         $this->assertSame(
             [
-                'label'      => 'mautic.lead.list.filter.dnc_manual_email',
+                'label'      => 'mailvotech.lead.list.filter.dnc_manual_email',
                 'properties' => [
                     'type' => 'boolean',
                     'list' => [
@@ -771,7 +771,7 @@ final class FilterOperatorSubscriberTest extends TestCase
         // Test for some random choices:
         $this->assertSame(
             [
-                'label'      => 'mautic.lead.list.filter.lead_email_received',
+                'label'      => 'mailvotech.lead.list.filter.lead_email_received',
                 'object'     => 'lead',
                 'properties' => [
                     'type' => 'lead_email_received',
@@ -791,7 +791,7 @@ final class FilterOperatorSubscriberTest extends TestCase
 
         $this->assertSame(
             [
-                'label'      => 'mautic.lead.list.filter.visited_url_count',
+                'label'      => 'mailvotech.lead.list.filter.visited_url_count',
                 'properties' => [
                     'type' => 'number',
                 ],

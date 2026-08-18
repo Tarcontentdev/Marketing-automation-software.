@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<LeadDevice>
@@ -37,7 +37,7 @@ class LeadDeviceRepository extends CommonRepository
     {
         $selectQuery = $this->_em->getConnection()->createQueryBuilder();
         $selectQuery->select('es.id as id, es.device as device')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_devices', 'es');
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_devices', 'es');
 
         if (null !== $deviceNames) {
             if (!is_array($deviceNames)) {
@@ -151,7 +151,7 @@ class LeadDeviceRepository extends CommonRepository
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         return $qb->select('*')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_devices', 'es')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_devices', 'es')
             ->where('lead_id = :leadId')
             ->setParameter('leadId', $lead->getId())
             ->orderBy('date_added', 'desc')
@@ -165,7 +165,7 @@ class LeadDeviceRepository extends CommonRepository
     public function updateLead($fromLeadId, $toLeadId): void
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'lead_devices')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'lead_devices')
             ->set('lead_id', (int) $toLeadId)
             ->where('lead_id = '.(int) $fromLeadId)
             ->executeStatement();

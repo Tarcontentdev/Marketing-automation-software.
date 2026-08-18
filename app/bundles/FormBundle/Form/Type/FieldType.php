@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\FormBundle\Collector\AlreadyMappedFieldCollectorInterface;
-use Mautic\FormBundle\Collector\FieldCollectorInterface;
-use Mautic\FormBundle\Collector\ObjectCollectorInterface;
-use Mautic\FormBundle\Exception\FieldNotFoundException;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\FormBundle\Collector\AlreadyMappedFieldCollectorInterface;
+use MailVotech\FormBundle\Collector\FieldCollectorInterface;
+use MailVotech\FormBundle\Collector\ObjectCollectorInterface;
+use MailVotech\FormBundle\Exception\FieldNotFoundException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -105,20 +105,20 @@ final class FieldType extends AbstractType
             switch ($type) {
                 case 'freetext':
                     $addHelpMessage      = $addDefaultValue      = $addIsRequired      = $addMappedFieldList      = $addSaveResult      = $addBehaviorFields      = false;
-                    $labelText           = 'mautic.form.field.form.header';
-                    $showLabelText       = 'mautic.form.field.form.showheader';
-                    $inputAttributesText = 'mautic.form.field.form.freetext_attributes';
-                    $labelAttributesText = 'mautic.form.field.form.header_attributes';
+                    $labelText           = 'mailvotech.form.field.form.header';
+                    $showLabelText       = 'mailvotech.form.field.form.showheader';
+                    $inputAttributesText = 'mailvotech.form.field.form.freetext_attributes';
+                    $labelAttributesText = 'mailvotech.form.field.form.header_attributes';
 
                     // Allow html
                     $cleanMasks['properties'] = 'html';
                     break;
                 case 'freehtml':
                     $addHelpMessage      = $addDefaultValue      = $addIsRequired      = $addMappedFieldList      = $addSaveResult      = $addBehaviorFields      = false;
-                    $labelText           = 'mautic.form.field.form.header';
-                    $showLabelText       = 'mautic.form.field.form.showheader';
-                    $inputAttributesText = 'mautic.form.field.form.freehtml_attributes';
-                    $labelAttributesText = 'mautic.form.field.form.header_attributes';
+                    $labelText           = 'mailvotech.form.field.form.header';
+                    $showLabelText       = 'mailvotech.form.field.form.showheader';
+                    $inputAttributesText = 'mailvotech.form.field.form.freehtml_attributes';
+                    $labelAttributesText = 'mailvotech.form.field.form.header_attributes';
                     // Allow html
                     $cleanMasks['properties'] = 'html';
                     break;
@@ -188,8 +188,8 @@ final class FieldType extends AbstractType
             $type       = $data['type'] ?? null;
 
             if ($isNew && $hasNoLabel && is_string($type) && '' !== $type) {
-                $translated = $this->translator->trans('mautic.form.field.type.'.$type);
-                if ($translated === 'mautic.form.field.type.'.$type) {
+                $translated = $this->translator->trans('mailvotech.form.field.type.'.$type);
+                if ($translated === 'mailvotech.form.field.type.'.$type) {
                     $translated = ucfirst($type);
                 }
                 $data['label'] = $translated;
@@ -202,12 +202,12 @@ final class FieldType extends AbstractType
             'label',
             TextType::class,
             [
-                'label'       => !empty($labelText) ? $labelText : 'mautic.form.field.form.label',
+                'label'       => !empty($labelText) ? $labelText : 'mailvotech.form.field.form.label',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => ['class' => 'form-control'],
                 'constraints' => [
                     new Assert\NotBlank(
-                        message: 'mautic.form.field.label.notblank'
+                        message: 'mailvotech.form.field.label.notblank'
                     ),
                 ],
             ]
@@ -218,11 +218,11 @@ final class FieldType extends AbstractType
                 'alias',
                 TextType::class,
                 [
-                    'label'      => 'mautic.form.field.form.alias',
+                    'label'      => 'mailvotech.form.field.form.alias',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.form.field.form.alias.tooltip',
+                        'tooltip' => 'mailvotech.form.field.form.alias.tooltip',
                     ],
                     'disabled' => !empty($options['data']['id']) && !str_contains($options['data']['id'], 'new'),
                     'required' => false,
@@ -236,7 +236,7 @@ final class FieldType extends AbstractType
                 'showLabel',
                 YesNoButtonGroupType::class,
                 [
-                    'label' => (!empty($showLabelText)) ? $showLabelText : 'mautic.form.field.form.showlabel',
+                    'label' => (!empty($showLabelText)) ? $showLabelText : 'mailvotech.form.field.form.showlabel',
                     'data'  => $default,
                 ]
             );
@@ -247,7 +247,7 @@ final class FieldType extends AbstractType
                 'defaultValue',
                 ('textarea' == $type) ? TextareaType::class : TextType::class,
                 [
-                    'label'      => 'mautic.core.defaultvalue',
+                    'label'      => 'mailvotech.core.defaultvalue',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => ['class' => 'form-control'],
                     'required'   => false,
@@ -260,11 +260,11 @@ final class FieldType extends AbstractType
                 'helpMessage',
                 TextType::class,
                 [
-                    'label'      => 'mautic.form.field.form.helpmessage',
+                    'label'      => 'mailvotech.form.field.form.helpmessage',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.form.field.help.helpmessage',
+                        'tooltip' => 'mailvotech.form.field.help.helpmessage',
                     ],
                     'required' => false,
                 ]
@@ -277,7 +277,7 @@ final class FieldType extends AbstractType
                 'isRequired',
                 YesNoButtonGroupType::class,
                 [
-                    'label' => 'mautic.core.required',
+                    'label' => 'mailvotech.core.required',
                     'data'  => $default,
                 ]
             );
@@ -286,11 +286,11 @@ final class FieldType extends AbstractType
                 'validationMessage',
                 TextType::class,
                 [
-                    'label'      => 'mautic.form.field.form.validationmsg',
+                    'label'      => 'mailvotech.form.field.form.validationmsg',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'        => 'form-control',
-                        'tooltip'      => $this->translator->trans('mautic.core.form.default').': '.$this->translator->trans('mautic.form.field.generic.required', [], 'validators'),
+                        'tooltip'      => $this->translator->trans('mailvotech.core.form.default').': '.$this->translator->trans('mailvotech.form.field.generic.required', [], 'validators'),
                         'data-show-on' => '{"formfield_isRequired_1": "checked"}',
                     ],
                     'required'   => false,
@@ -303,11 +303,11 @@ final class FieldType extends AbstractType
                 'labelAttributes',
                 TextType::class,
                 [
-                    'label'      => $labelAttributesText ?? 'mautic.form.field.form.labelattr',
+                    'label'      => $labelAttributesText ?? 'mailvotech.form.field.form.labelattr',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'     => 'form-control',
-                        'tooltip'   => 'mautic.form.field.help.attr',
+                        'tooltip'   => 'mailvotech.form.field.help.attr',
                         'maxlength' => '191',
                     ],
                     'required' => false,
@@ -320,11 +320,11 @@ final class FieldType extends AbstractType
                 'inputAttributes',
                 TextType::class,
                 [
-                    'label'      => $inputAttributesText ?? 'mautic.form.field.form.inputattr',
+                    'label'      => $inputAttributesText ?? 'mailvotech.form.field.form.inputattr',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'     => 'form-control',
-                        'tooltip'   => 'mautic.form.field.help.attr',
+                        'tooltip'   => 'mailvotech.form.field.help.attr',
                         'maxlength' => '191',
                     ],
                     'required' => false,
@@ -337,11 +337,11 @@ final class FieldType extends AbstractType
                 'containerAttributes',
                 TextType::class,
                 [
-                    'label'      => 'mautic.form.field.form.container_attr',
+                    'label'      => 'mailvotech.form.field.form.container_attr',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'     => 'form-control',
-                        'tooltip'   => 'mautic.form.field.help.container_attr',
+                        'tooltip'   => 'mailvotech.form.field.help.container_attr',
                         'maxlength' => '191',
                     ],
                     'required' => false,
@@ -354,19 +354,19 @@ final class FieldType extends AbstractType
                 'fieldWidth',
                 ChoiceType::class,
                 [
-                    'label'      => 'mautic.form.field.form.field_width',
+                    'label'      => 'mailvotech.form.field.form.field_width',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.form.field.help.field_width',
+                        'tooltip' => 'mailvotech.form.field.help.field_width',
                     ],
                     'choices' => [
-                        'mautic.form.field.form.field_width.one_hundred'    => '100%',
-                        'mautic.form.field.form.field_width.seventy_five'   => '75%',
-                        'mautic.form.field.form.field_width.sixty_six'      => '66.66%',
-                        'mautic.form.field.form.field_width.fifty'          => '50%',
-                        'mautic.form.field.form.field_width.thirty_three'   => '33.33%',
-                        'mautic.form.field.form.field_width.twenty_five'    => '25%',
+                        'mailvotech.form.field.form.field_width.one_hundred'    => '100%',
+                        'mailvotech.form.field.form.field_width.seventy_five'   => '75%',
+                        'mailvotech.form.field.form.field_width.sixty_six'      => '66.66%',
+                        'mailvotech.form.field.form.field_width.fifty'          => '50%',
+                        'mailvotech.form.field.form.field_width.thirty_three'   => '33.33%',
+                        'mailvotech.form.field.form.field_width.twenty_five'    => '25%',
                     ],
                     'data'     => $options['data']['fieldWidth'] ?? '100%',
                     'required' => false,
@@ -381,10 +381,10 @@ final class FieldType extends AbstractType
                 'saveResult',
                 YesNoButtonGroupType::class,
                 [
-                    'label' => 'mautic.form.field.form.saveresult',
+                    'label' => 'mailvotech.form.field.form.saveresult',
                     'data'  => $default,
                     'attr'  => [
-                        'tooltip' => 'mautic.form.field.help.saveresult',
+                        'tooltip' => 'mailvotech.form.field.help.saveresult',
                     ],
                 ]
             );
@@ -397,9 +397,9 @@ final class FieldType extends AbstractType
                 'alwaysDisplay',
                 YesNoButtonGroupType::class,
                 [
-                    'label' => 'mautic.form.field.form.always_display',
+                    'label' => 'mailvotech.form.field.form.always_display',
                     'attr'  => [
-                        'tooltip' => 'mautic.form.field.form.always_display.tooltip',
+                        'tooltip' => 'mailvotech.form.field.form.always_display.tooltip',
                     ],
                     'data'  => $alwaysDisplay,
                 ]
@@ -411,10 +411,10 @@ final class FieldType extends AbstractType
                 'showWhenValueExists',
                 YesNoButtonGroupType::class,
                 [
-                    'label' => 'mautic.form.field.form.show.when.value.exists',
+                    'label' => 'mailvotech.form.field.form.show.when.value.exists',
                     'data'  => $default,
                     'attr'  => [
-                        'tooltip'      => 'mautic.form.field.help.show.when.value.exists',
+                        'tooltip'      => 'mailvotech.form.field.help.show.when.value.exists',
                         'data-show-on' => '{"formfield_alwaysDisplay_0": "checked"}',
                     ],
                 ]
@@ -424,11 +424,11 @@ final class FieldType extends AbstractType
                 'showAfterXSubmissions',
                 TextType::class,
                 [
-                    'label'      => 'mautic.form.field.form.show.after.x.submissions',
+                    'label'      => 'mailvotech.form.field.form.show.after.x.submissions',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'        => 'form-control',
-                        'tooltip'      => 'mautic.form.field.help.show.after.x.submissions',
+                        'tooltip'      => 'mailvotech.form.field.help.show.after.x.submissions',
                         'data-show-on' => '{"formfield_alwaysDisplay_0": "checked"}',
                     ],
                     'required' => false,
@@ -441,11 +441,11 @@ final class FieldType extends AbstractType
                     'isAutoFill',
                     YesNoButtonGroupType::class,
                     [
-                        'label' => 'mautic.form.field.form.auto_fill',
+                        'label' => 'mailvotech.form.field.form.auto_fill',
                         'data'  => $isAutoFillValue,
                         'attr'  => [
                             'class'   => 'auto-fill-data',
-                            'tooltip' => 'mautic.form.field.help.auto_fill',
+                            'tooltip' => 'mailvotech.form.field.help.auto_fill',
                         ],
                     ]
                 );
@@ -456,11 +456,11 @@ final class FieldType extends AbstractType
                 'isReadOnly',
                 YesNoButtonGroupType::class,
                 [
-                    'label' => 'mautic.form.field.form.read_only',
+                    'label' => 'mailvotech.form.field.form.read_only',
                     'data'  => $isReadOnlyValue,
                     'attr'  => [
                         'class'           => 'read-only-data',
-                        'tooltip'         => 'mautic.form.field.help.auto_fill',
+                        'tooltip'         => 'mailvotech.form.field.help.auto_fill',
                         'data-disable-on' => '{"formfield_isAutoFill_0": "checked"}',
                         'data-enable-on'  => '{"formfield_isAutoFill_1": "checked"}',
                     ],
@@ -480,12 +480,12 @@ final class FieldType extends AbstractType
                     ChoiceType::class,
                     [
                         'choices'    => $this->objectCollector->getObjects()->toChoices(),
-                        'label'      => 'mautic.form.field.form.mapped.object',
+                        'label'      => 'mailvotech.form.field.form.mapped.object',
                         'label_attr' => ['class' => 'control-label'],
                         'attr'       => [
                             'class'    => 'form-control',
-                            'tooltip'  => 'mautic.form.field.help.mapped.object',
-                            'onchange' => 'Mautic.fetchFieldsOnObjectChange();',
+                            'tooltip'  => 'mailvotech.form.field.help.mapped.object',
+                            'onchange' => 'MailVotech.fetchFieldsOnObjectChange();',
                         ],
                         'required' => false,
                         'data'     => $mappedObject,
@@ -515,11 +515,11 @@ final class FieldType extends AbstractType
 
                             return [];
                         },
-                        'label'      => 'mautic.form.field.form.mapped.field',
+                        'label'      => 'mailvotech.form.field.form.mapped.field',
                         'label_attr' => ['class' => 'control-label'],
                         'attr'       => [
                             'class'   => 'form-control',
-                            'tooltip' => 'mautic.form.field.help.mapped.field',
+                            'tooltip' => 'mailvotech.form.field.help.mapped.field',
                         ],
                         'required' => false,
                         'data'     => $mappedField ?? (empty($fieldData['id']) ? $this->getDefaultMappedField((string) $type) : ''),
@@ -545,10 +545,10 @@ final class FieldType extends AbstractType
 
         $update = !empty($options['data']['id']);
         if (!empty($update)) {
-            $btnValue = 'mautic.core.form.update';
+            $btnValue = 'mailvotech.core.form.update';
             $btnIcon  = 'ri-edit-line';
         } else {
-            $btnValue = 'mautic.core.form.add';
+            $btnValue = 'mailvotech.core.form.add';
             $btnIcon  = 'ri-add-line';
         }
 

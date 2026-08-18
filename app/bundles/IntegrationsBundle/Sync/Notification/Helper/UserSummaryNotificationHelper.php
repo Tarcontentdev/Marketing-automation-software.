@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Notification\Helper;
+namespace MailVotech\IntegrationsBundle\Sync\Notification\Helper;
 
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException;
-use Mautic\IntegrationsBundle\Sync\Notification\Writer;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException;
+use MailVotech\IntegrationsBundle\Sync\Notification\Writer;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class UserSummaryNotificationHelper
@@ -19,7 +19,7 @@ final class UserSummaryNotificationHelper
      */
     private $objectDisplayName;
 
-    private ?string $mauticObject = null;
+    private ?string $mailvotechObject = null;
 
     private ?string $listTranslationKey = null;
 
@@ -36,9 +36,9 @@ final class UserSummaryNotificationHelper
      * @throws ObjectNotSupportedException
      * @throws \Doctrine\ORM\ORMException
      */
-    public function writeNotifications(string $mauticObject, string $listTranslationKey): void
+    public function writeNotifications(string $mailvotechObject, string $listTranslationKey): void
     {
-        $this->mauticObject       = $mauticObject;
+        $this->mailvotechObject       = $mailvotechObject;
         $this->listTranslationKey = $listTranslationKey;
 
         if ([] === $this->userNotifications) {
@@ -76,7 +76,7 @@ final class UserSummaryNotificationHelper
      */
     private function findAndSendToUsers(array $ids): void
     {
-        $results = $this->ownerProvider->getOwnersForObjectIds($this->mauticObject, $ids);
+        $results = $this->ownerProvider->getOwnersForObjectIds($this->mailvotechObject, $ids);
         $owners  = [];
 
         // Group by owner ID.
@@ -116,14 +116,14 @@ final class UserSummaryNotificationHelper
         if ($count > 25) {
             $this->writer->writeUserNotification(
                 $this->translator->trans(
-                    'mautic.integration.sync.user_notification.header',
+                    'mailvotech.integration.sync.user_notification.header',
                     [
                         '%integration%' => $this->integrationDisplayName,
                         '%object%'      => ucfirst($this->objectDisplayName),
                     ]
                 ),
                 $this->translator->trans(
-                    'mautic.integration.sync.user_notification.count_message',
+                    'mailvotech.integration.sync.user_notification.count_message',
                     ['%count%' => $count]
                 ),
                 $userId
@@ -134,7 +134,7 @@ final class UserSummaryNotificationHelper
 
         $this->writer->writeUserNotification(
             $this->translator->trans(
-                'mautic.integration.sync.user_notification.header',
+                'mailvotech.integration.sync.user_notification.header',
                 [
                     '%integration%' => $this->integrationDisplayName,
                     '%object%'      => ucfirst($this->objectDisplayName),
@@ -143,7 +143,7 @@ final class UserSummaryNotificationHelper
             $this->translator->trans(
                 $this->listTranslationKey,
                 [
-                    '%contacts%' => $this->routeHelper->getLinkCsv($this->mauticObject, $ids),
+                    '%contacts%' => $this->routeHelper->getLinkCsv($this->mailvotechObject, $ids),
                 ]
             ),
             $userId

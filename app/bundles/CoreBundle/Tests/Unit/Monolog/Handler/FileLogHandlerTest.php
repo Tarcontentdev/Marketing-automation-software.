@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Monolog\Handler;
+namespace MailVotech\CoreBundle\Tests\Unit\Monolog\Handler;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Monolog\Handler\FileLogHandler;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Monolog\Handler\FileLogHandler;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Level;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -32,7 +32,7 @@ final class FileLogHandlerTest extends TestCase
                         case 'log_path':
                             return '/var/logs';
                         case 'log_file_name':
-                            return 'mautic_test.php';
+                            return 'mailvotech_test.php';
                         case 'max_log_files':
                             return 7;
                         case 'debug':
@@ -48,7 +48,7 @@ final class FileLogHandlerTest extends TestCase
         $this->assertSame(spl_object_id($formatterStub), spl_object_id($handler->getFormatter()));
 
         $filename = $this->getProperty($handler, 'filename');
-        $this->assertEquals('/var/logs/mautic_test.php', $filename);
+        $this->assertEquals('/var/logs/mailvotech_test.php', $filename);
         $maxFiles = $this->getProperty($handler, 'maxFiles');
         $this->assertEquals(7, $maxFiles);
     }
@@ -62,7 +62,7 @@ final class FileLogHandlerTest extends TestCase
                         case 'log_path':
                             return '/var/logs';
                         case 'log_file_name':
-                            return 'mautic_test.php';
+                            return 'mailvotech_test.php';
                         case 'max_log_files':
                             return 7;
                         case 'debug':
@@ -78,7 +78,7 @@ final class FileLogHandlerTest extends TestCase
         $this->assertNotSame(spl_object_id($formatterStub), spl_object_id($handler->getFormatter()));
 
         $filename = $this->getProperty($handler, 'filename');
-        $this->assertEquals('/var/logs/mautic_test.php', $filename);
+        $this->assertEquals('/var/logs/mailvotech_test.php', $filename);
         $maxFiles = $this->getProperty($handler, 'maxFiles');
         $this->assertEquals(7, $maxFiles);
     }

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\Controller;
+namespace MailVotech\AssetBundle\Tests\Controller;
 
-use Mautic\AssetBundle\Entity\Download;
-use Mautic\AssetBundle\Tests\Asset\AbstractAssetTestCase;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\AssetBundle\Entity\Download;
+use MailVotech\AssetBundle\Tests\Asset\AbstractAssetTestCase;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use Symfony\Component\HttpFoundation\Response;
 
 final class PublicControllerFunctionalTest extends AbstractAssetTestCase

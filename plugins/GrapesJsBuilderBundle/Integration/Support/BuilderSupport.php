@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Integration\Support;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Integration\Support;
 
-use Mautic\IntegrationsBundle\Integration\Interfaces\BuilderInterface;
-use MauticPlugin\GrapesJsBuilderBundle\Integration\GrapesJsBuilderIntegration;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\BuilderInterface;
+use MailVotechPlugin\GrapesJsBuilderBundle\Integration\GrapesJsBuilderIntegration;
 
 final class BuilderSupport extends GrapesJsBuilderIntegration implements BuilderInterface
 {

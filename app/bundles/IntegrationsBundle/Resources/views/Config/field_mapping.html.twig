@@ -14,14 +14,14 @@
         <hr />
     {% endif %}
 {% endfor %}
-{{- include('@MauticCore/Helper/pagination.html.twig', {
+{{- include('@MailVotechCore/Helper/pagination.html.twig', {
     'totalItems'  : form['filter-totalFieldCount'].vars.data,
     'page'        : page,
     'limit'       : 15,
     'fixedLimit'  : true,
     'sessionVar'  : integration ~ '-' ~ object,
     'target'      : '#IntegrationEditModal',
-    'jsCallback'  : 'Mautic.getPaginatedIntegrationFields',
+    'jsCallback'  : 'MailVotech.getPaginatedIntegrationFields',
     'jsArguments' : [
         {
             'object'      : object,

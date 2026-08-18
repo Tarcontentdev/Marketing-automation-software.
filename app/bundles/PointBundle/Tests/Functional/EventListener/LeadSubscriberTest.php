@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Functional\EventListener;
+namespace MailVotech\PointBundle\Tests\Functional\EventListener;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Event\LeadMergeEvent;
-use Mautic\PointBundle\Entity\LeadPointLog;
-use Mautic\PointBundle\Entity\LeadTriggerLog;
-use Mautic\PointBundle\Entity\Point;
-use Mautic\PointBundle\Entity\Trigger;
-use Mautic\PointBundle\Entity\TriggerEvent;
-use Mautic\PointBundle\EventListener\LeadSubscriber;
-use Mautic\PointBundle\Model\PointModel;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Event\LeadMergeEvent;
+use MailVotech\PointBundle\Entity\LeadPointLog;
+use MailVotech\PointBundle\Entity\LeadTriggerLog;
+use MailVotech\PointBundle\Entity\Point;
+use MailVotech\PointBundle\Entity\Trigger;
+use MailVotech\PointBundle\Entity\TriggerEvent;
+use MailVotech\PointBundle\EventListener\LeadSubscriber;
+use MailVotech\PointBundle\Model\PointModel;
 
-final class LeadSubscriberTest extends MauticMysqlTestCase
+final class LeadSubscriberTest extends MailVotechMysqlTestCase
 {
     private PointModel $model;
 

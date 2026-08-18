@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\EventListener;
+namespace MailVotech\IntegrationsBundle\EventListener;
 
 use Doctrine\ORM\EntityNotFoundException;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\EmailBuilderEvent;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\IntegrationsBundle\DTO\IntegrationObjectToken as Token;
-use Mautic\IntegrationsBundle\Entity\ObjectMappingRepository;
-use Mautic\IntegrationsBundle\Event\MappedIntegrationObjectTokenEvent;
-use Mautic\IntegrationsBundle\Helper\TokenParser;
-use Mautic\IntegrationsBundle\IntegrationEvents;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\EmailBuilderEvent;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\IntegrationsBundle\DTO\IntegrationObjectToken as Token;
+use MailVotech\IntegrationsBundle\Entity\ObjectMappingRepository;
+use MailVotech\IntegrationsBundle\Event\MappedIntegrationObjectTokenEvent;
+use MailVotech\IntegrationsBundle\Helper\TokenParser;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

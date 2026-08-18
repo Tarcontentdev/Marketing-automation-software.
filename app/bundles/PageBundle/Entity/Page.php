@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\PageBundle\Entity;
+namespace MailVotech\PageBundle\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -12,20 +12,20 @@ use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
-use Mautic\CoreBundle\Entity\FormEntity;
-use Mautic\CoreBundle\Entity\OptimisticLockInterface;
-use Mautic\CoreBundle\Entity\OptimisticLockTrait;
-use Mautic\CoreBundle\Entity\TranslationEntityInterface;
-use Mautic\CoreBundle\Entity\TranslationEntityTrait;
-use Mautic\CoreBundle\Entity\UuidInterface;
-use Mautic\CoreBundle\Entity\UuidTrait;
-use Mautic\CoreBundle\Entity\VariantEntityInterface;
-use Mautic\CoreBundle\Entity\VariantEntityTrait;
-use Mautic\CoreBundle\Validator\EntityEvent;
-use Mautic\ProjectBundle\Entity\ProjectTrait;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Entity\FormEntity;
+use MailVotech\CoreBundle\Entity\OptimisticLockInterface;
+use MailVotech\CoreBundle\Entity\OptimisticLockTrait;
+use MailVotech\CoreBundle\Entity\TranslationEntityInterface;
+use MailVotech\CoreBundle\Entity\TranslationEntityTrait;
+use MailVotech\CoreBundle\Entity\UuidInterface;
+use MailVotech\CoreBundle\Entity\UuidTrait;
+use MailVotech\CoreBundle\Entity\VariantEntityInterface;
+use MailVotech\CoreBundle\Entity\VariantEntityTrait;
+use MailVotech\CoreBundle\Validator\EntityEvent;
+use MailVotech\ProjectBundle\Entity\ProjectTrait;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Callback;
@@ -320,7 +320,7 @@ class Page extends FormEntity implements TranslationEntityInterface, VariantEnti
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addPropertyConstraint('title', new NotBlank(message: 'mautic.core.title.required'));
+        $metadata->addPropertyConstraint('title', new NotBlank(message: 'mailvotech.core.title.required'));
 
         $metadata->addConstraint(new Callback(
             function (Page $page, ExecutionContextInterface $context): void {
@@ -331,7 +331,7 @@ class Page extends FormEntity implements TranslationEntityInterface, VariantEnti
                         $page->getRedirectUrl(),
                         [
                             new Assert\Url(),
-                            new NotBlank(message: 'mautic.core.value.required'),
+                            new NotBlank(message: 'mailvotech.core.value.required'),
                         ],
                     );
 
@@ -354,7 +354,7 @@ class Page extends FormEntity implements TranslationEntityInterface, VariantEnti
                     }
 
                     if ($total > 100) {
-                        $context->buildViolation('mautic.core.variant_weights_invalid')
+                        $context->buildViolation('mailvotech.core.variant_weights_invalid')
                             ->atPath('variantSettings[weight]')
                             ->addViolation();
                     }

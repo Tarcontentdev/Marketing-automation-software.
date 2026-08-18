@@ -1,23 +1,23 @@
 
 {
-  "name": "mautic/recommended-project",
-  "description": "Project template for Mautic projects with Composer",
+  "name": "mailvotech/recommended-project",
+  "description": "Project template for MailVotech projects with Composer",
   "type": "project",
   "license": "GPL-2.0-or-later",
-  "homepage": "https://www.mautic.org/mautic-releases",
+  "homepage": "https://www.mailvotech.org/mailvotech-releases",
   "support": {
-    "user-docs": "https://docs.mautic.org/en",
-    "developer-docs": "https://devdocs.mautic.org",
-    "chat": "https://www.mautic.org/slack"
+    "user-docs": "https://docs.mailvotech.org/en",
+    "developer-docs": "https://devdocs.mailvotech.org",
+    "chat": "https://www.mailvotech.org/slack"
   },
   "funding": [
     {
       "type": "other",
-      "url": "https://opencollective.com/mautic"
+      "url": "https://opencollective.com/mailvotech"
     },
     {
       "type": "other",
-      "url": "https://github.com/sponsors/mautic"
+      "url": "https://github.com/sponsors/mailvotech"
     }
   ],
   "authors": [
@@ -28,60 +28,60 @@
   ],
   "require": {
     "composer/installers": "^1.11",
-    "mautic/core-composer-scaffold": "4.x-dev",
-    "mautic/core-project-message": "4.x-dev",
-    "mautic/core-lib": "*",
-    "mautic/grapes-js-builder-bundle": "*",
-    "mautic/plugin-clearbit": "*",
-    "mautic/plugin-cloudstorage": "*",
-    "mautic/plugin-crm": "*",
-    "mautic/plugin-emailmarketing": "*",
-    "mautic/plugin-focus": "*",
-    "mautic/plugin-fullcontact": "*",
-    "mautic/plugin-gmail": "*",
-    "mautic/plugin-outlook": "*",
-    "mautic/plugin-social": "*",
-    "mautic/plugin-tagmanager": "*",
-    "mautic/plugin-zapier": "*",
-    "mautic/theme-aurora": "*",
-    "mautic/theme-blank": "*",
-    "mautic/theme-brienz": "*",
-    "mautic/theme-cards": "*",
-    "mautic/theme-confirmme": "*",
-    "mautic/theme-fresh-center": "*",
-    "mautic/theme-fresh-fixed": "*",
-    "mautic/theme-fresh-left": "*",
-    "mautic/theme-fresh-wide": "*",
-    "mautic/theme-goldstar": "*",
-    "mautic/theme-neopolitan": "*",
-    "mautic/theme-oxygen": "*",
-    "mautic/theme-paprika": "*",
-    "mautic/theme-skyline": "*",
-    "mautic/theme-sparse": "*",
-    "mautic/theme-sunday": "*",
-    "mautic/theme-vibrant": "*",
-    "mautic/theme-trulypersonal": "*",
-    "mautic/theme-1-2-1-2-column": "*",
-    "mautic/theme-1-2-1-column": "*",
-    "mautic/theme-1-2-column": "*",
-    "mautic/theme-1-3-1-3-column": "*",
-    "mautic/theme-1-3-column": "*",
-    "mautic/theme-attract": "*",
-    "mautic/theme-connect-through-content": "*",
-    "mautic/theme-creative": "*",
-    "mautic/theme-educate": "*",
-    "mautic/theme-gallery": "*",
-    "mautic/theme-make-announcement": "*",
-    "mautic/theme-showcase": "*",
-    "mautic/theme-simple-text": "*",
-    "mautic/theme-survey": "*",
-    "mautic/theme-welcome": "*",
-    "mautic/theme-mono": "*",
-    "mautic/theme-blend": "*",
-    "mautic/theme-capture": "*",
-    "mautic/theme-chord": "*",
-    "mautic/theme-formscape": "*",
-    "mautic/theme-reachout": "*"
+    "mailvotech/core-composer-scaffold": "4.x-dev",
+    "mailvotech/core-project-message": "4.x-dev",
+    "mailvotech/core-lib": "*",
+    "mailvotech/grapes-js-builder-bundle": "*",
+    "mailvotech/plugin-clearbit": "*",
+    "mailvotech/plugin-cloudstorage": "*",
+    "mailvotech/plugin-crm": "*",
+    "mailvotech/plugin-emailmarketing": "*",
+    "mailvotech/plugin-focus": "*",
+    "mailvotech/plugin-fullcontact": "*",
+    "mailvotech/plugin-gmail": "*",
+    "mailvotech/plugin-outlook": "*",
+    "mailvotech/plugin-social": "*",
+    "mailvotech/plugin-tagmanager": "*",
+    "mailvotech/plugin-zapier": "*",
+    "mailvotech/theme-aurora": "*",
+    "mailvotech/theme-blank": "*",
+    "mailvotech/theme-brienz": "*",
+    "mailvotech/theme-cards": "*",
+    "mailvotech/theme-confirmme": "*",
+    "mailvotech/theme-fresh-center": "*",
+    "mailvotech/theme-fresh-fixed": "*",
+    "mailvotech/theme-fresh-left": "*",
+    "mailvotech/theme-fresh-wide": "*",
+    "mailvotech/theme-goldstar": "*",
+    "mailvotech/theme-neopolitan": "*",
+    "mailvotech/theme-oxygen": "*",
+    "mailvotech/theme-paprika": "*",
+    "mailvotech/theme-skyline": "*",
+    "mailvotech/theme-sparse": "*",
+    "mailvotech/theme-sunday": "*",
+    "mailvotech/theme-vibrant": "*",
+    "mailvotech/theme-trulypersonal": "*",
+    "mailvotech/theme-1-2-1-2-column": "*",
+    "mailvotech/theme-1-2-1-column": "*",
+    "mailvotech/theme-1-2-column": "*",
+    "mailvotech/theme-1-3-1-3-column": "*",
+    "mailvotech/theme-1-3-column": "*",
+    "mailvotech/theme-attract": "*",
+    "mailvotech/theme-connect-through-content": "*",
+    "mailvotech/theme-creative": "*",
+    "mailvotech/theme-educate": "*",
+    "mailvotech/theme-gallery": "*",
+    "mailvotech/theme-make-announcement": "*",
+    "mailvotech/theme-showcase": "*",
+    "mailvotech/theme-simple-text": "*",
+    "mailvotech/theme-survey": "*",
+    "mailvotech/theme-welcome": "*",
+    "mailvotech/theme-mono": "*",
+    "mailvotech/theme-blend": "*",
+    "mailvotech/theme-capture": "*",
+    "mailvotech/theme-chord": "*",
+    "mailvotech/theme-formscape": "*",
+    "mailvotech/theme-reachout": "*"
   },
   "scripts": {
     "post-install-cmd": [
@@ -96,20 +96,20 @@
     "generate-assets": [
       "npm ci",
       "npx patch-package",
-      "bin/console mautic:assets:generate"
+      "bin/console mailvotech:assets:generate"
     ]
   },
   "repositories": [
     {
       "type": "git",
-      "url": "https://github.com/mautic/SymfonyBridgeBundle.git"
+      "url": "https://github.com/mailvotech/SymfonyBridgeBundle.git"
     },
     {
         "type": "path",
         "url": "../app",
         "options": {
             "versions": {
-                "mautic/core-lib": "7.x-dev"
+                "mailvotech/core-lib": "7.x-dev"
             },
             "symlink": false
         }
@@ -130,8 +130,8 @@
     }
   ],
   "conflict": {
-    "mautic/mautic": "*",
-    "mautic/core": "*"
+    "mailvotech/mailvotech": "*",
+    "mailvotech/core": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -142,18 +142,18 @@
       "composer/installers": true,
       "composer/package-versions-deprecated": true,
       "symfony/flex": true,
-      "mautic/core-composer-scaffold": true,
-      "mautic/core-project-message": true,
+      "mailvotech/core-composer-scaffold": true,
+      "mailvotech/core-project-message": true,
       "php-http/discovery": true
     }
   },
   "autoload": {
     "psr-4": {
-      "MauticPlugin\\": "docroot/plugins/"
+      "MailVotechPlugin\\": "docroot/plugins/"
     }
   },
   "extra": {
-    "mautic-scaffold": {
+    "mailvotech-scaffold": {
       "locations": {
         "web-root": "docroot/"
       }
@@ -161,34 +161,34 @@
     "public-dir": "docroot",
     "installer-paths": {
       "docroot/app": [
-        "type:mautic-core"
+        "type:mailvotech-core"
       ],
       "docroot/plugins/{$name}": [
-        "type:mautic-plugin"
+        "type:mailvotech-plugin"
       ],
       "docroot/themes/{$name}": [
-        "type:mautic-theme"
+        "type:mailvotech-theme"
       ]
     },
-    "mautic-core-project-message": {
+    "mailvotech-core-project-message": {
       "include-keys": [
         "homepage",
         "support"
       ],
       "post-create-project-cmd-message": [
         "<bg=blue;fg=white>                                                         </>",
-        "<bg=blue;fg=white>  Congratulations, you’ve installed the Mautic codebase  </>",
-        "<bg=blue;fg=white>  from the mautic/recommended-project template!          </>",
+        "<bg=blue;fg=white>  Congratulations, you’ve installed the MailVotech codebase  </>",
+        "<bg=blue;fg=white>  from the mailvotech/recommended-project template!          </>",
         "<bg=blue;fg=white>                                                         </>",
         "",
         "<bg=yellow;fg=black>Next steps</>:",
-        "  * Install Mautic",
+        "  * Install MailVotech",
         "  * Read the user guide",
-        "  * Get support: https://www.mautic.org/support",
-        "  * Get involved with the Mautic community:",
-        "      https://www.mautic.org/getting-involved",
+        "  * Get support: https://www.mailvotech.org/support",
+        "  * Get involved with the MailVotech community:",
+        "      https://www.mailvotech.org/getting-involved",
         "  * Remove the plugin that prints this message:",
-        "      composer remove mautic/core-project-message"
+        "      composer remove mailvotech/core-project-message"
       ]
     }
   }

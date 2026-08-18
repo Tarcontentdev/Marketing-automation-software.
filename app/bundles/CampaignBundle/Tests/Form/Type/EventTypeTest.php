@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Form\Type;
+namespace MailVotech\CampaignBundle\Tests\Form\Type;
 
-use Mautic\CampaignBundle\Form\Type\EventType;
+use MailVotech\CampaignBundle\Form\Type\EventType;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

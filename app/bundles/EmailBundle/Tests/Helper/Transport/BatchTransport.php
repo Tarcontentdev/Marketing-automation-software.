@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Helper\Transport;
+namespace MailVotech\EmailBundle\Tests\Helper\Transport;
 
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
-use Mautic\EmailBundle\Mailer\Transport\TokenTransportInterface;
-use Mautic\EmailBundle\Mailer\Transport\TokenTransportTrait;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
+use MailVotech\EmailBundle\Mailer\Transport\TokenTransportInterface;
+use MailVotech\EmailBundle\Mailer\Transport\TokenTransportTrait;
 use Symfony\Component\Mailer\Exception\TransportException;
 use Symfony\Component\Mailer\SentMessage;
 use Symfony\Component\Mailer\Transport\AbstractTransport;
@@ -40,7 +40,7 @@ final class BatchTransport extends AbstractTransport implements TokenTransportIn
      */
     private array $replyToAddresses = [];
 
-    private ?MauticMessage $message = null;
+    private ?MailVotechMessage $message = null;
 
     public function __construct(
         private bool $validate = false,
@@ -61,7 +61,7 @@ final class BatchTransport extends AbstractTransport implements TokenTransportIn
     {
         $message = $message->getOriginalMessage();
 
-        if (!$message instanceof MauticMessage) {
+        if (!$message instanceof MailVotechMessage) {
             return;
         }
 
@@ -115,7 +115,7 @@ final class BatchTransport extends AbstractTransport implements TokenTransportIn
         return $this->replyToAddresses;
     }
 
-    public function getMessage(): ?MauticMessage
+    public function getMessage(): ?MailVotechMessage
     {
         return $this->message;
     }

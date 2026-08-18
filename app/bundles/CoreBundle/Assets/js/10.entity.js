@@ -1,15 +1,15 @@
 //live search vars
-MauticVars.liveCache            = new Array();
-MauticVars.lastSearchStr        = "";
-MauticVars.globalLivecache      = new Array();
-MauticVars.lastGlobalSearchStr  = "";
+MailVotechVars.liveCache            = new Array();
+MailVotechVars.lastSearchStr        = "";
+MailVotechVars.globalLivecache      = new Array();
+MailVotechVars.lastGlobalSearchStr  = "";
 
 /**
  * Check if the the entity ID is temporary (for new entities)
  *
  * @param string idInputSelector
  */
-Mautic.isNewEntity = function(idInputSelector) {
+MailVotech.isNewEntity = function(idInputSelector) {
     id = mQuery(idInputSelector);
     if (id.length) {
         return id.val().match("^new_");
@@ -22,7 +22,7 @@ Mautic.isNewEntity = function(idInputSelector) {
  *
  * @returns {*}
  */
-Mautic.getEntityId = function() {
+MailVotech.getEntityId = function() {
     return (mQuery('input#entityId').length) ? mQuery('input#entityId').val() : 0;
 };
 
@@ -33,7 +33,7 @@ Mautic.getEntityId = function() {
  * @param tmpl
  * @param target
  */
-Mautic.reorderTableData = function (name, orderby, tmpl, target, baseUrl) {
+MailVotech.reorderTableData = function (name, orderby, tmpl, target, baseUrl) {
     if (typeof baseUrl == 'undefined') {
         baseUrl = window.location.pathname;
 
@@ -58,7 +58,7 @@ Mautic.reorderTableData = function (name, orderby, tmpl, target, baseUrl) {
 
     var route = baseUrl + (params.length ? '?' + params.join('&') : '');
 
-    Mautic.loadContent(route, '', 'POST', target);
+    MailVotech.loadContent(route, '', 'POST', target);
 };
 
 /**
@@ -69,7 +69,7 @@ Mautic.reorderTableData = function (name, orderby, tmpl, target, baseUrl) {
  * @param tmpl
  * @param target
  */
-Mautic.filterTableData = function (name, filterby, filterValue, tmpl, target, baseUrl) {
+MailVotech.filterTableData = function (name, filterby, filterValue, tmpl, target, baseUrl) {
     if (typeof baseUrl == 'undefined') {
         baseUrl = window.location.pathname;
     }
@@ -88,7 +88,7 @@ Mautic.filterTableData = function (name, filterby, filterValue, tmpl, target, ba
     }
 
     var route = baseUrl + "&name=" + name + "&filterby=" + encodeURIComponent(filterby) + value
-    Mautic.loadContent(route, '', 'POST', target);
+    MailVotech.loadContent(route, '', 'POST', target);
 };
 
 /**
@@ -98,7 +98,7 @@ Mautic.filterTableData = function (name, filterby, filterValue, tmpl, target, ba
  * @param tmpl
  * @param target
  */
-Mautic.limitTableData = function (name, limit, tmpl, target, baseUrl) {
+MailVotech.limitTableData = function (name, limit, tmpl, target, baseUrl) {
     if (typeof baseUrl == 'undefined') {
         baseUrl = window.location.pathname;
     }
@@ -108,14 +108,14 @@ Mautic.limitTableData = function (name, limit, tmpl, target, baseUrl) {
     }
 
     var route = baseUrl + "&name=" + name + "&limit=" + limit;
-    Mautic.loadContent(route, '', 'POST', target);
+    MailVotech.loadContent(route, '', 'POST', target);
 };
 
 
 /**
  * Filters list based on search contents
  */
-Mautic.filterList = function (e, elId, route, target, liveCacheVar, action, overlayEnabled, overlayTarget) {
+MailVotech.filterList = function (e, elId, route, target, liveCacheVar, action, overlayEnabled, overlayTarget) {
     if (typeof liveCacheVar == 'undefined') {
         liveCacheVar = "liveCache";
     }
@@ -137,28 +137,28 @@ Mautic.filterList = function (e, elId, route, target, liveCacheVar, action, over
 
         //make the request
         //@TODO reevaluate search caching as it seems to cause issues
-        if (false && value && value in MauticVars[liveCacheVar]) {
-            var response = {"newContent": MauticVars[liveCacheVar][value]};
+        if (false && value && value in MailVotechVars[liveCacheVar]) {
+            var response = {"newContent": MailVotechVars[liveCacheVar][value]};
             response.target = target;
             response.overlayEnabled = overlayEnabled;
             response.overlayTarget = overlayTarget;
 
-            Mautic.processPageContent(response);
+            MailVotech.processPageContent(response);
         } else {
             var searchName = el.attr('name');
             if (searchName == 'undefined') {
                 searchName = 'search';
             }
 
-            if (typeof Mautic.liveSearchXhr !== 'undefined') {
+            if (typeof MailVotech.liveSearchXhr !== 'undefined') {
                 // ensure current search request is aborted
                 // with different statusText.
-                Mautic['liveSearchXhr'].abort('searchCompleted');
+                MailVotech['liveSearchXhr'].abort('searchCompleted');
             }
 
             var btn = "button[data-livesearch-parent='" + elId + "']";
-            if (mQuery(btn).length && !mQuery(btn).hasClass('btn-nospin') && !Mautic.filterButtonClicked) {
-                Mautic.startIconSpinOnEvent(btn);
+            if (mQuery(btn).length && !mQuery(btn).hasClass('btn-nospin') && !MailVotech.filterButtonClicked) {
+                MailVotech.startIconSpinOnEvent(btn);
             }
 
             var tmpl = mQuery('#' + elId).data('tmpl');
@@ -175,11 +175,11 @@ Mautic.filterList = function (e, elId, route, target, liveCacheVar, action, over
 
             if (inModal) {
                 var modalTarget = '#' + mQuery(modalParent).attr('id');
-                Mautic.startModalLoadingBar(modalTarget);
+                MailVotech.startModalLoadingBar(modalTarget);
             }
             var showLoading = (inModal) ? false : true;
 
-            Mautic.liveSearchXhr = mQuery.ajax({
+            MailVotech.liveSearchXhr = mQuery.ajax({
                 showLoadingBar: showLoading,
                 url: route,
                 type: "GET",
@@ -197,7 +197,7 @@ Mautic.filterList = function (e, elId, route, target, liveCacheVar, action, over
                 success: function (response) {
                     //cache the response
                     if (response.newContent) {
-                        MauticVars[liveCacheVar][value] = response.newContent;
+                        MailVotechVars[liveCacheVar][value] = response.newContent;
                     }
                     //note the target to be updated
                     response.target = target;
@@ -216,15 +216,15 @@ Mautic.filterList = function (e, elId, route, target, liveCacheVar, action, over
                     }
 
                     if (inModal) {
-                        Mautic.processModalContent(response);
-                        Mautic.stopModalLoadingBar(modalTarget);
+                        MailVotech.processModalContent(response);
+                        MailVotech.stopModalLoadingBar(modalTarget);
                     } else {
-                        Mautic.processPageContent(response);
-                        Mautic.stopPageLoadingBar();
+                        MailVotech.processPageContent(response);
+                        MailVotech.stopPageLoadingBar();
                     }
                 },
                 error: function (request, textStatus, errorThrown) {
-                    Mautic.processAjaxError(request, textStatus, errorThrown);
+                    MailVotech.processAjaxError(request, textStatus, errorThrown);
 
                     //update the buttons class and action
                     if (mQuery(btn).length) {
@@ -238,8 +238,8 @@ Mautic.filterList = function (e, elId, route, target, liveCacheVar, action, over
                     }
                 },
                 complete: function() {
-                    delete Mautic.liveSearchXhr;
-                    delete Mautic.filterButtonClicked;
+                    delete MailVotech.liveSearchXhr;
+                    delete MailVotech.filterButtonClicked;
                 }
             });
         }
@@ -250,7 +250,7 @@ Mautic.filterList = function (e, elId, route, target, liveCacheVar, action, over
  * Apply filter
  * @param list
  */
-Mautic.setSearchFilter = function (el, searchId, string) {
+MailVotech.setSearchFilter = function (el, searchId, string) {
     if (typeof searchId == 'undefined')
         searchId = '#list-search';
     else
@@ -270,7 +270,7 @@ Mautic.setSearchFilter = function (el, searchId, string) {
     var e = mQuery.Event("keypress", {which: 13});
     e.data = {};
     e.data.livesearch = true;
-    Mautic.filterList(
+    MailVotech.filterList(
         e,
         'list-search',
         mQuery(searchId).attr('data-action'),
@@ -285,9 +285,9 @@ Mautic.setSearchFilter = function (el, searchId, string) {
  * @param model
  * @param id
  */
-Mautic.unlockEntity = function (model, id, parameter) {
+MailVotech.unlockEntity = function (model, id, parameter) {
     mQuery.ajax({
-        url: mauticAjaxUrl,
+        url: mailvotechAjaxUrl,
         type: "POST",
         data: "action=unlockEntity&model=" + model + "&id=" + id + "&parameter=" + parameter,
         dataType: "json"
@@ -301,7 +301,7 @@ Mautic.unlockEntity = function (model, id, parameter) {
  * @param model
  * @param id
  */
-Mautic.togglePublishStatus = function (event, el, model, id, extra, backdrop) {
+MailVotech.togglePublishStatus = function (event, el, model, id, extra, backdrop) {
     event.preventDefault();
 
     var wasPublished = mQuery(el).hasClass('ri-toggle-fill');
@@ -312,10 +312,10 @@ Mautic.togglePublishStatus = function (event, el, model, id, extra, backdrop) {
     //destroy tooltips so it can be regenerated
     element.tooltip('destroy');
     //clear the lookup cache
-    MauticVars.liveCache = new Array();
+    MailVotechVars.liveCache = new Array();
 
     if (backdrop) {
-        Mautic.activateBackdrop();
+        MailVotech.activateBackdrop();
     }
 
     if (extra) {
@@ -323,13 +323,13 @@ Mautic.togglePublishStatus = function (event, el, model, id, extra, backdrop) {
     }
     element.tooltip('destroy');
     mQuery.ajax({
-        url: mauticAjaxUrl,
+        url: mailvotechAjaxUrl,
         type: "POST",
         data: "action=togglePublishStatus&model=" + model + '&id=' + id + extra,
         dataType: "json",
         success: function (response) {
             if (response.reload) {
-                Mautic.redirectWithBackdrop(window.location);
+                MailVotech.redirectWithBackdrop(window.location);
             } else if (response.statusHtml) {
                 element.replaceWith(response.statusHtml);
                 element.tooltip({html: true, container: 'body'});
@@ -339,7 +339,7 @@ Mautic.togglePublishStatus = function (event, el, model, id, extra, backdrop) {
             var addClass = (wasPublished) ? 'ri-toggle-fill' : 'ri-toggle-line';
             element.removeClass('ri-spin ri-loader-3-line').addClass(addClass);
 
-            Mautic.processAjaxError(request, textStatus, errorThrown);
+            MailVotech.processAjaxError(request, textStatus, errorThrown);
         }
     });
 };
@@ -349,15 +349,15 @@ Mautic.togglePublishStatus = function (event, el, model, id, extra, backdrop) {
  *
  * @param action
  */
-Mautic.executeBatchAction = function (action, el) {
-    if (typeof Mautic.activeActions == 'undefined') {
-        Mautic.activeActions = {};
-    } else if (typeof Mautic.activeActions[action] != 'undefined') {
+MailVotech.executeBatchAction = function (action, el) {
+    if (typeof MailVotech.activeActions == 'undefined') {
+        MailVotech.activeActions = {};
+    } else if (typeof MailVotech.activeActions[action] != 'undefined') {
         // Action is currently being executed
         return;
     }
 
-    var items = Mautic.getCheckedListIds(el, true);
+    var items = MailVotech.getCheckedListIds(el, true);
 
     var queryGlue = action.indexOf('?') >= 0 ? '&' : '?';
 
@@ -365,7 +365,7 @@ Mautic.executeBatchAction = function (action, el) {
     var action = action + queryGlue + 'ids=' + items;
 
     // Hand over processing to the executeAction method
-    Mautic.executeAction(action);
+    MailVotech.executeAction(action);
 };
 
 /**
@@ -374,7 +374,7 @@ Mautic.executeBatchAction = function (action, el) {
  * @param container
  * @returns int
  */
-Mautic.batchActionPrecheck = function(container) {
+MailVotech.batchActionPrecheck = function(container) {
     if (typeof container == 'undefined') {
         container = '';
     }
@@ -389,7 +389,7 @@ Mautic.batchActionPrecheck = function(container) {
  * @param stringify
  * @returns {*}
  */
-Mautic.getCheckedListIds = function(el, stringify) {
+MailVotech.getCheckedListIds = function(el, stringify) {
     var checkboxes = 'input[class=list-checkbox]:checked';
 
     // Check for a target

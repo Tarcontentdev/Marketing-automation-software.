@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Notification\Helper;
+namespace MailVotech\IntegrationsBundle\Sync\Notification\Helper;
 
 use Doctrine\ORM\ORMException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException;
-use Mautic\IntegrationsBundle\Sync\Notification\Writer;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException;
+use MailVotech\IntegrationsBundle\Sync\Notification\Writer;
 
 final readonly class UserNotificationHelper
 {
@@ -24,14 +24,14 @@ final readonly class UserNotificationHelper
         string $message,
         string $integrationDisplayName,
         string $objectDisplayName,
-        string $mauticObject,
+        string $mailvotechObject,
         int $id,
         string $linkText,
         ?string $deduplicateValue = null,
         ?\DateTime $deduplicateDateTimeFrom = null,
     ): void {
-        $link    = $this->userNotificationBuilder->buildLink($mauticObject, $id, $linkText);
-        $userIds = $this->userNotificationBuilder->getUserIds($mauticObject, $id);
+        $link    = $this->userNotificationBuilder->buildLink($mailvotechObject, $id, $linkText);
+        $userIds = $this->userNotificationBuilder->getUserIds($mailvotechObject, $id);
 
         foreach ($userIds as $userId) {
             $this->writer->writeUserNotification(

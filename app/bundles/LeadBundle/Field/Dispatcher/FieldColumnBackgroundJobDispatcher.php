@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field\Dispatcher;
+namespace MailVotech\LeadBundle\Field\Dispatcher;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Exception\NoListenerException;
-use Mautic\LeadBundle\Field\Event\AddColumnBackgroundEvent;
-use Mautic\LeadBundle\Field\Event\DeleteColumnBackgroundEvent;
-use Mautic\LeadBundle\Field\Event\UpdateColumnBackgroundEvent;
-use Mautic\LeadBundle\Field\Exception\AbortColumnCreateException;
-use Mautic\LeadBundle\Field\Exception\AbortColumnUpdateException;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Exception\NoListenerException;
+use MailVotech\LeadBundle\Field\Event\AddColumnBackgroundEvent;
+use MailVotech\LeadBundle\Field\Event\DeleteColumnBackgroundEvent;
+use MailVotech\LeadBundle\Field\Event\UpdateColumnBackgroundEvent;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnCreateException;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnUpdateException;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class FieldColumnBackgroundJobDispatcher

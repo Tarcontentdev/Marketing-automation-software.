@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Menu;
+namespace MailVotech\CoreBundle\Menu;
 
 use Knp\Menu\ItemInterface;
 use Knp\Menu\Matcher\MatcherInterface;
@@ -26,7 +26,7 @@ final readonly class MenuRenderer implements RendererInterface
                 'firstClass'        => 'first',
                 'lastClass'         => 'last',
                 'itemAttributes'    => [],
-                'template'          => '@MauticCore/Menu/main.html.twig',
+                'template'          => '@MailVotechCore/Menu/main.html.twig',
                 'compressed'        => false,
                 'allow_safe_labels' => false,
                 'clear_matcher'     => true,

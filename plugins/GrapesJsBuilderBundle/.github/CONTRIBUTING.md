@@ -1,30 +1,30 @@
 ## Reporting Security Vulnerabilities
 
-If you think that you have found a security vulnerability, please email security@mautic.com with as much detail as possible. The core team will review the vulnerability and if found applicable, will create the patch in a private repository. The vulnerability will be disclosed once the patch has been included into a release.
+If you think that you have found a security vulnerability, please email security@mailvotech.com with as much detail as possible. The core team will review the vulnerability and if found applicable, will create the patch in a private repository. The vulnerability will be disclosed once the patch has been included into a release.
 
 ## Contributing Code
 
-Development is open and available to any member of the Mautic community. All fixes and improvements are done through pull requests to the code. This code is open source and publicly available.
+Development is open and available to any member of the MailVotech community. All fixes and improvements are done through pull requests to the code. This code is open source and publicly available.
 
 ### Developer Documentation
 
-Developer documentation is available at [https://devdocs.mautic.org](https://devdocs.mautic.org).  To add additions or corrects to the documentation, submit Issues or Pull Requests against [https://github.com/mautic/developer-documentation-new](https://github.com/mautic/developer-documentation-new).
+Developer documentation is available at [https://devdocs.mailvotech.org](https://devdocs.mailvotech.org).  To add additions or corrects to the documentation, submit Issues or Pull Requests against [https://github.com/mailvotech/developer-documentation-new](https://github.com/mailvotech/developer-documentation-new).
 
 ### Core Feature Development Procedures
 
-Pull Requests with additional features should be created with the Mautic Core goals in consideration. Any features that are created for core that don’t follow the overall goals may not be included.
+Pull Requests with additional features should be created with the MailVotech Core goals in consideration. Any features that are created for core that don’t follow the overall goals may not be included.
 
 In addition to following the general direction of the development goals, the pull request code must be well-formed following coding standards and guidelines. If you wish to target a specific release version number for the feature, its best to make the pull request early so any feedback from the core team can be implemented and adequate testing can be performed.
 
-Features that are determined not to fit within the direction of the Mautic Core goals are more than welcome to be created as plugins instead.
+Features that are determined not to fit within the direction of the MailVotech Core goals are more than welcome to be created as plugins instead.
 
 ### Code Contribution Requirements
 
 #### Code Standards
 
-Mautic follows [Symfony's coding standards](http://symfony.com/doc/current/contributing/code/standards.html) by implementing pre-commit git hook running [php-cs-fixer](https://github.com/friendsofphp/php-cs-fixer), which is installed and updated with `composer install`/`composer update`.
+MailVotech follows [Symfony's coding standards](http://symfony.com/doc/current/contributing/code/standards.html) by implementing pre-commit git hook running [php-cs-fixer](https://github.com/friendsofphp/php-cs-fixer), which is installed and updated with `composer install`/`composer update`.
 
-All code styling is handled automatically by the aforementioned git hook. In case if you setup git hook correctly (which is true if you ever run `composer install`/`composer update` before creating a pull request), you can format your code as you like - it will be converted to Mautic code style automatically.
+All code styling is handled automatically by the aforementioned git hook. In case if you setup git hook correctly (which is true if you ever run `composer install`/`composer update` before creating a pull request), you can format your code as you like - it will be converted to MailVotech code style automatically.
 
 #### Automated Tests
 
@@ -36,7 +36,7 @@ When creating a new Pull Request, the description template should be filled appr
 
 #### Documentation
 
-Each new feature should include a reference to a pull request in our [End User Documentation](https://github.com/mautic/documentation) repository or [Developer Documentation](https://github.com/mautic/developer-documentation) repository if applicable.
+Each new feature should include a reference to a pull request in our [End User Documentation](https://github.com/mailvotech/documentation) repository or [Developer Documentation](https://github.com/mailvotech/developer-documentation) repository if applicable.
 
 ## Core Development Rules
 
@@ -56,11 +56,11 @@ Core team members are based on a form of meritocracy. We actively seek to empowe
 
 ### Core Membership Revocation
 
-A Mautic Core membership can be revoked for any of the following reasons:
+A MailVotech Core membership can be revoked for any of the following reasons:
 
 - Refusal to follow the rules and policies listed herein
 - Lack of activity for the previous 6 months
-- Willful negligence or intent to harm the Mautic project
+- Willful negligence or intent to harm the MailVotech project
 - Upon decision of the project leader
 
 Revoked members may re-apply for core membership following a 12 month period.

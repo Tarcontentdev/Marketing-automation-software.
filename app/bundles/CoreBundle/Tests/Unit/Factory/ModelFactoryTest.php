@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Factory;
+namespace MailVotech\CoreBundle\Tests\Unit\Factory;
 
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\PointBundle\Model\TriggerModel;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\PointBundle\Model\TriggerModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ServiceLocator;
@@ -32,7 +32,7 @@ final class ModelFactoryTest extends TestCase
     {
         $pointTriggerModel = $this->createStub(TriggerModel::class);
         $modelName         = 'point.triggerEvent';
-        $containerKey      = 'mautic.point.model.triggerEvent';
+        $containerKey      = 'mailvotech.point.model.triggerEvent';
 
         $this->container->expects($this->once())
             ->method('has')

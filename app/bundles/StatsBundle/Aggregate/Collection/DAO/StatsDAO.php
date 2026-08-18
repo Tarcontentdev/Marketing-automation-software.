@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\StatsBundle\Aggregate\Collection\DAO;
+namespace MailVotech\StatsBundle\Aggregate\Collection\DAO;
 
-use Mautic\StatsBundle\Aggregate\Collection\Stats\DayStat;
-use Mautic\StatsBundle\Aggregate\Collection\Stats\HourStat;
-use Mautic\StatsBundle\Aggregate\Collection\Stats\MonthStat;
-use Mautic\StatsBundle\Aggregate\Collection\Stats\WeekStat;
-use Mautic\StatsBundle\Aggregate\Collection\Stats\YearStat;
-use Mautic\StatsBundle\Aggregate\Helper\CalculatorHelper;
+use MailVotech\StatsBundle\Aggregate\Collection\Stats\DayStat;
+use MailVotech\StatsBundle\Aggregate\Collection\Stats\HourStat;
+use MailVotech\StatsBundle\Aggregate\Collection\Stats\MonthStat;
+use MailVotech\StatsBundle\Aggregate\Collection\Stats\WeekStat;
+use MailVotech\StatsBundle\Aggregate\Collection\Stats\YearStat;
+use MailVotech\StatsBundle\Aggregate\Helper\CalculatorHelper;
 
 final class StatsDAO
 {

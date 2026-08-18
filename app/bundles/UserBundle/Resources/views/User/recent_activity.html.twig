@@ -3,7 +3,7 @@
 	{{ customContent('right.section.top', _context) }}
 	<div class="panel shd-none bdr-rds-0 bdr-w-0 mb-0">
 		<div class="panel-heading">
-			<div class="panel-title">{% trans %}mautic.core.recent.activity{% endtrans %}</div>
+			<div class="panel-title">{% trans %}mailvotech.core.recent.activity{% endtrans %}</div>
 		</div>
 		<div class="panel-body pt-xs">
 			{% if logs is defined and logs is not empty %}
@@ -137,44 +137,44 @@
 							<div class="media-body">
 								{% if log.object == 'user' %}
 									{% if log.action == 'update' %}
-										{{ 'mautic.user.user.form.user'|trans }}
-										<a href="{{ path('mautic_user_action', {objectAction: 'edit', objectId: userPath[0]}) }}" data-toggle="ajax">
+										{{ 'mailvotech.user.user.form.user'|trans }}
+										<a href="{{ path('mailvotech_user_action', {objectAction: 'edit', objectId: userPath[0]}) }}" data-toggle="ajax">
 											{{ userPath[1] }}</a>
-										{{ 'mautic.user.role.form.updated_by'|trans }}
+										{{ 'mailvotech.user.role.form.updated_by'|trans }}
 
 									{% elseif log.action == 'create' %}
-										<a href="{{ path('mautic_user_action', {objectAction: 'edit', objectId: userPath[0]}) }}" data-toggle="ajax">
+										<a href="{{ path('mailvotech_user_action', {objectAction: 'edit', objectId: userPath[0]}) }}" data-toggle="ajax">
 											{{ userPath[1] }}</a>
-										{{ 'mautic.user.user.form.created_by'|trans }}
+										{{ 'mailvotech.user.user.form.created_by'|trans }}
 									{% endif %}
 
 								{% elseif log.object == 'role' %}
 									{% if log.action == 'create' %}
-										{{ 'mautic.role.role'|trans }}
-										<a href="{{ path('mautic_role_action', {objectAction: 'edit', objectId: rolePath[0]}) }}" data-toggle="ajax">
+										{{ 'mailvotech.role.role'|trans }}
+										<a href="{{ path('mailvotech_role_action', {objectAction: 'edit', objectId: rolePath[0]}) }}" data-toggle="ajax">
 											{{ rolePath[1] }}</a>
-										{{ 'mautic.user.user.form.created_by'|trans }}
+										{{ 'mailvotech.user.user.form.created_by'|trans }}
 
 									{% elseif log.action == 'update' %}
-										{{ 'mautic.role.role'|trans }}
-										<a href="{{ path('mautic_role_action', {objectAction: 'edit', objectId: rolePath[0]}) }}" data-toggle="ajax">
+										{{ 'mailvotech.role.role'|trans }}
+										<a href="{{ path('mailvotech_role_action', {objectAction: 'edit', objectId: rolePath[0]}) }}" data-toggle="ajax">
 											{{ rolePath[1] }}</a>
-										{{ 'mautic.user.role.form.updated_by'|trans }}
+										{{ 'mailvotech.user.role.form.updated_by'|trans }}
 									{% endif %}
 
 								{% elseif log.object == 'security' %}
 									{% if log.action == 'login' %}
-										{{ 'mautic.user.user.form.user'|trans }}
+										{{ 'mailvotech.user.user.form.user'|trans }}
 
 									{% elseif log.action == 'update' %}
-										{{ 'mautic.user.user.form.updated_by'|trans }}
+										{{ 'mailvotech.user.user.form.updated_by'|trans }}
 
 									{% endif %}
 								{% endif %}
 
 								{% if log.userId is defined and log.userId is not empty %}
-									<a href="{{ path('mautic_user_action', {objectAction: 'edit', objectId: log.userId}) }}" data-toggle="ajax">{{ log.userName }}</a>
-									{% if log.action ==  'login' %}{{ 'mautic.user.user.form.login_by'|trans }}{% endif %}
+									<a href="{{ path('mailvotech_user_action', {objectAction: 'edit', objectId: log.userId}) }}" data-toggle="ajax">{{ log.userName }}</a>
+									{% if log.action ==  'login' %}{{ 'mailvotech.user.user.form.login_by'|trans }}{% endif %}
 
 								{% else %}
 									{{ log.userName }}

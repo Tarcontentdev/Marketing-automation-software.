@@ -1,17 +1,17 @@
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent 'report' %}
+{% block mailvotechContent 'report' %}
 
 {% block headerTitle %}
   {% if report.id %}
-    {{ 'mautic.report.report.header.edit'|trans({'%name%': report.name|trans}) }}
+    {{ 'mailvotech.report.report.header.edit'|trans({'%name%': report.name|trans}) }}
   {% else %}
-    {{ 'mautic.report.report.header.new'|trans }}
+    {{ 'mailvotech.report.report.header.new'|trans }}
   {% endif %}
 {% endblock %}
 
 {% block content %}
-  {%- form_theme form '@MauticReport/FormTheme/Report/layout.html.twig' -%}
+  {%- form_theme form '@MailVotechReport/FormTheme/Report/layout.html.twig' -%}
   {%- set showGraphTab = form.graphs.vars.choices|length > 0 -%}
 
   {{ form_start(form) }}
@@ -23,16 +23,16 @@
                   <!-- tabs controls -->
                   <ul class="nav nav-tabs nav-tabs-contained">
                       <li class="active">
-                          <a href="#details-container" role="tab" data-toggle="tab">{{ 'mautic.core.details'|trans }}</a>
+                          <a href="#details-container" role="tab" data-toggle="tab">{{ 'mailvotech.core.details'|trans }}</a>
                       </li>
                       <li class="">
-                          <a href="#data-container" role="tab" data-toggle="tab">{{ 'mautic.report.tab.data'|trans }}</a>
+                          <a href="#data-container" role="tab" data-toggle="tab">{{ 'mailvotech.report.tab.data'|trans }}</a>
                       </li>
                       <li class="{% if not showGraphTab %}hide{% endif %}" id="graphs-tab">
-                          <a href="#graphs-container" role="tab" data-toggle="tab">{{ 'mautic.report.tab.graphs'|trans }}</a>
+                          <a href="#graphs-container" role="tab" data-toggle="tab">{{ 'mailvotech.report.tab.graphs'|trans }}</a>
                       </li>
                       <li>
-                          <a href="#schedule-container" role="tab" class="{% if formContainsErrors(form.toAddress) %}text-danger{% endif %}" data-toggle="tab">{{ 'mautic.report.tab.schedule'|trans }}</a>
+                          <a href="#schedule-container" role="tab" class="{% if formContainsErrors(form.toAddress) %}text-danger{% endif %}" data-toggle="tab">{{ 'mailvotech.report.tab.schedule'|trans }}</a>
                       </li>
                   </ul>
                   <!--/ tabs controls -->
@@ -64,13 +64,13 @@
                           <div class="row">
                               <div class="col-md-6">
                                   <div class="pa-md">
-                                      <h4><strong>{{ 'mautic.report.report.form.columnselector'|trans }}</strong></h4>
+                                      <h4><strong>{{ 'mailvotech.report.report.form.columnselector'|trans }}</strong></h4>
                                       {{ form_row(form.columns) }}
                                   </div>
                               </div>
                               <div class="col-md-6">
                                   <div class="ml-md">
-                                      <h4><strong>{{ 'mautic.core.order'|trans }}</strong></h4>
+                                      <h4><strong>{{ 'mailvotech.core.order'|trans }}</strong></h4>
                                       {{ form_row(form.tableOrder) }}
                                   </div>
                               </div>
@@ -78,7 +78,7 @@
                           <div class="row">
                               <div class="col-md-12">
                                   <div class="pa-md">
-                                      <h4><strong>{{ 'mautic.core.filters'|trans }}</strong></h4>
+                                      <h4><strong>{{ 'mailvotech.core.filters'|trans }}</strong></h4>
                                       {{ form_row(form.filters) }}
                                   </div>
                                   <div class="hide">
@@ -91,13 +91,13 @@
                           <div class="row">
                               <div class="col-md-6">
                                   <div class="pa-md">
-                                      <h4><strong>{{ 'mautic.report.form.groupby'|trans }}</strong></h4>
+                                      <h4><strong>{{ 'mailvotech.report.form.groupby'|trans }}</strong></h4>
                                       {{ form_row(form.groupBy) }}
                                   </div>
                               </div>
                               <div class="col-md-6">
                                   <div class="pa-md">
-                                      <h4><strong>{{ 'mautic.core.calculated.fields'|trans }}</strong></h4>
+                                      <h4><strong>{{ 'mailvotech.core.calculated.fields'|trans }}</strong></h4>
                                       {{ form_row(form.aggregators) }}
                                   </div>
                               </div>
@@ -135,9 +135,9 @@
                               </div>
                               <div class="col-sm-12 col-md-6">
                                   <div class="schedule_form well well-sm mt-lg">
-                                      <span id="schedule_preview_url" data-url="{{ path('mautic_report_schedule_preview') }}"></span>
+                                      <span id="schedule_preview_url" data-url="{{ path('mailvotech_report_schedule_preview') }}"></span>
                                       <div id="schedule_preview_data">
-                                          <strong>{{ 'mautic.report.schedule.preview_data'|trans }}</strong>
+                                          <strong>{{ 'mailvotech.report.schedule.preview_data'|trans }}</strong>
                                           <div id="schedule_preview_data_content" class="mt-sm"></div>
                                       </div>
                                   </div>
@@ -154,7 +154,7 @@
               {{ form_row(form.system) }}
               {{ form_row(form.createdBy) }}
               <hr>
-              <h5>{{ 'mautic.report.report.form.display.dynamic.filters.settings'|trans }}</h5>
+              <h5>{{ 'mailvotech.report.report.form.display.dynamic.filters.settings'|trans }}</h5>
               <br>
               {{ form_row(form.vars.form.children.settings.showDynamicFilters) }}
               {{ form_row(form.vars.form.children.settings.hideDateRangeFilter) }}

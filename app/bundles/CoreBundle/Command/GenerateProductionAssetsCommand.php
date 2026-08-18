@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
 use MatthiasMullie\Minify;
-use Mautic\CoreBundle\Helper\AssetGenerationHelper;
-use Mautic\CoreBundle\Helper\Filesystem;
-use Mautic\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\AssetGenerationHelper;
+use MailVotech\CoreBundle\Helper\Filesystem;
+use MailVotech\CoreBundle\Helper\PathsHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -21,7 +21,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * CLI Command to generate production assets.
  */
 #[AsCommand(
-    name: 'mautic:assets:generate',
+    name: 'mailvotech:assets:generate',
     description: 'Combines and minifies asset files into single production files',
     help: <<<'TXT'
                 The <info>%command.name%</info> command builds Symfony Asset Mapper assets, combines and minifies legacy files from node_modules and each bundle's Assets/css/* and Assets/js/* folders into production files stored in root/media/css and root/media/js respectively. It also runs the command elfinder:install internally to install ElFinder assets.
@@ -88,14 +88,14 @@ final class GenerateProductionAssetsCommand extends Command
             $minifier->minify($mediaDir.'/css/'.$css_file.'.min.css');
         }
 
-        // Minify Mautic Form SDK
-        $minifier = new Minify\JS($assetsDir.'/js/mautic-form-src.js');
-        $minifier->minify($mediaDir.'/js/mautic-form.js');
+        // Minify MailVotech Form SDK
+        $minifier = new Minify\JS($assetsDir.'/js/mailvotech-form-src.js');
+        $minifier->minify($mediaDir.'/js/mailvotech-form.js');
 
-        // Fix the MauticSDK loader
+        // Fix the MailVotechSDK loader
         file_put_contents(
-            $mediaDir.'/js/mautic-form.js',
-            str_replace("'mautic-form-src.js'", "'mautic-form.js'", file_get_contents($mediaDir.'/js/mautic-form.js'))
+            $mediaDir.'/js/mailvotech-form.js',
+            str_replace("'mailvotech-form-src.js'", "'mailvotech-form.js'", file_get_contents($mediaDir.'/js/mailvotech-form.js'))
         );
 
         // Check that the production assets were correctly generated.
@@ -108,7 +108,7 @@ final class GenerateProductionAssetsCommand extends Command
             'css/offline.css',
             'js/app.js',
             'js/libraries.js',
-            'js/mautic-form.js',
+            'js/mailvotech-form.js',
             'js/jquery.min.js',
             'js/froogaloop.min.js',
         ];
@@ -122,7 +122,7 @@ final class GenerateProductionAssetsCommand extends Command
             }
         }
 
-        $output->writeln('<info>'.$this->translator->trans('mautic.core.command.asset_generate_success').'</info>');
+        $output->writeln('<info>'.$this->translator->trans('mailvotech.core.command.asset_generate_success').'</info>');
 
         return Command::SUCCESS;
     }

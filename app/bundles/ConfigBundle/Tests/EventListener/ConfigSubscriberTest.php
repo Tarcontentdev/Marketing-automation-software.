@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ConfigBundle\Tests\EventListener;
+namespace MailVotech\ConfigBundle\Tests\EventListener;
 
-use Mautic\ConfigBundle\ConfigEvents;
-use Mautic\ConfigBundle\Event\ConfigEvent;
-use Mautic\ConfigBundle\EventListener\ConfigSubscriber;
-use Mautic\ConfigBundle\Service\ConfigChangeLogger;
-use Mautic\CoreBundle\Entity\AuditLogRepository;
-use Mautic\CoreBundle\Entity\IpAddressRepository;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\ConfigBundle\ConfigEvents;
+use MailVotech\ConfigBundle\Event\ConfigEvent;
+use MailVotech\ConfigBundle\EventListener\ConfigSubscriber;
+use MailVotech\ConfigBundle\Service\ConfigChangeLogger;
+use MailVotech\CoreBundle\Entity\AuditLogRepository;
+use MailVotech\CoreBundle\Entity\IpAddressRepository;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

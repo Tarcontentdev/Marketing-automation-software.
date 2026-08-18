@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\EmailBundle\EventListener\ProcessUnsubscribeSubscriber;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\EmailBundle\MonitoredEmail\Processor\FeedbackLoop;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Unsubscribe;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\EventListener\ProcessUnsubscribeSubscriber;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\FeedbackLoop;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Unsubscribe;
 
 final class ProcessUnsubscribeSubscriberTest extends \PHPUnit\Framework\TestCase
 {

@@ -5,36 +5,36 @@
     {% if activeAsset.isImage() %}
         <img src="{{ assetDownloadUrl ~ '?stream=1' }}" alt="{{ activeAsset.getTitle()|escape }}" class="img-thumbnail" />
     {% elseif 'pdf' == activeAsset.getFileType()|lower %}
-        <iframe src="{{ assetDownloadUrl ~ '?stream=1#view=FitH' }}" style="width: 100%; height: 70vh; border: none;" title="{{ 'mautic.asset.preview.pdf_iframe_title'|trans({'%title%': activeAsset.getTitle()|escape}) }}"></iframe>
+        <iframe src="{{ assetDownloadUrl ~ '?stream=1#view=FitH' }}" style="width: 100%; height: 70vh; border: none;" title="{{ 'mailvotech.asset.preview.pdf_iframe_title'|trans({'%title%': activeAsset.getTitle()|escape}) }}"></iframe>
     {% elseif activeAsset.getMime() starts with 'video' or activeAsset.getExtension() in ['mpg', 'mpeg', 'mp4', 'webm'] %}
         <video src="{{ assetDownloadUrl ~ '?stream=1' }}" controls style="width: 100%;">
-            {{ 'mautic.asset.no_video_support'|trans }}
+            {{ 'mailvotech.asset.no_video_support'|trans }}
         </video>
     {% elseif activeAsset.getMime() starts with 'audio' or activeAsset.getExtension() in ['mp3', 'ogg', 'wav'] %}
         <audio controls>
             <source src="{{ assetDownloadUrl ~ '?stream=1' }}" type="{{ activeAsset.getMime() }}">
-            {{ 'mautic.asset.no_audio_support'|trans }}
+            {{ 'mailvotech.asset.no_audio_support'|trans }}
         </audio>
     {% else %}
         <div class="d-flex jc-center ai-center text-helper">
             <i class="{{ activeAsset.getIconClass() }} ri-lg mr-xs"></i>
-            <span>{{ 'mautic.asset.no_preview'|trans }}</span>
+            <span>{{ 'mailvotech.asset.no_preview'|trans }}</span>
         </div>
     {% endif %}
 {% endmacro %}
 
 {% if variant == 'interactive' %}
     {% if isPreviewable %}
-    <h5 class="fw-sb mb-xs">{{ 'mautic.asset.asset.preview'|trans }}</h5>
+    <h5 class="fw-sb mb-xs">{{ 'mailvotech.asset.asset.preview'|trans }}</h5>
 
     <div class="asset-preview">
         {% if activeAsset.isImage() %}
         <div class="asset-preview--image">
             <div class="asset-preview__label">
-                {% include '@MauticCore/Helper/_tag.html.twig' with {
+                {% include '@MailVotechCore/Helper/_tag.html.twig' with {
                     tags: [
                         {
-                            label: 'mautic.asset.click_to_zoom',
+                            label: 'mailvotech.asset.click_to_zoom',
                             color: 'gray',
                             size: 'sm'
                         }
@@ -45,10 +45,10 @@
         </div>
         {% elseif 'pdf' == activeAsset.getFileType()|lower %}
             <div class="asset-preview__label">
-                {% include '@MauticCore/Helper/_tag.html.twig' with {
+                {% include '@MailVotechCore/Helper/_tag.html.twig' with {
                     tags: [
                         {
-                            label: 'mautic.asset.click_to_view_full_size',
+                            label: 'mailvotech.asset.click_to_view_full_size',
                             color: 'gray',
                             size: 'sm',
                             attributes: {
@@ -64,7 +64,7 @@
                 {{ _self.renderPreviewContent(activeAsset, assetDownloadUrl) }}
             </div>
             
-            {% include '@MauticCore/Components/modal.html.twig' with {
+            {% include '@MailVotechCore/Components/modal.html.twig' with {
                 id: 'pdf-preview-modal',
                 size: 'xl',
                 type: 'productive',
@@ -80,7 +80,7 @@
     {% else %}
     <div class="d-flex jc-center ai-center text-helper">
         <i class="{{ activeAsset.getIconClass() }} ri-lg mr-xs"></i>
-        <span>{{ 'mautic.asset.no_preview'|trans }}</span>
+        <span>{{ 'mailvotech.asset.no_preview'|trans }}</span>
     </div>
     {% endif %}
     <div class="clearfix"></div>
@@ -88,10 +88,10 @@
 {% elseif variant == 'dialog' %}
     {% set modalId = 'asset-dialog-preview-modal-' ~ activeAsset.id|default('new') %}
     {% if isPreviewable %}
-        {% include '@MauticCore/Components/tile.html.twig' with {
+        {% include '@MailVotechCore/Components/tile.html.twig' with {
             type: 'mini',
             href: '#',
-            title: 'mautic.asset.open_preview',
+            title: 'mailvotech.asset.open_preview',
             icon: 'ri-rectangle-line',
             attributes: {
                 'data-toggle': 'modal',
@@ -100,12 +100,12 @@
         } %}
     {% endif %}
 
-    {% include '@MauticCore/Components/modal.html.twig' with {
+    {% include '@MailVotechCore/Components/modal.html.twig' with {
         id: modalId,
         size: 'xl',
         type: 'productive',
         modalHeading: activeAsset.getTitle()|escape,
-        modalAriaLabel: 'mautic.asset.preview.ariaLabel'|trans({'%title%': activeAsset.getTitle()|escape}),
+        modalAriaLabel: 'mailvotech.asset.preview.ariaLabel'|trans({'%title%': activeAsset.getTitle()|escape}),
         modalContent: _self.renderPreviewContent(activeAsset, assetDownloadUrl)
     } %}
 {% else %}

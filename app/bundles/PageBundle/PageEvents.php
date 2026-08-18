@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle;
+namespace MailVotech\PageBundle;
 
 /**
  * Events available for PageBundle.
@@ -10,150 +10,150 @@ namespace Mautic\PageBundle;
 final class PageEvents
 {
     /**
-     * The mautic.video_on_hit event is thrown when a public page is browsed and a hit recorded in the analytics table.
+     * The mailvotech.video_on_hit event is thrown when a public page is browsed and a hit recorded in the analytics table.
      *
-     * The event listener receives a Mautic\PageBundle\Event\VideoHitEvent instance.
-     *
-     * @var string
-     */
-    public const VIDEO_ON_HIT = 'mautic.video_on_hit';
-
-    /**
-     * The mautic.page_on_hit event is thrown when a public page is browsed and a hit recorded in the analytics table.
-     *
-     * The event listener receives a Mautic\PageBundle\Event\PageHitEvent instance.
+     * The event listener receives a MailVotech\PageBundle\Event\VideoHitEvent instance.
      *
      * @var string
      */
-    public const PAGE_ON_HIT = 'mautic.page_on_hit';
+    public const VIDEO_ON_HIT = 'mailvotech.video_on_hit';
 
     /**
-     * The mautic.page_on_build event is thrown before displaying the page builder form to allow adding of tokens.
+     * The mailvotech.page_on_hit event is thrown when a public page is browsed and a hit recorded in the analytics table.
      *
-     * The event listener receives a Mautic\PageBundle\Event\PageEvent instance.
+     * The event listener receives a MailVotech\PageBundle\Event\PageHitEvent instance.
      *
      * @var string
      */
-    public const PAGE_ON_BUILD = 'mautic.page_on_build';
+    public const PAGE_ON_HIT = 'mailvotech.page_on_hit';
 
     /**
-     * The mautic.page_on_display event is thrown before displaying the page content.
+     * The mailvotech.page_on_build event is thrown before displaying the page builder form to allow adding of tokens.
      *
-     * The event listener receives a Mautic\PageBundle\Event\PageDisplayEvent instance.
+     * The event listener receives a MailVotech\PageBundle\Event\PageEvent instance.
      *
      * @var string
      */
-    public const PAGE_ON_DISPLAY = 'mautic.page_on_display';
+    public const PAGE_ON_BUILD = 'mailvotech.page_on_build';
 
     /**
-     * The mautic.page_on_toggle_publish event is dispatched right before a page is toggle publish.
+     * The mailvotech.page_on_display event is thrown before displaying the page content.
+     *
+     * The event listener receives a MailVotech\PageBundle\Event\PageDisplayEvent instance.
+     *
+     * @var string
+     */
+    public const PAGE_ON_DISPLAY = 'mailvotech.page_on_display';
+
+    /**
+     * The mailvotech.page_on_toggle_publish event is dispatched right before a page is toggle publish.
      *
      * The event listener receives a
-     * Mautic\PageBundle\Event\PageEvent instance.
+     * MailVotech\PageBundle\Event\PageEvent instance.
      *
      * @var string
      */
-    public const PAGE_ON_TOGGLE_PUBLISH = 'mautic.page_on_toggle_publish';
+    public const PAGE_ON_TOGGLE_PUBLISH = 'mailvotech.page_on_toggle_publish';
 
     /**
-     * The mautic.page_pre_save event is thrown right before a page is persisted.
+     * The mailvotech.page_pre_save event is thrown right before a page is persisted.
      *
-     * The event listener receives a Mautic\PageBundle\Event\PageEvent instance.
+     * The event listener receives a MailVotech\PageBundle\Event\PageEvent instance.
      *
      * @var string
      */
-    public const PAGE_PRE_SAVE = 'mautic.page_pre_save';
+    public const PAGE_PRE_SAVE = 'mailvotech.page_pre_save';
 
     /**
-     * The mautic.page_post_save event is thrown right after a page is persisted.
+     * The mailvotech.page_post_save event is thrown right after a page is persisted.
      *
-     * The event listener receives a Mautic\PageBundle\Event\PageEvent instance.
+     * The event listener receives a MailVotech\PageBundle\Event\PageEvent instance.
      *
      * @var string
      */
-    public const PAGE_POST_SAVE = 'mautic.page_post_save';
+    public const PAGE_POST_SAVE = 'mailvotech.page_post_save';
 
     /**
-     * The mautic.page_pre_delete event is thrown prior to when a page is deleted.
+     * The mailvotech.page_pre_delete event is thrown prior to when a page is deleted.
      *
-     * The event listener receives a Mautic\PageBundle\Event\PageEvent instance.
+     * The event listener receives a MailVotech\PageBundle\Event\PageEvent instance.
      *
      * @var string
      */
-    public const PAGE_PRE_DELETE = 'mautic.page_pre_delete';
+    public const PAGE_PRE_DELETE = 'mailvotech.page_pre_delete';
 
     /**
-     * The mautic.page_post_delete event is thrown after a page is deleted.
+     * The mailvotech.page_post_delete event is thrown after a page is deleted.
      *
-     * The event listener receives a Mautic\PageBundle\Event\PageEvent instance.
+     * The event listener receives a MailVotech\PageBundle\Event\PageEvent instance.
      *
      * @var string
      */
-    public const PAGE_POST_DELETE = 'mautic.page_post_delete';
+    public const PAGE_POST_DELETE = 'mailvotech.page_post_delete';
 
     /**
-     * The mautic.redirect_do_not_track event is thrown when converting email links to trackables/redirectables in order to compile of list of tokens/URLs
+     * The mailvotech.redirect_do_not_track event is thrown when converting email links to trackables/redirectables in order to compile of list of tokens/URLs
      * to ignore.
      *
-     * The event listener receives a Mautic\PageBundle\Event\UntrackableUrlsEvent instance.
+     * The event listener receives a MailVotech\PageBundle\Event\UntrackableUrlsEvent instance.
      *
      * @var string
      */
-    public const REDIRECT_DO_NOT_TRACK = 'mautic.redirect_do_not_track';
+    public const REDIRECT_DO_NOT_TRACK = 'mailvotech.redirect_do_not_track';
 
     /**
-     * The mautic.page.on_campaign_trigger_decision event is fired when the campaign decision triggers.
+     * The mailvotech.page.on_campaign_trigger_decision event is fired when the campaign decision triggers.
      *
      * The event listener receives a
-     * Mautic\CampaignBundle\Event\CampaignExecutionEvent
+     * MailVotech\CampaignBundle\Event\CampaignExecutionEvent
      *
      * @var string
      */
-    public const ON_CAMPAIGN_TRIGGER_DECISION = 'mautic.page.on_campaign_trigger_decision';
+    public const ON_CAMPAIGN_TRIGGER_DECISION = 'mailvotech.page.on_campaign_trigger_decision';
 
     /**
-     * The mautic.page.on_campaign_trigger_action event is fired when the campaign action fired.
+     * The mailvotech.page.on_campaign_trigger_action event is fired when the campaign action fired.
      *
      * The event listener receives a
-     * Mautic\CampaignBundle\Event\CampaignExecutionEvent
+     * MailVotech\CampaignBundle\Event\CampaignExecutionEvent
      *
      * @var string
      */
-    public const ON_CAMPAIGN_TRIGGER_ACTION = 'mautic.page.on_campaign_trigger_action';
+    public const ON_CAMPAIGN_TRIGGER_ACTION = 'mailvotech.page.on_campaign_trigger_action';
 
     /**
-     * The mautic.page.on_redirect_generate event is fired when generating a redirect.
+     * The mailvotech.page.on_redirect_generate event is fired when generating a redirect.
      *
      * The event listener receives a
-     * Mautic\PageBundle\Event\RedirectGenerationEvent
+     * MailVotech\PageBundle\Event\RedirectGenerationEvent
      */
-    public const ON_REDIRECT_GENERATE = 'mautic.page.on_redirect_generate';
+    public const ON_REDIRECT_GENERATE = 'mailvotech.page.on_redirect_generate';
 
     /**
-     * The mautic.page.on_bounce_rate_winner event is fired when there is a need to determine bounce rate winner.
+     * The mailvotech.page.on_bounce_rate_winner event is fired when there is a need to determine bounce rate winner.
      *
      * The event listener receives a
-     * Mautic\CoreBundle\Event\DetermineWinnerEvent
+     * MailVotech\CoreBundle\Event\DetermineWinnerEvent
      *
      * @var string
      */
-    public const ON_DETERMINE_BOUNCE_RATE_WINNER = 'mautic.page.on_bounce_rate_winner';
+    public const ON_DETERMINE_BOUNCE_RATE_WINNER = 'mailvotech.page.on_bounce_rate_winner';
 
     /**
-     * The mautic.page.on_dwell_time_winner event is fired when there is a need to determine a winner based on dwell time.
+     * The mailvotech.page.on_dwell_time_winner event is fired when there is a need to determine a winner based on dwell time.
      *
      * The event listener receives a
-     * Mautic\CoreBundles\Event\DetermineWinnerEvent
+     * MailVotech\CoreBundles\Event\DetermineWinnerEvent
      *
      * @var string
      */
-    public const ON_DETERMINE_DWELL_TIME_WINNER = 'mautic.page.on_dwell_time_winner';
+    public const ON_DETERMINE_DWELL_TIME_WINNER = 'mailvotech.page.on_dwell_time_winner';
 
     /**
-     * The mautic.page.on_contact_tracked event is dispatched when a contact is tracked via the mt() tracking event.
+     * The mailvotech.page.on_contact_tracked event is dispatched when a contact is tracked via the mt() tracking event.
      *
      * The event listener receives a
-     * Mautic\PageBundle\Event\TrackingEvent
+     * MailVotech\PageBundle\Event\TrackingEvent
      */
-    public const ON_CONTACT_TRACKED = 'mautic.page.on_contact_tracked';
+    public const ON_CONTACT_TRACKED = 'mailvotech.page.on_contact_tracked';
 }

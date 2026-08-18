@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\SmsBundle\EventListener;
+namespace MailVotech\SmsBundle\EventListener;
 
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Model\DoNotContact as DoNotContactModel;
-use Mautic\SmsBundle\Event\ReplyEvent;
-use Mautic\SmsBundle\SmsEvents;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Model\DoNotContact as DoNotContactModel;
+use MailVotech\SmsBundle\Event\ReplyEvent;
+use MailVotech\SmsBundle\SmsEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class StopSubscriber implements EventSubscriberInterface

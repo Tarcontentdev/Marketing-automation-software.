@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\EventListener;
+namespace MailVotech\FormBundle\Tests\EventListener;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Test\AbstractMauticTestCase;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\FormRepository;
-use Mautic\FormBundle\Entity\SubmissionRepository;
-use Mautic\FormBundle\EventListener\ReportSubscriber;
-use Mautic\FormBundle\Model\FormModel;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\LeadBundle\Report\DncReportService;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\Event\ReportGraphEvent;
-use Mautic\ReportBundle\Helper\ReportHelper;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Test\AbstractMailVotechTestCase;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\FormRepository;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
+use MailVotech\FormBundle\EventListener\ReportSubscriber;
+use MailVotech\FormBundle\Model\FormModel;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\LeadBundle\Report\DncReportService;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\Event\ReportGraphEvent;
+use MailVotech\ReportBundle\Helper\ReportHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ReportSubscriberTest extends AbstractMauticTestCase
+final class ReportSubscriberTest extends AbstractMailVotechTestCase
 {
     /**
      * @var MockObject&CompanyReportData
@@ -364,9 +364,9 @@ final class ReportSubscriberTest extends AbstractMauticTestCase
             ->method('getRequestedGraphs')
             ->willReturn(
                 [
-                    'mautic.form.graph.line.submissions',
-                    'mautic.form.table.top.referrers',
-                    'mautic.form.table.most.submitted',
+                    'mailvotech.form.graph.line.submissions',
+                    'mailvotech.form.table.top.referrers',
+                    'mailvotech.form.table.most.submitted',
                 ]
             );
 

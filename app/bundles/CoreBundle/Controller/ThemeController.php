@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\CoreBundle\Controller;
+namespace MailVotech\CoreBundle\Controller;
 
-use Mautic\CoreBundle\Exception\BadConfigurationException;
-use Mautic\CoreBundle\Exception\FileNotFoundException;
-use Mautic\CoreBundle\Form\Type\ThemeUploadType;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Helper\ThemeHelperInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\IntegrationsBundle\Helper\BuilderIntegrationsHelper;
+use MailVotech\CoreBundle\Exception\BadConfigurationException;
+use MailVotech\CoreBundle\Exception\FileNotFoundException;
+use MailVotech\CoreBundle\Form\Type\ThemeUploadType;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Helper\ThemeHelperInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\IntegrationsBundle\Helper\BuilderIntegrationsHelper;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +32,7 @@ final class ThemeController extends FormController
         }
 
         $dir    = $pathsHelper->getSystemPath('themes', true);
-        $action = $this->generateUrl('mautic_themes_index');
+        $action = $this->generateUrl('mailvotech_themes_index');
         $form   = $this->formFactory->create(ThemeUploadType::class, [], ['action' => $action]);
 
         if ('POST' === $request->getMethod()) {
@@ -43,7 +43,7 @@ final class ThemeController extends FormController
                     if (!$fileData) {
                         $form->addError(
                             new FormError(
-                                $this->translator->trans('mautic.core.theme.upload.empty', [], 'validators')
+                                $this->translator->trans('mailvotech.core.theme.upload.empty', [], 'validators')
                             )
                         );
                     } else {
@@ -56,7 +56,7 @@ final class ThemeController extends FormController
                             try {
                                 $fileData->move($dir, $fileName);
                                 $themeHelper->install($dir.'/'.$fileName);
-                                $this->addFlashMessage('mautic.core.theme.installed', ['%name%' => $themeName]);
+                                $this->addFlashMessage('mailvotech.core.theme.installed', ['%name%' => $themeName]);
                             } catch (\Exception $e) {
                                 $form->addError(
                                     new FormError(
@@ -67,7 +67,7 @@ final class ThemeController extends FormController
                         } else {
                             $form->addError(
                                 new FormError(
-                                    $this->translator->trans('mautic.core.not.allowed.file.extension', ['%extension%' => $extension], 'validators')
+                                    $this->translator->trans('mailvotech.core.not.allowed.file.extension', ['%extension%' => $extension], 'validators')
                                 )
                             );
                         }
@@ -87,11 +87,11 @@ final class ThemeController extends FormController
                 'permissions'   => $permissions,
                 'security'      => $this->security,
             ],
-            'contentTemplate' => '@MauticCore/Theme/list.html.twig',
+            'contentTemplate' => '@MailVotechCore/Theme/list.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_themes_index',
-                'mauticContent' => 'theme',
-                'route'         => $this->generateUrl('mautic_themes_index'),
+                'activeLink'    => '#mailvotech_themes_index',
+                'mailvotechContent' => 'theme',
+                'route'         => $this->generateUrl('mailvotech_themes_index'),
             ],
         ]);
     }
@@ -112,7 +112,7 @@ final class ThemeController extends FormController
         if (!$themeHelper->exists($themeName)) {
             $flashes[] = [
                 'type'    => 'error',
-                'msg'     => 'mautic.core.theme.error.notfound',
+                'msg'     => 'mailvotech.core.theme.error.notfound',
                 'msgVars' => ['%theme%' => $themeName],
             ];
             $error = true;
@@ -131,7 +131,7 @@ final class ThemeController extends FormController
         if (!$error && !$zipPath) {
             $flashes[] = [
                 'type' => 'error',
-                'msg'  => 'mautic.core.permission.issue',
+                'msg'  => 'mailvotech.core.permission.issue',
             ];
             $error = true;
         }
@@ -205,7 +205,7 @@ final class ThemeController extends FormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.core.theme.notice.batch_deleted',
+                    'msg'     => 'mailvotech.core.theme.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => $flashNumber,
                     ],
@@ -231,7 +231,7 @@ final class ThemeController extends FormController
         if (!$themeHelper->exists($themeName)) {
             $flashes[] = [
                 'type'    => 'error',
-                'msg'     => 'mautic.core.theme.error.notfound',
+                'msg'     => 'mailvotech.core.theme.error.notfound',
                 'msgVars' => ['%theme%' => $themeName],
             ];
         } elseif (!$this->security->isGranted('core:themes:delete')) {
@@ -239,7 +239,7 @@ final class ThemeController extends FormController
         } elseif (in_array($themeName, $themeHelper->getDefaultThemes())) {
             $flashes[] = [
                 'type'    => 'error',
-                'msg'     => 'mautic.core.theme.cannot.be.removed',
+                'msg'     => 'mailvotech.core.theme.cannot.be.removed',
                 'msgVars' => ['%theme%' => $themeName],
             ];
         } else {
@@ -249,14 +249,14 @@ final class ThemeController extends FormController
             } catch (\Exception $e) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.core.error.delete.error',
+                    'msg'     => 'mailvotech.core.error.delete.error',
                     'msgVars' => ['%error%' => $e->getMessage()],
                 ];
             }
 
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $theme->getName(),
                     '%id%'   => $themeName,
@@ -273,11 +273,11 @@ final class ThemeController extends FormController
     public function getIndexPostActionVars(): array
     {
         return [
-            'returnUrl'       => $this->generateUrl('mautic_themes_index'),
-            'contentTemplate' => 'Mautic\CoreBundle\Controller\ThemeController::indexAction',
+            'returnUrl'       => $this->generateUrl('mailvotech_themes_index'),
+            'contentTemplate' => 'MailVotech\CoreBundle\Controller\ThemeController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_themes_index',
-                'mauticContent' => 'theme',
+                'activeLink'    => 'mailvotech_themes_index',
+                'mailvotechContent' => 'theme',
             ],
         ];
     }
@@ -313,7 +313,7 @@ final class ThemeController extends FormController
             return [
                 [
                     'type'    => 'error',
-                    'msg'     => 'mautic.core.theme.error.notfound',
+                    'msg'     => 'mailvotech.core.theme.error.notfound',
                     'msgVars' => ['%theme%' => $themeName],
                 ],
             ];
@@ -323,7 +323,7 @@ final class ThemeController extends FormController
             return [
                 [
                     'type'    => 'error',
-                    'msg'     => 'mautic.core.theme.cannot.change.visibility',
+                    'msg'     => 'mailvotech.core.theme.cannot.change.visibility',
                     'msgVars' => ['%theme%' => $themeName],
                 ],
             ];
@@ -336,25 +336,25 @@ final class ThemeController extends FormController
             $themeHelper->toggleVisibility($themeName);
             $flashes[] = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.theme.visibility.changed',
+                'msg'     => 'mailvotech.core.theme.visibility.changed',
                 'msgVars' => ['%theme%' => $theme->getName()],
             ];
         } catch (IOException) {
             $flashes[] = [
                 'type'    => 'error',
-                'msg'     => 'mautic.core.theme.visibility.error',
+                'msg'     => 'mailvotech.core.theme.visibility.error',
                 'msgVars' => ['%error%' => 'Failed to change the theme visibility'],
             ];
         } catch (BadConfigurationException) {
             $flashes[] = [
                 'type'    => 'error',
-                'msg'     => 'mautic.core.theme.visibility.error',
+                'msg'     => 'mailvotech.core.theme.visibility.error',
                 'msgVars' => ['%error%' => sprintf('Theme %s not configured properly: builder property in the config.json', $themeName)],
             ];
         } catch (FileNotFoundException) {
             $flashes[] = [
                 'type'    => 'error',
-                'msg'     => 'mautic.core.theme.visibility.error',
+                'msg'     => 'mailvotech.core.theme.visibility.error',
                 'msgVars' => ['%error%' => sprintf('Theme %s not found', $themeName)],
             ];
         }

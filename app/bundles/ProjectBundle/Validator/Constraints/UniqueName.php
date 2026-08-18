@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Validator\Constraints;
+namespace MailVotech\ProjectBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;

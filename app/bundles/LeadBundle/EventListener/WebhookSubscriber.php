@@ -1,19 +1,19 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Event\ChannelSubscriptionChange;
-use Mautic\LeadBundle\Event\CompanyEvent;
-use Mautic\LeadBundle\Event\LeadChangeCompanyEvent;
-use Mautic\LeadBundle\Event\LeadEvent;
-use Mautic\LeadBundle\Event\ListChangeEvent;
-use Mautic\LeadBundle\Event\PointsChangeEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\WebhookBundle\Event\WebhookBuilderEvent;
-use Mautic\WebhookBundle\Model\WebhookModel;
-use Mautic\WebhookBundle\WebhookEvents;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Event\ChannelSubscriptionChange;
+use MailVotech\LeadBundle\Event\CompanyEvent;
+use MailVotech\LeadBundle\Event\LeadChangeCompanyEvent;
+use MailVotech\LeadBundle\Event\LeadEvent;
+use MailVotech\LeadBundle\Event\ListChangeEvent;
+use MailVotech\LeadBundle\Event\PointsChangeEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\WebhookBundle\Event\WebhookBuilderEvent;
+use MailVotech\WebhookBundle\Model\WebhookModel;
+use MailVotech\WebhookBundle\WebhookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class WebhookSubscriber implements EventSubscriberInterface
@@ -50,8 +50,8 @@ final readonly class WebhookSubscriber implements EventSubscriberInterface
         $event->addEvent(
             LeadEvents::LEAD_POST_SAVE.'_new',
             [
-                'label'       => 'mautic.lead.webhook.event.lead.new',
-                'description' => 'mautic.lead.webhook.event.lead.new_desc',
+                'label'       => 'mailvotech.lead.webhook.event.lead.new',
+                'description' => 'mailvotech.lead.webhook.event.lead.new_desc',
             ]
         );
 
@@ -59,8 +59,8 @@ final readonly class WebhookSubscriber implements EventSubscriberInterface
         $event->addEvent(
             LeadEvents::LEAD_POST_SAVE.'_update',
             [
-                'label'       => 'mautic.lead.webhook.event.lead.update',
-                'description' => 'mautic.lead.webhook.event.lead.update_desc',
+                'label'       => 'mailvotech.lead.webhook.event.lead.update',
+                'description' => 'mailvotech.lead.webhook.event.lead.update_desc',
             ]
         );
 
@@ -68,8 +68,8 @@ final readonly class WebhookSubscriber implements EventSubscriberInterface
         $event->addEvent(
             LeadEvents::LEAD_POINTS_CHANGE,
             [
-                'label'       => 'mautic.lead.webhook.event.lead.points',
-                'description' => 'mautic.lead.webhook.event.lead.points_desc',
+                'label'       => 'mailvotech.lead.webhook.event.lead.points',
+                'description' => 'mailvotech.lead.webhook.event.lead.points_desc',
             ]
         );
 
@@ -77,8 +77,8 @@ final readonly class WebhookSubscriber implements EventSubscriberInterface
         $event->addEvent(
             LeadEvents::LEAD_POST_DELETE,
             [
-                'label'       => 'mautic.lead.webhook.event.lead.deleted',
-                'description' => 'mautic.lead.webhook.event.lead.deleted_desc',
+                'label'       => 'mailvotech.lead.webhook.event.lead.deleted',
+                'description' => 'mailvotech.lead.webhook.event.lead.deleted_desc',
             ]
         );
 
@@ -86,8 +86,8 @@ final readonly class WebhookSubscriber implements EventSubscriberInterface
         $event->addEvent(
             LeadEvents::CHANNEL_SUBSCRIPTION_CHANGED,
             [
-                'label'       => 'mautic.lead.webhook.event.lead.dnc',
-                'description' => 'mautic.lead.webhook.event.lead.dnc_desc',
+                'label'       => 'mailvotech.lead.webhook.event.lead.dnc',
+                'description' => 'mailvotech.lead.webhook.event.lead.dnc_desc',
             ]
         );
 
@@ -95,8 +95,8 @@ final readonly class WebhookSubscriber implements EventSubscriberInterface
         $event->addEvent(
             LeadEvents::LEAD_COMPANY_CHANGE,
             [
-                'label'       => 'mautic.lead.webhook.event.lead.company.change',
-                'description' => 'mautic.lead.webhook.event.lead.company.change.desc',
+                'label'       => 'mailvotech.lead.webhook.event.lead.company.change',
+                'description' => 'mailvotech.lead.webhook.event.lead.company.change.desc',
             ]
         );
 
@@ -104,8 +104,8 @@ final readonly class WebhookSubscriber implements EventSubscriberInterface
         $event->addEvent(
             LeadEvents::COMPANY_POST_SAVE,
             [
-                'label'       => 'mautic.lead.webhook.event.company.new_or_update',
-                'description' => 'mautic.lead.webhook.event.company.new_or_update_desc',
+                'label'       => 'mailvotech.lead.webhook.event.company.new_or_update',
+                'description' => 'mailvotech.lead.webhook.event.company.new_or_update_desc',
             ]
         );
 
@@ -113,8 +113,8 @@ final readonly class WebhookSubscriber implements EventSubscriberInterface
         $event->addEvent(
             LeadEvents::COMPANY_POST_DELETE,
             [
-                'label'       => 'mautic.lead.webhook.event.company.deleted',
-                'description' => 'mautic.lead.webhook.event.company.deleted_desc',
+                'label'       => 'mailvotech.lead.webhook.event.company.deleted',
+                'description' => 'mailvotech.lead.webhook.event.company.deleted_desc',
             ]
         );
 
@@ -122,8 +122,8 @@ final readonly class WebhookSubscriber implements EventSubscriberInterface
         $event->addEvent(
             LeadEvents::LEAD_LIST_CHANGE,
             [
-                'label'       => 'mautic.lead.webhook.event.lead.segment.change',
-                'description' => 'mautic.lead.webhook.event.lead.segment.change.desc',
+                'label'       => 'mailvotech.lead.webhook.event.lead.segment.change',
+                'description' => 'mailvotech.lead.webhook.event.lead.segment.change.desc',
             ]
         );
     }

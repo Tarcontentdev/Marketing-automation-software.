@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\EmailBundle\Event\MonitoredEmailEvent;
-use Mautic\EmailBundle\Event\ParseEmailEvent;
-use Mautic\EmailBundle\MonitoredEmail\Processor\FeedbackLoop;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Unsubscribe;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\EmailBundle\Event\MonitoredEmailEvent;
+use MailVotech\EmailBundle\Event\ParseEmailEvent;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\FeedbackLoop;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Unsubscribe;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ProcessUnsubscribeSubscriber implements EventSubscriberInterface
@@ -35,7 +35,7 @@ final readonly class ProcessUnsubscribeSubscriber implements EventSubscriberInte
 
     public function onEmailConfig(MonitoredEmailEvent $event): void
     {
-        $event->addFolder(self::BUNDLE, self::FOLDER_KEY, 'mautic.email.config.monitored_email.unsubscribe_folder');
+        $event->addFolder(self::BUNDLE, self::FOLDER_KEY, 'mailvotech.email.config.monitored_email.unsubscribe_folder');
     }
 
     public function onEmailParse(ParseEmailEvent $event): void

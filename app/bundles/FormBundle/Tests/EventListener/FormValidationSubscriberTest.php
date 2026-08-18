@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\EventListener;
+namespace MailVotech\FormBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Event\ValidationEvent;
-use Mautic\FormBundle\EventListener\FormValidationSubscriber;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Event\ValidationEvent;
+use MailVotech\FormBundle\EventListener\FormValidationSubscriber;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -40,7 +40,7 @@ final class FormValidationSubscriberTest extends \PHPUnit\Framework\TestCase
     {
         $this->translator
             ->method('trans')
-            ->with('mautic.form.submission.checkboxgrp.minimum', ['%min%' => 2], 'validators')
+            ->with('mailvotech.form.submission.checkboxgrp.minimum', ['%min%' => 2], 'validators')
             ->willReturn(self::MINIMUM_TWO_OPTIONS_MESSAGE);
 
         $field = new Field();
@@ -58,7 +58,7 @@ final class FormValidationSubscriberTest extends \PHPUnit\Framework\TestCase
     {
         $this->translator
             ->method('trans')
-            ->with('mautic.form.submission.checkboxgrp.minimum', ['%min%' => 2], 'validators')
+            ->with('mailvotech.form.submission.checkboxgrp.minimum', ['%min%' => 2], 'validators')
             ->willReturn(self::MINIMUM_TWO_OPTIONS_MESSAGE);
 
         $field = new Field();
@@ -76,7 +76,7 @@ final class FormValidationSubscriberTest extends \PHPUnit\Framework\TestCase
     {
         $this->translator
             ->method('trans')
-            ->with('mautic.form.submission.checkboxgrp.minimum', ['%min%' => 1], 'validators')
+            ->with('mailvotech.form.submission.checkboxgrp.minimum', ['%min%' => 1], 'validators')
             ->willReturn('You must select at least 1 options.');
 
         $field = new Field();
@@ -94,7 +94,7 @@ final class FormValidationSubscriberTest extends \PHPUnit\Framework\TestCase
     {
         $this->translator
             ->method('trans')
-            ->with('mautic.form.submission.checkboxgrp.maximum', ['%max%' => 3], 'validators')
+            ->with('mailvotech.form.submission.checkboxgrp.maximum', ['%max%' => 3], 'validators')
             ->willReturn('You cannot select more than 3 options.');
 
         $field = new Field();
@@ -156,7 +156,7 @@ final class FormValidationSubscriberTest extends \PHPUnit\Framework\TestCase
     {
         $this->translator
             ->method('trans')
-            ->with('mautic.form.submission.checkboxgrp.minimum', ['%min%' => 2], 'validators')
+            ->with('mailvotech.form.submission.checkboxgrp.minimum', ['%min%' => 2], 'validators')
             ->willReturn(self::MINIMUM_TWO_OPTIONS_MESSAGE);
 
         $field = new Field();

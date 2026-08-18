@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\Twig\Helper;
+namespace MailVotech\CoreBundle\Twig\Helper;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\CustomButtonEvent;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\CustomButtonEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -268,7 +268,7 @@ final class ButtonHelper
         // Render confirm dialog if required
         if (isset($button['confirm'])) {
             $button['confirm']['btnTextAttr'] = $this->generateTextAttributes($button);
-            $buttons .= $this->wrapOpeningTag.$this->twig->render('@MauticCore/Helper/confirm.html.twig', $button['confirm']).
+            $buttons .= $this->wrapOpeningTag.$this->twig->render('@MailVotechCore/Helper/confirm.html.twig', $button['confirm']).
                 "{$this->wrapClosingTag}\n";
         } else {
             // Default `data-toggle` for buttons

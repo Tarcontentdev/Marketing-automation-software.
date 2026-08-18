@@ -10,16 +10,16 @@
   <div id="CampaignEvent_{{ sourceType }}" data-type="source" class="draggable list-campaign-source list-campaign-leadsource">
 {% endif %}
 <div class="campaign-event-content">
-    <div class="h5 fw-b mb-5 campaign-source-title">{{'mautic.campaign.form.lead_source'|trans}}</div>
+    <div class="h5 fw-b mb-5 campaign-source-title">{{'mailvotech.campaign.form.lead_source'|trans}}</div>
     <div><span class="campaign-event-name ellipsis" title="{{ names|default(null) }}"><i class="mr-xs campaign-event-icon {% if 'lists' == sourceType %}ri-pie-chart-line{% else %}ri-survey-line{% endif %}"></i>{{ names|default(null) }}</span></div>
 </div>
 
 {% if update is not defined or update is empty %}
   <div class="campaign-event-buttons hide">
-    {% include '@MauticCore/Helper/button.html.twig' with {
+    {% include '@MailVotechCore/Helper/button.html.twig' with {
       buttons: [
           {
-              href: path('mautic_campaignsource_action', {
+              href: path('mailvotech_campaignsource_action', {
                   'objectAction': 'edit',
                   'objectId': campaignId,
                   'sourceType': sourceType
@@ -28,7 +28,7 @@
               icon: 'ri-edit-line',
               size: 'xs',
               icon_only: true,
-              label: 'mautic.campaign.event.edit.btn.tooltip'|trans,
+              label: 'mailvotech.campaign.event.edit.btn.tooltip'|trans,
               attributes: {
                   'data-toggle': 'ajaxmodal',
                   'data-prevent-dismiss': 'true',
@@ -38,7 +38,7 @@
               }
           },
           {
-              href: path('mautic_campaignsource_action', {
+              href: path('mailvotech_campaignsource_action', {
                   'objectAction': 'delete',
                   'objectId': campaignId,
                   'sourceType': sourceType
@@ -48,7 +48,7 @@
               icon: 'ri-close-line',
               size: 'xs',
               icon_only: true,
-              label: 'mautic.campaign.event.remove.btn.tooltip'|trans,
+              label: 'mailvotech.campaign.event.remove.btn.tooltip'|trans,
               attributes: {
                   'data-toggle': 'ajax',
                   'data-target': 'CampaignEvent_' ~ sourceType,

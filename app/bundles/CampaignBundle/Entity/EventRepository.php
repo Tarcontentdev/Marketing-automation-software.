@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\CampaignBundle\Entity;
+namespace MailVotech\CampaignBundle\Entity;
 
 use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\ORM\Query\Expr;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\EmailBundle\Entity\Email;
 
 /**
  * @extends CommonRepository<Event>
@@ -217,7 +217,7 @@ class EventRepository extends CommonRepository
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $q->select('e.id')
-            ->from(MAUTIC_TABLE_PREFIX.Event::TABLE_NAME, 'e')
+            ->from(MAILVOTECH_TABLE_PREFIX.Event::TABLE_NAME, 'e')
             ->where($q->expr()->eq('e.campaign_id', $campaignId));
 
         return array_column($q->executeQuery()->fetchAllAssociative(), 'id');
@@ -265,7 +265,7 @@ class EventRepository extends CommonRepository
     public function nullEventParents($campaignId): void
     {
         $this->getEntityManager()->getConnection()->update(
-            MAUTIC_TABLE_PREFIX.'campaign_events',
+            MAILVOTECH_TABLE_PREFIX.'campaign_events',
             ['parent_id'   => null],
             ['campaign_id' => (int) $campaignId]
         );
@@ -279,7 +279,7 @@ class EventRepository extends CommonRepository
     public function nullEventRelationships($events): void
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
-        $qb->update(MAUTIC_TABLE_PREFIX.'campaign_events')
+        $qb->update(MAILVOTECH_TABLE_PREFIX.'campaign_events')
             ->set('parent_id', ':null')
             ->setParameter('null', null)
             ->where(
@@ -321,7 +321,7 @@ class EventRepository extends CommonRepository
         $eventIds = array_column($eventData, 'id');
         $qbSelect = $conn->createQueryBuilder();
         $qbSelect->select('id, deleted')
-            ->from(MAUTIC_TABLE_PREFIX.Event::TABLE_NAME)
+            ->from(MAILVOTECH_TABLE_PREFIX.Event::TABLE_NAME)
             ->where($qbSelect->expr()->in('id', ':eventIds'))
             ->setParameter('eventIds', $eventIds, ArrayParameterType::INTEGER);
 
@@ -340,7 +340,7 @@ class EventRepository extends CommonRepository
             }
 
             $qb = $conn->createQueryBuilder();
-            $qb->update(MAUTIC_TABLE_PREFIX.Event::TABLE_NAME)
+            $qb->update(MAILVOTECH_TABLE_PREFIX.Event::TABLE_NAME)
                 ->set('deleted', ':deleted')
                 ->setParameter('deleted', $dateTime);
 
@@ -374,7 +374,7 @@ class EventRepository extends CommonRepository
             $redirectTarget = $eventInfo['redirectEvent'] ?? null;
 
             $updateQb = $conn->createQueryBuilder();
-            $updateQb->update(MAUTIC_TABLE_PREFIX.Event::TABLE_NAME)
+            $updateQb->update(MAILVOTECH_TABLE_PREFIX.Event::TABLE_NAME)
                 ->set('redirect_event_id', ':newRedirectId')
                 ->where('redirect_event_id = :deletedEventId')
                 ->setParameter('newRedirectId', $redirectTarget)
@@ -456,7 +456,7 @@ class EventRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
 
-        $q->update(MAUTIC_TABLE_PREFIX.'campaign_events')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'campaign_events')
             ->set('failed_count', 'failed_count + 1')
             ->where($q->expr()->eq('id', ':id'))
             ->setParameter('id', $event->getId());
@@ -474,7 +474,7 @@ class EventRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
 
-        $q->update(MAUTIC_TABLE_PREFIX.'campaign_events')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'campaign_events')
             ->set('failed_count', 'failed_count - 1')
             ->where($q->expr()->eq('id', ':id'))
             ->andWhere($q->expr()->gt('failed_count', 0))
@@ -492,7 +492,7 @@ class EventRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('failed_count')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_events')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_events')
             ->where($q->expr()->eq('id', ':id'))
             ->setParameter('id', $event->getId());
 
@@ -507,7 +507,7 @@ class EventRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
 
-        $q->update(MAUTIC_TABLE_PREFIX.'campaign_events')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'campaign_events')
             ->set('failed_count', ':failedCount')
             ->where($q->expr()->eq('campaign_id', ':campaignId'))
             ->setParameter('failedCount', 0)
@@ -523,8 +523,8 @@ class EventRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('count(le.id)')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_lead_event_log', 'le')
-            ->innerJoin('le', MAUTIC_TABLE_PREFIX.'campaign_lead_event_failed_log', 'fle', 'le.id = fle.log_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log', 'le')
+            ->innerJoin('le', MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_failed_log', 'fle', 'le.id = fle.log_id')
             ->where('le.lead_id = :leadId')
             ->andWhere('le.event_id = :eventId')
             ->setParameters(['leadId' => $leadId, 'eventId' => $eventId]);

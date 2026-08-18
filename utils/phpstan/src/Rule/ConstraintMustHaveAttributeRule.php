@@ -68,7 +68,7 @@ final class ConstraintMustHaveAttributeRule implements Rule
             'Class "%s" extends Constraint but is missing the #[\Attribute] attribute. Add it, so the constraint can be used as an attribute on properties, as Symfony convention.',
             $className
         ))
-            ->identifier('mautic.constraintAttribute')
+            ->identifier('mailvotech.constraintAttribute')
             ->build();
 
         return [$ruleError];

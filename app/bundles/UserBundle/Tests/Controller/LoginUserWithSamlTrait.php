@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Controller;
+namespace MailVotech\UserBundle\Tests\Controller;
 
-use Mautic\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\TestBrowserToken;
 use Symfony\Component\HttpFoundation\Session\SessionFactory;
 
@@ -12,7 +12,7 @@ trait LoginUserWithSamlTrait
 {
     private function loginUserWithSaml(User $user): void
     {
-        $firewallContext = 'mautic';
+        $firewallContext = 'mailvotech';
         $token           = new TestBrowserToken($user->getRoles(), $user, $firewallContext);
         $container       = $this->getContainer();
         $container->get('security.untracked_token_storage')->setToken($token);

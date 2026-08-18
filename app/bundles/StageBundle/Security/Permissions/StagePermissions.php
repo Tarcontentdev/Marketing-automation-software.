@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\StageBundle\Security\Permissions;
+namespace MailVotech\StageBundle\Security\Permissions;
 
-use Mautic\CoreBundle\Security\Permissions\AbstractPermissions;
+use MailVotech\CoreBundle\Security\Permissions\AbstractPermissions;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class StagePermissions extends AbstractPermissions

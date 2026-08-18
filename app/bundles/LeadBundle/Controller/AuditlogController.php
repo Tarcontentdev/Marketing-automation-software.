@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\Controller;
+namespace MailVotech\LeadBundle\Controller;
 
-use Mautic\CoreBundle\Controller\CommonController;
-use Mautic\CoreBundle\Helper\ExportHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\CoreBundle\Controller\CommonController;
+use MailVotech\CoreBundle\Helper\ExportHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -34,14 +34,14 @@ final class AuditlogController extends CommonController
                 'includeEvents' => InputHelper::clean($request->request->all()['includeEvents'] ?? []),
                 'excludeEvents' => InputHelper::clean($request->request->all()['excludeEvents'] ?? []),
             ];
-            $session->set('mautic.lead.'.$leadId.'.auditlog.filters', $filters);
+            $session->set('mailvotech.lead.'.$leadId.'.auditlog.filters', $filters);
         } else {
             $filters = null;
         }
 
         $order = [
-            $session->get('mautic.lead.'.$leadId.'.auditlog.orderby'),
-            $session->get('mautic.lead.'.$leadId.'.auditlog.orderbydir'),
+            $session->get('mailvotech.lead.'.$leadId.'.auditlog.orderby'),
+            $session->get('mailvotech.lead.'.$leadId.'.auditlog.orderbydir'),
         ];
 
         $events = $this->getAuditlogs($lead, $filters, $order, $page);
@@ -56,10 +56,10 @@ final class AuditlogController extends CommonController
                 ],
                 'passthroughVars' => [
                     'route'         => false,
-                    'mauticContent' => 'leadAuditlog',
+                    'mailvotechContent' => 'leadAuditlog',
                     'auditLogCount' => $events['total'],
                 ],
-                'contentTemplate' => '@MauticLead/Auditlog/_list.html.twig',
+                'contentTemplate' => '@MailVotechLead/Auditlog/_list.html.twig',
             ]
         );
     }
@@ -88,14 +88,14 @@ final class AuditlogController extends CommonController
                 'includeEvents' => InputHelper::clean($request->request->all()['includeEvents'] ?? []),
                 'excludeEvents' => InputHelper::clean($request->request->all()['excludeEvents'] ?? []),
             ];
-            $session->set('mautic.lead.'.$leadId.'.auditlog.filters', $filters);
+            $session->set('mailvotech.lead.'.$leadId.'.auditlog.filters', $filters);
         } else {
             $filters = null;
         }
 
         $order = [
-            $session->get('mautic.lead.'.$leadId.'.auditlog.orderby'),
-            $session->get('mautic.lead.'.$leadId.'.auditlog.orderbydir'),
+            $session->get('mailvotech.lead.'.$leadId.'.auditlog.orderby'),
+            $session->get('mailvotech.lead.'.$leadId.'.auditlog.orderbydir'),
         ];
 
         $dataType = $request->get('filetype', 'csv');

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Command;
+namespace MailVotech\LeadBundle\Tests\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Command\UpdateLeadListsCommand;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Segment\Exception\SegmentQueryException;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Command\UpdateLeadListsCommand;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Segment\Exception\SegmentQueryException;
 
-final class UpdateLeadListsCommandCircularDependencyTest extends MauticMysqlTestCase
+final class UpdateLeadListsCommandCircularDependencyTest extends MailVotechMysqlTestCase
 {
     /**
      * @var LeadList[]

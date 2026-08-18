@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Tests\Functional\Controller;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 
-final class FileManagerControllerFunctionalTest extends MauticMysqlTestCase
+final class FileManagerControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     private const ASSETS_ENDPOINT = '/s/grapesjsbuilder/media';
 

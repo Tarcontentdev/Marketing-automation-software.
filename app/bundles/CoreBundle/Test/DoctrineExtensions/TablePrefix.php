@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Test\DoctrineExtensions;
+namespace MailVotech\CoreBundle\Test\DoctrineExtensions;
 
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;

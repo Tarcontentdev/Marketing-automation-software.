@@ -1,5 +1,5 @@
-import MjmlService from '../preset-mautic/mjml/mjml.service';
-import ContentService from '../preset-mautic/content.service';
+import MjmlService from '../preset-mailvotech/mjml/mjml.service';
+import ContentService from '../preset-mailvotech/content.service';
 
 class CodeEditor {
   editor;
@@ -47,11 +47,11 @@ class CodeEditor {
     const btnCancel = document.createElement('button');
     const textarea = document.createElement('textarea');
 
-    btnEdit.innerHTML = Mautic.translate('grapesjsbuilder.sourceEditBtnLabel');
+    btnEdit.innerHTML = MailVotech.translate('grapesjsbuilder.sourceEditBtnLabel');
     btnEdit.className = `${cfg.stylePrefix}btn-prim ${cfg.stylePrefix}btn-code-edit`;
     btnEdit.onclick = this.updateCode.bind(this);
 
-    btnCancel.innerHTML = Mautic.translate('grapesjsbuilder.sourceCancelBtnLabel');
+    btnCancel.innerHTML = MailVotech.translate('grapesjsbuilder.sourceCancelBtnLabel');
     btnCancel.className = `${cfg.stylePrefix}btn-prim ${cfg.stylePrefix}btn-code-cancel`;
     btnCancel.onclick = this.cancelCode.bind(this);
 
@@ -70,10 +70,10 @@ class CodeEditor {
     // this.codeEditor.editor.refresh();
     // editor.Modal.setContent('');
     editor.Modal.setContent(this.codePopup);
-    editor.Modal.setTitle(Mautic.translate('grapesjsbuilder.sourceEditModalTitle'));
+    editor.Modal.setTitle(MailVotech.translate('grapesjsbuilder.sourceEditModalTitle'));
     editor.Modal.open();
 
-    editor.Modal.onceClose(() => editor.stopCommand('preset-mautic:code-edit'));
+    editor.Modal.onceClose(() => editor.stopCommand('preset-mailvotech:code-edit'));
   }
 
   /**
@@ -92,7 +92,7 @@ class CodeEditor {
 
     try {
       if (isMjmlMode) {
-        this.editor.trigger('mautic:code-editor-update:before', code);
+        this.editor.trigger('mailvotech:code-editor-update:before', code);
       }
 
       // delete canvas and set new content
@@ -108,14 +108,14 @@ class CodeEditor {
       }
 
       updateSuccessful = true;
-      this.editor.trigger('mautic:code-editor-update');
+      this.editor.trigger('mailvotech:code-editor-update');
 
       this.editor.Modal.close();
     } catch (e) {
-      window.alert(`${Mautic.translate('grapesjsbuilder.sourceSyntaxError')}\n${e.message}`);
+      window.alert(`${MailVotech.translate('grapesjsbuilder.sourceSyntaxError')}\n${e.message}`);
     } finally {
       if (isMjmlMode) {
-        this.editor.trigger('mautic:code-editor-update:complete', updateSuccessful);
+        this.editor.trigger('mailvotech:code-editor-update:complete', updateSuccessful);
       }
     }
   }

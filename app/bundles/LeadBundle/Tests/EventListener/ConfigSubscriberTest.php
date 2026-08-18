@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\EventListener;
+namespace MailVotech\LeadBundle\Tests\EventListener;
 
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Mautic\ConfigBundle\ConfigEvents;
-use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use Mautic\LeadBundle\EventListener\ConfigSubscriber;
-use Mautic\LeadBundle\Form\Type\ConfigCompanyType;
-use Mautic\LeadBundle\Form\Type\ConfigType;
-use Mautic\LeadBundle\Form\Type\SegmentConfigType;
+use MailVotech\ConfigBundle\ConfigEvents;
+use MailVotech\ConfigBundle\Event\ConfigBuilderEvent;
+use MailVotech\LeadBundle\EventListener\ConfigSubscriber;
+use MailVotech\LeadBundle\Form\Type\ConfigCompanyType;
+use MailVotech\LeadBundle\Form\Type\ConfigType;
+use MailVotech\LeadBundle\Form\Type\SegmentConfigType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -41,7 +41,7 @@ final class ConfigSubscriberTest extends TestCase
 
         $this->configBuilderEvent->method('getParametersFromConfig')
             ->willReturnCallback(fn (string $bundle): array => match ($bundle) {
-                'MauticLeadBundle' => $leadBundleParameters,
+                'MailVotechLeadBundle' => $leadBundleParameters,
                 default            => [],
             });
     }
@@ -72,11 +72,11 @@ final class ConfigSubscriberTest extends TestCase
 
         $this->assertSame('leadconfig', $invocations[0]['formAlias']);
         $this->assertSame(ConfigType::class, $invocations[0]['formType']);
-        $this->assertSame('@MauticLead/FormTheme/Config/_config_leadconfig_widget.html.twig', $invocations[0]['formTheme']);
+        $this->assertSame('@MailVotechLead/FormTheme/Config/_config_leadconfig_widget.html.twig', $invocations[0]['formTheme']);
 
         $this->assertSame('segment_config', $invocations[1]['formAlias']);
         $this->assertSame(SegmentConfigType::class, $invocations[1]['formType']);
-        $this->assertSame('@MauticLead/FormTheme/Config/_config_segment_config_widget.html.twig', $invocations[1]['formTheme']);
+        $this->assertSame('@MailVotechLead/FormTheme/Config/_config_segment_config_widget.html.twig', $invocations[1]['formTheme']);
 
         $this->assertArrayNotHasKey('company_columns', $invocations[0]['parameters']);
         $this->assertArrayNotHasKey('company_unique_identifiers_operator', $invocations[0]['parameters']);
@@ -94,7 +94,7 @@ final class ConfigSubscriberTest extends TestCase
             ->willReturnCallback(function (array $form): ConfigBuilderEvent {
                 $this->assertSame('companyconfig', $form['formAlias']);
                 $this->assertSame(ConfigCompanyType::class, $form['formType']);
-                $this->assertSame('@MauticLead/FormTheme/Config/_config_companyconfig_widget.html.twig', $form['formTheme']);
+                $this->assertSame('@MailVotechLead/FormTheme/Config/_config_companyconfig_widget.html.twig', $form['formTheme']);
                 $this->assertArrayHasKey('company_columns', $form['parameters']);
                 $this->assertSame([
                     'companyname',

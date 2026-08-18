@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Service;
+namespace MailVotech\CampaignBundle\Tests\Service;
 
-use Mautic\CampaignBundle\DTO\PublishStateDateRange;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Service\PublishStateService;
-use Mautic\CampaignBundle\Tests\CampaignAuditLogTrait;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CampaignBundle\DTO\PublishStateDateRange;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Service\PublishStateService;
+use MailVotech\CampaignBundle\Tests\CampaignAuditLogTrait;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class PublishStateServiceTest extends MauticMysqlTestCase
+final class PublishStateServiceTest extends MailVotechMysqlTestCase
 {
     use CampaignAuditLogTrait;
 

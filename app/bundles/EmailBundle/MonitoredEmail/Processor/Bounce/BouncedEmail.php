@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor\Bounce;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce;
 
 final class BouncedEmail
 {

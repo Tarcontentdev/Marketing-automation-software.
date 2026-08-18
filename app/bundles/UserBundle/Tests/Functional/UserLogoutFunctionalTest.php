@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Functional;
+namespace MailVotech\UserBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
-final class UserLogoutFunctionalTest extends MauticMysqlTestCase
+final class UserLogoutFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testLogout(): void
     {

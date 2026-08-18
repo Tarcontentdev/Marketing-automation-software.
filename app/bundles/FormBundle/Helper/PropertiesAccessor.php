@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Helper;
+namespace MailVotech\FormBundle\Helper;
 
-use Mautic\FormBundle\Model\FormModel;
+use MailVotech\FormBundle\Model\FormModel;
 
 class PropertiesAccessor
 {

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Tests\Functional\Controller;
+namespace MailVotech\ProjectBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\ProjectBundle\Entity\Project;
-use Mautic\ProjectBundle\Model\ProjectModel;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\ProjectBundle\Entity\Project;
+use MailVotech\ProjectBundle\Model\ProjectModel;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 
-final class ProjectAddEntityTest extends MauticMysqlTestCase
+final class ProjectAddEntityTest extends MailVotechMysqlTestCase
 {
     private Project $testProject;
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\WebhookBundle\Controller;
+namespace MailVotech\WebhookBundle\Controller;
 
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\WebhookBundle\Exception\PrivateAddressException;
-use Mautic\WebhookBundle\Http\Client;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\WebhookBundle\Exception\PrivateAddressException;
+use MailVotech\WebhookBundle\Http\Client;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,13 +19,13 @@ final class AjaxController extends CommonAjaxController
             return $this->processWebhookTest($request, $client, $pathsHelper);
         } catch (PrivateAddressException) {
             return $this->createErrorResponse(
-                'mautic.webhook.error.private_address'
+                'mailvotech.webhook.error.private_address'
             );
         } catch (\InvalidArgumentException $e) {
             return $this->createErrorResponse($e->getMessage());
         } catch (\Exception) {
             return $this->createErrorResponse(
-                'mautic.webhook.label.warning'
+                'mailvotech.webhook.label.warning'
             );
         }
     }
@@ -35,13 +35,13 @@ final class AjaxController extends CommonAjaxController
         $url = $this->validateUrl($request);
 
         if (!$url) {
-            throw new \InvalidArgumentException('mautic.webhook.label.no.url');
+            throw new \InvalidArgumentException('mailvotech.webhook.label.no.url');
         }
 
         $selectedTypes = InputHelper::cleanArray($request->request->all()['types'] ?? []);
 
         if ([] === $selectedTypes) {
-            throw new \InvalidArgumentException('mautic.webhook.label.no.events');
+            throw new \InvalidArgumentException('mailvotech.webhook.label.no.events');
         }
 
         $payloadPaths = $this->getPayloadPaths($selectedTypes, $pathsHelper);
@@ -63,8 +63,8 @@ final class AjaxController extends CommonAjaxController
     {
         $isSuccess = str_starts_with((string) $statusCode, '2');
         $message   = $isSuccess
-            ? 'mautic.webhook.label.success'
-            : 'mautic.webhook.label.warning';
+            ? 'mailvotech.webhook.label.success'
+            : 'mailvotech.webhook.label.warning';
 
         $cssClass = $isSuccess ? 'has-success' : 'has-error';
 
@@ -105,7 +105,7 @@ final class AjaxController extends CommonAjaxController
         $payloadPaths = [];
 
         foreach ($types as $type) {
-            // takes an input like mautic.lead_on_something
+            // takes an input like mailvotech.lead_on_something
             // converts to array pieces using _
             $typePath = explode('_', $type);
 
@@ -122,7 +122,7 @@ final class AjaxController extends CommonAjaxController
             $payloadPath = $pathsHelper->getSystemPath('bundles', true);
 
             // if plugin is in first part of the string this is an addon
-            // input is plugin.bundlename or mautic.bundlename
+            // input is plugin.bundlename or mailvotech.bundlename
             if (strpos('plugin.', $prefix)) {
                 $payloadPath = $pathsHelper->getSystemPath('plugins', true);
             }

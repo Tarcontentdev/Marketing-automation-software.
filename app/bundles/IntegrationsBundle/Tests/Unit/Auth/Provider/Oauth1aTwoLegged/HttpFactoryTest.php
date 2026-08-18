@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Auth\Provider\Oauth1aTwoLegged;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Auth\Provider\Oauth1aTwoLegged;
 
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth1aTwoLegged\CredentialsInterface;
-use Mautic\IntegrationsBundle\Auth\Provider\Oauth1aTwoLegged\HttpFactory;
-use Mautic\IntegrationsBundle\Exception\PluginNotConfiguredException;
+use MailVotech\IntegrationsBundle\Auth\Provider\Oauth1aTwoLegged\CredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\Oauth1aTwoLegged\HttpFactory;
+use MailVotech\IntegrationsBundle\Exception\PluginNotConfiguredException;
 use PHPUnit\Framework\TestCase;
 
 final class HttpFactoryTest extends TestCase

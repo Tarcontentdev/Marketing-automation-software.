@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Entity;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Entity;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
-use Mautic\IntegrationsBundle\Entity\FieldChange;
-use Mautic\IntegrationsBundle\Entity\FieldChangeRepository;
-use Mautic\LeadBundle\Entity\Company;
+use MailVotech\CoreBundle\Test\Doctrine\RepositoryConfiguratorTrait;
+use MailVotech\IntegrationsBundle\Entity\FieldChange;
+use MailVotech\IntegrationsBundle\Entity\FieldChangeRepository;
+use MailVotech\LeadBundle\Entity\Company;
 use PHPUnit\Framework\TestCase;
 
 final class FieldChangeRepositoryTest extends TestCase
@@ -34,7 +34,7 @@ final class FieldChangeRepositoryTest extends TestCase
         $this->connection->expects($this->once())
             ->method('executeQuery')
             ->with(
-                'SELECT * FROM '.MAUTIC_TABLE_PREFIX.'sync_object_field_change_report f WHERE (f.integration = :integration) AND (f.object_type = :objectType) AND (f.object_id = :objectId) ORDER BY f.modified_at ASC',
+                'SELECT * FROM '.MAILVOTECH_TABLE_PREFIX.'sync_object_field_change_report f WHERE (f.integration = :integration) AND (f.object_type = :objectType) AND (f.object_id = :objectId) ORDER BY f.modified_at ASC',
                 [
                     'integration' => $integration,
                     'objectType'  => $objectType,
@@ -50,7 +50,7 @@ final class FieldChangeRepositoryTest extends TestCase
         $this->connection->expects($this->once())
             ->method('executeStatement')
             ->with(
-                'DELETE FROM '.MAUTIC_TABLE_PREFIX.'sync_object_field_change_report WHERE (object_type = :objectType) AND (object_id = :objectId)',
+                'DELETE FROM '.MAILVOTECH_TABLE_PREFIX.'sync_object_field_change_report WHERE (object_type = :objectType) AND (object_id = :objectId)',
                 [
                     'objectType'  => Company::class,
                     'objectId'    => 123,

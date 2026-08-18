@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\EventCollector\Accessor\Event;
+namespace MailVotech\CampaignBundle\EventCollector\Accessor\Event;
 
 class ConditionAccessor extends AbstractEventAccessor
 {

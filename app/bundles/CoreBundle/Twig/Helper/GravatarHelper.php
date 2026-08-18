@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CoreBundle\Twig\Helper;
+namespace MailVotech\CoreBundle\Twig\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UrlHelper;
-use Mautic\LeadBundle\Twig\Helper\DefaultAvatarHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UrlHelper;
+use MailVotech\LeadBundle\Twig\Helper\DefaultAvatarHelper;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final readonly class GravatarHelper
@@ -21,7 +21,7 @@ final readonly class GravatarHelper
         CoreParametersHelper $coreParametersHelper,
         private RequestStack $requestStack,
     ) {
-        $this->devMode             = MAUTIC_ENV === 'dev';
+        $this->devMode             = MAILVOTECH_ENV === 'dev';
         $this->devHosts            = (array) $coreParametersHelper->get('dev_hosts');
     }
 

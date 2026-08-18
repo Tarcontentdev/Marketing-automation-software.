@@ -6,5 +6,5 @@ includeScript asset function
 --DATA--
 return []
 --EXPECT--
-<script async="async" type="text/javascript" data-source="mautic">Mautic.loadScript('https://example.com/app/bundles/IntegrationsBundle/Assets/js/integrations.js////}', 'integrationsConfigOnLoad', 'integrationsConfigOnLoad');</script>
-<script async="async" type="text/javascript" data-source="mautic">Mautic.loadScript('https://example.com/app/bundles/IntegrationsBundle/Assets/js/integrations.js////}', '', '');</script>
+<script async="async" type="text/javascript" data-source="mailvotech">MailVotech.loadScript('https://example.com/app/bundles/IntegrationsBundle/Assets/js/integrations.js////}', 'integrationsConfigOnLoad', 'integrationsConfigOnLoad');</script>
+<script async="async" type="text/javascript" data-source="mailvotech">MailVotech.loadScript('https://example.com/app/bundles/IntegrationsBundle/Assets/js/integrations.js////}', '', '');</script>

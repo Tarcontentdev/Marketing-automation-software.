@@ -9,28 +9,28 @@
     - contacts
     - dateRangeForm
 #}
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent %}notification{% endblock %}
+{% block mailvotechContent %}notification{% endblock %}
 
 {% block headerTitle %}{{ notification.name }}{% endblock %}
 
 {% block preHeader %}
-{{- include('@MauticCore/Helper/page_actions.html.twig',
+{{- include('@MailVotechCore/Helper/page_actions.html.twig',
     {
         'item'            : notification,
         'templateButtons' : {
             'close' : securityHasEntityAccess(permissions['notification:notifications:viewown'], permissions['notification:notifications:viewother'], notification.createdBy),
         },
         'routeBase'       : 'notification',
-        'targetLabel'     : 'mautic.notification.notifications'|trans
+        'targetLabel'     : 'mailvotech.notification.notifications'|trans
     }
 ) -}}
-{{ include('@MauticCore/Modules/category--inline.html.twig', {'category': notification.category}) }}
+{{ include('@MailVotechCore/Modules/category--inline.html.twig', {'category': notification.category}) }}
 {% endblock %}
 
 {% block actions %}
-    {{- include('@MauticCore/Helper/page_actions.html.twig', {
+    {{- include('@MailVotechCore/Helper/page_actions.html.twig', {
             'item': notification,
             'templateButtons': {
                 'edit': securityHasEntityAccess(permissions['notification:notifications:editown'], permissions['notification:notifications:editother'], notification.createdBy),
@@ -41,7 +41,7 @@
 {% endblock %}
 
 {% block publishStatus %}
-  {{ include('@MauticCore/Helper/publishstatus_badge.html.twig', {'entity': notification}) }}
+  {{ include('@MailVotechCore/Helper/publishstatus_badge.html.twig', {'entity': notification}) }}
 {% endblock %}
 
 {% block content %}
@@ -56,7 +56,7 @@
                 <div class="panel shd-none mb-0">
                   <table class="table table-hover mb-0">
                     <tbody>
-                      {{ include('@MauticCore/Helper/details.html.twig', {'entity': notification}) }}
+                      {{ include('@MailVotechCore/Helper/details.html.twig', {'entity': notification}) }}
                     </tbody>
                   </table>
                 </div>
@@ -66,10 +66,10 @@
 
             <!-- notification detail collapseable toggler -->
             <div class="hr-expand nm">
-                <span data-toggle="tooltip" title="{{ 'mautic.core.details'|trans }}">
+                <span data-toggle="tooltip" title="{{ 'mailvotech.core.details'|trans }}">
                     <a href="javascript:void(0)" class="arrow text-secondary collapsed" data-toggle="collapse" data-target="#notification-details">
                       <span class="caret"></span>
-                      {{ 'mautic.core.details'|trans }}
+                      {{ 'mailvotech.core.details'|trans }}
                     </a>
                 </span>
             </div>
@@ -80,12 +80,12 @@
                 <div class="row">
                     <div class="col-sm-12">
                         {% if security.isGranted('lead:leads:viewown') %}
-                        {{ include('@MauticCore/Modules/stat--icon.html.twig', {'stats': [
+                        {{ include('@MailVotechCore/Modules/stat--icon.html.twig', {'stats': [
                             {
-                                'title': 'mautic.lead.lead.contacts.web_sent',
+                                'title': 'mailvotech.lead.lead.contacts.web_sent',
                                 'value': notification.getSentCount(true),
-                                'link': path('mautic_contact_index', {
-                                    'search': ('mautic.lead.lead.searchcommand.web_sent'|trans) ~ ':' ~ notification.id
+                                'link': path('mailvotech_contact_index', {
+                                    'search': ('mailvotech.lead.lead.searchcommand.web_sent'|trans) ~ ':' ~ notification.id
                                 }),
                                 'icon': 'ri-notification-3-line'
                             }
@@ -96,15 +96,15 @@
                                 <div class="col-md-3 va-m">
                                     <h5 class="text-white dark-md fw-sb mb-xs">
                                         <span class="ri-line-chart-fill"></span>
-                                        {{ 'mautic.core.stats'|trans }}
+                                        {{ 'mailvotech.core.stats'|trans }}
                                     </h5>
                                 </div>
                                 <div class="col-md-9 va-m">
-                                    {{ include('@MauticCore/Helper/graph_dateselect.html.twig', {'dateRangeForm': dateRangeForm, 'class': 'pull-right'}, with_context=false) }}
+                                    {{ include('@MailVotechCore/Helper/graph_dateselect.html.twig', {'dateRangeForm': dateRangeForm, 'class': 'pull-right'}, with_context=false) }}
                                 </div>
                             </div>
                             <div class="d-flex fd-column pt-0 pl-15 pb-15 pr-15 min-h-256">
-                                {{ include('@MauticCore/Helper/chart.html.twig', {'chartData': entityViews, 'chartType': 'line', 'chartHeight': 300}, with_context=false) }}
+                                {{ include('@MailVotechCore/Helper/chart.html.twig', {'chartData': entityViews, 'chartType': 'line', 'chartHeight': 300}, with_context=false) }}
                             </div>
                         </div>
                     </div>
@@ -118,12 +118,12 @@
             <ul class="nav nav-tabs nav-tabs-contained">
                 <li class="active">
                     <a href="#clicks-container" role="tab" data-toggle="tab">
-                        {{ 'mautic.trackable.click_counts'|trans }}
+                        {{ 'mailvotech.trackable.click_counts'|trans }}
                     </a>
                 </li>
                 <li class="">
                     <a href="#contacts-container" role="tab" data-toggle="tab">
-                        {{ 'mautic.lead.leads'|trans }}
+                        {{ 'mailvotech.lead.leads'|trans }}
                     </a>
                 </li>
             </ul>
@@ -133,7 +133,7 @@
         <!-- start: tab-content -->
         <div class="tab-content pa-md">
             <div class="tab-pane active bdr-w-0" id="clicks-container">
-                {{ include('@MauticPage/Trackable/click_counts.html.twig', {
+                {{ include('@MailVotechPage/Trackable/click_counts.html.twig', {
                     'trackables': trackables,
                     'entity': notification,
                     'channel': 'notification'
@@ -150,10 +150,10 @@
     <!-- right section -->
     <div class="col-md-5 col-lg-4 height-auto">
         <div class="pa-md mb-32 animation--slide-in-right">
-            {{ include('@MauticNotification/Notification/preview.html.twig') }}
+            {{ include('@MailVotechNotification/Notification/preview.html.twig') }}
         </div>
         <!-- activity feed -->
-        {{ include('@MauticCore/Helper/recentactivity.html.twig', {'logs': logs}) }}
+        {{ include('@MailVotechCore/Helper/recentactivity.html.twig', {'logs': logs}) }}
     </div>
     <!--/ right section -->
     <input name="entityId" id="entityId" type="hidden" value="{{ notification.id|e }}" />

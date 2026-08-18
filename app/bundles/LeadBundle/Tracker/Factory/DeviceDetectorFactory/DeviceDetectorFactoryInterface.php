@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tracker\Factory\DeviceDetectorFactory;
+namespace MailVotech\LeadBundle\Tracker\Factory\DeviceDetectorFactory;
 
 use DeviceDetector\DeviceDetector;
 

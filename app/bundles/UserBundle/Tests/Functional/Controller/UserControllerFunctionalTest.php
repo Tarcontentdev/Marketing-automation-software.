@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Functional\Controller;
+namespace MailVotech\UserBundle\Tests\Functional\Controller;
 
-use Mautic\CoreBundle\Entity\AuditLog;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\AuditLog;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class UserControllerFunctionalTest extends MauticMysqlTestCase
+final class UserControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\DashboardBundle\Event;
+namespace MailVotech\DashboardBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\DashboardBundle\Entity\Widget;
+use MailVotech\CoreBundle\Event\CommonEvent;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\DashboardBundle\Entity\Widget;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class WidgetTypeListEvent extends CommonEvent
@@ -23,8 +23,8 @@ final class WidgetTypeListEvent extends CommonEvent
      */
     public function addType($widgetType, $bundle = 'others'): void
     {
-        $bundle         = 'mautic.'.$bundle.'.dashboard.widgets';
-        $widgetTypeName = 'mautic.widget.'.$widgetType;
+        $bundle         = 'mailvotech.'.$bundle.'.dashboard.widgets';
+        $widgetTypeName = 'mailvotech.widget.'.$widgetType;
 
         if ($this->translator) {
             $bundle         = $this->translator->trans($bundle);

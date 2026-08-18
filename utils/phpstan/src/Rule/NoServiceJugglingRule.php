@@ -115,7 +115,7 @@ final class NoServiceJugglingRule implements Rule
                     $calledMethodName,
                     $injectedServiceTypes[$propertyName]
                 ))
-                    ->identifier('mautic.noServiceJuggling')
+                    ->identifier('mailvotech.noServiceJuggling')
                     ->line($arg->getStartLine())
                     ->build();
             }
@@ -125,7 +125,7 @@ final class NoServiceJugglingRule implements Rule
     }
 
     /**
-     * Properties filled by __construct() or an autowire*() method, e.g. "userHelper" => "Mautic\...\UserHelper".
+     * Properties filled by __construct() or an autowire*() method, e.g. "userHelper" => "MailVotech\...\UserHelper".
      *
      * @return array<string, string>
      */

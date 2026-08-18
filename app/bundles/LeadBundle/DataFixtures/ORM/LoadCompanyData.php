@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\LeadBundle\DataFixtures\ORM;
+namespace MailVotech\LeadBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mautic\CoreBundle\Helper\CsvHelper;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyRepository;
+use MailVotech\CoreBundle\Helper\CsvHelper;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
 
 final class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
 {

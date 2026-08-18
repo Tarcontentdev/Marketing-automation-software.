@@ -4,7 +4,7 @@ export default class CodeModeCommand {
   /**
    * The command to run on button click
    */
-  static name = 'preset-mautic:code-edit';
+  static name = 'preset-mailvotech:code-edit';
 
   static codeEditor;
 
@@ -22,7 +22,7 @@ export default class CodeModeCommand {
     CodeModeCommand.codeEditor.showCodePopup(editor);
 
     // Transform DC Component to token
-    editor.runCommand('preset-mautic:dynamic-content-components-to-tokens');
+    editor.runCommand('preset-mailvotech:dynamic-content-components-to-tokens');
   }
 
   static stopCodeEditorModal(editor) {
@@ -30,6 +30,6 @@ export default class CodeModeCommand {
       throw new Error('no editor');
     }
     // Transform Token to Components
-    editor.runCommand('preset-mautic:update-dc-components-from-dc-store');
+    editor.runCommand('preset-mailvotech:update-dc-components-from-dc-store');
   }
 }

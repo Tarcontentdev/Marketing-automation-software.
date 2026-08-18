@@ -3,7 +3,7 @@
         {
             "name": "theme-showcase",
             "directory": "themes/_showcase",
-            "target": "git@github.com:mautic/theme-showcase.git"
+            "target": "git@github.com:mailvotech/theme-showcase.git"
         }
     ]
 }

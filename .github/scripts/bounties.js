@@ -13,12 +13,12 @@ async function run() {
         const body = githubContext.event.issue.body +
           "\n\n<br /><hr>\nCare about this issue? Want to get it " +
           "resolved sooner? If you are a " +
-          "<a href='https://www.mautic.org/become-a-member-of-mautic'>member " +
-          "of Mautic</a>, you can add some funds to the " +
-          "<a href='https://opencollective.com/mautic/projects/bounties'>Bounties Project</a> " +
+          "<a href='https://www.mailvotech.org/become-a-member-of-mailvotech'>member " +
+          "of MailVotech</a>, you can add some funds to the " +
+          "<a href='https://opencollective.com/mailvotech/projects/bounties'>Bounties Project</a> " +
           "so that the person who completes this task can claim those funds once it is " +
           "merged by a member of the core team! Read the docs " +
-          "<a href='https://contribute.mautic.org/product-team/mautic-bounty-programme'>here.</a>";
+          "<a href='https://contribute.mailvotech.org/product-team/mailvotech-bounty-programme'>here.</a>";
         
         await octokit.request('PATCH /repos/{owner}/{repo}/issues/{issue_number}', {
           owner: repoOwner,
@@ -34,9 +34,9 @@ async function run() {
         if (labelName === 'bounty') {
           const comment =
             "This issue has a bounty associated with it. Check the total available " +
-            "<a href='https://opencollective.com/mautic/projects/bounties/transactions'> " +
+            "<a href='https://opencollective.com/mailvotech/projects/bounties/transactions'> " +
             "here</a>. Read the docs about how to work on the issue and claim the funds "
-            "<a href='https://contribute.mautic.org/product-team/mautic-bounty-programme'>here.</a>";
+            "<a href='https://contribute.mailvotech.org/product-team/mailvotech-bounty-programme'>here.</a>";
       
           await octokit.request('POST /repos/{owner}/{repo}/issues/{issue_number}/comments', {
             owner: repoOwner,

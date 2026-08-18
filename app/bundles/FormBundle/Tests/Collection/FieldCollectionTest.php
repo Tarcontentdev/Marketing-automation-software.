@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Collection;
+namespace MailVotech\FormBundle\Tests\Collection;
 
-use Mautic\FormBundle\Collection\FieldCollection;
-use Mautic\FormBundle\Crate\FieldCrate;
-use Mautic\FormBundle\Exception\FieldNotFoundException;
+use MailVotech\FormBundle\Collection\FieldCollection;
+use MailVotech\FormBundle\Crate\FieldCrate;
+use MailVotech\FormBundle\Exception\FieldNotFoundException;
 
 final class FieldCollectionTest extends \PHPUnit\Framework\TestCase
 {

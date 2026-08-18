@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\NotificationBundle\Helper;
+namespace MailVotech\NotificationBundle\Helper;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Model\DoNotContact as DoNotContactModel;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Model\DoNotContact as DoNotContactModel;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -46,7 +46,7 @@ class NotificationHelper
     public function getHeaderScript(): ?string
     {
         if ($this->hasScript()) {
-            return 'MauticJS.insertScript(\'https://cdn.onesignal.com/sdks/OneSignalSDK.js\');
+            return 'MailVotechJS.insertScript(\'https://cdn.onesignal.com/sdks/OneSignalSDK.js\');
                     var OneSignal = OneSignal || [];';
         }
 
@@ -72,7 +72,7 @@ class NotificationHelper
             $welcomenotificationEnabled = in_array('welcome_notification_enabled', $supported);
             $notificationSubdomainName  = $featureSettings['subdomain_name'];
             $leadAssociationUrl         = $this->router->generate(
-                'mautic_subscribe_notification',
+                'mailvotech_subscribe_notification',
                 [],
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
@@ -113,10 +113,10 @@ OneSignal.push(["init", {
     }
 }]);
 
-var postUserIdToMautic = function(userId) {
+var postUserIdToMailVotech = function(userId) {
     var data = [];
     data['osid'] = userId;
-    MauticJS.makeCORSRequest('GET', '{$leadAssociationUrl}', data);
+    MailVotechJS.makeCORSRequest('GET', '{$leadAssociationUrl}', data);
 };
 
 OneSignal.push(function() {
@@ -125,19 +125,19 @@ OneSignal.push(function() {
             OneSignal.on('subscriptionChange', function(isSubscribed) {
                 if (isSubscribed) {
                     OneSignal.getUserId(function(newUserId) {
-                        postUserIdToMautic(newUserId);
+                        postUserIdToMailVotech(newUserId);
                     });
                 }
             });
         } else {
-            postUserIdToMautic(userId);
+            postUserIdToMailVotech(userId);
         }
     });
     // Just to be sure we've grabbed the ID
     window.onbeforeunload = function() {
         OneSignal.getUserId(function(userId) {
             if (userId) {
-                postUserIdToMautic(userId);
+                postUserIdToMailVotech(userId);
             }
         });
     };

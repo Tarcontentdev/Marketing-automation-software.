@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Service;
+namespace MailVotech\CampaignBundle\Service;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Order;
-use Mautic\CampaignBundle\DTO\PublishState;
-use Mautic\CampaignBundle\DTO\PublishStateDateRange;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CoreBundle\Entity\AuditLog;
-use Mautic\CoreBundle\Entity\AuditLogRepository;
+use MailVotech\CampaignBundle\DTO\PublishState;
+use MailVotech\CampaignBundle\DTO\PublishStateDateRange;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CoreBundle\Entity\AuditLog;
+use MailVotech\CoreBundle\Entity\AuditLogRepository;
 
 class PublishStateService
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
-use Mautic\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Company;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class CompanyMergeEvent extends Event

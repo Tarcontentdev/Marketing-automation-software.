@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\PointBundle\Form\Type;
+namespace MailVotech\PointBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -28,7 +28,7 @@ final class TriggerEventType extends AbstractType
             'name',
             TextType::class,
             [
-                'label'      => 'mautic.core.name',
+                'label'      => 'mailvotech.core.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -39,7 +39,7 @@ final class TriggerEventType extends AbstractType
             'description',
             TextareaType::class,
             [
-                'label'      => 'mautic.core.description',
+                'label'      => 'mailvotech.core.description',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control editor'],
                 'required'   => false,
@@ -68,10 +68,10 @@ final class TriggerEventType extends AbstractType
 
         $update = !empty($properties);
         if (!empty($update)) {
-            $btnValue = 'mautic.core.form.update';
+            $btnValue = 'mailvotech.core.form.update';
             $btnIcon  = 'ri-edit-line';
         } else {
-            $btnValue = 'mautic.core.form.add';
+            $btnValue = 'mailvotech.core.form.add';
             $btnIcon  = 'ri-add-line';
         }
 

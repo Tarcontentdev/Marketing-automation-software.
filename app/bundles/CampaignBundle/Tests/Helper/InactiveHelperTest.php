@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Helper;
+namespace MailVotech\CampaignBundle\Tests\Helper;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CampaignBundle\Executioner\ContactFinder\InactiveContactFinder;
-use Mautic\CampaignBundle\Executioner\Helper\DecisionHelper;
-use Mautic\CampaignBundle\Executioner\Helper\InactiveHelper;
-use Mautic\CampaignBundle\Executioner\Scheduler\EventScheduler;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\InactiveContactFinder;
+use MailVotech\CampaignBundle\Executioner\Helper\DecisionHelper;
+use MailVotech\CampaignBundle\Executioner\Helper\InactiveHelper;
+use MailVotech\CampaignBundle\Executioner\Scheduler\EventScheduler;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;

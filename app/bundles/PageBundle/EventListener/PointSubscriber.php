@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\PageBundle\EventListener;
+namespace MailVotech\PageBundle\EventListener;
 
-use Mautic\PageBundle\Event as Events;
-use Mautic\PageBundle\Form\Type\PointActionPageHitType;
-use Mautic\PageBundle\Form\Type\PointActionUrlHitType;
-use Mautic\PageBundle\Helper\PointActionHelper;
-use Mautic\PageBundle\PageEvents;
-use Mautic\PointBundle\Event\PointBuilderEvent;
-use Mautic\PointBundle\Model\PointModel;
-use Mautic\PointBundle\PointEvents;
+use MailVotech\PageBundle\Event as Events;
+use MailVotech\PageBundle\Form\Type\PointActionPageHitType;
+use MailVotech\PageBundle\Form\Type\PointActionUrlHitType;
+use MailVotech\PageBundle\Helper\PointActionHelper;
+use MailVotech\PageBundle\PageEvents;
+use MailVotech\PointBundle\Event\PointBuilderEvent;
+use MailVotech\PointBundle\Model\PointModel;
+use MailVotech\PointBundle\PointEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class PointSubscriber implements EventSubscriberInterface
@@ -31,9 +31,9 @@ final readonly class PointSubscriber implements EventSubscriberInterface
     public function onPointBuild(PointBuilderEvent $event): void
     {
         $action = [
-            'group'       => 'mautic.page.point.action',
-            'label'       => 'mautic.page.point.action.pagehit',
-            'description' => 'mautic.page.point.action.pagehit_descr',
+            'group'       => 'mailvotech.page.point.action',
+            'label'       => 'mailvotech.page.point.action.pagehit',
+            'description' => 'mailvotech.page.point.action.pagehit_descr',
             'callback'    => [PointActionHelper::class, 'validatePageHit'],
             'formType'    => PointActionPageHitType::class,
         ];
@@ -41,12 +41,12 @@ final readonly class PointSubscriber implements EventSubscriberInterface
         $event->addAction('page.hit', $action);
 
         $action = [
-            'group'       => 'mautic.page.point.action',
-            'label'       => 'mautic.page.point.action.urlhit',
-            'description' => 'mautic.page.point.action.urlhit_descr',
+            'group'       => 'mailvotech.page.point.action',
+            'label'       => 'mailvotech.page.point.action.urlhit',
+            'description' => 'mailvotech.page.point.action.urlhit_descr',
             'callback'    => [$this->pointActionHelper, 'validateUrlHit'],
             'formType'    => PointActionUrlHitType::class,
-            'formTheme'   => '@MauticPage/FormTheme/Point/pointaction_urlhit_widget.html.twig',
+            'formTheme'   => '@MailVotechPage/FormTheme/Point/pointaction_urlhit_widget.html.twig',
         ];
 
         $event->addAction('url.hit', $action);
@@ -58,10 +58,10 @@ final readonly class PointSubscriber implements EventSubscriberInterface
     public function onPageHit(Events\PageHitEvent $event): void
     {
         if ($event->getPage()) {
-            // Mautic Landing Page was hit
+            // MailVotech Landing Page was hit
             $this->pointModel->triggerAction('page.hit', $event->getHit(), null, $event->getLead());
         } else {
-            // Mautic Tracking Pixel was hit
+            // MailVotech Tracking Pixel was hit
             $this->pointModel->triggerAction('url.hit', $event->getHit(), null, $event->getLead());
         }
     }

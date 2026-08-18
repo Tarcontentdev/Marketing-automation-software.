@@ -11,28 +11,28 @@
       - Defined when editing page
 #}
 {% form_theme form with [
-    '@MauticPage/FormTheme/Page/_page_abtest_settings_properties_row.html.twig',
-    '@MauticPage/FormTheme/Page/_page_variantSettings_properties_row.html.twig',
+    '@MailVotechPage/FormTheme/Page/_page_abtest_settings_properties_row.html.twig',
+    '@MailVotechPage/FormTheme/Page/_page_variantSettings_properties_row.html.twig',
 ] %}
 {% set isExisting = activePage.id %}
 {% set variantParent = activePage.variantParent %}
 {% set previewUrl = previewUrl|default('') %}
 {% set draftPreviewUrl = draftPreviewUrl|default('') %}
 
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent %}page{% endblock %}
+{% block mailvotechContent %}page{% endblock %}
 
 {% block headerTitle %}
   {%- if isExisting -%}
-    {{ 'mautic.page.header.edit'|trans({'%name%': activePage.title}) }}
+    {{ 'mailvotech.page.header.edit'|trans({'%name%': activePage.title}) }}
   {%- else -%}
-    {{ 'mautic.page.header.new'|trans }}
+    {{ 'mailvotech.page.header.new'|trans }}
   {%- endif -%}
   {% if variantParent %}
-      <div><span class="small">{{ 'mautic.core.variant_of'|trans({'%name%': activePage.title, '%parent%': variantParent.title}) }}</span></div>
+      <div><span class="small">{{ 'mailvotech.core.variant_of'|trans({'%name%': activePage.title, '%parent%': variantParent.title}) }}</span></div>
   {% elseif activePage.isVariant(false) %}
-      <div><span class="small">{{ 'mautic.page.form.has_variants'|trans }}</span></div>
+      <div><span class="small">{{ 'mailvotech.page.form.has_variants'|trans }}</span></div>
   {%- endif -%}
 {% endblock %}
 
@@ -54,10 +54,10 @@
                   <!-- tabs controls -->
                   <ul class="nav nav-tabs nav-tabs-contained">
                       <li class="active">
-                          <a href="#theme-container" role="tab" data-toggle="tab">{{ 'mautic.core.form.theme'|trans }}</a>
+                          <a href="#theme-container" role="tab" data-toggle="tab">{{ 'mailvotech.core.form.theme'|trans }}</a>
                       </li>
                       <li id="advanced-tab" class="hidden">
-                          <a href="#advanced-container" role="tab" data-toggle="tab">{{ 'mautic.core.advanced'|trans }}</a>
+                          <a href="#advanced-container" role="tab" data-toggle="tab">{{ 'mailvotech.core.advanced'|trans }}</a>
                       </li>
                   </ul>
                   <!--/ tabs controls -->
@@ -69,7 +69,7 @@
                                   {{ form_row(form.template) }}
                               </div>
                           </div>
-                          {{ include('@MauticCore/Helper/theme_select.html.twig', {
+                          {{ include('@MailVotechCore/Helper/theme_select.html.twig', {
                               'type': 'page',
                               'themes': themes,
                               'active': form.template.vars.value,
@@ -105,10 +105,10 @@
 
               {{ form_row(form.isPublished, {
 				'attr': {
-					'data-none': 'mautic.core.form.unavailable_regardless_of_scheduling',
-					'data-start': 'mautic.core.form.available_on_scheduled_date',
-					'data-both': 'mautic.core.form.available_during_scheduled_period',
-					'data-end': 'mautic.core.form.available_until_scheduled_end'
+					'data-none': 'mailvotech.core.form.unavailable_regardless_of_scheduling',
+					'data-start': 'mailvotech.core.form.available_on_scheduled_date',
+					'data-both': 'mailvotech.core.form.available_during_scheduled_period',
+					'data-end': 'mailvotech.core.form.available_until_scheduled_end'
 				}
 			}) }}
 
@@ -116,8 +116,8 @@
                   {{ form_row(form.isPreferenceCenter) }}
               {% endif %}
 
-              {{ form_row(form.publishUp, {'label': 'mautic.core.form.available.available_from'}) }}
-    	      {{ form_row(form.publishDown, {'label': 'mautic.core.form.available.unavailable_from'}) }}
+              {{ form_row(form.publishUp, {'label': 'mailvotech.core.form.available.available_from'}) }}
+    	      {{ form_row(form.publishDown, {'label': 'mailvotech.core.form.available.unavailable_from'}) }}
 
               {% if not isVariant %}
                   {{ form_row(form.redirectType) }}
@@ -142,9 +142,9 @@
   </div>
   {{ form_end(form) }}
 
-  {{ include('@MauticCore/Helper/builder.html.twig', {
+  {{ include('@MailVotechCore/Helper/builder.html.twig', {
       'type': 'page',
-      'isCodeMode': ('mautic_code_mode' is same as activePage.template),
+      'isCodeMode': ('mailvotech_code_mode' is same as activePage.template),
       'objectId': activePage.sessionId,
       'previewUrl': previewUrl,
       'draftPreviewUrl': draftPreviewUrl,

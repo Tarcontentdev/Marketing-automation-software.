@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\ConfigBundle\Form\Helper;
+namespace MailVotech\ConfigBundle\Form\Helper;
 
-use Mautic\ConfigBundle\Mapper\Helper\RestrictionHelper as FieldHelper;
+use MailVotech\ConfigBundle\Mapper\Helper\RestrictionHelper as FieldHelper;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -68,7 +68,7 @@ final readonly class RestrictionHelper
                             'mapped'   => false,
                             'disabled' => true,
                             'attr'     => array_merge($childType->getConfig()->getOptions()['attr'] ?? [], [
-                                'placeholder' => $this->translator->trans('mautic.config.restricted'),
+                                'placeholder' => $this->translator->trans('mailvotech.config.restricted'),
                                 'readonly'    => true,
                             ]),
                         ]

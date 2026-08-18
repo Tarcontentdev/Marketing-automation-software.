@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
 use Doctrine\DBAL\Connection;
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\MaintenanceEvent;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\MaintenanceEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -30,7 +30,7 @@ final readonly class MaintenanceSubscriber implements EventSubscriberInterface
 
         if ($event->isDryRun()) {
             $qb->select('count(*) as records')
-              ->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+              ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
               ->where($qb->expr()->lte('l.last_active', ':date'));
 
             if (false === $event->isGdpr()) {
@@ -45,7 +45,7 @@ final readonly class MaintenanceSubscriber implements EventSubscriberInterface
             }
             $rows = $qb->executeQuery()->fetchOne();
         } else {
-            $qb->select('l.id')->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+            $qb->select('l.id')->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
               ->where($qb->expr()->lte('l.last_active', ':date'));
 
             if (false === $event->isGdpr()) {
@@ -69,7 +69,7 @@ final readonly class MaintenanceSubscriber implements EventSubscriberInterface
                     break;
                 }
                 foreach ($leadsIds as $leadId) {
-                    $rows += $qb2->delete(MAUTIC_TABLE_PREFIX.'leads')
+                    $rows += $qb2->delete(MAILVOTECH_TABLE_PREFIX.'leads')
                       ->where(
                           $qb2->expr()->eq(
                               'id', $leadId
@@ -79,6 +79,6 @@ final readonly class MaintenanceSubscriber implements EventSubscriberInterface
             }
         }
 
-        $event->setStat($this->translator->trans('mautic.maintenance.visitors'), $rows, $qb->getSQL(), $qb->getParameters());
+        $event->setStat($this->translator->trans('mailvotech.maintenance.visitors'), $rows, $qb->getSQL(), $qb->getParameters());
     }
 }

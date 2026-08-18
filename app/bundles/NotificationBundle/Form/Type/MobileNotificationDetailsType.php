@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\NotificationBundle\Form\Type;
+namespace MailVotech\NotificationBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\ButtonGroupType;
-use Mautic\CoreBundle\Form\Type\SortableListType;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\CoreBundle\Form\Type\ButtonGroupType;
+use MailVotech\CoreBundle\Form\Type\SortableListType;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -32,7 +32,7 @@ final class MobileNotificationDetailsType extends AbstractType
             SortableListType::class,
             [
                 'required'        => false,
-                'label'           => 'mautic.notification.tab.data',
+                'label'           => 'mailvotech.notification.tab.data',
                 'option_required' => false,
                 'with_labels'     => true,
             ]
@@ -47,10 +47,10 @@ final class MobileNotificationDetailsType extends AbstractType
                 'ios_subtitle',
                 TextType::class,
                 [
-                    'label' => 'mautic.notification.form.mobile.ios_subtitle',
+                    'label' => 'mailvotech.notification.form.mobile.ios_subtitle',
                     'attr'  => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.notification.form.mobile.ios_subtitle.tooltip',
+                        'tooltip' => 'mailvotech.notification.form.mobile.ios_subtitle.tooltip',
                     ],
                     'required' => false,
                 ]
@@ -59,10 +59,10 @@ final class MobileNotificationDetailsType extends AbstractType
                 'ios_sound',
                 TextType::class,
                 [
-                    'label' => 'mautic.notification.form.mobile.ios_sound',
+                    'label' => 'mailvotech.notification.form.mobile.ios_sound',
                     'attr'  => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.notification.form.mobile.ios_sound.tooltip',
+                        'tooltip' => 'mailvotech.notification.form.mobile.ios_sound.tooltip',
                     ],
                     'required' => false,
                 ]
@@ -73,16 +73,16 @@ final class MobileNotificationDetailsType extends AbstractType
                 ButtonGroupType::class,
                 [
                     'choices' => [
-                        'mautic.notification.form.mobile.ios_badges.set'       => 'SetTo',
-                        'mautic.notification.form.mobile.ios_badges.increment' => 'Increase',
+                        'mailvotech.notification.form.mobile.ios_badges.set'       => 'SetTo',
+                        'mailvotech.notification.form.mobile.ios_badges.increment' => 'Increase',
                     ],
                     'attr'              => [
-                        'tooltip' => 'mautic.notification.form.mobile.ios_badges.tooltip',
+                        'tooltip' => 'mailvotech.notification.form.mobile.ios_badges.tooltip',
                     ],
-                    'label'       => 'mautic.notification.form.mobile.ios_badges',
+                    'label'       => 'mailvotech.notification.form.mobile.ios_badges',
                     'empty_data'  => 'None',
                     'required'    => false,
-                    'placeholder' => 'mautic.notification.form.mobile.ios_badges.placeholder',
+                    'placeholder' => 'mailvotech.notification.form.mobile.ios_badges.placeholder',
                     'expanded'    => true,
                     'multiple'    => false,
                 ]
@@ -92,10 +92,10 @@ final class MobileNotificationDetailsType extends AbstractType
                 'ios_badgeCount',
                 IntegerType::class,
                 [
-                    'label' => 'mautic.notification.form.mobile.ios_badgecount',
+                    'label' => 'mailvotech.notification.form.mobile.ios_badgecount',
                     'attr'  => [
                         'class'        => 'form-control',
-                        'tooltip'      => 'mautic.notification.form.mobile.ios_badgecount.tooltip',
+                        'tooltip'      => 'mailvotech.notification.form.mobile.ios_badgecount.tooltip',
                         'data-show-on' => '{"mobile_notification_mobileSettings_ios_badges_placeholder":""}',
                     ],
                     'required' => false,
@@ -106,9 +106,9 @@ final class MobileNotificationDetailsType extends AbstractType
                 'ios_contentAvailable',
                 CheckboxType::class,
                 [
-                    'label' => 'mautic.notification.form.mobile.ios_contentavailable',
+                    'label' => 'mailvotech.notification.form.mobile.ios_contentavailable',
                     'attr'  => [
-                        'tooltip' => 'mautic.notification.form.mobile.ios_contentavailable.tooltip',
+                        'tooltip' => 'mailvotech.notification.form.mobile.ios_contentavailable.tooltip',
                     ],
                     'required' => false,
                 ]
@@ -118,9 +118,9 @@ final class MobileNotificationDetailsType extends AbstractType
                 'ios_media',
                 FileType::class,
                 [
-                    'label' => 'mautic.notification.form.mobile.ios_media',
+                    'label' => 'mailvotech.notification.form.mobile.ios_media',
                     'attr'  => [
-                        'tooltip' => 'mautic.notification.form.mobile.ios_media.tooltip',
+                        'tooltip' => 'mailvotech.notification.form.mobile.ios_media.tooltip',
                     ],
                     'required' => false,
                 ]
@@ -130,9 +130,9 @@ final class MobileNotificationDetailsType extends AbstractType
                 'ios_mutableContent',
                 CheckboxType::class,
                 [
-                    'label' => 'mautic.notification.form.mobile.ios_mutablecontent',
+                    'label' => 'mailvotech.notification.form.mobile.ios_mutablecontent',
                     'attr'  => [
-                        'tooltip' => 'mautic.notification.form.mobile.mutablecontent.tooltip',
+                        'tooltip' => 'mailvotech.notification.form.mobile.mutablecontent.tooltip',
                     ],
                     'required' => false,
                 ]
@@ -144,10 +144,10 @@ final class MobileNotificationDetailsType extends AbstractType
                 'android_sound',
                 TextType::class,
                 [
-                    'label' => 'mautic.notification.form.mobile.android_sound',
+                    'label' => 'mailvotech.notification.form.mobile.android_sound',
                     'attr'  => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.notification.form.mobile.android_sound.tooltip',
+                        'tooltip' => 'mailvotech.notification.form.mobile.android_sound.tooltip',
                     ],
                     'required' => false,
                 ]
@@ -157,10 +157,10 @@ final class MobileNotificationDetailsType extends AbstractType
                 'android_small_icon',
                 TextType::class,
                 [
-                    'label' => 'mautic.notification.form.mobile.android_small_icon',
+                    'label' => 'mailvotech.notification.form.mobile.android_small_icon',
                     'attr'  => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.notification.form.mobile.android_small_icon.tooltip',
+                        'tooltip' => 'mailvotech.notification.form.mobile.android_small_icon.tooltip',
                     ],
                     'required' => false,
                 ]
@@ -170,10 +170,10 @@ final class MobileNotificationDetailsType extends AbstractType
                 'android_large_icon',
                 TextType::class,
                 [
-                    'label' => 'mautic.notification.form.mobile.android_large_icon',
+                    'label' => 'mailvotech.notification.form.mobile.android_large_icon',
                     'attr'  => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.notification.form.mobile.android_large_icon.tooltip',
+                        'tooltip' => 'mailvotech.notification.form.mobile.android_large_icon.tooltip',
                     ],
                     'required' => false,
                 ]
@@ -183,10 +183,10 @@ final class MobileNotificationDetailsType extends AbstractType
                 'android_big_picture',
                 TextType::class,
                 [
-                    'label' => 'mautic.notification.form.mobile.android_big_picture',
+                    'label' => 'mailvotech.notification.form.mobile.android_big_picture',
                     'attr'  => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.notification.form.mobile.android_big_picture.tooltip',
+                        'tooltip' => 'mailvotech.notification.form.mobile.android_big_picture.tooltip',
                     ],
                     'required' => false,
                 ]
@@ -196,10 +196,10 @@ final class MobileNotificationDetailsType extends AbstractType
                 'android_led_color',
                 TextType::class,
                 [
-                    'label' => 'mautic.notification.form.mobile.android_led_color',
+                    'label' => 'mailvotech.notification.form.mobile.android_led_color',
                     'attr'  => [
                         'class'       => 'form-control',
-                        'tooltip'     => 'mautic.notification.form.mobile.android_led_color.tooltip',
+                        'tooltip'     => 'mailvotech.notification.form.mobile.android_led_color.tooltip',
                         'data-toggle' => 'color',
                     ],
                     'required' => false,
@@ -210,10 +210,10 @@ final class MobileNotificationDetailsType extends AbstractType
                 'android_accent_color',
                 TextType::class,
                 [
-                    'label' => 'mautic.notification.form.mobile.android_accent_color',
+                    'label' => 'mailvotech.notification.form.mobile.android_accent_color',
                     'attr'  => [
                         'class'       => 'form-control',
-                        'tooltip'     => 'mautic.notification.form.mobile.android_accent_color.tooltip',
+                        'tooltip'     => 'mailvotech.notification.form.mobile.android_accent_color.tooltip',
                         'data-toggle' => 'color',
                     ],
                     'required' => false,
@@ -224,10 +224,10 @@ final class MobileNotificationDetailsType extends AbstractType
                 'android_group_key',
                 TextType::class,
                 [
-                    'label' => 'mautic.notification.form.mobile.android_group_key',
+                    'label' => 'mailvotech.notification.form.mobile.android_group_key',
                     'attr'  => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.notification.form.mobile.android_group_key.tooltip',
+                        'tooltip' => 'mailvotech.notification.form.mobile.android_group_key.tooltip',
                     ],
                     'required' => false,
                 ]
@@ -238,16 +238,16 @@ final class MobileNotificationDetailsType extends AbstractType
                 ButtonGroupType::class,
                 [
                     'choices' => [
-                        'mautic.notification.form.mobile.android_lockscreen_visibility.private' => '0',
-                        'mautic.notification.form.mobile.android_lockscreen_visibility.secret'  => '-1',
+                        'mailvotech.notification.form.mobile.android_lockscreen_visibility.private' => '0',
+                        'mailvotech.notification.form.mobile.android_lockscreen_visibility.secret'  => '-1',
                     ],
                     'attr'              => [
-                        'tooltip' => 'mautic.notification.form.mobile.android_lockscreen_visibility.tooltip',
+                        'tooltip' => 'mailvotech.notification.form.mobile.android_lockscreen_visibility.tooltip',
                     ],
-                    'label'       => 'mautic.notification.form.mobile.android_lockscreen_visibility',
+                    'label'       => 'mailvotech.notification.form.mobile.android_lockscreen_visibility',
                     'empty_data'  => '1',
                     'required'    => false,
-                    'placeholder' => 'mautic.notification.form.mobile.android_lockscreen_visibility.placeholder',
+                    'placeholder' => 'mailvotech.notification.form.mobile.android_lockscreen_visibility.placeholder',
                     'expanded'    => true,
                     'multiple'    => false,
                 ]

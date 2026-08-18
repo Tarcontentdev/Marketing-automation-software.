@@ -1,29 +1,29 @@
 <?php
 
-namespace Mautic\UserBundle\Model;
+namespace MailVotech\UserBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\UserBundle\Entity\PermissionRepository;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\RoleRepository;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserInvite;
-use Mautic\UserBundle\Entity\UserInviteRepository;
-use Mautic\UserBundle\Entity\UserRepository;
-use Mautic\UserBundle\Entity\UserToken;
-use Mautic\UserBundle\Enum\UserTokenAuthorizator;
-use Mautic\UserBundle\Event\UserEvent;
-use Mautic\UserBundle\Exception\PasswordResetTokenCreationFailedException;
-use Mautic\UserBundle\Form\Type\UserType;
-use Mautic\UserBundle\Model\UserToken\UserTokenServiceInterface;
-use Mautic\UserBundle\UserEvents;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\UserBundle\Entity\PermissionRepository;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\RoleRepository;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserInvite;
+use MailVotech\UserBundle\Entity\UserInviteRepository;
+use MailVotech\UserBundle\Entity\UserRepository;
+use MailVotech\UserBundle\Entity\UserToken;
+use MailVotech\UserBundle\Enum\UserTokenAuthorizator;
+use MailVotech\UserBundle\Event\UserEvent;
+use MailVotech\UserBundle\Exception\PasswordResetTokenCreationFailedException;
+use MailVotech\UserBundle\Form\Type\UserType;
+use MailVotech\UserBundle\Model\UserToken\UserTokenServiceInterface;
+use MailVotech\UserBundle\UserEvents;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -52,7 +52,7 @@ class UserModel extends FormModel implements GlobalSearchInterface
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         CoreParametersHelper $coreParametersHelper,
         private readonly Environment $twig,
         private readonly UserRepository $userRepository,
@@ -61,7 +61,7 @@ class UserModel extends FormModel implements GlobalSearchInterface
         private readonly UserInviteRepository $userInviteRepository,
         private readonly UserPasswordHasherInterface $userPasswordHasher,
     ) {
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function getRepository(): UserRepository
@@ -80,7 +80,7 @@ class UserModel extends FormModel implements GlobalSearchInterface
     public function saveEntity($entity, $unlock = true): void
     {
         if (!$entity instanceof User) {
-            throw new MethodNotAllowedHttpException(['User'], $this->translator->trans('mautic.user.entity.must.be.user', [], 'validators'));
+            throw new MethodNotAllowedHttpException(['User'], $this->translator->trans('mailvotech.user.entity.must.be.user', [], 'validators'));
         }
 
         parent::saveEntity($entity, $unlock);
@@ -111,7 +111,7 @@ class UserModel extends FormModel implements GlobalSearchInterface
     {
         if ($validate) {
             if (strlen($submittedPassword) < 6) {
-                throw new \InvalidArgumentException($this->translator->trans('mautic.user.user.password.minlength', [], 'validators'));
+                throw new \InvalidArgumentException($this->translator->trans('mailvotech.user.user.password.minlength', [], 'validators'));
             }
         }
 
@@ -126,7 +126,7 @@ class UserModel extends FormModel implements GlobalSearchInterface
     public function createForm($entity, FormFactoryInterface $formFactory, $action = null, $options = []): FormInterface
     {
         if (!$entity instanceof User) {
-            throw new MethodNotAllowedHttpException(['User'], $this->translator->trans('mautic.user.entity.must.be.user', [], 'validators'));
+            throw new MethodNotAllowedHttpException(['User'], $this->translator->trans('mailvotech.user.entity.must.be.user', [], 'validators'));
         }
         if (!empty($action)) {
             $options['action'] = $action;
@@ -174,7 +174,7 @@ class UserModel extends FormModel implements GlobalSearchInterface
     protected function dispatchEvent($action, &$entity, $isNew = false, ?Event $event = null): ?Event
     {
         if (!$entity instanceof User) {
-            throw new MethodNotAllowedHttpException(['User'], $this->translator->trans('mautic.user.entity.must.be.user', [], 'validators'));
+            throw new MethodNotAllowedHttpException(['User'], $this->translator->trans('mailvotech.user.entity.must.be.user', [], 'validators'));
         }
 
         switch ($action) {
@@ -282,15 +282,15 @@ class UserModel extends FormModel implements GlobalSearchInterface
         try {
             $this->em->flush();
         } catch (\Doctrine\DBAL\Exception $exception) {
-            $this->logger->error($this->translator->trans('mautic.user.password.reset.token.creation.database.error', [], 'messages').': '.$exception->getMessage());
-            throw new PasswordResetTokenCreationFailedException($this->translator->trans('mautic.user.password.reset.token.creation.failed'), 0, $exception);
+            $this->logger->error($this->translator->trans('mailvotech.user.password.reset.token.creation.database.error', [], 'messages').': '.$exception->getMessage());
+            throw new PasswordResetTokenCreationFailedException($this->translator->trans('mailvotech.user.password.reset.token.creation.failed'), 0, $exception);
         }
-        $resetLink  = $this->router->generate('mautic_user_passwordresetconfirm', ['token' => $resetToken->getSecret()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $resetLink  = $this->router->generate('mailvotech_user_passwordresetconfirm', ['token' => $resetToken->getSecret()], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $mailer->setTo([$user->getEmail() ?? '' => $user->getName()]);
-        $mailer->setSubject($this->translator->trans('mautic.user.user.passwordreset.subject'));
+        $mailer->setSubject($this->translator->trans('mailvotech.user.user.passwordreset.subject'));
         $text = $this->translator->trans(
-            'mautic.user.user.passwordreset.email.body',
+            'mailvotech.user.user.passwordreset.email.body',
             ['%name%' => $user->getFirstName(), '%resetlink%' => '<a href="'.$resetLink.'">'.$resetLink.'</a>']
         );
         $text = str_replace('\\n', "\n", $text);
@@ -298,7 +298,7 @@ class UserModel extends FormModel implements GlobalSearchInterface
 
         $this->emailUser(
             $user,
-            $this->translator->trans('mautic.user.user.passwordreset.subject'),
+            $this->translator->trans('mailvotech.user.user.passwordreset.subject'),
             $html
         );
     }
@@ -309,7 +309,7 @@ class UserModel extends FormModel implements GlobalSearchInterface
     public function sendChangePasswordInfo(User $user): void
     {
         $text = $this->translator->trans(
-            'mautic.user.user.passwordchange.email.body',
+            'mailvotech.user.user.passwordchange.email.body',
             ['%name%' => $user->getFirstName()]
         );
         $text = str_replace('\\n', "\n", $text);
@@ -317,7 +317,7 @@ class UserModel extends FormModel implements GlobalSearchInterface
 
         $this->emailUser(
             $user,
-            $this->translator->trans('mautic.user.user.passwordchange.subject'),
+            $this->translator->trans('mailvotech.user.user.passwordchange.subject'),
             $html
         );
     }
@@ -329,7 +329,7 @@ class UserModel extends FormModel implements GlobalSearchInterface
     {
         $mailer = $this->mailHelper->getMailer();
         $text   = $this->translator->trans(
-            'mautic.user.user.emailchange.email.body',
+            'mailvotech.user.user.emailchange.email.body',
             ['%name%' => $user->getFirstName()]
         );
         $text = str_replace('\\n', "\n", $text);
@@ -337,7 +337,7 @@ class UserModel extends FormModel implements GlobalSearchInterface
 
         $mailer->setTo([$oldEmail => $user->getName()]);
         $mailer->setBody($html);
-        $mailer->setSubject($this->translator->trans('mautic.user.user.emailchange.subject'));
+        $mailer->setSubject($this->translator->trans('mailvotech.user.user.emailchange.subject'));
         $mailer->send();
     }
 
@@ -425,13 +425,13 @@ class UserModel extends FormModel implements GlobalSearchInterface
         $this->em->persist($invite);
         $this->em->flush();
 
-        $link   = $this->router->generate('mautic_user_invite_register', ['token' => $inviteToken['token']], UrlGeneratorInterface::ABSOLUTE_URL);
+        $link   = $this->router->generate('mailvotech_user_invite_register', ['token' => $inviteToken['token']], UrlGeneratorInterface::ABSOLUTE_URL);
         $mailer = $this->mailHelper->getMailer();
         $mailer->setTo([$email => $email]);
-        $mailer->setSubject($this->translator->trans('mautic.user.invite.subject'));
-        $text = $this->translator->trans('mautic.user.invite.email.body', ['%invite_link%' => $link]);
+        $mailer->setSubject($this->translator->trans('mailvotech.user.invite.subject'));
+        $text = $this->translator->trans('mailvotech.user.invite.email.body', ['%invite_link%' => $link]);
         $text = str_replace('\\n', "\n", $text);
-        $mailer->setBody($this->twig->render('@MauticUser/Email/invite.html.twig', [
+        $mailer->setBody($this->twig->render('@MailVotechUser/Email/invite.html.twig', [
             'inviteLink' => $link,
         ]));
         $mailer->setPlainText($text);

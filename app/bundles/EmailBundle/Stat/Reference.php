@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\EmailBundle\Stat;
+namespace MailVotech\EmailBundle\Stat;
 
-use Mautic\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\Stat;
 
 final class Reference
 {

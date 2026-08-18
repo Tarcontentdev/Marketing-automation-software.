@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Tests\Functional\Controller;
+namespace MailVotech\PointBundle\Tests\Functional\Controller;
 
-use Mautic\PointBundle\Entity\Trigger;
-use Mautic\ProjectBundle\Tests\Functional\AbstractProjectSearchTestCase;
+use MailVotech\PointBundle\Entity\Trigger;
+use MailVotech\ProjectBundle\Tests\Functional\AbstractProjectSearchTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class TriggerProjectSearchFunctionalTest extends AbstractProjectSearchTestCase

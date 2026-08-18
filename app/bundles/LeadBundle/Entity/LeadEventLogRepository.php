@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<LeadEventLog>
@@ -103,7 +103,7 @@ class LeadEventLogRepository extends CommonRepository
         $alias = $this->getTableAlias();
         $qb    = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('*')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_event_log', $alias);
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_event_log', $alias);
 
         if ($contact) {
             $qb->andWhere($alias.'.lead_id = :lead')
@@ -148,7 +148,7 @@ class LeadEventLogRepository extends CommonRepository
     public function updateLead($fromLeadId, $toLeadId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'lead_event_log')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'lead_event_log')
             ->set('lead_id', (int) $toLeadId)
             ->where('lead_id = '.(int) $fromLeadId)
             ->executeStatement();

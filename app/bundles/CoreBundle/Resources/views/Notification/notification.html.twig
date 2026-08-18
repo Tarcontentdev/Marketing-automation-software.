@@ -11,18 +11,18 @@
         {% endif %}
         <div class="text-secondary">{{ format(n.message, 'html') }}</div>
     </div>
-    {% include '@MauticCore/Helper/button.html.twig' with {
+    {% include '@MailVotechCore/Helper/button.html.twig' with {
         buttons: [
             {
                 variant: 'ghost',
                 icon_only: true,
                 icon: 'ri-close-line do-not-close',
-                label: 'mautic.core.notifications.clear',
+                label: 'mailvotech.core.notifications.clear',
                 size: 'xs',
                 attributes: {
                     'class': 'pull-right close do-not-close'
                 },
-                onclick: 'Mautic.clearNotification(' ~ n.id ~ ');'
+                onclick: 'MailVotech.clearNotification(' ~ n.id ~ ');'
             }
         ]
     } %}

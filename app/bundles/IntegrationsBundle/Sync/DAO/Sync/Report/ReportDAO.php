@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Sync\Report;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\RemappedObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InformationChangeRequestDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\RelationsDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\RemappedObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InformationChangeRequestDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\RelationsDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\FieldNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
 
 class ReportDAO
 {

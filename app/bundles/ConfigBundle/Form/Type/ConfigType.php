@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\ConfigBundle\Form\Type;
+namespace MailVotech\ConfigBundle\Form\Type;
 
-use Mautic\ConfigBundle\Form\Helper\RestrictionHelper;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\ConfigBundle\Form\Helper\RestrictionHelper;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -23,7 +23,7 @@ final class ConfigType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // TODO very dirty quick fix for https://github.com/mautic/mautic/issues/8854
+        // TODO very dirty quick fix for https://github.com/mailvotech/mailvotech/issues/8854
         if (isset($options['data']['apiconfig']['parameters']['api_oauth2_access_token_lifetime'])
             && 3600 === $options['data']['apiconfig']['parameters']['api_oauth2_access_token_lifetime']
         ) {
@@ -74,8 +74,8 @@ final class ConfigType extends AbstractType
             'buttons',
             FormButtonsType::class,
             [
-                'apply_onclick' => 'Mautic.activateBackdrop()',
-                'save_onclick'  => 'Mautic.activateBackdrop()',
+                'apply_onclick' => 'MailVotech.activateBackdrop()',
+                'save_onclick'  => 'MailVotech.activateBackdrop()',
             ]
         );
 

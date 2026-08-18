@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Controller;
+namespace MailVotech\EmailBundle\Controller;
 
-use Mautic\CategoryBundle\Model\CategoryModel;
-use Mautic\CoreBundle\Controller\AbstractFormController;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Form\Type\BatchCategoryType;
-use Mautic\EmailBundle\Model\EmailActionModel;
+use MailVotech\CategoryBundle\Model\CategoryModel;
+use MailVotech\CoreBundle\Controller\AbstractFormController;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Form\Type\BatchCategoryType;
+use MailVotech\EmailBundle\Model\EmailActionModel;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,11 +29,11 @@ final class BatchEmailController extends AbstractFormController
             $newCategory = $categoryModel->getEntity($newCategoryId);
             $affected    = $actionModel->setCategory($ids, $newCategory);
 
-            $this->addFlashMessage('mautic.email.batch_emails_affected', [
+            $this->addFlashMessage('mailvotech.email.batch_emails_affected', [
                 '%count%' => count($affected),
             ]);
         } else {
-            $this->addFlashMessage('mautic.core.error.ids.missing');
+            $this->addFlashMessage('mailvotech.core.error.ids.missing');
         }
 
         return new JsonResponse([
@@ -41,8 +41,8 @@ final class BatchEmailController extends AbstractFormController
             'flashes'     => $this->getFlashContent(),
             'affected'    => !empty($affected) ? array_map(fn (Email $affected) => $affected->getId(), $affected) : [],
             'newCategory' => [
-                'name'  => $newCategory instanceof \Mautic\CategoryBundle\Entity\Category ? $newCategory->getTitle() : null,
-                'color' => $newCategory instanceof \Mautic\CategoryBundle\Entity\Category ? $newCategory->getColor() : null,
+                'name'  => $newCategory instanceof \MailVotech\CategoryBundle\Entity\Category ? $newCategory->getTitle() : null,
+                'color' => $newCategory instanceof \MailVotech\CategoryBundle\Entity\Category ? $newCategory->getColor() : null,
             ],
             'callback' => 'emailBatchSubmitCallback',
         ]);
@@ -53,7 +53,7 @@ final class BatchEmailController extends AbstractFormController
      */
     public function indexAction(): Response
     {
-        $route = $this->generateUrl('mautic_email_batch_categories_set');
+        $route = $this->generateUrl('mailvotech_email_batch_categories_set');
 
         return $this->delegateView(
             [
@@ -69,10 +69,10 @@ final class BatchEmailController extends AbstractFormController
                         ]
                     )->createView(),
                 ],
-                'contentTemplate' => '@MauticEmail/Batch/form.html.twig',
+                'contentTemplate' => '@MailVotechEmail/Batch/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_email_index',
-                    'mauticContent' => 'emailBatch',
+                    'activeLink'    => '#mailvotech_email_index',
+                    'mailvotechContent' => 'emailBatch',
                     'route'         => $route,
                 ],
             ]

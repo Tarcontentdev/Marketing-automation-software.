@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\EventListener;
+namespace MailVotech\SmsBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\LeadBundle\Entity\LeadEventLogRepository;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\EventListener\TimelineEventLogTrait;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\SmsBundle\Event\ReplyEvent;
-use Mautic\SmsBundle\SmsEvents;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Entity\LeadEventLogRepository;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\EventListener\TimelineEventLogTrait;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\SmsBundle\Event\ReplyEvent;
+use MailVotech\SmsBundle\SmsEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ReplySubscriber implements EventSubscriberInterface
@@ -60,12 +60,12 @@ final class ReplySubscriber implements EventSubscriberInterface
         $this->addEvents(
             $event,
             'sms_reply',
-            'mautic.sms.timeline.reply',
+            'mailvotech.sms.timeline.reply',
             'ri-smartphone-line',
             'sms',
             'sms',
             'reply',
-            '@MauticSms/SubscribedEvents/Timeline/reply.html.twig'
+            '@MailVotechSms/SubscribedEvents/Timeline/reply.html.twig'
         );
     }
 }

@@ -453,11 +453,11 @@ section {
     padding: 3rem 2rem;
     float: left;
   }
-  .mauticform-row:nth-child(odd) {
+  .mailvotechform-row:nth-child(odd) {
     padding-left: 0;
   }
 
-  .mauticform-row:nth-child(even) {
+  .mailvotechform-row:nth-child(even) {
     padding-right: 0;
   }
 }
@@ -636,8 +636,8 @@ section {
     background: rgba(255, 255, 255, .3)
 }
 
-.form .mauticform-checkboxgrp-label,
-.form .mauticform-radiogrp-row label {
+.form .mailvotechform-checkboxgrp-label,
+.form .mailvotechform-radiogrp-row label {
     text-transform: none;
     font-size: .8rem;
     font-weight: 600;
@@ -645,7 +645,7 @@ section {
 }
 
 .form label,
-.form label.mauticform-label {
+.form label.mailvotechform-label {
     font-size: .75rem!important;
     font-weight: 400!important;
     margin-bottom: .5rem!important;
@@ -653,7 +653,7 @@ section {
 }
 
 .form label span,
-.form label.mauticform-label span {
+.form label.mailvotechform-label span {
     width: 70%;
     display: inline-block;
     vertical-align: middle
@@ -666,7 +666,7 @@ section {
     line-height: 1rem
 }
 
-.form button.mauticform-pagebreak {
+.form button.mailvotechform-pagebreak {
     position: relative;
     margin-top: .5rem!important;
     margin-left: calc(50% - 8rem)!important;
@@ -674,7 +674,7 @@ section {
     margin-bottom: 0!important
 }
 
-.form button.mauticform-pagebreak.mautic-pagebreak-back {
+.form button.mailvotechform-pagebreak.mailvotech-pagebreak-back {
     background: 0 0!important;
     color: #fff!important;
     -webkit-box-shadow: none!important;
@@ -684,7 +684,7 @@ section {
     font-weight: 400!important
 }
 
-.form button.mauticform-pagebreak~.mauticform-button-wrapper {
+.form button.mailvotechform-pagebreak~.mailvotechform-button-wrapper {
     margin-top: 0!important
 }
 
@@ -698,7 +698,7 @@ section {
     margin: 0 0 .5rem
 }
 
-.form .mauticform-required:after {
+.form .mailvotechform-required:after {
     content: '*';
     position: absolute;
     top: 1rem;
@@ -770,7 +770,7 @@ section {
     font-weight: 700
 }
 
-.form.white .mauticform-required:after {
+.form.white .mailvotechform-required:after {
     color: rgba(33, 33, 33, .2)
 }
 
@@ -798,7 +798,7 @@ section {
 }
 
 .form .button,
-.form .mauticform-button-wrapper .mauticform-button,
+.form .mailvotechform-button-wrapper .mailvotechform-button,
 .form button,
 .form button.btn.btn-default {
     background: #00bf9a;
@@ -820,7 +820,7 @@ section {
 }
 
 .form .button:hover,
-.form .mauticform-button-wrapper .mauticform-button:hover,
+.form .mailvotechform-button-wrapper .mailvotechform-button:hover,
 .form button.btn.btn-default:hover,
 .form button:hover {
     -webkit-transition: all 1s cubic-bezier(.19, 1, .22, 1);
@@ -831,22 +831,22 @@ section {
     box-shadow: -2px 2px 2px 0 rgba(0, 0, 0, .5)
 }
 
-.form .button#mauticform_input_mauticcomsignupfree_final_page,
-.form .mauticform-button-wrapper .mauticform-button#mauticform_input_mauticcomsignupfree_final_page,
-.form button#mauticform_input_mauticcomsignupfree_final_page,
-.form button.btn.btn-default#mauticform_input_mauticcomsignupfree_final_page {
+.form .button#mailvotechform_input_mailvotechcomsignupfree_final_page,
+.form .mailvotechform-button-wrapper .mailvotechform-button#mailvotechform_input_mailvotechcomsignupfree_final_page,
+.form button#mailvotechform_input_mailvotechcomsignupfree_final_page,
+.form button.btn.btn-default#mailvotechform_input_mailvotechcomsignupfree_final_page {
     color: #fff;
     background: #1E2A36
 }
 
-.form .button#mauticform_input_mauticcomsignupfree_final_page:hover,
-.form .mauticform-button-wrapper .mauticform-button#mauticform_input_mauticcomsignupfree_final_page:hover,
-.form button#mauticform_input_mauticcomsignupfree_final_page:hover,
-.form button.btn.btn-default#mauticform_input_mauticcomsignupfree_final_page:hover {
+.form .button#mailvotechform_input_mailvotechcomsignupfree_final_page:hover,
+.form .mailvotechform-button-wrapper .mailvotechform-button#mailvotechform_input_mailvotechcomsignupfree_final_page:hover,
+.form button#mailvotechform_input_mailvotechcomsignupfree_final_page:hover,
+.form button.btn.btn-default#mailvotechform_input_mailvotechcomsignupfree_final_page:hover {
     background: #11181F
 }
 
-.form .mauticform-errormsg {
+.form .mailvotechform-errormsg {
     height: 2rem;
     float: left;
     color: #FF6363;
@@ -856,16 +856,16 @@ section {
     padding: .4rem 0 0
 }
 
-.form .mauticform-freetext {
+.form .mailvotechform-freetext {
     width: 100%
 }
 
-.form .mauticform-freetext span {
+.form .mailvotechform-freetext span {
     font-size: 1.2rem!important;
     line-height: 1.9rem!important
 }
 
-.form .mauticform-freetext a {
+.form .mailvotechform-freetext a {
     color: #00bf9a!important
 }
 
@@ -879,7 +879,7 @@ section {
     font-weight: 500
 }
 
-.mauticform-row {
+.mailvotechform-row {
     width: 50%;
     float: left;
     padding: .75rem .9rem;
@@ -888,43 +888,43 @@ section {
 }
 
 @media (min-width:73rem) {
-  .mauticform-row:nth-child(odd) {
+  .mailvotechform-row:nth-child(odd) {
     padding-left: 0;
   }
 
-  .mauticform-row:nth-child(even) {
+  .mailvotechform-row:nth-child(even) {
     padding-right: 0;
   }
 }
 
-.mauticform-row#mauticform_contactus_message {
+.mailvotechform-row#mailvotechform_contactus_message {
     width: 100%
 }
 
-.mauticform-row#mauticform_contactus_message textarea {
+.mailvotechform-row#mailvotechform_contactus_message textarea {
     height: 7rem
 }
 
-.mauticform-row.mauticform-has-error,
-.mauticform-row.mauticform-has-error+.mauticform-row {
+.mailvotechform-row.mailvotechform-has-error,
+.mailvotechform-row.mailvotechform-has-error+.mailvotechform-row {
     min-height: 7.5rem
 }
 
-.mauticform-pagebreak-wrapper,
-.mauticform-row.mauticform-button-wrapper {
+.mailvotechform-pagebreak-wrapper,
+.mailvotechform-row.mailvotechform-button-wrapper {
     width: 100%;
     text-align: center;
     margin: 1rem 0 0
 }
 
 @media (max-width:48rem) {
-    .mauticform-row {
+    .mailvotechform-row {
         width: 100%;
         padding: .75rem 0;
     }
 }
 
-.form .mauticform-row.mauticform-required .mauticform-label:after {
+.form .mailvotechform-row.mailvotechform-required .mailvotechform-label:after {
   color: #fff;
   line-height: .75rem;
   vertical-align: bottom;

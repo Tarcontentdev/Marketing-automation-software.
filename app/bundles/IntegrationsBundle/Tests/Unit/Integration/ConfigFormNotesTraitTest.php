@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Integration;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Integration;
 
-use Mautic\IntegrationsBundle\DTO\Note;
-use Mautic\IntegrationsBundle\Integration\ConfigFormNotesTrait;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormNotesInterface;
+use MailVotech\IntegrationsBundle\DTO\Note;
+use MailVotech\IntegrationsBundle\Integration\ConfigFormNotesTrait;
+use MailVotech\IntegrationsBundle\Integration\Interfaces\ConfigFormNotesInterface;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigFormNotesTraitTest extends TestCase

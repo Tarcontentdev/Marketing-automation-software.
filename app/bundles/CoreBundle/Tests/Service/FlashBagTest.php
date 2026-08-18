@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Service;
+namespace MailVotech\CoreBundle\Tests\Service;
 
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\CoreBundle\Service\FlashBag;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\Service\FlashBag;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -166,7 +166,7 @@ final class FlashBagTest extends TestCase
         $this->assertAddTypeCases('default', 'ri-information-2-line');
     }
 
-    private function assertReadStatus(int $mauticUserLastActive, bool $isRead): void
+    private function assertReadStatus(int $mailvotechUserLastActive, bool $isRead): void
     {
         $message            = 'message';
         $messageVars        = [];
@@ -195,8 +195,8 @@ final class FlashBagTest extends TestCase
         $request
             ->expects($this->once())
             ->method('get')
-            ->with('mauticUserLastActive', 0)
-            ->willReturn($mauticUserLastActive);
+            ->with('mailvotechUserLastActive', 0)
+            ->willReturn($mailvotechUserLastActive);
 
         $this->requestStack
             ->expects($this->once())
@@ -218,7 +218,7 @@ final class FlashBagTest extends TestCase
         $translatedMessage    = 'translatedMessage';
         $domain               = 'flashes';
         $addNotification      = true; // <---
-        $mauticUserLastActive = 1; // <---
+        $mailvotechUserLastActive = 1; // <---
 
         $this->symfonyFlashBag
             ->expects($this->once())
@@ -240,8 +240,8 @@ final class FlashBagTest extends TestCase
         $request
             ->expects($this->once())
             ->method('get')
-            ->with('mauticUserLastActive', 0)
-            ->willReturn($mauticUserLastActive);
+            ->with('mailvotechUserLastActive', 0)
+            ->willReturn($mailvotechUserLastActive);
 
         $this->requestStack
             ->expects($this->once())

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\MonitoredEmail\Accessor;
+namespace MailVotech\EmailBundle\MonitoredEmail\Accessor;
 
 final class ConfigAccessor
 {

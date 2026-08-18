@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\Decorator\Date\Week;
+namespace MailVotech\LeadBundle\Tests\Segment\Decorator\Date\Week;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\Decorator\Date\DateOptionParameters;
-use Mautic\LeadBundle\Segment\Decorator\Date\TimezoneResolver;
-use Mautic\LeadBundle\Segment\Decorator\Date\Week\DateWeekLast;
-use Mautic\LeadBundle\Segment\Decorator\Date\Week\DateWeekThis;
-use Mautic\LeadBundle\Segment\Decorator\DateDecorator;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\Decorator\Date\DateOptionParameters;
+use MailVotech\LeadBundle\Segment\Decorator\Date\TimezoneResolver;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Week\DateWeekLast;
+use MailVotech\LeadBundle\Segment\Decorator\Date\Week\DateWeekThis;
+use MailVotech\LeadBundle\Segment\Decorator\DateDecorator;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(DateWeekLast::class)]

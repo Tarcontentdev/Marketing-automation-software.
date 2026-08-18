@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Helper;
+namespace MailVotech\FormBundle\Tests\Helper;
 
-use Mautic\FormBundle\Helper\PropertiesAccessor;
-use Mautic\FormBundle\Model\FormModel;
+use MailVotech\FormBundle\Helper\PropertiesAccessor;
+use MailVotech\FormBundle\Model\FormModel;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class PropertiesAccessorTest extends \PHPUnit\Framework\TestCase

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Twig\Extension;
+namespace MailVotech\LeadBundle\Twig\Extension;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Twig\Helper\AvatarHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Twig\Helper\AvatarHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

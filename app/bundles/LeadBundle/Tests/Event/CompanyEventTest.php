@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Event;
+namespace MailVotech\LeadBundle\Tests\Event;
 
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Event\CompanyEvent;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Event\CompanyEvent;
 
 final class CompanyEventTest extends \PHPUnit\Framework\TestCase
 {

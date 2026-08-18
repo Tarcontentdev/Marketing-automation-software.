@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CoreBundle\DependencyInjection\Builder\Metadata;
+namespace MailVotech\CoreBundle\DependencyInjection\Builder\Metadata;
 
 use Illuminate\Support\Collection;
-use Mautic\CoreBundle\DependencyInjection\Builder\BundleMetadata;
+use MailVotech\CoreBundle\DependencyInjection\Builder\BundleMetadata;
 
 final class ConfigMetadata
 {

@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\Helper;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\Helper;
 
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
-use Mautic\IntegrationsBundle\Entity\ObjectMappingRepository;
-use Mautic\IntegrationsBundle\Event\InternalObjectFindEvent;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectDeletedException;
-use Mautic\IntegrationsBundle\Sync\Helper\MappingHelper;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Entity\ObjectMappingRepository;
+use MailVotech\IntegrationsBundle\Event\InternalObjectFindEvent;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\MappingManualDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Mapping\UpdatedObjectMappingDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\ObjectDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectDeletedException;
+use MailVotech\IntegrationsBundle\Sync\Helper\MappingHelper;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Company;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -77,14 +77,14 @@ final class MappingHelperTest extends TestCase
             ->willReturn($internalObjectDAO);
 
         $internalObjectName  = 'Contact';
-        $foundInternalObject = $this->mappingHelper->findMauticObject($mappingManual, $internalObjectName, $integrationObjectDAO);
+        $foundInternalObject = $this->mappingHelper->findMailVotechObject($mappingManual, $internalObjectName, $integrationObjectDAO);
 
         $this->assertEquals($internalObjectName, $foundInternalObject->getObject());
         $this->assertEquals($internalObjectDAO['internal_object_id'], $foundInternalObject->getObjectId());
         $this->assertEquals($internalObjectDAO['last_sync_date'], $foundInternalObject->getChangeDateTime()->format('Y-m-d H:i:s'));
     }
 
-    public function testMauticObjectSearchedAndEmptyObjectReturnedIfNoIdentifierFieldsAreMapped(): void
+    public function testMailVotechObjectSearchedAndEmptyObjectReturnedIfNoIdentifierFieldsAreMapped(): void
     {
         $this->fieldsWithUniqueIdentifier->expects($this->once())
             ->method('getFieldsWithUniqueIdentifier')
@@ -94,13 +94,13 @@ final class MappingHelperTest extends TestCase
         $internalObjectName   = 'Contact';
         $integrationObjectDAO = new ObjectDAO('Object', 1);
 
-        $foundInternalObject = $this->mappingHelper->findMauticObject($mappingManual, $internalObjectName, $integrationObjectDAO);
+        $foundInternalObject = $this->mappingHelper->findMailVotechObject($mappingManual, $internalObjectName, $integrationObjectDAO);
 
         $this->assertEquals($internalObjectName, $foundInternalObject->getObject());
         $this->assertEquals(null, $foundInternalObject->getObjectId());
     }
 
-    public function testEmptyObjectIsReturnedWhenMauticContactIsNotFound(): void
+    public function testEmptyObjectIsReturnedWhenMailVotechContactIsNotFound(): void
     {
         $this->fieldsWithUniqueIdentifier->expects($this->once())
             ->method('getFieldsWithUniqueIdentifier')
@@ -140,13 +140,13 @@ final class MappingHelperTest extends TestCase
                 IntegrationEvents::INTEGRATION_FIND_INTERNAL_RECORDS
             );
 
-        $foundInternalObject = $this->mappingHelper->findMauticObject($mappingManual, $internalObjectName, $integrationObjectDAO);
+        $foundInternalObject = $this->mappingHelper->findMailVotechObject($mappingManual, $internalObjectName, $integrationObjectDAO);
 
         $this->assertEquals($internalObjectName, $foundInternalObject->getObject());
         $this->assertEquals(null, $foundInternalObject->getObjectId());
     }
 
-    public function testMauticContactIsFoundAndReturnedAsObjectDAO(): void
+    public function testMailVotechContactIsFoundAndReturnedAsObjectDAO(): void
     {
         $this->fieldsWithUniqueIdentifier->expects($this->once())
             ->method('getFieldsWithUniqueIdentifier')
@@ -199,13 +199,13 @@ final class MappingHelperTest extends TestCase
                 IntegrationEvents::INTEGRATION_FIND_INTERNAL_RECORDS
             );
 
-        $foundInternalObject = $this->mappingHelper->findMauticObject($mappingManual, $internalObjectName, $integrationObjectDAO);
+        $foundInternalObject = $this->mappingHelper->findMailVotechObject($mappingManual, $internalObjectName, $integrationObjectDAO);
 
         $this->assertEquals($internalObjectName, $foundInternalObject->getObject());
         $this->assertEquals(3, $foundInternalObject->getObjectId());
     }
 
-    public function testMauticCompanyIsFoundAndReturnedAsObjectDAO(): void
+    public function testMailVotechCompanyIsFoundAndReturnedAsObjectDAO(): void
     {
         $this->fieldsWithUniqueIdentifier->expects($this->once())
             ->method('getFieldsWithUniqueIdentifier')
@@ -258,7 +258,7 @@ final class MappingHelperTest extends TestCase
                 IntegrationEvents::INTEGRATION_FIND_INTERNAL_RECORDS
             );
 
-        $foundInternalObject = $this->mappingHelper->findMauticObject(
+        $foundInternalObject = $this->mappingHelper->findMailVotechObject(
             $mappingManual,
             $internalObjectName,
             $integrationObjectDAO

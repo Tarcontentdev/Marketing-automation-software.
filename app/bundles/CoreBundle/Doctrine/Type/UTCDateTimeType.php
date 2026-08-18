@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\CoreBundle\Doctrine\Type;
+namespace MailVotech\CoreBundle\Doctrine\Type;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeType;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 
 final class UTCDateTimeType extends DateTimeType
 {

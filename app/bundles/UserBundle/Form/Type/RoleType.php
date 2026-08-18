@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\UserBundle\Form\Type;
+namespace MailVotech\UserBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\UserBundle\Entity\Role;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\UserBundle\Entity\Role;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,7 +28,7 @@ final class RoleType extends AbstractType
             'name',
             TextType::class,
             [
-                'label'      => 'mautic.core.name',
+                'label'      => 'mailvotech.core.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
             ]
@@ -38,7 +38,7 @@ final class RoleType extends AbstractType
             'description',
             TextareaType::class,
             [
-                'label'      => 'mautic.core.description',
+                'label'      => 'mailvotech.core.description',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control editor'],
                 'required'   => false,
@@ -46,10 +46,10 @@ final class RoleType extends AbstractType
         );
 
         $builder->add('isAdmin', YesNoButtonGroupType::class, [
-            'label' => 'mautic.user.role.form.isadmin',
+            'label' => 'mailvotech.user.role.form.isadmin',
             'attr'  => [
-                'onchange' => 'Mautic.togglePermissionVisibility();',
-                'tooltip'  => 'mautic.user.role.form.isadmin.tooltip',
+                'onchange' => 'MailVotech.togglePermissionVisibility();',
+                'tooltip'  => 'mailvotech.user.role.form.isadmin.tooltip',
             ],
         ]);
 
@@ -60,7 +60,7 @@ final class RoleType extends AbstractType
             'permissions',
             PermissionsType::class,
             [
-                'label'    => 'mautic.user.role.permissions',
+                'label'    => 'mailvotech.user.role.permissions',
                 'mapped'   => false, // we'll have to manually build the permissions for persisting
                 'required' => false,
                 'attr'     => [

@@ -5,30 +5,30 @@ declare(strict_types=1);
 return [
     'routes' => [
         'main' => [
-            'mautic_stage_index' => [
+            'mailvotech_stage_index' => [
                 'path'       => '/stages/{page}',
-                'controller' => 'Mautic\StageBundle\Controller\StageController::indexAction',
+                'controller' => 'MailVotech\StageBundle\Controller\StageController::indexAction',
             ],
-            'mautic_stage_action' => [
+            'mailvotech_stage_action' => [
                 'path'       => '/stages/{objectAction}/{objectId}',
-                'controller' => 'Mautic\StageBundle\Controller\StageController::executeAction',
+                'controller' => 'MailVotech\StageBundle\Controller\StageController::executeAction',
             ],
         ],
         'api' => [
-            'mautic_api_stagesstandard' => [
+            'mailvotech_api_stagesstandard' => [
                 'standard_entity' => true,
                 'name'            => 'stages',
                 'path'            => '/stages',
-                'controller'      => Mautic\StageBundle\Controller\Api\StageApiController::class,
+                'controller'      => MailVotech\StageBundle\Controller\Api\StageApiController::class,
             ],
-            'mautic_api_stageddcontact' => [
+            'mailvotech_api_stageddcontact' => [
                 'path'       => '/stages/{id}/contact/{contactId}/add',
-                'controller' => 'Mautic\StageBundle\Controller\Api\StageApiController::addContactAction',
+                'controller' => 'MailVotech\StageBundle\Controller\Api\StageApiController::addContactAction',
                 'method'     => 'POST',
             ],
-            'mautic_api_stageremovecontact' => [
+            'mailvotech_api_stageremovecontact' => [
                 'path'       => '/stages/{id}/contact/{contactId}/remove',
-                'controller' => 'Mautic\StageBundle\Controller\Api\StageApiController::removeContactAction',
+                'controller' => 'MailVotech\StageBundle\Controller\Api\StageApiController::removeContactAction',
                 'method'     => 'POST',
             ],
         ],
@@ -36,8 +36,8 @@ return [
 
     'menu' => [
         'main' => [
-            'mautic.stages.menu.index' => [
-                'route'     => 'mautic_stage_index',
+            'mailvotech.stages.menu.index' => [
+                'route'     => 'mailvotech_stage_index',
                 'iconClass' => 'ri-barricade-fill flip-vertically',
                 'access'    => ['stage:stages:view'],
                 'priority'  => 25,
@@ -47,7 +47,7 @@ return [
 
     'categories' => [
         'stage' => [
-            'class' => Mautic\StageBundle\Entity\Stage::class,
+            'class' => MailVotech\StageBundle\Entity\Stage::class,
         ],
     ],
 ];

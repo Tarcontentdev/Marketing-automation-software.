@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Tests\Functional;
+namespace MailVotech\DynamicContentBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
 use Symfony\Component\HttpFoundation\Request;
 
-final class DynamicContentCloneTest extends MauticMysqlTestCase
+final class DynamicContentCloneTest extends MailVotechMysqlTestCase
 {
     public function testCloneActionForDynamicContent(): void
     {

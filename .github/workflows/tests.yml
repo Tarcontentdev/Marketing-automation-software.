@@ -1,4 +1,4 @@
-name: Mautic tests and validations
+name: MailVotech tests and validations
 
 on:
   push:
@@ -15,8 +15,8 @@ permissions:
 
 jobs:
   phpunit:
-    # We don't want the scheduled jobs to run on forks of Mautic
-    if: (github.event_name == 'schedule' && (github.repository == 'mautic/mautic' || github.repository == 'mautic/api-library') ) || (github.event_name != 'schedule')
+    # We don't want the scheduled jobs to run on forks of MailVotech
+    if: (github.event_name == 'schedule' && (github.repository == 'mailvotech/mailvotech' || github.repository == 'mailvotech/api-library') ) || (github.event_name != 'schedule')
     runs-on: ubuntu-latest
 
     strategy:
@@ -35,12 +35,12 @@ jobs:
 
     env:
       # Collecting coverage roughly doubles the runtime of this job (~10 min -> ~19 min), so we only
-      # do it where the report is actually uploaded: on the mautic/mautic repository, for merges and
+      # do it where the report is actually uploaded: on the mailvotech/mailvotech repository, for merges and
       # for the nightly schedule. Pull requests skip it, which also stops fork PRs from generating a
       # coverage report that is then discarded.
       COVERAGE: ${{ matrix.php-versions == '8.2'
         && matrix.db-types == 'mariadb:10.11'
-        && github.repository == 'mautic/mautic'
+        && github.repository == 'mailvotech/mailvotech'
         && (github.event_name == 'push' || github.event_name == 'schedule') }}
 
     services:
@@ -48,7 +48,7 @@ jobs:
         image: ${{ matrix.db-types }}
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: mautictest
+          MYSQL_DATABASE: mailvotechtest
         ports:
           - 3306
         options: >-
@@ -103,7 +103,7 @@ jobs:
     - name: Set SYMFONY_ENV to test
       run: |
         echo "SYMFONY_ENV=test" >> $GITHUB_ENV
-        echo "MAUTIC_ENV=test" >> $GITHUB_ENV
+        echo "MAILVOTECH_ENV=test" >> $GITHUB_ENV
 
     - name: Install dependencies
       uses: "ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda" # 4.0.0
@@ -143,7 +143,7 @@ jobs:
       if: ${{ failure() && github.event_name == 'schedule' }}
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        SLACK_MESSAGE: 'The daily GitHub Actions tests in mautic/mautic have failed. Most likely something external has changed, like a PHP version update.'
+        SLACK_MESSAGE: 'The daily GitHub Actions tests in mailvotech/mailvotech have failed. Most likely something external has changed, like a PHP version update.'
 
     - name: Store log artifacts
       if: ${{ always() }}
@@ -179,8 +179,8 @@ jobs:
         if-no-files-found: ignore
 
   misc:
-    # We don't want the scheduled jobs to run on forks of Mautic
-    if: (github.event_name == 'schedule' && (github.repository == 'mautic/mautic' || github.repository == 'mautic/api-library') ) || (github.event_name != 'schedule')
+    # We don't want the scheduled jobs to run on forks of MailVotech
+    if: (github.event_name == 'schedule' && (github.repository == 'mailvotech/mailvotech' || github.repository == 'mailvotech/api-library') ) || (github.event_name != 'schedule')
     runs-on: ubuntu-latest
 
     strategy:
@@ -264,8 +264,8 @@ jobs:
           fi
         elif [[ "${{ matrix.commands }}" == "scaffolded files mismatch" ]]; then
           wget -q -O /tmp/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && chmod 755 /tmp/jq
-          /tmp/jq -r '.extra["mautic-scaffold"]["file-mapping"] | to_entries[] | "diff -q \(.key | sub("\\[(project|web)-root\\]";".")) app/\(.value)"' app/composer.json > diff_commands.sh
-          /tmp/jq -r '.extra["mautic-scaffold"]["file-mapping"] | to_entries[] | "diff -rui \(.key | sub("\\[(project|web)-root\\]";".")) app/\(.value)"' app/composer.json > diff_commands_verbose.sh
+          /tmp/jq -r '.extra["mailvotech-scaffold"]["file-mapping"] | to_entries[] | "diff -q \(.key | sub("\\[(project|web)-root\\]";".")) app/\(.value)"' app/composer.json > diff_commands.sh
+          /tmp/jq -r '.extra["mailvotech-scaffold"]["file-mapping"] | to_entries[] | "diff -rui \(.key | sub("\\[(project|web)-root\\]";".")) app/\(.value)"' app/composer.json > diff_commands_verbose.sh
           bash diff_commands.sh 2>&1 | tee /tmp/diff_command_output.txt
           rm diff_commands.sh
           if [[ $(wc -l </tmp/diff_command_output.txt) -ge 1 ]]; then
@@ -276,7 +276,7 @@ jobs:
             exit 1
           fi
         elif [[ "${{ matrix.commands }}" == "composer install" ]]; then
-          # create a temp dir and mimic a composer install via mautic/recommended-project
+          # create a temp dir and mimic a composer install via mailvotech/recommended-project
           mkdir test_composer
           cd test_composer
           cp ../.github/ci-files/composer.json ./
@@ -289,12 +289,12 @@ jobs:
           # test if console is executable
           ./bin/console cache:clear
 
-          # test that local_root is auto-detected from composer.json's mautic-scaffold.locations.web-root
+          # test that local_root is auto-detected from composer.json's mailvotech-scaffold.locations.web-root
           # This ensures ElFinder and other webroot-relative paths resolve correctly for recommended-project
           php -r "
             require 'vendor/autoload.php';
             \$projectRoot = getcwd();
-            \$webrootDir = Mautic\CoreBundle\Loader\ParameterLoader::getWebrootDir(\$projectRoot);
+            \$webrootDir = MailVotech\CoreBundle\Loader\ParameterLoader::getWebrootDir(\$projectRoot);
             if (\$webrootDir !== \$projectRoot . '/docroot') {
               echo \"ERROR: Expected webroot to be {\$projectRoot}/docroot, got {\$webrootDir}\n\";
               exit(1);
@@ -313,4 +313,4 @@ jobs:
       if: ${{ failure() && github.event_name == 'schedule' }}
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        SLACK_MESSAGE: 'The daily GitHub Actions tests in mautic/mautic have failed. Most likely something external has changed, like a PHP version update.'
+        SLACK_MESSAGE: 'The daily GitHub Actions tests in mailvotech/mailvotech have failed. Most likely something external has changed, like a PHP version update.'

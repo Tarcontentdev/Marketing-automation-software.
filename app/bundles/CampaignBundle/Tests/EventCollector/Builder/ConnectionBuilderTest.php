@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\EventCollector\Builder;
+namespace MailVotech\CampaignBundle\Tests\EventCollector\Builder;
 
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\EventCollector\Builder\ConnectionBuilder;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\EventCollector\Builder\ConnectionBuilder;
 
 final class ConnectionBuilderTest extends \PHPUnit\Framework\TestCase
 {

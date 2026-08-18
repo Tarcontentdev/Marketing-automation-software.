@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
-use Mautic\EmailBundle\Entity\Email;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\CoreBundle\Tests\Functional\CreateTestEntitiesTrait;
+use MailVotech\EmailBundle\Entity\Email;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class CampaignSubscriberActionEmailToContactFunctionalTest extends MauticMysqlTestCase
+final class CampaignSubscriberActionEmailToContactFunctionalTest extends MailVotechMysqlTestCase
 {
     use CreateTestEntitiesTrait;
 
@@ -40,9 +40,9 @@ final class CampaignSubscriberActionEmailToContactFunctionalTest extends MauticM
         $this->em->flush();
         $this->em->clear();
 
-        $this->testSymfonyCommand('mautic:segments:update', ['--list-id' => $segment->getId()]);
-        $this->testSymfonyCommand('mautic:campaigns:update', ['--campaign-id' => $campaign->getId()]);
-        $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $this->testSymfonyCommand('mailvotech:segments:update', ['--list-id' => $segment->getId()]);
+        $this->testSymfonyCommand('mailvotech:campaigns:update', ['--campaign-id' => $campaign->getId()]);
+        $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
 
         /** @var LeadEventLogRepository $logRepo */
         $logRepo  = self::getContainer()->get(LeadEventLogRepository::class);
@@ -55,13 +55,13 @@ final class CampaignSubscriberActionEmailToContactFunctionalTest extends MauticM
 
         $translator = self::getContainer()->get(TranslatorInterface::class);
         $noEmailLog = $translator->trans(
-            'mautic.email.contact_has_no_email',
+            'mailvotech.email.contact_has_no_email',
             ['%contact%' => $leadB->getPrimaryIdentifier()]
         );
         $this->assertSame($noEmailLog, $metaData[$leadB->getId()], 'here');
 
         $unsubscribedLog = $translator->trans(
-            'mautic.email.contact_has_unsubscribed_from_category',
+            'mailvotech.email.contact_has_unsubscribed_from_category',
             ['%contact%' => $leadC->getPrimaryIdentifier(), '%category%' => $category->getId()]
         );
         $this->assertSame($unsubscribedLog, $metaData[$leadC->getId()], 'here 2');

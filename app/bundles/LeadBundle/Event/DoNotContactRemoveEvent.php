@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Event;
+namespace MailVotech\LeadBundle\Event;
 
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class DoNotContactRemoveEvent extends Event
 {
-    public const REMOVE_DONOT_CONTACT = 'mautic.lead.remove_donot_contact';
+    public const REMOVE_DONOT_CONTACT = 'mailvotech.lead.remove_donot_contact';
 
     public function __construct(
         private readonly Lead $lead,

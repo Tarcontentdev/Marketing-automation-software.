@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\SyncDataExchange\Internal\ObjectHelper;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\SyncDataExchange\Internal\ObjectHelper;
 
 use Doctrine\DBAL\Connection;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\ReferenceValueDAO;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper\ContactObjectHelper;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\LeadBundle\DataObject\LeadManipulator;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Exception\ImportFailedException;
-use Mautic\LeadBundle\Field\FieldList;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\Model\DoNotContact;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\ReferenceValueDAO;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectHelper\ContactObjectHelper;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\LeadBundle\DataObject\LeadManipulator;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Exception\ImportFailedException;
+use MailVotech\LeadBundle\Field\FieldList;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Model\DoNotContact;
+use MailVotech\LeadBundle\Model\LeadModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -191,11 +191,11 @@ final class ContactObjectHelperTest extends TestCase
         $companyId        = 1234;
         $companyValue     = new ReferenceValueDAO();
         $companyValue->setValue($companyId);
-        $companyValue->setType(MauticSyncDataExchange::OBJECT_COMPANY);
+        $companyValue->setType(MailVotechSyncDataExchange::OBJECT_COMPANY);
 
         $emailField   = new FieldDAO('email', new NormalizedValueDAO('email', 'john@doe.com'));
         $companyField = new FieldDAO(
-            MauticSyncDataExchange::OBJECT_COMPANY,
+            MailVotechSyncDataExchange::OBJECT_COMPANY,
             new NormalizedValueDAO('reference', $companyValue, 'Company A')
         );
 
@@ -225,7 +225,7 @@ final class ContactObjectHelperTest extends TestCase
                     $this->assertSame('john@doe.com', $parameters[1]);
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame(MauticSyncDataExchange::OBJECT_COMPANY, $parameters[0]);
+                    $this->assertSame(MailVotechSyncDataExchange::OBJECT_COMPANY, $parameters[0]);
                     $this->assertSame('Company A', $parameters[1]);
                 }
             });
@@ -250,7 +250,7 @@ final class ContactObjectHelperTest extends TestCase
             ->with(1, 'email', 1, 'Test', true, true, true);
 
         $objectChangeDAO = new ObjectChangeDAO('Test', Contact::NAME, 1, 'MappedObject', 1, new \DateTime());
-        $objectChangeDAO->addField(new FieldDAO('mautic_internal_dnc_email', new NormalizedValueDAO(NormalizedValueDAO::INT_TYPE, 1)));
+        $objectChangeDAO->addField(new FieldDAO('mailvotech_internal_dnc_email', new NormalizedValueDAO(NormalizedValueDAO::INT_TYPE, 1)));
 
         $objects = [
             1 => $objectChangeDAO,
@@ -273,7 +273,7 @@ final class ContactObjectHelperTest extends TestCase
             ->with(1, 'email');
 
         $objectChangeDAO = new ObjectChangeDAO('Test', Contact::NAME, 1, 'MappedObject', 1, new \DateTime());
-        $objectChangeDAO->addField(new FieldDAO('mautic_internal_dnc_email', new NormalizedValueDAO(NormalizedValueDAO::INT_TYPE, 0)));
+        $objectChangeDAO->addField(new FieldDAO('mailvotech_internal_dnc_email', new NormalizedValueDAO(NormalizedValueDAO::INT_TYPE, 0)));
 
         $objects = [
             1 => $objectChangeDAO,
@@ -296,7 +296,7 @@ final class ContactObjectHelperTest extends TestCase
             ->with(1, 'email', 3, 'Test', true, true, true);
 
         $objectChangeDAO = new ObjectChangeDAO('Test', Contact::NAME, 1, 'MappedObject', 1, new \DateTime());
-        $objectChangeDAO->addField(new FieldDAO('mautic_internal_dnc_email', new NormalizedValueDAO(NormalizedValueDAO::INT_TYPE, 4)));
+        $objectChangeDAO->addField(new FieldDAO('mailvotech_internal_dnc_email', new NormalizedValueDAO(NormalizedValueDAO::INT_TYPE, 4)));
 
         $objects = [
             1 => $objectChangeDAO,

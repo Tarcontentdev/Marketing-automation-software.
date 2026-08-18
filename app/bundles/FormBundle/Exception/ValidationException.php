@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\FormBundle\Exception;
+namespace MailVotech\FormBundle\Exception;
 
 final class ValidationException extends \Exception
 {

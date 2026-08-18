@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\PointBundle\Entity;
+namespace MailVotech\PointBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\ProjectBundle\Entity\ProjectRepositoryTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\ProjectBundle\Entity\ProjectRepositoryTrait;
 
 /**
  * @extends CommonRepository<Point>
@@ -61,8 +61,8 @@ class PointRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder()
             ->select('p.*')
-            ->from(MAUTIC_TABLE_PREFIX.'point_lead_action_log', 'x')
-            ->innerJoin('x', MAUTIC_TABLE_PREFIX.'points', 'p', 'x.point_id = p.id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'point_lead_action_log', 'x')
+            ->innerJoin('x', MAILVOTECH_TABLE_PREFIX.'points', 'p', 'x.point_id = p.id');
 
         // make sure the published up and down dates are good
         $q->where(
@@ -91,8 +91,8 @@ class PointRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder()
             ->select('p.*')
-            ->from(MAUTIC_TABLE_PREFIX.'point_lead_action_log', 'x')
-            ->innerJoin('x', MAUTIC_TABLE_PREFIX.'points', 'p', 'x.point_id = p.id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'point_lead_action_log', 'x')
+            ->innerJoin('x', MAILVOTECH_TABLE_PREFIX.'points', 'p', 'x.point_id = p.id');
 
         // make sure the published up and down dates are good
         $q->where(
@@ -123,7 +123,7 @@ class PointRepository extends CommonRepository
     protected function addSearchCommandWhereClause($q, $filter): array
     {
         return match ($filter->command) {
-            $this->translator->trans('mautic.project.searchcommand.name'), $this->translator->trans('mautic.project.searchcommand.name', [], null, 'en_US') => $this->handleProjectFilter(
+            $this->translator->trans('mailvotech.project.searchcommand.name'), $this->translator->trans('mailvotech.project.searchcommand.name', [], null, 'en_US') => $this->handleProjectFilter(
                 $this->_em->getConnection()->createQueryBuilder(),
                 'point_id',
                 'point_projects_xref',
@@ -140,6 +140,6 @@ class PointRepository extends CommonRepository
      */
     public function getSearchCommands(): array
     {
-        return array_merge(['mautic.project.searchcommand.name'], $this->getStandardSearchCommands());
+        return array_merge(['mailvotech.project.searchcommand.name'], $this->getStandardSearchCommands());
     }
 }

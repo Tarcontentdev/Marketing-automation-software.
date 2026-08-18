@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Tests\Functional;
+namespace MailVotech\ApiBundle\Tests\Functional;
 
-use Mautic\ApiBundle\Entity\oAuth2\AccessToken;
-use Mautic\ApiBundle\Entity\oAuth2\Client;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\ApiBundle\Entity\oAuth2\AccessToken;
+use MailVotech\ApiBundle\Entity\oAuth2\Client;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -16,11 +16,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * This test must run in a separate process because it sets the global constant
- * MAUTIC_INSTALLER which breaks other tests.
+ * MAILVOTECH_INSTALLER which breaks other tests.
  */
 #[PreserveGlobalState(false)]
 #[RunTestsInSeparateProcesses]
-final class Oauth2Test extends MauticMysqlTestCase
+final class Oauth2Test extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {

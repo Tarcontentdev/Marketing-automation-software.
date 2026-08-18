@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Event;
+namespace MailVotech\LeadBundle\Tests\Event;
 
-use Mautic\LeadBundle\Event\SegmentOperatorQueryBuilderEvent;
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Event\SegmentOperatorQueryBuilderEvent;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class SegmentOperatorQueryBuilderEventTest extends \PHPUnit\Framework\TestCase
@@ -29,7 +29,7 @@ final class SegmentOperatorQueryBuilderEventTest extends \PHPUnit\Framework\Test
         $this->filter       = $this->createMock(ContactSegmentFilter::class);
 
         $this->queryBuilder->method('getTableAlias')
-            ->with(MAUTIC_TABLE_PREFIX.'leads')
+            ->with(MAILVOTECH_TABLE_PREFIX.'leads')
             ->willReturn('leads');
     }
 

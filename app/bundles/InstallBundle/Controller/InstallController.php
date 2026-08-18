@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\InstallBundle\Controller;
+namespace MailVotech\InstallBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Configurator\Configurator;
-use Mautic\CoreBundle\Controller\CommonController;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Loader\ParameterLoader;
-use Mautic\InstallBundle\Install\InstallService;
+use MailVotech\CoreBundle\Configurator\Configurator;
+use MailVotech\CoreBundle\Controller\CommonController;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Loader\ParameterLoader;
+use MailVotech\InstallBundle\Install\InstallService;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,7 +41,7 @@ final class InstallController extends CommonController
         // We're going to assume a bit here; if the config file exists already and DB info is provided, assume the app
         // is installed and redirect
         if ($this->installer->checkIfInstalled()) {
-            return $this->redirectToRoute('mautic_dashboard_index');
+            return $this->redirectToRoute('mailvotech_dashboard_index');
         }
 
         if ($index - floor($index) > 0) {
@@ -53,17 +53,17 @@ final class InstallController extends CommonController
         $params = $this->configurator->getParameters();
 
         $session        = $request->getSession();
-        $completedSteps = $session->get('mautic.installer.completedsteps', []);
+        $completedSteps = $session->get('mailvotech.installer.completedsteps', []);
 
         // Check to ensure the installer is in the right place
         if (([] === $params || empty($params['db_driver'])) && $index > 1) {
-            $session->set('mautic.installer.completedsteps', [0]);
+            $session->set('mailvotech.installer.completedsteps', [0]);
 
-            return $this->redirectToRoute('mautic_installer_step', ['index' => 1]);
+            return $this->redirectToRoute('mailvotech_installer_step', ['index' => 1]);
         }
 
         $step   = $this->configurator->getStep($index)[0];
-        $action = $this->generateUrl('mautic_installer_step', ['index' => $index]);
+        $action = $this->generateUrl('mailvotech_installer_step', ['index' => $index]);
 
         $form = $this->createForm($step->getFormType(), $step, ['action' => $action]);
         $tmpl = $request->isXmlHttpRequest() ? $request->get('tmpl', 'index') : 'index';
@@ -102,7 +102,7 @@ final class InstallController extends CommonController
                         $entityManager->getConfiguration()->getMetadataCache()->clear();
 
                         // Refresh to install schema with new connection information in the container
-                        return $this->redirectToRoute('mautic_installer_step', ['index' => 1.1]);
+                        return $this->redirectToRoute('mailvotech_installer_step', ['index' => 1.1]);
                     case InstallService::USER_STEP:
                         $messages = $this->installer->createAdminUserStep($formData);
 
@@ -113,7 +113,7 @@ final class InstallController extends CommonController
 
                         // Store the data to repopulate the form
                         unset($formData['password']);
-                        $session->set('mautic.installer.user', $formData);
+                        $session->set('mailvotech.installer.user', $formData);
 
                         $complete = true;
                         break;
@@ -128,16 +128,16 @@ final class InstallController extends CommonController
                         if ([] !== $messages) {
                             $this->handleInstallerErrors($form, $messages);
 
-                            return $this->redirectToRoute('mautic_installer_step', ['index' => 1]);
+                            return $this->redirectToRoute('mailvotech_installer_step', ['index' => 1]);
                         }
 
-                        return $this->redirectToRoute('mautic_installer_step', ['index' => 1.2]);
+                        return $this->redirectToRoute('mailvotech_installer_step', ['index' => 1.2]);
                     case 2:
                         $messages = $this->installer->createFixturesStep();
                         if ([] !== $messages) {
                             $this->handleInstallerErrors($form, $messages);
 
-                            return $this->redirectToRoute('mautic_installer_step', ['index' => 1]);
+                            return $this->redirectToRoute('mailvotech_installer_step', ['index' => 1]);
                         }
 
                         $complete = true;
@@ -148,13 +148,13 @@ final class InstallController extends CommonController
 
         if ($complete) {
             $completedSteps[] = $index;
-            $session->set('mautic.installer.completedsteps', $completedSteps);
+            $session->set('mailvotech.installer.completedsteps', $completedSteps);
             ++$index;
 
             if ($index < $this->configurator->getStepCount()) {
                 // On to the next step
 
-                return $this->redirectToRoute('mautic_installer_step', ['index' => $index]);
+                return $this->redirectToRoute('mailvotech_installer_step', ['index' => $index]);
             }
             $siteUrl  = $request->getSchemeAndHttpHost().$request->getBaseUrl();
             $messages = $this->installer->createFinalConfigStep($siteUrl);
@@ -166,13 +166,13 @@ final class InstallController extends CommonController
             return $this->postActionRedirect(
                 [
                     'viewParameters'    => [
-                        'welcome_url' => $this->generateUrl('mautic_dashboard_index'),
+                        'welcome_url' => $this->generateUrl('mailvotech_dashboard_index'),
                         'parameters'  => $this->configurator->render(),
-                        'version'     => MAUTIC_VERSION,
+                        'version'     => MAILVOTECH_VERSION,
                         'tmpl'        => $tmpl,
                     ],
-                    'returnUrl'         => $this->generateUrl('mautic_installer_final'),
-                    'contentTemplate'   => '@MauticInstall/Install/final.html.twig',
+                    'returnUrl'         => $this->generateUrl('mailvotech_installer_final'),
+                    'contentTemplate'   => '@MailVotechInstall/Install/final.html.twig',
                     'forwardController' => false,
                 ]
             );
@@ -180,7 +180,7 @@ final class InstallController extends CommonController
         // Redirect back to last step if the user advanced ahead via the URL
         $last = (int) end($completedSteps) + 1;
         if ($index && $index > $last) {
-            return $this->redirectToRoute('mautic_installer_step', ['index' => $last]);
+            return $this->redirectToRoute('mailvotech_installer_step', ['index' => $last]);
         }
 
         return $this->delegateView(
@@ -189,11 +189,11 @@ final class InstallController extends CommonController
                     'form'           => $form->createView(),
                     'index'          => $index,
                     'count'          => $this->configurator->getStepCount(),
-                    'version'        => MAUTIC_VERSION,
+                    'version'        => MAILVOTECH_VERSION,
                     'tmpl'           => $tmpl,
                     'majors'         => $this->configurator->getRequirements(),
                     'minors'         => $this->configurator->getOptionalSettings(),
-                    'appRoot'        => $this->coreParametersHelper->get('mautic.application_dir').'/app',
+                    'appRoot'        => $this->coreParametersHelper->get('mailvotech.application_dir').'/app',
                     'cacheDir'       => $this->coreParametersHelper->get('kernel.cache_dir'),
                     'logDir'         => $this->coreParametersHelper->get('kernel.logs_dir'),
                     'configFile'     => ParameterLoader::getLocalConfigFile($pathsHelper->getSystemPath('root').'/app'),
@@ -201,7 +201,7 @@ final class InstallController extends CommonController
                 ],
                 'contentTemplate' => $step->getTemplate(),
                 'passthroughVars' => [
-                    'route' => $this->generateUrl('mautic_installer_step', ['index' => $index]),
+                    'route' => $this->generateUrl('mailvotech_installer_step', ['index' => $index]),
                 ],
             ]
         );
@@ -218,23 +218,23 @@ final class InstallController extends CommonController
 
         // We're going to assume a bit here; if the config file exists already and DB info is provided, assume the app is installed and redirect
         if ($this->installer->checkIfInstalled()) {
-            if (!$session->has('mautic.installer.completedsteps')) {
+            if (!$session->has('mailvotech.installer.completedsteps')) {
                 // Arrived here by directly browsing to URL so redirect to the dashboard
 
-                return $this->redirectToRoute('mautic_dashboard_index');
+                return $this->redirectToRoute('mailvotech_dashboard_index');
             }
         } else {
             // Shouldn't have made it to this step without having a successful install
-            return $this->redirectToRoute('mautic_installer_home');
+            return $this->redirectToRoute('mailvotech_installer_home');
         }
 
         // Remove installer session variables
-        $session->remove('mautic.installer.completedsteps');
-        $session->remove('mautic.installer.user');
+        $session->remove('mailvotech.installer.completedsteps');
+        $session->remove('mailvotech.installer.user');
 
         $this->installer->finalMigrationStep();
 
-        $welcomeUrl = $this->generateUrl('mautic_dashboard_index');
+        $welcomeUrl = $this->generateUrl('mailvotech_dashboard_index');
 
         $tmpl = $request->isXmlHttpRequest() ? $request->get('tmpl', 'index') : 'index';
 
@@ -245,14 +245,14 @@ final class InstallController extends CommonController
                     'parameters'  => $this->configurator->render(),
                     'config_path' => ParameterLoader::getLocalConfigFile($pathsHelper->getSystemPath('root').'/app'),
                     'is_writable' => $this->configurator->isFileWritable(),
-                    'version'     => MAUTIC_VERSION,
+                    'version'     => MAILVOTECH_VERSION,
                     'tmpl'        => $tmpl,
                 ],
-                'contentTemplate' => '@MauticInstall/Install/final.html.twig',
+                'contentTemplate' => '@MailVotechInstall/Install/final.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_installer_index',
-                    'mauticContent' => 'installer',
-                    'route'         => $this->generateUrl('mautic_installer_final'),
+                    'activeLink'    => '#mailvotech_installer_index',
+                    'mailvotechContent' => 'installer',
+                    'route'         => $this->generateUrl('mailvotech_installer_final'),
                 ],
             ]
         );

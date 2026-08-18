@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\ArrayParameterType;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CategoryBundle\Entity\CategoryRepository;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CategoryBundle\Entity\CategoryRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 use Symfony\Contracts\Service\Attribute\Required;
 
 /**
@@ -32,8 +32,8 @@ class LeadCategoryRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder()
             ->select('lc.id, lc.category_id, lc.date_added, lc.manually_added, lc.manually_removed, c.alias, c.title')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_categories', 'lc')
-            ->join('lc', MAUTIC_TABLE_PREFIX.'categories', 'c', 'c.id = lc.category_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_categories', 'lc')
+            ->join('lc', MAILVOTECH_TABLE_PREFIX.'categories', 'c', 'c.id = lc.category_id')
             ->where('lc.lead_id = :lead')
             ->andWhere('lc.manually_removed = 0')
             ->setParameter('lead', $lead->getId());
@@ -56,8 +56,8 @@ class LeadCategoryRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder()
             ->select('lc.id, lc.category_id, lc.date_added, lc.manually_added, lc.manually_removed, c.alias, c.title')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_categories', 'lc')
-            ->join('lc', MAUTIC_TABLE_PREFIX.'categories', 'c', 'c.id = lc.category_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_categories', 'lc')
+            ->join('lc', MAILVOTECH_TABLE_PREFIX.'categories', 'c', 'c.id = lc.category_id')
             ->where('lc.lead_id = :lead')
             ->andWhere('lc.manually_removed = 1')
             ->setParameter('lead', $lead->getId());

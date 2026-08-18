@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\IpLookup;
+namespace MailVotech\CoreBundle\Tests\Unit\IpLookup;
 
-use Mautic\CoreBundle\Exception\BadConfigurationException;
-use Mautic\CoreBundle\Exception\FileNotFoundException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\IpLookup\DoNotSellList\MaxMindDoNotSellList;
+use MailVotech\CoreBundle\Exception\BadConfigurationException;
+use MailVotech\CoreBundle\Exception\FileNotFoundException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\IpLookup\DoNotSellList\MaxMindDoNotSellList;
 
 final class MaxMindDoNotSellListTest extends \PHPUnit\Framework\TestCase
 {

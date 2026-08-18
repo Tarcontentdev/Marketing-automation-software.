@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Event;
+namespace MailVotech\PluginBundle\Event;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Mautic\PluginBundle\Entity\Plugin;
+use MailVotech\PluginBundle\Entity\Plugin;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class PluginInstallEvent extends Event

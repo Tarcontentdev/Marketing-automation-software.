@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Controller\Api;
+namespace MailVotech\EmailBundle\Tests\Controller\Api;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Functional tests proving that persisted email defaults from config are applied
  * when creating emails via the API (EMAIL_PRE_SAVE subscriber).
  */
-final class EmailApiDefaultsFunctionalTest extends MauticMysqlTestCase
+final class EmailApiDefaultsFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * Disabled because testNewEmailViaApiAppliesConfiguredDefaults calls

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Helper;
+namespace MailVotech\EmailBundle\Tests\Helper;
 
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Helper\PointEventHelper;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Helper\PointEventHelper;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class PointEventHelperTest extends \PHPUnit\Framework\TestCase

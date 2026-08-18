@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Form\Type;
+namespace MailVotech\CoreBundle\Tests\Unit\Form\Type;
 
-use Mautic\CoreBundle\Factory\IpLookupFactory;
-use Mautic\CoreBundle\Form\Type\ConfigType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\LanguageHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Shortener\Shortener;
-use Mautic\PageBundle\Entity\PageRepository;
-use Mautic\PageBundle\Form\Type\PageListType;
+use MailVotech\CoreBundle\Factory\IpLookupFactory;
+use MailVotech\CoreBundle\Form\Type\ConfigType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\LanguageHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Shortener\Shortener;
+use MailVotech\PageBundle\Entity\PageRepository;
+use MailVotech\PageBundle\Form\Type\PageListType;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\PreloadedExtension;

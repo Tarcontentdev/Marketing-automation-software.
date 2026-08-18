@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\EventListener;
+namespace MailVotech\FormBundle\EventListener;
 
-use Mautic\FormBundle\Event\SubmissionEvent;
-use Mautic\FormBundle\FormEvents;
-use Mautic\WebhookBundle\Event\WebhookBuilderEvent;
-use Mautic\WebhookBundle\Model\WebhookModel;
-use Mautic\WebhookBundle\WebhookEvents;
+use MailVotech\FormBundle\Event\SubmissionEvent;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\WebhookBundle\Event\WebhookBuilderEvent;
+use MailVotech\WebhookBundle\Model\WebhookModel;
+use MailVotech\WebhookBundle\WebhookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class WebhookSubscriber implements EventSubscriberInterface
@@ -33,8 +33,8 @@ final readonly class WebhookSubscriber implements EventSubscriberInterface
     {
         // add checkbox to the webhook form for new leads
         $formSubmit = [
-            'label'       => 'mautic.form.webhook.event.form.submit',
-            'description' => 'mautic.form.webhook.event.form.submit_desc',
+            'label'       => 'mailvotech.form.webhook.event.form.submit',
+            'description' => 'mailvotech.form.webhook.event.form.submit_desc',
         ];
 
         // add it to the list

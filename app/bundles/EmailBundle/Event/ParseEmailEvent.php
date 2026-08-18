@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Event;
+namespace MailVotech\EmailBundle\Event;
 
-use Mautic\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class ParseEmailEvent extends Event
@@ -85,7 +85,7 @@ final class ParseEmailEvent extends Event
      *
      * @param string $bundleKey
      * @param string $folderKeys
-     * @param string $criteria   Should be a string using combinations of Mautic\EmailBundle\MonitoredEmail\Mailbox::CRITERIA_* constants
+     * @param string $criteria   Should be a string using combinations of MailVotech\EmailBundle\MonitoredEmail\Mailbox::CRITERIA_* constants
      * @param bool   $markAsSeen Mark the message as read after being processed
      */
     public function setCriteriaRequest($bundleKey, $folderKeys, $criteria, $markAsSeen = true): void

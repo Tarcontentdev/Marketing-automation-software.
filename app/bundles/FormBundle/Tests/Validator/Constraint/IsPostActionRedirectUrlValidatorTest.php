@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Validator\Constraint;
+namespace MailVotech\FormBundle\Tests\Validator\Constraint;
 
-use Mautic\FormBundle\Finder\Tokens\RedirectUrlTokensFinder;
-use Mautic\FormBundle\Validator\Constraint\IsPostActionRedirectUrl;
-use Mautic\FormBundle\Validator\Constraint\IsPostActionRedirectUrlValidator;
+use MailVotech\FormBundle\Finder\Tokens\RedirectUrlTokensFinder;
+use MailVotech\FormBundle\Validator\Constraint\IsPostActionRedirectUrl;
+use MailVotech\FormBundle\Validator\Constraint\IsPostActionRedirectUrlValidator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -195,7 +195,7 @@ final class IsPostActionRedirectUrlValidatorTest extends ConstraintValidatorTest
         $violation->method('getParameters')->willReturn($violationParameters);
 
         $violationList = new ConstraintViolationList([$violation]);
-        $urlConstraint = new Url(message: 'mautic.form.form.postactionproperty_redirect.url');
+        $urlConstraint = new Url(message: 'mailvotech.form.form.postactionproperty_redirect.url');
 
         $this
             ->urlValidator
@@ -223,7 +223,7 @@ final class IsPostActionRedirectUrlValidatorTest extends ConstraintValidatorTest
     public function testUrlWithTokens(string $url, string $dummyDataUrl): void
     {
         $violationList = new ConstraintViolationList();
-        $urlConstraint = new Url(message: 'mautic.form.form.postactionproperty_redirect.url');
+        $urlConstraint = new Url(message: 'mailvotech.form.form.postactionproperty_redirect.url');
 
         $this
             ->urlValidator

@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Query\Filter;
+namespace MailVotech\LeadBundle\Segment\Query\Filter;
 
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\Query\LeadBatchLimiterTrait;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
-use Mautic\LeadBundle\Segment\Query\QueryException;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\Query\LeadBatchLimiterTrait;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\QueryException;
 
 final class DoNotContactFilterQueryBuilder extends BaseFilterQueryBuilder
 {
@@ -13,7 +13,7 @@ final class DoNotContactFilterQueryBuilder extends BaseFilterQueryBuilder
 
     public static function getServiceId(): string
     {
-        return 'mautic.lead.query.builder.special.dnc';
+        return 'mailvotech.lead.query.builder.special.dnc';
     }
 
     /**
@@ -21,7 +21,7 @@ final class DoNotContactFilterQueryBuilder extends BaseFilterQueryBuilder
      */
     public function applyQuery(QueryBuilder $queryBuilder, ContactSegmentFilter $filter): QueryBuilder
     {
-        $leadsTableAlias   = $queryBuilder->getTableAlias(MAUTIC_TABLE_PREFIX.'leads');
+        $leadsTableAlias   = $queryBuilder->getTableAlias(MAILVOTECH_TABLE_PREFIX.'leads');
         $doNotContactParts = $filter->getDoNotContactParts();
         $batchLimiters     = $filter->getBatchLimiters();
         $expr              = $queryBuilder->expr();
@@ -34,7 +34,7 @@ final class DoNotContactFilterQueryBuilder extends BaseFilterQueryBuilder
 
         $filterQueryBuilder = $queryBuilder->createQueryBuilder()
             ->select($queryAlias.'.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_donotcontact', $queryAlias)
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_donotcontact', $queryAlias)
             ->andWhere($expr->eq($queryAlias.'.reason', ':'.$reasonParameter))
             ->andWhere($expr->eq($queryAlias.'.channel', ':'.$channelParameter));
 

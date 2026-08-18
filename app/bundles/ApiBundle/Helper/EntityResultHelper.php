@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\ApiBundle\Helper;
+namespace MailVotech\ApiBundle\Helper;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
 

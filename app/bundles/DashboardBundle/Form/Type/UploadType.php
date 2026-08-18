@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\DashboardBundle\Form\Type;
+namespace MailVotech\DashboardBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -18,7 +18,7 @@ final class UploadType extends AbstractType
             'file',
             FileType::class,
             [
-                'label' => 'mautic.lead.import.file',
+                'label' => 'mailvotech.lead.import.file',
                 'attr'  => [
                     'accept' => '.json',
                     'class'  => 'form-control',
@@ -35,7 +35,7 @@ final class UploadType extends AbstractType
                     'icon'    => 'ri-upload-line',
                     'onclick' => "mQuery(this).prop('disabled', true); mQuery('form[name=\'dashboard_upload\']').submit();",
                 ],
-                'label' => 'mautic.lead.import.upload',
+                'label' => 'mailvotech.lead.import.upload',
             ]);
         if (!empty($options['action'])) {
             $builder->setAction($options['action']);

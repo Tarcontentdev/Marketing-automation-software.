@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\CoreBundle\Exception\FileInvalidException;
+use MailVotech\CoreBundle\Exception\FileInvalidException;
 
 class FileProperties
 {

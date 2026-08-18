@@ -1,20 +1,20 @@
 <?php
 
-namespace Mautic\PageBundle\EventListener;
+namespace MailVotech\PageBundle\EventListener;
 
 use Doctrine\DBAL\Connection;
-use Mautic\CoreBundle\DTO\TokenFormatOptions;
-use Mautic\CoreBundle\Helper\BuilderTokenHelperFactory;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\EmailBuilderEvent;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Event as Events;
-use Mautic\PageBundle\Helper\TokenHelper;
-use Mautic\PageBundle\Model\PageModel;
-use Mautic\PageBundle\PageEvents;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\CoreBundle\DTO\TokenFormatOptions;
+use MailVotech\CoreBundle\Helper\BuilderTokenHelperFactory;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\EmailBuilderEvent;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Event as Events;
+use MailVotech\PageBundle\Helper\TokenHelper;
+use MailVotech\PageBundle\Model\PageModel;
+use MailVotech\PageBundle\PageEvents;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -88,7 +88,7 @@ final class BuilderSubscriber implements EventSubscriberInterface
             $tokenFilter = $event->getTokenFilter();
             $tokens      = $tokenHelper->getFormattedTokens(
                 self::pageTokenRegex,
-                TokenFormatOptions::linkWithId('mautic.page.token.pagelink', self::pageTokenRegex),
+                TokenFormatOptions::linkWithId('mailvotech.page.token.pagelink', self::pageTokenRegex),
                 'label' === $tokenFilter['target'] ? $tokenFilter['filter'] : '',
                 'title',
                 'id'
@@ -119,15 +119,15 @@ final class BuilderSubscriber implements EventSubscriberInterface
         if ($event->abTestWinnerCriteriaRequested()) {
             // add AB Test Winner Criteria
             $bounceRate = [
-                'group'    => 'mautic.page.abtest.criteria',
-                'label'    => 'mautic.page.abtest.criteria.bounce',
+                'group'    => 'mailvotech.page.abtest.criteria',
+                'label'    => 'mailvotech.page.abtest.criteria.bounce',
                 'event'    => PageEvents::ON_DETERMINE_BOUNCE_RATE_WINNER,
             ];
             $event->addAbTestWinnerCriteria('page.bouncerate', $bounceRate);
 
             $dwellTime = [
-                'group'    => 'mautic.page.abtest.criteria',
-                'label'    => 'mautic.page.abtest.criteria.dwelltime',
+                'group'    => 'mailvotech.page.abtest.criteria',
+                'label'    => 'mailvotech.page.abtest.criteria.dwelltime',
                 'event'    => PageEvents::ON_DETERMINE_DWELL_TIME_WINNER,
             ];
             $event->addAbTestWinnerCriteria('page.dwelltime', $dwellTime);
@@ -138,7 +138,7 @@ final class BuilderSubscriber implements EventSubscriberInterface
             $labelFilter = 'label' === $tokenFilter['target'] ? $tokenFilter['filter'] : '';
             $tokens      = $tokenHelper->getFormattedTokens(
                 self::pageTokenRegex,
-                TokenFormatOptions::linkWithId('mautic.page.token.pagelink', self::pageTokenRegex),
+                TokenFormatOptions::linkWithId('mailvotech.page.token.pagelink', self::pageTokenRegex),
                 $labelFilter,
                 'title'
             );
@@ -151,7 +151,7 @@ final class BuilderSubscriber implements EventSubscriberInterface
             $expr           = $this->connection->createExpressionBuilder()->and('e.is_campaign_based <> 1 and e.slot_name is not null');
             $dwcTokens      = $dwcTokenHelper->getFormattedTokens(
                 self::dwcTokenRegex,
-                TokenFormatOptions::simplePrefix('mautic.page.token.dwc'),
+                TokenFormatOptions::simplePrefix('mailvotech.page.token.dwc'),
                 $labelFilter,
                 'name',
                 'slot_name',
@@ -161,22 +161,22 @@ final class BuilderSubscriber implements EventSubscriberInterface
                 $event->addTokens($dwcTokens);
             }
 
-            $thisPagePrefix = $this->translator->trans('mautic.page.token.thispage').': ';
+            $thisPagePrefix = $this->translator->trans('mailvotech.page.token.thispage').': ';
             $event->addTokens(
                 $event->filterTokens(
                     [
-                        self::langBarRegex      => $thisPagePrefix.$this->translator->trans('mautic.page.token.lang'),
-                        self::shareButtonsRegex => $thisPagePrefix.$this->translator->trans('mautic.page.token.share'),
-                        self::titleRegex        => $thisPagePrefix.$this->translator->trans('mautic.core.title'),
-                        self::brandName         => $thisPagePrefix.$this->translator->trans('mautic.core.token.brand_name'),
-                        self::descriptionRegex  => $thisPagePrefix.$this->translator->trans('mautic.page.form.metadescription'),
-                        self::segmentListRegex  => $thisPagePrefix.$this->translator->trans('mautic.page.form.segmentlist'),
-                        self::categoryListRegex => $thisPagePrefix.$this->translator->trans('mautic.page.form.categorylist'),
-                        self::preferredchannel  => $thisPagePrefix.$this->translator->trans('mautic.page.form.preferredchannel'),
-                        self::channelfrequency  => $thisPagePrefix.$this->translator->trans('mautic.page.form.channelfrequency'),
-                        self::saveprefsRegex    => $thisPagePrefix.$this->translator->trans('mautic.page.form.saveprefs'),
-                        self::successmessage    => $thisPagePrefix.$this->translator->trans('mautic.page.form.successmessage'),
-                        self::identifierToken   => $thisPagePrefix.$this->translator->trans('mautic.page.form.leadidentifier'),
+                        self::langBarRegex      => $thisPagePrefix.$this->translator->trans('mailvotech.page.token.lang'),
+                        self::shareButtonsRegex => $thisPagePrefix.$this->translator->trans('mailvotech.page.token.share'),
+                        self::titleRegex        => $thisPagePrefix.$this->translator->trans('mailvotech.core.title'),
+                        self::brandName         => $thisPagePrefix.$this->translator->trans('mailvotech.core.token.brand_name'),
+                        self::descriptionRegex  => $thisPagePrefix.$this->translator->trans('mailvotech.page.form.metadescription'),
+                        self::segmentListRegex  => $thisPagePrefix.$this->translator->trans('mailvotech.page.form.segmentlist'),
+                        self::categoryListRegex => $thisPagePrefix.$this->translator->trans('mailvotech.page.form.categorylist'),
+                        self::preferredchannel  => $thisPagePrefix.$this->translator->trans('mailvotech.page.form.preferredchannel'),
+                        self::channelfrequency  => $thisPagePrefix.$this->translator->trans('mailvotech.page.form.channelfrequency'),
+                        self::saveprefsRegex    => $thisPagePrefix.$this->translator->trans('mailvotech.page.form.saveprefs'),
+                        self::successmessage    => $thisPagePrefix.$this->translator->trans('mailvotech.page.form.successmessage'),
+                        self::identifierToken   => $thisPagePrefix.$this->translator->trans('mailvotech.page.form.leadidentifier'),
                     ]
                 )
             );
@@ -291,7 +291,7 @@ final class BuilderSubscriber implements EventSubscriberInterface
     private function renderSocialShareButtons(): string
     {
         return $this->renderTemplate(
-            '@MauticPage/SubscribedEvents/PageToken/sharebtn_css.html.twig',
+            '@MailVotechPage/SubscribedEvents/PageToken/sharebtn_css.html.twig',
             [],
             '<div class="share-buttons">%s</div>',
             implode('', $this->integrationHelper->getShareButtons())
@@ -301,7 +301,7 @@ final class BuilderSubscriber implements EventSubscriberInterface
     private function renderSegmentList(array $params): string
     {
         return $this->renderTemplate(
-            '@MauticCore/Slots/segmentlist.html.twig',
+            '@MailVotechCore/Slots/segmentlist.html.twig',
             $params,
             '<div class="pref-segmentlist"%s>{templateContent}</div>',
             self::firstSlotAttribute
@@ -311,7 +311,7 @@ final class BuilderSubscriber implements EventSubscriberInterface
     private function renderCategoryList(array $params): string
     {
         return $this->renderTemplate(
-            '@MauticCore/Slots/categorylist.html.twig',
+            '@MailVotechCore/Slots/categorylist.html.twig',
             $params,
             '<div class="pref-categorylist"%s>{templateContent}</div>',
             self::firstSlotAttribute
@@ -321,7 +321,7 @@ final class BuilderSubscriber implements EventSubscriberInterface
     private function renderPreferredChannel(array $params): string
     {
         return $this->renderTemplate(
-            '@MauticCore/Slots/preferredchannel.html.twig',
+            '@MailVotechCore/Slots/preferredchannel.html.twig',
             $params,
             '<div class="pref-preferredchannel">{templateContent}</div>'
         );
@@ -330,7 +330,7 @@ final class BuilderSubscriber implements EventSubscriberInterface
     private function renderChannelFrequency(array $params): string
     {
         return $this->renderTemplate(
-            '@MauticCore/Slots/channelfrequency.html.twig',
+            '@MailVotechCore/Slots/channelfrequency.html.twig',
             $params,
             '<div class="pref-channelfrequency"%s>{templateContent}</div>',
             self::firstSlotAttribute
@@ -340,7 +340,7 @@ final class BuilderSubscriber implements EventSubscriberInterface
     private function renderSavePrefs(array $params): string
     {
         return $this->renderTemplate(
-            '@MauticCore/Slots/saveprefsbutton.html.twig',
+            '@MailVotechCore/Slots/saveprefsbutton.html.twig',
             $params,
             '<div class="%s"%s>{templateContent}</div>',
             self::saveButtonContainerClass,
@@ -354,7 +354,7 @@ final class BuilderSubscriber implements EventSubscriberInterface
     private function renderSuccessMessage(array $params): string
     {
         return $this->renderTemplate(
-            '@MauticCore/Slots/successmessage.html.twig',
+            '@MailVotechCore/Slots/successmessage.html.twig',
             $params
         );
     }
@@ -362,7 +362,7 @@ final class BuilderSubscriber implements EventSubscriberInterface
     private function renderLanguageBar(Page $page): string
     {
         return $this->renderTemplate(
-            '@MauticPage/SubscribedEvents/PageToken/langbar.html.twig',
+            '@MailVotechPage/SubscribedEvents/PageToken/langbar.html.twig',
             ['pages' => $this->getRelatedPagesForLanguageBar($page)]
         );
     }
@@ -376,12 +376,12 @@ final class BuilderSubscriber implements EventSubscriberInterface
         $parent   = $page->getTranslationParent();
         $children = $page->getTranslationChildren();
 
-        if (!$parent instanceof \Mautic\CoreBundle\Entity\TranslationEntityInterface && !$children instanceof \Doctrine\Common\Collections\Collection) {
+        if (!$parent instanceof \MailVotech\CoreBundle\Entity\TranslationEntityInterface && !$children instanceof \Doctrine\Common\Collections\Collection) {
             return $related;
         }
 
         // If this page has a parent, then fetch the children from the parent
-        if ($parent instanceof \Mautic\CoreBundle\Entity\TranslationEntityInterface) {
+        if ($parent instanceof \MailVotech\CoreBundle\Entity\TranslationEntityInterface) {
             $children = $parent->getTranslationChildren();
         } else {
             // Otherwise this is the parent page.
@@ -411,9 +411,9 @@ final class BuilderSubscriber implements EventSubscriberInterface
     private function buildRelatedArrayForPage(Page $page): array
     {
         $language   = $page->getLanguage();
-        $translated = $this->translator->trans('mautic.page.lang.'.$language);
+        $translated = $this->translator->trans('mailvotech.page.lang.'.$language);
 
-        if ($translated === 'mautic.page.lang.'.$language) {
+        if ($translated === 'mailvotech.page.lang.'.$language) {
             $translated = $language;
         }
 

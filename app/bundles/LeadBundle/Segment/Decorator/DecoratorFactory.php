@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Decorator;
+namespace MailVotech\LeadBundle\Segment\Decorator;
 
-use Mautic\LeadBundle\Event\LeadListFiltersDecoratorDelegateEvent;
-use Mautic\LeadBundle\Exception\FilterNotFoundException;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Segment\ContactSegmentFilterCrate;
-use Mautic\LeadBundle\Segment\Decorator\Date\DateOptionFactory;
-use Mautic\LeadBundle\Services\ContactSegmentFilterDictionary;
+use MailVotech\LeadBundle\Event\LeadListFiltersDecoratorDelegateEvent;
+use MailVotech\LeadBundle\Exception\FilterNotFoundException;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterCrate;
+use MailVotech\LeadBundle\Segment\Decorator\Date\DateOptionFactory;
+use MailVotech\LeadBundle\Services\ContactSegmentFilterDictionary;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DecoratorFactory

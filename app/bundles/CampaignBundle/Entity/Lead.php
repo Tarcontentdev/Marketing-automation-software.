@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Entity;
+namespace MailVotech\CampaignBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mautic\ApiBundle\Serializer\Driver\ApiMetadataDriver;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\ApiBundle\Serializer\Driver\ApiMetadataDriver;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
 
 class Lead
 {
@@ -16,7 +16,7 @@ class Lead
     private $campaign;
 
     /**
-     * @var \Mautic\LeadBundle\Entity\Lead
+     * @var \MailVotech\LeadBundle\Entity\Lead
      */
     private $lead;
 
@@ -119,14 +119,14 @@ class Lead
     }
 
     /**
-     * @return \Mautic\LeadBundle\Entity\Lead
+     * @return \MailVotech\LeadBundle\Entity\Lead
      */
     public function getLead()
     {
         return $this->lead;
     }
 
-    public function setLead(\Mautic\LeadBundle\Entity\Lead $lead): void
+    public function setLead(\MailVotech\LeadBundle\Entity\Lead $lead): void
     {
         $this->lead = $lead;
     }

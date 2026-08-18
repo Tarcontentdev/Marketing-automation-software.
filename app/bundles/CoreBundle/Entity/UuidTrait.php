@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Entity;
+namespace MailVotech\CoreBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
-use Mautic\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
+use MailVotech\CoreBundle\Doctrine\Mapping\ClassMetadataBuilder;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 trait UuidTrait
@@ -31,8 +31,8 @@ trait UuidTrait
     }
 
     /**
-     * @deprecated Since Mautic 7.0, use UuidHelper::isValidUuid() instead. Calling static trait methods directly is deprecated in PHP 8.4+
-     * @see \Mautic\CoreBundle\Helper\UuidHelper::isValidUuid()
+     * @deprecated Since MailVotech 7.0, use UuidHelper::isValidUuid() instead. Calling static trait methods directly is deprecated in PHP 8.4+
+     * @see \MailVotech\CoreBundle\Helper\UuidHelper::isValidUuid()
      */
     public static function isValidUuid(string $uuid): bool
     {

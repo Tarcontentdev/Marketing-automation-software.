@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Validator;
+namespace MailVotech\EmailBundle\Validator;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
@@ -15,7 +15,7 @@ final class TextOnlyDynamicContent extends Constraint
      */
     #[HasNamedArguments]
     public function __construct(
-        public string $message = 'mautic.email.subject.dynamic_content.text_only',
+        public string $message = 'mailvotech.email.subject.dynamic_content.text_only',
         ?array $groups = null,
         mixed $payload = null,
     ) {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Crate;
+namespace MailVotech\FormBundle\Crate;
 
-use Mautic\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Entity\Field;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final readonly class FileFieldCrate

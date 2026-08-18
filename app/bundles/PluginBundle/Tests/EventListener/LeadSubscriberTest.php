@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Tests\EventListener;
+namespace MailVotech\PluginBundle\Tests\EventListener;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Event\LeadEvent;
-use Mautic\PluginBundle\Entity\Integration;
-use Mautic\PluginBundle\Entity\IntegrationEntityRepository;
-use Mautic\PluginBundle\Entity\IntegrationRepository;
-use Mautic\PluginBundle\EventListener\LeadSubscriber;
-use Mautic\PluginBundle\Model\PluginModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Event\LeadEvent;
+use MailVotech\PluginBundle\Entity\Integration;
+use MailVotech\PluginBundle\Entity\IntegrationEntityRepository;
+use MailVotech\PluginBundle\Entity\IntegrationRepository;
+use MailVotech\PluginBundle\EventListener\LeadSubscriber;
+use MailVotech\PluginBundle\Model\PluginModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

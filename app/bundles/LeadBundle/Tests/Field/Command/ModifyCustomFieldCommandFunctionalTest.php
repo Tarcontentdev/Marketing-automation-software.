@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Field\Command;
+namespace MailVotech\LeadBundle\Tests\Field\Command;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
 use Symfony\Component\Console\Command\Command;
 
-final class ModifyCustomFieldCommandFunctionalTest extends MauticMysqlTestCase
+final class ModifyCustomFieldCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -29,7 +29,7 @@ final class ModifyCustomFieldCommandFunctionalTest extends MauticMysqlTestCase
 
     public function testUpdateCustomFieldsRunsIntoException(): void
     {
-        $commandTester = $this->testSymfonyCommand('mautic:fields:modify', [
+        $commandTester = $this->testSymfonyCommand('mailvotech:fields:modify', [
             'csv-path' => __DIR__.'/random.csv',
         ]);
 
@@ -48,7 +48,7 @@ final class ModifyCustomFieldCommandFunctionalTest extends MauticMysqlTestCase
 
         $this->createCustomFields($csvRows);
 
-        $output = $this->testSymfonyCommand('mautic:fields:modify', ['csv-path' => $file])->getDisplay();
+        $output = $this->testSymfonyCommand('mailvotech:fields:modify', ['csv-path' => $file])->getDisplay();
 
         $this->assertStringContainsString('Skipping "Test text three", the suggested length must be between 1 and 191.', $output);
         $this->assertStringContainsString('1 Field(s) updated successfully.', $output);
@@ -68,7 +68,7 @@ final class ModifyCustomFieldCommandFunctionalTest extends MauticMysqlTestCase
 
         $this->createCustomFields($csvRows);
 
-        $output = $this->testSymfonyCommand('mautic:fields:modify', ['csv-path' => $file])->getDisplay();
+        $output = $this->testSymfonyCommand('mailvotech:fields:modify', ['csv-path' => $file])->getDisplay();
 
         $this->assertStringContainsString('No custom field(s) to update!!!', $output);
     }
@@ -101,7 +101,7 @@ final class ModifyCustomFieldCommandFunctionalTest extends MauticMysqlTestCase
      */
     private function generateSmallCSV(array $rows): string
     {
-        $tmpFile = tempnam(sys_get_temp_dir(), 'mautic_update_fields_').'.csv';
+        $tmpFile = tempnam(sys_get_temp_dir(), 'mailvotech_update_fields_').'.csv';
         $file    = fopen($tmpFile, 'wb');
 
         $csvHeader = ['Custom Field Name', 'Custom Field Alias', 'Current Size', 'Suggested max size'];

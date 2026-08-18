@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test\Container;
+namespace MailVotech\CoreBundle\Test\Container;
 
 use Symfony\Bundle\FrameworkBundle\Test\TestContainer as BaseTestContainer;
 use Symfony\Component\DependencyInjection\ContainerInterface;

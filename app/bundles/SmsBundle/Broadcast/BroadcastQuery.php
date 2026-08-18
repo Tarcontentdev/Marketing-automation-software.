@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\SmsBundle\Broadcast;
+namespace MailVotech\SmsBundle\Broadcast;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CampaignBundle\Entity\ContactLimiterTrait;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\ChannelBundle\Entity\MessageQueue;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Entity\SmsRepository;
+use MailVotech\CampaignBundle\Entity\ContactLimiterTrait;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\ChannelBundle\Entity\MessageQueue;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Entity\SmsRepository;
 
 final class BroadcastQuery
 {
@@ -69,7 +69,7 @@ final class BroadcastQuery
         // Do not include leads that have already received text message
         $statQb = $this->entityManager->getConnection()->createQueryBuilder();
         $statQb->select('null')
-            ->from(MAUTIC_TABLE_PREFIX.'sms_message_stats', 'stat')
+            ->from(MAILVOTECH_TABLE_PREFIX.'sms_message_stats', 'stat')
             ->where(
                 $statQb->expr()->and(
                     $statQb->expr()->eq('stat.lead_id', 'l.id'),
@@ -85,7 +85,7 @@ final class BroadcastQuery
         // Do not include leads in the do not contact table
         $dncQb = $this->entityManager->getConnection()->createQueryBuilder();
         $dncQb->select('null')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_donotcontact', 'dnc')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_donotcontact', 'dnc')
             ->where(
                 $dncQb->expr()->and(
                     $dncQb->expr()->eq('dnc.lead_id', 'l.id'),
@@ -100,7 +100,7 @@ final class BroadcastQuery
         // Do not include contacts where the message is pending in the message queue
         $mqQb = $this->entityManager->getConnection()->createQueryBuilder();
         $mqQb->select('null')
-            ->from(MAUTIC_TABLE_PREFIX.'message_queue', 'mq')
+            ->from(MAILVOTECH_TABLE_PREFIX.'message_queue', 'mq')
             ->where(
                 $mqQb->expr()->and(
                     $mqQb->expr()->eq('mq.lead_id', 'l.id'),

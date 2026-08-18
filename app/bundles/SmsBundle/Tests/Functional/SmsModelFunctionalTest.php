@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\Functional;
+namespace MailVotech\SmsBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\SmsBundle\Collection\RecipientCollection;
-use Mautic\SmsBundle\Entity\Sms;
-use Mautic\SmsBundle\Model\SmsModel;
-use Mautic\SmsBundle\Sms\TransportChain;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\SmsBundle\Collection\RecipientCollection;
+use MailVotech\SmsBundle\Entity\Sms;
+use MailVotech\SmsBundle\Model\SmsModel;
+use MailVotech\SmsBundle\Sms\TransportChain;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class SmsModelFunctionalTest extends MauticMysqlTestCase
+final class SmsModelFunctionalTest extends MailVotechMysqlTestCase
 {
     use CreateEntitiesTrait;
 
@@ -53,7 +53,7 @@ final class SmsModelFunctionalTest extends MauticMysqlTestCase
             )
             ->willReturn(new RecipientCollection($sms));
 
-        $this->getContainer()->set('mautic.sms.transport_chain', $transportMock);
+        $this->getContainer()->set('mailvotech.sms.transport_chain', $transportMock);
 
         /** @var SmsModel $smsModel */
         $smsModel = $this->getContainer()->get(SmsModel::class);
@@ -155,7 +155,7 @@ final class SmsModelFunctionalTest extends MauticMysqlTestCase
                 return $collection;
             });
 
-        $this->getContainer()->set('mautic.sms.transport_chain', $transportMock);
+        $this->getContainer()->set('mailvotech.sms.transport_chain', $transportMock);
 
         /** @var SmsModel $smsModel */
         $smsModel = $this->getContainer()->get(SmsModel::class);

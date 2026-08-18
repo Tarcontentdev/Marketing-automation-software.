@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Form\Type;
+namespace MailVotech\SmsBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\SmsBundle\Sms\TransportChain;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\SmsBundle\Sms\TransportChain;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,11 +37,11 @@ final class ConfigType extends AbstractType
         }
 
         $builder->add('sms_transport', ChoiceType::class, [
-            'label'      => 'mautic.sms.config.select_default_transport',
+            'label'      => 'mailvotech.sms.config.select_default_transport',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => [
                 'class'   => 'form-control',
-                'tooltip' => 'mautic.sms.config.select_default_transport',
+                'tooltip' => 'mailvotech.sms.config.select_default_transport',
             ],
             'choices'           => $choices,
         ]);
@@ -50,9 +50,9 @@ final class ConfigType extends AbstractType
             self::SMS_DISABLE_TRACKABLE_URLS,
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.sms.config.form.sms.disable_trackable_urls',
+                'label' => 'mailvotech.sms.config.form.sms.disable_trackable_urls',
                 'attr'  => [
-                    'tooltip' => 'mautic.sms.config.form.sms.disable_trackable_urls.tooltip',
+                    'tooltip' => 'mailvotech.sms.config.form.sms.disable_trackable_urls.tooltip',
                 ],
                 'data'=> !empty($options['data'][self::SMS_DISABLE_TRACKABLE_URLS]),
             ]

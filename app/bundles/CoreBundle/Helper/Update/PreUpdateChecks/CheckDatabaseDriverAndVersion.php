@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper\Update\PreUpdateChecks;
+namespace MailVotech\CoreBundle\Helper\Update\PreUpdateChecks;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\InstallBundle\Configurator\Step\DoctrineStep;
+use MailVotech\InstallBundle\Configurator\Step\DoctrineStep;
 
 final class CheckDatabaseDriverAndVersion extends AbstractPreUpdateCheck
 {
@@ -36,7 +36,7 @@ final class CheckDatabaseDriverAndVersion extends AbstractPreUpdateCheck
         } else {
             $supportedDrivers = implode(', ', DoctrineStep::getDriverKeys());
 
-            return new PreUpdateCheckResult(false, $this, [new PreUpdateCheckError('mautic.core.update.check.database_driver',
+            return new PreUpdateCheckResult(false, $this, [new PreUpdateCheckError('mailvotech.core.update.check.database_driver',
                 [
                     '%currentdriver%'    => $platform,
                     '%supporteddrviers%' => $supportedDrivers,
@@ -45,7 +45,7 @@ final class CheckDatabaseDriverAndVersion extends AbstractPreUpdateCheck
         }
 
         if (version_compare($version, $minSupported, '<')) {
-            return new PreUpdateCheckResult(false, $this, [new PreUpdateCheckError('mautic.core.update.check.database_version',
+            return new PreUpdateCheckResult(false, $this, [new PreUpdateCheckError('mailvotech.core.update.check.database_version',
                 [
                     '%currentversion%'    => $version,
                     '%mysqlminversion%'   => $metadata->getMinSupportedMySqlVersion(),

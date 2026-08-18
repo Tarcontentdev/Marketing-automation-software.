@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\Tests\Unit\EventListener;
+namespace MailVotech\StageBundle\Tests\Unit\EventListener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\StageBundle\Entity\Stage;
-use Mautic\StageBundle\EventListener\CampaignSubscriber;
-use Mautic\StageBundle\Model\StageModel;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\StageBundle\Entity\Stage;
+use MailVotech\StageBundle\EventListener\CampaignSubscriber;
+use MailVotech\StageBundle\Model\StageModel;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -66,7 +66,7 @@ final class CampaignSubscriberTest extends TestCase
         $this->assertCount(1, $pendingEvent->getSuccessful());
         $this->assertSame([
             'failed' => 1,
-            'reason' => '[trans]mautic.stage.campaign.event.stage_missing[/trans]',
+            'reason' => '[trans]mailvotech.stage.campaign.event.stage_missing[/trans]',
         ], $log->getMetadata());
     }
 
@@ -124,7 +124,7 @@ final class CampaignSubscriberTest extends TestCase
         $this->assertCount(1, $pendingEvent->getSuccessful());
         $this->assertSame([
             'failed' => 1,
-            'reason' => '[trans]mautic.stage.campaign.event.stage_missing[/trans]',
+            'reason' => '[trans]mailvotech.stage.campaign.event.stage_missing[/trans]',
         ], $log->getMetadata());
     }
 
@@ -232,7 +232,7 @@ final class CampaignSubscriberTest extends TestCase
 
             public function changeStage(Lead $lead, Stage $stage, string $origin): void
             {
-                throw new \UnexpectedValueException('[trans]mautic.stage.campaign.event.already_in_stage[/trans]');
+                throw new \UnexpectedValueException('[trans]mailvotech.stage.campaign.event.already_in_stage[/trans]');
             }
         };
 
@@ -267,7 +267,7 @@ final class CampaignSubscriberTest extends TestCase
         $this->assertCount(1, $pendingEvent->getSuccessful());
         $this->assertSame([
             'failed' => 1,
-            'reason' => '[trans]mautic.stage.campaign.event.already_in_stage[/trans]',
+            'reason' => '[trans]mailvotech.stage.campaign.event.already_in_stage[/trans]',
         ], $log->getMetadata());
         $this->assertSame(123, $contact->getStage()->getId());
         $this->assertSame([], $contact->getChanges());
@@ -315,7 +315,7 @@ final class CampaignSubscriberTest extends TestCase
 
             public function changeStage(Lead $lead, Stage $stage, string $origin): void
             {
-                throw new \UnexpectedValueException('[trans]mautic.stage.campaign.event.stage_invalid[/trans]');
+                throw new \UnexpectedValueException('[trans]mailvotech.stage.campaign.event.stage_invalid[/trans]');
             }
         };
 
@@ -351,7 +351,7 @@ final class CampaignSubscriberTest extends TestCase
         $this->assertCount(1, $pendingEvent->getSuccessful());
         $this->assertSame([
             'failed' => 1,
-            'reason' => '[trans]mautic.stage.campaign.event.stage_invalid[/trans]',
+            'reason' => '[trans]mailvotech.stage.campaign.event.stage_invalid[/trans]',
         ], $log->getMetadata());
         $this->assertSame(444, $contact->getStage()->getId());
         $this->assertSame([], $contact->getChanges());

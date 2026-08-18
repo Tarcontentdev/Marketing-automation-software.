@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\ApiBundle\Form\Type;
+namespace MailVotech\ApiBundle\Form\Type;
 
-use Mautic\ApiBundle\Entity\oAuth2\Client;
-use Mautic\ApiBundle\Form\Validator\Constraints\OAuthCallback;
-use Mautic\CoreBundle\Form\DataTransformer as Transformers;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\ApiBundle\Entity\oAuth2\Client;
+use MailVotech\ApiBundle\Form\Validator\Constraints\OAuthCallback;
+use MailVotech\CoreBundle\Form\DataTransformer as Transformers;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -41,7 +41,7 @@ final class ClientType extends AbstractType
     {
         return $this->requestStack->getCurrentRequest()->get(
             'api_mode',
-            $this->requestStack->getSession()->get('mautic.client.filter.api_mode', 'oauth2')
+            $this->requestStack->getSession()->get('mailvotech.client.filter.api_mode', 'oauth2')
         );
     }
 
@@ -57,11 +57,11 @@ final class ClientType extends AbstractType
                 ChoiceType::class,
                 [
                     'mapped'     => false,
-                    'label'      => 'mautic.api.client.form.auth_protocol',
+                    'label'      => 'mailvotech.api.client.form.auth_protocol',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'    => 'form-control',
-                        'onchange' => 'Mautic.refreshApiClientForm(\''.$this->router->generate('mautic_client_action', ['objectAction' => 'new']).'\', this)',
+                        'onchange' => 'MailVotech.refreshApiClientForm(\''.$this->router->generate('mailvotech_client_action', ['objectAction' => 'new']).'\', this)',
                     ],
                     'choices' => [
                         'OAuth 2'    => 'oauth2',
@@ -77,7 +77,7 @@ final class ClientType extends AbstractType
             'name',
             TextType::class,
             [
-                'label'      => 'mautic.core.name',
+                'label'      => 'mailvotech.core.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
             ]
@@ -89,11 +89,11 @@ final class ClientType extends AbstractType
                 'redirectUris',
                 TextType::class,
                 [
-                    'label'      => 'mautic.api.client.redirecturis',
+                    'label'      => 'mailvotech.api.client.redirecturis',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.api.client.form.help.requesturis',
+                        'tooltip' => 'mailvotech.api.client.form.help.requesturis',
                     ],
                 ]
             )
@@ -104,7 +104,7 @@ final class ClientType extends AbstractType
             'publicId',
             TextType::class,
             [
-                'label'      => 'mautic.api.client.form.clientid',
+                'label'      => 'mailvotech.api.client.form.clientid',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'disabled'   => true,
@@ -118,7 +118,7 @@ final class ClientType extends AbstractType
             'secret',
             TextType::class,
             [
-                'label'      => 'mautic.api.client.form.clientsecret',
+                'label'      => 'mailvotech.api.client.form.clientsecret',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'disabled'   => true,
@@ -136,7 +136,7 @@ final class ClientType extends AbstractType
                     foreach ($data->getRedirectUris() as $uri) {
                         $urlConstraint          = new OAuthCallback();
                         $urlConstraint->message = $this->translator->trans(
-                            'mautic.api.client.redirecturl.invalid',
+                            'mailvotech.api.client.redirecturl.invalid',
                             ['%url%' => $uri],
                             'validators'
                         );

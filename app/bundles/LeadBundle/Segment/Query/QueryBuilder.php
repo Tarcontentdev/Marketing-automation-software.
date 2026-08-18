@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\LeadBundle\Segment\Query;
+namespace MailVotech\LeadBundle\Segment\Query;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
 use Doctrine\DBAL\Query\QueryBuilder as BaseQueryBuilder;
-use Mautic\LeadBundle\Segment\Query\Expression\ExpressionBuilder;
+use MailVotech\LeadBundle\Segment\Query\Expression\ExpressionBuilder;
 
 class QueryBuilder extends BaseQueryBuilder
 {

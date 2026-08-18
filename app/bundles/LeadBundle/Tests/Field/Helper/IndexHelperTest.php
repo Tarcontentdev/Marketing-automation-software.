@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Field\Helper;
+namespace MailVotech\LeadBundle\Tests\Field\Helper;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Result;
 use Doctrine\DBAL\Statement;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Field\Helper\IndexHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Field\Helper\IndexHelper;
 
 final class IndexHelperTest extends \PHPUnit\Framework\TestCase
 {

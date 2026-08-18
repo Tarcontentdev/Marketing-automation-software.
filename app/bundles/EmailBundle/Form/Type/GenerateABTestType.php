@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Form\Type;
+namespace MailVotech\EmailBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\EmailBundle\Model\EmailModel;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\EmailBundle\Model\EmailModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -31,7 +31,7 @@ final class GenerateABTestType extends AbstractType
 
         $attr = [
             'class'    => 'form-control',
-            'onchange' => 'Mautic.getAbTestWinnerForm(\'email\', \'emailform\', this);',
+            'onchange' => 'MailVotech.getAbTestWinnerForm(\'email\', \'emailform\', this);',
         ];
 
         if (!empty($abTestWinnerCriteria)) {
@@ -41,7 +41,7 @@ final class GenerateABTestType extends AbstractType
 
             if ($options['is_parent']) {
                 $constraints[] = new NotBlank(
-                    message: 'mautic.core.ab_test.winner_criteria.not_blank'
+                    message: 'mailvotech.core.ab_test.winner_criteria.not_blank'
                 );
             }
 
@@ -49,13 +49,13 @@ final class GenerateABTestType extends AbstractType
                 'winnerCriteria',
                 ChoiceType::class,
                 [
-                    'label'       => 'mautic.core.ab_test.form.winner',
+                    'label'       => 'mailvotech.core.ab_test.form.winner',
                     'label_attr'  => ['class' => 'control-label'],
                     'attr'        => $attr,
                     'expanded'    => false,
                     'multiple'    => false,
                     'choices'     => $choices,
-                    'placeholder' => 'mautic.core.form.chooseone',
+                    'placeholder' => 'mailvotech.core.form.chooseone',
                     'constraints' => $constraints,
                     'data'        => $options['data']['winnerCriteria'] ?? 'email.openrate',
                 ]
@@ -81,15 +81,15 @@ final class GenerateABTestType extends AbstractType
         }
 
         $builder->add('sendWinnerDelay', IntegerType::class, [
-            'label'       => 'mautic.core.ab_test.form.send_winner_delay',
+            'label'       => 'mailvotech.core.ab_test.form.send_winner_delay',
             'label_attr'  => ['class' => 'control-label'],
-            'attr'        => $attr + ['postaddon_text' => $this->translator->trans('mautic.core.time.hours')],
+            'attr'        => $attr + ['postaddon_text' => $this->translator->trans('mailvotech.core.time.hours')],
             'constraints' => new Range(min: 1, max: 24),
             'data'        => $options['data']['sendWinnerDelay'] ?? VariantType::DEFAULT_WINNER_DELAY,
         ]);
 
         $builder->add('totalWeight', IntegerType::class, [
-            'label'       => 'mautic.core.ab_test.form.traffic_total_weight',
+            'label'       => 'mailvotech.core.ab_test.form.traffic_total_weight',
             'label_attr'  => ['class' => 'control-label'],
             'attr'        => $attr + ['postaddon_text' => '%'],
             'constraints' => new Range(min: 1, max: 50),
@@ -100,9 +100,9 @@ final class GenerateABTestType extends AbstractType
             'buttons',
             FormButtonsType::class,
             [
-                'cancel_text'   => 'mautic.core.close',
+                'cancel_text'   => 'mailvotech.core.close',
                 'save_text'     => false,
-                'apply_text'    => 'mautic.core.form.saveandclose',
+                'apply_text'    => 'mailvotech.core.form.saveandclose',
             ]
         );
     }

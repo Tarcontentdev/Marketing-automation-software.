@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Helper;
+namespace MailVotech\CampaignBundle\Tests\Helper;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Event\CampaignLeadChangeEvent;
-use Mautic\CampaignBundle\Helper\CampaignEventHelper;
-use Mautic\CampaignBundle\Tests\CampaignTestAbstract;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Event\CampaignLeadChangeEvent;
+use MailVotech\CampaignBundle\Helper\CampaignEventHelper;
+use MailVotech\CampaignBundle\Tests\CampaignTestAbstract;
 
 final class CampaignEventHelperTest extends CampaignTestAbstract
 {

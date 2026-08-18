@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<ListLead>
@@ -20,7 +20,7 @@ class ListLeadRepository extends CommonRepository
         // First check to ensure the $toLead doesn't already exist
         $results = $this->_em->getConnection()->createQueryBuilder()
             ->select('l.leadlist_id')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_lists_leads', 'l')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 'l')
             ->where('l.lead_id = '.$toLeadId)
             ->executeQuery()
             ->fetchAllAssociative();
@@ -31,7 +31,7 @@ class ListLeadRepository extends CommonRepository
         }
 
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'lead_lists_leads')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads')
             ->set('lead_id', (int) $toLeadId)
             ->where('lead_id = '.(int) $fromLeadId);
 
@@ -44,7 +44,7 @@ class ListLeadRepository extends CommonRepository
 
             // Delete remaining leads as the new lead already belongs
             $this->_em->getConnection()->createQueryBuilder()
-                ->delete(MAUTIC_TABLE_PREFIX.'lead_lists_leads')
+                ->delete(MAILVOTECH_TABLE_PREFIX.'lead_lists_leads')
                 ->where('lead_id = '.(int) $fromLeadId)
                 ->executeStatement();
         } else {
@@ -75,7 +75,7 @@ class ListLeadRepository extends CommonRepository
     {
         $conn           = $this->getEntityManager()->getConnection();
         $tableName      = $this->getTableName();
-        $leadsTableName = MAUTIC_TABLE_PREFIX.'leads';
+        $leadsTableName = MAILVOTECH_TABLE_PREFIX.'leads';
         $tempTableName  = 'to_delete';
         $conn->executeQuery(sprintf('DROP TEMPORARY TABLE IF EXISTS %s', $tempTableName));
         $conn->executeQuery(sprintf('CREATE TEMPORARY TABLE %s select lll.leadlist_id, lll.lead_id from %s lll join %s l on l.id = lll.lead_id where l.date_identified is null;', $tempTableName, $tableName, $leadsTableName));
@@ -90,7 +90,7 @@ class ListLeadRepository extends CommonRepository
 
     public function removeLeadsByListId(int $listId): void
     {
-        $table_name = MAUTIC_TABLE_PREFIX.'lead_lists_leads';
+        $table_name = MAILVOTECH_TABLE_PREFIX.'lead_lists_leads';
         $conn       = $this->getEntityManager()->getConnection();
         do {
             $deletedRows = $conn->executeStatement(

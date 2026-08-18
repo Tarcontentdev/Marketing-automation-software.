@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\CampaignBundle\Controller;
+namespace MailVotech\CampaignBundle\Controller;
 
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Model\EventLogModel;
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Model\EventLogModel;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -44,7 +44,7 @@ final class AjaxController extends CommonAjaxController
         if (empty($campaignId)) {
             $dataArray = ['success' => 0];
         } else {
-            $session->set('mautic.campaign.'.$campaignId.'.events.canvassettings', $canvasSettings);
+            $session->set('mailvotech.campaign.'.$campaignId.'.events.canvassettings', $canvasSettings);
 
             $dataArray = ['success' => 1];
         }
@@ -94,7 +94,7 @@ final class AjaxController extends CommonAjaxController
                 $log->setIsScheduled(false);
                 $metadata           = $log->getMetadata();
                 $metadata['errors'] = $this->translator->trans(
-                    'mautic.campaign.event.cancelled.time',
+                    'mailvotech.campaign.event.cancelled.time',
                     ['%date%' => $log->getTriggerDate()->format('Y-m-d H:i:s')]
                 );
                 $log->setMetadata($metadata);

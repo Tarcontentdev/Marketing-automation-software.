@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Validator\Constraints;
+namespace MailVotech\LeadBundle\Form\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
 #[\Attribute]
 final class LeadListAccess extends Constraint
 {
-    public string $message  = 'mautic.lead.lists.failed';
+    public string $message  = 'mailvotech.lead.lists.failed';
 
     public bool $allowEmpty = false;
 

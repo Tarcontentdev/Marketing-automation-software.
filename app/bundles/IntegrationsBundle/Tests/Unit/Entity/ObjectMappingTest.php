@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Entity;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Entity;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Mautic\IntegrationsBundle\Entity\ObjectMapping;
+use MailVotech\IntegrationsBundle\Entity\ObjectMapping;
 use PHPUnit\Framework\TestCase;
 
 final class ObjectMappingTest extends TestCase

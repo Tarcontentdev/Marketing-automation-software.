@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine;
+namespace MailVotech\CoreBundle\Doctrine;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\Exception\SkipMigration;
 
-abstract class PreUpAssertionMigration extends AbstractMauticMigration
+abstract class PreUpAssertionMigration extends AbstractMailVotechMigration
 {
     /**
      * @var array<int, array<string>>

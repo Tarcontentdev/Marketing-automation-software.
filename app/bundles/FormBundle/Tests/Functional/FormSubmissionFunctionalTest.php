@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Functional;
+namespace MailVotech\FormBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\FormBundle\Entity\Submission;
-use Mautic\FormBundle\Entity\SubmissionRepository;
-use Mautic\FormBundle\Tests\Model\FormSubmissionTrait;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Page;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\FormBundle\Entity\Submission;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
+use MailVotech\FormBundle\Tests\Model\FormSubmissionTrait;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Page;
 use Symfony\Component\HttpFoundation\Request;
 
-final class FormSubmissionFunctionalTest extends MauticMysqlTestCase
+final class FormSubmissionFunctionalTest extends MailVotechMysqlTestCase
 {
     use FormSubmissionTrait;
 
@@ -47,7 +47,7 @@ final class FormSubmissionFunctionalTest extends MauticMysqlTestCase
         $trackingId = hash('sha1', uniqid((string) random_int(0, mt_getrandmax()), true));
 
         $this->connection->executeStatement(
-            'UPDATE '.MAUTIC_TABLE_PREFIX.'form_submissions SET tracking_id = ? WHERE id = ?',
+            'UPDATE '.MAILVOTECH_TABLE_PREFIX.'form_submissions SET tracking_id = ? WHERE id = ?',
             [$trackingId, $submissions[0]->getId()]
         );
 
@@ -105,13 +105,13 @@ final class FormSubmissionFunctionalTest extends MauticMysqlTestCase
         $linkUrl = $crawler->selectLink('page-with-form')->attr('href');
         $crawler = $this->client->request(Request::METHOD_GET, $linkUrl);
 
-        $formCrawler = $crawler->filter('form[id=mauticform_'.$formAlias.']');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_'.$formAlias.']');
         $this::assertCount(1, $formCrawler, $this->client->getResponse()->getContent());
         $form = $formCrawler->form();
         $form->setValues([
-            'mauticform[email]'     => $lead->getEmail(),
-            'mauticform[firstname]' => $lead->getFirstname(),
-            'mauticform[lastname]'  => $lead->getLastname(),
+            'mailvotechform[email]'     => $lead->getEmail(),
+            'mailvotechform[firstname]' => $lead->getFirstname(),
+            'mailvotechform[lastname]'  => $lead->getLastname(),
         ]);
         $this->client->submit($form);
         $this->assertResponseIsSuccessful($this->client->getResponse()->getContent());
@@ -152,9 +152,9 @@ final class FormSubmissionFunctionalTest extends MauticMysqlTestCase
     private function submitLandingPageFormWithoutCompanies(string $formAlias, string $pageAlias, string $email, string $firstname, string $lastname): void
     {
         $values = [
-            'mauticform[email]'     => $email,
-            'mauticform[firstname]' => $firstname,
-            'mauticform[lastname]'  => $lastname,
+            'mailvotechform[email]'     => $email,
+            'mailvotechform[firstname]' => $firstname,
+            'mailvotechform[lastname]'  => $lastname,
         ];
 
         $this->submitLandingPageForm($formAlias, $pageAlias, $values);
@@ -166,7 +166,7 @@ final class FormSubmissionFunctionalTest extends MauticMysqlTestCase
     private function submitLandingPageForm(string $formAlias, string $pageAlias, array $values): void
     {
         $crawler     = $this->client->request(Request::METHOD_GET, "/{$pageAlias}");
-        $formCrawler = $crawler->filter('form[id=mauticform_'.$formAlias.']');
+        $formCrawler = $crawler->filter('form[id=mailvotechform_'.$formAlias.']');
         $this::assertCount(1, $formCrawler, $this->client->getResponse()->getContent());
         $form = $formCrawler->form();
         $form->setValues($values);

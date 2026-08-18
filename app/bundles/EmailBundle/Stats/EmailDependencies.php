@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Stats;
+namespace MailVotech\EmailBundle\Stats;
 
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\FormBundle\Model\ActionModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\PointBundle\Model\PointModel;
-use Mautic\PointBundle\Model\TriggerEventModel;
-use Mautic\ReportBundle\Model\ReportModel;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\FormBundle\Model\ActionModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\PointBundle\Model\PointModel;
+use MailVotech\PointBundle\Model\TriggerEventModel;
+use MailVotech\ReportBundle\Model\ReportModel;
 
 final readonly class EmailDependencies
 {
@@ -30,33 +30,33 @@ final readonly class EmailDependencies
     {
         return [
             [
-                'label' => 'mautic.campaign.campaigns',
-                'route' => 'mautic_campaign_index',
+                'label' => 'mailvotech.campaign.campaigns',
+                'route' => 'mailvotech_campaign_index',
                 'ids'   => $this->campaignModel->getCampaignIdsWithDependenciesOnEmail($emailId),
             ],
             [
-                'label' => 'mautic.lead.lead.lists',
-                'route' => 'mautic_segment_index',
+                'label' => 'mailvotech.lead.lead.lists',
+                'route' => 'mailvotech_segment_index',
                 'ids'   => $this->listModel->getSegmentIdsWithDependenciesOnEmail($emailId),
             ],
             [
-                'label' => 'mautic.form.forms',
-                'route' => 'mautic_form_index',
+                'label' => 'mailvotech.form.forms',
+                'route' => 'mailvotech_form_index',
                 'ids'   => $this->actionModel->getFormsIdsWithDependenciesOnEmail($emailId),
             ],
             [
-                'label' => 'mautic.point.actions.header.index',
-                'route' => 'mautic_point_index',
+                'label' => 'mailvotech.point.actions.header.index',
+                'route' => 'mailvotech_point_index',
                 'ids'   => $this->pointModel->getPointActionIdsWithDependenciesOnEmail($emailId),
             ],
             [
-                'label' => 'mautic.point.trigger.header.index',
-                'route' => 'mautic_pointtrigger_index',
+                'label' => 'mailvotech.point.trigger.header.index',
+                'route' => 'mailvotech_pointtrigger_index',
                 'ids'   => $this->triggerEventModel->getPointTriggerIdsWithDependenciesOnEmail($emailId),
             ],
             [
-                'label' => 'mautic.report.reports',
-                'route' => 'mautic_report_index',
+                'label' => 'mailvotech.report.reports',
+                'route' => 'mailvotech_report_index',
                 'ids'   => $this->reportModel->getReportsIdsWithDependenciesOnEmail($emailId),
             ],
         ];

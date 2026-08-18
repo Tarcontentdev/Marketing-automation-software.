@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Mautic\CoreBundle\Doctrine\PreUpAssertionMigration;
-use Mautic\LeadBundle\Field\Helper\IndexHelper;
+use MailVotech\CoreBundle\Doctrine\PreUpAssertionMigration;
+use MailVotech\LeadBundle\Field\Helper\IndexHelper;
 
 /**
  * Auto-generated Migration: Please modify to your needs!

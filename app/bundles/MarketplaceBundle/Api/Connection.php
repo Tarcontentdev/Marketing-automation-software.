@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Api;
+namespace MailVotech\MarketplaceBundle\Api;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
-use Mautic\MarketplaceBundle\Exception\ApiException;
+use MailVotech\MarketplaceBundle\Exception\ApiException;
 use Psr\Log\LoggerInterface;
 
 class Connection
@@ -23,7 +23,7 @@ class Connection
      */
     public function getPlugins(int $page, int $limit, string $query = ''): array
     {
-        return $this->makeRequest("https://packagist.org/search.json?page={$page}&per_page={$limit}&type=mautic-plugin&q={$query}");
+        return $this->makeRequest("https://packagist.org/search.json?page={$page}&per_page={$limit}&type=mailvotech-plugin&q={$query}");
     }
 
     /**
@@ -66,7 +66,7 @@ class Connection
             'Accept'          => 'application/json',
             'Accept-Encoding' => 'gzip, deflate, br',
             'Connection'      => 'keep-alive',
-            'User-Agent'      => 'Mautic Marketplace',
+            'User-Agent'      => 'MailVotech Marketplace',
         ];
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\ChannelBundle\Entity;
+namespace MailVotech\ChannelBundle\Entity;
 
 use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Types\Types;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\LeadBundle\Entity\TimelineTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\LeadBundle\Entity\TimelineTrait;
 
 /**
  * @extends CommonRepository<MessageQueue>
@@ -79,7 +79,7 @@ class MessageQueueRepository extends CommonRepository
         }
 
         return (int) $q->select('count(*)')
-            ->from(MAUTIC_TABLE_PREFIX.'message_queue', $this->getTableAlias())
+            ->from(MAILVOTECH_TABLE_PREFIX.'message_queue', $this->getTableAlias())
             ->where($expr)
             ->setParameters(
                 [
@@ -106,7 +106,7 @@ class MessageQueueRepository extends CommonRepository
     public function getLeadTimelineEvents($leadId = null, array $options = [])
     {
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder()
-            ->from(MAUTIC_TABLE_PREFIX.'message_queue', 'mq')
+            ->from(MAILVOTECH_TABLE_PREFIX.'message_queue', 'mq')
             ->select('mq.id, mq.lead_id, mq.channel as channelName, mq.channel_id as channelId,
             mq.priority as priority, mq.attempts, mq.success, mq.status, mq.date_published as dateAdded,
             mq.scheduled_date as scheduledDate, mq.last_attempt as lastAttempt, mq.date_sent as dateSent');

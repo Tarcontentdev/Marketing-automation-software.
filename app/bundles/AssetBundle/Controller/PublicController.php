@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Controller;
+namespace MailVotech\AssetBundle\Controller;
 
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\ORMException;
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Entity\AssetRepository;
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CoreBundle\Controller\AbstractFormController;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Entity\AssetRepository;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CoreBundle\Controller\AbstractFormController;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

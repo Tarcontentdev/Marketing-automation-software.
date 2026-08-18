@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\EventListener;
+namespace MailVotech\SmsBundle\Tests\EventListener;
 
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\EventListener\TrackingSubscriber;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Event\ContactIdentificationEvent;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\EventListener\TrackingSubscriber;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Event\ContactIdentificationEvent;
 
 final class TrackingSubscriberTest extends \PHPUnit\Framework\TestCase
 {

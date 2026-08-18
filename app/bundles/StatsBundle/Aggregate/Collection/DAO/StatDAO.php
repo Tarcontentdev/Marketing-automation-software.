@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StatsBundle\Aggregate\Collection\DAO;
+namespace MailVotech\StatsBundle\Aggregate\Collection\DAO;
 
 final class StatDAO
 {

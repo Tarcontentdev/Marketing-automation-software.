@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Membership\Action;
+namespace MailVotech\CampaignBundle\Membership\Action;
 
-use Mautic\CampaignBundle\Entity\Lead as CampaignMember;
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CampaignBundle\Membership\Exception\ContactAlreadyRemovedFromCampaignException;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignMember;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Membership\Exception\ContactAlreadyRemovedFromCampaignException;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class Remover
@@ -24,7 +24,7 @@ class Remover
         DateHelper $dateHelper,
     ) {
         $dateRemoved              = $dateHelper->toFull(new \DateTime());
-        $this->unscheduledMessage = $translator->trans('mautic.campaign.member.removed', ['%date%' => $dateRemoved]);
+        $this->unscheduledMessage = $translator->trans('mailvotech.campaign.member.removed', ['%date%' => $dateRemoved]);
     }
 
     /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional;
+namespace MailVotech\LeadBundle\Tests\Functional;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DomCrawler\Crawler;
@@ -126,12 +126,12 @@ final class SearchWithCustomFieldDataFunctionalTest extends AbstractSearchTestCa
         $translator = self::getContainer()->get(TranslatorInterface::class);
 
         $this->assertStringContainsString(
-            $translator->trans('mautic.core.pagination.items', ['%count%' => 1]),
+            $translator->trans('mailvotech.core.pagination.items', ['%count%' => 1]),
             $crawler->html()
         );
 
         $this->assertStringContainsString(
-            $translator->trans('mautic.core.pagination.pages', ['%count%' => 1]),
+            $translator->trans('mailvotech.core.pagination.pages', ['%count%' => 1]),
             $crawler->html()
         );
     }

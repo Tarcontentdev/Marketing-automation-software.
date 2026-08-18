@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tracker\Factory\DeviceDetectorFactory;
+namespace MailVotech\LeadBundle\Tracker\Factory\DeviceDetectorFactory;
 
 use DeviceDetector\Cache\PSR6Bridge;
 use DeviceDetector\DeviceDetector;
-use Mautic\CacheBundle\Cache\CacheProvider;
+use MailVotech\CacheBundle\Cache\CacheProvider;
 
 final readonly class DeviceDetectorFactory implements DeviceDetectorFactoryInterface
 {

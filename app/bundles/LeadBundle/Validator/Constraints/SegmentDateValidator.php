@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Validator\Constraints;
+namespace MailVotech\LeadBundle\Validator\Constraints;
 
-use Mautic\LeadBundle\Segment\ContactSegmentFilterFactory;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilterFactory;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -54,7 +54,7 @@ final class SegmentDateValidator extends ConstraintValidator
                 }
 
                 if (false === $dateTime) {
-                    $this->context->addViolation($this->translator->trans('mautic.lead.segment.date_invalid', ['%value%' => $parameterValue], 'validators'));
+                    $this->context->addViolation($this->translator->trans('mailvotech.lead.segment.date_invalid', ['%value%' => $parameterValue], 'validators'));
 
                     return;
                 }

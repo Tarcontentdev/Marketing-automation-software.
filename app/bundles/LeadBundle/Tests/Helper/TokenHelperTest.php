@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Helper;
+namespace MailVotech\LeadBundle\Tests\Helper;
 
-use Mautic\CoreBundle\Test\ReflectionHelper;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Helper\TokenHelper;
+use MailVotech\CoreBundle\Test\ReflectionHelper;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Helper\TokenHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class TokenHelperTest extends \PHPUnit\Framework\TestCase
@@ -156,10 +156,10 @@ final class TokenHelperTest extends \PHPUnit\Framework\TestCase
     {
         $token  = '{contactfield=website}';
         $tokens = [
-            '{contactfield=website}' => 'https://mautic.org',
+            '{contactfield=website}' => 'https://mailvotech.org',
         ];
         $this->assertEquals(
-            'https://mautic.org',
+            'https://mailvotech.org',
             TokenHelper::getValueFromTokens($tokens, $token)
         );
     }
@@ -168,10 +168,10 @@ final class TokenHelperTest extends \PHPUnit\Framework\TestCase
     {
         $token  = '{contactfield=website|ftp://default.url}';
         $tokens = [
-            '{contactfield=website}' => 'https://mautic.org',
+            '{contactfield=website}' => 'https://mailvotech.org',
         ];
         $this->assertEquals(
-            'https://mautic.org',
+            'https://mailvotech.org',
             TokenHelper::getValueFromTokens($tokens, $token)
         );
     }

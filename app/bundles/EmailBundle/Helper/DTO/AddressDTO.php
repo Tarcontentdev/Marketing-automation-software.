@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Helper\DTO;
+namespace MailVotech\EmailBundle\Helper\DTO;
 
-use Mautic\EmailBundle\Helper\Exception\TokenNotFoundOrEmptyException;
-use Mautic\LeadBundle\Helper\TokenHelper;
+use MailVotech\EmailBundle\Helper\Exception\TokenNotFoundOrEmptyException;
+use MailVotech\LeadBundle\Helper\TokenHelper;
 use Symfony\Component\Mime\Address;
 
 final class AddressDTO

@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\UserBundle\Entity;
+namespace MailVotech\UserBundle\Entity;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
 
 /**
  * @extends CommonRepository<User>
@@ -31,7 +31,7 @@ class UserRepository extends CommonRepository
         $now      = new DateTimeHelper();
         $datetime = $now->toUtcString();
         $conn     = $this->_em->getConnection();
-        $conn->update(MAUTIC_TABLE_PREFIX.'users', [
+        $conn->update(MAILVOTECH_TABLE_PREFIX.'users', [
             'last_login'  => $datetime,
             'last_active' => $datetime,
         ], ['id' => (int) $user->getId()]);
@@ -41,7 +41,7 @@ class UserRepository extends CommonRepository
     {
         $now  = new DateTimeHelper();
         $conn = $this->_em->getConnection();
-        $conn->update(MAUTIC_TABLE_PREFIX.'users', ['last_active' => $now->toUtcString()], ['id' => (int) $user->getId()]);
+        $conn->update(MAILVOTECH_TABLE_PREFIX.'users', ['last_active' => $now->toUtcString()], ['id' => (int) $user->getId()]);
     }
 
     /**
@@ -228,45 +228,45 @@ class UserRepository extends CommonRepository
         [$expr, $parameters]     = parent::addSearchCommandWhereClause($q, $filter);
 
         switch ($command) {
-            case $this->translator->trans('mautic.core.searchcommand.ispublished'):
-            case $this->translator->trans('mautic.core.searchcommand.ispublished', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ispublished'):
+            case $this->translator->trans('mailvotech.core.searchcommand.ispublished', [], null, 'en_US'):
                 $expr            = $q->expr()->eq('u.isPublished', ":{$unique}");
                 $forceParameters = [$unique => true];
 
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.isunpublished'):
-            case $this->translator->trans('mautic.core.searchcommand.isunpublished', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.isunpublished'):
+            case $this->translator->trans('mailvotech.core.searchcommand.isunpublished', [], null, 'en_US'):
                 $expr            = $q->expr()->eq('u.isPublished', ":{$unique}");
                 $forceParameters = [$unique => false];
 
                 break;
-            case $this->translator->trans('mautic.user.user.searchcommand.isadmin'):
-            case $this->translator->trans('mautic.user.user.searchcommand.isadmin', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.user.user.searchcommand.isadmin'):
+            case $this->translator->trans('mailvotech.user.user.searchcommand.isadmin', [], null, 'en_US'):
                 $expr            = $q->expr()->eq('r.isAdmin', ":{$unique}");
                 $forceParameters = [$unique => true];
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.email'):
-            case $this->translator->trans('mautic.core.searchcommand.email', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.email'):
+            case $this->translator->trans('mailvotech.core.searchcommand.email', [], null, 'en_US'):
                 $expr            = $q->expr()->like('u.email', ':'.$unique);
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.user.user.searchcommand.position'):
-            case $this->translator->trans('mautic.user.user.searchcommand.position', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.user.user.searchcommand.position'):
+            case $this->translator->trans('mailvotech.user.user.searchcommand.position', [], null, 'en_US'):
                 $expr            = $q->expr()->like('u.position', ':'.$unique);
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.user.user.searchcommand.username'):
-            case $this->translator->trans('mautic.user.user.searchcommand.username', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.user.user.searchcommand.username'):
+            case $this->translator->trans('mailvotech.user.user.searchcommand.username', [], null, 'en_US'):
                 $expr            = $q->expr()->like('u.username', ':'.$unique);
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.user.user.searchcommand.role'):
-            case $this->translator->trans('mautic.user.user.searchcommand.role', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.user.user.searchcommand.role'):
+            case $this->translator->trans('mailvotech.user.user.searchcommand.role', [], null, 'en_US'):
                 $expr            = $q->expr()->like('r.name', ':'.$unique);
                 $returnParameter = true;
                 break;
-            case $this->translator->trans('mautic.core.searchcommand.name'):
-            case $this->translator->trans('mautic.core.searchcommand.name', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.core.searchcommand.name'):
+            case $this->translator->trans('mailvotech.core.searchcommand.name', [], null, 'en_US'):
                 // This if/else can be removed once we upgrade to Dotrine 2.11 as both builders have the or() method there.
                 if ($q instanceof QueryBuilder) {
                     $expr = $q->expr()->or(
@@ -299,14 +299,14 @@ class UserRepository extends CommonRepository
     public function getSearchCommands(): array
     {
         $commands = [
-            'mautic.core.searchcommand.email',
-            'mautic.core.searchcommand.ispublished',
-            'mautic.core.searchcommand.isunpublished',
-            'mautic.user.user.searchcommand.isadmin',
-            'mautic.core.searchcommand.name',
-            'mautic.user.user.searchcommand.position',
-            'mautic.user.user.searchcommand.role',
-            'mautic.user.user.searchcommand.username',
+            'mailvotech.core.searchcommand.email',
+            'mailvotech.core.searchcommand.ispublished',
+            'mailvotech.core.searchcommand.isunpublished',
+            'mailvotech.user.user.searchcommand.isadmin',
+            'mailvotech.core.searchcommand.name',
+            'mailvotech.user.user.searchcommand.position',
+            'mailvotech.user.user.searchcommand.role',
+            'mailvotech.user.user.searchcommand.username',
         ];
 
         return array_merge($commands, parent::getSearchCommands());

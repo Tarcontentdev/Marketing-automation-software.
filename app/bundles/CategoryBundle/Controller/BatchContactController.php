@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\CategoryBundle\Controller;
+namespace MailVotech\CategoryBundle\Controller;
 
-use Mautic\CategoryBundle\Model\CategoryModel;
-use Mautic\CategoryBundle\Model\ContactActionModel;
-use Mautic\CoreBundle\Controller\AbstractFormController;
-use Mautic\LeadBundle\Form\Type\BatchType;
+use MailVotech\CategoryBundle\Model\CategoryModel;
+use MailVotech\CategoryBundle\Model\ContactActionModel;
+use MailVotech\CoreBundle\Controller\AbstractFormController;
+use MailVotech\LeadBundle\Form\Type\BatchType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,11 +42,11 @@ final class BatchContactController extends AbstractFormController
             $this->actionModel->addContactsToCategories($contactIds, $categoriesToAdd);
             $this->actionModel->removeContactsFromCategories($contactIds, $categoriesToRemove);
 
-            $this->addFlashMessage('mautic.lead.batch_leads_affected', [
+            $this->addFlashMessage('mailvotech.lead.batch_leads_affected', [
                 '%count%'     => count($ids),
             ]);
         } else {
-            $this->addFlashMessage('mautic.core.error.ids.missing');
+            $this->addFlashMessage('mailvotech.core.error.ids.missing');
         }
 
         return new JsonResponse([
@@ -60,7 +60,7 @@ final class BatchContactController extends AbstractFormController
      */
     public function indexAction(): Response
     {
-        $route = $this->generateUrl('mautic_category_batch_contact_set');
+        $route = $this->generateUrl('mailvotech_category_batch_contact_set');
         $rows  = $this->categoryModel->getLookupResults('global', '', 300);
         $items = [];
 
@@ -80,10 +80,10 @@ final class BatchContactController extends AbstractFormController
                         ]
                     )->createView(),
                 ],
-                'contentTemplate' => '@MauticLead/Batch/form.html.twig',
+                'contentTemplate' => '@MailVotechLead/Batch/form.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_contact_index',
-                    'mauticContent' => 'leadBatch',
+                    'activeLink'    => '#mailvotech_contact_index',
+                    'mailvotechContent' => 'leadBatch',
                     'route'         => $route,
                 ],
             ]

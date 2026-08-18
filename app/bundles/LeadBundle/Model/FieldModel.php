@@ -1,38 +1,38 @@
 <?php
 
-namespace Mautic\LeadBundle\Model;
+namespace MailVotech\LeadBundle\Model;
 
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\DBAL\Schema\SchemaException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mautic\CoreBundle\Cache\ResultCacheOptions;
-use Mautic\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
-use Mautic\CoreBundle\Event\DependencyErrorEventInterface;
-use Mautic\CoreBundle\Exception\DeleteEntityDependencyException;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Event\LeadFieldEvent;
-use Mautic\LeadBundle\Exception\NoListenerException;
-use Mautic\LeadBundle\Field\CustomFieldColumn;
-use Mautic\LeadBundle\Field\Dispatcher\FieldSaveDispatcher;
-use Mautic\LeadBundle\Field\Exception\AbortColumnCreateException;
-use Mautic\LeadBundle\Field\Exception\AbortColumnUpdateException;
-use Mautic\LeadBundle\Field\Exception\CustomFieldLimitException;
-use Mautic\LeadBundle\Field\FieldList;
-use Mautic\LeadBundle\Field\LeadFieldDeleter;
-use Mautic\LeadBundle\Field\LeadFieldSaver;
-use Mautic\LeadBundle\Form\Type\FieldType;
-use Mautic\LeadBundle\Helper\FormFieldHelper;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\CoreBundle\Cache\ResultCacheOptions;
+use MailVotech\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
+use MailVotech\CoreBundle\Event\DependencyErrorEventInterface;
+use MailVotech\CoreBundle\Exception\DeleteEntityDependencyException;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Event\LeadFieldEvent;
+use MailVotech\LeadBundle\Exception\NoListenerException;
+use MailVotech\LeadBundle\Field\CustomFieldColumn;
+use MailVotech\LeadBundle\Field\Dispatcher\FieldSaveDispatcher;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnCreateException;
+use MailVotech\LeadBundle\Field\Exception\AbortColumnUpdateException;
+use MailVotech\LeadBundle\Field\Exception\CustomFieldLimitException;
+use MailVotech\LeadBundle\Field\FieldList;
+use MailVotech\LeadBundle\Field\LeadFieldDeleter;
+use MailVotech\LeadBundle\Field\LeadFieldSaver;
+use MailVotech\LeadBundle\Form\Type\FieldType;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\LeadEvents;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -492,11 +492,11 @@ class FieldModel extends FormModel
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         CoreParametersHelper $coreParametersHelper,
         private readonly LeadRepository $leadRepository,
     ) {
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function getRepository(): LeadFieldRepository
@@ -609,7 +609,7 @@ class FieldModel extends FormModel
      * @throws Exception
      * @throws DriverException
      * @throws SchemaException
-     * @throws \Mautic\CoreBundle\Exception\SchemaException
+     * @throws \MailVotech\CoreBundle\Exception\SchemaException
      */
     public function saveEntity($entity, $unlock = true): void
     {
@@ -650,7 +650,7 @@ class FieldModel extends FormModel
      * @throws Exception
      * @throws DriverException
      * @throws SchemaException
-     * @throws \Mautic\CoreBundle\Exception\SchemaException
+     * @throws \MailVotech\CoreBundle\Exception\SchemaException
      */
     public function saveEntities($entities, $unlock = true): void
     {
@@ -691,7 +691,7 @@ class FieldModel extends FormModel
      *
      * @return mixed[]
      *
-     * @throws \Mautic\CoreBundle\Exception\SchemaException
+     * @throws \MailVotech\CoreBundle\Exception\SchemaException
      */
     public function deleteEntities($ids): array
     {
@@ -967,7 +967,7 @@ class FieldModel extends FormModel
                 'type'         => $contactField['type'],
                 'group'        => $contactField['group'],
                 'object'       => $contactField['object'],
-                'group_label'  => $this->translator->trans('mautic.lead.field.group.'.$contactField['group']),
+                'group_label'  => $this->translator->trans('mailvotech.lead.field.group.'.$contactField['group']),
                 'defaultValue' => $contactField['defaultValue'],
                 'properties'   => $contactField['properties'],
                 'isPublished'  => $contactField['isPublished'],
@@ -1030,31 +1030,31 @@ class FieldModel extends FormModel
     {
         return [
             'ownerbyemail' => [
-                'label'        => $this->translator->trans('mautic.lead.field.ownerbyemail'),
+                'label'        => $this->translator->trans('mailvotech.lead.field.ownerbyemail'),
                 'alias'        => 'ownerbyemail',
                 'type'         => 'email',
                 'group'        => 'core',
-                'group_label'  => $this->translator->trans('mautic.lead.field.group.core'),
+                'group_label'  => $this->translator->trans('mailvotech.lead.field.group.core'),
                 'defaultValue' => null,
                 'properties'   => [],
                 'isPublished'  => true,
             ],
             'ownerbyid' => [
-                'label'        => $this->translator->trans('mautic.lead.field.ownerbyid'),
+                'label'        => $this->translator->trans('mailvotech.lead.field.ownerbyid'),
                 'alias'        => 'ownerbyid',
                 'type'         => 'text',
                 'group'        => 'core',
-                'group_label'  => $this->translator->trans('mautic.lead.field.group.core'),
+                'group_label'  => $this->translator->trans('mailvotech.lead.field.group.core'),
                 'defaultValue' => null,
                 'properties'   => [],
                 'isPublished'  => true,
             ],
             'stagebyname' => [
-                'label'        => $this->translator->trans('mautic.lead.field.stagebyname'),
+                'label'        => $this->translator->trans('mailvotech.lead.field.stagebyname'),
                 'alias'        => 'stagebyname',
                 'type'         => 'text',
                 'group'        => 'core',
-                'group_label'  => $this->translator->trans('mautic.lead.field.group.core'),
+                'group_label'  => $this->translator->trans('mailvotech.lead.field.group.core'),
                 'defaultValue' => null,
                 'properties'   => [],
                 'isPublished'  => true,

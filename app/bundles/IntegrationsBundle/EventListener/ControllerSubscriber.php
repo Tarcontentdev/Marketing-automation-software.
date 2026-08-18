@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\EventListener;
+namespace MailVotech\IntegrationsBundle\EventListener;
 
-use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
-use Mautic\IntegrationsBundle\Helper\IntegrationsHelper;
+use MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException;
+use MailVotech\IntegrationsBundle\Helper\IntegrationsHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
@@ -30,7 +30,7 @@ final readonly class ControllerSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        if ('Mautic\PluginBundle\Controller\PluginController::configAction' === $request->get('_controller')) {
+        if ('MailVotech\PluginBundle\Controller\PluginController::configAction' === $request->get('_controller')) {
             $integrationName = $request->get('name');
             $page            = $request->get('page');
 
@@ -40,7 +40,7 @@ final readonly class ControllerSubscriber implements EventSubscriberInterface
                     [
                         'integration'   => $integrationName,
                         'page'          => $page,
-                        '_controller'   => 'Mautic\IntegrationsBundle\Controller\ConfigController::editAction',
+                        '_controller'   => 'MailVotech\IntegrationsBundle\Controller\ConfigController::editAction',
                         '_route_params' => [
                             'integration' => $integrationName,
                             'page'        => $page,

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\Logger;
+namespace MailVotech\IntegrationsBundle\Sync\Logger;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;

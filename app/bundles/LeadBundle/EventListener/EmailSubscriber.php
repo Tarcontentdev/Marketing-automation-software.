@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CoreBundle\Event\BuilderEvent;
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\CoreBundle\Helper\BuilderTokenHelperFactory;
-use Mautic\EmailBundle\EmailEvents;
-use Mautic\EmailBundle\Event\EmailBuilderEvent;
-use Mautic\EmailBundle\Event\EmailSendEvent;
-use Mautic\LeadBundle\Helper\TokenHelper;
+use MailVotech\CoreBundle\Event\BuilderEvent;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\CoreBundle\Helper\BuilderTokenHelperFactory;
+use MailVotech\EmailBundle\EmailEvents;
+use MailVotech\EmailBundle\Event\EmailBuilderEvent;
+use MailVotech\EmailBundle\Event\EmailSendEvent;
+use MailVotech\LeadBundle\Helper\TokenHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -66,7 +66,7 @@ final class EmailSubscriber implements EventSubscriberInterface
 
     private function addContactFieldTokens(BuilderEvent $event): void
     {
-        $tokenHelper = $this->builderTokenHelperFactory->getBuilderTokenHelper('lead.field', 'lead:fields', 'MauticLeadBundle');
+        $tokenHelper = $this->builderTokenHelperFactory->getBuilderTokenHelper('lead.field', 'lead:fields', 'MailVotechLeadBundle');
         // the permissions are for viewing contact data, not for managing contact fields
         $tokenHelper->setPermissionSet(['lead:leads:viewown', 'lead:leads:viewother']);
 
@@ -81,8 +81,8 @@ final class EmailSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $contactPrefix = $this->translator->trans('mautic.lead.contact').': ';
-        $companyPrefix = $this->translator->trans('mautic.core.company').': ';
+        $contactPrefix = $this->translator->trans('mailvotech.lead.contact').': ';
+        $companyPrefix = $this->translator->trans('mailvotech.core.company').': ';
 
         $formatted = [];
         foreach ($tokens as $token => $label) {

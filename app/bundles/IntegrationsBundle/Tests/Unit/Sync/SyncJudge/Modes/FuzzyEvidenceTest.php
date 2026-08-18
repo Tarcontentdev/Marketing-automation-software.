@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\SyncJudge\Modes;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\SyncJudge\Modes;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InformationChangeRequestDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\ConflictUnresolvedException;
-use Mautic\IntegrationsBundle\Sync\SyncJudge\Modes\FuzzyEvidence;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InformationChangeRequestDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\ConflictUnresolvedException;
+use MailVotech\IntegrationsBundle\Sync\SyncJudge\Modes\FuzzyEvidence;
 use PHPUnit\Framework\TestCase;
 
 final class FuzzyEvidenceTest extends TestCase

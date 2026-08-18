@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field\Command;
+namespace MailVotech\LeadBundle\Field\Command;
 
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
-    name: 'mautic:fields:modify',
+    name: 'mailvotech:fields:modify',
     description: 'Change the sizes of the fields'
 )]
 final class ModifyCustomFieldCommand extends Command
@@ -151,12 +151,12 @@ final class ModifyCustomFieldCommand extends Command
     private function getRowKeys(array $row): array
     {
         $headers = [
-            'name'              => $this->translator->trans('mautic.lead.field.analyse.header.name'),
-            'alias'             => $this->translator->trans('mautic.lead.field.analyse.header.alias'),
-            'length'            => $this->translator->trans('mautic.lead.field.analyse.header.length'),
-            'max_length'        => $this->translator->trans('mautic.lead.field.analyse.header.max_length'),
-            'suggested_length'  => $this->translator->trans('mautic.lead.field.analyse.header.suggested_length'),
-            'isIndexed'         => $this->translator->trans('mautic.lead.field.analyse.header.indexed'),
+            'name'              => $this->translator->trans('mailvotech.lead.field.analyse.header.name'),
+            'alias'             => $this->translator->trans('mailvotech.lead.field.analyse.header.alias'),
+            'length'            => $this->translator->trans('mailvotech.lead.field.analyse.header.length'),
+            'max_length'        => $this->translator->trans('mailvotech.lead.field.analyse.header.max_length'),
+            'suggested_length'  => $this->translator->trans('mailvotech.lead.field.analyse.header.suggested_length'),
+            'isIndexed'         => $this->translator->trans('mailvotech.lead.field.analyse.header.indexed'),
         ];
 
         return array_map(fn (string $val): false|string => array_search($val, $headers), $row);

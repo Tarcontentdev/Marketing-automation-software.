@@ -4,14 +4,14 @@
 #}
 {% set isIndex = 'index' == tmpl ? true : false %}
 {% set tmpl = 'list' %}
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
 
-{% block mauticContent %}{{ mauticContent }}{% endblock %}
+{% block mailvotechContent %}{{ mailvotechContent }}{% endblock %}
 
-{% block headerTitle %}{{ 'mautic.lead.import.list'|trans }}{% endblock %}
+{% block headerTitle %}{{ 'mailvotech.lead.import.list'|trans }}{% endblock %}
 
 {% block actions %}
-  {{ include('@MauticCore/Helper/page_actions.html.twig', {
+  {{ include('@MailVotechCore/Helper/page_actions.html.twig', {
         'templateButtons': {
             'new': permissions[permissionBase~':create'],
         },
@@ -26,7 +26,7 @@
       <div class="page-list">
   {% endif %}
 
-  {{ include('@MauticLead/Import/_list.html.twig') }}
+  {{ include('@MailVotechLead/Import/_list.html.twig') }}
 
   {% if isIndex %}
         </div>

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Model;
+namespace MailVotech\PageBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Entity\PageDraft;
-use Mautic\PageBundle\Entity\PageDraftRepository;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Entity\PageDraft;
+use MailVotech\PageBundle\Entity\PageDraftRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PageDraftModel

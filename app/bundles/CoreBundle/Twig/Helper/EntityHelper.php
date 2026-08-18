@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Helper;
+namespace MailVotech\CoreBundle\Twig\Helper;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Twig\Extension\AbstractExtension;

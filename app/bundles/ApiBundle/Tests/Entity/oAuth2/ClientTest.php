@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ApiBundle\Tests\Entity\oAuth2;
+namespace MailVotech\ApiBundle\Tests\Entity\oAuth2;
 
-use Mautic\ApiBundle\Entity\oAuth2\Client;
+use MailVotech\ApiBundle\Entity\oAuth2\Client;
 use OAuth2\OAuth2;
 use PHPUnit\Framework\TestCase;
 

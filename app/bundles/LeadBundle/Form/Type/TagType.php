@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Mautic\LeadBundle\Entity\Tag;
-use Mautic\LeadBundle\Form\DataTransformer\TagEntityModelTransformer;
+use MailVotech\LeadBundle\Entity\Tag;
+use MailVotech\LeadBundle\Form\DataTransformer\TagEntityModelTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -39,7 +39,7 @@ final class TagType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'label'           => 'mautic.lead.tags',
+                'label'           => 'mailvotech.lead.tags',
                 'class'           => Tag::class,
                 'query_builder'   => fn (EntityRepository $er) => $er->createQueryBuilder('t')->orderBy('t.tag', Order::Ascending->value),
                 'choice_label'    => 'tag',

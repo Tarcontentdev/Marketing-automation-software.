@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\CampaignBundle\Form\Type;
+namespace MailVotech\CampaignBundle\Form\Type;
 
-use Mautic\CampaignBundle\Executioner\Scheduler\Mode\Optimized as OptimizedScheduler;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\Type\ButtonGroupType;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\PropertiesTrait;
+use MailVotech\CampaignBundle\Executioner\Scheduler\Mode\Optimized as OptimizedScheduler;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\Type\ButtonGroupType;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\PropertiesTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -33,7 +33,7 @@ final class EventType extends AbstractType
             'name',
             TextType::class,
             [
-                'label'      => 'mautic.core.name',
+                'label'      => 'mailvotech.core.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -49,16 +49,16 @@ final class EventType extends AbstractType
         );
 
         if (in_array($options['data']['eventType'], ['action', 'condition'])) {
-            $label = 'mautic.campaign.form.type';
+            $label = 'mailvotech.campaign.form.type';
 
             $choices = [
-                'immediate' => 'mautic.campaign.form.type.immediate',
-                'interval'  => 'mautic.campaign.form.type.interval',
-                'date'      => 'mautic.campaign.form.type.date',
+                'immediate' => 'mailvotech.campaign.form.type.immediate',
+                'interval'  => 'mailvotech.campaign.form.type.interval',
+                'date'      => 'mailvotech.campaign.form.type.date',
             ];
 
             if (in_array($options['data']['type'], OptimizedScheduler::AVAILABLE_FOR_EVENTS)) {
-                $choices['optimized'] = 'mautic.campaign.form.type.optimized';
+                $choices['optimized'] = 'mailvotech.campaign.form.type.optimized';
             }
 
             if (isset($options['data']['anchor']) && isset($options['data']['anchorEventType'])
@@ -86,8 +86,8 @@ final class EventType extends AbstractType
                     'placeholder'       => false,
                     'required'          => false,
                     'attr'              => [
-                        'onchange' => 'Mautic.campaignToggleTimeframes();',
-                        'tooltip'  => 'mautic.campaign.form.type.help',
+                        'onchange' => 'MailVotech.campaignToggleTimeframes();',
+                        'tooltip'  => 'mailvotech.campaign.form.type.help',
                     ],
                     'data'        => $triggerMode,
                 ]
@@ -130,11 +130,11 @@ final class EventType extends AbstractType
                 ChoiceType::class,
                 [
                     'choices'     => [
-                        'mautic.campaign.event.intervalunit.choice.i' => 'i',
-                        'mautic.campaign.event.intervalunit.choice.h' => 'h',
-                        'mautic.campaign.event.intervalunit.choice.d' => 'd',
-                        'mautic.campaign.event.intervalunit.choice.m' => 'm',
-                        'mautic.campaign.event.intervalunit.choice.y' => 'y',
+                        'mailvotech.campaign.event.intervalunit.choice.i' => 'i',
+                        'mailvotech.campaign.event.intervalunit.choice.h' => 'h',
+                        'mailvotech.campaign.event.intervalunit.choice.d' => 'd',
+                        'mailvotech.campaign.event.intervalunit.choice.m' => 'm',
+                        'mailvotech.campaign.event.intervalunit.choice.y' => 'y',
                     ],
                     'multiple'          => false,
                     'label_attr'        => ['class' => 'control-label'],
@@ -207,14 +207,14 @@ final class EventType extends AbstractType
                         'data-format' => 'H:i',
                     ],
                     'choices'  => [
-                        'mautic.report.schedule.day.monday'     => 1,
-                        'mautic.report.schedule.day.tuesday'    => 2,
-                        'mautic.report.schedule.day.wednesday'  => 3,
-                        'mautic.report.schedule.day.thursday'   => 4,
-                        'mautic.report.schedule.day.friday'     => 5,
-                        'mautic.report.schedule.day.saturday'   => 6,
-                        'mautic.report.schedule.day.sunday'     => 0,
-                        'mautic.report.schedule.day.week_days'  => -1,
+                        'mailvotech.report.schedule.day.monday'     => 1,
+                        'mailvotech.report.schedule.day.tuesday'    => 2,
+                        'mailvotech.report.schedule.day.wednesday'  => 3,
+                        'mailvotech.report.schedule.day.thursday'   => 4,
+                        'mailvotech.report.schedule.day.friday'     => 5,
+                        'mailvotech.report.schedule.day.saturday'   => 6,
+                        'mailvotech.report.schedule.day.sunday'     => 0,
+                        'mailvotech.report.schedule.day.week_days'  => -1,
                     ],
                     'expanded'          => true,
                     'multiple'          => true,
@@ -228,8 +228,8 @@ final class EventType extends AbstractType
                 [
                     'label'    => false,
                     'choices'  => [
-                        'mautic.campaign.form.type.trigger_window_day'   => OptimizedScheduler::OPTIMIZED_TIME,
-                        'mautic.campaign.form.type.trigger_window_week'  => OptimizedScheduler::OPTIMIZED_DAY_AND_TIME,
+                        'mailvotech.campaign.form.type.trigger_window_day'   => OptimizedScheduler::OPTIMIZED_TIME,
+                        'mailvotech.campaign.form.type.trigger_window_week'  => OptimizedScheduler::OPTIMIZED_DAY_AND_TIME,
                     ],
                     'data'              => $options['data']['triggerWindow'] ?? 0,
                     'required'          => false,
@@ -275,10 +275,10 @@ final class EventType extends AbstractType
 
         $update = !empty($options['data']['properties']);
         if (!empty($update)) {
-            $btnValue = 'mautic.core.form.update';
+            $btnValue = 'mailvotech.core.form.update';
             $btnIcon  = 'ri-edit-line';
         } else {
-            $btnValue = 'mautic.core.form.add';
+            $btnValue = 'mailvotech.core.form.add';
             $btnIcon  = 'ri-add-line';
         }
 
@@ -288,8 +288,8 @@ final class EventType extends AbstractType
             [
                 'save_text'       => $btnValue,
                 'save_icon'       => $btnIcon,
-                'save_onclick'    => 'Mautic.submitCampaignEvent(event)',
-                'cancel_onclick'  => 'Mautic.cancelCampaignEvent(event)',
+                'save_onclick'    => 'MailVotech.submitCampaignEvent(event)',
+                'cancel_onclick'  => 'MailVotech.cancelCampaignEvent(event)',
                 'apply_text'      => false,
                 'container_class' => 'bottom-form-buttons',
             ]

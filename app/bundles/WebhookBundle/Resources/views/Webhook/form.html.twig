@@ -1,9 +1,9 @@
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
 {% block headerTitle %}{{ entity.getId() ? 
-    'mautic.webhook.webhook.header.edit'|trans({'%name%': entity.getName()|trans}) :
-    'mautic.webhook.webhook.header.new'|trans }}{% endblock %}
-{% block mauticContent %}mauticWebhook{% endblock %}
+    'mailvotech.webhook.webhook.header.edit'|trans({'%name%': entity.getName()|trans}) :
+    'mailvotech.webhook.webhook.header.new'|trans }}{% endblock %}
+{% block mailvotechContent %}mailvotechWebhook{% endblock %}
 
 {% block content %}
 {{ form_start(form) }}

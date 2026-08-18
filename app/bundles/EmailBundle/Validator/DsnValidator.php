@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Validator;
+namespace MailVotech\EmailBundle\Validator;
 
-use Mautic\EmailBundle\Mailer\Transport\TransportFactory;
-use Mautic\EmailBundle\Validator\Dsn as DsnConstraint;
+use MailVotech\EmailBundle\Mailer\Transport\TransportFactory;
+use MailVotech\EmailBundle\Validator\Dsn as DsnConstraint;
 use Symfony\Component\Mailer\Exception\ExceptionInterface;
 use Symfony\Component\Mailer\Exception\InvalidArgumentException;
 use Symfony\Component\Mailer\Exception\UnsupportedSchemeException;
@@ -38,7 +38,7 @@ final class DsnValidator extends ConstraintValidator
         try {
             $dsn = MailerDsn::fromString($value);
         } catch (InvalidArgumentException $e) {
-            $this->context->addViolation($e->getMessage() ?: 'mautic.email.dsn.invalid_dsn');
+            $this->context->addViolation($e->getMessage() ?: 'mailvotech.email.dsn.invalid_dsn');
 
             return;
         }
@@ -46,9 +46,9 @@ final class DsnValidator extends ConstraintValidator
         try {
             $this->transportFactory->fromDsnObject($dsn);
         } catch (UnsupportedSchemeException $e) {
-            $this->context->addViolation($e->getMessage() ?: 'mautic.email.dsn.unsupported_scheme');
+            $this->context->addViolation($e->getMessage() ?: 'mailvotech.email.dsn.unsupported_scheme');
         } catch (ExceptionInterface $e) {
-            $this->context->addViolation($e->getMessage() ?: 'mautic.email.dsn.invalid_dsn');
+            $this->context->addViolation($e->getMessage() ?: 'mailvotech.email.dsn.invalid_dsn');
         }
     }
 }

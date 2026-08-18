@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\Integration\Twilio;
+namespace MailVotech\SmsBundle\Tests\Integration\Twilio;
 
-use Mautic\SmsBundle\Helper\ContactHelper;
-use Mautic\SmsBundle\Integration\Twilio\Configuration;
-use Mautic\SmsBundle\Integration\Twilio\TwilioCallback;
+use MailVotech\SmsBundle\Helper\ContactHelper;
+use MailVotech\SmsBundle\Integration\Twilio\Configuration;
+use MailVotech\SmsBundle\Integration\Twilio\TwilioCallback;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;

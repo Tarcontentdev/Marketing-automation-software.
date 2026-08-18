@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PointBundle\Model;
+namespace MailVotech\PointBundle\Model;
 
-use Mautic\CoreBundle\Model\FormModel as CommonFormModel;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PointBundle\Entity\Group;
-use Mautic\PointBundle\Entity\GroupContactScore;
-use Mautic\PointBundle\Entity\PointInsight;
-use Mautic\PointBundle\Entity\PointInsightRepository;
-use Mautic\PointBundle\Form\Type\PointInsightType;
+use MailVotech\CoreBundle\Model\FormModel as CommonFormModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PointBundle\Entity\Group;
+use MailVotech\PointBundle\Entity\GroupContactScore;
+use MailVotech\PointBundle\Entity\PointInsight;
+use MailVotech\PointBundle\Entity\PointInsightRepository;
+use MailVotech\PointBundle\Form\Type\PointInsightType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;

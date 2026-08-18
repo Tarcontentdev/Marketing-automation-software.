@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Field\EventListener;
+namespace MailVotech\LeadBundle\Field\EventListener;
 
-use Mautic\LeadBundle\Event\LeadFieldEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Event\LeadFieldEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\FieldModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -37,7 +37,7 @@ final readonly class LeadFieldSubscriber implements EventSubscriberInterface
 
         if (count($segments)) {
             $url = $this->router->generate(
-                'mautic_segment_index',
+                'mailvotech_segment_index',
                 ['search' => 'filters_field:'.$field->getAlias()]
             );
             $messageVars = [
@@ -45,7 +45,7 @@ final readonly class LeadFieldSubscriber implements EventSubscriberInterface
                 '%id%'   => $field->getId(),
                 '%url%'  => $url,
             ];
-            $message = $this->translator->trans('mautic.core.notice.used.field', $messageVars, 'flashes');
+            $message = $this->translator->trans('mailvotech.core.notice.used.field', $messageVars, 'flashes');
             $event->addDependencyError($message);
         }
     }

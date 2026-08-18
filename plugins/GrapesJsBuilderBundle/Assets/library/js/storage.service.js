@@ -1,5 +1,5 @@
-import MjmlService from './preset-mautic/mjml/mjml.service';
-import ContentService from './preset-mautic/content.service';
+import MjmlService from './preset-mailvotech/mjml/mjml.service';
+import ContentService from './preset-mailvotech/content.service';
 
 export default class StorageService {
     constructor(editor, mode) {
@@ -86,25 +86,25 @@ export default class StorageService {
         buttonContainer.className = 'alert-growl-buttons';
 
         const restoreButton = document.createElement('button');
-        restoreButton.innerHTML = '<i class="ri-arrow-go-back-line"></i> ' + Mautic.translate('mautic.core.builder.storage.restore.button')
+        restoreButton.innerHTML = '<i class="ri-arrow-go-back-line"></i> ' + MailVotech.translate('mailvotech.core.builder.storage.restore.button')
         restoreButton.className = 'btn btn-primary btn-sm ml-md';
 
         const dismissButton = document.createElement('button');
-        dismissButton.innerHTML = Mautic.translate('mautic.core.builder.storage.dismiss.button')
+        dismissButton.innerHTML = MailVotech.translate('mailvotech.core.builder.storage.dismiss.button')
         dismissButton.className = 'btn btn-ghost btn-sm';
         buttonContainer.append(restoreButton, dismissButton);
 
         const formattedDateTime = this.formatDateTime(storedContent.date);
-        const message = Mautic.translate('mautic.core.builder.storage.restore.message', {
+        const message = MailVotech.translate('mailvotech.core.builder.storage.restore.message', {
             date: formattedDateTime
         });
-        const flashMessage = Mautic.addInfoFlashMessage(message);
+        const flashMessage = MailVotech.addInfoFlashMessage(message);
         flashMessage.append(buttonContainer);
 
         const closeButton = flashMessage.querySelector('button.close')
 
         this.addMessageEventListeners(restoreButton, dismissButton, closeButton);
-        Mautic.setFlashes(flashMessage, false);
+        MailVotech.setFlashes(flashMessage, false);
         this.restoreMessage = flashMessage;
     }
 
@@ -145,7 +145,7 @@ export default class StorageService {
             // so we need to validate the URL changes and the presence of the entity id
             if (lastRequestUrlPart === 'new' && !isNaN(lastResponseUrlPart)) {
                 // Remove the local storage item for the newly created entity after successful form submission
-                this.removeStorageItemById(`gjs-${this.mode}-${Mautic.builderTheme}-new`);
+                this.removeStorageItemById(`gjs-${this.mode}-${MailVotech.builderTheme}-new`);
             }
 
             // The saved entity is the source of truth; drop any stale local backup.
@@ -217,7 +217,7 @@ export default class StorageService {
 
     getStackItemId() {
         const entityId = this.getFormEntityId(this.mode === 'page' ? 'page' : 'emailform')
-        return `gjs-${this.mode}-${Mautic.builderTheme}-${entityId}`;
+        return `gjs-${this.mode}-${MailVotech.builderTheme}-${entityId}`;
     }
 
     saveStorageItem(item) {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CacheBundle\Tests\Cache;
+namespace MailVotech\CacheBundle\Tests\Cache;
 
-use Mautic\CacheBundle\Cache\Adapter\FilesystemTagAwareAdapter;
-use Mautic\CacheBundle\Cache\CacheProvider;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CacheBundle\Cache\Adapter\FilesystemTagAwareAdapter;
+use MailVotech\CacheBundle\Cache\CacheProvider;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;

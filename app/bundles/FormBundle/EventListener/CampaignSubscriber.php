@@ -1,21 +1,21 @@
 <?php
 
-namespace Mautic\FormBundle\EventListener;
+namespace MailVotech\FormBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\CampaignBundle\Executioner\RealTimeExecutioner;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\FormBundle\Entity\Form;
-use Mautic\FormBundle\Entity\FormRepository;
-use Mautic\FormBundle\Entity\SubmissionRepository;
-use Mautic\FormBundle\Event\SubmissionEvent;
-use Mautic\FormBundle\Form\Type\CampaignEventFormFieldValueType;
-use Mautic\FormBundle\Form\Type\CampaignEventFormSubmitType;
-use Mautic\FormBundle\FormEvents;
-use Mautic\FormBundle\Helper\FormFieldHelper;
-use Mautic\FormBundle\Model\FormModel;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\CampaignBundle\Executioner\RealTimeExecutioner;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\FormBundle\Entity\Form;
+use MailVotech\FormBundle\Entity\FormRepository;
+use MailVotech\FormBundle\Entity\SubmissionRepository;
+use MailVotech\FormBundle\Event\SubmissionEvent;
+use MailVotech\FormBundle\Form\Type\CampaignEventFormFieldValueType;
+use MailVotech\FormBundle\Form\Type\CampaignEventFormSubmitType;
+use MailVotech\FormBundle\FormEvents;
+use MailVotech\FormBundle\Helper\FormFieldHelper;
+use MailVotech\FormBundle\Model\FormModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class CampaignSubscriber implements EventSubscriberInterface
@@ -45,18 +45,18 @@ final readonly class CampaignSubscriber implements EventSubscriberInterface
     public function onCampaignBuild(CampaignBuilderEvent $event): void
     {
         $trigger = [
-            'label'       => 'mautic.form.campaign.event.submit',
-            'description' => 'mautic.form.campaign.event.submit_descr',
+            'label'       => 'mailvotech.form.campaign.event.submit',
+            'description' => 'mailvotech.form.campaign.event.submit_descr',
             'formType'    => CampaignEventFormSubmitType::class,
             'eventName'   => FormEvents::ON_CAMPAIGN_TRIGGER_DECISION,
         ];
         $event->addDecision('form.submit', $trigger);
 
         $trigger = [
-            'label'       => 'mautic.form.campaign.event.field_value',
-            'description' => 'mautic.form.campaign.event.field_value_descr',
+            'label'       => 'mailvotech.form.campaign.event.field_value',
+            'description' => 'mailvotech.form.campaign.event.field_value_descr',
             'formType'    => CampaignEventFormFieldValueType::class,
-            'formTheme'   => '@MauticForm/FormTheme/FieldValueCondition/_campaignevent_form_field_value_widget.html.twig',
+            'formTheme'   => '@MailVotechForm/FormTheme/FieldValueCondition/_campaignevent_form_field_value_widget.html.twig',
             'eventName'   => FormEvents::ON_CAMPAIGN_TRIGGER_CONDITION,
         ];
         $event->addCondition('form.field_value', $trigger);

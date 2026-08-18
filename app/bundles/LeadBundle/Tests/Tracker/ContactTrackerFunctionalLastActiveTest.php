@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Tracker;
+namespace MailVotech\LeadBundle\Tests\Tracker;
 
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Helper\ClickthroughHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Event\LeadGetCurrentEvent;
-use Mautic\LeadBundle\Helper\ContactRequestHelper;
-use Mautic\PageBundle\Entity\Page;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Helper\ClickthroughHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Event\LeadGetCurrentEvent;
+use MailVotech\LeadBundle\Helper\ContactRequestHelper;
+use MailVotech\PageBundle\Entity\Page;
+use MailVotech\PageBundle\Model\PageModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-final class ContactTrackerFunctionalLastActiveTest extends MauticMysqlTestCase
+final class ContactTrackerFunctionalLastActiveTest extends MailVotechMysqlTestCase
 {
     protected function setUp(): void
     {

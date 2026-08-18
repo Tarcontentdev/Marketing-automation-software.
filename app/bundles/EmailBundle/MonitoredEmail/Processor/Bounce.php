@@ -1,19 +1,19 @@
 <?php
 
-namespace Mautic\EmailBundle\MonitoredEmail\Processor;
+namespace MailVotech\EmailBundle\MonitoredEmail\Processor;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Mailer\Transport\BounceProcessorInterface;
-use Mautic\EmailBundle\Model\EmailStatModel;
-use Mautic\EmailBundle\MonitoredEmail\Exception\BounceNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\BouncedEmail;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\Parser;
-use Mautic\EmailBundle\MonitoredEmail\Search\ContactFinder;
-use Mautic\LeadBundle\Model\DoNotContact;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Mailer\Transport\BounceProcessorInterface;
+use MailVotech\EmailBundle\Model\EmailStatModel;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\BounceNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\BouncedEmail;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\Parser;
+use MailVotech\EmailBundle\MonitoredEmail\Search\ContactFinder;
+use MailVotech\LeadBundle\Model\DoNotContact;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Mailer\Transport\TransportInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -85,9 +85,9 @@ class Bounce implements ProcessorInterface
             }
         }
 
-        $comments = $this->translator->trans('mautic.email.bounce.reason.'.$bounce->getRuleCategory());
+        $comments = $this->translator->trans('mailvotech.email.bounce.reason.'.$bounce->getRuleCategory());
         foreach ($contacts as $contact) {
-            $this->doNotContact->addDncForContact($contact->getId(), $channel, \Mautic\LeadBundle\Entity\DoNotContact::BOUNCED, $comments);
+            $this->doNotContact->addDncForContact($contact->getId(), $channel, \MailVotech\LeadBundle\Entity\DoNotContact::BOUNCED, $comments);
         }
 
         return true;

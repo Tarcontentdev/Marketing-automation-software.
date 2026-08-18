@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Entity;
+namespace MailVotech\CampaignBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\LeadBundle\Entity\TimelineTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\LeadBundle\Entity\TimelineTrait;
 
 /**
  * @extends CommonRepository<Summary>
@@ -37,7 +37,7 @@ final class SummaryRepository extends CommonRepository
                 'SUM(cs.failed_count) as failed_count',
                 'SUM(cs.log_counts_processed) as log_counts_processed',
             )
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_summary', 'cs')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_summary', 'cs')
             ->where('cs.campaign_id = '.$campaignId)
             ->groupBy('cs.event_id');
 
@@ -69,7 +69,7 @@ final class SummaryRepository extends CommonRepository
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $qb->select('cs.date_triggered')
-            ->from(MAUTIC_TABLE_PREFIX.'campaign_summary', 'cs')
+            ->from(MAILVOTECH_TABLE_PREFIX.'campaign_summary', 'cs')
             ->orderBy('cs.date_triggered', 'ASC')
             ->setMaxResults(1);
 
@@ -100,7 +100,7 @@ final class SummaryRepository extends CommonRepository
             $dateFromTs = date('Y-m-d H:i:s', $dateFromStartWithZeroMinutes + ($interval * $intervalInSeconds));
             $dateToTs   = date('Y-m-d H:i:s', strtotime($dateFromTs) + ($intervalInSeconds - 1));
 
-            $sql = 'INSERT INTO '.MAUTIC_TABLE_PREFIX.'campaign_summary '.
+            $sql = 'INSERT INTO '.MAILVOTECH_TABLE_PREFIX.'campaign_summary '.
             ' (campaign_id, event_id, date_triggered, scheduled_count, non_action_path_taken_count, failed_count, triggered_count, log_counts_processed) '.
             ' SELECT * FROM (SELECT '.
             '       mclel.campaign_id AS campaign_id, '.
@@ -110,15 +110,15 @@ final class SummaryRepository extends CommonRepository
             '       SUM(IF(mclel.is_scheduled = 1 AND mclel.trigger_date > NOW(), 0, mclel.non_action_path_taken)) AS non_action_path_taken_count_i, '.
             '       SUM(IF((mclel.is_scheduled = 1 AND mclel.trigger_date > NOW()) OR mclel.non_action_path_taken, 0, mclefl.log_id IS NOT NULL)) AS failed_count_i, '.
             '       SUM(IF((mclel.is_scheduled = 1 AND mclel.trigger_date > NOW()) OR mclel.non_action_path_taken OR mclefl.log_id IS NOT NULL, 0, 1)) AS triggered_count_i, '.
-            '       COUNT((SELECT mcl.campaign_id FROM '.MAUTIC_TABLE_PREFIX.'campaign_leads mcl 
+            '       COUNT((SELECT mcl.campaign_id FROM '.MAILVOTECH_TABLE_PREFIX.'campaign_leads mcl 
                 WHERE mcl.campaign_id = mclel.campaign_id 
                 AND mclel.lead_id = mcl.lead_id 
                 AND mclel.is_scheduled = 0 
                 AND mclel.date_triggered IS NOT NULL 
-                AND NOT EXISTS(SELECT NULL FROM '.MAUTIC_TABLE_PREFIX.'campaign_lead_event_failed_log mclefl2 
+                AND NOT EXISTS(SELECT NULL FROM '.MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_failed_log mclefl2 
                     WHERE mclefl2.log_id = mclel.id AND mclefl2.date_added BETWEEN "'.$dateFromTs.'" AND "'.$dateToTs.'")
             )) AS log_counts_processed_i '.
-            ' FROM '.MAUTIC_TABLE_PREFIX.'campaign_lead_event_log mclel LEFT JOIN '.MAUTIC_TABLE_PREFIX.'campaign_lead_event_failed_log mclefl ON mclefl.log_id = mclel.id '.
+            ' FROM '.MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_log mclel LEFT JOIN '.MAILVOTECH_TABLE_PREFIX.'campaign_lead_event_failed_log mclefl ON mclefl.log_id = mclel.id '.
             ' WHERE (mclel.date_triggered BETWEEN "'.$dateFromTs.'" AND "'.$dateToTs.'") ';
             if ($campaignId) {
                 $sql .= ' AND mclel.campaign_id = '.$campaignId;

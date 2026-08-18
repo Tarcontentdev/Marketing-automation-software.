@@ -5,20 +5,20 @@
                 <div class="box-layout">
                     <div class="col-md-9 va-m">
                         <h5 class="fw-sb text-primary mt-0 mb-sm">
-                            <a href="{{ path('mautic_campaign_action', {'objectAction': 'view', 'objectId': email.campaign_id}) }}" data-toggle="ajax">
+                            <a href="{{ path('mailvotech_campaign_action', {'objectAction': 'view', 'objectId': email.campaign_id}) }}" data-toggle="ajax">
                                 {{ email.campaign_name }}
                             </a>
                         </h5>
                         <span class="text-white dark-sm">
                             {{ email.event_name }}
-                            {{'mautic.core.send.email.to'|trans|lower}}
-                            {% include '@MauticCore/Helper/button.html.twig' with {
+                            {{'mailvotech.core.send.email.to'|trans|lower}}
+                            {% include '@MailVotechCore/Helper/button.html.twig' with {
                                 buttons: [
                                     {
-                                        label: email.lead_name ?: ('mautic.lead.lead'|trans ~ ' #' ~ email.lead_id),
+                                        label: email.lead_name ?: ('mailvotech.lead.lead'|trans ~ ' #' ~ email.lead_id),
                                         variant: 'tertiary',
                                         size: 'xs',
-                                        href: path('mautic_contact_action', {'objectAction': 'view', 'objectId': email.lead_id}),
+                                        href: path('mailvotech_contact_action', {'objectAction': 'view', 'objectId': email.lead_id}),
                                         attributes: {
                                             'data-toggle': 'ajax',
                                             'class': 'pr-sm pl-sm fs-12 ml-3'
@@ -36,5 +36,5 @@
         {% endfor %}
     </ul>
 {% else %}
-    <div class="alert alert-warning" role="alert">{{ 'mautic.note.no.upcoming.emails'|trans }}</div>
+    <div class="alert alert-warning" role="alert">{{ 'mailvotech.note.no.upcoming.emails'|trans }}</div>
 {% endif %}

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Scheduler\Model;
+namespace MailVotech\ReportBundle\Tests\Scheduler\Model;
 
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Entity\Scheduler;
-use Mautic\ReportBundle\Exception\FileTooBigException;
-use Mautic\ReportBundle\Scheduler\Model\FileHandler;
-use Mautic\ReportBundle\Scheduler\Model\MessageSchedule;
-use Mautic\ReportBundle\Scheduler\Model\SendSchedule;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\Scheduler;
+use MailVotech\ReportBundle\Exception\FileTooBigException;
+use MailVotech\ReportBundle\Scheduler\Model\FileHandler;
+use MailVotech\ReportBundle\Scheduler\Model\MessageSchedule;
+use MailVotech\ReportBundle\Scheduler\Model\SendSchedule;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 

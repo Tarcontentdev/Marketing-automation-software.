@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Twig\Extension;
+namespace MailVotech\CoreBundle\Twig\Extension;
 
-use Mautic\FormBundle\Enum\ConditionalFieldEnum;
+use MailVotech\FormBundle\Enum\ConditionalFieldEnum;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

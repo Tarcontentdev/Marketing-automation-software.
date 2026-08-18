@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StatsBundle\Tests\Aggregate\Collection\Stats;
+namespace MailVotech\StatsBundle\Tests\Aggregate\Collection\Stats;
 
-use Mautic\StatsBundle\Aggregate\Collection\Stats\WeekStat;
+use MailVotech\StatsBundle\Aggregate\Collection\Stats\WeekStat;
 use PHPUnit\Framework\TestCase;
 
 final class WeekStatTest extends TestCase

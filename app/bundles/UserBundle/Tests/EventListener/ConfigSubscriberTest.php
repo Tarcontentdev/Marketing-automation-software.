@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\EventListener;
+namespace MailVotech\UserBundle\Tests\EventListener;
 
-use Mautic\ConfigBundle\Event\ConfigEvent;
-use Mautic\UserBundle\EventListener\ConfigSubscriber;
+use MailVotech\ConfigBundle\Event\ConfigEvent;
+use MailVotech\UserBundle\EventListener\ConfigSubscriber;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -84,7 +84,7 @@ final class ConfigSubscriberTest extends TestCase
 
         $this->configEvent->expects($this->once())
             ->method('setError')
-            ->with('mautic.user.saml.metadata.invalid', [], 'userconfig', 'saml_idp_metadata');
+            ->with('mailvotech.user.saml.metadata.invalid', [], 'userconfig', 'saml_idp_metadata');
 
         $subscriber->onConfigSave($this->configEvent);
     }
@@ -133,7 +133,7 @@ final class ConfigSubscriberTest extends TestCase
 
         $this->configEvent->expects($this->once())
             ->method('setError')
-            ->with('mautic.user.saml.certificate.invalid', [], 'userconfig', 'saml_idp_own_certificate');
+            ->with('mailvotech.user.saml.certificate.invalid', [], 'userconfig', 'saml_idp_own_certificate');
 
         $subscriber->onConfigSave($this->configEvent);
     }
@@ -182,7 +182,7 @@ final class ConfigSubscriberTest extends TestCase
 
         $this->configEvent->expects($this->once())
             ->method('setError')
-            ->with('mautic.user.saml.private_key.invalid', [], 'userconfig', 'saml_idp_own_private_key');
+            ->with('mailvotech.user.saml.private_key.invalid', [], 'userconfig', 'saml_idp_own_private_key');
 
         $subscriber->onConfigSave($this->configEvent);
     }
@@ -273,7 +273,7 @@ KEY_WRAP;
 
         $this->configEvent->expects($this->once())
             ->method('setError')
-            ->with('mautic.user.saml.private_key.password_invalid', [], 'userconfig', 'saml_idp_own_password');
+            ->with('mailvotech.user.saml.private_key.password_invalid', [], 'userconfig', 'saml_idp_own_password');
 
         $subscriber->onConfigSave($this->configEvent);
     }
@@ -319,7 +319,7 @@ KEY_WRAP;
 
         $this->configEvent->expects($this->once())
             ->method('setError')
-            ->with('mautic.user.saml.private_key.password_needed', [], 'userconfig', 'saml_idp_own_password');
+            ->with('mailvotech.user.saml.private_key.password_needed', [], 'userconfig', 'saml_idp_own_password');
 
         $subscriber->onConfigSave($this->configEvent);
     }

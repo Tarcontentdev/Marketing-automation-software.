@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Event;
+namespace MailVotech\AssetBundle\Event;
 
-use Mautic\CoreBundle\Event\CommonEvent;
+use MailVotech\CoreBundle\Event\CommonEvent;
 
 final class AssetExportListEvent extends CommonEvent
 {

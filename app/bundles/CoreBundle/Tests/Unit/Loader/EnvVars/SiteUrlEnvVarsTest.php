@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Loader\EnvVars;
+namespace MailVotech\CoreBundle\Tests\Unit\Loader\EnvVars;
 
-use Mautic\CoreBundle\Loader\EnvVars\SiteUrlEnvVars;
+use MailVotech\CoreBundle\Loader\EnvVars\SiteUrlEnvVars;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -29,11 +29,11 @@ final class SiteUrlEnvVarsTest extends TestCase
 
         SiteUrlEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertNull($this->envVars->get('MAUTIC_REQUEST_CONTEXT_HOST'));
-        $this->assertNull($this->envVars->get('MAUTIC_REQUEST_CONTEXT_SCHEME'));
-        $this->assertNull($this->envVars->get('MAUTIC_REQUEST_CONTEXT_BASE_URL'));
-        $this->assertEquals(80, $this->envVars->get('MAUTIC_REQUEST_CONTEXT_HTTP_PORT'));
-        $this->assertEquals(443, $this->envVars->get('MAUTIC_REQUEST_CONTEXT_HTTPS_PORT'));
+        $this->assertNull($this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HOST'));
+        $this->assertNull($this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_SCHEME'));
+        $this->assertNull($this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_BASE_URL'));
+        $this->assertEquals(80, $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HTTP_PORT'));
+        $this->assertEquals(443, $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HTTPS_PORT'));
     }
 
     public function testContextIsCorrectForRootDomain(): void
@@ -42,11 +42,11 @@ final class SiteUrlEnvVarsTest extends TestCase
 
         SiteUrlEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals('foobar.com', $this->envVars->get('MAUTIC_REQUEST_CONTEXT_HOST'));
-        $this->assertEquals('https', $this->envVars->get('MAUTIC_REQUEST_CONTEXT_SCHEME'));
-        $this->assertEquals(null, $this->envVars->get('MAUTIC_REQUEST_CONTEXT_BASE_URL'));
-        $this->assertEquals(80, $this->envVars->get('MAUTIC_REQUEST_CONTEXT_HTTP_PORT'));
-        $this->assertEquals(443, $this->envVars->get('MAUTIC_REQUEST_CONTEXT_HTTPS_PORT'));
+        $this->assertEquals('foobar.com', $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HOST'));
+        $this->assertEquals('https', $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_SCHEME'));
+        $this->assertEquals(null, $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_BASE_URL'));
+        $this->assertEquals(80, $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HTTP_PORT'));
+        $this->assertEquals(443, $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HTTPS_PORT'));
     }
 
     public function testContextIsCorrectForCustomHttpPort(): void
@@ -55,11 +55,11 @@ final class SiteUrlEnvVarsTest extends TestCase
 
         SiteUrlEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals('foobar.com', $this->envVars->get('MAUTIC_REQUEST_CONTEXT_HOST'));
-        $this->assertEquals('http', $this->envVars->get('MAUTIC_REQUEST_CONTEXT_SCHEME'));
-        $this->assertEquals(null, $this->envVars->get('MAUTIC_REQUEST_CONTEXT_BASE_URL'));
-        $this->assertEquals(8080, $this->envVars->get('MAUTIC_REQUEST_CONTEXT_HTTP_PORT'));
-        $this->assertEquals(443, $this->envVars->get('MAUTIC_REQUEST_CONTEXT_HTTPS_PORT'));
+        $this->assertEquals('foobar.com', $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HOST'));
+        $this->assertEquals('http', $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_SCHEME'));
+        $this->assertEquals(null, $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_BASE_URL'));
+        $this->assertEquals(8080, $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HTTP_PORT'));
+        $this->assertEquals(443, $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HTTPS_PORT'));
     }
 
     public function testContextIsCorrectForCustomHttpsPort(): void
@@ -68,11 +68,11 @@ final class SiteUrlEnvVarsTest extends TestCase
 
         SiteUrlEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals('foobar.com', $this->envVars->get('MAUTIC_REQUEST_CONTEXT_HOST'));
-        $this->assertEquals('https', $this->envVars->get('MAUTIC_REQUEST_CONTEXT_SCHEME'));
-        $this->assertEquals(null, $this->envVars->get('MAUTIC_REQUEST_CONTEXT_BASE_URL'));
-        $this->assertEquals(80, $this->envVars->get('MAUTIC_REQUEST_CONTEXT_HTTP_PORT'));
-        $this->assertEquals(8080, $this->envVars->get('MAUTIC_REQUEST_CONTEXT_HTTPS_PORT'));
+        $this->assertEquals('foobar.com', $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HOST'));
+        $this->assertEquals('https', $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_SCHEME'));
+        $this->assertEquals(null, $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_BASE_URL'));
+        $this->assertEquals(80, $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HTTP_PORT'));
+        $this->assertEquals(8080, $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HTTPS_PORT'));
     }
 
     public function testContextIsCorrectForUrlWithPath(): void
@@ -81,10 +81,10 @@ final class SiteUrlEnvVarsTest extends TestCase
 
         SiteUrlEnvVars::load($this->config, $this->defaultConfig, $this->envVars);
 
-        $this->assertEquals('foobar.com', $this->envVars->get('MAUTIC_REQUEST_CONTEXT_HOST'));
-        $this->assertEquals('https', $this->envVars->get('MAUTIC_REQUEST_CONTEXT_SCHEME'));
-        $this->assertEquals('/hello/there', $this->envVars->get('MAUTIC_REQUEST_CONTEXT_BASE_URL'));
-        $this->assertEquals(80, $this->envVars->get('MAUTIC_REQUEST_CONTEXT_HTTP_PORT'));
-        $this->assertEquals(443, $this->envVars->get('MAUTIC_REQUEST_CONTEXT_HTTPS_PORT'));
+        $this->assertEquals('foobar.com', $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HOST'));
+        $this->assertEquals('https', $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_SCHEME'));
+        $this->assertEquals('/hello/there', $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_BASE_URL'));
+        $this->assertEquals(80, $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HTTP_PORT'));
+        $this->assertEquals(443, $this->envVars->get('MAILVOTECH_REQUEST_CONTEXT_HTTPS_PORT'));
     }
 }

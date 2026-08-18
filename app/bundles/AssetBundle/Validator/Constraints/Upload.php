@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Validator\Constraints;
+namespace MailVotech\AssetBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 

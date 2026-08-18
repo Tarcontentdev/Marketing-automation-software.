@@ -3,7 +3,7 @@
         {
             "name": "theme-sparse",
             "directory": "themes/sparse",
-            "target": "git@github.com:mautic/theme-sparse.git"
+            "target": "git@github.com:mailvotech/theme-sparse.git"
         }
     ]
 }

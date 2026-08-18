@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Tests\PreferenceBuilder;
+namespace MailVotech\ChannelBundle\Tests\PreferenceBuilder;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\ChannelBundle\PreferenceBuilder\ChannelPreferences;
-use Mautic\ChannelBundle\PreferenceBuilder\PreferenceBuilder;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\ChannelBundle\PreferenceBuilder\ChannelPreferences;
+use MailVotech\ChannelBundle\PreferenceBuilder\PreferenceBuilder;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
 use Psr\Log\NullLogger;
 
 final class PreferenceBuilderTest extends \PHPUnit\Framework\TestCase

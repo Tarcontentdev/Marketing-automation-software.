@@ -3,7 +3,7 @@
 namespace Utils\Rector\Tests\GetRepositoryToRepositoryServiceRector\Fixture;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Hit;
 
 final class ServiceUsesConstructorInjection
 {
@@ -24,11 +24,11 @@ final class ServiceUsesConstructorInjection
 namespace Utils\Rector\Tests\GetRepositoryToRepositoryServiceRector\Fixture;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\PageBundle\Entity\Hit;
+use MailVotech\PageBundle\Entity\Hit;
 
 final class ServiceUsesConstructorInjection
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly \Mautic\PageBundle\Entity\HitRepository $hitRepository)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly \MailVotech\PageBundle\Entity\HitRepository $hitRepository)
     {
     }
 

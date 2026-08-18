@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\CoreBundle\DependencyInjection\Builder;
+namespace MailVotech\CoreBundle\DependencyInjection\Builder;
 
-use Mautic\CoreBundle\DependencyInjection\Builder\Metadata\ConfigMetadata;
-use Mautic\CoreBundle\DependencyInjection\Builder\Metadata\EntityMetadata;
-use Mautic\CoreBundle\DependencyInjection\Builder\Metadata\PermissionClassMetadata;
+use MailVotech\CoreBundle\DependencyInjection\Builder\Metadata\ConfigMetadata;
+use MailVotech\CoreBundle\DependencyInjection\Builder\Metadata\EntityMetadata;
+use MailVotech\CoreBundle\DependencyInjection\Builder\Metadata\PermissionClassMetadata;
 
 final class BundleMetadataBuilder
 {
@@ -54,31 +54,31 @@ final class BundleMetadataBuilder
     {
         foreach ($this->symfonyBundles as $symfonyBundle => $namespace) {
             // Plugin
-            if (str_contains($namespace, 'MauticPlugin\\')) {
+            if (str_contains($namespace, 'MailVotechPlugin\\')) {
                 $this->pluginMetadata[$symfonyBundle] = $this->buildPluginMetadata($namespace, $symfonyBundle);
 
                 continue;
             }
 
             // Core bundle
-            if (str_contains($namespace, 'Mautic\\')) {
+            if (str_contains($namespace, 'MailVotech\\')) {
                 $this->coreMetadata[$symfonyBundle] = $this->buildCoreMetadata($namespace, $symfonyBundle);
 
                 continue;
             }
 
-            // Otherwise not a Mautic bundle so ignore
+            // Otherwise not a MailVotech bundle so ignore
         }
 
         // Make CoreBundle the first in the core bundle list
-        if (!isset($this->coreMetadata['MauticCoreBundle'])) {
+        if (!isset($this->coreMetadata['MailVotechCoreBundle'])) {
             // Not always set for tests
             return;
         }
 
-        $coreBundle = $this->coreMetadata['MauticCoreBundle'];
-        unset($this->coreMetadata['MauticCoreBundle']);
-        $this->coreMetadata = array_merge(['MauticCoreBundle' => $coreBundle], $this->coreMetadata);
+        $coreBundle = $this->coreMetadata['MailVotechCoreBundle'];
+        unset($this->coreMetadata['MailVotechCoreBundle']);
+        $this->coreMetadata = array_merge(['MailVotechCoreBundle' => $coreBundle], $this->coreMetadata);
     }
 
     private function buildPluginMetadata(string $namespace, string $symfonyBundle): array
@@ -94,7 +94,7 @@ final class BundleMetadataBuilder
 
     private function buildCoreMetadata(string $namespace, string $symfonyBundle): array
     {
-        $bundleName    = str_replace('Mautic', '', $symfonyBundle);
+        $bundleName    = str_replace('MailVotech', '', $symfonyBundle);
         $relativePath  = $this->paths['bundles'].'/'.$bundleName;
         $metadataArray = $this->getMetadata(false, $namespace, $symfonyBundle, $bundleName, $relativePath);
 

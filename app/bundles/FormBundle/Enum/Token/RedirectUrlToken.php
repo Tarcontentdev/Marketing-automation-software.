@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Enum\Token;
+namespace MailVotech\FormBundle\Enum\Token;
 
 enum RedirectUrlToken: string
 {

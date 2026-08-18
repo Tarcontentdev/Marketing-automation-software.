@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\DTO;
+namespace MailVotech\CampaignBundle\DTO;
 
-use Mautic\CoreBundle\Entity\AuditLog;
+use MailVotech\CoreBundle\Entity\AuditLog;
 
 final class PublishState
 {

@@ -214,7 +214,7 @@ export default (editor, opts = {}) => {
     parseMjClassNames(updatedHeadContent).forEach((className) => classNames.add(className));
   };
 
-  editor.on('mautic:code-editor-update:before', (mjml) => {
+  editor.on('mailvotech:code-editor-update:before', (mjml) => {
     readyForNewDrops = false;
     previousHeadContent = currentHeadContent;
     currentHeadContent = extractMjHeadContent(mjml);
@@ -236,12 +236,12 @@ export default (editor, opts = {}) => {
     blockColl.on('add reset', patchBlocksWithContext);
   }
 
-  editor.on('mautic:code-editor-update', () => {
+  editor.on('mailvotech:code-editor-update', () => {
     stripDefaultAttrsForTokenizedComponents();
     patchBlocksWithContext();
   });
 
-  editor.on('mautic:code-editor-update:complete', (successful) => {
+  editor.on('mailvotech:code-editor-update:complete', (successful) => {
     if (!successful) {
       currentHeadContent = previousHeadContent;
       updateHeadContent(currentHeadContent);

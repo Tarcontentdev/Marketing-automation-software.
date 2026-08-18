@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Mautic\CoreBundle\DependencyInjection\MauticCoreExtension;
+use MailVotech\CoreBundle\DependencyInjection\MailVotechCoreExtension;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
@@ -18,15 +18,15 @@ return function (ContainerConfigurator $configurator): void {
         'Form/DataTransformer/EventsToArrayTransformer.php',
     ];
 
-    $services->load('Mautic\\WebhookBundle\\', '../')
-        ->exclude('../{'.implode(',', array_merge(MauticCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
+    $services->load('MailVotech\\WebhookBundle\\', '../')
+        ->exclude('../{'.implode(',', array_merge(MailVotechCoreExtension::DEFAULT_EXCLUDES, $excludes)).'}');
 
-    $services->load('Mautic\\WebhookBundle\\Entity\\', '../Entity/*Repository.php')
+    $services->load('MailVotech\\WebhookBundle\\Entity\\', '../Entity/*Repository.php')
         ->tag(Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\ServiceRepositoryCompilerPass::REPOSITORY_SERVICE_TAG);
-    $services->set('mautic.webhook.campaign.helper', Mautic\WebhookBundle\Helper\CampaignHelper::class)
-        ->arg('$client', service('mautic.http.client'));
-    $services->alias(Mautic\WebhookBundle\Helper\CampaignHelper::class, 'mautic.webhook.campaign.helper');
+    $services->set('mailvotech.webhook.campaign.helper', MailVotech\WebhookBundle\Helper\CampaignHelper::class)
+        ->arg('$client', service('mailvotech.http.client'));
+    $services->alias(MailVotech\WebhookBundle\Helper\CampaignHelper::class, 'mailvotech.webhook.campaign.helper');
 
-    $services->alias('mautic.webhook.model.webhook', Mautic\WebhookBundle\Model\WebhookModel::class);
-    $services->alias('mautic.webhook.repository.queue', Mautic\WebhookBundle\Entity\WebhookQueueRepository::class);
+    $services->alias('mailvotech.webhook.model.webhook', MailVotech\WebhookBundle\Model\WebhookModel::class);
+    $services->alias('mailvotech.webhook.repository.queue', MailVotech\WebhookBundle\Entity\WebhookQueueRepository::class);
 };

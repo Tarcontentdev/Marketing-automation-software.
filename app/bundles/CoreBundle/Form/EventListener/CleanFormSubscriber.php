@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Form\EventListener;
+namespace MailVotech\CoreBundle\Form\EventListener;
 
-use Mautic\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;

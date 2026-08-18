@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Tests\Functional;
+namespace MailVotech\WebhookBundle\Tests\Functional;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
-use Mautic\CoreBundle\Entity\NotificationRepository;
-use Mautic\CoreBundle\Test\Guzzle\ClientMockTrait;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\WebhookBundle\Command\ProcessWebhookQueuesCommand;
-use Mautic\WebhookBundle\Entity\Event;
-use Mautic\WebhookBundle\Entity\Webhook;
-use Mautic\WebhookBundle\Entity\WebhookQueue;
-use Mautic\WebhookBundle\Entity\WebhookQueueRepository;
-use Mautic\WebhookBundle\Entity\WebhookRepository;
-use Mautic\WebhookBundle\Model\WebhookModel;
+use MailVotech\CoreBundle\Entity\NotificationRepository;
+use MailVotech\CoreBundle\Test\Guzzle\ClientMockTrait;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\WebhookBundle\Command\ProcessWebhookQueuesCommand;
+use MailVotech\WebhookBundle\Entity\Event;
+use MailVotech\WebhookBundle\Entity\Webhook;
+use MailVotech\WebhookBundle\Entity\WebhookQueue;
+use MailVotech\WebhookBundle\Entity\WebhookQueueRepository;
+use MailVotech\WebhookBundle\Entity\WebhookRepository;
+use MailVotech\WebhookBundle\Model\WebhookModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Http\Message\RequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class WebhookFunctionalTest extends MauticMysqlTestCase
+final class WebhookFunctionalTest extends MailVotechMysqlTestCase
 {
     use ClientMockTrait;
 
@@ -35,7 +35,7 @@ final class WebhookFunctionalTest extends MauticMysqlTestCase
     /**
      * @var WebhookRepository|EntityRepository<Webhook>
      */
-    private \Mautic\WebhookBundle\Entity\WebhookRepository|EntityRepository $webhhokRepository;
+    private \MailVotech\WebhookBundle\Entity\WebhookRepository|EntityRepository $webhhokRepository;
 
     protected function setUp(): void
     {
@@ -204,7 +204,7 @@ final class WebhookFunctionalTest extends MauticMysqlTestCase
         $webhook = new Webhook();
         $event   = new Event();
 
-        $event->setEventType('mautic.lead_post_save_new');
+        $event->setEventType('mailvotech.lead_post_save_new');
         $event->setWebhook($webhook);
 
         $webhook->addEvent($event);

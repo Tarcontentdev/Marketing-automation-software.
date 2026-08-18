@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Segment;
+namespace MailVotech\LeadBundle\Segment;
 
 final class OperatorOptions
 {
@@ -69,125 +69,125 @@ final class OperatorOptions
      */
     private static array $operatorOptions = [
         self::EQUAL_TO => [
-            'label'       => 'mautic.lead.list.form.operator.equals',
+            'label'       => 'mailvotech.lead.list.form.operator.equals',
             'expr'        => 'eq',
             'negate_expr' => 'neq',
         ],
         self::NOT_EQUAL_TO => [
-            'label'       => 'mautic.lead.list.form.operator.notequals',
+            'label'       => 'mailvotech.lead.list.form.operator.notequals',
             'expr'        => 'neq',
             'negate_expr' => 'eq',
         ],
         self::GREATER_THAN => [
-            'label'       => 'mautic.lead.list.form.operator.greaterthan',
+            'label'       => 'mailvotech.lead.list.form.operator.greaterthan',
             'expr'        => 'gt',
             'negate_expr' => 'lt',
         ],
         self::GREATER_THAN_OR_EQUAL => [
-            'label'       => 'mautic.lead.list.form.operator.greaterthanequals',
+            'label'       => 'mailvotech.lead.list.form.operator.greaterthanequals',
             'expr'        => 'gte',
             'negate_expr' => 'lt',
         ],
         self::LESS_THAN => [
-            'label'       => 'mautic.lead.list.form.operator.lessthan',
+            'label'       => 'mailvotech.lead.list.form.operator.lessthan',
             'expr'        => 'lt',
             'negate_expr' => 'gt',
         ],
         self::LESS_THAN_OR_EQUAL => [
-            'label'       => 'mautic.lead.list.form.operator.lessthanequals',
+            'label'       => 'mailvotech.lead.list.form.operator.lessthanequals',
             'expr'        => 'lte',
             'negate_expr' => 'gt',
         ],
         self::EMPTY => [
-            'label'       => 'mautic.lead.list.form.operator.isempty',
+            'label'       => 'mailvotech.lead.list.form.operator.isempty',
             'expr'        => 'empty', // special case
             'negate_expr' => 'notEmpty',
         ],
         self::NOT_EMPTY => [
-            'label'       => 'mautic.lead.list.form.operator.isnotempty',
+            'label'       => 'mailvotech.lead.list.form.operator.isnotempty',
             'expr'        => 'notEmpty', // special case
             'negate_expr' => 'empty',
         ],
         self::LIKE => [
-            'label'       => 'mautic.lead.list.form.operator.islike',
+            'label'       => 'mailvotech.lead.list.form.operator.islike',
             'expr'        => 'like',
             'negate_expr' => 'notLike',
         ],
         self::NOT_LIKE => [
-            'label'       => 'mautic.lead.list.form.operator.isnotlike',
+            'label'       => 'mailvotech.lead.list.form.operator.isnotlike',
             'expr'        => 'notLike',
             'negate_expr' => 'like',
         ],
         self::BETWEEN => [
-            'label'       => 'mautic.lead.list.form.operator.between',
+            'label'       => 'mailvotech.lead.list.form.operator.between',
             'expr'        => 'between', // special case
             'negate_expr' => 'notBetween',
             'hide'        => true,
         ],
         self::NOT_BETWEEN => [
-            'label'       => 'mautic.lead.list.form.operator.notbetween',
+            'label'       => 'mailvotech.lead.list.form.operator.notbetween',
             'expr'        => 'notBetween', // special case
             'negate_expr' => 'between',
             'hide'        => true,
         ],
         self::IN_LAST => [
-            'label'       => 'mautic.lead.list.form.operator.inlast',
+            'label'       => 'mailvotech.lead.list.form.operator.inlast',
             'expr'        => 'inLast',
             'negate_expr' => 'inNext',
         ],
         self::IN_NEXT => [
-            'label'       => 'mautic.lead.list.form.operator.innext',
+            'label'       => 'mailvotech.lead.list.form.operator.innext',
             'expr'        => 'inNext',
             'negate_expr' => 'inLast',
         ],
         self::INCLUDING_ANY => [
-            'label'       => 'mautic.lead.list.form.operator.in',
+            'label'       => 'mailvotech.lead.list.form.operator.in',
             'expr'        => 'in',
             'negate_expr' => 'notIn',
         ],
         self::EXCLUDING_ANY => [
-            'label'       => 'mautic.lead.list.form.operator.notin',
+            'label'       => 'mailvotech.lead.list.form.operator.notin',
             'expr'        => 'notIn',
             'negate_expr' => 'in',
         ],
         self::INCLUDING_ALL => [
-            'label'       => 'mautic.lead.list.form.operator.in_all',
+            'label'       => 'mailvotech.lead.list.form.operator.in_all',
             'expr'        => self::INCLUDING_ALL,
             'negate_expr' => self::EXCLUDING_ALL,
         ],
         self::EXCLUDING_ALL => [
-            'label'       => 'mautic.lead.list.form.operator.notin_all',
+            'label'       => 'mailvotech.lead.list.form.operator.notin_all',
             'expr'        => self::EXCLUDING_ALL,
             'negate_expr' => self::INCLUDING_ALL,
         ],
         self::REGEXP => [
-            'label'       => 'mautic.lead.list.form.operator.regexp',
+            'label'       => 'mailvotech.lead.list.form.operator.regexp',
             'expr'        => 'regexp', // special case
             'negate_expr' => 'notRegexp',
         ],
         self::NOT_REGEXP => [
-            'label'       => 'mautic.lead.list.form.operator.notregexp',
+            'label'       => 'mailvotech.lead.list.form.operator.notregexp',
             'expr'        => 'notRegexp', // special case
             'negate_expr' => 'regexp',
         ],
         self::DATE => [
-            'label'       => 'mautic.lead.list.form.operator.date',
+            'label'       => 'mailvotech.lead.list.form.operator.date',
             'expr'        => 'date', // special case
             'negate_expr' => 'date',
             'hide'        => true,
         ],
         self::STARTS_WITH => [
-            'label'       => 'mautic.core.operator.starts.with',
+            'label'       => 'mailvotech.core.operator.starts.with',
             'expr'        => 'startsWith',
             'negate_expr' => 'startsWith',
         ],
         self::ENDS_WITH => [
-            'label'       => 'mautic.core.operator.ends.with',
+            'label'       => 'mailvotech.core.operator.ends.with',
             'expr'        => 'endsWith',
             'negate_expr' => 'endsWith',
         ],
         self::CONTAINS => [
-            'label'       => 'mautic.core.operator.contains',
+            'label'       => 'mailvotech.core.operator.contains',
             'expr'        => 'contains',
             'negate_expr' => 'contains',
         ],

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper\EmojiMap;
+namespace MailVotech\CoreBundle\Helper\EmojiMap;
 
 /**
  * @deprecated as unused. No replacement.

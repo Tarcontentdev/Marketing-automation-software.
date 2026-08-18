@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\PointBundle\Entity;
+namespace MailVotech\PointBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<TriggerEvent>
@@ -108,9 +108,9 @@ class TriggerEventRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder()
             ->select('e.*')
-            ->from(MAUTIC_TABLE_PREFIX.'point_lead_event_log', 'x')
-            ->innerJoin('x', MAUTIC_TABLE_PREFIX.'point_trigger_events', 'e', 'x.event_id = e.id')
-            ->innerJoin('e', MAUTIC_TABLE_PREFIX.'point_triggers', 't', 'e.trigger_id = t.id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'point_lead_event_log', 'x')
+            ->innerJoin('x', MAILVOTECH_TABLE_PREFIX.'point_trigger_events', 'e', 'x.event_id = e.id')
+            ->innerJoin('e', MAILVOTECH_TABLE_PREFIX.'point_triggers', 't', 'e.trigger_id = t.id');
 
         // make sure the published up and down dates are good
         $q->where($q->expr()->eq('x.lead_id', (int) $leadId));
@@ -133,7 +133,7 @@ class TriggerEventRepository extends CommonRepository
     {
         $results = $this->_em->getConnection()->createQueryBuilder()
             ->select('e.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'point_lead_event_log', 'e')
+            ->from(MAILVOTECH_TABLE_PREFIX.'point_lead_event_log', 'e')
             ->where('e.event_id = '.(int) $eventId)
             ->executeQuery()
             ->fetchAllAssociative();

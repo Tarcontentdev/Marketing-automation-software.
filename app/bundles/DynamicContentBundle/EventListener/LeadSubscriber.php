@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\DynamicContentBundle\EventListener;
+namespace MailVotech\DynamicContentBundle\EventListener;
 
-use Mautic\DynamicContentBundle\Entity\StatRepository;
-use Mautic\LeadBundle\Event\LeadMergeEvent;
-use Mautic\LeadBundle\Event\LeadTimelineEvent;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\DynamicContentBundle\Entity\StatRepository;
+use MailVotech\LeadBundle\Event\LeadMergeEvent;
+use MailVotech\LeadBundle\Event\LeadTimelineEvent;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -34,7 +34,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
     {
         // Set available event types
         $eventTypeKey      = 'dynamic.content.sent';
-        $eventTypeNameSent = $this->translator->trans('mautic.dynamic.content.triggered');
+        $eventTypeNameSent = $this->translator->trans('mailvotech.dynamic.content.triggered');
         $event->addEventType($eventTypeKey, $eventTypeNameSent);
         $event->addSerializerGroup('dwcList');
 
@@ -60,7 +60,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                             'eventLabel' => [
                                 'label' => $stat['name'],
                                 'href'  => $this->router->generate(
-                                    'mautic_dynamicContent_action',
+                                    'mailvotech_dynamicContent_action',
                                     ['objectId' => $stat['dynamic_content_id'], 'objectAction' => 'view']
                                 ),
                             ],
@@ -70,7 +70,7 @@ final readonly class LeadSubscriber implements EventSubscriberInterface
                                 'stat' => $stat,
                                 'type' => 'sent',
                             ],
-                            'contentTemplate' => '@MauticDynamicContent/SubscribedEvents/Timeline/index.html.twig',
+                            'contentTemplate' => '@MailVotechDynamicContent/SubscribedEvents/Timeline/index.html.twig',
                             'icon'            => 'ri-puzzle-2-line',
                             'contactId'       => $contactId,
                         ]

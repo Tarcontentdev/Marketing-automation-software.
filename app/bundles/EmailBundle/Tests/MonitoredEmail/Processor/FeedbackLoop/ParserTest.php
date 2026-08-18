@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\MonitoredEmail\Processor\FeedbackLoop;
+namespace MailVotech\EmailBundle\Tests\MonitoredEmail\Processor\FeedbackLoop;
 
-use Mautic\EmailBundle\MonitoredEmail\Exception\FeedbackLoopNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
-use Mautic\EmailBundle\MonitoredEmail\Processor\FeedbackLoop\Parser;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\FeedbackLoopNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\FeedbackLoop\Parser;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestDox;
 

@@ -1,12 +1,12 @@
 {% if showMore is defined %}
-  <a href="{{ url('mautic_notification_index', {'search': searchString}) }}" data-toggle="ajax">
-    <span>{{ 'mautic.core.search.more'|trans({'%count%': remaining}) }}</span>
+  <a href="{{ url('mailvotech_notification_index', {'search': searchString}) }}" data-toggle="ajax">
+    <span>{{ 'mailvotech.core.search.more'|trans({'%count%': remaining}) }}</span>
   </a>
 {% else %}
-    <a href="{{ url('mautic_notification_action', {'objectAction': 'view', 'objectId': item.id}) }}" data-toggle="ajax">
+    <a href="{{ url('mailvotech_notification_action', {'objectAction': 'view', 'objectId': item.id}) }}" data-toggle="ajax">
       <span class="fw-sb">{{ item.name }}</span>
       <span class="ml-4 mr-sm">#{{ item.id }}</span>
-      {{- include('@MauticCore/Helper/publishstatus_badge.html.twig', {
+      {{- include('@MailVotechCore/Helper/publishstatus_badge.html.twig', {
         'entity': item,
         'status': 'active',
         'simplified': 'true'

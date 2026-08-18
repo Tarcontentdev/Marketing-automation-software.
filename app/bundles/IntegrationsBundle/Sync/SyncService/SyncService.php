@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncService;
+namespace MailVotech\IntegrationsBundle\Sync\SyncService;
 
 use GuzzleHttp\Exception\ClientException;
-use Mautic\IntegrationsBundle\Helper\SyncIntegrationsHelper;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
-use Mautic\IntegrationsBundle\Sync\Helper\MappingHelper;
-use Mautic\IntegrationsBundle\Sync\Helper\RelationsHelper;
-use Mautic\IntegrationsBundle\Sync\Helper\SyncDateHelper;
-use Mautic\IntegrationsBundle\Sync\Logger\DebugLogger;
-use Mautic\IntegrationsBundle\Sync\Notification\Notifier;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Integration\IntegrationSyncProcess;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\MauticSyncProcess;
-use Mautic\IntegrationsBundle\Sync\SyncProcess\SyncProcess;
+use MailVotech\IntegrationsBundle\Helper\SyncIntegrationsHelper;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InputOptionsDAO;
+use MailVotech\IntegrationsBundle\Sync\Helper\MappingHelper;
+use MailVotech\IntegrationsBundle\Sync\Helper\RelationsHelper;
+use MailVotech\IntegrationsBundle\Sync\Helper\SyncDateHelper;
+use MailVotech\IntegrationsBundle\Sync\Logger\DebugLogger;
+use MailVotech\IntegrationsBundle\Sync\Notification\Notifier;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Integration\IntegrationSyncProcess;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\Direction\Internal\MailVotechSyncProcess;
+use MailVotech\IntegrationsBundle\Sync\SyncProcess\SyncProcess;
 use Psr\Log\LogLevel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final readonly class SyncService implements SyncServiceInterface
 {
     public function __construct(
-        private MauticSyncDataExchange $internalSyncDataExchange,
+        private MailVotechSyncDataExchange $internalSyncDataExchange,
         private SyncDateHelper $syncDateHelper,
         private MappingHelper $mappingHelper,
         private RelationsHelper $relationsHelper,
@@ -30,12 +30,12 @@ final readonly class SyncService implements SyncServiceInterface
         private EventDispatcherInterface $eventDispatcher,
         private Notifier $notifier,
         private IntegrationSyncProcess $integratinSyncProcess,
-        private MauticSyncProcess $mauticSyncProcess,
+        private MailVotechSyncProcess $mailvotechSyncProcess,
     ) {
     }
 
     /**
-     * @throws \Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException
+     * @throws \MailVotech\IntegrationsBundle\Exception\IntegrationNotFoundException
      */
     public function processIntegrationSync(InputOptionsDAO $inputOptionsDAO): void
     {
@@ -44,7 +44,7 @@ final readonly class SyncService implements SyncServiceInterface
             $this->mappingHelper,
             $this->relationsHelper,
             $this->integratinSyncProcess,
-            $this->mauticSyncProcess,
+            $this->mailvotechSyncProcess,
             $this->eventDispatcher,
             $this->notifier,
             $this->syncIntegrationsHelper->getMappingManual($inputOptionsDAO->getIntegration()),

@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\PageBundle\EventListener;
+namespace MailVotech\PageBundle\EventListener;
 
-use Mautic\CoreBundle\Helper\DateTime\DateTimeToken;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\PageBundle\Event\PageBuilderEvent;
-use Mautic\PageBundle\Event\PageDisplayEvent;
-use Mautic\PageBundle\PageEvents;
+use MailVotech\CoreBundle\Helper\DateTime\DateTimeToken;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\PageBundle\Event\PageBuilderEvent;
+use MailVotech\PageBundle\Event\PageDisplayEvent;
+use MailVotech\PageBundle\PageEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -31,7 +31,7 @@ final readonly class DateTimeTokenSubscriber implements EventSubscriberInterface
 
     public function onPageBuild(PageBuilderEvent $event): void
     {
-        $event->addToken('{today}', $this->translator->trans('mautic.core.token.group.other').': '.$this->translator->trans('mautic.email.token.today'));
+        $event->addToken('{today}', $this->translator->trans('mailvotech.core.token.group.other').': '.$this->translator->trans('mailvotech.email.token.today'));
     }
 
     public function onPageDisplay(PageDisplayEvent $event): void

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Entity;
+namespace MailVotech\ReportBundle\Tests\Entity;
 
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Scheduler\Enum\SchedulerEnum;
-use Mautic\ReportBundle\Scheduler\Exception\ScheduleNotValidException;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Scheduler\Enum\SchedulerEnum;
+use MailVotech\ReportBundle\Scheduler\Exception\ScheduleNotValidException;
 
 final class ReportTest extends \PHPUnit\Framework\TestCase
 {

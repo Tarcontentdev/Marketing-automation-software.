@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\Helper;
+namespace MailVotech\LeadBundle\Tests\Functional\Helper;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Helper\SegmentCountCacheHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Helper\SegmentCountCacheHelper;
 
-final class SegmentCountCacheHelperTest extends MauticMysqlTestCase
+final class SegmentCountCacheHelperTest extends MailVotechMysqlTestCase
 {
     private const SEGMENT_ID = 1;
 

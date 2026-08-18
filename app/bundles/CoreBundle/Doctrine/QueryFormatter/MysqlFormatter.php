@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Doctrine\QueryFormatter;
+namespace MailVotech\CoreBundle\Doctrine\QueryFormatter;
 
 /**
  * Help generate SQL statements to format column data.

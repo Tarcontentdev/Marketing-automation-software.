@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Migration;
+namespace MailVotech\IntegrationsBundle\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\ORM\EntityManagerInterface;
@@ -84,7 +84,7 @@ abstract class AbstractMigration implements MigrationInterface
     /**
      * Generate the name for the property.
      *
-     * This method was copied from AbstractMauticMigration.
+     * This method was copied from AbstractMailVotechMigration.
      *
      * @param string[] $columnNames
      */

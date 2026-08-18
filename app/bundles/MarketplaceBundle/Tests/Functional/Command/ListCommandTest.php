@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Tests\Functional\Command;
+namespace MailVotech\MarketplaceBundle\Tests\Functional\Command;
 
-use Mautic\CoreBundle\Test\AbstractMauticTestCase;
-use Mautic\MarketplaceBundle\Api\Connection;
-use Mautic\MarketplaceBundle\Command\ListCommand;
-use Mautic\MarketplaceBundle\DTO\Allowlist as DTOAllowlist;
-use Mautic\MarketplaceBundle\Service\Allowlist;
-use Mautic\MarketplaceBundle\Service\PluginCollector;
+use MailVotech\CoreBundle\Test\AbstractMailVotechTestCase;
+use MailVotech\MarketplaceBundle\Api\Connection;
+use MailVotech\MarketplaceBundle\Command\ListCommand;
+use MailVotech\MarketplaceBundle\DTO\Allowlist as DTOAllowlist;
+use MailVotech\MarketplaceBundle\Service\Allowlist;
+use MailVotech\MarketplaceBundle\Service\PluginCollector;
 use PHPUnit\Framework\Exception;
 
-final class ListCommandTest extends AbstractMauticTestCase
+final class ListCommandTest extends AbstractMailVotechTestCase
 {
     public function testCommand(): void
     {
@@ -31,7 +31,7 @@ final class ListCommandTest extends AbstractMauticTestCase
             [
                 '--page'   => 1,
                 '--limit'  => 5,
-                '--filter' => 'mautic',
+                '--filter' => 'mailvotech',
             ],
             $command
         );
@@ -40,18 +40,18 @@ final class ListCommandTest extends AbstractMauticTestCase
         +--------------------------------------------------------+-----------+--------+
         | name                                                   | downloads | favers |
         +--------------------------------------------------------+-----------+--------+
-        | mautic/mautic-saelos-bundle                            | 10586     | 11     |
-        | koco/mautic-recaptcha-bundle                           | 2012      | 20     |
+        | mailvotech/mailvotech-saelos-bundle                            | 10586     | 11     |
+        | koco/mailvotech-recaptcha-bundle                           | 2012      | 20     |
         |     This plugin brings reCAPTCHA integration to        |           |        |
-        |     mautic.                                            |           |        |
-        | monogramm/mautic-ldap-auth-bundle                      | 307       | 8      |
+        |     mailvotech.                                            |           |        |
+        | monogramm/mailvotech-ldap-auth-bundle                      | 307       | 8      |
         |     This plugin enables LDAP authentication for        |           |        |
-        |     mautic.                                            |           |        |
-        | maatoo/mautic-referrals-bundle                         | 527       | 5      |
-        |     This plugin enables referrals in mautic.           |           |        |
-        | thedmsgroup/mautic-do-not-contact-extras-bundle        | 532       | 9      |
+        |     mailvotech.                                            |           |        |
+        | maatoo/mailvotech-referrals-bundle                         | 527       | 5      |
+        |     This plugin enables referrals in mailvotech.           |           |        |
+        | thedmsgroup/mailvotech-do-not-contact-extras-bundle        | 532       | 9      |
         |     Adds custom DNC list items to be added to standard |           |        |
-        |     Mautic DNC lists and creates phpne and sms         |           |        |
+        |     MailVotech DNC lists and creates phpne and sms         |           |        |
         |     channels                                           |           |        |
         +--------------------------------------------------------+-----------+--------+
         Total packages: 58
@@ -66,16 +66,16 @@ final class ListCommandTest extends AbstractMauticTestCase
     {
         $page  = 1;
         $limit = 5;
-        $query = 'mautic';
+        $query = 'mailvotech';
 
         $plugin1 = <<<EOF
         {
             "results": [
                 {
-                    "name": "koco\/mautic-recaptcha-bundle",
-                    "description": "This plugin brings reCAPTCHA integration to mautic.",
-                    "url": "https:\/\/packagist.org\/packages\/koco\/mautic-recaptcha-bundle",
-                    "repository": "https:\/\/github.com\/KonstantinCodes\/mautic-recaptcha",
+                    "name": "koco\/mailvotech-recaptcha-bundle",
+                    "description": "This plugin brings reCAPTCHA integration to mailvotech.",
+                    "url": "https:\/\/packagist.org\/packages\/koco\/mailvotech-recaptcha-bundle",
+                    "repository": "https:\/\/github.com\/KonstantinCodes\/mailvotech-recaptcha",
                     "downloads": 2012,
                     "favers": 20
                 }
@@ -87,10 +87,10 @@ final class ListCommandTest extends AbstractMauticTestCase
         {
             "results": [
                 {
-                    "name": "maatoo\/mautic-referrals-bundle",
-                    "description": "This plugin enables referrals in mautic.",
-                    "url": "https:\/\/packagist.org\/packages\/maatoo\/mautic-referrals-bundle",
-                    "repository": "https:\/\/github.com\/maatoo-io\/MauticReferralsBundle",
+                    "name": "maatoo\/mailvotech-referrals-bundle",
+                    "description": "This plugin enables referrals in mailvotech.",
+                    "url": "https:\/\/packagist.org\/packages\/maatoo\/mailvotech-referrals-bundle",
+                    "repository": "https:\/\/github.com\/maatoo-io\/MailVotechReferralsBundle",
                     "downloads": 527,
                     "favers": 5
                 }
@@ -105,14 +105,14 @@ final class ListCommandTest extends AbstractMauticTestCase
             if (1 === $matcher->numberOfInvocations()) {
                 $this->assertSame(1, $parameters[0]);
                 $this->assertSame(1, $parameters[1]);
-                $this->assertSame('koco/mautic-recaptcha-bundle', $parameters[2]);
+                $this->assertSame('koco/mailvotech-recaptcha-bundle', $parameters[2]);
 
                 return json_decode($plugin1, true);
             }
             if (2 === $matcher->numberOfInvocations()) {
                 $this->assertSame(1, $parameters[0]);
                 $this->assertSame(1, $parameters[1]);
-                $this->assertSame('maatoo/mautic-referrals-bundle', $parameters[2]);
+                $this->assertSame('maatoo/mailvotech-referrals-bundle', $parameters[2]);
 
                 return json_decode($plugin2, true);
             }
@@ -141,11 +141,11 @@ final class ListCommandTest extends AbstractMauticTestCase
         +-------------------------------------------------+-----------+--------+
         | name                                            | downloads | favers |
         +-------------------------------------------------+-----------+--------+
-        | koco/mautic-recaptcha-bundle                    | 2012      | 20     |
+        | koco/mailvotech-recaptcha-bundle                    | 2012      | 20     |
         |     This plugin brings reCAPTCHA integration to |           |        |
-        |     mautic.                                     |           |        |
-        | maatoo/mautic-referrals-bundle                  | 527       | 5      |
-        |     This plugin enables referrals in mautic.    |           |        |
+        |     mailvotech.                                     |           |        |
+        | maatoo/mailvotech-referrals-bundle                  | 527       | 5      |
+        |     This plugin enables referrals in mailvotech.    |           |        |
         +-------------------------------------------------+-----------+--------+
         Total packages: 2
         Execution time:

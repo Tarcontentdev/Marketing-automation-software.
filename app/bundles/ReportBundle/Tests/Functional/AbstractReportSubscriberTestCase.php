@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Functional;
+namespace MailVotech\ReportBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\ReportBundle\Entity\Report;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\ReportBundle\Entity\Report;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
-abstract class AbstractReportSubscriberTestCase extends MauticMysqlTestCase
+abstract class AbstractReportSubscriberTestCase extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback   = false;
 

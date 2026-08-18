@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Test\Extensions\DbPrefix;
+namespace MailVotech\CoreBundle\Test\Extensions\DbPrefix;
 
-use Mautic\CoreBundle\Test\EnvLoader;
-use Mautic\CoreBundle\Test\Extensions\DbPrefix\Subscriber\ExecutionStartedSubscriber;
+use MailVotech\CoreBundle\Test\EnvLoader;
+use MailVotech\CoreBundle\Test\Extensions\DbPrefix\Subscriber\ExecutionStartedSubscriber;
 use PHPUnit\Runner\Extension\Extension;
 use PHPUnit\Runner\Extension\Facade;
 use PHPUnit\Runner\Extension\ParameterCollection;
@@ -21,8 +21,8 @@ final class DbPrefix implements Extension
     public function defineDbPrefix(): void
     {
         EnvLoader::load();
-        $prefix = false === getenv('MAUTIC_DB_PREFIX') ? 'test_' : getenv('MAUTIC_DB_PREFIX');
-        define('MAUTIC_TABLE_PREFIX', $prefix);
+        $prefix = false === getenv('MAILVOTECH_DB_PREFIX') ? 'test_' : getenv('MAILVOTECH_DB_PREFIX');
+        define('MAILVOTECH_TABLE_PREFIX', $prefix);
         echo 'using db prefix "'.$prefix.'"'.PHP_EOL;
     }
 

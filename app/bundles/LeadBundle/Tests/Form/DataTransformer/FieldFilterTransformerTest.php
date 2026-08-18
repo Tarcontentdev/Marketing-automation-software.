@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Form\DataTransformer;
+namespace MailVotech\LeadBundle\Tests\Form\DataTransformer;
 
-use Mautic\LeadBundle\Form\DataTransformer\FieldFilterTransformer;
-use Mautic\LeadBundle\Segment\RelativeDate;
+use MailVotech\LeadBundle\Form\DataTransformer\FieldFilterTransformer;
+use MailVotech\LeadBundle\Segment\RelativeDate;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -27,19 +27,19 @@ final class FieldFilterTransformerTest extends \PHPUnit\Framework\TestCase
         $translator
             ->method('trans')
             ->willReturnCallback(fn (string $id, array $parameters, ?string $domain, ?string $locale): string => match ($id) {
-                'mautic.lead.list.month_last'  => isset($locale) ? 'last month' : 'letzter Monat',
-                'mautic.lead.list.month_next'  => isset($locale) ? 'next month' : 'nächster Monat',
-                'mautic.lead.list.month_this'  => isset($locale) ? 'this month' : 'dieser Monat',
-                'mautic.lead.list.tomorrow'    => isset($locale) ? 'tomorrow' : 'morgen',
-                'mautic.lead.list.yesterday'   => isset($locale) ? 'yesterday' : 'gestern',
-                'mautic.lead.list.week_last'   => isset($locale) ? 'last week' : 'letzte Woche',
-                'mautic.lead.list.week_next'   => isset($locale) ? 'next week' : 'nächste Woche',
-                'mautic.lead.list.week_this'   => isset($locale) ? 'this week' : 'diese Woche',
-                'mautic.lead.list.year_last'   => isset($locale) ? 'last year' : 'letztes Jahr',
-                'mautic.lead.list.year_next'   => isset($locale) ? 'next year' : 'nächstes Jahr',
-                'mautic.lead.list.year_this'   => isset($locale) ? 'this year' : 'dieses Jahr',
-                'mautic.lead.list.birthday'    => isset($locale) ? 'birthday' : 'dieses Jahr',
-                'mautic.lead.list.anniversary' => isset($locale) ? 'anniversary' : 'Jahrestag',
+                'mailvotech.lead.list.month_last'  => isset($locale) ? 'last month' : 'letzter Monat',
+                'mailvotech.lead.list.month_next'  => isset($locale) ? 'next month' : 'nächster Monat',
+                'mailvotech.lead.list.month_this'  => isset($locale) ? 'this month' : 'dieser Monat',
+                'mailvotech.lead.list.tomorrow'    => isset($locale) ? 'tomorrow' : 'morgen',
+                'mailvotech.lead.list.yesterday'   => isset($locale) ? 'yesterday' : 'gestern',
+                'mailvotech.lead.list.week_last'   => isset($locale) ? 'last week' : 'letzte Woche',
+                'mailvotech.lead.list.week_next'   => isset($locale) ? 'next week' : 'nächste Woche',
+                'mailvotech.lead.list.week_this'   => isset($locale) ? 'this week' : 'diese Woche',
+                'mailvotech.lead.list.year_last'   => isset($locale) ? 'last year' : 'letztes Jahr',
+                'mailvotech.lead.list.year_next'   => isset($locale) ? 'next year' : 'nächstes Jahr',
+                'mailvotech.lead.list.year_this'   => isset($locale) ? 'this year' : 'dieses Jahr',
+                'mailvotech.lead.list.birthday'    => isset($locale) ? 'birthday' : 'dieses Jahr',
+                'mailvotech.lead.list.anniversary' => isset($locale) ? 'anniversary' : 'Jahrestag',
                 default                        => isset($locale) ? 'today' : 'heute',
             });
         $this->transformer  = new FieldFilterTransformer($translator, $this->relativeDate);
@@ -191,7 +191,7 @@ final class FieldFilterTransformerTest extends \PHPUnit\Framework\TestCase
         $this->relativeDate->expects($this->once())
             ->method('getRelativeDateStrings')
             ->willReturn([
-                'mautic.lead.list.today' => 'heute',
+                'mailvotech.lead.list.today' => 'heute',
             ]);
 
         $filters = $this->transformer->reverseTransform([
@@ -221,7 +221,7 @@ final class FieldFilterTransformerTest extends \PHPUnit\Framework\TestCase
         $this->relativeDate->expects($this->once())
             ->method('getRelativeDateStrings')
             ->willReturn([
-                'mautic.lead.list.today' => 'heute',
+                'mailvotech.lead.list.today' => 'heute',
             ]);
 
         $filters = $this->transformer->reverseTransform([

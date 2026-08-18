@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Command;
+namespace MailVotech\CoreBundle\Command;
 
-use Mautic\CampaignBundle\Entity\LeadEventLogRepository;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CoreBundle\Helper\ExitCode;
-use Mautic\LeadBundle\Entity\ListLeadRepository;
+use MailVotech\CampaignBundle\Entity\LeadEventLogRepository;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CoreBundle\Helper\ExitCode;
+use MailVotech\LeadBundle\Entity\ListLeadRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,7 +22,7 @@ final class RemoveAnonymousContactsCommand extends Command
     /**
      * @var string
      */
-    public const COMMAND_NAME = 'mautic:remove:anonymous_contacts';
+    public const COMMAND_NAME = 'mailvotech:remove:anonymous_contacts';
 
     public function __construct(
         private readonly ListLeadRepository $listLeadRepository,

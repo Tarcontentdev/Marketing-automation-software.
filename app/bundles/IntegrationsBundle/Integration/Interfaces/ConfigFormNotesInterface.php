@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Integration\Interfaces;
+namespace MailVotech\IntegrationsBundle\Integration\Interfaces;
 
-use Mautic\IntegrationsBundle\DTO\Note;
+use MailVotech\IntegrationsBundle\DTO\Note;
 
 interface ConfigFormNotesInterface
 {

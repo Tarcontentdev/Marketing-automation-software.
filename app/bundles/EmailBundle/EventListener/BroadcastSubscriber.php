@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\ChannelBundle\ChannelEvents;
-use Mautic\ChannelBundle\Event\ChannelBroadcastEvent;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Model\EmailModel;
+use MailVotech\ChannelBundle\ChannelEvents;
+use MailVotech\ChannelBundle\Event\ChannelBroadcastEvent;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Model\EmailModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -102,7 +102,7 @@ final readonly class BroadcastSubscriber implements EventSubscriberInterface
             }
 
             $event->setResults(
-                $this->translator->trans('mautic.email.email').': '.$emailEntity->getName(),
+                $this->translator->trans('mailvotech.email.email').': '.$emailEntity->getName(),
                 $sentCount,
                 $failedCount,
                 $failedRecipientsByList

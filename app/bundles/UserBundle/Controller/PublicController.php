@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\UserBundle\Controller;
+namespace MailVotech\UserBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
-use Mautic\UserBundle\Form\Type\PasswordResetConfirmType;
-use Mautic\UserBundle\Form\Type\PasswordResetType;
-use Mautic\UserBundle\Form\Type\UserInviteRegistrationType;
-use Mautic\UserBundle\Model\UserModel;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
+use MailVotech\UserBundle\Form\Type\PasswordResetConfirmType;
+use MailVotech\UserBundle\Form\Type\PasswordResetType;
+use MailVotech\UserBundle\Form\Type\UserInviteRegistrationType;
+use MailVotech\UserBundle\Model\UserModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -37,7 +37,7 @@ final class PublicController extends FormController
     public function passwordResetAction(Request $request, LoggerInterface $logger): RedirectResponse|Response
     {
         $data   = ['identifier' => ''];
-        $action = $this->generateUrl('mautic_user_passwordreset');
+        $action = $this->generateUrl('mailvotech_user_passwordreset');
         $form   = $this->formFactory->create(PasswordResetType::class, $data, ['action' => $action]);
 
         // /Check for a submitted form and process it
@@ -58,10 +58,10 @@ final class PublicController extends FormController
                     if (null !== $user) {
                         $this->userModel->sendResetEmail($user);
                     }
-                    $this->addFlashMessage('mautic.user.user.notice.passwordreset');
+                    $this->addFlashMessage('mailvotech.user.user.notice.passwordreset');
                 } catch (\RuntimeException $e) {
-                    $logger->error($this->translator->trans('mautic.user.password.reset.email.failed', [], 'messages').': '.$e->getMessage());
-                    $this->addFlashMessage('mautic.user.user.notice.passwordreset.error', [], 'error');
+                    $logger->error($this->translator->trans('mailvotech.user.password.reset.email.failed', [], 'messages').': '.$e->getMessage());
+                    $this->addFlashMessage('mailvotech.user.user.notice.passwordreset.error', [], 'error');
                 }
 
                 $endTime       = microtime(true);
@@ -79,7 +79,7 @@ final class PublicController extends FormController
             'viewParameters' => [
                 'form' => $form->createView(),
             ],
-            'contentTemplate' => '@MauticUser/Security/reset.html.twig',
+            'contentTemplate' => '@MailVotechUser/Security/reset.html.twig',
             'passthroughVars' => [
                 'route' => $action,
             ],
@@ -88,7 +88,7 @@ final class PublicController extends FormController
 
     public function passwordResetConfirmAction(Request $request): RedirectResponse|Response
     {
-        $action   = $this->generateUrl('mautic_user_passwordresetconfirm');
+        $action   = $this->generateUrl('mailvotech_user_passwordresetconfirm');
         $form     = $this->formFactory->create(PasswordResetConfirmType::class, [], ['action' => $action]);
         $token    = $request->query->get('token');
         $response = null;
@@ -117,19 +117,19 @@ final class PublicController extends FormController
         $user     = $this->userRepository->findByIdentifier($data['identifier']);
 
         if (null === $user) {
-            $this->addFlashMessage('mautic.user.user.notice.passwordreset.success');
+            $this->addFlashMessage('mailvotech.user.user.notice.passwordreset.success');
 
             $response = $this->redirectToRoute('login');
         } elseif (!$request->getSession()->has('resetToken')) {
-            $this->addFlashMessage('mautic.user.user.notice.passwordreset.missingtoken');
+            $this->addFlashMessage('mailvotech.user.user.notice.passwordreset.missingtoken');
 
-            $response = $this->redirectToRoute('mautic_user_passwordresetconfirm');
+            $response = $this->redirectToRoute('mailvotech_user_passwordresetconfirm');
         } elseif ($this->userModel->confirmResetToken($user, $request->getSession()->get('resetToken'))) {
             $encodedPassword = $this->userModel->checkNewPassword($user, $data['plainPassword']);
             $user->setPassword($encodedPassword);
             $this->userModel->saveEntity($user);
 
-            $this->addFlashMessage('mautic.user.user.notice.passwordreset.success');
+            $this->addFlashMessage('mailvotech.user.user.notice.passwordreset.success');
             $request->getSession()->remove('resetToken');
 
             $response = $this->redirectToRoute('login');
@@ -144,7 +144,7 @@ final class PublicController extends FormController
             'viewParameters' => [
                 'form' => $form->createView(),
             ],
-            'contentTemplate' => '@MauticUser/Security/resetconfirm.html.twig',
+            'contentTemplate' => '@MailVotechUser/Security/resetconfirm.html.twig',
             'passthroughVars' => [
                 'route' => $action,
             ],
@@ -158,11 +158,11 @@ final class PublicController extends FormController
         $response = null;
 
         if (null === $invite) {
-            $this->addFlashMessage('mautic.user.invite.invalid', [], 'error', 'flashes');
+            $this->addFlashMessage('mailvotech.user.invite.invalid', [], 'error', 'flashes');
 
             $response = $this->redirectToRoute('login');
         } else {
-            $action = $this->generateUrl('mautic_user_invite_register', ['token' => $token]);
+            $action = $this->generateUrl('mailvotech_user_invite_register', ['token' => $token]);
             $user   = User::createFromInvite($invite);
             $form   = $this->formFactory->create(UserInviteRegistrationType::class, $user, [
                 'action' => $action,
@@ -173,12 +173,12 @@ final class PublicController extends FormController
 
                 // Check if user already exists before form validation
                 if ($model->hasUserWithEmail((string) $invite->getEmail())) {
-                    $this->addFlashMessage('mautic.user.invite.error.email_exists', [], 'error', 'flashes');
+                    $this->addFlashMessage('mailvotech.user.invite.error.email_exists', [], 'error', 'flashes');
                     $response = $this->delegateView([
                         'viewParameters' => [
                             'form' => $form->createView(),
                         ],
-                        'contentTemplate' => '@MauticUser/Security/register.html.twig',
+                        'contentTemplate' => '@MailVotechUser/Security/register.html.twig',
                         'passthroughVars' => [
                             'route' => $action,
                         ],
@@ -191,12 +191,12 @@ final class PublicController extends FormController
                         $user->setPassword($model->checkNewPassword($user, $submittedPassword));
                         $model->markInviteUsed($invite);
                         $model->saveEntity($user);
-                        $this->addFlashMessage('mautic.user.invite.account_created', [], 'notice', 'flashes');
+                        $this->addFlashMessage('mailvotech.user.invite.account_created', [], 'notice', 'flashes');
 
                         $response = $this->redirectToRoute('login');
                     } catch (\Doctrine\DBAL\Exception $e) {
-                        $logger->error($this->translator->trans('mautic.user.invite.registration.database.error', [], 'messages').': '.$e->getMessage());
-                        $this->addFlashMessage('mautic.user.invite.error.database', [], 'error', 'flashes');
+                        $logger->error($this->translator->trans('mailvotech.user.invite.registration.database.error', [], 'messages').': '.$e->getMessage());
+                        $this->addFlashMessage('mailvotech.user.invite.error.database', [], 'error', 'flashes');
                     }
                 }
             }
@@ -205,7 +205,7 @@ final class PublicController extends FormController
                 'viewParameters' => [
                     'form' => $form->createView(),
                 ],
-                'contentTemplate' => '@MauticUser/Security/register.html.twig',
+                'contentTemplate' => '@MailVotechUser/Security/register.html.twig',
                 'passthroughVars' => [
                     'route' => $action,
                 ],

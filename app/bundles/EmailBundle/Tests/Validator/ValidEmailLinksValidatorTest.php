@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Validator;
+namespace MailVotech\EmailBundle\Tests\Validator;
 
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Validator\ValidEmailLinks;
-use Mautic\EmailBundle\Validator\ValidEmailLinksValidator;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Validator\ValidEmailLinks;
+use MailVotech\EmailBundle\Validator\ValidEmailLinksValidator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraint;
@@ -79,7 +79,7 @@ final class ValidEmailLinksValidatorTest extends TestCase
         yield 'absolute URL' => ['https://example.com/path?foo=bar'];
         yield 'URL with a token' => ['https://example.com/path?{contactfield=customfield-a}={contactfield=customfield-b}&array[]=value1#footer'];
         yield 'mailto URL' => ['mailto:test@example.com'];
-        yield 'Mautic token' => ['{unsubscribe_url}'];
+        yield 'MailVotech token' => ['{unsubscribe_url}'];
     }
 
     public function testUnexpectedConstraintThrows(): void
@@ -105,7 +105,7 @@ final class ValidEmailLinksValidatorTest extends TestCase
 
         $this->context->expects($this->once())
             ->method('buildViolation')
-            ->with('mautic.email.links.invalid')
+            ->with('mailvotech.email.links.invalid')
             ->willReturn($violationBuilder);
     }
 }

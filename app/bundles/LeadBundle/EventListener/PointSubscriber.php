@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Form\Type\ListActionType;
-use Mautic\LeadBundle\Form\Type\ModifyLeadTagsType;
-use Mautic\LeadBundle\Form\Type\StageType;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\PointBundle\Event\TriggerBuilderEvent;
-use Mautic\PointBundle\Event\TriggerExecutedEvent;
-use Mautic\PointBundle\PointEvents;
-use Mautic\StageBundle\Model\StageModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Form\Type\ListActionType;
+use MailVotech\LeadBundle\Form\Type\ModifyLeadTagsType;
+use MailVotech\LeadBundle\Form\Type\StageType;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\PointBundle\Event\TriggerBuilderEvent;
+use MailVotech\PointBundle\Event\TriggerExecutedEvent;
+use MailVotech\PointBundle\PointEvents;
+use MailVotech\StageBundle\Model\StageModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -39,8 +39,8 @@ final readonly class PointSubscriber implements EventSubscriberInterface
         $event->addEvent(
             'lead.changelists',
             [
-                'group'       => 'mautic.lead.point.trigger',
-                'label'       => 'mautic.lead.point.trigger.changelists',
+                'group'       => 'mailvotech.lead.point.trigger',
+                'label'       => 'mailvotech.lead.point.trigger.changelists',
                 'eventName'   => PointEvents::TRIGGER_ON_LEAD_SEGMENTS_CHANGE,
                 'formType'    => ListActionType::class,
             ]
@@ -49,8 +49,8 @@ final readonly class PointSubscriber implements EventSubscriberInterface
         $event->addEvent(
             'lead.changetags',
             [
-                'group'     => 'mautic.lead.point.trigger',
-                'label'     => 'mautic.lead.lead.events.changetags',
+                'group'     => 'mailvotech.lead.point.trigger',
+                'label'     => 'mailvotech.lead.lead.events.changetags',
                 'formType'  => ModifyLeadTagsType::class,
                 'eventName' => PointEvents::TRIGGER_ON_EVENT_EXECUTE,
             ]
@@ -58,7 +58,7 @@ final readonly class PointSubscriber implements EventSubscriberInterface
 
         $choices                 = [];
         $stages                  = $this->stageModel->getUserStages();
-        $stageListItem           = $this->translator->trans('mautic.lead.stage.remove');
+        $stageListItem           = $this->translator->trans('mailvotech.lead.stage.remove');
         $choices[$stageListItem] = 0;
         foreach ($stages as $stage) {
             $choices[$stage['name']] = $stage['id'];
@@ -67,8 +67,8 @@ final readonly class PointSubscriber implements EventSubscriberInterface
         $event->addEvent(
             'lead.changestage',
             [
-                'group'           => 'mautic.lead.point.trigger',
-                'label'           => 'mautic.lead.lead.events.changestage',
+                'group'           => 'mailvotech.lead.point.trigger',
+                'label'           => 'mailvotech.lead.lead.events.changestage',
                 'formType'        => StageType::class,
                 'formTypeOptions' => ['items' => $choices],
                 'eventName'       => PointEvents::TRIGGER_ON_EVENT_EXECUTE,
@@ -118,7 +118,7 @@ final readonly class PointSubscriber implements EventSubscriberInterface
             $this->leadModel->changeStage(
                 $lead,
                 $stage,
-                $this->translator->trans('mautic.lead.point.trigger')
+                $this->translator->trans('mailvotech.lead.point.trigger')
             );
 
             $event->setSucceded();
@@ -136,7 +136,7 @@ final readonly class PointSubscriber implements EventSubscriberInterface
             $this->leadModel->removeFromStage(
                 $lead,
                 $stage,
-                $this->translator->trans('mautic.stage.event.removed.batch')
+                $this->translator->trans('mailvotech.stage.event.removed.batch')
             );
         }
     }

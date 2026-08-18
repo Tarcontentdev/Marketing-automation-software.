@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\EmailBundle\Entity\Stat;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\EmailBundle\Entity\Stat;
 
 /**
  * @extends CommonRepository<FrequencyRule>
@@ -58,7 +58,7 @@ class FrequencyRuleRepository extends CommonRepository
         $q->select(
             'fr.id, fr.frequency_time, fr.frequency_number, fr.channel, fr.preferred_channel, fr.pause_from_date, fr.pause_to_date, fr.lead_id'
         )
-            ->from(MAUTIC_TABLE_PREFIX.'lead_frequencyrules', 'fr');
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_frequencyrules', 'fr');
 
         if ($channel) {
             $q->andWhere('fr.channel = :channel')
@@ -102,7 +102,7 @@ class FrequencyRuleRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('fr.id, fr.frequency_time, fr.frequency_number, fr.channel, fr.pause_from_date, fr.pause_to_date')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_frequencyrules', 'fr');
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_frequencyrules', 'fr');
         $q->where('fr.preferred_channel = :preferredChannel')
             ->setParameter('preferredChannel', true, 'boolean');
         if ($leadId) {
@@ -124,11 +124,11 @@ class FrequencyRuleRepository extends CommonRepository
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $q->select("ch.{$statContactColumn}, fr.frequency_number, fr.frequency_time")
-            ->from(MAUTIC_TABLE_PREFIX.$statTable, 'ch')
-            ->join('ch', MAUTIC_TABLE_PREFIX.'lead_frequencyrules', 'fr', "ch.{$statContactColumn} = fr.lead_id");
+            ->from(MAILVOTECH_TABLE_PREFIX.$statTable, 'ch')
+            ->join('ch', MAILVOTECH_TABLE_PREFIX.'lead_frequencyrules', 'fr', "ch.{$statContactColumn} = fr.lead_id");
 
         if (Stat::TABLE_NAME === $statTable) {
-            $q->join('ch', MAUTIC_TABLE_PREFIX.'emails', 'e', 'ch.email_id = e.id')
+            $q->join('ch', MAILVOTECH_TABLE_PREFIX.'emails', 'e', 'ch.email_id = e.id')
                 ->andWhere('e.send_to_dnc = 0');
         }
 
@@ -179,10 +179,10 @@ class FrequencyRuleRepository extends CommonRepository
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $query->select("ch.{$statContactColumn}")
-            ->from(MAUTIC_TABLE_PREFIX.$statTable, 'ch');
+            ->from(MAILVOTECH_TABLE_PREFIX.$statTable, 'ch');
 
         if (Stat::TABLE_NAME === $statTable) {
-            $query->join('ch', MAUTIC_TABLE_PREFIX.'emails', 'e', 'ch.email_id = e.id')
+            $query->join('ch', MAILVOTECH_TABLE_PREFIX.'emails', 'e', 'ch.email_id = e.id')
                 ->andWhere('e.send_to_dnc = 0');
         }
 
@@ -208,13 +208,13 @@ class FrequencyRuleRepository extends CommonRepository
         )
             ->setParameter('ids', $leadIds, ArrayParameterType::INTEGER);
 
-        $hasCustomRules = $this->tableHasRows(MAUTIC_TABLE_PREFIX.'lead_frequencyrules');
+        $hasCustomRules = $this->tableHasRows(MAILVOTECH_TABLE_PREFIX.'lead_frequencyrules');
         // We don't need to check if users have custom rules if there are no records inside that table
         if ($hasCustomRules) {
             // Exclude contacts with custom rules defined
             $subQuery = $this->getEntityManager()->getConnection()->createQueryBuilder();
             $subQuery->select('null')
-                ->from(MAUTIC_TABLE_PREFIX.'lead_frequencyrules', 'fr')
+                ->from(MAILVOTECH_TABLE_PREFIX.'lead_frequencyrules', 'fr')
                 ->where("fr.lead_id = ch.{$statContactColumn}")
                 ->andWhere('fr.frequency_time IS NOT NULL AND fr.frequency_number IS NOT NULL');
             $query->andWhere(

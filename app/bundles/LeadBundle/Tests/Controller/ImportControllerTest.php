@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller;
+namespace MailVotech\LeadBundle\Tests\Controller;
 
-use Mautic\CoreBundle\Entity\NotificationRepository;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Command\ImportCommand;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyLead;
-use Mautic\LeadBundle\Entity\Import;
-use Mautic\LeadBundle\Entity\ImportRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadEventLog;
-use Mautic\LeadBundle\Entity\LeadEventLogRepository;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\UserBundle\Entity\Permission;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Entity\NotificationRepository;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Command\ImportCommand;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyLead;
+use MailVotech\LeadBundle\Entity\Import;
+use MailVotech\LeadBundle\Entity\ImportRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadEventLog;
+use MailVotech\LeadBundle\Entity\LeadEventLogRepository;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\UserBundle\Entity\Permission;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\DomCrawler\Form;
@@ -31,7 +31,7 @@ use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ImportControllerTest extends MauticMysqlTestCase
+final class ImportControllerTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -293,8 +293,8 @@ final class ImportControllerTest extends MauticMysqlTestCase
 
         $this->client->request(Request::METHOD_GET, '/');
         $session = $this->client->getRequest()->getSession();
-        $session->set('mautic.lead.import.id', $import->getId());
-        $session->set('mautic.lead.import.file', 'test.csv');
+        $session->set('mailvotech.lead.import.id', $import->getId());
+        $session->set('mailvotech.lead.import.file', 'test.csv');
         $session->save();
 
         $this->client->request(Request::METHOD_GET, '/s/contacts/import/cancel/0');
@@ -452,8 +452,8 @@ final class ImportControllerTest extends MauticMysqlTestCase
 
         $fileName = basename('/tmp/test.csv');
         $message  = $import && $import->getId()
-            ? $translator->trans('mautic.lead.import.canceled.with_id', ['%file%' => $fileName, '%id%' => $import->getId()])
-            : $translator->trans('mautic.lead.import.canceled', ['%file%' => $fileName]);
+            ? $translator->trans('mailvotech.lead.import.canceled.with_id', ['%file%' => $fileName, '%id%' => $import->getId()])
+            : $translator->trans('mailvotech.lead.import.canceled', ['%file%' => $fileName]);
 
         $notificationModel->addNotification($message, 'warning');
     }

@@ -1,28 +1,28 @@
 <?php
 
-namespace Mautic\PointBundle\Model;
+namespace MailVotech\PointBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Model\FormModel as CommonFormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\PointBundle\Entity\LeadPointLog;
-use Mautic\PointBundle\Entity\Point;
-use Mautic\PointBundle\Entity\PointRepository;
-use Mautic\PointBundle\Event\PointActionEvent;
-use Mautic\PointBundle\Event\PointBuilderEvent;
-use Mautic\PointBundle\Event\PointEvent;
-use Mautic\PointBundle\Form\Type\PointType;
-use Mautic\PointBundle\PointEvents;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Model\FormModel as CommonFormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\PointBundle\Entity\LeadPointLog;
+use MailVotech\PointBundle\Entity\Point;
+use MailVotech\PointBundle\Entity\PointRepository;
+use MailVotech\PointBundle\Event\PointActionEvent;
+use MailVotech\PointBundle\Event\PointBuilderEvent;
+use MailVotech\PointBundle\Event\PointEvent;
+use MailVotech\PointBundle\Form\Type\PointType;
+use MailVotech\PointBundle\PointEvents;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -54,12 +54,12 @@ class PointModel extends CommonFormModel implements GlobalSearchInterface, Reset
         UrlGeneratorInterface $router,
         Translator $translator,
         UserHelper $userHelper,
-        LoggerInterface $mauticLogger,
+        LoggerInterface $mailvotechLogger,
         CoreParametersHelper $coreParametersHelper,
         private readonly PointGroupModel $pointGroupModel,
         private readonly PointRepository $pointRepository,
     ) {
-        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mauticLogger, $coreParametersHelper);
+        parent::__construct($em, $security, $dispatcher, $router, $translator, $userHelper, $mailvotechLogger, $coreParametersHelper);
     }
 
     public function getRepository(): PointRepository
@@ -172,20 +172,20 @@ class PointModel extends CommonFormModel implements GlobalSearchInterface, Reset
      */
     public function triggerAction($type, $eventDetails = null, $typeId = null, ?Lead $lead = null, $allowUserRequest = false): void
     {
-        // only trigger actions for not logged Mautic users
+        // only trigger actions for not logged MailVotech users
         if (!$this->security->isAnonymous() && !$allowUserRequest) {
             return;
         }
 
-        if (null !== $typeId && MAUTIC_ENV === 'prod' && null !== $this->requestStack->getMainRequest()) {
+        if (null !== $typeId && MAILVOTECH_ENV === 'prod' && null !== $this->requestStack->getMainRequest()) {
             // let's prevent some unnecessary DB calls
             $session         = $this->requestStack->getMainRequest()->getSession();
-            $triggeredEvents = $session->get('mautic.triggered.point.actions', []);
+            $triggeredEvents = $session->get('mailvotech.triggered.point.actions', []);
             if (in_array($typeId, $triggeredEvents)) {
                 return;
             }
             $triggeredEvents[] = $typeId;
-            $session->set('mautic.triggered.point.actions', $triggeredEvents);
+            $session->set('mailvotech.triggered.point.actions', $triggeredEvents);
         }
 
         // find all the actions for published points
@@ -235,7 +235,7 @@ class PointModel extends CommonFormModel implements GlobalSearchInterface, Reset
                 'eventDetails' => $eventDetails,
             ];
 
-            $callback = $settings['callback'] ?? \Mautic\PointBundle\Helper\EventHelper::engagePointAction(...);
+            $callback = $settings['callback'] ?? \MailVotech\PointBundle\Helper\EventHelper::engagePointAction(...);
 
             if (is_callable($callback)) {
                 $object = null;
@@ -324,13 +324,13 @@ class PointModel extends CommonFormModel implements GlobalSearchInterface, Reset
         $q     = $query->prepareTimeDataQuery('lead_points_change_log', 'date_added', $filter);
 
         if (!$canViewOthers) {
-            $q->join('t', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = t.lead_id')
+            $q->join('t', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = t.lead_id')
                 ->andWhere('l.owner_id = :userId')
                 ->setParameter('userId', $this->userHelper->getUser()->getId());
         }
 
         $data = $query->loadAndBuildTimeData($q);
-        $chart->setDataset($this->translator->trans('mautic.point.changes'), $data);
+        $chart->setDataset($this->translator->trans('mailvotech.point.changes'), $data);
 
         return $chart->render();
     }

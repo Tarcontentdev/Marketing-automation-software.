@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Model;
+namespace MailVotech\EmailBundle\Tests\Model;
 
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Model\EmailStatModel;
-use Mautic\EmailBundle\Model\TransportCallback;
-use Mautic\EmailBundle\MonitoredEmail\Search\ContactFinder;
-use Mautic\EmailBundle\MonitoredEmail\Search\Result;
-use Mautic\LeadBundle\Entity\DoNotContact as DNC;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\DoNotContact;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Model\EmailStatModel;
+use MailVotech\EmailBundle\Model\TransportCallback;
+use MailVotech\EmailBundle\MonitoredEmail\Search\ContactFinder;
+use MailVotech\EmailBundle\MonitoredEmail\Search\Result;
+use MailVotech\LeadBundle\Entity\DoNotContact as DNC;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\DoNotContact;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 

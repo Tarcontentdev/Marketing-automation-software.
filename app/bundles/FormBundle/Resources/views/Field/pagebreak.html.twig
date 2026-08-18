@@ -5,8 +5,8 @@
 {% set defaultInputFormClass = defaultInputFormClass|default('') %}
 {% set defaultLabelClass = defaultLabelClass|default('label') %}
 {% set formName = formName|default('') %}
-{% set defaultInputClass = 'mauticform-' ~ defaultInputClass %}
-{% set defaultLabelClass = 'mauticform-' ~ defaultLabelClass %}
+{% set defaultInputClass = 'mailvotechform-' ~ defaultInputClass %}
+{% set defaultLabelClass = 'mailvotechform-' ~ defaultLabelClass %}
 {% set containerClass = containerClass|default(containerType) %}
 {% set order = field.order|default(0) %}
 {% set validationMessage = '' %}
@@ -14,7 +14,7 @@
 {% set labelAttributes = htmlAttributesStringToArray(field.labelAttributes|default('')) %}
 {% set containerAttributes = htmlAttributesStringToArray(field.containerAttributes|default('')) %}
 {% if ignoreName is not defined or (ignoreName is defined and ignoreName is empty) %}
-  {% set inputName = 'mauticform[' ~ field.alias ~ ']' %}
+  {% set inputName = 'mailvotechform[' ~ field.alias ~ ']' %}
   {% if field.properties.multiple is defined %}
     {% set inputName = inputName ~ '[]' %}
   {% endif %}
@@ -31,11 +31,11 @@
 
 {% if ignoreId is not defined or (ignoreId is defined and ignoreId is empty) %}
   {% set inputAttributes = inputAttributes|merge({
-          'id': 'mauticform_input' ~ formName ~ '_' ~ field.alias,
+          'id': 'mailvotechform_input' ~ formName ~ '_' ~ field.alias,
   }) %}
   {% set labelAttributes = labelAttributes|merge({
-          'id': 'mauticform_label' ~ formName ~ '_' ~ field.alias,
-          'for': 'mauticform_input' ~ formName ~ '_' ~ field.alias,
+          'id': 'mailvotechform_label' ~ formName ~ '_' ~ field.alias,
+          'for': 'mailvotechform_input' ~ formName ~ '_' ~ field.alias,
   }) %}
 {% endif %}
 
@@ -65,11 +65,11 @@
   }) %}
 {% endif %}
 {% set containerAttributes = containerAttributes|merge({
-        'id': 'mauticform' ~ formName|default('') ~ '_' ~ id,
+        'id': 'mailvotechform' ~ formName|default('') ~ '_' ~ id,
         'class': containerAttributes.class|default([])|merge([
-          'mauticform-row',
-          'mauticform-' ~ containerClass,
-          'mauticform-field-' ~ order,
+          'mailvotechform-row',
+          'mailvotechform-' ~ containerClass,
+          'mailvotechform-field-' ~ order,
         ]),
 }) %}
 {% if field.parent and fields[field.parent] is defined %}
@@ -80,10 +80,10 @@
   {% endif %}
 
   {% set containerAttributes = containerAttributes|merge({
-          'data-mautic-form-show-on': fields[field.parent].alias ~ ':' ~ values,
-          'data-mautic-form-expr': field.conditions.expr,
+          'data-mailvotech-form-show-on': fields[field.parent].alias ~ ':' ~ values,
+          'data-mailvotech-form-expr': field.conditions.expr,
           'class': containerAttributes.class|merge([
-            'mauticform-field-hidden',
+            'mailvotechform-field-hidden',
           ]),
   }) %}
 {% endif %}
@@ -91,11 +91,11 @@
   {% set required = true %}
   {% set validationMessage = field.validationMessage %}
   {% if validationMessage is empty %}
-        {% set validationMessage = 'mautic.form.field.generic.required'|trans([], 'validators', language|default(null)) %}
+        {% set validationMessage = 'mailvotech.form.field.generic.required'|trans([], 'validators', language|default(null)) %}
   {% endif %}
   {% set containerAttributes = containerAttributes|merge({
           'class': containerAttributes.class|default([])|merge([
-            'mauticform-required',
+            'mailvotechform-required',
           ]),
           'data-validate': field.alias,
           'data-validation-type': field.type,
@@ -109,7 +109,7 @@
   {# Forced to be required #}
   {% set containerAttributes = containerAttributes|merge({
           'class': containerAttributes.class|default([])|merge([
-            'mauticform-required',
+            'mailvotechform-required',
           ]),
   }) %}
 {% endif %}
@@ -186,22 +186,22 @@
 {% set nextButtonAttr = inputAttributes %}
 
 {% set backButtonAttr = backButtonAttr|merge({
-        'class': backButtonAttr.class|default([])|merge(['btn', 'btn-ghost', 'mautic-pagebreak-back']),
+        'class': backButtonAttr.class|default([])|merge(['btn', 'btn-ghost', 'mailvotech-pagebreak-back']),
         'type': 'button',
-        'data-mautic-form-pagebreak-button': 'prev',
+        'data-mailvotech-form-pagebreak-button': 'prev',
 }) %}
 {% set nextButtonAttr = nextButtonAttr|merge({
-        'class': nextButtonAttr.class|default([])|merge(['btn', 'btn-ghost', 'mautic-pagebreak-next']),
+        'class': nextButtonAttr.class|default([])|merge(['btn', 'btn-ghost', 'mailvotech-pagebreak-next']),
         'type': 'button',
-        'data-mautic-form-pagebreak-button': 'next',
+        'data-mailvotech-form-pagebreak-button': 'next',
 }) %}
 
 {% if inForm is not defined or (inForm is defined and inForm is empty) %}
 
     {# Hidden by default and only visible if JS makes it so #}
     {% set containerAttributes = containerAttributes|merge({
-            'data-mautic-form-pagebreak': fieldPage,
-            'class': containerAttributes.class|default([])|merge(['mauticform-page-hidden']),
+            'data-mailvotech-form-pagebreak': fieldPage,
+            'class': containerAttributes.class|default([])|merge(['mailvotechform-page-hidden']),
     }) %}
 {% endif %}
 

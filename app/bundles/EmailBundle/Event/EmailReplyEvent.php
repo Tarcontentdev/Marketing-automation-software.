@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\EmailBundle\Event;
+namespace MailVotech\EmailBundle\Event;
 
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class EmailReplyEvent extends Event

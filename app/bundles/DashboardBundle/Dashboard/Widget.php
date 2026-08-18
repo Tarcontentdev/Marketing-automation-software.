@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\DashboardBundle\Dashboard;
+namespace MailVotech\DashboardBundle\Dashboard;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\DashboardBundle\Model\DashboardModel;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\DashboardBundle\Model\DashboardModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -24,11 +24,11 @@ class Widget
     /**
      * Get ready widget to populate in template.
      *
-     * @return bool|\Mautic\DashboardBundle\Entity\Widget
+     * @return bool|\MailVotech\DashboardBundle\Entity\Widget
      */
     public function get(int $widgetId)
     {
-        /** @var \Mautic\DashboardBundle\Entity\Widget $widget */
+        /** @var \MailVotech\DashboardBundle\Entity\Widget $widget */
         $widget = $this->dashboardModel->getEntity($widgetId);
 
         if (null === $widget || !$widget->getId()) {
@@ -62,12 +62,12 @@ class Widget
 
         if (!empty($dateRangeFilter['date_from'])) {
             $from = new \DateTime($dateRangeFilter['date_from']);
-            $this->requestStack->getSession()->set('mautic.daterange.form.from', $from->format(DateTimeHelper::FORMAT_DB_DATE_ONLY));
+            $this->requestStack->getSession()->set('mailvotech.daterange.form.from', $from->format(DateTimeHelper::FORMAT_DB_DATE_ONLY));
         }
 
         if (!empty($dateRangeFilter['date_to'])) {
             $to = new \DateTime($dateRangeFilter['date_to']);
-            $this->requestStack->getSession()->set('mautic.daterange.form.to', $to->format(DateTimeHelper::FORMAT_DB_DATE_ONLY));
+            $this->requestStack->getSession()->set('mailvotech.daterange.form.to', $to->format(DateTimeHelper::FORMAT_DB_DATE_ONLY));
         }
 
         $this->dashboardModel->clearDashboardCache();

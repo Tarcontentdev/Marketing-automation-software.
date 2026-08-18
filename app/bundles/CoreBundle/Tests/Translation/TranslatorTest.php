@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Translation;
+namespace MailVotech\CoreBundle\Tests\Translation;
 
-use Mautic\CoreBundle\Test\AbstractMauticTestCase;
-use Mautic\CoreBundle\Translation\Translator;
+use MailVotech\CoreBundle\Test\AbstractMailVotechTestCase;
+use MailVotech\CoreBundle\Translation\Translator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class TranslatorTest extends AbstractMauticTestCase
+final class TranslatorTest extends AbstractMailVotechTestCase
 {
     public function testMissingPluralOptions(): void
     {

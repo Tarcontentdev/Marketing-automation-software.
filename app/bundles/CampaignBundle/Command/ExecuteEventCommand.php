@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\CampaignBundle\Command;
+namespace MailVotech\CampaignBundle\Command;
 
-use Mautic\CampaignBundle\Executioner\ScheduledExecutioner;
-use Mautic\CoreBundle\Twig\Helper\FormatterHelper;
+use MailVotech\CampaignBundle\Executioner\ScheduledExecutioner;
+use MailVotech\CoreBundle\Twig\Helper\FormatterHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
-    name: 'mautic:campaigns:execute',
+    name: 'mailvotech:campaigns:execute',
     description: 'Execute specific scheduled events.'
 )]
 final class ExecuteEventCommand extends Command
@@ -51,7 +51,7 @@ final class ExecuteEventCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        defined('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED', 1);
+        defined('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED', 1);
 
         $now     = empty($input->getOption('execution-time')) ? null : new \DateTime($input->getOption('execution-time'));
         $ids     = $this->formatterHelper->simpleCsvToArray($input->getOption('scheduled-log-ids'), 'int');

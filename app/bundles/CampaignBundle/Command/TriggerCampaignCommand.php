@@ -1,25 +1,25 @@
 <?php
 
-namespace Mautic\CampaignBundle\Command;
+namespace MailVotech\CampaignBundle\Command;
 
 use Exception;
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\CampaignRepository;
-use Mautic\CampaignBundle\Event\CampaignTriggerEvent;
-use Mautic\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
-use Mautic\CampaignBundle\Executioner\InactiveExecutioner;
-use Mautic\CampaignBundle\Executioner\KickoffExecutioner;
-use Mautic\CampaignBundle\Executioner\ScheduledExecutioner;
-use Mautic\CoreBundle\Command\ModeratedCommand;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\ExitCode;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\ProcessSignal\Exception\SignalCaughtException;
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalService;
-use Mautic\CoreBundle\Twig\Helper\FormatterHelper;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Helper\SegmentCountCacheHelper;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\CampaignRepository;
+use MailVotech\CampaignBundle\Event\CampaignTriggerEvent;
+use MailVotech\CampaignBundle\Executioner\ContactFinder\Limiter\ContactLimiter;
+use MailVotech\CampaignBundle\Executioner\InactiveExecutioner;
+use MailVotech\CampaignBundle\Executioner\KickoffExecutioner;
+use MailVotech\CampaignBundle\Executioner\ScheduledExecutioner;
+use MailVotech\CoreBundle\Command\ModeratedCommand;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\ExitCode;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\ProcessSignal\Exception\SignalCaughtException;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalService;
+use MailVotech\CoreBundle\Twig\Helper\FormatterHelper;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Helper\SegmentCountCacheHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -31,7 +31,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
-    name: 'mautic:campaigns:trigger',
+    name: 'mailvotech:campaigns:trigger',
     description: 'Trigger timed events for published campaigns.'
 )]
 final class TriggerCampaignCommand extends ModeratedCommand
@@ -219,7 +219,7 @@ final class TriggerCampaignCommand extends ModeratedCommand
 
         $this->limiter = new ContactLimiter($batchLimit, $contactId, $contactMinId, $contactMaxId, $contactIds, $threadId, $maxThreads, $campaignLimit);
 
-        defined('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAUTIC_CAMPAIGN_SYSTEM_TRIGGERED', 1);
+        defined('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED') || define('MAILVOTECH_CAMPAIGN_SYSTEM_TRIGGERED', 1);
 
         $moderationKey = sprintf('%s-%s', $id, $threadId);
         if (!$this->checkRunStatus($input, $this->output, $moderationKey)) {
@@ -233,7 +233,7 @@ final class TriggerCampaignCommand extends ModeratedCommand
                 if ($campaign instanceof Campaign) {
                     $this->triggerCampaign($campaign);
                 } else {
-                    $output->writeln('<error>'.$this->translator->trans('mautic.campaign.rebuild.not_found', ['%id%' => $id]).'</error>');
+                    $output->writeln('<error>'.$this->translator->trans('mailvotech.campaign.rebuild.not_found', ['%id%' => $id]).'</error>');
                     $statusCode = ExitCode::FAILURE;
                 }
                 $this->completeRun();
@@ -314,7 +314,7 @@ final class TriggerCampaignCommand extends ModeratedCommand
         $this->campaign = $campaign;
 
         try {
-            $this->output->writeln('<info>'.$this->translator->trans('mautic.campaign.trigger.triggering', ['%id%' => $campaign->getId()]).'</info>');
+            $this->output->writeln('<info>'.$this->translator->trans('mailvotech.campaign.trigger.triggering', ['%id%' => $campaign->getId()]).'</info>');
             // Reset batch limiter
             $this->limiter->resetBatchMinContactId();
 
@@ -341,7 +341,7 @@ final class TriggerCampaignCommand extends ModeratedCommand
         } catch (SignalCaughtException $e) {
             throw $e;
         } catch (\Exception $exception) {
-            if ('prod' !== MAUTIC_ENV) {
+            if ('prod' !== MAILVOTECH_ENV) {
                 // Throw the exception for dev/test mode
                 throw $exception;
             }
@@ -353,21 +353,21 @@ final class TriggerCampaignCommand extends ModeratedCommand
         }
 
         // Don't detach in tests since this command will be ran multiple times in the same process
-        if ('test' !== MAUTIC_ENV) {
+        if ('test' !== MAILVOTECH_ENV) {
             $this->campaignRepository->detachEntity($campaign);
         }
     }
 
     /**
-     * @throws \Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException
-     * @throws \Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException
-     * @throws \Mautic\CampaignBundle\Executioner\Exception\CannotProcessEventException
-     * @throws \Mautic\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException
+     * @throws \MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException
+     * @throws \MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException
+     * @throws \MailVotech\CampaignBundle\Executioner\Exception\CannotProcessEventException
+     * @throws \MailVotech\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException
      */
     private function executeKickoff(): void
     {
         // trigger starting action events for newly added contacts
-        $this->output->writeln('<comment>'.$this->translator->trans('mautic.campaign.trigger.starting').'</comment>');
+        $this->output->writeln('<comment>'.$this->translator->trans('mailvotech.campaign.trigger.starting').'</comment>');
 
         $counter = $this->kickoffExecutioner->execute($this->campaign, $this->limiter, $this->output);
 
@@ -376,14 +376,14 @@ final class TriggerCampaignCommand extends ModeratedCommand
 
     /**
      * @throws \Doctrine\ORM\Query\QueryException
-     * @throws \Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException
-     * @throws \Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException
-     * @throws \Mautic\CampaignBundle\Executioner\Exception\CannotProcessEventException
-     * @throws \Mautic\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException
+     * @throws \MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException
+     * @throws \MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException
+     * @throws \MailVotech\CampaignBundle\Executioner\Exception\CannotProcessEventException
+     * @throws \MailVotech\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException
      */
     private function executeScheduled(): void
     {
-        $this->output->writeln('<comment>'.$this->translator->trans('mautic.campaign.trigger.scheduled').'</comment>');
+        $this->output->writeln('<comment>'.$this->translator->trans('mailvotech.campaign.trigger.scheduled').'</comment>');
 
         $counter = $this->scheduledExecutioner->execute($this->campaign, $this->limiter, $this->output);
 
@@ -391,15 +391,15 @@ final class TriggerCampaignCommand extends ModeratedCommand
     }
 
     /**
-     * @throws \Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException
-     * @throws \Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException
-     * @throws \Mautic\CampaignBundle\Executioner\Exception\CannotProcessEventException
-     * @throws \Mautic\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException
+     * @throws \MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException
+     * @throws \MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException
+     * @throws \MailVotech\CampaignBundle\Executioner\Exception\CannotProcessEventException
+     * @throws \MailVotech\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException
      */
     private function executeInactive(): void
     {
         // find and trigger "no" path events
-        $this->output->writeln('<comment>'.$this->translator->trans('mautic.campaign.trigger.negative').'</comment>');
+        $this->output->writeln('<comment>'.$this->translator->trans('mailvotech.campaign.trigger.negative').'</comment>');
 
         $counter = $this->inactiveExecutioner->execute($this->campaign, $this->limiter, $this->output);
 

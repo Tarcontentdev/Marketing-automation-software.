@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\EventListener;
+namespace MailVotech\SmsBundle\Tests\EventListener;
 
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\DoNotContact as DoNotContactModel;
-use Mautic\SmsBundle\Event\ReplyEvent;
-use Mautic\SmsBundle\EventListener\StopSubscriber;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\DoNotContact as DoNotContactModel;
+use MailVotech\SmsBundle\Event\ReplyEvent;
+use MailVotech\SmsBundle\EventListener\StopSubscriber;
 
 final class StopSubscriberTest extends \PHPUnit\Framework\TestCase
 {

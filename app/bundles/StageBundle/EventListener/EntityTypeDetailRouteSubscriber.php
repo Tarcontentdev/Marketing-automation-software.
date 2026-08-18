@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\EventListener;
+namespace MailVotech\StageBundle\EventListener;
 
-use Mautic\ProjectBundle\DTO\DetailRoute;
-use Mautic\ProjectBundle\Event\EntityTypeDetailRouteEvent;
+use MailVotech\ProjectBundle\DTO\DetailRoute;
+use MailVotech\ProjectBundle\Event\EntityTypeDetailRouteEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class EntityTypeDetailRouteSubscriber implements EventSubscriberInterface
@@ -20,7 +20,7 @@ final class EntityTypeDetailRouteSubscriber implements EventSubscriberInterface
     public function onEntityTypeDetailRoute(EntityTypeDetailRouteEvent $event): void
     {
         $event->addRoute('stage', new DetailRoute(
-            'mautic_stage_action',
+            'mailvotech_stage_action',
             'objectId',
             ['objectAction' => 'edit']
         ));

@@ -4,15 +4,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\Query;
+namespace MailVotech\LeadBundle\Tests\Segment\Query;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Platforms\MySQLPlatform;
-use Mautic\LeadBundle\Segment\Query\Expression\ExpressionBuilder;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
-use Mautic\LeadBundle\Segment\Query\QueryException;
+use MailVotech\LeadBundle\Segment\Query\Expression\ExpressionBuilder;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\QueryException;
 use PHPUnit\Framework\TestCase;
 
 final class QueryBuilderTest extends TestCase

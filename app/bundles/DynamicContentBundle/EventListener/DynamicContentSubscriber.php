@@ -1,29 +1,29 @@
 <?php
 
-namespace Mautic\DynamicContentBundle\EventListener;
+namespace MailVotech\DynamicContentBundle\EventListener;
 
-use Mautic\AssetBundle\Helper\TokenHelper as AssetTokenHelper;
-use Mautic\CoreBundle\Event as MauticEvents;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\DynamicContentBundle\DynamicContentEvents;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\DynamicContentBundle\Event as Events;
-use Mautic\DynamicContentBundle\Helper\DynamicContentHelper;
-use Mautic\DynamicContentBundle\Model\DynamicContentModel;
-use Mautic\EmailBundle\EventListener\MatchFilterForLeadTrait;
-use Mautic\FormBundle\Helper\TokenHelper as FormTokenHelper;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Exception\PrimaryCompanyNotFoundException;
-use Mautic\LeadBundle\Helper\TokenHelper;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Tracker\ContactTracker;
-use Mautic\PageBundle\Entity\Trackable;
-use Mautic\PageBundle\Event\PageDisplayEvent;
-use Mautic\PageBundle\Helper\TokenHelper as PageTokenHelper;
-use Mautic\PageBundle\Model\TrackableModel;
-use Mautic\PageBundle\PageEvents;
-use MauticPlugin\MauticFocusBundle\Helper\TokenHelper as FocusTokenHelper;
+use MailVotech\AssetBundle\Helper\TokenHelper as AssetTokenHelper;
+use MailVotech\CoreBundle\Event as MailVotechEvents;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\DynamicContentBundle\DynamicContentEvents;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\DynamicContentBundle\Event as Events;
+use MailVotech\DynamicContentBundle\Helper\DynamicContentHelper;
+use MailVotech\DynamicContentBundle\Model\DynamicContentModel;
+use MailVotech\EmailBundle\EventListener\MatchFilterForLeadTrait;
+use MailVotech\FormBundle\Helper\TokenHelper as FormTokenHelper;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Exception\PrimaryCompanyNotFoundException;
+use MailVotech\LeadBundle\Helper\TokenHelper;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Tracker\ContactTracker;
+use MailVotech\PageBundle\Entity\Trackable;
+use MailVotech\PageBundle\Event\PageDisplayEvent;
+use MailVotech\PageBundle\Helper\TokenHelper as PageTokenHelper;
+use MailVotech\PageBundle\Model\TrackableModel;
+use MailVotech\PageBundle\PageEvents;
+use MailVotechPlugin\MailVotechFocusBundle\Helper\TokenHelper as FocusTokenHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DynamicContentSubscriber implements EventSubscriberInterface
@@ -89,7 +89,7 @@ final class DynamicContentSubscriber implements EventSubscriberInterface
         $this->auditLogModel->writeToLog($log);
     }
 
-    public function onTokenReplacement(MauticEvents\TokenReplacementEvent $event): void
+    public function onTokenReplacement(MailVotechEvents\TokenReplacementEvent $event): void
     {
         /** @var Lead $lead */
         $lead         = $event->getLead();

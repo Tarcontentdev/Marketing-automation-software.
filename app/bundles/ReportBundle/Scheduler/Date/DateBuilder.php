@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\ReportBundle\Scheduler\Date;
+namespace MailVotech\ReportBundle\Scheduler\Date;
 
-use Mautic\ReportBundle\Scheduler\Builder\SchedulerBuilder;
-use Mautic\ReportBundle\Scheduler\Entity\SchedulerEntity;
-use Mautic\ReportBundle\Scheduler\Exception\InvalidSchedulerException;
-use Mautic\ReportBundle\Scheduler\Exception\NoScheduleException;
-use Mautic\ReportBundle\Scheduler\Exception\NotSupportedScheduleTypeException;
-use Mautic\ReportBundle\Scheduler\SchedulerInterface;
+use MailVotech\ReportBundle\Scheduler\Builder\SchedulerBuilder;
+use MailVotech\ReportBundle\Scheduler\Entity\SchedulerEntity;
+use MailVotech\ReportBundle\Scheduler\Exception\InvalidSchedulerException;
+use MailVotech\ReportBundle\Scheduler\Exception\NoScheduleException;
+use MailVotech\ReportBundle\Scheduler\Exception\NotSupportedScheduleTypeException;
+use MailVotech\ReportBundle\Scheduler\SchedulerInterface;
 
 class DateBuilder
 {

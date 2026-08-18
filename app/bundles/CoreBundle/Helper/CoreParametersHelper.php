@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\CoreBundle\Loader\ParameterLoader;
+use MailVotech\CoreBundle\Loader\ParameterLoader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CoreParametersHelper
@@ -29,15 +29,15 @@ class CoreParametersHelper
      */
     public function get($name, $default = null)
     {
-        $name = $this->stripMauticPrefix($name);
+        $name = $this->stripMailVotechPrefix($name);
 
-        if ('db_table_prefix' === $name && defined('MAUTIC_TABLE_PREFIX')) {
+        if ('db_table_prefix' === $name && defined('MAILVOTECH_TABLE_PREFIX')) {
             // use the constant in case in the installer
-            return MAUTIC_TABLE_PREFIX;
+            return MAILVOTECH_TABLE_PREFIX;
         }
 
-        // First check the container so that Symfony will resolve container parameters within Mautic config values
-        $containerName = sprintf('mautic.%s', $name);
+        // First check the container so that Symfony will resolve container parameters within MailVotech config values
+        $containerName = sprintf('mailvotech.%s', $name);
         if ($this->container->hasParameter($containerName)) {
             return $this->container->getParameter($containerName);
         }
@@ -47,7 +47,7 @@ class CoreParametersHelper
 
     public function has(string $name): bool
     {
-        return $this->parameters->has($this->stripMauticPrefix($name));
+        return $this->parameters->has($this->stripMailVotechPrefix($name));
     }
 
     public function all(): array
@@ -55,9 +55,9 @@ class CoreParametersHelper
         return $this->resolvedParameters;
     }
 
-    private function stripMauticPrefix(string $name): string
+    private function stripMailVotechPrefix(string $name): string
     {
-        return str_replace('mautic.', '', $name);
+        return str_replace('mailvotech.', '', $name);
     }
 
     private function resolveParameters(): void

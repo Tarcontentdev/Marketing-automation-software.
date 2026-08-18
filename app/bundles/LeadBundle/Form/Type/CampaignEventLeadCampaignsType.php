@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\CampaignBundle\Form\Type\CampaignListType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\CampaignBundle\Form\Type\CampaignListType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\LeadBundle\Model\ListModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,7 +26,7 @@ final class CampaignEventLeadCampaignsType extends AbstractType
     {
         $builder->add('campaigns',
             CampaignListType::class, [
-                'label'      => 'mautic.lead.lead.events.campaigns.membership',
+                'label'      => 'mailvotech.lead.lead.events.campaigns.membership',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -38,7 +38,7 @@ final class CampaignEventLeadCampaignsType extends AbstractType
             'dataAddedLimit',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.lead.lead.events.campaigns.date.added.filter',
+                'label' => 'mailvotech.lead.lead.events.campaigns.date.added.filter',
                 'data'  => $options['data']['dataAddedLimit'] ?? false,
             ]
         );
@@ -47,7 +47,7 @@ final class CampaignEventLeadCampaignsType extends AbstractType
             'expr',
             ChoiceType::class,
             [
-                'label'             => 'mautic.lead.lead.events.campaigns.expression',
+                'label'             => 'mailvotech.lead.lead.events.campaigns.expression',
                 'multiple'          => false,
                 'choices'           => $this->listModel->getOperatorsForFieldType([
                     'include' => [
@@ -68,7 +68,7 @@ final class CampaignEventLeadCampaignsType extends AbstractType
             'dateAdded',
             TextType::class,
             [
-                'label'      => 'mautic.lead.lead.events.campaigns.date',
+                'label'      => 'mailvotech.lead.lead.events.campaigns.date',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'        => 'form-control',

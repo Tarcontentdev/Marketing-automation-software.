@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Tests\Functional\Command;
+namespace MailVotech\MarketplaceBundle\Tests\Functional\Command;
 
-use Mautic\CoreBundle\Helper\ComposerHelper;
-use Mautic\CoreBundle\Test\AbstractMauticTestCase;
-use Mautic\MarketplaceBundle\Command\RemoveCommand;
-use Mautic\MarketplaceBundle\DTO\ConsoleOutput;
+use MailVotech\CoreBundle\Helper\ComposerHelper;
+use MailVotech\CoreBundle\Test\AbstractMailVotechTestCase;
+use MailVotech\MarketplaceBundle\Command\RemoveCommand;
+use MailVotech\MarketplaceBundle\DTO\ConsoleOutput;
 use Psr\Log\LoggerInterface;
 
-final class RemoveCommandTest extends AbstractMauticTestCase
+final class RemoveCommandTest extends AbstractMailVotechTestCase
 {
     private string $packageName;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->packageName = 'koco/mautic-recaptcha-bundle';
+        $this->packageName = 'koco/mailvotech-recaptcha-bundle';
     }
 
     public function testRemoveCommand(): void
@@ -26,12 +26,12 @@ final class RemoveCommandTest extends AbstractMauticTestCase
         $composer->method('remove')
             ->with($this->packageName)
             ->willReturn(new ConsoleOutput(0, 'OK'));
-        $composer->method('getMauticPluginPackages')
-            ->willReturn(['koco/mautic-recaptcha-bundle']);
+        $composer->method('getMailVotechPluginPackages')
+            ->willReturn(['koco/mailvotech-recaptcha-bundle']);
         $command = new RemoveCommand($composer, $this->createStub(LoggerInterface::class));
 
         $result = $this->testSymfonyCommand(
-            'mautic:marketplace:remove',
+            'mailvotech:marketplace:remove',
             ['package' => $this->packageName],
             $command
         );
@@ -45,12 +45,12 @@ final class RemoveCommandTest extends AbstractMauticTestCase
         $composer->method('remove')
             ->with($this->packageName)
             ->willReturn(new ConsoleOutput(0, 'OK'));
-        $composer->method('getMauticPluginPackages')
+        $composer->method('getMailVotechPluginPackages')
             ->willReturn([]);
         $command = new RemoveCommand($composer, $this->createStub(LoggerInterface::class));
 
         $result = $this->testSymfonyCommand(
-            'mautic:marketplace:remove',
+            'mailvotech:marketplace:remove',
             ['package' => $this->packageName],
             $command
         );
@@ -64,12 +64,12 @@ final class RemoveCommandTest extends AbstractMauticTestCase
         $composer->method('remove')
             ->with($this->packageName)
             ->willReturn(new ConsoleOutput(1, 'Error while removing package'));
-        $composer->method('getMauticPluginPackages')
+        $composer->method('getMailVotechPluginPackages')
             ->willReturn([]);
         $command = new RemoveCommand($composer, $this->createStub(LoggerInterface::class));
 
         $result = $this->testSymfonyCommand(
-            'mautic:marketplace:remove',
+            'mailvotech:marketplace:remove',
             ['package' => $this->packageName],
             $command
         );

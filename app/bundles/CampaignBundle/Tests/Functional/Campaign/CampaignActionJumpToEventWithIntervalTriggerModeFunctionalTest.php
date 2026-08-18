@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Functional\Campaign;
+namespace MailVotech\CampaignBundle\Tests\Functional\Campaign;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class CampaignActionJumpToEventWithIntervalTriggerModeFunctionalTest extends MauticMysqlTestCase
+final class CampaignActionJumpToEventWithIntervalTriggerModeFunctionalTest extends MailVotechMysqlTestCase
 {
     private const HOUR_DATE_FORMAT = 'Y-m-d H:00:00';
 
@@ -21,7 +21,7 @@ final class CampaignActionJumpToEventWithIntervalTriggerModeFunctionalTest exten
 
     protected function setUp(): void
     {
-        // Mautic need to be configured to use the time zone that does not "jump" between days.
+        // MailVotech need to be configured to use the time zone that does not "jump" between days.
         // As of PHPUnit 10, data provider is static.
         // Tear down of the base class will restore timezone to UTC.
         date_default_timezone_set(self::$timezone);
@@ -105,7 +105,7 @@ final class CampaignActionJumpToEventWithIntervalTriggerModeFunctionalTest exten
 
         // Execute Campaign
         $this->testSymfonyCommand(
-            'mautic:campaigns:trigger',
+            'mailvotech:campaigns:trigger',
             ['--campaign-id' => $campaign->getId()]
         );
 
@@ -268,7 +268,7 @@ final class CampaignActionJumpToEventWithIntervalTriggerModeFunctionalTest exten
         $adjustPointEvent->setTriggerMode(Event::TRIGGER_MODE_INTERVAL);
         $adjustPointEvent->setTriggerHour($triggerHourDate->format('H:00:00'));
         $adjustPointEvent->setTriggerIntervalUnit('d');
-        // This must conform the format of the date in the \Mautic\CampaignBundle\Executioner\Scheduler\Mode\Interval::getGroupExecutionDateTime
+        // This must conform the format of the date in the \MailVotech\CampaignBundle\Executioner\Scheduler\Mode\Interval::getGroupExecutionDateTime
         $adjustPointEvent->setTriggerRestrictedDaysOfWeek([(new \DateTime())->format('w')]);
 
         yield 'Schedule the event when Send From is in the future on the selected day when the day is today' => [

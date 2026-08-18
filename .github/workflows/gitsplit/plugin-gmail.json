@@ -1,9 +1,9 @@
 {
     "subtree-splits": [
         {
-            "name": "MauticGmailBundle",
-            "directory": "plugins/MauticGmailBundle",
-            "target": "git@github.com:mautic/plugin-gmail.git"
+            "name": "MailVotechGmailBundle",
+            "directory": "plugins/MailVotechGmailBundle",
+            "target": "git@github.com:mailvotech/plugin-gmail.git"
         }
     ]
 }

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>MailVotech script split</title>
+</head>
+<body>
+<div id="dwc-fallback" class="mailvotech-slot" data-slot-name="acceptance-test" hidden>DWC fallback content</div>
+<script>
+    var fixtureParams = new URLSearchParams(window.location.search);
+    var dwcFallback = document.getElementById('dwc-fallback');
+    if (fixtureParams.get('dwc') === '1') {
+        dwcFallback.hidden = false;
+        if (fixtureParams.get('form') === '1') {
+            dwcFallback.innerHTML = '<div id="mailvotechform_wrapper_acceptance" class="mailvotechform_wrapper">'
+                +'<form id="mailvotechform_acceptance" data-mailvotech-form="acceptance" action="#" method="post">'
+                +'<input name="mailvotechform[email]" type="email">'
+                +'<input name="mailvotechform[formId]" type="hidden" value="acceptance">'
+                +'</form></div>';
+        }
+    } else {
+        dwcFallback.remove();
+    }
+
+    window.mailvotechScriptErrors = [];
+    window.mailvotechStorageAccess = [];
+    window.mailvotechCookieAccess = [];
+    window.mailvotechNetworkRequests = [];
+    window.mailvotechPageEventDeliveries = [];
+    window.mailvotechLastNetworkActivity = Date.now();
+    window.mailvotechNetworkQuietPeriod = 500;
+
+    window.MailVotechTrackingObject = 'mt';
+    window.mt = function () {
+        window.mt.q.push(arguments);
+    };
+    window.mt.q = [];
+    window.mt('send', 'pageview');
+
+    function recordNetworkRequest(type, url) {
+        if (!url) {
+            return;
+        }
+
+        window.mailvotechNetworkRequests.push({type: type, url: new URL(url, window.location.href).href});
+        window.mailvotechLastNetworkActivity = Date.now();
+    }
+
+    window.addEventListener('error', function (event) {
+        window.mailvotechScriptErrors.push(event.message);
+    });
+    window.addEventListener('unhandledrejection', function (event) {
+        window.mailvotechScriptErrors.push(String(event.reason));
+    });
+    document.addEventListener('mailvotechPageEventDelivered', function (event) {
+        window.mailvotechPageEventDeliveries.push(event.detail);
+    });
+
+    ['getItem', 'setItem', 'removeItem'].forEach(function (method) {
+        var original = Storage.prototype[method];
+        Storage.prototype[method] = function () {
+            window.mailvotechStorageAccess.push({method: method, key: String(arguments[0])});
+
+            return original.apply(this, arguments);
+        };
+    });
+
+    var cookieDescriptor = Object.getOwnPropertyDescriptor(Document.prototype, 'cookie');
+    window.mailvotechCookieInstrumentationSupported = Boolean(cookieDescriptor && cookieDescriptor.configurable);
+    if (window.mailvotechCookieInstrumentationSupported) {
+        Object.defineProperty(document, 'cookie', {
+            configurable: true,
+            get: function () {
+                window.mailvotechCookieAccess.push({method: 'get'});
+
+                return cookieDescriptor.get.call(document);
+            },
+            set: function (value) {
+                window.mailvotechCookieAccess.push({method: 'set', value: String(value)});
+
+                cookieDescriptor.set.call(document, value);
+            }
+        });
+    }
+
+    var originalXhrOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function (method, url) {
+        recordNetworkRequest('xhr', url);
+
+        return originalXhrOpen.apply(this, arguments);
+    };
+
+    var originalFetch = window.fetch;
+    window.fetch = function (input) {
+        recordNetworkRequest('fetch', typeof input === 'string' ? input : input.url);
+
+        return originalFetch.apply(this, arguments);
+    };
+
+    var originalSendBeacon = navigator.sendBeacon;
+    navigator.sendBeacon = function (url) {
+        recordNetworkRequest('beacon', url);
+
+        return originalSendBeacon.apply(this, arguments);
+    };
+
+    var originalAppendChild = Node.prototype.appendChild;
+    Node.prototype.appendChild = function (node) {
+        if (node && (node.src || node.href)) {
+            recordNetworkRequest(node.tagName ? node.tagName.toLowerCase() : 'element', node.src || node.href);
+        }
+
+        return originalAppendChild.apply(this, arguments);
+    };
+
+    var imageSrcDescriptor = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
+    window.mailvotechImageInstrumentationSupported = Boolean(imageSrcDescriptor && imageSrcDescriptor.configurable);
+    if (window.mailvotechImageInstrumentationSupported) {
+        Object.defineProperty(HTMLImageElement.prototype, 'src', {
+            configurable: true,
+            get: imageSrcDescriptor.get,
+            set: function (value) {
+                recordNetworkRequest('img', value);
+
+                imageSrcDescriptor.set.call(this, value);
+            }
+        });
+    }
+
+    var scriptUrls = fixtureParams.getAll('script');
+    function loadScript(index) {
+        if (index >= scriptUrls.length) {
+            window.mailvotechScriptFinished = true;
+
+            return;
+        }
+
+        var script = document.createElement('script');
+        script.src = scriptUrls[index];
+        script.onload = function () {
+            window.mailvotechScriptLoaded = true;
+            loadScript(index + 1);
+        };
+        script.onerror = function () {
+            window.mailvotechScriptErrors.push('Failed to load '+script.src);
+            window.mailvotechScriptFinished = true;
+        };
+        document.head.appendChild(script);
+    }
+    loadScript(0);
+</script>
+</body>
+</html>

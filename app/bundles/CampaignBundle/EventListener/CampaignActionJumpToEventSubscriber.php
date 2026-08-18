@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\CampaignBundle\EventListener;
+namespace MailVotech\CampaignBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\EventRepository;
-use Mautic\CampaignBundle\Entity\LeadRepository;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\CampaignEvent;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CampaignBundle\Executioner\EventExecutioner;
-use Mautic\CampaignBundle\Executioner\Scheduler\EventScheduler;
-use Mautic\CampaignBundle\Form\Type\CampaignEventJumpToEventType;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\EventRepository;
+use MailVotech\CampaignBundle\Entity\LeadRepository;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\CampaignEvent;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CampaignBundle\Executioner\EventExecutioner;
+use MailVotech\CampaignBundle\Executioner\Scheduler\EventScheduler;
+use MailVotech\CampaignBundle\Form\Type\CampaignEventJumpToEventType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -44,10 +44,10 @@ final readonly class CampaignActionJumpToEventSubscriber implements EventSubscri
     {
         // Add action to jump to another event in the campaign flow.
         $event->addAction(self::EVENT_NAME, [
-            'label'                  => 'mautic.campaign.event.jump_to_event',
-            'description'            => 'mautic.campaign.event.jump_to_event_descr',
+            'label'                  => 'mailvotech.campaign.event.jump_to_event',
+            'description'            => 'mailvotech.campaign.event.jump_to_event_descr',
             'formType'               => CampaignEventJumpToEventType::class,
-            'template'               => '@MauticCampaign/Event/jump.html.twig',
+            'template'               => '@MailVotechCampaign/Event/jump.html.twig',
             'batchEventName'         => CampaignEvents::ON_EVENT_JUMP_TO_EVENT,
             'connectionRestrictions' => [
                 'target' => [
@@ -62,10 +62,10 @@ final readonly class CampaignActionJumpToEventSubscriber implements EventSubscri
     /**
      * Process campaign.jump_to_event actions.
      *
-     * @throws \Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException
-     * @throws \Mautic\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException
-     * @throws \Mautic\CampaignBundle\Executioner\Exception\CannotProcessEventException
-     * @throws \Mautic\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException
+     * @throws \MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogNotProcessedException
+     * @throws \MailVotech\CampaignBundle\Executioner\Dispatcher\Exception\LogPassedAndFailedException
+     * @throws \MailVotech\CampaignBundle\Executioner\Exception\CannotProcessEventException
+     * @throws \MailVotech\CampaignBundle\Executioner\Scheduler\Exception\NotSchedulableException
      */
     public function onJumpToEvent(PendingEvent $campaignEvent): void
     {
@@ -80,7 +80,7 @@ final readonly class CampaignActionJumpToEventSubscriber implements EventSubscri
                 // Pass with an error for the UI.
                 $campaignEvent->passWithError(
                     $pending->get($logId),
-                    $this->translator->trans('mautic.campaign.campaign.jump_to_event.target_not_exist')
+                    $this->translator->trans('mailvotech.campaign.campaign.jump_to_event.target_not_exist')
                 );
             }
         } else {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Event;
+namespace MailVotech\FormBundle\Tests\Event;
 
-use Mautic\FormBundle\Entity\Field;
-use Mautic\FormBundle\Event\FormFieldEvent;
+use MailVotech\FormBundle\Entity\Field;
+use MailVotech\FormBundle\Event\FormFieldEvent;
 
 final class FormFieldEventTest extends \PHPUnit\Framework\TestCase
 {

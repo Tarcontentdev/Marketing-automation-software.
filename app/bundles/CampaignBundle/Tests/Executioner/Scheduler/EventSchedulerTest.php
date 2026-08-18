@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\Executioner\Scheduler;
+namespace MailVotech\CampaignBundle\Tests\Executioner\Scheduler;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\ScheduledBatchEvent;
-use Mautic\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
-use Mautic\CampaignBundle\EventCollector\EventCollector;
-use Mautic\CampaignBundle\Executioner\Logger\EventLogger;
-use Mautic\CampaignBundle\Executioner\Scheduler\EventScheduler;
-use Mautic\CampaignBundle\Executioner\Scheduler\Mode\DateTime;
-use Mautic\CampaignBundle\Executioner\Scheduler\Mode\Interval;
-use Mautic\CampaignBundle\Executioner\Scheduler\Mode\Optimized;
-use Mautic\CampaignBundle\Service\PublishStateService;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Service\OptimisticLockServiceInterface;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Services\PeakInteractionTimer;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\ScheduledBatchEvent;
+use MailVotech\CampaignBundle\EventCollector\Accessor\Event\ActionAccessor;
+use MailVotech\CampaignBundle\EventCollector\EventCollector;
+use MailVotech\CampaignBundle\Executioner\Logger\EventLogger;
+use MailVotech\CampaignBundle\Executioner\Scheduler\EventScheduler;
+use MailVotech\CampaignBundle\Executioner\Scheduler\Mode\DateTime;
+use MailVotech\CampaignBundle\Executioner\Scheduler\Mode\Interval;
+use MailVotech\CampaignBundle\Executioner\Scheduler\Mode\Optimized;
+use MailVotech\CampaignBundle\Service\PublishStateService;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Service\OptimisticLockServiceInterface;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Services\PeakInteractionTimer;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

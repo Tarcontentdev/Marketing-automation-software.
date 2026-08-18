@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Collection;
+namespace MailVotech\MarketplaceBundle\Collection;
 
-use Mautic\MarketplaceBundle\DTO\Maintainer;
-use Mautic\MarketplaceBundle\Exception\RecordNotFoundException;
+use MailVotech\MarketplaceBundle\DTO\Maintainer;
+use MailVotech\MarketplaceBundle\Exception\RecordNotFoundException;
 
 final class MaintainerCollection implements \Iterator, \Countable, \ArrayAccess
 {

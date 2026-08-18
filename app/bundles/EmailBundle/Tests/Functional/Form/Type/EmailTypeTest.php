@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Functional\Form\Type;
+namespace MailVotech\EmailBundle\Tests\Functional\Form\Type;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CategoryBundle\Entity\Category;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadCategory;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
-use Mautic\LeadBundle\Model\DoNotContact as DoNotContactModel;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CategoryBundle\Entity\Category;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadCategory;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
+use MailVotech\LeadBundle\Model\DoNotContact as DoNotContactModel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class EmailTypeTest extends MauticMysqlTestCase
+final class EmailTypeTest extends MailVotechMysqlTestCase
 {
     /**
      * @var array<mixed>
@@ -59,14 +59,14 @@ final class EmailTypeTest extends MauticMysqlTestCase
         $this->addContactToDnc([$contactIds[2]]);
         $this->removeContactFromCategory((int) $contactIds[3], $category);
         $segment       = $this->createSegment();
-        $commandTester = $this->testSymfonyCommand('mautic:segments:update', ['-i' => $segment->getId()]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:segments:update', ['-i' => $segment->getId()]);
         $this->assertSame(Command::SUCCESS, $commandTester->getStatusCode());
         $this->assertStringContainsString(($contactIdsCount = count($contactIds)).' total contact(s) to be added', $commandTester->getDisplay());
         $segmentLeadCount = $this->em->getRepository(ListLead::class)->count(['list' => $segment]);
         $this->assertSame($contactIdsCount, $segmentLeadCount);
 
         $campaign      = $this->createCampaign($segment, $emailId = (int) $email->getId());
-        $commandTester = $this->testSymfonyCommand('mautic:campaigns:update', ['-i' => ($campaignId = $campaign->getId())]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:campaigns:update', ['-i' => ($campaignId = $campaign->getId())]);
         $this->assertSame(Command::SUCCESS, $commandTester->getStatusCode());
         $this->assertStringContainsString($contactIdsCount.' total contact(s) to be added', $commandTester->getDisplay());
         $campaignLeadCount = $this->em->getRepository(CampaignLead::class)->count(['campaign' => $campaign]);
@@ -74,7 +74,7 @@ final class EmailTypeTest extends MauticMysqlTestCase
 
         $this->em->clear();
 
-        $commandTester = $this->testSymfonyCommand('mautic:campaigns:trigger', ['-i' => $campaignId]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['-i' => $campaignId]);
         $this->assertSame(Command::SUCCESS, $commandTester->getStatusCode());
         $this->assertStringContainsString($contactIdsCount.' total events(s) to be processed', $commandTester->getDisplay());
 
@@ -239,7 +239,7 @@ final class EmailTypeTest extends MauticMysqlTestCase
             'type'                       => 'email.send',
             'eventType'                  => 'action',
             'anchorEventType'            => 'source',
-            'campaignId'                 => 'mautic_544d9d435fde5977c426a3e61806f928e35b8238',
+            'campaignId'                 => 'mailvotech_544d9d435fde5977c426a3e61806f928e35b8238',
             '_token'                     => '37A9NjExY9tNuZk-KRBYjOEaJSDcaKGUUw-0mLpC05w',
             'buttons'                    => [
                 'save' => '',

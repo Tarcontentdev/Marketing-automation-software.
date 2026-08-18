@@ -1,17 +1,17 @@
 <?php
 
-namespace Mautic\LeadBundle\Services;
+namespace MailVotech\LeadBundle\Services;
 
-use Mautic\LeadBundle\Event\SegmentDictionaryGenerationEvent;
-use Mautic\LeadBundle\Exception\FilterNotFoundException;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Segment\Query\Filter\BaseFilterQueryBuilder;
-use Mautic\LeadBundle\Segment\Query\Filter\ChannelClickQueryBuilder;
-use Mautic\LeadBundle\Segment\Query\Filter\DoNotContactFilterQueryBuilder;
-use Mautic\LeadBundle\Segment\Query\Filter\ForeignFuncFilterQueryBuilder;
-use Mautic\LeadBundle\Segment\Query\Filter\ForeignValueFilterQueryBuilder;
-use Mautic\LeadBundle\Segment\Query\Filter\IntegrationCampaignFilterQueryBuilder;
-use Mautic\LeadBundle\Segment\Query\Filter\SessionsFilterQueryBuilder;
+use MailVotech\LeadBundle\Event\SegmentDictionaryGenerationEvent;
+use MailVotech\LeadBundle\Exception\FilterNotFoundException;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Segment\Query\Filter\BaseFilterQueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\Filter\ChannelClickQueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\Filter\DoNotContactFilterQueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\Filter\ForeignFuncFilterQueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\Filter\ForeignValueFilterQueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\Filter\IntegrationCampaignFilterQueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\Filter\SessionsFilterQueryBuilder;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ContactSegmentFilterDictionary

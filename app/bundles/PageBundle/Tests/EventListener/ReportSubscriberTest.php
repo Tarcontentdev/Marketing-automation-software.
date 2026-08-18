@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Tests\EventListener;
+namespace MailVotech\PageBundle\Tests\EventListener;
 
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Result;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\LeadBundle\Report\DncReportService;
-use Mautic\PageBundle\Entity\HitRepository;
-use Mautic\PageBundle\EventListener\ReportSubscriber;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\Event\ReportGraphEvent;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\LeadBundle\Report\DncReportService;
+use MailVotech\PageBundle\Entity\HitRepository;
+use MailVotech\PageBundle\EventListener\ReportSubscriber;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\Event\ReportGraphEvent;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -319,15 +319,15 @@ final class ReportSubscriberTest extends TestCase
             ->method('getRequestedGraphs')
             ->willReturn(
                 [
-                    'mautic.page.graph.line.hits',
-                    'mautic.page.graph.line.time.on.site',
-                    'mautic.page.graph.pie.time.on.site',
-                    'mautic.page.graph.pie.new.vs.returning',
-                    'mautic.page.graph.pie.languages',
-                    'mautic.page.graph.pie.devices',
-                    'mautic.page.table.referrers',
-                    'mautic.page.table.most.visited',
-                    'mautic.page.table.most.visited.unique',
+                    'mailvotech.page.graph.line.hits',
+                    'mailvotech.page.graph.line.time.on.site',
+                    'mailvotech.page.graph.pie.time.on.site',
+                    'mailvotech.page.graph.pie.new.vs.returning',
+                    'mailvotech.page.graph.pie.languages',
+                    'mailvotech.page.graph.pie.devices',
+                    'mailvotech.page.table.referrers',
+                    'mailvotech.page.table.most.visited',
+                    'mailvotech.page.table.most.visited.unique',
                 ]
             );
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,7 +26,7 @@ final class FormFieldEmailType extends AbstractType
             'donotsubmit',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.form.field.type.donotsubmit',
+                'label' => 'mailvotech.form.field.type.donotsubmit',
                 'data'  => $options['data']['donotsubmit'] ?? false,
             ]
         );
@@ -35,13 +35,13 @@ final class FormFieldEmailType extends AbstractType
             'donotsubmit_validationmsg',
             TextType::class,
             [
-                'label'      => 'mautic.form.field.form.validationmsg',
+                'label'      => 'mailvotech.form.field.form.validationmsg',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'        => 'form-control',
                     'data-show-on' => '{"formfield_validation_donotsubmit_1": "checked"}',
                 ],
-                'data'     => $options['data']['donotsubmit_validationmsg'] ?? $this->translator->trans('mautic.form.submission.email.donotsubmit.invalid', [], 'validators'),
+                'data'     => $options['data']['donotsubmit_validationmsg'] ?? $this->translator->trans('mailvotech.form.submission.email.donotsubmit.invalid', [], 'validators'),
                 'required' => false,
             ]
         );
@@ -50,9 +50,9 @@ final class FormFieldEmailType extends AbstractType
             'blockfreeemail',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.form.field.type.blockfreeemail',
+                'label' => 'mailvotech.form.field.type.blockfreeemail',
                 'attr'  => [
-                    'tooltip' => 'mautic.form.field.type.blockfreeemail.tooltip',
+                    'tooltip' => 'mailvotech.form.field.type.blockfreeemail.tooltip',
                 ],
                 'data'  => $options['data']['blockfreeemail'] ?? false,
             ]
@@ -62,13 +62,13 @@ final class FormFieldEmailType extends AbstractType
             'blockfreeemail_validationmsg',
             TextType::class,
             [
-                'label'      => 'mautic.form.field.form.validationmsg',
+                'label'      => 'mailvotech.form.field.form.validationmsg',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'        => 'form-control',
                     'data-show-on' => '{"formfield_validation_blockfreeemail_1": "checked"}',
                 ],
-                'data'     => $options['data']['blockfreeemail_validationmsg'] ?? $this->translator->trans('mautic.form.submission.email.freeproviders.invalid', [], 'validators'),
+                'data'     => $options['data']['blockfreeemail_validationmsg'] ?? $this->translator->trans('mailvotech.form.submission.email.freeproviders.invalid', [], 'validators'),
                 'required' => false,
             ]
         );

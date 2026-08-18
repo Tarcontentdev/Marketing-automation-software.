@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncJudge\Modes;
+namespace MailVotech\IntegrationsBundle\Sync\SyncJudge\Modes;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\InformationChangeRequestDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\ConflictUnresolvedException;
-use Mautic\IntegrationsBundle\Sync\SyncJudge\SyncJudgeInterface;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\InformationChangeRequestDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\ConflictUnresolvedException;
+use MailVotech\IntegrationsBundle\Sync\SyncJudge\SyncJudgeInterface;
 
 final class BestEvidence implements JudgementModeInterface
 {

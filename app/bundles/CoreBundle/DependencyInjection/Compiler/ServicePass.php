@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\DependencyInjection\Compiler;
+namespace MailVotech\CoreBundle\DependencyInjection\Compiler;
 
 use Knp\Menu\MenuItem;
-use Mautic\CoreBundle\Menu\MenuRenderer;
+use MailVotech\CoreBundle\Menu\MenuRenderer;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -18,7 +18,7 @@ final class ServicePass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        $bundles = array_merge($container->getParameter('mautic.bundles'), $container->getParameter('mautic.plugin.bundles'));
+        $bundles = array_merge($container->getParameter('mailvotech.bundles'), $container->getParameter('mailvotech.plugin.bundles'));
 
         // Store menu renderer options to create unique renderering classes per menu
         // since KNP menus doesn't seem to support a Renderer factory
@@ -45,14 +45,14 @@ final class ServicePass implements CompilerPassInterface
                             $defaultTag = 'knp_menu.menu';
                             break;
                         case 'models':
-                            $defaultTag = 'mautic.model';
+                            $defaultTag = 'mailvotech.model';
                             @trigger_error('Setting "models" in config is deprecated. Convert to using autowiring.', E_USER_DEPRECATED);
                             break;
                         case 'permissions':
-                            $defaultTag = 'mautic.permissions';
+                            $defaultTag = 'mailvotech.permissions';
                             break;
                         case 'integrations':
-                            $defaultTag = 'mautic.integration';
+                            $defaultTag = 'mailvotech.integration';
                             break;
                         case 'controllers':
                             $defaultTag = 'controller.service_arguments';
@@ -79,7 +79,7 @@ final class ServicePass implements CompilerPassInterface
                             $details = array_merge(
                                 [
                                     'class'   => MenuItem::class,
-                                    'factory' => ['@mautic.menu.builder', $details['alias'].'Menu'],
+                                    'factory' => ['@mailvotech.menu.builder', $details['alias'].'Menu'],
                                 ],
                                 $details
                             );
@@ -159,7 +159,7 @@ final class ServicePass implements CompilerPassInterface
                             }
 
                             if ('events' == $type) {
-                                $definition->addTag('mautic.event_subscriber');
+                                $definition->addTag('mailvotech.event_subscriber');
                             }
                         }
 
@@ -252,7 +252,7 @@ final class ServicePass implements CompilerPassInterface
         }
 
         foreach ($menus as $alias => $options) {
-            $container->setDefinition('mautic.menu_renderer.'.$alias, new Definition(
+            $container->setDefinition('mailvotech.menu_renderer.'.$alias, new Definition(
                 MenuRenderer::class,
                 [
                     new Reference('knp_menu.matcher'),

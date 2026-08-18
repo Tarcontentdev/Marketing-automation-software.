@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\UserBundle\EventListener;
+namespace MailVotech\UserBundle\EventListener;
 
-use Mautic\ConfigBundle\ConfigEvents;
-use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
-use Mautic\ConfigBundle\Event\ConfigEvent;
-use Mautic\UserBundle\Form\Type\ConfigType;
+use MailVotech\ConfigBundle\ConfigEvents;
+use MailVotech\ConfigBundle\Event\ConfigBuilderEvent;
+use MailVotech\ConfigBundle\Event\ConfigEvent;
+use MailVotech\UserBundle\Form\Type\ConfigType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -36,8 +36,8 @@ final class ConfigSubscriber implements EventSubscriberInterface
                     'bundle'     => 'UserBundle',
                     'formAlias'  => 'userconfig',
                     'formType'   => ConfigType::class,
-                    'formTheme'  => '@MauticUser/FormTheme/Config/_config_userconfig_widget.html.twig',
-                    'parameters' => $event->getParametersFromConfig('MauticUserBundle'),
+                    'formTheme'  => '@MailVotechUser/FormTheme/Config/_config_userconfig_widget.html.twig',
+                    'parameters' => $event->getParametersFromConfig('MailVotechUserBundle'),
                 ]
             );
     }
@@ -59,12 +59,12 @@ final class ConfigSubscriber implements EventSubscriberInterface
             switch ($field) {
                 case 'saml_idp_metadata':
                     if (!$this->validateXml($data[$field])) {
-                        $event->setError('mautic.user.saml.metadata.invalid', [], 'userconfig', $field);
+                        $event->setError('mailvotech.user.saml.metadata.invalid', [], 'userconfig', $field);
                     }
                     break;
                 case 'saml_idp_own_certificate':
                     if (!str_starts_with($data[$field], '-----BEGIN CERTIFICATE-----')) {
-                        $event->setError('mautic.user.saml.certificate.invalid', [], 'userconfig', $field);
+                        $event->setError('mailvotech.user.saml.certificate.invalid', [], 'userconfig', $field);
                     }
                     break;
                 case 'saml_idp_own_private_key':
@@ -72,15 +72,15 @@ final class ConfigSubscriber implements EventSubscriberInterface
                     $decryptedKey = str_starts_with($data[$field], '-----BEGIN RSA PRIVATE KEY-----');
 
                     if (!$encryptedKey && !$decryptedKey) {
-                        $event->setError('mautic.user.saml.private_key.invalid', [], 'userconfig', $field);
+                        $event->setError('mailvotech.user.saml.private_key.invalid', [], 'userconfig', $field);
                     }
 
                     if ($encryptedKey && empty($data['saml_idp_own_password'])) {
-                        $event->setError('mautic.user.saml.private_key.password_needed', [], 'userconfig', 'saml_idp_own_password');
+                        $event->setError('mailvotech.user.saml.private_key.password_needed', [], 'userconfig', 'saml_idp_own_password');
                     }
 
                     if ($encryptedKey && !empty($data['saml_idp_own_password']) && !openssl_get_privatekey($data[$field], $data['saml_idp_own_password'])) {
-                        $event->setError('mautic.user.saml.private_key.password_invalid', [], 'userconfig', 'saml_idp_own_password');
+                        $event->setError('mailvotech.user.saml.private_key.password_invalid', [], 'userconfig', 'saml_idp_own_password');
                     }
 
                     break;

@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\ReportBundle\Generator;
+namespace MailVotech\ReportBundle\Generator;
 
 use Doctrine\DBAL\Connection;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\ReportBundle\Builder\MauticReportBuilder;
-use Mautic\ReportBundle\Builder\ReportBuilderInterface;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Form\Type\ReportType;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\ReportBundle\Builder\MailVotechReportBuilder;
+use MailVotech\ReportBundle\Builder\ReportBuilderInterface;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Form\Type\ReportType;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -65,12 +65,12 @@ final class ReportGenerator
     /**
      * @throws RuntimeException
      */
-    private function getBuilder(): MauticReportBuilder
+    private function getBuilder(): MailVotechReportBuilder
     {
-        $className = MauticReportBuilder::class;
+        $className = MailVotechReportBuilder::class;
 
         if (!class_exists($className)) {
-            throw new RuntimeException('The MauticReportBuilder does not exist.');
+            throw new RuntimeException('The MailVotechReportBuilder does not exist.');
         }
 
         $reflection = new \ReflectionClass($className);

@@ -1,6 +1,6 @@
-Mautic.overflowNavOptions = {
+MailVotech.overflowNavOptions = {
     "parent": ".nav-overflow-tabs",
-    "more": Mautic.translate('mautic.core.tabs.more')
+    "more": MailVotech.translate('mailvotech.core.tabs.more')
 };
 
 /**
@@ -8,11 +8,11 @@ Mautic.overflowNavOptions = {
  *
  * @param el
  */
-Mautic.toggleTabPublished = function(el) {
+MailVotech.toggleTabPublished = function(el) {
     if (mQuery(el).val() === "1" && mQuery(el).prop('checked')) {
-        Mautic.publishTab(el);
+        MailVotech.publishTab(el);
     } else {
-        Mautic.unpublishTab(el);
+        MailVotech.unpublishTab(el);
     }
 }
 
@@ -21,8 +21,8 @@ Mautic.toggleTabPublished = function(el) {
  *
  * @param tab
  */
-Mautic.publishTab = function(tab) {
-    mQuery('a[href="#'+Mautic.getTabId(tab)+'"]').find('.fa').removeClass('text-secondary').addClass('text-success');
+MailVotech.publishTab = function(tab) {
+    mQuery('a[href="#'+MailVotech.getTabId(tab)+'"]').find('.fa').removeClass('text-secondary').addClass('text-success');
 };
 
 /**
@@ -30,8 +30,8 @@ Mautic.publishTab = function(tab) {
  *
  * @param tab
  */
-Mautic.unpublishTab = function(tab) {
-    mQuery('a[href="#'+Mautic.getTabId(tab)+'"]').find('.fa').removeClass('text-success').addClass('text-secondary');
+MailVotech.unpublishTab = function(tab) {
+    mQuery('a[href="#'+MailVotech.getTabId(tab)+'"]').find('.fa').removeClass('text-success').addClass('text-secondary');
 };
 
 /**
@@ -40,7 +40,7 @@ Mautic.unpublishTab = function(tab) {
  * @param tab
  * @returns {*}
  */
-Mautic.getTabId = function(tab) {
+MailVotech.getTabId = function(tab) {
     if (!mQuery(tab).hasClass('tab-pane')) {
         tab = mQuery(tab).closest('.tab-pane');
     }
@@ -53,12 +53,12 @@ Mautic.getTabId = function(tab) {
  * @param tabs
  * @param options
  */
-Mautic.activateOverflowTabs = function(tabs, options) {
+MailVotech.activateOverflowTabs = function(tabs, options) {
     if (!options) {
         options = {};
     }
 
-    var localOptions = Mautic.overflowNavOptions;
+    var localOptions = MailVotech.overflowNavOptions;
 
     mQuery.extend(localOptions, options);
     mQuery(tabs).overflowNavs(localOptions);
@@ -78,7 +78,7 @@ Mautic.activateOverflowTabs = function(tabs, options) {
  * Activate sortable tabs
  * @param tabs
  */
-Mautic.activateSortableTabs = function(tabs) {
+MailVotech.activateSortableTabs = function(tabs) {
     mQuery(tabs).sortable(
         {
             container: 'ul.nav',
@@ -100,10 +100,10 @@ Mautic.activateSortableTabs = function(tabs) {
  *
  * @param container
  */
-Mautic.activateTabDeleteButtons = function(container) {
+MailVotech.activateTabDeleteButtons = function(container) {
     mQuery(container + " .nav.nav-deletable>li a").each(
         function() {
-            Mautic.activateTabDeleteButton(this);
+            MailVotech.activateTabDeleteButton(this);
         }
     );
 };
@@ -113,11 +113,11 @@ Mautic.activateTabDeleteButtons = function(container) {
  *
  * @param tab
  */
-Mautic.activateTabDeleteButton = function(tab) {
+MailVotech.activateTabDeleteButton = function(tab) {
     var btn = mQuery('<span class="btn btn-danger btn-xs btn-delete pull-right hide"><i class="ri-close-line"></i></span>')
         .on('click',
             function() {
-                return Mautic.deleteTab(btn)
+                return MailVotech.deleteTab(btn)
             }
         ).appendTo(tab);
 
@@ -136,7 +136,7 @@ Mautic.activateTabDeleteButton = function(tab) {
  *
  * @param tab
  */
-Mautic.deleteTab = function(deleteBtn) {
+MailVotech.deleteTab = function(deleteBtn) {
     var tab = mQuery(deleteBtn).closest('li');
     var tabContent = mQuery(deleteBtn).closest('a').attr('href');
 
@@ -164,7 +164,7 @@ Mautic.deleteTab = function(deleteBtn) {
                         mQuery('.tab-content .placeholder').removeClass('hide');
                     }
                 } else {
-                    Mautic.stopIconSpinPostEvent();
+                    MailVotech.stopIconSpinPostEvent();
                 }
             }
         });
@@ -187,8 +187,8 @@ Mautic.deleteTab = function(deleteBtn) {
 (function () {
     const EVENT_ALREADY_USED_ID = 'ALREADY_USED_ID';
     const EVENT_CHECK_TAB_ID = 'CHECK_TAB_ID';
-    const MAUTIC_TAB_KEY = 'mautic-tab-id';
-    const TAB_DATA = 'mautic-tab-initialized';
+    const MAILVOTECH_TAB_KEY = 'mailvotech-tab-id';
+    const TAB_DATA = 'mailvotech-tab-initialized';
 
     const channel = globalThis.BroadcastChannel ? new BroadcastChannel('remember-active-tabs') : null;
     let fallbackStorageIdCounter = 0;
@@ -266,7 +266,7 @@ Mautic.deleteTab = function(deleteBtn) {
      * @returns {string}
      */
     const tabId = function (index) {
-        return `${MAUTIC_TAB_KEY}-${globalThis.location.pathname}-${index}`;
+        return `${MAILVOTECH_TAB_KEY}-${globalThis.location.pathname}-${index}`;
     };
 
     // Generate new tab ID if one was already used.
@@ -322,22 +322,22 @@ Mautic.deleteTab = function(deleteBtn) {
     /**
      * Remember the last active tab for each tab list on the page.
      */
-    Mautic.rememberActiveTabs = function() {
+    MailVotech.rememberActiveTabs = function() {
         mQuery('.nav-tabs').each(function(index) {
             // Using index would have nasty effects when tabs, with different tab count, are loaded asynchronously somewhere on the page.
             const $navTabs = mQuery(this);
-            const mauticTabKey = tabId(index);
+            const mailvotechTabKey = tabId(index);
 
             // Prevent "initializing" remember functionality for tab with each AJAX request.
-            if (mauticTabKey === $navTabs.data(TAB_DATA)) {
+            if (mailvotechTabKey === $navTabs.data(TAB_DATA)) {
                 return;
             }
 
-            $navTabs.data(TAB_DATA, mauticTabKey);
+            $navTabs.data(TAB_DATA, mailvotechTabKey);
 
-            if (tabStorage.getItem(mauticTabKey)) {
+            if (tabStorage.getItem(mailvotechTabKey)) {
                 // Last opened tab on this page (either from session or from local storage)
-                storageKeys[index] = tabStorage.getItem(mauticTabKey);
+                storageKeys[index] = tabStorage.getItem(mailvotechTabKey);
 
                 channel?.postMessage({
                     type: EVENT_CHECK_TAB_ID,
@@ -346,7 +346,7 @@ Mautic.deleteTab = function(deleteBtn) {
                 });
             } else {
                 storageKeys[index] = generateStorageId(index);
-                tabStorage.setItem(mauticTabKey, storageKeys[index]);
+                tabStorage.setItem(mailvotechTabKey, storageKeys[index]);
             }
 
             const activeTab = tabStorage.getItem(storageKeys[index]);
@@ -370,7 +370,7 @@ Mautic.deleteTab = function(deleteBtn) {
 })();
 
 // Initialize the Tabs Scroll functionality
-Mautic.initTabsScroll = function() {
+MailVotech.initTabsScroll = function() {
     mQuery('.nav-tabs').each(function() {
         var $navTabs = mQuery(this);
 
@@ -449,12 +449,12 @@ function debounce(func, wait) {
 
 // Initialize on document ready
 mQuery(document).ready(function() {
-    Mautic.rememberActiveTabs();
-    Mautic.initTabsScroll();
+    MailVotech.rememberActiveTabs();
+    MailVotech.initTabsScroll();
 });
 
 // Re-initialize on every AJAX complete
 mQuery(document).ajaxComplete(function(event, xhr, settings) {
-    Mautic.rememberActiveTabs();
-    Mautic.initTabsScroll();
+    MailVotech.rememberActiveTabs();
+    MailVotech.initTabsScroll();
 });

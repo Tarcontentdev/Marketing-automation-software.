@@ -1,20 +1,20 @@
 <?php
 
-namespace Mautic\SmsBundle\Form\Type;
+namespace MailVotech\SmsBundle\Form\Type;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CategoryBundle\Form\Type\CategoryListType;
-use Mautic\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\PublishDownDateType;
-use Mautic\CoreBundle\Form\Type\PublishUpDateType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Form\Type\LeadListType;
-use Mautic\ProjectBundle\Form\Type\ProjectType;
-use Mautic\SmsBundle\Entity\Sms;
+use MailVotech\CategoryBundle\Form\Type\CategoryListType;
+use MailVotech\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\PublishDownDateType;
+use MailVotech\CoreBundle\Form\Type\PublishUpDateType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Form\Type\LeadListType;
+use MailVotech\ProjectBundle\Form\Type\ProjectType;
+use MailVotech\SmsBundle\Entity\Sms;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -45,7 +45,7 @@ final class SmsType extends AbstractType
             'name',
             TextType::class,
             [
-                'label'      => 'mautic.sms.form.internal.name',
+                'label'      => 'mailvotech.sms.form.internal.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
             ]
@@ -55,7 +55,7 @@ final class SmsType extends AbstractType
             'description',
             TextareaType::class,
             [
-                'label'      => 'mautic.sms.form.internal.description',
+                'label'      => 'mailvotech.sms.form.internal.description',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -66,7 +66,7 @@ final class SmsType extends AbstractType
             'message',
             TextareaType::class,
             [
-                'label'      => 'mautic.sms.form.message',
+                'label'      => 'mailvotech.sms.form.message',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'                => 'form-control',
@@ -78,17 +78,17 @@ final class SmsType extends AbstractType
         );
 
         $builder->add('isPublished', YesNoButtonGroupType::class, [
-            'label' => 'mautic.core.form.available',
+            'label' => 'mailvotech.core.form.available',
         ]);
 
         $builder->add(
             'isMms',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.sms.form.is_mms',
+                'label' => 'mailvotech.sms.form.is_mms',
                 'data'  => (bool) $options['data']->getIsMms(),
                 'attr'  => [
-                    'onchange' => 'Mautic.toggleIsMms()',
+                    'onchange' => 'MailVotech.toggleIsMms()',
                 ],
             ]
         );
@@ -104,7 +104,7 @@ final class SmsType extends AbstractType
                 'media',
                 ChoiceType::class,
                 [
-                    'label'             => 'mautic.sms.form.media',
+                    'label'             => 'mailvotech.sms.form.media',
                     'choices'           => array_combine($mediaChoice, $mediaChoice),
                     'expanded'          => true,
                     'multiple'          => true,
@@ -125,7 +125,7 @@ final class SmsType extends AbstractType
                 'lists',
                 LeadListType::class,
                 [
-                    'label'      => 'mautic.email.form.list',
+                    'label'      => 'mailvotech.email.form.list',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'        => 'form-control',
@@ -156,7 +156,7 @@ final class SmsType extends AbstractType
             'language',
             LocaleType::class,
             [
-                'label'      => 'mautic.core.language',
+                'label'      => 'mailvotech.core.language',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -177,15 +177,15 @@ final class SmsType extends AbstractType
             'translationParentSelector', // This is a non-mapped field
             SmsListType::class, // A new form type to be created
             [
-                'label'      => 'mautic.core.form.translation_parent',
+                'label'      => 'mailvotech.core.form.translation_parent',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.form.translation_parent.help',
+                    'tooltip' => 'mailvotech.core.form.translation_parent.help',
                 ],
                 'required'       => false,
                 'multiple'       => false,
-                'placeholder'    => 'mautic.core.form.translation_parent.empty',
+                'placeholder'    => 'mailvotech.core.form.translation_parent.empty',
                 'top_level'      => 'translation',
                 'ignore_ids'     => [(int) $options['data']->getId()],
                 'mapped'         => false,

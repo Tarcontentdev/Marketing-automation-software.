@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Exception;
+namespace MailVotech\CoreBundle\Exception;
 
 class ErrorHandlerException extends \Exception
 {

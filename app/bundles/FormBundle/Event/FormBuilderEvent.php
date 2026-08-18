@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\FormBundle\Event;
+namespace MailVotech\FormBundle\Event;
 
-use Mautic\CoreBundle\Event\ComponentValidationTrait;
-use Mautic\CoreBundle\Exception\BadConfigurationException;
-use Mautic\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Event\ComponentValidationTrait;
+use MailVotech\CoreBundle\Exception\BadConfigurationException;
+use MailVotech\CoreBundle\Helper\InputHelper;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\EventDispatcher\Event;

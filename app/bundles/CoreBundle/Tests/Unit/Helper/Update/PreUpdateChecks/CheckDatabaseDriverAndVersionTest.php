@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper\Update\PreUpdateChecks;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper\Update\PreUpdateChecks;
 
-use Mautic\CoreBundle\Helper\Update\PreUpdateChecks\CheckDatabaseDriverAndVersion;
-use Mautic\CoreBundle\Release\Metadata;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Helper\Update\PreUpdateChecks\CheckDatabaseDriverAndVersion;
+use MailVotech\CoreBundle\Release\Metadata;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 
-final class CheckDatabaseDriverAndVersionTest extends MauticMysqlTestCase
+final class CheckDatabaseDriverAndVersionTest extends MailVotechMysqlTestCase
 {
     public function testDatabaseDriverAndVersionOk(): void
     {
@@ -18,7 +18,7 @@ final class CheckDatabaseDriverAndVersionTest extends MauticMysqlTestCase
             'minimum_php_version'               => '7.4.0',
             'maximum_php_version'               => '8.0.99',
             'show_php_version_warning_if_under' => '7.4.0',
-            'minimum_mautic_version'            => '3.2.0',
+            'minimum_mailvotech_version'            => '3.2.0',
             'announcement_url'                  => '',
             'minimum_mysql_version'             => '5.6.0', // Our CI has a higher version than this so we're good
             'minimum_mariadb_version'           => '10.1.0', // Our CI has a higher version than this so we're good
@@ -40,7 +40,7 @@ final class CheckDatabaseDriverAndVersionTest extends MauticMysqlTestCase
             'minimum_php_version'               => '7.4.0',
             'maximum_php_version'               => '8.0.99',
             'show_php_version_warning_if_under' => '7.4.0',
-            'minimum_mautic_version'            => '3.2.0',
+            'minimum_mailvotech_version'            => '3.2.0',
             'announcement_url'                  => '',
             'minimum_mysql_version'             => '999.99.99', // Hopefully this version will never exist
             'minimum_mariadb_version'           => '999.99.99', // Hopefully this version will never exist

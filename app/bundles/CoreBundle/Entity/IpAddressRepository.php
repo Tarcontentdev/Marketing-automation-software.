@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Entity;
+namespace MailVotech\CoreBundle\Entity;
 
 use Doctrine\DBAL\Exception as DBALException;
 
@@ -34,7 +34,7 @@ class IpAddressRepository extends CommonRepository
      */
     public function getUnusedIpAddressesIds(int $limit): array
     {
-        $prefix = MAUTIC_TABLE_PREFIX;
+        $prefix = MAILVOTECH_TABLE_PREFIX;
 
         $sql = <<<SQL
             SELECT {$prefix}ip_addresses.id FROM {$prefix}ip_addresses
@@ -96,7 +96,7 @@ SQL;
      */
     public function deleteUnusedIpAddresses(array $ids): int
     {
-        $prefix    = MAUTIC_TABLE_PREFIX;
+        $prefix    = MAILVOTECH_TABLE_PREFIX;
         $ids       = implode(',', $ids);
         $deleteSql = <<<SQL
                 DELETE FROM {$prefix}ip_addresses WHERE {$prefix}ip_addresses.id IN ({$ids});

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\SmsBundle\Exception;
+namespace MailVotech\SmsBundle\Exception;
 
 final class NumberNotFoundException extends \Exception
 {

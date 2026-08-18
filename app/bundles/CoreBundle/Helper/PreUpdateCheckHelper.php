@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\CoreBundle\Helper\Update\PreUpdateChecks\AbstractPreUpdateCheck;
+use MailVotech\CoreBundle\Helper\Update\PreUpdateChecks\AbstractPreUpdateCheck;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 class PreUpdateCheckHelper
@@ -18,7 +18,7 @@ class PreUpdateCheckHelper
      * @param iterable<AbstractPreUpdateCheck> $checks
      */
     public function __construct(
-        #[AutowireIterator('mautic.update_check')]
+        #[AutowireIterator('mailvotech.update_check')]
         iterable $checks = [],
     ) {
         foreach ($checks as $check) {

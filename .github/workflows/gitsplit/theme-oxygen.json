@@ -3,7 +3,7 @@
         {
             "name": "theme-oxygen",
             "directory": "themes/oxygen",
-            "target": "git@github.com:mautic/theme-oxygen.git"
+            "target": "git@github.com:mailvotech/theme-oxygen.git"
         }
     ]
 }

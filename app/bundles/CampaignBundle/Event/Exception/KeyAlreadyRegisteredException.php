@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Event\Exception;
+namespace MailVotech\CampaignBundle\Event\Exception;
 
 use Symfony\Component\Process\Exception\InvalidArgumentException;
 

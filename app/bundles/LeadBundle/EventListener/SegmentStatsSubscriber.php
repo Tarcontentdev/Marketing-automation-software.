@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Event\GetStatDataEvent;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Event\GetStatDataEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class SegmentStatsSubscriber implements EventSubscriberInterface

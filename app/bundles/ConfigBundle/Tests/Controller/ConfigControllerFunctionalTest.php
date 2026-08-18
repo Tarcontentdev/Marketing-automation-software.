@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ConfigBundle\Tests\Controller;
+namespace MailVotech\ConfigBundle\Tests\Controller;
 
-use Mautic\ConfigBundle\Form\Helper\RestrictionHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\ConfigBundle\Form\Helper\RestrictionHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\DomCrawler\Field\ChoiceFormField;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ConfigControllerFunctionalTest extends MauticMysqlTestCase
+final class ConfigControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     private const SUBDOMAIN_URL = 'subdomain_url.com';
 
@@ -39,16 +39,16 @@ final class ConfigControllerFunctionalTest extends MauticMysqlTestCase
                 RestrictionHelper::MODE_REMOVE
             );
             self::getContainer()->set(RestrictionHelper::class, $restrictionHelper);
-            self::getContainer()->set('mautic.config.form.restriction_helper', $restrictionHelper);
+            self::getContainer()->set('mailvotech.config.form.restriction_helper', $restrictionHelper);
         }
 
-        $this->prefix = MAUTIC_TABLE_PREFIX;
+        $this->prefix = MAILVOTECH_TABLE_PREFIX;
     }
 
     public function testValuesAreEscapedProperly(): void
     {
         $trackIps        = "%ip1%\n%ip2%\n%kernel.project_dir%";
-        $googleAnalytics = 'reveal pass: %mautic.db_password%';
+        $googleAnalytics = 'reveal pass: %mailvotech.db_password%';
 
         // request config edit page
         $crawler = $this->client->request(Request::METHOD_GET, '/s/config/edit');
@@ -59,7 +59,7 @@ final class ConfigControllerFunctionalTest extends MauticMysqlTestCase
         $form          = $buttonCrawler->form();
         $form->setValues(
             [
-                'config[coreconfig][site_url]'           => 'https://mautic-community.local', // required
+                'config[coreconfig][site_url]'           => 'https://mailvotech-community.local', // required
                 'config[coreconfig][do_not_track_ips]'   => $trackIps,
                 'config[pageconfig][google_analytics]'   => $googleAnalytics,
                 'config[leadconfig][contact_columns]'    => ['name', 'email', 'id'],
@@ -191,7 +191,7 @@ final class ConfigControllerFunctionalTest extends MauticMysqlTestCase
         // page 3 for 404_page
         $form->setValues(
             [
-                'config[coreconfig][site_url]'           => 'https://mautic-community.local', // required
+                'config[coreconfig][site_url]'           => 'https://mailvotech-community.local', // required
                 'config[leadconfig][contact_columns]'    => ['name', 'email', 'id'],
                 'config[companyconfig][company_columns]' => ['companyname', 'companyemail', 'companywebsite', 'score', 'leadcount', 'id'],
                 'config[coreconfig][404_page]'           => $page3,
@@ -229,7 +229,7 @@ final class ConfigControllerFunctionalTest extends MauticMysqlTestCase
 
         $form->setValues(
             [
-                'config[coreconfig][site_url]'                                         => 'https://mautic-community.local', // required
+                'config[coreconfig][site_url]'                                         => 'https://mailvotech-community.local', // required
                 'config[leadconfig][contact_columns]'                                  => ['name', 'email', 'id'],
                 'config[companyconfig][company_columns]'                               => ['companyname', 'companyemail', 'companywebsite', 'score', 'leadcount', 'id'],
                 'config[notification_config][campaign_send_notification_to_author]'    => $send_notification_to_author,
@@ -266,7 +266,7 @@ final class ConfigControllerFunctionalTest extends MauticMysqlTestCase
 
         $form->setValues(
             [
-                'config[coreconfig][site_url]'                     => 'https://mautic-community.local',
+                'config[coreconfig][site_url]'                     => 'https://mailvotech-community.local',
                 'config[leadconfig][contact_columns]'              => ['name', 'email', 'id'],
                 'config[companyconfig][company_columns]'           => ['companyname', 'companyemail', 'companywebsite', 'score', 'leadcount', 'id'],
                 'config[leadconfig][contact_export_notify_admins]' => '0',
@@ -323,7 +323,7 @@ final class ConfigControllerFunctionalTest extends MauticMysqlTestCase
         $configForm->setValues(
             [
                 'config[coreconfig][locale]'   => 'en_US',
-                'config[coreconfig][site_url]' => 'https://mautic-cloud.local', // required
+                'config[coreconfig][site_url]' => 'https://mailvotech-cloud.local', // required
             ]
         );
         $this->client->submit($configForm);
@@ -350,7 +350,7 @@ final class ConfigControllerFunctionalTest extends MauticMysqlTestCase
         $configForm->setValues(
             [
                 'config[coreconfig][locale]'   => 'en_US',
-                'config[coreconfig][site_url]' => 'https://mautic-cloud.local', // required
+                'config[coreconfig][site_url]' => 'https://mailvotech-cloud.local', // required
             ]
         );
         $this->client->submit($configForm);
@@ -371,7 +371,7 @@ final class ConfigControllerFunctionalTest extends MauticMysqlTestCase
         $configForm->setValues(
             [
                 'config[userconfig][saml_idp_entity_id]'   => $availableOptions[1],
-                'config[coreconfig][site_url]'             => 'https://mautic-cloud.local', // required
+                'config[coreconfig][site_url]'             => 'https://mailvotech-cloud.local', // required
             ]
         );
         $this->client->submit($configForm);

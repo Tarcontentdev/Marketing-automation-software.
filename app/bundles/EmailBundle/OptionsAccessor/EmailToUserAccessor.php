@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\EmailBundle\OptionsAccessor;
+namespace MailVotech\EmailBundle\OptionsAccessor;
 
-use Mautic\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
+use MailVotech\UserBundle\Entity\User;
 
 final class EmailToUserAccessor
 {

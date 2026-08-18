@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Executioner;
+namespace MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Executioner;
 
 use Doctrine\DBAL\Connection;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\ReferenceValueDAO;
-use Mautic\IntegrationsBundle\Sync\Logger\DebugLogger;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Executioner\Exception\ReferenceNotFoundException;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Order\ObjectChangeDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\ReferenceValueDAO;
+use MailVotech\IntegrationsBundle\Sync\Logger\DebugLogger;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Executioner\Exception\ReferenceNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
 
 final readonly class ReferenceResolver implements ReferenceResolverInterface
 {
@@ -66,7 +66,7 @@ final readonly class ReferenceResolver implements ReferenceResolverInterface
      */
     private function resolveReference(ReferenceValueDAO $value): ?string
     {
-        if (MauticSyncDataExchange::OBJECT_COMPANY === $value->getType() && 0 < $value->getValue()) {
+        if (MailVotechSyncDataExchange::OBJECT_COMPANY === $value->getType() && 0 < $value->getValue()) {
             return $this->getCompanyNameById($value->getValue());
         }
 
@@ -80,7 +80,7 @@ final readonly class ReferenceResolver implements ReferenceResolverInterface
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('c.companyname');
-        $qb->from(MAUTIC_TABLE_PREFIX.'companies', 'c');
+        $qb->from(MAILVOTECH_TABLE_PREFIX.'companies', 'c');
         $qb->where('c.id = :id');
         $qb->setParameter('id', $id);
 

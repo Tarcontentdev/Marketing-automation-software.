@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Notification;
+namespace MailVotech\LeadBundle\Notification;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
-use Mautic\EmailBundle\Helper\MailHelper;
-use Mautic\LeadBundle\Entity\ContactExportScheduler;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Entity\UserRepository;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\EmailBundle\Helper\MailHelper;
+use MailVotech\LeadBundle\Entity\ContactExportScheduler;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Entity\UserRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContactExportAdminNotification
@@ -38,7 +38,7 @@ class ContactExportAdminNotification
         foreach ($this->getAdminUsersToNotify($requestingUser) as $adminUser) {
             $this->notificationModel->addNotification(
                 $this->translator->trans(
-                    'mautic.lead.export.admin.notification',
+                    'mailvotech.lead.export.admin.notification',
                     [
                         '%requesting_user_name%'  => $requestingUser->getName(),
                         '%requesting_user_email%' => $requestingUser->getEmail(),
@@ -48,7 +48,7 @@ class ContactExportAdminNotification
                 ),
                 'info',
                 false,
-                'mautic.lead.export.admin.notification.header',
+                'mailvotech.lead.export.admin.notification.header',
                 null,
                 \DateTime::createFromImmutable($requestedAt),
                 $adminUser
@@ -74,13 +74,13 @@ class ContactExportAdminNotification
         $completedAt = new \DateTimeImmutable();
         $fileType    = strtoupper((string) ($contactExportScheduler->getData()['fileType'] ?? ''));
         $message     = $this->translator->trans(
-            'mautic.lead.export.admin.email',
+            'mailvotech.lead.export.admin.email',
             [
                 '%requesting_user_name%'  => $requestingUser->getName(),
                 '%requesting_user_email%' => $requestingUser->getEmail(),
                 '%requested_at%'          => $this->formatForDisplay($requestedAt),
                 '%completed_at%'          => $this->formatForDisplay($completedAt),
-                '%status%'                => $this->translator->trans('mautic.lead.export.status.completed'),
+                '%status%'                => $this->translator->trans('mailvotech.lead.export.status.completed'),
                 '%file_type%'             => $fileType,
             ]
         );
@@ -104,7 +104,7 @@ class ContactExportAdminNotification
             );
         }
 
-        $mailer->setSubject($this->translator->trans('mautic.lead.export.admin.email_subject'));
+        $mailer->setSubject($this->translator->trans('mailvotech.lead.export.admin.email_subject'));
         $mailer->setBody($message);
         $mailer->parsePlainText($message);
         $mailer->send(true);

@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\PointBundle\Controller;
+namespace MailVotech\PointBundle\Controller;
 
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Factory\PageHelperFactoryInterface;
-use Mautic\PointBundle\Entity\Trigger;
-use Mautic\PointBundle\Model\TriggerEventModel;
-use Mautic\PointBundle\Model\TriggerModel;
+use MailVotech\CoreBundle\Controller\FormController;
+use MailVotech\CoreBundle\Factory\PageHelperFactoryInterface;
+use MailVotech\PointBundle\Entity\Trigger;
+use MailVotech\PointBundle\Model\TriggerEventModel;
+use MailVotech\PointBundle\Model\TriggerModel;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,14 +44,14 @@ final class TriggerController extends FormController
 
         $this->setListFilters();
 
-        $pageHelper = $pageHelperFactory->make('mautic.point.trigger', $page);
+        $pageHelper = $pageHelperFactory->make('mailvotech.point.trigger', $page);
 
         $limit      = $pageHelper->getLimit();
         $start      = $pageHelper->getStart();
-        $search     = $request->get('search', $request->getSession()->get('mautic.point.trigger.filter', ''));
+        $search     = $request->get('search', $request->getSession()->get('mailvotech.point.trigger.filter', ''));
         $filter     = ['string' => $search, 'force' => []];
-        $orderBy    = $request->getSession()->get('mautic.point.trigger.orderby', 't.name');
-        $orderByDir = $request->getSession()->get('mautic.point.trigger.orderbydir', 'ASC');
+        $orderBy    = $request->getSession()->get('mailvotech.point.trigger.orderby', 't.name');
+        $orderByDir = $request->getSession()->get('mailvotech.point.trigger.orderbydir', 'ASC');
         $triggers   = $this->triggerModel->getEntities(
             [
                 'start'      => $start,
@@ -62,21 +62,21 @@ final class TriggerController extends FormController
             ]
         );
 
-        $request->getSession()->set('mautic.point.trigger.filter', $search);
+        $request->getSession()->set('mailvotech.point.trigger.filter', $search);
 
         $count = count($triggers);
         if ($count && $count < ($start + 1)) {
             $lastPage  = $pageHelper->countPage($count);
-            $returnUrl = $this->generateUrl('mautic_pointtrigger_index', ['page' => $lastPage]);
+            $returnUrl = $this->generateUrl('mailvotech_pointtrigger_index', ['page' => $lastPage]);
             $pageHelper->rememberPage($lastPage);
 
             return $this->postActionRedirect([
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['page' => $lastPage],
-                'contentTemplate' => 'Mautic\PointBundle\Controller\TriggerController::indexAction',
+                'contentTemplate' => 'MailVotech\PointBundle\Controller\TriggerController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_pointtrigger_index',
-                    'mauticContent' => 'pointTrigger',
+                    'activeLink'    => '#mailvotech_pointtrigger_index',
+                    'mailvotechContent' => 'pointTrigger',
                 ],
             ]);
         }
@@ -92,11 +92,11 @@ final class TriggerController extends FormController
                 'permissions' => $permissions,
                 'tmpl'        => $request->isXmlHttpRequest() ? $request->get('tmpl', 'index') : 'index',
             ],
-            'contentTemplate' => '@MauticPoint/Trigger/list.html.twig',
+            'contentTemplate' => '@MailVotechPoint/Trigger/list.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_pointtrigger_index',
-                'mauticContent' => 'pointTrigger',
-                'route'         => $this->generateUrl('mautic_pointtrigger_index', ['page' => $page]),
+                'activeLink'    => '#mailvotech_pointtrigger_index',
+                'mailvotechContent' => 'pointTrigger',
+                'route'         => $this->generateUrl('mailvotech_pointtrigger_index', ['page' => $page]),
             ],
         ]);
     }
@@ -111,7 +111,7 @@ final class TriggerController extends FormController
         $entity = $this->triggerModel->getEntity($objectId);
 
         // set the page we came from
-        $page = $request->getSession()->get('mautic.point.trigger.page', 1);
+        $page = $request->getSession()->get('mailvotech.point.trigger.page', 1);
 
         $permissions = $this->security->isGranted([
             'point:triggers:view',
@@ -123,20 +123,20 @@ final class TriggerController extends FormController
 
         if (null === $entity) {
             // set the return URL
-            $returnUrl = $this->generateUrl('mautic_pointtrigger_index', ['page' => $page]);
+            $returnUrl = $this->generateUrl('mailvotech_pointtrigger_index', ['page' => $page]);
 
             return $this->postActionRedirect([
                 'returnUrl'       => $returnUrl,
                 'viewParameters'  => ['page' => $page],
-                'contentTemplate' => 'Mautic\PointBundle\Controller\TriggerController::indexAction',
+                'contentTemplate' => 'MailVotech\PointBundle\Controller\TriggerController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_pointtrigger_index',
-                    'mauticContent' => 'pointTrigger',
+                    'activeLink'    => '#mailvotech_pointtrigger_index',
+                    'mailvotechContent' => 'pointTrigger',
                 ],
                 'flashes' => [
                     [
                         'type'    => 'error',
-                        'msg'     => 'mautic.point.trigger.error.notfound',
+                        'msg'     => 'mailvotech.point.trigger.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ],
                 ],
@@ -152,11 +152,11 @@ final class TriggerController extends FormController
                 'page'        => $page,
                 'permissions' => $permissions,
             ],
-            'contentTemplate' => '@MauticPoint/Trigger/details.html.twig',
+            'contentTemplate' => '@MailVotechPoint/Trigger/details.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_pointtrigger_index',
-                'mauticContent' => 'pointTrigger',
-                'route'         => $this->generateUrl('mautic_pointtrigger_action', [
+                'activeLink'    => '#mailvotech_pointtrigger_index',
+                'mailvotechContent' => 'pointTrigger',
+                'route'         => $this->generateUrl('mailvotech_pointtrigger_action', [
                     'objectAction' => 'view',
                     'objectId'     => $entity->getId(), ]
                 ),
@@ -184,17 +184,17 @@ final class TriggerController extends FormController
         }
 
         // set the page we came from
-        $page = $request->getSession()->get('mautic.point.trigger.page', 1);
+        $page = $request->getSession()->get('mailvotech.point.trigger.page', 1);
 
         // set added/updated events
-        $addEvents     = $session->get('mautic.point.'.$sessionId.'.triggerevents.modified', []);
+        $addEvents     = $session->get('mailvotech.point.'.$sessionId.'.triggerevents.modified', []);
         if ([] !== $triggerEvents) {
             $addEvents += $triggerEvents;
-            $session->set('mautic.point.'.$sessionId.'.triggerevents.modified', $triggerEvents);
+            $session->set('mailvotech.point.'.$sessionId.'.triggerevents.modified', $triggerEvents);
         }
-        $deletedEvents = $session->get('mautic.point.'.$sessionId.'.triggerevents.deleted', []);
+        $deletedEvents = $session->get('mailvotech.point.'.$sessionId.'.triggerevents.deleted', []);
 
-        $action = $this->generateUrl('mautic_pointtrigger_action', ['objectAction' => 'new']);
+        $action = $this->generateUrl('mailvotech_pointtrigger_action', ['objectAction' => 'new']);
         $form   = $this->triggerModel->createForm($entity, $this->formFactory, $action);
         $form->get('sessionId')->setData($sessionId);
 
@@ -210,7 +210,7 @@ final class TriggerController extends FormController
                     if ([] === $events) {
                         // set the error
                         $form->addError(new FormError(
-                            $this->translator->trans('mautic.core.value.required', [], 'validators')
+                            $this->translator->trans('mailvotech.core.value.required', [], 'validators')
                         ));
                         $valid = false;
                     } else {
@@ -218,10 +218,10 @@ final class TriggerController extends FormController
 
                         $this->triggerModel->saveEntity($entity);
 
-                        $this->addFlashMessage('mautic.core.notice.created', [
+                        $this->addFlashMessage('mailvotech.core.notice.created', [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_pointtrigger_index',
-                            '%url%'       => $this->generateUrl('mautic_pointtrigger_action', [
+                            '%menu_link%' => 'mailvotech_pointtrigger_index',
+                            '%url%'       => $this->generateUrl('mailvotech_pointtrigger_action', [
                                 'objectAction' => 'edit',
                                 'objectId'     => $entity->getId(),
                             ]),
@@ -240,8 +240,8 @@ final class TriggerController extends FormController
 
             if ($cancelled || ($valid && $this->getFormButton($form, ['buttons', 'save'])->isClicked())) {
                 $viewParameters = ['page' => $page];
-                $returnUrl      = $this->generateUrl('mautic_pointtrigger_index', $viewParameters);
-                $template       = 'Mautic\PointBundle\Controller\TriggerController::indexAction';
+                $returnUrl      = $this->generateUrl('mailvotech_pointtrigger_index', $viewParameters);
+                $template       = 'MailVotech\PointBundle\Controller\TriggerController::indexAction';
 
                 // clear temporary fields
                 $this->clearSessionComponents($request, $sessionId);
@@ -251,8 +251,8 @@ final class TriggerController extends FormController
                     'viewParameters'  => $viewParameters,
                     'contentTemplate' => $template,
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_pointtrigger_index',
-                        'mauticContent' => 'pointTrigger',
+                        'activeLink'    => '#mailvotech_pointtrigger_index',
+                        'mailvotechContent' => 'pointTrigger',
                     ],
                 ]);
             }
@@ -275,11 +275,11 @@ final class TriggerController extends FormController
                 'form'          => $form->createView(),
                 'sessionId'     => $sessionId,
             ],
-            'contentTemplate' => '@MauticPoint/Trigger/form.html.twig',
+            'contentTemplate' => '@MailVotechPoint/Trigger/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_pointtrigger_index',
-                'mauticContent' => 'pointTrigger',
-                'route'         => $this->generateUrl('mautic_pointtrigger_action', [
+                'activeLink'    => '#mailvotech_pointtrigger_index',
+                'mailvotechContent' => 'pointTrigger',
+                'route'         => $this->generateUrl('mailvotech_pointtrigger_action', [
                     'objectAction' => (!empty($valid) ? 'edit' : 'new'), // valid means a new form was applied
                     'objectId'     => $entity->getId(), ]
                 ),
@@ -300,18 +300,18 @@ final class TriggerController extends FormController
         $cleanSlate = true;
 
         // set the page we came from
-        $page = $request->getSession()->get('mautic.point.trigger.page', 1);
+        $page = $request->getSession()->get('mailvotech.point.trigger.page', 1);
 
         // set the return URL
-        $returnUrl = $this->generateUrl('mautic_pointtrigger_index', ['page' => $page]);
+        $returnUrl = $this->generateUrl('mailvotech_pointtrigger_index', ['page' => $page]);
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\PointBundle\Controller\TriggerController::indexAction',
+            'contentTemplate' => 'MailVotech\PointBundle\Controller\TriggerController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_pointtrigger_index',
-                'mauticContent' => 'pointTrigger',
+                'activeLink'    => '#mailvotech_pointtrigger_index',
+                'mailvotechContent' => 'pointTrigger',
             ],
         ];
 
@@ -322,7 +322,7 @@ final class TriggerController extends FormController
                     'flashes' => [
                         [
                             'type'    => 'error',
-                            'msg'     => 'mautic.point.trigger.error.notfound',
+                            'msg'     => 'mailvotech.point.trigger.error.notfound',
                             'msgVars' => ['%id%' => $objectId],
                         ],
                     ],
@@ -336,7 +336,7 @@ final class TriggerController extends FormController
             return $this->isLocked($postActionVars, $entity, 'point.trigger');
         }
 
-        $action = $this->generateUrl('mautic_pointtrigger_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
+        $action = $this->generateUrl('mailvotech_pointtrigger_action', ['objectAction' => 'edit', 'objectId' => $objectId]);
         $form   = $this->triggerModel->createForm($entity, $this->formFactory, $action);
         $form->get('sessionId')->setData($objectId);
 
@@ -345,8 +345,8 @@ final class TriggerController extends FormController
             $valid = false;
             if (!$cancelled = $this->isFormCancelled($form)) {
                 // set added/updated events
-                $addEvents     = $session->get('mautic.point.'.$objectId.'.triggerevents.modified', []);
-                $deletedEvents = $session->get('mautic.point.'.$objectId.'.triggerevents.deleted', []);
+                $addEvents     = $session->get('mailvotech.point.'.$objectId.'.triggerevents.modified', []);
+                $deletedEvents = $session->get('mailvotech.point.'.$objectId.'.triggerevents.deleted', []);
                 $events        = array_diff_key($addEvents, array_flip($deletedEvents));
 
                 if ($valid = $this->isFormValid($form)) {
@@ -354,7 +354,7 @@ final class TriggerController extends FormController
                     if ([] === $events) {
                         // set the error
                         $form->addError(new FormError(
-                            $this->translator->trans('mautic.core.value.required', [], 'validators')
+                            $this->translator->trans('mailvotech.core.value.required', [], 'validators')
                         ));
                         $valid = false;
                     } else {
@@ -368,13 +368,13 @@ final class TriggerController extends FormController
                             $this->triggerEventModel->deleteEntities($deletedEvents);
                         }
 
-                        $session->set('mautic.point.'.$objectId.'.triggerevents.modified', $events);
-                        $session->set('mautic.point.'.$objectId.'.triggerevents.deleted', []);
+                        $session->set('mailvotech.point.'.$objectId.'.triggerevents.modified', $events);
+                        $session->set('mailvotech.point.'.$objectId.'.triggerevents.deleted', []);
 
-                        $this->addFlashMessage('mautic.core.notice.updated', [
+                        $this->addFlashMessage('mailvotech.core.notice.updated', [
                             '%name%'      => $entity->getName(),
-                            '%menu_link%' => 'mautic_pointtrigger_index',
-                            '%url%'       => $this->generateUrl('mautic_pointtrigger_action', [
+                            '%menu_link%' => 'mailvotech_pointtrigger_index',
+                            '%url%'       => $this->generateUrl('mailvotech_pointtrigger_action', [
                                 'objectAction' => 'edit',
                                 'objectId'     => $entity->getId(),
                             ]),
@@ -388,8 +388,8 @@ final class TriggerController extends FormController
 
             if ($cancelled || ($valid && $this->getFormButton($form, ['buttons', 'save'])->isClicked())) {
                 $viewParameters = ['page' => $page];
-                $returnUrl      = $this->generateUrl('mautic_pointtrigger_index', $viewParameters);
-                $template       = 'Mautic\PointBundle\Controller\TriggerController::indexAction';
+                $returnUrl      = $this->generateUrl('mailvotech_pointtrigger_index', $viewParameters);
+                $template       = 'MailVotech\PointBundle\Controller\TriggerController::indexAction';
 
                 // remove fields from session
                 $this->clearSessionComponents($request, $objectId);
@@ -428,7 +428,7 @@ final class TriggerController extends FormController
                 unset($action['form']);
                 $triggerEvents[$id] = $action;
             }
-            $session->set('mautic.point.'.$objectId.'.triggerevents.modified', $triggerEvents);
+            $session->set('mailvotech.point.'.$objectId.'.triggerevents.modified', $triggerEvents);
             $deletedEvents = [];
         }
 
@@ -442,11 +442,11 @@ final class TriggerController extends FormController
                 'form'          => $form->createView(),
                 'sessionId'     => $objectId,
             ],
-            'contentTemplate' => '@MauticPoint/Trigger/form.html.twig',
+            'contentTemplate' => '@MailVotechPoint/Trigger/form.html.twig',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_pointtrigger_index',
-                'mauticContent' => 'pointTrigger',
-                'route'         => $this->generateUrl('mautic_pointtrigger_action', [
+                'activeLink'    => '#mailvotech_pointtrigger_index',
+                'mailvotechContent' => 'pointTrigger',
+                'route'         => $this->generateUrl('mailvotech_pointtrigger_action', [
                     'objectAction' => 'edit',
                     'objectId'     => $entity->getId(), ]
                 ),
@@ -493,17 +493,17 @@ final class TriggerController extends FormController
      */
     public function deleteAction(Request $request, $objectId): Response
     {
-        $page      = $request->getSession()->get('mautic.point.trigger.page', 1);
-        $returnUrl = $this->generateUrl('mautic_pointtrigger_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.point.trigger.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_pointtrigger_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\PointBundle\Controller\TriggerController::indexAction',
+            'contentTemplate' => 'MailVotech\PointBundle\Controller\TriggerController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_pointtrigger_index',
-                'mauticContent' => 'pointTrigger',
+                'activeLink'    => '#mailvotech_pointtrigger_index',
+                'mailvotechContent' => 'pointTrigger',
             ],
         ];
 
@@ -513,7 +513,7 @@ final class TriggerController extends FormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.point.trigger.error.notfound',
+                    'msg'     => 'mailvotech.point.trigger.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->isGranted('point:triggers:delete')) {
@@ -527,7 +527,7 @@ final class TriggerController extends FormController
             $identifier = $this->translator->trans($entity->getName());
             $flashes[]  = [
                 'type'    => 'notice',
-                'msg'     => 'mautic.core.notice.deleted',
+                'msg'     => 'mailvotech.core.notice.deleted',
                 'msgVars' => [
                     '%name%' => $identifier,
                     '%id%'   => $objectId,
@@ -547,17 +547,17 @@ final class TriggerController extends FormController
      */
     public function batchDeleteAction(Request $request): Response
     {
-        $page      = $request->getSession()->get('mautic.point.trigger.page', 1);
-        $returnUrl = $this->generateUrl('mautic_pointtrigger_index', ['page' => $page]);
+        $page      = $request->getSession()->get('mailvotech.point.trigger.page', 1);
+        $returnUrl = $this->generateUrl('mailvotech_pointtrigger_index', ['page' => $page]);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => ['page' => $page],
-            'contentTemplate' => 'Mautic\PointBundle\Controller\TriggerController::indexAction',
+            'contentTemplate' => 'MailVotech\PointBundle\Controller\TriggerController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => '#mautic_pointtrigger_index',
-                'mauticContent' => 'pointTrigger',
+                'activeLink'    => '#mailvotech_pointtrigger_index',
+                'mailvotechContent' => 'pointTrigger',
             ],
         ];
 
@@ -572,7 +572,7 @@ final class TriggerController extends FormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.point.trigger.error.notfound',
+                        'msg'     => 'mailvotech.point.trigger.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->isGranted('point:triggers:delete')) {
@@ -590,7 +590,7 @@ final class TriggerController extends FormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.point.trigger.notice.batch_deleted',
+                    'msg'     => 'mailvotech.point.trigger.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($entities),
                     ],
@@ -611,7 +611,7 @@ final class TriggerController extends FormController
     private function clearSessionComponents(Request $request, $sessionId): void
     {
         $session = $request->getSession();
-        $session->remove('mautic.point.'.$sessionId.'.triggerevents.modified');
-        $session->remove('mautic.point.'.$sessionId.'.triggerevents.deleted');
+        $session->remove('mailvotech.point.'.$sessionId.'.triggerevents.modified');
+        $session->remove('mailvotech.point.'.$sessionId.'.triggerevents.deleted');
     }
 }

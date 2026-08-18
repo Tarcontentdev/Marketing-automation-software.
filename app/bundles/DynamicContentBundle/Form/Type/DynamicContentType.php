@@ -1,28 +1,28 @@
 <?php
 
-namespace Mautic\DynamicContentBundle\Form\Type;
+namespace MailVotech\DynamicContentBundle\Form\Type;
 
 use DeviceDetector\Parser\Device\AbstractDeviceParser as DeviceParser;
 use DeviceDetector\Parser\OperatingSystem;
 use Doctrine\ORM\EntityManagerInterface;
-use Mautic\CategoryBundle\Form\Type\CategoryListType;
-use Mautic\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\PublishDownDateType;
-use Mautic\CoreBundle\Form\Type\PublishUpDateType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\DynamicContentBundle\DynamicContent\TypeList;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\EmailBundle\Form\Type\EmailUtmTagsType;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Form\DataTransformer\FieldFilterTransformer;
-use Mautic\LeadBundle\Helper\FormFieldHelper;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Segment\RelativeDate;
-use Mautic\ProjectBundle\Form\Type\ProjectType;
+use MailVotech\CategoryBundle\Form\Type\CategoryListType;
+use MailVotech\CoreBundle\Form\DataTransformer\IdToEntityModelTransformer;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\PublishDownDateType;
+use MailVotech\CoreBundle\Form\Type\PublishUpDateType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\DynamicContentBundle\DynamicContent\TypeList;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\EmailBundle\Form\Type\EmailUtmTagsType;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Form\DataTransformer\FieldFilterTransformer;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Segment\RelativeDate;
+use MailVotech\ProjectBundle\Form\Type\ProjectType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -125,7 +125,7 @@ final class DynamicContentType extends AbstractType
             'name',
             TextType::class,
             [
-                'label'      => 'mautic.dynamicContent.form.internal.name',
+                'label'      => 'mailvotech.dynamicContent.form.internal.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
             ]
@@ -135,11 +135,11 @@ final class DynamicContentType extends AbstractType
             'slotName',
             TextType::class,
             [
-                'label'      => 'mautic.dynamicContent.send.slot_name',
+                'label'      => 'mailvotech.dynamicContent.send.slot_name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.dynamicContent.send.slot_name.tooltip',
+                    'tooltip' => 'mailvotech.dynamicContent.send.slot_name.tooltip',
                 ],
             ]
         );
@@ -148,7 +148,7 @@ final class DynamicContentType extends AbstractType
             'description',
             TextareaType::class,
             [
-                'label'      => 'mautic.dynamicContent.description',
+                'label'      => 'mailvotech.dynamicContent.description',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -156,27 +156,27 @@ final class DynamicContentType extends AbstractType
         );
 
         $builder->add('type', ChoiceType::class, [
-            'label'   => 'mautic.dynamicContent.type.label',
+            'label'   => 'mailvotech.dynamicContent.type.label',
             'choices' => $this->typeList->getChoices(),
             'attr'    => [
                 'class'    => 'form-control',
-                'onchange' => 'Mautic.toggleContentEditor()',
+                'onchange' => 'MailVotech.toggleContentEditor()',
             ],
         ]);
 
         $builder->add('isPublished', YesNoButtonGroupType::class, [
-            'label' => 'mautic.core.form.available',
+            'label' => 'mailvotech.core.form.available',
         ]);
 
         $builder->add(
             'isCampaignBased',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.dwc.form.is_campaign_based',
+                'label' => 'mailvotech.dwc.form.is_campaign_based',
                 'data'  => (bool) $options['data']->isCampaignBased(),
                 'attr'  => [
-                    'tooltip'  => 'mautic.dwc.form.is_campaign_based.tooltip',
-                    'onchange' => 'Mautic.toggleDwcFilters()',
+                    'tooltip'  => 'mailvotech.dwc.form.is_campaign_based.tooltip',
+                    'onchange' => 'MailVotech.toggleDwcFilters()',
                 ],
             ]
         );
@@ -185,7 +185,7 @@ final class DynamicContentType extends AbstractType
             'language',
             LocaleType::class,
             [
-                'label'      => 'mautic.core.language',
+                'label'      => 'mailvotech.core.language',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -201,11 +201,11 @@ final class DynamicContentType extends AbstractType
             'utmTags',
             EmailUtmTagsType::class,
             [
-                'label'      => 'mautic.email.utm_tags',
+                'label'      => 'mailvotech.email.utm_tags',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.utm_tags.tooltip',
+                    'tooltip' => 'mailvotech.email.utm_tags.tooltip',
                 ],
                 'required'   => false,
             ]
@@ -217,15 +217,15 @@ final class DynamicContentType extends AbstractType
                 'translationParent',
                 DynamicContentListType::class,
                 [
-                    'label'      => 'mautic.core.form.translation_parent',
+                    'label'      => 'mailvotech.core.form.translation_parent',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'   => 'form-control',
-                        'tooltip' => 'mautic.core.form.translation_parent.help',
+                        'tooltip' => 'mailvotech.core.form.translation_parent.help',
                     ],
                     'required'    => false,
                     'multiple'    => false,
-                    'placeholder' => 'mautic.core.form.translation_parent.empty',
+                    'placeholder' => 'mailvotech.core.form.translation_parent.empty',
                     'top_level'   => 'translation',
                     'ignore_ids'  => [(int) $options['data']->getId()],
                 ]
@@ -370,10 +370,10 @@ final class DynamicContentType extends AbstractType
         $editorClass  = 'editor editor-advanced editor-builder-tokens';
 
         $form->add('content', TextareaType::class, [
-            'label'      => 'mautic.dynamicContent.form.content',
+            'label'      => 'mailvotech.dynamicContent.form.content',
             'label_attr' => ['class' => 'control-label'],
             'attr'       => [
-                'tooltip'              => 'mautic.dynamicContent.form.content.help',
+                'tooltip'              => 'mailvotech.dynamicContent.form.content.help',
                 'class'                => 'form-control'.($enableEditor ? ' '.$editorClass : ''),
                 'rows'                 => 15,
                 'data-editor-enable'   => $enableEditor,

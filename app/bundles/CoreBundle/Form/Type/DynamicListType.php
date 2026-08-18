@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -46,7 +46,7 @@ final class DynamicListType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'remove_onclick'  => 'Mautic.removeFormListOption(this);',
+                'remove_onclick'  => 'MailVotech.removeFormListOption(this);',
                 'option_required' => true,
                 'option_notblank' => true,
                 'remove_icon'     => 'ri-close-line',
@@ -66,7 +66,7 @@ final class DynamicListType extends AbstractType
 
                     'constraints'    => fn (Options $options): array => ($options['option_notblank']) ? [
                         new NotBlank(
-                            message: 'mautic.form.lists.notblank'
+                            message: 'mailvotech.form.lists.notblank'
                         ),
                     ] : [],
                     'error_bubbling' => true,
@@ -75,7 +75,7 @@ final class DynamicListType extends AbstractType
                 'allow_delete'    => true,
                 'prototype'       => true,
                 'constraints'     => fn (Options $options): array => ($options['option_required']) ? [
-                    new Count(min: 1, minMessage: 'mautic.form.lists.count'),
+                    new Count(min: 1, minMessage: 'mailvotech.form.lists.count'),
                 ] : [],
                 'error_bubbling'  => false,
             ]

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\EventListener;
+namespace MailVotech\CoreBundle\EventListener;
 
 use Doctrine\ORM\Tools\Event\GenerateSchemaEventArgs;
-use Mautic\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
-use Mautic\CoreBundle\Doctrine\Type\GeneratedType;
+use MailVotech\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
+use MailVotech\CoreBundle\Doctrine\Type\GeneratedType;
 use Psr\Log\LoggerInterface;
 
 final readonly class DoctrineGeneratedColumnsListener

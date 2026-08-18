@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Validator;
+namespace MailVotech\LeadBundle\Validator;
 
-use Mautic\CoreBundle\Exception\InvalidValueException;
-use Mautic\CoreBundle\Exception\RecordNotFoundException;
-use Mautic\CoreBundle\Exception\RecordNotPublishedException;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
+use MailVotech\CoreBundle\Exception\InvalidValueException;
+use MailVotech\CoreBundle\Exception\RecordNotFoundException;
+use MailVotech\CoreBundle\Exception\RecordNotPublishedException;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CustomFieldValidator
@@ -29,7 +29,7 @@ class CustomFieldValidator
         $field = $this->getPublishedFieldByAlias($alias);
 
         if ($field->getType() !== $fieldType) {
-            throw new InvalidValueException($this->translator->trans('mautic.lead.contact.wrong.field.type', ['%alias%' => $alias, '%fieldType%' => $field->getType(), '%expectedType%' => $fieldType], 'validators'));
+            throw new InvalidValueException($this->translator->trans('mailvotech.lead.contact.wrong.field.type', ['%alias%' => $alias, '%fieldType%' => $field->getType(), '%expectedType%' => $fieldType], 'validators'));
         }
     }
 
@@ -42,7 +42,7 @@ class CustomFieldValidator
         $field = $this->getFieldByAlias($alias);
 
         if (!$field->getIsPublished()) {
-            throw new RecordNotPublishedException($this->translator->trans('mautic.lead.contact.field.not.published', ['%alias%' => $alias], 'validators'));
+            throw new RecordNotPublishedException($this->translator->trans('mailvotech.lead.contact.field.not.published', ['%alias%' => $alias], 'validators'));
         }
 
         return $field;
@@ -56,7 +56,7 @@ class CustomFieldValidator
         $field = $this->fieldModel->getEntityByAlias($alias);
 
         if (!$field instanceof LeadField) {
-            throw new RecordNotFoundException($this->translator->trans('mautic.lead.contact.field.not.found', ['%alias%' => $alias], 'validators'));
+            throw new RecordNotFoundException($this->translator->trans('mailvotech.lead.contact.field.not.found', ['%alias%' => $alias], 'validators'));
         }
 
         return $field;

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\Migrations;
+namespace MailVotech\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Mautic\CoreBundle\Doctrine\AbstractMauticMigration;
-use Mautic\CoreBundle\Loader\ParameterLoader;
+use MailVotech\CoreBundle\Doctrine\AbstractMailVotechMigration;
+use MailVotech\CoreBundle\Loader\ParameterLoader;
 
-final class Version20260709103000 extends AbstractMauticMigration
+final class Version20260709103000 extends AbstractMailVotechMigration
 {
     public function up(Schema $schema): void
     {

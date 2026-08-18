@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Model;
+namespace MailVotech\ReportBundle\Tests\Model;
 
-use Mautic\CoreBundle\Event\JobExtendTimeEvent;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\ReportBundle\Adapter\ReportDataAdapter;
-use Mautic\ReportBundle\Crate\ReportDataResult;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Entity\Scheduler;
-use Mautic\ReportBundle\Event\ReportScheduleSendEvent;
-use Mautic\ReportBundle\Model\ReportExporter;
-use Mautic\ReportBundle\Model\ReportExportOptions;
-use Mautic\ReportBundle\Model\ReportFileWriter;
-use Mautic\ReportBundle\Model\ScheduleModel;
-use Mautic\ReportBundle\ReportEvents;
-use Mautic\ReportBundle\Scheduler\Enum\SchedulerEnum;
-use Mautic\ReportBundle\Scheduler\Option\ExportOption;
-use Mautic\ReportBundle\Tests\Fixtures;
+use MailVotech\CoreBundle\Event\JobExtendTimeEvent;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\ReportBundle\Adapter\ReportDataAdapter;
+use MailVotech\ReportBundle\Crate\ReportDataResult;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Entity\Scheduler;
+use MailVotech\ReportBundle\Event\ReportScheduleSendEvent;
+use MailVotech\ReportBundle\Model\ReportExporter;
+use MailVotech\ReportBundle\Model\ReportExportOptions;
+use MailVotech\ReportBundle\Model\ReportFileWriter;
+use MailVotech\ReportBundle\Model\ScheduleModel;
+use MailVotech\ReportBundle\ReportEvents;
+use MailVotech\ReportBundle\Scheduler\Enum\SchedulerEnum;
+use MailVotech\ReportBundle\Scheduler\Option\ExportOption;
+use MailVotech\ReportBundle\Tests\Fixtures;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -119,7 +119,7 @@ final class ReportExporterTest extends \PHPUnit\Framework\TestCase
         $matcher = $this->atLeast(3);
 
         $eventDispatcher->expects($matcher)
-            ->method('dispatch')->willReturnCallback(function (ReportScheduleSendEvent|JobExtendTimeEvent $event, ?string $eventName) use ($matcher, $scheduler1, $scheduler2, $schedulerNow): JobExtendTimeEvent|\Mautic\ReportBundle\Event\ReportScheduleSendEvent {
+            ->method('dispatch')->willReturnCallback(function (ReportScheduleSendEvent|JobExtendTimeEvent $event, ?string $eventName) use ($matcher, $scheduler1, $scheduler2, $schedulerNow): JobExtendTimeEvent|\MailVotech\ReportBundle\Event\ReportScheduleSendEvent {
                 if ($event instanceof JobExtendTimeEvent) {
                     return $event;
                 }

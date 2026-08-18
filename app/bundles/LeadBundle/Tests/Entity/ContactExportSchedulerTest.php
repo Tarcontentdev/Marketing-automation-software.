@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\ContactExportScheduler;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\ContactExportScheduler;
 
-final class ContactExportSchedulerTest extends MauticMysqlTestCase
+final class ContactExportSchedulerTest extends MailVotechMysqlTestCase
 {
     private string $previousTimeZone;
 
@@ -60,7 +60,7 @@ final class ContactExportSchedulerTest extends MauticMysqlTestCase
 
     private function fetchScheduledDate(int $id): string
     {
-        $tablePrefix   = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $tablePrefix   = self::getContainer()->getParameter('mailvotech.db_table_prefix');
         $connection    = $this->em->getConnection();
         $query         = sprintf('SELECT scheduled_datetime FROM %scontact_export_scheduler WHERE id = :id', $tablePrefix);
 

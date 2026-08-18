@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PluginBundle\Integration;
+namespace MailVotech\PluginBundle\Integration;
 
 /**
  * Used by SSO auth plugins that use credentials from the login form to authenticate.

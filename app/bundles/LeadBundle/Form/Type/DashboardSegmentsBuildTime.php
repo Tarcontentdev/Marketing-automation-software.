@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Model\ListModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,10 +25,10 @@ final class DashboardSegmentsBuildTime extends AbstractType
             'order',
             ChoiceType::class,
             [
-                'label'             => 'mautic.core.order',
+                'label'             => 'mailvotech.core.order',
                 'choices'           => [
-                    'mautic.widget.segments.build.time.shortest' => 'ASC',
-                    'mautic.widget.segments.build.time.longest'  => 'DESC',
+                    'mailvotech.widget.segments.build.time.shortest' => 'ASC',
+                    'mailvotech.widget.segments.build.time.longest'  => 'DESC',
                 ],
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
@@ -44,7 +44,7 @@ final class DashboardSegmentsBuildTime extends AbstractType
         }
 
         $builder->add('segments', ChoiceType::class, [
-            'label'             => 'mautic.lead.list.filter',
+            'label'             => 'mailvotech.lead.list.filter',
             'multiple'          => true,
             'choices'           => $segments,
             'label_attr'        => ['class' => 'control-label'],

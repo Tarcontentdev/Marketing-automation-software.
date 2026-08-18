@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\PageBundle\Helper;
+namespace MailVotech\PageBundle\Helper;
 
 interface PageConfigInterface
 {

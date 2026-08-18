@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Tests\Form\Type;
+namespace MailVotech\DynamicContentBundle\Tests\Form\Type;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
  * controller with locale, timezone and region filter values to prove the form
  * actually accepts those choices and persists them.
  */
-final class DynamicContentFilterChoicesTest extends MauticMysqlTestCase
+final class DynamicContentFilterChoicesTest extends MailVotechMysqlTestCase
 {
     private const LOCALE_VALUE   = 'en_US';
 

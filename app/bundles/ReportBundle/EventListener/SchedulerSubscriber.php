@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\EventListener;
+namespace MailVotech\ReportBundle\EventListener;
 
-use Mautic\ReportBundle\Event\ReportScheduleSendEvent;
-use Mautic\ReportBundle\ReportEvents;
-use Mautic\ReportBundle\Scheduler\Model\SendSchedule;
+use MailVotech\ReportBundle\Event\ReportScheduleSendEvent;
+use MailVotech\ReportBundle\ReportEvents;
+use MailVotech\ReportBundle\Scheduler\Model\SendSchedule;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class SchedulerSubscriber implements EventSubscriberInterface

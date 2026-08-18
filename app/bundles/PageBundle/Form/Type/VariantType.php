@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\PageBundle\Form\Type;
+namespace MailVotech\PageBundle\Form\Type;
 
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\PageBundle\Model\PageModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -26,15 +26,15 @@ final class VariantType extends AbstractType
         $builder->add(
             'weight',
             IntegerType::class, [
-                'label'      => 'mautic.core.ab_test.form.traffic_weight',
+                'label'      => 'mailvotech.core.ab_test.form.traffic_weight',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.core.ab_test.form.traffic_weight.help',
+                    'tooltip' => 'mailvotech.core.ab_test.form.traffic_weight.help',
                 ],
                 'constraints' => [
                     new NotBlank(
-                        message: 'mautic.page.variant.weight.notblank'
+                        message: 'mailvotech.page.variant.weight.notblank'
                     ),
                 ],
             ]
@@ -49,19 +49,19 @@ final class VariantType extends AbstractType
             $builder->add(
                 'winnerCriteria',
                 ChoiceType::class, [
-                    'label'      => 'mautic.core.ab_test.form.winner',
+                    'label'      => 'mailvotech.core.ab_test.form.winner',
                     'label_attr' => ['class' => 'control-label'],
                     'attr'       => [
                         'class'    => 'form-control',
-                        'onchange' => 'Mautic.getAbTestWinnerForm(\'page\', \'page\', this);',
+                        'onchange' => 'MailVotech.getAbTestWinnerForm(\'page\', \'page\', this);',
                     ],
                     'expanded'    => false,
                     'multiple'    => false,
                     'choices'     => $choices,
-                    'placeholder' => 'mautic.core.form.chooseone',
+                    'placeholder' => 'mailvotech.core.form.chooseone',
                     'constraints' => [
                         new NotBlank(
-                            message: 'mautic.core.ab_test.winner_criteria.not_blank'
+                            message: 'mailvotech.core.ab_test.winner_criteria.not_blank'
                         ),
                     ],
                 ]

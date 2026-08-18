@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\AssetBundle\Entity;
+namespace MailVotech\AssetBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\CoreBundle\Helper\Chart\PieChart;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\LeadBundle\Entity\TimelineTrait;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Helper\Chart\PieChart;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\LeadBundle\Entity\TimelineTrait;
 
 /**
  * @extends CommonRepository<Download>
@@ -25,7 +25,7 @@ class DownloadRepository extends CommonRepository
         $q2 = $this->getEntityManager()->getConnection()->createQueryBuilder();
 
         $q2->select('null')
-            ->from(MAUTIC_TABLE_PREFIX.'asset_downloads', 'd');
+            ->from(MAILVOTECH_TABLE_PREFIX.'asset_downloads', 'd');
 
         $q2->where(
             $q2->expr()->and(
@@ -53,8 +53,8 @@ class DownloadRepository extends CommonRepository
     {
         $query = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('a.id as asset_id, d.date_download as dateDownload, a.title, d.id as download_id, d.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'asset_downloads', 'd')
-            ->leftJoin('d', MAUTIC_TABLE_PREFIX.'assets', 'a', 'd.asset_id = a.id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'asset_downloads', 'd')
+            ->leftJoin('d', MAILVOTECH_TABLE_PREFIX.'assets', 'a', 'd.asset_id = a.id');
 
         if ($leadId) {
             $query->where('d.lead_id = :leadId')
@@ -143,8 +143,8 @@ class DownloadRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('count(distinct(a.tracking_id)) as count, a.source_id as id, p.title as name, p.hits as total')
-            ->from(MAUTIC_TABLE_PREFIX.'asset_downloads', 'a')
-            ->join('a', MAUTIC_TABLE_PREFIX.'pages', 'p', 'a.source_id = p.id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'asset_downloads', 'a')
+            ->join('a', MAILVOTECH_TABLE_PREFIX.'pages', 'p', 'a.source_id = p.id');
 
         if (is_array($pageId)) {
             $q->where($q->expr()->in('p.id', ':pageIds'))
@@ -185,8 +185,8 @@ class DownloadRepository extends CommonRepository
         // link email to page hit tracking id to download tracking id
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('count(distinct(a.tracking_id)) as count, e.id, e.subject as name, e.variant_sent_count as total')
-            ->from(MAUTIC_TABLE_PREFIX.'asset_downloads', 'a')
-            ->join('a', MAUTIC_TABLE_PREFIX.'emails', 'e', 'a.email_id = e.id');
+            ->from(MAILVOTECH_TABLE_PREFIX.'asset_downloads', 'a')
+            ->join('a', MAILVOTECH_TABLE_PREFIX.'emails', 'e', 'a.email_id = e.id');
 
         if (is_array($emailId)) {
             $q->where($q->expr()->in('e.id', ':emailIds'))
@@ -224,7 +224,7 @@ class DownloadRepository extends CommonRepository
     public function updateLeadByTrackingId($leadId, $newTrackingId, $oldTrackingId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'asset_downloads')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'asset_downloads')
             ->set('lead_id', (int) $leadId)
             ->set('tracking_id', ':newTrackingId')
             ->where(
@@ -243,7 +243,7 @@ class DownloadRepository extends CommonRepository
     public function updateLead($fromLeadId, $toLeadId): void
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
-        $q->update(MAUTIC_TABLE_PREFIX.'asset_downloads')
+        $q->update(MAILVOTECH_TABLE_PREFIX.'asset_downloads')
             ->set('lead_id', (int) $toLeadId)
             ->where('lead_id = '.(int) $fromLeadId)
             ->executeStatement();

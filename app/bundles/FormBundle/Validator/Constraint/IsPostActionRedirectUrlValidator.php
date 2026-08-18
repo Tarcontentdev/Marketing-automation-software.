@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Validator\Constraint;
+namespace MailVotech\FormBundle\Validator\Constraint;
 
-use Mautic\FormBundle\Finder\Tokens\RedirectUrlTokensFinder;
+use MailVotech\FormBundle\Finder\Tokens\RedirectUrlTokensFinder;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\Validator\ConstraintValidator;

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Form\Type;
+namespace MailVotech\CoreBundle\Tests\Unit\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\ContentPreviewSettingsType;
-use Mautic\CoreBundle\Form\Type\LookupType;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Form\Type\ContentPreviewSettingsType;
+use MailVotech\CoreBundle\Form\Type\LookupType;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -117,12 +117,12 @@ final class ContentPreviewSettingsTypeTest extends TestCase
         $this->translator->expects($matcher)
             ->method('trans')->willReturnCallback(function (...$parameters) use ($matcher): string {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.lead.list.form.startTyping', $parameters[0]);
+                    $this->assertSame('mailvotech.lead.list.form.startTyping', $parameters[0]);
 
                     return 'startTyping';
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.core.form.nomatches', $parameters[0]);
+                    $this->assertSame('mailvotech.core.form.nomatches', $parameters[0]);
 
                     return 'nomatches';
                 }
@@ -214,12 +214,12 @@ final class ContentPreviewSettingsTypeTest extends TestCase
         $this->translator->expects($matcher)
             ->method('trans')->willReturnCallback(function (...$parameters) use ($matcher): string {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.lead.list.form.startTyping', $parameters[0]);
+                    $this->assertSame('mailvotech.lead.list.form.startTyping', $parameters[0]);
 
                     return 'startTyping';
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.core.form.nomatches', $parameters[0]);
+                    $this->assertSame('mailvotech.core.form.nomatches', $parameters[0]);
 
                     return 'nomatches';
                 }
@@ -280,12 +280,12 @@ final class ContentPreviewSettingsTypeTest extends TestCase
         $this->translator->expects($matcher)
             ->method('trans')->willReturnCallback(function (...$parameters) use ($matcher): string {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.lead.list.form.startTyping', $parameters[0]);
+                    $this->assertSame('mailvotech.lead.list.form.startTyping', $parameters[0]);
 
                     return 'startTyping';
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.core.form.nomatches', $parameters[0]);
+                    $this->assertSame('mailvotech.core.form.nomatches', $parameters[0]);
 
                     return 'nomatches';
                 }
@@ -376,22 +376,22 @@ final class ContentPreviewSettingsTypeTest extends TestCase
         $this->translator->expects($matcher)
             ->method('trans')->willReturnCallback(function (...$parameters) use ($matcher): string {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.core.form.chooseone', $parameters[0]);
+                    $this->assertSame('mailvotech.core.form.chooseone', $parameters[0]);
 
                     return 'chooseone';
                 }
                 if (2 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.core.form.chooseone', $parameters[0]);
+                    $this->assertSame('mailvotech.core.form.chooseone', $parameters[0]);
 
                     return 'chooseone';
                 }
                 if (3 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.lead.list.form.startTyping', $parameters[0]);
+                    $this->assertSame('mailvotech.lead.list.form.startTyping', $parameters[0]);
 
                     return 'startTyping';
                 }
                 if (4 === $matcher->numberOfInvocations()) {
-                    $this->assertSame('mautic.core.form.nomatches', $parameters[0]);
+                    $this->assertSame('mailvotech.core.form.nomatches', $parameters[0]);
 
                     return 'nomatches';
                 }
@@ -409,7 +409,7 @@ final class ContentPreviewSettingsTypeTest extends TestCase
                     $this->assertSame([
                         'choices' => $expectedTranslationChoices,
                         'attr'    => [
-                            'onChange' => "Mautic.contentPreviewUrlGenerator.regenerateUrl({$parentEmailId}, this)",
+                            'onChange' => "MailVotech.contentPreviewUrlGenerator.regenerateUrl({$parentEmailId}, this)",
                         ],
                         'placeholder'  => 'chooseone',
                         'data'         => (string) $parentEmailId,
@@ -421,7 +421,7 @@ final class ContentPreviewSettingsTypeTest extends TestCase
                     $this->assertSame([
                         'choices' => $expectedVariantChoices,
                         'attr'    => [
-                            'onChange' => "Mautic.contentPreviewUrlGenerator.regenerateUrl({$parentEmailId}, this)",
+                            'onChange' => "MailVotech.contentPreviewUrlGenerator.regenerateUrl({$parentEmailId}, this)",
                         ],
                         'placeholder'  => 'chooseone',
                         'data'         => (string) $parentEmailId,

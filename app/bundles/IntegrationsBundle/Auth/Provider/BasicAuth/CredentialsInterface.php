@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Auth\Provider\BasicAuth;
+namespace MailVotech\IntegrationsBundle\Auth\Provider\BasicAuth;
 
-use Mautic\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
+use MailVotech\IntegrationsBundle\Auth\Provider\AuthCredentialsInterface;
 
 interface CredentialsInterface extends AuthCredentialsInterface
 {

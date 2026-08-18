@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\DashboardBundle\Form\Type;
+namespace MailVotech\DashboardBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\DashboardBundle\DashboardEvents;
-use Mautic\DashboardBundle\Event\WidgetFormEvent;
-use Mautic\DashboardBundle\Event\WidgetTypeListEvent;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\DashboardBundle\DashboardEvents;
+use MailVotech\DashboardBundle\Event\WidgetFormEvent;
+use MailVotech\DashboardBundle\Event\WidgetTypeListEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -33,7 +33,7 @@ final class WidgetType extends AbstractType
             'name',
             TextType::class,
             [
-                'label'      => 'mautic.dashboard.widget.form.name',
+                'label'      => 'mailvotech.dashboard.widget.form.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control form-control-widget'],
                 'required'   => false,
@@ -50,13 +50,13 @@ final class WidgetType extends AbstractType
             'type',
             ChoiceType::class,
             [
-                'label'             => 'mautic.dashboard.widget.form.type',
+                'label'             => 'mailvotech.dashboard.widget.form.type',
                 'choices'           => $types,
                 'label_attr'        => ['class' => 'control-label'],
-                'placeholder'       => 'mautic.core.select',
+                'placeholder'       => 'mailvotech.core.select',
                 'attr'              => [
                     'class'    => 'form-control form-control-widget',
-                    'onchange' => 'Mautic.updateWidgetForm(this)',
+                    'onchange' => 'MailVotech.updateWidgetForm(this)',
                 ],
             ]
         );
@@ -65,7 +65,7 @@ final class WidgetType extends AbstractType
             'width',
             ChoiceType::class,
             [
-                'label'   => 'mautic.dashboard.widget.form.width',
+                'label'   => 'mailvotech.dashboard.widget.form.width',
                 'choices' => [
                     '25%'  => '25',
                     '50%'  => '50',
@@ -83,13 +83,13 @@ final class WidgetType extends AbstractType
             'height',
             ChoiceType::class,
             [
-                'label'   => 'mautic.dashboard.widget.form.height',
+                'label'   => 'mailvotech.dashboard.widget.form.height',
                 'choices' => [
-                    'mautic.dashboard.widget.size.extra_small' => '215',
-                    'mautic.dashboard.widget.size.small'       => '330',
-                    'mautic.dashboard.widget.size.medium'      => '445',
-                    'mautic.dashboard.widget.size.large'       => '560',
-                    'mautic.dashboard.widget.size.extra_large' => '675',
+                    'mailvotech.dashboard.widget.size.extra_small' => '215',
+                    'mailvotech.dashboard.widget.size.small'       => '330',
+                    'mailvotech.dashboard.widget.size.medium'      => '445',
+                    'mailvotech.dashboard.widget.size.large'       => '560',
+                    'mailvotech.dashboard.widget.size.extra_large' => '675',
                 ],
                 'empty_data'        => '330',
                 'label_attr'        => ['class' => 'control-label'],
@@ -144,7 +144,7 @@ final class WidgetType extends AbstractType
             FormButtonsType::class,
             [
                 'apply_text' => false,
-                'save_text'  => 'mautic.core.form.save',
+                'save_text'  => 'mailvotech.core.form.save',
             ]
         );
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Service;
+namespace MailVotech\CoreBundle\Tests\Unit\Service;
 
-use Mautic\CoreBundle\Model\NotificationModel;
-use Mautic\CoreBundle\Service\BulkNotification;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Model\NotificationModel;
+use MailVotech\CoreBundle\Service\BulkNotification;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 final class BulkNotificationTest extends TestCase

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Functional;
+namespace MailVotech\UserBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-final class SearchTest extends MauticMysqlTestCase
+final class SearchTest extends MailVotechMysqlTestCase
 {
     public function testSearchingUsersByName(): void
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mautic\CoreBundle\Exception;
+namespace MailVotech\CoreBundle\Exception;
 
 final class BadConfigurationException extends \Exception
 {

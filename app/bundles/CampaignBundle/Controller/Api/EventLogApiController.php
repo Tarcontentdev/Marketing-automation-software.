@@ -1,27 +1,27 @@
 <?php
 
-namespace Mautic\CampaignBundle\Controller\Api;
+namespace MailVotech\CampaignBundle\Controller\Api;
 
 use Doctrine\Persistence\ManagerRegistry;
 use FOS\RestBundle\View\View;
-use Mautic\ApiBundle\Controller\FetchCommonApiController;
-use Mautic\ApiBundle\Helper\EntityResultHelper;
-use Mautic\ApiBundle\Serializer\Exclusion\FieldInclusionStrategy;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CampaignBundle\Model\EventLogModel;
-use Mautic\CampaignBundle\Model\EventModel;
-use Mautic\CoreBundle\Factory\ModelFactory;
-use Mautic\CoreBundle\Helper\AppVersion;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\LeadBundle\Controller\LeadAccessTrait;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\ApiBundle\Controller\FetchCommonApiController;
+use MailVotech\ApiBundle\Helper\EntityResultHelper;
+use MailVotech\ApiBundle\Serializer\Exclusion\FieldInclusionStrategy;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CampaignBundle\Model\EventLogModel;
+use MailVotech\CampaignBundle\Model\EventModel;
+use MailVotech\CoreBundle\Factory\ModelFactory;
+use MailVotech\CoreBundle\Helper\AppVersion;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\LeadBundle\Controller\LeadAccessTrait;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -111,7 +111,7 @@ final class EventLogApiController extends FetchCommonApiController
             if (0 === count($membership)) {
                 return $this->returnError(
                     $this->translator->trans(
-                        'mautic.campaign.error.contact_not_in_campaign',
+                        'mailvotech.campaign.error.contact_not_in_campaign',
                         ['%campaign%' => $campaignId, '%contact%' => $contactId]
                     ),
                     Response::HTTP_CONFLICT
@@ -198,7 +198,7 @@ final class EventLogApiController extends FetchCommonApiController
             if (!isset($params['eventId']) || !isset($params['contactId']) || !isset($events[$params['eventId']])
                 || !isset($contacts[$params['contactId']])
             ) {
-                $errors[$key] = $this->notFound('mautic.campaign.error.edit_events.request_invalid');
+                $errors[$key] = $this->notFound('mailvotech.campaign.error.edit_events.request_invalid');
 
                 continue;
             }

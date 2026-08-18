@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Form\Type;
+namespace MailVotech\FormBundle\Tests\Form\Type;
 
-use Mautic\FormBundle\Form\Type\FormFieldNumberType;
+use MailVotech\FormBundle\Form\Type\FormFieldNumberType;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -43,7 +43,7 @@ final class FormFieldNumberTypeTest extends TypeTestCase
                     $this->assertSame('placeholder', $parameters[0]);
                     $this->assertSame(TextType::class, $parameters[1]);
                     $this->assertSame([
-                        'label'      => 'mautic.form.field.form.property_placeholder',
+                        'label'      => 'mailvotech.form.field.form.property_placeholder',
                         'label_attr' => ['class' => 'control-label'],
                         'attr'       => ['class' => 'form-control'],
                         'required'   => false,
@@ -53,12 +53,12 @@ final class FormFieldNumberTypeTest extends TypeTestCase
                     $this->assertSame('precision', $parameters[0]);
                     $this->assertSame(IntegerType::class, $parameters[1]);
                     $this->assertSame([
-                        'label'      => 'mautic.form.field.form.number_precision',
+                        'label'      => 'mailvotech.form.field.form.number_precision',
                         'label_attr' => ['class' => 'control-label'],
                         'data'       => 0,
                         'attr'       => [
                             'class'   => 'form-control',
-                            'tooltip' => 'mautic.form.field.form.number_precision.tooltip',
+                            'tooltip' => 'mailvotech.form.field.form.number_precision.tooltip',
                         ],
                         'required'   => false,
                     ], $parameters[2]);

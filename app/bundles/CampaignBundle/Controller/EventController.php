@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\CampaignBundle\Controller;
+namespace MailVotech\CampaignBundle\Controller;
 
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\EventCollector\EventCollector;
-use Mautic\CampaignBundle\Form\Type\EventType;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CampaignBundle\Model\EventModel;
-use Mautic\CoreBundle\Controller\FormController as CommonFormController;
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\EventCollector\EventCollector;
+use MailVotech\CampaignBundle\Form\Type\EventType;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CampaignBundle\Model\EventModel;
+use MailVotech\CoreBundle\Controller\FormController as CommonFormController;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -110,7 +110,7 @@ final class EventController extends CommonFormController
             EventType::class,
             $event,
             [
-                'action'   => $this->generateUrl('mautic_campaignevent_action', ['objectAction' => 'new']),
+                'action'   => $this->generateUrl('mailvotech_campaignevent_action', ['objectAction' => 'new']),
                 'settings' => $events[$eventType][$type],
             ]
         );
@@ -163,7 +163,7 @@ final class EventController extends CommonFormController
         $viewParams['hideTriggerMode'] = isset($event['settings']['hideTriggerMode']) && $event['settings']['hideTriggerMode'];
 
         $passthroughVars = [
-            'mauticContent' => 'campaignEvent',
+            'mailvotechContent' => 'campaignEvent',
             'success'       => $success,
             'formSubmitted' => $form->isSubmitted(),
             'route'         => false,
@@ -187,7 +187,7 @@ final class EventController extends CommonFormController
         return $this->ajaxAction(
             $request,
             [
-                'contentTemplate' => '@MauticCampaign/Event/form.html.twig',
+                'contentTemplate' => '@MailVotechCampaign/Event/form.html.twig',
                 'viewParameters'  => $viewParams,
                 'passthroughVars' => $passthroughVars,
             ]
@@ -272,7 +272,7 @@ final class EventController extends CommonFormController
             EventType::class,
             (array) $event,
             [
-                'action'   => $this->generateUrl('mautic_campaignevent_action', ['objectAction' => 'edit', 'objectId' => $objectId]),
+                'action'   => $this->generateUrl('mailvotech_campaignevent_action', ['objectAction' => 'edit', 'objectId' => $objectId]),
                 'settings' => $supportedEvents[$event['type']],
             ]
         );
@@ -303,7 +303,7 @@ final class EventController extends CommonFormController
         ];
 
         $passthroughVars = [
-            'mauticContent' => 'campaignEvent',
+            'mailvotechContent' => 'campaignEvent',
             'success'       => !$cancelled && $valid,
             'formSubmitted' => $form->isSubmitted(),
             'route'         => false,
@@ -326,7 +326,7 @@ final class EventController extends CommonFormController
             return $this->ajaxAction(
                 $request,
                 [
-                    'contentTemplate' => '@MauticCampaign/Event/form.html.twig',
+                    'contentTemplate' => '@MailVotechCampaign/Event/form.html.twig',
                     'viewParameters'  => $viewParams,
                     'passthroughVars' => $passthroughVars,
                 ]
@@ -389,7 +389,7 @@ final class EventController extends CommonFormController
             }
 
             $dataArray = [
-                'mauticContent' => 'campaignEvent',
+                'mailvotechContent' => 'campaignEvent',
                 'success'       => 1,
                 'route'         => false,
                 'eventId'       => $objectId,
@@ -440,7 +440,7 @@ final class EventController extends CommonFormController
                 }
             }
 
-            $template = (empty($event['settings']['template'])) ? '@MauticCampaign/Event/_generic.html.twig'
+            $template = (empty($event['settings']['template'])) ? '@MailVotechCampaign/Event/_generic.html.twig'
                 : $event['settings']['template'];
 
             // prevent undefined errors
@@ -449,7 +449,7 @@ final class EventController extends CommonFormController
             $event  = array_merge($blank, $event);
 
             $dataArray = [
-                'mauticContent' => 'campaignEvent',
+                'mailvotechContent' => 'campaignEvent',
                 'success'       => 1,
                 'route'         => false,
                 'eventId'       => $objectId,
@@ -496,18 +496,18 @@ final class EventController extends CommonFormController
         if ('POST' === $request->getMethod() && null !== $event) {
             $keyId          = 'new'.hash('sha1', uniqid((string) mt_rand()));
             $event['id']    = $event['tempId']    = $keyId;
-            $session->set('mautic.campaign.events.clone.storage', $event);
+            $session->set('mailvotech.campaign.events.clone.storage', $event);
 
             $dataArray = [
                 'success'       => 1,
-                'mauticContent' => 'campaignEventClone',
+                'mailvotechContent' => 'campaignEventClone',
                 'route'         => false,
                 'eventId'       => $objectId,
                 'eventName'     => $event['name'],
                 'eventType'     => $event['eventType'],
                 'type'          => $event['type'],
                 'campaignId'    => $campaign ? $campaign->getId() : $campaignId,
-                'campaignName'  => $campaign ? $campaign->getName() : $this->translator->trans('mautic.campaign.event.clone.new.campaign'),
+                'campaignName'  => $campaign ? $campaign->getName() : $this->translator->trans('mailvotech.campaign.event.clone.new.campaign'),
             ];
         } else {
             $dataArray = ['success' => 0];
@@ -521,14 +521,14 @@ final class EventController extends CommonFormController
         $campaignId     = $request->query->get('campaignId');
         $session        = $request->getSession();
         $this->setCampaignElements($request->request);
-        $event          = $session->get('mautic.campaign.events.clone.storage');
+        $event          = $session->get('mailvotech.campaign.events.clone.storage');
 
         if (empty($event)) {
             return new JsonResponse([
-                'error' => $this->translator->trans('mautic.campaign.event.clone.request.missing'),
+                'error' => $this->translator->trans('mailvotech.campaign.event.clone.request.missing'),
             ], 400);
         }
-        $session->remove('mautic.campaign.events.clone.storage');
+        $session->remove('mailvotech.campaign.events.clone.storage');
 
         $keyId          = 'new'.hash('sha1', uniqid((string) mt_rand()));
         $event['id']    = $event['tempId'] = $keyId;
@@ -538,7 +538,7 @@ final class EventController extends CommonFormController
         $this->modifiedEvents   = $modifiedEvents;
 
         $passThroughVars = [
-            'mauticContent'     => 'campaignEvent',
+            'mailvotechContent'     => 'campaignEvent',
             'clearCloneStorage' => true,
             'success'           => 1,
             'route'             => false,
@@ -564,7 +564,7 @@ final class EventController extends CommonFormController
         $event = array_merge((new Event())->convertToArray(), $event);
 
         // Determine the template
-        $template = $event['settings']['template'] ?? '@MauticCampaign/Event/_generic.html.twig';
+        $template = $event['settings']['template'] ?? '@MailVotechCampaign/Event/_generic.html.twig';
 
         // Prepare common template variables
         $templateVars = [
@@ -589,7 +589,7 @@ final class EventController extends CommonFormController
 
         // Handle trigger mode interval
         if (Event::TRIGGER_MODE_INTERVAL === $event['triggerMode']) {
-            $label = 'mautic.campaign.connection.trigger.interval.label';
+            $label = 'mailvotech.campaign.connection.trigger.interval.label';
 
             if (Event::PATH_INACTION === $event['anchor']) {
                 $label .= '_inaction';
@@ -600,7 +600,7 @@ final class EventController extends CommonFormController
                 [
                     '%number%' => $event['triggerInterval'],
                     '%unit%'   => $this->translator->trans(
-                        'mautic.campaign.event.intervalunit.'.$event['triggerIntervalUnit'],
+                        'mailvotech.campaign.event.intervalunit.'.$event['triggerIntervalUnit'],
                         ['%count%' => $event['triggerInterval']]
                     ),
                 ]
@@ -609,7 +609,7 @@ final class EventController extends CommonFormController
 
         // Handle trigger mode date
         if (Event::TRIGGER_MODE_DATE === $event['triggerMode']) {
-            $label = 'mautic.campaign.connection.trigger.date.label';
+            $label = 'mailvotech.campaign.connection.trigger.date.label';
 
             if (Event::PATH_INACTION === $event['anchor']) {
                 $label .= '_inaction';

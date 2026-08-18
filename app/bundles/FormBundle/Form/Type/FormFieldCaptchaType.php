@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Form\Type;
+namespace MailVotech\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,12 +19,12 @@ final class FormFieldCaptchaType extends AbstractType
             'captcha',
             TextType::class,
             [
-                'label'      => 'mautic.form.field.form.property_captcha',
+                'label'      => 'mailvotech.form.field.form.property_captcha',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'       => 'form-control',
-                    'tooltip'     => 'mautic.form.field.help.captcha',
-                    'placeholder' => 'mautic.form.field.help.captcha_placeholder',
+                    'tooltip'     => 'mailvotech.form.field.help.captcha',
+                    'placeholder' => 'mailvotech.form.field.help.captcha_placeholder',
                 ],
                 'required' => false,
             ]
@@ -34,7 +34,7 @@ final class FormFieldCaptchaType extends AbstractType
             'placeholder',
             TextType::class,
             [
-                'label'      => 'mautic.form.field.form.property_placeholder',
+                'label'      => 'mailvotech.form.field.form.property_placeholder',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -45,7 +45,7 @@ final class FormFieldCaptchaType extends AbstractType
             'errorMessage',
             TextType::class,
             [
-                'label'      => 'mautic.form.field.form.property_captchaerror',
+                'label'      => 'mailvotech.form.field.form.property_captchaerror',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,

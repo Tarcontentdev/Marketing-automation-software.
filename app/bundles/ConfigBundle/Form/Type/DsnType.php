@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ConfigBundle\Form\Type;
+namespace MailVotech\ConfigBundle\Form\Type;
 
-use Mautic\ConfigBundle\Form\DataTransformer\DsnTransformerFactory;
-use Mautic\CoreBundle\Form\Type\SortableListType;
-use Mautic\CoreBundle\Form\Type\StandAloneButtonType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\Dsn\Dsn;
+use MailVotech\ConfigBundle\Form\DataTransformer\DsnTransformerFactory;
+use MailVotech\CoreBundle\Form\Type\SortableListType;
+use MailVotech\CoreBundle\Form\Type\StandAloneButtonType;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\Dsn\Dsn;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -35,7 +35,7 @@ final class DsnType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $name     = $builder->getName();
-        $onChange = 'Mautic.configDsnTestDisable(this)';
+        $onChange = 'MailVotech.configDsnTestDisable(this)';
         $attr     = [
             'class'    => 'form-control',
             'onchange' => $onChange,
@@ -45,7 +45,7 @@ final class DsnType extends AbstractType
             'scheme',
             TextType::class,
             [
-                'label'    => 'mautic.config.dsn.scheme',
+                'label'    => 'mailvotech.config.dsn.scheme',
                 'required' => $options['required'],
                 'attr'     => $attr,
             ]
@@ -55,7 +55,7 @@ final class DsnType extends AbstractType
             'host',
             TextType::class,
             [
-                'label'    => 'mautic.config.dsn.host',
+                'label'    => 'mailvotech.config.dsn.host',
                 'required' => false,
                 'attr'     => $attr,
             ]
@@ -65,7 +65,7 @@ final class DsnType extends AbstractType
             'port',
             NumberType::class,
             [
-                'label'    => 'mautic.config.dsn.port',
+                'label'    => 'mailvotech.config.dsn.port',
                 'required' => false,
                 'html5'    => true,
                 'attr'     => $attr,
@@ -76,7 +76,7 @@ final class DsnType extends AbstractType
             'user',
             TextType::class,
             [
-                'label'    => 'mautic.config.dsn.user',
+                'label'    => 'mailvotech.config.dsn.user',
                 'required' => false,
                 'attr'     => $attr,
             ]
@@ -86,7 +86,7 @@ final class DsnType extends AbstractType
             'password',
             TextType::class,
             [
-                'label'    => 'mautic.config.dsn.password',
+                'label'    => 'mailvotech.config.dsn.password',
                 'required' => false,
                 'attr'     => $attr,
             ]
@@ -96,7 +96,7 @@ final class DsnType extends AbstractType
             'path',
             TextType::class,
             [
-                'label'    => 'mautic.config.dsn.path',
+                'label'    => 'mailvotech.config.dsn.path',
                 'required' => false,
                 'attr'     => $attr,
             ]
@@ -107,7 +107,7 @@ final class DsnType extends AbstractType
             SortableListType::class,
             [
                 'required'        => false,
-                'label'           => 'mautic.config.dsn.options',
+                'label'           => 'mailvotech.config.dsn.options',
                 'attr'            => [
                     'onchange' => $onChange,
                 ],
@@ -126,7 +126,7 @@ final class DsnType extends AbstractType
                     'required' => false,
                     'attr'     => [
                         'class'   => 'btn btn-tertiary btn-sm config-dsn-test-button',
-                        'onclick' => sprintf('Mautic.configDsnTestExecute(this, "%s", "%s")', $options['test_button']['action'], $name),
+                        'onclick' => sprintf('MailVotech.configDsnTestExecute(this, "%s", "%s")', $options['test_button']['action'], $name),
                     ],
                 ]
             );

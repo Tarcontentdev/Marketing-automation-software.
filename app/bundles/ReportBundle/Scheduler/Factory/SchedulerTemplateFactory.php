@@ -1,14 +1,14 @@
 <?php
 
-namespace Mautic\ReportBundle\Scheduler\Factory;
+namespace MailVotech\ReportBundle\Scheduler\Factory;
 
-use Mautic\ReportBundle\Scheduler\Builder\SchedulerDailyBuilder;
-use Mautic\ReportBundle\Scheduler\Builder\SchedulerMonthBuilder;
-use Mautic\ReportBundle\Scheduler\Builder\SchedulerNowBuilder;
-use Mautic\ReportBundle\Scheduler\Builder\SchedulerWeeklyBuilder;
-use Mautic\ReportBundle\Scheduler\BuilderInterface;
-use Mautic\ReportBundle\Scheduler\Exception\NotSupportedScheduleTypeException;
-use Mautic\ReportBundle\Scheduler\SchedulerInterface;
+use MailVotech\ReportBundle\Scheduler\Builder\SchedulerDailyBuilder;
+use MailVotech\ReportBundle\Scheduler\Builder\SchedulerMonthBuilder;
+use MailVotech\ReportBundle\Scheduler\Builder\SchedulerNowBuilder;
+use MailVotech\ReportBundle\Scheduler\Builder\SchedulerWeeklyBuilder;
+use MailVotech\ReportBundle\Scheduler\BuilderInterface;
+use MailVotech\ReportBundle\Scheduler\Exception\NotSupportedScheduleTypeException;
+use MailVotech\ReportBundle\Scheduler\SchedulerInterface;
 
 final class SchedulerTemplateFactory
 {

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Model;
+namespace MailVotech\EmailBundle\Tests\Model;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Model\LeadModel;
 
-final class EmailModelTranslationCountFunctionalTest extends MauticMysqlTestCase
+final class EmailModelTranslationCountFunctionalTest extends MailVotechMysqlTestCase
 {
     private const CONTACT_COUNT = 10;
 
@@ -26,7 +26,7 @@ final class EmailModelTranslationCountFunctionalTest extends MauticMysqlTestCase
         $this->addContactsToCampaign($contacts, $campaign);
         $this->em->clear();
 
-        $commandResult = $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $commandResult = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
         $this->assertStringContainsString('10 total events(s) to be processed in batches', $commandResult->getDisplay());
         $this->em->clear();
 
@@ -164,7 +164,7 @@ final class EmailModelTranslationCountFunctionalTest extends MauticMysqlTestCase
                 'type'            => 'email.send',
                 'eventType'       => 'action',
                 'anchorEventType' => 'source',
-                'campaignId'      => 'mautic_ce6c7dddf8444e579d741c0125f18b33a5d49b45',
+                'campaignId'      => 'mailvotech_ce6c7dddf8444e579d741c0125f18b33a5d49b45',
                 '_token'          => 'test_token',
                 'buttons'         => [
                     'save' => '',

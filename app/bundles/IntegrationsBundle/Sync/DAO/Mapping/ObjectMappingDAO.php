@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\DAO\Mapping;
+namespace MailVotech\IntegrationsBundle\Sync\DAO\Mapping;
 
 final class ObjectMappingDAO
 {
-    public const SYNC_TO_MAUTIC       = 'mautic';
+    public const SYNC_TO_MAILVOTECH       = 'mailvotech';
 
     public const SYNC_TO_INTEGRATION  = 'integration';
 

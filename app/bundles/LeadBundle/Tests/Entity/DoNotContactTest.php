@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Entity;
+namespace MailVotech\LeadBundle\Tests\Entity;
 
-use Mautic\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\DoNotContact;
 
 final class DoNotContactTest extends \PHPUnit\Framework\TestCase
 {

@@ -1,16 +1,16 @@
 <?php
 
-namespace Mautic\NotificationBundle\Form\Type;
+namespace MailVotech\NotificationBundle\Form\Type;
 
-use Mautic\CategoryBundle\Form\Type\CategoryListType;
-use Mautic\CoreBundle\Form\EventListener\CleanFormSubscriber;
-use Mautic\CoreBundle\Form\EventListener\FormExitSubscriber;
-use Mautic\CoreBundle\Form\Type\FormButtonsType;
-use Mautic\CoreBundle\Form\Type\PublishDownDateType;
-use Mautic\CoreBundle\Form\Type\PublishUpDateType;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\EmailBundle\Form\Type\EmailUtmTagsType;
-use Mautic\NotificationBundle\Entity\Notification;
+use MailVotech\CategoryBundle\Form\Type\CategoryListType;
+use MailVotech\CoreBundle\Form\EventListener\CleanFormSubscriber;
+use MailVotech\CoreBundle\Form\EventListener\FormExitSubscriber;
+use MailVotech\CoreBundle\Form\Type\FormButtonsType;
+use MailVotech\CoreBundle\Form\Type\PublishDownDateType;
+use MailVotech\CoreBundle\Form\Type\PublishUpDateType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\EmailBundle\Form\Type\EmailUtmTagsType;
+use MailVotech\NotificationBundle\Entity\Notification;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
@@ -34,7 +34,7 @@ final class NotificationType extends AbstractType
             'name',
             TextType::class,
             [
-                'label'      => 'mautic.notification.form.internal.name',
+                'label'      => 'mailvotech.notification.form.internal.name',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
             ]
@@ -44,7 +44,7 @@ final class NotificationType extends AbstractType
             'description',
             TextareaType::class,
             [
-                'label'      => 'mautic.notification.form.internal.description',
+                'label'      => 'mailvotech.notification.form.internal.description',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => false,
@@ -55,11 +55,11 @@ final class NotificationType extends AbstractType
             'utmTags',
             EmailUtmTagsType::class,
             [
-                'label'      => 'mautic.email.utm_tags',
+                'label'      => 'mailvotech.email.utm_tags',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.email.utm_tags.tooltip',
+                    'tooltip' => 'mailvotech.email.utm_tags.tooltip',
                 ],
                 'required' => false,
             ]
@@ -69,7 +69,7 @@ final class NotificationType extends AbstractType
             'heading',
             TextType::class,
             [
-                'label'      => 'mautic.notification.form.heading',
+                'label'      => 'mailvotech.notification.form.heading',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
                 'required'   => true,
@@ -80,7 +80,7 @@ final class NotificationType extends AbstractType
             'message',
             TextareaType::class,
             [
-                'label'      => 'mautic.notification.form.message',
+                'label'      => 'mailvotech.notification.form.message',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',
@@ -94,11 +94,11 @@ final class NotificationType extends AbstractType
             'url',
             UrlType::class,
             [
-                'label'      => 'mautic.notification.form.url',
+                'label'      => 'mailvotech.notification.form.url',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.notification.form.url.tooltip',
+                    'tooltip' => 'mailvotech.notification.form.url.tooltip',
                 ],
                 'required' => false,
             ]
@@ -108,11 +108,11 @@ final class NotificationType extends AbstractType
             'button',
             TextType::class,
             [
-                'label'      => 'mautic.notification.form.button',
+                'label'      => 'mailvotech.notification.form.button',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class'   => 'form-control',
-                    'tooltip' => 'mautic.notification.form.button.tooltip',
+                    'tooltip' => 'mailvotech.notification.form.button.tooltip',
                 ],
                 'required' => false,
             ]
@@ -135,7 +135,7 @@ final class NotificationType extends AbstractType
             'language',
             LocaleType::class,
             [
-                'label'      => 'mautic.core.language',
+                'label'      => 'mailvotech.core.language',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
                     'class' => 'form-control',

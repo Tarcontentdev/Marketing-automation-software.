@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Controller\Api;
+namespace MailVotech\ReportBundle\Tests\Controller\Api;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Model\ReportModel;
-use Mautic\UserBundle\Entity\Permission;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Model\RoleModel;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Model\ReportModel;
+use MailVotech\UserBundle\Entity\Permission;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Model\RoleModel;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
-final class ReportApiControllerTest extends MauticMysqlTestCase
+final class ReportApiControllerTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
@@ -141,7 +141,7 @@ final class ReportApiControllerTest extends MauticMysqlTestCase
         return $role;
     }
 
-    private function createUser(Role $role, string $password='mautic'): User
+    private function createUser(Role $role, string $password='mailvotech'): User
     {
         $user = new User();
         $user->setFirstName('John');

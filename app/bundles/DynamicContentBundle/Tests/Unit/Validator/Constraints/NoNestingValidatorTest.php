@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\Tests\Unit\Validator\Constraints;
+namespace MailVotech\DynamicContentBundle\Tests\Unit\Validator\Constraints;
 
-use Mautic\DynamicContentBundle\Validator\Constraints\NoNesting;
-use Mautic\DynamicContentBundle\Validator\Constraints\NoNestingValidator;
+use MailVotech\DynamicContentBundle\Validator\Constraints\NoNesting;
+use MailVotech\DynamicContentBundle\Validator\Constraints\NoNestingValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Translator;
@@ -74,7 +74,7 @@ final class NoNestingValidatorTest extends TestCase
         $translator->addLoader('array', new ArrayLoader());
 
         $translator->addResource('array', [
-            'mautic.dynamicContent.no_nesting' => self::TRANSLATED_MESSAGE,
+            'mailvotech.dynamicContent.no_nesting' => self::TRANSLATED_MESSAGE,
         ], $locale, 'validators');
 
         return new ExecutionContext($this->createStub(ValidatorInterface::class), null, $translator, 'validators');

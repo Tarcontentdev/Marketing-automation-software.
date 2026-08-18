@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MessengerBundle\Message\Traits;
+namespace MailVotech\MessengerBundle\Message\Traits;
 
 use Symfony\Component\HttpFoundation\Request;
 

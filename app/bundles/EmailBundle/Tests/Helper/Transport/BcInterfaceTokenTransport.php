@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Helper\Transport;
+namespace MailVotech\EmailBundle\Tests\Helper\Transport;
 
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
 use Symfony\Component\Mailer\Envelope;
 use Symfony\Component\Mailer\SentMessage;
 use Symfony\Component\Mailer\Transport\TransportInterface;
@@ -79,7 +79,7 @@ final class BcInterfaceTokenTransport implements TransportInterface
 
     public function getMetadata(): array
     {
-        return ($this->message instanceof MauticMessage) ? $this->message->getMetadata() : [];
+        return ($this->message instanceof MailVotechMessage) ? $this->message->getMetadata() : [];
     }
 
     public function __toString(): string

@@ -11,8 +11,8 @@ return [
     'menu'     => [],
 
     'parameters' => [
-        'cache_adapter'           => 'mautic.cache.adapter.filesystem',
-        'cache_adapter_tag_aware' => 'mautic.cache.adapter.filesystem',
+        'cache_adapter'           => 'mailvotech.cache.adapter.filesystem',
+        'cache_adapter_tag_aware' => 'mailvotech.cache.adapter.filesystem',
         'cache_prefix'            => '',
         'cache_lifetime'          => 86400,
         'cache_adapter_memcached' => [

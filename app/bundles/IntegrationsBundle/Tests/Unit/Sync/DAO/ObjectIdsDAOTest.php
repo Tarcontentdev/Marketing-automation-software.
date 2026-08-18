@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Tests\Unit\Sync\DAO;
+namespace MailVotech\IntegrationsBundle\Tests\Unit\Sync\DAO;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\ObjectIdsDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\ObjectIdsDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
 use PHPUnit\Framework\TestCase;
 
 final class ObjectIdsDAOTest extends TestCase

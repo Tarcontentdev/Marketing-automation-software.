@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Event;
+namespace MailVotech\CoreBundle\Tests\Unit\Event;
 
-use Mautic\CoreBundle\Event\CustomTemplateEvent;
+use MailVotech\CoreBundle\Event\CustomTemplateEvent;
 
 final class CustomTemplateEventTest extends \PHPUnit\Framework\TestCase
 {

@@ -16,6 +16,6 @@ class ServiceLocatorGetService
 
     public function run(): void
     {
-        $this->locator->get('mautic.helper.something');
+        $this->locator->get('mailvotech.helper.something');
     }
 }

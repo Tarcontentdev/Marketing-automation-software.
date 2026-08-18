@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Functional\ApiPlatform;
+namespace MailVotech\LeadBundle\Tests\Functional\ApiPlatform;
 
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\UserBundle\Entity\User;
 
 final class CompanyOwnershipApiV2AuthorizationRegressionTest extends OwnershipScopedApiAuthorizationTestBase
 {

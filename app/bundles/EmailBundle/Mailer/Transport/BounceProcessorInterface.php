@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Mailer\Transport;
+namespace MailVotech\EmailBundle\Mailer\Transport;
 
-use Mautic\EmailBundle\MonitoredEmail\Exception\BounceNotFound;
-use Mautic\EmailBundle\MonitoredEmail\Message;
-use Mautic\EmailBundle\MonitoredEmail\Processor\Bounce\BouncedEmail;
+use MailVotech\EmailBundle\MonitoredEmail\Exception\BounceNotFound;
+use MailVotech\EmailBundle\MonitoredEmail\Message;
+use MailVotech\EmailBundle\MonitoredEmail\Processor\Bounce\BouncedEmail;
 
 /**
  * Interface InterfaceBounceProcessor.

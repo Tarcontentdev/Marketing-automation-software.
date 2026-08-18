@@ -9,6 +9,6 @@ final class TablePrefixDefiner
 {
     public function boot(): void
     {
-        defined('MAUTIC_TABLE_PREFIX') or define('MAUTIC_TABLE_PREFIX', '');
+        defined('MAILVOTECH_TABLE_PREFIX') or define('MAILVOTECH_TABLE_PREFIX', '');
     }
 }

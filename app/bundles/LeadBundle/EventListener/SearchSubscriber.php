@@ -1,24 +1,24 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\ChannelBundle\Entity\MessageQueue;
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\DTO\GlobalSearchFilterDTO;
-use Mautic\CoreBundle\Event\CommandListEvent;
-use Mautic\CoreBundle\Event\GlobalSearchEvent;
-use Mautic\CoreBundle\Helper\QueryBuilderManipulatorTrait;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\GlobalSearch;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Event\LeadBuildSearchEvent;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Model\ListModel;
+use MailVotech\ChannelBundle\Entity\MessageQueue;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\DTO\GlobalSearchFilterDTO;
+use MailVotech\CoreBundle\Event\CommandListEvent;
+use MailVotech\CoreBundle\Event\GlobalSearchEvent;
+use MailVotech\CoreBundle\Helper\QueryBuilderManipulatorTrait;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\GlobalSearch;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Event\LeadBuildSearchEvent;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Model\ListModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -60,8 +60,8 @@ final class SearchSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $anonymous = $this->translator->trans('mautic.lead.lead.searchcommand.isanonymous');
-        $mine      = $this->translator->trans('mautic.core.searchcommand.ismine');
+        $anonymous = $this->translator->trans('mailvotech.lead.lead.searchcommand.isanonymous');
+        $mine      = $this->translator->trans('mailvotech.core.searchcommand.ismine');
         $filter    = ['string' => $str, 'force' => ''];
 
         // only show results that are not anonymous so as to not clutter up things
@@ -90,8 +90,8 @@ final class SearchSubscriber implements EventSubscriberInterface
             $this->addGlobalSearchResults(
                 $event,
                 $results,
-                'mautic.lead.leads',
-                '@MauticLead/SubscribedEvents/Search/global.html.twig'
+                'mailvotech.lead.leads',
+                '@MailVotechLead/SubscribedEvents/Search/global.html.twig'
             );
         }
     }
@@ -101,11 +101,11 @@ final class SearchSubscriber implements EventSubscriberInterface
         $results = $this->globalSearch->performSearch(
             new GlobalSearchFilterDTO($event->getSearchString()),
             $this->listModel,
-            '@MauticLead/SubscribedEvents/Search/global_segment.html.twig'
+            '@MailVotechLead/SubscribedEvents/Search/global_segment.html.twig'
         );
 
         if ([] !== $results) {
-            $event->addResults('mautic.segment.segment', $results);
+            $event->addResults('mailvotech.segment.segment', $results);
         }
     }
 
@@ -134,8 +134,8 @@ final class SearchSubscriber implements EventSubscriberInterface
             $this->addGlobalSearchResults(
                 $event,
                 $results,
-                'mautic.company.company',
-                '@MauticLead/SubscribedEvents/Search/global_company.html.twig'
+                'mailvotech.company.company',
+                '@MailVotechLead/SubscribedEvents/Search/global_company.html.twig'
             );
         }
     }
@@ -144,7 +144,7 @@ final class SearchSubscriber implements EventSubscriberInterface
     {
         if ($this->security->isGranted(['lead:leads:viewown', 'lead:leads:viewother'], 'MATCH_ONE')) {
             $event->addCommands(
-                'mautic.lead.leads',
+                'mailvotech.lead.leads',
                 $this->leadModel->getCommandList()
             );
         }
@@ -156,58 +156,58 @@ final class SearchSubscriber implements EventSubscriberInterface
     public function onBuildSearchCommands(LeadBuildSearchEvent $event): void
     {
         switch ($event->getCommand()) {
-            case $this->translator->trans('mautic.lead.lead.searchcommand.email_read'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.email_read', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.email_read'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.email_read', [], null, 'en_US'):
                 $this->buildEmailReadQuery($event);
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.email_sent'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.email_sent', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.email_sent'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.email_sent', [], null, 'en_US'):
                 $this->buildEmailSentQuery($event);
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.email_queued'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.email_queued', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.email_queued'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.email_queued', [], null, 'en_US'):
                 $this->buildEmailQueuedQuery($event);
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.email_pending'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.email_pending', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.email_pending'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.email_pending', [], null, 'en_US'):
                 $this->buildEmailPendingQuery($event);
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.page_source'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.page_source', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.page_source'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.page_source', [], null, 'en_US'):
                 $this->buildPageHitSourceQuery($event);
                 break;
 
-            case $this->translator->trans('mautic.lead.lead.searchcommand.page_source_id'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.page_source_id', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.page_source_id'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.page_source_id', [], null, 'en_US'):
                 $this->buildPageHitSourceIdQuery($event);
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.import_id'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.import_id', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.import_id'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.import_id', [], null, 'en_US'):
                 $this->buildImportIdQuery($event);
                 break;
 
-            case $this->translator->trans('mautic.lead.lead.searchcommand.import_action'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.import_action', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.import_action'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.import_action', [], null, 'en_US'):
                 $this->buildImportActionQuery($event);
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.page_id'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.page_id', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.page_id'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.page_id', [], null, 'en_US'):
                 $this->buildPageHitIdQuery($event);
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.sms_sent'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.sms_sent', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.sms_sent'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.sms_sent', [], null, 'en_US'):
                 $this->buildSmsSentQuery($event);
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.web_sent'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.web_sent', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.web_sent'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.web_sent', [], null, 'en_US'):
                 $this->buildWebSentQuery($event);
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.mobile_sent'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.mobile_sent', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.mobile_sent'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.mobile_sent', [], null, 'en_US'):
                 $this->buildMobileSentQuery($event);
                 break;
-            case $this->translator->trans('mautic.lead.lead.searchcommand.campaign_membership'):
-            case $this->translator->trans('mautic.lead.lead.searchcommand.campaign_membership', [], null, 'en_US'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.campaign_membership'):
+            case $this->translator->trans('mailvotech.lead.lead.searchcommand.campaign_membership', [], null, 'en_US'):
                 $this->buildCampaignMembershipQuery($event);
                 break;
         }

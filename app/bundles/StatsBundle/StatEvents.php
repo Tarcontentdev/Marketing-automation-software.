@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StatsBundle;
+namespace MailVotech\StatsBundle;
 
 final class StatEvents
 {
     /**
-     * The mautic.aggregate_stat_request event is dispatched when an aggregate stat is requested.
+     * The mailvotech.aggregate_stat_request event is dispatched when an aggregate stat is requested.
      *
-     * The event listener receives a \Mautic\StatsBundle\Event\AggregateStatRequestEvent instance.
+     * The event listener receives a \MailVotech\StatsBundle\Event\AggregateStatRequestEvent instance.
      *
      * @var string
      */
-    public const AGGREGATE_STAT_REQUEST = 'mautic.aggregate_stat_request';
+    public const AGGREGATE_STAT_REQUEST = 'mailvotech.aggregate_stat_request';
 }

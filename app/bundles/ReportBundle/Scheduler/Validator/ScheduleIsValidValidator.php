@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\ReportBundle\Scheduler\Validator;
+namespace MailVotech\ReportBundle\Scheduler\Validator;
 
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Scheduler\Builder\SchedulerBuilder;
-use Mautic\ReportBundle\Scheduler\Exception\InvalidSchedulerException;
-use Mautic\ReportBundle\Scheduler\Exception\NotSupportedScheduleTypeException;
-use Mautic\ReportBundle\Scheduler\Exception\ScheduleNotValidException;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Scheduler\Builder\SchedulerBuilder;
+use MailVotech\ReportBundle\Scheduler\Exception\InvalidSchedulerException;
+use MailVotech\ReportBundle\Scheduler\Exception\NotSupportedScheduleTypeException;
+use MailVotech\ReportBundle\Scheduler\Exception\ScheduleNotValidException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -29,7 +29,7 @@ final class ScheduleIsValidValidator extends ConstraintValidator
         }
 
         if (null === $report->getToAddress()) {
-            $this->context->buildViolation('mautic.report.schedule.to_address_required')
+            $this->context->buildViolation('mailvotech.report.schedule.to_address_required')
                 ->atPath('toAddress')
                 ->addViolation();
         }
@@ -64,7 +64,7 @@ final class ScheduleIsValidValidator extends ConstraintValidator
 
     private function addReportScheduleNotValidViolation(): void
     {
-        $this->context->buildViolation('mautic.report.schedule.notValid')
+        $this->context->buildViolation('mailvotech.report.schedule.notValid')
             ->atPath('isScheduled')
             ->addViolation();
     }
@@ -76,9 +76,9 @@ final class ScheduleIsValidValidator extends ConstraintValidator
 
             return;
         } catch (InvalidSchedulerException) {
-            $message = 'mautic.report.schedule.notValid';
+            $message = 'mailvotech.report.schedule.notValid';
         } catch (NotSupportedScheduleTypeException) {
-            $message = 'mautic.report.schedule.notSupportedType';
+            $message = 'mailvotech.report.schedule.notSupportedType';
         }
 
         $this->context->buildViolation($message)

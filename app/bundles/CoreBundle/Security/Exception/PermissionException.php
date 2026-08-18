@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Security\Exception;
+namespace MailVotech\CoreBundle\Security\Exception;
 
 class PermissionException extends \InvalidArgumentException
 {

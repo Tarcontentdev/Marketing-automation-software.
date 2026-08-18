@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Controller\Api;
+namespace MailVotech\LeadBundle\Tests\Controller\Api;
 
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Command\UpdateLeadListsCommand;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\CompanyLead;
-use Mautic\LeadBundle\Entity\CompanyRepository;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Entity\LeadList;
-use Mautic\LeadBundle\Entity\ListLead;
-use Mautic\LeadBundle\Helper\SegmentCountCacheHelper;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\ListModel;
-use Mautic\LeadBundle\Segment\OperatorOptions;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Command\UpdateLeadListsCommand;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\CompanyLead;
+use MailVotech\LeadBundle\Entity\CompanyRepository;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadList;
+use MailVotech\LeadBundle\Entity\ListLead;
+use MailVotech\LeadBundle\Helper\SegmentCountCacheHelper;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\ListModel;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ListApiControllerFunctionalTest extends MauticMysqlTestCase
+final class ListApiControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     private ListModel $listModel;
 
@@ -38,7 +38,7 @@ final class ListApiControllerFunctionalTest extends MauticMysqlTestCase
         parent::setUp();
 
         $this->listModel  = self::getContainer()->get(ListModel::class);
-        $this->prefix     = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $this->prefix     = self::getContainer()->getParameter('mailvotech.db_table_prefix');
         $this->translator = self::getContainer()->get(TranslatorInterface::class);
     }
 
@@ -406,7 +406,7 @@ final class ListApiControllerFunctionalTest extends MauticMysqlTestCase
         self::assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
         $this->assertArrayHasKey('errors', $response);
         $errorMessage = $this->translator->trans(
-            'mautic.lead.lists.used_in_campaigns.unpublish',
+            'mailvotech.lead.lists.used_in_campaigns.unpublish',
             [
                 '%count%'         => 1,
                 '%campaignNames%' => '"'.$campaignName.'"',
@@ -709,7 +709,7 @@ final class ListApiControllerFunctionalTest extends MauticMysqlTestCase
         $this->assertArrayHasKey('errors', $response);
 
         $expectedErrorMessage = $this->translator->trans(
-            'mautic.api.dependent.entity.delete.error',
+            'mailvotech.api.dependent.entity.delete.error',
             [
                 '%id%' => $segment->getId(),
             ],
@@ -719,7 +719,7 @@ final class ListApiControllerFunctionalTest extends MauticMysqlTestCase
         $this->assertStringContainsString($expectedErrorMessage, (string) $response['errors'][0]['message']);
 
         $expectedErrorMessage = $this->translator->trans(
-            'mautic.lead.lists.used_in_campaigns.delete',
+            'mailvotech.lead.lists.used_in_campaigns.delete',
             [
                 '%campaignNames%' => '"'.$campaignName.'"',
                 '%segmentNames%'  => $segmentName,
@@ -762,7 +762,7 @@ final class ListApiControllerFunctionalTest extends MauticMysqlTestCase
         $this->assertArrayHasKey('errors', $response);
 
         $expectedErrorMessage1 = $this->translator->trans(
-            'mautic.api.dependent.entity.delete.error',
+            'mailvotech.api.dependent.entity.delete.error',
             [
                 '%id%' => $segment1->getId(),
             ],
@@ -770,7 +770,7 @@ final class ListApiControllerFunctionalTest extends MauticMysqlTestCase
         );
 
         $expectedErrorMessage2 = $this->translator->trans(
-            'mautic.api.dependent.entity.delete.error',
+            'mailvotech.api.dependent.entity.delete.error',
             [
                 '%id%' => $segment2->getId(),
             ],
@@ -778,7 +778,7 @@ final class ListApiControllerFunctionalTest extends MauticMysqlTestCase
         );
 
         $expectedDetailMessage1 = $this->translator->trans(
-            'mautic.lead.lists.used_in_campaigns.delete',
+            'mailvotech.lead.lists.used_in_campaigns.delete',
             [
                 '%campaignNames%' => '"'.$campaign->getName().'"',
                 '%segmentNames%'  => $segment1->getName(),
@@ -788,7 +788,7 @@ final class ListApiControllerFunctionalTest extends MauticMysqlTestCase
         );
 
         $expectedDetailMessage2 = $this->translator->trans(
-            'mautic.lead.lists.used_in_campaigns.delete',
+            'mailvotech.lead.lists.used_in_campaigns.delete',
             [
                 '%campaignNames%' => '"'.$campaign->getName().'"',
                 '%segmentNames%'  => $segment2->getName(),

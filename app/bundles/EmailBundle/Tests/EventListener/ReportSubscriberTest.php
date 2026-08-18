@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\EventListener;
+namespace MailVotech\EmailBundle\Tests\EventListener;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Result;
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Test\Doctrine\MockedConnectionTrait;
-use Mautic\CoreBundle\Translation\Translator;
-use Mautic\EmailBundle\Entity\EmailRepository;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\EventListener\ReportSubscriber;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\LeadBundle\Report\DncReportService;
-use Mautic\LeadBundle\Report\FieldsBuilder;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\Event\ReportGraphEvent;
-use Mautic\ReportBundle\Helper\ReportHelper;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\CoreBundle\Doctrine\Provider\GeneratedColumnsProviderInterface;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Test\Doctrine\MockedConnectionTrait;
+use MailVotech\CoreBundle\Translation\Translator;
+use MailVotech\EmailBundle\Entity\EmailRepository;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\EventListener\ReportSubscriber;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\LeadBundle\Report\DncReportService;
+use MailVotech\LeadBundle\Report\FieldsBuilder;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\Event\ReportGraphEvent;
+use MailVotech\ReportBundle\Helper\ReportHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -110,7 +110,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
         $this->subscriber->onReportGenerate($event);
 
         $this->assertSame(
-            'SELECT  FROM '.MAUTIC_TABLE_PREFIX.'email_stats es LEFT JOIN '.MAUTIC_TABLE_PREFIX."lead_donotcontact dnc ON es.email_id = dnc.channel_id AND dnc.channel='email' AND es.lead_id = dnc.lead_id WHERE es.date_sent IS NULL OR (es.date_sent BETWEEN :dateFrom AND :dateTo) GROUP BY es.id",
+            'SELECT  FROM '.MAILVOTECH_TABLE_PREFIX.'email_stats es LEFT JOIN '.MAILVOTECH_TABLE_PREFIX."lead_donotcontact dnc ON es.email_id = dnc.channel_id AND dnc.channel='email' AND es.lead_id = dnc.lead_id WHERE es.date_sent IS NULL OR (es.date_sent BETWEEN :dateFrom AND :dateTo) GROUP BY es.id",
             $this->queryBuilder->getSQL()
         );
     }
@@ -135,7 +135,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
         $this->subscriber->onReportGenerate($event);
 
         $this->assertSame(
-            'SELECT  FROM '.MAUTIC_TABLE_PREFIX.'email_stats es LEFT JOIN '.MAUTIC_TABLE_PREFIX.'emails e ON e.id = es.email_id LEFT JOIN '.MAUTIC_TABLE_PREFIX.'emails vp ON vp.id = e.variant_parent_id WHERE es.date_sent IS NULL OR (es.date_sent BETWEEN :dateFrom AND :dateTo) GROUP BY es.id',
+            'SELECT  FROM '.MAILVOTECH_TABLE_PREFIX.'email_stats es LEFT JOIN '.MAILVOTECH_TABLE_PREFIX.'emails e ON e.id = es.email_id LEFT JOIN '.MAILVOTECH_TABLE_PREFIX.'emails vp ON vp.id = e.variant_parent_id WHERE es.date_sent IS NULL OR (es.date_sent BETWEEN :dateFrom AND :dateTo) GROUP BY es.id',
             $this->queryBuilder->getSQL()
         );
     }
@@ -167,7 +167,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
         $this->subscriber->onReportGenerate($event);
 
         $this->assertSame(
-            'SELECT  FROM '.MAUTIC_TABLE_PREFIX.'email_stats es LEFT JOIN (SELECT COUNT(ph.id) AS hits, COUNT(DISTINCT(ph.redirect_id)) AS unique_hits, cut2.channel_id, ph.lead_id FROM '.MAUTIC_TABLE_PREFIX.'channel_url_trackables cut2 INNER JOIN '.MAUTIC_TABLE_PREFIX."page_hits ph ON cut2.redirect_id = ph.redirect_id AND cut2.channel_id = ph.source_id WHERE cut2.channel = 'email' AND ph.source = 'email' GROUP BY cut2.channel_id, ph.lead_id) cut ON es.email_id = cut.channel_id AND es.lead_id = cut.lead_id WHERE es.date_sent IS NULL OR (es.date_sent BETWEEN :dateFrom AND :dateTo) GROUP BY es.id",
+            'SELECT  FROM '.MAILVOTECH_TABLE_PREFIX.'email_stats es LEFT JOIN (SELECT COUNT(ph.id) AS hits, COUNT(DISTINCT(ph.redirect_id)) AS unique_hits, cut2.channel_id, ph.lead_id FROM '.MAILVOTECH_TABLE_PREFIX.'channel_url_trackables cut2 INNER JOIN '.MAILVOTECH_TABLE_PREFIX."page_hits ph ON cut2.redirect_id = ph.redirect_id AND cut2.channel_id = ph.source_id WHERE cut2.channel = 'email' AND ph.source = 'email' GROUP BY cut2.channel_id, ph.lead_id) cut ON es.email_id = cut.channel_id AND es.lead_id = cut.lead_id WHERE es.date_sent IS NULL OR (es.date_sent BETWEEN :dateFrom AND :dateTo) GROUP BY es.id",
             $this->queryBuilder->getSQL()
         );
     }
@@ -199,7 +199,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
         $this->subscriber->onReportGenerate($event);
 
         $this->assertSame(
-            'SELECT  FROM '.MAUTIC_TABLE_PREFIX.'email_stats es LEFT JOIN '.MAUTIC_TABLE_PREFIX.'leads l ON l.id = es.lead_id LEFT JOIN '.MAUTIC_TABLE_PREFIX."campaign_lead_event_log clel ON clel.channel='email' AND es.email_id = clel.channel_id AND clel.lead_id = l.id LEFT JOIN ".MAUTIC_TABLE_PREFIX.'campaigns cmp ON cmp.id = clel.campaign_id WHERE es.date_sent IS NULL OR (es.date_sent BETWEEN :dateFrom AND :dateTo) GROUP BY es.id',
+            'SELECT  FROM '.MAILVOTECH_TABLE_PREFIX.'email_stats es LEFT JOIN '.MAILVOTECH_TABLE_PREFIX.'leads l ON l.id = es.lead_id LEFT JOIN '.MAILVOTECH_TABLE_PREFIX."campaign_lead_event_log clel ON clel.channel='email' AND es.email_id = clel.channel_id AND clel.lead_id = l.id LEFT JOIN ".MAILVOTECH_TABLE_PREFIX.'campaigns cmp ON cmp.id = clel.campaign_id WHERE es.date_sent IS NULL OR (es.date_sent BETWEEN :dateFrom AND :dateTo) GROUP BY es.id',
             $this->queryBuilder->getSQL()
         );
     }
@@ -217,7 +217,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
 
         $eventMock->expects($this->once())
             ->method('getRequestedGraphs')
-            ->willReturn(['mautic.email.graph.pie.read.ingored.unsubscribed.bounced']);
+            ->willReturn(['mailvotech.email.graph.pie.read.ingored.unsubscribed.bounced']);
         $matcher = $this->any();
 
         $eventMock->expects($matcher)->method('checkContext')->willReturnCallback(function (...$parameters) use ($matcher): true {
@@ -256,7 +256,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
             ->method('leftJoin')
             ->with(
                 ReportSubscriber::EMAILS_PREFIX,
-                MAUTIC_TABLE_PREFIX.'lead_donotcontact',
+                MAILVOTECH_TABLE_PREFIX.'lead_donotcontact',
                 ReportSubscriber::DNC_PREFIX,
                 'e.id = dnc.channel_id AND dnc.channel=\'email\''
             );
@@ -286,7 +286,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
 
         $eventMock->expects($this->once())
             ->method('getRequestedGraphs')
-            ->willReturn(['mautic.email.graph.pie.sent.read.clicked.unsubscribed']);
+            ->willReturn(['mailvotech.email.graph.pie.sent.read.clicked.unsubscribed']);
 
         $eventMock->expects($this->once())
             ->method('getQueryBuilder')
@@ -328,7 +328,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
 
         $eventMock->expects($this->once())
             ->method('getRequestedGraphs')
-            ->willReturn(['mautic.email.table.most.emails.failed']);
+            ->willReturn(['mailvotech.email.table.most.emails.failed']);
         $matcher = $this->any();
 
         $eventMock->expects($matcher)->method('checkContext')->willReturnCallback(function (...$parameters) use ($matcher) {
@@ -393,14 +393,14 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
             ->method('getLeadFilter')
             ->willReturn([
                 'tag' => [
-                    'label'     => 'mautic.core.filter.tags',
+                    'label'     => 'mailvotech.core.filter.tags',
                     'type'      => 'multiselect',
                     'list'      => ['A', 'B', 'C'],
                     'operators' => [
-                        'in'       => 'mautic.core.operator.in',
-                        'notIn'    => 'mautic.core.operator.notin',
-                        'empty'    => 'mautic.core.operator.isempty',
-                        'notEmpty' => 'mautic.core.operator.isnotempty',
+                        'in'       => 'mailvotech.core.operator.in',
+                        'notIn'    => 'mailvotech.core.operator.notin',
+                        'empty'    => 'mailvotech.core.operator.isempty',
+                        'notEmpty' => 'mailvotech.core.operator.isnotempty',
                     ],
                 ],
             ]);
@@ -555,7 +555,7 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
             'l.id' => [
                 'label' => '',
                 'type'  => 'int',
-                'link'  => 'mautic_contact_action',
+                'link'  => 'mailvotech_contact_action',
                 'alias' => 'contactId',
             ],
             'i.ip_address' => [
@@ -633,26 +633,26 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
                 'alias'   => 'unsubscribed',
                 'label'   => '',
                 'type'    => 'string',
-                'formula' => 'IFNULL((SELECT SUM(IF(dnc.id IS NOT NULL AND dnc.channel_id=e.id AND dnc.reason=1 , 1, 0)) FROM '.MAUTIC_TABLE_PREFIX.'lead_donotcontact dnc), 0)',
+                'formula' => 'IFNULL((SELECT SUM(IF(dnc.id IS NOT NULL AND dnc.channel_id=e.id AND dnc.reason=1 , 1, 0)) FROM '.MAILVOTECH_TABLE_PREFIX.'lead_donotcontact dnc), 0)',
             ],
             'unsubscribed_ratio' => [
                 'alias'   => 'unsubscribed_ratio',
                 'label'   => '',
                 'type'    => 'string',
-                'formula' => 'IFNULL((SELECT ROUND((SUM(IF(dnc.id IS NOT NULL AND dnc.channel_id=e.id AND dnc.reason=1 , 1, 0))/e.sent_count)*100, 1) FROM '.MAUTIC_TABLE_PREFIX.'lead_donotcontact dnc), \'0.0\')',
+                'formula' => 'IFNULL((SELECT ROUND((SUM(IF(dnc.id IS NOT NULL AND dnc.channel_id=e.id AND dnc.reason=1 , 1, 0))/e.sent_count)*100, 1) FROM '.MAILVOTECH_TABLE_PREFIX.'lead_donotcontact dnc), \'0.0\')',
                 'suffix'  => '%',
             ],
             'bounced' => [
                 'alias'   => 'bounced',
                 'label'   => '',
                 'type'    => 'string',
-                'formula' => 'IFNULL((SELECT SUM(IF(dnc.id IS NOT NULL AND dnc.channel_id=e.id AND dnc.reason=2 , 1, 0)) FROM '.MAUTIC_TABLE_PREFIX.'lead_donotcontact dnc), 0)',
+                'formula' => 'IFNULL((SELECT SUM(IF(dnc.id IS NOT NULL AND dnc.channel_id=e.id AND dnc.reason=2 , 1, 0)) FROM '.MAILVOTECH_TABLE_PREFIX.'lead_donotcontact dnc), 0)',
             ],
             'bounced_ratio' => [
                 'alias'   => 'bounced_ratio',
                 'label'   => '',
                 'type'    => 'string',
-                'formula' => 'IFNULL((SELECT ROUND((SUM(IF(dnc.id IS NOT NULL AND dnc.channel_id=e.id AND dnc.reason=2 , 1, 0))/e.sent_count)*100, 1) FROM '.MAUTIC_TABLE_PREFIX.'lead_donotcontact dnc), \'0.0\')',
+                'formula' => 'IFNULL((SELECT ROUND((SUM(IF(dnc.id IS NOT NULL AND dnc.channel_id=e.id AND dnc.reason=2 , 1, 0))/e.sent_count)*100, 1) FROM '.MAILVOTECH_TABLE_PREFIX.'lead_donotcontact dnc), \'0.0\')',
                 'suffix'  => '%',
             ],
             'vp.id' => [
@@ -703,10 +703,10 @@ final class ReportSubscriberTest extends \PHPUnit\Framework\TestCase
             'type'      => 'multiselect',
             'list'      => ['A', 'B', 'C'],
             'operators' => [
-                'in'       => 'mautic.core.operator.in',
-                'notIn'    => 'mautic.core.operator.notin',
-                'empty'    => 'mautic.core.operator.isempty',
-                'notEmpty' => 'mautic.core.operator.isnotempty',
+                'in'       => 'mailvotech.core.operator.in',
+                'notIn'    => 'mailvotech.core.operator.notin',
+                'empty'    => 'mailvotech.core.operator.isempty',
+                'notEmpty' => 'mailvotech.core.operator.isnotempty',
             ],
             'alias' => 'tag',
         ], $tables['email.stats']['filters']['tag']);

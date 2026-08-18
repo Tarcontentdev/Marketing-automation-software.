@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\FormBundle\Tests\Form\Type;
+namespace MailVotech\FormBundle\Tests\Form\Type;
 
-use Mautic\FormBundle\Form\Type\FormFieldCheckboxGroupType;
+use MailVotech\FormBundle\Form\Type\FormFieldCheckboxGroupType;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormExtensionInterface;
@@ -26,9 +26,9 @@ final class FormFieldCheckboxGroupTypeTest extends TypeTestCase
 
         $this->translator->method('trans')
             ->willReturnCallback(fn (string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string => match ($id) {
-                'mautic.form.field.checkboxgrp.min_message.placeholder' => 'Enter minimum selection message',
-                'mautic.form.field.checkboxgrp.max_message.placeholder' => 'Enter maximum selection message',
-                'mautic.form.field.checkboxgrp.range.invalid'           => 'Maximum must be greater than or equal to minimum',
+                'mailvotech.form.field.checkboxgrp.min_message.placeholder' => 'Enter minimum selection message',
+                'mailvotech.form.field.checkboxgrp.max_message.placeholder' => 'Enter maximum selection message',
+                'mailvotech.form.field.checkboxgrp.range.invalid'           => 'Maximum must be greater than or equal to minimum',
                 default                                                 => $id,
             });
 
@@ -72,7 +72,7 @@ final class FormFieldCheckboxGroupTypeTest extends TypeTestCase
         $minimumField = $form->get('minimum');
 
         $this->assertFalse($minimumField->isRequired());
-        $this->assertEquals('mautic.form.field.checkboxgrp.minimum', $minimumField->getConfig()->getOption('label'));
+        $this->assertEquals('mailvotech.form.field.checkboxgrp.minimum', $minimumField->getConfig()->getOption('label'));
         $this->assertEquals(['class' => 'control-label'], $minimumField->getConfig()->getOption('label_attr'));
         $this->assertEquals(['class' => 'form-control', 'min' => 0], $minimumField->getConfig()->getOption('attr'));
     }
@@ -88,14 +88,14 @@ final class FormFieldCheckboxGroupTypeTest extends TypeTestCase
         $minMessageField = $form->get('min_message');
 
         $this->assertFalse($minMessageField->isRequired());
-        $this->assertEquals('mautic.form.field.checkboxgrp.min_message', $minMessageField->getConfig()->getOption('label'));
+        $this->assertEquals('mailvotech.form.field.checkboxgrp.min_message', $minMessageField->getConfig()->getOption('label'));
         $this->assertEquals(['class' => 'control-label'], $minMessageField->getConfig()->getOption('label_attr'));
         $this->assertEquals('Custom min message', $minMessageField->getData());
 
         $attr = $minMessageField->getConfig()->getOption('attr');
         $this->assertEquals('form-control', $attr['class']);
         $this->assertEquals('Enter minimum selection message', $attr['placeholder']);
-        $this->assertEquals('mautic.form.field.checkboxgrp.min_message.tooltip', $attr['tooltip']);
+        $this->assertEquals('mailvotech.form.field.checkboxgrp.min_message.tooltip', $attr['tooltip']);
     }
 
     public function testMaximumFieldConfiguration(): void
@@ -107,7 +107,7 @@ final class FormFieldCheckboxGroupTypeTest extends TypeTestCase
         $maximumField = $form->get('maximum');
 
         $this->assertFalse($maximumField->isRequired());
-        $this->assertEquals('mautic.form.field.checkboxgrp.maximum', $maximumField->getConfig()->getOption('label'));
+        $this->assertEquals('mailvotech.form.field.checkboxgrp.maximum', $maximumField->getConfig()->getOption('label'));
         $this->assertEquals(['class' => 'control-label'], $maximumField->getConfig()->getOption('label_attr'));
         $this->assertEquals(['class' => 'form-control', 'min' => 0], $maximumField->getConfig()->getOption('attr'));
     }
@@ -123,14 +123,14 @@ final class FormFieldCheckboxGroupTypeTest extends TypeTestCase
         $maxMessageField = $form->get('max_message');
 
         $this->assertFalse($maxMessageField->isRequired());
-        $this->assertEquals('mautic.form.field.checkboxgrp.max_message', $maxMessageField->getConfig()->getOption('label'));
+        $this->assertEquals('mailvotech.form.field.checkboxgrp.max_message', $maxMessageField->getConfig()->getOption('label'));
         $this->assertEquals(['class' => 'control-label'], $maxMessageField->getConfig()->getOption('label_attr'));
         $this->assertEquals('Custom max message', $maxMessageField->getData());
 
         $attr = $maxMessageField->getConfig()->getOption('attr');
         $this->assertEquals('form-control', $attr['class']);
         $this->assertEquals('Enter maximum selection message', $attr['placeholder']);
-        $this->assertEquals('mautic.form.field.checkboxgrp.max_message.tooltip', $attr['tooltip']);
+        $this->assertEquals('mailvotech.form.field.checkboxgrp.max_message.tooltip', $attr['tooltip']);
     }
 
     public function testValidRangeSubmission(): void

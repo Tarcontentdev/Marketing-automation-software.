@@ -1,8 +1,8 @@
 <?php
 
-namespace Mautic\DashboardBundle\Entity;
+namespace MailVotech\DashboardBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<Widget>

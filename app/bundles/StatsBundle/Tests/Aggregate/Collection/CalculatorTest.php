@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StatsBundle\Tests\Aggregate\Collection;
+namespace MailVotech\StatsBundle\Tests\Aggregate\Collection;
 
-use Mautic\StatsBundle\Aggregate\Calculator;
-use Mautic\StatsBundle\Aggregate\Collection\DAO\StatsDAO;
+use MailVotech\StatsBundle\Aggregate\Calculator;
+use MailVotech\StatsBundle\Aggregate\Collection\DAO\StatsDAO;
 use PHPUnit\Framework\TestCase;
 
 final class CalculatorTest extends TestCase

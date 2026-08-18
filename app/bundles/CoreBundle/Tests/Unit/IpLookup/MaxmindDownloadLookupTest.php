@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\IpLookup;
+namespace MailVotech\CoreBundle\Tests\Unit\IpLookup;
 
-use Mautic\CoreBundle\IpLookup\MaxmindDownloadLookup;
+use MailVotech\CoreBundle\IpLookup\MaxmindDownloadLookup;
 
 final class MaxmindDownloadLookupTest extends \PHPUnit\Framework\TestCase
 {

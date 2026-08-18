@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\Tests\EventListener;
+namespace MailVotech\AssetBundle\Tests\EventListener;
 
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Entity\Download;
-use Mautic\LeadBundle\Entity\DoNotContact;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\ReportBundle\Tests\Functional\AbstractReportSubscriberTestCase;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Entity\Download;
+use MailVotech\LeadBundle\Entity\DoNotContact;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\ReportBundle\Tests\Functional\AbstractReportSubscriberTestCase;
 
 final class ReportSubscriberFunctionalTest extends AbstractReportSubscriberTestCase
 {

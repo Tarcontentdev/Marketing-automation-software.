@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\Query;
+namespace MailVotech\LeadBundle\Tests\Segment\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
-use Mautic\CoreBundle\Test\Doctrine\MockedConnectionTrait;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Segment\Query\ContactSegmentQueryBuilder;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
-use Mautic\LeadBundle\Segment\RandomParameterName;
+use MailVotech\CoreBundle\Test\Doctrine\MockedConnectionTrait;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Segment\Query\ContactSegmentQueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\RandomParameterName;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -23,13 +23,13 @@ final class ContactSegmentQueryBuilderTest extends TestCase
     {
         $queryBuilder = new QueryBuilder($this->createConnection());
         $queryBuilder->select('1');
-        $queryBuilder->from(MAUTIC_TABLE_PREFIX.'leads', 'l');
+        $queryBuilder->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l');
         $queryBuilder->where('NULL');
 
         $filterQueryBuilder = new ContactSegmentQueryBuilder($this->createStub(EntityManager::class), new RandomParameterName(), new EventDispatcher(), $this->createStub(LeadListRepository::class));
 
         $this->assertSame($queryBuilder, $filterQueryBuilder->addNewContactsRestrictions($queryBuilder, 8));
-        $this->assertSame('SELECT 1 FROM '.MAUTIC_TABLE_PREFIX.'leads l WHERE (NULL) AND (l.id NOT IN (SELECT par0.lead_id FROM '.MAUTIC_TABLE_PREFIX.'lead_lists_leads par0 WHERE par0.leadlist_id = 8))', $queryBuilder->getDebugOutput());
+        $this->assertSame('SELECT 1 FROM '.MAILVOTECH_TABLE_PREFIX.'leads l WHERE (NULL) AND (l.id NOT IN (SELECT par0.lead_id FROM '.MAILVOTECH_TABLE_PREFIX.'lead_lists_leads par0 WHERE par0.leadlist_id = 8))', $queryBuilder->getDebugOutput());
     }
 
     /**
@@ -51,13 +51,13 @@ final class ContactSegmentQueryBuilderTest extends TestCase
     {
         $queryBuilder = new QueryBuilder($this->createConnection());
         $queryBuilder->select('1');
-        $queryBuilder->from(MAUTIC_TABLE_PREFIX.'leads', 'l');
+        $queryBuilder->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l');
         $queryBuilder->where('NULL');
 
         $filterQueryBuilder = new ContactSegmentQueryBuilder($this->createStub(EntityManager::class), new RandomParameterName(), new EventDispatcher(), $this->createStub(LeadListRepository::class));
 
         $this->assertSame($queryBuilder, $filterQueryBuilder->addNewContactsRestrictions($queryBuilder, 8, $batchLimiters));
-        $this->assertSame('SELECT 1 FROM '.MAUTIC_TABLE_PREFIX.'leads l WHERE (NULL) AND (l.id NOT IN (SELECT par0.lead_id FROM '.MAUTIC_TABLE_PREFIX.'lead_lists_leads par0 WHERE (par0.leadlist_id = 8) AND ('.$expectedWhereClause.')))', $queryBuilder->getDebugOutput());
+        $this->assertSame('SELECT 1 FROM '.MAILVOTECH_TABLE_PREFIX.'leads l WHERE (NULL) AND (l.id NOT IN (SELECT par0.lead_id FROM '.MAILVOTECH_TABLE_PREFIX.'lead_lists_leads par0 WHERE (par0.leadlist_id = 8) AND ('.$expectedWhereClause.')))', $queryBuilder->getDebugOutput());
     }
 
     private function createConnection(): Connection

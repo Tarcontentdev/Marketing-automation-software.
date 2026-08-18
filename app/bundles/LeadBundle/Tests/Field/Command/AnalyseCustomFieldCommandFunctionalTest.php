@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Field\Command;
+namespace MailVotech\LeadBundle\Tests\Field\Command;
 
-use Mautic\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\CoreBundle\Doctrine\Helper\ColumnSchemaHelper;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
 
-final class AnalyseCustomFieldCommandFunctionalTest extends MauticMysqlTestCase
+final class AnalyseCustomFieldCommandFunctionalTest extends MailVotechMysqlTestCase
 {
     protected $useCleanupRollback = false;
 
     public function testAnalyseWhenNoCustomFieldPresent(): void
     {
-        $commandTester = $this->testSymfonyCommand('mautic:fields:analyse');
+        $commandTester = $this->testSymfonyCommand('mailvotech:fields:analyse');
         $this->assertStringContainsString('No custom field(s) to analyse!!!', $commandTester->getDisplay());
     }
 
@@ -80,7 +80,7 @@ final class AnalyseCustomFieldCommandFunctionalTest extends MauticMysqlTestCase
         ];
         $this->createCustomField($extraField);
 
-        $output = $this->testSymfonyCommand('mautic:fields:analyse');
+        $output = $this->testSymfonyCommand('mailvotech:fields:analyse');
 
         foreach ($fields as $alias => $field) {
             $this->assertStringContainsString($alias, $output->getDisplay());
@@ -91,7 +91,7 @@ final class AnalyseCustomFieldCommandFunctionalTest extends MauticMysqlTestCase
 
         $this->assertStringNotContainsString($extraField['label'], $output->getDisplay());
 
-        $output = $this->testSymfonyCommand('mautic:fields:analyse', ['--display-table' => true]);
+        $output = $this->testSymfonyCommand('mailvotech:fields:analyse', ['--display-table' => true]);
 
         foreach ($fields as $alias => $field) {
             $this->assertStringContainsString($alias, $output->getDisplay());
@@ -116,7 +116,7 @@ final class AnalyseCustomFieldCommandFunctionalTest extends MauticMysqlTestCase
         $columnSchemaHelper = $this->getContainer()->get(ColumnSchemaHelper::class);
         $columnSchemaHelper->setName('leads')->dropColumn($field->getAlias())->executeChanges();
 
-        $output = $this->testSymfonyCommand('mautic:fields:analyse');
+        $output = $this->testSymfonyCommand('mailvotech:fields:analyse');
         $this->assertStringContainsString('No custom field(s) to analyse!!!', $output->getDisplay());
 
         $fieldModel->deleteEntity($field);

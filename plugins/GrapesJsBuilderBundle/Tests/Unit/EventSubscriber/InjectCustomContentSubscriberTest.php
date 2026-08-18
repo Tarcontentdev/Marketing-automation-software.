@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle\Tests\Unit\EventSubscriber;
+namespace MailVotechPlugin\GrapesJsBuilderBundle\Tests\Unit\EventSubscriber;
 
-use Mautic\CoreBundle\Event\CustomContentEvent;
-use Mautic\EmailBundle\Entity\Email;
-use MauticPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilder;
-use MauticPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilderRepository;
-use MauticPlugin\GrapesJsBuilderBundle\EventSubscriber\InjectCustomContentSubscriber;
-use MauticPlugin\GrapesJsBuilderBundle\Integration\Config;
-use MauticPlugin\GrapesJsBuilderBundle\Model\GrapesJsBuilderModel;
+use MailVotech\CoreBundle\Event\CustomContentEvent;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotechPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilder;
+use MailVotechPlugin\GrapesJsBuilderBundle\Entity\GrapesJsBuilderRepository;
+use MailVotechPlugin\GrapesJsBuilderBundle\EventSubscriber\InjectCustomContentSubscriber;
+use MailVotechPlugin\GrapesJsBuilderBundle\Integration\Config;
+use MailVotechPlugin\GrapesJsBuilderBundle\Model\GrapesJsBuilderModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;

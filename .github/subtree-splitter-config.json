@@ -3,272 +3,272 @@
         {
             "name": "core-lib",
             "directory": "app",
-            "target": "git@github.com:mautic/core-lib.git"
+            "target": "git@github.com:mailvotech/core-lib.git"
         },
         {
             "name": "GrapesJsBuilderBundle",
             "directory": "plugins/GrapesJsBuilderBundle",
-            "target": "git@github.com:mautic/plugin-grapesjs-builder.git"
+            "target": "git@github.com:mailvotech/plugin-grapesjs-builder.git"
         },
         {
-            "name": "MauticClearbitBundle",
-            "directory": "plugins/MauticClearbitBundle",
-            "target": "git@github.com:mautic/plugin-clearbit.git"
+            "name": "MailVotechClearbitBundle",
+            "directory": "plugins/MailVotechClearbitBundle",
+            "target": "git@github.com:mailvotech/plugin-clearbit.git"
         },
         {
-            "name": "MauticCloudStorageBundle",
-            "directory": "plugins/MauticCloudStorageBundle",
-            "target": "git@github.com:mautic/plugin-cloudstorage.git"
+            "name": "MailVotechCloudStorageBundle",
+            "directory": "plugins/MailVotechCloudStorageBundle",
+            "target": "git@github.com:mailvotech/plugin-cloudstorage.git"
         },
         {
-            "name": "MauticCrmBundle",
-            "directory": "plugins/MauticCrmBundle",
-            "target": "git@github.com:mautic/plugin-crm.git"
+            "name": "MailVotechCrmBundle",
+            "directory": "plugins/MailVotechCrmBundle",
+            "target": "git@github.com:mailvotech/plugin-crm.git"
         },
         {
-            "name": "MauticEmailMarketingBundle",
-            "directory": "plugins/MauticEmailMarketingBundle",
-            "target": "git@github.com:mautic/plugin-emailmarketing.git"
+            "name": "MailVotechEmailMarketingBundle",
+            "directory": "plugins/MailVotechEmailMarketingBundle",
+            "target": "git@github.com:mailvotech/plugin-emailmarketing.git"
         },
         {
-            "name": "MauticFocusBundle",
-            "directory": "plugins/MauticFocusBundle",
-            "target": "git@github.com:mautic/plugin-focus.git"
+            "name": "MailVotechFocusBundle",
+            "directory": "plugins/MailVotechFocusBundle",
+            "target": "git@github.com:mailvotech/plugin-focus.git"
         },
         {
-            "name": "MauticFullContactBundle",
-            "directory": "plugins/MauticFullContactBundle",
-            "target": "git@github.com:mautic/plugin-fullcontact.git"
+            "name": "MailVotechFullContactBundle",
+            "directory": "plugins/MailVotechFullContactBundle",
+            "target": "git@github.com:mailvotech/plugin-fullcontact.git"
         },
         {
-            "name": "MauticGmailBundle",
-            "directory": "plugins/MauticGmailBundle",
-            "target": "git@github.com:mautic/plugin-gmail.git"
+            "name": "MailVotechGmailBundle",
+            "directory": "plugins/MailVotechGmailBundle",
+            "target": "git@github.com:mailvotech/plugin-gmail.git"
         },
         {
-            "name": "MauticOutlookBundle",
-            "directory": "plugins/MauticOutlookBundle",
-            "target": "git@github.com:mautic/plugin-outlook.git"
+            "name": "MailVotechOutlookBundle",
+            "directory": "plugins/MailVotechOutlookBundle",
+            "target": "git@github.com:mailvotech/plugin-outlook.git"
         },
         {
-            "name": "MauticSocialBundle",
-            "directory": "plugins/MauticSocialBundle",
-            "target": "git@github.com:mautic/plugin-social.git"
+            "name": "MailVotechSocialBundle",
+            "directory": "plugins/MailVotechSocialBundle",
+            "target": "git@github.com:mailvotech/plugin-social.git"
         },
         {
-            "name": "MauticTagManagerBundle",
-            "directory": "plugins/MauticTagManagerBundle",
-            "target": "git@github.com:mautic/plugin-tagmanager.git"
+            "name": "MailVotechTagManagerBundle",
+            "directory": "plugins/MailVotechTagManagerBundle",
+            "target": "git@github.com:mailvotech/plugin-tagmanager.git"
         },
         {
-            "name": "MauticZapierBundle",
-            "directory": "plugins/MauticZapierBundle",
-            "target": "git@github.com:mautic/plugin-zapier.git"
+            "name": "MailVotechZapierBundle",
+            "directory": "plugins/MailVotechZapierBundle",
+            "target": "git@github.com:mailvotech/plugin-zapier.git"
         },
         {
             "name": "theme-aurora",
             "directory": "themes/aurora",
-            "target": "git@github.com:mautic/theme-aurora.git"
+            "target": "git@github.com:mailvotech/theme-aurora.git"
         },
         {
             "name": "theme-blank",
             "directory": "themes/blank",
-            "target": "git@github.com:mautic/theme-blank.git"
+            "target": "git@github.com:mailvotech/theme-blank.git"
         },
         {
             "name": "theme-brienz",
             "directory": "themes/brienz",
-            "target": "git@github.com:mautic/theme-brienz.git"
+            "target": "git@github.com:mailvotech/theme-brienz.git"
         },
         {
             "name": "theme-cards",
             "directory": "themes/cards",
-            "target": "git@github.com:mautic/theme-cards.git"
+            "target": "git@github.com:mailvotech/theme-cards.git"
         },
         {
             "name": "theme-confirmme",
             "directory": "themes/confirmme",
-            "target": "git@github.com:mautic/theme-confirmme.git"
+            "target": "git@github.com:mailvotech/theme-confirmme.git"
         },
         {
             "name": "theme-fresh-center",
             "directory": "themes/fresh-center",
-            "target": "git@github.com:mautic/theme-fresh-center.git"
+            "target": "git@github.com:mailvotech/theme-fresh-center.git"
         },
         {
             "name": "theme-fresh-fixed",
             "directory": "themes/fresh-fixed",
-            "target": "git@github.com:mautic/theme-fresh-fixed.git"
+            "target": "git@github.com:mailvotech/theme-fresh-fixed.git"
         },
         {
             "name": "theme-fresh-left",
             "directory": "themes/fresh-left",
-            "target": "git@github.com:mautic/theme-fresh-left.git"
+            "target": "git@github.com:mailvotech/theme-fresh-left.git"
         },
         {
             "name": "theme-fresh-wide",
             "directory": "themes/fresh-wide",
-            "target": "git@github.com:mautic/theme-fresh-wide.git"
+            "target": "git@github.com:mailvotech/theme-fresh-wide.git"
         },
         {
             "name": "theme-goldstar",
             "directory": "themes/goldstar",
-            "target": "git@github.com:mautic/theme-goldstar.git"
+            "target": "git@github.com:mailvotech/theme-goldstar.git"
         },
         {
             "name": "theme-neopolitan",
             "directory": "themes/neopolitan",
-            "target": "git@github.com:mautic/theme-neopolitan.git"
+            "target": "git@github.com:mailvotech/theme-neopolitan.git"
         },
         {
             "name": "theme-oxygen",
             "directory": "themes/oxygen",
-            "target": "git@github.com:mautic/theme-oxygen.git"
+            "target": "git@github.com:mailvotech/theme-oxygen.git"
         },
         {
             "name": "theme-paprika",
             "directory": "themes/paprika",
-            "target": "git@github.com:mautic/theme-paprika.git"
+            "target": "git@github.com:mailvotech/theme-paprika.git"
         },
         {
             "name": "theme-skyline",
             "directory": "themes/skyline",
-            "target": "git@github.com:mautic/theme-skyline.git"
+            "target": "git@github.com:mailvotech/theme-skyline.git"
         },
         {
             "name": "theme-sparse",
             "directory": "themes/sparse",
-            "target": "git@github.com:mautic/theme-sparse.git"
+            "target": "git@github.com:mailvotech/theme-sparse.git"
         },
         {
             "name": "theme-sunday",
             "directory": "themes/sunday",
-            "target": "git@github.com:mautic/theme-sunday.git"
+            "target": "git@github.com:mailvotech/theme-sunday.git"
         },
         {
             "name": "theme-trulypersonal",
             "directory": "themes/trulypersonal",
-            "target": "git@github.com:mautic/theme-trulypersonal.git"
+            "target": "git@github.com:mailvotech/theme-trulypersonal.git"
         },
         {
             "name": "theme-vibrant",
             "directory": "themes/vibrant",
-            "target": "git@github.com:mautic/theme-vibrant.git"
+            "target": "git@github.com:mailvotech/theme-vibrant.git"
         },
         {
             "name": "theme-1-2-1-2-column",
             "directory": "themes/_1-2-1-2-column",
-            "target": "git@github.com:mautic/theme-1-2-1-2-column.git"
+            "target": "git@github.com:mailvotech/theme-1-2-1-2-column.git"
         },
         {
             "name": "theme-1-2-1-column",
             "directory": "themes/_1-2-1-column",
-            "target": "git@github.com:mautic/theme-1-2-1-column.git"
+            "target": "git@github.com:mailvotech/theme-1-2-1-column.git"
         },
         {
             "name": "theme-1-2-column",
             "directory": "themes/_1-2-column",
-            "target": "git@github.com:mautic/theme-1-2-column.git"
+            "target": "git@github.com:mailvotech/theme-1-2-column.git"
         },
         {
             "name": "theme-1-3-1-3-column",
             "directory": "themes/_1-3-1-3-column",
-            "target": "git@github.com:mautic/theme-1-3-1-3-column.git"
+            "target": "git@github.com:mailvotech/theme-1-3-1-3-column.git"
         },
         {
             "name": "theme-1-3-column",
             "directory": "themes/_1-3-column",
-            "target": "git@github.com:mautic/theme-1-3-column.git"
+            "target": "git@github.com:mailvotech/theme-1-3-column.git"
         },
         {
             "name": "theme-connect-through-content",
             "directory": "themes/_connect-through-content",
-            "target": "git@github.com:mautic/theme-connect-through-content.git"
+            "target": "git@github.com:mailvotech/theme-connect-through-content.git"
         },
         {
             "name": "theme-educate",
             "directory": "themes/_educate",
-            "target": "git@github.com:mautic/theme-educate.git"
+            "target": "git@github.com:mailvotech/theme-educate.git"
         },
         {
             "name": "theme-gallery",
             "directory": "themes/_gallery",
-            "target": "git@github.com:mautic/theme-gallery.git"
+            "target": "git@github.com:mailvotech/theme-gallery.git"
         },
         {
             "name": "theme-make-announcement",
             "directory": "themes/_make-announcement",
-            "target": "git@github.com:mautic/theme-make-announcement.git"
+            "target": "git@github.com:mailvotech/theme-make-announcement.git"
         },
         {
             "name": "theme-showcase",
             "directory": "themes/_showcase",
-            "target": "git@github.com:mautic/theme-showcase.git"
+            "target": "git@github.com:mailvotech/theme-showcase.git"
         },
         {
             "name": "theme-simple-text",
             "directory": "themes/_simple-text",
-            "target": "git@github.com:mautic/theme-simple-text.git"
+            "target": "git@github.com:mailvotech/theme-simple-text.git"
         },
         {
             "name": "theme-survey",
             "directory": "themes/_survey",
-            "target": "git@github.com:mautic/theme-survey.git"
+            "target": "git@github.com:mailvotech/theme-survey.git"
         },
         {
             "name": "theme-welcome",
             "directory": "themes/_welcome",
-            "target": "git@github.com:mautic/theme-welcome.git"
+            "target": "git@github.com:mailvotech/theme-welcome.git"
         },
         {
             "name": "theme-attract",
             "directory": "themes/attract",
-            "target": "git@github.com:mautic/theme-attract.git"
+            "target": "git@github.com:mailvotech/theme-attract.git"
         },
         {
             "name": "theme-creative",
             "directory": "themes/creative",
-            "target": "git@github.com:mautic/theme-creative.git"
+            "target": "git@github.com:mailvotech/theme-creative.git"
         },
         {
             "name": "theme-eclipse",
             "directory": "themes/eclipse",
-            "target": "git@github.com:mautic/theme-eclipse.git"
+            "target": "git@github.com:mailvotech/theme-eclipse.git"
         },
         {
             "name": "theme-chord",
             "directory": "themes/chord",
-            "target": "git@github.com:mautic/theme-chord.git"
+            "target": "git@github.com:mailvotech/theme-chord.git"
         },
         {
             "name": "theme-formscape",
             "directory": "themes/formscape",
-            "target": "git@github.com:mautic/theme-formscape.git"
+            "target": "git@github.com:mailvotech/theme-formscape.git"
         },
         {
             "name": "theme-reachout",
             "directory": "themes/reachout",
-            "target": "git@github.com:mautic/theme-reachout.git"
+            "target": "git@github.com:mailvotech/theme-reachout.git"
         },
         {
             "name": "theme-blend",
             "directory": "themes/blend",
-            "target": "git@github.com:mautic/theme-blend.git"
+            "target": "git@github.com:mailvotech/theme-blend.git"
         },
         {
             "name": "theme-mono",
             "directory": "themes/mono",
-            "target": "git@github.com:mautic/theme-mono.git"
+            "target": "git@github.com:mailvotech/theme-mono.git"
         },
         {
             "name": "theme-capture",
             "directory": "themes/capture",
-            "target": "git@github.com:mautic/theme-capture.git"
+            "target": "git@github.com:mailvotech/theme-capture.git"
         },
         {
             "name": "theme-multi-step",
             "directory": "themes/multi-step",
-            "target": "git@github.com:mautic/theme-multi-step.git"
+            "target": "git@github.com:mailvotech/theme-multi-step.git"
         }
     ]
 }

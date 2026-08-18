@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\GrapesJsBuilderBundle;
+namespace MailVotechPlugin\GrapesJsBuilderBundle;
 
-use Mautic\IntegrationsBundle\Bundle\AbstractPluginBundle;
+use MailVotech\IntegrationsBundle\Bundle\AbstractPluginBundle;
 
 final class GrapesJsBuilderBundle extends AbstractPluginBundle
 {

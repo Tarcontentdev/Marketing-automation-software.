@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Event;
+namespace MailVotech\UserBundle\Tests\Event;
 
-use Mautic\UserBundle\Entity\User;
-use Mautic\UserBundle\Event\LoginEvent;
+use MailVotech\UserBundle\Entity\User;
+use MailVotech\UserBundle\Event\LoginEvent;
 
 final class LoginEventTest extends \PHPUnit\Framework\TestCase
 {

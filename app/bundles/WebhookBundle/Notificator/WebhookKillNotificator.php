@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\WebhookBundle\Notificator;
+namespace MailVotech\WebhookBundle\Notificator;
 
-use Mautic\CoreBundle\Helper\DateTimeHelper;
-use Mautic\WebhookBundle\Entity\Webhook;
+use MailVotech\CoreBundle\Helper\DateTimeHelper;
+use MailVotech\WebhookBundle\Entity\Webhook;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class WebhookKillNotificator
@@ -21,7 +21,7 @@ class WebhookKillNotificator
      */
     public function send(Webhook $webhook, string $reason): void
     {
-        $subject = $this->translator->trans('mautic.webhook.stopped');
+        $subject = $this->translator->trans('mailvotech.webhook.stopped');
         $reason  = $this->translator->trans($reason);
         $details = [
             'reason'              => $reason,
@@ -30,6 +30,6 @@ class WebhookKillNotificator
             'signature_from_name' => $this->sender->getFromNameForSignature(),
         ];
 
-        $this->sender->send($webhook, $subject, '@MauticWebhook/Notifications/webhook-killed.html.twig', $details);
+        $this->sender->send($webhook, $subject, '@MailVotechWebhook/Notifications/webhook-killed.html.twig', $details);
     }
 }

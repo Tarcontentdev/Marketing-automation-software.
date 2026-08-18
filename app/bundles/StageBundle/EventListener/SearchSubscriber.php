@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\StageBundle\EventListener;
+namespace MailVotech\StageBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\DTO\GlobalSearchFilterDTO;
-use Mautic\CoreBundle\Event as MauticEvents;
-use Mautic\CoreBundle\Security\Permissions\CorePermissions;
-use Mautic\CoreBundle\Service\GlobalSearch;
-use Mautic\StageBundle\Model\StageModel;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\DTO\GlobalSearchFilterDTO;
+use MailVotech\CoreBundle\Event as MailVotechEvents;
+use MailVotech\CoreBundle\Security\Permissions\CorePermissions;
+use MailVotech\CoreBundle\Service\GlobalSearch;
+use MailVotech\StageBundle\Model\StageModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class SearchSubscriber implements EventSubscriberInterface
@@ -29,25 +29,25 @@ final readonly class SearchSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onGlobalSearch(MauticEvents\GlobalSearchEvent $event): void
+    public function onGlobalSearch(MailVotechEvents\GlobalSearchEvent $event): void
     {
         $filterDTO = new GlobalSearchFilterDTO($event->getSearchString());
         $results   = $this->globalSearch->performSearch(
             $filterDTO,
             $this->stageModel,
-            '@MauticStage/SubscribedEvents/Search/global.html.twig'
+            '@MailVotechStage/SubscribedEvents/Search/global.html.twig'
         );
 
         if ([] !== $results) {
-            $event->addResults('mautic.stage.actions.header.index', $results);
+            $event->addResults('mailvotech.stage.actions.header.index', $results);
         }
     }
 
-    public function onBuildCommandList(MauticEvents\CommandListEvent $event): void
+    public function onBuildCommandList(MailVotechEvents\CommandListEvent $event): void
     {
         if ($this->security->isGranted('stage:stages:view')) {
             $event->addCommands(
-                'mautic.stage.actions.header.index',
+                'mailvotech.stage.actions.header.index',
                 $this->stageModel->getCommandList()
             );
         }

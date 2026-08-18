@@ -1,55 +1,55 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\LeadEventLog;
-use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
-use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
-use Mautic\CampaignBundle\Event\PendingEvent;
-use Mautic\CampaignBundle\Model\CampaignModel;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\IpLookupHelper;
-use Mautic\EmailBundle\Helper\UrlMatcher;
-use Mautic\LeadBundle\DataObject\LeadManipulator;
-use Mautic\LeadBundle\Entity\Company;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\LeadBundle\Entity\LeadDeviceRepository;
-use Mautic\LeadBundle\Entity\LeadFieldRepository;
-use Mautic\LeadBundle\Entity\LeadListRepository;
-use Mautic\LeadBundle\Entity\LeadRepository;
-use Mautic\LeadBundle\Entity\PointsChangeLog;
-use Mautic\LeadBundle\Exception\ImportFailedException;
-use Mautic\LeadBundle\Form\Type\AddToCompanyActionType;
-use Mautic\LeadBundle\Form\Type\CampaignConditionLeadPageHitType;
-use Mautic\LeadBundle\Form\Type\CampaignEventLeadAttachedType;
-use Mautic\LeadBundle\Form\Type\CampaignEventLeadCampaignsType;
-use Mautic\LeadBundle\Form\Type\CampaignEventLeadDeviceType;
-use Mautic\LeadBundle\Form\Type\CampaignEventLeadDNCType;
-use Mautic\LeadBundle\Form\Type\CampaignEventLeadFieldValueType;
-use Mautic\LeadBundle\Form\Type\CampaignEventLeadOwnerType;
-use Mautic\LeadBundle\Form\Type\CampaignEventLeadSegmentsType;
-use Mautic\LeadBundle\Form\Type\CampaignEventLeadStagesType;
-use Mautic\LeadBundle\Form\Type\CampaignEventLeadTagsType;
-use Mautic\LeadBundle\Form\Type\CampaignEventPointType;
-use Mautic\LeadBundle\Form\Type\ChangeOwnerType;
-use Mautic\LeadBundle\Form\Type\CompanyChangeScoreActionType;
-use Mautic\LeadBundle\Form\Type\ListActionType;
-use Mautic\LeadBundle\Form\Type\ModifyLeadTagsType;
-use Mautic\LeadBundle\Form\Type\PointActionType;
-use Mautic\LeadBundle\Form\Type\UpdateCompanyActionType;
-use Mautic\LeadBundle\Form\Type\UpdateLeadActionType;
-use Mautic\LeadBundle\Helper\CustomFieldHelper;
-use Mautic\LeadBundle\Helper\IdentifyCompanyHelper;
-use Mautic\LeadBundle\Helper\TokenHelper;
-use Mautic\LeadBundle\LeadEvents;
-use Mautic\LeadBundle\Model\CompanyModel;
-use Mautic\LeadBundle\Model\DoNotContact;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
-use Mautic\LeadBundle\Provider\FilterOperatorProvider;
-use Mautic\LeadBundle\Segment\OperatorOptions;
-use Mautic\PointBundle\Model\PointGroupModel;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\LeadEventLog;
+use MailVotech\CampaignBundle\Event\CampaignBuilderEvent;
+use MailVotech\CampaignBundle\Event\CampaignExecutionEvent;
+use MailVotech\CampaignBundle\Event\PendingEvent;
+use MailVotech\CampaignBundle\Model\CampaignModel;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\IpLookupHelper;
+use MailVotech\EmailBundle\Helper\UrlMatcher;
+use MailVotech\LeadBundle\DataObject\LeadManipulator;
+use MailVotech\LeadBundle\Entity\Company;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\LeadBundle\Entity\LeadDeviceRepository;
+use MailVotech\LeadBundle\Entity\LeadFieldRepository;
+use MailVotech\LeadBundle\Entity\LeadListRepository;
+use MailVotech\LeadBundle\Entity\LeadRepository;
+use MailVotech\LeadBundle\Entity\PointsChangeLog;
+use MailVotech\LeadBundle\Exception\ImportFailedException;
+use MailVotech\LeadBundle\Form\Type\AddToCompanyActionType;
+use MailVotech\LeadBundle\Form\Type\CampaignConditionLeadPageHitType;
+use MailVotech\LeadBundle\Form\Type\CampaignEventLeadAttachedType;
+use MailVotech\LeadBundle\Form\Type\CampaignEventLeadCampaignsType;
+use MailVotech\LeadBundle\Form\Type\CampaignEventLeadDeviceType;
+use MailVotech\LeadBundle\Form\Type\CampaignEventLeadDNCType;
+use MailVotech\LeadBundle\Form\Type\CampaignEventLeadFieldValueType;
+use MailVotech\LeadBundle\Form\Type\CampaignEventLeadOwnerType;
+use MailVotech\LeadBundle\Form\Type\CampaignEventLeadSegmentsType;
+use MailVotech\LeadBundle\Form\Type\CampaignEventLeadStagesType;
+use MailVotech\LeadBundle\Form\Type\CampaignEventLeadTagsType;
+use MailVotech\LeadBundle\Form\Type\CampaignEventPointType;
+use MailVotech\LeadBundle\Form\Type\ChangeOwnerType;
+use MailVotech\LeadBundle\Form\Type\CompanyChangeScoreActionType;
+use MailVotech\LeadBundle\Form\Type\ListActionType;
+use MailVotech\LeadBundle\Form\Type\ModifyLeadTagsType;
+use MailVotech\LeadBundle\Form\Type\PointActionType;
+use MailVotech\LeadBundle\Form\Type\UpdateCompanyActionType;
+use MailVotech\LeadBundle\Form\Type\UpdateLeadActionType;
+use MailVotech\LeadBundle\Helper\CustomFieldHelper;
+use MailVotech\LeadBundle\Helper\IdentifyCompanyHelper;
+use MailVotech\LeadBundle\Helper\TokenHelper;
+use MailVotech\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Model\CompanyModel;
+use MailVotech\LeadBundle\Model\DoNotContact;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
+use MailVotech\LeadBundle\Provider\FilterOperatorProvider;
+use MailVotech\LeadBundle\Segment\OperatorOptions;
+use MailVotech\PointBundle\Model\PointGroupModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class CampaignSubscriber implements EventSubscriberInterface
@@ -104,83 +104,83 @@ final class CampaignSubscriber implements EventSubscriberInterface
     {
         // Add actions
         $action = [
-            'label'       => 'mautic.lead.lead.events.changepoints',
-            'description' => 'mautic.lead.lead.events.changepoints_descr',
+            'label'       => 'mailvotech.lead.lead.events.changepoints',
+            'description' => 'mailvotech.lead.lead.events.changepoints_descr',
             'formType'    => PointActionType::class,
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_ACTION,
         ];
         $event->addAction('lead.changepoints', $action);
 
         $action = [
-            'label'       => 'mautic.lead.lead.events.changelist',
-            'description' => 'mautic.lead.lead.events.changelist_descr',
+            'label'       => 'mailvotech.lead.lead.events.changelist',
+            'description' => 'mailvotech.lead.lead.events.changelist_descr',
             'formType'    => ListActionType::class,
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_ACTION,
         ];
         $event->addAction('lead.changelist', $action);
 
         $action = [
-            'label'          => 'mautic.lead.lead.events.updatelead',
-            'description'    => 'mautic.lead.lead.events.updatelead_descr',
+            'label'          => 'mailvotech.lead.lead.events.updatelead',
+            'description'    => 'mailvotech.lead.lead.events.updatelead_descr',
             'formType'       => UpdateLeadActionType::class,
-            'formTheme'      => '@MauticLead/FormTheme/ActionUpdateLead/_updatelead_action_widget.html.twig',
+            'formTheme'      => '@MailVotechLead/FormTheme/ActionUpdateLead/_updatelead_action_widget.html.twig',
             'batchEventName' => LeadEvents::ON_CAMPAIGN_BATCH_ACTION,
         ];
         $event->addAction('lead.updatelead', $action);
 
         $action = [
-            'label'       => 'mautic.lead.lead.events.updatecompany',
-            'description' => 'mautic.lead.lead.events.updatecompany_descr',
+            'label'       => 'mailvotech.lead.lead.events.updatecompany',
+            'description' => 'mailvotech.lead.lead.events.updatecompany_descr',
             'formType'    => UpdateCompanyActionType::class,
-            'formTheme'   => '@MauticLead/FormTheme/ActionUpdateCompany/_updatecompany_action_widget.html.twig',
+            'formTheme'   => '@MailVotechLead/FormTheme/ActionUpdateCompany/_updatecompany_action_widget.html.twig',
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_ACTION,
         ];
         $event->addAction('lead.updatecompany', $action);
 
         $action = [
-            'label'       => 'mautic.lead.lead.events.changetags',
-            'description' => 'mautic.lead.lead.events.changetags_descr',
+            'label'       => 'mailvotech.lead.lead.events.changetags',
+            'description' => 'mailvotech.lead.lead.events.changetags_descr',
             'formType'    => ModifyLeadTagsType::class,
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_ACTION,
         ];
         $event->addAction('lead.changetags', $action);
 
         $action = [
-            'label'       => 'mautic.lead.lead.events.addtocompany',
-            'description' => 'mautic.lead.lead.events.addtocompany_descr',
+            'label'       => 'mailvotech.lead.lead.events.addtocompany',
+            'description' => 'mailvotech.lead.lead.events.addtocompany_descr',
             'formType'    => AddToCompanyActionType::class,
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_ACTION,
         ];
         $event->addAction('lead.addtocompany', $action);
 
         $action = [
-            'label'       => 'mautic.lead.lead.events.changeowner',
-            'description' => 'mautic.lead.lead.events.changeowner_descr',
+            'label'       => 'mailvotech.lead.lead.events.changeowner',
+            'description' => 'mailvotech.lead.lead.events.changeowner_descr',
             'formType'    => ChangeOwnerType::class,
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_ACTION,
         ];
         $event->addAction(self::ACTION_LEAD_CHANGE_OWNER, $action);
 
         $action = [
-            'label'       => 'mautic.lead.lead.events.changecompanyscore',
-            'description' => 'mautic.lead.lead.events.changecompanyscore_descr',
+            'label'       => 'mailvotech.lead.lead.events.changecompanyscore',
+            'description' => 'mailvotech.lead.lead.events.changecompanyscore_descr',
             'formType'    => CompanyChangeScoreActionType::class,
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_ACTION,
         ];
         $event->addAction('lead.scorecontactscompanies', $action);
 
         $trigger = [
-            'label'       => 'mautic.lead.lead.events.field_value',
-            'description' => 'mautic.lead.lead.events.field_value_descr',
+            'label'       => 'mailvotech.lead.lead.events.field_value',
+            'description' => 'mailvotech.lead.lead.events.field_value_descr',
             'formType'    => CampaignEventLeadFieldValueType::class,
-            'formTheme'   => '@MauticLead/FormTheme/FieldValueCondition/_campaignevent_lead_field_value_widget.html.twig',
+            'formTheme'   => '@MailVotechLead/FormTheme/FieldValueCondition/_campaignevent_lead_field_value_widget.html.twig',
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_CONDITION,
         ];
         $event->addCondition('lead.field_value', $trigger);
 
         $trigger = [
-            'label'       => 'mautic.lead.lead.events.device',
-            'description' => 'mautic.lead.lead.events.device_descr',
+            'label'       => 'mailvotech.lead.lead.events.device',
+            'description' => 'mailvotech.lead.lead.events.device_descr',
             'formType'    => CampaignEventLeadDeviceType::class,
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_CONDITION,
         ];
@@ -188,8 +188,8 @@ final class CampaignSubscriber implements EventSubscriberInterface
         $event->addCondition('lead.device', $trigger);
 
         $trigger = [
-            'label'       => 'mautic.lead.lead.events.pageHit',
-            'description' => 'mautic.lead.lead.events.pageHit_descr',
+            'label'       => 'mailvotech.lead.lead.events.pageHit',
+            'description' => 'mailvotech.lead.lead.events.pageHit_descr',
             'formType'    => CampaignConditionLeadPageHitType::class,
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_CONDITION,
         ];
@@ -197,16 +197,16 @@ final class CampaignSubscriber implements EventSubscriberInterface
         $event->addCondition('lead.pageHit', $trigger);
 
         $trigger = [
-            'label'       => 'mautic.lead.lead.events.tags',
-            'description' => 'mautic.lead.lead.events.tags_descr',
+            'label'       => 'mailvotech.lead.lead.events.tags',
+            'description' => 'mailvotech.lead.lead.events.tags_descr',
             'formType'    => CampaignEventLeadTagsType::class,
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_CONDITION,
         ];
         $event->addCondition('lead.tags', $trigger);
 
         $trigger = [
-            'label'       => 'mautic.lead.lead.events.segments',
-            'description' => 'mautic.lead.lead.events.segments_descr',
+            'label'       => 'mailvotech.lead.lead.events.segments',
+            'description' => 'mailvotech.lead.lead.events.segments_descr',
             'formType'    => CampaignEventLeadSegmentsType::class,
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_CONDITION,
         ];
@@ -214,8 +214,8 @@ final class CampaignSubscriber implements EventSubscriberInterface
         $event->addCondition('lead.segments', $trigger);
 
         $trigger = [
-            'label'       => 'mautic.lead.lead.events.stages',
-            'description' => 'mautic.lead.lead.events.stages_descr',
+            'label'       => 'mailvotech.lead.lead.events.stages',
+            'description' => 'mailvotech.lead.lead.events.stages_descr',
             'formType'    => CampaignEventLeadStagesType::class,
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_CONDITION,
         ];
@@ -223,8 +223,8 @@ final class CampaignSubscriber implements EventSubscriberInterface
         $event->addCondition('lead.stages', $trigger);
 
         $trigger = [
-            'label'       => 'mautic.lead.lead.events.owner',
-            'description' => 'mautic.lead.lead.events.owner_descr',
+            'label'       => 'mailvotech.lead.lead.events.owner',
+            'description' => 'mailvotech.lead.lead.events.owner_descr',
             'formType'    => CampaignEventLeadOwnerType::class,
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_CONDITION,
         ];
@@ -232,28 +232,28 @@ final class CampaignSubscriber implements EventSubscriberInterface
         $event->addCondition('lead.owner', $trigger);
 
         $trigger = [
-            'label'       => 'mautic.lead.lead.events.attached',
-            'description' => 'mautic.lead.lead.events.attached_descr',
+            'label'       => 'mailvotech.lead.lead.events.attached',
+            'description' => 'mailvotech.lead.lead.events.attached_descr',
             'formType'    => CampaignEventLeadAttachedType::class,
-            'formTheme'   => '@MauticLead/FormTheme/ContactAddedCondition/_campaignevent_lead_contact_added_widget.html.twig',
+            'formTheme'   => '@MailVotechLead/FormTheme/ContactAddedCondition/_campaignevent_lead_contact_added_widget.html.twig',
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_CONDITION,
         ];
 
         $event->addCondition('lead.attached', $trigger);
 
         $trigger = [
-            'label'       => 'mautic.lead.lead.events.campaigns',
-            'description' => 'mautic.lead.lead.events.campaigns_descr',
+            'label'       => 'mailvotech.lead.lead.events.campaigns',
+            'description' => 'mailvotech.lead.lead.events.campaigns_descr',
             'formType'    => CampaignEventLeadCampaignsType::class,
-            'formTheme'   => '@MauticLead/FormTheme/ContactCampaignsCondition/_campaignevent_lead_campaigns_widget.html.twig',
+            'formTheme'   => '@MailVotechLead/FormTheme/ContactCampaignsCondition/_campaignevent_lead_campaigns_widget.html.twig',
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_CONDITION,
         ];
 
         $event->addCondition('lead.campaigns', $trigger);
 
         $trigger = [
-            'label'       => 'mautic.lead.lead.events.condition_donotcontact',
-            'description' => 'mautic.lead.lead.events.condition_donotcontact_descr',
+            'label'       => 'mailvotech.lead.lead.events.condition_donotcontact',
+            'description' => 'mailvotech.lead.lead.events.condition_donotcontact_descr',
             'formType'    => CampaignEventLeadDNCType::class,
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_CONDITION,
         ];
@@ -261,8 +261,8 @@ final class CampaignSubscriber implements EventSubscriberInterface
         $event->addCondition('lead.dnc', $trigger);
 
         $trigger = [
-            'label'       => 'mautic.lead.lead.events.points',
-            'description' => 'mautic.lead.lead.events.points_descr',
+            'label'       => 'mailvotech.lead.lead.events.points',
+            'description' => 'mailvotech.lead.lead.events.points_descr',
             'formType'    => CampaignEventPointType::class,
             'eventName'   => LeadEvents::ON_CAMPAIGN_TRIGGER_CONDITION,
         ];
@@ -286,7 +286,7 @@ final class CampaignSubscriber implements EventSubscriberInterface
             $pointGroupId             = $event->getConfig()['group'] ?? null;
             $pointGroup               = $pointGroupId ? $this->groupModel->getEntity($pointGroupId) : null;
 
-            if ($pointGroup instanceof \Mautic\PointBundle\Entity\Group) {
+            if ($pointGroup instanceof \MailVotech\PointBundle\Entity\Group) {
                 $this->groupModel->adjustPoints($lead, $pointGroup, $points);
             } else {
                 $lead->adjustPoints($points);
@@ -449,7 +449,7 @@ final class CampaignSubscriber implements EventSubscriberInterface
         $lead  = $event->getLead();
 
         if (!$this->leadModel->scoreContactsCompany($lead, $score)) {
-            $event->setFailed('mautic.lead.no_company');
+            $event->setFailed('mailvotech.lead.no_company');
 
             return;
         }
@@ -541,7 +541,7 @@ final class CampaignSubscriber implements EventSubscriberInterface
                     $result = $this->compareDateValue($lead, $event, $triggerDate);
                 } elseif ('anniversary' === $event->getConfig()['value']) {
                     /**
-                     * note: currently mautic campaign only one time execution
+                     * note: currently mailvotech campaign only one time execution
                      * ( to integrate with: recursive campaign (future)).
                      */
                     $result = $this->leadFieldRepository->compareDateMonthValue(

@@ -1,6 +1,6 @@
 {#
   Variables
-    - form (\Mautic\FormBundle\Entity\Form)
+    - form (\MailVotech\FormBundle\Entity\Form)
     - fieldSettings
     - viewOnlyFields
     - fields
@@ -18,7 +18,7 @@
 {% set fields = fields|default(form.fields) %}
 {% set pageCount = 1 %}
 {% set inBuilder = inBuilder|default(false) %}
-{% set action = action|default(url('mautic_form_postresults', {'formId': form.id})) %}
+{% set action = action|default(url('mailvotech_form_postresults', {'formId': form.id})) %}
 {% set theme = theme|default('') %}
 {% set mappedFields = mappedFields|default([]) %}
 {% set style = style|default('') %}
@@ -30,22 +30,22 @@
 
 {{ style|raw }}
 <style type="text/css" scoped>
-    .mauticform-field-hidden { display:none }
-    .mauticform-row.mauticform-honeypot { display: none; }
+    .mailvotechform-field-hidden { display:none }
+    .mailvotechform-row.mailvotechform-honeypot { display: none; }
 </style>
-<div id="mauticform_wrapper{{ formName }}" class="mauticform_wrapper">
-    <form autocomplete="false" role="form" method="post" action="{{ action }}" id="mauticform{{ formName }}" {% if isAjax %}data-mautic-form="{{ formName|trim('_', 'left') }}"{% endif %} enctype="multipart/form-data" {{ form.formAttributes|raw }}>
+<div id="mailvotechform_wrapper{{ formName }}" class="mailvotechform_wrapper">
+    <form autocomplete="false" role="form" method="post" action="{{ action }}" id="mailvotechform{{ formName }}" {% if isAjax %}data-mailvotech-form="{{ formName|trim('_', 'left') }}"{% endif %} enctype="multipart/form-data" {{ form.formAttributes|raw }}>
         {%- if successfulSubmitAction == 'top' -%}
-            <div class="mauticform-error" id="mauticform{{ formName }}_error"></div>
-            <div class="mauticform-message" id="mauticform{{ formName }}_message"></div>
+            <div class="mailvotechform-error" id="mailvotechform{{ formName }}_error"></div>
+            <div class="mailvotechform-message" id="mailvotechform{{ formName }}_message"></div>
         {%- endif -%}
-        <div class="mauticform-innerform">
-            {# @var \Mautic\FormBundle\Entity\Field $f #}
+        <div class="mailvotechform-innerform">
+            {# @var \MailVotech\FormBundle\Entity\Field $f #}
             {%- for fieldId, f in fields -%}
               {%- if formPages['open'][fieldId] is defined -%}
                   {# Start a new page #}
-                  {%- set lastFieldAttribute = lastFormPage == fieldId ? 'data-mautic-form-pagebreak-lastpage="true"' : '' -%}
-                  <div class="mauticform-page-wrapper mauticform-page-{{ pageCount }}" data-mautic-form-page="{{ pageCount }}" {{ lastFieldAttribute }}>
+                  {%- set lastFieldAttribute = lastFormPage == fieldId ? 'data-mailvotech-form-pagebreak-lastpage="true"' : '' -%}
+                  <div class="mailvotechform-page-wrapper mailvotechform-page-{{ pageCount }}" data-mailvotech-form-page="{{ pageCount }}" {{ lastFieldAttribute }}>
               {%- endif -%}
               {%- if not f.parent and f.showForContact(submissions, lead, form, displayManager) -%}
                   {%- if f.isCustom -%}
@@ -66,7 +66,7 @@
                       {%- else -%}
                           {%- do displayManager.increaseDisplayedFields(f) -%}
                       {%- endif -%}
-                      {%- set template = '@MauticForm/Field/' ~ f.type ~ '.html.twig' -%}
+                      {%- set template = '@MailVotechForm/Field/' ~ f.type ~ '.html.twig' -%}
                   {%- endif %}
 
                   {# render theme specific form type template file or built-in template #}
@@ -101,7 +101,7 @@
                       %}
                           {%- do f.setType('hidden') -%}
                       {% endif %}
-                      {%- set template = '@MauticForm/Field/' ~ f.type ~ '.html.twig' -%}
+                      {%- set template = '@MailVotechForm/Field/' ~ f.type ~ '.html.twig' -%}
                   {%- endif -%}
 
                   <!-- start: "{{ theme }}{{ template }}" -->
@@ -128,13 +128,13 @@
         </div>
 
         {%- if successfulSubmitAction == 'bottom' -%}
-            <div class="mauticform-error" id="mauticform{{ formName }}_error"></div>
-            <div class="mauticform-message" id="mauticform{{ formName }}_message"></div>
+            <div class="mailvotechform-error" id="mailvotechform{{ formName }}_error"></div>
+            <div class="mailvotechform-message" id="mailvotechform{{ formName }}_message"></div>
         {%- endif -%}
 
-        <input type="hidden" name="mauticform[formId]" id="mauticform{{ formName }}_id" value="{{ form.id|e }}"/>
-        <input type="hidden" name="mauticform[return]" id="mauticform{{ formName }}_return" value=""/>
-        <input type="hidden" name="mauticform[formName]" id="mauticform{{ formName }}_name" value="{{ formName|trim('_', 'left')|e }}"/>
+        <input type="hidden" name="mailvotechform[formId]" id="mailvotechform{{ formName }}_id" value="{{ form.id|e }}"/>
+        <input type="hidden" name="mailvotechform[return]" id="mailvotechform{{ formName }}_return" value=""/>
+        <input type="hidden" name="mailvotechform[formName]" id="mailvotechform{{ formName }}_name" value="{{ formName|trim('_', 'left')|e }}"/>
         {{ formExtra|default('') }}
     </form>
 </div>

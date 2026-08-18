@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\EventListener;
+namespace MailVotech\CampaignBundle\Tests\EventListener;
 
-use Mautic\CampaignBundle\CampaignEvents;
-use Mautic\CampaignBundle\Entity\Campaign;
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Entity\Lead as CampaignLead;
-use Mautic\CampaignBundle\Event\NotifyOfUnpublishEvent;
-use Mautic\CoreBundle\Entity\Notification;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\CampaignEvents;
+use MailVotech\CampaignBundle\Entity\Campaign;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Entity\Lead as CampaignLead;
+use MailVotech\CampaignBundle\Event\NotifyOfUnpublishEvent;
+use MailVotech\CoreBundle\Entity\Notification;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class CampaignEventSubscriberFunctionalTest extends MauticMysqlTestCase
+final class CampaignEventSubscriberFunctionalTest extends MailVotechMysqlTestCase
 {
     /**
      * @throws \Exception
@@ -31,7 +31,7 @@ final class CampaignEventSubscriberFunctionalTest extends MauticMysqlTestCase
         $this->em->clear();
 
         // Schedule the first campaign event.
-        $commandTester = $this->testSymfonyCommand('mautic:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
+        $commandTester = $this->testSymfonyCommand('mailvotech:campaigns:trigger', ['--campaign-id' => $campaign->getId()]);
         $output        = $commandTester->getDisplay();
         $this->assertStringContainsString('150 total events were executed', $output);
 

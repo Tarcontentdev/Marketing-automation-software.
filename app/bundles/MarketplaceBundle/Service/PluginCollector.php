@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Service;
+namespace MailVotech\MarketplaceBundle\Service;
 
-use Mautic\CoreBundle\Release\ThisRelease;
-use Mautic\MarketplaceBundle\Api\Connection;
-use Mautic\MarketplaceBundle\Collection\PackageCollection;
-use Mautic\MarketplaceBundle\DTO\AllowlistEntry;
+use MailVotech\CoreBundle\Release\ThisRelease;
+use MailVotech\MarketplaceBundle\Api\Connection;
+use MailVotech\MarketplaceBundle\Collection\PackageCollection;
+use MailVotech\MarketplaceBundle\DTO\AllowlistEntry;
 
 final class PluginCollector
 {
@@ -28,8 +28,8 @@ final class PluginCollector
     {
         $allowlist = $this->allowlist->getAllowList();
 
-        if ($allowlist instanceof \Mautic\MarketplaceBundle\DTO\Allowlist) {
-            $this->allowlistedPackages = $this->filterAllowlistedPackagesForCurrentMauticVersion($allowlist->entries);
+        if ($allowlist instanceof \MailVotech\MarketplaceBundle\DTO\Allowlist) {
+            $this->allowlistedPackages = $this->filterAllowlistedPackagesForCurrentMailVotechVersion($allowlist->entries);
             $payload                   = $this->getAllowlistedPackages($page, $limit);
         } else {
             $payload = $this->connection->getPlugins($page, $limit, $query);
@@ -50,19 +50,19 @@ final class PluginCollector
      *
      * @return AllowlistEntry[]
      */
-    private function filterAllowlistedPackagesForCurrentMauticVersion(array $entries): array
+    private function filterAllowlistedPackagesForCurrentMailVotechVersion(array $entries): array
     {
-        $mauticVersion = ThisRelease::getMetadata()->getVersion();
+        $mailvotechVersion = ThisRelease::getMetadata()->getVersion();
 
-        return array_filter($entries, function (AllowlistEntry $entry) use ($mauticVersion): bool {
+        return array_filter($entries, function (AllowlistEntry $entry) use ($mailvotechVersion): bool {
             if (
-                !empty($entry->minimumMauticVersion)
-                && !version_compare($mauticVersion, $entry->minimumMauticVersion, '>=')
+                !empty($entry->minimumMailVotechVersion)
+                && !version_compare($mailvotechVersion, $entry->minimumMailVotechVersion, '>=')
             ) {
                 return false;
             }
 
-            return empty($entry->maximumMauticVersion) || version_compare($mauticVersion, $entry->maximumMauticVersion, '<=');
+            return empty($entry->maximumMailVotechVersion) || version_compare($mailvotechVersion, $entry->maximumMailVotechVersion, '<=');
         });
     }
 

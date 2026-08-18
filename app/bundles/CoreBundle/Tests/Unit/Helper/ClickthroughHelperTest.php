@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\Helper;
+namespace MailVotech\CoreBundle\Tests\Unit\Helper;
 
-use Mautic\CoreBundle\Helper\ClickthroughHelper;
-use Mautic\CoreBundle\Helper\Serializer;
-use Mautic\CoreBundle\Tests\Unit\Helper\TestResources\WakeupCall;
+use MailVotech\CoreBundle\Helper\ClickthroughHelper;
+use MailVotech\CoreBundle\Helper\Serializer;
+use MailVotech\CoreBundle\Tests\Unit\Helper\TestResources\WakeupCall;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Serializer::class)]

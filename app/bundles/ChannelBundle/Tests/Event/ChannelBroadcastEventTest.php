@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\Tests\Event;
+namespace MailVotech\ChannelBundle\Tests\Event;
 
-use Mautic\ChannelBundle\Event\ChannelBroadcastEvent;
+use MailVotech\ChannelBundle\Event\ChannelBroadcastEvent;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Form\Type;
+namespace MailVotech\ReportBundle\Form\Type;
 
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
+use MailVotech\CoreBundle\Form\Type\YesNoButtonGroupType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -19,7 +19,7 @@ final class ReportSettingsType extends AbstractType
             'showGraphsAboveTable',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.report.report.form.display.graphs.above.table',
+                'label' => 'mailvotech.report.report.form.display.graphs.above.table',
                 'attr'  => [
                     'class' => 'filter-value',
                 ],
@@ -31,7 +31,7 @@ final class ReportSettingsType extends AbstractType
             'showDynamicFilters',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.report.report.form.display.show.dynamic.filters',
+                'label' => 'mailvotech.report.report.form.display.show.dynamic.filters',
                 'attr'  => [
                     'class' => 'filter-value',
                 ],
@@ -43,7 +43,7 @@ final class ReportSettingsType extends AbstractType
             'hideDateRangeFilter',
             YesNoButtonGroupType::class,
             [
-                'label' => 'mautic.report.report.form.display.hide.date.ranges',
+                'label' => 'mailvotech.report.report.form.display.hide.date.ranges',
                 'attr'  => [
                     'class' => 'filter-value',
                 ],

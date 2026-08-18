@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Validator;
+namespace MailVotech\LeadBundle\Validator;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\InvalidFieldNameException;
-use Mautic\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Entity\LeadField;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -48,7 +48,7 @@ final class LeadFieldMinimumLengthValidator extends ConstraintValidator
         try {
             return (int) $this->connection->createQueryBuilder()
                 ->select('MAX(CHAR_LENGTH('.$leadField->getAlias().'))')
-                ->from(MAUTIC_TABLE_PREFIX.$leadField->getCustomFieldObject())
+                ->from(MAILVOTECH_TABLE_PREFIX.$leadField->getCustomFieldObject())
                 ->executeQuery()
                 ->fetchOne();
         } catch (InvalidFieldNameException) {

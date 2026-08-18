@@ -1,7 +1,7 @@
 {% set contentOnly = true %}
-{% extends '@MauticCore/Default/content.html.twig' %}
+{% extends '@MailVotechCore/Default/content.html.twig' %}
 
-{% block mauticContent 'social' %}
+{% block mailvotechContent 'social' %}
 {% block headerTitle '' %}
 
 {% block content %}
@@ -12,7 +12,7 @@ function postFormHandler() {
     if (opener && typeof opener.postAuthCallback == 'function') {
         opener.postAuthCallback({$data});
     } else {
-        Mautic.refreshIntegrationForm();
+        MailVotech.refreshIntegrationForm();
     }
     window.close()
 }
@@ -29,7 +29,7 @@ function postFormHandler() {
 <div class="row">
     <div class="col-sm-12 text-center">
         <a class="btn btn-lg btn-primary" href="javascript:void(0);" onclick="postFormHandler();">
-            {{ 'mautic.integration.closewindow'|trans }}
+            {{ 'mailvotech.integration.closewindow'|trans }}
         </a>
     </div>
 </div>

@@ -1,23 +1,23 @@
 <?php
 
-namespace Mautic\DynamicContentBundle\Model;
+namespace MailVotech\DynamicContentBundle\Model;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Mautic\CoreBundle\Helper\Chart\ChartQuery;
-use Mautic\CoreBundle\Helper\Chart\LineChart;
-use Mautic\CoreBundle\Model\AjaxLookupModelInterface;
-use Mautic\CoreBundle\Model\FormModel;
-use Mautic\CoreBundle\Model\GlobalSearchInterface;
-use Mautic\CoreBundle\Model\TranslationModelTrait;
-use Mautic\CoreBundle\Model\VariantModelTrait;
-use Mautic\DynamicContentBundle\DynamicContentEvents;
-use Mautic\DynamicContentBundle\Entity\DynamicContent;
-use Mautic\DynamicContentBundle\Entity\DynamicContentRepository;
-use Mautic\DynamicContentBundle\Entity\Stat;
-use Mautic\DynamicContentBundle\Entity\StatRepository;
-use Mautic\DynamicContentBundle\Event\DynamicContentEvent;
-use Mautic\DynamicContentBundle\Form\Type\DynamicContentType;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Helper\Chart\ChartQuery;
+use MailVotech\CoreBundle\Helper\Chart\LineChart;
+use MailVotech\CoreBundle\Model\AjaxLookupModelInterface;
+use MailVotech\CoreBundle\Model\FormModel;
+use MailVotech\CoreBundle\Model\GlobalSearchInterface;
+use MailVotech\CoreBundle\Model\TranslationModelTrait;
+use MailVotech\CoreBundle\Model\VariantModelTrait;
+use MailVotech\DynamicContentBundle\DynamicContentEvents;
+use MailVotech\DynamicContentBundle\Entity\DynamicContent;
+use MailVotech\DynamicContentBundle\Entity\DynamicContentRepository;
+use MailVotech\DynamicContentBundle\Entity\Stat;
+use MailVotech\DynamicContentBundle\Entity\StatRepository;
+use MailVotech\DynamicContentBundle\Event\DynamicContentEvent;
+use MailVotech\DynamicContentBundle\Form\Type\DynamicContentType;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -93,7 +93,7 @@ class DynamicContentModel extends FormModel implements AjaxLookupModelInterface,
         $qb = $this->em->getConnection()->createQueryBuilder();
 
         $qb->select('1')
-            ->from(MAUTIC_TABLE_PREFIX.'dynamic_content')
+            ->from(MAILVOTECH_TABLE_PREFIX.'dynamic_content')
             ->where($qb->expr()->eq('slot_name', ':slot_name'))
             ->setParameter('slot_name', $slotName)
             ->setMaxResults(1);
@@ -138,7 +138,7 @@ class DynamicContentModel extends FormModel implements AjaxLookupModelInterface,
     {
         $qb = $this->em->getConnection()->createQueryBuilder();
 
-        $qb->insert(MAUTIC_TABLE_PREFIX.'dynamic_content_lead_data')
+        $qb->insert(MAILVOTECH_TABLE_PREFIX.'dynamic_content_lead_data')
             ->values([
                 'lead_id'            => $lead->getId(),
                 'dynamic_content_id' => $dwc->getId(),
@@ -165,8 +165,8 @@ class DynamicContentModel extends FormModel implements AjaxLookupModelInterface,
         $id = $lead instanceof Lead ? $lead->getId() : $lead['id'];
 
         $qb->select('dc.id, dc.content')
-            ->from(MAUTIC_TABLE_PREFIX.'dynamic_content', 'dc')
-            ->leftJoin('dc', MAUTIC_TABLE_PREFIX.'dynamic_content_lead_data', 'dcld', 'dcld.dynamic_content_id = dc.id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'dynamic_content', 'dc')
+            ->leftJoin('dc', MAILVOTECH_TABLE_PREFIX.'dynamic_content_lead_data', 'dcld', 'dcld.dynamic_content_id = dc.id')
             ->andWhere($qb->expr()->eq('dcld.slot', ':slot'))
             ->andWhere($qb->expr()->eq('dcld.lead_id', ':lead_id'))
             ->andWhere($qb->expr()->eq('dc.is_published', 1))
@@ -256,7 +256,7 @@ class DynamicContentModel extends FormModel implements AjaxLookupModelInterface,
      */
     public function limitQueryToCreator(QueryBuilder &$q): void
     {
-        $q->join('t', MAUTIC_TABLE_PREFIX.'dynamic_content', 'd', 'd.id = t.dynamic_content_id')
+        $q->join('t', MAILVOTECH_TABLE_PREFIX.'dynamic_content', 'd', 'd.id = t.dynamic_content_id')
             ->andWhere('d.created_by = :userId')
             ->setParameter('userId', $this->userHelper->getUser()->getId());
     }
@@ -288,7 +288,7 @@ class DynamicContentModel extends FormModel implements AjaxLookupModelInterface,
             }
 
             $data = $query->loadAndBuildTimeData($q);
-            $chart->setDataset($this->translator->trans('mautic.dynamicContent.show.total.views'), $data);
+            $chart->setDataset($this->translator->trans('mailvotech.dynamicContent.show.total.views'), $data);
         }
 
         if ('unique' === $flag || 'total_and_unique' === $flag) {
@@ -300,7 +300,7 @@ class DynamicContentModel extends FormModel implements AjaxLookupModelInterface,
             }
 
             $data = $query->loadAndBuildTimeData($q);
-            $chart->setDataset($this->translator->trans('mautic.dynamicContent.show.unique.views'), $data);
+            $chart->setDataset($this->translator->trans('mailvotech.dynamicContent.show.unique.views'), $data);
         }
 
         return $chart->render();

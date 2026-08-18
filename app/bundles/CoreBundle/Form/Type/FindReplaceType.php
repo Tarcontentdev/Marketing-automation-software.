@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Form\Type;
+namespace MailVotech\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -25,7 +25,7 @@ final class FindReplaceType extends AbstractType
                 'label'       => $options['field_label'],
                 'required'    => true,
                 'choices'     => $options['field_choices'],
-                'placeholder' => 'mautic.core.form.chooseone',
+                'placeholder' => 'mailvotech.core.form.chooseone',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => ['class' => 'form-control'],
             ]
@@ -35,7 +35,7 @@ final class FindReplaceType extends AbstractType
             'find',
             TextType::class,
             [
-                'label'      => 'mautic.core.find_replace.find',
+                'label'      => 'mailvotech.core.find_replace.find',
                 'required'   => false,
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
@@ -46,7 +46,7 @@ final class FindReplaceType extends AbstractType
             'replace',
             TextType::class,
             [
-                'label'      => 'mautic.core.find_replace.replace',
+                'label'      => 'mailvotech.core.find_replace.replace',
                 'required'   => false,
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => ['class' => 'form-control'],
@@ -67,7 +67,7 @@ final class FindReplaceType extends AbstractType
             FormButtonsType::class,
             [
                 'apply_text'     => false,
-                'save_text'      => 'mautic.core.find_replace.replace_all',
+                'save_text'      => 'mailvotech.core.find_replace.replace_all',
                 'cancel_onclick' => 'javascript:void(0);',
                 'cancel_attr'    => [
                     'data-dismiss' => 'modal',
@@ -90,7 +90,7 @@ final class FindReplaceType extends AbstractType
         $resolver->setDefaults([
             'all_contacts'  => false,
             'all_items'     => false,
-            'field_label'   => 'mautic.core.find_replace.field',
+            'field_label'   => 'mailvotech.core.find_replace.field',
             'field_choices' => [],
         ]);
     }

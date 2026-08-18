@@ -3,7 +3,7 @@
         {
             "name": "theme-creative",
             "directory": "themes/creative",
-            "target": "git@github.com:mautic/theme-creative.git"
+            "target": "git@github.com:mailvotech/theme-creative.git"
         }
     ]
 }

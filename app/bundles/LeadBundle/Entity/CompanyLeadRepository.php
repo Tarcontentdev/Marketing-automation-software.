@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\ParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\LeadBundle\Exception\PrimaryCompanyNotFoundException;
+use MailVotech\CoreBundle\Entity\CommonRepository;
+use MailVotech\LeadBundle\Exception\PrimaryCompanyNotFoundException;
 
 /**
  * @extends CommonRepository<CompanyLead>
@@ -38,7 +38,7 @@ class CompanyLeadRepository extends CommonRepository
             if ($contactId) {
                 // Only one company should be set as primary so reset all in order to let the entity update the one
                 $qb = $this->getEntityManager()->getConnection()->createQueryBuilder()
-                    ->update(MAUTIC_TABLE_PREFIX.'companies_leads')
+                    ->update(MAILVOTECH_TABLE_PREFIX.'companies_leads')
                     ->set('is_primary', 0);
 
                 $qb->where(
@@ -56,8 +56,8 @@ class CompanyLeadRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('cl.company_id, cl.date_added as date_associated, cl.is_primary, comp.*')
-            ->from(MAUTIC_TABLE_PREFIX.'companies_leads', 'cl')
-            ->join('cl', MAUTIC_TABLE_PREFIX.'companies', 'comp', 'comp.id = cl.company_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies_leads', 'cl')
+            ->join('cl', MAILVOTECH_TABLE_PREFIX.'companies', 'comp', 'comp.id = cl.company_id')
         ->where('cl.lead_id = :leadId')
         ->setParameter('leadId', $leadId);
 
@@ -92,8 +92,8 @@ class CompanyLeadRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('comp.*')
-            ->from(MAUTIC_TABLE_PREFIX.'companies', 'comp')
-            ->join('comp', MAUTIC_TABLE_PREFIX.'companies_leads', 'cl', 'cl.company_id = comp.id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies', 'comp')
+            ->join('comp', MAILVOTECH_TABLE_PREFIX.'companies_leads', 'cl', 'cl.company_id = comp.id')
             ->andWhere('cl.is_primary = 1')
             ->andWhere('cl.lead_id IN (:ids)')
             ->setParameter('ids', $ids, ArrayParameterType::INTEGER);
@@ -126,7 +126,7 @@ class CompanyLeadRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('cl.company_id')
-            ->from(MAUTIC_TABLE_PREFIX.'companies_leads', 'cl')
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies_leads', 'cl')
             ->where('cl.lead_id = :leadId')
             ->setParameter('leadId', $leadId);
 
@@ -143,7 +143,7 @@ class CompanyLeadRepository extends CommonRepository
     {
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('cl.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'companies_leads', 'cl');
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies_leads', 'cl');
 
         $q->where($q->expr()->eq('cl.company_id', ':company'))
             ->setParameter('company', $companyId);
@@ -159,8 +159,8 @@ class CompanyLeadRepository extends CommonRepository
         $q = $this->_em->getConnection()->createQueryBuilder();
 
         $q->select('cl.company_id, comp.companyname, comp.companycity, comp.companycountry')
-            ->from(MAUTIC_TABLE_PREFIX.'companies_leads', 'cl')
-            ->join('cl', MAUTIC_TABLE_PREFIX.'companies', 'comp', 'comp.id = cl.company_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies_leads', 'cl')
+            ->join('cl', MAILVOTECH_TABLE_PREFIX.'companies', 'comp', 'comp.id = cl.company_id')
             ->where(
                 $q->expr()->eq('cl.lead_id', ':leadId'),
                 $q->expr()->isNull('comp.deleted')
@@ -180,7 +180,7 @@ class CompanyLeadRepository extends CommonRepository
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $qb->select('cl.is_primary, cl.lead_id, cl.company_id')
-            ->from(MAUTIC_TABLE_PREFIX.'companies_leads', 'cl')
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies_leads', 'cl')
             ->where(
                 $qb->expr()->eq('cl.lead_id', ':leadId'),
                 $qb->expr()->eq('cl.company_id', ':companyId')
@@ -220,8 +220,8 @@ class CompanyLeadRepository extends CommonRepository
     {
         $q = $this->getEntityManager()->getConnection()->createQueryBuilder();
         $q->select('cl.lead_id')
-            ->from(MAUTIC_TABLE_PREFIX.'companies_leads', 'cl')
-            ->join('cl', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = cl.lead_id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'companies_leads', 'cl')
+            ->join('cl', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = cl.lead_id')
             ->where($q->expr()->eq('cl.company_id', ':companyId'))
             ->setParameter('companyId', $company->getId())
             ->andWhere($q->expr()->neq('l.company', ':company'))
@@ -230,7 +230,7 @@ class CompanyLeadRepository extends CommonRepository
             ->setMaxResults(self::BATCH_SIZE);
         while ($leadIds = $q->executeQuery()->fetchFirstColumn()) {
             $this->getEntityManager()->getConnection()->createQueryBuilder()
-                ->update(MAUTIC_TABLE_PREFIX.'leads')
+                ->update(MAILVOTECH_TABLE_PREFIX.'leads')
                 ->set('company', ':company')
                 ->setParameter('company', $company->getName())
                 ->where(
@@ -243,7 +243,7 @@ class CompanyLeadRepository extends CommonRepository
 
     public function deleteCompanyLeads(int $companyId): void
     {
-        $tableName  = MAUTIC_TABLE_PREFIX.'companies_leads';
+        $tableName  = MAILVOTECH_TABLE_PREFIX.'companies_leads';
         $statement  = $this->getEntityManager()
             ->getConnection()
             ->prepare("DELETE FROM {$tableName} WHERE company_id = :companyId LIMIT ".self::BATCH_SIZE);
@@ -257,7 +257,7 @@ class CompanyLeadRepository extends CommonRepository
     public function removeContactPrimaryCompany(int $leadId): void
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder()
-            ->delete(MAUTIC_TABLE_PREFIX.'companies_leads');
+            ->delete(MAILVOTECH_TABLE_PREFIX.'companies_leads');
         $qb->where(
             $qb->expr()->eq('lead_id', $leadId)
         )->andWhere(
@@ -269,7 +269,7 @@ class CompanyLeadRepository extends CommonRepository
     {
         $conn = $this->getEntityManager()->getConnection();
         do {
-            $sql = 'DELETE FROM '.MAUTIC_TABLE_PREFIX.'companies_leads WHERE is_primary = 0 LIMIT '.self::DELETE_BATCH_SIZE;
+            $sql = 'DELETE FROM '.MAILVOTECH_TABLE_PREFIX.'companies_leads WHERE is_primary = 0 LIMIT '.self::DELETE_BATCH_SIZE;
             $row = $conn->executeStatement($sql);
         } while ($row);
     }
@@ -277,7 +277,7 @@ class CompanyLeadRepository extends CommonRepository
     public function removeContactSecondaryCompanies(int $leadId): void
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder()
-            ->delete(MAUTIC_TABLE_PREFIX.'companies_leads');
+            ->delete(MAILVOTECH_TABLE_PREFIX.'companies_leads');
         $qb->where(
             $qb->expr()->eq('lead_id', $leadId)
         )->andWhere(

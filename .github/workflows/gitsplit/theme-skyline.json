@@ -3,7 +3,7 @@
         {
             "name": "theme-skyline",
             "directory": "themes/skyline",
-            "target": "git@github.com:mautic/theme-skyline.git"
+            "target": "git@github.com:mailvotech/theme-skyline.git"
         }
     ]
 }

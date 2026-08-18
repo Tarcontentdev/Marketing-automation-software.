@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\SyncDataExchange\Helper;
+namespace MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Helper;
 
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\IntegrationsBundle\Event\MauticSyncFieldsLoadEvent;
-use Mautic\IntegrationsBundle\IntegrationEvents;
-use Mautic\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\EncodedValueDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
-use Mautic\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
-use Mautic\IntegrationsBundle\Sync\SyncDataExchange\MauticSyncDataExchange;
-use Mautic\IntegrationsBundle\Sync\VariableExpresser\VariableExpresserHelperInterface;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
-use Mautic\LeadBundle\Model\FieldModel;
-use Mautic\LeadBundle\Model\LeadModel;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\IntegrationsBundle\Event\MailVotechSyncFieldsLoadEvent;
+use MailVotech\IntegrationsBundle\IntegrationEvents;
+use MailVotech\IntegrationsBundle\Sync\DAO\Sync\Report\FieldDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\EncodedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotFoundException;
+use MailVotech\IntegrationsBundle\Sync\Exception\ObjectNotSupportedException;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\Object\Contact;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\Internal\ObjectProvider;
+use MailVotech\IntegrationsBundle\Sync\SyncDataExchange\MailVotechSyncDataExchange;
+use MailVotech\IntegrationsBundle\Sync\VariableExpresser\VariableExpresserHelperInterface;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\LeadBundle\Model\FieldModel;
+use MailVotech\LeadBundle\Model\LeadModel;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -71,7 +71,7 @@ class FieldHelper
             return $this->objectProvider->getObjectByName($objectName)->getEntityName();
         } catch (ObjectNotFoundException) {
             // Throwing different exception to keep BC.
-            throw new ObjectNotSupportedException(MauticSyncDataExchange::NAME, $objectName);
+            throw new ObjectNotSupportedException(MailVotechSyncDataExchange::NAME, $objectName);
         }
     }
 
@@ -104,12 +104,12 @@ class FieldHelper
         );
 
         // Dispatch event to add possibility to add field from some listener
-        $event                                     = new MauticSyncFieldsLoadEvent($objectName, $this->syncFields[$objectName]);
-        $event                                     = $this->eventDispatcher->dispatch($event, IntegrationEvents::INTEGRATION_MAUTIC_SYNC_FIELDS_LOAD);
+        $event                                     = new MailVotechSyncFieldsLoadEvent($objectName, $this->syncFields[$objectName]);
+        $event                                     = $this->eventDispatcher->dispatch($event, IntegrationEvents::INTEGRATION_MAILVOTECH_SYNC_FIELDS_LOAD);
         $this->syncFields[$event->getObjectName()] = $event->getFields();
 
         // Add ID as a read only field
-        $this->syncFields[$objectName]['mautic_internal_id'] = $this->translator->trans('mautic.core.id');
+        $this->syncFields[$objectName]['mailvotech_internal_id'] = $this->translator->trans('mailvotech.core.id');
 
         if (Contact::NAME !== $objectName) {
             uksort($this->syncFields[$objectName], strnatcmp(...));
@@ -117,14 +117,14 @@ class FieldHelper
             return $this->syncFields[$objectName];
         }
 
-        // Mautic contacts have "pseudo" fields such as channel do not contact, timeline, etc.
+        // MailVotech contacts have "pseudo" fields such as channel do not contact, timeline, etc.
         $channels = $this->channelListHelper->getFeatureChannels([LeadModel::CHANNEL_FEATURE], true);
         foreach ($channels as $label => $channel) {
-            $this->syncFields[$objectName]['mautic_internal_dnc_'.$channel] = $this->translator->trans('mautic.integration.sync.channel_dnc', ['%channel%' => $label]);
+            $this->syncFields[$objectName]['mailvotech_internal_dnc_'.$channel] = $this->translator->trans('mailvotech.integration.sync.channel_dnc', ['%channel%' => $label]);
         }
 
         // Add the timeline link
-        $this->syncFields[$objectName]['mautic_internal_contact_timeline'] = $this->translator->trans('mautic.integration.sync.contact_timeline');
+        $this->syncFields[$objectName]['mailvotech_internal_contact_timeline'] = $this->translator->trans('mailvotech.integration.sync.contact_timeline');
 
         uksort($this->syncFields[$objectName], strnatcmp(...));
 

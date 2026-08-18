@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ProjectBundle\Event;
+namespace MailVotech\ProjectBundle\Event;
 
-use Mautic\ProjectBundle\DTO\DetailRoute;
+use MailVotech\ProjectBundle\DTO\DetailRoute;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class EntityTypeDetailRouteEvent extends Event
@@ -26,6 +26,6 @@ final class EntityTypeDetailRouteEvent extends Event
         }
 
         // Default lives here (single place), not in the service or Twig.
-        return new DetailRoute('mautic_'.$entityType.'_action', 'objectId', ['objectAction' => 'view']);
+        return new DetailRoute('mailvotech_'.$entityType.'_action', 'objectId', ['objectAction' => 'view']);
     }
 }

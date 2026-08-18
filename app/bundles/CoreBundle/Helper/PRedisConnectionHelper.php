@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper;
+namespace MailVotech\CoreBundle\Helper;
 
-use Mautic\CoreBundle\Predis\Command\Unlink;
-use Mautic\CoreBundle\Predis\Replication\MasterOnlyStrategy;
-use Mautic\CoreBundle\Predis\Replication\StrategyConfig;
+use MailVotech\CoreBundle\Predis\Command\Unlink;
+use MailVotech\CoreBundle\Predis\Replication\MasterOnlyStrategy;
+use MailVotech\CoreBundle\Predis\Replication\StrategyConfig;
 use Predis\Client;
 use Predis\Cluster\ClusterStrategy;
 use Predis\Connection\Cluster\PredisCluster;
@@ -51,9 +51,9 @@ final class PRedisConnectionHelper
     }
 
     /**
-     * Transform the redis mautic config to an options array consumable by PRedis.
+     * Transform the redis mailvotech config to an options array consumable by PRedis.
      *
-     * @param array $redisConfiguration mautic's redis configuration
+     * @param array $redisConfiguration mailvotech's redis configuration
      */
     public static function makeRedisOptions(array $redisConfiguration, string $prefix = ''): array
     {

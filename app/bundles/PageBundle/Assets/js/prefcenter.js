@@ -1,6 +1,6 @@
 /** This section is only needed once per page if manually copying **/
-if (typeof MauticPrefCenterLoaded === 'undefined') {
-    var MauticPrefCenterLoaded = true;
+if (typeof MailVotechPrefCenterLoaded === 'undefined') {
+    var MailVotechPrefCenterLoaded = true;
 
     function togglePreferredChannel(channel) {
         var status = document.getElementById(channel).checked;

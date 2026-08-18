@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Helper\Chart;
+namespace MailVotech\CoreBundle\Helper\Chart;
 
 final class SeriesPieChart extends AbstractChart implements ChartInterface
 {

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\Stat;
+namespace MailVotech\EmailBundle\Tests\Stat;
 
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Entity\Stat;
-use Mautic\EmailBundle\Entity\StatRepository;
-use Mautic\EmailBundle\Model\EmailStatModel;
-use Mautic\EmailBundle\Stat\Exception\StatNotFoundException;
-use Mautic\EmailBundle\Stat\StatHelper;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\EmailBundle\Entity\Stat;
+use MailVotech\EmailBundle\Entity\StatRepository;
+use MailVotech\EmailBundle\Model\EmailStatModel;
+use MailVotech\EmailBundle\Stat\Exception\StatNotFoundException;
+use MailVotech\EmailBundle\Stat\StatHelper;
+use MailVotech\LeadBundle\Entity\Lead;
 
 final class StatHelperTest extends \PHPUnit\Framework\TestCase
 {

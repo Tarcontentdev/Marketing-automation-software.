@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Field;
+namespace MailVotech\LeadBundle\Tests\Field;
 
-use Mautic\CoreBundle\Doctrine\Helper\IndexSchemaHelper;
-use Mautic\LeadBundle\Entity\LeadField;
-use Mautic\LeadBundle\Field\CustomFieldIndex;
-use Mautic\LeadBundle\Field\FieldsWithUniqueIdentifier;
+use MailVotech\CoreBundle\Doctrine\Helper\IndexSchemaHelper;
+use MailVotech\LeadBundle\Entity\LeadField;
+use MailVotech\LeadBundle\Field\CustomFieldIndex;
+use MailVotech\LeadBundle\Field\FieldsWithUniqueIdentifier;
 use Monolog\Logger;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;

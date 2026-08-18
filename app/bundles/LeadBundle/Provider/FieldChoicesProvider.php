@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Provider;
+namespace MailVotech\LeadBundle\Provider;
 
-use Mautic\LeadBundle\Event\ListFieldChoicesEvent;
-use Mautic\LeadBundle\Exception\ChoicesNotFoundException;
-use Mautic\LeadBundle\LeadEvents;
+use MailVotech\LeadBundle\Event\ListFieldChoicesEvent;
+use MailVotech\LeadBundle\Exception\ChoicesNotFoundException;
+use MailVotech\LeadBundle\LeadEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class FieldChoicesProvider implements FieldChoicesProviderInterface

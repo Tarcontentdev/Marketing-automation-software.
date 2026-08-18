@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Tests\Segment\Query\Filter;
+namespace MailVotech\LeadBundle\Tests\Segment\Query\Filter;
 
 use Doctrine\DBAL\Connection;
-use Mautic\CoreBundle\Test\Doctrine\MockedConnectionTrait;
-use Mautic\LeadBundle\Segment\ContactSegmentFilter;
-use Mautic\LeadBundle\Segment\DoNotContact\DoNotContactParts;
-use Mautic\LeadBundle\Segment\Query\Filter\DoNotContactFilterQueryBuilder;
-use Mautic\LeadBundle\Segment\Query\QueryBuilder;
-use Mautic\LeadBundle\Segment\RandomParameterName;
+use MailVotech\CoreBundle\Test\Doctrine\MockedConnectionTrait;
+use MailVotech\LeadBundle\Segment\ContactSegmentFilter;
+use MailVotech\LeadBundle\Segment\DoNotContact\DoNotContactParts;
+use MailVotech\LeadBundle\Segment\Query\Filter\DoNotContactFilterQueryBuilder;
+use MailVotech\LeadBundle\Segment\Query\QueryBuilder;
+use MailVotech\LeadBundle\Segment\RandomParameterName;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -21,7 +21,7 @@ final class DoNotContactFilterQueryBuilderTest extends TestCase
 
     public function testGetServiceId(): void
     {
-        $this->assertSame('mautic.lead.query.builder.special.dnc', DoNotContactFilterQueryBuilder::getServiceId());
+        $this->assertSame('mailvotech.lead.query.builder.special.dnc', DoNotContactFilterQueryBuilder::getServiceId());
     }
 
     #[DataProvider('dataApplyQuery')]
@@ -29,12 +29,12 @@ final class DoNotContactFilterQueryBuilderTest extends TestCase
     {
         $queryBuilder = new QueryBuilder($this->createConnection());
         $queryBuilder->select('1');
-        $queryBuilder->from(MAUTIC_TABLE_PREFIX.'leads', 'l');
+        $queryBuilder->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l');
 
         $filter             = $this->createFilter($operator, $parameterValue);
         $filterQueryBuilder = new DoNotContactFilterQueryBuilder(new RandomParameterName(), new EventDispatcher());
 
-        $expectedQuery = str_replace('__MAUTIC_TABLE_PREFIX__', MAUTIC_TABLE_PREFIX, $expectedQuery);
+        $expectedQuery = str_replace('__MAILVOTECH_TABLE_PREFIX__', MAILVOTECH_TABLE_PREFIX, $expectedQuery);
         $this->assertSame($queryBuilder, $filterQueryBuilder->applyQuery($queryBuilder, $filter));
         $this->assertSame($expectedQuery, $queryBuilder->getDebugOutput());
     }
@@ -44,10 +44,10 @@ final class DoNotContactFilterQueryBuilderTest extends TestCase
      */
     public static function dataApplyQuery(): iterable
     {
-        yield ['eq', '1', 'SELECT 1 FROM __MAUTIC_TABLE_PREFIX__leads l WHERE l.id IN (SELECT par0.lead_id FROM __MAUTIC_TABLE_PREFIX__lead_donotcontact par0 WHERE (par0.reason = 1) AND (par0.channel = \'email\'))'];
-        yield ['eq', '0', 'SELECT 1 FROM __MAUTIC_TABLE_PREFIX__leads l WHERE l.id NOT IN (SELECT par0.lead_id FROM __MAUTIC_TABLE_PREFIX__lead_donotcontact par0 WHERE (par0.reason = 1) AND (par0.channel = \'email\'))'];
-        yield ['neq', '1', 'SELECT 1 FROM __MAUTIC_TABLE_PREFIX__leads l WHERE l.id NOT IN (SELECT par0.lead_id FROM __MAUTIC_TABLE_PREFIX__lead_donotcontact par0 WHERE (par0.reason = 1) AND (par0.channel = \'email\'))'];
-        yield ['neq', '0', 'SELECT 1 FROM __MAUTIC_TABLE_PREFIX__leads l WHERE l.id IN (SELECT par0.lead_id FROM __MAUTIC_TABLE_PREFIX__lead_donotcontact par0 WHERE (par0.reason = 1) AND (par0.channel = \'email\'))'];
+        yield ['eq', '1', 'SELECT 1 FROM __MAILVOTECH_TABLE_PREFIX__leads l WHERE l.id IN (SELECT par0.lead_id FROM __MAILVOTECH_TABLE_PREFIX__lead_donotcontact par0 WHERE (par0.reason = 1) AND (par0.channel = \'email\'))'];
+        yield ['eq', '0', 'SELECT 1 FROM __MAILVOTECH_TABLE_PREFIX__leads l WHERE l.id NOT IN (SELECT par0.lead_id FROM __MAILVOTECH_TABLE_PREFIX__lead_donotcontact par0 WHERE (par0.reason = 1) AND (par0.channel = \'email\'))'];
+        yield ['neq', '1', 'SELECT 1 FROM __MAILVOTECH_TABLE_PREFIX__leads l WHERE l.id NOT IN (SELECT par0.lead_id FROM __MAILVOTECH_TABLE_PREFIX__lead_donotcontact par0 WHERE (par0.reason = 1) AND (par0.channel = \'email\'))'];
+        yield ['neq', '0', 'SELECT 1 FROM __MAILVOTECH_TABLE_PREFIX__leads l WHERE l.id IN (SELECT par0.lead_id FROM __MAILVOTECH_TABLE_PREFIX__lead_donotcontact par0 WHERE (par0.reason = 1) AND (par0.channel = \'email\'))'];
     }
 
     private function createConnection(): Connection

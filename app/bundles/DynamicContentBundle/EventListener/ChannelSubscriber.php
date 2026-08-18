@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\DynamicContentBundle\EventListener;
+namespace MailVotech\DynamicContentBundle\EventListener;
 
-use Mautic\ChannelBundle\ChannelEvents;
-use Mautic\ChannelBundle\Event\ChannelEvent;
-use Mautic\ReportBundle\Model\ReportModel;
+use MailVotech\ChannelBundle\ChannelEvents;
+use MailVotech\ChannelBundle\Event\ChannelEvent;
+use MailVotech\ReportBundle\Model\ReportModel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ChannelSubscriber implements EventSubscriberInterface

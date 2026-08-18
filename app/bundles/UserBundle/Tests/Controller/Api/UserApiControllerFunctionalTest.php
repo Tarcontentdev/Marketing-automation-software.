@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mautic\UserBundle\Tests\Controller\Api;
+namespace MailVotech\UserBundle\Tests\Controller\Api;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\UserBundle\Entity\Permission;
-use Mautic\UserBundle\Entity\Role;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\UserBundle\Entity\Permission;
+use MailVotech\UserBundle\Entity\Role;
+use MailVotech\UserBundle\Entity\User;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
-final class UserApiControllerFunctionalTest extends MauticMysqlTestCase
+final class UserApiControllerFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testRoleUpdateByApiGivesErrorResponseIfUserDoesNotExist(): void
     {
@@ -113,7 +113,7 @@ final class UserApiControllerFunctionalTest extends MauticMysqlTestCase
         // Create permissions to update user for the role
         $this->createPermission('user:users:edit', $role, 52);
         // Create non-admin user with weak password.
-        $weakPassword = 'mautic';
+        $weakPassword = 'mailvotech';
         $user         = $this->createUser($role, $weakPassword);
         $this->em->flush();
         $this->em->clear();

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\AssetBundle\EventListener;
+namespace MailVotech\AssetBundle\EventListener;
 
-use Mautic\AssetBundle\Entity\Asset;
-use Mautic\AssetBundle\Event\AssetExportListEvent;
-use Mautic\CoreBundle\Helper\PathsHelper;
+use MailVotech\AssetBundle\Entity\Asset;
+use MailVotech\AssetBundle\Event\AssetExportListEvent;
+use MailVotech\CoreBundle\Helper\PathsHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class AssetExportListEventSubscriber implements EventSubscriberInterface

@@ -3,7 +3,7 @@
         {
             "name": "theme-educate",
             "directory": "themes/_educate",
-            "target": "git@github.com:mautic/theme-educate.git"
+            "target": "git@github.com:mailvotech/theme-educate.git"
         }
     ]
 }

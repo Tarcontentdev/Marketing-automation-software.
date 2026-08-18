@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\EmailBundle\EventListener;
+namespace MailVotech\EmailBundle\EventListener;
 
-use Mautic\EmailBundle\Helper\StatsCollectionHelper;
-use Mautic\StatsBundle\Event\AggregateStatRequestEvent;
-use Mautic\StatsBundle\StatEvents;
+use MailVotech\EmailBundle\Helper\StatsCollectionHelper;
+use MailVotech\StatsBundle\Event\AggregateStatRequestEvent;
+use MailVotech\StatsBundle\StatEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class GraphAggregateStatsSubscriber implements EventSubscriberInterface

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ChannelBundle\EventListener;
+namespace MailVotech\ChannelBundle\EventListener;
 
-use Mautic\ChannelBundle\Model\MessageModel;
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\DTO\GlobalSearchFilterDTO;
-use Mautic\CoreBundle\Event\GlobalSearchEvent;
-use Mautic\CoreBundle\Service\GlobalSearch;
+use MailVotech\ChannelBundle\Model\MessageModel;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\DTO\GlobalSearchFilterDTO;
+use MailVotech\CoreBundle\Event\GlobalSearchEvent;
+use MailVotech\CoreBundle\Service\GlobalSearch;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class SearchSubscriber implements EventSubscriberInterface
@@ -31,11 +31,11 @@ final readonly class SearchSubscriber implements EventSubscriberInterface
         $results = $this->globalSearch->performSearch(
             new GlobalSearchFilterDTO($event->getSearchString()),
             $this->model,
-            '@MauticChannel/SubscribedEvents/Search/global.html.twig'
+            '@MailVotechChannel/SubscribedEvents/Search/global.html.twig'
         );
 
         if ([] !== $results) {
-            $event->addResults('mautic.messages.header', $results);
+            $event->addResults('mailvotech.messages.header', $results);
         }
     }
 }

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Functional\Doctrine\Paginator;
+namespace MailVotech\CoreBundle\Tests\Functional\Doctrine\Paginator;
 
-use Mautic\CoreBundle\Doctrine\Paginator\SimplePaginator;
-use Mautic\CoreBundle\Entity\IpAddress;
-use Mautic\CoreBundle\Entity\IpAddressRepository;
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
+use MailVotech\CoreBundle\Doctrine\Paginator\SimplePaginator;
+use MailVotech\CoreBundle\Entity\IpAddress;
+use MailVotech\CoreBundle\Entity\IpAddressRepository;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
 use Symfony\Bridge\Doctrine\Middleware\Debug\DebugDataHolder;
 
-final class SimplePaginatorTest extends MauticMysqlTestCase
+final class SimplePaginatorTest extends MailVotechMysqlTestCase
 {
     /**
      * Enable debug for enabling DBAL query logger.
@@ -60,7 +60,7 @@ final class SimplePaginatorTest extends MauticMysqlTestCase
             $ipAddress3->getId() => $ipAddress3,
         ], iterator_to_array($paginator), 'Only 2 last records should be returned.');
 
-        $prefix  = self::getContainer()->getParameter('mautic.db_table_prefix');
+        $prefix  = self::getContainer()->getParameter('mailvotech.db_table_prefix');
         $queries = $this->debugDataHolder->getData()['default'];
 
         $this->assertCount(5, $queries, 'There should be exactly 5 queries executed.');

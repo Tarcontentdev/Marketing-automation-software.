@@ -2,7 +2,7 @@
 {%- set dynamicFilterFields = dynamicFilterForm.children|filter(v => 'hidden' != v.vars.block_prefixes[1]) -%}
 
 <!-- report detail header -->
-{% include '@MauticCore/Helper/description--expanded.html.twig' with {'description': report.description} %}
+{% include '@MailVotechCore/Helper/description--expanded.html.twig' with {'description': report.description} %}
 <!--/ report detail header -->
 <!-- report detail collapseable -->
 <div id="report-shelves" class="mb-5" aria-multiselectable="true">
@@ -11,7 +11,7 @@
             <div class="panel shd-none mb-0">
                 <table class="table table-hover mb-0">
                     <tbody>
-                      {{ include('@MauticCore/Helper/details.html.twig', {'entity': report}) }}
+                      {{ include('@MailVotechCore/Helper/details.html.twig', {'entity': report}) }}
                     </tbody>
                 </table>
             </div>
@@ -40,11 +40,11 @@
         <!-- report detail collapseable toggler -->
         <div class="hr-expand nm">
             <a href="#report-details" class="arrow text-secondary collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="report-details">
-                <span class="caret"></span> {{ 'mautic.core.details'|trans }}
+                <span class="caret"></span> {{ 'mailvotech.core.details'|trans }}
             </a>
             {% if dynamicFilterFields is not empty %}
             <a href="#report-filters" class="arrow text-secondary {% if not showDynamicFilters %}collapsed{% endif %}" data-toggle="collapse" aria-expanded="false" aria-controls="report-filters">
-                <span class="caret"></span> {{ 'mautic.core.filters'|trans }}
+                <span class="caret"></span> {{ 'mailvotech.core.filters'|trans }}
             </a>
             {% endif %}
         </div>

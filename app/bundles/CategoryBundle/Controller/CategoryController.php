@@ -1,13 +1,13 @@
 <?php
 
-namespace Mautic\CategoryBundle\Controller;
+namespace MailVotech\CategoryBundle\Controller;
 
-use Mautic\CategoryBundle\CategoryEvents;
-use Mautic\CategoryBundle\Event\CategoryTypesEvent;
-use Mautic\CategoryBundle\Model\CategoryModel;
-use Mautic\CoreBundle\Controller\AbstractFormController;
-use Mautic\CoreBundle\Exception\DeleteEntityDependencyException;
-use Mautic\CoreBundle\Service\FlashBag;
+use MailVotech\CategoryBundle\CategoryEvents;
+use MailVotech\CategoryBundle\Event\CategoryTypesEvent;
+use MailVotech\CategoryBundle\Model\CategoryModel;
+use MailVotech\CoreBundle\Controller\AbstractFormController;
+use MailVotech\CoreBundle\Exception\DeleteEntityDependencyException;
+use MailVotech\CoreBundle\Service\FlashBag;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,14 +58,14 @@ final class CategoryController extends AbstractFormController
     {
         $session = $request->getSession();
 
-        $categoryFilter = (string) $session->get('mautic.category.filter', '');
+        $categoryFilter = (string) $session->get('mailvotech.category.filter', '');
         $search = $request->query->get('search', $categoryFilter);
 
-        $categoryType = (string) $session->get('mautic.category.type', $bundle);
+        $categoryType = (string) $session->get('mailvotech.category.type', $bundle);
         $bundle = $request->query->get('bundle', $categoryType);
 
         if ($bundle) {
-            $session->set('mautic.category.type', $bundle);
+            $session->set('mailvotech.category.type', $bundle);
         }
 
         // hack to make pagination work for default list view
@@ -73,7 +73,7 @@ final class CategoryController extends AbstractFormController
             $bundle = 'category';
         }
 
-        $session->set('mautic.category.filter', $search);
+        $session->set('mailvotech.category.filter', $search);
         $permissionBase = $this->categoryModel->getPermissionBase($bundle);
         $permissions    = $this->security->isGranted(
             [
@@ -97,7 +97,7 @@ final class CategoryController extends AbstractFormController
         ];
 
         // set limits
-        $limit = $session->get('mautic.category.limit', $this->coreParametersHelper->get('default_pagelimit'));
+        $limit = $session->get('mailvotech.category.limit', $this->coreParametersHelper->get('default_pagelimit'));
         $start = (1 === $page) ? 0 : (($page - 1) * $limit);
         if ($start < 0) {
             $start = 0;
@@ -115,8 +115,8 @@ final class CategoryController extends AbstractFormController
             ];
         }
 
-        $orderBy    = $request->getSession()->get('mautic.category.orderby', 'c.title');
-        $orderByDir = $request->getSession()->get('mautic.category.orderbydir', 'DESC');
+        $orderBy    = $request->getSession()->get('mailvotech.category.orderby', 'c.title');
+        $orderByDir = $request->getSession()->get('mailvotech.category.orderbydir', 'DESC');
 
         $entities = $this->categoryModel->getEntities(
             [
@@ -137,23 +137,23 @@ final class CategoryController extends AbstractFormController
                 $lastPage = (ceil($count / $limit)) ?: 1;
             }
             $viewParams['page'] = $lastPage;
-            $session->set('mautic.category.page', $lastPage);
-            $returnUrl = $this->generateUrl('mautic_category_index', $viewParams);
+            $session->set('mailvotech.category.page', $lastPage);
+            $returnUrl = $this->generateUrl('mailvotech_category_index', $viewParams);
 
             return $this->postActionRedirect(
                 [
                     'returnUrl'       => $returnUrl,
                     'viewParameters'  => ['page' => $lastPage],
-                    'contentTemplate' => 'Mautic\CategoryBundle\Controller\CategoryController::indexAction',
+                    'contentTemplate' => 'MailVotech\CategoryBundle\Controller\CategoryController::indexAction',
                     'passthroughVars' => [
-                        'activeLink'    => '#mautic_'.$bundle.'category_index',
-                        'mauticContent' => 'category',
+                        'activeLink'    => '#mailvotech_'.$bundle.'category_index',
+                        'mailvotechContent' => 'category',
                     ],
                 ]
             );
         }
 
-        $categoryTypes = ['category' => $this->translator->trans('mautic.core.select')];
+        $categoryTypes = ['category' => $this->translator->trans('mailvotech.core.select')];
 
         if ($this->dispatcher->hasListeners(CategoryEvents::CATEGORY_ON_BUNDLE_LIST_BUILD)) {
             $event = new CategoryTypesEvent();
@@ -162,13 +162,13 @@ final class CategoryController extends AbstractFormController
         }
 
         // set what page currently on so that we can return here after form submission/cancellation
-        $session->set('mautic.category.page', $page);
+        $session->set('mailvotech.category.page', $page);
 
         $tmpl = $request->isXmlHttpRequest() ? $request->get('tmpl', 'index') : 'index';
 
         return $this->delegateView(
             [
-                'returnUrl'      => $this->generateUrl('mautic_category_index', $viewParams),
+                'returnUrl'      => $this->generateUrl('mailvotech_category_index', $viewParams),
                 'viewParameters' => [
                     'bundle'         => $bundle,
                     'permissionBase' => $permissionBase,
@@ -180,11 +180,11 @@ final class CategoryController extends AbstractFormController
                     'tmpl'           => $tmpl,
                     'categoryTypes'  => $categoryTypes,
                 ],
-                'contentTemplate' => '@MauticCategory/Category/list.html.twig',
+                'contentTemplate' => '@MailVotechCategory/Category/list.html.twig',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_'.$bundle.'category_index',
-                    'mauticContent' => 'category',
-                    'route'         => $this->generateUrl('mautic_category_index', $viewParams),
+                    'activeLink'    => '#mailvotech_'.$bundle.'category_index',
+                    'mailvotechContent' => 'category',
+                    'route'         => $this->generateUrl('mailvotech_category_index', $viewParams),
                 ],
             ]
         );
@@ -207,7 +207,7 @@ final class CategoryController extends AbstractFormController
             return $this->modalAccessDenied();
         }
         // Create the form
-        $action = $this->generateUrl('mautic_category_action', [
+        $action = $this->generateUrl('mailvotech_category_action', [
             'objectAction' => 'new',
             'bundle'       => $bundle,
         ]);
@@ -223,7 +223,7 @@ final class CategoryController extends AbstractFormController
                     // form is valid so process the data
                     $this->categoryModel->saveEntity($entity, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
 
-                    $this->addFlashMessage('mautic.category.notice.created', [
+                    $this->addFlashMessage('mailvotech.category.notice.created', [
                         '%name%' => $entity->getTitle(),
                     ]);
                 }
@@ -237,7 +237,7 @@ final class CategoryController extends AbstractFormController
         if ($closeModal) {
             if ($inForm) {
                 return new JsonResponse([
-                    'mauticContent' => 'category',
+                    'mailvotechContent' => 'category',
                     'closeModal'    => 1,
                     'inForm'        => 1,
                     'categoryName'  => $entity->getTitle(),
@@ -246,17 +246,17 @@ final class CategoryController extends AbstractFormController
             }
 
             $viewParameters = [
-                'page'   => $session->get('mautic.category.page'),
+                'page'   => $session->get('mailvotech.category.page'),
                 'bundle' => $bundle,
             ];
 
             return $this->postActionRedirect([
-                'returnUrl'       => $this->generateUrl('mautic_category_index', $viewParameters),
+                'returnUrl'       => $this->generateUrl('mailvotech_category_index', $viewParameters),
                 'viewParameters'  => $viewParameters,
-                'contentTemplate' => 'Mautic\CategoryBundle\Controller\CategoryController::indexAction',
+                'contentTemplate' => 'MailVotech\CategoryBundle\Controller\CategoryController::indexAction',
                 'passthroughVars' => [
-                    'activeLink'    => '#mautic_'.$bundle.'category_index',
-                    'mauticContent' => 'category',
+                    'activeLink'    => '#mailvotech_'.$bundle.'category_index',
+                    'mailvotechContent' => 'category',
                     'closeModal'    => 1,
                 ],
             ]);
@@ -269,14 +269,14 @@ final class CategoryController extends AbstractFormController
         return $this->ajaxAction(
             $request,
             [
-                'contentTemplate' => '@MauticCategory/Category/form.html.twig',
+                'contentTemplate' => '@MailVotechCategory/Category/form.html.twig',
                 'viewParameters'  => [
                     'form'           => $form->createView(),
                     'activeCategory' => $entity,
                     'bundle'         => $bundle,
                 ],
                 'passthroughVars' => [
-                    'mauticContent' => 'category',
+                    'mailvotechContent' => 'category',
                     'success'       => $success,
                     'route'         => false,
                 ],
@@ -317,7 +317,7 @@ final class CategoryController extends AbstractFormController
 
         // Create the form
         $action = $this->generateUrl(
-            'mautic_category_action',
+            'mailvotech_category_action',
             [
                 'objectAction' => 'edit',
                 'objectId'     => $objectId,
@@ -338,7 +338,7 @@ final class CategoryController extends AbstractFormController
                     $this->categoryModel->saveEntity($entity, $this->getFormButton($form, ['buttons', 'save'])->isClicked());
 
                     $this->addFlashMessage(
-                        'mautic.category.notice.updated',
+                        'mailvotech.category.notice.updated',
                         [
                             '%name%' => $entity->getTitle(),
                         ]
@@ -347,7 +347,7 @@ final class CategoryController extends AbstractFormController
                     if ($this->isButtonClicked($form, 'apply')) {
                         // Rebuild the form with new action so that apply doesn't keep creating a clone
                         $action = $this->generateUrl(
-                            'mautic_category_action',
+                            'mailvotech_category_action',
                             [
                                 'objectAction' => 'edit',
                                 'objectId'     => $entity->getId(),
@@ -374,7 +374,7 @@ final class CategoryController extends AbstractFormController
             if ($inForm) {
                 $response = new JsonResponse(
                     [
-                        'mauticContent' => 'category',
+                        'mailvotechContent' => 'category',
                         'closeModal'    => 1,
                         'inForm'        => 1,
                         'categoryName'  => $entity->getTitle(),
@@ -383,18 +383,18 @@ final class CategoryController extends AbstractFormController
                 );
             } else {
                 $viewParameters = [
-                    'page'   => $session->get('mautic.category.page'),
+                    'page'   => $session->get('mailvotech.category.page'),
                     'bundle' => $bundle,
                 ];
 
                 $response = $this->postActionRedirect(
                     [
-                        'returnUrl'       => $this->generateUrl('mautic_category_index', $viewParameters),
+                        'returnUrl'       => $this->generateUrl('mailvotech_category_index', $viewParameters),
                         'viewParameters'  => $viewParameters,
-                        'contentTemplate' => 'Mautic\CategoryBundle\Controller\CategoryController::indexAction',
+                        'contentTemplate' => 'MailVotech\CategoryBundle\Controller\CategoryController::indexAction',
                         'passthroughVars' => [
-                            'activeLink'    => '#mautic_'.$bundle.'category_index',
-                            'mauticContent' => 'category',
+                            'activeLink'    => '#mailvotech_'.$bundle.'category_index',
+                            'mailvotechContent' => 'category',
                             'closeModal'    => 1,
                         ],
                     ]
@@ -404,14 +404,14 @@ final class CategoryController extends AbstractFormController
             $response = $this->ajaxAction(
                 $request,
                 [
-                    'contentTemplate' => '@MauticCategory/Category/form.html.twig',
+                    'contentTemplate' => '@MailVotechCategory/Category/form.html.twig',
                     'viewParameters'  => [
                         'form'           => $form->createView(),
                         'activeCategory' => $entity,
                         'bundle'         => $bundle,
                     ],
                     'passthroughVars' => [
-                        'mauticContent' => 'category',
+                        'mailvotechContent' => 'category',
                         'success'       => $success,
                         'route'         => false,
                     ],
@@ -428,21 +428,21 @@ final class CategoryController extends AbstractFormController
     public function deleteAction(Request $request, ?string $bundle, $objectId): Response
     {
         $session    = $request->getSession();
-        $page       = $session->get('mautic.category.page', 1);
+        $page       = $session->get('mailvotech.category.page', 1);
         $viewParams = [
             'page'   => $page,
             'bundle' => $bundle,
         ];
-        $returnUrl = $this->generateUrl('mautic_category_index', $viewParams);
+        $returnUrl = $this->generateUrl('mailvotech_category_index', $viewParams);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => $viewParams,
-            'contentTemplate' => 'Mautic\CategoryBundle\Controller\CategoryController::indexAction',
+            'contentTemplate' => 'MailVotech\CategoryBundle\Controller\CategoryController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_'.$bundle.'category_index',
-                'mauticContent' => 'category',
+                'activeLink'    => 'mailvotech_'.$bundle.'category_index',
+                'mailvotechContent' => 'category',
             ],
         ];
 
@@ -452,7 +452,7 @@ final class CategoryController extends AbstractFormController
             if (null === $entity) {
                 $flashes[] = [
                     'type'    => 'error',
-                    'msg'     => 'mautic.category.error.notfound',
+                    'msg'     => 'mailvotech.category.error.notfound',
                     'msgVars' => ['%id%' => $objectId],
                 ];
             } elseif (!$this->security->isGranted($this->categoryModel->getPermissionBase($bundle).':delete')) {
@@ -466,7 +466,7 @@ final class CategoryController extends AbstractFormController
 
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.core.notice.deleted',
+                    'msg'     => 'mailvotech.core.notice.deleted',
                     'msgVars' => [
                         '%name%' => $entity->getTitle(),
                         '%id%'   => $objectId,
@@ -495,21 +495,21 @@ final class CategoryController extends AbstractFormController
     public function batchDeleteAction(Request $request, ?string $bundle): Response
     {
         $session    = $request->getSession();
-        $page       = $session->get('mautic.category.page', 1);
+        $page       = $session->get('mailvotech.category.page', 1);
         $viewParams = [
             'page'   => $page,
             'bundle' => $bundle,
         ];
-        $returnUrl = $this->generateUrl('mautic_category_index', $viewParams);
+        $returnUrl = $this->generateUrl('mailvotech_category_index', $viewParams);
         $flashes   = [];
 
         $postActionVars = [
             'returnUrl'       => $returnUrl,
             'viewParameters'  => $viewParams,
-            'contentTemplate' => 'Mautic\CategoryBundle\Controller\CategoryController::indexAction',
+            'contentTemplate' => 'MailVotech\CategoryBundle\Controller\CategoryController::indexAction',
             'passthroughVars' => [
-                'activeLink'    => 'mautic_'.$bundle.'category_index',
-                'mauticContent' => 'category',
+                'activeLink'    => 'mailvotech_'.$bundle.'category_index',
+                'mailvotechContent' => 'category',
             ],
         ];
 
@@ -525,7 +525,7 @@ final class CategoryController extends AbstractFormController
                 if (null === $entity) {
                     $flashes[] = [
                         'type'    => 'error',
-                        'msg'     => 'mautic.category.error.notfound',
+                        'msg'     => 'mailvotech.category.error.notfound',
                         'msgVars' => ['%id%' => $objectId],
                     ];
                 } elseif (!$this->security->isGranted($this->categoryModel->getPermissionBase($bundle).':delete')) {
@@ -546,7 +546,7 @@ final class CategoryController extends AbstractFormController
             if ([] !== $deleteIds) {
                 $flashes[] = [
                     'type'    => 'notice',
-                    'msg'     => 'mautic.category.notice.batch_deleted',
+                    'msg'     => 'mailvotech.category.notice.batch_deleted',
                     'msgVars' => [
                         '%count%' => count($deleteIds),
                     ],

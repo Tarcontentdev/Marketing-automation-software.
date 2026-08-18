@@ -12,11 +12,11 @@
     <thead >
     <tr >
         <th>
-            <input type="checkbox" id="contact_channels_subscribed_channels_0" name="check_all" onclick="Mautic.togglePreferredChannel('all');" value="all">
+            <input type="checkbox" id="contact_channels_subscribed_channels_0" name="check_all" onclick="MailVotech.togglePreferredChannel('all');" value="all">
         </th>
-        <th>{{ 'mautic.lead.contact.channels'|trans }}</th>
-        <th>{{ 'mautic.lead.preferred.frequency'|trans }}</th>
-        <th>{{ 'mautic.lead.preferred.channels'|trans }}</th>
+        <th>{{ 'mailvotech.lead.contact.channels'|trans }}</th>
+        <th>{{ 'mailvotech.lead.preferred.frequency'|trans }}</th>
+        <th>{{ 'mailvotech.lead.preferred.channels'|trans }}</th>
     </tr>
     </thead>
     <tbody>
@@ -30,7 +30,7 @@
         <tr>
             <th style="vertical-align: top" class="col-md-1">
                 <input type="checkbox" id="{{ channel.value }}"
-                       name="contact_channels[subscribed_channels][]" class="control-label" onclick="Mautic.togglePreferredChannel(this.value);"
+                       name="contact_channels[subscribed_channels][]" class="control-label" onclick="MailVotech.togglePreferredChannel(this.value);"
                        value="{{ channel.value|e }}" {{ checked }}>
             </th>
             <td class="col-md-1" style="vertical-align: top">
@@ -66,7 +66,7 @@
             <td colspan="2" style="border-top:none">
                 <div id="frequency_{{ channel.value }}" class="{{ hidden }}">
                     <div>
-                        <label class="text-secondary fw-n">{{ 'mautic.lead.frequency.dates.label'|trans }}</label>
+                        <label class="text-secondary fw-n">{{ 'mailvotech.lead.frequency.dates.label'|trans }}</label>
                     </div>
                     <div>
                         {{ form_widget(form['contact_pause_start_date_'~channel.value]) }}

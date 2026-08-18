@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="{{ app.getUser().locale|default(app.request.locale) }}" theme="{{ app.getUser().getPreferences().theme | default('light') }}" accent="{{ configGetParameter('accent' | default('01')) }}" reduce-transparency="{{ app.getUser().getPreferences().reduce_transparency | default('false') }}" reduce-motion="{{ app.getUser().getPreferences().reduce_motion | default('false') }}" contrast-borders="{{ app.getUser().getPreferences().contrast_borders | default('false') }}" enable-underlines="{{ app.getUser().getPreferences().enable_underlines | default('false') }}">
-    {{ include('@MauticCore/Default/head.html.twig', {
+    {{ include('@MailVotechCore/Default/head.html.twig', {
             headerTitle: block('headerTitle') is defined ? block('headerTitle') : headerTitle|default(''),
-            pageTitle: block('pageTitle') is defined ? block('pageTitle') : 'Mautic',
+            pageTitle: block('pageTitle') is defined ? block('pageTitle') : 'MailVotech',
         })
     }}
     <body class="header-fixed pr-0">
         <section id="app-wrapper">
             {{ outputScripts('bodyOpen') }}
 
-            {{ include('@MauticCore/Notification/flashes.html.twig') }}
-            {{ include('@MauticCore/Modal/tokens_help.html.twig') }}
-            {{ include('@MauticCore/Modal/keyboard_shortcuts.html.twig') }}
-            {{ include('@MauticCore/Modal/search_commands.html.twig') }}
-            {{ render(controller('Mautic\\CoreBundle\\Controller\\DefaultController::globalSearchAction')) }}
+            {{ include('@MailVotechCore/Notification/flashes.html.twig') }}
+            {{ include('@MailVotechCore/Modal/tokens_help.html.twig') }}
+            {{ include('@MailVotechCore/Modal/keyboard_shortcuts.html.twig') }}
+            {{ include('@MailVotechCore/Modal/search_commands.html.twig') }}
+            {{ render(controller('MailVotech\\CoreBundle\\Controller\\DefaultController::globalSearchAction')) }}
 
             <aside class="app-sidebar sidebar-left">
-                {{ include('@MauticCore/LeftPanel/index.html.twig') }}
+                {{ include('@MailVotechCore/LeftPanel/index.html.twig') }}
             </aside>
 
             <header id="app-header" class="navbar">
-                {{ include('@MauticCore/Default/navbar.html.twig') }}
+                {{ include('@MailVotechCore/Default/navbar.html.twig') }}
             </header>
 
             <!-- start: app-footer(need to put on top of #app-content)-->
             <footer id="app-footer">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-xs-6 text-secondary">{% trans with {'%date%': 'now' | date('Y') } %}mautic.core.copyright{% endtrans %}</div>
-                        <div class="col-xs-6 text-secondary text-right small">v{{ mauticAppVersion() }}</div>
+                        <div class="col-xs-6 text-secondary">{% trans with {'%date%': 'now' | date('Y') } %}mailvotech.core.copyright{% endtrans %}</div>
+                        <div class="col-xs-6 text-secondary text-right small">v{{ mailvotechAppVersion() }}</div>
                     </div>
                 </div>
             </footer>
@@ -36,16 +36,16 @@
 
             <section id="app-content">
                 {% block _content %}
-                    {{ include('@MauticCore/Default/output.html.twig') }}
+                    {{ include('@MailVotechCore/Default/output.html.twig') }}
                 {% endblock %}
             </section>
 
             <script>
-                Mautic.onPageLoad('body');
+                MailVotech.onPageLoad('body');
             </script>
             {{ outputScripts('bodyClose') }}
-            {{ include('@MauticCore/Helper/modal.html.twig', {
-                id: 'MauticSharedModal',
+            {{ include('@MailVotechCore/Helper/modal.html.twig', {
+                id: 'MailVotechSharedModal',
                 footerButtons: true
             }) }}
         </section>

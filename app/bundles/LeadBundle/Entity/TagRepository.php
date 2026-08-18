@@ -1,9 +1,9 @@
 <?php
 
-namespace Mautic\LeadBundle\Entity;
+namespace MailVotech\LeadBundle\Entity;
 
 use Doctrine\DBAL\ArrayParameterType;
-use Mautic\CoreBundle\Entity\CommonRepository;
+use MailVotech\CoreBundle\Entity\CommonRepository;
 
 /**
  * @extends CommonRepository<Tag>
@@ -28,7 +28,7 @@ class TagRepository extends CommonRepository
     private function deleteLeadAssociations(int $tagId): void
     {
         $this->_em->getConnection()->createQueryBuilder()
-            ->delete(MAUTIC_TABLE_PREFIX.'lead_tags_xref')
+            ->delete(MAILVOTECH_TABLE_PREFIX.'lead_tags_xref')
             ->where('tag_id = :tagId')
             ->setParameter('tagId', $tagId)
             ->executeStatement();
@@ -43,17 +43,17 @@ class TagRepository extends CommonRepository
         $havingQb = $this->_em->getConnection()->createQueryBuilder();
 
         $havingQb->select('count(x.lead_id) as the_count')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_tags_xref', 'x')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_tags_xref', 'x')
             ->where('x.tag_id = t.id');
 
         $qb->select('t.id')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_tags', 't')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_tags', 't')
             ->having(sprintf('(%s)', $havingQb->getSQL()).' = 0');
         $delete = $qb->executeQuery()->fetchFirstColumn();
 
         if (count($delete)) {
             $qb->resetQueryParts();
-            $qb->delete(MAUTIC_TABLE_PREFIX.'lead_tags')
+            $qb->delete(MAILVOTECH_TABLE_PREFIX.'lead_tags')
                 ->where(
                     $qb->expr()->in('id', ':deleteIds')
                 )
@@ -108,9 +108,9 @@ class TagRepository extends CommonRepository
 
         $q = $this->_em->getConnection()->createQueryBuilder();
         $q->select('l.id')
-            ->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
-            ->join('l', MAUTIC_TABLE_PREFIX.'lead_tags_xref', 'x', 'l.id = x.lead_id')
-            ->join('l', MAUTIC_TABLE_PREFIX.'lead_tags', 't', 'x.tag_id = t.id')
+            ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
+            ->join('l', MAILVOTECH_TABLE_PREFIX.'lead_tags_xref', 'x', 'l.id = x.lead_id')
+            ->join('l', MAILVOTECH_TABLE_PREFIX.'lead_tags', 't', 'x.tag_id = t.id')
             ->where(
                 $q->expr()->and(
                     $q->expr()->in('t.tag', ':tags'),
@@ -220,7 +220,7 @@ class TagRepository extends CommonRepository
 
         $qb         = $this->_em->getConnection()->createQueryBuilder();
         $tagsIdName = $qb->select('lt.id,lt.tag')
-            ->from(MAUTIC_TABLE_PREFIX.'lead_tags', 'lt')
+            ->from(MAILVOTECH_TABLE_PREFIX.'lead_tags', 'lt')
             ->where('lt.id IN (:tag)')
             ->setParameter('tag', $tagIds, ArrayParameterType::INTEGER)
             ->executeQuery()->fetchAllKeyValue();

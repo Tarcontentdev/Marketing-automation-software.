@@ -1,6 +1,6 @@
 {#
   Variables
-    - mappedFields (\Mautic\FormBundle\Collection\MappedObjectCollection)
+    - mappedFields (\MailVotech\FormBundle\Collection\MappedObjectCollection)
 #}
 {%- set defaultInputFormClass = 'not-chosen' -%}
 {%- set defaultInputClass = 'selectbox' -%}
@@ -10,8 +10,8 @@
 {%- set defaultInputFormClass = defaultInputFormClass|default('') -%}
 {%- set defaultLabelClass = defaultLabelClass|default('label') -%}
 {%- set formName = formName|default('') -%}
-{%- set defaultInputClass = 'mauticform-' ~ defaultInputClass -%}
-{%- set defaultLabelClass = 'mauticform-' ~ defaultLabelClass -%}
+{%- set defaultInputClass = 'mailvotechform-' ~ defaultInputClass -%}
+{%- set defaultLabelClass = 'mailvotechform-' ~ defaultLabelClass -%}
 {%- set containerClass = containerClass|default(containerType) -%}
 {%- set order = field.order|default(0) -%}
 {%- set validationMessage = '' -%}
@@ -21,7 +21,7 @@
 {%- set containerAttributes = htmlAttributesStringToArray(field.containerAttributes|default('')) -%}
 
 {%- if ignoreName is not defined or (ignoreName is defined and ignoreName is empty) -%}
-  {%- set inputName = 'mauticform[' ~ field.alias ~ ']' -%}
+  {%- set inputName = 'mailvotechform[' ~ field.alias ~ ']' -%}
   {%- if field.properties.multiple is defined and true == field.properties.multiple -%}
     {%- set inputName = inputName ~ '[]' -%}
   {%- endif -%}
@@ -38,11 +38,11 @@
 
 {%- if ignoreId is not defined or (ignoreId is defined and ignoreId is empty) -%}
   {%- set inputAttributes = inputAttributes|merge({
-          'id': 'mauticform_input' ~ formName ~ '_' ~ field.alias,
+          'id': 'mailvotechform_input' ~ formName ~ '_' ~ field.alias,
   }) -%}
   {%- set labelAttributes = labelAttributes|merge({
-          'id': 'mauticform_label' ~ formName ~ '_' ~ field.alias,
-          'for': 'mauticform_input' ~ formName ~ '_' ~ field.alias,
+          'id': 'mailvotechform_label' ~ formName ~ '_' ~ field.alias,
+          'for': 'mailvotechform_input' ~ formName ~ '_' ~ field.alias,
   }) -%}
 {%- endif -%}
 
@@ -73,14 +73,14 @@
   }) -%}
 {%- endif -%}
 
-{%- set widthClass = 'mauticform-' ~ (field.fieldWidth|default('100%')|u.replace('%', '').replaceMatches('/\\.\\d+/', '')) -%}
+{%- set widthClass = 'mailvotechform-' ~ (field.fieldWidth|default('100%')|u.replace('%', '').replaceMatches('/\\.\\d+/', '')) -%}
 
 {%- set containerAttributes = containerAttributes|merge({
-        'id': 'mauticform' ~ formName ~ '_' ~ id,
+        'id': 'mailvotechform' ~ formName ~ '_' ~ id,
         'class': containerAttributes.class|default([])|merge([
-          'mauticform-row',
-          'mauticform-' ~ containerClass,
-          'mauticform-field-' ~ order,
+          'mailvotechform-row',
+          'mailvotechform-' ~ containerClass,
+          'mailvotechform-field-' ~ order,
           widthClass
         ]),
 }) -%}
@@ -92,10 +92,10 @@
   {%- endif -%}
 
   {%- set containerAttributes = containerAttributes|merge({
-          'data-mautic-form-show-on': fields[field.parent].alias ~ ':' ~ values,
-          'data-mautic-form-expr': field.conditions.expr,
+          'data-mailvotech-form-show-on': fields[field.parent].alias ~ ':' ~ values,
+          'data-mailvotech-form-expr': field.conditions.expr,
           'class': containerAttributes.class|merge([
-            'mauticform-field-hidden',
+            'mailvotechform-field-hidden',
           ]),
   }) -%}
 {%- endif -%}
@@ -104,11 +104,11 @@
   {%- set required = true -%}
   {%- set validationMessage = field.validationMessage -%}
   {%- if validationMessage is empty -%}
-        {%- set validationMessage = 'mautic.form.field.generic.required'|trans([], 'validators', language|default(null)) -%}
+        {%- set validationMessage = 'mailvotech.form.field.generic.required'|trans([], 'validators', language|default(null)) -%}
   {%- endif -%}
   {%- set containerAttributes = containerAttributes|merge({
           'class': containerAttributes.class|default([])|merge([
-            'mauticform-required',
+            'mailvotechform-required',
           ]),
           'data-validate': field.alias,
           'data-validation-type': field.type,
@@ -122,7 +122,7 @@
   {# Forced to be required #}
   {%- set containerAttributes = containerAttributes|merge({
           'class': containerAttributes.class|default([])|merge([
-            'mauticform-required',
+            'mailvotechform-required',
           ]),
   }) -%}
 {%- endif -%}
@@ -138,7 +138,7 @@
         field.mappedObject is not empty and
         mappedFields[field.mappedObject] is defined
   -%}
-    {# @var \Mautic\FormBundle\Collection\FieldCollection #}
+    {# @var \MailVotech\FormBundle\Collection\FieldCollection #}
     {% set fieldCollection = mappedFields[field.mappedObject] %}
     {% if fieldCollection.getFieldByKey(field.mappedField, false) is not empty %}
       {% set mappedField = fieldCollection.getFieldByKey(field.mappedField) %}
@@ -180,7 +180,7 @@
   {%- endif -%}
 
   {%- if field.mappedField and mappedFields[field.mappedObject] is defined -%}
-    {# @var \Mautic\FormBundle\Collection\FieldCollection #}
+    {# @var \MailVotech\FormBundle\Collection\FieldCollection #}
     {% set fieldCollection = mappedFields[field.mappedObject] %}
 
     {% if fieldCollection[field.mappedField] is defined %}
@@ -231,7 +231,7 @@
 
 <div {% for attrName, attrValue in containerAttributes %}{{ attrName }}="{% if attrValue is iterable %}{{ attrValue|join(' ') }}{% else %}{{ attrValue }}{% endif %}"{% endfor %}>
   {% if field.showLabel -%}<label {% for attrName, attrValue in labelAttributes %}{{ attrName }}="{% if attrValue is iterable %}{{ attrValue|join(' ') }}{% else %}{{ attrValue }}{% endif %}"{% endfor %}>{{ field.label|purify_allow_target_blank }}</label>{% endif %}
-  {% if field.helpMessage is not empty %}<span class="mauticform-helpmessage">{{ field.helpMessage|purify_allow_target_blank }}</span>{% endif %}
+  {% if field.helpMessage is not empty %}<span class="mailvotechform-helpmessage">{{ field.helpMessage|purify_allow_target_blank }}</span>{% endif %}
 
   <select {% for attrName, attrValue in inputAttributes %}{{ attrName }}="{% if attrValue is iterable %}{{ attrValue|join(' ') }}{% else %}{{ attrValue }}{% endif %}"{% endfor %}>
     {# (!empty($properties['placeholder']) || empty($field['defaultValue']) && empty($properties['multiple'])) #}
@@ -246,5 +246,5 @@
     {%- endif -%}
     {{ _self.print_options(list, field) }}
   </select>
-  <span class="mauticform-errormsg" aria-live="polite" aria-atomic="true" aria-hidden="true" style="display:none;">{{ validationMessage }}</span>
+  <span class="mailvotechform-errormsg" aria-live="polite" aria-atomic="true" aria-hidden="true" style="display:none;">{{ validationMessage }}</span>
 </div>

@@ -2,14 +2,14 @@
 {% set isIndex = tmpl == 'index' ? true : false %}
 {% set tmpl = 'list' %}
 
-{% extends isIndex ? '@MauticCore/Default/content.html.twig' : '@MauticCore/Default/raw_output.html.twig' %}
+{% extends isIndex ? '@MailVotechCore/Default/content.html.twig' : '@MailVotechCore/Default/raw_output.html.twig' %}
 
-{% block headerTitle %}{% trans %}mautic.webhook.webhooks{% endtrans %}{% endblock %}
-{% block mauticContent %}mauticWebhook{% endblock %}
+{% block headerTitle %}{% trans %}mailvotech.webhook.webhooks{% endtrans %}{% endblock %}
+{% block mailvotechContent %}mailvotechWebhook{% endblock %}
 
 {% block actions %}
     {{- include(
-        '@MauticCore/Helper/page_actions.html.twig', {
+        '@MailVotechCore/Helper/page_actions.html.twig', {
             templateButtons: {
                 'new': permissions['webhook:webhooks:create']
             },
@@ -20,7 +20,7 @@
 {% block content %}
 {% if isIndex %}
 <div id="page-list-wrapper" class="{% if items|length > 0 or searchValue is not empty %}panel {% endif %}panel-default">
-    {{ include('@MauticCore/Helper/list_toolbar.html.twig', {
+    {{ include('@MailVotechCore/Helper/list_toolbar.html.twig', {
         'searchValue': searchValue,
         'action': currentRoute,
         'bulk_actions': {
@@ -31,21 +31,21 @@
         },
         'quickFilters': [
             {
-                'search': 'mautic.core.searchcommand.ispublished',
-                'label': 'mautic.core.form.active',
-                'tooltip': 'mautic.core.searchcommand.ispublished.description',
+                'search': 'mailvotech.core.searchcommand.ispublished',
+                'label': 'mailvotech.core.form.active',
+                'tooltip': 'mailvotech.core.searchcommand.ispublished.description',
                 'icon': 'ri-check-line'
             },
             {
-                'search': 'mautic.core.searchcommand.isunpublished',
-                'label': 'mautic.core.form.inactive',
-                'tooltip': 'mautic.core.searchcommand.isunpublished.description',
+                'search': 'mailvotech.core.searchcommand.isunpublished',
+                'label': 'mailvotech.core.form.inactive',
+                'tooltip': 'mailvotech.core.searchcommand.isunpublished.description',
                 'icon': 'ri-close-line'
             },
             {
-                'search': 'mautic.core.searchcommand.ismine',
-                'label': 'mautic.core.searchcommand.ismine.label',
-                'tooltip': 'mautic.core.searchcommand.ismine.description',
+                'search': 'mailvotech.core.searchcommand.ismine',
+                'label': 'mailvotech.core.searchcommand.ismine.label',
+                'tooltip': 'mailvotech.core.searchcommand.ismine.description',
                 'icon': 'ri-user-line'
             }
         ]
@@ -66,37 +66,37 @@
             <thead>
             <tr>
                 {{- include(
-                    '@MauticCore/Helper/tableheader.html.twig', {
+                    '@MailVotechCore/Helper/tableheader.html.twig', {
                         checkall: 'true',
                         target: '#webhookTable'
                 }) -}}
                 {{- include(
-                    '@MauticCore/Helper/tableheader.html.twig', {
-                        sessionVar: 'mautic_webhook',
+                    '@MailVotechCore/Helper/tableheader.html.twig', {
+                        sessionVar: 'mailvotech_webhook',
                         orderBy: 'e.name',
-                        text: 'mautic.core.name',
+                        text: 'mailvotech.core.name',
                         class: 'col-webhook-name',
                         default: true
                 }) -}}
                 {{- include(
-                    '@MauticCore/Helper/tableheader.html.twig', {
-                        sessionVar: 'mautic_webhook',
+                    '@MailVotechCore/Helper/tableheader.html.twig', {
+                        sessionVar: 'mailvotech_webhook',
                         orderBy: 'c.title',
-                        text: 'mautic.core.category',
+                        text: 'mailvotech.core.category',
                         class: 'visible-md visible-lg col-webhook-category',
                 }) -}}
                 {{- include(
-                    '@MauticCore/Helper/tableheader.html.twig', {
-                        sessionVar: 'mautic_webhook',
+                    '@MailVotechCore/Helper/tableheader.html.twig', {
+                        sessionVar: 'mailvotech_webhook',
                         orderBy: 'e.webhookUrl',
-                        text: 'mautic.webhook.webhook_url',
+                        text: 'mailvotech.webhook.webhook_url',
                         class: 'col-webhook-id visible-md visible-lg'
                 }) -}}
                 {{- include(
-                    '@MauticCore/Helper/tableheader.html.twig', {
-                        sessionVar: 'mautic_webhook',
+                    '@MailVotechCore/Helper/tableheader.html.twig', {
+                        sessionVar: 'mailvotech_webhook',
                         orderBy: 'e.id',
-                        text: 'mautic.core.id',
+                        text: 'mailvotech.core.id',
                         class: 'col-webhook-id visible-md visible-lg'
                 }) -}}
             </tr>
@@ -106,7 +106,7 @@
                 <tr>
                     <td>
                         {{- include(
-                            '@MauticCore/Helper/list_actions.html.twig', {
+                            '@MailVotechCore/Helper/list_actions.html.twig', {
                                 item: item,
                                 templateButtons: {
                                     edit: securityHasEntityAccess(
@@ -127,24 +127,24 @@
                     <td>
                         <div>
                             {{- include(
-                                '@MauticCore/Helper/publishstatus_icon.html.twig', {
+                                '@MailVotechCore/Helper/publishstatus_icon.html.twig', {
                                     item: item,
                                     model: 'webhook'
                                 }
                             ) }}
                             <a data-toggle="ajax" href="{{ path(
-                                'mautic_webhook_action',
+                                'mailvotech_webhook_action',
                                 { objectId: item.getId(), objectAction: 'view' }
                             ) }}">
                                 {{ item.getName() }}
                             </a>
-                            {{ include('@MauticCore/Helper/description--inline.html.twig', {
+                            {{ include('@MailVotechCore/Helper/description--inline.html.twig', {
                                 'description': item.getDescription()
                             }) }}
                         </div>
                     </td>
                     <td class="visible-md visible-lg">
-                        {{ include('@MauticCore/Modules/category--expanded.html.twig', {'category': item.getCategory()}) }}
+                        {{ include('@MailVotechCore/Modules/category--expanded.html.twig', {'category': item.getCategory()}) }}
                     </td>
                     <td class="visible-md visible-lg">{{ item.getWebhookUrl() }}</td>
                     <td class="visible-md visible-lg">{{ item.getId() }} </td>
@@ -156,34 +156,34 @@
 
     <div class="panel-footer">
         {{- include(
-            '@MauticCore/Helper/pagination.html.twig', {
+            '@MailVotechCore/Helper/pagination.html.twig', {
                 totalItems: items|length,
                 page: page,
                 limit: limit,
-                menuLinkId: 'mautic_webhook_index',
-                baseUrl: path('mautic_webhook_index'),
-                sessionVar: 'mautic_webhook'
+                menuLinkId: 'mailvotech_webhook_index',
+                baseUrl: path('mailvotech_webhook_index'),
+                sessionVar: 'mailvotech_webhook'
             }
         ) }}
     </div>
 {% else %}
     {% if searchValue is not empty %}
-        {{- include('@MauticCore/Helper/noresults.html.twig') -}}
+        {{- include('@MailVotechCore/Helper/noresults.html.twig') -}}
     {% else %}
         <div class="mt-80 col-md-offset-2 col-lg-offset-3 col-md-8 col-lg-5 height-auto">
             {% set childContainer %}
                 <div class="mt-32 mb-md">
-                    {% include '@MauticCore/Components/pictogram.html.twig' with {
+                    {% include '@MailVotechCore/Components/pictogram.html.twig' with {
                         'pictogram': 'event--streams',
                         'size': '80'
                     } %}
                 </div>
             {% endset %}
 
-            {{ include('@MauticCore/Components/content-block.html.twig', {
-                heading: 'mautic.webhook.contentblock.heading',
-                subheading: 'mautic.webhook.contentblock.subheading',
-                copy: 'mautic.webhook.contentblock.copy',
+            {{ include('@MailVotechCore/Components/content-block.html.twig', {
+                heading: 'mailvotech.webhook.contentblock.heading',
+                subheading: 'mailvotech.webhook.contentblock.subheading',
+                copy: 'mailvotech.webhook.contentblock.copy',
                 childContainer: childContainer,
             }) }}
         </div>

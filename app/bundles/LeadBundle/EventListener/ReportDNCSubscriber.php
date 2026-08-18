@@ -1,15 +1,15 @@
 <?php
 
-namespace Mautic\LeadBundle\EventListener;
+namespace MailVotech\LeadBundle\EventListener;
 
-use Mautic\ChannelBundle\Helper\ChannelListHelper;
-use Mautic\LeadBundle\Helper\DncFormatterHelper;
-use Mautic\LeadBundle\Model\CompanyReportData;
-use Mautic\LeadBundle\Report\FieldsBuilder;
-use Mautic\ReportBundle\Event\ReportBuilderEvent;
-use Mautic\ReportBundle\Event\ReportDataEvent;
-use Mautic\ReportBundle\Event\ReportGeneratorEvent;
-use Mautic\ReportBundle\ReportEvents;
+use MailVotech\ChannelBundle\Helper\ChannelListHelper;
+use MailVotech\LeadBundle\Helper\DncFormatterHelper;
+use MailVotech\LeadBundle\Model\CompanyReportData;
+use MailVotech\LeadBundle\Report\FieldsBuilder;
+use MailVotech\ReportBundle\Event\ReportBuilderEvent;
+use MailVotech\ReportBundle\Event\ReportDataEvent;
+use MailVotech\ReportBundle\Event\ReportGeneratorEvent;
+use MailVotech\ReportBundle\ReportEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -50,30 +50,30 @@ final readonly class ReportDNCSubscriber implements EventSubscriberInterface
 
         $dncColumns = [
             'dnc.reason' => [
-                'label' => 'mautic.lead.report.dnc_reason',
+                'label' => 'mailvotech.lead.report.dnc_reason',
                 'type'  => 'select',
                 'list'  => $this->dncFormatter->getDncReasons(),
             ],
             'dnc.comments' => [
-                'label' => 'mautic.lead.report.dnc_comment',
+                'label' => 'mailvotech.lead.report.dnc_comment',
                 'type'  => 'text',
             ],
             'dnc.date_added' => [
-                'label' => 'mautic.lead.report.dnc_date_added',
+                'label' => 'mailvotech.lead.report.dnc_date_added',
                 'type'  => 'datetime',
             ],
             'dnc.channel' => [
-                'label' => 'mautic.lead.report.dnc_channel',
+                'label' => 'mailvotech.lead.report.dnc_channel',
                 'type'  => 'html',
             ],
             'dnc.channel_id' => [
-                'label' => 'mautic.lead.report.dnc_channel_id',
+                'label' => 'mailvotech.lead.report.dnc_channel_id',
                 'type'  => 'html',
             ],
         ];
 
         $data = [
-            'display_name' => 'mautic.lead.report.dnc',
+            'display_name' => 'mailvotech.lead.report.dnc',
             'columns'      => array_merge($columns, $companyColumns, $dncColumns),
             'filters'      => array_merge($columns, $companyColumns, $dncColumns, $leadFilters),
         ];
@@ -90,11 +90,11 @@ final readonly class ReportDNCSubscriber implements EventSubscriberInterface
         }
 
         $qb = $event->getQueryBuilder();
-        $qb->from(MAUTIC_TABLE_PREFIX.'lead_donotcontact', 'dnc');
-        $qb->leftJoin('dnc', MAUTIC_TABLE_PREFIX.'leads', 'l', 'l.id = dnc.lead_id');
+        $qb->from(MAILVOTECH_TABLE_PREFIX.'lead_donotcontact', 'dnc');
+        $qb->leftJoin('dnc', MAILVOTECH_TABLE_PREFIX.'leads', 'l', 'l.id = dnc.lead_id');
 
         if ($event->hasColumn(['u.first_name', 'u.last_name']) || $event->hasFilter(['u.first_name', 'u.last_name'])) {
-            $qb->leftJoin('l', MAUTIC_TABLE_PREFIX.'users', 'u', 'u.id = l.owner_id');
+            $qb->leftJoin('l', MAILVOTECH_TABLE_PREFIX.'users', 'u', 'u.id = l.owner_id');
         }
 
         if ($event->hasColumn('i.ip_address') || $event->hasFilter('i.ip_address')) {
@@ -102,12 +102,12 @@ final readonly class ReportDNCSubscriber implements EventSubscriberInterface
         }
 
         if ($this->companyReportData->eventHasCompanyColumns($event)) {
-            $qb->leftJoin('l', MAUTIC_TABLE_PREFIX.'companies_leads', 'companies_lead', 'l.id = companies_lead.lead_id');
-            $qb->leftJoin('companies_lead', MAUTIC_TABLE_PREFIX.'companies', 'comp', 'companies_lead.company_id = comp.id');
+            $qb->leftJoin('l', MAILVOTECH_TABLE_PREFIX.'companies_leads', 'companies_lead', 'l.id = companies_lead.lead_id');
+            $qb->leftJoin('companies_lead', MAILVOTECH_TABLE_PREFIX.'companies', 'comp', 'companies_lead.company_id = comp.id');
         }
 
         if ($event->hasFilter('s.leadlist_id')) {
-            $qb->join('l', MAUTIC_TABLE_PREFIX.'lead_lists_leads', 's', 's.lead_id = l.id AND s.manually_removed = 0');
+            $qb->join('l', MAILVOTECH_TABLE_PREFIX.'lead_lists_leads', 's', 's.lead_id = l.id AND s.manually_removed = 0');
         }
 
         $event->setQueryBuilder($qb);
@@ -128,7 +128,7 @@ final readonly class ReportDNCSubscriber implements EventSubscriberInterface
                 }
 
                 if (isset($row['channel']) && isset($row['channel_id'])) {
-                    $href              = $this->router->generate('mautic_'.$row['channel'].'_action', ['objectAction' => 'view', 'objectId' => $row['channel_id']]);
+                    $href              = $this->router->generate('mailvotech_'.$row['channel'].'_action', ['objectAction' => 'view', 'objectId' => $row['channel_id']]);
                     $row['channel']    = '<a href="'.$href.'" data-toggle="ajax">'.$this->channelListHelper->getChannelLabel($row['channel']).'</a>';
                     $row['channel_id'] = '<a href="'.$href.'" data-toggle="ajax">'.$row['channel_id'].'</a>';
                 }

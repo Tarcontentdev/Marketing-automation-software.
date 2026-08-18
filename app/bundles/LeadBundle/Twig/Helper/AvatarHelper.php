@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\LeadBundle\Twig\Helper;
+namespace MailVotech\LeadBundle\Twig\Helper;
 
-use Mautic\CoreBundle\Exception\FileNotFoundException;
-use Mautic\CoreBundle\Helper\PathsHelper;
-use Mautic\CoreBundle\Twig\Helper\AssetsHelper;
-use Mautic\CoreBundle\Twig\Helper\GravatarHelper;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CoreBundle\Exception\FileNotFoundException;
+use MailVotech\CoreBundle\Helper\PathsHelper;
+use MailVotech\CoreBundle\Twig\Helper\AssetsHelper;
+use MailVotech\CoreBundle\Twig\Helper\GravatarHelper;
+use MailVotech\LeadBundle\Entity\Lead;
 use Symfony\Component\Filesystem\Filesystem;
 
 final class AvatarHelper

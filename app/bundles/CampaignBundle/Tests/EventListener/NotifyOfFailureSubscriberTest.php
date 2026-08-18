@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CampaignBundle\Tests\EventListener;
+namespace MailVotech\CampaignBundle\Tests\EventListener;
 
-use Mautic\CampaignBundle\Entity\Event;
-use Mautic\CampaignBundle\Event\NotifyOfFailureEvent;
-use Mautic\CampaignBundle\EventListener\NotifyOfFailureSubscriber;
-use Mautic\CampaignBundle\Executioner\Helper\NotificationHelper;
-use Mautic\LeadBundle\Entity\Lead;
+use MailVotech\CampaignBundle\Entity\Event;
+use MailVotech\CampaignBundle\Event\NotifyOfFailureEvent;
+use MailVotech\CampaignBundle\EventListener\NotifyOfFailureSubscriber;
+use MailVotech\CampaignBundle\Executioner\Helper\NotificationHelper;
+use MailVotech\LeadBundle\Entity\Lead;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -45,7 +45,7 @@ final class NotifyOfFailureSubscriberTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         $events = NotifyOfFailureSubscriber::getSubscribedEvents();
-        $this->assertArrayHasKey('mautic.campaign_failure_notify', $events);
-        $this->assertEquals('notifyOfFailure', $events['mautic.campaign_failure_notify']);
+        $this->assertArrayHasKey('mailvotech.campaign_failure_notify', $events);
+        $this->assertEquals('notifyOfFailure', $events['mailvotech.campaign_failure_notify']);
     }
 }

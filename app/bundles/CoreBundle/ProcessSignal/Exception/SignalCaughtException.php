@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\ProcessSignal\Exception;
+namespace MailVotech\CoreBundle\ProcessSignal\Exception;
 
-use Mautic\CoreBundle\ProcessSignal\ProcessSignalState;
+use MailVotech\CoreBundle\ProcessSignal\ProcessSignalState;
 
 final class SignalCaughtException extends \Exception
 {

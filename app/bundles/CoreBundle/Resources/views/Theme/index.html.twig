@@ -1,12 +1,12 @@
-{% extends "@MauticCore/Default/content.html.twig" %}
+{% extends "@MailVotechCore/Default/content.html.twig" %}
 
-{% set mauticContent = 'theme' %}
-{% set headerTitle = 'mautic.core.themes'|trans %}
+{% set mailvotechContent = 'theme' %}
+{% set headerTitle = 'mailvotech.core.themes'|trans %}
 
 {% block headerTitle %}{{ headerTitle }}{% endblock %}
 
 {% block actions %}
-  {% include "@MauticCore/Theme/form.html.twig" with {
+  {% include "@MailVotechCore/Theme/form.html.twig" with {
       form: form
     }
   %}
@@ -14,7 +14,7 @@
 
 {% block content %}
 <div id="page-list-wrapper" class="panel panel-default">
-  {% include "@MauticCore/Helper/list_toolbar.html.twig" with {
+  {% include "@MailVotechCore/Helper/list_toolbar.html.twig" with {
     action: currentRoute,
     'bulk_actions': {
       'langVar' : 'core.theme',

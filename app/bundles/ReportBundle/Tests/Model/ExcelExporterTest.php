@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Model;
+namespace MailVotech\ReportBundle\Tests\Model;
 
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Twig\Helper\DateHelper;
-use Mautic\CoreBundle\Twig\Helper\FormatterHelper;
-use Mautic\ReportBundle\Crate\ReportDataResult;
-use Mautic\ReportBundle\Model\ExcelExporter;
-use Mautic\ReportBundle\Tests\Fixtures;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Twig\Helper\DateHelper;
+use MailVotech\CoreBundle\Twig\Helper\FormatterHelper;
+use MailVotech\ReportBundle\Crate\ReportDataResult;
+use MailVotech\ReportBundle\Model\ExcelExporter;
+use MailVotech\ReportBundle\Tests\Fixtures;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -27,7 +27,7 @@ final class ExcelExporterTest extends TestCase
         $translator       = $this->createMock(TranslatorInterface::class);
         $translator
             ->method('trans')
-            ->with('mautic.report.report.groupby.totals')
+            ->with('mailvotech.report.report.groupby.totals')
             ->willReturn('Totals');
 
         $dateHelperMock   =new DateHelper(
@@ -42,7 +42,7 @@ final class ExcelExporterTest extends TestCase
         $formatterHelper  = new FormatterHelper($dateHelperMock, $translator);
 
         $this->excelExporter = new ExcelExporter($formatterHelper, $translator);
-        $this->tmpFile       = tempnam(sys_get_temp_dir(), 'mautic_xlsx_export_test_');
+        $this->tmpFile       = tempnam(sys_get_temp_dir(), 'mailvotech_xlsx_export_test_');
 
         parent::setUp();
     }
@@ -73,7 +73,7 @@ final class ExcelExporterTest extends TestCase
         $reportData       = Fixtures::getValidReportResultWithAggregatedColumns();
         $reportDataResult = new ReportDataResult($reportData);
 
-        $this->excelExporter->export($reportDataResult, 'mautic_xlsx_export_test', $this->tmpFile);
+        $this->excelExporter->export($reportDataResult, 'mailvotech_xlsx_export_test', $this->tmpFile);
 
         $result = $this->getExcelResult();
 
@@ -120,6 +120,6 @@ final class ExcelExporterTest extends TestCase
         $reportData['data'] = [];
         $reportDataResult   = new ReportDataResult($reportData);
 
-        $this->excelExporter->export($reportDataResult, 'mautic_xlsx_export_test', $this->tmpFile);
+        $this->excelExporter->export($reportDataResult, 'mailvotech_xlsx_export_test', $this->tmpFile);
     }
 }

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mautic\EmailBundle\Tests\OptionsAccessor;
+namespace MailVotech\EmailBundle\Tests\OptionsAccessor;
 
-use Mautic\EmailBundle\OptionsAccessor\EmailToUserAccessor;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\EmailBundle\OptionsAccessor\EmailToUserAccessor;
+use MailVotech\UserBundle\Entity\User;
 
 final class EmailToUserAccessorTest extends \PHPUnit\Framework\TestCase
 {

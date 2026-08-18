@@ -35,19 +35,19 @@ import { Mention } from "@ckeditor/ckeditor5-mention";
 import TokenPlugin from './TokenPlugin';
 import translations, { availableTranslationLanguages } from './translations';
 
-type WindowWithMauticLocale = Window & {
-    mauticLocale?: string;
+type WindowWithMailVotechLocale = Window & {
+    mailvotechLocale?: string;
 };
 
 function getEditorLanguage(): string {
-    const w = window as WindowWithMauticLocale;
-    const mauticLocale = w.mauticLocale ?? (w.parent as WindowWithMauticLocale)?.mauticLocale;
+    const w = window as WindowWithMailVotechLocale;
+    const mailvotechLocale = w.mailvotechLocale ?? (w.parent as WindowWithMailVotechLocale)?.mailvotechLocale;
 
-    if (!mauticLocale) {
+    if (!mailvotechLocale) {
         return 'en';
     }
 
-    const normalizedLocale = mauticLocale.toLowerCase().replace('_', '-');
+    const normalizedLocale = mailvotechLocale.toLowerCase().replace('_', '-');
 
     if (availableTranslationLanguages.has(normalizedLocale)) {
         return normalizedLocale;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\IpLookup;
+namespace MailVotech\CoreBundle\Tests\Unit\IpLookup;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
-use Mautic\CoreBundle\IpLookup\GeobytesLookup;
+use MailVotech\CoreBundle\IpLookup\GeobytesLookup;
 
 final class GeobytesLookupTest extends \PHPUnit\Framework\TestCase
 {

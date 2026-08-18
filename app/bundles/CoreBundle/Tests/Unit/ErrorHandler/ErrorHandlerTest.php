@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mautic\CoreBundle\Tests\Unit\ErrorHandler;
+namespace MailVotech\CoreBundle\Tests\Unit\ErrorHandler;
 
-use Mautic\CoreBundle\ErrorHandler\ErrorHandler;
+use MailVotech\CoreBundle\ErrorHandler\ErrorHandler;
 use PHPUnit\Framework\TestCase;
 use Twig\Error\LoaderError;
 
@@ -33,10 +33,10 @@ final class ErrorHandlerTest extends TestCase
     }
 
     /**
-     * Regression test for https://github.com/mautic/mautic/issues/15873.
+     * Regression test for https://github.com/mailvotech/mailvotech/issues/15873.
      *
      * On hosts where the PHP process working directory does not match the
-     * Mautic install root (e.g. a cPanel PHP-FPM worker that starts in
+     * MailVotech install root (e.g. a cPanel PHP-FPM worker that starts in
      * /home/<user>/ instead of /home/<user>/public_html/), the FilesystemLoader
      * used by the error page must still be able to find the Offline / Exception
      * Twig templates. Previously the loader was constructed with relative paths

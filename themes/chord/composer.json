@@ -1,10 +1,14 @@
 {
-  "name": "mautic/theme-chord",
-  "description": "Chord",
-  "type": "mautic-theme",
-  "keywords": ["mautic","theme"],
-  "minimum-stability": "dev",
-  "require": {
-    "mautic/core-lib": ">=7.0"
-  }
+    "name": "mailvotech/theme-chord",
+    "description": "Chord",
+    "type": "mailvotech-theme",
+    "keywords": [
+        "mailvotech",
+        "theme"
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "mailvotech/core-lib": ">=7.0",
+        "mailvotech/composer-installer": "^1.0"
+    }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\DynamicContentBundle\Controller;
+namespace MailVotech\DynamicContentBundle\Controller;
 
-use Mautic\CoreBundle\Controller\CommonController;
-use Mautic\DynamicContentBundle\Helper\DynamicContentHelper;
-use Mautic\LeadBundle\Helper\ContactRequestHelper;
-use Mautic\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
-use Mautic\PageBundle\Model\PageModel;
+use MailVotech\CoreBundle\Controller\CommonController;
+use MailVotech\DynamicContentBundle\Helper\DynamicContentHelper;
+use MailVotech\LeadBundle\Helper\ContactRequestHelper;
+use MailVotech\LeadBundle\Tracker\Service\DeviceTrackingService\DeviceTrackingServiceInterface;
+use MailVotech\PageBundle\Model\PageModel;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +27,7 @@ final class DynamicContentApiController extends CommonController
     public function processAction(Request $request, $objectAlias): Response
     {
         // Don't store a visitor with this request
-        defined('MAUTIC_NON_TRACKABLE_REQUEST') || define('MAUTIC_NON_TRACKABLE_REQUEST', 1);
+        defined('MAILVOTECH_NON_TRACKABLE_REQUEST') || define('MAILVOTECH_NON_TRACKABLE_REQUEST', 1);
 
         $method = strtolower($request->getMethod());
         if (method_exists($this, $method.'Action')) {

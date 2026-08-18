@@ -1,12 +1,12 @@
 <?php
 
-namespace Mautic\CoreBundle\Doctrine\Helper;
+namespace MailVotech\CoreBundle\Doctrine\Helper;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\SchemaConfig;
-use Mautic\CoreBundle\Exception\SchemaException;
+use MailVotech\CoreBundle\Exception\SchemaException;
 
 /**
  * Used to manipulate creation/removal of tables.

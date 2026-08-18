@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Mautic\SmsBundle\Tests\EventListener;
+namespace MailVotech\SmsBundle\Tests\EventListener;
 
-use Mautic\CoreBundle\Event\TokenReplacementEvent;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Model\AuditLogModel;
-use Mautic\LeadBundle\Entity\Lead;
-use Mautic\PageBundle\Entity\Trackable;
-use Mautic\PageBundle\Helper\TokenHelper;
-use Mautic\PageBundle\Model\TrackableModel;
-use Mautic\SmsBundle\EventListener\SmsSubscriber;
-use Mautic\SmsBundle\Helper\SmsHelper;
+use MailVotech\CoreBundle\Event\TokenReplacementEvent;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Model\AuditLogModel;
+use MailVotech\LeadBundle\Entity\Lead;
+use MailVotech\PageBundle\Entity\Trackable;
+use MailVotech\PageBundle\Helper\TokenHelper;
+use MailVotech\PageBundle\Model\TrackableModel;
+use MailVotech\SmsBundle\EventListener\SmsSubscriber;
+use MailVotech\SmsBundle\Helper\SmsHelper;
 use PHPUnit\Framework\TestCase;
 
 final class SmsSubscriberTest extends TestCase
 {
-    private string $messageText = 'custom http://mautic.com text';
+    private string $messageText = 'custom http://mailvotech.com text';
 
-    private string $messageUrl = 'http://mautic.com';
+    private string $messageUrl = 'http://mailvotech.com';
 
     public function testOnTokenReplacementWithTrackableUrls(): void
     {
@@ -35,7 +35,7 @@ final class SmsSubscriberTest extends TestCase
         $mockPageTokenHelper = $this->createMock(TokenHelper::class);
         $mockPageTokenHelper->method('findPageTokens')->willReturn([]);
 
-        $mockAssetTokenHelper = $this->createMock(\Mautic\AssetBundle\Helper\TokenHelper::class);
+        $mockAssetTokenHelper = $this->createMock(\MailVotech\AssetBundle\Helper\TokenHelper::class);
         $mockAssetTokenHelper->method('findAssetTokens')->willReturn([]);
 
         $mockSmsHelper = $this->createMock(SmsHelper::class);
@@ -69,7 +69,7 @@ final class SmsSubscriberTest extends TestCase
         $mockPageTokenHelper = $this->createMock(TokenHelper::class);
         $mockPageTokenHelper->method('findPageTokens')->willReturn([]);
 
-        $mockAssetTokenHelper = $this->createMock(\Mautic\AssetBundle\Helper\TokenHelper::class);
+        $mockAssetTokenHelper = $this->createMock(\MailVotech\AssetBundle\Helper\TokenHelper::class);
         $mockAssetTokenHelper->method('findAssetTokens')->willReturn([]);
 
         $mockSmsHelper = $this->createMock(SmsHelper::class);

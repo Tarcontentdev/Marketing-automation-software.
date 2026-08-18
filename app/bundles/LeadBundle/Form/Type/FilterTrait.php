@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\LeadBundle\Form\Type;
+namespace MailVotech\LeadBundle\Form\Type;
 
 use Doctrine\DBAL\Connection;
-use Mautic\LeadBundle\Entity\RegexTrait;
-use Mautic\LeadBundle\Helper\FormFieldHelper;
+use MailVotech\LeadBundle\Entity\RegexTrait;
+use MailVotech\LeadBundle\Helper\FormFieldHelper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -166,10 +166,10 @@ trait FilterTrait
                 $attr                                       = array_merge(
                     $attr,
                     [
-                        'data-placeholder'     => $translator->trans('mautic.lead.tags.select_or_create'),
-                        'data-no-results-text' => $translator->trans('mautic.lead.tags.enter_to_create'),
+                        'data-placeholder'     => $translator->trans('mailvotech.lead.tags.select_or_create'),
+                        'data-no-results-text' => $translator->trans('mailvotech.lead.tags.enter_to_create'),
                         'data-allow-add'       => 'true',
-                        'onchange'             => 'Mautic.createLeadTag(this)',
+                        'onchange'             => 'MailVotech.createLeadTag(this)',
                     ]
                 );
                 break;
@@ -239,7 +239,7 @@ trait FilterTrait
                         'data-lookup-callback' => $field['properties']['data-lookup-callback'] ?? 'updateLookupListFilter',
                         'data-callback'        => $field['properties']['callback'] ?? 'activateFieldTypeahead',
                         'placeholder'          => $translator->trans(
-                            'mautic.lead.list.form.filtervalue'
+                            'mailvotech.lead.list.form.filtervalue'
                         ),
                     ]
                 );
@@ -255,7 +255,7 @@ trait FilterTrait
                 $attr = array_merge(
                     $attr,
                     [
-                        'placeholder' => $translator->trans('mautic.lead.list.form.filtervalue'),
+                        'placeholder' => $translator->trans('mailvotech.lead.list.form.filtervalue'),
                     ]
                 );
 
@@ -294,7 +294,7 @@ trait FilterTrait
                         'data-toggle' => 'field-lookup',
                         'data-target' => $data['field'] ?? '',
                         'data-action' => 'lead:fieldList',
-                        'placeholder' => $translator->trans('mautic.lead.list.form.filtervalue'),
+                        'placeholder' => $translator->trans('mailvotech.lead.list.form.filtervalue'),
                     ]
                 );
 
@@ -310,7 +310,7 @@ trait FilterTrait
             $attr['disabled'] = 'disabled';
         } elseif ($operator) {
             $customOptions['constraints'][] = new NotBlank(
-                message: 'mautic.core.value.required'
+                message: 'mailvotech.core.value.required'
             );
 
             if (in_array($operator, ['regexp', '!regexp']) && $this->connection) {
@@ -322,13 +322,13 @@ trait FilterTrait
                             try {
                                 $qb = $this->connection->createQueryBuilder();
                                 $qb->select('l.id')
-                                    ->from(MAUTIC_TABLE_PREFIX.'leads', 'l')
+                                    ->from(MAILVOTECH_TABLE_PREFIX.'leads', 'l')
                                     ->where('l.id REGEXP :regex')
                                     ->setParameter('regex', $this->prepareRegex($regex))
                                     ->setMaxResults(1);
                                 $qb->executeQuery()->fetchAllAssociative();
                             } catch (\Exception) {
-                                $context->buildViolation('mautic.core.regex.invalid')->addViolation();
+                                $context->buildViolation('mailvotech.core.regex.invalid')->addViolation();
                             }
                         }
                     );
@@ -395,7 +395,7 @@ trait FilterTrait
                 'choices' => $field['operators'] ?? [],
                 'attr'    => [
                     'class'    => 'form-control not-chosen filter-operator',
-                    'onchange' => 'Mautic.convertDwcFilterInput(this)',
+                    'onchange' => 'MailVotech.convertDwcFilterInput(this)',
                 ],
             ]
         );

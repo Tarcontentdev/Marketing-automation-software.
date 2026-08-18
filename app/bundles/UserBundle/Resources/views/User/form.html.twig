@@ -1,12 +1,12 @@
-{% extends '@MauticCore/Default/content.html.twig' %}
-{% block mauticContent %}user
+{% extends '@MailVotechCore/Default/content.html.twig' %}
+{% block mailvotechContent %}user
 {% endblock %}
 {% set userId = form.vars.data.getId() %}
 {% if userId is not empty %}
 	{% set user = form.vars.data.getName() %}
-	{% set header = 'mautic.user.user.header.edit'|trans({'%name%': user}) %}
+	{% set header = 'mailvotech.user.user.header.edit'|trans({'%name%': user}) %}
 {% else %}
-	{% set header = 'mautic.user.user.header.new'|trans %}
+	{% set header = 'mailvotech.user.user.header.new'|trans %}
 {% endif %}
 
 {% block headerTitle %}
@@ -26,7 +26,7 @@
 				<div class="form-group mb-0">
 					<div class="row">
 						<div class="col-sm-6{{ form.firstName.vars.errors|length ? ' has-error' : '' }}">
-							<h3 class="mb-lg mt-lg">{{ 'mautic.user.config.title.personal_information'|trans }}</h3>
+							<h3 class="mb-lg mt-lg">{{ 'mailvotech.user.config.title.personal_information'|trans }}</h3>
 							<div class="form-group">
 								<label class="control-label mb-xs">{{ form_label(form.firstName) }}</label>
 								{{ form_widget(form.firstName, {'attr' : {'placeholder' : form.firstName.vars.label }}) }}
@@ -51,11 +51,11 @@
 								<label class="control-label mb-xs">{{ form_label(form.signature) }}</label>
 								{{ form_widget(form.signature, {'attr' : {'placeholder' : form.signature.vars.label }}) }}
 								{{ form_errors(form.signature) }}
-								<p class="help-text">{{ 'mautic.user.config.signature.admin.helper'|trans }} </p>
+								<p class="help-text">{{ 'mailvotech.user.config.signature.admin.helper'|trans }} </p>
 							</div>
 						</div>
 						<div class="col-sm-6">
-							<h3 class="mb-lg mt-lg">{{ 'mautic.user.config.title.account_data_security'|trans }}</h3>
+							<h3 class="mb-lg mt-lg">{{ 'mailvotech.user.config.title.account_data_security'|trans }}</h3>
 							<div class="form-group{{ form.username.vars.errors|length ? ' has-error' : '' }}">
 									{{ form_label(form.username) }}
 									{{ form_widget(form.username, {'attr' : {'placeholder' : form.username.vars.label }}) }}
@@ -76,12 +76,12 @@
 		</div>
 		<div class="col-md-3 height-auto">
 			<div class="pr-lg pl-lg pt-md pb-md">
-				<h3 class="mb-lg mt-lg">{{ 'mautic.user.config.title.locale'|trans }}</h3>
+				<h3 class="mb-lg mt-lg">{{ 'mailvotech.user.config.title.locale'|trans }}</h3>
 				{{ form_rest(form) }}
 			</div>
 		</div>
 		{% if editAction is defined and editAction == true %}
-			{{- include('@MauticUser/User/recent_activity.html.twig', {
+			{{- include('@MailVotechUser/User/recent_activity.html.twig', {
         'logs'  : logs,
         'users' : users,
         'roles' : roles,

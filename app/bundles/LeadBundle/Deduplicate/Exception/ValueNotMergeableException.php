@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mautic\LeadBundle\Deduplicate\Exception;
+namespace MailVotech\LeadBundle\Deduplicate\Exception;
 
 final class ValueNotMergeableException extends \Exception
 {

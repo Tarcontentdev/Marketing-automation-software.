@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\MarketplaceBundle\Model;
+namespace MailVotech\MarketplaceBundle\Model;
 
-use Mautic\MarketplaceBundle\Api\Connection;
-use Mautic\MarketplaceBundle\DTO\PackageDetail;
-use Mautic\MarketplaceBundle\Service\Allowlist;
+use MailVotech\MarketplaceBundle\Api\Connection;
+use MailVotech\MarketplaceBundle\DTO\PackageDetail;
+use MailVotech\MarketplaceBundle\Service\Allowlist;
 
 class PackageModel
 {

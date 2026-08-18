@@ -1,21 +1,21 @@
 <?php
 
-namespace Mautic\EmailBundle\Controller;
+namespace MailVotech\EmailBundle\Controller;
 
-use Mautic\AssetBundle\Model\AssetModel;
-use Mautic\CacheBundle\Cache\CacheProvider;
-use Mautic\CoreBundle\Controller\AjaxController as CommonAjaxController;
-use Mautic\CoreBundle\Controller\AjaxLookupControllerTrait;
-use Mautic\CoreBundle\Controller\VariantAjaxControllerTrait;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\CoreBundle\Helper\InputHelper;
-use Mautic\CoreBundle\Helper\UserHelper;
-use Mautic\EmailBundle\Helper\PlainTextHelper;
-use Mautic\EmailBundle\Mailer\Message\MauticMessage;
-use Mautic\EmailBundle\Model\EmailModel;
-use Mautic\EmailBundle\MonitoredEmail\Mailbox;
-use Mautic\EmailBundle\Stats\EmailDependencies;
-use Mautic\PageBundle\Form\Type\AbTestPropertiesType;
+use MailVotech\AssetBundle\Model\AssetModel;
+use MailVotech\CacheBundle\Cache\CacheProvider;
+use MailVotech\CoreBundle\Controller\AjaxController as CommonAjaxController;
+use MailVotech\CoreBundle\Controller\AjaxLookupControllerTrait;
+use MailVotech\CoreBundle\Controller\VariantAjaxControllerTrait;
+use MailVotech\CoreBundle\Helper\CoreParametersHelper;
+use MailVotech\CoreBundle\Helper\InputHelper;
+use MailVotech\CoreBundle\Helper\UserHelper;
+use MailVotech\EmailBundle\Helper\PlainTextHelper;
+use MailVotech\EmailBundle\Mailer\Message\MailVotechMessage;
+use MailVotech\EmailBundle\Model\EmailModel;
+use MailVotech\EmailBundle\MonitoredEmail\Mailbox;
+use MailVotech\EmailBundle\Stats\EmailDependencies;
+use MailVotech\PageBundle\Form\Type\AbTestPropertiesType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -46,7 +46,7 @@ final class AjaxController extends CommonAjaxController
             $request,
             $emailModel,
             fn ($formType, $formOptions): FormInterface => $formFactory->create(AbTestPropertiesType::class, [], ['formType' => $formType, 'formTypeOptions' => $formOptions]),
-            fn (FormInterface $form): string => $this->renderView('@MauticEmail/AbTest/form.html.twig', ['form' => $this->setFormTheme($form, $twig, ['@MauticEmail/AbTest/form.html.twig', '@MauticEmail/FormTheme/Email/layout.html.twig'])]),
+            fn (FormInterface $form): string => $this->renderView('@MailVotechEmail/AbTest/form.html.twig', ['form' => $this->setFormTheme($form, $twig, ['@MailVotechEmail/AbTest/form.html.twig', '@MailVotechEmail/FormTheme/Email/layout.html.twig'])]),
             'email_abtest_settings',
             'emailform'
         ));
@@ -62,12 +62,12 @@ final class AjaxController extends CommonAjaxController
         if ($objectId && $entity = $this->emailModel->getEntity($objectId)) {
             $dataArray['success'] = 1;
             $session              = $request->getSession();
-            $progress             = $session->get('mautic.email.send.progress', [0, (int) $pending]);
-            $stats                = $session->get('mautic.email.send.stats', ['sent' => 0, 'failed' => 0, 'failedRecipients' => []]);
-            $inProgress           = $session->get('mautic.email.send.active', false);
+            $progress             = $session->get('mailvotech.email.send.progress', [0, (int) $pending]);
+            $stats                = $session->get('mailvotech.email.send.stats', ['sent' => 0, 'failed' => 0, 'failedRecipients' => []]);
+            $inProgress           = $session->get('mailvotech.email.send.active', false);
 
             if ($pending && !$inProgress && $entity->isPublished()) {
-                $session->set('mautic.email.send.active', true);
+                $session->set('mailvotech.email.send.active', true);
                 [$batchSentCount, $batchFailedCount, $batchFailedRecipients] = $this->emailModel->sendEmailToLists($entity, null, $limit);
 
                 $progress[0] += ($batchSentCount + $batchFailedCount);
@@ -78,9 +78,9 @@ final class AjaxController extends CommonAjaxController
                     $stats['failedRecipients'] += $emails;
                 }
 
-                $session->set('mautic.email.send.progress', $progress);
-                $session->set('mautic.email.send.stats', $stats);
-                $session->set('mautic.email.send.active', false);
+                $session->set('mailvotech.email.send.progress', $progress);
+                $session->set('mailvotech.email.send.stats', $stats);
+                $session->set('mailvotech.email.send.active', false);
             }
 
             $dataArray['percent']  = ($progress[1]) ? ceil(($progress[0] / $progress[1]) * 100) : 100;
@@ -156,7 +156,7 @@ final class AjaxController extends CommonAjaxController
                     }
                 }
                 $dataArray['success'] = 1;
-                $dataArray['message'] = $this->translator->trans('mautic.core.success');
+                $dataArray['message'] = $this->translator->trans('mailvotech.core.success');
             } catch (\Exception $e) {
                 $dataArray['message'] = $this->translator->trans($e->getMessage());
             }
@@ -168,14 +168,14 @@ final class AjaxController extends CommonAjaxController
     public function sendTestEmailAction(TransportInterface $transport, UserHelper $userHelper, CoreParametersHelper $parametersHelper): JsonResponse
     {
         $user  = $userHelper->getUser();
-        $email = (new MauticMessage())
-            ->subject($this->translator->trans('mautic.email.config.mailer.transport.test_send.subject'))
-            ->text($this->translator->trans('mautic.email.config.mailer.transport.test_send.body'))
+        $email = (new MailVotechMessage())
+            ->subject($this->translator->trans('mailvotech.email.config.mailer.transport.test_send.subject'))
+            ->text($this->translator->trans('mailvotech.email.config.mailer.transport.test_send.body'))
             ->from(new Address($parametersHelper->get('mailer_from_email'), $parametersHelper->get('mailer_from_name') ?: ''))
             ->to(new Address($user->getEmail(), trim($user->getFirstName().' '.$user->getLastName()) ?: ''));
 
         $success = 1;
-        $message = $this->translator->trans('mautic.core.success');
+        $message = $this->translator->trans('mailvotech.core.success');
 
         try {
             $transport->send($email);
@@ -206,13 +206,13 @@ final class AjaxController extends CommonAjaxController
                 $data[] = [
                     'id'          => $email->getId(),
                     'pending'     => 'list' === $email->getEmailType() && $pending ? $this->translator->trans(
-                        'mautic.email.stat.leadcount',
+                        'mailvotech.email.stat.leadcount',
                         ['%count%' => $pending]
                     ) : 0,
-                    'queued'      => ($queued) ? $this->translator->trans('mautic.email.stat.queued', ['%count%' => $queued]) : 0,
-                    'sentCount'   => $this->translator->trans('mautic.email.stat.sentcount', ['%count%' => $email->getSentCount(true)]),
-                    'readCount'   => $this->translator->trans('mautic.email.stat.readcount', ['%count%' => $email->getReadCount(true)]),
-                    'readPercent' => $this->translator->trans('mautic.email.stat.readpercent', ['%count%' => $email->getReadPercentage(true)]),
+                    'queued'      => ($queued) ? $this->translator->trans('mailvotech.email.stat.queued', ['%count%' => $queued]) : 0,
+                    'sentCount'   => $this->translator->trans('mailvotech.email.stat.sentcount', ['%count%' => $email->getSentCount(true)]),
+                    'readCount'   => $this->translator->trans('mailvotech.email.stat.readcount', ['%count%' => $email->getReadCount(true)]),
+                    'readPercent' => $this->translator->trans('mailvotech.email.stat.readpercent', ['%count%' => $email->getReadPercentage(true)]),
                 ];
             }
         }
@@ -237,7 +237,7 @@ final class AjaxController extends CommonAjaxController
         if (0 === $emailId) {
             return $this->sendJsonResponse([
                 'success' => 0,
-                'message' => $this->translator->trans('mautic.core.error.badrequest'),
+                'message' => $this->translator->trans('mailvotech.core.error.badrequest'),
             ], 400);
         }
 
@@ -251,7 +251,7 @@ final class AjaxController extends CommonAjaxController
             if (null === $email) {
                 return $this->sendJsonResponse([
                     'success' => 0,
-                    'message' => $this->translator->trans('mautic.api.call.notfound'),
+                    'message' => $this->translator->trans('mailvotech.api.call.notfound'),
                 ], 404);
             }
             $deliveredCount = $this->emailModel->getDeliveredCount($email);
@@ -273,7 +273,7 @@ final class AjaxController extends CommonAjaxController
 
         if (null === $email) {
             return $this->sendJsonResponse([
-                'message' => $this->translator->trans('mautic.api.call.notfound'),
+                'message' => $this->translator->trans('mailvotech.api.call.notfound'),
             ], 404);
         }
 
@@ -292,11 +292,11 @@ final class AjaxController extends CommonAjaxController
         $totalClicks       = array_sum(array_column($clickStats, 'hits'));
         foreach ($clickStats as &$stat) {
             $stat['unique_hits_rate'] = round($totalUniqueClicks > 0 ? ($stat['unique_hits'] / $totalUniqueClicks) : 0, 4);
-            $stat['unique_hits_text'] = $this->translator->trans('mautic.email.heatmap.clicks', ['%count%' => $stat['unique_hits']]);
+            $stat['unique_hits_text'] = $this->translator->trans('mailvotech.email.heatmap.clicks', ['%count%' => $stat['unique_hits']]);
             $stat['hits_rate']        = round($totalClicks > 0 ? ($stat['hits'] / $totalClicks) : 0, 4);
-            $stat['hits_text']        = $this->translator->trans('mautic.email.heatmap.clicks', ['%count%' => $stat['hits']]);
+            $stat['hits_text']        = $this->translator->trans('mailvotech.email.heatmap.clicks', ['%count%' => $stat['hits']]);
         }
-        $legendTemplate = $this->renderView('@MauticEmail/Heatmap/heatmap_legend.html.twig', [
+        $legendTemplate = $this->renderView('@MailVotechEmail/Heatmap/heatmap_legend.html.twig', [
             'totalClicks'       => $totalClicks,
             'totalUniqueClicks' => $totalUniqueClicks,
         ]);
@@ -316,14 +316,14 @@ final class AjaxController extends CommonAjaxController
 
         if (0 === $emailId) {
             return $this->sendJsonResponse([
-                'message' => $this->translator->trans('mautic.core.error.badrequest'),
+                'message' => $this->translator->trans('mailvotech.core.error.badrequest'),
             ], 400);
         }
 
-        $usagesHtml = $this->renderView('@MauticCore/Helper/usage.html.twig', [
-            'title'    => $this->translator->trans('mautic.email.usages'),
+        $usagesHtml = $this->renderView('@MailVotechCore/Helper/usage.html.twig', [
+            'title'    => $this->translator->trans('mailvotech.email.usages'),
             'stats'    => $emailDependencies->getChannelsIds($emailId),
-            'noUsages' => $this->translator->trans('mautic.email.no_usages'),
+            'noUsages' => $this->translator->trans('mailvotech.email.no_usages'),
         ]);
 
         return $this->sendJsonResponse([
@@ -337,8 +337,8 @@ final class AjaxController extends CommonAjaxController
         $objectId  = $request->query->get('id');
 
         if ($objectId && $entity = $model->getEntity($objectId)) {
-            $yesText                         = $this->translator->trans('mautic.core.form.yes');
-            $noText                          = $this->translator->trans('mautic.core.form.no');
+            $yesText                         = $this->translator->trans('mailvotech.core.form.yes');
+            $noText                          = $this->translator->trans('mailvotech.core.form.no');
             $dataArray['sendToDncText']      = $entity->getSendToDnc() ? $yesText : $noText;
             $dataArray['sendToDncStatus']    = $entity->getSendToDnc();
         }

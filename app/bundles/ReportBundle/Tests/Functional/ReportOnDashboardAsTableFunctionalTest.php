@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mautic\ReportBundle\Tests\Functional;
+namespace MailVotech\ReportBundle\Tests\Functional;
 
-use Mautic\CoreBundle\Test\MauticMysqlTestCase;
-use Mautic\DashboardBundle\Entity\Widget;
-use Mautic\EmailBundle\Entity\Email;
-use Mautic\ReportBundle\Entity\Report;
-use Mautic\UserBundle\Entity\User;
+use MailVotech\CoreBundle\Test\MailVotechMysqlTestCase;
+use MailVotech\DashboardBundle\Entity\Widget;
+use MailVotech\EmailBundle\Entity\Email;
+use MailVotech\ReportBundle\Entity\Report;
+use MailVotech\UserBundle\Entity\User;
 use Symfony\Component\DomCrawler\Crawler;
 
-final class ReportOnDashboardAsTableFunctionalTest extends MauticMysqlTestCase
+final class ReportOnDashboardAsTableFunctionalTest extends MailVotechMysqlTestCase
 {
     public function testReportOnDashboardAsTable(): void
     {
@@ -83,7 +83,7 @@ final class ReportOnDashboardAsTableFunctionalTest extends MauticMysqlTestCase
         $report->setName('All Emails');
         $report->setSource('emails');
         $report->setColumns(['e.subject', 'e.sent_count', 'e.read_count', 'read_ratio', 'unsubscribed_ratio', 'hits_ratio', 'c.title']);
-        $report->setGraphs(['mautic.email.table.most.emails.table']);
+        $report->setGraphs(['mailvotech.email.table.most.emails.table']);
         $report->setGroupBy(['e.id']);
 
         return $report;
@@ -111,7 +111,7 @@ final class ReportOnDashboardAsTableFunctionalTest extends MauticMysqlTestCase
         $widget->setHeight(330);
         $widget->setCreatedBy($user);
         $widget->setParams([
-            'graph' => sprintf('%s:mautic.email.table.most.emails.table', $report->getId()),
+            'graph' => sprintf('%s:mailvotech.email.table.most.emails.table', $report->getId()),
         ]);
 
         return $widget;

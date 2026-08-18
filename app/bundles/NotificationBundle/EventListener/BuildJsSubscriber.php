@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mautic\NotificationBundle\EventListener;
+namespace MailVotech\NotificationBundle\EventListener;
 
-use Mautic\CoreBundle\CoreEvents;
-use Mautic\CoreBundle\Event\BuildJsEvent;
-use Mautic\CoreBundle\Event\BuildJsScope;
-use Mautic\NotificationBundle\Helper\NotificationHelper;
-use Mautic\PluginBundle\Helper\IntegrationHelper;
+use MailVotech\CoreBundle\CoreEvents;
+use MailVotech\CoreBundle\Event\BuildJsEvent;
+use MailVotech\CoreBundle\Event\BuildJsScope;
+use MailVotech\NotificationBundle\Helper\NotificationHelper;
+use MailVotech\PluginBundle\Helper\IntegrationHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -25,7 +25,7 @@ final readonly class BuildJsSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            CoreEvents::BUILD_MAUTIC_JS => ['onBuildJs', 254],
+            CoreEvents::BUILD_MAILVOTECH_JS => ['onBuildJs', 254],
         ];
     }
 
@@ -41,25 +41,25 @@ final readonly class BuildJsSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $subscribeUrl   = $this->router->generate('mautic_notification_popup', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $subscribeUrl   = $this->router->generate('mailvotech_notification_popup', [], UrlGeneratorInterface::ABSOLUTE_URL);
         $subscribeTitle = 'Subscribe To Notifications';
         $width          = 450;
         $height         = 450;
 
         $js = <<<JS
-if (window.MauticJS && window.MauticJS.runtimeReady === true) {
+if (window.MailVotechJS && window.MailVotechJS.runtimeReady === true) {
         
         {$this->notificationHelper->getHeaderScript()}
        
-MauticJS.notification = {
+MailVotechJS.notification = {
     init: function () {
         
         {$this->notificationHelper->getScript()}
          
-        var subscribeButton = document.getElementById('mautic-notification-subscribe');
+        var subscribeButton = document.getElementById('mailvotech-notification-subscribe');
 
         if (subscribeButton) {
-            subscribeButton.addEventListener('click', MauticJS.notification.popup);
+            subscribeButton.addEventListener('click', MailVotechJS.notification.popup);
         }
     },
 
@@ -93,10 +93,10 @@ MauticJS.notification = {
     }
 };
 
-MauticJS.documentReady(MauticJS.notification.init);
+MailVotechJS.documentReady(MailVotechJS.notification.init);
 }
 JS;
 
-        $event->appendJsForScope($js, BuildJsScope::TRACKING, 'Mautic Notification JS');
+        $event->appendJsForScope($js, BuildJsScope::TRACKING, 'MailVotech Notification JS');
     }
 }

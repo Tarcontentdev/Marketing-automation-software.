@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mautic\IntegrationsBundle\Sync\VariableExpresser;
+namespace MailVotech\IntegrationsBundle\Sync\VariableExpresser;
 
-use Mautic\IntegrationsBundle\Sync\DAO\Value\EncodedValueDAO;
-use Mautic\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
-use Mautic\IntegrationsBundle\Sync\ValueNormalizer\ValueNormalizer;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\EncodedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\DAO\Value\NormalizedValueDAO;
+use MailVotech\IntegrationsBundle\Sync\ValueNormalizer\ValueNormalizer;
 
 final readonly class VariableExpresserHelper implements VariableExpresserHelperInterface
 {
@@ -25,7 +25,7 @@ final readonly class VariableExpresserHelper implements VariableExpresserHelperI
     {
         $value = $encodedValueDAO->getValue();
 
-        return $this->valueNormalizer->normalizeForMautic($encodedValueDAO->getType(), $value);
+        return $this->valueNormalizer->normalizeForMailVotech($encodedValueDAO->getType(), $value);
     }
 
     /**

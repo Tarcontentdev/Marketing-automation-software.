@@ -3,7 +3,7 @@
         {
             "name": "theme-vibrant",
             "directory": "themes/vibrant",
-            "target": "git@github.com:mautic/theme-vibrant.git"
+            "target": "git@github.com:mailvotech/theme-vibrant.git"
         }
     ]
 }

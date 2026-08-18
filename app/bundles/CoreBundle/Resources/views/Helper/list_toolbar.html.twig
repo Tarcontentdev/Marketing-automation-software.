@@ -4,16 +4,16 @@
 
     <div class="toolbar--batch-actions d-flex jc-space-between bg-primary fd-column fd-row-sm">
         <div class="toolbar--batch-summary d-flex">
-            <span class="toolbar--batch-summary__count" data-singular="{{ 'mautic.core.item_selected'|trans|lower }}"
-            data-plural="{{ 'mautic.core.items_selected'|trans|lower }}">0 {{ 'mautic.core.items_selected'|trans|lower }}</span>
+            <span class="toolbar--batch-summary__count" data-singular="{{ 'mailvotech.core.item_selected'|trans|lower }}"
+            data-plural="{{ 'mailvotech.core.items_selected'|trans|lower }}">0 {{ 'mailvotech.core.items_selected'|trans|lower }}</span>
         </div>
         <div class="toolbar--action-list d-flex fw-wrap fw-nowrap-sm">
-            {{ include('@MauticCore/Helper/toolbar_bulk_actions.html.twig', bulk_actions|default({})) }}
+            {{ include('@MailVotechCore/Helper/toolbar_bulk_actions.html.twig', bulk_actions|default({})) }}
             <span class="toolbar--batch-summary__divider">|</span>
-            {% include '@MauticCore/Helper/button.html.twig' with {
+            {% include '@MailVotechCore/Helper/button.html.twig' with {
                 buttons: [
                     {
-                        label: 'mautic.core.form.cancel',
+                        label: 'mailvotech.core.form.cancel',
                         variant: 'primary',
                         size: 'lg',
                         attributes: {
@@ -29,7 +29,7 @@
 
     <div class="d-flex ai-center list-toolbar toolbar--toolbar-content h-48">
         {% if searchValue is defined %}
-            {{- include('@MauticCore/Helper/search.html.twig', {
+            {{- include('@MailVotechCore/Helper/search.html.twig', {
                 searchId: searchId|default(null),
                 searchValue: searchValue,
                 action: action|default(''),
@@ -40,8 +40,8 @@
             }) -}}
         {% endif %}
 
-        {% include '@MauticCore/Helper/toolbar_actions.html.twig' %}
-        {{ include('@MauticCore/Helper/toolbar_page_actions.html.twig', page_actions|default({})) }}
+        {% include '@MailVotechCore/Helper/toolbar_actions.html.twig' %}
+        {{ include('@MailVotechCore/Helper/toolbar_page_actions.html.twig', page_actions|default({})) }}
     </div>
 
 </div>
