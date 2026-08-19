@@ -142,7 +142,7 @@ final class ParameterLoader
 
         // We need this for the file manager (ElFinder) and other webroot-relative paths.
         // If local_root is explicitly set in paths_local.php, use that.
-        // Otherwise, auto-detect from composer.json's mailvotech-scaffold.locations.web-root
+        // Otherwise, auto-detect from composer.json's mautic-scaffold.locations.web-root
         // or extra.public-dir for recommended-project installations.
         if (isset($paths['local_root'])) {
             if ($updateDefaultParameters) {
@@ -265,7 +265,7 @@ final class ParameterLoader
     /**
      * Detects the webroot directory from composer.json configuration.
      *
-     * Checks for mailvotech-scaffold.locations.web-root (used by recommended-project)
+     * Checks for mautic-scaffold.locations.web-root (used by recommended-project)
      * or Symfony's extra.public-dir. Returns the project root if no subdirectory
      * webroot is configured.
      */
@@ -286,8 +286,8 @@ final class ParameterLoader
             return $projectRoot;
         }
 
-        // Check mailvotech-scaffold.locations.web-root (used by recommended-project)
-        $webRoot = $composerJson['extra']['mailvotech-scaffold']['locations']['web-root'] ?? null;
+        // Check mautic-scaffold.locations.web-root (used by recommended-project)
+        $webRoot = $composerJson['extra']['mautic-scaffold']['locations']['web-root'] ?? null;
 
         // Fallback to Symfony's public-dir
         if (null === $webRoot) {

@@ -8,10 +8,10 @@ use Http\Factory\Guzzle\RequestFactory;
 use Http\Factory\Guzzle\StreamFactory;
 use Http\Factory\Guzzle\UriFactory;
 use MailVotech\CoreBundle\Helper\CoreParametersHelper;
-use MailVotech\Transifex\Config;
-use MailVotech\Transifex\Exception\InvalidConfigurationException;
-use MailVotech\Transifex\Transifex;
-use MailVotech\Transifex\TransifexInterface;
+use Mautic\Transifex\Config;
+use Mautic\Transifex\Exception\InvalidConfigurationException;
+use Mautic\Transifex\Transifex;
+use Mautic\Transifex\TransifexInterface;
 use Psr\Http\Client\ClientInterface;
 
 final class TransifexFactory

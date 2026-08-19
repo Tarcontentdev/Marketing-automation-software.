@@ -28,8 +28,8 @@
   ],
   "require": {
     "composer/installers": "^1.11",
-    "mailvotech/core-composer-scaffold": "4.x-dev",
-    "mailvotech/core-project-message": "4.x-dev",
+    "mautic/core-composer-scaffold": "4.x-dev",
+    "mautic/core-project-message": "4.x-dev",
     "mailvotech/core-lib": "*",
     "mailvotech/grapes-js-builder-bundle": "*",
     "mailvotech/plugin-clearbit": "*",
@@ -102,7 +102,7 @@
   "repositories": [
     {
       "type": "git",
-      "url": "https://github.com/mailvotech/SymfonyBridgeBundle.git"
+      "url": "https://github.com/mautic/SymfonyBridgeBundle.git"
     },
     {
         "type": "path",
@@ -142,8 +142,8 @@
       "composer/installers": true,
       "composer/package-versions-deprecated": true,
       "symfony/flex": true,
-      "mailvotech/core-composer-scaffold": true,
-      "mailvotech/core-project-message": true,
+      "mautic/core-composer-scaffold": true,
+      "mautic/core-project-message": true,
       "php-http/discovery": true
     }
   },
@@ -153,7 +153,7 @@
     }
   },
   "extra": {
-    "mailvotech-scaffold": {
+    "mautic-scaffold": {
       "locations": {
         "web-root": "docroot/"
       }
@@ -188,7 +188,7 @@
         "  * Get involved with the MailVotech community:",
         "      https://www.mailvotech.org/getting-involved",
         "  * Remove the plugin that prints this message:",
-        "      composer remove mailvotech/core-project-message"
+        "      composer remove mautic/core-project-message"
       ]
     }
   }

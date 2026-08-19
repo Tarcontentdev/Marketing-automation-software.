@@ -65,11 +65,11 @@ final class ParameterLoaderTest extends TestCase
         mkdir($tempDir);
         mkdir($tempDir.'/docroot');
 
-        // Create a composer.json with mailvotech-scaffold web-root (recommended-project style)
+        // Create a composer.json with mautic-scaffold web-root (recommended-project style)
         file_put_contents($tempDir.'/composer.json', json_encode([
             'name' => 'mailvotech/recommended-project',
             'extra' => [
-                'mailvotech-scaffold' => [
+                'mautic-scaffold' => [
                     'locations' => [
                         'web-root' => 'docroot/',
                     ],
@@ -120,7 +120,7 @@ final class ParameterLoaderTest extends TestCase
         file_put_contents($tempDir.'/composer.json', json_encode([
             'name' => 'test/project',
             'extra' => [
-                'mailvotech-scaffold' => [
+                'mautic-scaffold' => [
                     'locations' => [
                         'web-root' => 'nonexistent/',
                     ],

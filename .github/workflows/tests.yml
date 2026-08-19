@@ -264,8 +264,8 @@ jobs:
           fi
         elif [[ "${{ matrix.commands }}" == "scaffolded files mismatch" ]]; then
           wget -q -O /tmp/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && chmod 755 /tmp/jq
-          /tmp/jq -r '.extra["mailvotech-scaffold"]["file-mapping"] | to_entries[] | "diff -q \(.key | sub("\\[(project|web)-root\\]";".")) app/\(.value)"' app/composer.json > diff_commands.sh
-          /tmp/jq -r '.extra["mailvotech-scaffold"]["file-mapping"] | to_entries[] | "diff -rui \(.key | sub("\\[(project|web)-root\\]";".")) app/\(.value)"' app/composer.json > diff_commands_verbose.sh
+          /tmp/jq -r '.extra["mautic-scaffold"]["file-mapping"] | to_entries[] | "diff -q \(.key | sub("\\[(project|web)-root\\]";".")) app/\(.value)"' app/composer.json > diff_commands.sh
+          /tmp/jq -r '.extra["mautic-scaffold"]["file-mapping"] | to_entries[] | "diff -rui \(.key | sub("\\[(project|web)-root\\]";".")) app/\(.value)"' app/composer.json > diff_commands_verbose.sh
           bash diff_commands.sh 2>&1 | tee /tmp/diff_command_output.txt
           rm diff_commands.sh
           if [[ $(wc -l </tmp/diff_command_output.txt) -ge 1 ]]; then
@@ -289,7 +289,7 @@ jobs:
           # test if console is executable
           ./bin/console cache:clear
 
-          # test that local_root is auto-detected from composer.json's mailvotech-scaffold.locations.web-root
+          # test that local_root is auto-detected from composer.json's mautic-scaffold.locations.web-root
           # This ensures ElFinder and other webroot-relative paths resolve correctly for recommended-project
           php -r "
             require 'vendor/autoload.php';

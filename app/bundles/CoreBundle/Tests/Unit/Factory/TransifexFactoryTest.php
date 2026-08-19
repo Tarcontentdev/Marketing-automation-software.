@@ -6,8 +6,8 @@ namespace MailVotech\CoreBundle\Tests\Unit\Factory;
 
 use MailVotech\CoreBundle\Factory\TransifexFactory;
 use MailVotech\CoreBundle\Helper\CoreParametersHelper;
-use MailVotech\Transifex\Connector\Resources;
-use MailVotech\Transifex\Exception\MissingCredentialsException;
+use Mautic\Transifex\Connector\Resources;
+use Mautic\Transifex\Exception\MissingCredentialsException;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Client\ClientInterface;
 
