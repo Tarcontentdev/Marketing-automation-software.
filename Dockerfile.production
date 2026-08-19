@@ -18,6 +18,13 @@ ENV APP_ENV=prod \
     COMPOSER_MEMORY_LIMIT=-1 \
     COMPOSER_PROCESS_TIMEOUT=10000
 
+# MailVotech/Symfony container compilation during Composer post-install
+# requires substantially more than PHP's default 128 MB CLI limit.
+# This applies to spawned bin/console processes as well as Composer.
+RUN printf '%s\n' \
+      'memory_limit = 1024M' \
+      > /usr/local/etc/php/conf.d/zz-mailvotech-build.ini
+
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install --no-install-recommends -y \
