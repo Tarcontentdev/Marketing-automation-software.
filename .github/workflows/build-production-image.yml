@@ -1,0 +1,64 @@
+name: Build MailVotech Production Image
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - 7.x
+
+concurrency:
+  group: mailvotech-production-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ghcr.io/tarcontentdev/mailvotech
+
+jobs:
+  build:
+    name: Build AMD64 + ARM64
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and publish MailVotech
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: ./Dockerfile.production
+          platforms: linux/amd64,linux/arm64
+          push: true
+          pull: true
+          tags: |
+            ghcr.io/tarcontentdev/mailvotech:7.x
+            ghcr.io/tarcontentdev/mailvotech:7.2.0-rc2
+            ghcr.io/tarcontentdev/mailvotech:sha-${{ github.sha }}
+          labels: |
+            org.opencontainers.image.title=MailVotech
+            org.opencontainers.image.version=7.2.0-rc2
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: mode=max
+          sbom: true

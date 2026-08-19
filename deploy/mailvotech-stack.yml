@@ -1,0 +1,233 @@
+version: "3.9"
+
+x-mailvotech-environment: &mailvotech-environment
+  APP_ENV: prod
+  APP_DEBUG: "0"
+
+  MAILVOTECH_DB_HOST: db
+  MAILVOTECH_DB_PORT: "3306"
+
+  MAILVOTECH_MESSENGER_DSN_EMAIL: doctrine://default
+  MAILVOTECH_MESSENGER_DSN_HIT: doctrine://default
+  MAILVOTECH_MESSENGER_DSN_FAILED: doctrine://default
+
+
+services:
+
+  db:
+    image: mariadb:11.4
+
+    environment:
+      MARIADB_DATABASE: mailvotech
+      MARIADB_USER: mailvotech
+
+      MARIADB_PASSWORD_FILE: /run/secrets/TARCONTENT_MAILER_DB_PASSWORD
+      MARIADB_ROOT_PASSWORD_FILE: /run/secrets/TARCONTENT_MAILER_DB_ROOT_PASSWORD
+
+    secrets:
+      - TARCONTENT_MAILER_DB_PASSWORD
+      - TARCONTENT_MAILER_DB_ROOT_PASSWORD
+
+    volumes:
+      - db-data:/var/lib/mysql
+
+    networks:
+      - mailvotech_internal
+
+    healthcheck:
+      test:
+        - CMD
+        - healthcheck.sh
+        - --connect
+        - --innodb_initialized
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+    deploy:
+      replicas: 1
+
+      placement:
+        constraints:
+          - node.hostname == cloud1
+
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 10
+
+      update_config:
+        order: stop-first
+        failure_action: rollback
+
+
+  web:
+    image: ${MAILVOTECH_IMAGE}
+
+    command:
+      - web
+
+    environment:
+      <<: *mailvotech-environment
+
+    secrets:
+      - TARCONTENT_MAILER_DB_PASSWORD
+
+    volumes:
+      - config:/var/www/html/config
+      - logs:/var/www/html/var/logs
+      - media-files:/var/www/html/media/files
+      - media-images:/var/www/html/media/images
+
+    networks:
+      - mailvotech_internal
+      - proxy
+
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - php -r '$$s=@fsockopen("127.0.0.1",80,$$e,$$m,3); if(!$$s){exit(1);} fclose($$s);'
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+    deploy:
+      replicas: 1
+
+      placement:
+        constraints:
+          - node.hostname == cloud1
+
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+
+      rollback_config:
+        parallelism: 1
+        order: stop-first
+
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=proxy
+
+        - traefik.http.routers.mailvotech.rule=Host(`mailer.tarcontentdev.net.ng`)
+        - traefik.http.routers.mailvotech.entrypoints=websecure
+        - traefik.http.routers.mailvotech.tls=true
+        - traefik.http.routers.mailvotech.tls.certresolver=cloudflare
+
+        - traefik.http.services.mailvotech.loadbalancer.server.port=80
+
+
+  worker:
+    image: ${MAILVOTECH_IMAGE}
+
+    command:
+      - worker
+
+    environment:
+      <<: *mailvotech-environment
+
+    volumes:
+      - config:/var/www/html/config
+      - logs:/var/www/html/var/logs
+      - media-files:/var/www/html/media/files
+      - media-images:/var/www/html/media/images
+
+    networks:
+      - mailvotech_internal
+
+    deploy:
+      replicas: 1
+
+      placement:
+        constraints:
+          - node.hostname == cloud1
+
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+
+      update_config:
+        parallelism: 1
+        order: stop-first
+        failure_action: rollback
+
+
+  cron:
+    image: ${MAILVOTECH_IMAGE}
+
+    command:
+      - cron
+
+    environment:
+      <<: *mailvotech-environment
+
+    volumes:
+      - config:/var/www/html/config
+      - logs:/var/www/html/var/logs
+      - media-files:/var/www/html/media/files
+      - media-images:/var/www/html/media/images
+
+    networks:
+      - mailvotech_internal
+
+    deploy:
+      replicas: 1
+
+      placement:
+        constraints:
+          - node.hostname == cloud1
+
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+
+      update_config:
+        parallelism: 1
+        order: stop-first
+        failure_action: rollback
+
+
+networks:
+
+  mailvotech_internal:
+    driver: overlay
+    attachable: false
+
+  proxy:
+    external: true
+    name: proxy
+
+
+volumes:
+
+  db-data:
+    driver: local
+
+  config:
+    driver: local
+
+  logs:
+    driver: local
+
+  media-files:
+    driver: local
+
+  media-images:
+    driver: local
+
+
+secrets:
+
+  TARCONTENT_MAILER_DB_PASSWORD:
+    external: true
+
+  TARCONTENT_MAILER_DB_ROOT_PASSWORD:
+    external: true

@@ -1,0 +1,12 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+MAILTO=""
+
+# Rebuild smart segments every 15 minutes.
+0,15,30,45 * * * * www-data cd /var/www/html && php bin/console mailvotech:segments:update --no-interaction >> /proc/1/fd/1 2>> /proc/1/fd/2
+
+# Rebuild campaign membership every 15 minutes, offset by 5 minutes.
+5,20,35,50 * * * * www-data cd /var/www/html && php bin/console mailvotech:campaigns:rebuild --no-interaction >> /proc/1/fd/1 2>> /proc/1/fd/2
+
+# Trigger campaign events every 15 minutes, offset by 10 minutes.
+10,25,40,55 * * * * www-data cd /var/www/html && php bin/console mailvotech:campaigns:trigger --no-interaction >> /proc/1/fd/1 2>> /proc/1/fd/2
