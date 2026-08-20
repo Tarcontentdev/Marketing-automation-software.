@@ -67,7 +67,9 @@ final class PackageBase
             return $this->displayName;
         }
 
-        return utf8_ucwords(str_replace('-', ' ', $this->getPackageName()));
+        $humanName = utf8_ucwords(str_replace('-', ' ', $this->getPackageName()));
+
+        return str_replace('Mailvotech', 'MailVotech', $humanName);
     }
 
     public function getVendorName(): string

@@ -85,7 +85,7 @@ final class ArrayTypeTest extends \PHPUnit\Framework\TestCase
     {
         $result = $this->arrayType->convertToDatabaseValue([new ExampleClassWithPublicProperty()], $this->platform);
         $this->assertEquals(
-            'a:1:{i:0;O:68:"MailVotech\CoreBundle\Tests\Unit\Doctrine\ExampleClassWithPublicProperty":1:{s:4:"test";s:5:"value";}}',
+            'a:1:{i:0;O:72:"MailVotech\CoreBundle\Tests\Unit\Doctrine\ExampleClassWithPublicProperty":1:{s:4:"test";s:5:"value";}}',
             $result
         );
     }

@@ -11,7 +11,7 @@ final class LogTest extends \PHPUnit\Framework\TestCase
     public function testSetNote(): void
     {
         $log = new Log();
-        $log->setNote("\x6d\x61\x75\x74\x69\x63");
+        $log->setNote("\x6d\x61\x69\x6c\x76\x6f\x74\x65\x63\x68");
         $this->assertSame('mailvotech', $log->getNote());
 
         $log->setNote("\x57\xfc\x72\x74\x74\x65\x6d\x62\x65\x72\x67");  // original string is W�rttemberg, in this '�' is invaliad char so it should be removed

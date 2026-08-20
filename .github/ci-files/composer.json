@@ -101,6 +101,13 @@
   },
   "repositories": [
     {
+      "type": "path",
+      "url": "../build/composer/mailvotech-installer",
+      "options": {
+        "symlink": false
+      }
+    },
+    {
       "type": "git",
       "url": "https://github.com/mautic/SymfonyBridgeBundle.git"
     },

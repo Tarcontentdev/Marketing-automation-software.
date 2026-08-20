@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 final class MailVotechSmsBundle extends PluginBundleBase
 {
 
-    public function getContainerExtension(): ?\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    public function getContainerExtension(): \Symfony\Component\DependencyInjection\Extension\ExtensionInterface
     {
         if (!$this->extension instanceof \Symfony\Component\DependencyInjection\Extension\ExtensionInterface) {
             $this->extension = new \MailVotech\SmsBundle\DependencyInjection\MailVotechSmsExtension();

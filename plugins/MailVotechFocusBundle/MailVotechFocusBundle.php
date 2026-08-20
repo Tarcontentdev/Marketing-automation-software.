@@ -9,7 +9,7 @@ use MailVotech\PluginBundle\Bundle\PluginBundleBase;
 final class MailVotechFocusBundle extends PluginBundleBase
 {
 
-    public function getContainerExtension(): ?\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    public function getContainerExtension(): \Symfony\Component\DependencyInjection\Extension\ExtensionInterface
     {
         if (!$this->extension instanceof \Symfony\Component\DependencyInjection\Extension\ExtensionInterface) {
             $this->extension = new \MailVotechPlugin\MailVotechFocusBundle\DependencyInjection\MailVotechFocusExtension();

@@ -145,7 +145,7 @@ final class AjaxControllerTest extends MailVotechMysqlTestCase
         $company = self::createCompany();
 
         yield 'Search Companies' => [
-            'maut',
+            'mail',
             $company,
             's/companies/view/',
         ];

@@ -1501,7 +1501,7 @@ final class MailHelperTest extends TestCase
         $this->assertSame($trackedHtml, $mailer->getBody());
         $mailer->send(true);
 
-        $this->assertMatchesRegularExpression('#^Text <a href="https://mailvotech\.com">MailVotech</a> <img src="cid:abc" /> <img src="cid:2cb7cfd2ffccfbbbaf0e4d8891df2d79" /> <img src="cid:2cb7cfd2ffccfbbbaf0e4d8891df2d79"/> <img src="https://mailvotech\.com/fake\.jpg">\{unsubscribe_url\}<img height="1" width="1" src="/tracking\.gif\?ct=[A-Za-z0-9%]+" alt="" />$#', $mailer->message->getHtmlBody());
+        $this->assertMatchesRegularExpression('#^Text <a href="https://mailvotech\.com">MailVotech</a> <img src="cid:abc" /> <img src="cid:b6d1c3e5e339961fb3d1b9fd8d68606e" /> <img src="cid:b6d1c3e5e339961fb3d1b9fd8d68606e"/> <img src="https://mailvotech\.com/fake\.jpg">\{unsubscribe_url\}<img height="1" width="1" src="/tracking\.gif\?ct=[A-Za-z0-9%]+" alt="" />$#', $mailer->message->getHtmlBody());
         $this->assertSame($trackedHtml, $mailer->getBody());
     }
 

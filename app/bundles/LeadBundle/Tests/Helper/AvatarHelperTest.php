@@ -61,7 +61,7 @@ final class AvatarHelperTest extends \PHPUnit\Framework\TestCase
         $this->leadMock->method('getEmail')
             ->willReturn('mailvotech@acquia.com');
         $avatar = $this->avatarHelper->getAvatar($this->leadMock);
-        $this->assertSame('https://www.gravatar.com/avatar/96f1b78c73c1ee806cf6a4168fe9bf77?s=250&d=http%3A%2F%2Flocalhost%2Fimages%2Favatar.png', $avatar, 'Gravatar image should be returned');
+        $this->assertSame('https://www.gravatar.com/avatar/497cea2d6317be14414ad1d8b9535f17?s=250&d=http%3A%2F%2Flocalhost%2Fimages%2Favatar.png', $avatar, 'Gravatar image should be returned');
 
         unset($_SERVER['SERVER_PROTOCOL']);
         unset($_SERVER['SERVER_PORT']);

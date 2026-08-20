@@ -1,8 +1,8 @@
 name: API library compatibility
 
-# Runs the mailvotech/api-library integration test suite against THIS checkout of
+# Runs the mautic/api-library integration test suite against THIS checkout of
 # MailVotech, so a change in MailVotech that breaks the public API is caught before merge.
-# It is the mirror of mailvotech/api-library's own workflow, which tests the library
+# It is the mirror of mautic/api-library's own workflow, which tests the library
 # against MailVotech's main branch.
 
 on:
@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       api-library-ref:
-        description: 'Branch, tag or commit of mailvotech/api-library to test against'
+        description: 'Branch, tag or commit of mautic/api-library to test against'
         required: false
         default: 'main'
 
@@ -71,10 +71,10 @@ jobs:
         sudo sed -i 's,^memory_limit =.*$,memory_limit = 256M,' /etc/php/8.3/apache2/php.ini
         sudo service apache2 restart
 
-    - name: Clone mailvotech/api-library
+    - name: Clone mautic/api-library
       # Cloned outside the workspace so the "move to web root" step below does not sweep it up.
       run: |
-        gh repo clone mailvotech/api-library "$HOME/api-library" -- \
+        gh repo clone mautic/api-library "$HOME/api-library" -- \
           --branch "${{ github.event.inputs.api-library-ref || 'main' }}" --single-branch --depth 1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

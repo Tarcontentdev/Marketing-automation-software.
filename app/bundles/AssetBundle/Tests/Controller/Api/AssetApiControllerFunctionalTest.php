@@ -52,8 +52,8 @@ final class AssetApiControllerFunctionalTest extends MailVotechMysqlTestCase
     {
         yield 'Malformed URL' => ['file:///etc/passwd', 'remotePath: The remote should be a valid URL.'];
         yield 'URL returning 404' => ['https://www.google.com/non-existent-path', 'asset: The mimetype of the remote file could not be resolved. Make sure you entered a valid remote URL.'];
-        yield 'Not allowed html MIME type' => ['https://github.com/mailvotech/mailvotech', 'asset: Upload failed as the file mimetype text\/html'];
-        yield 'Not allowed php MIME type' => ['https://raw.githubusercontent.com/mailvotech/mailvotech/7.x/index.php', 'asset: Upload failed as the file mimetype text\/x-php'];
+        yield 'Not allowed html MIME type' => ['https://github.com/mautic/mautic', 'asset: Upload failed as the file mimetype text\/html'];
+        yield 'Not allowed php MIME type' => ['https://raw.githubusercontent.com/mautic/mautic/7.x/index.php', 'asset: Upload failed as the file mimetype text\/x-php'];
     }
 
     #[DataProvider('dataCreateNewRemoteAssetWithInvalidFile')]
@@ -78,7 +78,7 @@ final class AssetApiControllerFunctionalTest extends MailVotechMysqlTestCase
     {
         yield 'Not in allowed domains' => ['https://some-domain.com/foo.jpg', false];
         yield 'Is in allowed domains' => ['https://fastly.picsum.photos/id/13/2500/1667.jpg?hmac=SoX9UoHhN8HyklRA4A3vcCWJMVtiBXUg0W4ljWTor7s', true];
-        yield 'Using site URL' => ['https://raw.githubusercontent.com/mailvotech/mailvotech/7.x/.github/readme_logo.png', true];
+        yield 'Using site URL' => ['https://raw.githubusercontent.com/mautic/mautic/7.x/.github/readme_logo.png', true];
     }
 
     #[DataProvider('dataCreateNewRemoteAssetWithValidateRemoteDomainsEnabled')]
