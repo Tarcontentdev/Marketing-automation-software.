@@ -389,32 +389,10 @@ code:hover > .copy-icon {
     width: 75%;
   }
 
-  // mailvotech logo figure
-  > svg.mailvotech-logo-figure {
-    width: $mailvotech-logo-figure-width;
+  // mailvotech logo image
+  > img {
     height: $header-height;
-    .circle {
-      fill: $mailvotech-logo-figure-circle-fill;
-    }
-    .m,
-    .m-arrow {
-      fill: $mailvotech-logo-figure-m-fill;
-    }
-  }
-
-  // mailvotech logo text
-  > svg.mailvotech-logo-text {
-    height: $header-height;
-    width: $mailvotech-logo-text-width;
-    .m,.a,.u,.t,.i,.c {
-      fill: $mailvotech-logo-text-fill
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  svg.mailvotech-logo-text {
-    display: none;
+    width: auto;
   }
 }
 

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block pageTitle %}MailVotech{% endblock %}</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" type="image/x-icon" href="{{ getOverridableUrl('images/favicon.ico') }}" />
+    <link rel="apple-touch-icon" href="{{ getOverridableUrl('images/apple-touch-icon.png') }}" />
+    {{ importmap('app') }}
+    {{ outputSystemStylesheets() }}
+    {{- include('@MailVotechCore/Default/script.html.twig') -}}
+    {{ outputHeadDeclarations() }}
+</head>
+<body>
+    <main class="auth-page">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <img src="{{ asset('images/mailvotech_logo_db64.png') }}" alt="MailVotech" height="64" />
+            </div>
+            <div id="main-panel-flash-msgs" class="auth-flashes">
+                {{- include('@MailVotechCore/Notification/flashes.html.twig') -}}
+            </div>
+            {% block content %}{% endblock %}
+        </div>
+        <footer class="auth-footer">
+            {{ 'mailvotech.core.copyright'|trans({'%date%' : date('Y').format('Y') }) }}
+        </footer>
+    </main>
+    {{ securityGetAuthenticationContext() }}
+    <script>
+        mQuery(function () {
+            mQuery(document).on('click', '.auth-password-toggle', function () {
+                var btn = mQuery(this);
+                var input = mQuery('#' + btn.data('target'));
+                if (!input.length) {
+                    return;
+                }
+                var isPassword = input.attr('type') === 'password';
+                input.attr('type', isPassword ? 'text' : 'password');
+                btn.find('i').attr('class', isPassword ? 'ri-eye-line' : 'ri-eye-off-line');
+                btn.attr('aria-label', isPassword ? 'Show password' : 'Hide password');
+                btn.find('.sr-only').text(isPassword ? 'Show password' : 'Hide password');
+            });
+
+            // Prevent MailVotech's AJAX form handler from intercepting the login form
+            // so the security firewall can process the standard POST/redirect flow correctly.
+            var loginForm = mQuery('form[name="login"]');
+            if (loginForm.length) {
+                loginForm.removeAttr('data-toggle');
+            }
+        });
+    </script>
+</body>
+</html>
